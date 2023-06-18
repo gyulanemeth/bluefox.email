@@ -6,13 +6,13 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "bluefox.email",
   description: "High deliverability & brand consistency.",
+  head: [
+    ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C' }],
+    ['script', {}, `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`]
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/assets/bluefoxemail-logo.png',
-    head: [
-      ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C' }],
-      ['script', {}, `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`]
-    ],
     nav: [
       /*
       { text: 'Home', link: '/' },
