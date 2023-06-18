@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: Join Our Waitlist
-      link: /signup
+      link: /signup-waitlist
 
 
 features:
