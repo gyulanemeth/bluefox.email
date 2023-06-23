@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "bluefox.email"
   text: "High deliverability & brand consistency."
-  tagline: What does the fox mail?
+  tagline: Captivating promotional emails and engaging newsletters sent with your AWS SES.
   image: '/assets/bluefoxemail-logo.png'
   actions:
     - theme: brand
