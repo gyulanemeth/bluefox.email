@@ -14,84 +14,56 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     logo: '/assets/bluefoxemail-logo.png',
     nav: [
-      /*
       { text: 'Home', link: '/' },
       { text: 'Email Marketing Concepts', link: '/email-marketing-concepts/' },
-      { text: 'Tutorials', link: '/tutorials/' },
       { text: 'About', link: '/about' }
-      */
     ],
 
     sidebar: [
       {
+        text: 'About',
+        link: '/about'
+      },
+      {
         text: 'Email Marketing Concepts',
-        link: '/email-marketing-concepts/'
-      },
-      {
-        text: 'Tutorials',
-        link: '/tutorials/',
+        link: '/email-marketing-concepts/',
         collapsed: true,
-        items: [
-          {
-            text: 'Email Marketing 101',
-            link: '/tutorials/email-marketing-101/',
-            collapsed: true,
-            items: [
-              {
-                text: 'Getting Started with Building Your List',
-                link: '/tutorials/email-marketing-101/getting-started-with-building-your-list'
-              },
-              {
-                text: 'Crafting Compelling Emails',
-                link: '/tutorials/email-marketing-101/crafting-compelling-emails-the-art-of-effective-copywriting'
-              },
-              {
-                text: 'Unlocking the Power of Personalization',
-                link: '/tutorials/email-marketing-101/unlocking-the-power-of-personalization-segmentation-and-dynamic-content'
-              },
-              {
-                text: 'Designing Engaging Emails',
-                link: '/tutorials/email-marketing-101/designing-engaging-emails-templates-layouts-and-visual-elements'
-              },
-              {
-                text: 'Mastering Subject Lines',
-                link: '/tutorials/email-marketing-101/mastering-subject-lines-strategies-for-higher-open-rates'
-              },
-              {
-                text: 'Automation Demystified',
-                link: '/tutorials/email-marketing-101/automation-demistified-nurturing-leads-with-automated-email-campaigns'
-              },
-              {
-                text: 'Maximizing Clicks and Conversions',
-                link: '/tutorials/email-marketing-101/maximizing-clicks-and-conversions-optimizing-ctas-and-landing-pages'
-              },
-              {
-                text: 'Analyzing Email Performance',
-                link: '/tutorials/email-marketing-101/analyzing-email-performance-metrics-and-insights-for-success'
-              },
-              {
-                text: 'Deliverability Matters',
-                link: '/tutorials/email-marketing-101/deliverability-matters-best-practices-for-inbox-placement'
-              },
-              {
-                text: 'Growing and Maintaining a Healthy Email List',
-                link: '/tutorials/email-marketing-101/growing-and-maintaining-a-healthy-email-list-list-hygene-and-complience'
-              }
-            ]
-          }
-        ]
-      },
-      {
-        text: 'Examples',
-        items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
+        items: [{
+          text: 'Strategy',
+          link: '/email-marketing-concepts/strategy/'
+        }, {
+          text: 'Design',
+          link: '/email-marketing-concepts/design/'
+        }, {
+          text: 'Copywriting',
+          link: '/email-marketing-concepts/copywriting/'
+        }, {
+          text: 'List Management',
+          link: '/email-marketing-concepts/list-management/'
+        }, {
+          text: 'Metrics and analytics',
+          link: '/email-marketing-concepts/metrics-and-analytics/'
+        }, {
+          text: 'Automation',
+          link: '/email-marketing-concepts/automation/'
+        }, {
+          text: 'Personalization',
+          link: '/email-marketing-concepts/personalization/'
+        }, {
+          text: 'Testing and Optimization',
+          link: '/email-marketing-concepts/testing-and-optimization/'
+        }, {
+          text: 'Deliverability',
+          link: '/email-marketing-concepts/deliverability/'
+        }, {
+          text: 'Compliance and Legal Considerations',
+          link: '/email-marketing-concepts/compliance-and-legal-considerations/'
+        }]
       }
     ],
 
     socialLinks: [
-      { icon: 'twitter', link: 'https://twitter.com/gyulanemeth85' }
+      { icon: 'twitter', link: 'https://twitter.com/bluefoxemail' }
     ],
     footer: {
       copyright: 'Copyright © 2023-present GYN Technologies OÜ'
