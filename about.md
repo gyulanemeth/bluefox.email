@@ -2,7 +2,7 @@
 
 Hello! I'm the creator of bluefox.email.
 
-![Me](/me.png)
+![Me](/assets/me.png)
 
 I've been passionately immersed in the email industry for over 10 years, specializing in the technical elements that make email marketing tools powerful and user-friendly.
 
@@ -14,7 +14,7 @@ The creation of bluefox.email stems from a longstanding desire to build an Email
 
 Despite my extensive involvement in the technical aspects of email, I acknowledge there are areas of email marketing I'm still exploring. As I embark on this journey of building bluefox.email, I intend to learn more about these areas, enriching both the software and my understanding of the industry.
 
-Follow me on [witter](https://twitter.com/bluefoxemail) to stay updated as I share my learnings along the way. Here's to crafting the future of email, one message at a time.
+Follow me on [Twitter](https://twitter.com/bluefoxemail) to stay updated as I share my learnings along the way. Here's to crafting the future of email, one message at a time.
 
 <style scoped>
   img {

@@ -4,7 +4,7 @@ layout: home
 
 hero:
   name: Send beautiful newsletters
-  text: for 85X cheaper.
+  text: for 100X cheaper.
   tagline: Design systems + AWS SES = Success!
   image: '/assets/bluefoxemail-logo.png'
   actions:

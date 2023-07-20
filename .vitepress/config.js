@@ -21,10 +21,6 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'About',
-        link: '/about'
-      },
-      {
         text: 'Email Marketing Concepts',
         link: '/email-marketing-concepts/',
         collapsed: true,
@@ -59,7 +55,11 @@ export default defineConfig({
           text: 'Compliance and Legal Considerations',
           link: '/email-marketing-concepts/compliance-and-legal-considerations/'
         }]
-      }
+      },
+      {
+        text: 'About',
+        link: '/about'
+      },
     ],
 
     socialLinks: [
