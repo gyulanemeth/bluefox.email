@@ -47,22 +47,15 @@ If you are thinking about sending spammy email, this platform is not for you. If
 
 Most of the providers charge you for the number of contacts you have in combination with the number of emails you send. This cryptic pricing **always** end up to be more than you think.
 
-### Paid version ($0.2 per 1000 emails)
+### Paid version
 
-We only charge for the **number of emails you send.** Simple.
+$100 for a year. Simple as that.
 
-It is very cheap: $0.2 per 1000 emails sent. (Plus another $0.1 to AWS for SES.)
-
-You can buy the following credit packs:
- - $10 -> send 50.000 emails
- - $100 -> send 500.000 emails
- - $1000 -> send 5.000.000 emails
-
-You can use your credits for a year! It means that you don't need to pay a monthly subscription fee if you don't use the service.
+(Plus AWS charges $0.1 / 1000 emails for SES usage.)
 
 ### Forever free version
 
-You can also use bluefox.email for free, if we can put our logo and link to your emails.
+You can also use bluefox.email for free, if we can put our logo and a link to our website in your emails.
 
 Keep in mind, that AWS offers a free tier for 12 months, including 3000 email sends per month.
 
@@ -70,9 +63,6 @@ The two combined should be enough to kick off your project!
 
 
 ::: tip Pre-order (Coming soon...)
-Get **50% off** the $100 and the $1000 credit pack!
+**50% off**, so you get a 1-year paid version for **$50**.
 :::
 
-::: tip BETA period
-For beta users, it is free!
-:::
