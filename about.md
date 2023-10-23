@@ -10,7 +10,7 @@ All of these products core strength is that you can create pixel-perfect designs
 
 As a CTO, I have led the creation of three SaaS products, with a primary focus on emails, and I observed many issues that still needed to be resolved. That's why I decided to build bluefox.email, that is focusing on SaaS companies' email issues.
 
-Please, read about my previous products below.
+But for now, please, read about my previous products below.
 
 ## [edmdesigner.com](https://edmdesigner.com)
 The first email editor plugin on the market, that you could integrate into your own SaaS. Our email HTML has been the best quality on the market. And it is, even today.
