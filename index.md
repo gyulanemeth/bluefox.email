@@ -20,5 +20,5 @@ features:
   - title: Your AWS SES
     details: Use your own AWS SES to send, the gold-standard of high deliverability.
   - title: Unbeatable price
-    details: Send 1000 emails for $1. (Plus, another $1 to AWS for SES.) Or use the free version.
+    details: Send 1000 emails for $0.2. (Plus, another $0.1 to AWS for SES.) Or use the free version.
 ---

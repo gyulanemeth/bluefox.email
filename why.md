@@ -47,16 +47,16 @@ If you are thinking about sending spammy email, this platform is not for you. If
 
 Most of the providers charge you for the number of contacts you have in combination with the number of emails you send. This cryptic pricing **always** end up to be more than you think.
 
-### Paid version ($1 per 1000 emails)
+### Paid version ($0.2 per 1000 emails)
 
 We only charge for the **number of emails you send.** Simple.
 
-It is very cheap: $1 per 1000 emails sent. (Plus another $1 to AWS for SES.)
+It is very cheap: $0.2 per 1000 emails sent. (Plus another $0.1 to AWS for SES.)
 
 You can buy the following credit packs:
- - $10 -> send 10.000 emails
- - $100 -> send 100.000 emails
- - $1000 -> send 1.000.000 emails
+ - $10 -> send 50.000 emails
+ - $100 -> send 500.000 emails
+ - $1000 -> send 5.000.000 emails
 
 You can use your credits for a year! It means that you don't need to pay a monthly subscription fee if you don't use the service.
 
@@ -71,4 +71,8 @@ The two combined should be enough to kick off your project!
 
 ::: tip Pre-order (Coming soon...)
 Get **50% off** the $100 and the $1000 credit pack!
+:::
+
+::: tip BETA period
+For beta users, it is free!
 :::
