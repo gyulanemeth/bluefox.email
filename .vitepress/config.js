@@ -14,15 +14,26 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     logo: '/assets/bluefoxemail-logo.png',
     search: {
-      provider: 'local'
+      // provider: 'local'
     },
     nav: [
+      /*
       { text: 'Home', link: '/' },
       { text: 'Email Marketing Concepts', link: '/email-marketing-concepts/' },
       { text: 'About', link: '/about' }
+      */
     ],
 
     sidebar: [
+      {
+        text: 'Why?',
+        link: '/why'
+      },
+      {
+        text: 'About',
+        link: '/about'
+      }
+      /*
       {
         text: 'Email Marketing Concepts',
         link: '/email-marketing-concepts/',
@@ -63,6 +74,7 @@ export default defineConfig({
         text: 'About',
         link: '/about'
       },
+      */
     ],
 
     socialLinks: [
