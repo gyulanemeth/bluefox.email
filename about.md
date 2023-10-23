@@ -1,26 +1,32 @@
 # About
 
-Hello! I'm the creator of bluefox.email.
+Hello! I'm the Gyula Németh (GYN), the founder of bluefox.email.
 
 ![Me](/assets/me.png)
 
-I've been passionately immersed in the email industry for over 10 years, specializing in the technical elements that make email marketing tools powerful and user-friendly.
+I have been working on the weird an quirky world of HTML emails since 2013, when I co-founded a company that focusing on email design related products.
 
-Over the years, I've had the privilege of contributing to the development of drag and drop email designers and content management platforms. My experience goes beyond just the technical aspects as I've been actively involved in business strategy, shaping the course of the products I've worked on.
+All of these products core strength is that you can create pixel-perfect designs, and the emails created will look good in every email client.
 
-Currently, my primary projects include [chamaileon.io](https://chamaileon.io/) and [Email Hero](https://emailhero.io/), both of which represent the culmination of my experience and dedication to the email field.
+As a CTO, I have led the creation of three SaaS products, with a primary focus on emails, and I observed many issues that still needed to be resolved. That's why I decided to build bluefox.email, that is focusing on SaaS companies' email issues.
 
-The creation of bluefox.email stems from a longstanding desire to build an Email Service Provider (ESP). For me, it represents not just a technical challenge but also an opportunity to create a product that stands out in terms of usability.
+Please, read about my previous products below.
 
-Despite my extensive involvement in the technical aspects of email, I acknowledge there are areas of email marketing I'm still exploring. As I embark on this journey of building bluefox.email, I intend to learn more about these areas, enriching both the software and my understanding of the industry.
+## [edmdesigner.com](https://edmdesigner.com)
+The first email editor plugin on the market, that you could integrate into your own SaaS. Our email HTML has been the best quality on the market. And it is, even today.
 
-Follow me on [Twitter](https://twitter.com/bluefoxemail) to stay updated as I share my learnings along the way. Here's to crafting the future of email, one message at a time.
+## [chamaileon.io](https://chamaileon.io)
+This app is focusing on marketing teams, takinkg emails seriously. The prime feature I'm most proud of is the real-time collaborative email editor.
+
+## [emailhero.io](https://emailhero.io)
+Focusing on the biggest digital publishers on the world. Makes it very, very easy to manage even hundreds of brands, and even thousands of different newsletters.
+
 
 <style scoped>
   img {
       border-radius: 50%;
       max-width: 100%;
-      width: 240px;
+      width: 280px;
 
       display: block;
       float: right;
