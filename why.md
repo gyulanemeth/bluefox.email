@@ -31,7 +31,7 @@ Let's make sure that your transactional and marketing emails always look alike, 
 
 ## No more email-rendereing issues
 
-The email HTML we provide to you is battle-hardened. [Our founder's 10-year experience on the field](./about) makes it sure that your emails will render properly on mobile, web, and desktop, event on Outlook.
+The email HTML we provide to you is battle-hardened. [Our founder's 10-year experience on the field](./about) makes it sure that your emails will render properly on mobile, web, and desktop, even on Outlook.
 
 ## Reach the inbox, avoid spam
 
