@@ -13,7 +13,7 @@ As a CTO, I have led the creation of three SaaS products, with a primary focus o
 ::: tip Pre-order (Coming soon...)
 **50% off**, so you get a 1-year paid version for **$50**.
 
-Join our [waitlist](http://localhost:5173/signup-waitlist.html) to be notified when the preorder starts.
+Join our [waitlist](/signup-waitlist.html) to be notified when the preorder starts.
 :::
 
 But for now, please, read about my previous products below.

@@ -58,6 +58,6 @@ The two combined should be enough to kick off your project!
 ::: tip Pre-order (Coming soon...)
 **50% off**, so you get a 1-year paid version for **$50**.
 
-Join our [waitlist](http://localhost:5173/signup-waitlist.html) to be notified when the preorder starts.
+Join our [waitlist](/signup-waitlist.html) to be notified when the preorder starts.
 :::
 
