@@ -10,18 +10,9 @@ If your email does not look, or even worse, it does not reach your customers' in
 
 ::: danger Typical SaaS email problems (and you might have all of these.):
 
-1) **Inconsistent look and feel.**
-  - you store your transactional emails in your codebase, so it's quite painful to update them
-  - you use mailchimp or something similar for marketing emails, something else for transactional
-  - after a while it's getting extremely hard to manage your emails
-2) **Lot of rendering issues.**
-  - the mobile experience is poor
-  - design falls apart in different email clients, especially in ***Outlook***
-  - it is too tedious to create proper HTML emails, so you end up using less converting text emails
-3) **Emails don't reach the inbox.**
-  - your emails end up in spam and you don't understand why.
-  - you use a provider with lot of blacklisted IP addresses
-  - you don't have the proper metrics (bounce etc.)
+1) **Inconsistent design.** Transactional, and marketing emails look totally different.
+2) **Lot of rendering issues.** Your emails fall apart on different email clients, especially on **Outlook**.
+3) **Emails don't reach the inbox.** And oftentimes you don't understand why.
 :::
 
 
