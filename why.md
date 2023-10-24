@@ -22,13 +22,15 @@ Let's make sure that your transactional and marketing emails always look alike, 
 
 ## No more email-rendereing issues
 
-The email HTML we provide to you is battle-hardened. [Our founder's 10-year experience on the field](./about) makes it sure that your emails will render properly on mobile, web, and desktop, event on Outlook.
+The email HTML we provide to you is battle-hardened. [Our founder's 10-year experience on the field](./about) makes it sure that your emails will render properly on mobile, web, and desktop, even on Outlook.
 
 ## Reach the inbox, avoid spam
 
-AWS SES has a famously good deliverability, and its price is unbeatable. They have very strict processes, for example, if your bounce rate goes up, you will have to fix that in a certain amount of time.
+AWS SES has a famously good deliverability, and its price is unbeatable. They have very strict processes to filter out spammer. For example, if your bounce rate slightly goes up, you have to fix that in a certain amount of time.
 
-That's why we decided that our customers have to hook up their own AWS SES with our system. Don't worry, if you don't have experience with AWS. We can help you!
+That's why we decided that our customers have to hook up their own AWS SES with our system.
+
+Don't worry, if you don't have experience with AWS. We can help you!
 
 ::: warning
 If you are thinking about sending spammy email, this platform is not for you. If you happen to spam people, AWS will simply revoke your access to SES.
@@ -44,7 +46,7 @@ $100 for a year. Simple as that.
 
 (Plus AWS charges $0.1 / 1000 emails for SES usage.)
 
-### Forever free version
+### Free version
 
 You can also use bluefox.email for free, if we can put our logo and a link to our website in your emails.
 
