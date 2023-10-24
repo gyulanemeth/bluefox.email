@@ -4,11 +4,11 @@ Hello! I'm the Gyula Németh (GYN), the founder of bluefox.email.
 
 ![Me](/assets/me.png)
 
-I have been working on the weird an quirky world of HTML emails since 2013, when I co-founded a company that focusing on email design related products.
+I have been working on the weird and quirky world of HTML emails since 2013, when I co-founded a company that focusing on email design related products.
 
 All of these products core strength is that you can create pixel-perfect designs, and the emails created will look good in every email client.
 
-As a CTO, I have led the creation of three SaaS products, with a primary focus on emails, and I observed many issues that still needed to be resolved. That's why I decided to build bluefox.email, that is focusing on SaaS companies' email issues.
+As a CTO, while I have led the creation of three SaaS products, with a primary focus on emails, I observed many issues that still needed to be resolved. That's why I decided to build bluefox.email, that is focusing on SaaS companies' email issues.
 
 ::: tip Pre-order (Coming soon...)
 **50% off**, so you get a 1-year paid version for **$50**.
