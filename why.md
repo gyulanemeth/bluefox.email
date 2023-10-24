@@ -11,7 +11,7 @@ If your email does not look, or even worse, it does not reach your customers' in
 ::: danger Typical SaaS email problems (and you might have all of these.):
 
 1) **Inconsistent design.** Transactional, and marketing emails look totally different.
-2) **Lot of rendering issues.** Your emails fall apart on different email clients, especially on **Outlook**.
+2) **Lot of rendering issues.** Emails fall apart on different clients, especially on **Outlook**.
 3) **Emails don't reach the inbox.** And oftentimes you don't understand why.
 :::
 
