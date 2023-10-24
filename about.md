@@ -10,6 +10,12 @@ All of these products core strength is that you can create pixel-perfect designs
 
 As a CTO, I have led the creation of three SaaS products, with a primary focus on emails, and I observed many issues that still needed to be resolved. That's why I decided to build bluefox.email, that is focusing on SaaS companies' email issues.
 
+::: tip Pre-order (Coming soon...)
+**50% off**, so you get a 1-year paid version for **$50**.
+
+Join our [waitlist](http://localhost:5173/signup-waitlist.html) to be notified when the preorder starts.
+:::
+
 But for now, please, read about my previous products below.
 
 ## [edmdesigner.com](https://edmdesigner.com)
