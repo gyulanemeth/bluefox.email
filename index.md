@@ -16,9 +16,18 @@ hero:
       link: /why
 features:
   - title: Design systems
-    details: It makes it easy to have beautifully designed transactional, and marketing emails.
+    details: Beautifully designed transactional, and marketing emails. Easy.
   - title: Your AWS SES
     details: Use your own AWS SES to send, the gold-standard of high deliverability.
   - title: Unbeatable price
     details: $100 for a 1-year access. Or use the free version and advertise us.
 ---
+
+<style>
+  .VPFeatures .title {
+    font-size: 20px !important;
+  }
+  .VPFeatures .details {
+    font-size: 16px !important;
+  }
+</style>
