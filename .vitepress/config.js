@@ -17,6 +17,10 @@ export default defineConfig({
       // provider: 'local'
     },
     nav: [
+      { text: 'Home', link: '/' },
+      { text: 'Why?', link: '/why' },
+      { text: 'About', link: '/about' },
+      { text: 'Docs', link: '/docs/' }
       /*
       { text: 'Home', link: '/' },
       { text: 'Email Marketing Concepts', link: '/email-marketing-concepts/' },
@@ -32,49 +36,33 @@ export default defineConfig({
       {
         text: 'About',
         link: '/about'
-      }
-      /*
+      },
       {
-        text: 'Email Marketing Concepts',
-        link: '/email-marketing-concepts/',
-        collapsed: true,
+        text: 'Docs',
+        link: '/docs/',
+        collapsed: false,
         items: [{
-          text: 'Strategy',
-          link: '/email-marketing-concepts/strategy/'
+          text: 'Getting Started',
+          link: '/docs/getting-started'
         }, {
-          text: 'Design',
-          link: '/email-marketing-concepts/design/'
+          text: 'Projects',
+          link: '/docs/projects/',
+          items: [
+            { text: 'Settings', link: '/docs/projects/settings' },
+            { text: 'Subscriber Lists', link: '/docs/projects/subscriber-lists' },
+            { text: 'Transactional Emails', link: '/docs/projects/transactional-emails' },
+            { text: 'Triggered Emails', link: '/docs/projects/triggered-emails' },
+            { text: 'Campaigns', link: '/docs/projects/newsletters' },
+            { text: 'Analytics', link: '/docs/projects/analytics' }
+          ]
         }, {
-          text: 'Copywriting',
-          link: '/email-marketing-concepts/copywriting/'
+          text: 'Design Systems',
+          link: '/docs/design-systems'
         }, {
-          text: 'List Management',
-          link: '/email-marketing-concepts/list-management/'
-        }, {
-          text: 'Metrics and analytics',
-          link: '/email-marketing-concepts/metrics-and-analytics/'
-        }, {
-          text: 'Automation',
-          link: '/email-marketing-concepts/automation/'
-        }, {
-          text: 'Personalization',
-          link: '/email-marketing-concepts/personalization/'
-        }, {
-          text: 'Testing and Optimization',
-          link: '/email-marketing-concepts/testing-and-optimization/'
-        }, {
-          text: 'Deliverability',
-          link: '/email-marketing-concepts/deliverability/'
-        }, {
-          text: 'Compliance and Legal Considerations',
-          link: '/email-marketing-concepts/compliance-and-legal-considerations/'
+          text: 'API',
+          link: '/docs/api'
         }]
-      },
-      {
-        text: 'About',
-        link: '/about'
-      },
-      */
+      }
     ],
 
     socialLinks: [
