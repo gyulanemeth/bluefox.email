@@ -8,3 +8,4 @@
  - pause subscription is optional
  - examples: newsletters, campaigns
  - how to integrate
+ - merge tags

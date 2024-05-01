@@ -2,8 +2,8 @@
 
  - Sends
  - Opens
+    - here, we can talk about why opens are misleading, etc... (a link to an article)
  - Clicks
- - bounce rate
- - spam reports
- - here, we can talk about why opens are misleading, etc...
+ - bounces
+ - complaints
 

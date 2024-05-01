@@ -8,3 +8,4 @@
  - unsubscribe is a must-have
  - pause subscription is optional
  - how to integrate
+ - merge tags

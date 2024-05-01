@@ -47,20 +47,38 @@ export default defineConfig({
         }, {
           text: 'Projects',
           link: '/docs/projects/',
+          collapsed: false,
           items: [
-            { text: 'Settings', link: '/docs/projects/settings' },
-            { text: 'Subscriber Lists', link: '/docs/projects/subscriber-lists' },
+            { text: 'Creating a new project', link: '/docs/projects/new-project.md' },
             { text: 'Transactional Emails', link: '/docs/projects/transactional-emails' },
             { text: 'Triggered Emails', link: '/docs/projects/triggered-emails' },
-            { text: 'Campaigns', link: '/docs/projects/newsletters' },
-            { text: 'Analytics', link: '/docs/projects/analytics' }
+            { text: 'Campaigns', link: '/docs/projects/campaigns' },
+            { text: 'Subscriber Lists', link: '/docs/projects/subscriber-lists' },
+            { text: 'Analytics', link: '/docs/projects/analytics' },
+            { text: 'Theme settings', link: '/docs/projects/theme-settings' },
+            { text: 'Settings', link: '/docs/projects/settings' }
           ]
         }, {
-          text: 'Design Systems',
-          link: '/docs/design-systems'
+          text: 'Themes',
+          link: '/docs/themes/',
+          collapsed: false,
+          items: [
+            { text: 'Theme parameters', link: '/docs/themes/theme-parameters' },
+            { text: 'Blocks (or modules)', link: '/docs/themes/blocks' },
+            { text: 'Templates', link: '/docs/themes/templates' }
+          ]
+        }, {
+          text: 'Personalization (merge tags)',
+          link: '/docs/personalization',
         }, {
           text: 'API',
-          link: '/docs/api'
+          link: '/docs/api/',
+          collapsed: false,
+          items: [
+            { text: 'Subscriber management', link: '/docs/api/subscriber-management' },
+            { text: 'Sending transactional emails', link: '/docs/api/sending-transactional-emails' },
+            { text: 'Sending triggered emails', link: '/docs/api/sending-triggered-emails'}
+          ]
         }]
       }
     ],
