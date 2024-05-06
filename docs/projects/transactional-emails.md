@@ -4,7 +4,7 @@ Transactional emails are emails that are needed to be sent in order for some bas
 
 That is why users **can't unsubscribe** from transactional emails. Another consequence is, that **transactional emails are not associated with any subscriber lists**. They are directly sent to a specific email address, not to a list nor a subset of a list.
 
-You can find the transactional emails of a project under the `Transactionals` tab.
+You can find the transactional emails of a project under the `Transactional Emails` tab.
 
 ![A screenshot of a project's transactional emails.](https://placehold.co/800x600/EEE/31343C)
 
@@ -30,7 +30,7 @@ Every transactional email in bluefox.email has a unique URL, with which you can 
 ![A screenshot of a transactional email card, with the code button highlighted.](https://placehold.co/300x300/EEE/31343C)
 
 And then you can copy the code to use it in your project:
-![A screenshot of a transactional email card, with the code button highlighted.](https://placehold.co/800x600/EEE/31343C)
+![A screenshot of a transactional email's generated code, copy button highlighted.](https://placehold.co/800x600/EEE/31343C)
 
 ::: danger Security warning
 Keep in mind that one of your bluefox.email API keys is included in the request `authorization` header. That is why you should never send these requests from your frontend!
