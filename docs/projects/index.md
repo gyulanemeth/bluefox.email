@@ -1,44 +1,17 @@
 # Projects
 
-What projects are
- - generic description
- - how projects should be used
+Projects in bluefox.email can be associated with your projects' different environments. For example, if you have a SaaS, you might have a dev, a staging, and a production environment. You can create one separate project in bluefox.email for those environments.
 
-## Free / premium projecs
+Every project is associated with a specific theme (design system) that you can customize.
 
-## Creating a new project
-
-## Theme settings
-
-## Subscriber lists
-
-## Transactional emails
-
-## Triggered emails
-
-## Campaigns
-
-## Settings
-
-Create a project
- - select design system
- 
- - set values, like primary color or logo
- - set whitelists
- - set aws credentials
-   - create an aws account
-   - set up SES sandbox
-   - set up credentials in IAM
-   - insert credentials
-   - set up production send (how to convince their support)
- - set API keys
-what are the parts of projects (explain tabs)
- - campaigns
- - transactional
- - triggered
+Every project has
  - subscriber lists
- - Design system variables (theme) overrides
- - settings
-   - aws credentials
-   - API keys
-   - whitelists
+ - transactional emails
+ - triggered emails
+ - campaigns
+
+A project is also associated with a sending email address, as well as your AWS credentials with allows us to send emails with your AWS SES.
+
+::: tip Upgrade for whitelabel
+Projects are free by default. In exchange for being free, we put our logo and a link to our website to your emails' footers. If you would like to remove our post-footer advertisement section, please upgrade your project to premium.
+:::
