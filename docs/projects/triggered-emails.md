@@ -53,7 +53,7 @@ await fetch(yourEndpoint, {
         'Authorization': 'Bearer YOUR_API_KEY'
     },
     body: JSON.stringify({
-        email: 'joe@doe.com',
+        emails: ['joe@doe.com', 'jane@doe.com'],
         data: {
             name: 'Joe Doe'
         }
