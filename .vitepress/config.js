@@ -72,13 +72,7 @@ export default defineConfig({
           link: '/docs/personalization',
         }, {
           text: 'API',
-          link: '/docs/api/',
-          collapsed: false,
-          items: [
-            { text: 'Subscriber management', link: '/docs/api/subscriber-management' },
-            { text: 'Sending transactional emails', link: '/docs/api/sending-transactional-emails' },
-            { text: 'Sending triggered emails', link: '/docs/api/sending-triggered-emails'}
-          ]
+          link: '/docs/api'
         }]
       }
     ],
