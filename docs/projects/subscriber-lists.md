@@ -6,3 +6,16 @@
  - about pausing a subscription
  - how to integrate
 
+
+test list, real list
+
+import
+
+add, remove, etc
+
+double opt-in
+
+
+## Analytics
+
+
