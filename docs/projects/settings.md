@@ -56,7 +56,7 @@ Generally, sensitive info like API keys should be rotated periodically, because 
  - yellow: 1-6 months old
  - red: more than 6 months old
 
- ![A screenshot of a project settings API keys section.](https://placehold.co/800x600/EEE/31343C)
+![A screenshot of a project settings API keys section.](https://placehold.co/800x600/EEE/31343C)
 
 ::: danger Security warning
 
