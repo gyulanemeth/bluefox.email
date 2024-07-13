@@ -1,6 +1,6 @@
 # About
 
-Hello! I'm the Gyula Németh (GYN), the founder of bluefox.email.
+Hello! I'm Gyula Németh (GYN), the founder of bluefox.email.
 
 ![Me](/assets/me.png)
 
