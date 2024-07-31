@@ -16,7 +16,7 @@ hero:
       link: /why
 features:
   - title: Design systems
-    details: Beautifully designed transactional, and marketing emails. Easy.
+    details: Beautifully designed transactional, triggered, and marketing emails. Easy.
   - title: Your AWS SES
     details: Use your own AWS SES to send, the gold-standard of high deliverability.
   - title: Unbeatable price
