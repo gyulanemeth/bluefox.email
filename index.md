@@ -5,8 +5,8 @@ layout: home
 hero:
   name: Beautiful emails for your SaaS.
   text: Effortlessly.
-  tagline: Reach your customers' and prospects' inbox and leave them with a positive impression.
-  image: '/assets/emails.png'
+  tagline: Consistent-looking transactional, triggered, & marketing emails that your customers will love.
+  image: '/assets/bluefoxemail-screen2.png'
   actions:
     - theme: brand
       text: Join waitlist
@@ -16,7 +16,7 @@ hero:
       link: /why
 features:
   - title: Design systems
-    details: Beautifully designed transactional, and marketing emails. Easy.
+    details: Beautifully designed transactional, triggered, and marketing emails. Easy.
   - title: Your AWS SES
     details: Use your own AWS SES to send, the gold-standard of high deliverability.
   - title: Unbeatable price
@@ -29,5 +29,14 @@ features:
   }
   .VPFeatures .details {
     font-size: 16px !important;
+  }
+
+  .VPImage {
+    max-width: 100% !important;
+    max-height: 100% !important;
+  }
+
+  .image-container {
+    transform: unset !important;
   }
 </style>

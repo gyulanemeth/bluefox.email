@@ -81,7 +81,7 @@ export default defineConfig({
       { icon: 'twitter', link: 'https://twitter.com/bluefoxemail' }
     ],
     footer: {
-      copyright: 'Copyright © 2023-present GYN Technologies OÜ'
+      copyright: 'Copyright © 2024 Innovaris Group LLC.'
     }
   }
 })
