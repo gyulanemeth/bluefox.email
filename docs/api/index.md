@@ -1,30 +1,32 @@
 # API
 
-Assuming backend. Where it's possible to do it from the frontend, there we state it clearly.
+This guide is for using the API from the backend. If it is possible to do it from the frontend, we will mention it clearly.
 
 ## Subscribe
 
 [Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
 
-In order to subscribe a user to a [subscriber list](/docs/projects/subscriber-lists), you have to use the following URL pattern:
+To subscribe a user to a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
+
 ```
 https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/subscribers/subscribe
 ```
 
-You need to replace the following strings with yours:
- - `##YOUR_WORKSPACE_ID##`
- - `##YOUR_PROJECT_ID##`
- - `##YOUR_SUBSCRIBER_LIST_ID##`
- - `##YOUR_API_KEY##`
+Replace the placeholders with your specific information:
+- `##YOUR_WORKSPACE_ID##`
+- `##YOUR_PROJECT_ID##`
+- `##YOUR_SUBSCRIBER_LIST_ID##`
+- `##YOUR_API_KEY##`
 
-You can find the ids that you need to replace if you click on the code guide button in a subscriber list:
+You can find the IDs to replace by clicking on the code guide button in a subscriber list:
+
 ![Screenshot of the highlighted code guide button in a subscriber list.](./subscriber-list-code-guide-button.png)
 
-In the code guide dialog the aformentioned values will automatically applied, if you copy those code snippets, you only have to replace the `##YOUR_API_KEY##` string.
+In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you only need to replace the `##YOUR_API_KEY##`.
 
 ![Screenshot of the code guide dialog in a subscriber list.](./subscriber-list-code-guide-dialog.png)
 
-Request body:
+**Request Body:**
 ```json
 {
   "name": "Jon Doe",
@@ -32,12 +34,12 @@ Request body:
 }
 ```
 
-cUrl:
+**cUrl**:
 ```bash
  curl -X POST "https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/subscribers/subscribe" -H "Content-Type: application/json" -H "Authorization: Bearer ##YOUR_API_KEY##" -d '{"name": "Jon Doe", "email": "jon@doe.com"}'
 ```
 
-Javascript:
+**Javascript**:
 ```javascript
 const url = 'https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/subscribers/subscribe'
 
@@ -54,7 +56,7 @@ const response = await fetch(url, {
 })
 ```
 
-PHP:
+**PHP**:
 ```php
   $apiKey = "##YOUR_API_KEY##"; // TODO: replace YOUR_APIKEY
 
@@ -80,9 +82,9 @@ PHP:
 
 ::: danger Subscribe from the frontend
 
-Never store your API keys on the frontend.
+Never store your API keys in the frontend code.
 
-If you wanna subscribe a user from the frontend, remove the `Authorization` header from your request, you will need to add the domain from which you wanna do it to the domain whitelist in [project settings](/docs/projects/settings.html#domain-whitelists).
+If you want to subscribe a user from the frontend, remove the `Authorization` header from your request. You will need to add the domain you are using to the domain whitelist in [project settings](/docs/projects/settings.html#domain-whitelists).
 
 ```javascript
 const url = 'https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/subscribers/subscribe'
@@ -105,34 +107,35 @@ const response = await fetch(url, {
 
 [Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
 
-In order to subscribe a user to a [subscriber list](/docs/projects/subscriber-lists), you have to use the following URL pattern:
+To unsubscribe a user from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
 ```
 https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/subscribers/##SUBSCRIBER_EMAIL_ADDRESS##/unsubscribe
 ```
 
-You need to replace the following strings with yours:
+Replace the placeholders with your specific information:
  - `##YOUR_WORKSPACE_ID##`
  - `##YOUR_PROJECT_ID##`
  - `##YOUR_SUBSCRIBER_LIST_ID##`
  - `##SUBSCRIBER_EMAIL_ADDRESS##`
  - `##YOUR_API_KEY##`
 
-You can find the ids that you need to replace if you click on the code guide button in a subscriber list:
+You can find the IDs to replace by clicking on the code guide button in a subscriber list:
 ![Screenshot of the highlighted code guide button in a subscriber list.](./subscriber-list-code-guide-button.png)
 
-In the code guide dialog the aformentioned values will automatically applied, if you copy those code snippets, you only have to replace the `##YOUR_API_KEY##` string.
+In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you only need to replace the `##YOUR_API_KEY##`.
 
 ![Screenshot of the code guide dialog in a subscriber list.](./subscriber-list-code-guide-dialog.png)
 
-Requiest body:
+**Requiest body**:
 
 none.
 
-cUrl:
+**cUrl**:
 ```bash
 curl -X PATCH "https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/subscribers/##SUBSCRIBER_EMAIL_ADDRESS##/unsubscribe" -H "Content-Type: application/json" -H "Authorization: Bearer ##YOUR_API_KEY##"
 ```
 
+**Javascript**:
 ```javascript
 const url = 'https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/subscribers/##SUBSCRIBER_EMAIL_ADDRESS##/unsubscribe'
 
@@ -145,7 +148,7 @@ const response = await fetch(url, {
 })
 ```
 
-PHP:
+**PHP**:
 ```php
 $apiKey = "##YOUR_API_KEY##";
 
@@ -165,9 +168,9 @@ $response = file_get_contents($url, false, $context);
 
 ::: danger Unsubscribe from the frontend
 
-Never store your API keys on the frontend.
+Never store your API keys in the frontend code.
 
-If you wanna unsubscribe a user from the frontend, remove the `Authorization` header from your request, you will need to add the domain from which you wanna do it to the domain whitelist in [project settings](/docs/projects/settings.html#domain-whitelists).
+If you want to unsubscribe a user from the frontend, remove the `Authorization` header from your request. You will need to add the domain you are using to the domain whitelist in[project settings](/docs/projects/settings.html#domain-whitelists).
 
 ```javascript
 const url = 'https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/subscribers/##SUBSCRIBER_EMAIL_ADDRESS##/unsubscribe'
@@ -184,26 +187,26 @@ const response = await fetch(url, {
 ## Send transactional email
 [Quick quide](/docs/projects/transactional-emails.html#transactional-email-integration)
 
-In order to send a [transactional email](/docs/projects/transactional-emails), you have to use the following URL pattern:
+To send a [transactional email](/docs/projects/transactional-emails), use the following URL pattern:
 
 ```
 https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/transactional-emails/##TRANSACTIONAL_EMAIL_ID##/send
 ```
 
-You need to replace the following strings with yours:
+Replace the placeholders with your specific information:
  - `##YOUR_WORKSPACE_ID##`
  - `##YOUR_PROJECT_ID##`
  - `##TRANSACTIONAL_EMAIL_ID##`
  - `##YOUR_API_KEY##`
 
-You can find the ids that you need to replace if you click on the code guide button on a transactional email card:
+You can find the IDs to replace by clicking on the code guide button on a transactional email card:
 ![Screenshot of the highlighted code guide button on a transactional email card.](./transactional-code-guide-button.png)
 
-In the code guide dialog the aformentioned values will automatically applied, if you copy those code snippets, you only have to replace the ##YOUR_API_KEY## string.
+In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you only need to replace the `##YOUR_API_KEY##`.
 
 ![Screenshot of a code guide dialog of a transactional email](./transactional-code-guide-dialog.png)
 
-Request body:
+**Request body**:
 ```json
 {
   "email": "jon@doe.com",
@@ -213,9 +216,11 @@ Request body:
 }
 ```
 
-You can send personalization data (merge tags) on the `data` object. These are applied by [Handlerbars](https://handlebarsjs.com/) when sent.
+You can include personalization data (merge tags) in the data object. These tags are processed by [Handlebars](https://handlebarsjs.com/) when sent.
 
-cUrl:
+
+
+**cUrl**:
 ```bash
 curl -X POST \
 "https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/transactional-emails/##TRANSACTIONAL_EMAIL_ID##/send" \
@@ -229,7 +234,7 @@ curl -X POST \
 }'
 ```
 
-Javascript:
+**Javascript**:
 ```javascript
 const url = 'https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/transactional-emails/##TRANSACTIONAL_EMAIL_ID##/send'
 const response = await fetch(url, {
@@ -247,7 +252,7 @@ const response = await fetch(url, {
 })
 ```
 
-PHP:
+**PHP**:
 ```php
 $apiKey = "##YOUR_API_KEY##";
 
@@ -282,22 +287,22 @@ $result = file_get_contents($url, false, $context);
 
 [Quick quide](/docs/projects/triggered-emails.html#triggered-email-integration)
 
-In order to send a [triggered email](/docs/projects/triggered-emails), you have to use the following URL pattern:
+To send a [triggered email](/docs/projects/triggered-emails),  use the following URL pattern:
 
 ```
 https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/triggered-emails/##TRIGGERED_EMAIL_ID##/send
 ```
 
-You need to replace the following strings with yours:
+Replace the placeholders with your specific information:
  - `##YOUR_WORKSPACE_ID##`
  - `##YOUR_PROJECT_ID##`
  - `##TRIGGERED_EMAIL_ID##`
  - `##YOUR_API_KEY##`
 
-You can find the ids that you need to replace if you click on the code guide button on a triggered email card:
+You can find the IDs to replace by clicking on the code guide button on a triggered email card:
 ![Screenshot of the highlighted code guide button on a triggered email card.](./triggered-code-guide-button.png)
 
-In the code guide dialog the aformentioned values will automatically applied, if you copy those code snippets, you only have to replace the ##YOUR_API_KEY## string.
+In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you only need to replace the `##YOUR_API_KEY##`.
 
 ![Screenshot of a code guide dialog of a triggered email](./triggered-code-guide-dialog.png)
 
@@ -311,9 +316,9 @@ Request body:
 }
 ```
 
-You can send personalization data (merge tags) on the `data` object. These are applied by [Handlerbars](https://handlebarsjs.com/) when sent.
+You can include personalization data (merge tags) in the data object. These tags are processed by [Handlebars](https://handlebarsjs.com/) when sent.
 
-cUrl:
+**cUrl**:
 ```bash
 curl -X POST \
 "https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/triggered-emails/##TRIGGERED_EMAIL_ID##/send" \
@@ -327,7 +332,7 @@ curl -X POST \
 }'
 ```
 
-Javascript:
+**Javascript**:
 ```javascript
 const url = 'https://api.bluefox.email/v1/accounts/##YOUR_WORKSPACE_ID##/projects/##YOUR_PROJECT_ID##/triggered-emails/##TRIGGERED_EMAIL_ID##/send'
 const response = await fetch(url, {
@@ -345,7 +350,7 @@ const response = await fetch(url, {
 })
 ```
 
-PHP:
+**PHP**:
 ```php
 $apiKey = "##YOUR_API_KEY##";
 
