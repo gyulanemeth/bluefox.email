@@ -23,7 +23,7 @@ Enter it's name, subject line, and preview text:
 Finally, make changes in the drag 'n' drop email editor:
 ![A screenshot of a project's transactional emails - create: edit.](https://placehold.co/800x600/EEE/31343C)
 
-## Integration
+## Transactional email integration
 
 Every transactional email in bluefox.email has a unique URL, with which you can send that email. You just have to send an HTTP request to that endpoint. A sample code is generated if you click on the following icon:
 
@@ -36,9 +36,9 @@ And then you can copy the code to use it in your project:
 Keep in mind that one of your bluefox.email API keys is included in the request `authorization` header. That is why you should never send these requests from your frontend!
 :::
 
-Please, see our [API docs](/docs/api) for more details.
+Please, see our [API docs](/docs/api/) for more details.
 
-## Personalization
+## Transactional email personalization
 
 You can personalize your transactional emails with [handlebars](https://handlebarsjs.com/). The data available is dependent on what you send to the transactional email's endpoint. You can include any custom data on the data field of the request body. For example, you can send your user's name to our endpoint:
 

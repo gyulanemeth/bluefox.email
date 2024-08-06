@@ -1,6 +1,6 @@
 # Design systems
 
- - design system principles
+ - design system principles -> atomic design
  - variables
  - blocks
  - templates

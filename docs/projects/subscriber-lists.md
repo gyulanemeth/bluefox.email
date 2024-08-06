@@ -16,6 +16,6 @@ add, remove, etc
 double opt-in
 
 
-## Analytics
+## Subscriber list integration
 
 

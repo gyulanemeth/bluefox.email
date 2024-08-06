@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 
 const emailsPerMonth = ref(5000)
-const bluefoxAnnual = 0
+const bluefoxAnnual = 100
 const bluefoxMonthly = bluefoxAnnual / 12
 
 function formatNum(num) {

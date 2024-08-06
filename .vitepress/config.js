@@ -45,6 +45,9 @@ export default defineConfig({
           text: 'Getting Started',
           link: '/docs/getting-started'
         }, {
+          text: 'API',
+          link: '/docs/api/'
+        }, {
           text: 'Projects',
           link: '/docs/projects/',
           collapsed: false,
@@ -54,25 +57,23 @@ export default defineConfig({
             { text: 'Triggered Emails', link: '/docs/projects/triggered-emails' },
             { text: 'Campaigns', link: '/docs/projects/campaigns' },
             { text: 'Subscriber Lists', link: '/docs/projects/subscriber-lists' },
+            { text: 'Subscriptions Preferences Page', link: '/docs/projects/subscription-preferences-page' },
             { text: 'Analytics', link: '/docs/projects/analytics' },
             { text: 'Theme settings', link: '/docs/projects/theme-settings' },
             { text: 'Settings', link: '/docs/projects/settings' }
           ]
         }, {
-          text: 'Themes',
-          link: '/docs/themes/',
-          collapsed: false,
-          items: [
-            { text: 'Theme parameters', link: '/docs/themes/theme-parameters' },
-            { text: 'Blocks (or modules)', link: '/docs/themes/blocks' },
-            { text: 'Templates', link: '/docs/themes/templates' }
-          ]
-        }, {
           text: 'Personalization (merge tags)',
           link: '/docs/personalization',
         }, {
-          text: 'API',
-          link: '/docs/api'
+          text: 'Design Systems',
+          link: '/docs/design-systems/',
+          collapsed: false,
+          items: [
+            { text: 'Variables', link: '/docs/themes/variables' },
+            { text: 'Blocks (or modules)', link: '/docs/themes/blocks' },
+            { text: 'Templates', link: '/docs/themes/templates' }
+          ]
         }]
       }
     ],
