@@ -45,3 +45,9 @@ You will see where the selected variables appear in blocks and templates on the 
 
 After clicking the create button, your project will be populated with templates from the design system, so you don't have to start from scratch. You can add or remove templates anytime.
 
+After you created your project, you need to go to the project's settings page and do the following steps:
+- [connect with your AWS account](./docs/projects/settings.html#aws-credentials) (always required)
+- [create an API key](./docs/projects/settings.html#api-keys) (optional, only needed if you want to send transactional or triggered emails)
+- [add domains to the whitelist](./docs/projects/settings.html#domain-whitelists) (optional, only needed if you want to add or remove subscribers from your frontend)
+- [set up bounce and complaint webhooks](./docs/projects/settings.html#bounce-complaint-webhooks) (optional BUT highly recommended)
+
