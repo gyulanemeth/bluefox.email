@@ -59,7 +59,7 @@ export default defineConfig({
             { text: 'Subscriber Lists', link: '/docs/projects/subscriber-lists' },
             { text: 'Subscriptions Preferences Page', link: '/docs/projects/subscription-preferences-page' },
             { text: 'Analytics', link: '/docs/projects/analytics' },
-            { text: 'Theme settings', link: '/docs/projects/theme-settings' },
+            { text: 'Design System Settings', link: '/docs/projects/design-system-settings' },
             { text: 'Settings', link: '/docs/projects/settings' }
           ]
         }, {
