@@ -4,11 +4,11 @@ In order to enable all of the functionality provided by bluefox.email, you will 
 
 ## AWS credentials
 
-As you know, our plaform sends out emails with your AWS SES. We wrote a [blog post](/blog/why-we-send-with-aws-ses) about why we decided to do it like this.
+As you know, our plaform sends out emails with your AWS SES. It ensures high deliverability and that spammers will not use our platform.
 
 First of all, you will have to set up your AWS `Access Key ID`, your `Secret Access Key`, `Sending Email`, `AWS region` and  the `sending limit`.
 
-![A screenshot of a project settings AWS credentials section.](https://placehold.co/800x600/EEE/31343C)
+![A screenshot of a project settings AWS credentials section.](./project-settings-aws.png)
 
 The access key has to be able to send emails via SES from the region and the sending email you set up.
 
@@ -26,11 +26,11 @@ If you want to know the [bounce and complaint numbers](/docs/projects/analytics)
 
 If you want to set up the hooks, just press the set up buttons:
 
-![A screenshot of a project settings AWS bounce and complaints section. (Not set up.)](https://placehold.co/800x600/EEE/31343C)
+![A screenshot of a project settings AWS bounce and complaints section. (Not set up.)](./project-settings-aws-bounce-complaints.png)
 
 ... and follow the instructions. After you finished, you should see this:
 
-![A screenshot of a project settings AWS bounce and complaints section. (Already set up.)](https://placehold.co/800x600/EEE/31343C)
+![A screenshot of a project settings AWS bounce and complaints section. (Already set up.)](./project-settings-aws-bounce-complaints-done.png)
 
 ::: tip Upcoming feature
 
@@ -56,7 +56,7 @@ Generally, sensitive info like API keys should be rotated periodically, because 
  - yellow: 1-6 months old
  - red: more than 6 months old
 
-![A screenshot of a project settings API keys section.](https://placehold.co/800x600/EEE/31343C)
+![A screenshot of a project settings API keys section.](./project-settings-api-keys.png)
 
 ::: danger Security warning
 
@@ -71,4 +71,4 @@ There are some API endpoints that also work from the frontend. You need to add y
 
 For example, if you want to include signup forms in your blog or website, but you don't want to add a signup route to your backend, you can directly call our backend from those domains which are in the whitelist.
 
-![A screenshot of a project settings domain whitelist section.](https://placehold.co/800x600/EEE/31343C)
+![A screenshot of a project settings domain whitelist section.](./project-settings-domain-whitelists.png)
