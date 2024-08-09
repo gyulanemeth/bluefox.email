@@ -16,6 +16,9 @@ const validation = ref({
 const submitted = ref(false)
 const error = ref(false)
 const verified = ref(false)
+const token = ref(false)
+const url = ref(false)
+
 
 const submitForm = async () => {
     const { name, email } = form.value
@@ -37,13 +40,15 @@ const submitForm = async () => {
 }
 
 
-const token = new URLSearchParams(window.location.search).get('token')
-if (token) {
-    const url = new URL(window.location);
-    url.searchParams.delete('token');
-    history.replaceState(null, '', url.pathname + url.search);
+if (typeof window !== 'undefined') {
+    token.value = new URLSearchParams(window.location.search).get('token')
+    url.value = new URL(window.location);
+}
+if (token.value) {
+    url.value.searchParams.delete('token');
+    history.replaceState(null, '', url.value.pathname + url.value.search);
     try {
-        await bluefoxEmailApiConnectors().verifySubscription(token)
+        await bluefoxEmailApiConnectors().verifySubscription(token.value)
         verified.value = true
     } catch (err) {
         error.value = true
