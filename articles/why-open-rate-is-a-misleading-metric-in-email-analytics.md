@@ -1,0 +1,1 @@
+# Why open rate is a misleading metric in email analytics
