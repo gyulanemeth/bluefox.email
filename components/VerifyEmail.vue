@@ -55,7 +55,7 @@ loading.value = false
             </div>
 
             <div v-if="!loading" class="btn-inline-box">
-                <button class="back-btn">Main Page</button>
+                <a href="/" class="back-btn">Main Page</a>
             </div>
         </div>
     </section>
