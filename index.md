@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: Join waitlist
-      link: /signup-waitlist
+      link: /#subscribe
     - theme: alt
       text: Why?
       link: /why
@@ -22,6 +22,14 @@ features:
   - title: Unbeatable price
     details: $100 for a 1-year access. Or use the free version and advertise us.
 ---
+
+<script setup>
+  import Subscribe from './components/Subscribe.vue'
+</script>
+
+<Suspense>
+  <Subscribe />
+</Suspense>
 
 <style>
   .VPFeatures .title {
