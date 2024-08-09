@@ -15,9 +15,6 @@ const validation = ref({
 
 const submitted = ref(false)
 const error = ref(false)
-const verified = ref(false)
-const token = ref(false)
-const url = ref(false)
 
 
 const submitForm = async () => {
@@ -33,31 +30,8 @@ const submitForm = async () => {
     } catch (err) {
         error.value = true
     }
-    setTimeout(() => {
-        submitted.value = false;
-        error.value = false;
-    }, 10000);
 }
 
-
-if (typeof window !== 'undefined') {
-    token.value = new URLSearchParams(window.location.search).get('token')
-    url.value = new URL(window.location);
-}
-if (token.value) {
-    url.value.searchParams.delete('token');
-    history.replaceState(null, '', url.value.pathname + url.value.search);
-    try {
-        await bluefoxEmailApiConnectors().verifySubscription(token.value)
-        verified.value = true
-    } catch (err) {
-        error.value = true
-    }
-    setTimeout(() => {
-        verified.value = false;
-        error.value = false;
-    }, 10000);
-}
 </script>
 
 <template>
@@ -78,36 +52,30 @@ if (token.value) {
                 <input type="checkbox" id="human" v-model="form.human" class="checkbox" />
                 <label for="human" class="checkbox-label">I'm a human</label>
             </div>
-            <div class="form-group-inline">
+            <div class="btn-inline-box">
                 <button :disabled="!form.human" type="submit" class="submit-btn">Submit</button>
             </div>
         </form>
-        <div v-else-if="submitted" class="callback-section">
-            <p>
-                <span class="callback-msg">
+        <div v-else class="callback-section">
+            <p v-if="submitted">
+                <span class="success-callback-msg">
                     Verify your email address,
                 </span>
                 Check your inbox for an email from us containing a verification link. Click on the link to confirm your
                 email and gain full access to our application.
             </p>
-        </div>
-        <div v-else-if="verified" class="callback-section">
-            <p>
-                <span class="callback-msg">
-                    Email Verified Successfully,
-                </span>
-                Congratulations! You have successfully verified your email address
-            </p>
-        </div>
-        <div v-else-if="error" class="callback-section">
-            <p>
-                <span class="callback-msg">
+            <p v-else-if="error">
+                <span class="error-callback-msg">
                     Something went wrong,
                 </span>
                 An unexpected error has occurred. Please try again later. If the issue continues, don't hesitate to
                 reach out to our support team.
             </p>
+            <div class="btn-inline-box">
+                <button class="back-btn" @click="submitted = false; error = false">Go Back</button>
+            </div>
         </div>
+
     </section>
 </template>
 
@@ -115,6 +83,7 @@ if (token.value) {
 <style scoped>
 .custom-section {
     width: 60.5%;
+    max-width: 800px;
     margin: auto;
     margin-top: 50px;
     border: 1px solid #f6f6f7;
@@ -133,12 +102,19 @@ if (token.value) {
 }
 
 .callback-section {
-    padding: 20px;
+    padding: 40px;
 }
 
-.callback-msg {
+.success-callback-msg {
     font-size: 18px;
     font-weight: bold;
+    color: #4CAF50;
+}
+
+.error-callback-msg {
+    font-size: 18px;
+    font-weight: bold;
+    color: #FF5252;
 }
 
 .header {
@@ -155,8 +131,9 @@ if (token.value) {
 }
 
 .form {
-    width: 50%;
     margin: auto;
+    margin-left: 60px;
+    margin-right: 60px;
 }
 
 .form-group {
@@ -169,6 +146,12 @@ if (token.value) {
     margin-bottom: 20px;
 }
 
+.btn-inline-box {
+    display: flex;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
 label {
     display: block;
     margin-bottom: 5px;
@@ -177,8 +160,8 @@ label {
 .outlined-input {
     width: 100%;
     padding: 8px;
-    border: 2px solid #cacaca;
-    background-color: #cacaca;
+    border: 2px solid #e2e2e2;
+    background-color: rgba(241, 240, 240, 0.911);
     border-radius: 4px;
     transition: border-color 0.3s ease;
     outline: none;
@@ -191,6 +174,23 @@ label {
 
 .outlined-input:focus {
     border-color: #007bff;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    background-color: rgb(17, 176, 238);
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    border-radius: 20px;
+    margin: auto;
+    margin-top: 40px;
 }
 
 .submit-btn {
@@ -219,7 +219,28 @@ label {
 }
 
 .validation {
-    color: rgb(190, 72, 72);
+    color: #FF5252;
     font-size: 0.7rem;
+}
+
+
+@media only screen and (max-width: 767px) {
+    .custom-section {
+        width: 88%;
+        max-width: 800px;
+        margin: auto;
+        margin-top: 50px;
+        border: 1px solid #f6f6f7;
+        background: #f6f6f7;
+        border-radius: 10px;
+    }
+
+    .header {
+        margin-bottom: 50px;
+        margin-top: 60px;
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+    }
 }
 </style>
