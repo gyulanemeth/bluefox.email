@@ -45,9 +45,6 @@ export default defineConfig({
           text: 'Getting Started',
           link: '/docs/getting-started'
         }, {
-          text: 'API',
-          link: '/docs/api/'
-        }, {
           text: 'Projects',
           link: '/docs/projects/',
           collapsed: false,
@@ -63,6 +60,9 @@ export default defineConfig({
             { text: 'Settings', link: '/docs/projects/settings' }
           ]
         }, {
+          text: 'API',
+          link: '/docs/api/'
+        }, {
           text: 'Personalization (merge tags)',
           link: '/docs/personalization',
         }, {
@@ -70,9 +70,9 @@ export default defineConfig({
           link: '/docs/design-systems/',
           collapsed: false,
           items: [
-            { text: 'Variables', link: '/docs/themes/variables' },
-            { text: 'Blocks (or modules)', link: '/docs/themes/blocks' },
-            { text: 'Templates', link: '/docs/themes/templates' }
+            { text: 'Variables', link: '/docs/design-systems/variables' },
+            { text: 'Blocks (or modules)', link: '/docs/design-systems/blocks' },
+            { text: 'Templates', link: '/docs/design-systems/templates' }
           ]
         }]
       }
