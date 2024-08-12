@@ -13,7 +13,7 @@ const validation = ref({
     email: false,
 })
 
-const submitted = ref(true)
+const submitted = ref(false)
 const error = ref(false)
 
 
