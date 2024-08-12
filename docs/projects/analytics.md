@@ -6,6 +6,6 @@ You can see them on the email cards right above the action buttons (of every ema
 
 ![Analytics section on email cards](./project-analytics-card.png)
 
-By default, these numbers are stats from the current week. If you want to change that, select from the options highlighted on the screenshot below:
+By default, these numbers are stats from the current week. If you want to change that, select from the options highlighted on the screenshot below: current week, previous week, current month, previous month, last 3 months, overall.
 
 ![Analytics time filter.](./project-analytics-time.png)
