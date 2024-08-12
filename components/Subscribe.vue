@@ -28,7 +28,7 @@ const submitForm = async () => {
         await bluefoxEmailApiConnectors().subscribe({ name: form.value.name, email: form.value.email })
         submitted.value = true
     } catch (err) {
-        error.value = true
+        error.value = err
     }
 }
 
@@ -57,20 +57,24 @@ const submitForm = async () => {
             </div>
         </form>
         <div v-else class="callback-section">
-            <p v-if="submitted">
-                <span class="success-callback-msg">
-                    Verify your email address,
-                </span>
-                Check your inbox for an email from us containing a verification link. Click on the link to confirm your
+            <div v-if="submitted">
+                <h1 style="text-align: center;" class="success-callback-msg">
+                    Verify your email address
+                </h1>
+                <p style="text-align: center;">
+                    Check your inbox for an email from us containing a verification link. Click on the link to confirm your
                 email and gain full access to our application.
-            </p>
-            <p v-else-if="error">
-                <span class="error-callback-msg">
-                    Something went wrong,
-                </span>
-                An unexpected error has occurred. Please try again later. If the issue continues, don't hesitate to
-                reach out to our support team.
-            </p>
+                </p>
+            </div>
+            <div v-else-if="error">
+                <h1 style="text-align: center;" class="error-callback-msg">
+                    Something went wrong
+                </h1>
+                <p style="text-align: center;">
+                    An unexpected error has occurred: [{{ error }}] Don't hesitate to
+                    reach out to our support team.
+                </p>
+            </div>
             <div class="btn-inline-box">
                 <button class="back-btn" @click="submitted = false; error = false">Go Back</button>
             </div>
@@ -102,19 +106,21 @@ const submitForm = async () => {
 }
 
 .callback-section {
-    padding: 40px;
+    padding: 0px 40px;
 }
 
 .success-callback-msg {
     font-size: 18px;
     font-weight: bold;
     color: #4CAF50;
+    margin-bottom: 20px;
 }
 
 .error-callback-msg {
     font-size: 18px;
     font-weight: bold;
     color: #FF5252;
+    margin-bottom: 20px;
 }
 
 .header {
