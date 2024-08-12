@@ -3,7 +3,7 @@
 We provide a subscription preferences page where users can manage their subscriptions. On this page, users have the ability to unsubscribe, resubscribe, or pause their subscriptions. In triggered emails and campaigns, we provide two merge tags: `unsubscribeLink` and `pauseSubscriptionLink`. Both links direct users to the manage subscription page, but when using the `pauseSubscriptionLink`, the unsubscribe options are removed from the page.
 
 ::: tip
-Pausing a subscription is an effective way to reduce churn.
+The "pause subscription" feature is an effective way to reduce churn.
 :::
 
 You can access the subscription preferences page configuration by clicking the button on the subscriber lists tab:
