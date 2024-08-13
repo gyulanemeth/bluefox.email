@@ -53,11 +53,3 @@ You can also use bluefox.email for free, if we can put our logo and a link to ou
 Keep in mind, that AWS offers a free tier for 12 months, including 3000 email sends per month.
 
 The two combined should be enough to kick off your project!
-
-
-::: tip Pre-order (Coming soon...)
-**50% off**, so you get a 1-year paid version for **$50**.
-
-Join our [waitlist](/signup-waitlist.html) to be notified when the preorder starts.
-:::
-
