@@ -71,8 +71,7 @@ const submitForm = async () => {
                     Something went wrong
                 </h1>
                 <p style="text-align: center;">
-                    An unexpected error has occurred: [{{ error }}] Don't hesitate to
-                    reach out to our support team.
+                    An unexpected error has occurred: {{ error.message }}
                 </p>
             </div>
             <div class="btn-inline-box">
@@ -192,7 +191,8 @@ label {
     cursor: pointer;
     text-align: center;
     text-decoration: none;
-    font-size: 1rem;
+    font-weight: 600;
+    font-size: 14px;
     transition: background-color 0.3s ease;
     border-radius: 20px;
     margin: auto;
@@ -209,14 +209,19 @@ label {
     cursor: pointer;
     text-align: center;
     text-decoration: none;
-    font-size: 1rem;
+    font-weight: 600;
+    font-size: 14px;
     transition: background-color 0.3s ease;
     border-radius: 20px;
     margin: auto;
 }
 
 .submit-btn:hover:enabled {
-    background-color: rgb(11, 135, 184);
+    background-color: hsl(197, 87%, 60%);
+}
+
+.back-btn:hover:enabled {
+    background-color: hsl(197, 87%, 60%);
 }
 
 .submit-btn:disabled {
