@@ -20,17 +20,13 @@ Next, select a template category defined in your project's design system:
 
 ![A screenshot of a project's triggered emails - create: template category selection.](./project-triggered-emails-create-select-category.png)
 
-Then, choose a template to start with:
+Then, choose a template to start with (also defined in your project's design system):
 
 ![A screenshot of a project's triggered emails - create: template selection.](./project-triggered-emails-create-select-template.png)
 
-Enter its name, subject line, and preview text:
+Enter its name, subject line, preview text, and select a subscriber list:
 
 ![A screenshot of a project's triggered emails - create: enter data.](./project-triggered-emails-create-subject.png)
-
-The next step is to select a subscriber list:
-
-![A screenshot of a project's triggered emails - create: select subscriber list.](./project-triggered-emails-create-select-subscriber-list.png)
 
 After that, you will see a summary page. Click "Launch Editor".
 
