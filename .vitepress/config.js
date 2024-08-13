@@ -30,6 +30,10 @@ export default defineConfig({
 
     sidebar: [
       {
+        text: 'Join waitlist',
+        link: '/#subscribe'
+      },
+      {
         text: 'Why?',
         link: '/why'
       },
