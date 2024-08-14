@@ -19,8 +19,6 @@ export default () => {
     }
 
     async function subscribe(formData) {
-        console.log(formData);
-
         const response = await fetch(import.meta.env.VITE_BLUEFOX_URL + '/v1/waitlist', {
             method: 'POST',
             headers: {
