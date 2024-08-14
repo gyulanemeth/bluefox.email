@@ -1,31 +1,31 @@
 <script setup>
-import { ref } from 'vue'
-import bluefoxEmailApiConnectors from '../connectors/bluefoxEmailApi.js'
+import { ref, onMounted } from 'vue';
+import bluefoxEmailApiConnectors from '../connectors/bluefoxEmailApi.js';
 
 const error = ref(false)
 const verified = ref(false)
 const loading = ref(true)
-const token = ref(false)
-const url = ref(false)
+const token = ref(null)
+const url = ref(null)
 
-
-if (typeof window !== 'undefined') {
+onMounted(async () => {
+  if (typeof window !== 'undefined') {
     token.value = new URLSearchParams(window.location.search).get('token')
-    url.value = new URL(window.location);
-}
-if (token.value) {
-    url.value.searchParams.delete('token');
-    history.replaceState(null, '', url.value.pathname + url.value.search);
-}
-try {
+    url.value = new URL(window.location)
+    url.value.searchParams.delete('token')
+    history.replaceState(null, '', url.value.pathname + url.value.search)
+  }
+
+  try {
     await bluefoxEmailApiConnectors().verifySubscription(token.value)
     verified.value = true
-} catch (err) {
-    error.value = true
-}
-loading.value = false
+  } catch (err) {
+    error.value = err
+  } finally {
+    loading.value = false
+  }
+});
 </script>
-
 
 <template>
     <section id="subscribe" class="section">
@@ -51,8 +51,7 @@ loading.value = false
                     Something went wrong
                 </h1>
                 <p style="text-align: center;">
-                    An unexpected error has occurred. Please try again later. If the issue continues, don't hesitate to
-                    reach out to our support team.
+                    An unexpected error has occurred: {{ error.message }}
                 </p>
             </div>
 
@@ -70,7 +69,6 @@ loading.value = false
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    background-color: #f9f9f9;
 }
 
 .custom-section {
@@ -83,6 +81,11 @@ loading.value = false
     border-radius: 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+}
+
+:root.dark .custom-section {
+    border: 1px solid #252529;
+    background: #252529;
 }
 
 .loading-msg {
