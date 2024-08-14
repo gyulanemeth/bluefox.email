@@ -18,9 +18,8 @@ export default defineConfig({
     },
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Why?', link: '/why' },
+      { text: 'Docs', link: '/docs/' },
       { text: 'About', link: '/about' },
-      { text: 'Docs', link: '/docs/' }
       /*
       { text: 'Home', link: '/' },
       { text: 'Email Marketing Concepts', link: '/email-marketing-concepts/' },
