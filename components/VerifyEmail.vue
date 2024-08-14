@@ -13,8 +13,10 @@ if (typeof window !== 'undefined') {
     token.value = new URLSearchParams(window.location.search).get('token')
     url.value = new URL(window.location);
 }
-url.value.searchParams.delete('token');
-history.replaceState(null, '', url.value.pathname + url.value.search);
+if (token.value) {
+    url.value.searchParams.delete('token');
+    history.replaceState(null, '', url.value.pathname + url.value.search);
+}
 try {
     await bluefoxEmailApiConnectors().verifySubscription(token.value)
     verified.value = true

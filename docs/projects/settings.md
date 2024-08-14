@@ -34,7 +34,7 @@ We plan to introduce processes for bounces and complaints to automatically keep 
 
 ## API Keys
 
-To work with our [API](/docs/api) from the server side, create at least one API key.
+To work with our [API](/docs/api/) from the server side, create at least one API key.
 
 Include our API keys in the `Authorization` header of your HTTP requests as a bearer token.
 
