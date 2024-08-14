@@ -14,7 +14,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     logo: '/assets/bluefoxemail-logo.png',
     search: {
-      // provider: 'local'
+      provider: 'local'
     },
     nav: [
       { text: 'Home', link: '/' },
