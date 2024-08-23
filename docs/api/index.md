@@ -20,11 +20,11 @@ Replace the placeholders with your specific information:
 
 You can find the IDs to replace by clicking on the code guide button in a subscriber list:
 
-![Screenshot of the highlighted code guide button in a subscriber list.](./subscriber-list-code-guide-button.png)
+![Screenshot of the highlighted code guide button in a subscriber list.](./subscriber-list-code-guide-button.webp)
 
 In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you only need to replace the `##YOUR_API_KEY##`.
 
-![Screenshot of the code guide dialog in a subscriber list.](./subscriber-list-code-guide-dialog.png)
+![Screenshot of the code guide dialog in a subscriber list.](./subscriber-list-code-guide-dialog.webp)
 
 **Request Body:**
 ```json
@@ -120,11 +120,11 @@ Replace the placeholders with your specific information:
  - `##YOUR_API_KEY##`
 
 You can find the IDs to replace by clicking on the code guide button in a subscriber list:
-![Screenshot of the highlighted code guide button in a subscriber list.](./subscriber-list-code-guide-button.png)
+![Screenshot of the highlighted code guide button in a subscriber list.](./subscriber-list-code-guide-button.webp)
 
 In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you only need to replace the `##YOUR_API_KEY##`.
 
-![Screenshot of the code guide dialog in a subscriber list.](./subscriber-list-code-guide-dialog.png)
+![Screenshot of the code guide dialog in a subscriber list.](./subscriber-list-code-guide-dialog.webp)
 
 **Requiest body**:
 
@@ -200,11 +200,11 @@ Replace the placeholders with your specific information:
  - `##YOUR_API_KEY##`
 
 You can find the IDs to replace by clicking on the code guide button on a transactional email card:
-![Screenshot of the highlighted code guide button on a transactional email card.](./transactional-code-guide-button.png)
+![Screenshot of the highlighted code guide button on a transactional email card.](./transactional-code-guide-button.webp)
 
 In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you only need to replace the `##YOUR_API_KEY##`.
 
-![Screenshot of a code guide dialog of a transactional email](./transactional-code-guide-dialog.png)
+![Screenshot of a code guide dialog of a transactional email](./transactional-code-guide-dialog.webp)
 
 **Request body**:
 ```json
@@ -300,11 +300,11 @@ Replace the placeholders with your specific information:
  - `##YOUR_API_KEY##`
 
 You can find the IDs to replace by clicking on the code guide button on a triggered email card:
-![Screenshot of the highlighted code guide button on a triggered email card.](./triggered-code-guide-button.png)
+![Screenshot of the highlighted code guide button on a triggered email card.](./triggered-code-guide-button.webp)
 
 In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you only need to replace the `##YOUR_API_KEY##`.
 
-![Screenshot of a code guide dialog of a triggered email](./triggered-code-guide-dialog.png)
+![Screenshot of a code guide dialog of a triggered email](./triggered-code-guide-dialog.webp)
 
 Request body:
 ```json

@@ -8,18 +8,18 @@ The "pause subscription" feature is an effective way to reduce churn.
 
 You can access the subscription preferences page configuration by clicking the button on the subscriber lists tab:
 
-![Subscriber lists - subscription preferences button.](./project-subscriber-lists-subscription-preferences-page-button.png)
+![Subscriber lists - subscription preferences button.](./project-subscriber-lists-subscription-preferences-page-button.webp)
 
 Each project has one subscription preferences page. On this page, you can set your logo, and all public subscriber lists will be visible to the user. The items listed are subscriber lists, with the title displaying the name of the list. Additionally, the description of each subscriber list is shown, allowing you to provide more context to your users.
 
-![Subscriber lists - subscription preferences dialog.](./project-subscriber-lists-subscription-preferences-page-dialog.png)
+![Subscriber lists - subscription preferences dialog.](./project-subscriber-lists-subscription-preferences-page-dialog.webp)
 
 As shown above, there are different states in the user-subscriber list relationship: unsubscribed, paused, and subscribed. Based on these states, different actions are available to the user.
 
 Below is an example of a real subscription preferences page after clicking on the `unsubscribeLink`:
 
-![Subscription preferences page](./subscription-preferences-page.png)
+![Subscription preferences page](./subscription-preferences-page.webp)
 
 Here is the same page after clicking the `pauseSubscriptionLink`:
 
-![Subscription preferences page - pause only.](./subscription-preferences-page-pause-only.png)
+![Subscription preferences page - pause only.](./subscription-preferences-page-pause-only.webp)
