@@ -2,7 +2,7 @@
 
 Hello! I'm Gyula Németh (GYN), the founder of bluefox.email.
 
-![Me](/assets/me.png)
+![Me](/assets/me.webp)
 
 I've been working in the unique and challenging world of HTML emails since 2013, when I co-founded a company focused on email design products.
 

@@ -12,7 +12,7 @@ export default defineConfig({
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: '/assets/bluefoxemail-logo.png',
+    logo: '/assets/bluefoxemail-logo.webp',
     search: {
       provider: 'local'
     },

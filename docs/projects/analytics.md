@@ -4,8 +4,8 @@ We provide the following analytics for all of our email types (transactional ema
 
 You can view these analytics on the email cards, located right above the action buttons for each email type:
 
-![Analytics section on email cards](./project-analytics-card.png)
+![Analytics section on email cards](./project-analytics-card.webp)
 
 By default, these numbers reflect stats from the current week. If you want to change the time period, select from the options highlighted in the screenshot below: current week, previous week, current month, previous month, last 3 months, or overall.
 
-![Analytics time filter.](./project-analytics-time.png)
+![Analytics time filter.](./project-analytics-time.webp)

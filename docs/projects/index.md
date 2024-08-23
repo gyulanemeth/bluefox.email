@@ -20,7 +20,7 @@ Each project comes with a subscription preferences page, which you can set up un
 
 You can find the projects section by clicking the last icon on the left-hand side.
 
-![A screenshot of the projects section.](./projects.png)
+![A screenshot of the projects section.](./projects.webp)
 
 ## Free vs. Premium Projects
 
@@ -32,19 +32,19 @@ Upgrade your project to premium to remove our logo and link from your email foot
 
 Premium projects have a premium flag:
 
-![A screenshot of a project with a premium flag.](./project-premium.png)
+![A screenshot of a project with a premium flag.](./project-premium.webp)
 
 ## Project Warnings
 
 If your project configuration isn't complete, you'll see warnings. Hover over the warning icons for more details. Most issues can be resolved in the project's settings tab.
 
-![A screenshot of a project with warnings](./project-warnings.png)
+![A screenshot of a project with warnings](./project-warnings.webp)
 
 ## Inside a Project
 
 When you enter a project, you'll see a tabbed view with all the project-related sections:
 
-![A screenshot of the project view.](./project-transactionals.png)
+![A screenshot of the project view.](./project-transactionals.webp)
 
 These tabs include:
 - [Transactional emails](./transactional-emails)

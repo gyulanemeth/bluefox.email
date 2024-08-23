@@ -8,7 +8,7 @@ Our platform sends emails using your AWS SES, ensuring high deliverability and p
 
 First, set up your AWS `Access Key ID`, `Secret Access Key`, `Sending Email`, `AWS region`, and `sending limit`.
 
-![A screenshot of a project settings AWS credentials section.](./project-settings-aws.png)
+![A screenshot of a project settings AWS credentials section.](./project-settings-aws.webp)
 
 The access key must be able to send emails via SES from the region and the sending email you set up. The sending limit should be lower or equal to the actual AWS SES sending limit.
 
@@ -22,11 +22,11 @@ To know the [bounce and complaint numbers](/docs/projects/analytics) of your ema
 
 To set up the hooks, press the setup buttons:
 
-![A screenshot of a project settings AWS bounce and complaints section. (Not set up.)](./project-settings-aws-bounce-complaints.png)
+![A screenshot of a project settings AWS bounce and complaints section. (Not set up.)](./project-settings-aws-bounce-complaints.webp)
 
 ... and follow the instructions. After finishing, you should see this:
 
-![A screenshot of a project settings AWS bounce and complaints section. (Already set up.)](./project-settings-aws-bounce-complaints-done.png)
+![A screenshot of a project settings AWS bounce and complaints section. (Already set up.)](./project-settings-aws-bounce-complaints-done.webp)
 
 ::: tip Upcoming Feature
 We plan to introduce processes for bounces and complaints to automatically keep your lists clean. Currently, you need to analyze those numbers and manually keep your lists clean.
@@ -50,7 +50,7 @@ Periodically rotate sensitive info like API keys for security reasons. We use di
 - Yellow: 1-6 months old
 - Red: more than 6 months old
 
-![A screenshot of a project settings API keys section.](./project-settings-api-keys.png)
+![A screenshot of a project settings API keys section.](./project-settings-api-keys.webp)
 
 ::: danger Security Warning
 Since an API key is very sensitive information, never use it in your frontend code. Always use it from your backend.
@@ -62,4 +62,4 @@ Some API endpoints also work from the frontend. Add your domains to the whitelis
 
 For example, if you want to include signup forms on your blog or website without adding a signup route to your backend, directly call our backend from whitelisted domains.
 
-![A screenshot of a project settings domain whitelist section.](./project-settings-domain-whitelists.png)
+![A screenshot of a project settings domain whitelist section.](./project-settings-domain-whitelists.webp)

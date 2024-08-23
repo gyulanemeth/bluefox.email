@@ -8,33 +8,33 @@ If you want to create email automations, use triggered emails. For instance, you
 
 You can find the triggered emails of a project under the `Triggered Emails` tab.
 
-![A screenshot of a project's triggered emails.](./project-triggered-emails.png)
+![A screenshot of a project's triggered emails.](./project-triggered-emails.webp)
 
 ## Creating a Triggered Email
 
 To create a new triggered email, press the `Create` button.
 
-![A screenshot of a project's triggered emails - new button highlighted.](./project-triggered-emails-create-button.png)
+![A screenshot of a project's triggered emails - new button highlighted.](./project-triggered-emails-create-button.webp)
 
 Next, select a template category defined in your project's design system:
 
-![A screenshot of a project's triggered emails - create: template category selection.](./project-triggered-emails-create-select-category.png)
+![A screenshot of a project's triggered emails - create: template category selection.](./project-triggered-emails-create-select-category.webp)
 
 Then, choose a template to start with (also defined in your project's design system):
 
-![A screenshot of a project's triggered emails - create: template selection.](./project-triggered-emails-create-select-template.png)
+![A screenshot of a project's triggered emails - create: template selection.](./project-triggered-emails-create-select-template.webp)
 
 Enter its name, subject line, preview text, and select a subscriber list:
 
-![A screenshot of a project's triggered emails - create: enter data.](./project-triggered-emails-create-subject.png)
+![A screenshot of a project's triggered emails - create: enter data.](./project-triggered-emails-create-subject.webp)
 
 After that, you will see a summary page. Click "Launch Editor".
 
-![A screenshot of a project's triggered emails - create: summary.](./project-triggered-emails-create-summary.png)
+![A screenshot of a project's triggered emails - create: summary.](./project-triggered-emails-create-summary.webp)
 
 Finally, make changes in the drag-and-drop email editor:
 
-![A screenshot of a project's triggered emails - create: edit.](./project-triggered-emails-create-editor.png)
+![A screenshot of a project's triggered emails - create: edit.](./project-triggered-emails-create-editor.webp)
 
 When you're done, click "Save & Close". You can make changes later as well.
 
@@ -42,11 +42,11 @@ When you're done, click "Save & Close". You can make changes later as well.
 
 Every triggered email in bluefox.email has a unique URL for sending the email. Send an HTTP request to this endpoint. You can generate sample code in multiple programming languages by clicking this icon:
 
-![A screenshot of a triggered email card, with the code button highlighted.](./project-triggered-emails-code-button.png)
+![A screenshot of a triggered email card, with the code button highlighted.](./project-triggered-emails-code-button.webp)
 
 Copy the generated code to use it in your project:
 
-![A screenshot of a triggered email's generated code, copy button highlighted.](./project-triggered-emails-code-dialog.png)
+![A screenshot of a triggered email's generated code, copy button highlighted.](./project-triggered-emails-code-dialog.webp)
 
 ::: tip Keep in Mind!
 1) You can send a triggered email to multiple recipients by sending an array of email addresses in the `emails` field of the data property in the request body.
@@ -93,15 +93,15 @@ Since triggered emails are sent to a subscriber list, subscriber data, an unsubs
 
 You can use any Handlebars variables in your email while editing. To do this, click on the edit icon on the card:
 
-![A screenshot of a triggered email card, edit button highlighted.](./project-triggered-emails-edit-button.png)
+![A screenshot of a triggered email card, edit button highlighted.](./project-triggered-emails-edit-button.webp)
 
 Enter your variables using Handlebars syntax:
 
-![A screenshot of a triggered email being edited, a merge tag is being added.](./project-triggered-emails-edit-merge-tag.png)
+![A screenshot of a triggered email being edited, a merge tag is being added.](./project-triggered-emails-edit-merge-tag.webp)
 
 You can also use merge tags in the email's `subject line` and `preview text`!
 
-![A screenshot of a triggered email, with a merge tag being used in the subject and the preview text.](./project-triggered-emails-edit-subject-merge-tag.png)
+![A screenshot of a triggered email, with a merge tag being used in the subject and the preview text.](./project-triggered-emails-edit-subject-merge-tag.webp)
 
 For more details on how to personalize your emails with merge tags and Handlebars, check out our [personalization guide](/docs/personalization).
 

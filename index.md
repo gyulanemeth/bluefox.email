@@ -6,7 +6,7 @@ hero:
   name: Beautiful emails for your SaaS.
   text: Effortlessly.
   tagline: Consistent-looking transactional, triggered, & marketing emails that your customers will love.
-  image: '/assets/bluefoxemail-screen2.png'
+  image: '/assets/bluefoxemail-screen2.webp'
   actions:
     - theme: brand
       text: Join waitlist

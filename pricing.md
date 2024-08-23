@@ -6,7 +6,7 @@ hero:
   name: Now, only $100 per project annually
   text: plus AWS costs
   tagline: Or use our free plan and advocate us.
-  image: '/assets/bluefoxemail-screen2.png'
+  image: '/assets/bluefoxemail-screen2.webp'
   actions:
     - theme: brand
       text: Join waitlist
