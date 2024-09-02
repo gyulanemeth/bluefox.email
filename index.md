@@ -9,8 +9,8 @@ hero:
   image: '/assets/bluefoxemail-screen2.webp'
   actions:
     - theme: brand
-      text: Join waitlist
-      link: /#subscribe
+      text: Sign up
+      link: https://app.bluefox.email/accounts/create-account
     - theme: alt
       text: Why?
       link: /why
@@ -22,14 +22,6 @@ features:
   - title: Unbeatable price
     details: $100 for a 1-year access. Or use the free version and advertise us.
 ---
-
-<script setup>
-  import Subscribe from './components/Subscribe.vue'
-</script>
-
-<Suspense>
-  <Subscribe />
-</Suspense>
 
 <style>
   .VPFeatures .title {

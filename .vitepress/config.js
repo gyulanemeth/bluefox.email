@@ -20,6 +20,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Docs', link: '/docs/' },
       { text: 'About', link: '/about' },
+      { text: 'Login', link: 'https://app.bluefox.email' }
       /*
       { text: 'Home', link: '/' },
       { text: 'Email Marketing Concepts', link: '/email-marketing-concepts/' },
@@ -28,10 +29,6 @@ export default defineConfig({
     ],
 
     sidebar: [
-      {
-        text: 'Join waitlist',
-        link: '/#subscribe'
-      },
       {
         text: 'Why?',
         link: '/why'
