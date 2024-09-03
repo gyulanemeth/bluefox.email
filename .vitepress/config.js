@@ -18,6 +18,7 @@ export default defineConfig({
     },
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Best Practices', link: '/email-best-practices-for-saas/' },
       { text: 'Docs', link: '/docs/' },
       { text: 'About', link: '/about' },
       { text: 'Login', link: 'https://app.bluefox.email' }
@@ -30,7 +31,7 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Email Best Practices for SaaS',
+        text: 'Best Practices',
         link: '/email-best-practices-for-saas/',
         collapsed: false,
         items: [{
