@@ -30,15 +30,18 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Best Practices',
-        link: '/best-practices/',
+        text: 'Email Best Practices for SaaS',
+        link: '/email-best-practices-for-saas/',
         collapsed: false,
         items: [{
           text: 'Double Opt-In',
-          link: '/best-practices/double-opt-in'
+          link: '/email-best-practices-for-saas/double-opt-in'
         }, {
           text: 'Unsubscribe and Pause Subscription',
-          link: '/best-practices/unsubscribe-and-pause-subscription'
+          link: '/email-best-practices-for-saas/unsubscribe-and-pause-subscription'
+        }, {
+          text: 'What SaaS owners need to know about DMARC',
+          link: '/email-best-practices-for-saas/what-saas-owners-need-to-know-about-dmarc'
         }]
       },
       {
