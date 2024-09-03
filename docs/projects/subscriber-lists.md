@@ -62,7 +62,7 @@ Just copy and modify the code in your preferred programming language:
 
 ## Implement double opt-in
 
-Keep in mind that you should always implement [double opt-in](/best-practices/double-opt-in), meaning that you only add your users to subscriber lists as active subscribers when they verify their email address!
+Keep in mind that you should always implement [double opt-in](/email-best-practices-for-saas/double-opt-in), meaning that you only add your users to subscriber lists as active subscribers when they verify their email address!
 
 If you add your users to multiple lists when they sign up for your service:
 - Send them a verification email (transactional email) with a unique link.

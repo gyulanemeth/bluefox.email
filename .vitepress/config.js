@@ -41,8 +41,8 @@ export default defineConfig({
           text: 'Unsubscribe and Pause Subscription',
           link: '/email-best-practices-for-saas/unsubscribe-and-pause-subscription'
         }, {
-          text: 'What SaaS owners need to know about DMARC',
-          link: '/email-best-practices-for-saas/what-saas-owners-need-to-know-about-dmarc'
+          text: 'DMARC',
+          link: '/email-best-practices-for-saas/dmarc'
         }]
       },
       {
