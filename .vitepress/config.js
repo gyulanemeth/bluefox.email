@@ -30,12 +30,16 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Why?',
-        link: '/why'
-      },
-      {
-        text: 'About',
-        link: '/about'
+        text: 'Best Practices',
+        link: '/best-practices/',
+        collapsed: false,
+        items: [{
+          text: 'Double Opt-In',
+          link: '/best-practices/double-opt-in'
+        }, {
+          text: 'Unsubscribe and Pause Subscription',
+          link: '/best-practices/unsubscribe-and-pause-subscription'
+        }]
       },
       {
         text: 'Docs',
@@ -75,7 +79,15 @@ export default defineConfig({
             { text: 'Templates', link: '/docs/design-systems/templates' }
           ]
         }]
-      }
+      },
+      {
+        text: 'Why?',
+        link: '/why'
+      },
+      {
+        text: 'About',
+        link: '/about'
+      },
     ],
 
     socialLinks: [
