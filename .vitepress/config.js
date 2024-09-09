@@ -100,5 +100,8 @@ export default defineConfig({
     footer: {
       copyright: 'Copyright © 2024 Innovaris Group LLC.'
     }
+  },
+  sitemap: {
+    hostname: 'https://bluefox.email'
   }
 })
