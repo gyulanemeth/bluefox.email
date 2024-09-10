@@ -85,6 +85,43 @@ export default defineConfig({
         }]
       },
       {
+        text: 'Email Marketing Concepts',
+        link: '/email-marketing-concepts/',
+        collapsed: true,
+        items: [{
+            text: 'Copywriting',
+            link: '/email-marketing-concepts/copywriting/'
+          }, {
+            text: 'Design',
+            link: '/email-marketing-concepts/design/'
+          }, {
+            text: 'List management',
+            link: '/email-marketing-concepts/list-management/'
+          }, {
+            text: 'Metrics and analytics',
+            link: '/email-marketing-concepts/metrics-and-analytics/'
+          }, {
+            text: 'Deliverability',
+            link: '/email-marketing-concepts/deliverability/'
+          }, {
+            text: 'Personalization',
+            link: '/email-marketing-concepts/personalization/'
+          }, {
+            text: 'Automation',
+            link: '/email-marketing-concepts/automation/'
+          }, {
+            text: 'Testing and optimization',
+            link: '/email-marketing-concepts/testing-and-optimization/'
+          }, {
+            text: 'Strategy',
+            link: '/email-marketing-concepts/strategy/'
+          }, {
+            text: 'Compliance and legal considerations',
+            link: '/email-marketing-concepts/compliance-and-legal-considerations/'
+          }
+        ]
+      },
+      {
         text: 'Why?',
         link: '/why'
       },
