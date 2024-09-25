@@ -1,6 +1,5 @@
 import { defineConfig } from 'vitepress'
-
-
+import tailwindcss from 'tailwindcss'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -10,6 +9,11 @@ export default defineConfig({
     ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C' }],
     ['script', {}, `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`]
   ],
+  css: {
+    postcss: {
+      plugins: [tailwindcss()],
+    },
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: '/assets/bluefoxemail-logo.webp',
