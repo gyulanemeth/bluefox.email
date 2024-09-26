@@ -22,6 +22,7 @@ hero:
     document.getElementById('found-4').checked = false
     document.getElementById('found-5').checked = false
     document.getElementById('found-6').checked = false
+    document.getElementById('found-all').checked = false
 
     document.getElementById('c-1-1').checked = false
     document.getElementById('c-1-2').checked = false
@@ -157,6 +158,56 @@ hero:
     border-collapse: collapse;
   }
 
+  #exit-full-screen {
+    display: none;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all 0.5s ease;
+  }
+
+  #exit-full-screen:hover {
+    color: #392C91;
+    border: 1px solid #392C91;
+  }
+
+  #enter-full-screen {
+    display: inline-block;
+    border: 1px solid grey;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all 0.5s ease;
+  }
+
+  #enter-full-screen:hover {
+    color: #13B0EE;
+    border: 1px solid #13B0EE;
+  }
+
+
+  #full-screen:checked ~ .memory-game-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background: white;
+    z-index: 100;
+  }
+
+  html.dark #full-screen:checked ~ .memory-game-wrapper {
+    background: #111111;
+  }
+
+  #full-screen:checked ~ .memory-game-wrapper #enter-full-screen {
+    display: none;
+  }
+  #full-screen:checked ~ .memory-game-wrapper #exit-full-screen {
+    display: inline-block;
+  }
 
 
 
@@ -180,13 +231,18 @@ hero:
     background: #fafafa;
   }
 
+  html.dark .card {
+    background: #111111;
+    border: 1px solid #666666;
+  }
+
   .card-back {
     filter: grayscale(100%);
     transition: all 0.5s ease;
   }
 
   .card-back:hover {
-    border: 1px solid #13B0EE;
+    border: 1px solid #13B0EE !important;
     filter: grayscale(0%);
   }
 
@@ -202,6 +258,34 @@ hero:
     display: none;
   }
 
+  .found-wrapper {
+    border: 1px solid #dddddd;
+    border-radius: 20px;
+    padding: 20px;
+    background: #fafafa;
+    display: flex;
+    background: linear-gradient(-45deg,#392C91 10%,#13B0EE 90%)
+  }
+
+  .found-wrapper .card {
+    margin-right: 20px;
+  }
+
+  .found-wrapper h2 {
+    color: white;
+    margin: 0;
+    padding: 0;
+    border-top: 0px;
+    font-size: 24px;
+    line-height: 26px;
+  }
+
+  .found-wrapper p {
+    color: white;
+    margin: 8px 0;
+    line-height: 22px;
+  }
+
   .reset, .reset-1, .reset-2, .reset-3, .reset-4, .reset-5, .reset-6 {
     display: none;
     width: 600px;
@@ -213,6 +297,7 @@ hero:
     display: none;
     width: 580px;
     margin: 0 auto;
+    max-width: 100%;
   }
 
   .win-card {
@@ -459,11 +544,33 @@ hero:
   #found-6:checked ~ form #c-3-2:checked ~ .found-6 { display: none; }
   #found-6:checked ~ form #c-3-2:checked ~ .reset-6 { display: block; }
 
-  #found-1:checked ~ #found-2:checked ~ #found-3:checked ~ #found-4:checked ~ #found-5:checked ~ #found-6:checked ~ form #win {
+  #found-all:checked ~ form #win {
     display: block;
   }
 
+  #found-all:checked ~ form .found-reset {
+    display: none !important;
+  }
+
+  .show-won {
+    display: none;
+  }
+
+  #found-1:checked ~ #found-2:checked ~ #found-3:checked ~ #found-4:checked ~ #found-5:checked ~ #found-6:checked ~ form .found-reset .continue {
+    display: none;
+  }
+
+  #found-1:checked ~ #found-2:checked ~ #found-3:checked ~ #found-4:checked ~ #found-5:checked ~ #found-6:checked ~ form .found-reset .show-won {
+    display: inline-block;
+  }
+
   @media (max-width: 599px) {
+    #enter-full-screen {
+      width: 100%;
+    }
+    #exit-full-screen {
+      width: 100%;
+    }
     .c {
       height: 90px;
       width: 90px;
@@ -476,18 +583,28 @@ hero:
       border-radius: 20px;
       background: #fafafa;
     }
+    .found-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .found-wrapper .card {
+      margin: 0;
+    }
   }
 </style>
 
-<p style="text-align: center;">Wanna know more? Solve our memory game below! It's a CSS-only interactive email!</p>
-
+<input id="full-screen" type="checkbox">
 <div class="memory-game-wrapper">
+  <p style="text-align: center;">Wanna know more? Solve our memory game below! It's a CSS-only interactive email! <label id="enter-full-screen" for="full-screen">Enter full screen</label><label id="exit-full-screen" for="full-screen">Exit full screen</label></p>
   <input id="found-1" type="checkbox" />
   <input id="found-2" type="checkbox" />
   <input id="found-3" type="checkbox" />
   <input id="found-4" type="checkbox" />
   <input id="found-5" type="checkbox" />
   <input id="found-6" type="checkbox" />
+
+  <input id="found-all" type="checkbox">
   
   <form>
     <input id="c-1-1" type="checkbox" />
@@ -573,11 +690,17 @@ hero:
         </tr>
       </table>
     </label>
-    <label class="reset-1" for="reset">
-      <div>Found:</div>
-      <img class="card" src="/assets/card-palette.png"/>
-      Design systems
-    </label>
+    <div class="found-reset reset-1">
+      <div class="found-wrapper">
+        <img class="card" src="/assets/card-palette.png"/>
+        <div>
+          <h2>Consistent design following your brand guidelines</h2>
+          <p>yoppero yoppero yoppero yoppero yoppero yoppero yoppero yoppero yoppero yoppero yoppero</p>
+          <label class="continue VPButton medium brand" for="reset">Continue</label>
+          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
+        </div>
+      </div>
+    </div>
     <label class="found-2 m" for="found-2">
       <table>
         <tr>
@@ -602,11 +725,17 @@ hero:
         </tr>
       </table>
     </label>
-    <label class="reset-2" for="reset">
-      <div>Found:</div>
-      <img class="card" src="/assets/card-editor.png"/>
-      Pixel perfect email designs with the best email editor!
-    </label>
+    <div class="found-reset reset-2">
+      <div class="found-wrapper">
+        <img class="card" src="/assets/card-editor.png"/>
+        <div>
+          <h2>Pixel perfect email designs with the best email editor!</h2>
+          <p>yoppero</p>
+          <label class="continue VPButton medium brand" for="reset">Continue</label>
+          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
+        </div>
+      </div>
+    </div>
     <label class="found-3 m" for="found-3">
       <table>
         <tr>
@@ -631,11 +760,17 @@ hero:
         </tr>
       </table>
     </label>
-    <label class="reset-3" for="reset">
-      <div>Found:</div>
-      <img class="card" src="/assets/card-chart.png"/>
-      Analytics, subscription preferences page.
-    </label>
+    <div class="found-reset reset-3">
+      <div class="found-wrapper">
+        <img class="card" src="/assets/card-chart.png"/>
+        <div>
+          <h2>Analytics, subscription preferences page.</h2>
+          <p>yoppero</p>
+          <label class="continue VPButton medium brand" for="reset">Continue</label>
+          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
+        </div>
+      </div>
+    </div>
     <label class="found-4 m" for="found-4">
       <table>
         <tr>
@@ -660,11 +795,17 @@ hero:
         </tr>
       </table>
     </label>
-    <label class="reset-4" for="reset">
-      <div>Found:</div>
-      <img class="card" src="/assets/card-broken-email.png"/>
-      No more rendering issues!
-    </label>
+    <div class="found-reset reset-4">
+      <div class="found-wrapper">
+        <img class="card" src="/assets/card-broken-email.png"/>
+        <div>
+          <h2>No more rendering issues!</h2>
+          <p>yoppero</p>
+          <label class="continue VPButton medium brand" for="reset">Continue</label>
+          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
+        </div>
+      </div>
+    </div>
     <label class="found-5 m" for="found-5">
       <table>
         <tr>
@@ -689,11 +830,17 @@ hero:
         </tr>
       </table>
     </label>
-    <label class="reset-5" for="reset">
-      <div>Found:</div>
-      <img class="card" src="/assets/card-puzzle.png"/>
-      Easy integrations
-    </label>
+    <div class="found-reset reset-5">
+      <div class="found-wrapper">
+        <img class="card" src="/assets/card-puzzle.png"/>
+        <div>
+          <h2>Easy integrations</h2>
+          <p>yoppero</p>
+          <label class="continue VPButton medium brand" for="reset">Continue</label>
+          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
+        </div>
+      </div>
+    </div>
     <label class="found-6 m" for="found-6">
       <table>
         <tr>
@@ -718,15 +865,22 @@ hero:
         </tr>
       </table>
     </label>
-    <label class="reset-6" for="reset">
-      <div>Found:</div>
-      <img class="card" src="/assets/card-mailbox.png"/>
-    </label>
+    <div class="found-reset reset-6">
+      <div class="found-wrapper">
+        <img class="card" src="/assets/card-mailbox.png"/>
+        <div>
+          <h2>Your emails will reach the inbox.</h2>
+          <p>yoppero</p>
+          <label class="continue VPButton medium brand" for="reset">Continue</label>
+          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
+        </div>
+      </div>
+    </div>
     <div id="win">
       <div class="win-card">
         <p><strong>Congrats! You won!</strong></p><p>Why don't you sign up or do the memory game again?</p>
         <div class="win-card-actions">
-          <a class="VPButton medium brand" href="https://app.bluefox.email/accounts/create-account" target="_blank" rel="noreferrer">Sign up</a>
+          <a class="VPButton medium brand" href="https://app.bluefox.email/accounts/create-account" target="_blank">Sign up</a>
           <a class="VPButton medium alt" href="#" style="margin-left: 20px" @click="resetGame()">Restart</a>
         </div>
       </div>
