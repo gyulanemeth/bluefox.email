@@ -694,8 +694,8 @@ hero:
       <div class="found-wrapper">
         <img class="card" src="/assets/card-palette.png"/>
         <div>
-          <h2>Consistent design following your brand guidelines</h2>
-          <p>yoppero yoppero yoppero yoppero yoppero yoppero yoppero yoppero yoppero yoppero yoppero</p>
+          <h2>Consistency and efficiency with our design system</h2>
+          <p>Our design system feature ensures your emails (transactional, triggered, or marketing) maintain a consistent, professional look with predefined fonts, colors, and layouts. This saves time, reduces errors, and makes scaling easier by eliminating the need to redesign each message, improving both efficiency and brand consistency.</p>
           <label class="continue VPButton medium brand" for="reset">Continue</label>
           <label class="show-won VPButton medium brand" for="found-all">Continue</label>
         </div>
@@ -729,8 +729,8 @@ hero:
       <div class="found-wrapper">
         <img class="card" src="/assets/card-editor.png"/>
         <div>
-          <h2>Pixel perfect email designs with the best email editor!</h2>
-          <p>yoppero</p>
+          <h2>Create pixel-perfect emails with the best email editor</h2>
+          <p>With our email editor, you can create pixel-perfect designs easily. It’s the most advanced on the market, giving you full control over every detail, so your emails look exactly how you want across all devices.</p>
           <label class="continue VPButton medium brand" for="reset">Continue</label>
           <label class="show-won VPButton medium brand" for="found-all">Continue</label>
         </div>
@@ -764,8 +764,8 @@ hero:
       <div class="found-wrapper">
         <img class="card" src="/assets/card-chart.png"/>
         <div>
-          <h2>Analytics, subscription preferences page.</h2>
-          <p>yoppero</p>
+          <h2>Comprehensive email analytics at your fingertips</h2>
+          <p>We provide all the essential email analytics tools, so you can track open rates, click-through rates, bounces, and more. This gives you full visibility into how your emails are performing, helping you optimize your strategy and improve engagement.</p>
           <label class="continue VPButton medium brand" for="reset">Continue</label>
           <label class="show-won VPButton medium brand" for="found-all">Continue</label>
         </div>
@@ -799,8 +799,8 @@ hero:
       <div class="found-wrapper">
         <img class="card" src="/assets/card-broken-email.png"/>
         <div>
-          <h2>No more rendering issues!</h2>
-          <p>yoppero</p>
+          <h2>Ensure perfect emails across all clients. Even Outlook!</h2>
+          <p>Email HTML is notoriously tricky because different email clients, especially Outlook, handle code inconsistently. What looks great in one client can completely break in another. But with our service, you don’t have to worry. Our platform ensures your emails look perfect across all clients, so you can focus on the content, not the technical headaches.</p>
           <label class="continue VPButton medium brand" for="reset">Continue</label>
           <label class="show-won VPButton medium brand" for="found-all">Continue</label>
         </div>
@@ -834,8 +834,8 @@ hero:
       <div class="found-wrapper">
         <img class="card" src="/assets/card-puzzle.png"/>
         <div>
-          <h2>Easy integrations</h2>
-          <p>yoppero</p>
+          <h2>Effortless integration</h2>
+          <p>We make integration simple by generating code snippets for sending emails and managing lists in various programming languages. This way, no matter what tech stack you’re using, you can easily plug in our service without having to write everything from scratch.</p>
           <label class="continue VPButton medium brand" for="reset">Continue</label>
           <label class="show-won VPButton medium brand" for="found-all">Continue</label>
         </div>
@@ -869,8 +869,8 @@ hero:
       <div class="found-wrapper">
         <img class="card" src="/assets/card-mailbox.png"/>
         <div>
-          <h2>Your emails will reach the inbox.</h2>
-          <p>yoppero</p>
+          <h2>Ensure your emails reach the inbox with AWS SES</h2>
+          <p>Our platform integrates directly with your AWS SES, which is known for its industry-leading deliverability. Using SES ensures your emails reach inboxes reliably, minimizing issues like bouncing or ending up in spam. It’s the gold standard for email delivery, giving you peace of mind that your messages will consistently reach your audience.</p>
           <label class="continue VPButton medium brand" for="reset">Continue</label>
           <label class="show-won VPButton medium brand" for="found-all">Continue</label>
         </div>
