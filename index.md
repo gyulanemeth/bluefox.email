@@ -39,6 +39,14 @@ hero:
   }
 </script>
 <style>
+  .VPHero {
+    background: linear-gradient(278deg, hsl(247.72, 53.44%, 90%) 10%, hsl(196.99, 86.56%, 90%) 90%);
+  }
+
+  html.dark .VPHero {
+    background: linear-gradient(278deg, hsl(247.72, 53.44%, 10%) 10%, hsl(196.99, 86.56%, 10%) 90%);
+  }
+
   .VPHero .container {
     display: block;
   }
@@ -567,6 +575,10 @@ hero:
   }
 
   @media (max-width: 599px) {
+    .VPHero .main {
+      padding: 0;
+    }
+
     #enter-full-screen {
       width: 100%;
     }
