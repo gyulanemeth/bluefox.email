@@ -48,6 +48,7 @@ hero:
     max-width: unset !important;
     text-align: center;
     display: block !important;
+    padding: 100px 0;
   }
   .VPHero .main .name {
     width: 100% !important;
@@ -132,6 +133,7 @@ hero:
 
   .memory-game-wrapper {
     width: 100%;
+    height: 946px;
   }
 
   .memory-game-wrapper .content {
@@ -570,6 +572,10 @@ hero:
     }
     #exit-full-screen {
       width: 100%;
+    }
+
+    #memory-game-wrapper {
+      height: 540px;
     }
     .c {
       height: 90px;
