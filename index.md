@@ -273,9 +273,9 @@ hero:
 
   .found-wrapper h2 {
     color: white;
-    margin: 0;
-    padding: 0;
-    border-top: 0px;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-top: 0px !important;
     font-size: 24px;
     line-height: 26px;
   }
