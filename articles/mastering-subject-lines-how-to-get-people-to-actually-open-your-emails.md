@@ -13,7 +13,7 @@ head:
       content: "Discover how to write compelling email subject lines that get results. Boost your email open rates with these practical tips."
   - - meta
     - property: og:image
-      content: "https://bluefox.email/articles/mastering-subject-lines-share.png" # Update this with your actual image URL
+      content: "https://bluefox.email/assets/articles/mastering-subject-lines-share.png"
   - - meta
     - property: og:url
       content: "https://bluefox.email/articles/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails"
@@ -28,11 +28,11 @@ head:
       content: "Boost your email open rates by mastering the art of writing subject lines. Learn actionable strategies to get more engagement."
   - - meta
     - name: twitter:image
-      content: "https://bluefox.email/articles/mastering-subject-lines-share.png" # Update this with your actual image URL
-date: "2024-10-02"
+      content: "https://bluefox.email/assets/articles/mastering-subject-lines-share.png"
+lastUpdated: true
 ---
 
-![](./mastering-subject-lines.png)
+![](/assets/articles/mastering-subject-lines.png)
 
 # Mastering Subject Lines: How to Get People to Actually Open Your Emails
 
