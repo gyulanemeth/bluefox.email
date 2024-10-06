@@ -16,7 +16,7 @@ head:
       content: "https://bluefox.email/assets/articles/sender-name-and-email-address-share.png"
   - - meta
     - property: og:url
-      content: "https://bluefox.email/articles/sender-name-and-email-building-trust"
+      content: "https://bluefox.email/articles/sender-name-and-email-address-build-trust-before-the-open"
   - - meta
     - name: twitter:card
       content: "summary_large_image"
