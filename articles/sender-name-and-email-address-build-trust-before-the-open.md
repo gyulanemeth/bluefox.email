@@ -13,7 +13,7 @@ head:
       content: "Learn how to optimize your email sender name and address for better open rates and engagement."
   - - meta
     - property: og:image
-      content: "https://bluefox.email/assets/articles/sender-name-and-email-share.png"
+      content: "https://bluefox.email/assets/articles/sender-name-and-email-address-share.png"
   - - meta
     - property: og:url
       content: "https://bluefox.email/articles/sender-name-and-email-building-trust"
@@ -28,7 +28,7 @@ head:
       content: "Improve email open rates by optimizing your sender name and email address to foster trust and familiarity."
   - - meta
     - name: twitter:image
-      content: "https://bluefox.email/assets/articles/sender-name-and-email-share.png"
+      content: "https://bluefox.email/assets/articles/sender-name-and-email-address-share.png"
 lastUpdated: false
 ---
 
