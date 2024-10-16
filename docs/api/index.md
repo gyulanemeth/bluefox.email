@@ -268,7 +268,7 @@ $context  = stream_context_create($options);
 $response = file_get_contents($url, false, $context);
 ```
 
-::: danger Active Subscription from the frontend
+::: danger Activate Subscription from the frontend
 
 Never store your API keys in the frontend code.
 
