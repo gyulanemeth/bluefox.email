@@ -214,7 +214,7 @@ You can find the IDs to replace by clicking on the code guide button in a subscr
 
 In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you need to replace the `##YOUR_API_KEY##` and `##SUBSCRIBER_EMAIL_ADDRESS##`.
 
-![Screenshot of the code guide dialog in a subscriber list.](./subscriber-list-active-subscription-code-guide-dialog.webp)
+![Screenshot of the code guide dialog in a subscriber list.](./subscriber-list-activate-subscription-code-guide-dialog.webp)
 
 **Requiest body**:
 ```json
