@@ -73,6 +73,7 @@ await fetch(yourEndpoint, {
     },
     body: JSON.stringify({
         emails: ['joe@doe.com', 'jane@doe.com'],
+        triggeredId: 'EMAIL_ID',
         data: {
             hero: {
               title: "Bluefox is GREAT",
@@ -87,7 +88,7 @@ Since triggered emails are sent to a subscriber list, subscriber data, an unsubs
 ```
 {{subscriber.name}}
 {{subscriber.email}}
-{{ubsubscribeLink}}
+{{unsubscribeLink}}
 {{pauseSubscriptionLink}}
 ```
 
