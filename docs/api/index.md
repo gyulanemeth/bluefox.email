@@ -467,14 +467,6 @@ const response = await fetch(url, {
 ```
 :::
 
-
-
-
-
-
-
-
-
 ## Get Subscriber
 
 [Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
