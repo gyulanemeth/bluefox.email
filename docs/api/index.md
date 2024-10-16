@@ -195,7 +195,7 @@ const response = await fetch(url, {
 ```
 :::
 
-## Active Subscription
+## Activate Subscription
 
 [Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
 
