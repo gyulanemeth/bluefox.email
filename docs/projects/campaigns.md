@@ -39,7 +39,7 @@ Since a campaigns is sent to a subscriber list, subscriber data, unsubscribe lin
 ```
 {{subscriber.name}}
 {{subscriber.email}}
-{{ubsubscribeLink}}
+{{unsubscribeLink}}
 {{pauseSubscriptionLink}}
 ```
 

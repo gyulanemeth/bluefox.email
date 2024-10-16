@@ -65,6 +65,7 @@ await fetch(yourEndpoint, {
     },
     body: JSON.stringify({
         email: 'joe@doe.com',
+        transactionalId: 'EMAIL_ID',
         data: {
             name: 'Joe Doe'
         }
