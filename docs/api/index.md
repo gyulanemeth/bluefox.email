@@ -199,7 +199,7 @@ const response = await fetch(url, {
 
 [Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
 
-To active a user from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
+To activate a user from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
 ```
 https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##
 ```
