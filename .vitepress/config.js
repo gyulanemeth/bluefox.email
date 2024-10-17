@@ -133,12 +133,21 @@ export default defineConfig({
         text: 'About',
         link: '/about'
       },
+      {
+        text: 'Terms of use',
+        link: '/terms-of-use'
+      },
+      {
+        text: 'Privacy policy',
+        link: '/privacy-policy'
+      }
     ],
 
     socialLinks: [
       { icon: 'twitter', link: 'https://twitter.com/bluefoxemail' }
     ],
     footer: {
+      message: '<a href="/terms-of-use">Terms of use.</a> <a href="/privacy-policy">Privacy policy.</a>',
       copyright: 'Copyright © 2024 Innovaris Group LLC.'
     }
   },
