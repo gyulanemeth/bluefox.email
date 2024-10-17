@@ -1,6 +1,6 @@
 ## Privacy Policy
 
-_Last Updated: 2024. Oct. 17._
+_Last Updated: Oct. 17, 2024_
 
 ### 1. Introduction
 
@@ -16,6 +16,8 @@ We collect the following information when you sign up or use our services:
 
 - **Email Lists**: If you create email lists on our platform, we collect and store the email addresses and names of your subscribers. This data is tied to campaigns and triggered emails. Subscribers can unsubscribe or pause their subscriptions at any time.
 
+- **Email Interaction Data**: We track and store data related to emails sent through our platform, including clicks, opens, bounces, and complaints. This data helps us provide insights into email performance and ensure the proper functioning of our service.
+
 - **Automatic Data**: We collect information automatically when you interact with our platform, including IP addresses, device information, and usage data.
 
 ### 3. How We Use Your Data
@@ -25,6 +27,7 @@ We use your personal data for the following purposes:
 - To provide, maintain, and improve the bluefox.email platform.
 - To send you notifications and updates about new features, product enhancements, company news, and performance reports.
 - To store and manage your email lists, and send campaigns and triggered emails to your subscribers.
+- To track clicks, opens, bounces, and complaints of emails sent through our platform.
 - To ensure the security of your AWS SES credentials.
 - To provide tailored support and tips.
 
