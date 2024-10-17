@@ -1,12 +1,12 @@
-## Privacy Policy
+# Privacy Policy
 
 _Last Updated: Oct. 17, 2024_
 
-### 1. Introduction
+## 1. Introduction
 
 Welcome to **bluefox.email**! We value your privacy and are committed to protecting your personal data. This privacy policy explains how we collect, use, disclose, and protect your information when you use our platform.
 
-### 2. Data Collection
+## 2. Data Collection
 
 We collect the following information when you sign up or use our services:
 
@@ -20,7 +20,7 @@ We collect the following information when you sign up or use our services:
 
 - **Automatic Data**: We collect information automatically when you interact with our platform, including IP addresses, device information, and usage data.
 
-### 3. How We Use Your Data
+## 3. How We Use Your Data
 
 We use your personal data for the following purposes:
 
@@ -31,7 +31,7 @@ We use your personal data for the following purposes:
 - To ensure the security of your AWS SES credentials.
 - To provide tailored support and tips.
 
-### 4. Communication Preferences
+## 4. Communication Preferences
 
 You may be added to the following email lists:
 
@@ -43,15 +43,15 @@ You may be added to the following email lists:
 
 You can manage your preferences or unsubscribe from these lists at any time via the links provided in our emails.
 
-### 5. Data Security
+## 5. Data Security
 
 We prioritize the security of your data. Your AWS SES credentials are encrypted, and we take steps to prevent unauthorized access to any personal data. Even in the event of a data breach, your credentials are secure.
 
-### 6. Data Retention
+## 6. Data Retention
 
 We will retain your data for as long as necessary to provide our services or as required by law. If you cancel your account, we will delete your personal information unless we are required by law to retain it.
 
-### 7. GDPR Compliance
+## 7. GDPR Compliance
 
 If you are located in the European Economic Area (EEA), you have certain data protection rights, including:
 
@@ -63,10 +63,10 @@ If you are located in the European Economic Area (EEA), you have certain data pr
 
 To exercise these rights, please contact us at gyula.nemeth85@gmail.com.
 
-### 8. Changes to This Policy
+## 8. Changes to This Policy
 
 We may update this privacy policy from time to time. Any changes will be posted on this page, and we will notify you by email or through the platform.
 
-### 9. Contact Us
+## 9. Contact Us
 
 If you have any questions about this privacy policy, please contact us at gyula.nemeth85@gmail.com.
