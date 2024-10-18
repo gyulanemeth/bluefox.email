@@ -78,26 +78,8 @@ const response = await fetch(url, {
   $response = file_get_contents($url, false, $context);
 ```
 
-::: danger Subscribe from the frontend
-
-Never store your API keys in the frontend code.
-
-If you want to subscribe a user from the frontend, remove the `Authorization` header from your request. You will need to add the domain you are using to the domain whitelist in [project settings](/docs/projects/settings.html#domain-whitelists).
-
-```javascript
-const url = 'https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##'
-
-const response = await fetch(url, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  body: JSON.stringify({
-    name: 'Jon Doe',
-    email: 'jon@doe.com'
-  })
-})
-```
+::: danger Security Warning
+Since an API key is very sensitive information, never store it in your frontend code. Always use it from your backend.
 :::
 
 
@@ -174,25 +156,8 @@ $context  = stream_context_create($options);
 $response = file_get_contents($url, false, $context);
 ```
 
-::: danger Unsubscribe from the frontend
-
-Never store your API keys in the frontend code.
-
-If you want to unsubscribe a user from the frontend, remove the `Authorization` header from your request. You will need to add the domain you are using to the domain whitelist in [project settings](/docs/projects/settings.html#domain-whitelists).
-
-```javascript
-const url = 'https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##'
-
-const response = await fetch(url, {
-  method: 'PATCH',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    status: 'unsubscribed'
-  })
-})
-```
+::: danger Security Warning
+Since an API key is very sensitive information, never store it in your frontend code. Always use it from your backend.
 :::
 
 ## Activate Subscription
@@ -268,25 +233,8 @@ $context  = stream_context_create($options);
 $response = file_get_contents($url, false, $context);
 ```
 
-::: danger Activate Subscription from the frontend
-
-Never store your API keys in the frontend code.
-
-If you want to active a user from the frontend, remove the `Authorization` header from your request. You will need to add the domain you are using to the domain whitelist in [project settings](/docs/projects/settings.html#domain-whitelists).
-
-```javascript
-const url = 'https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##'
-
-const response = await fetch(url, {
-  method: 'PATCH',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    status: 'active'
-  })
-})
-```
+::: danger Security Warning
+Since an API key is very sensitive information, never store it in your frontend code. Always use it from your backend.
 :::
 
 ## Pause Subscription
@@ -366,26 +314,8 @@ $context  = stream_context_create($options);
 $response = file_get_contents($url, false, $context);
 ```
 
-::: danger Pause Subscription from the frontend
-
-Never store your API keys in the frontend code.
-
-If you want to pause a user from the frontend, remove the `Authorization` header from your request. You will need to add the domain you are using to the domain whitelist in [project settings](/docs/projects/settings.html#domain-whitelists).
-
-```javascript
-const url = 'https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##'
-
-const response = await fetch(url, {
-  method: 'PATCH',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({
-    status: 'paused',
-    pausedUntil: '##PAUSED_UNTIL##'
-  })
-})
-```
+::: danger Security Warning
+Since an API key is very sensitive information, never store it in your frontend code. Always use it from your backend.
 :::
 
 ## List Subscribers
@@ -449,22 +379,8 @@ $context  = stream_context_create($options);
 $response = file_get_contents($url, false, $context);
 ```
 
-::: danger List Subscribers from the frontend
-
-Never store your API keys in the frontend code.
-
-If you want to list subscribers from the frontend, remove the `Authorization` header from your request. You will need to add the domain you are using to the domain whitelist in [project settings](/docs/projects/settings.html#domain-whitelists).
-
-```javascript
-const url = 'https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##'
-
-const response = await fetch(url, {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
-```
+::: danger Security Warning
+Since an API key is very sensitive information, never store it in your frontend code. Always use it from your backend.
 :::
 
 ## Get Subscriber
@@ -529,22 +445,8 @@ $context  = stream_context_create($options);
 $response = file_get_contents($url, false, $context);
 ```
 
-::: danger List Subscribers from the frontend
-
-Never store your API keys in the frontend code.
-
-If you want to list subscribers from the frontend, remove the `Authorization` header from your request. You will need to add the domain you are using to the domain whitelist in [project settings](/docs/projects/settings.html#domain-whitelists).
-
-```javascript
-const url = 'https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##'
-
-const response = await fetch(url, {
-  method: 'GET',
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
-```
+::: danger Security Warning
+Since an API key is very sensitive information, never store it in your frontend code. Always use it from your backend.
 :::
 
 ## Send transactional email
