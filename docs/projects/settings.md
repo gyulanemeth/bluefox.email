@@ -55,11 +55,3 @@ Periodically rotate sensitive info like API keys for security reasons. We use di
 ::: danger Security Warning
 Since an API key is very sensitive information, never use it in your frontend code. Always use it from your backend.
 :::
-
-## Domain Whitelists
-
-Some API endpoints also work from the frontend. Add your domains to the whitelist to prevent CORS errors.
-
-For example, if you want to include signup forms on your blog or website without adding a signup route to your backend, directly call our backend from whitelisted domains.
-
-![A screenshot of a project settings domain whitelist section.](./project-settings-domain-whitelists.webp)
