@@ -229,9 +229,15 @@ hero:
   .c label {
     display: block;
   }
-  input {
+
+  input[type="checkbox"] {
     display: none;
   }
+
+  input[type="reset"] {
+    display: none;
+  }
+
   .card {
     width: 180px;
     height: 180px;
