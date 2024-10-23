@@ -42,11 +42,11 @@ setInterval(() => {
     background: #222222;
   }
   .vp-doc h2 {
-    border-top: 0;
-    margin: 20px 0 10px 0;
+    border-top: 0 !important;
+    margin: 20px 0 10px 0 !important;
 
-    font-size: 32px;
-    line-height: 32px;
+    font-size: 32px !important;
+    line-height: 32px !important;
   }
 
   .VPHero {
@@ -66,6 +66,7 @@ setInterval(() => {
     max-width: unset !important;
     text-align: center;
     display: block !important;
+    padding: 0 !important;
   }
   .VPHero .main .name {
     width: 100% !important;
