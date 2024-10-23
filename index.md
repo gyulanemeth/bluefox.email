@@ -167,7 +167,7 @@ setInterval(() => {
     max-height: 100% !important;
   }
 
-  .vp-doc {
+  .VPHome .vp-doc {
     margin-top: -90px !important;
   }
 
