@@ -230,11 +230,11 @@ hero:
     display: block;
   }
 
-  input[type="checkbox"] {
+  .memory-game-wrapper input[type="checkbox"] {
     display: none;
   }
 
-  input[type="reset"] {
+  .memory-game-wrapper input[type="reset"] {
     display: none;
   }
 
