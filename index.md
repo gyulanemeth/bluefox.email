@@ -60,12 +60,12 @@ setInterval(() => {
   .VPHero {
     width: 1280px;
     max-width: 100%;
-    background: white;
+    background: white !important;
     margin: auto;
   }
 
   html.dark .VPHero {
-    background: #222222;
+    background: #222222 !important;
   }
 
   .VPHero .container {
@@ -165,6 +165,10 @@ setInterval(() => {
   .VPImage {
     max-width: 100% !important;
     max-height: 100% !important;
+  }
+
+  .vp-doc {
+    margin-top: -90px !important;
   }
 
   .vp-doc .value-prop-divider {
