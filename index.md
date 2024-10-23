@@ -30,9 +30,17 @@ setInterval(() => {
 
 </script>
 <style>
+  .VPNav {
+    background: white;
+    border-bottom: 1px solid #eeeeee;
+  }
+  html.dark .VPNav {
+    background: #333333;
+    border-bottom: 1px solid #666666;
+  }
   .VPHome {
     margin-bottom: 0 !important;
-    background: linear-gradient(90deg, hsl(196.99, 86.56%, 50.39%) 10%, hsl(247.72, 53.44%, 37.06%) 90%);
+    background: linear-gradient(90deg, hsl(196.99, 86.56%, 50.39%) 49%, hsl(247.72, 53.44%, 37.06%) 51%);
   }
   .vp-doc {
     overflow: hidden;
@@ -50,11 +58,14 @@ setInterval(() => {
   }
 
   .VPHero {
-    background: linear-gradient(278deg, hsl(247.72, 53.44%, 90%) 10%, hsl(196.99, 86.56%, 90%) 90%);
+    width: 1280px;
+    max-width: 100%;
+    background: white;
+    margin: auto;
   }
 
   html.dark .VPHero {
-    background: linear-gradient(278deg, hsl(247.72, 53.44%, 10%) 10%, hsl(196.99, 86.56%, 10%) 90%);
+    background: #222222;
   }
 
   .VPHero .container {
@@ -298,8 +309,14 @@ setInterval(() => {
     .VPHero .main {
       padding: 0;
     }
+
+    #no-rendering-issues .img-container {
+      flex-direction: column;
+    }
   }
 </style>
+
+<hr class="value-prop-divider type2"/>
 
 <section id="email-editor">
   <h2>Amazing email design? Easy!</h2>
