@@ -178,6 +178,8 @@ setInterval(() => {
     margin: 50px 0;
 
     background: linear-gradient(90deg, hsl(196.99, 86.56%, 50.39%) 10%, hsl(247.72, 53.44%, 37.06%) 90%);
+
+    transition: all 2s ease;
   }
 
   .vp-doc .value-prop-divider.type1 {
@@ -193,7 +195,7 @@ setInterval(() => {
     border-radius: 25px;
   }
 
-  #design-system input {
+  .vp-doc input {
     display: none;
   }
 
@@ -309,6 +311,26 @@ setInterval(() => {
   }
 
 
+  #divider-1:checked ~ #divider-1-label .value-prop-divider {
+    transform: translate(200%, 0);
+  }
+
+  #divider-2:checked ~ #divider-2-label .value-prop-divider {
+    transform: translate(-200%, 0);
+  }
+
+  #divider-3:checked ~ #divider-3-label .value-prop-divider {
+    transform: translate(200%, 0);
+  }
+
+  #divider-4:checked ~ #divider-4-label .value-prop-divider {
+    transform: translate(-200%, 0);
+  }
+
+  #divider-5:checked ~ #divider-5-label .value-prop-divider {
+    transform: translate(200%, 0);
+  }
+
   @media (max-width: 599px) {
     .VPHero .main {
       padding: 0;
@@ -320,8 +342,14 @@ setInterval(() => {
   }
 </style>
 
-<hr class="value-prop-divider type2"/>
-
+<input id="divider-1" type="checkbox" />
+<input id="divider-2" type="checkbox" />
+<input id="divider-3" type="checkbox" />
+<input id="divider-4" type="checkbox" />
+<input id="divider-5" type="checkbox" />
+<label id="divider-1-label" for="divider-1">
+  <hr class="value-prop-divider type2"/>
+</label>
 <section id="email-editor">
   <h2>Amazing email design? Easy!</h2>
   <p>Create pixel-perfect email designs with the most sophisticated email editor on the market. Don't worry, you can start out with our built-in templates!</p>
@@ -331,7 +359,9 @@ setInterval(() => {
   </video>
 </section>
 
-<hr class="value-prop-divider type1"/>
+<label id="divider-2-label" for="divider-2">
+  <hr class="value-prop-divider type1"/>
+</label>
 
 <section id="design-system">
   <input type="radio" name="image" id="image1" v-model="selectedEmailType" value="0">
@@ -350,7 +380,9 @@ setInterval(() => {
   </div>
 </section>
 
-<hr class="value-prop-divider type2"/>
+<label id="divider-3-label" for="divider-3">
+  <hr class="value-prop-divider type2"/>
+</label>
 
 <section id="no-rendering-issues">
   <h2>No more email rendering issues</h2>
@@ -367,8 +399,10 @@ setInterval(() => {
     </div>
   </div>
 </section>
-<hr class="value-prop-divider type1"/>
 
+<label id="divider-4-label" for="divider-4">
+  <hr class="value-prop-divider type1"/>
+</label>
 
 <section id="great-deliverability">
   <h2>Use your own AWS SES - the gold-standard of great deliverability</h2>
@@ -376,7 +410,9 @@ setInterval(() => {
   <p>If needed, you can easily upgrade to dedicated IPs through AWS SES for even greater control and improved deliverability.</p>
 </section>
 
-<hr class="value-prop-divider type2"/>
+<label id="divider-5-label" for="divider-5">
+  <hr class="value-prop-divider type2"/>
+</label>
 <!--
 <section id="email-analytics">
   <h2>Detailed analytics</h2>
