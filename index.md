@@ -2,8 +2,10 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
+title: Beautiful emails for SaaS companies
+
 hero:
-  name: Beautiful emails for modern companies.
+  name: Beautiful emails for SaaS companies.
   text: Powered by your own AWS SES.
   tagline: Send consistent and beautiful transactional, triggered, & marketing emails that your customers will love.
   actions:
@@ -15,36 +17,55 @@ hero:
       link: /why
 ---
 <script setup>
-  function resetGame() {
-    document.getElementById('found-1').checked = false
-    document.getElementById('found-2').checked = false
-    document.getElementById('found-3').checked = false
-    document.getElementById('found-4').checked = false
-    document.getElementById('found-5').checked = false
-    document.getElementById('found-6').checked = false
-    document.getElementById('found-all').checked = false
+import { ref } from 'vue'
 
-    document.getElementById('c-1-1').checked = false
-    document.getElementById('c-1-2').checked = false
-    document.getElementById('c-1-3').checked = false
-    document.getElementById('c-2-1').checked = false
-    document.getElementById('c-2-2').checked = false
-    document.getElementById('c-2-3').checked = false
-    document.getElementById('c-3-1').checked = false
-    document.getElementById('c-3-2').checked = false
-    document.getElementById('c-3-3').checked = false
-    document.getElementById('c-4-1').checked = false
-    document.getElementById('c-4-2').checked = false
-    document.getElementById('c-4-3').checked = false
-  }
+const selectedEmailType = ref('0')
+
+setInterval(() => {
+  let actSelVal = parseInt(selectedEmailType.value)
+  actSelVal += 1
+  actSelVal %= 4
+  selectedEmailType.value = actSelVal
+}, 3000)
+
 </script>
 <style>
+  .VPNav {
+    background: white;
+    border-bottom: 1px solid #eeeeee;
+  }
+  html.dark .VPNav {
+    background: #333333;
+    border-bottom: 1px solid #666666;
+  }
+  .VPHome {
+    margin-bottom: 0 !important;
+    background: linear-gradient(90deg, hsl(196.99, 86.56%, 50.39%) 49%, hsl(247.72, 53.44%, 37.06%) 51%);
+  }
+  .vp-doc {
+    overflow: hidden;
+    background: white;
+  }
+  html.dark .vp-doc {
+    background: #222222;
+  }
+  .vp-doc h2 {
+    border-top: 0 !important;
+    margin: 20px 0 10px 0 !important;
+
+    font-size: 32px !important;
+    line-height: 32px !important;
+  }
+
   .VPHero {
-    background: linear-gradient(278deg, hsl(247.72, 53.44%, 90%) 10%, hsl(196.99, 86.56%, 90%) 90%);
+    width: 1280px;
+    max-width: 100%;
+    background: white !important;
+    margin: auto;
   }
 
   html.dark .VPHero {
-    background: linear-gradient(278deg, hsl(247.72, 53.44%, 10%) 10%, hsl(196.99, 86.56%, 10%) 90%);
+    background: #222222 !important;
   }
 
   .VPHero .container {
@@ -56,7 +77,7 @@ hero:
     max-width: unset !important;
     text-align: center;
     display: block !important;
-    padding: 100px 0;
+    padding: 0 !important;
   }
   .VPHero .main .name {
     width: 100% !important;
@@ -94,6 +115,13 @@ hero:
     white-space: nowrap;
     transition: color 0.25s, border-color 0.25s, background-color 0.25s !important;
     text-decoration: none !important;
+  }
+
+  .VPButton.ridiculously-large {
+    border-radius: 60px;
+    padding: 20px 40px;
+    line-height: 48px;
+    font-size: 30px;
   }
 
   .VPButton.medium {
@@ -139,775 +167,232 @@ hero:
     max-height: 100% !important;
   }
 
-  .memory-game-wrapper {
-    width: 100%;
-    height: 946px;
+  .VPHome .vp-doc {
+    margin-top: -90px !important;
   }
 
-  .memory-game-wrapper .content {
-    width: 320px;
+  .vp-doc .value-prop-divider {
+    height: 4px;
+    border: 0;
+
+    margin: 50px 0;
+
+    background: linear-gradient(90deg, hsl(196.99, 86.56%, 50.39%) 10%, hsl(247.72, 53.44%, 37.06%) 90%);
   }
 
-  .memory-game-wrapper form table {
-    all: unset;
-    display: table;
-    border-collapse: separate;
-    border-spacing: 10px;
-    margin: 0 auto;
-  }
-  .memory-game-wrapper form tr {
-    all: unset;
-    display: table-row;
-    background-color: unset !important;
+  .vp-doc .value-prop-divider.type1 {
+    transform: rotate(21deg) skew(-30deg, -20deg) scale(1.25) translate(-10%, 0);
   }
 
-  .memory-game-wrapper form td {
-    all: unset;
-    display: table-cell;
-    border: none;
-    border-collapse: collapse;
+  .vp-doc .value-prop-divider.type2 {
+    transform: rotate(-21deg) skew(30deg, 20deg) scale(1.25) translate(10%, 0);
   }
 
-  #exit-full-screen {
+  #email-editor video {
+    border: 1px solid #eeeeee;
+    border-radius: 25px;
+  }
+
+  #design-system input {
     display: none;
-    border: 1px solid grey;
-    border-radius: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
-    transition: all 0.5s ease;
   }
 
-  #exit-full-screen:hover {
-    color: #392C91;
-    border: 1px solid #392C91;
+  #design-system label {
+    cursor: pointer;
+    position: relative;
   }
 
-  #enter-full-screen {
-    display: inline-block;
-    border: 1px solid grey;
-    border-radius: 20px;
-    padding-left: 10px;
-    padding-right: 10px;
-    transition: all 0.5s ease;
+  .image-container {
+    position: relative;
+    width: 600px; /* Adjust as necessary */
+    max-width: 80vw;
+    height: 800px;
+    max-height: 120vw;
+    overflow: hidden;
+    background: #f6f6f6;
+    border: 1px solid #eeeeee;
+    border-radius: 25px;
+    margin: auto;
   }
 
-  #enter-full-screen:hover {
-    color: #13B0EE;
-    border: 1px solid #13B0EE;
-  }
-
-
-  #full-screen:checked ~ .memory-game-wrapper {
-    position: fixed;
+  .image-container img {
+    position: absolute;
     top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-
-    background: white;
-    z-index: 100;
-  }
-
-  html.dark #full-screen:checked ~ .memory-game-wrapper {
-    background: #111111;
-  }
-
-  #full-screen:checked ~ .memory-game-wrapper #enter-full-screen {
-    display: none;
-  }
-  #full-screen:checked ~ .memory-game-wrapper #exit-full-screen {
-    display: inline-block;
-  }
-
-
-
-  .c {
-    height: 180px;
-    width: 180px;
-  }
-
-  .c label {
-    display: block;
-  }
-
-  input[type="checkbox"] {
-    display: none;
-  }
-
-  input[type="reset"] {
-    display: none;
-  }
-
-  .card {
-    width: 180px;
-    height: 180px;
-    padding: 35px;
-    border: 1px solid #dddddd;
-    border-radius: 20px;
-    background: #fafafa;
-  }
-
-  html.dark .card {
-    background: #111111;
-    border: 1px solid #666666;
-  }
-
-  .card-back {
-    filter: grayscale(100%);
+    left: 100%;
+    width: 100%;
+    opacity: 0;
     transition: all 0.5s ease;
   }
 
-  .card-back:hover {
-    border: 1px solid #13B0EE !important;
-    filter: grayscale(0%);
+  /* Default state: show Image 1 */
+  #image1:checked ~ .image-container .img1 {
+    opacity: 1;
+    transform: translateX(-100%);
   }
 
-  .card-1, .card-2, .card-3, .card-4, .card-5, .card-6 {
-    display: none;
+  /* Show Image 2 when radio button 2 is checked */
+  #image2:checked ~ .image-container .img2 {
+    opacity: 1;
+    transform: translateX(-100%);
   }
 
-  .found-1, .found-2, .found-3, .found-4, .found-5, .found-6 {
-    display: none;
+  /* Show Image 3 when radio button 3 is checked */
+  #image3:checked ~ .image-container .img3 {
+    opacity: 1;
+    transform: translateX(-100%);
   }
 
-  .next {
-    display: none;
+  #image4:checked ~ .image-container .img4 {
+    opacity: 1;
+    transform: translateX(-100%);
   }
 
-  .found-wrapper {
-    border: 1px solid #dddddd;
-    border-radius: 20px;
-    padding: 20px;
-    background: #fafafa;
-    display: flex;
-    background: linear-gradient(-45deg,#392C91 10%,#13B0EE 90%)
+  /* Animation for slide-in effect */
+  .image-container img {
+    transition: opacity 0.5s ease, transform 0.5s ease;
   }
 
-  .found-wrapper .card {
-    margin-right: 20px;
+  #design-system label::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, hsl(196.99, 86.56%, 50.39%) 10%, hsl(247.72, 53.44%, 37.06%) 90%);
+    transition: width 0.3s ease; /* Add animation to the underline */
   }
 
-  .found-wrapper h2 {
-    color: white;
-    margin: 0 !important;
-    padding: 0 !important;
-    border-top: 0px !important;
-    font-size: 24px;
-    line-height: 26px;
+  /* When the corresponding radio button is checked, extend the underline */
+  #image1:checked ~ p #image1-label::after {
+    width: 100%;
   }
 
-  .found-wrapper p {
-    color: white;
-    margin: 8px 0;
-    line-height: 22px;
+  #image2:checked ~ p #image2-label::after {
+    width: 100%;
   }
 
-  .reset, .reset-1, .reset-2, .reset-3, .reset-4, .reset-5, .reset-6 {
-    display: none;
-    width: 600px;
-    max-width: 100%;
-    margin: 0 auto;
+  #image3:checked ~ p #image3-label::after {
+    width: 100%;
   }
 
-  #win {
-    display: none;
-    width: 580px;
-    margin: 0 auto;
-    max-width: 100%;
+  #image4:checked ~ p #image4-label::after {
+    width: 100%;
   }
 
-  .win-card {
-    margin-top: 30px;
-    border-radius: 20px;
-    color: white;
-    padding: 30px;
+  #ridiculously-huge-cta {
     text-align: center;
-
-    background: linear-gradient(-45deg,#392C91 10%,#13B0EE 90%)
+    padding-bottom: 50px;
   }
 
-  .win-card-actions {
+  #no-rendering-issues .img-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: top;
   }
 
-  #found-1:checked ~ form .card-1 { display: block; }
-  #found-1:checked ~ form .label-1 { display: none; }
-  #found-2:checked ~ form .card-2 { display: block; }
-  #found-2:checked ~ form .label-2 { display: none; }
-  #found-3:checked ~ form .card-3 { display: block; }
-  #found-3:checked ~ form .label-3 { display: none; }
-  #found-4:checked ~ form .card-4 { display: block; }
-  #found-4:checked ~ form .label-4 { display: none; }
-  #found-5:checked ~ form .card-5 { display: block; }
-  #found-5:checked ~ form .label-5 { display: none; }
-  #found-6:checked ~ form .card-6 { display: block; }
-  #found-6:checked ~ form .label-6 { display: none; }
-
-  #c-1-1:checked ~ .m .sl-1-1 { display: none; }
-  #c-1-1:checked ~ .m .si-1-1 { display: block; }
-  #c-1-2:checked ~ .m .sl-1-2 { display: none; }
-  #c-1-2:checked ~ .m .si-1-2 { display: block; }
-  #c-1-3:checked ~ .m .sl-1-3 { display: none; }
-  #c-1-3:checked ~ .m .si-1-3 { display: block; }
-
-  #c-2-1:checked ~ .m .sl-2-1 { display: none; }
-  #c-2-1:checked ~ .m .si-2-1 { display: block; }
-  #c-2-2:checked ~ .m .sl-2-2 { display: none; }
-  #c-2-2:checked ~ .m .si-2-2 { display: block; }
-  #c-2-3:checked ~ .m .sl-2-3 { display: none; }
-  #c-2-3:checked ~ .m .si-2-3 { display: block; }
-
-  #c-3-1:checked ~ .m .sl-3-1 { display: none; }
-  #c-3-1:checked ~ .m .si-3-1 { display: block; }
-  #c-3-2:checked ~ .m .sl-3-2 { display: none; }
-  #c-3-2:checked ~ .m .si-3-2 { display: block; }
-  #c-3-3:checked ~ .m .sl-3-3 { display: none; }
-  #c-3-3:checked ~ .m .si-3-3 { display: block; }
-
-  #c-4-1:checked ~ .m .sl-4-1 { display: none; }
-  #c-4-1:checked ~ .m .si-4-1 { display: block; }
-  #c-4-2:checked ~ .m .sl-4-2 { display: none; }
-  #c-4-2:checked ~ .m .si-4-2 { display: block; }
-  #c-4-3:checked ~ .m .sl-4-3 { display: none; }
-  #c-4-3:checked ~ .m .si-4-3 { display: block; }
-
-  /* cell 1-1 */
-  #c-1-1:checked ~ #c-1-2:checked ~ .reset { display: block; }
-  #c-1-1:checked ~ #c-1-2:checked ~ .selector { display: none; }
-  #c-1-1:checked ~ #c-1-3:checked ~ .reset { display: block; }
-  #c-1-1:checked ~ #c-1-3:checked ~ .selector { display: none; }
-
-  #c-1-1:checked ~ #c-2-1:checked ~ .reset { display: block; }
-  #c-1-1:checked ~ #c-2-1:checked ~ .selector { display: none; }
-  #c-1-1:checked ~ #c-2-2:checked ~ .reset { display: block; }
-  #c-1-1:checked ~ #c-2-2:checked ~ .selector { display: none; }
-  #c-1-1:checked ~ #c-2-3:checked ~ .reset { display: block; }
-  #c-1-1:checked ~ #c-2-3:checked ~ .selector { display: none; }
-
-  #c-1-1:checked ~ #c-3-1:checked ~ .found-1 { display: block; }
-  #c-1-1:checked ~ #c-3-1:checked ~ .selector { display: none; }
-  #c-1-1:checked ~ #c-3-2:checked ~ .reset { display: block; }
-  #c-1-1:checked ~ #c-3-2:checked ~ .selector { display: none; }
-  #c-1-1:checked ~ #c-3-3:checked ~ .reset { display: block; }
-  #c-1-1:checked ~ #c-3-3:checked ~ .selector { display: none; }
-
-  #c-1-1:checked ~ #c-4-1:checked ~ .reset { display: block; }
-  #c-1-1:checked ~ #c-4-1:checked ~ .selector { display: none; }
-  #c-1-1:checked ~ #c-4-2:checked ~ .reset { display: block; }
-  #c-1-1:checked ~ #c-4-2:checked ~ .selector { display: none; }
-  #c-1-1:checked ~ #c-4-3:checked ~ .reset { display: block; }
-  #c-1-1:checked ~ #c-4-3:checked ~ .selector { display: none; }
-
-  /* cell 1-2 */
-  #c-1-2:checked ~ #c-1-3:checked ~ .reset { display: block; }
-  #c-1-2:checked ~ #c-1-3:checked ~ .selector { display: none; }
-
-  #c-1-2:checked ~ #c-2-1:checked ~ .reset { display: block; }
-  #c-1-2:checked ~ #c-2-1:checked ~ .selector { display: none; }
-  #c-1-2:checked ~ #c-2-2:checked ~ .reset { display: block; }
-  #c-1-2:checked ~ #c-2-2:checked ~ .selector { display: none; }
-  #c-1-2:checked ~ #c-2-3:checked ~ .reset { display: block; }
-  #c-1-2:checked ~ #c-2-3:checked ~ .selector { display: none; }
-
-  #c-1-2:checked ~ #c-3-1:checked ~ .reset { display: block; }
-  #c-1-2:checked ~ #c-3-1:checked ~ .selector { display: none; }
-  #c-1-2:checked ~ #c-3-2:checked ~ .reset { display: block; }
-  #c-1-2:checked ~ #c-3-2:checked ~ .selector { display: none; }
-  #c-1-2:checked ~ #c-3-3:checked ~ .reset { display: block; }
-  #c-1-2:checked ~ #c-3-3:checked ~ .selector { display: none; }
-
-  #c-1-2:checked ~ #c-4-1:checked ~ .reset { display: block; }
-  #c-1-2:checked ~ #c-4-1:checked ~ .selector { display: none; }
-  #c-1-2:checked ~ #c-4-2:checked ~ .reset { display: block; }
-  #c-1-2:checked ~ #c-4-2:checked ~ .selector { display: none; }
-  #c-1-2:checked ~ #c-4-3:checked ~ .found-2 { display: block; }
-  #c-1-2:checked ~ #c-4-3:checked ~ .selector { display: none; }
-
-  /* cell 1-3 */
-  #c-1-3:checked ~ #c-2-1:checked ~ .reset { display: block; }
-  #c-1-3:checked ~ #c-2-1:checked ~ .selector { display: none; }
-  #c-1-3:checked ~ #c-2-2:checked ~ .reset { display: block; }
-  #c-1-3:checked ~ #c-2-2:checked ~ .selector { display: none; }
-  #c-1-3:checked ~ #c-2-3:checked ~ .reset { display: block; }
-  #c-1-3:checked ~ #c-2-3:checked ~ .selector { display: none; }
-
-  #c-1-3:checked ~ #c-3-1:checked ~ .reset { display: block; }
-  #c-1-3:checked ~ #c-3-1:checked ~ .selector { display: none; }
-  #c-1-3:checked ~ #c-3-2:checked ~ .reset { display: block; }
-  #c-1-3:checked ~ #c-3-2:checked ~ .selector { display: none; }
-  #c-1-3:checked ~ #c-3-3:checked ~ .found-4 { display: block; }
-  #c-1-3:checked ~ #c-3-3:checked ~ .selector { display: none; }
-
-  #c-1-3:checked ~ #c-4-1:checked ~ .reset { display: block; }
-  #c-1-3:checked ~ #c-4-1:checked ~ .selector { display: none; }
-  #c-1-3:checked ~ #c-4-2:checked ~ .reset { display: block; }
-  #c-1-3:checked ~ #c-4-2:checked ~ .selector { display: none; }
-  #c-1-3:checked ~ #c-4-3:checked ~ .reset { display: block; }
-  #c-1-3:checked ~ #c-4-3:checked ~ .selector { display: none; }
-
-  /* cell 2-1 */
-  #c-2-1:checked ~ #c-2-2:checked ~ .reset { display: block; }
-  #c-2-1:checked ~ #c-2-2:checked ~ .selector { display: none; }
-  #c-2-1:checked ~ #c-2-3:checked ~ .found-5 { display: block; }
-  #c-2-1:checked ~ #c-2-3:checked ~ .selector { display: none; }
-
-  #c-2-1:checked ~ #c-3-1:checked ~ .reset { display: block; }
-  #c-2-1:checked ~ #c-3-1:checked ~ .selector { display: none; }
-  #c-2-1:checked ~ #c-3-2:checked ~ .reset { display: block; }
-  #c-2-1:checked ~ #c-3-2:checked ~ .selector { display: none; }
-  #c-2-1:checked ~ #c-3-3:checked ~ .reset { display: block; }
-  #c-2-1:checked ~ #c-3-3:checked ~ .selector { display: none; }
-
-  #c-2-1:checked ~ #c-4-1:checked ~ .reset { display: block; }
-  #c-2-1:checked ~ #c-4-1:checked ~ .selector { display: none; }
-  #c-2-1:checked ~ #c-4-2:checked ~ .reset { display: block; }
-  #c-2-1:checked ~ #c-4-2:checked ~ .selector { display: none; }
-  #c-2-1:checked ~ #c-4-3:checked ~ .reset { display: block; }
-  #c-2-1:checked ~ #c-4-3:checked ~ .selector { display: none; }
-
-  /* cell 2-2 */
-  #c-2-2:checked ~ #c-2-3:checked ~ .reset { display: block; }
-  #c-2-2:checked ~ #c-2-3:checked ~ .selector { display: none; }
-
-  #c-2-2:checked ~ #c-3-1:checked ~ .reset { display: block; }
-  #c-2-2:checked ~ #c-3-1:checked ~ .selector { display: none; }
-  #c-2-2:checked ~ #c-3-2:checked ~ .reset { display: block; }
-  #c-2-2:checked ~ #c-3-2:checked ~ .selector { display: none; }
-  #c-2-2:checked ~ #c-3-3:checked ~ .reset { display: block; }
-  #c-2-2:checked ~ #c-3-3:checked ~ .selector { display: none; }
-
-  #c-2-2:checked ~ #c-4-1:checked ~ .found-3 { display: block; }
-  #c-2-2:checked ~ #c-4-1:checked ~ .selector { display: none; }
-  #c-2-2:checked ~ #c-4-2:checked ~ .reset { display: block; }
-  #c-2-2:checked ~ #c-4-2:checked ~ .selector { display: none; }
-  #c-2-2:checked ~ #c-4-3:checked ~ .reset { display: block; }
-  #c-2-2:checked ~ #c-4-3:checked ~ .selector { display: none; }
-
-  /* cell 2-3 */
-  #c-2-3:checked ~ #c-3-1:checked ~ .reset { display: block; }
-  #c-2-3:checked ~ #c-3-1:checked ~ .selector { display: none; }
-  #c-2-3:checked ~ #c-3-2:checked ~ .reset { display: block; }
-  #c-2-3:checked ~ #c-3-2:checked ~ .selector { display: none; }
-  #c-2-3:checked ~ #c-3-3:checked ~ .reset { display: block; }
-  #c-2-3:checked ~ #c-3-3:checked ~ .selector { display: none; }
-
-  #c-2-3:checked ~ #c-4-1:checked ~ .reset { display: block; }
-  #c-2-3:checked ~ #c-4-1:checked ~ .selector { display: none; }
-  #c-2-3:checked ~ #c-4-2:checked ~ .reset { display: block; }
-  #c-2-3:checked ~ #c-4-2:checked ~ .selector { display: none; }
-  #c-2-3:checked ~ #c-4-3:checked ~ .reset { display: block; }
-  #c-2-3:checked ~ #c-4-3:checked ~ .selector { display: none; }
-
-  /* cell 3-1 */
-  #c-3-1:checked ~ #c-3-2:checked ~ .reset { display: block; }
-  #c-3-1:checked ~ #c-3-2:checked ~ .selector { display: none; }
-  #c-3-1:checked ~ #c-3-3:checked ~ .reset { display: block; }
-  #c-3-1:checked ~ #c-3-3:checked ~ .selector { display: none; }
-
-  #c-3-1:checked ~ #c-4-1:checked ~ .reset { display: block; }
-  #c-3-1:checked ~ #c-4-1:checked ~ .selector { display: none; }
-  #c-3-1:checked ~ #c-4-2:checked ~ .reset { display: block; }
-  #c-3-1:checked ~ #c-4-2:checked ~ .selector { display: none; }
-  #c-3-1:checked ~ #c-4-3:checked ~ .reset { display: block; }
-  #c-3-1:checked ~ #c-4-3:checked ~ .selector { display: none; }
-
-  /* cell 3-2 */
-  #c-3-2:checked ~ #c-3-3:checked ~ .reset { display: block; }
-  #c-3-2:checked ~ #c-3-3:checked ~ .selector { display: none; }
-
-  #c-3-2:checked ~ #c-4-1:checked ~ .reset { display: block; }
-  #c-3-2:checked ~ #c-4-1:checked ~ .selector { display: none; }
-  #c-3-2:checked ~ #c-4-2:checked ~ .found-6 { display: block; }
-  #c-3-2:checked ~ #c-4-2:checked ~ .selector { display: none; }
-  #c-3-2:checked ~ #c-4-3:checked ~ .reset { display: block; }
-  #c-3-2:checked ~ #c-4-3:checked ~ .selector { display: none; }
-
-  /* cell 3-3 */
-  #c-3-3:checked ~ #c-4-1:checked ~ .reset { display: block; }
-  #c-3-3:checked ~ #c-4-1:checked ~ .selector { display: none; }
-  #c-3-3:checked ~ #c-4-2:checked ~ .reset { display: block; }
-  #c-3-3:checked ~ #c-4-2:checked ~ .selector { display: none; }
-  #c-3-3:checked ~ #c-4-3:checked ~ .reset { display: block; }
-  #c-3-3:checked ~ #c-4-3:checked ~ .selector { display: none; }
-
-  /* cell 4-1 */
-  #c-4-1:checked ~ #c-4-2:checked ~ .reset { display: block; }
-  #c-4-1:checked ~ #c-4-2:checked ~ .selector { display: none; }
-  #c-4-1:checked ~ #c-4-3:checked ~ .reset { display: block; }
-  #c-4-1:checked ~ #c-4-3:checked ~ .selector { display: none; }
-
-  /* cell 4-2 */
-  #c-4-2:checked ~ #c-4-3:checked ~ .reset { display: block; }
-  #c-4-2:checked ~ #c-4-3:checked ~ .selector { display: none; }
-
-  /* handling found reset */
-  #found-1:checked ~ form #c-1-1:checked ~ .found-1 { display: none; }
-  #found-1:checked ~ form #c-1-1:checked ~ .reset-1 { display: block; }
-
-  #found-2:checked ~ form #c-1-2:checked ~ .found-2 { display: none; }
-  #found-2:checked ~ form #c-1-2:checked ~ .reset-2 { display: block; }
-
-  #found-3:checked ~ form #c-2-2:checked ~ .found-3 { display: none; }
-  #found-3:checked ~ form #c-2-2:checked ~ .reset-3 { display: block; }
-
-  #found-4:checked ~ form #c-1-3:checked ~ .found-4 { display: none; }
-  #found-4:checked ~ form #c-1-3:checked ~ .reset-4 { display: block; }
-
-  #found-5:checked ~ form #c-2-1:checked ~ .found-5 { display: none; }
-  #found-5:checked ~ form #c-2-1:checked ~ .reset-5 { display: block; }
-
-  #found-6:checked ~ form #c-3-2:checked ~ .found-6 { display: none; }
-  #found-6:checked ~ form #c-3-2:checked ~ .reset-6 { display: block; }
-
-  #found-all:checked ~ form #win {
-    display: block;
+  #no-rendering-issues .img-box {
+    text-align: center;
+    flex: 1;
+    margin: 0 10px;
   }
 
-  #found-all:checked ~ form .found-reset {
-    display: none !important;
+  #no-rendering-issues .img-box img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 25px;
   }
 
-  .show-won {
-    display: none;
+  #no-rendering-issues .img-label {
+    margin-top: 10px;
+    font-weight: bold;
   }
 
-  #found-1:checked ~ #found-2:checked ~ #found-3:checked ~ #found-4:checked ~ #found-5:checked ~ #found-6:checked ~ form .found-reset .continue {
-    display: none;
-  }
-
-  #found-1:checked ~ #found-2:checked ~ #found-3:checked ~ #found-4:checked ~ #found-5:checked ~ #found-6:checked ~ form .found-reset .show-won {
-    display: inline-block;
-  }
 
   @media (max-width: 599px) {
     .VPHero .main {
       padding: 0;
     }
 
-    #enter-full-screen {
-      width: 100%;
-    }
-    #exit-full-screen {
-      width: 100%;
-    }
-
-    #memory-game-wrapper {
-      height: 540px;
-    }
-    .c {
-      height: 90px;
-      width: 90px;
-    }
-    .card {
-      width: 90px;
-      height: 90px;
-      padding: 20px;
-      border: 1px solid #dddddd;
-      border-radius: 20px;
-      background: #fafafa;
-    }
-    .found-wrapper {
+    #no-rendering-issues .img-container {
       flex-direction: column;
-      align-items: center;
-    }
-
-    .found-wrapper .card {
-      margin: 0;
     }
   }
 </style>
 
-<input id="full-screen" type="checkbox">
-<div class="memory-game-wrapper">
-  <p style="text-align: center;">Wanna know more? Solve our memory game below! It's a CSS-only interactive email! <label id="enter-full-screen" for="full-screen">Enter full screen</label><label id="exit-full-screen" for="full-screen">Exit full screen</label></p>
-  <input id="found-1" type="checkbox" />
-  <input id="found-2" type="checkbox" />
-  <input id="found-3" type="checkbox" />
-  <input id="found-4" type="checkbox" />
-  <input id="found-5" type="checkbox" />
-  <input id="found-6" type="checkbox" />
+<hr class="value-prop-divider type2"/>
 
-  <input id="found-all" type="checkbox">
+<section id="email-editor">
+  <h2>Amazing email design? Easy!</h2>
+  <p>Create pixel-perfect email designs with the most sophisticated email editor on the market. Don't worry, you can start out with our built-in templates!</p>
+  <video width="100%" autoplay muted loop>
+    <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</section>
+
+<hr class="value-prop-divider type1"/>
+
+<section id="design-system">
+  <input type="radio" name="image" id="image1" v-model="selectedEmailType" value="0">
+  <input type="radio" name="image" id="image2" v-model="selectedEmailType" value="1">
+  <input type="radio" name="image" id="image3" v-model="selectedEmailType" value="2">
+  <input type="radio" name="image" id="image4" v-model="selectedEmailType" value="3">
   
-  <form>
-    <input id="c-1-1" type="checkbox" />
-    <input id="c-1-2" type="checkbox" />
-    <input id="c-1-3" type="checkbox" />
-    <input id="c-2-1" type="checkbox" />
-    <input id="c-2-2" type="checkbox" />
-    <input id="c-2-3" type="checkbox" />
-    <input id="c-3-1" type="checkbox" />
-    <input id="c-3-2" type="checkbox" />
-    <input id="c-3-3" type="checkbox" />
-    <input id="c-4-1" type="checkbox" />
-    <input id="c-4-2" type="checkbox" />
-    <input id="c-4-3" type="checkbox" />
-    <input id="reset" type="reset" value="reset" />
-    <table class="selector m">
-      <tr>
-        <td class="c"><label for="c-1-1" class="sl-1-1 label-1"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-1 si-1-1" src="/assets/card-palette.png"/></td>
-        <td class="c"><label for="c-1-2" class="sl-1-2 label-2"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-2 si-1-2" src="/assets/card-editor.png"/></td>
-        <td class="c"><label for="c-1-3" class="sl-1-3 label-4"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-4 si-1-3" src="/assets/card-broken-email.png"/></td>
-      </tr>
-      <tr>
-        <td class="c"><label for="c-2-1" class="sl-2-1 label-5"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-5 si-2-1" src="/assets/card-puzzle.png"/></td>
-        <td class="c"><label for="c-2-2" class="sl-2-2 label-3"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-3 si-2-2" src="/assets/card-chart.png"/></td>
-        <td class="c"><label for="c-2-3" class="sl-2-3 label-5"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-5 si-2-3" src="/assets/card-puzzle.png"/></td>
-      </tr>
-      <tr>
-        <td class="c"><label for="c-3-1" class="sl-3-1 label-1"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-1 si-3-1" src="/assets/card-palette.png"/></td>
-        <td class="c"><label for="c-3-2" class="sl-3-2 label-6"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-6 si-3-2" src="/assets/card-mailbox.png"/></td>
-        <td class="c"><label for="c-3-3" class="sl-3-3 label-4"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-4 si-3-3" src="/assets/card-broken-email.png"/></td>
-      </tr>
-      <tr>
-        <td class="c"><label for="c-4-1" class="sl-4-1 label-3"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-3 si-4-1" src="/assets/card-chart.png"/></td>
-        <td class="c"><label for="c-4-2" class="sl-4-2 label-6"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-6 si-4-2" src="/assets/card-mailbox.png"/></td>
-        <td class="c"><label for="c-4-3" class="sl-4-3 label-2"><img class="card card-back" src="/assets/bluefoxemail-logo3.png"/></label><img class="card card-2 si-4-3" src="/assets/card-editor.png"/></td>
-      </tr>
-    </table>
-    <label class="reset m" for="reset">
-      <table>
-        <tr>
-          <td class="c"><img class="sl-1-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-1-1" src="/assets/card-palette.png"/></td>
-          <td class="c"><img class="sl-1-2 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-1-2" src="/assets/card-editor.png"/></td>
-          <td class="c"><img class="sl-1-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-1-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td class="c"><img class="sl-2-1 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-1" src="/assets/card-puzzle.png"/></td>
-          <td class="c"><img class="sl-2-2 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-2-2" src="/assets/card-chart.png"/></td>
-          <td class="c"><img class="sl-2-3 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-3" src="/assets/card-puzzle.png"/></td>
-        </tr>
-        <tr>
-          <td class="c"><img class="sl-3-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-3-1" src="/assets/card-palette.png"/></td>
-          <td class="c"><img class="sl-3-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-3-2" src="/assets/card-mailbox.png"/></td>
-          <td class="c"><img class="sl-3-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-3-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td class="c"><img class="sl-4-1 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-4-1" src="/assets/card-chart.png"/></td>
-          <td class="c"><img class="sl-4-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-4-2" src="/assets/card-mailbox.png"/></td>
-          <td class="c"><img class="sl-4-3 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-4-3" src="/assets/card-editor.png"/></td>
-        </tr>
-      </table>
-    </label>
-    <label class="found-1 m" for="found-1">
-      <table>
-        <tr>
-          <td class="c"><img class="sl-1-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-1-1" src="/assets/card-palette.png"/></td>
-          <td class="c"><img class="sl-1-2 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-1-2" src="/assets/card-editor.png"/></td>
-          <td class="c"><img class="sl-1-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-1-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td class="c"><img class="sl-2-1 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-1" src="/assets/card-puzzle.png"/></td>
-          <td class="c"><img class="sl-2-2 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-2-2" src="/assets/card-chart.png"/></td>
-          <td class="c"><img class="sl-2-3 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-3" src="/assets/card-puzzle.png"/></td>
-        </tr>
-        <tr>
-          <td class="c"><img class="sl-3-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-3-1" src="/assets/card-palette.png"/></td>
-          <td class="c"><img class="sl-3-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-3-2" src="/assets/card-mailbox.png"/></td>
-          <td class="c"><img class="sl-3-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-3-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td class="c"><img class="sl-4-1 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-4-1" src="/assets/card-chart.png"/></td>
-          <td class="c"><img class="sl-4-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-4-2" src="/assets/card-mailbox.png"/></td>
-          <td class="c"><img class="sl-4-3 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-4-3" src="/assets/card-editor.png"/></td>
-        </tr>
-      </table>
-    </label>
-    <div class="found-reset reset-1">
-      <div class="found-wrapper">
-        <img class="card" src="/assets/card-palette.png"/>
-        <div>
-          <h2>Consistency and efficiency with our design system</h2>
-          <p>Our design system feature ensures your emails (transactional, triggered, or marketing) maintain a consistent, professional look with predefined fonts, colors, and layouts. This saves time, reduces errors, and makes scaling easier by eliminating the need to redesign each message, improving both efficiency and brand consistency.</p>
-          <label class="continue VPButton medium brand" for="reset">Continue</label>
-          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
-        </div>
-      </div>
+  <h2>Consistent-looking transactional, triggered, & marketing emails</h2>
+  <p>Our design system feature makes it sure that all of your emails look great and consistent, be it <label id="image1-label" for="image1">transactional emails</label>, <label id="image2-label" for="image2">triggered emails</label>, <label id="image3-label" for="image3">newsletters</label> or <label id="image4-label" for="image4">promotional emails</label>.</p>
+
+  <div class="image-container">
+    <img src="/assets/consistent-emails-01.png" alt="Image 1" class="image img1">
+    <img src="/assets/consistent-emails-02.png" alt="Image 2" class="image img2">
+    <img src="/assets/consistent-emails-03.png" alt="Image 3" class="image img3">
+    <img src="/assets/consistent-emails-04.png" alt="Image 4" class="image img4">
+  </div>
+</section>
+
+<hr class="value-prop-divider type2"/>
+
+<section id="no-rendering-issues">
+  <h2>No more email rendering issues</h2>
+  <p>You might have experienced that your email looks great on a certain email client, but it falls apart on other email clients, such as Outlook. That will never happen if you use our platform. Our battle-hardened email generator is continuously tested on all the relevant email clients.</p>
+  
+  <div class="img-container">
+    <div class="img-box">
+      <p class="img-label">Our templates</p>
+      <img src="/assets/template-rendering-we.png" alt="Ours">
     </div>
-    <label class="found-2 m" for="found-2">
-      <table>
-        <tr>
-          <td><img class="sl-1-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-1-1" src="/assets/card-palette.png"/></td>
-          <td><img class="sl-1-2 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-1-2" src="/assets/card-editor.png"/></td>
-          <td><img class="sl-1-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-1-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-2-1 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-1" src="/assets/card-puzzle.png"/></td>
-          <td><img class="sl-2-2 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-2-2" src="/assets/card-chart.png"/></td>
-          <td><img class="sl-2-3 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-3" src="/assets/card-puzzle.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-3-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-3-1" src="/assets/card-palette.png"/></td>
-          <td><img class="sl-3-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-3-2" src="/assets/card-mailbox.png"/></td>
-          <td><img class="sl-3-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-3-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-4-1 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-4-1" src="/assets/card-chart.png"/></td>
-          <td><img class="sl-4-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-4-2" src="/assets/card-mailbox.png"/></td>
-          <td><img class="sl-4-3 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-4-3" src="/assets/card-editor.png"/></td>
-        </tr>
-      </table>
-    </label>
-    <div class="found-reset reset-2">
-      <div class="found-wrapper">
-        <img class="card" src="/assets/card-editor.png"/>
-        <div>
-          <h2>Create pixel-perfect emails with the best email editor</h2>
-          <p>With our email editor, you can create pixel-perfect designs easily. It’s the most advanced on the market, giving you full control over every detail, so your emails look exactly how you want across all devices.</p>
-          <label class="continue VPButton medium brand" for="reset">Continue</label>
-          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
-        </div>
-      </div>
+    <div class="img-box">
+      <p class="img-label">Others...</p>
+      <img src="/assets/template-rendering-others.png" alt="Others'">
     </div>
-    <label class="found-3 m" for="found-3">
-      <table>
-        <tr>
-          <td><img class="sl-1-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-1-1" src="/assets/card-palette.png"/></td>
-          <td><img class="sl-1-2 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-1-2" src="/assets/card-editor.png"/></td>
-          <td><img class="sl-1-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-1-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-2-1 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-1" src="/assets/card-puzzle.png"/></td>
-          <td><img class="sl-2-2 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-2-2" src="/assets/card-chart.png"/></td>
-          <td><img class="sl-2-3 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-3" src="/assets/card-puzzle.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-3-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-3-1" src="/assets/card-palette.png"/></td>
-          <td><img class="sl-3-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-3-2" src="/assets/card-mailbox.png"/></td>
-          <td><img class="sl-3-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-3-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-4-1 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-4-1" src="/assets/card-chart.png"/></td>
-          <td><img class="sl-4-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-4-2" src="/assets/card-mailbox.png"/></td>
-          <td><img class="sl-4-3 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-4-3" src="/assets/card-editor.png"/></td>
-        </tr>
-      </table>
-    </label>
-    <div class="found-reset reset-3">
-      <div class="found-wrapper">
-        <img class="card" src="/assets/card-chart.png"/>
-        <div>
-          <h2>Comprehensive email analytics at your fingertips</h2>
-          <p>We provide all the essential email analytics tools, so you can track open rates, click-through rates, bounces, and more. This gives you full visibility into how your emails are performing, helping you optimize your strategy and improve engagement.</p>
-          <label class="continue VPButton medium brand" for="reset">Continue</label>
-          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
-        </div>
-      </div>
-    </div>
-    <label class="found-4 m" for="found-4">
-      <table>
-        <tr>
-          <td><img class="sl-1-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-1-1" src="/assets/card-palette.png"/></td>
-          <td><img class="sl-1-2 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-1-2" src="/assets/card-editor.png"/></td>
-          <td><img class="sl-1-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-1-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-2-1 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-1" src="/assets/card-puzzle.png"/></td>
-          <td><img class="sl-2-2 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-2-2" src="/assets/card-chart.png"/></td>
-          <td><img class="sl-2-3 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-3" src="/assets/card-puzzle.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-3-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-3-1" src="/assets/card-palette.png"/></td>
-          <td><img class="sl-3-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-3-2" src="/assets/card-mailbox.png"/></td>
-          <td><img class="sl-3-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-3-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-4-1 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-4-1" src="/assets/card-chart.png"/></td>
-          <td><img class="sl-4-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-4-2" src="/assets/card-mailbox.png"/></td>
-          <td><img class="sl-4-3 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-4-3" src="/assets/card-editor.png"/></td>
-        </tr>
-      </table>
-    </label>
-    <div class="found-reset reset-4">
-      <div class="found-wrapper">
-        <img class="card" src="/assets/card-broken-email.png"/>
-        <div>
-          <h2>Ensure perfect emails across all clients. Even Outlook!</h2>
-          <p>Email HTML is notoriously tricky because different email clients, especially Outlook, handle code inconsistently. What looks great in one client can completely break in another. But with our service, you don’t have to worry. Our platform ensures your emails look perfect across all clients, so you can focus on the content, not the technical headaches.</p>
-          <label class="continue VPButton medium brand" for="reset">Continue</label>
-          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
-        </div>
-      </div>
-    </div>
-    <label class="found-5 m" for="found-5">
-      <table>
-        <tr>
-          <td><img class="sl-1-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-1-1" src="/assets/card-palette.png"/></td>
-          <td><img class="sl-1-2 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-1-2" src="/assets/card-editor.png"/></td>
-          <td><img class="sl-1-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-1-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-2-1 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-1" src="/assets/card-puzzle.png"/></td>
-          <td><img class="sl-2-2 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-2-2" src="/assets/card-chart.png"/></td>
-          <td><img class="sl-2-3 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-3" src="/assets/card-puzzle.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-3-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-3-1" src="/assets/card-palette.png"/></td>
-          <td><img class="sl-3-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-3-2" src="/assets/card-mailbox.png"/></td>
-          <td><img class="sl-3-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-3-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-4-1 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-4-1" src="/assets/card-chart.png"/></td>
-          <td><img class="sl-4-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-4-2" src="/assets/card-mailbox.png"/></td>
-          <td><img class="sl-4-3 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-4-3" src="/assets/card-editor.png"/></td>
-        </tr>
-      </table>
-    </label>
-    <div class="found-reset reset-5">
-      <div class="found-wrapper">
-        <img class="card" src="/assets/card-puzzle.png"/>
-        <div>
-          <h2>Effortless integration</h2>
-          <p>We make integration simple by generating code snippets for sending emails and managing lists in various programming languages. This way, no matter what tech stack you’re using, you can easily plug in our service without having to write everything from scratch.</p>
-          <label class="continue VPButton medium brand" for="reset">Continue</label>
-          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
-        </div>
-      </div>
-    </div>
-    <label class="found-6 m" for="found-6">
-      <table>
-        <tr>
-          <td><img class="sl-1-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-1-1" src="/assets/card-palette.png"/></td>
-          <td><img class="sl-1-2 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-1-2" src="/assets/card-editor.png"/></td>
-          <td><img class="sl-1-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-1-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-2-1 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-1" src="/assets/card-puzzle.png"/></td>
-          <td><img class="sl-2-2 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-2-2" src="/assets/card-chart.png"/></td>
-          <td><img class="sl-2-3 card label-5 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-5 si-2-3" src="/assets/card-puzzle.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-3-1 card label-1 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-1 si-3-1" src="/assets/card-palette.png"/></td>
-          <td><img class="sl-3-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-3-2" src="/assets/card-mailbox.png"/></td>
-          <td><img class="sl-3-3 card label-4 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-4 si-3-3" src="/assets/card-broken-email.png"/></td>
-        </tr>
-        <tr>
-          <td><img class="sl-4-1 card label-3 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-3 si-4-1" src="/assets/card-chart.png"/></td>
-          <td><img class="sl-4-2 card label-6 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-6 si-4-2" src="/assets/card-mailbox.png"/></td>
-          <td><img class="sl-4-3 card label-2 card-back" src="/assets/bluefoxemail-logo3.png"/><img class="card card-2 si-4-3" src="/assets/card-editor.png"/></td>
-        </tr>
-      </table>
-    </label>
-    <div class="found-reset reset-6">
-      <div class="found-wrapper">
-        <img class="card" src="/assets/card-mailbox.png"/>
-        <div>
-          <h2>Ensure your emails reach the inbox with AWS SES</h2>
-          <p>Our platform integrates directly with your AWS SES, which is known for its industry-leading deliverability. Using SES ensures your emails reach inboxes reliably, minimizing issues like bouncing or ending up in spam. It’s the gold standard for email delivery, giving you peace of mind that your messages will consistently reach your audience.</p>
-          <label class="continue VPButton medium brand" for="reset">Continue</label>
-          <label class="show-won VPButton medium brand" for="found-all">Continue</label>
-        </div>
-      </div>
-    </div>
-    <div id="win">
-      <div class="win-card">
-        <p><strong>Congrats! You won!</strong></p><p>Why don't you sign up or do the memory game again?</p>
-        <div class="win-card-actions">
-          <a class="VPButton medium brand" href="https://app.bluefox.email/accounts/create-account" target="_blank">Sign up</a>
-          <a class="VPButton medium alt" href="#" style="margin-left: 20px" @click="resetGame()">Restart</a>
-        </div>
-      </div>
-    </div>
-  </form>
-</div>
+  </div>
+</section>
+<hr class="value-prop-divider type1"/>
+
+
+<section id="great-deliverability">
+  <h2>Use your own AWS SES - the gold-standard of great deliverability</h2>
+  <p>Using your own AWS SES with bluefox.email gives you full control over your sender reputation while still benefiting from AWS's infrastructure. Since you connect your own AWS account, your email campaigns are isolated from other users' activities, ensuring better control over deliverability and security. You get the reliability and performance of AWS SES, but with the added assurance that only your actions affect your email sending reputation.</p>
+  <p>If needed, you can easily upgrade to dedicated IPs through AWS SES for even greater control and improved deliverability.</p>
+</section>
+
+<hr class="value-prop-divider type2"/>
+<!--
+<section id="email-analytics">
+  <h2>Detailed analytics</h2>
+</section>
+<hr class="value-prop-divider type1"/>
+<section id="easy-integration">
+  <h2>Easy integration</h2>
+  <p>It is really funcking easy!</p>
+</section>
+<hr class="value-prop-divider type2"/>
+-->
+<section id="ridiculously-huge-cta">
+  <p>Not convinced yet?</p>
+  <p>Probably this ridiculously huge call-to-action button will do the trick!</p>
+  <a class="VPButton brand ridiculously-large" target="_blank" href="https://app.bluefox.email/accounts/create-account">Sign up NOW!</a>
+</section>
+
+
+
