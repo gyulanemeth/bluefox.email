@@ -17,6 +17,7 @@ hero:
       link: /why
 ---
 <script setup>
+
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const selectedEmailType = ref('0');
@@ -313,6 +314,10 @@ onBeforeUnmount(() => {
     #no-rendering-issues .img-container {
       flex-direction: column;
     }
+
+    #great-deliverability {
+      padding: 25px;
+    }
   }
 </style>
 
@@ -387,6 +392,5 @@ onBeforeUnmount(() => {
     </div>
   </div>
 </section>
-
 
 
