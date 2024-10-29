@@ -17,16 +17,23 @@ hero:
       link: /why
 ---
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
-const selectedEmailType = ref('0')
+const selectedEmailType = ref('0');
+let intervalId
 
-setInterval(() => {
-  let actSelVal = parseInt(selectedEmailType.value)
-  actSelVal += 1
-  actSelVal %= 4
-  selectedEmailType.value = actSelVal
-}, 3000)
+onMounted(() => {
+  setInterval(() => {
+    let actSelVal = parseInt(selectedEmailType.value)
+    actSelVal += 1
+    actSelVal %= 4
+    selectedEmailType.value = actSelVal
+  }, 3000)
+})
+
+onBeforeUnmount(() => {
+  clearInterval(intervalId);
+})
 
 </script>
 <style>
