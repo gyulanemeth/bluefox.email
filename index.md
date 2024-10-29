@@ -17,16 +17,18 @@ hero:
       link: /why
 ---
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const selectedEmailType = ref('0')
 
-setInterval(() => {
-  let actSelVal = parseInt(selectedEmailType.value)
-  actSelVal += 1
-  actSelVal %= 4
-  selectedEmailType.value = actSelVal
-}, 3000)
+onMounted(() => {
+  setInterval(() => {
+    let actSelVal = parseInt(selectedEmailType.value)
+    actSelVal += 1
+    actSelVal %= 4
+    selectedEmailType.value = actSelVal
+  }, 3000)
+})
 
 </script>
 <style>
@@ -306,6 +308,10 @@ setInterval(() => {
     #no-rendering-issues .img-container {
       flex-direction: column;
     }
+
+    #great-deliverability {
+      padding: 25px;
+    }
   }
 </style>
 
@@ -380,6 +386,5 @@ setInterval(() => {
     </div>
   </div>
 </section>
-
 
 
