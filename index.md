@@ -20,7 +20,7 @@ hero:
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const selectedEmailType = ref('0');
-let intervalId;
+let intervalId
 
 onMounted(() => {
   setInterval(() => {
