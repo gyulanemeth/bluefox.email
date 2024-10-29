@@ -30,28 +30,19 @@ setInterval(() => {
 
 </script>
 <style>
-  .VPNav {
-    background: white;
-    border-bottom: 1px solid #eeeeee;
-  }
-  html.dark .VPNav {
-    background: #333333;
-    border-bottom: 1px solid #666666;
-  }
   .VPHome {
     margin-bottom: 0 !important;
-    background: linear-gradient(90deg, hsl(196.99, 86.56%, 50.39%) 49%, hsl(247.72, 53.44%, 37.06%) 51%);
   }
   .vp-doc {
     overflow: hidden;
-    background: white;
   }
   html.dark .vp-doc {
     background: #222222;
   }
+
   .vp-doc h2 {
     border-top: 0 !important;
-    margin: 20px 0 10px 0 !important;
+    margin: 100px 0 10px 0 !important;
 
     font-size: 32px !important;
     line-height: 32px !important;
@@ -60,12 +51,7 @@ setInterval(() => {
   .VPHero {
     width: 1280px;
     max-width: 100%;
-    background: white !important;
     margin: auto;
-  }
-
-  html.dark .VPHero {
-    background: #222222 !important;
   }
 
   .VPHero .container {
@@ -100,6 +86,25 @@ setInterval(() => {
     max-width: unset !important;
     justify-content: center !important;
   }
+  html.dark .VPHero .name .clip {
+    background: -webkit-linear-gradient(
+      120deg,
+      #8a7ed8 5%,
+      #13B0EE
+    );
+    background-clip: text;
+  }
+
+  .vp-doc .actions {
+    display: flex;
+    width: 100% !important;
+    max-width: unset !important;
+    justify-content: center !important;
+  }
+
+  .vp-doc .action {
+    padding: 6px;
+  }
 
   .VPHero .main .image {
     width: 100% !important;
@@ -115,13 +120,6 @@ setInterval(() => {
     white-space: nowrap;
     transition: color 0.25s, border-color 0.25s, background-color 0.25s !important;
     text-decoration: none !important;
-  }
-
-  .VPButton.ridiculously-large {
-    border-radius: 60px;
-    padding: 20px 40px;
-    line-height: 48px;
-    font-size: 30px;
   }
 
   .VPButton.medium {
@@ -169,25 +167,6 @@ setInterval(() => {
 
   .VPHome .vp-doc {
     margin-top: -90px !important;
-  }
-
-  .vp-doc .value-prop-divider {
-    height: 4px;
-    border: 0;
-
-    margin: 50px 0;
-
-    background: linear-gradient(90deg, hsl(196.99, 86.56%, 50.39%) 10%, hsl(247.72, 53.44%, 37.06%) 90%);
-
-    transition: all 2s ease;
-  }
-
-  .vp-doc .value-prop-divider.type1 {
-    transform: rotate(21deg) skew(-30deg, -20deg) scale(1.25) translate(-10%, 0);
-  }
-
-  .vp-doc .value-prop-divider.type2 {
-    transform: rotate(-21deg) skew(30deg, 20deg) scale(1.25) translate(10%, 0);
   }
 
   #email-editor video {
@@ -282,9 +261,9 @@ setInterval(() => {
     width: 100%;
   }
 
-  #ridiculously-huge-cta {
+  #second-cta {
     text-align: center;
-    padding-bottom: 50px;
+    padding-bottom: 100px;
   }
 
   #no-rendering-issues .img-container {
@@ -310,26 +289,20 @@ setInterval(() => {
     font-weight: bold;
   }
 
-
-  #divider-1:checked ~ #divider-1-label .value-prop-divider {
-    transform: translate(200%, 0);
+  #great-deliverability {
+    background: #392C91;
+    color: white;
+    padding: 100px;
+    margin-top: 100px;
+    border-radius: 25px;
   }
 
-  #divider-2:checked ~ #divider-2-label .value-prop-divider {
-    transform: translate(-200%, 0);
+  .vp-doc #great-deliverability h2 {
+    margin: 0 0 10px 0 !important;
+    padding-top: 0 !important;
   }
 
-  #divider-3:checked ~ #divider-3-label .value-prop-divider {
-    transform: translate(200%, 0);
-  }
 
-  #divider-4:checked ~ #divider-4-label .value-prop-divider {
-    transform: translate(-200%, 0);
-  }
-
-  #divider-5:checked ~ #divider-5-label .value-prop-divider {
-    transform: translate(200%, 0);
-  }
 
   @media (max-width: 599px) {
     .VPHero .main {
@@ -342,14 +315,6 @@ setInterval(() => {
   }
 </style>
 
-<input id="divider-1" type="checkbox" />
-<input id="divider-2" type="checkbox" />
-<input id="divider-3" type="checkbox" />
-<input id="divider-4" type="checkbox" />
-<input id="divider-5" type="checkbox" />
-<label id="divider-1-label" for="divider-1">
-  <hr class="value-prop-divider type2"/>
-</label>
 <section id="email-editor">
   <h2>Amazing email design? Easy!</h2>
   <p>Create pixel-perfect email designs with the most sophisticated email editor on the market. Don't worry, you can start out with our built-in templates!</p>
@@ -358,10 +323,6 @@ setInterval(() => {
     Your browser does not support the video tag.
   </video>
 </section>
-
-<label id="divider-2-label" for="divider-2">
-  <hr class="value-prop-divider type1"/>
-</label>
 
 <section id="design-system">
   <input type="radio" name="image" id="image1" v-model="selectedEmailType" value="0">
@@ -380,10 +341,6 @@ setInterval(() => {
   </div>
 </section>
 
-<label id="divider-3-label" for="divider-3">
-  <hr class="value-prop-divider type2"/>
-</label>
-
 <section id="no-rendering-issues">
   <h2>No more email rendering issues</h2>
   <p>You might have experienced that your email looks great on a certain email client, but it falls apart on other email clients, such as Outlook. That will never happen if you use our platform. Our battle-hardened email generator is continuously tested on all the relevant email clients.</p>
@@ -400,19 +357,12 @@ setInterval(() => {
   </div>
 </section>
 
-<label id="divider-4-label" for="divider-4">
-  <hr class="value-prop-divider type1"/>
-</label>
-
 <section id="great-deliverability">
   <h2>Use your own AWS SES - the gold-standard of great deliverability</h2>
   <p>Using your own AWS SES with bluefox.email gives you full control over your sender reputation while still benefiting from AWS's infrastructure. Since you connect your own AWS account, your email campaigns are isolated from other users' activities, ensuring better control over deliverability and security. You get the reliability and performance of AWS SES, but with the added assurance that only your actions affect your email sending reputation.</p>
   <p>If needed, you can easily upgrade to dedicated IPs through AWS SES for even greater control and improved deliverability.</p>
 </section>
 
-<label id="divider-5-label" for="divider-5">
-  <hr class="value-prop-divider type2"/>
-</label>
 <!--
 <section id="email-analytics">
   <h2>Detailed analytics</h2>
@@ -424,10 +374,17 @@ setInterval(() => {
 </section>
 <hr class="value-prop-divider type2"/>
 -->
-<section id="ridiculously-huge-cta">
-  <p>Not convinced yet?</p>
-  <p>Probably this ridiculously huge call-to-action button will do the trick!</p>
-  <a class="VPButton brand ridiculously-large" target="_blank" href="https://app.bluefox.email/accounts/create-account">Sign up NOW!</a>
+<section id="second-cta">
+  <h2>Send consistent-looking & beautiful emails today!</h2>
+  <p>If you have any questions, don't hesitate to contact us.</p>
+  <div class="actions">
+    <div class="action">
+      <a class="VPButton brand medium" target="_blank" href="https://app.bluefox.email/accounts/create-account">Sign up</a>
+    </div>
+    <div class="action">
+      <a class="VPButton alt medium" target="_blank" href="mailto:hello@bluefox.email">Contact us</a>
+    </div>
+  </div>
 </section>
 
 
