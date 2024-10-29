@@ -17,9 +17,11 @@ hero:
       link: /why
 ---
 <script setup>
-import { ref, onMounted } from 'vue'
 
-const selectedEmailType = ref('0')
+import { ref, onMounted, onBeforeUnmount } from 'vue';
+
+const selectedEmailType = ref('0');
+let intervalId
 
 onMounted(() => {
   setInterval(() => {
@@ -28,6 +30,10 @@ onMounted(() => {
     actSelVal %= 4
     selectedEmailType.value = actSelVal
   }, 3000)
+})
+
+onBeforeUnmount(() => {
+  clearInterval(intervalId);
 })
 
 </script>
