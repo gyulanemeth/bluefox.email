@@ -43,9 +43,6 @@ setInterval(() => {
   .vp-doc {
     overflow: hidden;
   }
-  html.dark .vp-doc {
-    background: #222222;
-  }
 
   .vp-doc h2 {
     border-top: 0 !important;
