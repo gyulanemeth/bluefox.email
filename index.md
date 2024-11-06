@@ -45,19 +45,9 @@ onBeforeUnmount(() => {
   html.dark .VPHero {
     background: linear-gradient(278deg, hsl(247.72, 53.44%, 10%) 10%, hsl(196.99, 86.56%, 10%) 90%);
   }
-  .VPHome {
-    margin-bottom: 0 !important;
-  }
-  .vp-doc {
-    overflow: hidden;
-  }
 
-  .vp-doc h2 {
-    border-top: 0 !important;
-    margin: 100px 0 10px 0 !important;
-
-    font-size: 32px !important;
-    line-height: 32px !important;
+  .VPHero .container {
+    max-width: 100%;
   }
 
   .VPHero .main {
@@ -65,9 +55,12 @@ onBeforeUnmount(() => {
     max-width: unset !important;
     text-align: center;
     display: block !important;
-    padding: 0 !important;
+    padding-top: 15vh;
+    padding-bottom: 10vh;
   }
   .VPHero .main .name {
+    font-size: 72px;
+    line-height: 72px;
     width: 100% !important;
     max-width: unset !important;
   }
@@ -81,6 +74,7 @@ onBeforeUnmount(() => {
   .VPHero .main .tagline {
     width: 100% !important;
     max-width: unset !important;
+    font-size: 32px;
   }
 
   .VPHero .main .actions {
@@ -97,6 +91,53 @@ onBeforeUnmount(() => {
     background-clip: text;
   }
 
+  .VPHero .VPButton.medium {
+      border-radius: 50px;
+      padding: 15px 30px;
+      line-height: 22px;
+      font-size: 22px;
+  }
+
+
+
+  .value-prop {
+    padding-top: 20vh;
+    padding-bottom: 20vh;
+  }
+
+  .value-prop h2 {
+    border-top: 0 !important;
+    margin: 0 0 10px 0 !important;
+
+    font-size: 64px !important;
+    line-height: 64px !important;
+  }
+
+  .value-prop p {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .value-prop .VPButton.medium {
+      border-radius: 50px;
+      padding: 15px 30px;
+      line-height: 22px;
+      font-size: 22px;
+  }
+
+
+
+
+
+
+  .VPHome {
+    margin-bottom: 0 !important;
+  }
+
+  
+
+  
+
   .vp-doc .actions {
     display: flex;
     width: 100% !important;
@@ -108,12 +149,6 @@ onBeforeUnmount(() => {
     padding: 6px;
   }
 
-  .VPHero .main .image {
-    width: 100% !important;
-    max-width: 100% !important;
-    display: block !important;
-  }
-
   .VPButton {
     display: inline-block;
     border: 1px solid transparent;
@@ -122,13 +157,6 @@ onBeforeUnmount(() => {
     white-space: nowrap;
     transition: color 0.25s, border-color 0.25s, background-color 0.25s !important;
     text-decoration: none !important;
-  }
-
-  .VPButton.medium {
-      border-radius: 20px;
-      padding: 0 20px;
-      line-height: 38px;
-      font-size: 14px;
   }
 
   .VPButton.brand {
@@ -167,13 +195,11 @@ onBeforeUnmount(() => {
     max-height: 100% !important;
   }
 
-  .VPHome .vp-doc {
-    margin-top: -90px !important;
-  }
+  
 
   #email-editor video {
     border: 1px solid #eeeeee;
-    border-radius: 25px;
+    border-radius: 5px;
   }
 
   .vp-doc input {
@@ -194,7 +220,7 @@ onBeforeUnmount(() => {
     overflow: hidden;
     background: #f6f6f6;
     border: 1px solid #eeeeee;
-    border-radius: 25px;
+    border-radius: 5px;
     margin: auto;
   }
 
@@ -265,7 +291,6 @@ onBeforeUnmount(() => {
 
   #second-cta {
     text-align: center;
-    padding-bottom: 100px;
   }
 
   #no-rendering-issues .img-container {
@@ -283,7 +308,7 @@ onBeforeUnmount(() => {
   #no-rendering-issues .img-box img {
     max-width: 100%;
     height: auto;
-    border-radius: 25px;
+    border-radius: 5px;
   }
 
   #no-rendering-issues .img-label {
@@ -296,7 +321,7 @@ onBeforeUnmount(() => {
     color: white;
     padding: 100px;
     margin-top: 100px;
-    border-radius: 25px;
+    border-radius: 5px;
   }
 
   .vp-doc #great-deliverability h2 {
@@ -321,7 +346,7 @@ onBeforeUnmount(() => {
   }
 </style>
 
-<section id="email-editor">
+<section id="email-editor" class="value-prop">
   <h2>Amazing email design? Easy!</h2>
   <p>Create pixel-perfect email designs with the most sophisticated email editor on the market. Don't worry, you can start out with our built-in templates!</p>
   <video width="100%" autoplay muted loop>
@@ -330,7 +355,7 @@ onBeforeUnmount(() => {
   </video>
 </section>
 
-<section id="design-system">
+<section id="design-system" class="value-prop">
   <input type="radio" name="image" id="image1" v-model="selectedEmailType" value="0">
   <input type="radio" name="image" id="image2" v-model="selectedEmailType" value="1">
   <input type="radio" name="image" id="image3" v-model="selectedEmailType" value="2">
@@ -347,7 +372,7 @@ onBeforeUnmount(() => {
   </div>
 </section>
 
-<section id="no-rendering-issues">
+<section id="no-rendering-issues" class="value-prop">
   <h2>No more email rendering issues</h2>
   <p>You might have experienced that your email looks great on a certain email client, but it falls apart on other email clients, such as Outlook. That will never happen if you use our platform. Our battle-hardened email generator is continuously tested on all the relevant email clients.</p>
   
@@ -363,8 +388,9 @@ onBeforeUnmount(() => {
   </div>
 </section>
 
-<section id="great-deliverability">
-  <h2>Use your own AWS SES - the gold-standard of great deliverability</h2>
+<section id="great-deliverability" class="value-prop">
+  <h2 style="text-align: center;">Bring your own AWS SES</h2>
+  <p style="background: white; color: #392C91; font-weight: bold; padding: 10px; font-size: 20px; text-align: center;">The gold-standard of great deliverability</p>
   <p>Using your own AWS SES with bluefox.email gives you full control over your sender reputation while still benefiting from AWS's infrastructure. Since you connect your own AWS account, your email campaigns are isolated from other users' activities, ensuring better control over deliverability and security. You get the reliability and performance of AWS SES, but with the added assurance that only your actions affect your email sending reputation.</p>
   <p>If needed, you can easily upgrade to dedicated IPs through AWS SES for even greater control and improved deliverability.</p>
 </section>
@@ -380,7 +406,7 @@ onBeforeUnmount(() => {
 </section>
 <hr class="value-prop-divider type2"/>
 -->
-<section id="second-cta">
+<section id="second-cta" class="value-prop">
   <h2>Send consistent-looking & beautiful emails today!</h2>
   <p>If you have any questions, don't hesitate to contact us.</p>
   <div class="actions">
