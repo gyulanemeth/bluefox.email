@@ -22,6 +22,7 @@ export default defineConfig({
     },
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Pricing', link: '/pricing' },
       { text: 'Docs', link: '/docs/' },
       { text: 'About', link: '/about' },
       { text: 'Login', link: 'https://app.bluefox.email' }
