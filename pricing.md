@@ -243,7 +243,7 @@ layout: home
   <div>1 credit = 1 send without branding. (We don't add our logo + link to your emails.)</div>
   <div>OR</div>
   <div>1 credit = 2 sends with branding. (We add our logo + link to your emails.)</div>
-  <div> Credits expire in a year. Yes, that also means that you can buy a credit pack and even use it for a whole year!</div>
+  <div> Credits expire after a year. Yes, that also means that you can buy a credit pack and even use it for a whole year!</div>
   <p>Keep in mind, that you will also have to pay $0.1 / 1000 emails for AWS SES.</p>
 
   <div class="actions">
