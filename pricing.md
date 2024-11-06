@@ -216,7 +216,7 @@ layout: home
 
 <section id="credit-packs">
   <h1>Credit packs</h1>
-  <div>Don't pay a subscription for contacts ever again.</div>
+  <div>Don't pay for contact-based subscriptions ever again.</div>
   <p>All packages include all of our features without restrictions!</p>
   <div class="card-container">
     <div class="pricing-card start-up">
