@@ -1,19 +1,6 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
-
-hero:
-  name: Usage-based Pricing
-  text: Don't pay for contacts. Don't pay another subscription.
-  tagline: Our pricing model is credit-based, you pay for what you use.
-
-  actions:
-    - theme: brand
-      text: Sign up
-      link: https://app.bluefox.email/accounts/create-account
-    - theme: alt
-      text: Why?
-      link: /why
 ---
 
 <style>
@@ -133,7 +120,7 @@ hero:
 }
 
 .pricing-card a {
-  color: white;
+  color: white !important;
 }
 
 .pricing-card a:hover {
@@ -147,9 +134,9 @@ hero:
   padding-bottom: 100px;
 }
 
-#credit-packs h2 {
-  font-size: 64px;
-  line-height: 64px;
+#credit-packs h1 {
+  font-size: 72px;
+  line-height: 72px;
   border-top: 0;
 }
 
@@ -228,7 +215,8 @@ hero:
 </style>
 
 <section id="credit-packs">
-  <h2>Credit packs</h2>
+  <h1>Credit packs</h1>
+  <div>Don't pay a subscription for contacts ever again.</div>
   <p>All packages include all of our features without restrictions!</p>
   <div class="card-container">
     <div class="pricing-card start-up">
