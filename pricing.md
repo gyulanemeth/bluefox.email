@@ -4,84 +4,29 @@ layout: home
 ---
 
 <style>
-  .VPHero {
-    background: linear-gradient(278deg, hsl(247.72, 53.44%, 90%) 10%, hsl(196.99, 86.56%, 90%) 90%);
-  }
-
-  html.dark .VPHero {
-    background: linear-gradient(278deg, hsl(247.72, 53.44%, 10%) 10%, hsl(196.99, 86.56%, 10%) 90%);
-  }
-
-  .VPHero .container {
-    max-width: 100%;
-  }
-
-  .VPHero .main {
-    width: 100% !important;
-    max-width: unset !important;
-    text-align: center;
-    display: block !important;
-    padding-top: 15vh;
-    padding-bottom: 10vh;
-  }
-  .VPHero .main .name {
-    font-size: 72px;
-    line-height: 72px;
-    width: 100% !important;
-    max-width: unset !important;
-  }
-
-  .VPHero .main .text {
-    width: 100% !important;
-    max-width: unset !important;
-    font-size: 26px;
-    line-height: 32px;
-  }
-  .VPHero .main .tagline {
-    width: 100% !important;
-    max-width: unset !important;
-    font-size: 32px;
-  }
-
-  .VPHero .main .actions {
-    width: 100% !important;
-    max-width: unset !important;
-    justify-content: center !important;
-  }
-  html.dark .VPHero .name .clip {
-    background: -webkit-linear-gradient(
-      120deg,
-      #8a7ed8 5%,
-      #13B0EE
-    );
-    background-clip: text;
-  }
-
-  .VPHero .VPButton.medium {
-      border-radius: 50px;
-      padding: 15px 30px;
-      line-height: 22px;
-      font-size: 22px;
-  }
-
-
 .card-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 30px;
-  padding: 30px;
+  gap: 50px;
+  padding: 50px;
 }
 
 .pricing-card {
-  border: 1px solid #eeeeee;
-  border-radius: 5px;
-  padding: 30px;
-
-  background: #13B0EE;
-  color: white;
+  padding: 5px;
+  border-radius: 13px;
 
   width: 200px;
+}
+
+.pricing-card .pricing-card-inner {
+  padding: 30px;
+  border-radius: 10px;
+  background: white;
+}
+
+html.dark .pricing-card .pricing-card-inner {
+  background-color: rgb(27, 27, 31);
 }
 
 .pricing-card.start-up {
@@ -109,7 +54,7 @@ layout: home
 }
 
 .pricing-card .pricing-card-credits {
-  padding: 20px 0;
+  padding: 25px 0;
   font-weight: 700;
 }
 
@@ -120,57 +65,35 @@ layout: home
 }
 
 .pricing-card a {
-  color: white !important;
-}
-
-.pricing-card a:hover {
-  color: #eeeeee;
+  color: unset !important;
 }
 
 #credit-packs {
   text-align: center;
 
   padding-top: 100px;
-  padding-bottom: 100px;
 }
 
 #credit-packs h1 {
   font-size: 72px;
   line-height: 72px;
   border-top: 0;
+  padding-bottom: 25px;
 }
 
 #credit-packs p {
   font-size: 24px;
   line-height: 28px;
+  margin: 25px 0;
 }
 
-#free-credits {
-  text-align: center;
-  padding-bottom: 100px;
-}
-
-#free-credits h2 {
-  border-top: 0;
-  margin-top: 0;
-  padding-top: 0;
-  font-size: 64px;
-  line-height: 64px;
-}
-
-#free-credits p {
-  font-size: 24px;
-  line-height: 28px;
-}
-
-#credit-packs .VPButton.medium {
+.vp-doc .VPButton.medium {
       border-radius: 50px;
       padding: 15px 30px;
       line-height: 22px;
       font-size: 22px;
   }
 .vp-doc .actions {
-    padding-top: 30px;
     display: flex;
     width: 100% !important;
     max-width: unset !important;
@@ -180,6 +103,7 @@ layout: home
   .vp-doc .action {
     padding: 6px;
   }
+
 .VPButton {
     display: inline-block;
     border: 1px solid transparent;
@@ -212,53 +136,68 @@ layout: home
     color: var(--vp-button-alt-text);
     background-color: var(--vp-button-alt-hover-bg);
   }
+
+  #get-started-with-free-credits {
+    background: linear-gradient(90deg, #13B0EE 10%, #392C91 90%);
+    background-clip: text;
+    color: transparent;
+
+    font-size: 42px;
+    line-height: 42px;
+    letter-spacing: 2px;
+    font-weight: 700;
+
+    margin: 25px 0;
+  }
+
+  html.dark #get-started-with-free-credits {
+    background: linear-gradient(90deg, #13B0EE 10%, #8a7ed8 90%);
+    background-clip: text;
+  }
 </style>
 
 <section id="credit-packs">
   <h1>Credit packs</h1>
-  <div>Don't pay for contact-based subscriptions ever again.</div>
-  <p>All packages include all of our features without restrictions!</p>
+  <div>Don't overpay for contact-based subscriptions ever again.</div>
   <div class="card-container">
     <div class="pricing-card start-up">
-      <h3>Start-up</h3>
-      <div class="pricing-card-credits">100K credits</div>
-      <div class="pricing-card-price">$50</div>
+      <div class="pricing-card-inner">
+        <h3>Start-up</h3>
+        <div class="pricing-card-credits">100K credits</div>
+        <div class="pricing-card-price">$50</div>
+      </div>
     </div>
     <div class="pricing-card scale-up">
-      <h3>Scale-up</h3>
-      <div class="pricing-card-credits">1M credits</div>
-      <div class="pricing-card-price">$300</div>
+      <div class="pricing-card-inner">
+        <h3>Scale-up</h3>
+        <div class="pricing-card-credits">1M credits</div>
+        <div class="pricing-card-price">$300</div>
+      </div>
     </div>
     <div class="pricing-card grown-up">
-      <h3>Grown-up</h3>
-      <div class="pricing-card-credits">10M credits</div>
-      <div class="pricing-card-price">$2500</div>
+      <div class="pricing-card-inner">
+        <h3>Grown-up</h3>
+        <div class="pricing-card-credits">10M credits</div>
+        <div class="pricing-card-price">$2500</div>
+      </div>
     </div>
     <div class="pricing-card enterprise">
-      <h3>Enterprise</h3>
-      <div class="pricing-card-credits">10M+ credits</div>
-      <div class="pricing-card-price"><a href="mailto:hello@bluefox.email">Contact us</a></div>
+      <div class="pricing-card-inner">
+        <h3>Enterprise</h3>
+        <div class="pricing-card-credits">10M+ credits</div>
+        <div class="pricing-card-price"><a href="mailto:hello@bluefox.email">Contact us</a></div>
+      </div>
     </div>
   </div>
-  <div>1 credit = 1 send without branding. (We don't add our logo + link to your emails.)</div>
-  <div>OR</div>
-  <div>1 credit = 2 sends with branding. (We add our logo + link to your emails.)</div>
-  <div> Credits expire after a year. Yes, that also means that you can buy a credit pack and even use it for a whole year!</div>
-  <p>Keep in mind, that you will also have to pay $0.1 / 1000 emails for AWS SES.</p>
-
+  <div>You will also need to pay to AWS $0.1 / 1000 emails for your SES usage.</div>
+  <p>All packages include all of our features without restrictions!</p>
+  <div id="get-started-with-free-credits">Get started with 36000 free credits</div>
   <div class="actions">
     <div class="action">
-      <a class="VPButton brand medium" target="_blank" href="https://app.bluefox.email/accounts/create-account">Get Started</a>
+      <a class="VPButton brand medium" target="_blank" href="https://app.bluefox.email/accounts/create-account">Get Started Now</a>
     </div>
     <div class="action">
-      <a class="VPButton alt medium" target="_blank" href="mailto:hello@bluefox.email">Contact us</a>
+      <a class="VPButton alt medium" target="_blank" href="/docs/credits">How Credits Work</a>
     </div>
   </div>
-</section>
-
-<section id="free-credits">
-  <h2>Start with 36000 free credits</h2>
-  <div>1 credit = 1 branded send. (We add our logo with a link to your emails.)</div>
-  <p>It is aligned with AWS SES' free tier, in which you get 3000 free sends per month.</p>
-  <p>It means you have a whole year to kick off your project with free email sending!</p>
 </section>
