@@ -5,16 +5,16 @@ layout: home
 title: Beautiful emails for SaaS companies
 
 hero:
-  name: Beautiful emails for SaaS companies.
+  name: Beautiful emails for SaaS companies
   text: Powered by your own AWS SES.
   tagline: Send consistent and beautiful transactional, triggered, & marketing emails that your customers will love.
   actions:
     - theme: brand
-      text: Sign up
+      text: Get Started
       link: https://app.bluefox.email/accounts/create-account
     - theme: alt
-      text: Why?
-      link: /why
+      text: Pricing
+      link: /pricing
 ---
 <script setup>
 
@@ -69,12 +69,13 @@ onBeforeUnmount(() => {
     width: 100% !important;
     max-width: unset !important;
     font-size: 26px;
-    line-height: 32px;
+    line-height: 36px;
   }
   .VPHero .main .tagline {
     width: 100% !important;
     max-width: unset !important;
     font-size: 32px;
+    line-height: 36px;
   }
 
   .VPHero .main .actions {
@@ -101,8 +102,8 @@ onBeforeUnmount(() => {
 
 
   .value-prop {
-    padding-top: 20vh;
-    padding-bottom: 20vh;
+    padding-top: 15vh;
+    padding-bottom: 10vh;
   }
 
   .value-prop h2 {
@@ -303,6 +304,8 @@ onBeforeUnmount(() => {
     text-align: center;
     flex: 1;
     margin: 0 10px;
+    display: flex;
+    flex-direction: column;
   }
 
   #no-rendering-issues .img-box img {
@@ -312,8 +315,14 @@ onBeforeUnmount(() => {
   }
 
   #no-rendering-issues .img-label {
-    margin-top: 10px;
+    margin-top: 5px;
     font-weight: bold;
+  }
+
+  #no-rendering-issues .img-wrapper {
+    flex-grow: 1;
+    background: #cccccc;
+    border-radius: 5px;
   }
 
   #great-deliverability {
@@ -334,6 +343,23 @@ onBeforeUnmount(() => {
   @media (max-width: 599px) {
     .VPHero .main {
       padding: 0;
+    }
+
+    .VPHero .main .name {
+      font-size: 48px;
+      line-height: 48px;
+      width: 100% !important;
+      max-width: unset !important;
+    }
+
+    .value-prop h2 {
+      font-size: 36px !important;
+      line-height: 36px !important;
+    }
+
+    .value-prop {
+      padding-top: 10vh;
+      padding-bottom: 10vh;
     }
 
     #no-rendering-issues .img-container {
@@ -379,11 +405,15 @@ onBeforeUnmount(() => {
   <div class="img-container">
     <div class="img-box">
       <p class="img-label">Our templates</p>
-      <img src="/assets/template-rendering-we.png" alt="Ours">
+      <div class="img-wrapper">
+        <img src="/assets/template-rendering-we.png" alt="Ours">
+      </div>
     </div>
     <div class="img-box">
       <p class="img-label">Others...</p>
-      <img src="/assets/template-rendering-others.png" alt="Others'">
+      <div class="img-wrapper">
+        <img src="/assets/template-rendering-others.png" alt="Others'">
+      </div>
     </div>
   </div>
 </section>
@@ -408,13 +438,13 @@ onBeforeUnmount(() => {
 -->
 <section id="second-cta" class="value-prop">
   <h2>Send consistent-looking & beautiful emails today!</h2>
-  <p>If you have any questions, don't hesitate to contact us.</p>
+  <p>Email communication is part of your product! Don't let it ruin your users experience with your brand!</p>
   <div class="actions">
     <div class="action">
-      <a class="VPButton brand medium" target="_blank" href="https://app.bluefox.email/accounts/create-account">Sign up</a>
+      <a class="VPButton brand medium" target="_blank" href="https://app.bluefox.email/accounts/create-account">Get Started Now</a>
     </div>
     <div class="action">
-      <a class="VPButton alt medium" target="_blank" href="mailto:hello@bluefox.email">Contact us</a>
+      <a class="VPButton alt medium" target="_blank" href="/pricing">Pricing</a>
     </div>
   </div>
 </section>

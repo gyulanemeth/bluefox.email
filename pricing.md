@@ -1,6 +1,8 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+title: Pricing
+description: Don't overpay for contact-based subscriptions ever again. Only pay the emails you sent!
 ---
 
 <style>
@@ -17,6 +19,7 @@ layout: home
   border-radius: 13px;
 
   width: 200px;
+  min-width: 200px;
 }
 
 .pricing-card .pricing-card-inner {
@@ -51,6 +54,7 @@ html.dark .pricing-card .pricing-card-inner {
   padding-top: 0;
   font-size: 28px;
   line-height: 28px;
+  white-space: nowrap;
 }
 
 .pricing-card .pricing-card-credits {
@@ -138,7 +142,7 @@ html.dark .pricing-card .pricing-card-inner {
   }
 
   #get-started-with-free-credits {
-    background: linear-gradient(90deg, #13B0EE 10%, #392C91 90%);
+    background: linear-gradient(-10deg, #392C91 10%, #13B0EE 90%);
     background-clip: text;
     color: transparent;
 
@@ -151,8 +155,14 @@ html.dark .pricing-card .pricing-card-inner {
   }
 
   html.dark #get-started-with-free-credits {
-    background: linear-gradient(90deg, #13B0EE 10%, #8a7ed8 90%);
+    background: linear-gradient(-10deg, #8a7ed8 10%, #13B0EE 90%);
     background-clip: text;
+  }
+
+  @media (max-width: 599px) {
+    .vp-doc .actions {
+      flex-direction: column;
+    }
   }
 </style>
 

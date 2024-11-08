@@ -86,6 +86,9 @@ export default defineConfig({
             { text: 'Blocks (or modules)', link: '/docs/design-systems/blocks' },
             { text: 'Templates', link: '/docs/design-systems/templates' }
           ]
+        }, {
+          text: 'Pricing/Credits',
+          link: '/docs/credits'
         }]
       },
       {
