@@ -47,7 +47,7 @@ onBeforeUnmount(() => {
   }
 
   .VPHero .container {
-    max-width: 100%;
+    max-width: 100% !important;
   }
 
   .VPHero .main {
@@ -93,10 +93,10 @@ onBeforeUnmount(() => {
   }
 
   .VPHero .VPButton.medium {
-      border-radius: 50px;
-      padding: 15px 30px;
-      line-height: 22px;
-      font-size: 22px;
+      border-radius: 50px !important;
+      padding: 15px 30px !important;
+      line-height: 22px !important;
+      font-size: 22px !important;
   }
 
 
@@ -438,7 +438,7 @@ onBeforeUnmount(() => {
 -->
 <section id="second-cta" class="value-prop">
   <h2>Send consistent-looking & beautiful emails today!</h2>
-  <p>Email communication is part of your product! Don't let it ruin your users experience with your brand!</p>
+  <p>Email communication is part of your product! Don't let it ruin your users' experience with your brand!</p>
   <div class="actions">
     <div class="action">
       <a class="VPButton brand medium" target="_blank" href="https://app.bluefox.email/accounts/create-account">Get Started Now</a>
