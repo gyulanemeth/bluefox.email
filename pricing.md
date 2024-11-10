@@ -2,7 +2,7 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 title: Pricing
-description: Don't overpay for contact-based subscriptions ever again. Only pay the emails you sent!
+description: Don't overpay for contact-based subscriptions ever again. Only pay for the emails you send!
 ---
 
 <style>
@@ -72,20 +72,20 @@ html.dark .pricing-card .pricing-card-inner {
   color: unset !important;
 }
 
-#credit-packs {
+#pricing-page-credit-packs {
   text-align: center;
 
   padding-top: 100px;
 }
 
-#credit-packs h1 {
+#pricing-page-credit-packs h1 {
   font-size: 72px;
   line-height: 72px;
   border-top: 0;
   padding-bottom: 25px;
 }
 
-#credit-packs p {
+#pricing-page-credit-packs p {
   font-size: 24px;
   line-height: 28px;
   margin: 25px 0;
@@ -166,7 +166,7 @@ html.dark .pricing-card .pricing-card-inner {
   }
 </style>
 
-<section id="credit-packs">
+<section id="pricing-page-credit-packs">
   <h1>Credit packs</h1>
   <div>Don't overpay for contact-based subscriptions ever again.</div>
   <div class="card-container">
