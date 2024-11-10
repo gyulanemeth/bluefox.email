@@ -6,6 +6,8 @@ You pay for what you use. For sake of simplicity, you can buy credit packs that 
 
 ## How credits work
 
+You can buy credit packs in your workspace. It means that you can use your credits for all of your projects in your workspace.
+
 1 credit = 1 send without branding. (We don't add our logo + link to your emails.)
 
 OR
@@ -17,7 +19,7 @@ Credits expire after a year. Yes, that also means that you can buy a credit pack
 branded send -> -1 credit
 non-branded send -> -0.5 credit
 
-AWS SES price
+AWS SES price (need to pay for that as well!!!)
 
 ## Free credits
 
