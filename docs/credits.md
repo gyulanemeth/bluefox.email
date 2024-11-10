@@ -1,74 +1,71 @@
 # Pricing
 
-No subscriptions... No contact-based pricing... No overly complicated pricing model where you pay more (or differently) for marketing emails.
+No subscriptions, no expensive contact-based fees, and no complex pricing that charges you more for marketing emails than transactional ones. We keep it simple: you only pay for what you use.
 
-You pay for what you use. For sake of simplicity, you can buy credit packs that you can use for a whole year. (Credits expire after a year.)
+You can purchase credit packs that last a full year, offering you the flexibility to send emails on your schedule. (Credits expire after 12 months.)
 
-## How credits work
+## How Credits Work
 
-You can buy credit packs in your workspace. It means that you can use your credits for all of your projects in your workspace.
+Credits are purchased within your workspace, giving you the freedom to use them across all projects in that workspace.
 
-1 credit = 1 send without branding. (We don't add our logo + link to your emails.)
+- **1 credit = 1 send without branding** (no bluefox.email logo or link in your emails).
+- **1 credit = 2 sends with branding** (bluefox.email logo and link included in your emails).
 
-OR
+In simple terms:
+- **Branded send** -> -0.5 credit
+- **Non-branded send** -> -1 credit
 
-1 credit = 2 sends with branding. (We add our logo + link to your emails.)
+Credits last for a full year, allowing you to buy once and utilize your credit pack at your own pace.
 
-Credits expire after a year. Yes, that also means that you can buy a credit pack and even use it for a whole year! (Buy once, use for months or even a year.)
+**Note:** You’ll also need to pay AWS SES fees for each email sent.
 
-branded send -> -1 credit
-non-branded send -> -0.5 credit
+## Free Credits
 
-AWS SES price (need to pay for that as well!!!)
+To help you get started, we provide **36,000 free credits** when you create a new workspace (account). These credits let you send branded emails at no cost as you begin. (We put our logo and link into your emails.) This offer complements the AWS SES free tier, which grants 3,000 free sends per month for a year, allowing you to start strong without upfront email expenses.
 
-## Free credits
+## Credit Packs
 
-1 free credit = 1 sends branding. (We add our logo + link to your emails.)
+Our credit packs follow a straightforward principle: the more credits you purchase, the lower your cost per credit. Here’s a look at the available options:
 
-It is aligned with AWS SES' free tier, in which you get 3000 free sends per month.
+### Start-up Credit Pack
 
-It means you have a whole year to kick off your project with free email sending!
+- **100,000 credits** (valid for one year)
+- **Price:** $50
 
-## Credit packs
+With this pack, you can send:
+- **100,000 emails** without branding (no bluefox.email logo or link)
+- **200,000 emails** with branding (bluefox.email logo and link included in your emails)
 
-The generic rule of thumb with our credit packs is the bigger credit pack you buy, the less you need to pay per credit.
+Ideal for smaller projects, this pack covers approximately 10,000 monthly emails for 10 months. If you send five thousand emails per month, then the annual number of sends is 60 thousand. Although you will not use all of your credits in this case, but it is still the best deal you can find on the market. Feel free to check out our competitors and do your calculations. 
 
-### Start-up credit pack
+Compare our rates with other providers, and you’ll find exceptional value.
 
-100 thousand credits. Credits expire after a year.
+### Scale-up Credit Pack
 
-Price: $50
+- **1 million credits** (valid for one year)
+- **Price:** $300
 
-With this credit pack, you can either send:
- - 100.000 emails without bluefox.email brandng (we don't put our logo & link into your emails)
- - or 200.000 emails with bluefox.email branding (we put our logo & link into your emails)
+With this pack, you can send:
+- **1,000,000 emails** without branding (no bluefox.email logo or link in your emails)
+- **2,000,000 emails** with branding (bluefox.email logo and link included in your emails)
 
-This credit pack is suitable for new projects. For example, if you send ten thousand emails per month (or you expect to send that many in soon). This credit pack will be enough for your needs for 10 months. If you send five thousand emails per month, then the annual number of sends is 60 thousand. Although you will not use all of your credits in this case, but it is still the best deal you can find on the market. Feel free to check out our competitors and do your calculations.
+Recommended for those sending 50,000 to 200,000 emails monthly. If your needs exceed 500,000 monthly emails, consider multiple "Scale-up" packs to ensure uninterrupted service.
 
-### Scale-up credit pack
+### Grown-up Credit Pack
 
-1 million credits. Credits expire after a year.
+- **10 million credits** (valid for one year)
+- **Price:** $2,500
 
-Price: $300
+With this pack, you can send:
+- **10,000,000 emails** without branding (no bluefox.email logo or link in your emails)
+- **20,000,000 emails** with branding (bluefox.email logo and link included in your emails)
 
-With this credit pack, you can either send:
- - 1.000.000 emails without bluefox.email brandng (we don't put our logo & link into your emails)
- - or 2.000.000 emails with bluefox.email branding (we put our logo & link into your emails)
+Perfect for businesses with significant email requirements, regularly sending hundreds of thousands or millions of emails each month. For businesses sending over 833,000 emails monthly, this pack delivers excellent value.
 
-Buy this credit pack if you already send quite a lot of emails, for example 50-200 thousand emails per month. If you send more than 500 thousand emails per month, it might be a good idea to buy more than one "Scale-up" credit packs at once, so you won't accidentally run out of credits.
+### Enterprise Solution
 
-### Grown-up credit pack
+For requirements beyond 10 million credits, dedicated servers, or custom solutions, please [contact us](mailto:hello@bluefox.email) to discuss a tailored package.
 
-10 million credits. Credits expire after a year.
+---
 
-Price: $2500
-
-With this credit pack, you can either send:
- - 10.000.000 emails without bluefox.email brandng (we don't put our logo & link into your emails)
- - or 20.000.000 emails with bluefox.email branding (we put our logo & link into your emails)
-
-This credit pack is for serious players with a lot of users and hundreds of thousands or even millions of email sends per month. If you send more than 833 thousand emails per month, then this credit pack already worth it for your business.
-
-### Enterprise
-
-Need more? Need dedicated servers? Please, [contact us](mailto:hello@bluefox.email).
+Our credit packs offer flexibility, transparency, and exceptional value, ensuring you pay only for the emails you send. Enjoy predictable costs at competitive rates, designed to grow with your business.
