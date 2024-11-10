@@ -2,7 +2,7 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 title: Pricing
-description: Don't overpay for contact-based subscriptions ever again. Only pay the emails you sent!
+description: Don't overpay for contact-based subscriptions ever again. Only pay for the emails you send!
 ---
 
 <style>
