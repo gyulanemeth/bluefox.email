@@ -210,4 +210,8 @@ html.dark .pricing-card .pricing-card-inner {
       <a class="VPButton alt medium" target="_blank" href="/docs/credits">How Credits Work</a>
     </div>
   </div>
+
+  <p>You can use bluefox.email for <strong>FREE</strong> during the beta period.</p>
+  <div>We will be moving out of beta in December 2024.</div>
 </section>
+
