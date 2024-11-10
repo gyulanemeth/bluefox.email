@@ -22,6 +22,7 @@ export default defineConfig({
     },
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'Pricing', link: '/pricing' },
       { text: 'Docs', link: '/docs/' },
       { text: 'About', link: '/about' },
       { text: 'Login', link: 'https://app.bluefox.email' }
@@ -85,6 +86,9 @@ export default defineConfig({
             { text: 'Blocks (or modules)', link: '/docs/design-systems/blocks' },
             { text: 'Templates', link: '/docs/design-systems/templates' }
           ]
+        }, {
+          text: 'Pricing/Credits',
+          link: '/docs/credits'
         }]
       },
       {
