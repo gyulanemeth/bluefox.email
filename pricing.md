@@ -11,7 +11,7 @@ description: Don't overpay for contact-based subscriptions ever again. Only pay 
   flex-wrap: wrap;
   justify-content: center;
   gap: 50px;
-  padding: 50px;
+  padding-top: 50px;
 }
 
 .pricing-card {
@@ -159,6 +159,21 @@ html.dark .pricing-card .pricing-card-inner {
     background-clip: text;
   }
 
+  .credit-explanation {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 50px;
+    padding: 15px;
+  }
+
+  .credit-explanation div {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+  }
+
   @media (max-width: 599px) {
     .vp-doc .actions {
       flex-direction: column;
@@ -199,6 +214,19 @@ html.dark .pricing-card .pricing-card-inner {
       </div>
     </div>
   </div>
+  <div class="credit-explanation">
+    <div class="with-branding">
+      <div>1 credit = 2 email sends</div>
+      <div>with bluefox.email branding.</div>
+      <div>(We put our logo & link in your emails.)</div>
+    </div>
+    <div>OR</div>
+    <div class="without-branding">
+      <div>1 credit = 1 email send</div>
+      <div>without bluefox.email branding.</div>
+      <div>(We don't put our logo in your emails.)</div>
+    </div>
+  </div>  
   <div>You will also need to pay to AWS $0.1 / 1000 emails for your SES usage.</div>
   <p>All packages include all of our features without restrictions!</p>
   <div id="get-started-with-free-credits">Get started with 36000 free credits</div>
