@@ -106,3 +106,16 @@ You can also use merge tags in the email's `subject line` and `preview text`!
 
 For more details on how to personalize your emails with merge tags and Handlebars, check out our [personalization guide](/docs/personalization).
 
+
+## Advanced Settings
+
+The **Advanced Settings** feature allows you to customize key email-sending options, such as configuring sender identities and reply-to addresses. 
+
+You can access the **Advanced Settings** by clicking the gear icon:
+
+![Advanced Settings Icon](./project-triggered-advanced-settings-btn.webp)
+
+For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings.html#advanced-settings).
+
+
+
