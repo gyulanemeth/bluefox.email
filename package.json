@@ -22,6 +22,6 @@
   "homepage": "https://github.com/gyulanemeth/bluefox.email#readme",
   "dependencies": {
     "tailwindcss": "^3.4.10",
-    "vitepress": "1.3.4"
+    "vitepress": "1.5.0"
   }
 }
