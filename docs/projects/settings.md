@@ -20,21 +20,21 @@ We store your credentials encrypted, so even in the very unlikely event of data 
 
 ### Managing Sender Identities
 
-In this section, you can manage the sender names and email addresses that will appear to your recipients. These identities define the sender details used for your emails. By default, emails will use the **default identity**. If you wish to use a specific identity for an email, you can configure it in the **Advanced Settings** of the email.
+In this section, you can manage the sender names and email addresses that will appear to your recipients. These identities define the sender details used for your emails. By default, emails will use the **default identity**. If you wish to use a specific identity for an email, you can configure it in the **advanced settings** of the email.
 
-- **Adding a New Identity**  
-  To add a new identity, click the **"Add Identity"** button and provide the sender name and email address.
+- **Adding a new identity**  
+  To add a new identity, click the **"add identity"** button and provide the sender name and email address.
 
   ![A screenshot of add Identity Button](./project-settings-aws-add-identity-btn.webp)
 
-- **Default Identity**  
+- **Default identity**  
   When adding identities, the first sender identity is automatically set as the **default identity**.  
-  - To change the default identity, click the **"Make Identity Default"** icon next to any other sender identity.  
+  - To change the default identity, click the **"set as default identity"** icon next to any other sender identity.  
   - The default identity is used automatically when no specific sender identity is selected for an email.
 
   ![A screenshot of a project settings AWS credentials make identity section.](./project-settings-aws-make-identity-default-btn.webp)
 
-- **Deleting an Identity**  
+- **Deleting an identity**  
   If a sender identity is no longer needed, you can delete it by clicking the **trash icon** next to the sender identity.
 
   ![A screenshot of a project settings AWS credentials delete Identity Icon](./project-settings-aws-make-identity-delete-btn.webp)
@@ -49,7 +49,7 @@ The **Advanced Settings** feature, available in email cards for **Campaign**, **
 
 ### Sender Identity Selection
 
-The **Sender Identity** field lets you choose the identity used to send the email. By default, the system automatically selects the **default identity**, but you can select another identity from the list of available options.
+The **sender identity** field lets you choose the identity used to send the email. By default, the system automatically selects the **default identity**, but you can select another identity from the list of available options.
 
 
 ![Sender Identity Selection](./project-settings-advanced-settings-sender-identity.webp)
@@ -57,7 +57,7 @@ The **Sender Identity** field lets you choose the identity used to send the emai
 
 ## Reply-To Email Address
 
-The **Reply-To Email Address** field allows you to specify where replies to your email should be sent.
+The **reply-to email address** field allows you to specify where replies to your email should be sent.
 
 ![Reply-To Email Field](./project-settings-advanced-settings-reply-to.webp)
 
