@@ -1,6 +1,6 @@
 # Terms of Use
 
-_Last Updated: Oct. 17, 2024_
+_Last Updated: Nov. 27, 2024_
 
 ## 1. Introduction
 
