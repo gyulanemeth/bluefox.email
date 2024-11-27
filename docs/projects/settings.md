@@ -40,11 +40,6 @@ In this section, you can manage the sender names and email addresses that will a
   ![A screenshot of a project settings AWS credentials delete Identity Icon](./project-settings-aws-make-identity-delete-btn.webp)
 
 
-
-
-
-
-
 ## Advanced Settings
 
 The **Advanced Settings** feature, available in email cards for **Campaign**, **Transactional**, and **Triggered Emails**, allows you to customize key email-sending options, providing flexibility in managing sender identities and reply-to addresses.
@@ -65,10 +60,6 @@ The **Sender Identity** field lets you choose the identity used to send the emai
 The **Reply-To Email Address** field allows you to specify where replies to your email should be sent.
 
 ![Reply-To Email Field](./project-settings-advanced-settings-reply-to.webp)
-
-
-
-
 
 
 
