@@ -143,6 +143,10 @@ export default defineConfig({
       {
         text: 'Privacy policy',
         link: '/privacy-policy'
+      },
+      {
+        text: 'Refund policy',
+        link: '/refund-policy'
       }
     ],
 
@@ -150,7 +154,7 @@ export default defineConfig({
       { icon: 'twitter', link: 'https://twitter.com/bluefoxemail' }
     ],
     footer: {
-      message: '<a href="/terms-of-use">Terms of use.</a> <a href="/privacy-policy">Privacy policy.</a>',
+      message: '<a href="/terms-of-use">Terms of use.</a> | <a href="/privacy-policy">Privacy policy.</a> | <a href="/refund-policy">Refund policy.</a>',
       copyright: 'Copyright © 2024 Innovaris Group LLC.'
     }
   },
