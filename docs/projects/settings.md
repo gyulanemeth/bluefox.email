@@ -12,6 +12,12 @@ First, set up your AWS `Access Key ID`, `Secret Access Key`, `Sender Identities`
 
 The access key must be able to send emails via SES from the region and the sender identity you set up. The sending limit should be lower or equal to the actual AWS SES sending limit.
 
+
+::: tip Your AWS Credentials Are Secure
+We store your credentials encrypted, so even in the very unlikely event of data leakage, attackers won't be able to use your credentials.
+:::
+
+
 ### Managing Sender Identities
 
 In this section, you can manage the sender names and email addresses that will appear to your recipients. These identities define the sender details used for your emails. By default, emails will use the **default identity**. If you wish to use a specific identity for an email, you can configure it in the **Advanced Settings** of the email.
@@ -33,12 +39,38 @@ In this section, you can manage the sender names and email addresses that will a
 
   ![A screenshot of a project settings AWS credentials delete Identity Icon](./project-settings-aws-make-identity-delete-btn.webp)
 
----
 
 
-::: tip Your AWS Credentials Are Secure
-We store your credentials encrypted, so even in the very unlikely event of data leakage, attackers won't be able to use your credentials.
-:::
+
+
+
+
+## Advanced Settings
+
+The **Advanced Settings** feature, available in email cards for **Campaign**, **Transactional**, and **Triggered Emails**, allows you to customize key email-sending options, providing flexibility in managing sender identities and reply-to addresses.
+
+![Advanced Settings](./project-settings-advanced-settings.webp)
+
+
+### Sender Identity Selection
+
+The **Sender Identity** field lets you choose the identity used to send the email. By default, the system automatically selects the **default identity**, but you can select another identity from the list of available options.
+
+
+![Sender Identity Selection](./project-settings-advanced-settings-sender-identity.webp)
+
+
+## Reply-To Email Address
+
+The **Reply-To Email Address** field allows you to specify where replies to your email should be sent.
+
+![Reply-To Email Field](./project-settings-advanced-settings-reply-to.webp)
+
+
+
+
+
+
 
 ## Bounce & Complaint Webhooks
 
