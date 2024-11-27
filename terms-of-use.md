@@ -4,7 +4,7 @@ _Last Updated: Oct. 17, 2024_
 
 ## 1. Introduction
 
-Welcome to **bluefox.email**! By using our platform, you agree to these terms of use. Please read them carefully before proceeding.
+Welcome to **bluefox.email**, operated by **Innovaris Group LLC**! By using our platform, you agree to these terms of use. Please read them carefully before proceeding.
 
 ## 2. Eligibility
 
@@ -55,11 +55,11 @@ We strictly prohibit spamming on our platform. If we detect or receive reports o
 
 ## 9. Intellectual Property
 
-All content, trademarks, and logos on the bluefox.email platform are the property of bluefox.email or our licensors. You may not use any of our intellectual property without prior written consent.
+All content, trademarks, and logos on the bluefox.email platform are the property of Innovaris Group LLC or our licensors. You may not use any of our intellectual property without prior written consent.
 
 ## 10. Limitation of Liability
 
-Bluefox.email is provided "as is," and we do not guarantee uninterrupted or error-free operation. In no event will bluefox.email be liable for any indirect, consequential, or punitive damages arising from your use of the platform.
+Bluefox.email is provided "as is," and we do not guarantee uninterrupted or error-free operation. In no event will Innovaris Group LLC be liable for any indirect, consequential, or punitive damages arising from your use of the platform.
 
 ## 11. Termination
 
@@ -75,4 +75,4 @@ We may update these terms from time to time. Any changes will be posted on this 
 
 ## 14. Contact Us
 
-If you have any questions about these terms, please contact us at gyula.nemeth85@gmail.com.
+If you have any questions about these terms, please contact us at **hello@bluefox.email**.
