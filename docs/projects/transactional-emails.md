@@ -86,3 +86,16 @@ You can also use merge tags in the email's `subject line` and `preview text`!
 ![A screenshot of a transactional email, with a merge tag being used in the subject and the preview text.](./project-transactionals-edit-subject-merge-tag.webp)
 
 For more details, read our guide on [personalization with merge tags](/docs/personalization) and Handlebars.
+
+
+
+## Advanced Settings
+
+The **Advanced Settings** feature allows you to customize key email-sending options, such as configuring sender identities and reply-to addresses. 
+
+You can access the **Advanced Settings** by clicking the gear icon:
+
+![Advanced Settings Icon](./project-transactionals-advanced-settings-btn.webp)
+
+For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings.html#advanced-settings).
+

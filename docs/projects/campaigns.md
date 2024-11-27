@@ -75,3 +75,16 @@ Sent campaigns can be archived, and stats should show up:
 
 Archived campaigns can be restored. It means that they become draft again.s
 ![Campaign - archived.](./project-campaign-archived.webp)
+
+
+## Advanced Settings
+
+The **Advanced Settings** feature allows you to customize key email-sending options, such as configuring sender identities and reply-to addresses. 
+
+You can access the **Advanced Settings** by clicking the gear icon:
+
+![Advanced Settings Icon](./project-campaign-advanced-settings-btn.webp)
+
+For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings.html#advanced-settings).
+
+
