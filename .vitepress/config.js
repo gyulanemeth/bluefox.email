@@ -74,6 +74,9 @@ export default defineConfig({
         }, {
           text: 'API',
           link: '/docs/api/'
+        }, { 
+          text: 'Analytics',
+          link: '/docs/analytics' 
         }, {
           text: 'Personalization (merge tags)',
           link: '/docs/personalization',
