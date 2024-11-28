@@ -1,6 +1,7 @@
 ---
 title: "Sender Name & Email Address: Building Trust Before the Open"
 description: "Discover how your sender name and email address can boost email engagement and build trust with your audience."
+thumbnail: https://bluefox.email/assets/articles/sender-name-and-email-address-share.png
 head:
   - - meta
     - name: description
@@ -30,6 +31,7 @@ head:
     - name: twitter:image
       content: "https://bluefox.email/assets/articles/sender-name-and-email-address-share.png"
 lastUpdated: false
+published: true
 ---
 
 ![](/assets/articles/sender-name-and-email-address.png)

@@ -23,6 +23,7 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Pricing', link: '/pricing' },
+      { text: 'Articles', link: '/articles/' },
       { text: 'Docs', link: '/docs/' },
       { text: 'About', link: '/about' },
       { text: 'Login', link: 'https://app.bluefox.email' }
@@ -34,21 +35,6 @@ export default defineConfig({
     ],
 
     sidebar: [
-      {
-        text: 'Best Practices',
-        link: '/email-best-practices-for-saas/',
-        collapsed: false,
-        items: [{
-          text: 'Double Opt-In',
-          link: '/email-best-practices-for-saas/double-opt-in'
-        }, {
-          text: 'Unsubscribe and Pause Subscription',
-          link: '/email-best-practices-for-saas/unsubscribe-and-pause-subscription'
-        }, {
-          text: 'DMARC',
-          link: '/email-best-practices-for-saas/dmarc'
-        }]
-      },
       {
         text: 'Docs',
         link: '/docs/',
@@ -89,6 +75,21 @@ export default defineConfig({
         }, {
           text: 'Pricing/Credits',
           link: '/docs/credits'
+        }]
+      },
+      {
+        text: 'Best Practices',
+        link: '/email-best-practices-for-saas/',
+        collapsed: false,
+        items: [{
+          text: 'Double Opt-In',
+          link: '/email-best-practices-for-saas/double-opt-in'
+        }, {
+          text: 'Unsubscribe and Pause Subscription',
+          link: '/email-best-practices-for-saas/unsubscribe-and-pause-subscription'
+        }, {
+          text: 'DMARC',
+          link: '/email-best-practices-for-saas/dmarc'
         }]
       },
       {

@@ -1,6 +1,7 @@
 ---
 title: "Mastering Subject Lines: How to Get People to Actually Open Your Emails"
 description: "Learn the secrets to writing attention-grabbing subject lines that get your emails opened. Tips on personalization, urgency, curiosity, and more!"
+thumbnail: https://bluefox.email/assets/articles/mastering-subject-lines-share.png
 head:
   - - meta
     - name: description
@@ -30,6 +31,7 @@ head:
     - name: twitter:image
       content: "https://bluefox.email/assets/articles/mastering-subject-lines-share.png"
 lastUpdated: true
+published: true
 ---
 
 ![](/assets/articles/mastering-subject-lines.png)
