@@ -109,7 +109,7 @@ For more details on how to personalize your emails with merge tags and Handlebar
 
 ## Triggered Email Statistics
 
-Triggered emails are automated messages sent in response to specific user actions, such as password resets, account verification, or abandoned cart reminders. Monitoring the performance of these emails is essential to ensure timely delivery, optimal engagement, and proper subscriber management.
+Triggered emails are automated messages sent in response to specific user actions, such as abandoned cart reminders. Monitoring the performance of these emails is essential to ensure timely delivery, optimal engagement, and proper subscriber management.
 
 
 ### Why Triggered Email Statistics Matter
