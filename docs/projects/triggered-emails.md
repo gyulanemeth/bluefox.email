@@ -107,6 +107,48 @@ You can also use merge tags in the email's `subject line` and `preview text`!
 For more details on how to personalize your emails with merge tags and Handlebars, check out our [personalization guide](/docs/personalization).
 
 
+## Triggered Email Statistics
+
+Triggered emails are automated messages sent in response to specific user actions, such as abandoned cart reminders. Monitoring the performance of these emails is essential to ensure timely delivery, optimal engagement, and proper subscriber management.
+
+
+### Why Triggered Email Statistics Matter
+
+Understanding how your triggered emails perform helps you:
+
+- **Ensure Timely Delivery**: Track delivery rates to make sure the triggered emails are sent when needed.
+- **Improve User Engagement**: Analyzing open rates and click-through rates lets you optimize email content and timing, ensuring recipients engage with your emails.
+- **Detect Issues**: High bounce rates or low open rates can indicate problems with email deliverability or content, allowing you to fix issues early. Additionally, triggered emails can have actions like pausing or unsubscribing users, so it's important to monitor these metrics to understand why certain subscribers are no longer receiving emails.
+- **Manage Subscriber Behavior**: Subscriber actions such as pausing, unsubscribing, resubscribing, or subscribing again to email lists need to be tracked to maintain clean and effective lists.
+- **Enhance Customer Experience**: Effective triggered emails improve user satisfaction by delivering relevant and timely content that enhances the user experience.
+
+### What Triggered Email Statistics Include
+
+The triggered email statistics section includes the following key metrics:
+
+- **Sent Emails**: Total number of sent emails.
+- **Opens**: Number of times email were opened by recipients.
+- **Unique Opens**: Number of individual recipients who opened your emails (counts only one open per recipient).
+- **Clicks**: Total number of clicks on links within the emails.
+- **Unique Clicks**: Number of individual recipients who clicked on links within your emails (counts only one click per recipient).
+- **Bounces**: Number of emails that failed to be delivered.
+- **Complaints**: Number of complaints (e.g., marked as spam).
+- **Unsubscribes**: Number of recipients who unsubscribed from receiving further emails.
+- **Paused Subscriptions**: Number of recipients who paused their subscription.
+- **Resubscribes**: Number of recipients who resubscribed to receive emails after previously unsubscribing.
+- **Subscribed**: Number of recipients who subscribed to receive emails.
+
+By analyzing these metrics, you can ensure that your triggered emails are performing effectively, reaching the right audience, and making adjustments to your email strategy when necessary.
+
+### How to Access Triggered Email Stats
+
+You can access the **Triggered Email Statistics** by clicking the arrow icon:
+
+![Advanced Settings Icon](./project-triggered-stats-btn.webp)
+
+For more information on using the **Triggered Email Statistics**, refer to the [Analytics Documentation](/docs/analytics).
+
+
 ## Advanced Settings
 
 The **Advanced Settings** feature allows you to customize key email-sending options, such as configuring sender identities and reply-to addresses. 

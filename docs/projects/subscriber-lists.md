@@ -72,3 +72,47 @@ If you just create a newsletter sign-up:
 - You can add them to your list as an `unverified` subscriber.
 - Send them a verification email (transactional email) with a unique link.
 - When they click on it, you can change their status to `active`.
+
+
+
+
+
+## Subscriber List Statistics  
+
+The **Subscriber List Statistics** section provides insights into the performance of your subscriber lists, including email activity and subscription trends. This allows you to monitor how well your lists are growing and how subscribers interact with your emails.  
+
+### Why Subscriber List Statistics Matter  
+
+Analyzing subscriber list statistics helps you:  
+
+- **Monitor Engagement**: Track how subscribers interact with emails sent to a specific list.  
+- **Understand Growth Trends**: Visualize how your list is growing or shrinking over time through subscription and unsubscription data.  
+- **Improve Retention**: Identify patterns in subscription pauses or unsubscribes to address issues and reduce churn.  
+- **Optimize Targeting**: Use insights into subscriber activity to refine your campaigns and re-engagement efforts.  
+
+### What Subscriber List Statistics Include  
+
+The subscriber list statistics section includes the following key metrics:
+
+Similar to email statistics, this section provides details about the emails sent to this list:  
+- **Sent Emails**: Total number of emails sent to the subscriber list.  
+- **Opens**: Number of times recipients on this list opened emails.  
+- **Unique Opens**: Number of individual subscribers who opened emails (counts only one open per subscriber).  
+- **Clicks**: Total number of clicks on links within the emails sent to this list.  
+- **Unique Clicks**: Number of individual subscribers who clicked on links (counts only one click per subscriber).  
+- **Bounces**: Number of emails that failed to deliver.  
+- **Complaints**: Number of complaints (e.g., emails marked as spam).   
+- **Subscriptions**: Number of new subscribers added to the list during the selected time interval.  
+- **Resubscriptions**: Number of previous subscribers who re-subscribed.  
+- **Unsubscribes**: Number of subscribers who opted out during the selected period.  
+- **Paused Subscriptions**: Number of subscribers who paused their subscriptions temporarily.  
+
+These metrics provide a comprehensive view of your subscriber list's performance and behavior. By analyzing this data, you can identify trends, address issues, and refine your strategies to grow and retain your subscriber base more effectively.
+
+### How to Access Subscriber List Statistics
+
+You can access the **Subscriber List Statistics** by clicking the arrow icon:
+
+![stats Icon](./project-subscriber-lists-stats-btn.webp)
+
+For more information on how to use the **Subscriber List Statistics**, refer to the [Analytics Documentation](/docs/analytics).
