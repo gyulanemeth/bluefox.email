@@ -57,6 +57,9 @@ export default defineConfig({
           text: 'Getting Started',
           link: '/docs/getting-started'
         }, {
+          text: 'Account Dashboard',
+          link: '/docs/dashboard'
+        }, {
           text: 'Projects',
           link: '/docs/projects/',
           collapsed: false,
