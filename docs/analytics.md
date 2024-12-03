@@ -1,6 +1,6 @@
 # Analytics
 
-The Analytics section in your application provides a comprehensive analysis of email performance, subscription trends, and user engagement metrics. It is designed to cater to multiple scopes, such as account, project, transactional emails, triggered emails, campaigns, and subscriber lists. Each type of statistic is presented with clear visuals, detailed filters and actionable insights.
+The Analytics section in your application provides a comprehensive analysis of email performance, subscription trends, and user engagement metrics. It is designed to cater to multiple scopes, such as [**account**](/docs/dashboard#key-metrics-in-the-account-dashboard), [**project**](/docs/projects/analytics#project-dashboard), [**transactional emails**](/docs/projects/transactional-emails#transactional-email-statistics), [**triggered emails**](/docs/projects/triggered-emails#triggered-email-statistics), [**campaigns**](/docs/projects/campaigns#campaign-email-statistics) and [**subscriber Lists**](/docs/projects/subscriber-lists#subscriber-list-statistics). Each type of statistic is presented with clear visuals, detailed filters and actionable insights.
 
 
 ## Overall Banners
@@ -24,7 +24,7 @@ The Subscription Overall Banner provides an overview of your total subscribers a
 ## Email and Subscription Charts
 
 ### Email Metrics:
-Email-related charts track key performance indicators for campaigns, including: **Sent**, **Open**, **Unique Opens**, **Click**, **Unique Click** and **Failed**
+Email-related charts track key performance indicators for emails, including: **Sent**, **Open**, **Unique Opens**, **Click**, **Unique Click** and **Failed**
 These metrics are displayed using either bar or line charts, depending on the user's preference for visualizing comparative data or tracking continuous trends.
 
 ![Email Charts Example](./statistics-email-bar-chart.webp)
