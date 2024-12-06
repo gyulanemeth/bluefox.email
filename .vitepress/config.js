@@ -64,13 +64,13 @@ export default defineConfig({
           link: '/docs/projects/',
           collapsed: false,
           items: [
+            { text: 'Project Dashboard', link: '/docs/projects/analytics' },
             { text: 'Creating a new project', link: '/docs/projects/new-project.md' },
             { text: 'Transactional Emails', link: '/docs/projects/transactional-emails' },
             { text: 'Triggered Emails', link: '/docs/projects/triggered-emails' },
             { text: 'Campaigns', link: '/docs/projects/campaigns' },
             { text: 'Subscriber Lists', link: '/docs/projects/subscriber-lists' },
             { text: 'Subscriptions Preferences Page', link: '/docs/projects/subscription-preferences-page' },
-            { text: 'Analytics', link: '/docs/projects/analytics' },
             { text: 'Design System Settings', link: '/docs/projects/design-system-settings' },
             { text: 'Settings', link: '/docs/projects/settings' }
           ]
