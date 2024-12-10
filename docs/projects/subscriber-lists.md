@@ -54,11 +54,17 @@ The CSV file you import must contain `name` and `email` columns.
 
 ## Subscriber list integration
 
-You can manage subscribers on your list programmatically. We provide code snippets in various programming languages that you can use. Click on the list's "Code guide" button:
+Managing your subscriber list in bluefox.email is simple using our Subscription API. This API allows you to subscribe new users, unsubscribe them, activate or pause their subscriptions, list all subscribers, and fetch details about a specific subscriber. We provide code snippets in various programming languages that you can use. Click on the list's "Code guide" button:
 ![Screenshot of the subscriber lists page - code guide button highlighted](./project-subscriber-lists-manage-code-guide-button-highlighted.webp)
 
 Just copy and modify the code in your preferred programming language:
 ![Screenshot of the subscriber lists page - code guide dialog](./project-subscriber-lists-code-guide-dialog.webp)
+
+::: danger Security Warning  
+Your **bluefox.email** API key must be included in the `Authorization` header of each request. Avoid sending these requests from your frontend to prevent exposing your API key!  
+:::  
+
+For more details and guidance on integrating these endpoints, visit our [API documentation](/docs/api).  
 
 ## Implement double opt-in
 
@@ -72,9 +78,6 @@ If you just create a newsletter sign-up:
 - You can add them to your list as an `unverified` subscriber.
 - Send them a verification email (transactional email) with a unique link.
 - When they click on it, you can change their status to `active`.
-
-
-
 
 
 ## Subscriber List Statistics  
