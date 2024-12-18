@@ -64,7 +64,7 @@ Just copy and modify the code in your preferred programming language:
 Your **bluefox.email** API key must be included in the `Authorization` header of each request. Avoid sending these requests from your frontend to prevent exposing your API key!  
 :::  
 
-For more details and guidance on integrating these endpoints, visit our [API documentation](/docs/api).  
+For more details and guidance on integrating these endpoints, visit our [API documentation](/docs/api/).  
 
 ## Implement double opt-in
 
