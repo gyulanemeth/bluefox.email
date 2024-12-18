@@ -656,7 +656,7 @@ $result = file_get_contents($url, false, $context);
 
 ## Send attachments
 
-Attachments in **Bluefox.email** allow you to include files in your emails. These files are specified as an array of objects, with each object representing a single attachment. Attachments can be used in both **transactional** and **triggered emails**.
+Attachments in **bluefox.email** allow you to include files in your emails. These files are specified as an array of objects, with each object representing a single attachment. Attachments can be used in both **transactional** and **triggered emails**.
 
 ::: warning
 Attachments are cached for **1 hour**. If your email sending process is expected to take longer than an hour, please contact our support team to ensure uninterrupted delivery.
