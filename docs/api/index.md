@@ -736,7 +736,6 @@ When a webhook is triggered, a request is sent to your endpoint with a signature
    Compare the received signature with the recreated signature to ensure authenticity.
 
     Below is a JavaScript code snippet to verify webhook signatures:
-
     ```javascript
     const crypto = require('crypto');
 
@@ -744,8 +743,8 @@ When a webhook is triggered, a request is sent to your endpoint with a signature
     return received === crypto.createHmac('sha256', secret).update(payload).digest('base64');
     }
 
-    const receivedSignature = req.headers['svix-signature'];
-    const payload = `${req.headers['svix-id']}.${req.headers['svix-timestamp']}.${JSON.stringify(req.body)}`;
+    const receivedSignature = req.headers['msg-signature'];
+    const payload = `${req.headers['msg-id']}.${req.headers['msg-timestamp']}.${JSON.stringify(req.body)}`;
     const secretKey = 'your-secret-key';
 
     compareSignatures(receivedSignature, payload, secretKey)
