@@ -749,8 +749,8 @@ When a webhook is triggered, a request is sent to your endpoint with a signature
 
     compareSignatures(receivedSignature, payload, secretKey)
     ```
-    - **`receivedSignature`**: Extracted from the `Svix-Signature` header in the incoming request.
-    - **`payload`**: A concatenation of the `Svix-Timestamp` header and the raw request body.
+    - **`receivedSignature`**: Extracted from the `msg-signature` header in the incoming request.
+    - **`payload`**: A concatenation of the `msg-id`, `msg-timestamp` header and the raw request body.
     - **`secretKey`**: The secret key you received when setting up the webhook.
    
 4. **Respond to the Webhook**  
