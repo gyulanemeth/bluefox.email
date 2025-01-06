@@ -685,3 +685,185 @@ Here’s an example of how to structure attachments:
   ]
 }
 ```
+
+## Webhook
+
+Webhooks allow your application to receive real-time notifications about events such as email opens, clicks, bounces, complaints, subscriptions, and more. By setting up a webhook, you can stay informed and integrate email event data directly into your application.
+
+### Features of Webhooks
+- **Real-Time Updates**: Receive immediate notifications about email events.
+- **Customizable Events**: Choose the specific events you wish to track.
+- **Secure Communication**: Verify incoming requests using a secret key to ensure they are from a trusted source.
+- **Easy Integration**: Seamlessly integrate webhook notifications into your app.
+
+### Steps to Add a Webhook
+
+1. **Navigate to the Webhooks Section**  
+   Go to the settings page in your dashboard and open the "Webhooks" tab.
+
+2. **Add Webhook URL**  
+   Enter the URL where you want to receive event notifications. Ensure your endpoint is able to handle `POST` requests.
+
+3. **Select Events**  
+   Choose the events you want to monitor, such as email opens, clicks, or bounces.
+
+4. **Save and Obtain the Secret Key**  
+   After saving, a **secret key** will be displayed. Copy and securely store this key, as it will be used to verify webhook requests in your endpoint.
+
+5. **Test Webhook**  
+   Use the "Test Webhook" feature to simulate a webhook request and verify your setup.
+
+6. **Start Receiving Notifications**  
+   Your endpoint will now receive real-time `POST` requests with event details.
+
+### Verifying Webhook Requests
+
+When a webhook is triggered, a request is sent to your endpoint with a signature to authenticate the source. To verify the request, you'll need to check the signature against the payload sent in the request.
+
+#### Request Headers
+- **`Svix-Signature`**: Signature of the payload, generated using your secret key.
+- **`Svix-Timestamp`**: The timestamp when the event occurred.
+
+#### Steps to Verify Requests
+
+1. **Extract the Signature and Timestamp**  
+   Retrieve the `Svix-Signature` and `Svix-Timestamp` headers from the request.
+
+2. **Recreate the Signature**  
+   Concatenate the `Svix-Timestamp` and the raw request body, then hash it using the secret key.
+
+3. **Compare the Signatures**  
+   Compare the received signature with the recreated signature to ensure authenticity.
+
+    Below is a JavaScript code snippet to verify webhook signatures:
+
+    ```javascript
+    const crypto = require('crypto');
+
+    function compareSignatures(received, payload, secret) {
+    return received === crypto.createHmac('sha256', secret).update(payload).digest('base64');
+    }
+
+    const receivedSignature = req.headers['svix-signature'];
+    const payload = `${req.headers['svix-id']}.${req.headers['svix-timestamp']}.${JSON.stringify(req.body)}`;
+    const secretKey = 'your-secret-key';
+
+    compareSignatures(receivedSignature, payload, secretKey)
+    ```
+    - **`receivedSignature`**: Extracted from the `Svix-Signature` header in the incoming request.
+    - **`payload`**: A concatenation of the `Svix-Timestamp` header and the raw request body.
+    - **`secretKey`**: The secret key you received when setting up the webhook.
+   
+4. **Respond to the Webhook**  
+   If the request is valid, respond with a `200 OK` status code.
+
+
+### Example of webhook event types body
+
+When the webhook is triggered, the body of the request will contain information about the event. Here's an example of the payload you might receive:
+
+#### Click event
+```json
+{
+  "type": "click",
+  "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
+  "project": { "name": "Project name "},
+  "timestamp": "2025-01-06T13:27:32.017Z",
+  "emailData": {
+    "sentAt": "2025-01-06T13:27:32.017Z",
+    "to": "test@gmail.com",
+    "type": "e.g. transactional, triggered or campaign",
+    "subject": "This is bluefox.email webhook test"
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36",
+  "referer": "https://www.example.com/some-page",
+  "ipAddress": "203.0.113.195",
+  "blockPosition": "Block position e.g. 1",
+  "blockName": "Block name e.g. Hero",
+  "link": "https://www.example.com/btn-link"
+}
+```
+
+#### Open event
+```json
+{
+  "type": "open",
+  "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
+  "project": { "name": "Project name "},
+  "timestamp": "2025-01-06T13:27:32.017Z",
+  "emailData": {
+    "sentAt": "2025-01-06T13:27:32.017Z",
+    "to": "test@gmail.com",
+    "type": "e.g. transactional, triggered or campaign",
+    "subject": "This is bluefox.email webhook test"
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36",
+  "referer": "https://www.example.com/some-page",
+  "ipAddress": "203.0.113.195",
+}
+```
+
+#### Bounce event
+```json
+{
+  "type": "bounce",
+  "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
+  "project": { "name": "Project name "},
+  "timestamp": "2025-01-06T13:27:32.017Z",
+  "emailData": {
+    "sentAt": "2025-01-06T13:27:32.017Z",
+    "to": "test@gmail.com",
+    "type": "e.g. transactional, triggered or campaign",
+    "subject": "This is bluefox.email webhook test"
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36",
+  "referer": "https://www.example.com/some-page",
+  "ipAddress": "203.0.113.195",
+}
+```
+
+#### Complaint event
+```json
+{
+  "type": "complaint",
+  "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
+  "project": { "name": "Project name "},
+  "timestamp": "2025-01-06T13:27:32.017Z",
+  "emailData": {
+    "sentAt": "2025-01-06T13:27:32.017Z",
+    "to": "test@gmail.com",
+    "type": "e.g. transactional, triggered or campaign",
+    "subject": "This is bluefox.email webhook test"
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36",
+  "referer": "https://www.example.com/some-page",
+  "ipAddress": "203.0.113.195",
+}
+```
+
+#### Subscription event
+```json
+{
+"type": "subscription",
+  "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
+  "project": { "name": "Project name "},
+  "timestamp": "2025-01-06T13:27:32.017Z",
+  "subscription": {
+    "_id": "subscriberId",
+    "name": "Subscriber name",
+    "email": "subscriber@gmail.com",
+    "status": "e.g. unsubscribed, paused, active or unverified",
+    "subscriberList": {
+      "name": "SubscriberList name",
+      "_id": "subscriberListId",
+      "private": "e.g. true or false"
+    }
+  },
+  "emailData": {
+    "sentAt": "2025-01-06T13:27:32.017Z",
+    "to": "test@gmail.com",
+    "type": "e.g. transactional, triggered or campaign",
+    "subject": "This is bluefox.email webhook test"
+  },
+}
+```
