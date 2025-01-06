@@ -699,7 +699,7 @@ Webhooks allow your application to receive real-time notifications about events 
 ### Steps to Add a Webhook
 
 1. **Navigate to the Webhooks Section**  
-   Go to the settings page in your dashboard and open the "Webhooks" tab.
+   Go to you project settings and scroll down to the Webhooks section.
 
 2. **Add Webhook URL**  
    Enter the URL where you want to receive event notifications. Ensure your endpoint is able to handle `POST` requests.
@@ -843,7 +843,7 @@ When the webhook is triggered, the body of the request will contain information 
 #### Subscription event
 ```json
 {
-"type": "subscription",
+"type": "pause-subscription, unsubscribe, subscribe' or resubscribe",
   "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
   "project": { "name": "Project name "},
   "timestamp": "2025-01-06T13:27:32.017Z",
