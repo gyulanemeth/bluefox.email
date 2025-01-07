@@ -723,6 +723,7 @@ When a webhook is triggered, a request is sent to your endpoint with a signature
 #### Request Headers
 - **`msg-signature`**: Signature of the payload, generated using your secret key.
 - **`msg-timestamp`**: The timestamp when the event occurred.
+- **`msg-id`**: The msg id.
 
 #### Steps to Verify Requests
 
