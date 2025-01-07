@@ -736,6 +736,7 @@ When a webhook is triggered, a request is sent to your endpoint with a signature
    Compare the received signature with the recreated signature to ensure authenticity.
 
     Below is a JavaScript code snippet to verify webhook signatures:
+    #### Javascript:
     ```javascript
     const crypto = require('crypto');
 
@@ -752,6 +753,23 @@ When a webhook is triggered, a request is sent to your endpoint with a signature
     - **`receivedSignature`**: Extracted from the `msg-signature` header in the incoming request.
     - **`payload`**: A concatenation of the `msg-id`, `msg-timestamp` header and the raw request body.
     - **`secretKey`**: The secret key you received when setting up the webhook.
+
+    #### PHP:
+    ```php
+    function compareSignatures($received, $payload, $secret) {
+        return $received === base64_encode(hash_hmac('sha256', $payload, $secret, true));
+    }
+
+    $receivedSignature = $_SERVER['HTTP_MSG_SIGNATURE']; // Extracted from the msg-signature header
+    $payload = $_SERVER['HTTP_MSG_ID'] . '.' . $_SERVER['HTTP_MSG_TIMESTAMP'] . '.' . json_encode(file_get_contents('php://input'));
+    $secretKey = 'your-secret-key';
+
+    compareSignatures($receivedSignature, $payload, $secretKey)
+    
+    ```
+    - **`$receivedSignature`**: Extracts the`msg-signature`header from the request.
+    - **`$payload`**: Concatenates the `msg-id`, `msg-timestamp` header, and the raw request body (retrieved using file_get_contents('php://input')).
+    - **`$secretKey`**: The secret key used to generate the HMAC.
    
 4. **Respond to the Webhook**  
    If the request is valid, respond with a `200 OK` status code.
