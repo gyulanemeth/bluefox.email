@@ -721,16 +721,16 @@ Webhooks allow your application to receive real-time notifications about events 
 When a webhook is triggered, a request is sent to your endpoint with a signature to authenticate the source. To verify the request, you'll need to check the signature against the payload sent in the request.
 
 #### Request Headers
-- **`Svix-Signature`**: Signature of the payload, generated using your secret key.
-- **`Svix-Timestamp`**: The timestamp when the event occurred.
+- **`msg-signature`**: Signature of the payload, generated using your secret key.
+- **`msg-timestamp`**: The timestamp when the event occurred.
 
 #### Steps to Verify Requests
 
 1. **Extract the Signature and Timestamp**  
-   Retrieve the `Svix-Signature` and `Svix-Timestamp` headers from the request.
+   Retrieve the `msg-signature`, `msg-id` and `msg-timestamp` headers from the request.
 
 2. **Recreate the Signature**  
-   Concatenate the `Svix-Timestamp` and the raw request body, then hash it using the secret key.
+   Concatenate the `msg-id`, `msg-timestamp` and the raw request body, then hash it using the secret key.
 
 3. **Compare the Signatures**  
    Compare the received signature with the recreated signature to ensure authenticity.
@@ -779,14 +779,55 @@ When a webhook is triggered, a request is sent to your endpoint with a signature
 
 When the webhook is triggered, the body of the request will contain information about the event. Here's an example of the payload you might receive:
 
+#### Sent event
+```json
+{
+  "type": "sent",
+  "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
+  "project": { "name": "Project name "},
+  "createdAt": "2025-01-06T13:27:32.017Z",
+  "emailData": {
+    "sentAt": "2025-01-06T13:27:32.017Z",
+    "to": "test@gmail.com",
+    "type": "e.g. transactional, triggered or campaign",
+    "subject": "This is bluefox.email webhook test"
+  },
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36",
+  "referer": "https://www.example.com/some-page",
+  "ipAddress": "203.0.113.195",
+}
+```
+
+#### Failed event
+```json
+{
+  "type": "failed",
+  "account": { "_id": "accountId", "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
+  "project": { "_id": "projectId", "name": "Project name "},
+  "createdAt": "2025-01-06T13:27:32.017Z",
+  "emailData": {
+    "_id": "emailId",
+    "sentAt": "2025-01-06T13:27:32.017Z",
+    "to": "test@gmail.com",
+    "type": "e.g. transactional, triggered or campaign",
+    "subject": "This is bluefox.email webhook test"
+  },
+  "errors": ["error object"],
+  "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36",
+  "referer": "https://www.example.com/some-page",
+  "ipAddress": "203.0.113.195",
+}
+```
+
 #### Click event
 ```json
 {
   "type": "click",
-  "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
-  "project": { "name": "Project name "},
-  "timestamp": "2025-01-06T13:27:32.017Z",
+  "account": { "_id": "accountId", "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
+  "project": { "_id": "projectId", "name": "Project name "},
+  "createdAt": "2025-01-06T13:27:32.017Z",
   "emailData": {
+    "_id": "emailId",
     "sentAt": "2025-01-06T13:27:32.017Z",
     "to": "test@gmail.com",
     "type": "e.g. transactional, triggered or campaign",
@@ -805,10 +846,11 @@ When the webhook is triggered, the body of the request will contain information 
 ```json
 {
   "type": "open",
-  "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
-  "project": { "name": "Project name "},
-  "timestamp": "2025-01-06T13:27:32.017Z",
+  "account": { "_id": "accountId", "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
+  "project": { "_id": "projectId", "name": "Project name "},
+  "createdAt": "2025-01-06T13:27:32.017Z",
   "emailData": {
+    "_id": "emailId",
     "sentAt": "2025-01-06T13:27:32.017Z",
     "to": "test@gmail.com",
     "type": "e.g. transactional, triggered or campaign",
@@ -824,10 +866,11 @@ When the webhook is triggered, the body of the request will contain information 
 ```json
 {
   "type": "bounce",
-  "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
-  "project": { "name": "Project name "},
-  "timestamp": "2025-01-06T13:27:32.017Z",
+  "account": { "_id": "accountId", "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
+  "project": { "_id": "projectId", "name": "Project name "},
+  "createdAt": "2025-01-06T13:27:32.017Z",
   "emailData": {
+    "_id": "emailId",
     "sentAt": "2025-01-06T13:27:32.017Z",
     "to": "test@gmail.com",
     "type": "e.g. transactional, triggered or campaign",
@@ -843,10 +886,11 @@ When the webhook is triggered, the body of the request will contain information 
 ```json
 {
   "type": "complaint",
-  "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
-  "project": { "name": "Project name "},
-  "timestamp": "2025-01-06T13:27:32.017Z",
+  "account": { "_id": "accountId", "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
+  "project": { "_id": "projectId", "name": "Project name "},
+  "createdAt": "2025-01-06T13:27:32.017Z",
   "emailData": {
+    "_id": "emailId",
     "sentAt": "2025-01-06T13:27:32.017Z",
     "to": "test@gmail.com",
     "type": "e.g. transactional, triggered or campaign",
@@ -864,7 +908,7 @@ When the webhook is triggered, the body of the request will contain information 
 "type": "pause-subscription, unsubscribe, subscribe' or resubscribe",
   "account": { "name": "Account name", "urlFriendlyName": "UrlFriendlyName" },
   "project": { "name": "Project name "},
-  "timestamp": "2025-01-06T13:27:32.017Z",
+  "createdAt": "2025-01-06T13:27:32.017Z",
   "subscription": {
     "_id": "subscriberId",
     "name": "Subscriber name",
@@ -877,6 +921,7 @@ When the webhook is triggered, the body of the request will contain information 
     }
   },
   "emailData": {
+    "_id": "emailId",
     "sentAt": "2025-01-06T13:27:32.017Z",
     "to": "test@gmail.com",
     "type": "e.g. transactional, triggered or campaign",
