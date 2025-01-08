@@ -730,18 +730,21 @@ Webhook requests are now authenticated using a Bearer token sent in the `Authori
 
 2. **Compare the Token**  
    Simply compare the token with your predefined `secretKey`.
+
+   **Note**: To support key rotation with zero downtime, you should check the token against at least two keys: the current key and a previous key.
+   
    Below is a JavaScript code snippet to verify webhook:
    
    #### Javascript:
    ```javascript
    
    function verifyRequest(req) {
-    const secretKey = 'your-secret-key'; // Your predefined secret key
+    const validKeys = ['current-secret-key', 'previous-secret-key']; // List of valid keys
     const token = req.headers['Authorization']?.split(' ')[1]; // Extract Bearer token
     if (!token) {
         throw new Error('Missing Authorization header');
     }
-    return token === secretKey;
+     return validKeys.includes(token);
    }
     verifyRequest(req)
 
@@ -750,13 +753,17 @@ Webhook requests are now authenticated using a Bearer token sent in the `Authori
     #### PHP:
     ```php
 
-   function verifyRequest($request) {
-      $secretKey = 'your-secret-key'; // Your predefined secret key
-      $authHeader = $request->getHeader('Authorization'); // Get Authorization header    
-      $parts = explode(' ', $authHeader[0]);
-      $token = $parts[1];
-      return $token === $secretKey;
-   }
+    function verifyRequest($headers) {
+      $validKeys = ['current-secret-key', 'previous-secret-key']; // List of valid keys
+
+      if (!isset($headers['Authorization'])) {
+          throw new Exception('Missing Authorization header');
+      }
+
+      $token = str_replace('Bearer ', '', $headers['Authorization']); // Extract Bearer token
+
+      return in_array($token, $validKeys, true);
+    }
 
     verifyRequest($request);
 
