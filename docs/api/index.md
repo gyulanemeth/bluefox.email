@@ -731,8 +731,8 @@ Webhook requests are now authenticated using a Bearer token sent in the `Authori
 2. **Compare the Token**  
    Simply compare the token with your predefined `secretKey`.
 
-   **Note**: To support key rotation with zero downtime, you should check the token against at least two keys: the current key and a previous key.
-   
+   **Note**: To support key rotation with zero downtime, you should check the token against at least two keys: the current key and a backup key which is any API key you have, which you can switch to smoothly when you want to change the secretKey to it.
+
    Below is a JavaScript code snippet to verify webhook:
    
    #### Javascript:
