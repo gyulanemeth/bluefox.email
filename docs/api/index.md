@@ -718,59 +718,49 @@ Webhooks allow your application to receive real-time notifications about events 
 
 ### Verifying Webhook Requests
 
-When a webhook is triggered, a request is sent to your endpoint with a signature to authenticate the source. To verify the request, you'll need to check the signature against the payload sent in the request.
+Webhook requests are now authenticated using a Bearer token sent in the `Authorization` header. This token, known as the `secretKey`, is used to verify the authenticity of the request.
 
 #### Request Headers
-- **`msg-signature`**: Signature of the payload, generated using your secret key.
-- **`msg-timestamp`**: The timestamp when the event occurred.
-- **`msg-id`**: The event request unique identifier.
+- **`Authorization`**: Contains the Bearer token in the format Bearer `your-secret-key`.
 
 #### Steps to Verify Requests
 
-1. **Extract the Signature and Timestamp**  
-   Retrieve the `msg-signature`, `msg-id` and `msg-timestamp` headers from the request.
+1. **Extract the Bearer Token**  
+   Retrieve the Bearer token from the `Authorization` header.
 
-2. **Recreate the Signature**  
-   Concatenate the `msg-id`, `msg-timestamp` and the raw request body, then hash it using the secret key.
-
-3. **Compare the Signatures**  
-   Compare the received signature with the recreated signature to ensure authenticity.
-
-    Below is a JavaScript code snippet to verify webhook signatures:
-    #### Javascript:
-    ```javascript
-    const crypto = require('crypto');
-
-    function compareSignatures(received, payload, secret) {
-    return received === crypto.createHmac('sha256', secret).update(payload).digest('base64');
+2. **Compare the Token**  
+   Simply compare the token with your predefined `secretKey`.
+   Below is a JavaScript code snippet to verify webhook:
+   
+   #### Javascript:
+   ```javascript
+   
+   function verifyRequest(req) {
+    const secretKey = 'your-secret-key'; // Your predefined secret key
+    const token = req.headers['Authorization']?.split(' ')[1]; // Extract Bearer token
+    if (!token) {
+        throw new Error('Missing Authorization header');
     }
+    return token === secretKey;
+   }
+    verifyRequest(req)
 
-    const receivedSignature = req.headers['msg-signature'];
-    const payload = `${req.headers['msg-id']}.${req.headers['msg-timestamp']}.${JSON.stringify(req.body)}`;
-    const secretKey = 'your-secret-key';
-
-    compareSignatures(receivedSignature, payload, secretKey)
     ```
-    - **`receivedSignature`**: Extracted from the `msg-signature` header in the incoming request.
-    - **`payload`**: A concatenation of the `msg-id`, `msg-timestamp` header and the raw request body.
-    - **`secretKey`**: The secret key you received when setting up the webhook.
 
     #### PHP:
     ```php
-    function compareSignatures($received, $payload, $secret) {
-        return $received === base64_encode(hash_hmac('sha256', $payload, $secret, true));
-    }
 
-    $receivedSignature = $_SERVER['HTTP_MSG_SIGNATURE']; // Extracted from the msg-signature header
-    $payload = $_SERVER['HTTP_MSG_ID'] . '.' . $_SERVER['HTTP_MSG_TIMESTAMP'] . '.' . json_encode(file_get_contents('php://input'));
-    $secretKey = 'your-secret-key';
+   function verifyRequest($request) {
+      $secretKey = 'your-secret-key'; // Your predefined secret key
+      $authHeader = $request->getHeader('Authorization'); // Get Authorization header    
+      $parts = explode(' ', $authHeader[0]);
+      $token = $parts[1];
+      return $token === $secretKey;
+   }
 
-    compareSignatures($receivedSignature, $payload, $secretKey)
-    
+    verifyRequest($request);
+
     ```
-    - **`$receivedSignature`**: Extracts the`msg-signature`header from the request.
-    - **`$payload`**: Concatenates the `msg-id`, `msg-timestamp` header, and the raw request body (retrieved using file_get_contents('php://input')).
-    - **`$secretKey`**: The secret key used to generate the HMAC.
    
 4. **Respond to the Webhook**  
    If the request is valid, respond with a `200 OK` status code.
