@@ -766,7 +766,7 @@ Webhook requests are authenticated using an API key sent in the `Authorization` 
     ```
 4. **Respond to the Webhook**  
    If the request is valid, respond with a `200 OK` status code.
-::: warning
+::: warning Zero downtime API key rotation.
  To ensure a smooth transition when switching to a new API key, compare the request against multiple keys to prevent downtime.
 
    Below is a JavaScript code snippet to verify webhook:
