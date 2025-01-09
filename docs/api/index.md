@@ -718,7 +718,7 @@ Webhooks allow your application to receive real-time notifications about events 
 
 ### Verifying Webhook Requests
 
-Webhook requests are authenticated using an API key sent in the `Authorization` header in Bearer token format. This API key is used to verify the authenticity of the request.
+Webhook requests are authenticated using an API key sent in the `Authorization` header in Bearer token format. You can select in the project settings which API key you want to send with the request. This API key is used to verify the authenticity of the request.
 
 #### Request Headers
 - **`Authorization`**: Contains the apiKey in the format Bearer `your-secret-key`.
