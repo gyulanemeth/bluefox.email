@@ -718,33 +718,29 @@ Webhooks allow your application to receive real-time notifications about events 
 
 ### Verifying Webhook Requests
 
-Webhook requests are now authenticated using a Bearer token sent in the `Authorization` header. This token, known as the `secretKey`, is used to verify the authenticity of the request.
+Webhook requests are authenticated using an API key sent in the `Authorization` header in Bearer token format. You can select in the project settings which API key you want to send with the request. This API key is used to verify the authenticity of the request.
 
 #### Request Headers
-- **`Authorization`**: Contains the Bearer token in the format Bearer `your-secret-key`.
+- **`Authorization`**: Contains the apiKey in the format Bearer `your-secret-key`.
 
 #### Steps to Verify Requests
 
-1. **Extract the Bearer Token**  
-   Retrieve the Bearer token from the `Authorization` header.
+1. **Extract the apikey**  
+   Retrieve the apikey from the `Authorization` header.
 
 2. **Compare the Token**  
-   Simply compare the token with your predefined `secretKey`.
+   Simply compare the apikey with your predefined apikey
 
-   **Note**: To support key rotation with zero downtime, you should check the token against at least two keys: the current key and a backup key which is any API key you have, which you can switch to smoothly when you want to change the secretKey to it.
-
-   Below is a JavaScript code snippet to verify webhook:
-   
    #### Javascript:
    ```javascript
    
    function verifyRequest(req) {
-    const validKeys = ['current-secret-key', 'previous-secret-key']; // List of valid keys
-    const token = req.headers['Authorization']?.split(' ')[1]; // Extract Bearer token
-    if (!token) {
+    const apiKey = 'your-webhook-selected-apikey' // Your predefined API key
+    const reqApiKey = req.headers['Authorization']?.split(' ')[1]; // Extract the API key
+    if (!reqApiKey) {
         throw new Error('Missing Authorization header');
     }
-     return validKeys.includes(token);
+     return reqApiKey === validApiKey // Check if the provided API key matches the predefined one
    }
     verifyRequest(req)
 
@@ -754,24 +750,60 @@ Webhook requests are now authenticated using a Bearer token sent in the `Authori
     ```php
 
     function verifyRequest($headers) {
-      $validKeys = ['current-secret-key', 'previous-secret-key']; // List of valid keys
+      $validApiKey = 'your-webhook-selected-apikey'; // Your predefined API key
 
       if (!isset($headers['Authorization'])) {
           throw new Exception('Missing Authorization header');
       }
 
-      $token = str_replace('Bearer ', '', $headers['Authorization']); // Extract Bearer token
+      $apiKey = str_replace('Bearer ', '', $headers['Authorization']); // Extract the API key
 
-      return in_array($token, $validKeys, true);
+      return $apiKey === $validApiKey; // Check if the provided API key matches the predefined one
     }
 
     verifyRequest($request);
 
     ```
-   
 4. **Respond to the Webhook**  
    If the request is valid, respond with a `200 OK` status code.
+::: warning Zero downtime API key rotation.
+ To ensure a smooth transition when switching to a new API key, compare the request against multiple keys to prevent downtime.
 
+   Below is a JavaScript code snippet to verify webhook:
+   
+   #### Javascript:
+   ```javascript
+   
+    function verifyRequest(req) {
+      const validKeys = ['your-webhook-selected-apikey', 'apikey']; // List of valid keys
+      const apiKey = req.headers['Authorization']?.split(' ')[1]; // Extract apiKey
+      if (!apiKey) {
+          throw new Error('Missing Authorization header');
+      }
+      return validKeys.includes(apiKey);
+    }
+      verifyRequest(req)
+      
+   ```
+  #### PHP:
+  ```php
+
+    function verifyRequest($headers) {
+      $validKeys = ['your-webhook-selected-apikey', 'apikey']; // List of valid keys
+
+      if (!isset($headers['Authorization'])) {
+          throw new Exception('Missing Authorization header');
+      }
+
+      $apiKey = str_replace('Bearer ', '', $headers['Authorization']); // Extract apiKey
+
+      return in_array($apiKey, $validKeys, true);
+    }
+
+    verifyRequest($request);
+
+  ```
+:::
 
 ### Example of webhook event types body
 
