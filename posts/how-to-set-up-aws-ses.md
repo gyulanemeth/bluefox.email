@@ -1,11 +1,39 @@
 ---
 layout: post
 title: How to Set Up AWS SES
-description: yes
+description: Step-by-step guide to set up AWS SES for great email deliverability.
 category: tutorials
 tags: AWS SES
 sidebar: false
 published: true
+head:
+  - - meta
+    - name: description
+      content: Step-by-step guide to set up AWS SES and configure email sending for great deliverability.
+  - - meta
+    - property: og:title
+      content: How to Set Up AWS SES
+  - - meta
+    - property: og:description
+      content: Learn how to set up AWS SES to send emails with professional branding and excellent deliverability on a budget.
+  - - meta
+    - property: og:image
+      content: /how-to-set-up-aws-ses/share-image.png
+  - - meta
+    - property: og:url
+      content: https://yourwebsite.com/how-to-set-up-aws-ses
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: How to Set Up AWS SES
+  - - meta
+    - property: twitter:description
+      content: Learn how to set up AWS SES to send emails with professional branding and excellent deliverability on a budget.
+  - - meta
+    - property: twitter:image
+      content: /how-to-set-up-aws-ses/share-image.png
 ---
 
 # How to Set Up AWS SES
