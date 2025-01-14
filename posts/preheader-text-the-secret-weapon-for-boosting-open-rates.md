@@ -36,8 +36,6 @@ published: false
 sidebar: false
 ---
 
-![](/assets/articles/preheader-text.png)
-
 # Preheader Text: The Secret Weapon for Boosting Email Open Rates
 
 By now, we’ve covered how critical subject lines, sender names, and email addresses are to email success. But there’s one often-overlooked detail that plays a significant role in boosting open rates—**preheader text**. This little snippet is a game-changer for creating an irresistible first impression in your recipient’s inbox. Let’s dive into how to craft effective preheader text that complements your subject line and entices readers to open your email.
