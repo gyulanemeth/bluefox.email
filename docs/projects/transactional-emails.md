@@ -86,3 +86,50 @@ You can also use merge tags in the email's `subject line` and `preview text`!
 ![A screenshot of a transactional email, with a merge tag being used in the subject and the preview text.](./project-transactionals-edit-subject-merge-tag.webp)
 
 For more details, read our guide on [personalization with merge tags](/docs/personalization) and Handlebars.
+
+
+## Transactional Email Statistics
+
+Transactional emails are crucial for sending automated, one-to-one messages triggered by user actions, such as account registrations, order confirmations, and password resets. Tracking the performance of these emails is essential to ensure their effectiveness and timely delivery.
+
+### Why Transactional Email Statistics Matter
+
+Understanding how your transactional emails perform helps you:
+
+- **Monitor Delivery Success**: Track delivery rates, opens, clicks, and bounces to ensure your emails reach your users.
+- **Optimize Engagement**: By analyzing open rates and click-through rates, you can optimize your transactional email content and timing for better user engagement.
+- **Identify Issues**: High bounce rates or low open rates could indicate deliverability issues, content problems, or poor list management, allowing you to take corrective action.
+- **Improve Customer Experience**: Timely, well-performing transactional emails enhance the overall customer experience, increasing user satisfaction and retention.
+
+### What Transactional Email Statistics Include
+
+The transactional email statistics section includes the following key metrics:
+
+- **Sent Emails**: Total number of transactional emails sent.
+- **Opens**: Number of times the transactional emails were opened by recipients.
+- **Unique Opens**: Number of individual recipients who opened your transactional emails (counts only one open per recipient).
+- **Clicks**: Total number of clicks on links within the emails.
+- **Unique Clicks**: Number of individual recipients who clicked on links within your transactional emails (counts only one click per recipient).
+- **Bounces**: Number of emails that failed to be delivered.
+- **Complaints**: Number of complaints (e.g., marked as spam).
+
+By analyzing these metrics, you can ensure that your transactional email system is functioning properly and making the desired impact on your users.
+
+You can access the **Transactional Email Statistics** by clicking the arrow icon:
+
+
+![Advanced Settings Icon](./project-transactionals-stats-btn.webp)
+
+For a detailed guide on using the **Transactional Email Statistics**, refer to the [Analatics Documentation](/docs/analytics).
+
+
+## Advanced Settings
+
+The **Advanced Settings** feature allows you to customize key email-sending options, such as configuring sender identities and reply-to addresses. 
+
+You can access the **Advanced Settings** by clicking the gear icon:
+
+![Advanced Settings Icon](./project-transactionals-advanced-settings-btn.webp)
+
+For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings.html#advanced-settings).
+

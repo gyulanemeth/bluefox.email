@@ -44,23 +44,42 @@ export default defineConfig({
           text: 'Getting Started',
           link: '/docs/getting-started'
         }, {
+          text: 'Account Dashboard',
+          link: '/docs/dashboard'
+        }, {
           text: 'Projects',
           link: '/docs/projects/',
           collapsed: false,
           items: [
+            { text: 'Project Dashboard', link: '/docs/projects/analytics' },
             { text: 'Creating a new project', link: '/docs/projects/new-project.md' },
             { text: 'Transactional Emails', link: '/docs/projects/transactional-emails' },
             { text: 'Triggered Emails', link: '/docs/projects/triggered-emails' },
             { text: 'Campaigns', link: '/docs/projects/campaigns' },
             { text: 'Subscriber Lists', link: '/docs/projects/subscriber-lists' },
             { text: 'Subscriptions Preferences Page', link: '/docs/projects/subscription-preferences-page' },
-            { text: 'Analytics', link: '/docs/projects/analytics' },
             { text: 'Design System Settings', link: '/docs/projects/design-system-settings' },
             { text: 'Settings', link: '/docs/projects/settings' }
           ]
         }, {
           text: 'API',
-          link: '/docs/api/'
+          link: '/docs/api/',
+          collapsed: false,
+          items: [
+            { text: 'Subscribe', link: '/docs/api/#subscribe' },
+            { text: 'Unsubscribe', link: '/docs/api/#unsubscribe' },
+            { text: 'Activate Subscription', link: '/docs/api/#activate-subscription' },
+            { text: 'Pause Subscription', link: '/docs/api/#pause-subscription' },
+            { text: 'List Subscribers', link: '/docs/api/#list-subscribers' },
+            { text: 'Get Subscriber', link: '/docs/api/#get-subscriber' },
+            { text: 'Send Transactional Email', link: '/docs/api/#send-transactional-email' },
+            { text: 'Send Triggered Email', link: '/docs/api/#send-triggered-email' },
+            { text: 'Send Attachments', link: '/docs/api/#send-attachments' },
+            { text: 'Webhook', link: '/docs/api/#webhook' }
+          ]
+        }, { 
+          text: 'Analytics',
+          link: '/docs/analytics' 
         }, {
           text: 'Personalization (merge tags)',
           link: '/docs/personalization',

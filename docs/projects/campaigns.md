@@ -75,3 +75,55 @@ Sent campaigns can be archived, and stats should show up:
 
 Archived campaigns can be restored. It means that they become draft again.s
 ![Campaign - archived.](./project-campaign-archived.webp)
+
+## Campaign Email Statistics
+
+Campaign emails are designed to reach a targeted group of recipients, often based on specific user segments or marketing campaigns. These emails are sent to the subscribers on a list, and unlike triggered emails, they are typically part of larger, planned marketing efforts rather than automated, one-to-one communications.
+
+### Why Campaign Email Statistics Matter
+
+Understanding how your campaign emails perform is essential for refining your marketing strategies and improving your engagement with subscribers. Tracking performance helps you:
+
+- **Monitor Campaign Effectiveness**: Measure the success of your campaign emails by tracking key metrics such as open rates, click-through rates, and bounce rates.
+- **Optimize Engagement**: Analyze the success of your subject lines, content, and timing to improve how subscribers interact with your emails.
+- **Refine Segmentation**: Use insights into open rates, clicks, and other actions to adjust your subscriber segments for more targeted future campaigns.
+- **Detect Issues**: High bounce rates, low open rates, or high unsubscribe rates can indicate potential issues, allowing you to fix problems early.
+- **Enhance Subscriber Retention**: Track metrics like unsubscribes, resubscriptions, and paused subscriptions to better manage your subscriber base and improve long-term engagement.
+
+### What Campaign Email Statistics Include
+
+The campaign email statistics section includes the following key metrics:
+
+- **Sent Emails**: Total number of campaign emails sent to recipients.
+- **Opens**: Number of times recipients opened your campaign emails.
+- **Unique Opens**: Number of individual recipients who opened your campaign emails (counts only one open per recipient).
+- **Clicks**: Total number of clicks on links within your campaign emails.
+- **Unique Clicks**: Number of individual recipients who clicked on links within your campaign emails (counts only one click per recipient).
+- **Bounces**: Number of campaign emails that failed to be delivered.
+- **Complaints**: Number of complaints (e.g., emails marked as spam).
+- **Unsubscribes**: Number of recipients who unsubscribed after receiving the campaign email.
+- **Resubscriptions**: Number of recipients who resubscribed after previously unsubscribing.
+- **Paused Subscriptions**: Number of recipients who have paused their subscriptions to your campaign emails.
+
+These metrics provide a comprehensive view of your campaign's performance and help identify areas for optimization, allowing you to adjust strategies and improve future campaigns.
+
+### How to Access Campaign Email Stats
+
+You can access the **Campaign Email Statistics** by clicking the arrow icon:
+
+![Advanced Settings Icon](./project-campaigns-stats-btn.webp)
+
+For more information on how to use the **Campaign Email Statistics**, refer to the [Analytics Documentation](/docs/analytics).
+
+
+## Advanced Settings
+
+The **Advanced Settings** feature allows you to customize key email-sending options, such as configuring sender identities and reply-to addresses. 
+
+You can access the **Advanced Settings** by clicking the gear icon:
+
+![Advanced Settings Icon](./project-campaign-advanced-settings-btn.webp)
+
+For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings.html#advanced-settings).
+
+
