@@ -3,7 +3,8 @@ import { h } from 'vue'
 import Theme from 'vitepress/theme'
 import './style.css'
 
-import Cards from './Cards.vue'
+import Posts from './Posts.vue'
+import Post from './Post.vue'
 
 export default {
   extends: Theme,
@@ -13,6 +14,7 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
-    app.component('cards', Cards)
+    app.component('posts', Posts)
+    app.component('post', Post)
   }
 }

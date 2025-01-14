@@ -2,8 +2,9 @@
 layout: post
 title: How to Set Up AWS SES
 description: Step-by-step guide to set up AWS SES for great email deliverability.
+thumbnail: /posts/how-to-set-up-aws-ses/share.png
 category: tutorials
-tags: AWS SES
+tags: ['AWS SES']
 sidebar: false
 published: true
 head:
@@ -18,10 +19,10 @@ head:
       content: Learn how to set up AWS SES to send emails with professional branding and excellent deliverability on a budget.
   - - meta
     - property: og:image
-      content: /how-to-set-up-aws-ses/share-image.png
+      content: https://bluefox.email/posts/how-to-set-up-aws-ses/share.png
   - - meta
     - property: og:url
-      content: https://yourwebsite.com/how-to-set-up-aws-ses
+      content: https://bluefox.email/posts/how-to-set-up-aws-ses
   - - meta
     - property: twitter:card
       content: summary_large_image
@@ -33,8 +34,10 @@ head:
       content: Learn how to set up AWS SES to send emails with professional branding and excellent deliverability on a budget.
   - - meta
     - property: twitter:image
-      content: /how-to-set-up-aws-ses/share-image.png
+      content: https://bluefox.email/posts/how-to-set-up-aws-ses/share.png
 ---
+
+![AWS can be scary.](./how-to-set-up-aws-ses/00.png)
 
 # How to Set Up AWS SES
 
@@ -180,6 +183,6 @@ Once verified, you’ll see the "Verify sending domain" task move to the "Comple
 
 Congratulations! You’ve set up AWS SES. You can now test the service in **sandbox** mode. You’ll be able to send emails from any address within your verified domain to verified email addresses.
 
-The next step is to request production access, allowing you to send emails to any address. This process can be tricky, as AWS is very strict to maintain SES’s excellent deliverability rates. Stay tuned for our next article, where we’ll share tips for working with AWS support to get production access.
+The next step is to request production access, allowing you to send emails to any address. This process can be tricky, as AWS is very strict to maintain SES’s excellent deliverability rates. Stay tuned for our next article, where we’ll share tips for handling bounces and complaints with AWS SES and SNS. After that we are going to publish an other article about working with AWS support to get production access.
 
 ![SES production access request button](./how-to-set-up-aws-ses/22.png)

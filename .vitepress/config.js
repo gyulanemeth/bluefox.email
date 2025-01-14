@@ -23,10 +23,11 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Pricing', link: '/pricing' },
+      { text: 'Tutorials', link: '/tutorials/' },
       { text: 'Articles', link: '/articles/' },
       { text: 'Docs', link: '/docs/' },
-      { text: 'About', link: '/about' },
-      { text: 'Login', link: 'https://app.bluefox.email' }
+      { text: 'Login', link: 'https://app.bluefox.email' },
+      { text: 'Sign up', link: 'https://app.bluefox.email/accounts/create-account' }
       /*
       { text: 'Home', link: '/' },
       { text: 'Email Marketing Concepts', link: '/email-marketing-concepts/' },
@@ -148,6 +149,10 @@ export default defineConfig({
       {
         text: 'Refund policy',
         link: '/refund-policy'
+      },
+      {
+        text: 'Partners',
+        link: '/partners'
       }
     ],
 

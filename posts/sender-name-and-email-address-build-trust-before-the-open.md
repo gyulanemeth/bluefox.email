@@ -30,15 +30,18 @@ head:
   - - meta
     - name: twitter:image
       content: "https://bluefox.email/assets/articles/sender-name-and-email-address-share.png"
-lastUpdated: false
+layout: post
+category: articles
+lastUpdated: true
 published: true
+sidebar: false
 ---
 
 ![](/assets/articles/sender-name-and-email-address.png)
 
 # Sender Name & Email Address: Building Trust Before the Open
 
-When it comes to email marketing, everyone talks about the subject line, but what about the sender name and email address? These two elements are just as crucial for building trust and ensuring your emails get opened, not only for marketing, but for transactional emails as well. In this article, we'll dive into why the sender name and email address are foundational to your email strategy and how to optimize them for better engagement.
+When it comes to email marketing, everyone talks about the [subject line](/posts/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails), but what about the sender name and email address? These two elements are just as crucial for building trust and ensuring your emails get opened, not only for marketing, but for transactional emails as well. In this article, we'll dive into why the sender name and email address are foundational to your email strategy and how to optimize them for better engagement.
 
 ## Why Sender Name and Email Address Matter
 
@@ -68,7 +71,7 @@ After the sender name, the next most important element is the sender's email add
 
 ### What Makes a Good Sender Email?
 
-1. **Branded Domain**: Always use an email address with your company's domain. For example, instead of **bluefox@gmail.com**, use **support@bluefox.email**. This shows that the email is coming from an official source.
+1. **Branded Domain**: Always use an email address with your company's domain. For example, instead of **`bluefox@gmail.com`**, use **`support@bluefox.email`**. This shows that the email is coming from an official source.
    
 2. **Match the Purpose**: Depending on the type of email, use a sender address that clearly matches the content of the email. Here are some examples:
    - **support@bluefox.email** for customer service and product updates.

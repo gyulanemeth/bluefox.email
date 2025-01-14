@@ -1,13 +1,12 @@
 <template>
   <div v-if="page.isNotFound">Not found!</div>
   <div>
-    <h1 class="cards-title">{{ title }}</h1>
+    <h1 class="cards-title">{{ frontmatter.title }}</h1>
   </div>
-
   <div class="card-list">
-    <div v-for="item in items" :key="item.slug" class="card">
+    <div v-for="item in items.filter(post => post.frontmatter.category === frontmatter.category)" :key="item.slug" class="card">
       <a :href="item.url"><img :src="item.frontmatter.thumbnail"/></a>
-      <a :href="item.url"><h2>{{ item.frontmatter.title }}</h2></a>
+      <h2><a :href="item.url">{{ item.frontmatter.title }}</a></h2>
       <p>{{ item.frontmatter.description }}</p>
       <a :href="item.url">Read more</a>
     </div>
@@ -30,31 +29,30 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 50px;
+  gap: 30px;
   padding-top: 50px;
   max-width: 1280px;
   margin: auto;
 }
 
 .card {
-  width: 300px;
-  padding: 20px;
+  width: 600px;
+  max-width: 100%;
+  padding: 10px;
 }
 
 .card h2 {
   margin-top: 20px;
   font-size: 20px;
   line-height: 22px;
-  color: #333;
   font-weight: 600;
 }
 
 .card p {
   margin-top: 20px;
-  color: #666;
 }
 
-.card a {
+.card > a {
   display: block;
   margin-top: 20px;
   color: #13B0EE;
@@ -69,10 +67,8 @@ import { useData } from 'vitepress'
 
 const { page, frontmatter } = useData();
 
-const title = frontmatter.title || 'Articles'
+import { data } from './posts.data.js'
 
-import { data } from './articles.data.js'
-
-const items = data.filter(article => article.frontmatter.published)
+const items = data.filter(post => post.frontmatter.published)
 
 </script>

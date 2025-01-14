@@ -1,6 +1,6 @@
 ---
 layout: posts
-title: Articles
-category: articles
+title: Tutorials
+category: tutorials
 sidebar: false
 ---

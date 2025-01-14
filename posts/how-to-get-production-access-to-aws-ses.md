@@ -1,7 +1,12 @@
 ---
 title: How to Get Production Access to AWS SES
 description: Read a few tips about what you should do to convince AWS support to give you production access to SES.
-published: true
+
+layout: post
+category: tutorials
+lastUpdated: true
+published: false
+sidebar: false
 ---
 
 # How to Get Production Access to AWS SES
@@ -30,6 +35,8 @@ Please write an email to info [at] bluefox.email with your ideas, and we are goi
 ## AWS SES in Sandbox
 
 If you’re new to SES, you’re initially put in what they call the "Sandbox". In this mode, **you can only send emails to addresses you verify in advance.**
+
+
 
 1) So your very first step is to verify a few email addresses you will use for testing. You just need to prove that you have access to that email address by clicking on a link. By doing so, you will be able to **send to** these email addresses, and **send from** these email addresses with your SES.
 2) Your next step should be to **verify your domain** in SES. Verifying a domain is more versatile because it lets you send from any email address under that domain. It’s straightforward: just follow SES’s instructions for adding a TXT record to your DNS settings.

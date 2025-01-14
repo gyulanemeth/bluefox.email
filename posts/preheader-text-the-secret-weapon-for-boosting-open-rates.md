@@ -29,7 +29,11 @@ head:
   - - meta
     - name: twitter:image
       content: "https://bluefox.email/assets/articles/preheader-text-share.png"
-lastUpdated: false
+layout: post
+category: articles
+lastUpdated: true
+published: false
+sidebar: false
 ---
 
 ![](/assets/articles/preheader-text.png)
