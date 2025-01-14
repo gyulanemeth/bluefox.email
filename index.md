@@ -444,7 +444,7 @@ onBeforeUnmount(() => {
       <a class="VPButton brand medium" target="_blank" href="https://app.bluefox.email/accounts/create-account">Get Started Now</a>
     </div>
     <div class="action">
-      <a class="VPButton alt medium" target="_blank" href="/pricing">Pricing</a>
+      <a class="VPButton alt medium" href="/pricing">Pricing</a>
     </div>
   </div>
 </section>

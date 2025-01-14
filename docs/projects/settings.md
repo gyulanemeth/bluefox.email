@@ -12,7 +12,6 @@ First, set up your AWS `Access Key ID`, `Secret Access Key`, `Sender Identities`
 
 The access key must be able to send emails via SES from the region and the sender identity you set up. The sending limit should be lower or equal to the actual AWS SES sending limit.
 
-
 ::: tip Your AWS Credentials Are Secure
 We store your credentials encrypted, so even in the very unlikely event of data leakage, attackers won't be able to use your credentials.
 :::
