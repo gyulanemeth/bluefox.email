@@ -31,14 +31,18 @@
   justify-content: center;
   gap: 30px;
   padding-top: 50px;
+  padding-bottom: 50px;
   max-width: 1280px;
   margin: auto;
 }
 
-.card {
+.card-list .card {
   width: 600px;
   max-width: 100%;
   padding: 10px;
+  height: unset;
+  border: unset;
+  background: unset;
 }
 
 .card h2 {
