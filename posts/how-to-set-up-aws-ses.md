@@ -2,7 +2,7 @@
 layout: post
 title: How to Set Up AWS SES
 description: Step-by-step guide to set up AWS SES for great email deliverability.
-thumbnail: /posts/how-to-set-up-aws-ses/share.png
+thumbnail: /assets/articles/how-to-set-up-aws-ses-share.png
 category: tutorials
 tags: ['AWS SES']
 sidebar: false
@@ -19,7 +19,7 @@ head:
       content: Learn how to set up AWS SES to send emails with professional branding and excellent deliverability on a budget.
   - - meta
     - property: og:image
-      content: https://bluefox.email/posts/how-to-set-up-aws-ses/share.png
+      content: https://bluefox.email/assets/articles/how-to-set-up-aws-ses-share.png
   - - meta
     - property: og:url
       content: https://bluefox.email/posts/how-to-set-up-aws-ses
@@ -34,7 +34,7 @@ head:
       content: Learn how to set up AWS SES to send emails with professional branding and excellent deliverability on a budget.
   - - meta
     - property: twitter:image
-      content: https://bluefox.email/posts/how-to-set-up-aws-ses/share.png
+      content: https://bluefox.email/assets/articles/how-to-set-up-aws-ses-share.png
 ---
 
 ![AWS can be scary.](./how-to-set-up-aws-ses/00.png)
