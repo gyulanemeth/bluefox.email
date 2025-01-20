@@ -67,6 +67,7 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'Subscribe', link: '/docs/api/#subscribe' },
+            { text: 'Update Subscriber', link: '/docs/api/#update-subscriber' },
             { text: 'Unsubscribe', link: '/docs/api/#unsubscribe' },
             { text: 'Activate Subscription', link: '/docs/api/#activate-subscription' },
             { text: 'Pause Subscription', link: '/docs/api/#pause-subscription' },
