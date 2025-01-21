@@ -17,7 +17,7 @@ head:
       content: "https://bluefox.email/assets/articles/sender-name-and-email-address-share.png"
   - - meta
     - property: og:url
-      content: "https://bluefox.email/articles/sender-name-and-email-address-build-trust-before-the-open"
+      content: "https://bluefox.email/posts/sender-name-and-email-address-build-trust-before-the-open"
   - - meta
     - name: twitter:card
       content: "summary_large_image"
@@ -33,7 +33,7 @@ head:
 layout: post
 category: articles
 lastUpdated: true
-published: true
+published: 2024-10-07
 sidebar: false
 ---
 
@@ -103,3 +103,5 @@ This strategy makes your emails feel more approachable and human, which can fost
 ## Sender Name & Email: The Cornerstone of Email Trust
 
 In the crowded world of emails, the sender name and email address are more than just details—they are foundational elements that set the tone for how your email will be perceived. A clear, trustworthy sender name combined with a professional email address can significantly increase your open rates, build trust, and create a stronger connection with your audience.
+
+If you want to learn more about how to boost your open rates more, please read our article about [subject lines](/posts/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails) and about the [pre-header text](/posts/preheader-text-the-secret-weapon-for-boosting-open-rates.md).

@@ -17,7 +17,7 @@ head:
       content: "https://bluefox.email/assets/articles/mastering-subject-lines-share.png"
   - - meta
     - property: og:url
-      content: "https://bluefox.email/articles/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails"
+      content: "https://bluefox.email/posts/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails"
   - - meta
     - name: twitter:card
       content: "summary_large_image"
@@ -33,7 +33,7 @@ head:
 layout: post
 category: articles
 lastUpdated: true
-published: true
+published: 2024-10-02
 sidebar: false
 ---
 ![](/assets/articles/mastering-subject-lines.png)
@@ -131,3 +131,5 @@ That said, AI isn’t perfect. While it can generate solid options, it might not
 Subject lines are one of the biggest factors in whether someone opens your email or not. Keep them short, intriguing, and valuable. Personalize when you can, and don’t forget to mix it up with curiosity, urgency, and a little bit of fun. Oh, and always be honest—no clickbait!
 
 It’s all about getting people excited to open your email, and once they do, making sure what’s inside is just as good as what you promised.
+
+Keep in mind, that besides subject lines, the [pre-header text](/posts/preheader-text-the-secret-weapon-for-boosting-open-rates), and the [sender name and email address](/posts/sender-name-and-email-address-build-trust-before-the-open) also have a great impact on open rates!
