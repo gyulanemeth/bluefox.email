@@ -1,6 +1,7 @@
 ---
 title: "Preheader Text: The Secret Weapon for Boosting Email Open Rates"
 description: "Learn how to craft effective preheader text that complements your subject line and entices readers to open your emails."
+thumbnail: /assets/articles/preheader-text-share.webp
 head:
   - - meta
     - name: description
@@ -16,7 +17,7 @@ head:
       content: "https://bluefox.email/assets/articles/preheader-text-share.png"
   - - meta
     - property: og:url
-      content: "https://bluefox.email/articles/preheader-text-the-secret-weapon"
+      content: "https://bluefox.email/posts/preheader-text-the-secret-weapon"
   - - meta
     - name: twitter:card
       content: "summary_large_image"
@@ -32,9 +33,11 @@ head:
 layout: post
 category: articles
 lastUpdated: true
-published: false
+published: 2025-01-21
 sidebar: false
 ---
+
+![](/assets/articles/preheader-text.webp)
 
 # Preheader Text: The Secret Weapon for Boosting Email Open Rates
 

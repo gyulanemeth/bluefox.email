@@ -6,7 +6,7 @@ thumbnail: /assets/articles/how-to-set-up-aws-ses-share.png
 category: tutorials
 tags: ['AWS SES']
 sidebar: false
-published: true
+published: 2025-01-15
 head:
   - - meta
     - name: description

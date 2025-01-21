@@ -17,7 +17,7 @@ head:
       content: "https://bluefox.email/assets/articles/sender-name-and-email-address-share.png"
   - - meta
     - property: og:url
-      content: "https://bluefox.email/articles/sender-name-and-email-address-build-trust-before-the-open"
+      content: "https://bluefox.email/posts/sender-name-and-email-address-build-trust-before-the-open"
   - - meta
     - name: twitter:card
       content: "summary_large_image"
@@ -33,7 +33,7 @@ head:
 layout: post
 category: articles
 lastUpdated: true
-published: true
+published: 2024-10-07
 sidebar: false
 ---
 

@@ -73,6 +73,6 @@ const { page, frontmatter } = useData();
 
 import { data } from './posts.data.js'
 
-const items = data.filter(post => post.frontmatter.published)
+const items = data.filter(post => post.frontmatter.published).sort((a, b) => new Date(b.frontmatter.published) - new Date(a.frontmatter.published))
 
 </script>

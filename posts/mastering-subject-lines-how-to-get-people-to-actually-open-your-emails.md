@@ -17,7 +17,7 @@ head:
       content: "https://bluefox.email/assets/articles/mastering-subject-lines-share.png"
   - - meta
     - property: og:url
-      content: "https://bluefox.email/articles/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails"
+      content: "https://bluefox.email/posts/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails"
   - - meta
     - name: twitter:card
       content: "summary_large_image"
@@ -33,7 +33,7 @@ head:
 layout: post
 category: articles
 lastUpdated: true
-published: true
+published: 2024-10-02
 sidebar: false
 ---
 ![](/assets/articles/mastering-subject-lines.png)
