@@ -131,3 +131,5 @@ That said, AI isn’t perfect. While it can generate solid options, it might not
 Subject lines are one of the biggest factors in whether someone opens your email or not. Keep them short, intriguing, and valuable. Personalize when you can, and don’t forget to mix it up with curiosity, urgency, and a little bit of fun. Oh, and always be honest—no clickbait!
 
 It’s all about getting people excited to open your email, and once they do, making sure what’s inside is just as good as what you promised.
+
+Keep in mind, that besides subject lines, the [pre-header text](/posts/preheader-text-the-secret-weapon-for-boosting-open-rates), and the [sender name and email address](/posts/sender-name-and-email-address-build-trust-before-the-open) also have a great impact on open rates!
