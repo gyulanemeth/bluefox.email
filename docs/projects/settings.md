@@ -10,7 +10,9 @@ First, set up your AWS `Access Key ID`, `Secret Access Key`, `Sender Identities`
 
 ![A screenshot of a project settings AWS credentials section.](./project-settings-aws.webp)
 
-The access key must be able to send emails via SES from the region and the sender identity you set up. The sending limit should be lower or equal to the actual AWS SES sending limit.
+The access key must be able to send emails via SES from the region and the sending email you set up. The sending limit should be lower or equal to the actual AWS SES sending limit. Keep in mind, that your sending limit in "sandbox" is only 1 per second!
+
+
 
 ::: tip Your AWS Credentials Are Secure
 We store your credentials encrypted, so even in the very unlikely event of data leakage, attackers won't be able to use your credentials.
