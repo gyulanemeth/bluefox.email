@@ -41,6 +41,9 @@ vagy használj bluefoxot, az majd kiírja neked a cuccot amit be kell copyzni
 // - internal suppression list
 // - remove from subscriber list
 
+// Megemlíteni, hogy simán lehet küldeni a bounce@simulator.amazonses.com" email címre is... és akkor a wehbooknak meg kell hívódnia...
+
+
 
 
 
