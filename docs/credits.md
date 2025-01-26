@@ -1,3 +1,39 @@
+---
+title: Pricing | bluefox.email documentation
+description: Discover simple, flexible, and transparent pricing with bluefox.email. Purchase credit packs that last a full year and send emails on your schedule.
+head:
+  - - meta
+    - name: description
+      content: Discover simple, flexible, and transparent pricing with bluefox.email. Purchase credit packs that last a full year and send emails on your schedule.
+  - - meta
+    - property: og:title
+      content: Pricing | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Discover simple, flexible, and transparent pricing with bluefox.email. Purchase credit packs that last a full year and send emails on your schedule.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/pricing
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Pricing | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Discover simple, flexible, and transparent pricing with bluefox.email. Purchase credit packs that last a full year and send emails on your schedule.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Pricing
 
 No subscriptions, no expensive contact-based fees, and no complex pricing that charges you more for marketing emails than transactional ones. We keep it simple: you only pay for what you use.

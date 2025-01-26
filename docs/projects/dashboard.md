@@ -1,3 +1,39 @@
+---
+title: Project Dashboard | bluefox.email documentation
+description: Learn how to use the project dashboard in bluefox.email to track email performance and subscriber activity, optimize campaigns, and improve engagement.
+head:
+  - - meta
+    - name: description
+      content: Learn how to use the project dashboard in bluefox.email to track email performance and subscriber activity, optimize campaigns, and improve engagement.
+  - - meta
+    - property: og:title
+      content: Project Dashboard | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Learn how to use the project dashboard in bluefox.email to track email performance and subscriber activity, optimize campaigns, and improve engagement.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/projects/dashboard
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Project Dashboard | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Learn how to use the project dashboard in bluefox.email to track email performance and subscriber activity, optimize campaigns, and improve engagement.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Project Dashboard
 
 The project dashboard offers a comprehensive view of your email and subscription performance, combining metrics from [**transactional emails**](/docs/projects/transactional-emails#transactional-email-statistics), [**triggered emails**](/docs/projects/triggered-emails#triggered-email-statistics), [**campaigns**](/docs/projects/campaigns#campaign-email-statistics), and [**subscriber lists**](/docs/projects/subscriber-lists#subscriber-list-statistics). By reviewing this data, you can identify trends like high unsubscribes or low engagement, optimize your subscriber lists, and improve email campaigns to boost retention, open rates, and click-through rates. These insights help you track performance, adjust strategies, and maintain a healthy subscriber base.

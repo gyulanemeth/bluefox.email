@@ -1,3 +1,39 @@
+---
+title: Analytics | bluefox.email documentation
+description: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
+head:
+  - - meta
+    - name: description
+      content: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
+  - - meta
+    - property: og:title
+      content: Analytics | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/analytics
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Analytics | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Analytics
 
 The Analytics section in your application provides a comprehensive analysis of email performance, subscription trends, and user engagement metrics. It is designed to cater to multiple scopes, such as [**account**](/docs/dashboard#key-metrics-in-the-account-dashboard), [**project**](/docs/projects/analytics#project-dashboard), [**transactional emails**](/docs/projects/transactional-emails#transactional-email-statistics), [**triggered emails**](/docs/projects/triggered-emails#triggered-email-statistics), [**campaigns**](/docs/projects/campaigns#campaign-email-statistics) and [**subscriber lists**](/docs/projects/subscriber-lists#subscriber-list-statistics). Each type of statistic is presented with clear visuals, detailed filters and actionable insights.

@@ -1,3 +1,39 @@
+---
+title: Subscription Preferences Page | bluefox.email documentation
+description: Learn how to configure and use the subscription preferences page in bluefox.email, allowing users to manage their subscriptions, including pausing or unsubscribing.
+head:
+  - - meta
+    - name: description
+      content: Learn how to configure and use the subscription preferences page in bluefox.email, allowing users to manage their subscriptions, including pausing or unsubscribing.
+  - - meta
+    - property: og:title
+      content: Subscription Preferences Page | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Learn how to configure and use the subscription preferences page in bluefox.email, allowing users to manage their subscriptions, including pausing or unsubscribing.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/projects/subscription-preferences-page
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Subscription Preferences Page | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Learn how to configure and use the subscription preferences page in bluefox.email, allowing users to manage their subscriptions, including pausing or unsubscribing.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Subscription Preferences Page
 
 We provide a subscription preferences page where users can manage their subscriptions. On this page, users have the ability to unsubscribe, resubscribe, or pause their subscriptions. In triggered emails and campaigns, we provide two merge tags: `unsubscribeLink` and `pauseSubscriptionLink`. Both links direct users to the manage subscription page, but when using the `pauseSubscriptionLink`, the unsubscribe options are removed from the page.

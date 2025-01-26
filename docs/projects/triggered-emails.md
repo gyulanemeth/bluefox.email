@@ -1,3 +1,39 @@
+---
+title: Triggered Emails | bluefox.email documentation
+description: Learn how to create and manage triggered emails in bluefox.email. Automate email sequences, personalize content, and track performance for improved engagement.
+head:
+  - - meta
+    - name: description
+      content: Learn how to create and manage triggered emails in bluefox.email. Automate email sequences, personalize content, and track performance for improved engagement.
+  - - meta
+    - property: og:title
+      content: Triggered Emails | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Learn how to create and manage triggered emails in bluefox.email. Automate email sequences, personalize content, and track performance for improved engagement.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/projects/triggered-emails
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Triggered Emails | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Learn how to create and manage triggered emails in bluefox.email. Automate email sequences, personalize content, and track performance for improved engagement.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Triggered Emails
 
 Triggered emails are similar to transactional emails because they are also triggered from your backend (or a cron job). However, they are different because they are tied to a subscriber list. You can send triggered emails to the entire list or to specific email addresses. The emails will only be sent to the `active` subscribers on that list. If someone has unsubscribed, paused their subscription, or is not on the list, the email won't be sent.

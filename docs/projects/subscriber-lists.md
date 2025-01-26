@@ -1,3 +1,39 @@
+---
+title: Subscriber Lists (Contacts) | bluefox.email documentation
+description: Learn how to manage subscriber lists in bluefox.email. Create public and private lists, track subscriber activity, and optimize engagement with detailed statistics.
+head:
+  - - meta
+    - name: description
+      content: Learn how to manage subscriber lists in bluefox.email. Create public and private lists, track subscriber activity, and optimize engagement with detailed statistics.
+  - - meta
+    - property: og:title
+      content: Subscriber Lists (Contacts) | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Learn how to manage subscriber lists in bluefox.email. Create public and private lists, track subscriber activity, and optimize engagement with detailed statistics.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/projects/subscriber-lists
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Subscriber Lists (Contacts) | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Learn how to manage subscriber lists in bluefox.email. Create public and private lists, track subscriber activity, and optimize engagement with detailed statistics.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Subscriber lists (contacts)
 
 In bluefox.email, you can have multiple subscriber lists (or email lists) associated with your project. Each project has separate lists. You can create as many lists as you want. Users will be able to subscribe, unsubscribe, or pause their subscription for each list separately.

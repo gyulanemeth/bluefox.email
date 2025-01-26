@@ -1,3 +1,39 @@
+---
+title: Design System Settings | bluefox.email documentation
+description: Learn how to customize your project's design system in bluefox.email by adjusting variables like colors, fonts, images, and links to match your brand.
+head:
+  - - meta
+    - name: description
+      content: Learn how to customize your project's design system in bluefox.email by adjusting variables like colors, fonts, images, and links to match your brand.
+  - - meta
+    - property: og:title
+      content: Design System Settings | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Learn how to customize your project's design system in bluefox.email by adjusting variables like colors, fonts, images, and links to match your brand.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/projects/design-system-settings
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Design System Settings | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Learn how to customize your project's design system in bluefox.email by adjusting variables like colors, fonts, images, and links to match your brand.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Design System Settings
 
 You can customize the design system you selected when creating your project by changing these parameters. The parameter types include colors, font stacks, images, texts, and links.
