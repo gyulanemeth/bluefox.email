@@ -72,8 +72,6 @@ vagy használj bluefoxot, az majd kiírja neked a cuccot amit be kell copyzni
 
 ![](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/17.png)
 
-![](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/18.png)
-
 ![](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/18a.png)
 
 OR
@@ -127,6 +125,7 @@ either way:
 // Megemlíteni, hogy simán lehet küldeni a bounce@simulator.amazonses.com" email címre is... és akkor a wehbooknak meg kell hívódnia...
 
 
+## Multiple sending identities
 
-
+// erről is írni...
 
