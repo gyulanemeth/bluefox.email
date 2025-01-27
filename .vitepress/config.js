@@ -3,6 +3,7 @@ import tailwindcss from 'tailwindcss'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  cleanUrls: true,
   title: "bluefox.email",
   description: "High deliverability & brand consistency.",
   head: [
