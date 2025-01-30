@@ -1,6 +1,8 @@
 <template>
 <div class="PostContent">
-  <Content/>
+  <div class="vp-doc">
+    <Content/>
+  </div>
 </div>
 </template>
 
@@ -22,7 +24,7 @@
 .PostContent h2 {
   font-size: 2em;
   line-height: 1.05em;
-  margin-top: 2em;
+  margin-top: 3em;
   margin-bottom: 0.5em;
   font-weight: 600;
 }
@@ -30,13 +32,12 @@
 .PostContent h3 {
   font-size: 1.5em;
   line-height: 1.05em;
-  margin-top: 1em;
+  margin-top: 2em;
   margin-bottom: 0.5em;
   font-weight: 600;
 }
 
 .PostContent p {
-  padding: 16px 0;
   font-size: 16px;
   line-height: 28px;
 }
@@ -72,5 +73,4 @@
   color: #13B0EE;
   text-decoration: none;
 }
-
 </style>

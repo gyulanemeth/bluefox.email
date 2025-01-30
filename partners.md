@@ -4,7 +4,7 @@ We work with trusted professionals who can help you solve specific challenges. W
 
 ## AWS
 
-Struggling with AWS SES? These are the experts we recommend. They can help you get everything configured, optimized, and running seamlessly.
+Struggling with AWS? These are the experts we recommend. They can help you get everything configured, optimized, and running seamlessly.
 
 ### Matt Lea, Schematical - `Helping CTOs Running on AWS Sleep Soundly`
 

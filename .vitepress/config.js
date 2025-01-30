@@ -178,11 +178,11 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'twitter', link: 'https://twitter.com/bluefoxemail' }
+      { icon: 'x', link: 'https://x.com/bluefoxemail' }
     ],
     footer: {
       message: '<a href="/terms-of-use">Terms of use.</a> | <a href="/privacy-policy">Privacy policy.</a> | <a href="/refund-policy">Refund policy.</a>',
-      copyright: 'Copyright © 2024 Innovaris Group LLC.'
+      copyright: 'Copyright © 2025 Innovaris Group LLC.'
     }
   },
   sitemap: {
