@@ -1,10 +1,40 @@
 ---
 layout: post
 title: How to Handle Bounces and Complaints with AWS SES and SNS
-description: yes.
+description: Step-by-step guide to handling bounces and complaints in AWS SES using SNS and webhooks.
+thumbnail: /assets/articles/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns-share.png
 category: tutorials
+tags: ['AWS SES']
 sidebar: false
-published: true
+published: 2025-01-30
+head:
+  - - meta
+    - name: description
+      content: Learn how to properly handle bounces and complaints in AWS SES with SNS and webhooks to protect your sender reputation and improve deliverability.
+  - - meta
+    - property: og:title
+      content: How to Handle Bounces and Complaints with AWS SES and SNS
+  - - meta
+    - property: og:description
+      content: Learn how to properly handle bounces and complaints in AWS SES with SNS and webhooks to protect your sender reputation and improve deliverability.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/articles/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/posts/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: How to Handle Bounces and Complaints with AWS SES and SNS
+  - - meta
+    - property: twitter:description
+      content: Step-by-step guide on setting up AWS SES and SNS to handle bounces and complaints effectively.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/articles/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns-share.png
 ---
 
 ![AWS can be scary.](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/scary-aws.webp)
