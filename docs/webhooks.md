@@ -1,20 +1,57 @@
+---
+title: Webhooks | bluefox.email documentation
+description: Learn how to configure and use webhooks with bluefox.email. Get real-time notifications about email events such as opens, clicks, bounces, and more.
+head:
+  - - meta
+    - name: description
+      content: Learn how to configure and use webhooks with bluefox.email. Get real-time notifications about email events such as opens, clicks, bounces, and more.
+  - - meta
+    - property: og:title
+      content: Webhooks | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Learn how to configure and use webhooks with bluefox.email. Get real-time notifications about email events such as opens, clicks, bounces, and more.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/webhooks
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Webhooks | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Learn how to configure and use webhooks with bluefox.email. Get real-time notifications about email events such as opens, clicks, bounces, and more.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Webhooks
 
-Webhooks allow your application to receive real-time notifications about events such as email opens, clicks, bounces, complaints, subscriptions, and more. By setting up a webhook, you can stay informed and integrate email event data directly into your application.
+## Summary
+Webhooks allow your application to receive real-time notifications about email events such as opens, clicks, bounces, complaints, and subscriptions. By setting up a webhook, you can integrate email event data directly into your application for better tracking and automation.
 
-### Features of Webhooks
+## Features of Webhooks
 - **Real-Time Updates**: Receive immediate notifications about email events.
 - **Customizable Events**: Choose the specific events you wish to track.
 - **Secure Communication**: Verify incoming requests using a secret key to ensure they are from a trusted source.
 - **Easy Integration**: Seamlessly integrate webhook notifications into your app.
 
-### Steps to Add a Webhook
+## Steps to Add a Webhook
 
 1. **Navigate to the Webhooks Section**  
-   Go to you project settings and scroll down to the Webhooks section.
+   Go to your project settings and scroll down to the Webhooks section.
 
 2. **Add Webhook URL**  
-   Enter the URL where you want to receive event notifications. Ensure your endpoint is able to handle `POST` requests.
+   Enter the URL where you want to receive event notifications. Ensure your endpoint can handle `POST` requests.
 
 3. **Select Events**  
    Choose the events you want to monitor, such as email opens, clicks, or bounces.
@@ -28,14 +65,13 @@ Webhooks allow your application to receive real-time notifications about events 
 6. **Start Receiving Notifications**  
    Your endpoint will now receive real-time `POST` requests with event details.
 
-### Verifying Webhook Requests
-
+## Verifying Webhook Requests
 Webhook requests are authenticated using an API key sent in the `Authorization` header in Bearer token format. You can select in the project settings which API key you want to send with the request. This API key is used to verify the authenticity of the request.
 
-#### Request Headers
-- **`Authorization`**: Contains the apiKey in the format Bearer `your-secret-key`.
+### Request Headers
+- **`Authorization`**: Contains the API key in the format `Bearer your-secret-key`.
 
-#### Steps to Verify Requests
+### Steps to Verify Requests
 
 1. **Extract the apikey**  
    Retrieve the apikey from the `Authorization` header.
@@ -117,11 +153,11 @@ Webhook requests are authenticated using an API key sent in the `Authorization` 
   ```
 :::
 
-### Example of webhook event types body
+## Example Webhook Event Payloads
 
 When the webhook is triggered, the body of the request will contain information about the event. Here's an example of the payload you might receive:
 
-#### Sent event
+### Sent event
 ```json
 {
   "type": "sent",
@@ -140,7 +176,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-#### Failed event
+### Failed event
 ```json
 {
   "type": "failed",
@@ -161,7 +197,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-#### Click event
+### Click event
 ```json
 {
   "type": "click",
@@ -184,7 +220,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-#### Open event
+### Open event
 ```json
 {
   "type": "open",
@@ -204,7 +240,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-#### Bounce event
+### Bounce event
 ```json
 {
   "type": "bounce",
@@ -224,7 +260,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-#### Complaint event
+### Complaint event
 ```json
 {
   "type": "complaint",
@@ -244,7 +280,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-#### Subscription event
+### Subscription event
 ```json
 {
 "type": "pause-subscription, unsubscribe, subscribe' or resubscribe",
