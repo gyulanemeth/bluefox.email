@@ -34,8 +34,8 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Send transactional email
-[Quick quide](/docs/projects/transactional-emails.html#transactional-email-integration)
+# Send Transactional Email
+[Quick guide](/docs/projects/transactional-emails.html#transactional-email-integration)
 
 To send a [transactional email](/docs/projects/transactional-emails), use the following URL pattern:
 
@@ -44,17 +44,18 @@ https://api.bluefox.email/v1/send-transactional
 ```
 
 Replace the placeholders with your specific information:
- - `##EMAIL_ID##`
- - `##YOUR_API_KEY##`
+- `##EMAIL_ID##`
+- `##YOUR_API_KEY##`
 
-You can find the IDs to replace by clicking on the code guide button on a transactional email card:
+You can find the required IDs by clicking the **Code Guide** button on a transactional email card:
+
 ![Screenshot of the highlighted code guide button on a transactional email card.](./transactional-code-guide-button.webp)
 
-In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you need to replace the `##YOUR_API_KEY##`.
+In the **Code Guide** dialog, these values are automatically filled in. If you copy the code snippets, make sure to replace `##YOUR_API_KEY##`.
 
-![Screenshot of a code guide dialog of a transactional email](./transactional-code-guide-dialog.webp)
+![Screenshot of a code guide dialog for a transactional email](./transactional-code-guide-dialog.webp)
 
-**Request body**:
+## Request Body
 ```json
 {
   "email": "jon@doe.com",
@@ -62,58 +63,57 @@ In the code guide dialog, these values are automatically filled in. If you copy 
   "data": {
     "example": "example merge tag value"
   },
-  "attachments": [] //optional
+  "attachments": [] // optional
 }
 ```
 
-You can include personalization data (merge tags) in the data object. These tags are processed by [Handlebars](https://handlebarsjs.com/) when sent.
+You can include personalization data (merge tags) in the `data` object. These tags are processed by [Handlebars](https://handlebarsjs.com/) when the email is sent.
 
-
-
-**cUrl**:
+## cURL Example
 ```bash
 curl -X POST \
 "https://api.bluefox.email/v1/send-transactional" \
 -H "Content-Type: application/json" \
 -H "Authorization: Bearer ##YOUR_API_KEY##" \
 -d '{
-  "email": "jon@doe.com", // TODO change email address
+  "email": "jon@doe.com", // TODO: Change email address
   "transactionalId": "##EMAIL_ID##",
   "data": {
-    // TODO add the merge tags values
+    // TODO: Add merge tag values
   }
 }'
 ```
 
-**Javascript**:
+## JavaScript Example
 ```javascript
-const url = 'https://api.bluefox.email/v1/send-transactional'
+const url = 'https://api.bluefox.email/v1/send-transactional';
+
 const response = await fetch(url, {
   method: 'POST',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization': 'Bearer ##YOUR_API_KEY##' // TODO change YOUR_APIKEY
+    'Authorization': 'Bearer ##YOUR_API_KEY##' // TODO: Replace ##YOUR_API_KEY##
   },
   body: JSON.stringify({
-    email: 'jon@doe.com', // TODO change email address
+    email: 'jon@doe.com', // TODO: Change email address
     transactionalId: '##EMAIL_ID##',
     data: {
-    // TODO add the merge tags values
+      // TODO: Add merge tag values
     }
   })
-})
+});
 ```
 
-**PHP**:
+## PHP Example
 ```php
 $apiKey = "##YOUR_API_KEY##";
 
 $url = "https://api.bluefox.email/v1/send-transactional";
 
-$email = "example@gmail.com"; // TODO change email address
+$email = "example@gmail.com"; // TODO: Change email address
 $transactionalId = "##EMAIL_ID##";
 $data = [
-  // TODO add the merge tags values
+  // TODO: Add merge tag values
 ];
 
 $payload = json_encode([
