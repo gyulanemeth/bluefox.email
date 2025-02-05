@@ -67,19 +67,15 @@ export default defineConfig({
           link: '/docs/api/',
           collapsed: false,
           items: [
-            { text: 'Subscribe', link: '/docs/api/#subscribe' },
-            { text: 'Update Subscriber', link: '/docs/api/#update-subscriber' },
-            { text: 'Unsubscribe', link: '/docs/api/#unsubscribe' },
-            { text: 'Activate Subscription', link: '/docs/api/#activate-subscription' },
-            { text: 'Pause Subscription', link: '/docs/api/#pause-subscription' },
-            { text: 'List Subscribers', link: '/docs/api/#list-subscribers' },
-            { text: 'Get Subscriber', link: '/docs/api/#get-subscriber' },
-            { text: 'Send Transactional Email', link: '/docs/api/#send-transactional-email' },
-            { text: 'Send Triggered Email', link: '/docs/api/#send-triggered-email' },
-            { text: 'Send Attachments', link: '/docs/api/#send-attachments' },
-            { text: 'Webhook', link: '/docs/api/#webhook' }
+            { text: 'Subscriber List Management', link: '/docs/api/subscriber-list-management' },
+            { text: 'Send Transactional Email', link: '/docs/api/send-transactional-email' },
+            { text: 'Send Triggered Email', link: '/docs/api/send-triggered-email' },
+            { text: 'Send Attachments', link: '/docs/api/send-attachments' }
           ]
-        }, { 
+        }, {
+          text: 'Webhooks',
+          link: '/docs/webhooks'
+        },{ 
           text: 'Analytics',
           link: '/docs/analytics' 
         }, {
