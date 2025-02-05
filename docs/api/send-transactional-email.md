@@ -1,3 +1,39 @@
+---
+title: Send Transactional Email | bluefox.email documentation
+description: Learn how to send transactional emails using the bluefox.email API. Follow the integration guide, use the provided code snippets, and personalize emails with merge tags.
+head:
+  - - meta
+    - name: description
+      content: Learn how to send transactional emails using the bluefox.email API. Follow the integration guide, use the provided code snippets, and personalize emails with merge tags.
+  - - meta
+    - property: og:title
+      content: Send Transactional Email | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Learn how to send transactional emails using the bluefox.email API. Follow the integration guide, use the provided code snippets, and personalize emails with merge tags.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/api/send-transactional-email
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Send Transactional Email | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Learn how to send transactional emails using the bluefox.email API. Follow the integration guide, use the provided code snippets, and personalize emails with merge tags.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Send transactional email
 [Quick quide](/docs/projects/transactional-emails.html#transactional-email-integration)
 
