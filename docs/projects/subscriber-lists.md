@@ -17,6 +17,10 @@ When you use the `unsubscribeLink` and the `pauseSubscriptionLink` in your email
 
 As mentioned earlier, you can have public lists, but you can also have private lists. Private lists will not appear on the subscription preferences page and can be used for testing purposes.
 
+::: info
+Private lists are subscriber lists that are not visible to users on the subscription preferences page unless they are already subscribed to them. These lists are hidden from general view but become accessible to users who are part of them. This allows for more controlled and targeted management of subscriptions, making private lists ideal for internal use, testing, or exclusive communications.
+:::
+
 ![Screenshot of the subscriber lists page - private icon highlighted](./project-subscriber-lists-private-icon-highlighted.webp)
 
 To preview the subscription preferences page and upload your logo, click on the following button:
