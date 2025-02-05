@@ -36,12 +36,11 @@ head:
 
 # Subscriber List Management via the API
 
-## Summary
 This guide explains how to manage subscribers using the **bluefox.email** API. You can subscribe, unsubscribe, pause, activate, and list subscribers from your email lists. Follow the examples and code snippets to integrate these functionalities into your system.
 
-[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
-
 ## Subscribe
+
+[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
 
 To subscribe a user to a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
 
@@ -199,6 +198,8 @@ Since an API key is very sensitive information, never store it in your frontend 
 
 ## Pause Subscription
 
+[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
+
 At our subscription preferences page we provide you, we offer users to pause their subscriptions. It is a great way to reduce unsubscribe rates.
 
 To pause a user from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
@@ -281,6 +282,8 @@ Since an API key is very sensitive information, never store it in your frontend 
 
 # Activate Subscription
 
+[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
+
 Users with paused subscription or users who unsubscribed, can be activated.
 
 To activate a user from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
@@ -358,6 +361,8 @@ Since an API key is very sensitive information, never store it in your frontend 
 
 
 ## List Subscribers
+
+[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
 
 To list users from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
 ```
@@ -488,6 +493,8 @@ Since an API key is very sensitive information, never store it in your frontend 
 
 
 # Update Subscriber
+
+[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
 
 To update a user from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
 ```
