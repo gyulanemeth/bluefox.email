@@ -102,7 +102,7 @@ The **reply-to email address** field allows you to specify where replies to your
 
 ## Bounce & Complaint Webhooks
 
-To know the [bounce and complaint numbers](/docs/projects/analytics) of your emails, set up our webhooks in AWS SNS.
+To know the [bounce and complaint numbers](/docs/projects/dashboard) of your emails, set up our webhooks in AWS SNS.
 
 To set up the hooks, press the setup buttons:
 

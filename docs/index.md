@@ -80,4 +80,4 @@ For example, you can use loops to list multiple items, such as recent purchases 
 
 ## Analytics and reporting
 
-Understanding the performance of your emails is crucial, and Bluefox provides comprehensive [analytics](./projects/analytics) to help you do just that. Track key metrics such as open rates, click rates, bounce rates, and complaints. We also handle bounces and complaints automatically, ensuring that your email list remains healthy and that your emails reach the intended recipients.
+Understanding the performance of your emails is crucial, and bluefox.email provides comprehensive [analytics](/docs/analytics) to help you do just that. Track key metrics such as open rates, click rates, bounce rates, and complaints. We also handle bounces and complaints automatically, ensuring that your email list remains healthy and that your emails reach the intended recipients.
