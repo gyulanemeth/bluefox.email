@@ -1,7 +1,45 @@
+---
+title: Subscriber List Management | bluefox.email documentation
+description: Learn how to manage subscribers using the bluefox.email API. This guide covers subscribing, unsubscribing, pausing, activating, and listing subscribers.
+head:
+  - - meta
+    - name: description
+      content: Learn how to manage subscribers using the bluefox.email API. This guide covers subscribing, unsubscribing, pausing, activating, and listing subscribers.
+  - - meta
+    - property: og:title
+      content: Subscriber List Management | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Learn how to manage subscribers using the bluefox.email API. This guide covers subscribing, unsubscribing, pausing, activating, and listing subscribers.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/api/subscriber-list-management
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Subscriber List Management | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Learn how to manage subscribers using the bluefox.email API. This guide covers subscribing, unsubscribing, pausing, activating, and listing subscribers.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Subscriber List Management via the API
 
-[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
+## Summary
+This guide explains how to manage subscribers using the **bluefox.email** API. You can subscribe, unsubscribe, pause, activate, and list subscribers from your email lists. Follow the examples and code snippets to integrate these functionalities into your system.
 
+[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
 
 ## Subscribe
 
