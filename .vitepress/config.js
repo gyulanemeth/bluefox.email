@@ -52,8 +52,8 @@ export default defineConfig({
           link: '/docs/projects/',
           collapsed: false,
           items: [
-            { text: 'Project Dashboard', link: '/docs/projects/analytics' },
-            { text: 'Creating a new project', link: '/docs/projects/new-project.md' },
+            { text: 'Project Dashboard', link: '/docs/projects/dashboard' },
+            { text: 'Creating a new project', link: '/docs/projects/new-project' },
             { text: 'Transactional Emails', link: '/docs/projects/transactional-emails' },
             { text: 'Triggered Emails', link: '/docs/projects/triggered-emails' },
             { text: 'Campaigns', link: '/docs/projects/campaigns' },

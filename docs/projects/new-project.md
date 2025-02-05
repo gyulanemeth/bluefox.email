@@ -1,3 +1,39 @@
+---
+title: Creating a New Project | bluefox.email documentation
+description: Learn how to create a new project in bluefox.email, select and customize design systems, and configure settings like AWS credentials and API keys.
+head:
+  - - meta
+    - name: description
+      content: Learn how to create a new project in bluefox.email, select and customize design systems, and configure settings like AWS credentials and API keys.
+  - - meta
+    - property: og:title
+      content: Creating a New Project | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Learn how to create a new project in bluefox.email, select and customize design systems, and configure settings like AWS credentials and API keys.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/projects/new-project
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Creating a New Project | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Learn how to create a new project in bluefox.email, select and customize design systems, and configure settings like AWS credentials and API keys.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Creating a New Project
 
 You can create a new project by clicking the `Create` button in the top-left corner of the projects view.

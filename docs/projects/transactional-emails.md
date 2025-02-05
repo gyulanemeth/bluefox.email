@@ -1,3 +1,39 @@
+---
+title: Transactional Emails | bluefox.email documentation
+description: Learn how to create and manage transactional emails in bluefox.email. Explore integration, personalization, and advanced settings for essential communications like password resets and registration emails.
+head:
+  - - meta
+    - name: description
+      content: Learn how to create and manage transactional emails in bluefox.email. Explore integration, personalization, and advanced settings for essential communications like password resets and registration emails.
+  - - meta
+    - property: og:title
+      content: Transactional Emails | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Learn how to create and manage transactional emails in bluefox.email. Explore integration, personalization, and advanced settings for essential communications like password resets and registration emails.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/projects/transactional-emails
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Transactional Emails | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Learn how to create and manage transactional emails in bluefox.email. Explore integration, personalization, and advanced settings for essential communications like password resets and registration emails.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Transactional Emails
 
 Transactional emails are essential emails needed for basic functions like registration or password resets. For example, if a user wants to register with their email address or reset a forgotten password, an email must be sent.
