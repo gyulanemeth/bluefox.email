@@ -36,7 +36,6 @@ head:
 
 # Webhooks
 
-## Summary
 Webhooks allow your application to receive real-time notifications about email events such as opens, clicks, bounces, complaints, and subscriptions. By setting up a webhook, you can integrate email event data directly into your application for better tracking and automation.
 
 ## Features of Webhooks

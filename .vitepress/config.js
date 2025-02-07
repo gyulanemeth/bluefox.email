@@ -70,12 +70,10 @@ export default defineConfig({
             { text: 'Subscriber List Management', link: '/docs/api/subscriber-list-management' },
             { text: 'Send Transactional Email', link: '/docs/api/send-transactional-email' },
             { text: 'Send Triggered Email', link: '/docs/api/send-triggered-email' },
-            { text: 'Send Attachments', link: '/docs/api/send-attachments' }
+            { text: 'Send Attachments', link: '/docs/api/send-attachments' },
+            { text: 'Webhooks for Event Notifications', link: '/docs/webhooks' }
           ]
-        }, {
-          text: 'Webhooks',
-          link: '/docs/webhooks'
-        },{ 
+        }, { 
           text: 'Analytics',
           link: '/docs/analytics' 
         }, {
