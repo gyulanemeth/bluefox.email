@@ -71,7 +71,7 @@ export default defineConfig({
             { text: 'Send Transactional Email', link: '/docs/api/send-transactional-email' },
             { text: 'Send Triggered Email', link: '/docs/api/send-triggered-email' },
             { text: 'Send Attachments', link: '/docs/api/send-attachments' },
-            { text: 'Webhooks for Event Notifications', link: '/docs/webhooks' }
+            { text: 'Webhooks for Event Notifications', link: '/docs/api/webhooks' }
           ]
         }, { 
           text: 'Analytics',
