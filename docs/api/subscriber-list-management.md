@@ -280,7 +280,7 @@ Since an API key is very sensitive information, never store it in your frontend 
 :::
 
 
-# Activate Subscription
+## Activate Subscription
 
 [Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
 
