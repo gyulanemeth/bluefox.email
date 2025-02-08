@@ -17,15 +17,19 @@ export default defineConfig({
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: '/assets/bluefoxemail-logo.webp',
+    logo: {
+      src: '/assets/bluefoxemail-logo.webp',
+      alt: 'bluefox.email logo'
+    },
+
     search: {
       provider: 'local'
     },
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Pricing', link: '/pricing' },
-      { text: 'Tutorials', link: '/tutorials/' },
-      { text: 'Articles', link: '/articles/' },
+      { text: 'Tutorials', link: '/tutorials' },
+      { text: 'Articles', link: '/articles' },
       { text: 'Docs', link: '/docs/' },
       { text: 'Login', link: 'https://app.bluefox.email' },
       { text: 'Sign up', link: 'https://app.bluefox.email/accounts/create-account' }

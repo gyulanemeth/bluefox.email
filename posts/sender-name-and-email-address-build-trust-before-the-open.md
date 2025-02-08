@@ -37,7 +37,7 @@ published: 2024-10-07
 sidebar: false
 ---
 
-![](/assets/articles/sender-name-and-email-address.png)
+![Title Image](/assets/articles/sender-name-and-email-address.png)
 
 # Sender Name & Email Address: Building Trust Before the Open
 
