@@ -6,7 +6,7 @@ title: Beautiful emails for SaaS companies
 
 hero:
   name: Beautiful emails for SaaS companies
-  text: Powered by your own AWS SES.
+  # text: Bring your own AmazonSES.
   tagline: Send consistent and beautiful transactional, triggered, & marketing emails that your customers will love.
   actions:
     - theme: brand
@@ -18,7 +18,8 @@ hero:
 ---
 <script setup>
 
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
 
 const selectedEmailType = ref('0');
 let intervalId
@@ -40,6 +41,8 @@ onBeforeUnmount(() => {
 <style>
   .VPHero {
     background: linear-gradient(278deg, hsl(247.72, 53.44%, 90%) 10%, hsl(196.99, 86.56%, 90%) 90%);
+    height: 100vh !important;
+    display: flex;
   }
 
   html.dark .VPHero {
@@ -55,12 +58,12 @@ onBeforeUnmount(() => {
     max-width: unset !important;
     text-align: center;
     display: block !important;
-    padding-top: 15vh;
+    padding-top: 20vh;
     padding-bottom: 10vh;
   }
   .VPHero .main .name {
-    font-size: 72px;
-    line-height: 72px;
+    font-size: 65px;
+    line-height: 65px;
     width: 100% !important;
     max-width: unset !important;
   }
@@ -68,13 +71,13 @@ onBeforeUnmount(() => {
   .VPHero .main .text {
     width: 100% !important;
     max-width: unset !important;
-    font-size: 26px;
+    font-size: 20px;
     line-height: 36px;
   }
   .VPHero .main .tagline {
     width: 100% !important;
     max-width: unset !important;
-    font-size: 32px;
+    font-size: 18px;
     line-height: 36px;
   }
 
@@ -93,10 +96,9 @@ onBeforeUnmount(() => {
   }
 
   .VPHero .VPButton.medium {
-      border-radius: 50px !important;
       padding: 15px 30px !important;
       line-height: 22px !important;
-      font-size: 22px !important;
+      font-size: 15px !important;
   }
 
 
@@ -120,7 +122,6 @@ onBeforeUnmount(() => {
   }
 
   .value-prop .VPButton.medium {
-      border-radius: 50px;
       padding: 15px 30px;
       line-height: 22px;
       font-size: 22px;
@@ -371,6 +372,10 @@ onBeforeUnmount(() => {
     }
   }
 </style>
+
+<section id="testimonials" class="value-prop">
+  <TestimonialDiv />
+</section>
 
 <section id="email-editor" class="value-prop">
   <h2>Amazing email design? Easy!</h2>

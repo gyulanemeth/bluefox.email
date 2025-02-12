@@ -24,11 +24,26 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Pricing', link: '/pricing' },
-      { text: 'Tutorials', link: '/tutorials/' },
-      { text: 'Articles', link: '/articles/' },
+      { text: 'Tutorials', link: '/tutorials' },
+      { text: 'Articles', link: '/articles' },
       { text: 'Docs', link: '/docs/' },
-      { text: 'Login', link: 'https://app.bluefox.email' },
-      { text: 'Sign up', link: 'https://app.bluefox.email/accounts/create-account' }
+      {
+        component: 'NavigationButton',
+        props: {
+          text: 'Login',
+          link: 'https://app.bluefox.email',
+          variant: 'outlined'
+        }
+      },
+      {
+        component: 'NavigationButton',
+        props: {
+          text: 'Sign up',
+          link: 'https://app.bluefox.email/accounts/create-account',
+          variant: 'elevated',
+          color: 'var(--vp-button-alt-bg)'
+        }
+      }
       /*
       { text: 'Home', link: '/' },
       { text: 'Email Marketing Concepts', link: '/email-marketing-concepts/' },
