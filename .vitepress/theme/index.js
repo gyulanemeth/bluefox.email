@@ -34,6 +34,12 @@ export default {
               secondary: '#392C91'
             },
           },
+          dark: {
+            colors: {
+              primary: '#392C91',
+              secondary: '#13B0EE'
+            },
+          }
         },
       },
     })
