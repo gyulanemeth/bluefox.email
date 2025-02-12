@@ -264,7 +264,7 @@ function selectTestimonialEmail (id) {
                       <v-avatar
                         :image="testimonials[selectedTestimonialId].profileImg"
                         size="200"
-                        class="mr-6"
+                        class="mr-6 mb-4"
                       />
                       <div>
                         <div>
@@ -372,7 +372,7 @@ function selectTestimonialEmail (id) {
                         <v-avatar
                           :image="testimonials[selectedTestimonialId].profileImg"
                           size="200"
-                          class="mr-6"
+                          class="mr-6 mb-4"
                         />
                         <div>
                           <div>
