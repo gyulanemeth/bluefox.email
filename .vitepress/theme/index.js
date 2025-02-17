@@ -31,13 +31,15 @@ export default {
           light: {
             colors: {
               primary: '#13B0EE',
-              secondary: '#392C91'
+              secondary: '#392C91',
+              buttonBackground: '#ebebef'
             },
           },
           dark: {
             colors: {
               primary: '#392C91',
-              secondary: '#13B0EE'
+              secondary: '#13B0EE',
+              buttonBackground: '#161618'
             },
           }
         },

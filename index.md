@@ -3,23 +3,16 @@
 layout: home
 
 title: Beautiful emails for SaaS companies
-
-hero:
-  name: Beautiful emails for SaaS companies
-  # text: Bring your own AmazonSES.
-  tagline: Send consistent and beautiful transactional, triggered, & marketing emails that your customers will love.
-  actions:
-    - theme: brand
-      text: Get Started
-      link: https://app.bluefox.email/accounts/create-account
-    - theme: alt
-      text: Pricing
-      link: /pricing
 ---
 <script setup>
 
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { useDisplay } from 'vuetify'
+
+import HeroUnit from './.vitepress/theme/HeroUnit.vue'
 import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
+
+const { lgAndUp, md, sm, xs } = useDisplay()
 
 const selectedEmailType = ref('0');
 let intervalId
@@ -39,85 +32,17 @@ onBeforeUnmount(() => {
 
 </script>
 <style>
-  .VPHero {
-    background: linear-gradient(278deg, hsl(247.72, 53.44%, 90%) 10%, hsl(196.99, 86.56%, 90%) 90%);
-    height: 100vh !important;
-    display: flex;
-  }
-
-  html.dark .VPHero {
-    background: linear-gradient(278deg, hsl(247.72, 53.44%, 10%) 10%, hsl(196.99, 86.56%, 10%) 90%);
-  }
-
-  .VPHero .container {
-    max-width: 100% !important;
-  }
-
-  .VPHero .main {
-    width: 100% !important;
-    max-width: unset !important;
-    text-align: center;
-    display: block !important;
-    padding-top: 20vh;
-    padding-bottom: 10vh;
-  }
-  .VPHero .main .name {
-    font-size: 65px;
-    line-height: 65px;
-    width: 100% !important;
-    max-width: unset !important;
-  }
-
-  .VPHero .main .text {
-    width: 100% !important;
-    max-width: unset !important;
-    font-size: 20px;
-    line-height: 36px;
-  }
-  .VPHero .main .tagline {
-    width: 100% !important;
-    max-width: unset !important;
-    font-size: 18px;
-    line-height: 36px;
-  }
-
-  .VPHero .main .actions {
-    width: 100% !important;
-    max-width: unset !important;
-    justify-content: center !important;
-  }
-  html.dark .VPHero .name .clip {
-    background: -webkit-linear-gradient(
-      120deg,
-      #8a7ed8 5%,
-      #13B0EE
-    );
-    background-clip: text;
-  }
-
-  .VPHero .VPButton.medium {
-      padding: 15px 30px !important;
-      line-height: 22px !important;
-      font-size: 15px !important;
-  }
-
-
-
   .value-prop {
-    padding-top: 15vh;
+    padding-top: 10vh;
     padding-bottom: 10vh;
   }
 
   .value-prop h2 {
     border-top: 0 !important;
-    margin: 0 0 10px 0 !important;
-
-    font-size: 64px !important;
-    line-height: 64px !important;
   }
 
   .value-prop p {
-    font-size: 24px;
+    font-size: 18px;
     line-height: 28px;
   }
 
@@ -128,10 +53,6 @@ onBeforeUnmount(() => {
   }
 
 
-
-
-
-
   .VPHome {
     margin-bottom: 0 !important;
   }
@@ -139,6 +60,7 @@ onBeforeUnmount(() => {
   
 
   
+
 
   .vp-doc .actions {
     display: flex;
@@ -192,11 +114,13 @@ onBeforeUnmount(() => {
     font-size: 16px !important;
   }
 
+
   .VPImage {
     max-width: 100% !important;
     max-height: 100% !important;
   }
 
+  
   
 
   #email-editor video {
@@ -354,8 +278,8 @@ onBeforeUnmount(() => {
     }
 
     .value-prop h2 {
-      font-size: 36px !important;
-      line-height: 36px !important;
+      font-size: 20px !important;
+      line-height: 20 px !important;
     }
 
     .value-prop {
@@ -371,7 +295,15 @@ onBeforeUnmount(() => {
       padding: 25px;
     }
   }
+
+  .mt-150 {
+    margin-top: 150px !important;
+  }
 </style>
+
+<section id="hero">
+  <HeroUnit />
+</section>
 
 <section id="testimonials" class="value-prop">
   <TestimonialDiv />

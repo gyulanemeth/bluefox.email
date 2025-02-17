@@ -40,8 +40,8 @@ export default defineConfig({
         props: {
           text: 'Sign up',
           link: 'https://app.bluefox.email/accounts/create-account',
-          variant: 'elevated',
-          color: 'var(--vp-button-alt-bg)'
+          variant: 'flat',
+          color: 'buttonBackground'
         }
       }
       /*

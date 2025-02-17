@@ -1,5 +1,8 @@
 <script setup>
 import { defineProps } from 'vue'
+import { useData } from 'vitepress'
+
+const { isDark } = useData()
 
 const props = defineProps({
   text: {
@@ -27,9 +30,10 @@ const props = defineProps({
       :variant="variant"
       :color="color"
       density="comfortable"
+      class="no-uppercase"
+      :theme="isDark? 'dark' : 'light'"
       :href="link"
       target="_blank"
-      class="no-uppercase "
     >
       {{ text }}
     </v-btn>
