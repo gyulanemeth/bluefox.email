@@ -8,11 +8,13 @@ title: Beautiful emails for SaaS companies
 
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useDisplay } from 'vuetify'
+import { useData } from 'vitepress'
 
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
 import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
+const { isDark } = useData()
 
 const selectedEmailType = ref('0');
 let intervalId
@@ -32,6 +34,10 @@ onBeforeUnmount(() => {
 
 </script>
 <style>
+  a {
+    text-decoration: none !important;
+  }
+
   .value-prop {
     padding-top: 10vh;
     padding-bottom: 10vh;
@@ -199,19 +205,19 @@ onBeforeUnmount(() => {
   }
 
   /* When the corresponding radio button is checked, extend the underline */
-  #image1:checked ~ p #image1-label::after {
+  #image1:checked ~ div #image1-label::after {
     width: 100%;
   }
 
-  #image2:checked ~ p #image2-label::after {
+  #image2:checked ~ div #image2-label::after {
     width: 100%;
   }
 
-  #image3:checked ~ p #image3-label::after {
+  #image3:checked ~ div #image3-label::after {
     width: 100%;
   }
 
-  #image4:checked ~ p #image4-label::after {
+  #image4:checked ~ div #image4-label::after {
     width: 100%;
   }
 
@@ -306,28 +312,53 @@ onBeforeUnmount(() => {
 </section>
 
 <section id="testimonials" class="value-prop">
+  <h2 class="text-center mt-4 mb-6">
+    Feedback from our inbox
+  </h2>
   <TestimonialDiv />
 </section>
 
-<section id="email-editor" class="value-prop">
-  <h2>Amazing email design? Easy!</h2>
-  <p>Create pixel-perfect email designs with the most sophisticated email editor on the market. Don't worry, you can start out with our built-in templates!</p>
-  <video width="100%" autoplay muted loop>
-    <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
+<section id="designers" class="value-prop">
+  <div class="text-overline d-flex justify-center">
+    Designers
+  </div>
+  <h2 class="text-center mt-4 mb-3 pt-0">
+    Amazing email design? Easy!
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Create pixel-perfect email designs with the most sophisticated email editor on the market. Don't worry, you can start out with our built-in templates!
+    </div>
+  </div>
+  <v-card class="d-flex justify-center mt-4" variant="elevated">
+    <video
+      width="100%"
+      :autoplay="lgAndUp || md"
+      :loop="lgAndUp || md"
+      :controls="sm || xs"
+      muted
+    >
+      <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </v-card>
 </section>
 
-<section id="design-system" class="value-prop">
+<section id="design-system" class="value-prop pt-0">
   <input type="radio" name="image" id="image1" v-model="selectedEmailType" value="0">
   <input type="radio" name="image" id="image2" v-model="selectedEmailType" value="1">
   <input type="radio" name="image" id="image3" v-model="selectedEmailType" value="2">
   <input type="radio" name="image" id="image4" v-model="selectedEmailType" value="3">
   
-  <h2>Consistent-looking transactional, triggered, & marketing emails</h2>
-  <p>Our design system feature makes it sure that all of your emails look great and consistent, be it <label id="image1-label" for="image1">transactional emails</label>, <label id="image2-label" for="image2">triggered emails</label>, <label id="image3-label" for="image3">newsletters</label> or <label id="image4-label" for="image4">promotional emails</label>.</p>
-
-  <div class="image-container">
+  <h2 class="text-center mb-3">
+    Consistent-looking transactional, triggered, & marketing emails
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Our design system feature makes it sure that all of your emails look great and consistent, be it <label id="image1-label" for="image1">transactional emails</label>, <label id="image2-label" for="image2">triggered emails</label>, <label id="image3-label" for="image3">newsletters</label> or <label id="image4-label" for="image4">promotional emails</label>.
+    </div>
+  </div>
+  <div class="image-container mt-4">
     <img src="/assets/consistent-emails-01.png" alt="Image 1" class="image img1">
     <img src="/assets/consistent-emails-02.png" alt="Image 2" class="image img2">
     <img src="/assets/consistent-emails-03.png" alt="Image 3" class="image img3">
@@ -335,11 +366,17 @@ onBeforeUnmount(() => {
   </div>
 </section>
 
-<section id="no-rendering-issues" class="value-prop">
-  <h2>No more email rendering issues</h2>
-  <p>You might have experienced that your email looks great on a certain email client, but it falls apart on other email clients, such as Outlook. That will never happen if you use our platform. Our battle-hardened email generator is continuously tested on all the relevant email clients.</p>
+<section id="no-rendering-issues" class="value-prop pt-0">
+  <h2 class="text-center mb-3">
+    No more email rendering issues
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      You might have experienced that your email looks great on a certain email client, but it falls apart on other email clients, such as Outlook. That will never happen if you use our platform. Our battle-hardened email generator is continuously tested on all the relevant email clients.
+    </div>
+  </div>
   
-  <div class="img-container">
+  <div class="img-container mt-6">
     <div class="img-box">
       <p class="img-label">Our templates</p>
       <div class="img-wrapper">
@@ -356,10 +393,17 @@ onBeforeUnmount(() => {
 </section>
 
 <section id="great-deliverability" class="value-prop">
-  <h2 style="text-align: center;">Bring your own AWS SES</h2>
+  <h2 class="text-center">
+    Bring your own AWS SES
+  </h2>
   <p style="background: white; color: #392C91; font-weight: bold; padding: 10px; font-size: 20px; text-align: center;">The gold-standard of great deliverability</p>
-  <p>Using your own AWS SES with bluefox.email gives you full control over your sender reputation while still benefiting from AWS's infrastructure. Since you connect your own AWS account, your email campaigns are isolated from other users' activities, ensuring better control over deliverability and security. You get the reliability and performance of AWS SES, but with the added assurance that only your actions affect your email sending reputation.</p>
-  <p>If needed, you can easily upgrade to dedicated IPs through AWS SES for even greater control and improved deliverability.</p>
+
+  <div class="mt-4">
+    Using your own AWS SES with bluefox.email gives you full control over your sender reputation while still benefiting from AWS's infrastructure. Since you connect your own AWS account, your email campaigns are isolated from other users' activities, ensuring better control over deliverability and security. You get the reliability and performance of AWS SES, but with the added assurance that only your actions affect your email sending reputation.
+  </div>
+  <div class="mt-4">
+    If needed, you can easily upgrade to dedicated IPs through AWS SES for even greater control and improved deliverability.
+  </div>
 </section>
 
 <!--
@@ -374,15 +418,38 @@ onBeforeUnmount(() => {
 <hr class="value-prop-divider type2"/>
 -->
 <section id="second-cta" class="value-prop">
-  <h2>Send consistent-looking & beautiful emails today!</h2>
-  <p>Email communication is part of your product! Don't let it ruin your users' experience with your brand!</p>
-  <div class="actions">
-    <div class="action">
-      <a class="VPButton brand medium" target="_blank" href="https://app.bluefox.email/accounts/create-account">Get Started Now</a>
+  <h2 class="text-center mb-3">
+    Send consistent-looking & beautiful emails today!
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Email communication is part of your product! Don't let it ruin your users' experience with your brand!
     </div>
-    <div class="action">
-      <a class="VPButton alt medium" href="/pricing">Pricing</a>
-    </div>
+  </div>
+
+  <div class="mt-4">
+    <v-btn
+      rounded
+      size="large"
+      color="primary"
+      variant="flat"
+      class="no-uppercase mr-3"
+      href="https://app.bluefox.email/accounts/create-account"
+      target="_blank"
+    >
+      Get started now
+    </v-btn>
+    <v-btn
+      rounded
+      size="large"
+      color="buttonBackground"
+      variant="flat"
+      class="no-uppercase ml-3"
+      :theme="isDark? 'dark' : 'light'"
+      href="/pricing"
+    >
+      Pricing
+    </v-btn>
   </div>
 </section>
 
