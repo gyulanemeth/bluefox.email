@@ -5,7 +5,16 @@ title: Pricing
 description: Don't overpay for contact-based subscriptions ever again. Only pay for the emails you send!
 ---
 
+<script setup>
+  import { useData } from 'vitepress'
+  const { isDark } = useData()
+</script>
+
 <style>
+a {
+  text-decoration: none !important;
+}
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -78,12 +87,6 @@ html.dark .pricing-card .pricing-card-inner {
   padding-top: 100px;
 }
 
-#pricing-page-credit-packs h1 {
-  font-size: 72px;
-  line-height: 72px;
-  border-top: 0;
-  padding-bottom: 25px;
-}
 
 #pricing-page-credit-packs p {
   font-size: 24px;
@@ -142,7 +145,11 @@ html.dark .pricing-card .pricing-card-inner {
   }
 
   #get-started-with-free-credits {
-    background: linear-gradient(-10deg, #392C91 10%, #13B0EE 90%);
+     background: -webkit-linear-gradient(
+      120deg,
+      #392C91 5%,
+      #13B0EE
+    );
     background-clip: text;
     color: transparent;
 
@@ -155,7 +162,11 @@ html.dark .pricing-card .pricing-card-inner {
   }
 
   html.dark #get-started-with-free-credits {
-    background: linear-gradient(-10deg, #8a7ed8 10%, #13B0EE 90%);
+    background: -webkit-linear-gradient(
+      120deg,
+      #8a7ed8 5%,
+      #13B0EE
+    );
     background-clip: text;
   }
 
@@ -182,8 +193,12 @@ html.dark .pricing-card .pricing-card-inner {
 </style>
 
 <section id="pricing-page-credit-packs">
-  <h1>Credit packs</h1>
-  <div>Don't overpay for contact-based subscriptions ever again.</div>
+  <h1 class="text-center">Credit packs</h1>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Don't overpay for contact-based subscriptions ever again.
+    </div>
+  </div>
   <div class="card-container">
     <div class="pricing-card start-up">
       <div class="pricing-card-inner">
@@ -214,6 +229,7 @@ html.dark .pricing-card .pricing-card-inner {
       </div>
     </div>
   </div>
+  
   <div class="credit-explanation">
     <div class="with-branding">
       <div>1 credit = 2 email sends</div>
@@ -229,14 +245,32 @@ html.dark .pricing-card .pricing-card-inner {
   </div>  
   <div>You will also need to pay to AWS $0.1 / 1000 emails for your SES usage.</div>
   <p>All packages include all of our features without restrictions!</p>
+  
   <div id="get-started-with-free-credits">Get started with 36000 free credits</div>
-  <div class="actions">
-    <div class="action">
-      <a class="VPButton brand medium" target="_blank" href="https://app.bluefox.email/accounts/create-account">Get Started Now</a>
-    </div>
-    <div class="action">
-      <a class="VPButton alt medium" target="_blank" href="/docs/credits">How Credits Work</a>
-    </div>
+
+  <div class="my-4">
+    <v-btn
+      rounded
+      size="large"
+      color="primary"
+      variant="flat"
+      class="no-uppercase mb-2 mb-sm-0 mr-sm-3"
+      href="https://app.bluefox.email/accounts/create-account"
+      target="_blank"
+    >
+      Get started now
+    </v-btn>
+    <v-btn
+      rounded
+      size="large"
+      color="buttonBackground"
+      variant="flat"
+      class="no-uppercase"
+      :theme="isDark? 'dark' : 'light'"
+      href="/docs/credits"
+    >
+      How credits work
+    </v-btn>
   </div>
 </section>
 
