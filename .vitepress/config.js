@@ -10,6 +10,11 @@ export default defineConfig({
     ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C' }],
     ['script', {}, `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`]
   ],
+  vite: {     // <=== insert this section 
+    ssr: {
+      noExternal: ["vuetify"]
+    }
+  },
   css: {
     postcss: {
       plugins: [tailwindcss()],
