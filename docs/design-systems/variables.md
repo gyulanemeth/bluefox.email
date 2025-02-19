@@ -1,3 +1,39 @@
+---
+title: Design System Variables | bluefox.email documentation
+description: Discover how variables in the bluefox.email design system enable dynamic customization of email components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+head:
+  - - meta
+    - name: description
+      content: Discover how variables in the bluefox.email design system enable dynamic customization of email components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+  - - meta
+    - property: og:title
+      content: Design System Variables | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Discover how variables in the bluefox.email design system enable dynamic customization of email components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/projects
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Design System Variables | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Discover how variables in the bluefox.email design system enable dynamic customization of email components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Design system variables
 
 Variables in the design system allow you to define reusable values that can be applied across templates and blocks. They ensure consistency and make it easy to update design elements across multiple emails without manually modifying each template or block.

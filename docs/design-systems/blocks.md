@@ -1,3 +1,39 @@
+---
+title: Design System Blocks | bluefox.email documentation
+description: Discover how blocks in the bluefox.email design system allow you to create reusable email components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+head:
+  - - meta
+    - name: description
+      content: Discover how blocks in the bluefox.email design system allow you to create reusable email components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+  - - meta
+    - property: og:title
+      content: Design System Blocks | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Discover how blocks in the bluefox.email design system allow you to create reusable email components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/projects
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Design System Blocks | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Discover how blocks in the bluefox.email design system allow you to create reusable email components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Design system blocks (modules)
 
 Blocks are reusable design components that serve as building elements for email templates. Each block represents a specific section of a design, such as a header, footer, button, or content section. By organizing content into blocks, users can efficiently build, customize, and maintain email designs with ease.

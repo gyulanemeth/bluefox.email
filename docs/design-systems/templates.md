@@ -1,3 +1,40 @@
+---
+title: Design System Templates | bluefox.email documentation
+description: Discover how templates in the bluefox.email design system help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+head:
+  - - meta
+    - name: description
+      content: Discover how templates in the bluefox.email design system help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+  - - meta
+    - property: og:title
+      content: Design System Templates | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Discover how templates in the bluefox.email design system help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/projects
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Design System Templates | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Discover how templates in the bluefox.email design system help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
+
 # Design system templates
 
 Templates are structured email designs that serve as a foundation for email campaigns, transactional messages, or triggered emails. Unlike blocks, which represent smaller reusable components, templates provide a complete email structure by combining multiple blocks along with additional elements such as buttons and variables.
