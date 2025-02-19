@@ -433,7 +433,7 @@ onBeforeUnmount(() => {
       size="large"
       color="primary"
       variant="flat"
-      class="no-uppercase mr-3"
+      class="no-uppercase mb-2 mb-sm-0 mr-sm-3"
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
@@ -444,7 +444,7 @@ onBeforeUnmount(() => {
       size="large"
       color="buttonBackground"
       variant="flat"
-      class="no-uppercase ml-3"
+      class="no-uppercase"
       :theme="isDark? 'dark' : 'light'"
       href="/pricing"
     >
