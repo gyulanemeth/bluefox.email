@@ -54,39 +54,39 @@ function selectTestimonialEmail (id) {
         <v-row class="pa-3">
           <v-col cols="3" class="rightBorder" />
           <v-col :cols="lgAndUp ? 7 : 9" class="d-flex justify-space-between">  
-            <v-icon class="mx-3">mdi-email-outline</v-icon>
-            <v-icon class="mr-6">mdi-square-edit-outline</v-icon>
+            <v-icon disabled class="mx-3">mdi-email-outline</v-icon>
+            <v-icon disabled class="mr-6">mdi-square-edit-outline</v-icon>
 
             <div class="d-flex justify-space-between">
-              <v-icon class="mr-3">mdi-archive-outline</v-icon>
+              <v-icon disabled class="mr-3">mdi-archive-outline</v-icon>
               <v-divider vertical class="verticalDivider my-0 border-opacity-50"/>
-              <v-icon class="ml-3 mr-3">mdi-trash-can-outline</v-icon>
+              <v-icon disabled class="ml-3 mr-3">mdi-trash-can-outline</v-icon>
               <v-divider vertical class="verticalDivider my-0 border-opacity-50"/>
-              <v-icon class="ml-3">mdi-package-variant-remove</v-icon>
+              <v-icon disabled class="ml-3">mdi-package-variant-remove</v-icon>
             </div>
 
             <div class="d-flex justify-space-between">
-              <v-icon class="mr-3">mdi-reply</v-icon>
+              <v-icon disabled class="mr-3">mdi-reply</v-icon>
               <v-divider vertical class="verticalDivider my-0 border-opacity-50"/>
-              <v-icon class="ml-3 mr-3">mdi-reply-all</v-icon>
+              <v-icon disabled class="ml-3 mr-3">mdi-reply-all</v-icon>
               <v-divider vertical class="verticalDivider my-0 border-opacity-50"/>
-              <v-icon class="ml-3">mdi-share</v-icon>
+              <v-icon disabled class="ml-3">mdi-share</v-icon>
             </div>
 
             <div class="d-flex justify-space-between">
-              <v-icon class="mr-1" color="red">mdi-flag</v-icon>
+              <v-icon disabled class="mr-1" color="red">mdi-flag</v-icon>
               <v-divider vertical class="verticalDivider my-0 border-opacity-50"/>
-              <v-icon class="ml-1">mdi-chevron-down</v-icon>
+              <v-icon disabled class="ml-1">mdi-chevron-down</v-icon>
             </div>
 
-            <v-icon class="">mdi-bell-off-outline</v-icon>
+            <v-icon disabled>mdi-bell-off-outline</v-icon>
 
             <div class="d-flex justify-space-between">
-              <v-icon>mdi-folder-outline</v-icon>
-              <v-icon>mdi-chevron-down</v-icon>
+              <v-icon disabled>mdi-folder-outline</v-icon>
+              <v-icon disabled>mdi-chevron-down</v-icon>
             </div>
 
-            <v-icon v-if="md" class="">mdi-magnify</v-icon>
+            <v-icon v-if="md">mdi-magnify</v-icon>
           </v-col>
           <v-col v-if="lgAndUp" cols="2">
             <v-text-field
@@ -194,21 +194,21 @@ function selectTestimonialEmail (id) {
           <v-col cols="3" class="rightBorder" />
           <v-col cols="9" class="d-flex justify-space-between">  
             <div class="d-flex justify-space-between">
-              <v-icon class="mx-3">mdi-email-outline</v-icon>
-              <v-icon class="mr-6">mdi-square-edit-outline</v-icon>
+              <v-icon disabled class="mx-3">mdi-email-outline</v-icon>
+              <v-icon disabled class="mr-6">mdi-square-edit-outline</v-icon>
             </div>
 
             <div class="d-flex justify-space-between">
-              <v-icon class="mr-3">mdi-archive-outline</v-icon>
+              <v-icon disabled class="mr-3">mdi-archive-outline</v-icon>
               <v-divider vertical class="verticalDivider my-0 border-opacity-50"/>
-              <v-icon class="ml-3 mr-3">mdi-trash-can-outline</v-icon>
+              <v-icon disabled class="ml-3 mr-3">mdi-trash-can-outline</v-icon>
               <v-divider vertical class="verticalDivider my-0 border-opacity-50"/>
-              <v-icon class="ml-3">mdi-package-variant-remove</v-icon>
+              <v-icon disabled class="ml-3">mdi-package-variant-remove</v-icon>
             </div>
 
             <div class="d-flex justify-space-between">
-              <v-icon class="">mdi-chevron-double-right</v-icon>
-              <v-icon class="">mdi-magnify</v-icon>
+              <v-icon disabled>mdi-chevron-double-right</v-icon>
+              <v-icon disabled>mdi-magnify</v-icon>
             </div>
           </v-col>
         </v-row>
@@ -331,10 +331,10 @@ function selectTestimonialEmail (id) {
         <div>
           <v-row class="pa-3">
             <v-col cols="12" class="d-flex justify-space-between">  
-              <v-icon class="mr-3">mdi-archive-outline</v-icon>
-              <v-icon class="mr-3">mdi-folder-outline</v-icon>
-              <v-icon class="mr-3">mdi-reply</v-icon>
-              <v-icon class="mr-3">mdi-square-edit-outline</v-icon>
+              <v-icon disabled class="mr-3">mdi-archive-outline</v-icon>
+              <v-icon disabled class="mr-3">mdi-folder-outline</v-icon>
+              <v-icon disabled class="mr-3">mdi-reply</v-icon>
+              <v-icon disabled class="mr-3">mdi-square-edit-outline</v-icon>
             </v-col>
           </v-row>
         </div>
