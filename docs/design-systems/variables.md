@@ -4,25 +4,25 @@ Variables in the design system allow you to define reusable values that can be a
 
 When a variable is updated, all templates and blocks using that variable will automatically reflect the changes. This allows for efficient design management and helps maintain a unified brand identity across projects.
 
-## Variables Page
-The **Variables Page** is divided into two main sections:
+## Variables page
+The **variables page** is divided into two main sections:
 
-- **Left Panel (Variable List)**: Displays different types of variables (colors, fonts, images, text, links). Users can create, edit, delete, and manage variables.
-- **Right Panel (Preview Section)**: Shows how the selected variable is applied in templates or blocks by displaying a live example, providing immediate feedback on its effect on designs.
+- **Left panel (variable list)**: Displays different types of variables (colors, fonts, images, text, links). Users can create, edit, delete, and manage variables.
+- **Right panel (preview section)**: Shows how the selected variable is applied in templates or blocks by displaying a live example, providing immediate feedback on its effect on designs.
 
 ![A screenshot of the design system variables section.](./design-system-variables.webp)
 
 
-## Types of Variables
+## Types of variables
 
-### 1. Color Variables
+### 1. Color variables
 Color variables store reusable colors, such as primary colors, neutrals, and accent colors. Each variable includes:
 
-- **Color Name** (e.g., `color-primary`)
-- **Hex Value** (e.g., `#1B1E1F`)
-- **Main Variable** (true/false value indicates whether the variable is visible in the design system preview.)
+- **Color name** (e.g., `color-primary`)
+- **Hex value** (e.g., `#1B1E1F`)
+- **Main variable** (true/false value indicates whether the variable is visible in the design system preview.)
 
-**Managing Color Variables**
+**Managing color variables**
 - **Create**: Click "Create" to add a new color.
 - **Edit**: Click the pencil icon to change the color name or value.
 - **Delete**: Click the trash icon to remove a color.
@@ -30,14 +30,14 @@ Color variables store reusable colors, such as primary colors, neutrals, and acc
 
 ---
 
-### 2. Font Variables
+### 2. Font variables
 Font variables define typography styles applied across templates. Each variable includes:
 
-- **Font Name** (e.g., `font-primary`)
-- **Font Stack** (e.g., `Arial, Helvetica, sans-serif`)
-- **Main Variable** (true/false value indicates whether the variable is visible in the design system preview.)
+- **Font name** (e.g., `font-primary`)
+- **Font stack** (e.g., `Arial, Helvetica, sans-serif`)
+- **Main variable** (true/false value indicates whether the variable is visible in the design system preview.)
 
-**Managing Font Variables**
+**Managing font variables**
 - **Create**: Click "Create" to add a new font.
 - **Edit**: Modify font styles by clicking the pencil icon.
 - **Delete**: Remove fonts by clicking the trash icon.
@@ -45,14 +45,14 @@ Font variables define typography styles applied across templates. Each variable 
 
 ---
 
-### 3. Image Variables
+### 3. Image variables
 Image variables store reusable images (e.g., brand logos, background images).
 
 - **Image**
 - **Variable Name** (e.g., `image-logo`)
 - **Main Variable** (true/false value indicates whether the variable is visible in the design system preview.)
 
-**Managing Image Variables**
+**Managing image variables**
 - **Copy**: Copy the image link by clicking the link icon.
 - **Create**: Click "Create" to add a new image.
 - **Edit**: Modify the image by clicking the pencil icon.
@@ -61,14 +61,14 @@ Image variables store reusable images (e.g., brand logos, background images).
 
 ---
 
-### 4. Text Variables
+### 4. Text variables
 Text variables store reusable text elements, such as company slogans, default headings, or dynamic text values.
 
-- **Variable Name** (e.g., `alt-text-website`)
-- **Variable Text** (e.g., `Visit our website at https://bluefox.email`)
-- **Main Variable** (true/false value indicates whether the variable is visible in the design system preview.)
+- **Variable name** (e.g., `alt-text-website`)
+- **Variable text** (e.g., `Visit our website at https://bluefox.email`)
+- **Main variable** (true/false value indicates whether the variable is visible in the design system preview.)
 
-**Managing text Variables**
+**Managing text variables**
 - **Create**: Click "Create" to add a new text.
 - **Edit**: Modify text by clicking the pencil icon.
 - **Delete**: Remove text by clicking the trash icon.
@@ -76,14 +76,14 @@ Text variables store reusable text elements, such as company slogans, default he
 
 ---
 
-### 5. Links Variables
+### 5. Links variables
 Text variables store reusable text elements, such as company slogans, default headings, or dynamic text values.
 
 - **Variable Name** (e.g., `link-website`)
 - **Variable URL** (e.g., `https://bluefox.email`)
 - **Main Variable** (true/false value indicates whether the variable is visible in the design system preview.)
 
-**Managing text Variables**
+**Managing text variables**
 - **Create**: Click "Create" to add a new link.
 - **Edit**: Modify link by clicking the pencil icon.
 - **Delete**: Remove link by clicking the trash icon.
@@ -91,4 +91,4 @@ Text variables store reusable text elements, such as company slogans, default he
 
 ## Conclusion
 
-Variables make it easy to manage design consistency across blocks and templates. The **eye icon** provides a quick preview of where each variable is used, ensuring smooth editing. **Main variables** appear in the design system Preview, while **Non-Main variables** remain available inside projects for flexible use.
+Variables make it easy to manage design consistency across blocks and templates. The **eye icon** provides a quick preview of where each variable is used, ensuring smooth editing. **main variables** appear in the design system Preview, while **non-main variables** remain available inside projects for flexible use.

@@ -2,7 +2,7 @@
 
 Blocks are reusable design components that serve as building elements for email templates. Each block represents a specific section of a design, such as a header, footer, button, or content section. By organizing content into blocks, users can efficiently build, customize, and maintain email designs with ease.
 
-### **The Importance of Blocks**:
+### **The importance of blocks**:
 
 - **Reusability**: Blocks allow users to create standardized components that can be reused across multiple templates.
 
@@ -10,16 +10,16 @@ Blocks are reusable design components that serve as building elements for email 
 
 - **Efficiency**: Instead of redesigning sections from scratch, users can modify existing blocks and integrate them into new templates.
 
-## Block Categories
+## Block categories
 
-Blocks are grouped inside **Block Categories**, which help organize them based on functionality or design purpose. Each category can contain multiple blocks, making it easier to manage and locate relevant components.
+Blocks are grouped inside **block categories**, which help organize them based on functionality or design purpose. Each category can contain multiple blocks, making it easier to manage and locate relevant components.
 
 Users can:
 
 - **Create, update, or delete** block categories.
 - **Add blocks** within a category.
 
-## Viewing Blocks
+## Viewing blocks
 
 Inside each block category, users will find a list of blocks displayed as cards. Each block card includes:
 
@@ -33,20 +33,20 @@ Inside each block category, users will find a list of blocks displayed as cards.
 - **Copy block** – Users can duplicate a block to create a new one with similar content.
 - **Delete block** – Users can remove a block permanently.
 
-## Creating Blocks
+## Creating blocks
 
 Users can create a new block in two ways:
 
 ![A screenshot of the design system create dialog card.](./design-system-block-create-dialog.webp)
 
-**1. From Scratch**: Clicking the "Create" button opens a dialog where users can:
+**1. From scratch**: Clicking the "Create" button opens a dialog where users can:
 - Enter a block name.
 - Open the editor to design the block using drag-and-drop elements.
 - Save the block to add it to the category.
 2. **Copy & Paste**: Users can duplicate an existing block, preserving its content and name, then edit it as needed.
 
 
-## Blocks Customization
+## Blocks customization
 
 Blocks can be fully customized in the editor using:
 
@@ -54,7 +54,7 @@ Blocks can be fully customized in the editor using:
 - **Variables** – Use predefined design variables for consistency.
 - **Content customization** – Adjust text, images, buttons, and more.
 
-## Using Blocks in Templates
+## Using blocks in templates
 
 Blocks are essential building units for email templates. A template can contain multiple blocks, allowing users to assemble layouts flexibly. For example:
 
