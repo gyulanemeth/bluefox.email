@@ -41,7 +41,7 @@ The design system in our email product is a comprehensive framework that helps u
 It provides a streamlined approach to email design. Users can create reusable blocks and templates, define variables for global customization, and associate design systems with specific projects. This makes the process of managing email styles and content consistent and efficient across all campaigns.
 
 ## Design System Principles
-The design system follows Atomic Design, breaking emails into reusable components for consistency and scalability.
+The design system follows [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design), breaking emails into reusable components for consistency and scalability.
 
 - Atoms – Basic elements like colors and text styles.
 - Molecules – Functional groups, such as buttons with icons.
