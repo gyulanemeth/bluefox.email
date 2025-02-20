@@ -71,7 +71,7 @@ Inside each template category, users will find a list of templates displayed as 
 
 - **Edit preview text** – Clicking the pencil icon next to the preview text allows users to update the preview text.
 
-- **On project creation** – A dropdown that defines the template’s role within a project. Options include:
+- **On project creation** – A dropdown that defines the template’s role within a project. When a project is created, selected templates are automatically added as transactional, triggered, or campaign emails, ensuring they are ready for use from the start. Options include:
 
     - **Do nothing** – The template remains available but is not assigned any specific function.
 

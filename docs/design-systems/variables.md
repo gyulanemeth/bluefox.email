@@ -56,7 +56,7 @@ Color variables store reusable colors, such as primary colors, neutrals, and acc
 
 - **Color name** (e.g., `color-primary`)
 - **Hex value** (e.g., `#1B1E1F`)
-- **Main variable** (true/false value indicates whether the variable is visible in the design system preview.)
+- **Main variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
 
 **Managing color variables**
 - **Create**: Click "Create" to add a new color.
@@ -71,7 +71,7 @@ Font variables define typography styles applied across templates. Each variable 
 
 - **Font name** (e.g., `font-primary`)
 - **Font stack** (e.g., `Arial, Helvetica, sans-serif`)
-- **Main variable** (true/false value indicates whether the variable is visible in the design system preview.)
+- **Main variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
 
 **Managing font variables**
 - **Create**: Click "Create" to add a new font.
@@ -86,7 +86,7 @@ Image variables store reusable images (e.g., brand logos, background images).
 
 - **Image**
 - **Variable Name** (e.g., `image-logo`)
-- **Main Variable** (true/false value indicates whether the variable is visible in the design system preview.)
+- **Main Variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
 
 **Managing image variables**
 - **Copy**: Copy the image link by clicking the link icon.
@@ -98,11 +98,11 @@ Image variables store reusable images (e.g., brand logos, background images).
 ---
 
 ### 4. Text variables
-Text variables store reusable text elements, such as company slogans, default headings, or dynamic text values.
+Text variables store reusable text elements, such as company slogans, default headings, dynamic text values, or legal copy in the footer. For example, a legal disclaimer or copyright notice in the footer can be managed as a text variable, ensuring consistency across all emails while allowing easy updates.
 
 - **Variable name** (e.g., `alt-text-website`)
 - **Variable text** (e.g., `Visit our website at https://bluefox.email`)
-- **Main variable** (true/false value indicates whether the variable is visible in the design system preview.)
+- **Main variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
 
 **Managing text variables**
 - **Create**: Click "Create" to add a new text.
@@ -113,11 +113,11 @@ Text variables store reusable text elements, such as company slogans, default he
 ---
 
 ### 5. Links variables
-Text variables store reusable text elements, such as company slogans, default headings, or dynamic text values.
+Link variables store reusable URLs, such as website links, social media profiles, or call-to-action buttons.
 
 - **Variable Name** (e.g., `link-website`)
 - **Variable URL** (e.g., `https://bluefox.email`)
-- **Main Variable** (true/false value indicates whether the variable is visible in the design system preview.)
+- **Main Variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
 
 **Managing text variables**
 - **Create**: Click "Create" to add a new link.

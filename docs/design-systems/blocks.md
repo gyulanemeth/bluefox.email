@@ -55,6 +55,14 @@ Users can:
 - **Create, update, or delete** block categories.
 - **Add blocks** within a category.
 
+block categories in the design system
+
+![A screenshot of the design system block categories lists.](./design-system-block-categories-list.webp)
+
+block categories in the editor
+
+![A screenshot of the design system block categories lists editor.](./design-system-block-categories-list-editor.webp)
+
 ## Viewing blocks
 
 Inside each block category, users will find a list of blocks displayed as cards. Each block card includes:

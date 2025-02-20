@@ -47,7 +47,6 @@ The design system follows Atomic Design, breaking emails into reusable component
 - Molecules – Functional groups, such as buttons with icons.
 - Organisms – Larger sections like headers or footers.
 - Templates – Define email layouts.
-- Pages – Final email designs for campaigns.
 
 This modular approach keeps email designs structured, flexible, and easy to manage.
 
@@ -80,7 +79,7 @@ A project can only be associated with one design system at a time. If you need t
 
 
 ### Overriding Variables at the Project Level
-While the design system provides a consistent foundation, you might need to customize certain elements for specific projects. You can override variable values at the project level without affecting the main design system. For instance, if the default color variable "primary" is set to red in the design system, you can override it to blue in a specific project. This change will only apply to the project in question, leaving the original design system unchanged.
+While the design system provides a consistent foundation, you might need to customize certain elements for specific projects. You can override variable values at the project level without affecting the main design system. For instance, if the default color variable "primary" is set to red in the design system, you can override it to blue in a specific project. Similarly, if the design system includes a default logo, you can replace it with a project-specific logo without altering the original. These changes will only apply to the project, leaving the original design system unchanged.
 
 ::: info Note
  Overriding variables at the project level allows for customization without altering the global design system, ensuring that other projects remain unaffected.
