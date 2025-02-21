@@ -55,11 +55,15 @@ Users can:
 - **Create, update, or delete** block categories.
 - **Add blocks** within a category.
 
+::: info 
+Block categories appear in the editor whenever someone is editing a template in the design system or a template within a project connected to this design system.
+:::
+
 Block categories in the design system
 
 ![A screenshot of the design system block categories lists.](./design-system-block-categories-list.webp)
 
-Block categories in the editor
+Block categories in the editor:
 
 ![A screenshot of the design system block categories lists editor.](./design-system-block-categories-list-editor.webp)
 
