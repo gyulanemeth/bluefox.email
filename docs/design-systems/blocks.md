@@ -55,11 +55,11 @@ Users can:
 - **Create, update, or delete** block categories.
 - **Add blocks** within a category.
 
-block categories in the design system
+Block categories in the design system
 
 ![A screenshot of the design system block categories lists.](./design-system-block-categories-list.webp)
 
-block categories in the editor
+Block categories in the editor
 
 ![A screenshot of the design system block categories lists editor.](./design-system-block-categories-list-editor.webp)
 
