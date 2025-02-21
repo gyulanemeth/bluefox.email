@@ -59,7 +59,7 @@ Users can:
 Block categories appear in the editor whenever someone is editing a template in the design system or a template within a project connected to this design system.
 :::
 
-Block categories in the design system
+Block categories in the design system:
 
 ![A screenshot of the design system block categories lists.](./design-system-block-categories-list.webp)
 
