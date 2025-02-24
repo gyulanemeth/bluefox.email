@@ -127,6 +127,30 @@ await fetch(yourEndpoint, {
 ::: info
 The emails array should only include email addresses that are already in the selected subscriber list. Any addresses not in the list or marked as inactive (e.g., unsubscribed or paused) will be skipped. 
 :::
+
+### Sending Custom Data
+
+You can personalize triggered emails further by sending custom subscriber data along with your request. This allows you to override default values for specific recipients, ensuring that each subscriber receives tailored content.
+
+When sending an email to multiple recipients, you can include shared data as well as subscriber-specific overrides. For example, if your request contains:
+
+```javascript
+{
+  "emails": ["joe@doe.com", "jane@doe.com"],
+  "data": {
+    "a": "yo",
+    "jane@doe.com": {
+      "a": "yoyo"
+    }
+  }
+}
+```
+In this case, all recipients will receive `"a": "yo"` as the default value, but for jane@doe.com, the value of `"a"` will be overridden to `"yoyo"`.
+
+This approach ensures that each recipient gets personalized content while maintaining flexibility in defining default values.
+
+### Subscriber Data
+
 Since triggered emails are sent to a subscriber list, subscriber data, an unsubscribe link, and a pause subscription link are also included. You can use the following merge tags:
 ```
 {{subscriber.name}}
