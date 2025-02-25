@@ -19,7 +19,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <svg viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg" :class="`svg-design-system-${selectedDesignSystem + 1}`">
+  <svg role="presentation" viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg" :class="`svg-design-system-${selectedDesignSystem + 1}`">
     <!-- Header -->
     <rect x="6" width="198" height="30" class="svgHeader" />
     <image x="45%" y="5"  :href="logoSrc" width="20" height="20" />

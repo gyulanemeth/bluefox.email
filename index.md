@@ -68,9 +68,9 @@ onBeforeUnmount(() => {
   }
 
   .value-prop .VPButton.medium {
-      padding: 15px 30px;
-      line-height: 22px;
-      font-size: 22px;
+    padding: 15px 30px;
+    line-height: 22px;
+    font-size: 22px;
   }
 
 
@@ -425,7 +425,7 @@ onBeforeUnmount(() => {
   </div>
 </section>
 
-<section id="great-deliverability" class="value-prop">
+<section id="great-deliverability" class="value-prop ">
   <h2 class="sectionTitle text-center">
     Bring your own AWS SES
   </h2>
