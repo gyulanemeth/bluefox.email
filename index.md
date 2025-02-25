@@ -326,11 +326,17 @@ onBeforeUnmount(() => {
   <HeroUnit />
 </section>
 
-<section id="testimonials" class="section-index">
+<section class="section-index">
   <h2 class="sectionTitle text-center mt-4 mb-6">
     Feedback from our inbox
   </h2>
-  <TestimonialDiv />
+  <TestimonialDiv
+    :is-dark="isDark"
+    :lg-and-up="lgAndUp"
+    :md="md"
+    :sm="sm"
+    :xs="xs"
+  />
 </section>
 
 <section id="designers" class="section-index">
