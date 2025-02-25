@@ -1,5 +1,8 @@
 <script setup>
 import { defineProps, ref, onMounted, onBeforeUnmount } from 'vue'
+import DesignSystemLeftSvg from './DesignSystemLeftSvg.vue'
+import DesignSystemMiddleSvg from './DesignSystemMiddleSvg.vue'
+import DesignSystemRightSvg from './DesignSystemRightSvg.vue'
 
 const props = defineProps({
   isDark: {
@@ -9,18 +12,32 @@ const props = defineProps({
 })
 
 const selectedDesignSystem = ref(0)
+const selectedDesignSystemLogo = ref('/assets/bluefoxemail-logo.png')
 
 function selectDesignSystem (idx) {
   selectedDesignSystem.value = idx
+  if (idx === 0) {
+    selectedDesignSystemLogo.value = '/assets/bluefoxemail-logo.png'
+    return
+  }
+  if (idx === 1) {
+    selectedDesignSystemLogo.value = '/assets/design-system-logo-2.png'
+    return
+  }
+  if (idx === 2) {
+    selectedDesignSystemLogo.value = '/assets/design-system-logo-3.png'
+    return
+  }
 }
 
 let intervalId
+
 onMounted(() => {
   setInterval(() => {
     let actSelVal = selectedDesignSystem.value
     actSelVal += 1
     actSelVal %= 3
-    selectedDesignSystem.value = actSelVal
+    selectDesignSystem(actSelVal)
   }, 3000)
 })
 
@@ -39,6 +56,7 @@ onBeforeUnmount(() => {
           class="mx-auto"
           width="100%"
           max-width="500px"
+          :theme="isDark ? 'dark' : 'light'"
           @click="selectDesignSystem(0)"
         >
           <template v-slot:title>
@@ -91,6 +109,7 @@ onBeforeUnmount(() => {
           class="mx-auto mt-6"
           width="100%"
           max-width="500px"
+          :theme="isDark ? 'dark' : 'light'"
           @click="selectDesignSystem(1)"
         >
           <template v-slot:title>
@@ -99,8 +118,8 @@ onBeforeUnmount(() => {
           <template v-slot:append>
             <v-avatar size="36">
               <v-img
-                alt="Bluefox logo"
-                src="/assets/bluefoxemail-logo.webp"
+                alt="Logo 2"
+                src="/assets/design-system-logo-2.png"
               />
             </v-avatar>
           </template>
@@ -143,6 +162,7 @@ onBeforeUnmount(() => {
           class="mx-auto mt-6"
           width="100%"
           max-width="500px"
+          :theme="isDark ? 'dark' : 'light'"
           @click="selectDesignSystem(2)"
         >
           <template v-slot:title>
@@ -152,7 +172,7 @@ onBeforeUnmount(() => {
             <v-avatar size="36">
               <v-img
                 alt="Bluefox logo"
-                src="/assets/bluefoxemail-logo.webp"
+                src="/assets/design-system-logo-3.png"
               />
             </v-avatar>
           </template>
@@ -191,11 +211,10 @@ onBeforeUnmount(() => {
         </v-card>
       </v-col>
       <v-col cols="12" md="8" class="d-flex">
-
-        <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
+        <svg viewBox="20 10 250 180" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
           <!-- Left screen -->
-          <g opacity="0.7">
-            <rect x="30" y="30" width="100" height="140" rx="8" fill="#f3f3f3" stroke="#ccc" stroke-width="1"/>
+          <g>
+            <rect x="30" y="30" width="100" height="140" rx="8" :fill="isDark ? 'black' : '#f3f3f3'" :stroke="isDark? '#3e3e42' : '#ccc'" stroke-width="1"/>
             <!-- Dots -->
             <circle cx="40" cy="40" r="2.5" fill="#d0d0d0"/>
             <circle cx="46" cy="40" r="2.5" fill="#d0d0d0"/>
@@ -204,49 +223,52 @@ onBeforeUnmount(() => {
             <rect x="60" y="37" width="60" height="5" rx="2.5" fill="#d0d0d0"/>
             <!-- Screen -->
             <rect x="35" y="48" width="90" height="117" fill="#e0e0e0" rx="4"/>
-            <inline-svg
-              src="/assets/design-system-email-left.svg"
+            <DesignSystemLeftSvg
               x="26"
               y="48"
               width="100"
               height="117"
-              :class="`svg-design-system-${selectedDesignSystem + 1}`"
+              :logo-src="selectedDesignSystemLogo"
+              :selected-design-system="selectedDesignSystem"
+              :is-dark="isDark"
             />
           </g>
 
           <!-- Right screen -->
-          <g opacity="0.7">
-            <rect x="170" y="30" width="100" height="140" rx="8" fill="#f3f3f3" stroke="#ccc" stroke-width="1"/>
+          <g>
+            <rect x="170" y="30" width="100" height="140" rx="8" :fill="isDark ? 'black' : '#f3f3f3'" :stroke="isDark? '#3e3e42' : '#ccc'" stroke-width="1"/>
             <circle cx="180" cy="40" r="2.5" fill="#d0d0d0"/>
             <circle cx="186" cy="40" r="2.5" fill="#d0d0d0"/>
             <circle cx="192" cy="40" r="2.5" fill="#d0d0d0"/>
             <rect x="200" y="37" width="60" height="5" rx="2.5" fill="#d0d0d0"/>
             <rect x="175" y="48" width="90" height="117" fill="#e0e0e0" rx="4"/>
-            <inline-svg
-              src="/assets/design-system-email-right.svg"
+            <DesignSystemRightSvg
               x="174"
               y="48"
               width="100"
               height="117"
-              :class="`svg-design-system-${selectedDesignSystem + 1}`"
+              :logo-src="selectedDesignSystemLogo"
+              :selected-design-system="selectedDesignSystem"
+              :is-dark="isDark"
             />
           </g>
 
           <!-- Middle screen -->
           <g>
-            <rect x="100" y="20" width="100" height="160" rx="8" fill="#ffffff" stroke="#bbb" stroke-width="1"/>
+            <rect x="100" y="20" width="100" height="160" rx="8" :fill="isDark ? 'black' : '#f3f3f3'" :stroke="isDark? '#3e3e42' : '#ccc'" stroke-width="1"/>
             <circle cx="110" cy="30" r="2.5" fill="#d0d0d0"/>
             <circle cx="116" cy="30" r="2.5" fill="#d0d0d0"/>
             <circle cx="122" cy="30" r="2.5" fill="#d0d0d0"/>
             <rect x="130" y="27" width="60" height="5" rx="2.5" fill="#d0d0d0"/>
             <rect x="105" y="40" width="90" height="135" fill="white" rx="4"/>
-            <inline-svg
-              src="/assets/design-system-email-middle.svg"
+            <DesignSystemMiddleSvg
               x="25"
               y="40"
               width="250"
               height="135"
-              :class="`svg-design-system-${selectedDesignSystem + 1}`"
+              :logo-src="selectedDesignSystemLogo"
+              :selected-design-system="selectedDesignSystem"
+              :is-dark="isDark"
             />
           </g>
           </svg>
@@ -267,54 +289,5 @@ onBeforeUnmount(() => {
     font-family: "Indie Flower", serif;
     font-weight: 400;
     font-style: normal;
-  }
-</style>
-
-<style>
-  .svg-design-system-1 {
-    font-family: 'Inter', sans-serif;
-  }
-  .svg-design-system-2 {
-    font-family: "Amatic SC", serif;
-  }
-  .svg-design-system-3 {
-    font-family: 'Indie Flower', cursive;
-  }
-
-  .svg-design-system-1 .svgText-1 {
-    fill: #392C91;
-  }
-  .svg-design-system-1 .svgPath-1 {
-    fill: #13B0EE;
-    transition: fill 1s ease;
-  }
-  .svg-design-system-1 .svgPath-3 {
-    fill: #13B0EE;
-    transition: fill 1s ease;
-  }
-  
-  .svg-design-system-2 .svgText-1 {
-    fill: #626F47;
-    font-weight: bold !important;
-  }
-  .svg-design-system-2 .svgPath-1 {
-    fill: #FFCF50;
-    transition: fill 1s ease;
-  }
-  .svg-design-system-2 .svgPath-3 {
-    fill: #626F47;
-    transition: fill 1s ease;
-  }
-
-  .svg-design-system-3 .svgText-1 {
-    fill: #ccafa5;
-  }
-  .svg-design-system-3 .svgPath-1 {
-    fill: #ede7dc;
-    transition: fill 1s ease;
-  }
-  .svg-design-system-3 .svgPath-3 {
-    fill: #ccafa5;
-    transition: fill 1s ease;
   }
 </style>

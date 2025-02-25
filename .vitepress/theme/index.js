@@ -10,7 +10,6 @@ import * as directives from 'vuetify/directives'
 
 import './style.css'
 
-import InlineSvg from 'vue-inline-svg'
 import Posts from './Posts.vue'
 import Post from './Post.vue'
 import NavigationButton from './NavigationButton.vue'
@@ -49,7 +48,6 @@ export default {
     })
     app.use(vuetify)
 
-    app.component('inline-svg', InlineSvg)
     app.component('posts', Posts)
     app.component('post', Post)
     app.component('NavigationButton', NavigationButton)
