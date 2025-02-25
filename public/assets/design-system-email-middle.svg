@@ -1,0 +1,72 @@
+<svg width="210mm" height="297mm" viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg">
+  <!-- Fejléc -->
+  <line x1="10" x2="200" y1="10" y2="10" stroke="#72c5cb" stroke-width="0.5" />
+  <text x="50%" y="19" font-size="5" font-family="sans-serif" text-anchor="middle" fill="#000">OCT. 2020 | ISSUE 10</text>
+  <line x1="10" x2="200" y1="25" y2="25" stroke="#72c5cb" stroke-width="0.5" />
+
+  <!-- Főcím -->
+  <text x="50%" y="50" font-size="16" text-anchor="middle" fill="#72c5cb" font-weight="bold">Your newsletter</text>
+
+  <!-- Alcím -->
+  <text x="50%" y="60" font-size="4" font-family="sans-serif" text-anchor="middle" fill="#000">The official company newsletter of bluefox.email</text>
+
+  <g transform="translate(0, -20)">
+    <!-- Placeholder képkocka -->
+    <rect x="20" y="90" width="170" height="80" fill="#f3f4f6" stroke="#e0e0e0" />
+
+    <!-- Hegyek -->
+    <polygon points="40,160 80,120 120,160" fill="#d1d5db" />
+    <polygon points="90,160 130,130 170,160" fill="#c4c4c4" />
+
+    <!-- Nap -->
+    <circle cx="50" cy="110" r="7" fill="#bcbcbc" />
+  </g>
+
+  <!-- Kék doboz -->
+  <rect x="140" y="85" width="50" height="25" fill="#72c5cb" />
+  <text x="165" y="95" font-size="3" font-family="sans-serif" text-anchor="middle" fill="#fff" font-weight="bold">MORE GREAT STORIES</text>
+  <text x="165" y="100" font-size="3" font-family="sans-serif" text-anchor="middle" fill="#fff" font-weight="bold">INSIDE:</text>
+  <text x="165" y="105" font-size="3" font-family="sans-serif" text-anchor="middle" fill="#000">Online Creative Writing</text>
+
+  <!-- Kiemelt cikk cím -->
+  <text x="20" y="161" font-size="5" font-family="sans-serif" fill="#72c5cb" font-weight="bold">WRITING IN THE</text>
+  <text x="20" y="166" font-size="5" font-family="sans-serif" fill="#72c5cb" font-weight="bold">DIGITAL WORLD</text>
+  <!-- Szerző -->
+  <text x="20" y="175" font-size="4" font-family="sans-serif" fill="#000">Written by Richard Sanchez</text>
+
+  <!-- Leírás szöveg -->
+  <text x="90" y="160" font-size="3" font-family="sans-serif" fill="#000">Company newsletters are essential in building relationships with your</text>
+  <text x="90" y="165" font-size="3" font-family="sans-serif" fill="#000">employees, customers or even prospective clients. Engaging and</text>
+  <text x="90" y="170" font-size="3" font-family="sans-serif" fill="#000">professionally-made company newsletters have the power to inspire</text>
+  <text x="90" y="175" font-size="3" font-family="sans-serif" fill="#000">loyalty and repeat business. Get in touch with the people who matter to</text>
+  <text x="90" y="180" font-size="3" font-family="sans-serif" fill="#000">your business by making company newsletters one of your priorities.</text>
+
+  <text x="90" y="190" font-size="3" font-family="sans-serif" fill="#000">Make your newsletter a beautiful representation of your company by</text>
+  <text x="90" y="195" font-size="3" font-family="sans-serif" fill="#000">inserting your logo, infusing it with your brand colors, and including</text>
+  <text x="90" y="200" font-size="3" font-family="sans-serif" fill="#000">official images from your files! Do you want to send out newsletters for</text>
+  <text x="90" y="205" font-size="3" font-family="sans-serif" fill="#000">Halloween or Christmas? Or do you want to show the fun side of your</text>
+  <text x="90" y="210" font-size="3" font-family="sans-serif" fill="#000">company for a change? Or do you want to use your company newsletter</text>
+  <text x="90" y="215" font-size="3" font-family="sans-serif" fill="#000">to advertise your new products or services to new and existing leads? The</text>
+  <text x="90" y="220" font-size="3" font-family="sans-serif" fill="#000">options are endless!</text>
+
+  <!-- Kiemelt cikk cím -->
+  <text x="20" y="241" font-size="5" font-family="sans-serif" fill="#72c5cb" font-weight="bold">WRITING IN THE</text>
+  <text x="20" y="246" font-size="5" font-family="sans-serif" fill="#72c5cb" font-weight="bold">DIGITAL WORLD</text>
+  <!-- Szerző -->
+  <text x="20" y="255" font-size="4" font-family="sans-serif" fill="#000">Written by Richard Sanchez</text>
+
+  <!-- Leírás szöveg -->
+  <text x="90" y="240" font-size="3" font-family="sans-serif" fill="#000">Company newsletters are essential in building relationships with your</text>
+  <text x="90" y="245" font-size="3" font-family="sans-serif" fill="#000">employees, customers or even prospective clients. Engaging and</text>
+  <text x="90" y="250" font-size="3" font-family="sans-serif" fill="#000">professionally-made company newsletters have the power to inspire</text>
+  <text x="90" y="255" font-size="3" font-family="sans-serif" fill="#000">loyalty and repeat business. Get in touch with the people who matter to</text>
+  <text x="90" y="260" font-size="3" font-family="sans-serif" fill="#000">your business by making company newsletters one of your priorities.</text>
+
+  <text x="90" y="270" font-size="3" font-family="sans-serif" fill="#000">Make your newsletter a beautiful representation of your company by</text>
+  <text x="90" y="275" font-size="3" font-family="sans-serif" fill="#000">inserting your logo, infusing it with your brand colors, and including</text>
+  <text x="90" y="280" font-size="3" font-family="sans-serif" fill="#000">official images from your files! Do you want to send out newsletters for</text>
+  <text x="90" y="285" font-size="3" font-family="sans-serif" fill="#000">Halloween or Christmas? Or do you want to show the fun side of your</text>
+  <text x="90" y="290" font-size="3" font-family="sans-serif" fill="#000">company for a change? Or do you want to use your company newsletter</text>
+  <text x="90" y="295" font-size="3" font-family="sans-serif" fill="#000">to advertise your new products or services to new and existing leads? The</text>
+  <text x="90" y="300" font-size="3" font-family="sans-serif" fill="#000">options are endless!</text>
+</svg>

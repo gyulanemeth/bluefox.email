@@ -1,0 +1,67 @@
+<svg width="210mm" height="297mm" viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg">
+  <!-- Háttér -->
+  <rect width="210" height="297" fill="#e6cbb6" />
+
+  <!-- Fejléc -->
+  <image x="45%" y="8" href="/assets/bluefoxemail-logo.png" width="20" height="20" />
+
+  <!-- Főkép helye (placeholder) -->
+  <g>
+    <!-- Placeholder képkocka -->
+    <rect x="20" y="30" width="170" height="80" fill="#f3f4f6" stroke="#e0e0e0" />
+
+    <!-- Hegyek -->
+    <polygon points="40,100 80,60 120,100" fill="#d1d5db" />
+    <polygon points="90,100 130,70 170,100" fill="#c4c4c4" />
+
+    <!-- Nap -->
+    <circle cx="50" cy="50" r="7" fill="#bcbcbc" />
+  </g>
+
+  <!-- Text background -->
+  <rect x="20" y="110" width="170" height="150" fill="#f1f4d0" />
+
+  <!-- Főcím -->
+  <text x="50%" y="130" font-size="10" text-anchor="middle" font-weight="bold">
+    Exclusive Sale Alert! Save
+  </text>
+  <text x="50%" y="140" font-size="10" text-anchor="middle" font-weight="bold">
+    Big with Our Email
+  </text>
+  <text x="50%" y="150" font-size="10" text-anchor="middle" font-weight="bold">
+    Newsletter
+  </text>
+
+  <!-- Bevezető szöveg -->
+  <text x="50%" y="165" font-size="5" font-family="sans-serif" text-anchor="middle">
+    Hello [Customer's Name],
+  </text>
+  <text x="50%" y="175" font-size="5" font-family="sans-serif" text-anchor="middle">
+    We hope this message finds you well. As a valued member of
+  </text>
+  <text x="50%" y="185" font-size="5" font-family="sans-serif" text-anchor="middle">
+    our community, we're excited to bring you an exclusive
+  </text>
+  <text x="50%" y="195" font-size="5" font-family="sans-serif" text-anchor="middle">
+    opportunity to save big on your favorite products/services
+  </text>
+  <text x="50%" y="205" font-size="5" font-family="sans-serif" text-anchor="middle">
+    through our email newsletter.
+  </text>
+
+  <!-- CTA Gomb -->
+  <rect x="85" y="230" rx="5" ry="5" width="40" height="10" fill="#d4a48c" />
+  <text x="105" y="237" font-size="4" font-family="sans-serif" text-anchor="middle" fill="#ffffff" font-weight="bold">
+    SHOP NOW
+  </text>
+
+  <!-- Lábléc szöveg -->
+  <text x="50%" y="270" font-size="3" font-family="sans-serif" text-anchor="middle">
+    View more updates on our social media
+  </text>
+
+  <!-- Social ikonok helye (placeholder) -->
+  <circle cx="90" cy="280" r="3" fill="white" />
+  <circle cx="105" cy="280" r="3" fill="white" />
+  <circle cx="120" cy="280" r="3" fill="white" />
+</svg>

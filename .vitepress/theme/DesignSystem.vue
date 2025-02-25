@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref } from 'vue'
+import { defineProps, ref, onMounted, onBeforeUnmount } from 'vue'
 
 const props = defineProps({
   isDark: {
@@ -13,6 +13,20 @@ const selectedDesignSystem = ref(0)
 function selectDesignSystem (idx) {
   selectedDesignSystem.value = idx
 }
+
+let intervalId
+onMounted(() => {
+  setInterval(() => {
+    let actSelVal = selectedDesignSystem.value
+    actSelVal += 1
+    actSelVal %= 3
+    selectedDesignSystem.value = actSelVal
+  }, 3000)
+})
+
+onBeforeUnmount(() => {
+  clearInterval(intervalId)
+})
 
 </script>
 
@@ -61,7 +75,7 @@ function selectDesignSystem (idx) {
                   height="36"
                 />
               </v-col>
-              <v-col class="px-0">
+              <v-col class="pl-0">
                 <v-sheet
                   class="d-flex"
                   color="black"
@@ -113,7 +127,7 @@ function selectDesignSystem (idx) {
                   height="36"
                 />
               </v-col>
-              <v-col class="px-0">
+              <v-col class="pl-0">
                 <v-sheet
                   class="d-flex"
                   color="#FEFAE0"
@@ -165,7 +179,7 @@ function selectDesignSystem (idx) {
                   height="36"
                 />
               </v-col>
-              <v-col class="px-0">
+              <v-col class="pl-0">
                 <v-sheet
                   class="d-flex"
                   color="#bdc3cb"
@@ -190,6 +204,14 @@ function selectDesignSystem (idx) {
             <rect x="60" y="37" width="60" height="5" rx="2.5" fill="#d0d0d0"/>
             <!-- Screen -->
             <rect x="35" y="48" width="90" height="117" fill="#e0e0e0" rx="4"/>
+            <inline-svg
+              src="/assets/design-system-email-left.svg"
+              x="26"
+              y="48"
+              width="100"
+              height="117"
+              :class="`svg-design-system-${selectedDesignSystem + 1}`"
+            />
           </g>
 
           <!-- Right screen -->
@@ -200,6 +222,14 @@ function selectDesignSystem (idx) {
             <circle cx="192" cy="40" r="2.5" fill="#d0d0d0"/>
             <rect x="200" y="37" width="60" height="5" rx="2.5" fill="#d0d0d0"/>
             <rect x="175" y="48" width="90" height="117" fill="#e0e0e0" rx="4"/>
+            <inline-svg
+              src="/assets/design-system-email-right.svg"
+              x="174"
+              y="48"
+              width="100"
+              height="117"
+              :class="`svg-design-system-${selectedDesignSystem + 1}`"
+            />
           </g>
 
           <!-- Middle screen -->
@@ -209,14 +239,14 @@ function selectDesignSystem (idx) {
             <circle cx="116" cy="30" r="2.5" fill="#d0d0d0"/>
             <circle cx="122" cy="30" r="2.5" fill="#d0d0d0"/>
             <rect x="130" y="27" width="60" height="5" rx="2.5" fill="#d0d0d0"/>
-            <rect x="105" y="40" width="90" height="135" fill="#eaeaea" rx="4"/>
+            <rect x="105" y="40" width="90" height="135" fill="white" rx="4"/>
             <inline-svg
               src="/assets/design-system-email-middle.svg"
-              x="36"
+              x="25"
               y="40"
               width="250"
               height="135"
-              class="svg-design-system-3"
+              :class="`svg-design-system-${selectedDesignSystem + 1}`"
             />
           </g>
           </svg>
@@ -238,7 +268,9 @@ function selectDesignSystem (idx) {
     font-weight: 400;
     font-style: normal;
   }
+</style>
 
+<style>
   .svg-design-system-1 {
     font-family: 'Inter', sans-serif;
   }
@@ -247,5 +279,42 @@ function selectDesignSystem (idx) {
   }
   .svg-design-system-3 {
     font-family: 'Indie Flower', cursive;
+  }
+
+  .svg-design-system-1 .svgText-1 {
+    fill: #392C91;
+  }
+  .svg-design-system-1 .svgPath-1 {
+    fill: #13B0EE;
+    transition: fill 1s ease;
+  }
+  .svg-design-system-1 .svgPath-3 {
+    fill: #13B0EE;
+    transition: fill 1s ease;
+  }
+  
+  .svg-design-system-2 .svgText-1 {
+    fill: #626F47;
+    font-weight: bold !important;
+  }
+  .svg-design-system-2 .svgPath-1 {
+    fill: #FFCF50;
+    transition: fill 1s ease;
+  }
+  .svg-design-system-2 .svgPath-3 {
+    fill: #626F47;
+    transition: fill 1s ease;
+  }
+
+  .svg-design-system-3 .svgText-1 {
+    fill: #ccafa5;
+  }
+  .svg-design-system-3 .svgPath-1 {
+    fill: #ede7dc;
+    transition: fill 1s ease;
+  }
+  .svg-design-system-3 .svgPath-3 {
+    fill: #ccafa5;
+    transition: fill 1s ease;
   }
 </style>
