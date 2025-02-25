@@ -27,6 +27,16 @@ const testimonials = [
     profileImg: '/assets/testimonials/gabriel-varaljay.jpg',
     logo: '/assets/testimonials/trendfingers.png',
     url: 'https://trendfingers.com'
+  },
+  {
+    id: 2,
+    name: 'Gergely Csaba Nagy',
+    initials: 'GN',
+    company: 'Head of Marketing @chamaileon.io',
+    testimonial: `When I saw the delivery stats from my first campaign sent with BlueFox, I had to double-check the click rate—I could hardly believe it! It appears that every email landed in the primary inbox, and the deliverability and tracking are simply outstanding. BlueFox has set a new standard for me.`,
+    profileImg: '/assets/testimonials/gergely-nagy.png',
+    logo: '/assets/testimonials/chamaileon.svg',
+    url: 'https://chamaileon.io/'
   }
 ]
 
