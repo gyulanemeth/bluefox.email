@@ -1,10 +1,28 @@
 <script setup>
-import { ref } from 'vue'
-import { useDisplay } from 'vuetify'
-import { useData } from 'vitepress'
+import { ref, defineProps } from 'vue'
 
-const { lgAndUp, md, sm, xs } = useDisplay()
-const { isDark } = useData()
+const props = defineProps({
+  isDark: {
+    type: Boolean,
+    default: false
+  },
+  lgAndUp: {
+    type: Boolean,
+    default: true
+  },
+  md: {
+    type: Boolean,
+    default: false
+  },
+  sm: {
+    type: Boolean,
+    default: false
+  },
+  xs: {
+    type: Boolean,
+    default: false
+  }
+})
 
 const selectedTestimonialId = ref(0)
 const testimonials = [
@@ -432,55 +450,55 @@ function selectTestimonialEmail (id) {
           <v-icon>mdi-chevron-down</v-icon>
         </v-btn>
       </div>
-  </div>
-  <div v-else-if="xs">
-    <v-card
-      :theme="isDark ? 'dark' : 'light'"
-      elevation="6"
-    >
-      <div class="pa-2 d-flex">
-        <v-icon disabled>mdi-chevron-left</v-icon>
-        <v-spacer />
-        <v-icon disabled>mdi-square-edit-outline</v-icon>
-      </div>
-      <v-divider opacity="100" class="my-0" />
-      <div>
-        <v-row class="pa-3">
-          <v-col cols="12" class="d-flex justify-space-between">  
-            <v-text-field
-              prepend-inner-icon="mdi-magnify"
-              label="Search"
-              variant="plain"
-              density="compact"
-              hide-details
-              disabled
-            />
-          </v-col>
-        </v-row>
-      </div>
-      <v-divider opacity="100" class="my-0" />
-      <div>
-        <v-row class="pa-3">
-          <v-col cols="12" class="d-flex flex-column" style="height: 600px; overflow-y: auto">
-            <v-list lines="two" color="secondary">
-              <v-list-item
-                v-for="item in testimonials"
-                :key="item.id"
-                :value="item.id"
-                :active="item.id === selectedTestimonialId"
-                @click="selectTestimonialEmail(item.id)"
-              >
-                <v-list-item-title>{{ item.name }}</v-list-item-title>
-                <v-list-item-subtitle class="mb-1 opacity-80">{{ item.company }}</v-list-item-subtitle>
-                <v-list-item-subtitle>{{ item.testimonial }}</v-list-item-subtitle>
-                <v-divider opacity="100" class="mb-0" />
-              </v-list-item>
-            </v-list>
-          </v-col>
-        </v-row>
-      </div>
-    </v-card>
-  </div>
+    </div>
+    <div v-else-if="xs">
+      <v-card
+        :theme="isDark ? 'dark' : 'light'"
+        elevation="6"
+      >
+        <div class="pa-2 d-flex">
+          <v-icon disabled>mdi-chevron-left</v-icon>
+          <v-spacer />
+          <v-icon disabled>mdi-square-edit-outline</v-icon>
+        </div>
+        <v-divider opacity="100" class="my-0" />
+        <div>
+          <v-row class="pa-3">
+            <v-col cols="12" class="d-flex justify-space-between">  
+              <v-text-field
+                prepend-inner-icon="mdi-magnify"
+                label="Search"
+                variant="plain"
+                density="compact"
+                hide-details
+                disabled
+              />
+            </v-col>
+          </v-row>
+        </div>
+        <v-divider opacity="100" class="my-0" />
+        <div>
+          <v-row class="pa-3">
+            <v-col cols="12" class="d-flex flex-column" style="height: 600px; overflow-y: auto">
+              <v-list lines="two" color="secondary">
+                <v-list-item
+                  v-for="item in testimonials"
+                  :key="item.id"
+                  :value="item.id"
+                  :active="item.id === selectedTestimonialId"
+                  @click="selectTestimonialEmail(item.id)"
+                >
+                  <v-list-item-title>{{ item.name }}</v-list-item-title>
+                  <v-list-item-subtitle class="mb-1 opacity-80">{{ item.company }}</v-list-item-subtitle>
+                  <v-list-item-subtitle>{{ item.testimonial }}</v-list-item-subtitle>
+                  <v-divider opacity="100" class="mb-0" />
+                </v-list-item>
+              </v-list>
+            </v-col>
+          </v-row>
+        </div>
+      </v-card>
+    </div>
 </template>
 
 <style scoped>

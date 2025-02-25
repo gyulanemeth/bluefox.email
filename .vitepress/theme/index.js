@@ -45,6 +45,7 @@ export default {
           }
         },
       },
+      ssr: true
     })
     app.use(vuetify)
 
