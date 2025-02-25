@@ -119,7 +119,7 @@ const { isDark } = useData()
       padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 48px) 24px 48px;
     }
     .title {
-      font-size: 45px;
+      font-size: 40px;
     }
     .tagline {
       font-size: 18px;
