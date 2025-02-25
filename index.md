@@ -53,6 +53,15 @@ onBeforeUnmount(() => {
     border-top: 0 !important;
   }
 
+  .sectionTitle {
+    font-size: 30px !important;
+  }
+  @media (max-width: 640px) {
+    .sectionTitle {
+      font-size: 26px !important;
+    }
+  }
+
   .value-prop p {
     font-size: 18px;
     line-height: 28px;
@@ -318,7 +327,7 @@ onBeforeUnmount(() => {
 </section>
 
 <section id="testimonials" class="section-index">
-  <h2 class="text-center mt-4 mb-6">
+  <h2 class="sectionTitle text-center mt-4 mb-6">
     Feedback from our inbox
   </h2>
   <TestimonialDiv />
@@ -330,7 +339,7 @@ onBeforeUnmount(() => {
       <span class="text-overline">Designers</span>
     </v-chip>
   </div>
-  <h2 class="text-center mt-4 mb-3 pt-0">
+  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
     Amazing email design? Easy!
   </h2>
   <div class="d-flex justify-center">
@@ -351,7 +360,7 @@ onBeforeUnmount(() => {
     </video>
   </v-card>
 
-  <h2 class="text-center mb-3 pt-0" style="margin-top: 15vh !important">
+  <h2 class="sectionTitle text-center mb-3 pt-0" style="margin-top: 15vh !important">
     Consistent-looking transactional, triggered, & marketing emails
   </h2>
   <div class="d-flex justify-center">
@@ -391,7 +400,7 @@ onBeforeUnmount(() => {
 -->
 
 <section id="no-rendering-issues" class="value-prop pt-0">
-  <h2 class="text-center mb-3">
+  <h2 class="sectionTitle text-center mb-3">
     No more email rendering issues
   </h2>
   <div class="d-flex justify-center">
@@ -417,7 +426,7 @@ onBeforeUnmount(() => {
 </section>
 
 <section id="great-deliverability" class="value-prop">
-  <h2 class="text-center">
+  <h2 class="sectionTitle text-center">
     Bring your own AWS SES
   </h2>
   <p style="background: white; color: #392C91; font-weight: bold; padding: 10px; font-size: 20px; text-align: center;">The gold-standard of great deliverability</p>
@@ -442,7 +451,7 @@ onBeforeUnmount(() => {
 <hr class="value-prop-divider type2"/>
 -->
 <section id="second-cta" class="value-prop">
-  <h2 class="text-center mb-3">
+  <h2 class="sectionTitle text-center mb-3">
     Send consistent-looking & beautiful emails today!
   </h2>
   <div class="d-flex justify-center">
