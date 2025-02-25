@@ -14,6 +14,7 @@ import Posts from './Posts.vue'
 import Post from './Post.vue'
 import NavigationButton from './NavigationButton.vue'
 import TestimonialDiv from './TestimonialDiv.vue'
+import DesignSystem from './DesignSystem.vue'
 
 export default {
   extends: Theme,
@@ -51,5 +52,6 @@ export default {
     app.component('post', Post)
     app.component('NavigationButton', NavigationButton)
     app.component('TestimonialDiv', TestimonialDiv)
+    app.component('DesignSystem', DesignSystem)
   }
 }

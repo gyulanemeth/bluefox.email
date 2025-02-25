@@ -12,6 +12,7 @@ import { useData } from 'vitepress'
 
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
 import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
+import DesignSystem from './.vitepress/theme/DesignSystem.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -38,13 +39,27 @@ onBeforeUnmount(() => {
     text-decoration: none !important;
   }
 
+  .section-index {
+    padding-top: 10vh;
+    padding-bottom: 10vh;
+  }
+
   .value-prop {
     padding-top: 10vh;
     padding-bottom: 10vh;
   }
 
-  .value-prop h2 {
+  h2 {
     border-top: 0 !important;
+  }
+
+  .sectionTitle {
+    font-size: 30px !important;
+  }
+  @media (max-width: 640px) {
+    .sectionTitle {
+      font-size: 26px !important;
+    }
   }
 
   .value-prop p {
@@ -53,9 +68,9 @@ onBeforeUnmount(() => {
   }
 
   .value-prop .VPButton.medium {
-      padding: 15px 30px;
-      line-height: 22px;
-      font-size: 22px;
+    padding: 15px 30px;
+    line-height: 22px;
+    font-size: 22px;
   }
 
 
@@ -288,9 +303,9 @@ onBeforeUnmount(() => {
       line-height: 20 px !important;
     }
 
-    .value-prop {
-      padding-top: 10vh;
-      padding-bottom: 10vh;
+    .section-index {
+      padding-top: 5vh;
+      padding-bottom: 5vh;
     }
 
     #no-rendering-issues .img-container {
@@ -311,18 +326,20 @@ onBeforeUnmount(() => {
   <HeroUnit />
 </section>
 
-<section id="testimonials" class="value-prop">
-  <h2 class="text-center mt-4 mb-6">
+<section id="testimonials" class="section-index">
+  <h2 class="sectionTitle text-center mt-4 mb-6">
     Feedback from our inbox
   </h2>
   <TestimonialDiv />
 </section>
 
-<section id="designers" class="value-prop">
-  <div class="text-overline d-flex justify-center">
-    Designers
+<section id="designers" class="section-index">
+  <div class="d-flex justify-center">
+    <v-chip color="primary">
+      <span class="text-overline">Designers</span>
+    </v-chip>
   </div>
-  <h2 class="text-center mt-4 mb-3 pt-0">
+  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
     Amazing email design? Easy!
   </h2>
   <div class="d-flex justify-center">
@@ -342,8 +359,23 @@ onBeforeUnmount(() => {
       Your browser does not support the video tag.
     </video>
   </v-card>
+
+  <h2 class="sectionTitle text-center mb-3 pt-0" style="margin-top: 15vh !important">
+    Consistent-looking transactional, triggered, & marketing emails
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Our design system feature makes it sure that all of your emails look great and consistent.
+    </div>
+  </div>
+
+  <DesignSystem
+    class="mt-6"
+    :is-dark="isDark"
+  />
 </section>
 
+<!--
 <section id="design-system" class="value-prop pt-0">
   <input type="radio" name="image" id="image1" v-model="selectedEmailType" value="0">
   <input type="radio" name="image" id="image2" v-model="selectedEmailType" value="1">
@@ -365,9 +397,10 @@ onBeforeUnmount(() => {
     <img src="/assets/consistent-emails-04.png" alt="Image 4" class="image img4">
   </div>
 </section>
+-->
 
 <section id="no-rendering-issues" class="value-prop pt-0">
-  <h2 class="text-center mb-3">
+  <h2 class="sectionTitle text-center mb-3">
     No more email rendering issues
   </h2>
   <div class="d-flex justify-center">
@@ -392,8 +425,8 @@ onBeforeUnmount(() => {
   </div>
 </section>
 
-<section id="great-deliverability" class="value-prop">
-  <h2 class="text-center">
+<section id="great-deliverability" class="value-prop ">
+  <h2 class="sectionTitle text-center">
     Bring your own AWS SES
   </h2>
   <p style="background: white; color: #392C91; font-weight: bold; padding: 10px; font-size: 20px; text-align: center;">The gold-standard of great deliverability</p>
@@ -418,7 +451,7 @@ onBeforeUnmount(() => {
 <hr class="value-prop-divider type2"/>
 -->
 <section id="second-cta" class="value-prop">
-  <h2 class="text-center mb-3">
+  <h2 class="sectionTitle text-center mb-3">
     Send consistent-looking & beautiful emails today!
   </h2>
   <div class="d-flex justify-center">

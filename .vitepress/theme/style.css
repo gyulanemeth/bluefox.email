@@ -3,6 +3,11 @@
  * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
 
+ /**
+ * Fonts
+ * -------------------------------------------------------------------------- */
+ @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Indie+Flower&display=swap');
+
 /**
  * Colors
  * -------------------------------------------------------------------------- */
