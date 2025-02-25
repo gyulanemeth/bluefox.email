@@ -451,13 +451,13 @@ onBeforeUnmount(() => {
     </div>
   </div>
 
-  <div class="mt-4">
+  <v-row class="mt-4 justify-center">
     <v-btn
       rounded
       size="large"
       color="primary"
       variant="flat"
-      class="no-uppercase mb-2 mb-sm-0 mr-sm-3"
+      class="no-uppercase mr-3"
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
@@ -474,7 +474,7 @@ onBeforeUnmount(() => {
     >
       Pricing
     </v-btn>
-  </div>
+  </v-row>
 </section>
 
 

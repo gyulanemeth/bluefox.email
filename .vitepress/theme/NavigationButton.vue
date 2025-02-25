@@ -20,12 +20,13 @@ const props = defineProps({
   color: {
     type: String,
     default: ''
-  }
+  },
+  screenMenu: { type: Boolean } // whether the component is inside mobile navigation menu
 })
 </script>
 
 <template>
-  <div class="navBtnDiv d-flex align-center">
+  <div :class="`navBtnDiv d-flex align-center justify-center ${screenMenu ? 'mt-4' : ''}`">
     <v-btn
       :variant="variant"
       :color="color"
