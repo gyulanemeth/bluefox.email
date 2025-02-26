@@ -136,3 +136,13 @@ $options = [
 $context  = stream_context_create($options);
 $result = file_get_contents($url, false, $context);
 ```
+
+
+## API Error Responses  
+
+| Error Name                          | Message                                                                 | Code | Description |
+|--------------------------------------|-------------------------------------------------------------------------|------|-------------|
+| `METHOD_NOT_ALLOWED`              | Insufficient credits available.                                         | 405  | Occurs when the account lacks the necessary credits to send an email. |
+| `VALIDATION_ERROR`| Project Email AWS configurations not found.                             | 400  | Missing AWS configurations in project. |
+| `VALIDATION_ERROR`       | Missing required parameters: `email` and `transactionalId`.             | 400  | The request is missing mandatory fields for processing. |
+| `METHOD_NOT_ALLOWED`             | The provided email has been flagged due to bouncing. If this is incorrect and the email is valid, please contact support. | 405  | The email address has been marked as undeliverable due to previous failed delivery attempts. |
