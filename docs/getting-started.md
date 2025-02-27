@@ -1,3 +1,39 @@
+---
+title: Getting Started with bluefox.email
+description: "Learn how to get started with bluefox.email in just four simple steps: register, create a project, connect AWS SES, and start sending emails."
+head:
+  - - meta
+    - name: description
+      content: "Learn how to get started with bluefox.email in just four simple steps: register, create a project, connect AWS SES, and start sending emails."
+  - - meta
+    - property: og:title
+      content: Getting Started with bluefox.email
+  - - meta
+    - property: og:description
+      content: "Learn how to get started with bluefox.email in just four simple steps: register, create a project, connect AWS SES, and start sending emails."
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/getting-started
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Getting Started with bluefox.email
+  - - meta
+    - property: twitter:description
+      content: "Learn how to get started with bluefox.email in just four simple steps: register, create a project, connect AWS SES, and start sending emails."
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Getting started with bluefox.email
 
 1) Register at bluefox.email. (Registration opens on 1st Sept.)

@@ -1,3 +1,40 @@
+---
+title: Welcome to the bluefox.email documentation
+description: Learn how to manage transactional emails, triggered emails, and marketing campaigns for your SaaS application using AWS SES and bluefox.email's advanced tools.
+head:
+  - - meta
+    - name: description
+      content: Learn how to manage transactional emails, triggered emails, and marketing campaigns for your SaaS application using AWS SES and bluefox.email's advanced tools.
+  - - meta
+    - property: og:title
+      content: Welcome to the bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Learn how to manage transactional emails, triggered emails, and marketing campaigns for your SaaS application using AWS SES and bluefox.email's advanced tools.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Welcome to the bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Learn how to manage transactional emails, triggered emails, and marketing campaigns for your SaaS application using AWS SES and bluefox.email's advanced tools.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
+
 # Welcome to the bluefox.email documentation
 
 Welcome to the official documentation for **bluefox.email**! This guide is your go-to resource for understanding and using bluefox.email to manage all types of email communications for your SaaS application, from transactional emails, through automations via triggered emails to marketing campaigns.
@@ -43,4 +80,4 @@ For example, you can use loops to list multiple items, such as recent purchases 
 
 ## Analytics and reporting
 
-Understanding the performance of your emails is crucial, and Bluefox provides comprehensive [analytics](./projects/analytics) to help you do just that. Track key metrics such as open rates, click rates, bounce rates, and complaints. We also handle bounces and complaints automatically, ensuring that your email list remains healthy and that your emails reach the intended recipients.
+Understanding the performance of your emails is crucial, and bluefox.email provides comprehensive [analytics](/docs/analytics) to help you do just that. Track key metrics such as open rates, click rates, bounce rates, and complaints. We also handle bounces and complaints automatically, ensuring that your email list remains healthy and that your emails reach the intended recipients.

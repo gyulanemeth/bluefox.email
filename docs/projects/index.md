@@ -1,3 +1,39 @@
+---
+title: Projects | bluefox.email documentation
+description: Discover how bluefox.email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
+head:
+  - - meta
+    - name: description
+      content: Discover how bluefox.email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
+  - - meta
+    - property: og:title
+      content: Projects | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Discover how bluefox.email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/projects
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Projects | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Discover how bluefox.email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Projects
 
 In bluefox.email, you can create projects for your SaaS. Projects can represent different environments like development, staging, and production. This way, you can manage emails for each environment separately.

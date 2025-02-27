@@ -15,3 +15,5 @@
 - **Compliance with Regulations**: Helps businesses comply with data protection laws like GDPR (General Data Protection Regulation) in Europe, which require clear and explicit consent before sending marketing communications.
 
 Overall, double opt-in provides a more secure and user-friendly way to manage subscriptions and communications.
+
+For more information on how to implement and use the **Double Opt-In**, refer to the [ Double Opt-In Documentation](/docs/projects/subscriber-lists#implement-double-opt-in).

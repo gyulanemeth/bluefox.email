@@ -10,6 +10,11 @@ export default defineConfig({
     ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C' }],
     ['script', {}, `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`]
   ],
+  vite: {
+    ssr: {
+      noExternal: ["vuetify"]
+    }
+  },
   css: {
     postcss: {
       plugins: [tailwindcss()],
@@ -17,18 +22,37 @@ export default defineConfig({
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
-    logo: '/assets/bluefoxemail-logo.webp',
+    logo: {
+      src: '/assets/bluefoxemail-logo.webp',
+      alt: 'bluefox.email logo'
+    },
+
     search: {
       provider: 'local'
     },
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Pricing', link: '/pricing' },
-      { text: 'Tutorials', link: '/tutorials/' },
-      { text: 'Articles', link: '/articles/' },
+      { text: 'Tutorials', link: '/tutorials' },
+      { text: 'Articles', link: '/articles' },
       { text: 'Docs', link: '/docs/' },
-      { text: 'Login', link: 'https://app.bluefox.email' },
-      { text: 'Sign up', link: 'https://app.bluefox.email/accounts/create-account' }
+      {
+        component: 'NavigationButton',
+        props: {
+          text: 'Login',
+          link: 'https://app.bluefox.email',
+          variant: 'outlined'
+        }
+      },
+      {
+        component: 'NavigationButton',
+        props: {
+          text: 'Sign up',
+          link: 'https://app.bluefox.email/accounts/create-account',
+          variant: 'flat',
+          color: 'buttonBackground'
+        }
+      }
       /*
       { text: 'Home', link: '/' },
       { text: 'Email Marketing Concepts', link: '/email-marketing-concepts/' },
@@ -52,8 +76,8 @@ export default defineConfig({
           link: '/docs/projects/',
           collapsed: false,
           items: [
-            { text: 'Project Dashboard', link: '/docs/projects/analytics' },
-            { text: 'Creating a new project', link: '/docs/projects/new-project.md' },
+            { text: 'Project Dashboard', link: '/docs/projects/dashboard' },
+            { text: 'Creating a new project', link: '/docs/projects/new-project' },
             { text: 'Transactional Emails', link: '/docs/projects/transactional-emails' },
             { text: 'Triggered Emails', link: '/docs/projects/triggered-emails' },
             { text: 'Campaigns', link: '/docs/projects/campaigns' },
@@ -67,17 +91,11 @@ export default defineConfig({
           link: '/docs/api/',
           collapsed: false,
           items: [
-            { text: 'Subscribe', link: '/docs/api/#subscribe' },
-            { text: 'Update Subscriber', link: '/docs/api/#update-subscriber' },
-            { text: 'Unsubscribe', link: '/docs/api/#unsubscribe' },
-            { text: 'Activate Subscription', link: '/docs/api/#activate-subscription' },
-            { text: 'Pause Subscription', link: '/docs/api/#pause-subscription' },
-            { text: 'List Subscribers', link: '/docs/api/#list-subscribers' },
-            { text: 'Get Subscriber', link: '/docs/api/#get-subscriber' },
-            { text: 'Send Transactional Email', link: '/docs/api/#send-transactional-email' },
-            { text: 'Send Triggered Email', link: '/docs/api/#send-triggered-email' },
-            { text: 'Send Attachments', link: '/docs/api/#send-attachments' },
-            { text: 'Webhook', link: '/docs/api/#webhook' }
+            { text: 'Subscriber List Management', link: '/docs/api/subscriber-list-management' },
+            { text: 'Send Transactional Email', link: '/docs/api/send-transactional-email' },
+            { text: 'Send Triggered Email', link: '/docs/api/send-triggered-email' },
+            { text: 'Send Attachments', link: '/docs/api/send-attachments' },
+            { text: 'Webhooks for Event Notifications', link: '/docs/api/webhooks' }
           ]
         }, { 
           text: 'Analytics',

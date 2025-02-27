@@ -1,3 +1,39 @@
+---
+title: Account Dashboard | bluefox.email documentation
+description: Get a comprehensive overview of your email and subscription performance across all your projects with the bluefox.email account dashboard.
+head:
+  - - meta
+    - name: description
+      content: Get a comprehensive overview of your email and subscription performance across all your projects with the bluefox.email account dashboard.
+  - - meta
+    - property: og:title
+      content: Account Dashboard | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: Get a comprehensive overview of your email and subscription performance across all your projects with the bluefox.email account dashboard.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/dashboard
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: Account Dashboard | bluefox.email documentation
+  - - meta
+    - property: twitter:description
+      content: Get a comprehensive overview of your email and subscription performance across all your projects with the bluefox.email account dashboard.
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Account Dashboard
 
 The **Account Dashboard** gives you an overview of your entire account’s email and subscription performance across multiple projects. It allows you to track key metrics for [**transactional emails**](/docs/projects/transactional-emails#transactional-email-statistics), [**triggered emails**](/docs/projects/triggered-emails#triggered-email-statistics), [**campaign Emails**](/docs/projects/campaigns#campaign-email-statistics), and [**subscriber lists**](/docs/projects/subscriber-lists#subscriber-list-statistics). The dashboard also provides insights into subscriber behaviors, such as subscriptions, pauses, unsubscribes, and re-subscriptions, giving you a holistic view of your account’s health.
