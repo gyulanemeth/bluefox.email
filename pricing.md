@@ -154,11 +154,14 @@ html.dark .pricing-card .pricing-card-inner {
     color: transparent;
 
     font-size: 42px;
-    line-height: 42px;
+    line-height: 50px;
     letter-spacing: 2px;
     font-weight: 700;
 
-    margin: 25px 0;
+    margin: 25px auto;
+
+    width: 100%;
+    max-width: 800px
   }
 
   html.dark #get-started-with-free-credits {
@@ -232,21 +235,12 @@ html.dark .pricing-card .pricing-card-inner {
   
   <div class="credit-explanation">
     <div class="with-branding">
-      <div>1 credit = 2 email sends</div>
-      <div>with bluefox.email branding.</div>
-      <div>(We put our logo & link in your emails.)</div>
-    </div>
-    <div>OR</div>
-    <div class="without-branding">
       <div>1 credit = 1 email send</div>
-      <div>without bluefox.email branding.</div>
-      <div>(We don't put our logo in your emails.)</div>
     </div>
   </div>  
   <div>You will also need to pay to AWS $0.1 / 1000 emails for your SES usage.</div>
   <p>All packages include all of our features without restrictions!</p>
-  
-  <div id="get-started-with-free-credits">Get started with 36000 free credits</div>
+  <div id="get-started-with-free-credits">Get started with 3000 free monthly credits in the first year</div>
 
   <div class="my-4">
     <v-btn
