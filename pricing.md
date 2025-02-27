@@ -216,20 +216,13 @@ html.dark .pricing-card .pricing-card-inner {
   </div>
   <div class="credit-explanation">
     <div class="with-branding">
-      <div>1 credit = 2 email sends</div>
+      <div>1 credit = 1 email sends</div>
       <div>with bluefox.email branding.</div>
-      <div>(We put our logo & link in your emails.)</div>
-    </div>
-    <div>OR</div>
-    <div class="without-branding">
-      <div>1 credit = 1 email send</div>
-      <div>without bluefox.email branding.</div>
-      <div>(We don't put our logo in your emails.)</div>
     </div>
   </div>  
   <div>You will also need to pay to AWS $0.1 / 1000 emails for your SES usage.</div>
   <p>All packages include all of our features without restrictions!</p>
-  <div id="get-started-with-free-credits">Get started with 36000 free credits</div>
+  <div id="get-started-with-free-credits">Get started with 3000 free credits per month for a whole year</div>
   <div class="actions">
     <div class="action">
       <a class="VPButton brand medium" target="_blank" href="https://app.bluefox.email/accounts/create-account">Get Started Now</a>
