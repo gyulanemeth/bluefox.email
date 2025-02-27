@@ -64,3 +64,11 @@ Here’s an example of how to structure attachments:
     }
   ]
 }
+
+```
+
+## API Error Responses  
+
+| Error Name                          | Message                                                                 | Code | Description |
+|--------------------------------------|-------------------------------------------------------------------------|------|-------------|
+| `VALIDATION_ERROR`        | Invalid attachments format. Ensure each attachment has a filename with an extension and content type base64. | 400  | Attachments must have valid filenames and be encoded in base64. |

@@ -492,7 +492,7 @@ Since an API key is very sensitive information, never store it in your frontend 
 :::
 
 
-# Update Subscriber
+## Update Subscriber
 
 [Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
 
@@ -571,3 +571,13 @@ $response = file_get_contents($url, false, $context);
 ::: danger Security Warning
 Since an API key is very sensitive information, never store it in your frontend code. Always use it from your backend.
 :::
+
+
+
+## API Error Responses  
+
+| Error Name                       | Message                                                                 | Code | Description |
+|-----------------------------------|-------------------------------------------------------------------------|------|-------------|
+| `METHOD_NOT_ALLOWED`          | The provided email has been flagged due to bouncing. If this is incorrect and the email is valid, please contact support. | 405  | The email address has been marked as undeliverable due to previous failed delivery attempts. |
+| `VALIDATION_ERROR`           | Email already exists.                                                   | 400  | The email address is already registered in the system. |
+| `VALIDATION_ERROR`                   | The pausedUntil date must be set in the future.                                     | 400  | The provided date cannot be in the past. |
