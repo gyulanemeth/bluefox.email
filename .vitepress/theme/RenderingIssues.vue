@@ -340,7 +340,18 @@ const props = defineProps({
             text-anchor="middle"
             :style="{ transition: `all ${isFixed ? '2.5' : '0.5'}s ease-in-out`, transform: `translateX(${isFixed ? 0 : 4}px)` }"
           >
-            123 Anywhere st., any city |
+            123 Anywhere st., any city
+          </text>
+          <text 
+            x="124.5"
+            y="162"
+            font-size="2"
+            font-family="serif"
+            fill="white"
+            text-anchor="middle"
+            :style="{ transition: `all ${isFixed ? '2.5' : '0.5'}s ease-in-out`, transform: `translateX(${isFixed ? 0 : 1.5}px)` }"
+          >
+            |
           </text>
           <text 
             x="133.5"
@@ -350,7 +361,18 @@ const props = defineProps({
             fill="white"
             text-anchor="middle"
           >
-            +123-456-7890 |
+            +123-456-7890
+          </text>
+          <text 
+            x="142.5"
+            y="162"
+            font-size="2"
+            font-family="serif"
+            fill="white"
+            text-anchor="middle"
+            :style="{ transition: `all ${isFixed ? '2.5' : '0.5'}s ease-in-out`, transform: `translateX(${isFixed ? 0 : -2.5}px)` }"
+          >
+            |
           </text>
           <text 
             x="153"
@@ -379,7 +401,7 @@ const props = defineProps({
           <rect x="80" y="45" width="100" height="15" fill="#13B0EE" />
           <image
             :class="isFixed ? 'logoFixed' : 'logoBroken'"
-            x="44%"
+            x="127"
             y="47"
             href="/assets/bluefoxemail-logo.png"
             :width="isFixed ? 6 : 10"
@@ -609,7 +631,18 @@ const props = defineProps({
             text-anchor="middle"
             :style="{ transition: `all ${isFixed ? '2.5' : '0.5'}s ease-in-out`, transform: `translateX(${isFixed ? 0 : 4}px)` }"
           >
-            123 Anywhere st., any city |
+            123 Anywhere st., any city
+          </text>
+          <text 
+            x="124.5"
+            y="162"
+            font-size="2"
+            font-family="serif"
+            fill="white"
+            text-anchor="middle"
+            :style="{ transition: `all ${isFixed ? '2.5' : '0.5'}s ease-in-out`, transform: `translateX(${isFixed ? 0 : 1.5}px)` }"
+          >
+            |
           </text>
           <text 
             x="133.5"
@@ -619,7 +652,18 @@ const props = defineProps({
             fill="white"
             text-anchor="middle"
           >
-            +123-456-7890 |
+            +123-456-7890
+          </text>
+          <text 
+            x="142.5"
+            y="162"
+            font-size="2"
+            font-family="serif"
+            fill="white"
+            text-anchor="middle"
+            :style="{ transition: `all ${isFixed ? '2.5' : '0.5'}s ease-in-out`, transform: `translateX(${isFixed ? 0 : -2.5}px)` }"
+          >
+            |
           </text>
           <text 
             x="153"
