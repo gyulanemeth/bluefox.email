@@ -64,6 +64,10 @@ Enter its name, subject line, preview text, and select a subscriber list:
 
 ![A screenshot of a project's triggered emails - create: enter data.](./project-triggered-emails-create-subject.webp)
 
+::: info 
+Triggered emails are only sent to active subscribers in the selected list. If you provide an array of emails when sending the triggered email, only those emails that are in the list (and active) will receive the email. 
+:::
+
 After that, you will see a summary page. Click "Launch Editor".
 
 ![A screenshot of a project's triggered emails - create: summary.](./project-triggered-emails-create-summary.webp)
@@ -85,7 +89,8 @@ Copy the generated code to use it in your project:
 ![A screenshot of a triggered email's generated code, copy button highlighted.](./project-triggered-emails-code-dialog.webp)
 
 ::: tip Keep in Mind!
-1) You can send a triggered email to multiple recipients by sending an array of email addresses in the `emails` field of the data property in the request body.
+1) You can send a triggered email to multiple recipients by sending an array of email addresses in the `emails` field of the data property in the request body. These emails must already be in the subscriber list. If an email is not in the list, the email will not be sent to that address
+
 2) Recipients can unsubscribe from triggered emails or pause their subscriptions. Providing an unsubscribe link is mandatory, so ensure you include an `unsubscribeLink` in your email.
 :::
 
@@ -119,6 +124,32 @@ await fetch(yourEndpoint, {
     })
 })
 ```
+::: info
+The emails array should only include email addresses that are already in the selected subscriber list. Any addresses not in the list or marked as inactive (e.g., unsubscribed or paused) will be skipped. 
+:::
+
+### Sending Custom Data
+
+You can personalize triggered emails further by sending custom subscriber data along with your request. This allows you to override default values for specific recipients, ensuring that each subscriber receives tailored content.
+
+When sending an email to multiple recipients, you can include shared data as well as subscriber-specific overrides. For example, if your request contains:
+
+```javascript
+{
+  "emails": ["joe@doe.com", "jane@doe.com"],
+  "data": {
+    "a": "yo",
+    "jane@doe.com": {
+      "a": "yoyo"
+    }
+  }
+}
+```
+In this case, all recipients will receive `"a": "yo"` as the default value, but for jane@doe.com, the value of `"a"` will be overridden to `"yoyo"`.
+
+This approach ensures that each recipient gets personalized content while maintaining flexibility in defining default values.
+
+### Subscriber Data
 
 Since triggered emails are sent to a subscriber list, subscriber data, an unsubscribe link, and a pause subscription link are also included. You can use the following merge tags:
 ```
