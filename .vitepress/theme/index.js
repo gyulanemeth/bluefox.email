@@ -15,6 +15,7 @@ import Post from './Post.vue'
 import NavigationButton from './NavigationButton.vue'
 import TestimonialDiv from './TestimonialDiv.vue'
 import DesignSystem from './DesignSystem.vue'
+import RenderingIssues from './RenderingIssues.vue'
 
 export default {
   extends: Theme,
@@ -54,5 +55,6 @@ export default {
     app.component('NavigationButton', NavigationButton)
     app.component('TestimonialDiv', TestimonialDiv)
     app.component('DesignSystem', DesignSystem)
+    app.component('RenderingIssues', RenderingIssues)
   }
 }
