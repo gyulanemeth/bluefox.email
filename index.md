@@ -13,6 +13,7 @@ import { useData } from 'vitepress'
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
 import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
 import DesignSystem from './.vitepress/theme/DesignSystem.vue'
+import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -240,37 +241,6 @@ onBeforeUnmount(() => {
     text-align: center;
   }
 
-  #no-rendering-issues .img-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: top;
-  }
-
-  #no-rendering-issues .img-box {
-    text-align: center;
-    flex: 1;
-    margin: 0 10px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #no-rendering-issues .img-box img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 5px;
-  }
-
-  #no-rendering-issues .img-label {
-    margin-top: 5px;
-    font-weight: bold;
-  }
-
-  #no-rendering-issues .img-wrapper {
-    flex-grow: 1;
-    background: #cccccc;
-    border-radius: 5px;
-  }
-
   #great-deliverability {
     background: #392C91;
     color: white;
@@ -306,10 +276,6 @@ onBeforeUnmount(() => {
     .section-index {
       padding-top: 5vh;
       padding-bottom: 5vh;
-    }
-
-    #no-rendering-issues .img-container {
-      flex-direction: column;
     }
 
     #great-deliverability {
@@ -414,21 +380,15 @@ onBeforeUnmount(() => {
       You might have experienced that your email looks great on a certain email client, but it falls apart on other email clients, such as Outlook. That will never happen if you use our platform. Our battle-hardened email generator is continuously tested on all the relevant email clients.
     </div>
   </div>
-  
-  <div class="img-container mt-6">
-    <div class="img-box">
-      <p class="img-label">Our templates</p>
-      <div class="img-wrapper">
-        <img src="/assets/template-rendering-we.png" alt="Ours">
-      </div>
-    </div>
-    <div class="img-box">
-      <p class="img-label">Others...</p>
-      <div class="img-wrapper">
-        <img src="/assets/template-rendering-others.png" alt="Others'">
-      </div>
-    </div>
-  </div>
+
+  <RenderingIssues
+    class="mt-6"
+    :is-dark="isDark"
+    :lg-and-up="lgAndUp"
+    :md="md"
+    :sm="sm"
+    :xs="xs"
+  />
 </section>
 
 <section id="great-deliverability" class="value-prop ">
