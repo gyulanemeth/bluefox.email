@@ -342,15 +342,15 @@ onBeforeUnmount(() => {
 <section id="designers" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
-      <span class="text-overline">Designers</span>
+      <span class="text-overline">For Designers</span>
     </v-chip>
   </div>
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Amazing email design? Easy!
+    Create pixel-perfect designs without coding
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Create pixel-perfect email designs with the most sophisticated email editor on the market. Don't worry, you can start out with our built-in templates!
+      Build flawless emails with the most powerful no-code editor. If it’s possible in email, you can create it here!
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -367,11 +367,11 @@ onBeforeUnmount(() => {
   </v-card>
 
   <h2 class="sectionTitle text-center mb-3 pt-0" style="margin-top: 15vh !important">
-    Consistent-looking transactional, triggered, & marketing emails
+    Maintain coherent design for all of your emails
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Our design system feature makes it sure that all of your emails look great and consistent.
+      Keep every email on-brand with a unified design system: set global styles, save reusable blocks, and ensure consistency across transactional, product, and marketing emails.
     </div>
   </div>
 
@@ -380,6 +380,8 @@ onBeforeUnmount(() => {
     :is-dark="isDark"
   />
 </section>
+
+
 
 <!--
 <section id="design-system" class="value-prop pt-0">
@@ -411,7 +413,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      You might have experienced that your email looks great on a certain email client, but it falls apart on other email clients, such as Outlook. That will never happen if you use our platform. Our battle-hardened email generator is continuously tested on all the relevant email clients.
+      Your emails will look perfect everywhere. Our battle-tested email HTML ensures flawless rendering across all major email clients, including Outlook.
     </div>
   </div>
   
@@ -429,6 +431,83 @@ onBeforeUnmount(() => {
       </div>
     </div>
   </div>
+</section>
+
+
+<section id="marketers" class="section-index">
+  <div class="d-flex justify-center">
+    <v-chip color="primary">
+      <span class="text-overline">For Marketers</span>
+    </v-chip>
+  </div>
+
+  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+    Craft Thoughtful Email Journeys
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Create seamless, considerate email workflows that engage the right people at the right time.
+    </div>
+  </div>
+  <v-img src="https://placecats.com/neo_banana/800/400"></v-img>
+
+  <h2 class="sectionTitle text-center mb-3 pt-0" style="margin-top: 15vh !important">
+    Understand your audience
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Track engagement, segment smarter, and fine-tune your emails to drive more conversions.
+    </div>
+  </div>
+  <v-img src="https://placecats.com/neo/800/400"></v-img>
+
+  <h2 class="sectionTitle text-center mb-3 pt-0" style="margin-top: 15vh !important">
+    Effortless Content Editing
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Quickly refine your email content with our intuitive, no-code editor.
+    </div>
+  </div>
+  <v-img src="https://placecats.com/millie_neo/800/400"></v-img>
+</section>
+
+<section id="developers" class="section-index">
+  <div class="d-flex justify-center">
+    <v-chip color="primary">
+      <span class="text-overline">For Developers</span>
+    </v-chip>
+  </div>
+
+  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+    API
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Create seamless, considerate email workflows that engage the right people at the right time.
+    </div>
+  </div>
+  <v-img src="https://loremflickr.com/800/400/dog"></v-img>
+
+  <h2 class="sectionTitle text-center mb-3 pt-0" style="margin-top: 15vh !important">
+    Integrations
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Track engagement, segment smarter, and fine-tune your emails to drive more conversions.
+    </div>
+  </div>
+  <v-img src="https://loremflickr.com/800/400/dog"></v-img>
+
+  <h2 class="sectionTitle text-center mb-3 pt-0" style="margin-top: 15vh !important">
+    Advanced email personalization
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Quickly refine your email content with our intuitive, no-code editor.
+    </div>
+  </div>
+  <v-img src="https://loremflickr.com/800/400/dog"></v-img>
 </section>
 
 <section id="great-deliverability" class="value-prop ">
