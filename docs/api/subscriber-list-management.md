@@ -574,14 +574,13 @@ Since an API key is very sensitive information, never store it in your frontend 
 
 
 
+
 ## API Responses  
 
-| Name          | Message                                                                 | Code | Description | JSON Response Example |
-|---------------------|-------------------------------------------------------------------------|------|-------------|-----------------------|
-| `CREATED` | Resource created successfully.                                         | 201  | A new subscriber has been created as a result of the request and confirmation email is sent. | ```{ "status": 200 , "result": {"success": true} } ``` |
-| `SUCCESS` | Request completed successfully.                                         | 200  | The request was successfully processed. | ```{ "status": 200 , "result": { "accountId": "account_id",  "projectId": "project_id",  "subscriberListId": "subscriberList_id",  "name": "name",  "email": "example@gmail.com", "status": "status","_id": "subscriber_id","createdAt": "Date",  "updatedAt": "Date" } } ``` |
-| `METHOD_NOT_ALLOWED` | The provided email has been flagged due to bouncing. If this is incorrect and the email is valid, please contact support. | 405  | The email address has been marked as undeliverable due to previous failed delivery attempts. | ```{ "status": 405, "error": { "name": "METHOD_NOT_ALLOWED",  "message": "The provided email has been flagged due to bouncing. If this is incorrect and the email is valid, please contact support." } } ``` |
-| `VALIDATION_ERROR` | Email already exists.                                                   | 400  | The email address is already registered in the system. | ```{ "status": 400, "error": {"name": "VALIDATION_ERROR", "message": "Email already exists."} } ``` |
-| `VALIDATION_ERROR` | The pausedUntil date must be set in the future.                         | 400  | The provided date cannot be in the past. | ```{ "status": 400, "error": {"name": "VALIDATION_ERROR", "message": "The pausedUntil date must be set in the future."} } ``` |
-
-
+| Code | Name                 | Message                                                               | Description | JSON Response Example |
+|------|----------------------|-----------------------------------------------------------------------|-------------|-----------------------|
+| 200  | -                    | -                                                                     | The request was successfully processed. | ```json { "status": 200 , "result": { "accountId": "account_id", "projectId": "project_id", "subscriberListId": "subscriberList_id", "name": "name", "email": "example@gmail.com", "status": "status", "_id": "subscriber_id", "createdAt": "Date", "updatedAt": "Date" } } ``` |
+| 201  | -                    | -                                                                     | A new subscriber has been created as a result of the request and a confirmation email is sent. | ```json { "status": 200 , "result": {"success": true} } ``` |
+| 400  | `VALIDATION_ERROR`   | Email already exists.                                                | The email address is already registered in the system. | ```json { "status": 400, "error": {"name": "VALIDATION_ERROR", "message": "Email already exists."} } ``` |
+| 400  | `VALIDATION_ERROR`   | The pausedUntil date must be set in the future.                      | The provided date cannot be in the past. | ```json { "status": 400, "error": {"name": "VALIDATION_ERROR", "message": "The pausedUntil date must be set in the future."} } ``` |
+| 405  | `METHOD_NOT_ALLOWED` | The provided email has been flagged due to bouncing. If this is incorrect and the email is valid, please contact support. | The email address has been marked as undeliverable due to previous failed delivery attempts. | ```json { "status": 405, "error": { "name": "METHOD_NOT_ALLOWED", "message": "The provided email has been flagged due to bouncing. If this is incorrect and the email is valid, please contact support." } } ``` |
