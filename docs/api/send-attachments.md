@@ -67,8 +67,8 @@ Here’s an example of how to structure attachments:
 
 ```
 
-## API Error Responses  
+## API Responses  
 
-| Error Name                          | Message                                                                 | Code | Description |
-|--------------------------------------|-------------------------------------------------------------------------|------|-------------|
-| `VALIDATION_ERROR`        | Invalid attachments format. Ensure each attachment has a filename with an extension and content type base64. | 400  | Attachments must have valid filenames and be encoded in base64. |
+| Code | Name               | Message                                                                 | Description                                                    | JSON Response Example |
+|------|--------------------|-------------------------------------------------------------------------|----------------------------------------------------------------|-----------------------|
+| 400  | `VALIDATION_ERROR` | Invalid attachments format. Ensure each attachment has a filename with an extension and content type base64. | Attachments must have valid filenames and be encoded in base64. | ```json { "status": 400, "error": { "name": "VALIDATION_ERROR", "message": "Invalid attachments format. Ensure each attachment has a filename with an extension and content type base64." } } ``` |
