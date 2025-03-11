@@ -138,10 +138,11 @@ $result = file_get_contents($url, false, $context);
 ```
 
 
-## API Error Responses
+## API Responses
 
-| Error Name          | Message                                           | Code | Description                                            | JSON Response Example |
+| Name          | Message                                           | Code | Description                                            | JSON Response Example |
 |---------------------|---------------------------------------------------|------|--------------------------------------------------------|-----------------------|
+| `SUCCESS` | Request completed successfully.                             | 200  | The request was successfully processed. | ```{ "status": 200 , "result": {"success": true} } ``` |
 | `METHOD_NOT_ALLOWED` | Insufficient credits available.                  | 405  | Occurs when the account lacks the necessary credits to send an email. | ```{  "status": 405, "error": {"name":"METHOD_NOT_ALLOWED", "message": "Insufficient credits available."} } ``` |
 | `VALIDATION_ERROR`   | Project Email AWS configurations not found.      | 400  | Missing AWS configurations in project.                | ```{ "status": 400, "error": {"name": "VALIDATION_ERROR", "message": "Project Email AWS configurations not found."} } ``` |
 | `VALIDATION_ERROR`   | Missing required parameters: `triggeredId`.      | 400  | The request is missing mandatory fields for processing. | ```{ "status": 400, "error": {"name": "VALIDATION_ERROR", "message": "Missing required parameters: triggeredId."}  } ``` |

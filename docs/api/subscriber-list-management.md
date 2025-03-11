@@ -574,10 +574,12 @@ Since an API key is very sensitive information, never store it in your frontend 
 
 
 
-## API Error Responses  
+## API Responses  
 
-| Error Name          | Message                                                                 | Code | Description | JSON Response Example |
+| Name          | Message                                                                 | Code | Description | JSON Response Example |
 |---------------------|-------------------------------------------------------------------------|------|-------------|-----------------------|
+| `CREATED` | Request created successfully.                                         | 201  | A new subscriber has been created as a result of the request and confirmation email is sent. | ```{ "status": 200 , "result": {"success": true} } ``` |
+| `SUCCESS` | Request created successfully.                                         | 200  | The request was successfully processed. | ```{ "status": 200 , "result": { "accountId": "account_id",  "projectId": "project_id",  "subscriberListId": "subscriberList_id",  "name": "name",  "email": "example@gmail.com", "status": "status","_id": "subscriber_id","createdAt": "Date",  "updatedAt": "Date" } } ``` |
 | `METHOD_NOT_ALLOWED` | The provided email has been flagged due to bouncing. If this is incorrect and the email is valid, please contact support. | 405  | The email address has been marked as undeliverable due to previous failed delivery attempts. | ```{ "status": 405, "error": { "name": "METHOD_NOT_ALLOWED",  "message": "The provided email has been flagged due to bouncing. If this is incorrect and the email is valid, please contact support." } } ``` |
 | `VALIDATION_ERROR` | Email already exists.                                                   | 400  | The email address is already registered in the system. | ```{ "status": 400, "error": {"name": "VALIDATION_ERROR", "message": "Email already exists."} } ``` |
 | `VALIDATION_ERROR` | The pausedUntil date must be set in the future.                         | 400  | The provided date cannot be in the past. | ```{ "status": 400, "error": {"name": "VALIDATION_ERROR", "message": "The pausedUntil date must be set in the future."} } ``` |
