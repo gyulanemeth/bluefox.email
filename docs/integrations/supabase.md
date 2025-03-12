@@ -75,7 +75,7 @@ To enable supabase to send authentication emails through bluefox.email, you need
 
 To create a **transactional email**, navigate to your **bluefox.email** project and [create a new transactional email](/docs/projects/transactional-emails#creating-a-transactional-email). This email will be used to send authentication-related messages based on supabase triggers.
 
-Inside the email template, use **merge tags** to dynamically insert content from supabase. For example, in a Confirm Signup email, link the ``{ { confirmation_url } }`` merge tag in your email template to ``{ { .ConfirmationURL } }``from supabase.
+Inside the email template, use **merge tags** to dynamically insert content from supabase. For example, in a Confirm Signup email, link the ``{ { verifyLink } }`` merge tag in your email template to ``{ { .ConfirmationURL } }``from supabase.
 
 The following merge tags provided by supabase allow you to personalize and structure the email content dynamically:
 
@@ -112,10 +112,15 @@ Example JSON:
      "email": "{{ .Email }}",
      "transactionalId": "YOUR_TRANSACTIONAL_EMAIL_ID",
      "data": {
-       "confirmation_link": "{{ .ConfirmationURL }}"
+       "verifyLink": "{{ .ConfirmationURL }}"
      }
    }
   ```
+
+::: info Note
+You can use any variable name inside the "data" object, but ensure that it correctly maps to the corresponding Supabase data. For example, if you name your variable "verifyLink", you must reference it in your transactional email template as { { verifyLink } }. Always verify that the variables passed in the JSON match the merge tags used in your transactional  email template.
+:::
+
 
 By following this guide and save the email template, you can successfully configure supabase to send authentication emails through bluefox.email, ensuring reliable email delivery and full customization.
 
