@@ -36,12 +36,11 @@ head:
 
 # The bluefox.email API
 
-The **bluefox.email API** allows you to manage subscriber lists, send transactional and triggered emails, include attachments, and handle webhooks for real-time event notifications. Below are the key API functionalities:  
+The **bluefox.email API** allows you to manage subscriber lists, send transactional and triggered emails and include attachments. Below are the key API functionalities:  
 
 - **[Subscriber List Management](/docs/api/subscriber-list-management)** – Programmatically subscribe, unsubscribe, pause, activate, and update subscribers in your lists.  
 - **[Send Transactional Email](/docs/api/send-transactional-email)** – Deliver real-time, one-to-one emails such as password resets, order confirmations, and notifications.  
 - **[Send Triggered Email](/docs/api/send-triggered-email)** – Automate email sequences based on user actions, such as onboarding emails or follow-ups.  
 - **[Send Attachments](/docs/api/send-attachments)** – Attach files to your emails while ensuring proper formatting and size limitations.  
-- **[Webhooks](/docs/integrations/webhooks)** – Receive real-time event notifications for email opens, clicks, bounces, complaints, and more, allowing seamless integration with your system.  
 
 Explore the API documentation to seamlessly integrate BlueFox Email into your workflows. 🚀
