@@ -16,7 +16,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/docs/webhooks
+      content: https://bluefox.email/docs/integrations/webhooks
   - - meta
     - property: og:type
       content: website
