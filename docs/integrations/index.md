@@ -36,7 +36,7 @@ head:
 
 # The bluefox.email integrations
 
-**bluefox.email integrations** connect with various platforms to enhance email delivery, authentication, and real-time tracking. These integrations allow you to send authentication emails, notifications, and monitor email performance with detailed insights. Below are the key integration options:  
+**Bluefox.email integrations** connect with various platforms to enhance email delivery, authentication, and real-time tracking. These integrations allow you to send authentication emails, notifications, and monitor email performance with detailed insights. Below are the key integration options:  
   
 - **[Webhooks](/docs/integrations/webhooks)** – Receive real-time event notifications for email opens, clicks, bounces, complaints, and more, allowing seamless integration with your system.  
 
