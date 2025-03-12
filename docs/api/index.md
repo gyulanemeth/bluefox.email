@@ -1,16 +1,16 @@
 ---
 title: API Overview | bluefox.email documentation
-description: Explore the BlueFox Email API for managing subscriber lists, sending transactional and triggered emails, including attachments and include attachments.
+description: Explore the BlueFox Email API for managing subscriber lists, sending transactional and triggered emails and include attachments.
 head:
   - - meta
     - name: description
-      content: Explore the BlueFox Email API for managing subscriber lists, sending transactional and triggered emails, including attachments and include attachments.
+      content: Explore the BlueFox Email API for managing subscriber lists, sending transactional and triggered emails and include attachments.
   - - meta
     - property: og:title
       content: API Overview | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Explore the BlueFox Email API for managing subscriber lists, sending transactional and triggered emails, including attachments and include attachments.
+      content: Explore the BlueFox Email API for managing subscriber lists, sending transactional and triggered emails and include attachments.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
