@@ -1,5 +1,5 @@
 ---
-title: How to Get Production Access to Amazon SES and How to Keep It
+title: How to Get and Maintain Production Access to Amazon SES
 description: Tips to get production access to AWS SES and maintain it.
 
 layout: post
@@ -11,7 +11,7 @@ head:
       content: Tips to get production access to AWS SES and maintain it.
   - - meta
     - property: og:title
-      content: How to Get Production Access to Amazon SES and How to Keep It
+      content: How to Get and Maintain Production Access to Amazon SES
   - - meta
     - property: og:description
       content: Learn how to get production access to AWS SES and maintain it for excellent email deliverability.
@@ -26,7 +26,7 @@ head:
       content: summary_large_image
   - - meta
     - property: twitter:title
-      content: How to Get Production Access to Amazon SES and How to Keep It
+      content: How to Get and Maintain Production Access to Amazon SES
   - - meta
     - property: twitter:description
       content: Learn how to get production access to AWS SES and maintain it for excellent email deliverability.
@@ -39,7 +39,7 @@ published: true
 sidebar: false
 ---
 
-# How to Get Production Access to Amazon SES and How to Keep It
+# How to Get and Maintain Production Access to Amazon SES
 
 ::: warning WORK IN PROGRESS DOCUMENT
 This is a draft document seeking feedback from experts.
@@ -115,11 +115,11 @@ If you use Bluefox.email, you’ll still need to complete some steps in AWS:
 Once approved, you need to continue following best practices to avoid suspension.
 
 - **[Monitor your bounce & complaint rates](https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-email-deliverability-dashboard-bounce-complaint.html)**
-  - **Bounce Rate:** Should remain below **2%**. AWS may review your account at **5%** and pause sending if it exceeds **10%**.
-  - **Complaint Rate:** Should stay below **0.1%**. AWS may temporarily pause sending at **0.5%**.
+  - **Bounce Rate:** Keep it below **2%**. If it reaches **5%**, AWS may review your account. If it exceeds **10%**, AWS could **temporarily suspend** your sending privileges.
+  - **Complaint Rate:** Maintain it below **0.1%**. If it reaches **0.5%**, AWS **may pause** your ability to send emails.
 - **Send emails gradually**
   - Avoid sudden volume spikes
-  - We are building an automation tool to help you send the right emails to the right people at the right time
+  - We’re developing an automation tool to ensure your emails reach the right people at the right time.
 - **Never buy email lists**
   - Purchased lists contain invalid addresses and spam traps
   - Build an engaged email list organically
