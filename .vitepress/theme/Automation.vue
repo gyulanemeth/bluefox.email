@@ -5,6 +5,22 @@ const props = defineProps({
   isDark: {
     type: Boolean,
     default: false
+  },
+  lgAndUp: {
+    type: Boolean,
+    default: true
+  },
+  md: {
+    type: Boolean,
+    default: false
+  },
+  sm: {
+    type: Boolean,
+    default: false
+  },
+  xs: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -38,6 +54,7 @@ const email3LineDone = ref(false)
 
 const branch2Done = ref(false)
 
+// or animation-delay
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
@@ -141,6 +158,7 @@ function resetAnimation () {
 </script>
 
 <template>
+  <div>
   <v-btn @click="startAnimation">start</v-btn>
   <v-btn @click="startAnimation2">start 2</v-btn>
   <v-btn @click="resetAnimation">reset</v-btn>
@@ -237,6 +255,7 @@ function resetAnimation () {
         <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" fill="lightgray" />
       </g>
       <g
+        class="emailIcon"
         :class="{ emailFlying: email1Done }"
         transform="translate(460, 22) scale(0.5)">
         <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" />
@@ -314,6 +333,7 @@ function resetAnimation () {
         <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" fill="lightgray" />
       </g>
       <g
+        class="emailIcon2"
         :class="{ emailFlying2: email2Done }"
         transform="translate(460, 213) scale(0.5)">
         <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" />
@@ -371,6 +391,7 @@ function resetAnimation () {
         <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" fill="lightgray" />
       </g>
       <g
+        class="emailIcon3"
         :class="{ emailFlying3: email3Done }"
         transform="translate(858, 213) scale(0.5)">
         <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" />
@@ -396,10 +417,7 @@ function resetAnimation () {
       />
     </svg>
   </div>
-
-
-
-  
+  </div>
 </template>
 
 <style scoped>
@@ -498,6 +516,24 @@ function resetAnimation () {
   transition: transform 2s ease-in-out, opacity 2s ease-in-out;
   transform: translate(998px, 180px) scale(0.5);
   opacity: 0;
+}
+
+.emailIcon:not(.emailFlying) {
+  transform: translate(460px, 22px) scale(0.5);
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.emailIcon2:not(.emailFlying2) {
+  transform: translate(460px, 213px) scale(0.5);
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.emailIcon3:not(.emailFlying3) {
+  transform: translate(858px, 213px) scale(0.5);
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
 }
 
 /* Clock */
