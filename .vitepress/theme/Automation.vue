@@ -171,109 +171,109 @@ function resetAnimation () {
       </defs>
 
       <!-- Card 1 -->
-      <rect :class="triggerDone ? 'cardDone' : 'cardToDo'" x="10" y="105" width="150" height="150" rx="20" fill="white" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="triggerDone ? 'cardDone' : 'cardToDo'" x="10" y="105" width="150" height="150" rx="20" fill="none" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
-      <g 
+      <g
+        class="cardIcon"
         :class="{ animateTriggerIcon: triggerDone }"
         :style="{ transformOrigin: '87px 140px' }"
       >
-        <line x1="75" y1="146" x2="92" y2="127" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="92" y1="127" x2="87" y2="140" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="87" y1="140" x2="99" y2="140" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="99" y1="140" x2="83" y2="159" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="83" y1="159" x2="88" y2="146" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
-        <line x1="88" y1="146" x2="75" y2="146" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="75" y1="146" x2="92" y2="127" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="92" y1="127" x2="87" y2="140" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="87" y1="140" x2="99" y2="140" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="99" y1="140" x2="83" y2="159" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="83" y1="159" x2="88" y2="146" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="88" y1="146" x2="75" y2="146" stroke-width="1.5" stroke-linecap="round"/>
       </g>
       <!-- Text -->
-      <text x="85" y="180" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Trigger</text>
-      <text x="85" y="205" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Subscription changed</text>
+      <text class="cardTitle" x="85" y="180" font-size="16" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Trigger</text>
+      <text class="cardSubtitle" x="85" y="205" font-size="12" text-anchor="middle" dominant-baseline="middle">Subscription changed</text>
       <!-- Line -->
-      <line x1="160" y1="180" x2="185" y2="180" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line class="placeholderLine" x1="160" y1="180" x2="185" y2="180" stroke-width="2" stroke-linecap="round"/>
       <line :class="triggerLine1Done ? 'lineDone' : 'lineToDo'" x1="160" y1="180" x2="185" y2="180" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="25" stroke-dashoffset="25" />
 
       <line x1="185" y1="85" x2="185" y2="180" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" />
-      <line :class="triggerLine2Done ? 'lineDoneVertical' : 'lineToDo'" x1="185" y1="85" x2="185" y2="180" stroke="lightgray" stroke-width="2" stroke-linecap="round" stroke-dasharray="95" stroke-dashoffset="95" />
+      <line class="placeholderLine" :class="triggerLine2Done ? 'lineDoneVertical' : 'lineToDo'" x1="185" y1="85" x2="185" y2="180" stroke-width="2" stroke-linecap="round" stroke-dasharray="95" stroke-dashoffset="95" />
       <line 
         x1="185" y1="85" x2="185" y2="180" stroke="gray" stroke-width="2" stroke-linecap="round"
         :style="{
           opacity: triggerLine2Done ? 0 : 1,
-          stroke: triggerLine2Done ? '#13B0EE' : 'lightgray',
+          stroke: triggerLine2Done ? '#13B0EE' : `${isDark ? '#3e3e42' : 'lightgray'}`,
           transition: triggerLine2Done ? 'none' : 'stroke 1s ease'
         }"
       />
       
-      <line x1="185" y1="181" x2="185" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line class="placeholderLine" x1="185" y1="181" x2="185" y2="275" stroke-width="2" stroke-linecap="round"/>
       <line :class="triggerLine4Done ? 'lineDoneVerticalDown' : 'lineToDo'" x1="185" y1="181" x2="185" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="95" stroke-dashoffset="95" />
 
-      <line x1="185" y1="85" x2="210" y2="85" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line class="placeholderLine" x1="185" y1="85" x2="210" y2="85" stroke-width="2" stroke-linecap="round"/>
       <line :class="triggerLine3Done ? 'lineDone' : 'lineToDo'" x1="185" y1="85" x2="210" y2="85" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="25" stroke-dashoffset="25" />
       
-      <line x1="185" y1="275" x2="210" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line class="placeholderLine" x1="185" y1="275" x2="210" y2="275" stroke-width="2" stroke-linecap="round"/>
       <line :class="triggerLine5Done ? 'lineDone' : 'lineToDo'" x1="185" y1="275" x2="210" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="25" stroke-dashoffset="25" />
 
       <!-- Card 2 -->
-      <rect :class="filter1Done ? 'cardDone' : 'cardToDo'" x="210" y="10" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="filter1Done ? 'cardDone' : 'cardToDo'" x="210" y="10" width="150" height="150" rx="20" fill="none" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
-      <g transform="translate(262, 20) scale(1.5)">
+      <g class="cardIcon" transform="translate(262, 20) scale(1.5)">
         <path
-          d="M6.23 20.93A5.9 5.9 0 0 1 2.54 19 6 6 0 0 0 1 23v3a1 1 0 0 0 1 1H6.18A3 3 0 0 1 6 26V23A9.45 9.45 0 0 1 6.23 20.93z" stroke="black" stroke-width="1" fill="none" />
+          d="M6.23 20.93A5.9 5.9 0 0 1 2.54 19 6 6 0 0 0 1 23v3a1 1 0 0 0 1 1H6.18A3 3 0 0 1 6 26V23A9.45 9.45 0 0 1 6.23 20.93z" stroke-width="1" fill="none" />
         <path
-          d="M9.78 15.2A6.91 6.91 0 0 1 9 12V10.56A3.91 3.91 0 0 0 7 10a4 4 0 0 0-4 4v1a4 4 0 0 0 3.85 4A10 10 0 0 1 9.78 15.2z" stroke="black" stroke-width="1" fill="none" />
+          d="M9.78 15.2A6.91 6.91 0 0 1 9 12V10.56A3.91 3.91 0 0 0 7 10a4 4 0 0 0-4 4v1a4 4 0 0 0 3.85 4A10 10 0 0 1 9.78 15.2z" stroke-width="1" fill="none" />
         <path
-          d="M29.46 19a5.9 5.9 0 0 1-3.69 1.93A9.45 9.45 0 0 1 26 23v3a3 3 0 0 1-.18 1H30a1 1 0 0 0 1-1V23A6 6 0 0 0 29.46 19z" stroke="black" stroke-width="1" fill="none" />
+          d="M29.46 19a5.9 5.9 0 0 1-3.69 1.93A9.45 9.45 0 0 1 26 23v3a3 3 0 0 1-.18 1H30a1 1 0 0 0 1-1V23A6 6 0 0 0 29.46 19z" stroke-width="1" fill="none" />
         <path
-          d="M29 15V14a4 4 0 0 0-4-4 3.91 3.91 0 0 0-2 .56V12a6.91 6.91 0 0 1-.78 3.2A10 10 0 0 1 25.15 19 4 4 0 0 0 29 15z" stroke="black" stroke-width="1" fill="none" />
+          d="M29 15V14a4 4 0 0 0-4-4 3.91 3.91 0 0 0-2 .56V12a6.91 6.91 0 0 1-.78 3.2A10 10 0 0 1 25.15 19 4 4 0 0 0 29 15z" stroke-width="1" fill="none" />
         <path
           :style="{
-            fill: filter1Done ? 'black' : 'rgba(0,0,0,0)',
+            fill: filter1Done ? `${isDark ? 'white' : 'black'}` : 'rgba(0,0,0,0)',
             transition: `fill ${filter1Done ? 2 : 0.5}s ease-in-out`
           }"
-          d="M21.07 16.82a7 7 0 0 1-10.14 0A8 8 0 0 0 8 23v3a1 1 0 0 0 1 1H23a1 1 0 0 0 1-1V23A8 8 0 0 0 21.07 16.82z" stroke="black" stroke-width="1" fill="none"
+          d="M21.07 16.82a7 7 0 0 1-10.14 0A8 8 0 0 0 8 23v3a1 1 0 0 0 1 1H23a1 1 0 0 0 1-1V23A8 8 0 0 0 21.07 16.82z" stroke-width="1" fill="none"
         />
         <path
           :style="{
-            fill: filter1Done ? 'black' : 'rgba(0,0,0,0)',
+            fill: filter1Done ? `${isDark ? 'white' : 'black'}` : 'rgba(0,0,0,0)',
             transition: `fill ${filter1Done ? 2 : 0.5}s ease-in-out`
           }"
-          d="M16,17a5,5,0,0,0,5-5V10a5,5,0,0,0-10,0v2A5,5,0,0,0,16,17Z" stroke="black" stroke-width="1"
+          d="M16,17a5,5,0,0,0,5-5V10a5,5,0,0,0-10,0v2A5,5,0,0,0,16,17Z" stroke-width="1"
         />
       </g>
       <!-- Text -->
-      <text x="285" y="85" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Audience filter</text>
-      <text x="285" y="110" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Premium subscribers</text>
+      <text class="cardTitle" x="285" y="85" font-size="16" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Audience filter</text>
+      <text class="cardSubtitle" x="285" y="110" font-size="12" text-anchor="middle" dominant-baseline="middle">Premium subscribers</text>
       <!-- Line -->
-      <line x1="360" y1="85" x2="410" y2="85" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line class="placeholderLine" x1="360" y1="85" x2="410" y2="85" stroke-width="2" stroke-linecap="round"/>
       <line
         :class="filter1LineDone ? 'lineDoneLong' : 'lineToDo'"
         x1="360" y1="85" x2="410" y2="85" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
       />
 
       <!-- Card 3 -->
-      <rect :class="email1Done ? 'cardDone' : 'cardToDo'" x="410" y="10" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="email1Done ? 'cardDone' : 'cardToDo'" x="410" y="10" width="150" height="150" rx="20" fill="none" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
       <g transform="translate(460, 22) scale(0.5)">
-        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" fill="lightgray" />
+        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" :fill="`${isDark ? 'gray' : 'lightgray'}`" />
       </g>
       <g
-        class="emailIcon"
+        class="cardIcon emailIcon"
         :class="{ emailFlying: email1Done }"
         transform="translate(460, 22) scale(0.5)">
         <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" />
       </g>
       <!-- Text -->
-      <text x="485" y="85" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Send email</text>
-      <text x="485" y="110" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Welcome</text>
+      <text class="cardTitle" x="485" y="85" font-size="16" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Send email</text>
+      <text class="cardSubtitle" x="485" y="110" font-size="12" text-anchor="middle" dominant-baseline="middle">Welcome</text>
 
-      <line x1="560" y1="85" x2="610" y2="85" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line class="placeholderLine" x1="560" y1="85" x2="610" y2="85" stroke-width="2" stroke-linecap="round"/>
       <line
         :class="email1LineDone ? 'lineDoneLong' : 'lineToDo'"
         x1="560" y1="85" x2="610" y2="85" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
       />
 
-      <circle cx="618" cy="85" r="8" stroke="lightgray" stroke-width="2" fill="none" />
       <circle
         :style="{
-          stroke: branch1Done ? '#13B0EE' : 'lightgray',
+          stroke: branch1Done ? '#13B0EE' : `${isDark ? '#3e3e42' : 'lightgray'}`,
           fill: branch1Done ? '#13B0EE' : 'rgba(0,0,0,0)',
           transition: `fill ${branch1Done ? 2 : 0.5}s ease-in-out, stroke ${branch1Done ? 2 : 0.5}s ease-in-out`
         }"
@@ -281,82 +281,81 @@ function resetAnimation () {
       />
       
       <!-- Card 4 -->
-      <rect :class="filter2Done ? 'cardDone' : 'cardToDo'" x="210" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="filter2Done ? 'cardDone' : 'cardToDo'" x="210" y="200" width="150" height="150" rx="20" fill="none" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
-      <g transform="translate(262, 210) scale(1.5)">
+      <g class="cardIcon" transform="translate(262, 210) scale(1.5)">
         <path
           :style="{
-            fill: filter2Done ? 'black' : 'rgba(0,0,0,0)',
+            fill: filter2Done ? `${isDark ? 'white' : 'black'}` : 'rgba(0,0,0,0)',
             transition: `fill ${filter2Done ? 2 : 0.5}s ease-in-out`
           }"
-          d="M6.23 20.93A5.9 5.9 0 0 1 2.54 19 6 6 0 0 0 1 23v3a1 1 0 0 0 1 1H6.18A3 3 0 0 1 6 26V23A9.45 9.45 0 0 1 6.23 20.93z" stroke="black" stroke-width="1" fill="none"
+          d="M6.23 20.93A5.9 5.9 0 0 1 2.54 19 6 6 0 0 0 1 23v3a1 1 0 0 0 1 1H6.18A3 3 0 0 1 6 26V23A9.45 9.45 0 0 1 6.23 20.93z" stroke-width="1" fill="none"
         />
         <path
           :style="{
-            fill: filter2Done ? 'black' : 'rgba(0,0,0,0)',
+            fill: filter2Done ? `${isDark ? 'white' : 'black'}` : 'rgba(0,0,0,0)',
             transition: `fill ${filter2Done ? 2 : 0.5}s ease-in-out`
           }"
-          d="M9.78 15.2A6.91 6.91 0 0 1 9 12V10.56A3.91 3.91 0 0 0 7 10a4 4 0 0 0-4 4v1a4 4 0 0 0 3.85 4A10 10 0 0 1 9.78 15.2z" stroke="black" stroke-width="1" fill="none"
+          d="M9.78 15.2A6.91 6.91 0 0 1 9 12V10.56A3.91 3.91 0 0 0 7 10a4 4 0 0 0-4 4v1a4 4 0 0 0 3.85 4A10 10 0 0 1 9.78 15.2z" stroke-width="1" fill="none"
         />
         <path
           :style="{
-            fill: filter2Done ? 'black' : 'rgba(0,0,0,0)',
+            fill: filter2Done ? `${isDark ? 'white' : 'black'}` : 'rgba(0,0,0,0)',
             transition: `fill ${filter2Done ? 2 : 0.5}s ease-in-out`
           }"
-          d="M29.46 19a5.9 5.9 0 0 1-3.69 1.93A9.45 9.45 0 0 1 26 23v3a3 3 0 0 1-.18 1H30a1 1 0 0 0 1-1V23A6 6 0 0 0 29.46 19z" stroke="black" stroke-width="1" fill="none"
+          d="M29.46 19a5.9 5.9 0 0 1-3.69 1.93A9.45 9.45 0 0 1 26 23v3a3 3 0 0 1-.18 1H30a1 1 0 0 0 1-1V23A6 6 0 0 0 29.46 19z" stroke-width="1" fill="none"
         />
         <path
           :style="{
-            fill: filter2Done ? 'black' : 'rgba(0,0,0,0)',
+            fill: filter2Done ? `${isDark ? 'white' : 'black'}` : 'rgba(0,0,0,0)',
             transition: `fill ${filter2Done ? 2 : 0.5}s ease-in-out`
           }"
-          d="M29 15V14a4 4 0 0 0-4-4 3.91 3.91 0 0 0-2 .56V12a6.91 6.91 0 0 1-.78 3.2A10 10 0 0 1 25.15 19 4 4 0 0 0 29 15z" stroke="black" stroke-width="1" fill="none"
+          d="M29 15V14a4 4 0 0 0-4-4 3.91 3.91 0 0 0-2 .56V12a6.91 6.91 0 0 1-.78 3.2A10 10 0 0 1 25.15 19 4 4 0 0 0 29 15z" stroke-width="1" fill="none"
         />
-        <path d="M21.07 16.82a7 7 0 0 1-10.14 0A8 8 0 0 0 8 23v3a1 1 0 0 0 1 1H23a1 1 0 0 0 1-1V23A8 8 0 0 0 21.07 16.82z" stroke="black" stroke-width="1" fill="none" />
-        <path d="M16,17a5,5,0,0,0,5-5V10a5,5,0,0,0-10,0v2A5,5,0,0,0,16,17Z" stroke="black" stroke-width="1" fill="none" />
+        <path d="M21.07 16.82a7 7 0 0 1-10.14 0A8 8 0 0 0 8 23v3a1 1 0 0 0 1 1H23a1 1 0 0 0 1-1V23A8 8 0 0 0 21.07 16.82z" stroke-width="1" fill="none" />
+        <path d="M16,17a5,5,0,0,0,5-5V10a5,5,0,0,0-10,0v2A5,5,0,0,0,16,17Z" stroke-width="1" fill="none" />
       </g>
       <!-- Text -->
-      <text x="285" y="275" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Audience filter</text>
-      <text x="285" y="300" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Free subscribers</text>
+      <text class="cardTitle" x="285" y="275" font-size="16" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Audience filter</text>
+      <text class="cardSubtitle" x="285" y="300" font-size="12" text-anchor="middle" dominant-baseline="middle">Free subscribers</text>
       <!-- Line -->
-      <line x1="360" y1="275" x2="410" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line class="placeholderLine" x1="360" y1="275" x2="410" y2="275" stroke-width="2" stroke-linecap="round"/>
       <line
         :class="filter2LineDone ? 'lineDoneLong' : 'lineToDo'"
         x1="360" y1="275" x2="410" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
       />
 
       <!-- Card 5 -->
-      <rect :class="email2Done ? 'cardDone' : 'cardToDo'" x="410" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="email2Done ? 'cardDone' : 'cardToDo'" x="410" y="200" width="150" height="150" rx="20" fill="none" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
       <g
         transform="translate(460, 213) scale(0.5)">
-        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" fill="lightgray" />
+        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" :fill="`${isDark ? 'gray' : 'lightgray'}`" />
       </g>
       <g
-        class="emailIcon2"
+        class="cardIcon emailIcon2"
         :class="{ emailFlying2: email2Done }"
         transform="translate(460, 213) scale(0.5)">
         <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" />
       </g>
       <!-- Text -->
-      <text x="485" y="275" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Send email</text>
-      <text x="485" y="300" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Onboarding 1</text>
+      <text class="cardTitle" x="485" y="275" font-size="16" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Send email</text>
+      <text class="cardSubtitle" x="485" y="300" font-size="12" text-anchor="middle" dominant-baseline="middle">Onboarding 1</text>
       <!-- Line -->
-      <line x1="560" y1="275" x2="610" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line class="placeholderLine" x1="560" y1="275" x2="610" y2="275" stroke-width="2" stroke-linecap="round"/>
       <line
         :class="email2LineDone ? 'lineDoneLong' : 'lineToDo'"
         x1="560" y1="275" x2="610" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
       />
 
       <!-- Card 6 -->
-      <rect :class="timerDone ? 'cardDone' : 'cardToDo'" x="610" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="timerDone ? 'cardDone' : 'cardToDo'" x="610" y="200" width="150" height="150" rx="20" fill="none" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
-      <g>
-        <circle cx="686" cy="236" r="16" stroke="black" stroke-width="2" fill="none" />
+      <g class="cardIcon">
+        <circle cx="686" cy="236" r="16" stroke-width="2" fill="none" />
         <line 
           x1="686" y1="236" 
           x2="696" y2="236"
-          stroke="black"
           stroke-width="2"
           stroke-linecap="round"
           class="hour-hand"
@@ -365,7 +364,6 @@ function resetAnimation () {
         <line 
           x1="686" y1="236" 
           x2="686" y2="223"
-          stroke="black"
           stroke-width="1.25"
           stroke-linecap="round"
           class="minute-hand"
@@ -374,42 +372,41 @@ function resetAnimation () {
       </g>
       
       <!-- Text -->
-      <text x="685" y="275" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Timer</text>
-      <text x="685" y="300" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">1 day</text>
+      <text class="cardTitle" x="685" y="275" font-size="16" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Timer</text>
+      <text class="cardSubtitle" x="685" y="300" font-size="12" text-anchor="middle" dominant-baseline="middle">1 day</text>
       <!-- Line -->
-      <line x1="760" y1="275" x2="810" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line class="placeholderLine" x1="760" y1="275" x2="810" y2="275" stroke-width="2" stroke-linecap="round"/>
       <line
         :class="timerLineDone ? 'lineDoneLong' : 'lineToDo'"
         x1="760" y1="275" x2="810" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
       />
 
       <!-- Card 7 -->
-      <rect :class="email3Done ? 'cardDone' : 'cardToDo'" x="810" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="email3Done ? 'cardDone' : 'cardToDo'" x="810" y="200" width="150" height="150" rx="20" fill="none" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
       <g
         transform="translate(858, 213) scale(0.5)">
-        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" fill="lightgray" />
+        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" :fill="`${isDark ? 'gray' : 'lightgray'}`" />
       </g>
       <g
-        class="emailIcon3"
+        class="cardIcon emailIcon3"
         :class="{ emailFlying3: email3Done }"
         transform="translate(858, 213) scale(0.5)">
         <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" />
       </g>
       <!-- Text -->
-      <text x="885" y="275" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Send email</text>
-      <text x="885" y="300" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Onboarding 2</text>
+      <text class="cardTitle" x="885" y="275" font-size="16" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Send email</text>
+      <text class="cardSubtitle" x="885" y="300" font-size="12" text-anchor="middle" dominant-baseline="middle">Onboarding 2</text>
 
-      <line x1="960" y1="275" x2="1010" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line class="placeholderLine" x1="960" y1="275" x2="1010" y2="275" stroke-width="2" stroke-linecap="round"/>
       <line
         :class="email3LineDone ? 'lineDoneLong' : 'lineToDo'"
         x1="960" y1="275" x2="1010" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
       />
       
-      <circle cx="1018" cy="275" r="8" stroke="lightgray" stroke-width="2" fill="none" />
       <circle
         :style="{
-          stroke: branch2Done ? '#13B0EE' : 'lightgray',
+          stroke: branch2Done ? '#13B0EE' : `${isDark ? '#3e3e42' : 'lightgray'}`,
           fill: branch2Done ? '#13B0EE' : 'rgba(0,0,0,0)',
           transition: `fill ${branch2Done ? 2 : 0.5}s ease-in-out, stroke ${branch2Done ? 2 : 0.5}s ease-in-out`
         }"
@@ -421,7 +418,6 @@ function resetAnimation () {
 </template>
 
 <style scoped>
-
 .cardDone {
   stroke: #13B0EE;
   transition: stroke 2s ease-in-out;
@@ -430,6 +426,32 @@ function resetAnimation () {
 .cardToDo {
   stroke: lightgray;
   transition: stroke 0.5s ease-in-out;
+}
+html.dark .cardToDo {
+  stroke: #3e3e42;
+}
+
+.cardTitle {
+  fill: black;
+}
+html.dark .cardTitle {
+  fill: white;
+}
+
+.cardSubtitle {
+  fill: gray;
+}
+html.dark .cardSubtitle {
+  fill: lightgray;
+}
+
+.cardIcon {
+  stroke: black;
+  fill: black;
+}
+html.dark .cardIcon {
+  stroke: white;
+  fill: white;
 }
 
 @keyframes growLine {
@@ -450,6 +472,13 @@ function resetAnimation () {
 @keyframes growLineVerticalDown {
   0% { stroke-dashoffset: 95; }
   100% { stroke-dashoffset: 0; }
+}
+
+.placeholderLine {
+  stroke: lightgray;
+}
+html.dark .placeholderLine {
+  stroke: #3e3e42;
 }
 
 .lineDone {
@@ -473,6 +502,9 @@ function resetAnimation () {
   stroke: lightgray;
   stroke-dashoffset: 0;
   transition: stroke 0.5s ease-in-out;
+}
+html.dark .lineToDo {
+  stroke: #3e3e42;
 }
 
 .strokeNone {
