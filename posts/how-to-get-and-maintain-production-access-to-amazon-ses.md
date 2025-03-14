@@ -1,6 +1,7 @@
 ---
 title: How to Get and Maintain Production Access to Amazon SES
 description: Tips to get production access to AWS SES and maintain it.
+thumbnail: /assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
 
 layout: post
 category: tutorials
@@ -17,10 +18,10 @@ head:
       content: Learn how to get production access to AWS SES and maintain it for excellent email deliverability.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/articles/how-to-get-production-access-to-aws-ses-share.png
+      content: https://bluefox.email/assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/posts/how-to-get-production-access-to-aws-ses
+      content: https://bluefox.email/posts/how-to-get-and-maintain-production-access-to-amazon-ses
   - - meta
     - property: twitter:card
       content: summary_large_image
@@ -32,12 +33,14 @@ head:
       content: Learn how to get production access to AWS SES and maintain it for excellent email deliverability.
   - - meta
     - property: twitter:image
-      content: https://bluefox.email/assets/articles/how-to-get-production-access-to-aws-ses-share.png
+      content: https://bluefox.email/assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
 
 lastUpdated: true
-published: true
+published: 2025-03-14
 sidebar: false
 ---
+
+![AWS can be scary!](./how-to-get-and-maintain-production-access-to-amazon-ses/00.png)
 
 # How to Get and Maintain Production Access to Amazon SES
 
