@@ -8,9 +8,142 @@ const props = defineProps({
   }
 })
 
+const triggerDone = ref(false)
+const triggerLine1Done = ref(false)
+const triggerLine2Done = ref(false)
+const triggerLine3Done = ref(false)
+
+const filter1Done = ref(false)
+const filter1LineDone = ref(false)
+
+const email1Done = ref(false)
+const email1LineDone = ref(false)
+
+const branch1Done = ref(false)
+
+const triggerLine4Done = ref(false)
+const triggerLine5Done = ref(false)
+
+const filter2Done = ref(false)
+const filter2LineDone = ref(false)
+
+const email2Done = ref(false)
+const email2LineDone = ref(false)
+
+const timerDone = ref(false)
+const timerLineDone = ref(false)
+
+const email3Done = ref(false)
+const email3LineDone = ref(false)
+
+const branch2Done = ref(false)
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
+async function startAnimation() {
+  triggerDone.value = true
+  await delay(1000)
+
+  triggerLine1Done.value = true
+  await delay(500)
+
+  triggerLine2Done.value = true
+  await delay(1000)
+
+  triggerLine3Done.value = true
+  await delay(1000)
+
+  filter1Done.value = true
+  await delay(2000)
+
+  filter1LineDone.value = true
+  await delay(1000)
+
+  email1Done.value = true
+  await delay(2000)
+
+  email1LineDone.value = true
+  await delay(1000)
+
+  branch1Done.value = true
+}
+
+async function startAnimation2() {
+  triggerDone.value = true
+  await delay(1000)
+
+  triggerLine1Done.value = true
+  await delay(500)
+
+  triggerLine4Done.value = true
+  await delay(1000)
+
+  triggerLine5Done.value = true
+  await delay(1000)
+
+  filter2Done.value = true
+  await delay(2000)
+
+  filter2LineDone.value = true
+  await delay(1000)
+
+  email2Done.value = true
+  await delay(2000)
+
+  email2LineDone.value = true
+  await delay(1000)
+
+  timerDone.value = true
+  await delay(2000)
+
+  timerLineDone.value = true
+  await delay(1000)
+
+  email3Done.value = true
+  await delay(2000)
+
+  email3LineDone.value = true
+  await delay(1000)
+
+  branch2Done.value = true
+}
+
+function resetAnimation () {
+  triggerDone.value = false
+  triggerLine1Done.value = false
+  triggerLine2Done.value = false
+  triggerLine3Done.value = false
+  triggerLine4Done.value = false
+  triggerLine5Done.value = false
+
+  filter1Done.value = false
+  filter2Done.value = false
+
+  filter1LineDone.value = false
+  filter2LineDone.value = false
+
+  email1Done.value = false
+  email1LineDone.value = false
+  email2Done.value = false
+  email2LineDone.value = false
+  email3Done.value = false
+  email3LineDone.value = false
+
+  timerDone.value = false
+  timerLineDone.value = false
+
+  branch1Done.value = false
+  branch2Done.value = false
+}
+
 </script>
 
 <template>
+  <v-btn @click="startAnimation">start</v-btn>
+  <v-btn @click="startAnimation2">start 2</v-btn>
+  <v-btn @click="resetAnimation">reset</v-btn>
   <div class="d-flex justify-center">
     <svg width="1040" height="370" viewBox="0 0 1040 370" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -20,9 +153,12 @@ const props = defineProps({
       </defs>
 
       <!-- Card 1 -->
-      <rect x="10" y="105" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="triggerDone ? 'cardDone' : 'cardToDo'" x="10" y="105" width="150" height="150" rx="20" fill="white" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
-      <g>
+      <g 
+        :class="{ animateTriggerIcon: triggerDone }"
+        :style="{ transformOrigin: '87px 140px' }"
+      >
         <line x1="75" y1="146" x2="92" y2="127" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
         <line x1="92" y1="127" x2="87" y2="140" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
         <line x1="87" y1="140" x2="99" y2="140" stroke="black" stroke-width="1.5" stroke-linecap="round"/>
@@ -32,97 +168,232 @@ const props = defineProps({
       </g>
       <!-- Text -->
       <text x="85" y="180" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Trigger</text>
-      <text x="85" y="205" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Contact added</text>
+      <text x="85" y="205" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Subscription changed</text>
       <!-- Line -->
-      <line x1="160" y1="180" x2="185" y2="180" stroke="#13B0EE" stroke-width="2" stroke-linecap="round"/>
-      <line x1="185" y1="85" x2="185" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round"/>
-      <line x1="185" y1="85" x2="210" y2="85" stroke="#13B0EE" stroke-width="2" stroke-linecap="round"/>
-      <line x1="185" y1="275" x2="210" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round"/>
+      <line x1="160" y1="180" x2="185" y2="180" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line :class="triggerLine1Done ? 'lineDone' : 'lineToDo'" x1="160" y1="180" x2="185" y2="180" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="25" stroke-dashoffset="25" />
 
+      <line x1="185" y1="85" x2="185" y2="180" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" />
+      <line :class="triggerLine2Done ? 'lineDoneVertical' : 'lineToDo'" x1="185" y1="85" x2="185" y2="180" stroke="lightgray" stroke-width="2" stroke-linecap="round" stroke-dasharray="95" stroke-dashoffset="95" />
+      <line 
+        x1="185" y1="85" x2="185" y2="180" stroke="gray" stroke-width="2" stroke-linecap="round"
+        :style="{
+          opacity: triggerLine2Done ? 0 : 1,
+          stroke: triggerLine2Done ? '#13B0EE' : 'lightgray',
+          transition: triggerLine2Done ? 'none' : 'stroke 1s ease'
+        }"
+      />
+      
+      <line x1="185" y1="181" x2="185" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line :class="triggerLine4Done ? 'lineDoneVerticalDown' : 'lineToDo'" x1="185" y1="181" x2="185" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="95" stroke-dashoffset="95" />
+
+      <line x1="185" y1="85" x2="210" y2="85" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line :class="triggerLine3Done ? 'lineDone' : 'lineToDo'" x1="185" y1="85" x2="210" y2="85" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="25" stroke-dashoffset="25" />
+      
+      <line x1="185" y1="275" x2="210" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line :class="triggerLine5Done ? 'lineDone' : 'lineToDo'" x1="185" y1="275" x2="210" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="25" stroke-dashoffset="25" />
 
       <!-- Card 2 -->
-      <rect x="210" y="10" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="filter1Done ? 'cardDone' : 'cardToDo'" x="210" y="10" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
       <g transform="translate(262, 20) scale(1.5)">
-        <path d="M6.23 20.93A5.9 5.9 0 0 1 2.54 19 6 6 0 0 0 1 23v3a1 1 0 0 0 1 1H6.18A3 3 0 0 1 6 26V23A9.45 9.45 0 0 1 6.23 20.93zM9.78 15.2A6.91 6.91 0 0 1 9 12V10.56A3.91 3.91 0 0 0 7 10a4 4 0 0 0-4 4v1a4 4 0 0 0 3.85 4A10 10 0 0 1 9.78 15.2zM29.46 19a5.9 5.9 0 0 1-3.69 1.93A9.45 9.45 0 0 1 26 23v3a3 3 0 0 1-.18 1H30a1 1 0 0 0 1-1V23A6 6 0 0 0 29.46 19zM29 15V14a4 4 0 0 0-4-4 3.91 3.91 0 0 0-2 .56V12a6.91 6.91 0 0 1-.78 3.2A10 10 0 0 1 25.15 19 4 4 0 0 0 29 15zM21.07 16.82a7 7 0 0 1-10.14 0A8 8 0 0 0 8 23v3a1 1 0 0 0 1 1H23a1 1 0 0 0 1-1V23A8 8 0 0 0 21.07 16.82z" stroke="black" stroke-width="1" fill="none" />
-        <path d="M16,17a5,5,0,0,0,5-5V10a5,5,0,0,0-10,0v2A5,5,0,0,0,16,17Z" stroke="black" stroke-width="1" fill="none" />
+        <path
+          d="M6.23 20.93A5.9 5.9 0 0 1 2.54 19 6 6 0 0 0 1 23v3a1 1 0 0 0 1 1H6.18A3 3 0 0 1 6 26V23A9.45 9.45 0 0 1 6.23 20.93z" stroke="black" stroke-width="1" fill="none" />
+        <path
+          d="M9.78 15.2A6.91 6.91 0 0 1 9 12V10.56A3.91 3.91 0 0 0 7 10a4 4 0 0 0-4 4v1a4 4 0 0 0 3.85 4A10 10 0 0 1 9.78 15.2z" stroke="black" stroke-width="1" fill="none" />
+        <path
+          d="M29.46 19a5.9 5.9 0 0 1-3.69 1.93A9.45 9.45 0 0 1 26 23v3a3 3 0 0 1-.18 1H30a1 1 0 0 0 1-1V23A6 6 0 0 0 29.46 19z" stroke="black" stroke-width="1" fill="none" />
+        <path
+          d="M29 15V14a4 4 0 0 0-4-4 3.91 3.91 0 0 0-2 .56V12a6.91 6.91 0 0 1-.78 3.2A10 10 0 0 1 25.15 19 4 4 0 0 0 29 15z" stroke="black" stroke-width="1" fill="none" />
+        <path
+          :style="{
+            fill: filter1Done ? 'black' : 'rgba(0,0,0,0)',
+            transition: `fill ${filter1Done ? 2 : 0.5}s ease-in-out`
+          }"
+          d="M21.07 16.82a7 7 0 0 1-10.14 0A8 8 0 0 0 8 23v3a1 1 0 0 0 1 1H23a1 1 0 0 0 1-1V23A8 8 0 0 0 21.07 16.82z" stroke="black" stroke-width="1" fill="none"
+        />
+        <path
+          :style="{
+            fill: filter1Done ? 'black' : 'rgba(0,0,0,0)',
+            transition: `fill ${filter1Done ? 2 : 0.5}s ease-in-out`
+          }"
+          d="M16,17a5,5,0,0,0,5-5V10a5,5,0,0,0-10,0v2A5,5,0,0,0,16,17Z" stroke="black" stroke-width="1"
+        />
       </g>
       <!-- Text -->
       <text x="285" y="85" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Audience filter</text>
       <text x="285" y="110" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Premium subscribers</text>
       <!-- Line -->
-      <line x1="360" y1="85" x2="410" y2="85" stroke="#13B0EE" stroke-width="2" stroke-linecap="round"/>
+      <line x1="360" y1="85" x2="410" y2="85" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line
+        :class="filter1LineDone ? 'lineDoneLong' : 'lineToDo'"
+        x1="360" y1="85" x2="410" y2="85" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
+      />
 
       <!-- Card 3 -->
-      <rect x="410" y="10" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="email1Done ? 'cardDone' : 'cardToDo'" x="410" y="10" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
-      <g transform="translate(462, 24) scale(0.7)">
-        <path fill="#222" d="M53.42 53.32H10.58a8.51 8.51 0 0 1-8.5-8.5V19.18a8.51 8.51 0 0 1 8.5-8.5h42.84a8.51 8.51 0 0 1 8.5 8.5v25.64a8.51 8.51 0 0 1-8.5 8.5ZM10.58 13.68a5.5 5.5 0 0 0-5.5 5.5v25.64a5.5 5.5 0 0 0 5.5 5.5h42.84a5.5 5.5 0 0 0 5.5-5.5V19.18a5.5 5.5 0 0 0-5.5-5.5Z" />
-        <path fill="#222" d="M32 38.08a8.51 8.51 0 0 1-5.13-1.71L3.52 18.71a1.5 1.5 0 1 1 1.81-2.39L28.68 34a5.55 5.55 0 0 0 6.64 0l23.35-17.68a1.5 1.5 0 1 1 1.81 2.39L37.13 36.37A8.51 8.51 0 0 1 32 38.08Z" />
-        <path fill="#222" d="M4.17 49.14a1.5 1.5 0 0 1-1-2.62l18.4-16.41a1.5 1.5 0 0 1 2 2.24L5.17 48.76a1.46 1.46 0 0 1-1 .38zm55.66 0a1.46 1.46 0 0 1-1-.38l-18.4-16.41a1.5 1.5 0 1 1 2-2.24l18.39 16.41a1.5 1.5 0 0 1-1 2.62z" />
+      <g transform="translate(460, 22) scale(0.5)">
+        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" fill="lightgray" />
+      </g>
+      <g
+        :class="{ emailFlying: email1Done }"
+        transform="translate(460, 22) scale(0.5)">
+        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" />
       </g>
       <!-- Text -->
       <text x="485" y="85" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Send email</text>
       <text x="485" y="110" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Welcome</text>
 
-      <line x1="560" y1="85" x2="610" y2="85" stroke="#13B0EE" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="618" cy="85" r="8" stroke="#13B0EE" stroke-width="2" fill="none"/>
+      <line x1="560" y1="85" x2="610" y2="85" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line
+        :class="email1LineDone ? 'lineDoneLong' : 'lineToDo'"
+        x1="560" y1="85" x2="610" y2="85" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
+      />
+
+      <circle cx="618" cy="85" r="8" stroke="lightgray" stroke-width="2" fill="none" />
+      <circle
+        :style="{
+          stroke: branch1Done ? '#13B0EE' : 'lightgray',
+          fill: branch1Done ? '#13B0EE' : 'rgba(0,0,0,0)',
+          transition: `fill ${branch1Done ? 2 : 0.5}s ease-in-out, stroke ${branch1Done ? 2 : 0.5}s ease-in-out`
+        }"
+        cx="618" cy="85" r="8" stroke="#13B0EE" stroke-width="2" fill="none"
+      />
       
       <!-- Card 4 -->
-      <rect x="210" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="filter2Done ? 'cardDone' : 'cardToDo'" x="210" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
       <g transform="translate(262, 210) scale(1.5)">
-        <path d="M6.23 20.93A5.9 5.9 0 0 1 2.54 19 6 6 0 0 0 1 23v3a1 1 0 0 0 1 1H6.18A3 3 0 0 1 6 26V23A9.45 9.45 0 0 1 6.23 20.93zM9.78 15.2A6.91 6.91 0 0 1 9 12V10.56A3.91 3.91 0 0 0 7 10a4 4 0 0 0-4 4v1a4 4 0 0 0 3.85 4A10 10 0 0 1 9.78 15.2zM29.46 19a5.9 5.9 0 0 1-3.69 1.93A9.45 9.45 0 0 1 26 23v3a3 3 0 0 1-.18 1H30a1 1 0 0 0 1-1V23A6 6 0 0 0 29.46 19zM29 15V14a4 4 0 0 0-4-4 3.91 3.91 0 0 0-2 .56V12a6.91 6.91 0 0 1-.78 3.2A10 10 0 0 1 25.15 19 4 4 0 0 0 29 15zM21.07 16.82a7 7 0 0 1-10.14 0A8 8 0 0 0 8 23v3a1 1 0 0 0 1 1H23a1 1 0 0 0 1-1V23A8 8 0 0 0 21.07 16.82z" stroke="black" stroke-width="1" fill="none" />
+        <path
+          :style="{
+            fill: filter2Done ? 'black' : 'rgba(0,0,0,0)',
+            transition: `fill ${filter2Done ? 2 : 0.5}s ease-in-out`
+          }"
+          d="M6.23 20.93A5.9 5.9 0 0 1 2.54 19 6 6 0 0 0 1 23v3a1 1 0 0 0 1 1H6.18A3 3 0 0 1 6 26V23A9.45 9.45 0 0 1 6.23 20.93z" stroke="black" stroke-width="1" fill="none"
+        />
+        <path
+          :style="{
+            fill: filter2Done ? 'black' : 'rgba(0,0,0,0)',
+            transition: `fill ${filter2Done ? 2 : 0.5}s ease-in-out`
+          }"
+          d="M9.78 15.2A6.91 6.91 0 0 1 9 12V10.56A3.91 3.91 0 0 0 7 10a4 4 0 0 0-4 4v1a4 4 0 0 0 3.85 4A10 10 0 0 1 9.78 15.2z" stroke="black" stroke-width="1" fill="none"
+        />
+        <path
+          :style="{
+            fill: filter2Done ? 'black' : 'rgba(0,0,0,0)',
+            transition: `fill ${filter2Done ? 2 : 0.5}s ease-in-out`
+          }"
+          d="M29.46 19a5.9 5.9 0 0 1-3.69 1.93A9.45 9.45 0 0 1 26 23v3a3 3 0 0 1-.18 1H30a1 1 0 0 0 1-1V23A6 6 0 0 0 29.46 19z" stroke="black" stroke-width="1" fill="none"
+        />
+        <path
+          :style="{
+            fill: filter2Done ? 'black' : 'rgba(0,0,0,0)',
+            transition: `fill ${filter2Done ? 2 : 0.5}s ease-in-out`
+          }"
+          d="M29 15V14a4 4 0 0 0-4-4 3.91 3.91 0 0 0-2 .56V12a6.91 6.91 0 0 1-.78 3.2A10 10 0 0 1 25.15 19 4 4 0 0 0 29 15z" stroke="black" stroke-width="1" fill="none"
+        />
+        <path d="M21.07 16.82a7 7 0 0 1-10.14 0A8 8 0 0 0 8 23v3a1 1 0 0 0 1 1H23a1 1 0 0 0 1-1V23A8 8 0 0 0 21.07 16.82z" stroke="black" stroke-width="1" fill="none" />
         <path d="M16,17a5,5,0,0,0,5-5V10a5,5,0,0,0-10,0v2A5,5,0,0,0,16,17Z" stroke="black" stroke-width="1" fill="none" />
       </g>
       <!-- Text -->
       <text x="285" y="275" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Audience filter</text>
       <text x="285" y="300" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Free subscribers</text>
       <!-- Line -->
-      <line x1="360" y1="275" x2="410" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round"/>
+      <line x1="360" y1="275" x2="410" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line
+        :class="filter2LineDone ? 'lineDoneLong' : 'lineToDo'"
+        x1="360" y1="275" x2="410" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
+      />
 
       <!-- Card 5 -->
-      <rect x="410" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="email2Done ? 'cardDone' : 'cardToDo'" x="410" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
-      <g transform="translate(462, 215) scale(0.7)">
-        <path fill="#222" d="M53.42 53.32H10.58a8.51 8.51 0 0 1-8.5-8.5V19.18a8.51 8.51 0 0 1 8.5-8.5h42.84a8.51 8.51 0 0 1 8.5 8.5v25.64a8.51 8.51 0 0 1-8.5 8.5ZM10.58 13.68a5.5 5.5 0 0 0-5.5 5.5v25.64a5.5 5.5 0 0 0 5.5 5.5h42.84a5.5 5.5 0 0 0 5.5-5.5V19.18a5.5 5.5 0 0 0-5.5-5.5Z" />
-        <path fill="#222" d="M32 38.08a8.51 8.51 0 0 1-5.13-1.71L3.52 18.71a1.5 1.5 0 1 1 1.81-2.39L28.68 34a5.55 5.55 0 0 0 6.64 0l23.35-17.68a1.5 1.5 0 1 1 1.81 2.39L37.13 36.37A8.51 8.51 0 0 1 32 38.08Z" />
-        <path fill="#222" d="M4.17 49.14a1.5 1.5 0 0 1-1-2.62l18.4-16.41a1.5 1.5 0 0 1 2 2.24L5.17 48.76a1.46 1.46 0 0 1-1 .38zm55.66 0a1.46 1.46 0 0 1-1-.38l-18.4-16.41a1.5 1.5 0 1 1 2-2.24l18.39 16.41a1.5 1.5 0 0 1-1 2.62z" />
+      <g
+        transform="translate(460, 213) scale(0.5)">
+        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" fill="lightgray" />
+      </g>
+      <g
+        :class="{ emailFlying2: email2Done }"
+        transform="translate(460, 213) scale(0.5)">
+        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" />
       </g>
       <!-- Text -->
       <text x="485" y="275" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Send email</text>
       <text x="485" y="300" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Onboarding 1</text>
       <!-- Line -->
-      <line x1="560" y1="275" x2="610" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round"/>
+      <line x1="560" y1="275" x2="610" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line
+        :class="email2LineDone ? 'lineDoneLong' : 'lineToDo'"
+        x1="560" y1="275" x2="610" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
+      />
 
       <!-- Card 6 -->
-      <rect x="610" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="timerDone ? 'cardDone' : 'cardToDo'" x="610" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
-      <g transform="translate(660, 212)">
-        <path fill="black" d="M24.273 41.136c8.822 0 16-7.178 16-16s-7.178-16-16-16-16 7.178-16 16 7.178 16 16 16zm0-30c7.72 0 14 6.28 14 14s-6.28 14-14 14-14-6.28-14-14 6.281-14 14-14z" />
-        <path fill="black" d="M29.73 32.007a.997.997 0 0 0 1.414 0 .999.999 0 0 0 0-1.414l-5.871-5.871V13.926a1 1 0 1 0-2 0v11.21c0 .265.105.52.293.707l6.164 6.164z" />
+      <g>
+        <circle cx="686" cy="236" r="16" stroke="black" stroke-width="2" fill="none" />
+        <line 
+          x1="686" y1="236" 
+          x2="696" y2="236"
+          stroke="black"
+          stroke-width="2"
+          stroke-linecap="round"
+          class="hour-hand"
+          :class="{ rotate: timerDone }"
+        />
+        <line 
+          x1="686" y1="236" 
+          x2="686" y2="223"
+          stroke="black"
+          stroke-width="1.25"
+          stroke-linecap="round"
+          class="minute-hand"
+          :class="{ rotateMinute: timerDone }"
+        />
       </g>
       
       <!-- Text -->
       <text x="685" y="275" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Timer</text>
       <text x="685" y="300" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">1 day</text>
       <!-- Line -->
-      <line x1="760" y1="275" x2="810" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round"/>
+      <line x1="760" y1="275" x2="810" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line
+        :class="timerLineDone ? 'lineDoneLong' : 'lineToDo'"
+        x1="760" y1="275" x2="810" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
+      />
 
       <!-- Card 7 -->
-      <rect x="810" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
+      <rect :class="email3Done ? 'cardDone' : 'cardToDo'" x="810" y="200" width="150" height="150" rx="20" fill="white" stroke="#13B0EE" stroke-width="2" filter="url(#shadow)"/>
       <!-- Icon -->
-      <g transform="translate(860, 215) scale(0.7)">
-        <path fill="#222" d="M53.42 53.32H10.58a8.51 8.51 0 0 1-8.5-8.5V19.18a8.51 8.51 0 0 1 8.5-8.5h42.84a8.51 8.51 0 0 1 8.5 8.5v25.64a8.51 8.51 0 0 1-8.5 8.5ZM10.58 13.68a5.5 5.5 0 0 0-5.5 5.5v25.64a5.5 5.5 0 0 0 5.5 5.5h42.84a5.5 5.5 0 0 0 5.5-5.5V19.18a5.5 5.5 0 0 0-5.5-5.5Z" />
-        <path fill="#222" d="M32 38.08a8.51 8.51 0 0 1-5.13-1.71L3.52 18.71a1.5 1.5 0 1 1 1.81-2.39L28.68 34a5.55 5.55 0 0 0 6.64 0l23.35-17.68a1.5 1.5 0 1 1 1.81 2.39L37.13 36.37A8.51 8.51 0 0 1 32 38.08Z" />
-        <path fill="#222" d="M4.17 49.14a1.5 1.5 0 0 1-1-2.62l18.4-16.41a1.5 1.5 0 0 1 2 2.24L5.17 48.76a1.46 1.46 0 0 1-1 .38zm55.66 0a1.46 1.46 0 0 1-1-.38l-18.4-16.41a1.5 1.5 0 1 1 2-2.24l18.39 16.41a1.5 1.5 0 0 1-1 2.62z" />
+      <g
+        transform="translate(858, 213) scale(0.5)">
+        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" fill="lightgray" />
+      </g>
+      <g
+        :class="{ emailFlying3: email3Done }"
+        transform="translate(858, 213) scale(0.5)">
+        <path d="M88 23H12c-1.1 0-2 .9-2 2v50c0 1.1.9 2 2 2h76c1.1 0 2-.9 2-2V25c0-1.1-.9-2-2-2zm-4.8 4L50 60.2 16.8 27h66.4zM14 29.8 34.2 50 14 70.2V29.8zM16.9 73 37 52.9l11.6 11.6c.8.8 2 .8 2.8 0L63 52.9 83.1 73H16.9zM86 70.2 65.8 50 86 29.8v40.4z" />
       </g>
       <!-- Text -->
       <text x="885" y="275" font-size="16" fill="black" font-weight="bold" text-anchor="middle" dominant-baseline="middle">Send email</text>
       <text x="885" y="300" font-size="12" fill="gray" text-anchor="middle" dominant-baseline="middle">Onboarding 2</text>
 
-      <line x1="960" y1="275" x2="1010" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round"/>
-      <circle cx="1018" cy="275" r="8" stroke="#13B0EE" stroke-width="2" fill="none"/>
+      <line x1="960" y1="275" x2="1010" y2="275" stroke="lightgray" stroke-width="2" stroke-linecap="round"/>
+      <line
+        :class="email3LineDone ? 'lineDoneLong' : 'lineToDo'"
+        x1="960" y1="275" x2="1010" y2="275" stroke="#13B0EE" stroke-width="2" stroke-linecap="round" stroke-dasharray="50" stroke-dashoffset="50"
+      />
+      
+      <circle cx="1018" cy="275" r="8" stroke="lightgray" stroke-width="2" fill="none" />
+      <circle
+        :style="{
+          stroke: branch2Done ? '#13B0EE' : 'lightgray',
+          fill: branch2Done ? '#13B0EE' : 'rgba(0,0,0,0)',
+          transition: `fill ${branch2Done ? 2 : 0.5}s ease-in-out, stroke ${branch2Done ? 2 : 0.5}s ease-in-out`
+        }"
+        cx="1018" cy="275" r="8" stroke="#13B0EE" stroke-width="2" fill="none"
+      />
     </svg>
   </div>
 
@@ -132,5 +403,130 @@ const props = defineProps({
 </template>
 
 <style scoped>
+
+.cardDone {
+  stroke: #13B0EE;
+  transition: stroke 2s ease-in-out;
+}
+
+.cardToDo {
+  stroke: lightgray;
+  transition: stroke 0.5s ease-in-out;
+}
+
+@keyframes growLine {
+  0% { stroke-dashoffset: 25; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes growLineLong {
+  0% { stroke-dashoffset: 50; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes growLineVertical {
+  0% { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 95; }
+}
+
+@keyframes growLineVerticalDown {
+  0% { stroke-dashoffset: 95; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.lineDone {
+  animation: growLine 0.5s forwards;
+}
+
+.lineDoneLong {
+  animation: growLineLong 1s forwards;
+}
+
+.lineDoneVertical {
+  animation: growLineVertical 1s forwards;
+}
+
+.lineDoneVerticalDown {
+  animation: growLineVerticalDown 1s forwards;
+}
+
+.lineToDo {
+  opacity: 1;
+  stroke: lightgray;
+  stroke-dashoffset: 0;
+  transition: stroke 0.5s ease-in-out;
+}
+
+.strokeNone {
+  opacity: 0;
+  transition: opacity 0.5s ease
+}
+
+@keyframes scaleBounce {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Trigger */
+.animateTriggerIcon {
+  animation: scaleBounce 1s ease-in-out forwards;
+}
+
+/* Audience */
+.filteredAudience {
+  fill: black;
+  transition: fill 2s ease-in-out;
+}
+
+/* Email */
+.emailFlying {
+  transition: transform 2s ease-in-out, opacity 2s ease-in-out;
+  transform: translate(600px, 0px) scale(0.5);
+  opacity: 0;
+}
+
+.emailFlying2 {
+  transition: transform 2s ease-in-out, opacity 2s ease-in-out;
+  transform: translate(600px, 180px) scale(0.5);
+  opacity: 0;
+}
+
+.emailFlying3 {
+  transition: transform 2s ease-in-out, opacity 2s ease-in-out;
+  transform: translate(998px, 180px) scale(0.5);
+  opacity: 0;
+}
+
+/* Clock */
+.hour-hand {
+  transform-origin: 686px 236px;
+}
+
+.hour-hand.rotate {
+  transform: rotate(30deg); /* Moves from 3 o'clock (90°) to 4 o'clock (120°) */
+  transition: transform 2s ease-in-out;
+}
+
+.hour-hand:not(.rotate) {
+  transform: rotate(0deg);
+  transition: transform 0.5s ease-in-out;
+}
+
+.minute-hand {
+  transform-origin: 686px 236px;
+}
+
+.minute-hand.rotateMinute {
+  transform: rotate(360deg);
+  transition: transform 2s ease-in-out;
+}
+
+.minute-hand:not(.rotateMinute) {
+  transform: rotate(0deg);
+  transition: transform 0.5s ease-in-out;
+}
 
 </style>
