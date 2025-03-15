@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, onMounted, onBeforeUnmount } from 'vue'
+import { defineProps, ref, onMounted } from 'vue'
 
 const props = defineProps({
   isDark: {
@@ -11,6 +11,22 @@ const props = defineProps({
     default: false
   }
 })
+
+onMounted(() => {
+  playAnimation()
+})
+
+async function playAnimation () {
+  await startAnimation()
+  await delay(2000)
+  resetAnimation()
+  await delay(1000)
+  await startAnimation2()
+  await delay(2000)
+  resetAnimation()
+  await delay(1000)
+  playAnimation()
+}
 
 const triggerDone = ref(false)
 const triggerLine1Done = ref(false)
@@ -73,6 +89,8 @@ async function startAnimation() {
   await delay(500)
 
   branch1Done.value = true
+
+  await delay(3000)
 }
 
 async function startAnimation2() {
@@ -147,11 +165,6 @@ function resetAnimation () {
 
 <template>
   <div>
-
-  <v-btn @click="startAnimation">start</v-btn>
-  <v-btn @click="startAnimation2">start 2</v-btn>
-  <v-btn @click="resetAnimation">reset</v-btn>
-
   <div v-if="!xs" class="d-flex justify-center">
     <svg width="1040" height="370" viewBox="0 0 1040 370" xmlns="http://www.w3.org/2000/svg">
       <defs>
@@ -414,7 +427,7 @@ function resetAnimation () {
   </div>
 
   <div v-else class="d-flex justify-center">
-    <svg width="100%" height="1000" viewBox="0 0 400 1000" xmlns="http://www.w3.org/2000/svg">
+    <svg width="100%" height="95vh" min-height="650px" max-height="980" viewBox="0 0 400 980" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
           <feDropShadow dx="5" dy="5" stdDeviation="5" flood-color="gray" flood-opacity="0.3"/>
