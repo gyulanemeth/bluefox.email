@@ -381,6 +381,7 @@ function resetAnimation () {
           x2="696" y2="236"
           stroke-width="2"
           stroke-linecap="round"
+          transform-origin="686px 236px"
           class="hour-hand"
           :class="{ rotate: timerDone }"
         />
@@ -389,6 +390,7 @@ function resetAnimation () {
           x2="686" y2="223"
           stroke-width="1.25"
           stroke-linecap="round"
+          transform-origin="686px 236px"
           class="minute-hand"
           :class="{ rotateMinute: timerDone }"
         />
@@ -649,6 +651,7 @@ function resetAnimation () {
           x2="325" y2="618"
           stroke-width="2"
           stroke-linecap="round"
+          transform-origin="315px 618px"
           class="hour-hand"
           :class="{ rotate: timerDone }"
         />
@@ -657,6 +660,7 @@ function resetAnimation () {
           x2="315" y2="605"
           stroke-width="1.25"
           stroke-linecap="round"
+          transform-origin="315px 618px"
           class="minute-hand"
           :class="{ rotateMinute: timerDone }"
         />
@@ -931,10 +935,6 @@ html.dark .lineToDo {
 }
 
 /* Clock */
-.hour-hand {
-  transform-origin: 315px 618px;
-}
-
 .hour-hand.rotate {
   transform: rotate(30deg); /* Moves from 3 o'clock (90°) to 4 o'clock (120°) */
   transition: transform 2s ease-in-out;
@@ -943,10 +943,6 @@ html.dark .lineToDo {
 .hour-hand:not(.rotate) {
   transform: rotate(0deg);
   transition: transform 0.5s ease-in-out;
-}
-
-.minute-hand {
-  transform-origin: 315px 618px;
 }
 
 .minute-hand.rotateMinute {
