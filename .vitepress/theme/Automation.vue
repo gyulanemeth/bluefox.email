@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, onMounted } from 'vue'
+import { defineProps, ref, onMounted, onUnmounted } from 'vue'
 
 const props = defineProps({
   isDark: {
@@ -12,11 +12,21 @@ const props = defineProps({
   }
 })
 
+const isAnimating = ref(true)
+let animationLoop
+
 onMounted(() => {
   playAnimation()
 })
 
+onUnmounted(() => {
+  stopAnimation()
+})
+
 async function playAnimation () {
+  if (!isAnimating.value) {
+    return
+  }
   await startAnimation()
   await delay(2000)
   resetAnimation()
@@ -25,7 +35,13 @@ async function playAnimation () {
   await delay(2000)
   resetAnimation()
   await delay(1000)
-  playAnimation()
+  
+  animationLoop = setTimeout(playAnimation, 0)
+}
+
+function stopAnimation() {
+  isAnimating.value = false
+  clearTimeout(animationLoop)
 }
 
 const triggerDone = ref(false)
