@@ -14,6 +14,7 @@ import HeroUnit from './.vitepress/theme/HeroUnit.vue'
 import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
 import DesignSystem from './.vitepress/theme/DesignSystem.vue'
 import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
+import Automation from './.vitepress/theme/Automation.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -239,6 +240,7 @@ onBeforeUnmount(() => {
 
   #second-cta {
     text-align: center;
+    padding-bottom: 10vh;
   }
 
   #great-deliverability {
@@ -308,7 +310,7 @@ onBeforeUnmount(() => {
 <section id="designers" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
-      <span class="text-overline">Designers</span>
+      <span class="text-overline">For designers</span>
     </v-chip>
   </div>
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
@@ -347,30 +349,6 @@ onBeforeUnmount(() => {
   />
 </section>
 
-<!--
-<section id="design-system" class="value-prop pt-0">
-  <input type="radio" name="image" id="image1" v-model="selectedEmailType" value="0">
-  <input type="radio" name="image" id="image2" v-model="selectedEmailType" value="1">
-  <input type="radio" name="image" id="image3" v-model="selectedEmailType" value="2">
-  <input type="radio" name="image" id="image4" v-model="selectedEmailType" value="3">
-  
-  <h2 class="text-center mb-3">
-    Consistent-looking transactional, triggered, & marketing emails
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Our design system feature makes it sure that all of your emails look great and consistent, be it <label id="image1-label" for="image1">transactional emails</label>, <label id="image2-label" for="image2">triggered emails</label>, <label id="image3-label" for="image3">newsletters</label> or <label id="image4-label" for="image4">promotional emails</label>.
-    </div>
-  </div>
-  <div class="image-container mt-4">
-    <img src="/assets/consistent-emails-01.png" alt="Image 1" class="image img1">
-    <img src="/assets/consistent-emails-02.png" alt="Image 2" class="image img2">
-    <img src="/assets/consistent-emails-03.png" alt="Image 3" class="image img3">
-    <img src="/assets/consistent-emails-04.png" alt="Image 4" class="image img4">
-  </div>
-</section>
--->
-
 <section id="no-rendering-issues" class="value-prop pt-0">
   <h2 class="sectionTitle text-center mb-3">
     No more email rendering issues
@@ -391,18 +369,33 @@ onBeforeUnmount(() => {
   />
 </section>
 
-<section id="great-deliverability" class="value-prop ">
-  <h2 class="sectionTitle text-center">
-    Bring your own AWS SES
+<section id="marketers" class="section-index">
+  <div class="d-flex justify-center">
+    <v-chip color="primary">
+      <span class="text-overline">For marketers</span>
+    </v-chip>
+  </div>
+  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+    Craft Thoughtful Email Journeys
   </h2>
-  <p style="background: white; color: #392C91; font-weight: bold; padding: 10px; font-size: 20px; text-align: center;">The gold-standard of great deliverability</p>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Create seamless, considerate email workflows that engage the right people at the right time.
+    </div>
+  </div>
 
-  <div class="mt-4">
-    Using your own AWS SES with bluefox.email gives you full control over your sender reputation while still benefiting from AWS's infrastructure. Since you connect your own AWS account, your email campaigns are isolated from other users' activities, ensuring better control over deliverability and security. You get the reliability and performance of AWS SES, but with the added assurance that only your actions affect your email sending reputation.
-  </div>
-  <div class="mt-4">
-    If needed, you can easily upgrade to dedicated IPs through AWS SES for even greater control and improved deliverability.
-  </div>
+  <Automation
+    class="mt-6"
+    :is-dark="isDark"
+    :lg-and-up="lgAndUp"
+    :md="md"
+    :sm="sm"
+    :xs="xs"
+  />
+</section>
+
+<section id="deliverability">
+  <Deliverability />
 </section>
 
 <!--
@@ -416,7 +409,7 @@ onBeforeUnmount(() => {
 </section>
 <hr class="value-prop-divider type2"/>
 -->
-<section id="second-cta" class="value-prop">
+<section id="second-cta">
   <h2 class="sectionTitle text-center mb-3">
     Send consistent-looking & beautiful emails today!
   </h2>

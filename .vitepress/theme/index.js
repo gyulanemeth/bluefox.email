@@ -16,6 +16,8 @@ import NavigationButton from './NavigationButton.vue'
 import TestimonialDiv from './TestimonialDiv.vue'
 import DesignSystem from './DesignSystem.vue'
 import RenderingIssues from './RenderingIssues.vue'
+import Deliverability from './Deliverability.vue'
+import Automation from './Automation.vue'
 
 export default {
   extends: Theme,
@@ -56,5 +58,7 @@ export default {
     app.component('TestimonialDiv', TestimonialDiv)
     app.component('DesignSystem', DesignSystem)
     app.component('RenderingIssues', RenderingIssues)
+    app.component('Deliverability', Deliverability)
+    app.component('Automation', Automation)
   }
 }
