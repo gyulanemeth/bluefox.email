@@ -94,8 +94,15 @@ export default defineConfig({
             { text: 'Subscriber List Management', link: '/docs/api/subscriber-list-management' },
             { text: 'Send Transactional Email', link: '/docs/api/send-transactional-email' },
             { text: 'Send Triggered Email', link: '/docs/api/send-triggered-email' },
-            { text: 'Send Attachments', link: '/docs/api/send-attachments' },
-            { text: 'Webhooks for Event Notifications', link: '/docs/api/webhooks' }
+            { text: 'Send Attachments', link: '/docs/api/send-attachments' }
+          ]
+        },{
+          text: 'Integrations',
+          link: '/docs/integrations/',
+          collapsed: false,
+          items: [
+            { text: 'Webhooks for Event Notifications', link: '/docs/integrations/webhooks' },
+            { text: 'Supabase', link: '/docs/integrations/supabase' }
           ]
         }, { 
           text: 'Analytics',
