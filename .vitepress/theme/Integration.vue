@@ -95,6 +95,20 @@ function getTabItem () {
         </div>
         </v-tabs-window-item>
       </v-tabs-window>
+
+      <v-card-actions class="justify-end">
+        <v-btn
+          variant="text"
+          size="small"
+          class="text-none"
+          style="color: var(--vp-c-text-1)"
+          href="https://bluefox.email/docs/api/"
+          target="_blank"
+        >
+          <v-icon class="mr-2">mdi-open-in-new</v-icon>
+          Docs
+        </v-btn>
+      </v-card-actions>
     </v-card>
   </div>
   <div v-else>
@@ -126,6 +140,20 @@ function getTabItem () {
     </div>
 
     <slot :name="tab" />
+
+    <div class="d-flex justify-center">
+      <v-btn
+        variant="text"
+        size="small"
+        class="text-none"
+        style="color: var(--vp-c-text-1)"
+        href="https://bluefox.email/docs/api/"
+        target="_blank"
+      >
+        <v-icon class="mr-2">mdi-open-in-new</v-icon>
+        Docs
+      </v-btn>
+    </div>
   </div>
 </template>
 
