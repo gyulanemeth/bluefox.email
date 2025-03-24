@@ -15,6 +15,7 @@ import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
 import DesignSystem from './.vitepress/theme/DesignSystem.vue'
 import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
 import Automation from './.vitepress/theme/Automation.vue'
+import Integration from './.vitepress/theme/Integration.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -392,6 +393,83 @@ onBeforeUnmount(() => {
     :sm="sm"
     :xs="xs"
   />
+</section>
+
+<section id="developers" class="section-index">
+  <div class="d-flex justify-center">
+    <v-chip color="primary">
+      <span class="text-overline">For developers</span>
+    </v-chip>
+  </div>
+  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+    Easy integration
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Simple, technology-agnostic API
+    </div>
+  </div>
+
+  <Integration
+    class="mt-6"
+    :is-dark="isDark"
+    :xs="xs"
+  >
+  <template #tab-1>
+
+  ```json
+  {
+    "name": "Jon Doe",
+    "email": "jon@doe.com"
+  }
+  ```
+  </template>
+  <template #tab-2>
+
+  ```json
+  {
+    "status": "unsubscribed"
+  }
+  ```
+  </template>
+  <template #tab-3>
+
+  ```json
+  {
+    "email": "jon@doe.com",
+    "transactionalId": "##EMAIL_ID##",
+    "data": {
+      "example": "example merge tag value"
+    },
+    "attachments": [ // optional
+      {
+        "fileName": "example.txt",
+        "content": "Ymx1ZWZveC5lbWFpbCBhdHRhY2htZW50IGV4YW1wbGUh"
+      }
+    ]
+  }
+  ```
+  </template>
+  <template #tab-4>
+
+  ```json
+  {
+    "emails": ["jon@doe.com"],
+    "triggeredId": "##EMAIL_ID##",
+    "data": {
+      "example": "example merge tag value"
+    },
+    "attachments": [ // optional
+      {
+        "fileName": "example.txt",
+        "content": "Ymx1ZWZveC5lbWFpbCBhdHRhY2htZW50IGV4YW1wbGUh"
+      }
+    ]
+  }
+  ```
+  </template>
+
+  </Integration>
 </section>
 
 <section id="deliverability">
