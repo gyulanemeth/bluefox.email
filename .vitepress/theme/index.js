@@ -18,6 +18,7 @@ import DesignSystem from './DesignSystem.vue'
 import RenderingIssues from './RenderingIssues.vue'
 import Deliverability from './Deliverability.vue'
 import Automation from './Automation.vue'
+import Integration from './Integration.vue'
 
 export default {
   extends: Theme,
@@ -60,5 +61,6 @@ export default {
     app.component('RenderingIssues', RenderingIssues)
     app.component('Deliverability', Deliverability)
     app.component('Automation', Automation)
+    app.component('Integration', Integration)
   }
 }
