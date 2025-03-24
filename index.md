@@ -406,7 +406,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      easy integration
+      Simple, technology-agnostic API
     </div>
   </div>
 
