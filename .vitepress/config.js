@@ -212,5 +212,25 @@ export default defineConfig({
   },
   sitemap: {
     hostname: 'https://bluefox.email'
+  },
+  markdown: {
+    config(md) {
+      // Patch default image renderer
+      const defaultRender = md.renderer.rules.image || function (tokens, idx, options, env, self) {
+        return self.renderToken(tokens, idx, options)
+      }
+
+      md.renderer.rules.image = function (tokens, idx, options, env, self) {
+        const token = tokens[idx]
+        const existingAttr = token.attrs?.map(([name]) => name) || []
+
+        // Add loading="lazy" if not already present
+        if (!existingAttr.includes('loading')) {
+          token.attrPush(['loading', 'lazy'])
+        }
+
+        return defaultRender(tokens, idx, options, env, self)
+      }
+    }
   }
 })
