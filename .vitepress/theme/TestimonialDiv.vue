@@ -332,6 +332,7 @@ function selectTestimonialEmail (id) {
       >
         <div class="pa-2 d-flex">
           <v-btn
+            title="Back to Testimonials"
             icon
             variant="text"
             density="compact"
@@ -341,6 +342,7 @@ function selectTestimonialEmail (id) {
           </v-btn>
           <v-spacer />
           <v-btn
+            title="Previous Testimonial"
             icon
             variant="text"
             density="compact"
@@ -350,6 +352,7 @@ function selectTestimonialEmail (id) {
             <v-icon>mdi-chevron-up</v-icon>
           </v-btn>
           <v-btn
+            title="Next Testimonial"
             icon
             variant="text"
             density="compact"
@@ -436,6 +439,7 @@ function selectTestimonialEmail (id) {
     
       <div class="d-flex pa-3 justify-center">
         <v-btn
+          title="Previous Testimonial"
           icon
           variant="tonal"
           size="x-large"
@@ -445,6 +449,7 @@ function selectTestimonialEmail (id) {
           <v-icon>mdi-chevron-up</v-icon>
         </v-btn>
         <v-btn
+          title="Next Testimonial"
           icon
           variant="tonal"
           size="x-large"
