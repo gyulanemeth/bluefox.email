@@ -311,6 +311,7 @@ function selectTestimonialEmail (id) {
                           >
                             <img
                               :src="testimonials[selectedTestimonialId].logo"
+                              :alt="testimonials[selectedTestimonialId].logoAlt"
                               style="height: 50px"
                             />
                           </a>
@@ -422,6 +423,7 @@ function selectTestimonialEmail (id) {
                             >
                               <img
                                 :src="testimonials[selectedTestimonialId].logo"
+                                :alt="testimonials[selectedTestimonialId].logoAlt"
                                 style="height: 50px"
                               />
                             </a>
