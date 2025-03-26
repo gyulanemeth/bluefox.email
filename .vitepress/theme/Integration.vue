@@ -46,14 +46,15 @@ function getTabItem () {
 </script>
 
 <template>
+<div>
   <div
     v-if="!xs"
     class="d-flex justify-center mt-6"
   >
     <v-card
-      elevation="6"
+      variant="outlined"
       width="100%"
-      class="px-8"
+      class="px-8 integrationCard"
       :theme="isDark ? 'dark' : 'light'"
     >
       <v-tabs
@@ -155,6 +156,48 @@ function getTabItem () {
       </v-btn>
     </div>
   </div>
+
+  <v-row class="mt-6">
+    <v-col>
+      <v-card
+        class="pa-8 d-flex flex-column align-center integrationCard"
+        variant="outlined"
+        height="100%"
+        :theme="isDark ? 'dark' : 'light'"
+        href="https://bluefox.email/docs/integrations/webhooks"
+        target="_blank"
+      >
+        <v-img
+          :width="50"
+          :src="isDark ? '/assets/integrations/webhooks-dark.svg' : '/assets/integrations/webhooks-light.svg'"
+        />
+        <v-card-title class="mt-3 integrationCardTitle">Webhooks</v-card-title>
+        <v-card-text class="mt-3 text-center" style="color: var(--vp-code-block-color)">
+          Webhooks send real-time notifications for email events (opens, clicks, bounces, complaints, subscriptions), enabling direct integration for improved tracking and automation.
+        </v-card-text>
+      </v-card>
+    </v-col>
+    <v-col>
+      <v-card
+        class="pa-8 d-flex flex-column align-center integrationCard"
+        variant="outlined"
+        height="100%"
+        :theme="isDark ? 'dark' : 'light'"
+        href="https://bluefox.email/docs/integrations/supabase"
+        target="_blank"
+      >
+        <v-img
+          :width="50"
+          :src="isDark ? '/assets/integrations/supabase-dark.svg' : '/assets/integrations/supabase-light.svg'"
+        />
+        <v-card-title class="mt-3 integrationCardTitle" style="color: var(--vp-c-text-1)">Supabase</v-card-title>
+        <v-card-text class="mt-3 text-center" style="color: var(--vp-code-block-color)">
+          Supabase's authentication sends transactional emails (signup confirmations, password resets, magic links). Integrating bluefox.email boosts deliverability, branding, and tracking while keeping full control of your email templates.
+        </v-card-text>
+      </v-card>
+    </v-col>
+  </v-row>
+</div>
 </template>
 
 <style scoped>
@@ -163,5 +206,18 @@ function getTabItem () {
     position: relative;
     left: calc(-50vw + 50%);
     width: 100vw;
+  }
+
+  .integrationCard {
+    border-color: lightgray;
+  }
+
+  html.dark .integrationCard {
+    border-color: #3e3e42;
+  }
+
+  .integrationCardTitle {
+    font-size: 16px;
+    color: var(--vp-c-text-1);
   }
 </style>
