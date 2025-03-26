@@ -34,6 +34,7 @@ const testimonials = [
     testimonial: `ClarityText chose Bluefox because it guides us toward success. Unlike with other vendors and libraries, it's Bluefox's responsibility to make sure that our emails fit in every client and device. This is a big relief for a startup. Also, Bluefox's pricing is easy to understand, unlike a typical and complicated contacts-based pricing.`,
     profileImg: '/assets/testimonials/matt-luo.jpg',
     logo: '/assets/testimonials/clarity-text.svg',
+    logoAlt: 'ClarityText Logo',
     url: 'https://www.claritytext.com'
   },
   {
@@ -44,6 +45,7 @@ const testimonials = [
     testimonial: `I’ve been using Blue Fox to send out my newsletters, and I couldn’t be happier. The system integrates seamlessly with my own AWS SES, giving me full control and transparency without the hefty price tag of overpriced black-box solutions like Mailchimp. Plus, I’ve noticed a significantly lower bounce rate compared to my previous provider—it’s an excellent choice for anyone seeking reliability and efficiency.`,
     profileImg: '/assets/testimonials/gabriel-varaljay.jpg',
     logo: '/assets/testimonials/trendfingers.png',
+    logoAlt: 'TrendFingers Logo',
     url: 'https://trendfingers.com'
   },
   {
@@ -54,6 +56,7 @@ const testimonials = [
     testimonial: `When I saw the delivery stats from my first campaign sent with BlueFox, I had to double-check the click rate—I could hardly believe it! It appears that every email landed in the primary inbox, and the deliverability and tracking are simply outstanding. BlueFox has set a new standard for me.`,
     profileImg: '/assets/testimonials/gergely-nagy.png',
     logo: '/assets/testimonials/chamaileon.svg',
+    logoAlt: 'Chamaileon Logo',
     url: 'https://chamaileon.io/'
   }
 ]
@@ -192,6 +195,7 @@ function selectTestimonialEmail (id) {
                         >
                           <img
                             :src="testimonials[selectedTestimonialId].logo"
+                            :alt="testimonials[selectedTestimonialId].logoAlt"
                             style="height: 50px"
                           />
                         </a>
@@ -328,6 +332,7 @@ function selectTestimonialEmail (id) {
       >
         <div class="pa-2 d-flex">
           <v-btn
+            title="Back to Testimonials"
             icon
             variant="text"
             density="compact"
@@ -337,6 +342,7 @@ function selectTestimonialEmail (id) {
           </v-btn>
           <v-spacer />
           <v-btn
+            title="Previous Testimonial"
             icon
             variant="text"
             density="compact"
@@ -346,6 +352,7 @@ function selectTestimonialEmail (id) {
             <v-icon>mdi-chevron-up</v-icon>
           </v-btn>
           <v-btn
+            title="Next Testimonial"
             icon
             variant="text"
             density="compact"
@@ -432,6 +439,7 @@ function selectTestimonialEmail (id) {
     
       <div class="d-flex pa-3 justify-center">
         <v-btn
+          title="Previous Testimonial"
           icon
           variant="tonal"
           size="x-large"
@@ -441,6 +449,7 @@ function selectTestimonialEmail (id) {
           <v-icon>mdi-chevron-up</v-icon>
         </v-btn>
         <v-btn
+          title="Next Testimonial"
           icon
           variant="tonal"
           size="x-large"
