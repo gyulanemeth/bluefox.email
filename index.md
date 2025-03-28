@@ -1,8 +1,40 @@
 ---
-# https://vitepress.dev/reference/default-theme-home-page
 layout: home
 
-title: Beautiful emails for SaaS companies
+title: No-Code Email Design & Automation for SaaS Teams | bluefox.email
+description: Create and send consistent, beautiful transactional, triggered, and marketing emails with ease using bluefox.email — a powerful platform for SaaS companies. With a no-code editor, unified design system, and seamless AWS SES integration, your emails look great everywhere, even in Outlook.
+
+head:
+  - - meta
+    - name: description
+      content: "Create and send consistent, beautiful transactional, triggered, and marketing emails with ease using bluefox.email — a powerful platform for SaaS companies. With a no-code editor, unified design system, and seamless AWS SES integration, your emails look great everywhere, even in Outlook."
+  - - meta
+    - property: og:title
+      content: No-Code Email Design & Automation for SaaS Teams | bluefox.email
+  - - meta
+    - property: og:description
+      content: "Create and send consistent, beautiful transactional, triggered, and marketing emails with ease using bluefox.email — a powerful platform for SaaS companies. With a no-code editor, unified design system, and seamless AWS SES integration, your emails look great everywhere, even in Outlook."
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - property: twitter:card
+      content: summary_large_image
+  - - meta
+    - property: twitter:title
+      content: No-Code Email Design & Automation for SaaS Teams | bluefox.email
+  - - meta
+    - property: twitter:description
+      content: "Create and send consistent, beautiful transactional, triggered, and marketing emails with ease using bluefox.email — a powerful platform for SaaS companies. With a no-code editor, unified design system, and seamless AWS SES integration, your emails look great everywhere, even in Outlook."
+  - - meta
+    - property: twitter:image
+      content: https://bluefox.email/assets/share.png
 ---
 <script setup>
 
