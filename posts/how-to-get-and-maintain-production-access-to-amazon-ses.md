@@ -23,16 +23,16 @@ head:
     - property: og:url
       content: https://bluefox.email/posts/how-to-get-and-maintain-production-access-to-amazon-ses
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: How to Get and Maintain Production Access to Amazon SES
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Learn how to get production access to AWS SES and maintain it for excellent email deliverability.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
 
 lastUpdated: true

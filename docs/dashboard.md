@@ -21,16 +21,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: Account Dashboard | bluefox.email documentation
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Get a comprehensive overview of your email and subscription performance across all your projects with the bluefox.email account dashboard.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 

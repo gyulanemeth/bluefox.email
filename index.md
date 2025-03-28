@@ -24,16 +24,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: No-Code Email Design & Automation for SaaS Teams
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: "Create and send consistent, beautiful transactional, triggered, and marketing emails with ease using bluefox.email — a powerful platform for SaaS companies. With a no-code editor, unified design system, and seamless Amazon SES integration, your emails look great everywhere, even in Outlook."
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/share.png
 ---
 <script setup>

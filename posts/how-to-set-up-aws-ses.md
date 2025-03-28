@@ -24,16 +24,16 @@ head:
     - property: og:url
       content: https://bluefox.email/posts/how-to-set-up-aws-ses
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: How to Set Up AWS SES
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Learn how to set up AWS SES to send emails with professional branding and excellent deliverability on a budget.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/articles/how-to-set-up-aws-ses-share.png
 ---
 

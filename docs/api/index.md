@@ -21,16 +21,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: API Overview | bluefox.email documentation
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Explore the BlueFox Email API for managing subscriber lists, sending transactional and triggered emails and include attachments.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 

@@ -21,16 +21,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: Projects | bluefox.email documentation
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Discover how bluefox.email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 

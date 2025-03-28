@@ -24,16 +24,16 @@ head:
     - property: og:url
       content: https://bluefox.email/posts/how-to-send-an-email-in-nodejs-using-amazon-ses-with-nodemailer
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: How to Send an Email in Node.js Using Amazon SES with Nodemailer
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Learn how to send emails in Node.js using Amazon SES with Nodemailer for reliable email delivery.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/articles/how-to-send-an-email-in-nodejs-using-amazon-ses-with-nodemailer-share.png
 ---
 
