@@ -8,7 +8,7 @@ const { isDark } = useData()
   <div class="py-12 deliverabilityDiv">
     <v-container style="max-width: 800px">
       <h2 class="sectionTitle text-center mt-0 pt-0">
-        Bring your own AWS SES
+        Bring your own Amazon SES
       </h2>
       <p class="deliverabilitySubtitle">
         The gold-standard of great deliverability
