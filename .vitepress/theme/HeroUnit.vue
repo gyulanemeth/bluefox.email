@@ -21,17 +21,6 @@ const { isDark } = useData()
         >
           Get started
         </v-btn>
-        <v-btn
-          rounded
-          size="large"
-          color="buttonBackground"
-          variant="flat"
-          class="no-uppercase ml-3"
-          :theme="isDark? 'dark' : 'light'"
-          href="/pricing"
-        >
-          Pricing
-        </v-btn>
       </div>
     </div>
       <img

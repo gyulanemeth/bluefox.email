@@ -550,18 +550,7 @@ onBeforeUnmount(() => {
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
-      Get started now
-    </v-btn>
-    <v-btn
-      rounded
-      size="large"
-      color="buttonBackground"
-      variant="flat"
-      class="no-uppercase"
-      :theme="isDark? 'dark' : 'light'"
-      href="/pricing"
-    >
-      Pricing
+      I want to send beautiful emails!
     </v-btn>
   </v-row>
 </section>
