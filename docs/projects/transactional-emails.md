@@ -21,16 +21,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: Transactional Emails | bluefox.email documentation
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Learn how to create and manage transactional emails in bluefox.email. Explore integration, personalization, and advanced settings for essential communications like password resets and registration emails.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 

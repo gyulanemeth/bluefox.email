@@ -21,16 +21,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: Design System Settings | bluefox.email documentation
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Learn how to customize your project's design system in bluefox.email by adjusting variables like colors, fonts, images, and links to match your brand.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 

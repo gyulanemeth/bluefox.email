@@ -21,16 +21,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: Pricing | bluefox.email documentation
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Discover simple, flexible, and transparent pricing with bluefox.email. Purchase credit packs that last a full year and send emails on your schedule.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 

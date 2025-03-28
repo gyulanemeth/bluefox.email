@@ -21,16 +21,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: Supabase | bluefox.email documentation
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Learn how to set up supabase to send authentication emails through BlueFox Email for better deliverability, branding and tracking.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 

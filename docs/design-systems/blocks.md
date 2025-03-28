@@ -21,16 +21,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: Design System Blocks | bluefox.email documentation
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Discover how blocks in the bluefox.email design system allow you to create reusable email components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 

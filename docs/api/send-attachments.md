@@ -21,16 +21,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: Send Attachments | bluefox.email documentation
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Learn how to send attachments using bluefox.email. Discover the attachment object structure, required fields, and example implementations.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 

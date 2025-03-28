@@ -24,16 +24,16 @@ head:
     - property: og:url
       content: https://bluefox.email/posts/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: How to Handle Bounces and Complaints with AWS SES and SNS
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Step-by-step guide on setting up AWS SES and SNS to handle bounces and complaints effectively.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/articles/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns-share.png
 ---
 

@@ -21,16 +21,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: Design System Templates | bluefox.email documentation
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Discover how templates in the bluefox.email design system help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 

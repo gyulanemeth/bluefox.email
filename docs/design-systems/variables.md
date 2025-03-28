@@ -21,16 +21,16 @@ head:
     - property: og:type
       content: website
   - - meta
-    - property: twitter:card
+    - name: twitter:card
       content: summary_large_image
   - - meta
-    - property: twitter:title
+    - name: twitter:title
       content: Design System Variables | bluefox.email documentation
   - - meta
-    - property: twitter:description
+    - name: twitter:description
       content: Discover how variables in the bluefox.email design system enable dynamic customization of email components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
   - - meta
-    - property: twitter:image
+    - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
