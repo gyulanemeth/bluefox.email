@@ -43,7 +43,7 @@ onBeforeUnmount(() => {
   }
 
   .section-index {
-    padding-top: 10vh;
+    padding-top: 15vh;
     padding-bottom: 10vh;
   }
 
@@ -315,11 +315,11 @@ onBeforeUnmount(() => {
     </v-chip>
   </div>
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Amazing email design? Easy!
+    Create pixel-perfect designs without coding
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Create pixel-perfect email designs with the most sophisticated email editor on the market. Don't worry, you can start out with our built-in templates!
+      Build flawless emails with the most powerful no-code editor. If it’s possible in email, you can create it here!
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -334,13 +334,15 @@ onBeforeUnmount(() => {
       Your browser does not support the video tag.
     </video>
   </v-card>
+</section>
 
-  <h2 class="sectionTitle text-center mb-3 pt-0" style="margin-top: 15vh !important">
-    Consistent-looking transactional, triggered, & marketing emails
+<section id="design-system" class="value-prop">
+<h2 class="sectionTitle text-center mb-3 pt-0">
+    Maintain coherent design for all of your emails
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Our design system feature makes it sure that all of your emails look great and consistent.
+      Keep every email on-brand with a unified design system: set global styles, save reusable blocks, and ensure consistency across transactional, product, and marketing emails.
     </div>
   </div>
 
@@ -350,13 +352,13 @@ onBeforeUnmount(() => {
   />
 </section>
 
-<section id="no-rendering-issues" class="value-prop pt-0">
+<section id="no-rendering-issues" class="value-prop">
   <h2 class="sectionTitle text-center mb-3">
     No more email rendering issues
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      You might have experienced that your email looks great on a certain email client, but it falls apart on other email clients, such as Outlook. That will never happen if you use our platform. Our battle-hardened email generator is continuously tested on all the relevant email clients.
+      Your emails will look perfect everywhere. Our battle-tested email HTML ensures flawless rendering across all major email clients, including Outlook.
     </div>
   </div>
 
@@ -377,7 +379,7 @@ onBeforeUnmount(() => {
     </v-chip>
   </div>
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Craft Thoughtful Email Journeys
+    Craft thoughtful email journeys
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
@@ -394,6 +396,49 @@ onBeforeUnmount(() => {
     :xs="xs"
   />
 </section>
+
+<section class="value-prop">
+    <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+      Effortless content editing
+    </h2>
+    <div class="d-flex justify-center">
+      <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+        Quickly refine your email content with our intuitive, no-code editor.
+      </div>
+    </div>
+    <v-card class="d-flex justify-center mt-4" variant="elevated">
+      <video
+        width="100%"
+        :autoplay="lgAndUp || md"
+        :loop="lgAndUp || md"
+        :controls="sm || xs"
+        muted
+      >
+        <source src="/assets/bluefox-email-content-editing.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </v-card>
+  </section>
+  
+
+  <section class="value-prop">
+    <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+      Understand your audience
+    </h2>
+    <div class="d-flex justify-center">
+      <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+        Track engagement, segment smarter, and fine-tune your emails to drive more conversions.
+      </div>
+    </div>
+    <v-card class="d-flex justify-center mt-4" variant="elevated">
+      <img alt="Analytics screenshot" src="/assets/analytics.png" />
+    </v-card>
+  </section>
+
+
+
+
+
 
 <section id="developers" class="section-index">
   <div class="d-flex justify-center">
@@ -472,21 +517,11 @@ onBeforeUnmount(() => {
   </Integration>
 </section>
 
-<section id="deliverability">
+<section id="deliverability" class="value-prop">
   <Deliverability />
 </section>
 
-<!--
-<section id="email-analytics">
-  <h2>Detailed analytics</h2>
-</section>
-<hr class="value-prop-divider type1"/>
-<section id="easy-integration">
-  <h2>Easy integration</h2>
-  <p>It is really funcking easy!</p>
-</section>
-<hr class="value-prop-divider type2"/>
--->
+
 <section id="second-cta">
   <h2 class="sectionTitle text-center mb-3">
     Send consistent-looking & beautiful emails today!
@@ -507,18 +542,7 @@ onBeforeUnmount(() => {
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
-      Get started now
-    </v-btn>
-    <v-btn
-      rounded
-      size="large"
-      color="buttonBackground"
-      variant="flat"
-      class="no-uppercase"
-      :theme="isDark? 'dark' : 'light'"
-      href="/pricing"
-    >
-      Pricing
+      I want to send beautiful emails!
     </v-btn>
   </v-row>
 </section>
