@@ -36,7 +36,7 @@ head:
 
 # Account Dashboard
 
-The **Account Dashboard** gives you an overview of your entire account’s email and subscription performance across multiple projects. It allows you to track key metrics for [**transactional emails**](/docs/projects/transactional-emails#transactional-email-statistics), [**triggered emails**](/docs/projects/triggered-emails#triggered-email-statistics), [**campaign Emails**](/docs/projects/campaigns#campaign-email-statistics), and [**subscriber lists**](/docs/projects/subscriber-lists#subscriber-list-statistics). The dashboard also provides insights into subscriber behaviors, such as subscriptions, pauses, unsubscribes, and re-subscriptions, giving you a holistic view of your account’s health.
+The **Account Dashboard** gives you an overview of your entire account’s email and subscription performance across multiple projects. It allows you to track key metrics for [**transactional emails**](/docs/projects/transactional-emails#transactional-email-statistics), [**triggered emails**](/docs/projects/triggered-emails#triggered-email-statistics), [**campaign Emails**](/docs/projects/campaigns#campaign-email-statistics), and [**subscriber lists**](/docs/projects/contacts#list-statistics). The dashboard also provides insights into subscriber behaviors, such as subscriptions, pauses, unsubscribes, and re-subscriptions, giving you a holistic view of your account’s health.
 
 ## How the Account Dashboard Enhances Your Strategy
 

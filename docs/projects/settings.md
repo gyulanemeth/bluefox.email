@@ -38,6 +38,18 @@ head:
 
 To enable all the functionality provided by bluefox.email, you need to fill in all the project settings. If you want to use different domains or sending emails for different environments (e.g., staging or production), create separate projects for each environment.
 
+## Project Logo
+Users can **add**, **update**, or **delete** a custom logo for their project. This logo will be displayed on the **subscription preferences page** and **double opt-in confirmation page success message** to provide branding consistency.
+
+To manage the project logo:
+
+- **Add or update**: Click upload, select an image, and save.
+
+- **Delete**: Click remove logo and confirm.
+
+![A screenshot of a project settings logo section.](./project-settings-project-logo.webp)
+
+
 ## AWS Credentials
 
 Our platform sends emails using your AWS SES, ensuring high deliverability and preventing spammers from using our platform.
@@ -143,3 +155,45 @@ Periodically rotate sensitive info like API keys for security reasons. We use di
 ::: danger Security Warning
 Since an API key is very sensitive information, never use it in your frontend code. Always use it from your backend.
 :::
+
+
+## Domain Whitelist
+
+The domain whitelist ensures that sign-up requests are only processed from authorized domains, enhancing security during the sign-up process. If your frontend is making requests, you must add its domain to the whitelist to authorize them.
+
+- **To add a domain**: 
+  Navigate to **project settings → domain whitelist**, click **create**, enter the `domain`, and save. This ensures that requests from the frontend are recognized and approved.
+  ![A screenshot of a project settings domain whitelist section add domain.](./project-settings-domain-whitelist-create.webp)
+
+- **To edit an existing domain**:
+  Navigate to **project settings → domain whitelist**, locate the domain, and click on the edit icon. Make the necessary changes and save them.
+  ![A screenshot of a project settings domain whitelist section edit domain.](./project-settings-domain-whitelist-edit.webp)
+
+- **To delete a domain**: 
+  Navigate to **project settings → domain whitelist**, find it in the domain whitelist, click the delete icon, and confirm the deletion. Once removed, any sign-up requests from that domain will no longer be authorized.
+  ![A screenshot of a project settings domain whitelist section delete domain.](./project-settings-domain-whitelist-delete.webp)
+
+## Contact properties
+
+Contact properties allow users to define custom attributes for contacts at the project level. These properties appear in the **contacts** table and can be filled when adding or editing a contact.
+
+### Add new property
+To add a new property, navigate to **project settings → contact properties**, click **create**, enter the property `name` and `type`, then save. The property will be available in the contact management interface.
+
+Each contact property includes:
+
+- **Property Name**: The user-defined name.
+
+- **API Name**: The system-generated name used when sending or retrieving data via API.
+
+- **Type**: The data type of the property, which can be **string, boolean, date, or number**.
+
+![A screenshot of a project settings contact properties section create property.](./project-settings-contact-properties-create.webp)
+
+#### Reserved properties
+Some properties are reserved and cannot be created. These include `status`, `pausedUntil`, `email`, `accountId`, `projectId`, `customFields`, `contactId`, `subscriberListId`.
+
+### Delete property
+To delete a property, go to **project settings → contact properties**, locate the property in the table, and click the delete icon. Confirm the deletion, and the property will be removed from both the contacts table and the contact creation/editing interface.
+
+![A screenshot of a project settings contact properties section delete property.](./project-settings-contact-properties-delete.webp)

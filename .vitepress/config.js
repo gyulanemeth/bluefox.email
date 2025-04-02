@@ -81,8 +81,8 @@ export default defineConfig({
             { text: 'Transactional Emails', link: '/docs/projects/transactional-emails' },
             { text: 'Triggered Emails', link: '/docs/projects/triggered-emails' },
             { text: 'Campaigns', link: '/docs/projects/campaigns' },
-            { text: 'Subscriber Lists', link: '/docs/projects/subscriber-lists' },
-            { text: 'Subscriptions Preferences Page', link: '/docs/projects/subscription-preferences-page' },
+            { text: 'Contacts', link: '/docs/projects/contacts' },
+            { text: 'Forms & Pages', link: '/docs/projects/forms-and-pages' },
             { text: 'Design System Settings', link: '/docs/projects/design-system-settings' },
             { text: 'Settings', link: '/docs/projects/settings' }
           ]
@@ -91,7 +91,7 @@ export default defineConfig({
           link: '/docs/api/',
           collapsed: false,
           items: [
-            { text: 'Subscriber List Management', link: '/docs/api/subscriber-list-management' },
+            { text: 'Contacts & Subscriber List Management', link: '/docs/api/subscriber-list-management' },
             { text: 'Send Transactional Email', link: '/docs/api/send-transactional-email' },
             { text: 'Send Triggered Email', link: '/docs/api/send-triggered-email' },
             { text: 'Send Attachments', link: '/docs/api/send-attachments' }
