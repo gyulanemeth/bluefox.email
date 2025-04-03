@@ -45,7 +45,7 @@ Each contact can be linked to one or more lists. Instead of storing subscriber d
 
 It's a good idea to create separate lists for different topics, like product updates, promotions, tips & tricks, etc.
 
-If your list is public, it will show up on the [subscription preferences](./subscription-preferences-page) page of your users. The subscription preferences page uses the title and description of your lists. Public lists are indicated with the following icon:
+If your list is public, it will show up on the [subscription preferences](./forms-and-pages#subscription-preferences-page) page of your users. The subscription preferences page uses the title and description of your lists. Public lists are indicated with the following icon:
 
 ![Screenshot of the subscriber lists page - public icon highlighted](./project-contacts-lists-private.webp)
 

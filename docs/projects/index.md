@@ -46,11 +46,12 @@ Every project in bluefox.email includes:
 - [Transactional emails](./transactional-emails)
 - [Triggered emails](./triggered-emails)
 - [Campaigns](./campaigns)
-- [Subscriber lists](./subscriber-lists)
+- [Contacts](./contacts)
+- [Forms & Pages](./forms-and-pages)
 - [Design system settings](./design-system-settings)
 - [Project settings](./settings)
 
-Each project comes with a subscription preferences page, which you can set up under the [subscriber lists](./subscriber-lists) tab.
+Each project comes with a subscription preferences page, which you can set up under the [subscriber lists](./contacts) tab.
 
 ## Navigating to Projects
 
@@ -86,8 +87,9 @@ These tabs include:
 - [Transactional emails](./transactional-emails)
 - [Triggered emails](./triggered-emails)
 - [Campaigns](./campaigns)
-- [Subscriber lists](./subscriber-lists)
+- [Contacts](./contacts)
+- [Forms & Pages](./forms-and-pages)
 - [Design system settings](./design-system-settings)
 - [Project settings](./settings)
 
-Remember, the subscription preferences page is under the [subscriber lists](./subscriber-lists) tab.
+Remember, the subscription preferences page is under the [Forms & Pages](./forms-and-pages) tab.
