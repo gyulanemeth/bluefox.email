@@ -1,22 +1,22 @@
 ---
-title: Subscription Preferences Page | bluefox.email documentation
-description: Learn how to configure and use the subscription preferences page in bluefox.email, allowing users to manage their subscriptions, including pausing or unsubscribing.
+title: Forms and Pages | bluefox.email documentation
+description: Discover how to manage key pages in bluefox.email, including the Subscription Preferences Page, Sign-Up Forms, and Double Opt-In settings.
 head:
   - - meta
     - name: description
-      content: Learn how to configure and use the subscription preferences page in bluefox.email, allowing users to manage their subscriptions, including pausing or unsubscribing.
+      content: Discover how to manage key pages in bluefox.email, including the Subscription Preferences Page, Sign-Up Forms, and Double Opt-In settings.
   - - meta
     - property: og:title
-      content: Subscription Preferences Page | bluefox.email documentation
+      content: Forms and Pages | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Learn how to configure and use the subscription preferences page in bluefox.email, allowing users to manage their subscriptions, including pausing or unsubscribing.
+      content: Discover how to manage key pages in bluefox.email, including the Subscription Preferences Page, Sign-Up Forms, and Double Opt-In settings.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/docs/projects/subscription-preferences-page
+      content: https://bluefox.email/docs/projects/forms-and-pages
   - - meta
     - property: og:type
       content: website
@@ -25,10 +25,10 @@ head:
       content: summary_large_image
   - - meta
     - property: twitter:title
-      content: Subscription Preferences Page | bluefox.email documentation
+      content: Forms and Pages | bluefox.email documentation
   - - meta
     - property: twitter:description
-      content: Learn how to configure and use the subscription preferences page in bluefox.email, allowing users to manage their subscriptions, including pausing or unsubscribing.
+      content: Discover how to manage key pages in bluefox.email, including the Subscription Preferences Page, Sign-Up Forms, and Double Opt-In settings.
   - - meta
     - property: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,6 +36,7 @@ head:
 
 # Forms & Pages
 
+In bluefox.email, forms & pages are essential tools for managing how users interact with your subscription lists and engage with your content. This section covers how to configure and customize key pages, such as the Subscription Preferences Page and Sign-Up Forms, as well as how to implement Double Opt-In to ensure your subscribers are verified.
 
 ## Subscription Preferences Page
 
