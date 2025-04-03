@@ -67,15 +67,14 @@ To manage the logo, click the **update logo** button on the subscription prefere
 
 ## Signup page
 
-
-The sign-up page for subscriber list allows users to create a form that subscribers can use to sign up directly from their website. This page provides an easy way to customize the form, generate the necessary HTML code, and integrate it into external sites without the need for backend code.
+The sign-up page for each list allows users to create a form that subscribers can use to sign up directly from their website. Each List has its own unique sign-up form, ensuring that subscribers are added to the correct audience. This page provides an easy way to customize the form, generate the necessary HTML code, and integrate it into external sites without the need for backend code.
 
 ### How It Works
 
 Users can customize the sign-up form through the interface, then copy the generated HTML code and paste it into their website. Once implemented, visitors can enter their details and subscribe directly to the subscriber list in Bluefox.email.
 
 ::: info Important Note:
-To ensure the form functions correctly on your website, you must whitelist your website domain. Navigate to Project Settings → Whitelist and add your domain to the whitelist.
+To ensure the form functions correctly on your website, you must [whitelist](/docs/projects/settings#domain-whitelist) your website domain. Navigate to Project Settings → Whitelist and add your domain to the whitelist.
 ::: 
 
 ### Interface Overview
@@ -144,9 +143,11 @@ If you just create a newsletter sign-up:
 
 ### Activating Double Opt-In
 
-You can activate double opt-in from **forms & pages tab**.
+Double Opt-In settings are configured individually for each List. To activate double opt-in for a specific List:
 
-- Go to **double opt-in** section and select the list you want to manage.
+- Go to the **Forms & Pages tab**
+- Go to **double opt-in** section 
+- Select the list you want to manage
 - Switch to Active.
 - Select the **double opt-In email** with the ``verifyLink`` merge tag.
 - Select what to do after confirmation show confiramtion message or redirect to custom page

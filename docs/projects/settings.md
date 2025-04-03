@@ -161,6 +161,10 @@ Since an API key is very sensitive information, never use it in your frontend co
 
 The domain whitelist ensures that sign-up requests are only processed from authorized domains, enhancing security during the sign-up process. If your frontend is making requests, you must add its domain to the whitelist to authorize them.
 
+::: info Security Note
+  The domain whitelist applies only to frontend requests. If your requests are coming from a backend server, you should use **API keys** instead, as backend requests do not require domain whitelisting.
+:::
+
 - **To add a domain**: 
   Navigate to **project settings → domain whitelist**, click **create**, enter the `domain`, and save. This ensures that requests from the frontend are recognized and approved.
   ![A screenshot of a project settings domain whitelist section add domain.](./project-settings-domain-whitelist-create.webp)
@@ -172,6 +176,7 @@ The domain whitelist ensures that sign-up requests are only processed from autho
 - **To delete a domain**: 
   Navigate to **project settings → domain whitelist**, find it in the domain whitelist, click the delete icon, and confirm the deletion. Once removed, any sign-up requests from that domain will no longer be authorized.
   ![A screenshot of a project settings domain whitelist section delete domain.](./project-settings-domain-whitelist-delete.webp)
+
 
 ## Contact properties
 
