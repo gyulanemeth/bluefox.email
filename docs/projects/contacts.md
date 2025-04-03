@@ -36,7 +36,7 @@ head:
 
 # Contacts
 
-In bluefox.email, Contacts help you manage and organize email recipients. Each contact represents an individual user, storing their email and any additional data. Every project has its own set of contact lists, and you can create as many as needed. Contacts can subscribe to multiple lists, and any updates—such as an email address change—will apply across all subscribed lists.
+In bluefox.email, Contacts help you manage and organize email recipients. Each contact represents an individual user, storing their email and any additional data. Every project has its own set of contact subscription lists, and you can create as many as needed. Contacts can subscribe to multiple lists, and any updates—such as an email address change—will automatically apply across all subscription lists the contact is subscribed to.
 
 You can find your project's contacts under the Contacts tab:
 ![Screenshot of the subscriber lists page](./project-contacts.webp)
@@ -56,7 +56,7 @@ When you use the `unsubscribeLink` and the `pauseSubscriptionLink` in your email
 As mentioned earlier, you can have public lists, but you can also have private lists. Private lists will not appear on the subscription preferences page and can be used for testing purposes.
 
 ::: info
-Private lists are subscriber lists that are not visible to users on the subscription preferences page unless they are already subscribed to them. These lists are hidden from general view but become accessible to users who are part of them. This allows for more controlled and targeted management of subscriptions, making private lists ideal for internal use, testing, or exclusive communications.
+Private lists are subscription lists that are not visible to users on the subscription preferences page unless they are already subscribed to them. These lists are hidden from general view but become accessible to users who are part of them. This allows for more controlled and targeted management of subscriptions, making private lists ideal for internal use, testing, or exclusive communications.
 :::
 
 ## Creating contact or list
@@ -70,30 +70,30 @@ When creating a Contact, you must enter an email. This is the only required fiel
 When creating a List, you need to provide a name and description. These details will appear on sign-up forms if the list is public.
 ![Screenshot of the subscriber lists page - create dialog](./project-contacts-create-list.webp)
 
-You have the option to upload a CSV file. Read more about it in the next section.
+You have the option to upload a CSV file. Read more about it in the import/export CSV section.
 
 ## Contact attributes & custom data
 Each contact requires an email, but you can store additional data as well. The system provides some predefined attributes, but you can also define custom attributes from Project Settings → Contact Attributes.
 
 For more information on managing custom attributes, visit the [Contact Attributes documentation](/docs/projects/settings#contact-properties)
 
-## Import/Export csv
+## Import/Export CSV
 
 The **Import/Export** button allows you to efficiently manage contacts.
 ![Screenshot of the subscriber lists page - import or export CSV](./project-contacts-import-export-btn.webp)
 
-If a **subscriber list** is selected, you can:
-  - Import Contacts into that specific list
-  - Export Contacts from the selected list
+- You can always import Contacts into your full contact database and export all Contacts from your project, regardless of the subscription list selection.
 
-If no subscriber list is selected, you can:
-  - Import Contacts to your full contact database
-  - Export all Contacts from your project
+- If a **subscription list** is selected, you also have the option to:
+
+  - Import Contacts into that specific List.
+
+  - Export only the Contacts that belong to the selected list.
 
 When importing contacts, the CSV file must contain an `email` column. Additional attributes can be included as needed.
 ![Screenshot of the subscriber lists page - import or export CSV](./project-contacts-import.webp)
 
-## Contacts in lists statuses
+## Subscription statuses
 
 Inside a list, you will see all contacts that are subscribed to it. The list details section provides insights into:
 
@@ -101,7 +101,7 @@ Inside a list, you will see all contacts that are subscribed to it. The list det
 
 **active** Only active users will receive your triggered emails or campaigns. If you add a user through the UI (one-by-one or by importing a CSV), they will have an `active` status.
 
-**paused** Users can pause their subscription for a certain amount of time. While paused, they won't receive emails sent to the email they paused.
+**paused** Users can pause their subscription for a certain amount of time. While paused, they won't receive emails.
 
 **unsubscribed** When users unsubscribe from a list, they won't receive emails through that list anymore.
 
@@ -109,7 +109,7 @@ If you select All Contacts, you will see every contact in your project, regardle
 
 ## Contacts and lists integration
 
-Managing your subscriber list in bluefox.email is simple using our Subscription API. This API allows you to subscribe new users, unsubscribe them, activate or pause their subscriptions, list all subscribers, and fetch details about a specific subscriber. We provide code snippets in various programming languages that you can use. Click on the list's "Code guide" button:
+Managing your subscription list in bluefox.email is simple using our [subscription API](/docs/api/subscriber-list-management). This API allows you to subscribe new users, unsubscribe them, activate or pause their subscriptions, list all subscribers, and fetch details about a specific subscriber. We provide code snippets in various programming languages that you can use. Click on the list's "Code guide" button:
 ![Screenshot of the subscriber lists page - code guide button highlighted](./project-contacts-lists-code-guide.webp)
 
 Just copy and modify the code in your preferred programming language:
@@ -131,29 +131,29 @@ When enabled, contacts will receive a verification email and must confirm their 
 
 ### Sign-Up Page
 
-The sign-up page in the subscriber list allows users to create a form that subscribers can use to sign up directly from their website. This page provides an easy way to customize the form, generate the necessary HTML code, and integrate it into external sites without the need for backend code.
+The sign-up page in the subscription list allows users to create a form that subscribers can use to sign up directly from their website. This page provides an easy way to customize the form, generate the necessary HTML code, and integrate it into external sites without the need for backend code.
 
 [Go to sign-up page](/docs/projects/forms-and-pages#signup-page).  
 
 ## List statistics  
 
-The **Subscriber List Statistics** section provides insights into the performance of your subscriber lists, including email activity and subscription trends. This allows you to monitor how well your lists are growing and how subscribers interact with your emails.  
+The **Subscription List Statistics** section provides insights into the performance of your subscription lists, including email activity and subscription trends. This allows you to monitor how well your lists are growing and how subscribers interact with your emails.  
 
-### Why Subscriber List Statistics Matter  
+### Why Subscription List Statistics Matter  
 
-Analyzing subscriber list statistics helps you:  
+Analyzing subscription list statistics helps you:  
 
 - **Monitor Engagement**: Track how subscribers interact with emails sent to a specific list.  
 - **Understand Growth Trends**: Visualize how your list is growing or shrinking over time through subscription and unsubscription data.  
 - **Improve Retention**: Identify patterns in subscription pauses or unsubscribes to address issues and reduce churn.  
 - **Optimize Targeting**: Use insights into subscriber activity to refine your campaigns and re-engagement efforts.  
 
-### What Subscriber List Statistics Include  
+### What Subscription List Statistics Include  
 
-The subscriber list statistics section includes the following key metrics:
+The subscription list statistics section includes the following key metrics:
 
 Similar to email statistics, this section provides details about the emails sent to this list:  
-- **Sent Emails**: Total number of emails sent to the subscriber list.  
+- **Sent Emails**: Total number of emails sent to the subscription list.  
 - **Opens**: Number of times recipients on this list opened emails.  
 - **Unique Opens**: Number of individual subscribers who opened emails (counts only one open per subscriber).  
 - **Clicks**: Total number of clicks on links within the emails sent to this list.  
@@ -165,12 +165,12 @@ Similar to email statistics, this section provides details about the emails sent
 - **Unsubscribes**: Number of subscribers who opted out during the selected period.  
 - **Paused Subscriptions**: Number of subscribers who paused their subscriptions temporarily.  
 
-These metrics provide a comprehensive view of your subscriber list's performance and behavior. By analyzing this data, you can identify trends, address issues, and refine your strategies to grow and retain your subscriber base more effectively.
+These metrics provide a comprehensive view of your subscription list's performance and behavior. By analyzing this data, you can identify trends, address issues, and refine your strategies to grow and retain your subscriber base more effectively.
 
-### How to Access Subscriber List Statistics
+### How to Access Subscription List Statistics
 
-You can access the **Subscriber List Statistics** by clicking the arrow icon:
+You can access the **Subscription List Statistics** by clicking the arrow icon:
 
 ![stats Icon](./project-subscriber-lists-stats-btn.webp)
 
-For more information on how to use the **Subscriber List Statistics**, refer to the [Analytics Documentation](/docs/analytics).
+For more information on how to use the **Subscription List Statistics**, refer to the [Analytics Documentation](/docs/analytics).
