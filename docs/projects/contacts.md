@@ -45,19 +45,27 @@ Each contact can be linked to one or more lists. Instead of storing subscriber d
 
 It's a good idea to create separate lists for different topics, like product updates, promotions, tips & tricks, etc.
 
-If your list is public, it will show up on the [subscription preferences](./forms-and-pages#subscription-preferences-page) page of your users. The subscription preferences page uses the title and description of your lists. Public lists are indicated with the following icon:
 
-![Screenshot of the subscriber lists page - public icon highlighted](./project-contacts-lists-private.webp)
 
-Pausing subscription is a great feature because it can significantly reduce the unsubscribe rate.
+### Public and Private Lists
+When setting up a list, you can choose between **public** and **private** visibility:
 
-When you use the `unsubscribeLink` and the `pauseSubscriptionLink` in your emails, they will lead to the subscription preferences page. However, if the user clicks on the second one, the unsubscribe option won't be shown.
+- **Public lists** appear on the [subscription preferences](./forms-and-pages#subscription-preferences-page) page, allowing users to manage their subscriptions. The title and description you set for a list help users understand what they’re subscribing to.
 
-As mentioned earlier, you can have public lists, but you can also have private lists. Private lists will not appear on the subscription preferences page and can be used for testing purposes.
+- **Private lists** do not appear on the [subscription preferences](./forms-and-pages#subscription-preferences-page) page. Users will only see them if they are already subscribed. These lists are ideal for internal use, testing, or exclusive communications.
+
+You can toggle between **public** and **private** when creating or editing a list using this switch:
+
+![Screenshot of the subscriber lists page - public switch highlighted](./project-contacts-lists-private.webp)
 
 ::: info
 Private lists are subscription lists that are not visible to users on the subscription preferences page unless they are already subscribed to them. These lists are hidden from general view but become accessible to users who are part of them. This allows for more controlled and targeted management of subscriptions, making private lists ideal for internal use, testing, or exclusive communications.
 :::
+
+### Subscription Management
+Pausing subscription is a great feature because it can significantly reduce the unsubscribe rate.
+
+When you use the `unsubscribeLink` and the `pauseSubscriptionLink` in your emails, they will lead to the subscription preferences page. However, if the user clicks on the second one, the unsubscribe option won't be shown.
 
 ## Creating contact or list
 
