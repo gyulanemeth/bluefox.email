@@ -60,7 +60,7 @@ As you previously could see, there is a built-in contact property, and it's the 
 ```
 {{contact.email}}
 ```
-Besides this, all of the contact properties are optional. You can [add or remove](https://staging.bluefox.email/docs/projects/settings#contact-properties) as many as you want, and you can update the property values via [API calls](https://staging.bluefox.email/docs/api/subscriber-list-management#update-subscriber) or you can edit them on the UI. // TODO INSERT LINK
+Besides this, all of the contact properties are optional. You can [add or remove](/docs/projects/settings#contact-properties) as many as you want, and you can update the property values via [API calls](/docs/api/subscriber-list-management#update-subscriber) or you can edit them on the UI. // TODO INSERT LINK
 
 You can reach the contact properties via the `contact` object, as you could previously see. So for example, if you defined a `firstName` property for your contacts, you will be able to refer it with the following merge tag:
 
