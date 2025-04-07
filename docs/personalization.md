@@ -2,7 +2,7 @@
 
 Email personalization is essential for modern companies. You need to grab your customers' attention, otherwise they won't click and won't open your next email. If you send nice, personalized emails to your users, that increases the likelyhood that they will love your emails!
 
-In bluefox.email, we use [handlebars](https://handlebarsjs.com/) for personalization. It means, that you will be able to put merge tags into your emails with the `{{mustageSyntax}}`.
+In bluefox.email, we use [handlebars](https://handlebarsjs.com/) for personalization. It means, that you will be able to put merge tags into your emails with the **&#123;&#123;mustageSyntax&#125;&#125;**.
 
 There are two primary ways to refer to data from your emails:
  - send the data with your request
@@ -55,6 +55,18 @@ This variable is not available in transactional emails.
 
 ## Contact properties
 Contact properties will also always be available without sending them in your request.
+
+As you previously could see, there is a built-in contact property, and it's the contact's email address:
+```
+{{contact.email}}
+```
+Besides this, all of the contact properties are optional. You can [add or remove](https://staging.bluefox.email/docs/projects/settings#contact-properties) as many as you want, and you can update the property values via [API calls](https://staging.bluefox.email/docs/api/subscriber-list-management#update-subscriber) or you can edit them on the UI. // TODO INSERT LINK
+
+You can reach the contact properties via the `contact` object, as you could previously see. So for example, if you defined a `firstName` property for your contacts, you will be able to refer it with the following merge tag:
+
+```
+{{firstName}}
+```
 
 ## Text personalization
 
