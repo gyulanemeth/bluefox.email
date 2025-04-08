@@ -109,9 +109,23 @@ And you wanna refer to the parent's name, then you will need to type in the foll
 
 ## Button personalization
 
+For button elements, you can set the `src` property with merge tags. Similarly to links in *text* elements, you have to set the protocol to other, if the merged variable already contains the protocol, such as `https://`. Besides the link itself, you can also set the `title` attribute of the link. (Whenever a someone hovers over the link, the title attribute will show up in a tooltip in your email.)
+
+![Editing a button element - link settings shown.](./personalization-08.png)
+
 ## Image personalization
 
-Dynamic image as well!
+Similarly to buttons, you can customize the link around an image with merge tags. Besides that, you can also set the `alt` text of the image with merge tags. Alt text is great for accessibility, just think about it: screen readers can't read out images, but they can the alt text!
+
+![Editing a image element - possible merge tags shown.](./personalization-09.png)
+
+If you also need to personalize the image itself (for example, you want to show the profile picture of a user), you will need to use a "Dynamic Image". Dynamic images in the editor are just placeholders, their `src` is always set at send time by replacing a merge tag with a real link.
+
+![Editing a dynamic image element - src merge tag.](./personalization-10.png)
+
+You can drag 'n' drop a new dynamic image to the canvas from the left-hand-side.
+
+![Editing - dynamic image drag icon highlighted.](./personalization-11.png)
 
 ## Conditionals
 
