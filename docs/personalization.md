@@ -70,6 +70,43 @@ You can reach the contact properties via the `contact` object, as you could prev
 
 ## Text personalization
 
+When it comes to personalization, probably the most important thing is to personalize texts. Besides typing in the merge tags themselves, while editing a text element, you can also click the merge tag button higlighted on the screenshot below.
+
+![Editing a text element - merge tag icon highlighted.](./personalization-03.png)
+
+It will open a dialog that contains all the possible merge built-in merge tags, and the contact-related merge tags that you defined.
+
+![Editing a text element - merge tag dialog opened.](./personalization-04.png)
+
+You just need to click on the one you want to insert.
+
+![Editing a text element - merge tag inserted.](./personalization-05.png)
+
+You can also use merge tags in your links within your text. Open the link dialog by clicking on the highlighted icon:
+
+![Editing a text element - link button highlighted.](./personalization-06.png)
+
+You can see the merge tags icon highlighted on the right hand side. That opens the same dialog that you saw previously. Keep in mind, that you will need to change the protocol to other, if the link inserted by your merge tag already contains a protocol.
+
+![Editing a text element - link dialog opened.](./personalization-07.png)
+
+If you want to refer to data that you send on the request body when you send a triggered or transactional email, you will still need to type in the merge tag itself. Just follow the same object structure that you had on the request. So for example, if you send the following data:
+
+```json
+...
+"body": {
+  "parent": {
+    "name": "Joe Doe"
+  }
+}
+...
+```
+And you wanna refer to the parent's name, then you will need to type in the following merge tag in your text element:
+```
+{{parent.name}}
+```
+
+
 ## Button personalization
 
 ## Image personalization
