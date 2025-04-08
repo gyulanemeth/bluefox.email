@@ -125,10 +125,58 @@ If you also need to personalize the image itself (for example, you want to show 
 
 You can drag 'n' drop a new dynamic image to the canvas from the left-hand-side.
 
-![Editing - dynamic image drag icon highlighted.](./personalization-11.png)
+![Editor - dynamic image drag icon highlighted.](./personalization-11.png)
 
 ## Conditionals
 
+You can create optional content for your recipients with conditionals. For example, if a subscriber is a premium user, you migh show extra content for them, or you can even create geolocation-dependent content (or anything else that you can come up with).
+
+In the screenshot below, the expression button is highlighted. That will open up the same dialog that merge tag buttons opened. (Note that in conditionals, you don't need to add the curly braces!)
+
+![Editing a conditional - expression button highlighted.](./personalization-12.png)
+
+As you can see, a conditional can contain complex layouts, not only basic elements.
+
+You can drag conditionals from the left-hand side of the editor.
+
+![Editor - conditional drag icon highighted.](./personalization-13.png)
+
+
 ## Loops
 
+With loops, you can iterate over an array of elements. It means, that a section of a template can be repeated as many times as many elements your array contains. Your array can contain objects, and within the loop, you can refer to the actual object with the `this` keyword. For example, you can show multiple messages, or articles. The expression you set for loops has to be the name of the array you want to iterate through. A loop in bluefox.email translates to an `each` in handlebars.
+![Editing a loop - expression highlighted.](./personalization-14.png)
+
+You can drag a loop element from the lef-hand-side of the editor:
+![Editor - loop drag icon highighted.](./personalization-15.png)
+
 ## Handlebars extensions
+
+Since handlebars' default functionality is quite limited, we made some extensions to make your lives easier.
+
+### each
+
+We overrode the default behaviour of `each` by adding `SKIP` and `LIMIT`.
+
+The example below, skips the first two articles, and only iterates through three items.
+```
+{{#each articles SKIP=2 LIMIT=3}}
+```
+
+### Logical operators
+
+#### AND
+
+#### OR
+
+#### NOT
+
+#### EQ
+
+#### INCLUDES
+
+### String manipulation
+
+#### CAPITALIZE
+
+#### TRUNCATE
