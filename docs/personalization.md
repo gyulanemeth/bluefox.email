@@ -26,14 +26,12 @@ As you might expect, the email sent will look like this:
 
 You can also personalize emails using data stored in bluefox.email. This is explained in the next two sections: "Built-in merge-tags" and "Contact properties".
 
-
-
 ## Built-in merge-tags
 
-There are a few built-in variables that you can use in your emails without sending them in your request. It means that these variables can also be used in campaigns.
+There are a few built-in variables you can use in your emails without needing to send them in your request. These are also available in campaigns.
 
 ### Contact's email address
-The first example is the contact's email address:
+The most basic example is the contact's email address:
 
 ```
 {{contact.email}}
@@ -41,18 +39,20 @@ The first example is the contact's email address:
 This variable is always available in all emails.
 
 ### Unsubscribe link
-Every non-transactional email must have an unsubscribe link. You can use the following merge tag to put an unsubscribe link into your email:
+Every non-transactional email must include an unsubscribe link. Use the following merge tag to insert it:
+
 ```
 {{unsubscribeLink}}
 ```
 This variable is not available in transactional emails.
 
 ### Pause subscription link
-Similarly, you can put a [pause subscription](/email-best-practices-for-saas/unsubscribe-and-pause-subscription) link into the email. When users click on this one, the unsubscribe option will be hidden on the subscription preferences page.
+Similarly, you can insert a [pause subscription](/email-best-practices-for-saas/unsubscribe-and-pause-subscription) link into your email. When users click this link, the unsubscribe option will be hidden on the subscription preferences page.
+
 ```
 {{pauseSubscriptionLink}}
 ```
-This variable is not available in transactional emails.
+This variable is also not available in transactional emails.
 
 ## Contact properties
 Contact properties will also always be available without sending them in your request.
