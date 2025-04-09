@@ -1,5 +1,7 @@
 # Email personalization (merge tags)
 
+*This guide shows you how to personalize your emails in bluefox.email using merge tags powered by Handlebars. Whether you're sending transactional, triggered, or campaign emails, this doc covers everything you need to know—step by step.*
+
 Email personalization is essential for modern companies. You need to grab your customers' attention—otherwise, they won’t click or open your next email. Sending thoughtful, personalized messages increases the chances that your users will enjoy your emails.
 
 At bluefox.email, we use [handlebars](https://handlebarsjs.com/) for personalization. This means you can include merge tags in your emails using the **&#123;&#123;mustacheSyntax&#125;&#125;** format.
@@ -31,7 +33,7 @@ You can also personalize emails using data stored in bluefox.email. This is expl
 There are a few built-in variables you can use in your emails without needing to send them in your request. These are also available in campaigns.
 
 ### Contact's email address
-The most basic example is the contact's email address:
+The simplest example is the contact's email address:
 
 ```
 {{contact.email}}
