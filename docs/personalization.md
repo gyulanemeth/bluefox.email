@@ -55,15 +55,18 @@ Similarly, you can insert a [pause subscription](/email-best-practices-for-saas/
 This variable is also not available in transactional emails.
 
 ## Contact properties
-Contact properties will also always be available without sending them in your request.
 
-As you previously could see, there is a built-in contact property, and it's the contact's email address:
+Contact properties are also available without needing to send them in your request.
+
+As you saw earlier, there's a built-in property for the contact's email address:
+
 ```
 {{contact.email}}
 ```
-Besides this, all of the contact properties are optional. You can [add or remove](/docs/projects/settings#contact-properties) as many as you want, and you can update the property values via [API calls](/docs/api/subscriber-list-management#update-subscriber) or you can edit them on the UI. // TODO INSERT LINK
 
-You can reach the contact properties via the `contact` object, as you could previously see. So for example, if you defined a `firstName` property for your contacts, you will be able to refer to it with the following merge tag:
+Beyond that, all other contact properties are optional. You can [add or remove](/docs/projects/settings#contact-properties) as many as you'd like. These properties can be updated through [API calls](/docs/api/subscriber-list-management#update-subscriber) or directly from the UI. <!-- TODO INSERT LINK -->
+
+You can access contact properties via the `contact` object, just like before. So, for example, if you defined a `firstName` property for your contacts, you could refer to it with:
 
 ```
 {{contact.firstName}}
