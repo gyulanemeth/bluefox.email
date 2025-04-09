@@ -156,27 +156,105 @@ Since handlebars' default functionality is quite limited, we made some extension
 
 ### each
 
-We overrode the default behaviour of `each` by adding `SKIP` and `LIMIT`.
+We overrode the default behaviour of `each` by adding `skip` and `limit`.
 
 The example below, skips the first two articles, and only iterates through three items.
 ```
-{{#each articles SKIP=2 LIMIT=3}}
+{{#each articles skip=2 limit=3}}
+  <!-- something here -->
+{{/each}}
 ```
+
+It basically means, that you can add the skip and limit values right in the expression of a loop element in bluefox.email, right after the array you iterate through.
+
+![Editing a loop - expression with skip and limit.](./personalization-16.png)
 
 ### Logical operators
 
+By default, it's quite limited what you can use in conditionals in handlebars. That is why we decided to add logical operators that you might be got used to.
+
+You can write your logical expressions to the expression input of any conditional elements:
+![Editing a conditional - expression highlighted.](./personalization-17.png)
+
 #### AND
+
+The `AND` operator can have as many arguments as you want, not only two.
+
+```
+{{#if (AND condition1 condition2 condition3 ...)}}
+{{/if}}
+```
 
 #### OR
 
+Similarly, `OR` can have as many arguments as you want.
+
+```
+{{#if (OR condition1 condition2 condition3 ...)}}
+  {{!-- Your code here --}}
+{{/if}}
+```
+
 #### NOT
+
+The `NOT` operator can only have one argument.
+
+```
+{{#if (NOT condition)}}
+  {{!-- Your code here --}}
+{{/if}}
+```
 
 #### EQ
 
+The `EQ` operator uses Javascript's `===` operator in the background. It means, that it will only return true if the types of the operands are the same as well as their values. (It doesn't apply automatic type conversions.)
+
+```
+{{#if (EQ value1 value2)}}
+  {{!-- Your code here --}}
+{{/if}}
+```
+
 #### INCLUDES
+
+The `INCLUDES` operator checks for a value in an array. It also uses the `===` operator, so it does not do automatic type conversions.
+
+```
+{{#if (INCLUDES array value)}}
+  {{!-- Your code here --}}
+{{/if}}
+```
+
+
+#### Combining logical operators
+
+As you might have guessed by now, these operators can be combined. Here is an example:
+
+```
+{{#if (AND (EQ user.status "active") user.isPremium)}}
+  something here...
+{{/if}}
+```
 
 ### String manipulation
 
+We also included a few string manipulator functions, so you can make these transformations within your template and you don't need to refactor your backend if you ever need to apply these.
+
+You can use all of the text manipulators wherever you can enter text:
+![Editing a text element - inserting a text manipulator operator.](./personalization-18.png)
+
 #### CAPITALIZE
 
+If you need to convert all of the characters of a string to upper case, then you can use the `CAPITALIZE` function.
+
+```
+{{CAPITALIZE string}}
+```
+
 #### TRUNCATE
+
+With the `TRUNCATE` function, you can limit the length of a string, and it adds "..." to the end of the string. This is very useful when you don't know how long strings you gonna pass to your triggered or transactional emails.
+
+```
+{{TRUNCATE text characterNum}}
+```
