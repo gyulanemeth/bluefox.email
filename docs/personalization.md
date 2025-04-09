@@ -28,6 +28,34 @@ As you might expect, the email sent will look like this:
 
 You can also personalize emails using data stored in bluefox.email. This is explained in the next two sections: "Built-in Merge Tags" and "Contact Properties".
 
+---
+
+## Quick Reference
+
+**Built-in Tags**
+- **&#123;&#123;contact.email&#125;&#125;**
+- **&#123;&#123;unsubscribeLink&#125;&#125;**
+- **&#123;&#123;pauseSubscriptionLink&#125;&#125;**
+
+**Contact Properties**
+- **&#123;&#123;contact.firstName&#125;&#125;**, **&#123;&#123;contact.lastName&#125;&#125;**, etc. (Depends on what contact properties you define.)
+
+**Conditionals**
+- **&#123;&#123;#if (AND condition1 condition2)&#125;&#125;**
+- **&#123;&#123;#if (OR condition1 condition2)&#125;&#125;**
+- **&#123;&#123;#if (NOT condition)&#125;&#125;**
+- **&#123;&#123;#if (EQ a b)&#125;&#125;**
+- **&#123;&#123;#if (INCLUDES array value)&#125;&#125;**
+
+**Loops**
+- **&#123;&#123;#each items&#125;&#125;**, **&#123;&#123;#each items skip=1 limit=3&#125;&#125;**
+
+**String Helpers**
+- **&#123;&#123;CAPITALIZE string&#125;&#125;**
+- **&#123;&#123;TRUNCATE string num&#125;&#125;**
+
+---
+
 ## Built-in Merge Tags
 
 There are a few built-in variables you can use in your emails without needing to send them in your request. These are also available in campaigns.
