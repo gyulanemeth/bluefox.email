@@ -162,42 +162,45 @@ You can drag a loop element onto the canvas from the left-hand side:
 
 ## Handlebars extensions
 
-Since handlebars' default functionality is quite limited, we made some extensions to make your lives easier.
+Since Handlebars' default functionality is quite limited, we've added a few helpful extensions to make your life easier.
 
-### each
+### each with skip and limit
 
-We overrode the default behavior of `each` by adding `skip` and `limit`.
+We extended the default behavior of `each` by adding support for `skip` and `limit`.
 
-The example below skips the first two articles and only iterates through three items.
+The example below skips the first two articles and only iterates through the next three:
+
 ```
 {{#each articles skip=2 limit=3}}
   <!-- something here -->
 {{/each}}
 ```
 
-It basically means that you can add the skip and limit values right in the expression of a loop element in bluefox.email, right after the array you iterate through.
+You can add the `skip` and `limit` values directly in the loop expression in bluefox.email:
 
 ![Editing a loop - expression with skip and limit.](./personalization-16.png)
 
 ### Logical operators
 
-By default, it's quite limited what you can use in conditionals in handlebars. That is why we decided to add logical operators that you might be used to.
+Handlebars conditionals are quite limited by default, so we added support for common logical operators you might be used to.
 
-You can write your logical expressions in the expression input of any conditional elements:
+You can write logical expressions in the expression input of any conditional element:
+
 ![Editing a conditional - expression highlighted.](./personalization-17.png)
 
 #### AND
 
-The `AND` operator can have as many arguments as you want, not only two.
+The `AND` operator supports any number of arguments:
 
 ```
 {{#if (AND condition1 condition2 condition3 ...)}}
+  {{!-- Your code here --}}
 {{/if}}
 ```
 
 #### OR
 
-Similarly, `OR` can have as many arguments as you want.
+The `OR` operator also accepts multiple arguments:
 
 ```
 {{#if (OR condition1 condition2 condition3 ...)}}
@@ -207,7 +210,7 @@ Similarly, `OR` can have as many arguments as you want.
 
 #### NOT
 
-The `NOT` operator can only have one argument.
+The `NOT` operator accepts a single argument:
 
 ```
 {{#if (NOT condition)}}
@@ -217,7 +220,7 @@ The `NOT` operator can only have one argument.
 
 #### EQ
 
-The `EQ` operator uses JavaScript's `===` operator in the background. It means that it will only return true if the types of the operands are the same as well as their values. (It doesn't apply automatic type conversions.)
+The `EQ` operator performs a strict equality check using JavaScript's `===`. It returns true only if the value and type match exactly:
 
 ```
 {{#if (EQ value1 value2)}}
@@ -227,7 +230,7 @@ The `EQ` operator uses JavaScript's `===` operator in the background. It means t
 
 #### INCLUDES
 
-The `INCLUDES` operator checks for a value in an array. It also uses the `===` operator, so it does not do automatic type conversions.
+The `INCLUDES` operator checks if a value exists in an array. Like `EQ`, it uses strict equality:
 
 ```
 {{#if (INCLUDES array value)}}
@@ -237,7 +240,7 @@ The `INCLUDES` operator checks for a value in an array. It also uses the `===` o
 
 #### Combining logical operators
 
-As you might have guessed by now, these operators can be combined. Here is an example:
+You can also combine operators. For example:
 
 ```
 {{#if (AND (EQ user.status "active") user.isPremium)}}
@@ -247,14 +250,15 @@ As you might have guessed by now, these operators can be combined. Here is an ex
 
 ### String manipulation
 
-We also included a few string manipulator functions, so you can make these transformations within your template and you don't need to refactor your backend if you ever need to apply these.
+We’ve also included a few string manipulation helpers, so you can handle formatting directly in your templates—no need to adjust your backend just for that.
 
-You can use all of the text manipulators wherever you can enter text:
+You can use these anywhere text input is allowed:
+
 ![Editing a text element - inserting a text manipulator operator.](./personalization-18.png)
 
 #### CAPITALIZE
 
-If you need to convert all of the characters of a string to uppercase, then you can use the `CAPITALIZE` function.
+Converts all characters in a string to uppercase:
 
 ```
 {{CAPITALIZE string}}
@@ -262,7 +266,7 @@ If you need to convert all of the characters of a string to uppercase, then you 
 
 #### TRUNCATE
 
-With the `TRUNCATE` function, you can limit the length of a string, and it adds "..." to the end of the string. This is very useful when you don't know how long strings you’re going to pass to your triggered or transactional emails.
+Limits the length of a string and appends `...` to the end. This is especially useful if you don’t know how long a string might be in your triggered or transactional emails.
 
 ```
 {{TRUNCATE text characterNum}}
