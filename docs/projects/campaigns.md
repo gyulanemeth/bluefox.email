@@ -89,7 +89,7 @@ And you can use merge tags in the email's `subject line` and `preview text` as w
 
 ![A screenshot of a campaign, with a merge tag being used in the subject and the preview text.](./project-campaign-edit-subject-merge-tag.webp)
 
-For more details, read our guide on [personalization with merge tags](/docs/personalization) and Handlebars.
+For more details, read our guide on [personalization with merge tags](/docs/email-personalization) and Handlebars.
 
 ## Campaign states
 

@@ -171,7 +171,7 @@ You can also use merge tags in the email's `subject line` and `preview text`!
 
 ![A screenshot of a triggered email, with a merge tag being used in the subject and the preview text.](./project-triggered-emails-edit-subject-merge-tag.webp)
 
-For more details on how to personalize your emails with merge tags and Handlebars, check out our [personalization guide](/docs/personalization).
+For more details on how to personalize your emails with merge tags and Handlebars, check out our [personalization guide](/docs/email-personalization).
 
 
 ## Triggered Email Statistics

@@ -74,7 +74,7 @@ We plan to release a detailed article on how to optimize your setup with AWS SES
 With bluefox.email, you can send transactional or triggered emails directly via our [API](./api/). Our well-documented API endpoints make it simple to automate your email workflows, whether you're sending a password reset email, a notification, or a tailored onboarding sequence. Integration is straightforward, allowing you to quickly implement email functionality within your SaaS application.
 
 ## Personalization with Handlebars
-Our platform's [personalization](./personalization) features, powered by [Handlebars templating](https://handlebarsjs.com/), allow you to dynamically insert user-specific data into your emails and utilize powerful tools like loops and conditionals. This enables you to create highly customized content based on each recipient's attributes or behavior.
+Our platform's [personalization](./email-personalization) features, powered by [Handlebars templating](https://handlebarsjs.com/), allow you to dynamically insert user-specific data into your emails and utilize powerful tools like loops and conditionals. This enables you to create highly customized content based on each recipient's attributes or behavior.
 
 For example, you can use loops to list multiple items, such as recent purchases or recommended products, within an email. Conditionals allow you to tailor the message based on specific user criteria, such as displaying a different message for first-time users versus returning customers. These features make it easy to create engaging, relevant emails that resonate with your audience and drive better interaction.
 

@@ -108,8 +108,8 @@ export default defineConfig({
           text: 'Analytics',
           link: '/docs/analytics' 
         }, {
-          text: 'Personalization (merge tags)',
-          link: '/docs/personalization',
+          text: 'Email Personalization (Merge Tags)',
+          link: '/docs/email-personalization',
         }, {
           text: 'Design Systems',
           link: '/docs/design-systems/',

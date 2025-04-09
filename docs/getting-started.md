@@ -36,7 +36,7 @@ head:
 
 # Getting started with bluefox.email
 
-1) Register at bluefox.email. (Registration opens on 1st Sept.)
+1) Register at bluefox.email.
 2) Create your first project.
 3) Connect the project with your AWS SES.
 4) Schedule campaigns or send transactional and triggered emails via our API.

@@ -1,3 +1,39 @@
+---
+title: Email Personalization with bluefox.email
+description: "Master email personalization in bluefox.email using Handlebars merge tags. Learn how to dynamically customize text, links, images, buttons, and content with powerful logic and data."
+head:
+  - - meta
+    - name: description
+      content: "Master email personalization in bluefox.email using Handlebars merge tags. Learn how to dynamically customize text, links, images, buttons, and content with powerful logic and data."
+  - - meta
+    - property: og:title
+      content: Email Personalization with bluefox.email
+  - - meta
+    - property: og:description
+      content: "Master email personalization in bluefox.email using Handlebars merge tags. Learn how to dynamically customize text, links, images, buttons, and content with powerful logic and data."
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/email-personalization
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: Email Personalization with bluefox.email
+  - - meta
+    - name: twitter:description
+      content: "Master email personalization in bluefox.email using Handlebars merge tags. Learn how to dynamically customize text, links, images, buttons, and content with powerful logic and data."
+  - - meta
+    - name: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Email Personalization (Merge Tags)
 
 *This guide shows you how to personalize your emails in bluefox.email using merge tags powered by Handlebars. Whether you're sending transactional, triggered, or campaign emails, this doc covers everything you need to know—step by step.*
