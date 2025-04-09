@@ -136,25 +136,28 @@ You can drag and drop a new dynamic image onto the canvas from the left-hand sid
 
 ## Conditionals
 
-You can create optional content for your recipients with conditionals. For example, if a subscriber is a premium user, you might show extra content for them, or you can even create geolocation-dependent content (or anything else that you can come up with).
+You can create optional content for your recipients using conditionals. For example, if a subscriber is a premium user, you might want to show them extra content. You can also create geolocation-dependent content—or any other variation based on the data you have.
 
-In the screenshot below, the expression button is highlighted. That will open up the same dialog that merge tag buttons opened. (Note that in conditionals, you don't need to add the curly braces!)
+In the screenshot below, the expression button is highlighted. Clicking it opens the same dialog that merge tag buttons do. *(Note: in conditionals, you don't need to add curly braces!)*
 
 ![Editing a conditional - expression button highlighted.](./personalization-12.png)
 
-As you can see, a conditional can contain complex layouts, not only basic elements.
+Conditionals can contain complex layouts, not just simple elements.
 
-You can drag conditionals from the left-hand side of the editor.
+You can drag conditional blocks into your email from the left-hand side of the editor:
 
 ![Editor - conditional drag icon highlighted.](./personalization-13.png)
 
 ## Loops
 
-With loops, you can iterate over an array of elements. It means that a section of a template can be repeated as many times as many elements your array contains. Your array can contain objects, and within the loop, you can refer to the actual object with the `this` keyword. For example, you can show multiple messages or articles. The expression you set for loops has to be the name of the array you want to iterate through. A loop in bluefox.email translates to an `each` in handlebars.
+With loops, you can iterate over an array of elements. This allows a section of your template to repeat as many times as there are items in your array. Each item can be an object, and inside the loop you can refer to the current object using the `this` keyword. For example, you could show multiple messages, products, or articles.
+
+The expression you provide in the loop must be the name of the array you want to iterate through. Loops in bluefox.email use the Handlebars `each` helper behind the scenes.
 
 ![Editing a loop - expression highlighted.](./personalization-14.png)
 
-You can drag a loop element from the left-hand side of the editor:
+You can drag a loop element onto the canvas from the left-hand side:
+
 ![Editor - loop drag icon highlighted.](./personalization-15.png)
 
 ## Handlebars extensions
