@@ -74,27 +74,27 @@ You can access contact properties via the `contact` object, just like before. So
 
 ## Text personalization
 
-When it comes to personalization, probably the most important thing is to personalize texts. Besides typing in the merge tags themselves, while editing a text element, you can also click the merge tag button highlighted on the screenshot below.
+When it comes to personalization, probably the most important thing is to personalize text. Besides typing in the merge tags manually, while editing a text element you can also click the merge tag button highlighted in the screenshot below:
 
 ![Editing a text element - merge tag icon highlighted.](./personalization-03.png)
 
-It will open a dialog that contains all the possible built-in merge tags and the contact-related merge tags that you defined.
+It will open a dialog that contains all the available built-in merge tags and any contact-related merge tags you've defined.
 
 ![Editing a text element - merge tag dialog opened.](./personalization-04.png)
 
-You just need to click on the one you want to insert.
+You just need to click the one you want to insert.
 
 ![Editing a text element - merge tag inserted.](./personalization-05.png)
 
-You can also use merge tags in your links within your text. Open the link dialog by clicking on the highlighted icon:
+You can also use merge tags in links within your text. Open the link dialog by clicking the highlighted icon:
 
 ![Editing a text element - link button highlighted.](./personalization-06.png)
 
-You can see the merge tags icon highlighted on the right-hand side. That opens the same dialog that you saw previously. Keep in mind that you will need to change the protocol to "other" if the link inserted by your merge tag already contains a protocol.
+You'll see the merge tag icon on the right-hand side. That opens the same dialog shown earlier. Keep in mind that if the link from your merge tag already includes a protocol (e.g., `https://`), you need to change the protocol option to **Other**.
 
 ![Editing a text element - link dialog opened.](./personalization-07.png)
 
-If you want to refer to data that you send in the request body when you send a triggered or transactional email, you will still need to type in the merge tag yourself. Just follow the same object structure that you had in the request. So for example, if you send the following data:
+If you want to refer to data passed in the request body when sending a triggered or transactional email, you’ll need to type the merge tag manually. Just follow the object structure from your request. For example, if you send:
 
 ```json
 ...
@@ -105,28 +105,32 @@ If you want to refer to data that you send in the request body when you send a t
 }
 ...
 ```
-And you want to refer to the parent's name, then you will need to type in the following merge tag in your text element:
+
+And you want to refer to the parent's name, use:
+
 ```
 {{parent.name}}
 ```
 
 ## Button personalization
 
-For button elements, you can set the `src` property with merge tags. Similarly to links in *text* elements, you have to set the protocol to "other" if the merged variable already contains the protocol, such as `https://`. Besides the link itself, you can also set the `title` attribute of the link. (Whenever someone hovers over the link, the title attribute will show up in a tooltip in your email.)
+For button elements, you can set the `src` (URL) using merge tags. Just like with text links, make sure to change the protocol to **Other** if the merged value already contains a protocol like `https://`.
+
+You can also personalize the `title` attribute of the link, which shows up as a tooltip when someone hovers over the button in the email.
 
 ![Editing a button element - link settings shown.](./personalization-08.png)
 
 ## Image personalization
 
-Similarly to buttons, you can customize the link around an image with merge tags. Besides that, you can also set the `alt` text of the image with merge tags. Alt text is great for accessibility—just think about it: screen readers can't read images, but they can read the alt text!
+Just like buttons, you can customize the link around an image using merge tags. You can also set the `alt` text of the image, which is useful for accessibility—screen readers can’t read images, but they can read alt text!
 
 ![Editing an image element - possible merge tags shown.](./personalization-09.png)
 
-If you also need to personalize the image itself (for example, you want to show the profile picture of a user), you will need to use a "Dynamic Image". Dynamic images in the editor are just placeholders; their `src` is always set at send time by replacing a merge tag with a real link.
+If you also need to personalize the image itself (for example, to show a user’s profile picture), use a **Dynamic Image**. Dynamic images in the editor are placeholders—their `src` is set at send time by replacing a merge tag with a real link.
 
 ![Editing a dynamic image element - src merge tag.](./personalization-10.png)
 
-You can drag 'n' drop a new dynamic image to the canvas from the left-hand side.
+You can drag and drop a new dynamic image onto the canvas from the left-hand side:
 
 ![Editor - dynamic image drag icon highlighted.](./personalization-11.png)
 
