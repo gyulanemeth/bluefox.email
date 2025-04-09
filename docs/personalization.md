@@ -1,4 +1,4 @@
-# Email personalization (merge tags)
+# Email Personalization (Merge Tags)
 
 *This guide shows you how to personalize your emails in bluefox.email using merge tags powered by Handlebars. Whether you're sending transactional, triggered, or campaign emails, this doc covers everything you need to know—step by step.*
 
@@ -26,13 +26,13 @@ Within your email, you can then use the **&#123;&#123;favoriteAnimal&#125;&#125;
 As you might expect, the email sent will look like this:
 ![Simple merge tag example in the inbox.](./personalization-02.png)
 
-You can also personalize emails using data stored in bluefox.email. This is explained in the next two sections: "Built-in merge-tags" and "Contact properties".
+You can also personalize emails using data stored in bluefox.email. This is explained in the next two sections: "Built-in Merge Tags" and "Contact Properties".
 
-## Built-in merge-tags
+## Built-in Merge Tags
 
 There are a few built-in variables you can use in your emails without needing to send them in your request. These are also available in campaigns.
 
-### Contact's email address
+### Contact's Email Address
 The simplest example is the contact's email address:
 
 ```
@@ -40,7 +40,7 @@ The simplest example is the contact's email address:
 ```
 This variable is always available in all emails.
 
-### Unsubscribe link
+### Unsubscribe Link
 Every non-transactional email must include an unsubscribe link. Use the following merge tag to insert it:
 
 ```
@@ -48,7 +48,7 @@ Every non-transactional email must include an unsubscribe link. Use the followin
 ```
 This variable is not available in transactional emails.
 
-### Pause subscription link
+### Pause Subscription Link
 Similarly, you can insert a [pause subscription](/email-best-practices-for-saas/unsubscribe-and-pause-subscription) link into your email. When users click this link, the unsubscribe option will be hidden on the subscription preferences page.
 
 ```
@@ -56,7 +56,7 @@ Similarly, you can insert a [pause subscription](/email-best-practices-for-saas/
 ```
 This variable is also not available in transactional emails.
 
-## Contact properties
+## Contact Properties
 
 Contact properties are also available without needing to send them in your request.
 
@@ -74,7 +74,7 @@ You can access contact properties via the `contact` object, just like before. So
 {{contact.firstName}}
 ```
 
-## Text personalization
+## Text Personalization
 
 When it comes to personalization, probably the most important thing is to personalize text. Besides typing in the merge tags manually, while editing a text element you can also click the merge tag button highlighted in the screenshot below:
 
@@ -114,7 +114,7 @@ And you want to refer to the parent's name, use:
 {{parent.name}}
 ```
 
-## Button personalization
+## Button Personalization
 
 For button elements, you can set the `src` (URL) using merge tags. Just like with text links, make sure to change the protocol to **Other** if the merged value already contains a protocol like `https://`.
 
@@ -122,7 +122,7 @@ You can also personalize the `title` attribute of the link, which shows up as a 
 
 ![Editing a button element - link settings shown.](./personalization-08.png)
 
-## Image personalization
+## Image Personalization
 
 Just like buttons, you can customize the link around an image using merge tags. You can also set the `alt` text of the image, which is useful for accessibility—screen readers can’t read images, but they can read alt text!
 
@@ -162,11 +162,11 @@ You can drag a loop element onto the canvas from the left-hand side:
 
 ![Editor - loop drag icon highlighted.](./personalization-15.png)
 
-## Handlebars extensions
+## Handlebars Extensions
 
 Since Handlebars' default functionality is quite limited, we've added a few helpful extensions to make your life easier.
 
-### each with skip and limit
+### Each with Skip and Limit
 
 We extended the default behavior of `each` by adding support for `skip` and `limit`.
 
@@ -182,7 +182,7 @@ You can add the `skip` and `limit` values directly in the loop expression in blu
 
 ![Editing a loop - expression with skip and limit.](./personalization-16.png)
 
-### Logical operators
+### Logical Operators
 
 Handlebars conditionals are quite limited by default, so we added support for common logical operators you might be used to.
 
@@ -240,7 +240,7 @@ The `INCLUDES` operator checks if a value exists in an array. Like `EQ`, it uses
 {{/if}}
 ```
 
-#### Combining logical operators
+#### Combining Logical Operators
 
 You can also combine operators. For example:
 
@@ -250,7 +250,7 @@ You can also combine operators. For example:
 {{/if}}
 ```
 
-### String manipulation
+### String Manipulation
 
 We’ve also included a few string manipulation helpers, so you can handle formatting directly in your templates—no need to adjust your backend just for that.
 
