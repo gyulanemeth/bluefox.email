@@ -1,14 +1,14 @@
 # Email personalization (merge tags)
 
-Email personalization is essential for modern companies. You need to grab your customers' attention, otherwise they won't click and won't open your next email. If you send nice, personalized emails to your users, that increases the likelihood that they will love your emails!
+Email personalization is essential for modern companies. You need to grab your customers' attention—otherwise, they won’t click or open your next email. Sending thoughtful, personalized messages increases the chances that your users will enjoy your emails.
 
-In bluefox.email, we use [handlebars](https://handlebarsjs.com/) for personalization. It means that you will be able to put merge tags into your emails with the **&#123;&#123;mustacheSyntax&#125;&#125;**.
+At bluefox.email, we use [handlebars](https://handlebarsjs.com/) for personalization. This means you can include merge tags in your emails using the **&#123;&#123;mustacheSyntax&#125;&#125;** format.
 
-There are two primary ways to refer to data from your emails:
-- send the data with your request
-- use data from bluefox.email
+There are two primary ways to refer to data in your emails:
+- Send the data with your request
+- Use data from bluefox.email
 
-A straightforward way of personalizing an email is that you send data with your API call. You can only do it with transactional and triggered emails. For example, if you want to send your user's favorite animal with your request, you put a `favoriteAnimal` property in your request:
+A straightforward way to personalize an email is by sending data with your API call. This is only available for transactional and triggered emails. For example, if you want to include a user's favorite animal, add a `favoriteAnimal` property to your request:
 
 ```json
 ...
@@ -18,13 +18,15 @@ A straightforward way of personalizing an email is that you send data with your 
 ...
 ```
 
-Within your email, you can use the **&#123;&#123;favoriteAnimal&#125;&#125;** merge tag:
+Within your email, you can then use the **&#123;&#123;favoriteAnimal&#125;&#125;** merge tag:
 ![Simple merge tag example in the editor.](./personalization-01.png)
 
-And as you could have guessed, the sent out email will look like this:
+As you might expect, the email sent will look like this:
 ![Simple merge tag example in the inbox.](./personalization-02.png)
 
-You can also personalize your emails with data stored in bluefox.email. You can read about it in the two upcoming sections: "Built-in merge-tags" and "Contact properties".
+You can also personalize emails using data stored in bluefox.email. This is explained in the next two sections: "Built-in merge-tags" and "Contact properties".
+
+
 
 ## Built-in merge-tags
 
