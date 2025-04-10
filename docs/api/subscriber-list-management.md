@@ -34,15 +34,15 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Subscriber List Management via the API
+# Contacts and Subscriber List Management via the API
 
 This guide explains how to manage subscribers using the **bluefox.email** API. You can subscribe, unsubscribe, pause, activate, and list subscribers from your email lists. Follow the examples and code snippets to integrate these functionalities into your system.
 
 ## Subscribe
 
-[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
+[Quick guide](/docs/projects/contacts#contacts-and-lists-integration)
 
-To subscribe a user to a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
+To subscribe a user to a [subscriber list](/docs/projects/contacts), use the following URL pattern:
 
 ```
 https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##
@@ -119,11 +119,92 @@ Since an API key is very sensitive information, never store it in your frontend 
 :::
 
 
+## Update Subscriber
+
+[Quick guide](/docs/projects/contacts#contacts-and-lists-integration)
+
+To update a user from a [subscriber list](/docs/projects/contacts), use the following URL pattern:
+```
+https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##
+```
+
+Replace the placeholders with your specific information:
+ - `##YOUR_SUBSCRIBER_LIST_ID##`
+ - `##SUBSCRIBER_EMAIL_ADDRESS##`
+ - `##YOUR_API_KEY##`
+
+You can find the IDs to replace by clicking on the code guide button in a subscriber list:
+![Screenshot of the highlighted code guide button in a subscriber list.](./subscriber-list-code-guide-button.webp)
+
+In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you need to replace the `##YOUR_API_KEY##` and `##SUBSCRIBER_EMAIL_ADDRESS##`.
+
+![Screenshot of the code guide dialog in a subscriber list.](./subscriber-list-update-subscription-code-guide-dialog.webp)
+
+**Requiest body**:
+```json
+{
+  "email": "updated_email@gmail.com",
+  "name": "updated subscriber name"
+}
+```
+
+
+**cUrl**:
+```bash
+curl -X PATCH "https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##" -H "Content-Type: application/json" -H "Authorization: Bearer ##YOUR_API_KEY##" -d '{"email": "updated_email@gmail.com", "name": "updated subscriber name"}'
+```
+
+**Javascript**:
+```javascript
+const url = 'https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##'
+
+const response = await fetch(url, {
+  method: 'PATCH',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer ##YOUR_API_KEY##'
+  },
+  body: JSON.stringify({
+    email: "updated_email@gmail.com",
+    name: "updated subscriber name"
+  })
+})
+```
+
+**PHP**:
+```php
+$apiKey = "##YOUR_API_KEY##";
+
+$url = "https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##";
+
+$data = array(
+    'email' => 'updated_email@gmail.com'
+    'name' => 'updated subscriber name'
+);
+
+$options = array(
+    "http" => array(
+        "header"  => "Content-Type: application/json\r\n" .
+                    "Authorization: Bearer $apiKey\r\n",
+        "method"  => "PATCH",
+        'content' => json_encode($data),
+    ),
+);
+
+$context  = stream_context_create($options);
+$response = file_get_contents($url, false, $context);
+```
+
+::: danger Security Warning
+Since an API key is very sensitive information, never store it in your frontend code. Always use it from your backend.
+:::
+
+
 ## Unsubscribe
 
-[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
+[Quick guide](/docs/projects/contacts#contacts-and-lists-integration)
 
-To unsubscribe a user from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
+To unsubscribe a user from a [subscriber list](/docs/projects/contacts), use the following URL pattern:
 ```
 https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##
 ```
@@ -198,11 +279,11 @@ Since an API key is very sensitive information, never store it in your frontend 
 
 ## Pause Subscription
 
-[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
+[Quick guide](/docs/projects/contacts#contacts-and-lists-integration)
 
 At our subscription preferences page we provide you, we offer users to pause their subscriptions. It is a great way to reduce unsubscribe rates.
 
-To pause a user from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
+To pause a user from a [subscriber list](/docs/projects/contacts), use the following URL pattern:
 ```
 https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##
 ```
@@ -282,11 +363,11 @@ Since an API key is very sensitive information, never store it in your frontend 
 
 ## Activate Subscription
 
-[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
+[Quick guide](/docs/projects/contacts#contacts-and-lists-integration)
 
 Users with paused subscription or users who unsubscribed, can be activated.
 
-To activate a user from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
+To activate a user from a [subscriber list](/docs/projects/contacts), use the following URL pattern:
 ```
 https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##
 ```
@@ -362,9 +443,9 @@ Since an API key is very sensitive information, never store it in your frontend 
 
 ## List Subscribers
 
-[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
+[Quick guide](/docs/projects/contacts#contacts-and-lists-integration)
 
-To list users from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
+To list users from a [subscriber list](/docs/projects/contacts), use the following URL pattern:
 ```
 https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##
 ```
@@ -427,9 +508,9 @@ Since an API key is very sensitive information, never store it in your frontend 
 
 ## Get One Subscriber
 
-[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
+[Quick guide](/docs/projects/contacts#contacts-and-lists-integration)
 
-To get user from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
+To get user from a [subscriber list](/docs/projects/contacts), use the following URL pattern:
 ```
 https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##
 ```
@@ -490,90 +571,6 @@ $response = file_get_contents($url, false, $context);
 ::: danger Security Warning
 Since an API key is very sensitive information, never store it in your frontend code. Always use it from your backend.
 :::
-
-
-## Update Subscriber
-
-[Quick guide](/docs/projects/subscriber-lists.html#subscriber-list-integration)
-
-To update a user from a [subscriber list](/docs/projects/subscriber-lists), use the following URL pattern:
-```
-https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##
-```
-
-Replace the placeholders with your specific information:
- - `##YOUR_SUBSCRIBER_LIST_ID##`
- - `##SUBSCRIBER_EMAIL_ADDRESS##`
- - `##YOUR_API_KEY##`
-
-You can find the IDs to replace by clicking on the code guide button in a subscriber list:
-![Screenshot of the highlighted code guide button in a subscriber list.](./subscriber-list-code-guide-button.webp)
-
-In the code guide dialog, these values are automatically filled in. If you copy the code snippets, you need to replace the `##YOUR_API_KEY##` and `##SUBSCRIBER_EMAIL_ADDRESS##`.
-
-![Screenshot of the code guide dialog in a subscriber list.](./subscriber-list-activate-subscription-code-guide-dialog.webp)
-
-**Requiest body**:
-```json
-{
-  "email": "updated_email@gmail.com",
-  "name": "updated subscriber name"
-}
-```
-
-
-**cUrl**:
-```bash
-curl -X PATCH "https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##" -H "Content-Type: application/json" -H "Authorization: Bearer ##YOUR_API_KEY##" -d '{"email": "updated_email@gmail.com", "name": "updated subscriber name"}'
-```
-
-**Javascript**:
-```javascript
-const url = 'https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##'
-
-const response = await fetch(url, {
-  method: 'PATCH',
-  headers: {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer ##YOUR_API_KEY##'
-  },
-  body: JSON.stringify({
-    email: "updated_email@gmail.com",
-    name: "updated subscriber name"
-  })
-})
-```
-
-**PHP**:
-```php
-$apiKey = "##YOUR_API_KEY##";
-
-$url = "https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##";
-
-$data = array(
-    'email' => 'updated_email@gmail.com'
-    'name' => 'updated subscriber name'
-);
-
-$options = array(
-    "http" => array(
-        "header"  => "Content-Type: application/json\r\n" .
-                    "Authorization: Bearer $apiKey\r\n",
-        "method"  => "PATCH",
-        'content' => json_encode($data),
-    ),
-);
-
-$context  = stream_context_create($options);
-$response = file_get_contents($url, false, $context);
-```
-
-::: danger Security Warning
-Since an API key is very sensitive information, never store it in your frontend code. Always use it from your backend.
-:::
-
-
-
 
 ## API Responses  
 
