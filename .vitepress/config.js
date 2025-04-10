@@ -7,7 +7,7 @@ export default defineConfig({
   title: "bluefox.email",
   description: "High deliverability & brand consistency.",
   head: [
-    ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C' }],
+    ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C', async: true }],
     ['script', {}, `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`]
   ],
   vite: {
