@@ -25,5 +25,9 @@
     "tailwindcss": "^3.4.10",
     "vitepress": "1.6.3",
     "vuetify": "^3.7.11"
+  },
+  "devDependencies": {
+    "@fontsource/amatic-sc": "^5.2.5",
+    "@fontsource/indie-flower": "^5.2.5"
   }
 }

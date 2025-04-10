@@ -7,6 +7,9 @@ import '@mdi/font/css/materialdesignicons.css'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
+import '@fontsource/amatic-sc/400.css'
+import '@fontsource/amatic-sc/700.css'
+import '@fontsource/indie-flower/400.css'
 
 import './style.css'
 
