@@ -32,7 +32,7 @@ const testimonials = [
     initials: 'ML',
     company: 'Founder of ClarityText.com',
     testimonial: `ClarityText chose Bluefox because it guides us toward success. Unlike with other vendors and libraries, it's Bluefox's responsibility to make sure that our emails fit in every client and device. This is a big relief for a startup. Also, Bluefox's pricing is easy to understand, unlike a typical and complicated contacts-based pricing.`,
-    profileImg: '/assets/testimonials/matt-luo.jpg',
+    profileImg: '/assets/testimonials/matt-luo.webp',
     logo: '/assets/testimonials/clarity-text.svg',
     logoAlt: 'ClarityText Logo',
     url: 'https://www.claritytext.com'
@@ -43,8 +43,8 @@ const testimonials = [
     initials: 'GV',
     company: 'Founder of TrendFingers.com',
     testimonial: `I’ve been using Blue Fox to send out my newsletters, and I couldn’t be happier. The system integrates seamlessly with my own AWS SES, giving me full control and transparency without the hefty price tag of overpriced black-box solutions like Mailchimp. Plus, I’ve noticed a significantly lower bounce rate compared to my previous provider—it’s an excellent choice for anyone seeking reliability and efficiency.`,
-    profileImg: '/assets/testimonials/gabriel-varaljay.jpg',
-    logo: '/assets/testimonials/trendfingers.png',
+    profileImg: '/assets/testimonials/gabriel-varaljay.webp',
+    logo: '/assets/testimonials/trendfingers.webp',
     logoAlt: 'TrendFingers Logo',
     url: 'https://trendfingers.com'
   },
@@ -54,7 +54,7 @@ const testimonials = [
     initials: 'GN',
     company: 'Head of Marketing @chamaileon.io',
     testimonial: `When I saw the delivery stats from my first campaign sent with BlueFox, I had to double-check the click rate—I could hardly believe it! It appears that every email landed in the primary inbox, and the deliverability and tracking are simply outstanding. BlueFox has set a new standard for me.`,
-    profileImg: '/assets/testimonials/gergely-nagy.png',
+    profileImg: '/assets/testimonials/gergely-nagy.webp',
     logo: '/assets/testimonials/chamaileon.svg',
     logoAlt: 'Chamaileon Logo',
     url: 'https://chamaileon.io/'
