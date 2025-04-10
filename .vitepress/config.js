@@ -23,7 +23,7 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: {
-      src: '/assets/bluefoxemail-logo.webp',
+      src: '/assets/bluefoxemail-logo-24x24.webp',
       alt: 'bluefox.email logo'
     },
 

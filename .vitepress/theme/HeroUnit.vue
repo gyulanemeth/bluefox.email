@@ -24,7 +24,7 @@ const { isDark } = useData()
       </div>
     </div>
       <img
-        :src="`/assets/mascot-bring-your-own-awsses${isDark ? '-dark' : ''}.png`"
+        :src="`/assets/mascot-bring-your-own-awsses${isDark ? '-dark' : ''}-450x270.webp`"
         alt="Bring your own AmazonSES"
         class="cornerImage"
       />

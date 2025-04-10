@@ -463,7 +463,7 @@ onBeforeUnmount(() => {
       </div>
     </div>
     <v-card class="d-flex justify-center mt-4" variant="elevated">
-      <img alt="Analytics screenshot" src="/assets/analytics.png" />
+      <img alt="Analytics screenshot" src="/assets/analytics.png" loading="lazy" />
     </v-card>
   </section>
 
