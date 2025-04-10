@@ -112,7 +112,7 @@ const props = defineProps({
             :class="isFixed ? 'logoFixed' : 'logoBroken'"
             x="44%"
             y="47"
-            href="/assets/bluefoxemail-logo.png"
+            href="/assets/bluefoxemail-logo.webp"
             :width="isFixed ? 6 : 10"
             :height="isFixed ? 6 : 10"
           />
@@ -160,7 +160,7 @@ const props = defineProps({
 
           <!-- Hero -->
           <rect x="80" y="60" width="100" height="59" fill="white" />
-          <image :class="isFixed ? 'opacity-show' : 'opacity-hide'" x="79" y="60" href="/assets/email-header-background.png" width="110" height="50" />
+          <image :class="isFixed ? 'opacity-show' : 'opacity-hide'" x="79" y="60" href="/assets/email-header-background.webp" width="110" height="50" />
           <g>
             <rect x="135" y="65" width="42" height="43" fill="#f1f1f1" opacity="0.5"/>
             <rect x="137" y="67" width="38" height="39" fill="none" stroke="black" stroke-width="0.2" />
@@ -306,7 +306,7 @@ const props = defineProps({
           <image
             x="130"
             y="100"
-            href="/assets/email-placeholder-mountains.png"
+            href="/assets/email-placeholder-mountains.webp"
             width="50"
             height="59"
             :style="{
@@ -403,7 +403,7 @@ const props = defineProps({
             :class="isFixed ? 'logoFixed' : 'logoBroken'"
             x="127"
             y="47"
-            href="/assets/bluefoxemail-logo.png"
+            href="/assets/bluefoxemail-logo.webp"
             :width="isFixed ? 6 : 10"
             :height="isFixed ? 6 : 10"
           />
@@ -451,7 +451,7 @@ const props = defineProps({
 
           <!-- Hero -->
           <rect x="80" y="60" width="100" height="59" fill="white" />
-          <image :class="isFixed ? 'opacity-show' : 'opacity-hide'" x="79" y="60" href="/assets/email-header-background.png" width="110" height="50" />
+          <image :class="isFixed ? 'opacity-show' : 'opacity-hide'" x="79" y="60" href="/assets/email-header-background.webp" width="110" height="50" />
           <g>
             <rect x="135" y="65" width="42" height="43" fill="#f1f1f1" opacity="0.5"/>
             <rect x="137" y="67" width="38" height="39" fill="none" stroke="black" stroke-width="0.2" />
@@ -597,7 +597,7 @@ const props = defineProps({
           <image
             x="130"
             y="100"
-            href="/assets/email-placeholder-mountains.png"
+            href="/assets/email-placeholder-mountains.webp"
             width="50"
             height="59"
             :style="{
@@ -694,14 +694,14 @@ const props = defineProps({
           <image
             x="47"
             y="76"
-            href="/assets/bluefoxemail-logo.png"
+            href="/assets/bluefoxemail-logo.webp"
             width="6"
             height="6"
           />
 
           <!-- Hero -->
           <rect x="28" y="83" width="44" height="31" fill="#f1f1f1" />
-          <image :class="isFixed ? 'opacity-show' : 'opacity-hide'" x="28" y="76" href="/assets/email-header-background.png" width="60" height="45" />
+          <image :class="isFixed ? 'opacity-show' : 'opacity-hide'" x="28" y="76" href="/assets/email-header-background.webp" width="60" height="45" />
           <g>
             <rect x="28" y="82.6" width="45" height="31.75" fill="white" opacity="0.6"/>
             <rect x="30" y="84.6" width="40" height="28" fill="none" stroke="black" stroke-width="0.2" />
@@ -749,7 +749,7 @@ const props = defineProps({
           <image
             x="30"
             y="115"
-            href="/assets/email-placeholder-mountains.png"
+            href="/assets/email-placeholder-mountains.webp"
             width="40"
             height="59"
             :style="{ 
