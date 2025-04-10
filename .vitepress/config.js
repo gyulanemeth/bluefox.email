@@ -8,7 +8,9 @@ export default defineConfig({
   description: "High deliverability & brand consistency.",
   head: [
     ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C', async: true }],
-    ['script', {}, `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`]
+    ['script', {}, `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`],
+    ['link', { rel: 'preload', as: 'image', href: '/assets/mascot-bring-your-own-awsses-dark-450x270.webp' }],
+    ['link', { rel: 'preload', as: 'image', href: '/assets/mascot-bring-your-own-awsses-450x270.webp' }]
   ],
   vite: {
     ssr: {
