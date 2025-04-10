@@ -1,5 +1,4 @@
 <script setup>
-import { defineProps } from 'vue'
 import { useData } from 'vitepress'
 
 const { isDark } = useData()
