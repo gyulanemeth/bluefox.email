@@ -178,11 +178,11 @@ The domain whitelist ensures that sign-up requests are only processed from autho
   ![A screenshot of a project settings domain whitelist section delete domain.](./project-settings-domain-whitelist-delete.webp)
 
 
-## Contact properties
+## Contact Properties
 
 Contact properties allow users to define custom attributes for contacts at the project level. These properties appear in the **contacts** table and can be filled when adding or editing a contact.
 
-### Add new property
+### Add new Property
 To add a new property, navigate to **project settings → contact properties**, click **create**, enter the property `name` and `type`, then save. The property will be available in the contact management interface.
 
 Each contact property includes:
@@ -195,10 +195,10 @@ Each contact property includes:
 
 ![A screenshot of a project settings contact properties section create property.](./project-settings-contact-properties-create.webp)
 
-#### Reserved properties
+#### Reserved Properties
 Some properties are reserved and cannot be created. These include `status`, `pausedUntil`, `email`, `accountId`, `projectId`, `customFields`, `contactId`, `subscriberListId`, `unsubscribeLink`, `pauseSubscriptionLink`.
 
-### Delete property
+### Delete Property
 To delete a property, go to **project settings → contact properties**, locate the property in the table, and click the delete icon. Confirm the deletion, and the property will be removed from both the contacts table and the contact creation/editing interface.
 
 ![A screenshot of a project settings contact properties section delete property.](./project-settings-contact-properties-delete.webp)
