@@ -39,7 +39,7 @@ head:
 
 Welcome to the official documentation for **bluefox.email**! This guide is your go-to resource for understanding and using bluefox.email to manage all types of email communications for your SaaS application, from transactional emails, through automations via triggered emails to marketing campaigns.
 
-## What is bluefox.email and how it works
+## What is Bluefox.email and How it Works
 
 Bluefox.email makes it easy to handle all your email communications, from transactional emails and triggered notifications to marketing campaigns, in one place. With our design systems, your emails will look great and function properly across all email clients, including challenging ones like Outlook. You can also rely on bluefox.email to manage your sending queues, ensuring your emails are sent smoothly and efficiently. Plus, with AWS SES integration using your account, you get a reliable and scalable infrastructure for all your email needs.
 
@@ -47,7 +47,7 @@ Bluefox.email makes it easy to handle all your email communications, from transa
 
 In bluefox.email, [projects](./projects/) enable you to manage transactional emails, triggered emails, and campaigns (such as newsletters and promotions) of your SaaS application. Each project requires setting up a sending email address and AWS credentials to send emails via AWS SES. Projects are linked to a design system and include features like a subscription preferences page and subscriber lists, helping you organize and customize your email strategies effectively.
 
-## Transactional vs. triggered vs. campaign Emails
+## Transactional vs. Triggered vs. Campaign Emails
 
 - **[Transactional Emails](./projects/transactional-emails)**: These are automated emails sent in response to user actions, such as account creation, password resets, or purchase confirmations. They are critical for providing a seamless user experience.
 
@@ -69,7 +69,7 @@ Our platform, bluefox.email, uses your AWS SES (Amazon Simple Email Service) for
 We plan to release a detailed article on how to optimize your setup with AWS SES soon.
 :::
 
-## Sending emails via API
+## Sending Emails via API
 
 With bluefox.email, you can send transactional or triggered emails directly via our [API](./api/). Our well-documented API endpoints make it simple to automate your email workflows, whether you're sending a password reset email, a notification, or a tailored onboarding sequence. Integration is straightforward, allowing you to quickly implement email functionality within your SaaS application.
 
@@ -78,6 +78,6 @@ Our platform's [personalization](./email-personalization) features, powered by [
 
 For example, you can use loops to list multiple items, such as recent purchases or recommended products, within an email. Conditionals allow you to tailor the message based on specific user criteria, such as displaying a different message for first-time users versus returning customers. These features make it easy to create engaging, relevant emails that resonate with your audience and drive better interaction.
 
-## Analytics and reporting
+## Analytics and Reporting
 
 Understanding the performance of your emails is crucial, and bluefox.email provides comprehensive [analytics](/docs/analytics) to help you do just that. Track key metrics such as open rates, click rates, bounce rates, and complaints. We also handle bounces and complaints automatically, ensuring that your email list remains healthy and that your emails reach the intended recipients.

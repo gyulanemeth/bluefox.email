@@ -39,7 +39,7 @@ head:
 
 Supabase provides built-in authentication that requires sending various transactional emails, such as signup confirmations, password resets, and magic links. By integrating bluefox.email, you can ensure better email deliverability, branding, and tracking while maintaining full control over your email templates.
 
-## Setting Up supabase
+## Setting Up Supabase
 
 To send emails through bluefox.email, you need to configure supabase to use a custom SMTP server. Start by logging into your supabase project and navigating to **Project Settings > Authentication**. In this section, locate **Email Settings**, where you’ll find the option to enable **Custom SMTP**.
 
@@ -93,7 +93,7 @@ Once your template is set up, save the transactional email. In the next step, yo
 
 
 
-## Configuring the Transactional Email in supabase
+## Configuring the Transactional Email in Supabase
 
 After setting up your transactional email, you need to configure supabase to use it:
 
