@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import DesignSystemLeftSvg from './DesignSystemLeftSvg.vue'
 import DesignSystemMiddleSvg from './DesignSystemMiddleSvg.vue'
 import DesignSystemRightSvg from './DesignSystemRightSvg.vue'
@@ -12,20 +12,20 @@ const props = defineProps({
 })
 
 const selectedDesignSystem = ref(0)
-const selectedDesignSystemLogo = ref('/assets/bluefoxemail-logo.png')
+const selectedDesignSystemLogo = ref('/assets/bluefoxemail-logo.webp')
 
 function selectDesignSystem (idx) {
   selectedDesignSystem.value = idx
   if (idx === 0) {
-    selectedDesignSystemLogo.value = '/assets/bluefoxemail-logo.png'
+    selectedDesignSystemLogo.value = '/assets/bluefoxemail-logo.webp'
     return
   }
   if (idx === 1) {
-    selectedDesignSystemLogo.value = '/assets/design-system-logo-2.png'
+    selectedDesignSystemLogo.value = '/assets/design-system-logo-2.webp'
     return
   }
   if (idx === 2) {
-    selectedDesignSystemLogo.value = '/assets/design-system-logo-3.png'
+    selectedDesignSystemLogo.value = '/assets/design-system-logo-3.webp'
     return
   }
 }
@@ -119,7 +119,7 @@ onBeforeUnmount(() => {
             <v-avatar size="36">
               <v-img
                 alt="Logo 2"
-                src="/assets/design-system-logo-2.png"
+                src="/assets/design-system-logo-2.webp"
               />
             </v-avatar>
           </template>
@@ -172,7 +172,7 @@ onBeforeUnmount(() => {
             <v-avatar size="36">
               <v-img
                 alt="Bluefox logo"
-                src="/assets/design-system-logo-3.png"
+                src="/assets/design-system-logo-3.webp"
               />
             </v-avatar>
           </template>

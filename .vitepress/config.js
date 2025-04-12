@@ -7,8 +7,10 @@ export default defineConfig({
   title: "bluefox.email",
   description: "High deliverability & brand consistency.",
   head: [
-    ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C' }],
-    ['script', {}, `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`]
+    ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C', async: true }],
+    ['script', {}, `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`],
+    ['link', { rel: 'preload', as: 'image', href: '/assets/mascot-bring-your-own-awsses-dark-450x270.webp' }],
+    ['link', { rel: 'preload', as: 'image', href: '/assets/mascot-bring-your-own-awsses-450x270.webp' }]
   ],
   vite: {
     ssr: {
@@ -23,7 +25,7 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: {
-      src: '/assets/bluefoxemail-logo.webp',
+      src: '/assets/bluefoxemail-logo-24x24.webp',
       alt: 'bluefox.email logo'
     },
 
@@ -81,8 +83,8 @@ export default defineConfig({
             { text: 'Transactional Emails', link: '/docs/projects/transactional-emails' },
             { text: 'Triggered Emails', link: '/docs/projects/triggered-emails' },
             { text: 'Campaigns', link: '/docs/projects/campaigns' },
-            { text: 'Subscriber Lists', link: '/docs/projects/subscriber-lists' },
-            { text: 'Subscriptions Preferences Page', link: '/docs/projects/subscription-preferences-page' },
+            { text: 'Contacts', link: '/docs/projects/contacts' },
+            { text: 'Forms & Pages', link: '/docs/projects/forms-and-pages' },
             { text: 'Design System Settings', link: '/docs/projects/design-system-settings' },
             { text: 'Settings', link: '/docs/projects/settings' }
           ]
@@ -91,7 +93,7 @@ export default defineConfig({
           link: '/docs/api/',
           collapsed: false,
           items: [
-            { text: 'Subscriber List Management', link: '/docs/api/subscriber-list-management' },
+            { text: 'Contacts & Subscriber List Management', link: '/docs/api/subscriber-list-management' },
             { text: 'Send Transactional Email', link: '/docs/api/send-transactional-email' },
             { text: 'Send Triggered Email', link: '/docs/api/send-triggered-email' },
             { text: 'Send Attachments', link: '/docs/api/send-attachments' }

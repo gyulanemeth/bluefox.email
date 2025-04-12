@@ -6,7 +6,9 @@
  /**
  * Fonts
  * -------------------------------------------------------------------------- */
+ /* we use a direct import instead from npm packages... that way, we don't have a rendering blocking request...
  @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Indie+Flower&display=swap');
+ */
 
 /**
  * Colors
