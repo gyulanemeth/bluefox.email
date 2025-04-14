@@ -67,7 +67,7 @@ Pausing subscription is a great feature because it can significantly reduce the 
 
 When you use the `unsubscribeLink` and the `pauseSubscriptionLink` in your emails, they will lead to the subscription preferences page. However, if the user clicks on the second one, the unsubscribe option won't be shown.
 
-## Creating contact or list
+## Creating Contact or List
 
 To create a contact or list, click the Create button in the Contacts tab.
 ![Screenshot of the subscriber lists page - create button highlighted](./project-contacts-create.webp)
@@ -80,7 +80,7 @@ When creating a List, you need to provide a name and description. These details 
 
 You have the option to upload a CSV file. Read more about it in the import/export CSV section.
 
-## Contact attributes & custom data
+## Contact Attributes & Custom Data
 Each contact requires an email, but you can store additional data as well. The system provides some predefined attributes, but you can also define custom attributes from Project Settings → Contact Attributes.
 
 For more information on managing custom attributes, visit the [Contact Attributes documentation](/docs/projects/settings#contact-properties)
@@ -101,7 +101,7 @@ The **Import/Export** button allows you to efficiently manage contacts.
 When importing contacts, the CSV file must contain an `email` column. Additional attributes can be included as needed.
 ![Screenshot of the subscriber lists page - import or export CSV](./project-contacts-import.webp)
 
-## Subscription statuses
+## Subscription Statuses
 
 Inside a list, you will see all contacts that are subscribed to it. The list details section provides insights into:
 
@@ -115,7 +115,7 @@ Inside a list, you will see all contacts that are subscribed to it. The list det
 
 If you select All Contacts, you will see every contact in your project, regardless of the lists they are subscribed to.
 
-## Contacts and lists integration
+## Contacts and Lists Integration
 
 Managing your subscription list in bluefox.email is simple using our [subscription API](/docs/api/subscriber-list-management). This API allows you to subscribe new users, unsubscribe them, activate or pause their subscriptions, list all subscribers, and fetch details about a specific subscriber. We provide code snippets in various programming languages that you can use. Click on the list's "Code guide" button:
 ![Screenshot of the subscriber lists page - code guide button highlighted](./project-contacts-lists-code-guide.webp)
@@ -130,7 +130,7 @@ Your **bluefox.email** API key must be included in the `Authorization` header of
 For more details and guidance on integrating these endpoints, visit our [API documentation](/docs/api/).  
 
 
-### Double opt-in
+### Double Opt-in
 Double opt-in ensures that contacts confirm their subscription before receiving emails. You can enable and customize double opt-in from the double Opt-In settings in **forms and pages** tab.
 
 [Go to double opt-in](/docs/projects/forms-and-pages#double-opt-in).  
@@ -143,7 +143,7 @@ The sign-up page in the subscription list allows users to create a form that sub
 
 [Go to sign-up page](/docs/projects/forms-and-pages#signup-page).  
 
-## List statistics  
+## List Statistics  
 
 The **Subscription List Statistics** section provides insights into the performance of your subscription lists, including email activity and subscription trends. This allows you to monitor how well your lists are growing and how subscribers interact with your emails.  
 

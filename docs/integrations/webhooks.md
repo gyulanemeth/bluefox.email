@@ -156,7 +156,7 @@ Webhook requests are authenticated using an API key sent in the `Authorization` 
 
 When the webhook is triggered, the body of the request will contain information about the event. Here's an example of the payload you might receive:
 
-### Sent event
+### Sent Event
 ```json
 {
   "type": "sent",
@@ -175,7 +175,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-### Failed event
+### Failed Event
 ```json
 {
   "type": "failed",
@@ -196,7 +196,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-### Click event
+### Click Event
 ```json
 {
   "type": "click",
@@ -219,7 +219,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-### Open event
+### Open Event
 ```json
 {
   "type": "open",
@@ -239,7 +239,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-### Bounce event
+### Bounce Event
 ```json
 {
   "type": "bounce",
@@ -259,7 +259,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-### Complaint event
+### Complaint Event
 ```json
 {
   "type": "complaint",
@@ -279,7 +279,7 @@ When the webhook is triggered, the body of the request will contain information 
 }
 ```
 
-### Subscription event
+### Subscription Event
 ```json
 {
 "type": "pause-subscription, unsubscribe, subscribe' or resubscribe",

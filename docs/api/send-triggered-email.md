@@ -62,6 +62,7 @@ In the **Code Guide** dialog, these values are automatically filled in. If you c
   "triggeredId": "##EMAIL_ID##",
   "data": {
     "example": "example merge tag value"
+    // TODO: Add your merge tag values
   },
   "attachments": [] // optional  
 }
