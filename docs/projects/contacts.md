@@ -45,9 +45,7 @@ Each contact can be linked to one or more lists. Instead of storing subscriber d
 
 It's a good idea to create separate lists for different topics, like product updates, promotions, tips & tricks, etc.
 
-
-
-### Public and Private Lists
+## Public and Private Lists
 When setting up a list, you can choose between **public** and **private** visibility:
 
 - **Public lists** appear on the [subscription preferences](./forms-and-pages#subscription-preferences-page) page, allowing users to manage their subscriptions. The title and description you set for a list help users understand what they’re subscribing to.
@@ -61,11 +59,6 @@ You can toggle between **public** and **private** when creating or editing a lis
 ::: info
 Private lists are subscription lists that are not visible to users on the subscription preferences page unless they are already subscribed to them. These lists are hidden from general view but become accessible to users who are part of them. This allows for more controlled and targeted management of subscriptions, making private lists ideal for internal use, testing, or exclusive communications.
 :::
-
-### Subscription Management
-Pausing subscription is a great feature because it can significantly reduce the unsubscribe rate.
-
-When you use the `unsubscribeLink` and the `pauseSubscriptionLink` in your emails, they will lead to the subscription preferences page. However, if the user clicks on the second one, the unsubscribe option won't be shown.
 
 ## Creating Contact or List
 
@@ -114,6 +107,12 @@ Inside a list, you will see all contacts that are subscribed to it. The list det
 **unsubscribed** When users unsubscribe from a list, they won't receive emails through that list anymore.
 
 If you select All Contacts, you will see every contact in your project, regardless of the lists they are subscribed to.
+
+:::tip
+Pausing subscription is a great feature because it can significantly reduce the unsubscribe rate.
+
+When you use the `unsubscribeLink` and the `pauseSubscriptionLink` in your emails, they will lead to the subscription preferences page. However, if the user clicks on the second one, the unsubscribe option won't be shown.
+:::
 
 ## Contacts and Lists Integration
 
