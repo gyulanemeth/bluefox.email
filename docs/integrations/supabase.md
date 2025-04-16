@@ -124,6 +124,243 @@ You can use any variable name inside the "data" object, but ensure that it corre
 
 By following this guide and save the email template, you can successfully configure supabase to send authentication emails through bluefox.email, ensuring reliable email delivery and full customization.
 
+## Confirm Signup Email
+
+After setting up your transactional email, you need to configure supabase to use it:
+
+:::tip If you're using one of the Supabase prebuilt templates inside bluefox.email, you don't need to configure the merge tags manually they’re already set up in the template. 
+:::
+
+1. In **bluefox.email**, navigate to the **code guide** section of your transactional email and locate the JSON body and copy it.
+
+![A screenshot of a bluefox.email code guide json body.](./transactional-email-code-guide-json-body.webp) 
+
+2. In **supabase**, go to **Authentication > Email Templates** and select the email type to configure.
+3. Paste the copied JSON inside the **Email Source** field and modify the `"data"` object to ensure it passes the correct supabase variables.
+
+![A screenshot of a bluefox.email code guide json body.](./supabase-confirm-signup-email-template.webp) 
+
+Example JSON:
+  ```json
+   {
+     "email": "{{ .Email }}",
+     "transactionalId": "YOUR_TRANSACTIONAL_EMAIL_ID",
+     "data": {
+      "confirmationURL": "{{ .ConfirmationURL }}",
+      "token": "{{ .Token }}",
+      "tokenHash": "{{ .TokenHash }}",
+      "siteUrl": "{{ .SiteURL }}",
+      "data": "{{ .Data }}",
+      "redirectTo": "{{ .RedirectTo }}"
+     }
+   }
+  ```
+
+::: info Note
+You can use any variable name inside the "data" object, but ensure that it correctly maps to the corresponding Supabase data. Always verify that the variables passed in the JSON match the merge tags used in your transactional  email template.
+:::
+
+
+By following this guide and save the email template, you can successfully configure supabase to send authentication emails through bluefox.email, ensuring reliable email delivery and full customization.
+
+## Invite User Email
+
+After setting up your transactional email, you need to configure supabase to use it:
+
+:::tip If you're using one of the Supabase prebuilt templates inside bluefox.email, you don't need to configure the merge tags manually they’re already set up in the template. 
+:::
+
+1. In **bluefox.email**, navigate to the **code guide** section of your transactional email and locate the JSON body and copy it.
+
+![A screenshot of a bluefox.email code guide json body.](./transactional-email-code-guide-json-body.webp) 
+
+2. In **supabase**, go to **Authentication > Email Templates** and select the email type to configure.
+3. Paste the copied JSON inside the **Email Source** field and modify the `"data"` object to ensure it passes the correct supabase variables.
+
+![A screenshot of a bluefox.email code guide json body.](./supabase-invite-user-email-template.webp) 
+
+Example JSON:
+  ```json
+   {
+     "email": "{{ .Email }}",
+     "transactionalId": "YOUR_TRANSACTIONAL_EMAIL_ID",
+     "data": {
+      "confirmationURL": "{{ .ConfirmationURL }}",
+      "token": "{{ .Token }}",
+      "tokenHash": "{{ .TokenHash }}",
+      "siteUrl": "{{ .SiteURL }}",
+      "data": "{{ .Data }}",
+      "redirectTo": "{{ .RedirectTo }}"
+     }
+   }
+  ```
+
+::: info Note
+You can use any variable name inside the "data" object, but ensure that it correctly maps to the corresponding Supabase data. Always verify that the variables passed in the JSON match the merge tags used in your transactional  email template.
+:::
+
+
+By following this guide and save the email template, you can successfully configure supabase to send authentication emails through bluefox.email, ensuring reliable email delivery and full customization.
+
+
+## Magic Link Email
+
+After setting up your transactional email, you need to configure supabase to use it:
+
+:::tip If you're using one of the Supabase prebuilt templates inside bluefox.email, you don't need to configure the merge tags manually they’re already set up in the template. 
+:::
+
+1. In **bluefox.email**, navigate to the **code guide** section of your transactional email and locate the JSON body and copy it.
+
+![A screenshot of a bluefox.email code guide json body.](./transactional-email-code-guide-json-body.webp) 
+
+2. In **supabase**, go to **Authentication > Email Templates** and select the email type to configure.
+3. Paste the copied JSON inside the **Email Source** field and modify the `"data"` object to ensure it passes the correct supabase variables.
+
+![A screenshot of a bluefox.email code guide json body.](./supabase-magic-link-email-template.webp) 
+
+Example JSON:
+  ```json
+   {
+     "email": "{{ .Email }}",
+     "transactionalId": "YOUR_TRANSACTIONAL_EMAIL_ID",
+     "data": {
+      "confirmationURL": "{{ .ConfirmationURL }}",
+      "token": "{{ .Token }}",
+      "tokenHash": "{{ .TokenHash }}",
+      "siteUrl": "{{ .SiteURL }}",
+      "data": "{{ .Data }}",
+      "redirectTo": "{{ .RedirectTo }}"
+     }
+   }
+  ```
+
+::: info Note
+You can use any variable name inside the "data" object, but ensure that it correctly maps to the corresponding Supabase data. Always verify that the variables passed in the JSON match the merge tags used in your transactional  email template.
+:::
+
+
+By following this guide and save the email template, you can successfully configure supabase to send authentication emails through bluefox.email, ensuring reliable email delivery and full customization.
+
+## Change Email Address Email
+
+After setting up your transactional email, you need to configure supabase to use it:
+
+:::tip If you're using one of the Supabase prebuilt templates inside bluefox.email, you don't need to configure the merge tags manually they’re already set up in the template. 
+:::
+
+1. In **bluefox.email**, navigate to the **code guide** section of your transactional email and locate the JSON body and copy it.
+
+![A screenshot of a bluefox.email code guide json body.](./transactional-email-code-guide-json-body.webp) 
+
+2. In **supabase**, go to **Authentication > Email Templates** and select the email type to configure.
+3. Paste the copied JSON inside the **Email Source** field and modify the `"data"` object to ensure it passes the correct supabase variables.
+
+![A screenshot of a bluefox.email code guide json body.](./supabase-change-email-address-email-template.webp) 
+
+Example JSON:
+  ```json
+   {
+     "email": "{{ .NewEmail }}",
+     "transactionalId": "YOUR_TRANSACTIONAL_EMAIL_ID",
+     "data": {
+      "confirmationURL": "{{ .ConfirmationURL }}",
+      "token": "{{ .Token }}",
+      "tokenHash": "{{ .TokenHash }}",
+      "siteUrl": "{{ .SiteURL }}",
+      "email": "{{ .Email }}",
+      "data": "{{ .Data }}",
+      "redirectTo": "{{ .RedirectTo }}"
+     }
+   }
+  ```
+
+::: info Note
+You can use any variable name inside the "data" object, but ensure that it correctly maps to the corresponding Supabase data. Always verify that the variables passed in the JSON match the merge tags used in your transactional  email template.
+:::
+
+
+By following this guide and save the email template, you can successfully configure supabase to send authentication emails through bluefox.email, ensuring reliable email delivery and full customization.
+
+
+## Reset Password Email
+
+After setting up your transactional email, you need to configure supabase to use it:
+
+:::tip If you're using one of the Supabase prebuilt templates inside bluefox.email, you don't need to configure the merge tags manually they’re already set up in the template. 
+:::
+
+1. In **bluefox.email**, navigate to the **code guide** section of your transactional email and locate the JSON body and copy it.
+
+![A screenshot of a bluefox.email code guide json body.](./transactional-email-code-guide-json-body.webp) 
+
+2. In **supabase**, go to **Authentication > Email Templates** and select the email type to configure.
+3. Paste the copied JSON inside the **Email Source** field and modify the `"data"` object to ensure it passes the correct supabase variables.
+
+![A screenshot of a bluefox.email code guide json body.](./supabase-reset-password-email-template.webp) 
+
+Example JSON:
+  ```json
+   {
+     "email": "{{ .Email }}",
+     "transactionalId": "YOUR_TRANSACTIONAL_EMAIL_ID",
+     "data": {
+      "confirmationURL": "{{ .ConfirmationURL }}",
+      "token": "{{ .Token }}",
+      "tokenHash": "{{ .TokenHash }}",
+      "siteUrl": "{{ .SiteURL }}",
+      "data": "{{ .Data }}",
+      "redirectTo": "{{ .RedirectTo }}"
+     }
+   }
+  ```
+
+::: info Note
+You can use any variable name inside the "data" object, but ensure that it correctly maps to the corresponding Supabase data. Always verify that the variables passed in the JSON match the merge tags used in your transactional  email template.
+:::
+
+
+By following this guide and save the email template, you can successfully configure supabase to send authentication emails through bluefox.email, ensuring reliable email delivery and full customization.
+
+
+
+## Reauthentication Email
+
+After setting up your transactional email, you need to configure supabase to use it:
+
+:::tip If you're using one of the Supabase prebuilt templates inside bluefox.email, you don't need to configure the merge tags manually they’re already set up in the template. 
+:::
+
+1. In **bluefox.email**, navigate to the **code guide** section of your transactional email and locate the JSON body and copy it.
+
+![A screenshot of a bluefox.email code guide json body.](./transactional-email-code-guide-json-body.webp) 
+
+2. In **supabase**, go to **Authentication > Email Templates** and select the email type to configure.
+3. Paste the copied JSON inside the **Email Source** field and modify the `"data"` object to ensure it passes the correct supabase variables.
+
+![A screenshot of a bluefox.email code guide json body.](./supabase-reauthentication-email-template.webp) 
+
+Example JSON:
+  ```json
+   {
+     "email": "{{ .Email }}",
+     "transactionalId": "YOUR_TRANSACTIONAL_EMAIL_ID",
+     "data": {
+      "token": "{{ .Token }}",
+      "siteUrl": "{{ .SiteURL }}",
+      "data": "{{ .Data }}"
+     }
+   }
+  ```
+
+::: info Note
+You can use any variable name inside the "data" object, but ensure that it correctly maps to the corresponding Supabase data. Always verify that the variables passed in the JSON match the merge tags used in your transactional  email template.
+:::
+
+
+By following this guide and save the email template, you can successfully configure supabase to send authentication emails through bluefox.email, ensuring reliable email delivery and full customization.
+
+
 ## Testing
 
 After setup, test your configuration by creating a new user in supabase.
