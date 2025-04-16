@@ -54,6 +54,14 @@ To manage the project logo:
 
 Our platform sends emails using your AWS SES, ensuring high deliverability and preventing spammers from using our platform.
 
+:::info Note
+For AWS SES to work smoothly with **bluefox.email**, you’ll need at least these permissions: 
+
+`ses:SendEmail`, `ses:SendRawEmail`, `ses:ListIdentities`, `ses:GetSendQuota`
+
+This is the minimum set needed to send emails, verify identities, and keep an eye on your send limits.
+:::
+
 First, set up your AWS `Access Key ID`, `Secret Access Key`, `Sender Identities`, `AWS region`, and `sending limit`.
 
 ![A screenshot of a project settings AWS credentials section.](./project-settings-aws.webp)
