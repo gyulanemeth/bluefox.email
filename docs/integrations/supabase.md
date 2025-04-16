@@ -269,6 +269,7 @@ Example JSON:
       "tokenHash": "{{ .TokenHash }}",
       "siteUrl": "{{ .SiteURL }}",
       "email": "{{ .Email }}",
+      "newEmail": "{{ .NewEmail }}",
       "data": "{{ .Data }}",
       "redirectTo": "{{ .RedirectTo }}"
      }
