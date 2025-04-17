@@ -150,7 +150,6 @@ Example JSON:
       "token": "{{ .Token }}",
       "tokenHash": "{{ .TokenHash }}",
       "siteUrl": "{{ .SiteURL }}",
-      "data": "{{ .Data }}",
       "redirectTo": "{{ .RedirectTo }}"
      }
    }
@@ -189,7 +188,6 @@ Example JSON:
       "token": "{{ .Token }}",
       "tokenHash": "{{ .TokenHash }}",
       "siteUrl": "{{ .SiteURL }}",
-      "data": "{{ .Data }}",
       "redirectTo": "{{ .RedirectTo }}"
      }
    }
@@ -229,7 +227,6 @@ Example JSON:
       "token": "{{ .Token }}",
       "tokenHash": "{{ .TokenHash }}",
       "siteUrl": "{{ .SiteURL }}",
-      "data": "{{ .Data }}",
       "redirectTo": "{{ .RedirectTo }}"
      }
    }
@@ -270,7 +267,6 @@ Example JSON:
       "siteUrl": "{{ .SiteURL }}",
       "email": "{{ .Email }}",
       "newEmail": "{{ .NewEmail }}",
-      "data": "{{ .Data }}",
       "redirectTo": "{{ .RedirectTo }}"
      }
    }
@@ -310,7 +306,6 @@ Example JSON:
       "token": "{{ .Token }}",
       "tokenHash": "{{ .TokenHash }}",
       "siteUrl": "{{ .SiteURL }}",
-      "data": "{{ .Data }}",
       "redirectTo": "{{ .RedirectTo }}"
      }
    }
