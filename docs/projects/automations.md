@@ -38,7 +38,7 @@ head:
 
 Automations allow you to create powerful workflows that streamline and automate your email processes. By triggering emails or actions based on specific events like when a contact is added or updated. You can automate tasks such as sending welcome emails, follow-ups, or reminders. This helps save time while ensuring your audience receives timely and relevant communication.
 
-With our automation, you can easily configure automations to meet your needs, without the need for coding. You can add nodes such as timers, filters, and email sends to build custom workflows that fit your project.
+With our email automation feature, you can easily configure automations to meet your needs, without the need for coding. You can add nodes such as timers, filters, and email sends to build custom workflows that fit your project.
 
 You can manage and view your automations under the **Automations** tab in your project.
 
