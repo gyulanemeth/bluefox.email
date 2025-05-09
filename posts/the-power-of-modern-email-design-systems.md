@@ -78,6 +78,41 @@ Unlike a basic style guide, a design system includes everything needed to build 
 
 A well-implemented email design system serves as a single source of truth. It allows marketing teams to build emails using drag-and-drop layouts, while ensuring every message looks and feels like your brand. It’s the bridge between creativity and scalability.
 
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { useDisplay } from 'vuetify'
+import { useData } from 'vitepress'
+
+import DesignSystem from '../.vitepress/theme/DesignSystem.vue'
+
+const { lgAndUp, md, sm, xs } = useDisplay()
+const { isDark } = useData()
+
+const selectedEmailType = ref('0');
+let intervalId
+
+onMounted(() => {
+  setInterval(() => {
+    let actSelVal = parseInt(selectedEmailType.value)
+    actSelVal += 1
+    actSelVal %= 4
+    selectedEmailType.value = actSelVal
+  }, 3000)
+})
+
+onBeforeUnmount(() => {
+  clearInterval(intervalId);
+})
+
+</script>
+
+<section id="design-system" style="margin-top: 100px;" class="value-prop">
+  <DesignSystem
+    class="mt-6"
+    :is-dark="isDark"
+  />
+</section>
+
 ## Why Email Design Systems Matter
 
 The impact of a well-structured email design system is significant across various key performance areas. Here’s how they benefit your email marketing efforts:
