@@ -1,42 +1,42 @@
 ---
 title: How SPF, DKIM, and DMARC Work
-description: Tips to get production access to AWS SES and maintain it.
-thumbnail: /assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
+description: Learn how SPF, DKIM, and DMARC work together to authenticate email and prevent spoofing, using real examples from BlueFox Email.
+thumbnail: /assets/articles/how-spf-dkim-and-dmarc-work-share.png
 
 layout: post
-category: tutorials
+category: article
 
 head:
   - - meta
     - name: description
-      content: Tips to get production access to AWS SES and maintain it.
+      content: Learn how SPF, DKIM, and DMARC work together to authenticate email and prevent spoofing, using real examples from BlueFox Email.
   - - meta
     - property: og:title
-      content: How to Get and Maintain Production Access to Amazon SES
+      content: How SPF, DKIM, and DMARC Work
   - - meta
     - property: og:description
-      content: Learn how to get production access to AWS SES and maintain it for excellent email deliverability.
+      content: Understand how SPF, DKIM, and DMARC protect your domain and emails with this in-depth tutorial and real-life examples.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
+      content: https://bluefox.email/assets/articles/how-spf-dkim-and-dmarc-work-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/posts/how-to-get-and-maintain-production-access-to-amazon-ses
+      content: https://bluefox.email/posts/how-spf-dkim-and-dmarc-work
   - - meta
     - name: twitter:card
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: How to Get and Maintain Production Access to Amazon SES
+      content: How SPF, DKIM, and DMARC Work
   - - meta
     - name: twitter:description
-      content: Learn how to get production access to AWS SES and maintain it for excellent email deliverability.
+      content: Understand how SPF, DKIM, and DMARC protect your domain and emails with this in-depth tutorial and real-life examples.
   - - meta
     - name: twitter:image
-      content: https://bluefox.email/assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
+      content: https://bluefox.email/assets/articles/how-spf-dkim-and-dmarc-work-share.png
 
 lastUpdated: true
-published: 2025-03-14
+published: 2025-03-16
 sidebar: false
 ---
 
