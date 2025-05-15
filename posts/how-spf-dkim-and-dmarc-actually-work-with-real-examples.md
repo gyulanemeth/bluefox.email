@@ -42,19 +42,18 @@ sidebar: false
 
 # How SPF, DKIM, and DMARC Actually Work (With Real Examples)
 
-Email authentication is essential if you don't want any random idiot sending emails in your name. In other words, to prevent email spoofing, it's strongly advised to set up DKIM, SPF, and DMARC.
+Email authentication is essential if you don't want any random person sending emails in your name. In other words, to prevent email spoofing, it's strongly advised to set up DKIM, SPF, and DMARC.
 
+In this article, we’ll go through how these email authentication methods work, using real-life examples and digging into email headers. The goal is to build a solid understanding of how these methods actually work—and how you can investigate if something’s off.
 
+:::tip TLDR
 
-In this article we will go through how these email authentication methods work, showcasing it with real-life examples, digging into email headers. The aim is to reach to a good understanding how these methods actually work, and how you can investigate if something is off.
+**SPF (Sender Policy Framework)** checks if an email is sent from a legit IP address (i.e., the sending server is allowed by the domain).
 
-::: tip TLDR
+**DKIM (DomainKeys Identified Mail)** checks the validity of your email (i.e., it was not altered).
 
-**SPF (Sender Policy Framework)** is for checking if an email is sent from a legit IP address (sending server is allowed by the domain)
+**DMARC (Domain-based Message Authentication, Reporting and Conformance)** gives domain owners control over what to do with unauthenticated emails. If DKIM or SPF fails, you can choose to just monitor, quarantine (send to spam), or reject unauthenticated emails.
 
-**DKIM (DomainKeys Identified Mail)** is for checking the validity of your email (was not altered)
-
-**DMARC (Domain-based Message Authentication, Reporting and Conformance)** gives control domain owners over what to do with unauthenticated emails. If DKIM or SPF fails, you can decide to just monitor, quarantine (send to trash/spam), or reject unauthenticated emails.
 :::
 
 :::warning Who this is for
@@ -67,28 +66,29 @@ We’ll use `dig` to inspect DNS records, highlight real email headers, and expl
 
 ## Email Headers
 
-If you want to follow this article step-by-step, you will need to check some email headers. In Gmail, just click on the show original menu item highlighted below:
+If you want to follow this article step by step, you’ll need to check some email headers. In Gmail, just click on the “Show original” menu item highlighted below:
 
 ![Screenshot of an email in Gmail with show original highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/01-show-original.png)
 
-This is how emails look under the hood. It not only contains the text and HTML version of the email, but it starts with quite a few email headers:
+This is how emails look under the hood. It not only contains the text and HTML versions of the email, but it also starts with quite a few email headers:
 
 ![Screenshot of email headers in Gmail](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/02-email-headers.png)
 
-`From`, `To`, `Subject`, and `Reply-To` are email headers that most people are quite familiar with, and it's straightforward what's their meaning.
+`From`, `To`, `Subject`, and `Reply-To` are email headers that most people are familiar with, and their meanings are straightforward.
 
-When it comes to email authentication, the most important headers are the following: `DKIM-Signature`, `Return-Path`.
+When it comes to email authentication, the most important headers are the following: `DKIM-Signature` and `Return-Path`.
 
 ## SMTP (Simple Mail Transfer Protocol)
 
-Before going into the details of email authentication, let's quickly recap how SMTP works. SMTP standard protocol for sending emails through the internet. It handles sending an email from the client to the server, and server-to-server communication. For receiving email, modern systems use IMAP, older ones use POP3. The former synchronizes your emails accross your devices, the latter downloads the email and deletes from the server.
+Before going into the details of email authentication, let's quickly recap how SMTP works. SMTP is the standard protocol for sending emails through the internet. It handles sending an email from the client to the server, and server-to-server communication. For receiving email, modern systems use IMAP, while older ones use POP3. IMAP synchronizes your emails across your devices; POP3 downloads the email and deletes it from the server.
 
 So, here are the brief steps:
- - You write an email in your email client
- - It connects to an SMTP server that will send the email
- - The SMTP server looks up the MX record (Mail Exchange record) of the domain
- - The SMTP sender server connects to the SMTP receiver server and opens an SMTP session. It sends the message, and if everything is accepted, then the message is delivered.
- - The email is stored, and can be downloaded (with IMAP or POP3)
+
+* You write an email in your email client
+* It connects to an SMTP server that will send the email
+* The SMTP server looks up the MX record (Mail Exchange record) of the domain
+* The SMTP sender server connects to the SMTP receiver server and opens an SMTP session. It sends the message, and if everything is accepted, the message is delivered.
+* The email is stored and can be downloaded (via IMAP or POP3)
 
 You can manually look up the MX record of a domain, for example with the `dig` command:
 
@@ -131,83 +131,103 @@ smtp.google.com.	219	IN	AAAA	2a00:1450:4025:401::1a
 As you can see, we use `smtp.google.com`, because we use Google Workspace.
 
 :::tip Looking up DNS records
-SPF, DKIM and DMARC are also based on DNS records. As we saw it with the MX record, so the `dig` command will be useful to look up those entries as well! The only difference is, that we are going to look up `TXT` records, not `MX` records.
+SPF, DKIM, and DMARC are also based on DNS records. As we saw with the MX record, the `dig` command will be useful to look up those entries as well! The only difference is that we’ll be looking up `TXT` records instead of `MX` records.
 :::
 
 
 
 ## SPF (Sender Policy Framework)
 
-The goal of SPF is to prevent spammers to send emails on behalf of your domain. It let's domain owners to specify mail servers (IP addresses) are authorized to send email on behalf of their domain.
+The goal of SPF is to prevent spammers from sending emails on behalf of your domain. It lets domain owners specify which mail servers (IP addresses) are authorized to send email on behalf of their domain.
 
-It uses a `TXT` record in their DNS settings.
+It uses a `TXT` record in your DNS settings.
 
-For example, you can check out the allowed mail servers for bluefox email, using the `dig` command:
+For example, you can check the allowed mail servers for BlueFox Email using the `dig` command:
 
 ```
 dig TXT bluefox.email
 ```
 
-In the result, you can see the following string:
+In the result, you’ll see this string:
 
 ```
 v=spf1 include:_spf.google.com -all
 ```
 
-It means, that we use the first version of SPF (`v=spf1`), every server defined at _spf.google.com are allowed to send on behalf of our domain (`_spf.google.com`), and the `-all` states that all other servers are prohibited.
+It means we use the first version of SPF (`v=spf1`), every server defined at `_spf.google.com` is allowed to send on behalf of our domain, and the `-all` states that all other servers are prohibited.
 
-Looks quite simple, but there is one tricky part. The SMPT receiver server does not check the SPF entry based on the domain name in the `From` header, but it uses the `Return-Path` header. The Return-Path defines where bounce reports should go.
+It looks simple, but there’s one tricky part: the SMTP receiving server does not check the SPF entry based on the domain name in the `From` header. Instead, it uses the `Return-Path` header. The Return-Path defines where bounce reports should go.
 
-Let's see an in-real-life example:
+Let’s look at a real-life example:
 ![SPF-related headers highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/03-email-headers-spf-highlighted.png)
-On the picture above, you can see, that the email is sent from `no-reply@bluefox.email`, and you might have observed, that it was actually sent by Amazon SES.
 
-But how can it be? Only Google addresses are allowed in the TXT record of bluefox.email!
+In the image above, the email is sent from `no-reply@bluefox.email`, and you might notice it was actually sent by Amazon SES.
 
-Well, if you take a close look at the `Return-Path` header, you can see that it was actually sent from `mail.bluefox.email`, which means, that we set up a custom FROM domain in Amazon SES.
+But how can that be? Only Google addresses are allowed in the TXT record of bluefox.email!
 
-Let's dig around a little. ;)
+Well, if you look closely at the `Return-Path` header, you’ll see it was actually sent from `mail.bluefox.email`, meaning we set up a custom FROM domain in Amazon SES.
+
+Let’s dig further:
 
 ```
 dig MX mail.bluefox.email
 ```
 
-The result contains `feedback-smtp.eu-central-1.amazonses.com`. What you saw in the `Return-Path` will translate to this URL, so the actual bounce feedback will end up at this server.
+The result contains `feedback-smtp.eu-central-1.amazonses.com`. What you saw in the `Return-Path` maps to this, so bounce feedback ends up at that server.
 
-Let's check out the corresponding TXT record for the SPF settings:
+Now check the corresponding `TXT` record for SPF:
+
 ```
 dig TXT mail.bluefox.email
 ```
 
-The response value is `v=spf1 include:amazonses.com ~all`, so Amazon SES IP addresses are allowed to send on behalf of BlufeFox Email. So, basically, you can send from custom subdomains that have separate SPF records!
+The response is:
+```
+v=spf1 include:amazonses.com ~all
+```
 
-## DKIM (DomainKey Identified Email)
+So Amazon SES IP addresses are allowed to send on behalf of BlueFox Email. This means you can send from custom subdomains that have their own SPF records!
 
-The goal of DKIM is to make sure that your email is not altered and comes from an authorized SMTP server. It's a method to digitally sign the email with a private key. The private key is held by the SMTP server.
 
-The corresponding public key is published in a TXT record in the DNS settings of your domain. Its format is the following:
+## DKIM (DomainKeys Identified Mail)
+
+The goal of DKIM is to ensure that your email is not altered and comes from an authorized SMTP server. It's a method for digitally signing the email with a private key, which is held by the sending SMTP server.
+
+The corresponding public key is published in a `TXT` record in your DNS settings. The format is:
 
 ```
 selector._domainkey.yourdomain.com
 ```
 
-Where `yourdomain.com` will actually be your domain, `_domainkey` is a fixed subdomain used by this method, and `selector` is defined in the `DKIM-Signature` field in the emial header.
+Where:
 
-Now, let's see how it looks like in real life:
+* `yourdomain.com` is your domain
+* `_domainkey` is a fixed subdomain for DKIM
+* `selector` is defined in the `DKIM-Signature` field in the email header
+
+Let’s see it in action:
+
 ![DKIM-Signature highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/04-email-headers-dkim-highlighted.png)
 
-In the DKIM-Signature, the `d` parameter is the domain name, and the `s` parameter is the selector. In this example:
- - d=bluefox.email
- - s=pdfkmy3oobqoppvprayririsr5i5iljb
+In the `DKIM-Signature`, the `d` parameter is the domain name and the `s` parameter is the selector. In this example:
 
-So, the public key can be found at: `pdfkmy3oobqoppvprayririsr5i5iljb._domainkey.bluefox.email`
+* `d=bluefox.email`
+* `s=pdfkmy3oobqoppvprayririsr5i5iljb`
+
+So, the public key can be found at:
+
+```
+pdfkmy3oobqoppvprayririsr5i5iljb._domainkey.bluefox.email
+```
 
 Let's dig into this value:
+
 ```
 dig TXT pdfkmy3oobqoppvprayririsr5i5iljb._domainkey.bluefox.email
 ```
 
 The result is:
+
 ```
 ; <<>> DiG 9.10.6 <<>> TXT pdfkmy3oobqoppvprayririsr5i5iljb._domainkey.bluefox.email
 ;; global options: +cmd
@@ -230,59 +250,73 @@ pdfkmy3oobqoppvprayririsr5i5iljb.dkim.amazonses.com. 1800 IN TXT "p=MIIBIjANBgkq
 ;; MSG SIZE  rcvd: 559
 ```
 
-As you can see above, it's not even a TXT record, but a CNAME record pointing to a TXT record. This is how Amazon SES manages your private-public key pairs. So in this example, `pdfkmy3oobqoppvprayririsr5i5iljb._domainkey.bluefox.email` is a CNAME record that is pointing to `pdfkmy3oobqoppvprayririsr5i5iljb.dkim.amazonses.com`, which is a TXT record. The `p` value in the TXT record is the public key. Email receivers (such as Gmail) use this value to verify your DKIM signature.
+As you can see, it's actually a CNAME record pointing to a `TXT` record. This is how Amazon SES manages public/private DKIM key pairs.
 
-In the DKIM-Signature above, the following values are the interesting ones:
- - h= -> the headers that are signed
- - b= -> the cryptographic signature based on the `h` parameter
- - bh= -> the hash of the body (ensuring that the content was not altered either)
- - a= -> the algorithm used for the signature
+In the `DKIM-Signature`, important parameters include:
 
-So basically, with the public key from the TXT record (the domain key record), and the parameters above, you can verify that the headers and the body of the email are legit and unaltered.
+* `h=` → headers that are signed
+* `b=` → the cryptographic signature based on those headers
+* `bh=` → the hash of the body (verifies content integrity)
+* `a=` → the algorithm used for the signature
 
-:::info
-If you are interested in the exact algorithm for the verification process, let us know and we will extend the article.
+With the public key from DNS and these values, the recipient server can verify the authenticity and integrity of the email.
+
+::: info
+If you're interested in how the actual cryptographic verification works step-by-step, let us know and we’ll expand the article.
 :::
 
-You might have observed, that in the email header example above, there is another DKIM-Signature. The sending service in this case was Amazon SES, and the headers are also containing its DKIM-Signature. This is a fallback option at Amazon SES, for the case when there is an issue with your sending domain.
+You may also notice an additional `DKIM-Signature` in the email headers. In this case, it’s Amazon SES signing the email on their own behalf. This acts as a fallback if there's an issue with your domain’s DKIM configuration.
 
 
 ## DMARC (Domain-based Message Authentication, Reporting and Conformance)
 
-DMARC is a protocol that builds on SPF and DKIM. It helps domain owners to decide what should happen when an email is spoofed. (Eg. marking it as spam, or rejecting it.) This is how you can protect your domain from spoofing or phishing.
+DMARC is a protocol that builds on SPF and DKIM. It helps domain owners decide what should happen when an email fails authentication (e.g., mark it as spam or reject it). This is how you protect your domain from spoofing or phishing.
 
-It passes, if
- - SPF or DKIM is passed
- - and the domain used in SPF/DKIM is aligned with the domain name in the "From:" header.
+DMARC passes if:
 
-If DMARC failes, receiving SMTP servers will decide what to do with the message based on your DMARC entry. It's a TXT record at _dmarc.youromain.com.
+* SPF or DKIM passes
+* and the domain used in SPF or DKIM **aligns** with the domain name in the "From:" header
 
-In our case it's `_dmarc.bluefox.email`, so let's dig into it:
+If DMARC fails, receiving SMTP servers will decide what to do with the message based on your DMARC policy. It’s published as a `TXT` record at `_dmarc.yourdomain.com`.
+
+For BlueFox Email, that would be `_dmarc.bluefox.email`. Let’s dig it up:
+
 ```
 dig TXT _dmarc.bluefox.email
 ```
 
-In our case, the current value (at the time of writing this article) is:
+At the time of writing, the response is:
 
 ```
 v=DMARC1;p=quarantine;rua=mailto:gyula@bluefox.email
 ```
 
-The SMTP receiver servers can decide what to do with an emial if DMARC based on the value of the `p` parameter:
- - p=none; -> nothing, just monitoring
- - p=quarantine; -> send the failed email to the spam folder
- - p=reject; -> simply reject the emails, it won't even reach the spam folder
+The `p` parameter defines the action:
 
-When you set up your DMARC, you should always start with `p=none;` and then going to `p=quarantine;` and finally to `p=reject`, because if something is not correctly set up in your system, then your genuine emails may end up in spam (quarantine), or even worse, it won't even be saved by the receiving SMTP server (reject).
+* `p=none;` → take no action, just monitor
+* `p=quarantine;` → treat failed emails as suspicious (send to spam)
+* `p=reject;` → reject failed emails completely
 
-You should always set up a `rua` (Reporting URI for Aggregate reports) parameter. With this parameter, you can tell the receiving mail servers where they should send their DMARC reports. These reports are XML files and contain the IP addresses that send in your domain's behalf, and whether emails failed SPF/DKIM/DMARC. 
+### Recommendation:
 
-It's a best practice to start with `p=none;` and `rua`, so you can make sure if everything is good with your setup, before enforcing DMARC (quarantine/reject).
+Start with `p=none;` to monitor how your emails are performing. Set the `rua` (Reporting URI for Aggregate reports) to an address where you want to receive DMARC reports. These reports are XML files that include the IPs sending emails on your domain's behalf, and whether they passed SPF/DKIM/DMARC.
+
+Once everything is verified, gradually move to `quarantine`, and eventually to `reject`. This minimizes the risk of blocking legitimate emails due to configuration errors.
+
 
 ## Summary
 
-DKIM, SPF, and DMARC can help you to prevent attackers to spoof your emails. With SPF you can make sure that the sending IP address is allowed to send in your domains behalf, whereas with DKIM, you can make sure that the message is legit and unaltered.
+DKIM, SPF, and DMARC help you prevent attackers from spoofing your emails.
 
-If SPF or DKIM passes, and the used domain for their verification is aligned with the domain in the `From:` header, then DMARC passes.
+* **SPF** ensures that the sending IP address is authorized to send on behalf of your domain.
+* **DKIM** ensures that the message hasn’t been tampered with and is from a trusted source.
+* **DMARC** ties it all together: if either SPF or DKIM passes and the domain aligns with the "From:" address, the email passes DMARC.
 
-If DMARC fails, then receiving SMTP servers will decide what to do, based on the `p=` value in your DMARC entry: none, quarantine, or reject. Always start with `p=none;` with `rua=mailto:xyz@yourdomain.com`, so you can get reports before you quarantine or reject any emails, and you can debug potential configurations issues.
+If DMARC fails, receiving servers will take action based on your DMARC policy (`p=`):
+
+* `none` → do nothing, just monitor
+* `quarantine` → send the message to spam
+* `reject` → block the message entirely
+
+Always start with `p=none; rua=mailto:you@yourdomain.com` to receive reports and verify your setup before enforcing stricter policies. This way, you can debug any configuration issues before they impact real email delivery.
+
