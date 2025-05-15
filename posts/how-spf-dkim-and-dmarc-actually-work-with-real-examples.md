@@ -1,10 +1,10 @@
 ---
-title: How SPF, DKIM, and DMARC Work
+title: How SPF, DKIM, and DMARC Actually Work (With Real Examples)
 description: Learn how SPF, DKIM, and DMARC work together to authenticate email and prevent spoofing, using real examples from BlueFox Email.
-thumbnail: /assets/articles/how-spf-dkim-and-dmarc-work-share.png
+thumbnail: /assets/articles/how-spf-dkim-and-dmarc-actually-work-with-real-examples-share.png
 
 layout: post
-category: article
+category: articles
 
 head:
   - - meta
@@ -12,37 +12,39 @@ head:
       content: Learn how SPF, DKIM, and DMARC work together to authenticate email and prevent spoofing, using real examples from BlueFox Email.
   - - meta
     - property: og:title
-      content: How SPF, DKIM, and DMARC Work
+      content: How SPF, DKIM, and DMARC Actually Work (With Real Examples)
   - - meta
     - property: og:description
       content: Understand how SPF, DKIM, and DMARC protect your domain and emails with this in-depth tutorial and real-life examples.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/articles/how-spf-dkim-and-dmarc-work-share.png
+      content: https://bluefox.email/assets/articles/how-spf-dkim-and-dmarc-actually-work-with-real-examples-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/posts/how-spf-dkim-and-dmarc-work
+      content: https://bluefox.email/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples
   - - meta
     - name: twitter:card
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: How SPF, DKIM, and DMARC Work
+      content: How SPF, DKIM, and DMARC Actually Work (With Real Examples)
   - - meta
     - name: twitter:description
       content: Understand how SPF, DKIM, and DMARC protect your domain and emails with this in-depth tutorial and real-life examples.
   - - meta
     - name: twitter:image
-      content: https://bluefox.email/assets/articles/how-spf-dkim-and-dmarc-work-share.png
+      content: https://bluefox.email/assets/articles/how-spf-dkim-and-dmarc-actually-work-with-real-examples-share.png
 
 lastUpdated: true
 published: 2025-03-16
 sidebar: false
 ---
 
-# How SPF, DKIM, and DMARC Work
+# How SPF, DKIM, and DMARC Actually Work (With Real Examples)
 
 Email authentication is essential if you don't want any random idiot sending emails in your name. In other words, to prevent email spoofing, it's strongly advised to set up DKIM, SPF, and DMARC.
+
+
 
 In this article we will go through how these email authentication methods work, showcasing it with real-life examples, digging into email headers. The aim is to reach to a good understanding how these methods actually work, and how you can investigate if something is off.
 
@@ -55,15 +57,23 @@ In this article we will go through how these email authentication methods work, 
 **DMARC (Domain-based Message Authentication, Reporting and Conformance)** gives control domain owners over what to do with unauthenticated emails. If DKIM or SPF fails, you can decide to just monitor, quarantine (send to trash/spam), or reject unauthenticated emails.
 :::
 
+:::warning Who this is for
+
+This guide is for developers, marketers, or product folks who want to understand how email authentication really works—not just how to "turn it on." If you're setting up AWS SES, debugging deliverability issues, or just curious about what's in your email headers, you're in the right place.
+
+We’ll use `dig` to inspect DNS records, highlight real email headers, and explain each protocol with examples from BlueFox Email.
+
+:::
+
 ## Email Headers
 
 If you want to follow this article step-by-step, you will need to check some email headers. In Gmail, just click on the show original menu item highlighted below:
 
-![Screenshot of an email in Gmail with show original highlighted](./how-spf-dkim-and-dmarc-work/01-show-original.png)
+![Screenshot of an email in Gmail with show original highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/01-show-original.png)
 
 This is how emails look under the hood. It not only contains the text and HTML version of the email, but it starts with quite a few email headers:
 
-![Screenshot of email headers in Gmail](./how-spf-dkim-and-dmarc-work/02-email-headers.png)
+![Screenshot of email headers in Gmail](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/02-email-headers.png)
 
 `From`, `To`, `Subject`, and `Reply-To` are email headers that most people are quite familiar with, and it's straightforward what's their meaning.
 
@@ -149,7 +159,7 @@ It means, that we use the first version of SPF (`v=spf1`), every server defined 
 Looks quite simple, but there is one tricky part. The SMPT receiver server does not check the SPF entry based on the domain name in the `From` header, but it uses the `Return-Path` header. The Return-Path defines where bounce reports should go.
 
 Let's see an in-real-life example:
-![SPF-related headers highlighted](./how-spf-dkim-and-dmarc-work/03-email-headers-spf-highlighted.png)
+![SPF-related headers highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/03-email-headers-spf-highlighted.png)
 On the picture above, you can see, that the email is sent from `no-reply@bluefox.email`, and you might have observed, that it was actually sent by Amazon SES.
 
 But how can it be? Only Google addresses are allowed in the TXT record of bluefox.email!
@@ -184,7 +194,7 @@ selector._domainkey.yourdomain.com
 Where `yourdomain.com` will actually be your domain, `_domainkey` is a fixed subdomain used by this method, and `selector` is defined in the `DKIM-Signature` field in the emial header.
 
 Now, let's see how it looks like in real life:
-![DKIM-Signature highlighted](./how-spf-dkim-and-dmarc-work/04-email-headers-dkim-highlighted.png)
+![DKIM-Signature highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/04-email-headers-dkim-highlighted.png)
 
 In the DKIM-Signature, the `d` parameter is the domain name, and the `s` parameter is the selector. In this example:
  - d=bluefox.email
