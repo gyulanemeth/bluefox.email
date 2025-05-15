@@ -1,7 +1,7 @@
 ---
 title: How SPF, DKIM, and DMARC Actually Work (With Real Examples)
 description: Learn how SPF, DKIM, and DMARC work together to authenticate email and prevent spoofing, using real examples from BlueFox Email.
-thumbnail: /assets/articles/how-spf-dkim-and-dmarc-actually-work-with-real-examples-share.png
+thumbnail: /assets/articles/how-spf-dkim-and-dmarc-actually-work-with-real-examples-share.webp
 
 layout: post
 category: articles
