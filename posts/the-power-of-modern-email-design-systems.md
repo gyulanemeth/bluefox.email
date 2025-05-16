@@ -1,7 +1,7 @@
 ---
 title: "From Inconsistent to On-Brand: The Power of Modern Email Design Systems."
 description: "Discover how to build a modular email design system that ensures consistency and scalability across all your campaigns."
-thumbnail: /assets/articles/preheader-text-share.webp
+thumbnail: /assets/articles/the-power-of-modern-email-design-systems.webp
 head:
   - - meta
     - name: description
@@ -14,10 +14,10 @@ head:
       content: "Discover how to build a modular email design system that ensures consistency and scalability across all your campaigns."
   - - meta
     - property: og:image
-      content: "https://bluefox.email/assets/articles/preheader-text-share.png"
+      content: "https://bluefox.email/assets/articles/the-power-of-modern-email-design-systems.png"
   - - meta
     - property: og:url
-      content: "https://bluefox.email/posts/preheader-text-the-secret-weapon"
+      content: "https://bluefox.email/posts/the-power-of-modern-email-design-systems"
   - - meta
     - name: twitter:card
       content: "summary_large_image"
@@ -29,7 +29,7 @@ head:
       content: "Discover how to build a modular email design system that ensures consistency and scalability across all your campaigns."
   - - meta
     - name: twitter:image
-      content: "https://bluefox.email/assets/articles/preheader-text-share.png"
+      content: "https://bluefox.email/assets/articles/the-power-of-modern-email-design-systems.png"
 layout: post
 category: articles
 lastUpdated: true
@@ -38,7 +38,7 @@ sidebar: false
 ---
 
 
-![Title Image](/assets/articles/the-power-of-modern-email-design-systems.webp)
+![Title Image](/assets/articles/the-power-of-modern-email-design-systems-main.webp)
 
 # From Inconsistent to On-Brand: The Power of Modern Email Design Systems
 
