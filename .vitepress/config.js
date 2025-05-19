@@ -61,7 +61,7 @@ export default defineConfig({
       { text: "Pricing", link: "/pricing" },
       { text: "Tutorials", link: "/tutorials" },
       { text: "Articles", link: "/articles" },
-      { text: "Glossary", link: "/glossary" },
+      { text: "Glossary", link: "/email-sending-concepts/" },
       { text: "Docs", link: "/docs/" },
       {
         component: "NavigationButton",
