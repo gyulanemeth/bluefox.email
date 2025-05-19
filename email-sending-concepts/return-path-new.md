@@ -165,3 +165,20 @@ Several issues can arise with Return-Path implementation:
 | **Authentication impact** | Critical for SPF and DMARC |
 
 At BlueFox Email, we automatically manage Return-Path configurations to optimize deliverability and provide detailed bounce reporting. Our system processes bounces intelligently to maintain your sender reputation and ensure your messages reach their intended recipients.
+
+## Related Concepts
+
+- [SPF (Sender Policy Framework)](/email-sending-concepts/spf-new)  
+  Learn how SPF uses the Return-Path domain for authentication.
+
+- [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc-new)  
+  Understand how DMARC policies affect Return-Path validation.
+
+- [Email Authentication](/email-sending-concepts/email-authentication-new)  
+  Explore the full suite of email authentication methods.
+
+- [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp-new)  
+  Discover how SMTP uses the Return-Path to route bounced messages.
+
+- [MX Record](/email-sending-concepts/mx-record-new)  
+  Learn about the DNS records that direct incoming email including bounces.

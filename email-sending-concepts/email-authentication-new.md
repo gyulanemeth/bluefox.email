@@ -148,3 +148,23 @@ To maximize the effectiveness of email authentication:
 | **DMARC** | Set policy and enable reporting | DNS TXT record with policies and reporting addresses |
 
 At BlueFox Email, we help businesses implement robust email authentication to protect their brand identity and ensure their legitimate emails reach their intended recipients. Our platform seamlessly integrates with these authentication protocols to maximize deliverability while maintaining strong security practices.
+
+## Related Concepts
+
+- [SPF (Sender Policy Framework)](/email-sending-concepts/spf-new)  
+  Learn how SPF specifies authorized mail servers for a domain.
+
+- [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim-new)  
+  Discover how DKIM adds digital signatures to verify email integrity.
+
+- [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc-new)  
+  Understand how DMARC ties SPF and DKIM together with policy enforcement.
+
+- [Email Spoofing](/email-sending-concepts/email-spoofing-new)  
+  Explore the threat that email authentication methods help prevent.
+
+- [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp-new)  
+  Learn about the protocol that transports email across the internet.
+
+- [Return Path](/email-sending-concepts/return-path-new)  
+  See how the return path address relates to email authentication.

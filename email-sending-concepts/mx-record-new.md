@@ -146,3 +146,17 @@ Several issues can arise with MX records that affect email delivery:
 | Best practice       | Multiple records with different priorities for redundancy |
 
 At BlueFox Email, we help ensure your email infrastructure is properly configured with the right MX records to maximize deliverability and ensure your messages reach their destination reliably.
+
+## Related Concepts
+
+- [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp-new)  
+  Understand the protocol that uses MX records to route email.
+
+- [SPF (Sender Policy Framework)](/email-sending-concepts/spf-new)  
+  Learn about the DNS record that authorizes sending servers.
+
+- [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc-new)  
+  Explore how DMARC combines authentication methods for better protection.
+
+- [Return Path](/email-sending-concepts/return-path-new)  
+  Discover how bounced emails are handled in email systems.

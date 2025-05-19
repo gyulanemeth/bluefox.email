@@ -193,3 +193,20 @@ To ensure reliable email delivery using SMTP:
 | Limitations | Requires additional protocols (POP3/IMAP) for retrieval |
 
 At BlueFox Email, we handle all the SMTP complexity behind the scenes, ensuring your emails are delivered reliably with proper authentication, encryption, and adherence to best practices that maximize deliverability.
+
+## Related Concepts
+
+- [TLS (Transport Layer Security)](/email-sending-concepts/tls-new)  
+  Learn how TLS secures SMTP connections during email transmission.
+
+- [Email Authentication](/email-sending-concepts/email-authentication-new)  
+  Understand how authentication methods work with SMTP to verify senders.
+
+- [SPF (Sender Policy Framework)](/email-sending-concepts/spf-new)  
+  Explore how SPF authorizes servers to send mail for a domain.
+
+- [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim-new)  
+  Learn about email signing to verify message integrity.
+
+- [MX Record](/email-sending-concepts/mx-record-new)  
+  Discover how receiving mail servers are identified for SMTP delivery.

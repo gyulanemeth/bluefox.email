@@ -185,3 +185,17 @@ To maximize the security benefits of TLS for email:
 | Limitations | Only protects messages in transit, not at rest |
 
 At BlueFox Email, we ensure all emails are transmitted using modern TLS protocols, with regular security audits and monitoring to maintain the highest level of protection for your messages in transit.
+
+## Related Concepts
+
+- [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp-new)  
+  Learn about the email protocol that uses TLS for secure transmission.
+
+- [Email Authentication](/email-sending-concepts/email-authentication-new)  
+  Understand how authentication mechanisms work alongside encryption for email security.
+
+- [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim-new)  
+  Explore how DKIM signatures verify email content integrity.
+
+- [MX Record](/email-sending-concepts/mx-record-new)  
+  Discover how mail servers are designated for receiving email.

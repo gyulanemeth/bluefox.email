@@ -154,3 +154,20 @@ To counter these evolving threats, emerging protections include:
 | **Best practice** | Implement all three authentication protocols with monitoring |
 
 At BlueFox Email, we help businesses implement robust email authentication to prevent their domains from being spoofed, protecting both their brand reputation and their customers from potential fraud.
+
+## Related Concepts
+
+- [Email Authentication](/email-sending-concepts/email-authentication-new)  
+  Learn about the protocols that help prevent email spoofing.
+
+- [SPF (Sender Policy Framework)](/email-sending-concepts/spf-new)  
+  Understand how SPF specifies authorized sending servers for your domain.
+
+- [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim-new)  
+  Discover how digital signatures verify email authenticity.
+
+- [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc-new)  
+  Explore how DMARC combines SPF and DKIM for comprehensive protection.
+
+- [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp-new)  
+  Learn about the protocol that allows email spoofing by design.

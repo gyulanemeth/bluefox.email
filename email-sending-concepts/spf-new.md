@@ -123,3 +123,20 @@ To implement SPF effectively:
 | Works with | DKIM, DMARC, DNS |
 
 By implementing SPF alongside other email authentication methods, you create a strong foundation for email security and deliverability. BlueFox Email helps ensure your email authentication is properly configured to maximize your email sending success.
+
+## Related Concepts
+
+- [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim-new)  
+  Learn how DKIM complements SPF by verifying email content integrity.
+
+- [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc-new)  
+  Discover how DMARC builds on SPF and DKIM to provide comprehensive protection.
+
+- [Email Authentication](/email-sending-concepts/email-authentication-new)  
+  Explore all email authentication methods and how they work together.
+
+- [Email Spoofing](/email-sending-concepts/email-spoofing-new)  
+  Understand the threat that SPF helps prevent.
+
+- [Return Path](/email-sending-concepts/return-path-new)  
+  Learn how the return path relates to SPF verification.
