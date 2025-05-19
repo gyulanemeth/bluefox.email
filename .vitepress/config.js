@@ -53,6 +53,12 @@ export default defineConfig({
       alt: "bluefox.email logo",
     },
 
+    // Disable the prev/next page links in the footer
+    docFooter: {
+      prev: false,
+      next: false,
+    },
+
     search: {
       provider: "local",
     },

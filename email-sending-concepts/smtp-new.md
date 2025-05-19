@@ -38,9 +38,157 @@ head:
 
 # SMTP: The Protocol That Powers Email Transmission
 
+<div class="page-nav">
+  <div class="page-nav-title">On This Page</div>
+  <div class="page-nav-items">
+        <a href="#what-is-smtp-">What Is SMTP?</a>
+    <a href="#the-role-of-smtp-in-email-delivery">The Role of SMTP in Em...</a>
+    <a href="#smtp-commands-the-language-of-email-transmission">SMTP Commands</a>
+    <a href="#common-smtp-ports">Common SMTP Ports</a>
+    <a href="#the-evolution-of-smtp-security-extensions">The Evolution of SMTP</a>
+    <a href="#smtp-vs-other-email-protocols">SMTP vs. Other Email P...</a>
+    <a href="#common-smtp-error-codes">Common SMTP Error Codes</a>
+    <a href="#smtp-best-practices-for-reliable-email-delivery">SMTP Best Practices fo...</a>
+    <a href="#-tl-dr-smtp-at-a-glance">✅ TL;DR</a>
+    <a href="#related-concepts">Related Concepts</a>
+  </div>
+</div>
+
+<style>
+.page-nav {
+  position: fixed;
+  right: 1.5rem;
+  top: 9rem;
+  width: 12rem;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 12px;
+  font-size: 0.875rem;
+  z-index: 10;
+}
+
+.dark .page-nav {
+  border-left: 1px solid #2d3748;
+}
+
+.page-nav-title {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.page-nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.page-nav-items a {
+  color: #64748b;
+  text-decoration: none;
+  padding: 3px 0;
+  position: relative;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.page-nav-items a:hover {
+  color: #13B0EE;
+  transform: translateX(3px);
+}
+
+.page-nav-items a.active {
+  color: #13B0EE;
+  font-weight: 500;
+  transform: translateX(3px);
+}
+
+.page-nav-items a:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -13px;
+  width: 1px;
+  height: 100%;
+  background: transparent;
+  transition: background-color 0.2s;
+}
+
+.page-nav-items a:hover:before {
+  background-color: #13B0EE;
+}
+
+.page-nav-items a.active:before {
+  background-color: #13B0EE;
+  width: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1280px) {
+  .page-nav {
+    right: 0.5rem;
+  }
+}
+
+/* Hide on small screens */
+@media (max-width: 1024px) {
+  .page-nav {
+    display: none;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get all section headings
+  const headings = document.querySelectorAll('h2[id]');
+  const navLinks = document.querySelectorAll('.page-nav-items a');
+  
+  // Handle smooth scrolling for nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        
+        history.pushState(null, null, targetId);
+      }
+    });
+  });
+  
+  // Highlight the active section during scroll
+  window.addEventListener('scroll', function() {
+    let current = '';
+    const scrollPosition = window.scrollY + 100;
+    
+    headings.forEach(heading => {
+      if (heading.offsetTop <= scrollPosition) {
+        current = '#' + heading.id;
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === current) {
+        link.classList.add('active');
+      }
+    });
+  });
+  
+  // Trigger scroll event once on load
+  window.dispatchEvent(new Event('scroll'));
+});
+</script>
+
 SMTP (Simple Mail Transfer Protocol) is the fundamental protocol that enables the transmission of email across the internet. First defined in 1982, this protocol serves as the standardized method for sending messages between servers and from email clients to mail servers. Despite its age, SMTP remains the backbone of email communications worldwide, though it has evolved with security extensions to meet modern needs.
 
-## What Is SMTP?
+## <a id="what-is-smtp-"></a>What Is SMTP?
 
 SMTP is a text-based communication protocol that defines how email messages are formatted, addressed, routed, and delivered across networks. It establishes the rules and procedures that email servers follow when exchanging messages, ensuring that emails can be reliably transmitted regardless of the underlying systems involved.
 
@@ -51,7 +199,7 @@ Key characteristics of SMTP include:
 - It focuses exclusively on **sending email**, not retrieving it
 - It operates independently of the underlying transport mechanism (though typically runs over TCP/IP)
 
-## The Role of SMTP in Email Delivery
+## <a id="the-role-of-smtp-in-email-delivery"></a>The Role of SMTP in Email Delivery
 
 When you send an email, SMTP plays a crucial role in the delivery process:
 
@@ -62,7 +210,7 @@ When you send an email, SMTP plays a crucial role in the delivery process:
 
 This process may involve multiple SMTP servers if relaying is required, with each server passing the message closer to its final destination.
 
-## SMTP Commands: The Language of Email Transmission
+## <a id="smtp-commands-the-language-of-email-transmission"></a>SMTP Commands: The Language of Email Transmission
 
 SMTP communication consists of text commands and responses between clients (senders) and servers. Here's a simplified example of an SMTP conversation:
 
@@ -93,7 +241,7 @@ This sequence demonstrates the core SMTP commands:
 - **DATA**: Begins the message content transfer
 - **QUIT**: Ends the session
 
-## Common SMTP Ports
+## <a id="common-smtp-ports"></a>Common SMTP Ports
 
 SMTP operates on several standard port numbers, each serving a specific purpose:
 
@@ -105,7 +253,7 @@ SMTP operates on several standard port numbers, each serving a specific purpose:
 
 Port 587 is the modern standard for email submission from clients to servers, as it supports STARTTLS for connection encryption while maintaining compatibility with email standards.
 
-## The Evolution of SMTP: Security Extensions
+## <a id="the-evolution-of-smtp-security-extensions"></a>The Evolution of SMTP: Security Extensions
 
 Original SMTP lacked security features, as it was designed in an era when the internet was primarily used by trusted institutions. Modern email delivery relies on several SMTP extensions to address these limitations:
 
@@ -146,7 +294,7 @@ Allows servers to specify maximum message sizes they can handle, preventing deli
 SERVER: 250-SIZE 52428800
 ```
 
-## SMTP vs. Other Email Protocols
+## <a id="smtp-vs-other-email-protocols"></a>SMTP vs. Other Email Protocols
 
 SMTP handles sending email, but other protocols manage email retrieval and storage:
 
@@ -157,7 +305,7 @@ SMTP handles sending email, but other protocols manage email retrieval and stora
 | **IMAP** | Retrieval & management | Manages email on the server, allowing access from multiple devices |
 | **HTTP/S** | Webmail access | Enables email access through web browsers |
 
-## Common SMTP Error Codes
+## <a id="common-smtp-error-codes"></a>Common SMTP Error Codes
 
 SMTP servers use standardized response codes to indicate success or failure:
 
@@ -170,7 +318,7 @@ SMTP servers use standardized response codes to indicate success or failure:
 
 Understanding these codes is essential for diagnosing email delivery issues.
 
-## SMTP Best Practices for Reliable Email Delivery
+## <a id="smtp-best-practices-for-reliable-email-delivery"></a>SMTP Best Practices for Reliable Email Delivery
 
 To ensure reliable email delivery using SMTP:
 
@@ -182,7 +330,7 @@ To ensure reliable email delivery using SMTP:
 6. **Maintain a good sender reputation** by following best practices
 7. **Use dedicated IP addresses** for high-volume sending
 
-## ✅ TL;DR: SMTP at a Glance
+## <a id="-tl-dr-smtp-at-a-glance"></a>✅ TL;DR: SMTP at a Glance
 
 | SMTP stands for | **Simple Mail Transfer Protocol** |
 |-----------------|-----------------------------------|
@@ -194,7 +342,7 @@ To ensure reliable email delivery using SMTP:
 
 At BlueFox Email, we handle all the SMTP complexity behind the scenes, ensuring your emails are delivered reliably with proper authentication, encryption, and adherence to best practices that maximize deliverability.
 
-## Related Concepts
+## <a id="related-concepts"></a>Related Concepts
 
 - [TLS (Transport Layer Security)](/email-sending-concepts/tls-new)  
   Learn how TLS secures SMTP connections during email transmission.

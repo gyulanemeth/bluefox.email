@@ -36,15 +36,6 @@ sidebar: false
 
 Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanations for common email marketing, development, and authentication terms organized alphabetically.
 
-<div class="glossary-nav">
-  <a href="#section-d">D</a>
-  <a href="#section-e">E</a>
-  <a href="#section-m">M</a>
-  <a href="#section-r">R</a>
-  <a href="#section-s">S</a>
-  <a href="#section-t">T</a>
-</div>
-
 ## <a id="section-d"></a>D
 
 <div class="glossary-item">
@@ -137,22 +128,68 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
   background-color: white;
   color: #13B0EE;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
 .dark .glossary-nav a {
   background-color: #3a3a3a;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
 .glossary-nav a:hover {
   background-color: #13B0EE;
   color: white;
-  transform: scale(1.1);
+  transform: scale(1.1) translateY(-2px);
+  box-shadow: 0 4px 8px rgba(19, 176, 238, 0.3);
+}
+
+.glossary-nav a:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 4px rgba(19, 176, 238, 0.2);
+  transition: all 0.1s ease;
+}
+
+.glossary-nav a::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, transparent 70%);
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 0.6s, opacity 0.6s;
+  pointer-events: none;
+}
+
+.glossary-nav a:active::after {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.1s, opacity 0.1s;
+}
+
+/* Target effect for section headers */
+h2:target {
+  animation: highlight-section 1.5s ease;
+}
+
+@keyframes highlight-section {
+  0% {
+    background-color: rgba(19, 176, 238, 0.1);
+  }
+  100% {
+    background-color: transparent;
+  }
 }
 
 .glossary-item {
   padding: 25px 0;
   border-bottom: 1px solid #eaeaea;
+  transition: transform 0.2s ease;
 }
 
 .dark .glossary-item {

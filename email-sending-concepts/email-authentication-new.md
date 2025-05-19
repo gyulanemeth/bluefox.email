@@ -38,9 +38,154 @@ head:
 
 # Email Authentication: Securing the World's Most Popular Communication Channel
 
+<div class="page-nav">
+  <div class="page-nav-title">On This Page</div>
+  <div class="page-nav-items">
+        <a href="#why-email-authentication-matters">Why Email Authenticati...</a>
+    <a href="#core-email-authentication-protocols">Core Email Authenticat...</a>
+    <a href="#how-email-authentication-works-in-practice">How Email Authenticati...</a>
+    <a href="#benefits-of-email-authentication">Benefits of Email Auth...</a>
+    <a href="#email-authentication-best-practices">Email Authentication B...</a>
+    <a href="#-tl-dr-email-authentication-at-a-glance">✅ TL;DR</a>
+    <a href="#related-concepts">Related Concepts</a>
+  </div>
+</div>
+
+<style>
+.page-nav {
+  position: fixed;
+  right: 1.5rem;
+  top: 9rem;
+  width: 12rem;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 12px;
+  font-size: 0.875rem;
+  z-index: 10;
+}
+
+.dark .page-nav {
+  border-left: 1px solid #2d3748;
+}
+
+.page-nav-title {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.page-nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.page-nav-items a {
+  color: #64748b;
+  text-decoration: none;
+  padding: 3px 0;
+  position: relative;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.page-nav-items a:hover {
+  color: #13B0EE;
+  transform: translateX(3px);
+}
+
+.page-nav-items a.active {
+  color: #13B0EE;
+  font-weight: 500;
+  transform: translateX(3px);
+}
+
+.page-nav-items a:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -13px;
+  width: 1px;
+  height: 100%;
+  background: transparent;
+  transition: background-color 0.2s;
+}
+
+.page-nav-items a:hover:before {
+  background-color: #13B0EE;
+}
+
+.page-nav-items a.active:before {
+  background-color: #13B0EE;
+  width: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1280px) {
+  .page-nav {
+    right: 0.5rem;
+  }
+}
+
+/* Hide on small screens */
+@media (max-width: 1024px) {
+  .page-nav {
+    display: none;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get all section headings
+  const headings = document.querySelectorAll('h2[id]');
+  const navLinks = document.querySelectorAll('.page-nav-items a');
+  
+  // Handle smooth scrolling for nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        
+        history.pushState(null, null, targetId);
+      }
+    });
+  });
+  
+  // Highlight the active section during scroll
+  window.addEventListener('scroll', function() {
+    let current = '';
+    const scrollPosition = window.scrollY + 100;
+    
+    headings.forEach(heading => {
+      if (heading.offsetTop <= scrollPosition) {
+        current = '#' + heading.id;
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === current) {
+        link.classList.add('active');
+      }
+    });
+  });
+  
+  // Trigger scroll event once on load
+  window.dispatchEvent(new Event('scroll'));
+});
+</script>
+
 Email authentication refers to a set of technical standards and protocols designed to verify that emails are coming from legitimate senders and have not been tampered with during transit. In an era where email spoofing and phishing attacks are increasingly sophisticated, authentication mechanisms provide crucial security layers that help maintain the integrity and trustworthiness of email communications.
 
-## Why Email Authentication Matters
+## <a id="why-email-authentication-matters"></a>Why Email Authentication Matters
 
 The original email protocols were designed in a more trusting era of the internet, with little built-in security. This architectural limitation means that, by default, anyone can:
 
@@ -53,7 +198,7 @@ Email authentication addresses these fundamental security gaps by providing meth
 2. That the message hasn't been altered in transit
 3. That the visible "From" address matches authenticated domains
 
-## Core Email Authentication Protocols
+## <a id="core-email-authentication-protocols"></a>Core Email Authentication Protocols
 
 Modern email authentication relies on three complementary protocols that work together to protect email communications:
 
@@ -98,7 +243,7 @@ Example DMARC record:
 _dmarc.example.com. IN TXT "v=DMARC1; p=quarantine; rua=mailto:reports@example.com; pct=100"
 ```
 
-## How Email Authentication Works in Practice
+## <a id="how-email-authentication-works-in-practice"></a>How Email Authentication Works in Practice
 
 When an email is sent:
 
@@ -117,7 +262,7 @@ When an email is sent:
    - Authentication results are added to the email headers
    - Reports may be generated and sent to the domain owner
 
-## Benefits of Email Authentication
+## <a id="benefits-of-email-authentication"></a>Benefits of Email Authentication
 
 Implementing email authentication provides multiple benefits:
 
@@ -127,7 +272,7 @@ Implementing email authentication provides multiple benefits:
 - **Greater visibility** into email sending patterns through reporting
 - **Protection of your brand** from being used in fraudulent activities
 
-## Email Authentication Best Practices
+## <a id="email-authentication-best-practices"></a>Email Authentication Best Practices
 
 To maximize the effectiveness of email authentication:
 
@@ -139,7 +284,7 @@ To maximize the effectiveness of email authentication:
 6. **Use strong DKIM keys** (2048-bit RSA keys recommended) and rotate them periodically
 7. **Monitor for issues** after making changes to authentication records
 
-## ✅ TL;DR: Email Authentication at a Glance
+## <a id="-tl-dr-email-authentication-at-a-glance"></a>✅ TL;DR: Email Authentication at a Glance
 
 | Protocol | Purpose | Implementation |
 |----------|---------|----------------|
@@ -149,7 +294,7 @@ To maximize the effectiveness of email authentication:
 
 At BlueFox Email, we help businesses implement robust email authentication to protect their brand identity and ensure their legitimate emails reach their intended recipients. Our platform seamlessly integrates with these authentication protocols to maximize deliverability while maintaining strong security practices.
 
-## Related Concepts
+## <a id="related-concepts"></a>Related Concepts
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf-new)  
   Learn how SPF specifies authorized mail servers for a domain.

@@ -38,9 +38,157 @@ head:
 
 # Return Path: The Critical Bounce Management Header
 
+<div class="page-nav">
+  <div class="page-nav-title">On This Page</div>
+  <div class="page-nav-items">
+        <a href="#what-is-a-return-path-">What Is a Return Path?</a>
+    <a href="#how-return-path-works-in-email-delivery">How Return Path Works ...</a>
+    <a href="#the-difference-between-return-path-and-from-address">The Difference Between...</a>
+    <a href="#the-technical-structure-of-a-return-path">The Technical Structur...</a>
+    <a href="#why-return-path-matters-for-email-deliverability">Why Return-Path Matter...</a>
+    <a href="#return-path-best-practices">Return-Path Best Pract...</a>
+    <a href="#return-path-in-modern-email-services">Return-Path in Modern ...</a>
+    <a href="#common-return-path-issues-and-how-to-fix-them">Common Return-Path Iss...</a>
+    <a href="#-tl-dr-return-path-at-a-glance">✅ TL;DR</a>
+    <a href="#related-concepts">Related Concepts</a>
+  </div>
+</div>
+
+<style>
+.page-nav {
+  position: fixed;
+  right: 1.5rem;
+  top: 9rem;
+  width: 12rem;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 12px;
+  font-size: 0.875rem;
+  z-index: 10;
+}
+
+.dark .page-nav {
+  border-left: 1px solid #2d3748;
+}
+
+.page-nav-title {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.page-nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.page-nav-items a {
+  color: #64748b;
+  text-decoration: none;
+  padding: 3px 0;
+  position: relative;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.page-nav-items a:hover {
+  color: #13B0EE;
+  transform: translateX(3px);
+}
+
+.page-nav-items a.active {
+  color: #13B0EE;
+  font-weight: 500;
+  transform: translateX(3px);
+}
+
+.page-nav-items a:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -13px;
+  width: 1px;
+  height: 100%;
+  background: transparent;
+  transition: background-color 0.2s;
+}
+
+.page-nav-items a:hover:before {
+  background-color: #13B0EE;
+}
+
+.page-nav-items a.active:before {
+  background-color: #13B0EE;
+  width: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1280px) {
+  .page-nav {
+    right: 0.5rem;
+  }
+}
+
+/* Hide on small screens */
+@media (max-width: 1024px) {
+  .page-nav {
+    display: none;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get all section headings
+  const headings = document.querySelectorAll('h2[id]');
+  const navLinks = document.querySelectorAll('.page-nav-items a');
+  
+  // Handle smooth scrolling for nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        
+        history.pushState(null, null, targetId);
+      }
+    });
+  });
+  
+  // Highlight the active section during scroll
+  window.addEventListener('scroll', function() {
+    let current = '';
+    const scrollPosition = window.scrollY + 100;
+    
+    headings.forEach(heading => {
+      if (heading.offsetTop <= scrollPosition) {
+        current = '#' + heading.id;
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === current) {
+        link.classList.add('active');
+      }
+    });
+  });
+  
+  // Trigger scroll event once on load
+  window.dispatchEvent(new Event('scroll'));
+});
+</script>
+
 The Return-Path header (also known as the "bounce address" or "envelope sender") is one of the most important yet least visible components of email architecture. It specifies where bounce messages and delivery status notifications should be sent, making it a crucial element for tracking email deliverability and managing sender reputation.
 
-## What Is a Return Path?
+## <a id="what-is-a-return-path-"></a>What Is a Return Path?
 
 The Return-Path is an email header that designates the email address where bounced messages (non-deliveries) should be returned. While most email users are familiar with the "From" and "To" addresses in an email, the Return-Path operates behind the scenes as part of the email's envelope information.
 
@@ -50,7 +198,7 @@ Key characteristics of the Return-Path:
 - It can be different from the visible "From" address
 - It's preserved by receiving mail servers for bounce processing
 
-## How Return Path Works in Email Delivery
+## <a id="how-return-path-works-in-email-delivery"></a>How Return Path Works in Email Delivery
 
 The Return-Path functions as part of the email delivery process:
 
@@ -61,7 +209,7 @@ The Return-Path functions as part of the email delivery process:
 
 This process creates an automated feedback loop that helps senders track delivery problems.
 
-## The Difference Between Return-Path and From Address
+## <a id="the-difference-between-return-path-and-from-address"></a>The Difference Between Return-Path and From Address
 
 It's important to understand the distinction between the Return-Path and the visible From address:
 
@@ -78,7 +226,7 @@ For example, an email might have:
 
 This configuration allows the marketing email to come from a recognizable address while directing bounces to a specialized address that can process them automatically.
 
-## The Technical Structure of a Return-Path
+## <a id="the-technical-structure-of-a-return-path"></a>The Technical Structure of a Return-Path
 
 In email headers, the Return-Path appears in this format:
 
@@ -94,7 +242,7 @@ In the SMTP transaction itself, the Return-Path is set using the "MAIL FROM:" co
 MAIL FROM: <bounce@example.com>
 ```
 
-## Why Return-Path Matters for Email Deliverability
+## <a id="why-return-path-matters-for-email-deliverability"></a>Why Return-Path Matters for Email Deliverability
 
 The Return-Path serves several critical functions that impact email deliverability:
 
@@ -119,7 +267,7 @@ Email providers track bounce rates associated with Return-Path domains:
 - Maintaining clean lists through bounce processing improves deliverability
 - Multiple Return-Paths can help isolate reputation issues to specific campaigns
 
-## Return-Path Best Practices
+## <a id="return-path-best-practices"></a>Return-Path Best Practices
 
 To optimize email deliverability using Return-Path:
 
@@ -129,7 +277,7 @@ To optimize email deliverability using Return-Path:
 4. **Align with authentication**: Ensure your Return-Path domain aligns with your From domain for DMARC compliance
 5. **Monitor bounce rates**: Keep track of bounce rates by campaign and take action when they exceed industry standards
 
-## Return-Path in Modern Email Services
+## <a id="return-path-in-modern-email-services"></a>Return-Path in Modern Email Services
 
 Most email service providers automatically manage Return-Path addresses, offering features like:
 
@@ -138,7 +286,7 @@ Most email service providers automatically manage Return-Path addresses, offerin
 - **Bounce categorization**: Classifying different types of bounces
 - **Reputation monitoring**: Tracking bounce rates and their impact on deliverability
 
-## Common Return-Path Issues and How to Fix Them
+## <a id="common-return-path-issues-and-how-to-fix-them"></a>Common Return-Path Issues and How to Fix Them
 
 Several issues can arise with Return-Path implementation:
 
@@ -154,7 +302,7 @@ Several issues can arise with Return-Path implementation:
 **Problem**: Return-Path domain differs from visible From domain, causing DMARC failures
 **Solution**: Use the same domain (though subdomains are acceptable) for both Return-Path and From address
 
-## ✅ TL;DR: Return-Path at a Glance
+## <a id="-tl-dr-return-path-at-a-glance"></a>✅ TL;DR: Return-Path at a Glance
 
 | Return-Path | Description |
 |-------------|-------------|
@@ -166,7 +314,7 @@ Several issues can arise with Return-Path implementation:
 
 At BlueFox Email, we automatically manage Return-Path configurations to optimize deliverability and provide detailed bounce reporting. Our system processes bounces intelligently to maintain your sender reputation and ensure your messages reach their intended recipients.
 
-## Related Concepts
+## <a id="related-concepts"></a>Related Concepts
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf-new)  
   Learn how SPF uses the Return-Path domain for authentication.

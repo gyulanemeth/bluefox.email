@@ -38,9 +38,154 @@ head:
 
 # Email Spoofing: The Digital Impersonation Threat
 
+<div class="page-nav">
+  <div class="page-nav-title">On This Page</div>
+  <div class="page-nav-items">
+        <a href="#what-is-email-spoofing-">What Is Email Spoofing?</a>
+    <a href="#how-email-spoofing-works">How Email Spoofing Works</a>
+    <a href="#common-types-of-email-spoofing-attacks">Common Types of Email ...</a>
+    <a href="#email-spoofing-prevention-and-protection">Email Spoofing Prevent...</a>
+    <a href="#the-future-of-anti-spoofing-measures">The Future of Anti-Spo...</a>
+    <a href="#-tl-dr-email-spoofing-at-a-glance">✅ TL;DR</a>
+    <a href="#related-concepts">Related Concepts</a>
+  </div>
+</div>
+
+<style>
+.page-nav {
+  position: fixed;
+  right: 1.5rem;
+  top: 9rem;
+  width: 12rem;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 12px;
+  font-size: 0.875rem;
+  z-index: 10;
+}
+
+.dark .page-nav {
+  border-left: 1px solid #2d3748;
+}
+
+.page-nav-title {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.page-nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.page-nav-items a {
+  color: #64748b;
+  text-decoration: none;
+  padding: 3px 0;
+  position: relative;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.page-nav-items a:hover {
+  color: #13B0EE;
+  transform: translateX(3px);
+}
+
+.page-nav-items a.active {
+  color: #13B0EE;
+  font-weight: 500;
+  transform: translateX(3px);
+}
+
+.page-nav-items a:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -13px;
+  width: 1px;
+  height: 100%;
+  background: transparent;
+  transition: background-color 0.2s;
+}
+
+.page-nav-items a:hover:before {
+  background-color: #13B0EE;
+}
+
+.page-nav-items a.active:before {
+  background-color: #13B0EE;
+  width: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1280px) {
+  .page-nav {
+    right: 0.5rem;
+  }
+}
+
+/* Hide on small screens */
+@media (max-width: 1024px) {
+  .page-nav {
+    display: none;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get all section headings
+  const headings = document.querySelectorAll('h2[id]');
+  const navLinks = document.querySelectorAll('.page-nav-items a');
+  
+  // Handle smooth scrolling for nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        
+        history.pushState(null, null, targetId);
+      }
+    });
+  });
+  
+  // Highlight the active section during scroll
+  window.addEventListener('scroll', function() {
+    let current = '';
+    const scrollPosition = window.scrollY + 100;
+    
+    headings.forEach(heading => {
+      if (heading.offsetTop <= scrollPosition) {
+        current = '#' + heading.id;
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === current) {
+        link.classList.add('active');
+      }
+    });
+  });
+  
+  // Trigger scroll event once on load
+  window.dispatchEvent(new Event('scroll'));
+});
+</script>
+
 Email spoofing is a technique used by attackers to forge the sender's address in an email to make it appear as if it originated from someone other than the actual source. This deceptive practice exploits the fundamental trust mechanisms in email systems to impersonate trusted individuals or organizations, often for malicious purposes.
 
-## What Is Email Spoofing?
+## <a id="what-is-email-spoofing-"></a>What Is Email Spoofing?
 
 Email spoofing refers to the creation of email messages with a forged sender address. By manipulating the email header information, attackers can make messages appear to come from any email address they choose, such as:
 
@@ -51,7 +196,7 @@ Email spoofing refers to the creation of email messages with a forged sender add
 
 To understand email spoofing, it's important to recognize that the basic email protocols (SMTP) were designed in an era when security wasn't a primary concern, and they lack built-in authentication mechanisms.
 
-## How Email Spoofing Works
+## <a id="how-email-spoofing-works"></a>How Email Spoofing Works
 
 Email spoofing exploits the architectural limitations in how email systems handle sender verification:
 
@@ -61,7 +206,7 @@ Email spoofing exploits the architectural limitations in how email systems handl
 
 The technical simplicity of spoofing makes it accessible to even relatively unskilled attackers, which is why it remains one of the most common vectors for phishing and other social engineering attacks.
 
-## Common Types of Email Spoofing Attacks
+## <a id="common-types-of-email-spoofing-attacks"></a>Common Types of Email Spoofing Attacks
 
 Email spoofing facilitates several common attack types:
 
@@ -86,7 +231,7 @@ Spoofed emails may contain malicious attachments or links that, when opened, ins
 Example scenario:
 > An email claiming to be from a shipping company contains a spoofed tracking update with an attached "delivery form" that actually contains ransomware.
 
-## Email Spoofing Prevention and Protection
+## <a id="email-spoofing-prevention-and-protection"></a>Email Spoofing Prevention and Protection
 
 Several technologies have been developed specifically to combat email spoofing:
 
@@ -129,7 +274,7 @@ Individual users can take these precautions against spoofed emails:
 4. **Contact the supposed sender directly**: Use a known phone number or new email (don't reply) to verify suspicious requests
 5. **Use email security tools**: Spam filters and security solutions can help identify spoofed emails
 
-## The Future of Anti-Spoofing Measures
+## <a id="the-future-of-anti-spoofing-measures"></a>The Future of Anti-Spoofing Measures
 
 As email authentication adoption increases, attackers are adapting with new techniques:
 
@@ -143,7 +288,7 @@ To counter these evolving threats, emerging protections include:
 - **More sophisticated AI-powered detection**: Identifying suspicious content and context patterns
 - **Stricter enforcement**: Major email providers increasingly rejecting unauthenticated emails
 
-## ✅ TL;DR: Email Spoofing at a Glance
+## <a id="-tl-dr-email-spoofing-at-a-glance"></a>✅ TL;DR: Email Spoofing at a Glance
 
 | Email Spoofing | Definition & Prevention |
 |----------------|-------------------------|
@@ -155,7 +300,7 @@ To counter these evolving threats, emerging protections include:
 
 At BlueFox Email, we help businesses implement robust email authentication to prevent their domains from being spoofed, protecting both their brand reputation and their customers from potential fraud.
 
-## Related Concepts
+## <a id="related-concepts"></a>Related Concepts
 
 - [Email Authentication](/email-sending-concepts/email-authentication-new)  
   Learn about the protocols that help prevent email spoofing.

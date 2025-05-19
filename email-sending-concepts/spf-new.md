@@ -39,13 +39,159 @@ sidebar: false
 
 # SPF (Sender Policy Framework)
 
+<div class="page-nav">
+  <div class="page-nav-title">On This Page</div>
+  <div class="page-nav-items">
+        <a href="#-how-spf-works">🔍 How SPF Works</a>
+    <a href="#-example-spf-record">📁 Example SPF Record</a>
+    <a href="#understanding-spf-qualifiers">Understanding SPF Qual...</a>
+    <a href="#common-spf-mechanisms">Common SPF Mechanisms</a>
+    <a href="#the-importance-of-spf-for-email-deliverability">The Importance of SPF ...</a>
+    <a href="#spf-limitations-and-best-practices">SPF Limitations and Be...</a>
+    <a href="#-tl-dr">✅ TL;DR</a>
+    <a href="#related-concepts">Related Concepts</a>
+  </div>
+</div>
+
+<style>
+.page-nav {
+  position: fixed;
+  right: 1.5rem;
+  top: 9rem;
+  width: 12rem;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 12px;
+  font-size: 0.875rem;
+  z-index: 10;
+}
+
+.dark .page-nav {
+  border-left: 1px solid #2d3748;
+}
+
+.page-nav-title {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.page-nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.page-nav-items a {
+  color: #64748b;
+  text-decoration: none;
+  padding: 3px 0;
+  position: relative;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.page-nav-items a:hover {
+  color: #13B0EE;
+  transform: translateX(3px);
+}
+
+.page-nav-items a.active {
+  color: #13B0EE;
+  font-weight: 500;
+  transform: translateX(3px);
+}
+
+.page-nav-items a:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -13px;
+  width: 1px;
+  height: 100%;
+  background: transparent;
+  transition: background-color 0.2s;
+}
+
+.page-nav-items a:hover:before {
+  background-color: #13B0EE;
+}
+
+.page-nav-items a.active:before {
+  background-color: #13B0EE;
+  width: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1280px) {
+  .page-nav {
+    right: 0.5rem;
+  }
+}
+
+/* Hide on small screens */
+@media (max-width: 1024px) {
+  .page-nav {
+    display: none;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Get all section headings
+  const headings = document.querySelectorAll('h2[id]');
+  const navLinks = document.querySelectorAll('.page-nav-items a');
+  
+  // Handle smooth scrolling for nav links
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      const targetElement = document.querySelector(targetId);
+      
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        
+        history.pushState(null, null, targetId);
+      }
+    });
+  });
+  
+  // Highlight the active section during scroll
+  window.addEventListener('scroll', function() {
+    let current = '';
+    const scrollPosition = window.scrollY + 100;
+    
+    headings.forEach(heading => {
+      if (heading.offsetTop <= scrollPosition) {
+        current = '#' + heading.id;
+      }
+    });
+    
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === current) {
+        link.classList.add('active');
+      }
+    });
+  });
+  
+  // Trigger scroll event once on load
+  window.dispatchEvent(new Event('scroll'));
+});
+</script>
+
 **SPF** stands for **Sender Policy Framework**.
 
 It is an email authentication method that allows domain owners to **specify which mail servers are authorized to send emails** on behalf of their domain.
 
 SPF helps prevent **email spoofing** by giving receiving mail servers a way to check whether a message claiming to come from a domain actually comes from an allowed IP address.
 
-## 🔍 How SPF Works
+## <a id="-how-spf-works"></a>🔍 How SPF Works
 
 1. A mail server receives an email claiming to be from `example.com`
 2. It looks up the **SPF record** (a TXT record) in DNS for `example.com`
@@ -53,7 +199,7 @@ SPF helps prevent **email spoofing** by giving receiving mail servers a way to c
 4. The receiving server checks whether the sender's IP is in that list
 5. Based on the result, it marks the email as `pass`, `fail`, `softfail`, `neutral`, etc.
 
-## 📁 Example SPF Record
+## <a id="-example-spf-record"></a>📁 Example SPF Record
 
 ```txt
 example.com. IN TXT "v=spf1 ip4:192.0.2.0/24 include:mailprovider.com -all"
@@ -63,7 +209,7 @@ example.com. IN TXT "v=spf1 ip4:192.0.2.0/24 include:mailprovider.com -all"
 - `include:mailprovider.com` → include another domain's SPF records
 - `-all` → **fail everything else** (reject unauthorized senders)
 
-## Understanding SPF Qualifiers
+## <a id="understanding-spf-qualifiers"></a>Understanding SPF Qualifiers
 
 SPF uses qualifiers to indicate how receiving servers should handle email from different sources:
 
@@ -76,7 +222,7 @@ SPF uses qualifiers to indicate how receiving servers should handle email from d
 
 For example, `-all` at the end of an SPF record means "fail all other senders" (strongest protection), while `~all` means "softfail all other senders" (less strict).
 
-## Common SPF Mechanisms
+## <a id="common-spf-mechanisms"></a>Common SPF Mechanisms
 
 SPF records can contain several mechanisms to define authorized senders:
 
@@ -88,7 +234,7 @@ SPF records can contain several mechanisms to define authorized senders:
 - `exists:` - Tests if a specified domain resolves to any IP address
 - `all` - Matches everything (usually with a qualifier)
 
-## The Importance of SPF for Email Deliverability
+## <a id="the-importance-of-spf-for-email-deliverability"></a>The Importance of SPF for Email Deliverability
 
 Implementing SPF provides several key benefits:
 
@@ -97,7 +243,7 @@ Implementing SPF provides several key benefits:
 3. **Better sender reputation**: Helps maintain your domain's email reputation
 4. **DMARC compliance**: Required component for a complete [DMARC](/email-sending-concepts/dmarc) policy
 
-## SPF Limitations and Best Practices
+## <a id="spf-limitations-and-best-practices"></a>SPF Limitations and Best Practices
 
 While SPF is important, it does have some limitations to be aware of:
 
@@ -113,7 +259,7 @@ To implement SPF effectively:
 3. Keep records under 10 DNS lookups
 4. Combine SPF with [DKIM](/email-sending-concepts/dkim) and [DMARC](/email-sending-concepts/dmarc) for complete protection
 
-## ✅ TL;DR
+## <a id="-tl-dr"></a>✅ TL;DR
 
 | SPF stands for | **Sender Policy Framework** |
 |----------------|----------------------------|
@@ -124,7 +270,7 @@ To implement SPF effectively:
 
 By implementing SPF alongside other email authentication methods, you create a strong foundation for email security and deliverability. BlueFox Email helps ensure your email authentication is properly configured to maximize your email sending success.
 
-## Related Concepts
+## <a id="related-concepts"></a>Related Concepts
 
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim-new)  
   Learn how DKIM complements SPF by verifying email content integrity.
