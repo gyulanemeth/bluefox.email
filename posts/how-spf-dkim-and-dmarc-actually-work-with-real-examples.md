@@ -44,7 +44,7 @@ sidebar: false
 
 Email authentication is essential if you don't want any random person sending emails in your name. In other words, to prevent email spoofing, it's strongly advised to set up DKIM, SPF, and DMARC.
 
-In this article, we’ll go through how these email authentication methods work, using real-life examples and digging into email headers. The goal is to build a solid understanding of how these methods actually work—and how you can investigate if something’s off.
+In this article, we’ll go through how these email authentication methods work, using real-life examples and digging into email headers. The goal is to build a solid understanding of how these methods actually work, and how you can investigate if something’s off.
 
 :::tip TLDR
 
@@ -58,7 +58,7 @@ In this article, we’ll go through how these email authentication methods work,
 
 :::warning Who this is for
 
-This guide is for developers, marketers, or product folks who want to understand how email authentication really works—not just how to "turn it on." If you're setting up AWS SES, debugging deliverability issues, or just curious about what's in your email headers, you're in the right place.
+This guide is for developers, marketers, or product folks who want to understand how email authentication really works. It's not just how to "turn it on." If you're setting up AWS SES, debugging deliverability issues, or just curious about what's in your email headers, you're in the right place.
 
 We’ll use `dig` to inspect DNS records, highlight real email headers, and explain each protocol with examples from BlueFox Email.
 
