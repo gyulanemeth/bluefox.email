@@ -54,7 +54,7 @@ Breakdown:
 
 ### 📢 Multiple MX Records (For Redundancy)
 
-```dns
+```
 MX 10 smtp1.mailserver.com.
 MX 20 smtp2.mailserver.com.
 ```

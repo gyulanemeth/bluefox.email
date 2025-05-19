@@ -21,7 +21,7 @@ If the signature matches → **DKIM = PASS** ✅
 
 ## 🧪 Example DKIM DNS Record
 
-```dns
+```
 selector._domainkey.example.com. IN TXT "v=DKIM1; k=rsa; p=MIGfMA0G..."
 ```
 

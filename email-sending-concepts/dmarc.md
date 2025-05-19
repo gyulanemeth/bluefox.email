@@ -23,7 +23,7 @@ It is an email authentication protocol that builds on SPF and DKIM. DMARC allows
 
 ## 🧾 Example DMARC Record
 
-```dns
+```
 _dmarc.example.com. IN TXT "v=DMARC1; p=reject; rua=mailto:dmarc@example.com"
 ```
 

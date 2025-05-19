@@ -80,7 +80,7 @@ When it comes to email authentication, the most important headers are the follow
 
 ## SMTP (Simple Mail Transfer Protocol)
 
-Before going into the details of email authentication, let's quickly recap how SMTP works. SMTP is the standard protocol for sending emails through the internet. It handles sending an email from the client to the server, and server-to-server communication. For receiving email, modern systems use IMAP, while older ones use POP3. IMAP synchronizes your emails across your devices; POP3 downloads the email and deletes it from the server.
+Before going into the details of email authentication, let's quickly recap how SMTP works. SMTP is the standard protocol for sending emails through the internet. It handles sending an email from the client to the server, and server-to-server communication. For receiving email, modern systems use IMAP, while older ones use POP3. IMAP synchronizes your emails across your devices, POP3 downloads the email and deletes it from the server.
 
 So, here are the brief steps:
 

@@ -20,7 +20,7 @@ SPF helps prevent **email spoofing** by giving receiving mail servers a way to c
 
 ## 📁 Example SPF Record
 
-```dns
+```
 example.com. IN TXT "v=spf1 ip4:192.0.2.0/24 include:mailprovider.com -all"
 ```
 
