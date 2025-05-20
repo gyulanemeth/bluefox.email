@@ -1,5 +1,5 @@
 ---
-title: Email Glossary | BlueFox Email
+title: Email Sending Concepts | BlueFox Email
 description: A comprehensive glossary of email marketing, development, and authentication terms.
 head:
   - - meta
@@ -32,50 +32,50 @@ published: 2025-05-16
 sidebar: false
 ---
 
-# Email Glossary
+# Email Sending Concepts
 
 Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanations for common email marketing, development, and authentication terms organized alphabetically.
 
 ## <a id="section-d"></a>D
 
 <div class="glossary-item">
-  <h3><a href="/email-sending-concepts/dkim-new">DKIM (DomainKeys Identified Mail)</a></h3>
+  <h3><a href="/email-sending-concepts/dkim">DKIM (DomainKeys Identified Mail)</a></h3>
   <p>An email authentication method that adds a digital signature to verify the email hasn't been altered.</p>
-  <a href="/email-sending-concepts/dkim-new" class="read-more">Read more</a>
+  <a href="/email-sending-concepts/dkim" class="read-more">Read more</a>
 </div>
 
 <div class="glossary-item">
-  <h3><a href="/email-sending-concepts/dmarc-new">DMARC (Domain-based Message Authentication, Reporting, and Conformance)</a></h3>
+  <h3><a href="/email-sending-concepts/dmarc">DMARC (Domain-based Message Authentication, Reporting, and Conformance)</a></h3>
   <p>A protocol that uses SPF and DKIM to protect domains from unauthorized use.</p>
-  <a href="/email-sending-concepts/dmarc-new" class="read-more">Read more</a>
+  <a href="/email-sending-concepts/dmarc" class="read-more">Read more</a>
 </div>
 
 ## <a id="section-e"></a>E
 
 <div class="glossary-item">
-  <h3><a href="/email-sending-concepts/email-authentication-new">Email Authentication</a></h3>
+  <h3><a href="/email-sending-concepts/email-authentication">Email Authentication</a></h3>
   <p>Methods and protocols used to verify the legitimacy of email senders and messages.</p>
-  <a href="/email-sending-concepts/email-authentication-new" class="read-more">Read more</a>
+  <a href="/email-sending-concepts/email-authentication" class="read-more">Read more</a>
 </div>
 
 <div class="glossary-item">
-  <h3><a href="/email-sending-concepts/email-spoofing-new">Email Spoofing</a></h3>
+  <h3><a href="/email-sending-concepts/email-spoofing">Email Spoofing</a></h3>
   <p>The forgery of an email header to make messages appear to come from a trusted source.</p>
-  <a href="/email-sending-concepts/email-spoofing-new" class="read-more">Read more</a>
+  <a href="/email-sending-concepts/email-spoofing" class="read-more">Read more</a>
 </div>
 
 ## <a id="section-m"></a>M
 
 <div class="glossary-item">
-  <h3><a href="/email-sending-concepts/mx-record-new">MX Record</a></h3>
+  <h3><a href="/email-sending-concepts/mx-record">MX Record</a></h3>
   <p>DNS records that specify which mail servers are responsible for accepting email on behalf of a domain.</p>
-  <a href="/email-sending-concepts/mx-record-new" class="read-more">Read more</a>
+  <a href="/email-sending-concepts/mx-record" class="read-more">Read more</a>
 </div>
 
 ## <a id="section-r"></a>R
 
 <div class="glossary-item">
-  <h3><a href="/email-sending-concepts/return-path-new">Return Path</a></h3>
+  <h3><a href="/email-sending-concepts/return-path">Return Path</a></h3>
   <p>The email address to which bounced messages are delivered when an email cannot be delivered.</p>
   <a href="/email-sending-concepts/return-path-new" class="read-more">Read more</a>
 </div>
@@ -83,23 +83,23 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 ## <a id="section-s"></a>S
 
 <div class="glossary-item">
-  <h3><a href="/email-sending-concepts/smtp-new">SMTP (Simple Mail Transfer Protocol)</a></h3>
+  <h3><a href="/email-sending-concepts/smtp">SMTP (Simple Mail Transfer Protocol)</a></h3>
   <p>The standard protocol used for sending and routing email messages across the internet.</p>
-  <a href="/email-sending-concepts/smtp-new" class="read-more">Read more</a>
+  <a href="/email-sending-concepts/smtp" class="read-more">Read more</a>
 </div>
 
 <div class="glossary-item">
-  <h3><a href="/email-sending-concepts/spf-new">SPF (Sender Policy Framework)</a></h3>
+  <h3><a href="/email-sending-concepts/spf">SPF (Sender Policy Framework)</a></h3>
   <p>An authentication method that specifies which mail servers are authorized to send email on behalf of your domain.</p>
-  <a href="/email-sending-concepts/spf-new" class="read-more">Read more</a>
+  <a href="/email-sending-concepts/spf" class="read-more">Read more</a>
 </div>
 
 ## <a id="section-t"></a>T
 
 <div class="glossary-item">
-  <h3><a href="/email-sending-concepts/tls-new">TLS (Transport Layer Security)</a></h3>
+  <h3><a href="/email-sending-concepts/tls">TLS (Transport Layer Security)</a></h3>
   <p>A cryptographic protocol that provides secure communication over networks for email transmission.</p>
-  <a href="/email-sending-concepts/tls-new" class="read-more">Read more</a>
+  <a href="/email-sending-concepts/tls" class="read-more">Read more</a>
 </div>
 
 <style>
