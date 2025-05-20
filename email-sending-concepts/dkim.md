@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 </style>
 
-When starting with email marketing, it's essential to pay attention to DKIM. This isn't just a task for your tech team; it significantly influences whether your emails reach inboxes or end up in spam folders. Consider DKIM as your domain's signature on every email you send. Without it, mailbox providers such as Gmail or Outlook may doubt the authenticity of your emails. From my experience in email delivery, overlooking DKIM can harm your campaigns in the long run.
+When starting with email marketing, it's essential to pay attention to DKIM. This isn't just a task for your tech team. It significantly influences whether your emails reach inboxes or end up in spam folders. Consider DKIM as your domain's signature on every email you send. Without it, mailbox providers such as Gmail or Outlook may doubt the authenticity of your emails. From my experience in email delivery, overlooking DKIM can harm your campaigns in the long run.
 
 ## <a id="what-is-dkim"></a>What is DKIM?
 
