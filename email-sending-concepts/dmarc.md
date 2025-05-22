@@ -192,102 +192,15 @@ document.addEventListener('DOMContentLoaded', function() {
     display: none;
   }
 }
-
-/* Simple "On this page" navigation */
-.on-this-page {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 15px 20px;
-  margin-bottom: 30px;
-  border-left: 3px solid #13B0EE;
-}
-
-.dark .on-this-page {
-  background-color: #252529;
-  border-left: 3px solid #13B0EE;
-}
-
-.on-this-page-title {
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #555;
-  font-size: 0.9rem;
-}
-
-.dark .on-this-page-title {
-  color: #ccc;
-}
-
-.on-this-page ul {
-  list-style-type: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.on-this-page ul li {
-  margin-bottom: 5px;
-  line-height: 1.4;
-}
-
-.on-this-page ul li a {
-  color: #13B0EE;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s;
-}
-
-.on-this-page ul li a:hover {
-  color: #0e8ebf;
-  text-decoration: underline;
-}
-
-.dkim-faq {
-  margin: 25px 0;
-}
-
-.faq-item {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #eaeaea;
-  padding-bottom: 15px;
-}
-
-.dark .faq-item {
-  border-bottom: 1px solid #2d3748;
-}
-
-.faq-item:last-child {
-  border-bottom: none;
-}
-
-.question {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.dark .question {
-  color: #e4e4e4;
-}
-
-.answer {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #444;
-}
-
-.dark .answer {
-  color: #bbb;
-}
 </style>
 
-DMARC is an essential email authentication protocol that enhances SPF and DKIM, giving domain owners authority over how their emails are verified and managed. Additionally, it offers reporting features to track email activity and identify any misuse.
+When implementing email authentication, DMARC represents the final and arguably most crucial layer. While SPF and DKIM are valuable on their own, without DMARC, you're missing critical policy enforcement and visibility. From years of working with email programs, I've seen that domains without DMARC remain vulnerable even when other authentication methods are in place. Many email marketers delay DMARC implementation, thinking it's overly complex, but this often leads to deliverability challenges that could have been avoided.
 
 ## <a id="what-is-dmarc"></a>What is DMARC?
 
-DMARC, which stands for Domain-based Message Authentication, Reporting, and Conformance, is a protocol that safeguards email domains from unauthorized activities like phishing and spoofing. It works by integrating SPF and DKIM to confirm that emails appearing to be from your domain are genuine.
+DMARC, or Domain-based Message Authentication, Reporting, and Conformance, is a protocol designed to protect email domains from unauthorized use, such as phishing and spoofing. By combining SPF and DKIM, DMARC ensures that emails claiming to come from your domain are legitimate.
 
-To implement a DMARC policy, you publish it as a DNS TXT record. This policy outlines the actions that receiving servers should take when emails do not pass authentication checks.
+A DMARC policy is published as a DNS TXT record and specifies how receiving servers should handle emails that fail authentication checks.
 
 ## <a id="how-does-dmarc-work"></a>How Does DMARC Work?
 

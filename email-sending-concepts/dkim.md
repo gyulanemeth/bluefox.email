@@ -64,22 +64,41 @@ document.addEventListener('DOMContentLoaded', function() {
       targetLink.classList.add('active');
     }
   }
-  
-  function handleScroll() {
+    function handleScroll() {
     const scrollPosition = window.scrollY + 120;
+    console.log('Scrolled to position:', scrollPosition);
     
     let currentSection = '';
+    // Debug the headings
+    console.log('Number of h2 elements:', headings.length);
+    headings.forEach((heading, index) => {
+      console.log(`Heading ${index} offsetTop:`, heading.offsetTop, 'text:', heading.textContent.trim());
+    });
+    
     for (let i = headings.length - 1; i >= 0; i--) {
       if (headings[i].offsetTop <= scrollPosition) {
-        currentSection = headings[i].querySelector('a[id]').getAttribute('id');
+        const idElement = headings[i].querySelector('a[id]');
+        if (idElement) {
+          currentSection = idElement.getAttribute('id');
+          console.log('Found current section:', currentSection);
+        } else {
+          console.error('Missing ID element in heading:', headings[i].textContent.trim());
+        }
         break;
       }
     }
     
     if (!currentSection && headings.length > 0) {
-      currentSection = headings[headings.length-1].querySelector('a[id]').getAttribute('id');
+      const firstIdElement = headings[headings.length-1].querySelector('a[id]');
+      if (firstIdElement) {
+        currentSection = firstIdElement.getAttribute('id');
+        console.log('Using default section:', currentSection);
+      } else {
+        console.error('Missing ID element in default heading');
+      }
     }
     
+    console.log('Highlighting section:', currentSection);
     highlightNavLink(currentSection);
   }
   
@@ -102,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   window.addEventListener('scroll', handleScroll);
-    if (window.location.hash) {
+  if (window.location.hash) {
     const initialId = window.location.hash.substring(1);
     highlightNavLink(initialId);
   } else {
@@ -255,7 +274,7 @@ The reality is that today's email landscape increasingly distrusts unauthenticat
 <div class="faq-item">
 <h3 class="question">Do I need DKIM if I already use SPF?</h3>
 <div class="answer">
-Yes. Extensive deliverability analysis shows that email programs relying solely on SPF consistently underperform. SPF only authenticates the sending server, not the message content. It also breaks when emails are forwarded—a common occurrence in business environments. DKIM solves both problems by creating a signature that stays with the message regardless of forwarding. Technical A/B testing across multiple industries demonstrates implementing both authentication methods typically yields 12-20% better inbox placement compared to SPF alone. SPF and DKIM function as complementary security layers—one verifies the sender, the other verifies the message itself.
+Yes. Extensive deliverability analysis shows that email programs relying solely on SPF consistently underperform. SPF only authenticates the sending server, not the message content. It also breaks when emails are forwarded a common occurrence in business environments. DKIM solves both problems by creating a signature that stays with the message regardless of forwarding. Technical A/B testing across multiple industries demonstrates implementing both authentication methods typically yields 12-20% better inbox placement compared to SPF alone. SPF and DKIM function as complementary security layers—one verifies the sender, the other verifies the message itself.
 </div>
 </div>
 
@@ -342,16 +361,12 @@ While content encryption is rarely necessary for standard marketing emails, prop
 
 .faq-item {
   margin-bottom: 20px;
-  border-bottom: 1px solid #eaeaea;
   padding-bottom: 15px;
+  border-bottom: none;
 }
 
 .dark .faq-item {
-  border-bottom: 1px solid #2d3748;
-}
-
-.faq-item:last-child {
-  border-bottom: none;
+  /* Dark mode specific styling if needed */
 }
 
 .question {
