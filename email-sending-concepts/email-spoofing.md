@@ -267,18 +267,16 @@ document.addEventListener('DOMContentLoaded', function() {  const headings = doc
   } else {
     handleScroll();
   }
-  // We're removing the expand/collapse functionality for the FAQ
-  // to match the other pages where FAQ answers are always visible
 });
 </script>
 
-In my years of helping organizations secure their email systems, I've seen firsthand how email spoofing remains one of the most common and effective attack vectors. Despite advances in security technology, spoofed emails continue to fool recipients because they exploit a fundamental human trust in familiar senders. When implemented properly, email authentication can virtually eliminate this threat, but many organizations still leave themselves vulnerable by overlooking these essential protections.
+Email spoofing is a tactic frequently employed by attackers to send emails that look like they come from a trusted source, while they actually originate from a malicious sender. This method is a key strategy in phishing and fraud schemes, and it often aims to deceive recipients into taking harmful actions, such as clicking on fake links or revealing sensitive information. Without effective email authentication measures, it becomes alarmingly simple for cybercriminals to impersonate your domain, jeopardizing both your brand and your recipients. Learning how spoofing operates is the essential first step in preventing it.
 
 ## <a id="what-is-email-spoofing"></a>What is Email Spoofing?
 
 Email spoofing is a technique where attackers forge the sender address in an email to impersonate someone else. This digital impersonation exploits the inherent trust recipients place in familiar email addresses, making spoofed emails one of the most successful vectors for social engineering attacks.
 
-When an email is spoofed, the message appears to come from a legitimate source—often a trusted person or organization—but is actually sent by an attacker. This deception takes advantage of email's original design, which prioritized functionality over security when created in the early 1980s.
+When an email is spoofed, the message appears to come from a legitimate source often a trusted person or organization, but is actually sent by an attacker. This deception takes advantage of email's original design, which prioritized functionality over security when created in the early 1980s.
 
 Without proper authentication methods in place, email systems have no reliable way to verify that the displayed sender is genuinely authorized to use that address. This fundamental security gap allows attackers to:
 

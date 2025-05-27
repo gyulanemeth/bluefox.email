@@ -69,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Scrolled to position:', scrollPosition);
     
     let currentSection = '';
-    // Debug the headings
     console.log('Number of h2 elements:', headings.length);
     headings.forEach((heading, index) => {
       console.log(`Heading ${index} offsetTop:`, heading.offsetTop, 'text:', heading.textContent.trim());

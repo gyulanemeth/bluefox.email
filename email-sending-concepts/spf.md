@@ -403,17 +403,8 @@ For complex enterprise environments, a combination of these approaches typically
 
 ## <a id="related-concepts"></a>Related Concepts
 
-- [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)  
-  Learn how DKIM complements SPF by verifying email content integrity through digital signatures.
-
-- [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)  
-  Discover how DMARC builds on SPF and DKIM to provide comprehensive email protection.
-
+- [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
+- [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)
 - [Email Authentication](/email-sending-concepts/email-authentication)  
-  Explore the complete email authentication landscape and how various methods work together.
-
 - [Email Spoofing](/email-sending-concepts/email-spoofing)  
-  Understand the threat that SPF helps prevent and how attackers attempt to bypass protections.
-
 - [Return Path](/email-sending-concepts/return-path)  
-  Learn how the return path relates to SPF verification in the email delivery process.

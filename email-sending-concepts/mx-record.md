@@ -189,24 +189,18 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     handleScroll();
   }
-  // We're removing the expand/collapse functionality for the FAQ
-  // to match the other pages where FAQ answers are always visible
 });
 </script>
 
-When advising clients on email infrastructure setup, I always emphasize that MX records are the foundation of reliable email delivery. While they operate invisibly in the background, misconfigured MX records are one of the most common causes of email delivery issues I encounter. Many organizations don't realize their importance until emails suddenly stop arriving—which is why understanding how these critical DNS records work is essential for anyone managing business email systems.
+MX records, or Mail Exchange records, play a vital role in the routing of emails on the internet. When an email is sent to you, MX records guide the sending server to the correct destination for that message. If your MX records aren't set up correctly, your domain won't be able to receive emails. Though they operate quietly behind the scenes, they are essential to the email delivery system, whether you're using Gmail, Outlook, or a custom mail server.
 
 ## <a id="what-is-mx-record"></a>What is an MX Record?
 
-MX (Mail Exchange) records are specialized DNS entries that tell the world where email for your domain should be delivered. Think of them as the digital equivalent of mail routing instructions for your domain's post office.
+An MX record is a specific type of DNS (Domain Name System) record that identifies the mail servers responsible for receiving emails for your domain. You can think of it as your digital postal address: when someone sends a message to `you@example.com`, the MX record ensures that the message reaches the right server.
 
-When someone sends an email to you@yourdomain.com, their email server follows a specific process:
+Each MX record directs to a mail server, typically identified by its hostname, and includes a priority value. A lower number indicates a higher priority. This setup allows for backup options—if the primary server is down, the next server in line will handle the email.
 
-1. It looks up the MX records for yourdomain.com in the global DNS system
-2. It identifies which mail servers are authorized to accept email for your domain
-3. It delivers the message to one of those servers based on priority settings
-
-MX records don't process email themselves—they simply point to the servers that will receive mail on your domain's behalf. These servers might be ones you manage yourself, or more commonly, they belong to email service providers like Google Workspace, Microsoft 365, or dedicated email hosting companies.
+Here’s an example of a standard MX record:
 
 ## <a id="how-do-mx-records-work"></a>How Do MX Records Work?
 
@@ -265,7 +259,7 @@ example.com.  IN  MX  10  mail1.example.com.
 example.com.  IN  MX  10  mail2.example.com.
 ```
 
-When MX records share the same priority number, sending servers randomly select one for each delivery attempt. This creates natural load distribution across your email infrastructure—particularly useful for organizations handling large email volumes.
+When MX records share the same priority number, sending servers randomly select one for each delivery attempt. This creates natural load distribution across your email infrastructure particularly useful for organizations handling large email volumes.
 
 ### Common Provider Configurations
 
@@ -422,7 +416,7 @@ No, MX records are only used for receiving email. To send email, your server nee
 }
 
 .dark .faq-item {
-  /* Dark mode specific styling if needed */
+
 }
 
 .question {
