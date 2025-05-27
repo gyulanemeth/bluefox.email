@@ -191,10 +191,6 @@ sidebar: false
   border-bottom: none;
 }
 
-.dark .faq-item {
-  /* Dark mode specific styling if needed */
-}
-
 .question {
   font-size: 1.1rem;
   font-weight: 600;
@@ -273,8 +269,6 @@ document.addEventListener('DOMContentLoaded', function() {
   } else {
     handleScroll();
   }
-    // We're removing the expand/collapse functionality for the FAQ
-  // to match the DKIM page style where FAQ answers are always visible
 });
 </script>
 
