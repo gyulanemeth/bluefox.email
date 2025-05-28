@@ -80,18 +80,7 @@ const testimonials = [
     logo: '/assets/testimonials/chamaileon.svg',
     logoAlt: 'Chamaileon Logo',
     url: 'https://chamaileon.io/'
-  },
-  {
-    id: 4,
-    name: 'Nicole Darechuk',
-    initials: 'ND',
-    company: 'Consultant @Ndconsulting',
-    testimonial: `One of the best I've had in a long time working with an email marketing platform. I love how easy it is to configure branding elements for repurposing. I also love the campaign configuration and setup of new campaigns is so simple. Add to that, the support to get setup was above and beyond. I would highly recommend!`,
-    profileImg: '/assets/testimonials/ND.webp',
-    logo: '/assets/testimonials/NDcompany.webp',
-    logoAlt: 'ND Logo',
-    url: 'www.nicoledarechuk.com'
-  },
+  }
 ]
 
 const mobileEmailView = ref(true)
