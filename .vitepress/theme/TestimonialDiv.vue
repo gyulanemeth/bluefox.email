@@ -26,7 +26,7 @@ const props = defineProps({
 
 const selectedTestimonialId = ref(0)
 const testimonials = [
-    {
+  {
     id: 0,
     name: 'Nicole Darechuk',
     initials: 'ND',
