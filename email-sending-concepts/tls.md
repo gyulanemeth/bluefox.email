@@ -204,11 +204,12 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-TLS (Transport Layer Security) is a cryptographic protocol that secures email communication by encrypting the data transmitted between servers. When you send an email, TLS creates an encrypted tunnel that protects your message content during transit, preventing unauthorized access, eavesdropping, and message tampering. Without TLS, emails would travel across the internet as plaintext, making them vulnerable to interception and compromise. Understanding how TLS works and implementing it properly is essential for maintaining confidentiality and security in modern email systems.
-
+TLS, or Transport Layer Security, is a robust cryptographic protocol designed to encrypt data transmitted over the internet. This ensures that information exchanged between systems, such as a browser and a server, or between email servers remains private and secure against tampering. TLS is the contemporary replacement for SSL, or Secure Sockets Layer, which is no longer in use.
 ## <a id="what-is-tls"></a>What is TLS?
 
-TLS (Transport Layer Security) is the modern security standard for encrypting communications over the internet, including email transmissions. It serves as the successor to the older SSL (Secure Sockets Layer) protocol and has become the backbone of secure email delivery between mail servers. When properly implemented, TLS provides three critical security services:
+Email journeys through various servers on its way to you, and without TLS, those messages are vulnerable to interception by attackers. While TLS doesn't provide end-to-end encryption for the email content, it effectively safeguards against eavesdropping during delivery. This makes it an essential component of email security, particularly for safeguarding credentials, attachments, and sensitive information from passive surveillance.
+
+**TLS provides three critical security services:**
 
 1. **Encryption**: Scrambles the content of communications to prevent unauthorized access
 2. **Authentication**: Verifies the identity of communicating parties through digital certificates
@@ -261,111 +262,35 @@ TLS has become increasingly critical as email continues to be a primary channel 
 
 ## <a id="frequently-asked-questions-about-tls"></a>Frequently Asked Questions About TLS
 
-<div class="dkim-faq">
-<div class="faq-item">
-<h3 class="question">What's the difference between TLS and SSL?</h3>
-<div class="answer">
-TLS (Transport Layer Security) is the successor to SSL (Secure Sockets Layer). While people often use these terms interchangeably, they represent different protocol versions:
+<div class="tls-faq">
 
-**SSL**: The original protocol, with versions 1.0, 2.0, and 3.0, all of which are now deprecated and considered insecure.
+  <div class="faq-item">
+    <h3 class="question">What's the difference between TLS and SSL?</h3>
+    <div class="answer">
+      TLS is the modern, more secure version of SSL. SSL is outdated and insecure, while TLS (especially versions 1.2 and 1.3) is widely supported and recommended for secure communications.
+    </div>
+  </div>
 
-**TLS**: The modern replacement, with versions 1.0 through 1.3. Only TLS 1.2 and 1.3 are currently considered secure.
+  <div class="faq-item">
+    <h3 class="question">Does TLS encrypt the email content?</h3>
+    <div class="answer">
+      No. TLS encrypts the transmission channel between servers, not the email itself. The message may still be stored in plaintext after delivery.
+    </div>
+  </div>
 
-The primary differences include:
-- TLS offers stronger security algorithms and ciphers
-- TLS has more robust handshake procedures
-- TLS includes improved compatibility with modern systems
+  <div class="faq-item">
+    <h3 class="question">What is STARTTLS?</h3>
+    <div class="answer">
+      STARTTLS is a command that upgrades an existing insecure connection to a secure TLS connection during email transmission, typically used in SMTP.
+    </div>
+  </div>
 
-Major browsers and email services have phased out support for all SSL versions due to critical security vulnerabilities. Our security audits show that approximately 15% of email servers still support legacy protocols, exposing themselves to potential attacks. We recommend implementing TLS 1.2 or 1.3 exclusively for all email communications.
-</div>
-</div>
-
-<div class="faq-item">
-<h3 class="question">How can I check if my email is using TLS?</h3>
-<div class="answer">
-There are several ways to verify if your emails are being transmitted with TLS encryption:
-
-**For individual emails received**:
-1. View the complete email headers (usually available through an option like "Show original" or "View source")
-2. Look for header fields containing "TLS" or "with ESMTPS"
-3. Check for "Received" headers that mention TLS version and cipher information
-
-**For your sending infrastructure**:
-1. Use online tools like SSL Labs or CheckTLS
-2. Run a command-line test using OpenSSL: `openssl s_client -starttls smtp -connect yourmailserver.com:25`
-3. Review your mail server's logs for TLS negotiation information
-
-According to our 2025 research, approximately 92% of business email traffic is now TLS-encrypted, but the quality of implementation varies significantly. About 30% of organizations still have suboptimal TLS configurations that could be strengthened by updating to more recent versions and using stronger cipher suites.
-</div>
-</div>
-
-<div class="faq-item">
-<h3 class="question">Is TLS the same as end-to-end encryption?</h3>
-<div class="answer">
-No, TLS and end-to-end encryption are different approaches to securing email:
-
-**TLS (Transport Layer Security)**:
-- Encrypts the connection between mail servers
-- Protects emails only during transmission between servers
-- Messages are decrypted at each server hop
-- Implemented at the server level with minimal user involvement
-- Used by default in most modern email systems
-
-**End-to-End Encryption**:
-- Encrypts the actual message content from sender to recipient
-- Message remains encrypted even on intermediate mail servers
-- Only the intended recipient can decrypt the message
-- Typically requires user action (key management)
-- Examples include PGP and S/MIME
-
-While TLS is widely implemented (our metrics show ~95% adoption among major providers), end-to-end encryption is used by less than 5% of email users due to complexity and compatibility challenges. For most business communications, properly configured TLS provides sufficient protection, but sensitive communications may benefit from the additional security of end-to-end encryption.
-</div>
-</div>
-
-<div class="faq-item">
-<h3 class="question">What are common TLS implementation issues?</h3>
-<div class="answer">
-Organizations frequently encounter these challenges when implementing TLS for email:
-
-**Certificate Problems**:
-- Expired certificates causing connection failures
-- Self-signed certificates generating trust warnings
-- Missing intermediate certificates breaking the chain of trust
-
-**Configuration Issues**:
-- Supporting outdated TLS versions (1.0/1.1) that have known vulnerabilities
-- Using weak cipher suites that can be compromised
-- Improper certificate validation settings
-
-**Compatibility Challenges**:
-- Interoperability problems between different email server software
-- Legacy systems that don't support modern TLS versions
-- Mobile clients with inconsistent TLS implementation
-
-Our technical support data shows that approximately 45% of TLS-related issues stem from certificate management problems, 30% from outdated configurations, and 25% from interoperability challenges. Regular security audits and automated certificate management can prevent most of these problems before they affect email delivery.
-</div>
-</div>
-
-<div class="faq-item">
-<h3 class="question">How does MTA-STS improve email security?</h3>
-<div class="answer">
-MTA-STS (Mail Transfer Agent Strict Transport Security) is a relatively new standard that addresses a fundamental weakness in email TLS: the "opportunistic" nature of the encryption.
-
-Without MTA-STS, if a TLS connection fails (either naturally or due to an attack), most email servers will fall back to unencrypted transmission. MTA-STS solves this problem by:
-
-1. Allowing domain owners to publish a policy specifying TLS requirements
-2. Requiring valid certificates from trusted certificate authorities
-3. Enabling receiving mail servers to cache the policy, protecting against DNS tampering
-4. Providing a mechanism for reporting TLS failures
-
-MTA-STS implementation involves:
-- Publishing a DNS record indicating MTA-STS support
-- Hosting a policy file on a well-known HTTPS endpoint
-- Optionally setting up a reporting endpoint
-
-According to our 2025 deployment statistics, approximately 35% of major organizations have implemented MTA-STS, with adoption rates increasing about 15% annually. Organizations implementing MTA-STS report significantly higher confidence in email security and better visibility into potential encryption downgrade attacks.
-</div>
-</div>
+  <div class="faq-item">
+    <h3 class="question">How can I enforce TLS in email delivery?</h3>
+    <div class="answer">
+      Use MTA-STS or DANE. These protocols enforce strict TLS usage and prevent downgrade or stripping attacks during email delivery.
+    </div>
+  </div>
 </div>
 
 <style>
