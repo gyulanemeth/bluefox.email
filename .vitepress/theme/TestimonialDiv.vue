@@ -35,7 +35,7 @@ const testimonials = [
     profileImg: '/assets/testimonials/ND.webp',
     logo: '/assets/testimonials/NDcompany.webp',
     logoAlt: 'ND Logo',
-    url: 'https://www.nicoledarechuk.com/'
+    url: 'https://www.nicoledarechuk.com'
   },
   {
     id: 1,
