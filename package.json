@@ -22,7 +22,6 @@
   "homepage": "https://github.com/gyulanemeth/bluefox.email#readme",
   "dependencies": {
     "@mdi/font": "^7.4.47",
-    "bluefox.email": "file:",
     "tailwindcss": "^3.4.10",
     "vitepress": "1.6.3",
     "vuetify": "^3.7.11"
