@@ -240,65 +240,35 @@ Deliverability data shows that organizations implementing DMARC reporting typica
 ## <a id="frequently-asked-questions-about-dmarc"></a>Frequently Asked Questions About DMARC
 
 <div class="dkim-faq">
-<div class="faq-item">
-<h3 class="question">Do I need DMARC if I already use SPF and DKIM?</h3>
-<div class="answer">
-Yes. DMARC ties SPF and DKIM together and adds reporting and enforcement, making your email security much stronger. Think of SPF and DKIM as locks on your door, while DMARC is your security system that monitors who tries to enter and alerts you to suspicious activity.
+  <div class="faq-item">
+    <h3 class="question">Do I need DKIM if I already use SPF?</h3>
+    <div class="answer">
+      Yes. SPF verifies the server sending the message, but DKIM ensures the message hasn't been altered in transit. SPF can break when emails are forwarded, while DKIM provides cryptographic proof that the email content is authentic. Used together, they greatly improve your email’s trustworthiness and deliverability.
+    </div>
+  </div>
 
-Without DMARC, a message that fails SPF or DKIM checks might still be delivered without any notification to the domain owner. DMARC closes this loop by providing explicit instructions to receiving servers and generating reports about authentication failures. Our analysis shows that domains with just SPF and DKIM still experience significantly higher rates of spoofing attempts compared to those with DMARC enforcement.
-</div>
-</div>
+  <div class="faq-item">
+    <h3 class="question">What happens if the DKIM check fails?</h3>
+    <div class="answer">
+      A failed DKIM check means the email signature doesn't match the content or domain, which could indicate tampering or misconfiguration. While a DKIM failure alone doesn’t guarantee rejection, it weakens your domain’s credibility, especially if DMARC is enforcing strict policies. Some receiving servers may mark the email as spam or block it altogether.
+    </div>
+  </div>
 
-<div class="faq-item">
-<h3 class="question">What is DMARC alignment and why does it matter?</h3>
-<div class="answer">
-Alignment is a critical concept in DMARC that many email administrators overlook. It requires that the domain in the "From" header (what recipients see) matches the domain that passes SPF or DKIM authentication.
+  <div class="faq-item">
+    <h3 class="question">Can I have multiple DKIM selectors for one domain?</h3>
+    <div class="answer">
+      Absolutely. Multiple selectors allow you to manage different keys for various systems or rotate them without disrupting delivery. For instance, you might use one selector for your transactional emails and another for your marketing platform. Each selector points to its own DNS record with a unique public key.
+    </div>
+  </div>
 
-DMARC offers two alignment modes:
-- **Strict alignment**: The domains must exactly match
-- **Relaxed alignment**: The organizational domains must match (e.g., mail.example.com aligns with example.com)
-
-Alignment matters because without it, attackers could technically pass authentication while still spoofing your domain. For example, they could authenticate as "evil-domain.com" but display "yourbrand.com" in the From header. DMARC prevents this by requiring alignment between what's authenticated and what's displayed to users.
-
-Most implementation challenges stem from alignment issues, particularly with third-party senders who may authenticate as their own domain while sending from yours.
-</div>
-</div>
-
-<div class="faq-item">
-<h3 class="question">How do I interpret DMARC reports?</h3>
-<div class="answer">
-DMARC generates two types of reports:
-
-**Aggregate Reports (rua)**: These XML files provide statistical data about email sources, authentication results, and policy actions. They're sent daily and contain no message content, making them safe for automated processing. These reports help identify:
-- Volume of messages from each sending source
-- Authentication pass/fail rates
-- IP addresses sending as your domain
-
-**Forensic Reports (ruf)**: These contain more detailed information about specific authentication failures, including limited message content. They're useful for investigating specific issues but may contain sensitive information.
-
-Most organizations find the aggregate reports most valuable but challenging to interpret without specialized tools. Several free and commercial DMARC report analyzers can convert the raw XML into actionable dashboards. For enterprises, these reports often reveal surprising insights about their email ecosystem, including forgotten marketing tools, unauthorized senders, and potential domain abuse.
-</div>
+  <div class="faq-item">
+    <h3 class="question">Does forwarding emails affect DKIM?</h3>
+    <div class="answer">
+      Sometimes. If the email is forwarded but the content and headers remain intact, DKIM typically survives. However, some forwarders modify headers (like adding disclaimers), which can break the signature. This is one reason DKIM works best when combined with SPF and DMARC—each can back the other up when one fails.
+    </div>
+  </div>
 </div>
 
-<div class="faq-item">
-<h3 class="question">Should I immediately set my DMARC policy to p=reject?</h3>
-<div class="answer">
-No. Implementing DMARC should follow a deliberate, phased approach to avoid disrupting legitimate email flow. Based on hundreds of enterprise implementations, we recommend this progression:
-
-1. **Monitor (p=none)**: Start with a monitoring policy for at least 30 days. This provides visibility without affecting delivery.
-
-2. **Analyze reports**: Identify all legitimate sending sources and ensure they properly authenticate.
-
-3. **Remediate issues**: Work with third-party senders to implement proper authentication.
-
-4. **Quarantine (p=quarantine)**: Move to a quarantine policy with a percentage selector (pct=10, gradually increasing).
-
-5. **Reject (p=reject)**: Finally, implement a full reject policy once you've confirmed all legitimate email passes authentication.
-
-Organizations rushing to p=reject typically experience significant disruption to legitimate email flow. Our data shows that most enterprise domains have 5-10 legitimate sending sources that require remediation before enforcing strict policies.
-</div>
-</div>
-</div>
 
 ## <a id="related-concepts"></a>Related Concepts
 

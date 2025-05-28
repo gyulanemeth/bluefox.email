@@ -462,8 +462,6 @@ For organizations seeking to protect against email spoofing, I recommend this ph
   </div>
 </div>
 
-At BlueFox Email, we help businesses implement robust email authentication to prevent their domains from being spoofed, protecting both their brand reputation and their customers from potential fraud.
-
 ## <a id="related-concepts"></a>Related Concepts
 
 - [Email Authentication](/email-sending-concepts/email-authentication)

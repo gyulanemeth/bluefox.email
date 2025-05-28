@@ -213,13 +213,13 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 </style>
 
-When starting with email marketing, it's essential to pay attention to DKIM. This isn't just a task for your tech team. It significantly influences whether your emails reach inboxes or end up in spam folders. Consider DKIM as your domain's signature on every email you send. Without it, mailbox providers such as Gmail or Outlook may doubt the authenticity of your emails. From my experience in email delivery, overlooking DKIM can harm your campaigns in the long run.
+When starting with email marketing, it's essential to pay attention to DKIM. This isn't just a task for your tech team. It significantly influences whether your emails reach inboxes or end up in spam folders. Consider DKIM as your domain's signature on every email you send. Without it, mailbox providers such as Gmail or Outlook may doubt the authenticity of your emails.
 
 ## <a id="what-is-dkim"></a>What is DKIM?
 
 DKIM, or DomainKeys Identified Mail, establishes a trustworthy link between the domains sending emails and the messages themselves using cryptographic authentication. Think of it as a digital wax seal that not only identifies the sender but also ensures the message remains unchanged during delivery.
 
-This system uses asymmetric cryptography, which involves two keys: a private key that is safely kept on the sending server to sign each outgoing email, and a public key that is available in DNS records for receiving servers to verify the signature.
+This system uses asymmetric cryptography, which involves two keys: a **private key** that is safely kept on the sending server to sign each outgoing email, and a **public key** that is available in DNS records for receiving servers to verify the signature.
 
 When properly configured, each message contains a unique DKIM signature header that looks similar to this:
 
@@ -234,13 +234,15 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.com; s=2021;
 
 ## <a id="how-does-dkim-work"></a>How Does DKIM Work?
 
-The DKIM process works silently for email recipients, ensuring secure communication behind the scenes. When an email is ready to be sent, the mail server automatically:
+The DKIM process works silently for email recipients, ensuring secure communication behind the scenes. When an email is ready to be sent, 
+
+**the mail server automatically**:
 
 1. Generates a cryptographic hash of specific header fields and the message body.
 2. Encrypts this hash with the private DKIM key.
 3. Adds the resulting signature to the email headers.
 
-On the receiving side, email providers like Gmail verify the signature by:
+On the **receiving side**, email providers like Gmail verify the signature by:
 
 1. Extracting the domain and selector from the DKIM signature.
 2. Fetching the public key from DNS (`selector._domainkey.domain.com`).
@@ -273,40 +275,27 @@ The reality is that today's email landscape increasingly distrusts unauthenticat
 <div class="faq-item">
 <h3 class="question">Do I need DKIM if I already use SPF?</h3>
 <div class="answer">
-Yes. Extensive deliverability analysis shows that email programs relying solely on SPF consistently underperform. SPF only authenticates the sending server, not the message content. It also breaks when emails are forwarded a common occurrence in business environments. DKIM solves both problems by creating a signature that stays with the message regardless of forwarding. Technical A/B testing across multiple industries demonstrates implementing both authentication methods typically yields 12-20% better inbox placement compared to SPF alone. SPF and DKIM function as complementary security layers—one verifies the sender, the other verifies the message itself.
+Indeed, SPF validates that an email originates from an authorized server, while DKIM guarantees that the email's content remains unaltered during transmission. Implementing both protocols enhances email authentication and significantly boosts deliverability.
 </div>
 </div>
 
 <div class="faq-item">
 <h3 class="question">What if I use third-party services for email marketing?</h3>
 <div class="answer">
-This is a common implementation scenario with three typical options, each with different deliverability implications:
-
-1. **ESP-based DKIM** (easiest but suboptimal): The ESP signs with their domain (e.g., mail.esp.com). This provides basic authentication but creates alignment issues with the From: domain.
-
-2. **Delegated DKIM** (recommended): Creating a special CNAME record pointing to the ESP's authentication servers allows them to sign using the sender's domain while maintaining control of the keys. Most tier-1 ESPs like Mailchimp, SendGrid, and HubSpot provide clear setup instructions for this approach.
-
-3. **Self-managed DKIM** (advanced): Generating and managing custom keys, then providing the ESP with the private key offers maximum control but requires more technical expertise.
-
-Analysis of hundreds of implementations shows delegated DKIM provides the best balance of security and ease of management for most marketing teams.
+Yes. In fact, most email services like Google Workspace, Microsoft 365, Mailchimp, and others strongly recommend setting up DKIM. They usually provide the DKIM public key and selector, which you add to your domain’s DNS records.
 </div>
 </div>
 
 <div class="faq-item">
-<h3 class="question">Does DKIM encrypt my email content?</h3>
+<h3 class="question">Does DKIM break if the email is forwarded?</h3>
 <div class="answer">
-No and this is a critical distinction that causes confusion among many marketers. DKIM applies a cryptographic signature to verify authenticity, but the actual message content remains readable throughout transmission. The signature serves as tamper evidence, not content protection.
-
-For actual content security, transport layer encryption (TLS) between mail servers (which handles ~95% of business email today) or end-to-end encryption (S/MIME or PGP) for highly sensitive communications is necessary. In marketing contexts, TLS is typically sufficient, while transactional emails containing personal information should always enforce TLS connections.
-
-While content encryption is rarely necessary for standard marketing emails, proper authentication through DKIM remains essential for deliverability and security.
+Sometimes. Forwarding or modifying email headers (like adding disclaimers or changing subject lines) can invalidate the DKIM signature, leading to failure. This is one reason why DMARC includes both DKIM and SPF to provide fallback mechanisms.
 </div>
 </div>
 
 </div>
 
 <style>
-/* Simple "On this page" navigation */
 .on-this-page {
   background-color: #f9f9f9;
   border-radius: 8px;
@@ -362,10 +351,6 @@ While content encryption is rarely necessary for standard marketing emails, prop
   margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: none;
-}
-
-.dark .faq-item {
-  /* Dark mode specific styling if needed */
 }
 
 .question {

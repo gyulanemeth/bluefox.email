@@ -330,33 +330,6 @@ Example DMARC record:
 _dmarc.example.com. IN TXT "v=DMARC1; p=quarantine; rua=mailto:reports@example.com; pct=100"
 ```
 
-### The Authentication Process
-
-When an email is sent:
-
-1. **Sending Phase**
-   - The sending mail server prepares the email for delivery
-   - If DKIM is set up, the server adds a unique digital signature to the email headers
-   - The email is transmitted via SMTP to the receiving server
-
-2. **Authentication Checks**
-   - The receiving mail server extracts the sender's domain information
-   - It performs DNS lookups to retrieve SPF, DKIM, and DMARC records for that domain
-   - SPF check: Verifies if the sending server's IP address is authorized
-   - DKIM check: Verifies the digital signature using the published public key
-   - DMARC check: Evaluates if the authenticated domains align with the visible From domain
-
-3. **Policy Application**
-   - The receiving server evaluates all authentication results
-   - It applies the domain owner's published DMARC policy (none, quarantine, or reject)
-   - Authentication results are added to the email headers
-   - If configured, authentication reports are generated for the domain owner
-
-4. **Delivery Decision**
-   - Email is delivered to inbox, sent to spam folder, or rejected based on authentication results
-   - Recipients see visual indicators of authentication status in some email clients
-   - Aggregated reports are sent to the email address specified in the DMARC record
-
 ## <a id="why-is-email-authentication-important"></a>Why is Email Authentication Important?
 
 Email authentication is essential for safeguarding both senders and recipients in digital communication. Without it, anyone can impersonate the sender, resulting in email spoofing and phishing attacks that can harm users and tarnish brand reputations. By confirming that a message genuinely originates from the claimed domain, authentication prevents malicious individuals from misusing trusted identities. It also increases the likelihood that legitimate emails land in inboxes rather than being marked as spam or rejected. For organizations, properly authenticated email fosters trust with recipients, protects brand integrity, and minimizes the risk of being blacklisted. Ultimately, it establishes a more secure and dependable email environment.

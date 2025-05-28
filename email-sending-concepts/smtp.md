@@ -200,7 +200,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       });
     } else if (headings.length > 0) {
-      // Default to first section if none is active
       navLinks[0].classList.add('active');
     }
   }
@@ -317,10 +316,6 @@ Enterprise environments typically use SMTP relays to handle outbound mail flow f
   margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: none;
-}
-
-.dark .faq-item {
-  /* Dark mode specific styling if needed */
 }
 
 .question {
