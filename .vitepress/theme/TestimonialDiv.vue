@@ -75,11 +75,7 @@ const testimonials = [
     name: 'Nicole Darechuk',
     initials: 'ND',
     company: 'Consultant @Ndconsulting',
-<<<<<<< HEAD
-    testimonial: ` One of the best I've had in a long time working with an email marketing platform. I love how easy it is to configure branding elements for repurposing. I also love the campaign configuration and setup of new campaigns is so simple. Add to that, the support to get setup was above and beyond. I would highly recommend! `,
-=======
     testimonial: `One of the best I've had in a long time working with an email marketing platform. I love how easy it is to configure branding elements for repurposing. I also love the campaign configuration and setup of new campaigns is so simple. Add to that, the support to get setup was above and beyond. I would highly recommend!`,
->>>>>>> 3d3a681d8d1089bd048b582b5d763749e438aa3b
     profileImg: '/assets/testimonials/ND.webp',
     logo: '/assets/testimonials/NDcompany.webp',
     logoAlt: 'ND Logo',
