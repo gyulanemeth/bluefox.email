@@ -119,21 +119,18 @@ sidebar: false
   width: 2px;
 }
 
-/* Responsive adjustments */
 @media (max-width: 1280px) {
   .page-nav {
     right: 0.5rem;
   }
 }
 
-/* Hide on small screens */
 @media (max-width: 1024px) {
   .page-nav {
     display: none;
   }
 }
 
-/* Adding styling for "On this page" navigation to match DKIM page */
 .on-this-page {
   background-color: #f9f9f9;
   border-radius: 8px;
@@ -282,116 +279,83 @@ When properly implemented, SPF serves as your domain's "guest list" for email se
 
 ## <a id="how-does-spf-work"></a>How Does SPF Work?
 
-SPF authentication follows a straightforward verification process that happens behind the scenes each time an email is sent:
+SPF enables receiving mail servers to confirm if an incoming email originates from an IP address authorized by the sender's domain. This verification occurs seamlessly behind the scenes with every email sent. Though it may sound technical, it's a quick and efficient process, taking just a fraction of a second. The primary aim is to guarantee that emails appearing to come from your domain are genuinely sent by sources you've authorized.
 
-1. **Sending**: When an email server sends a message, it identifies itself with an envelope sender address (also called the return-path).
+Here's a clear breakdown of how SPF works during email delivery:
+
+1. **Sending**: When an email is dispatched, the sending server introduces itself through the envelope sender address, often referred to as the return-path.
 
 2. **Receiving**: The receiving mail server extracts the domain from this return-path.
 
-3. **DNS Lookup**: The receiving server queries the sender's domain DNS records for an SPF record (a specific TXT record).
+3. **DNS Lookup**: Next, it conducts a DNS lookup on the sender’s domain to locate the SPF record, which is a TXT record.
 
-4. **Policy Check**: The receiver compares the sending server's IP address with the list of authorized IPs in the SPF record.
+4. **Policy Check**: The recipient server then compares the sending IP address against the list of authorized IPs detailed in that SPF record.
 
-5. **Verdict**: Based on this comparison, the receiver assigns an SPF result: pass, fail, softfail, neutral, none, permerror, or temperror.
+5. **Verdict**: Based on this comparison, the server assigns an SPF status, which could be `pass`, `fail`, `softfail`, `neutral`, `none`, `permerror`, or `temperror`.
 
-This process is performed automatically and takes only milliseconds to complete. For example, when someone@example.com sends an email, the receiving server checks if the sending IP is authorized in example.com's SPF record.
+When an email is sent from someone@example.com, the receiving server verifies the SPF record of example.com to determine if the sending server's IP address is permitted to send emails on its behalf.
 
-An SPF record is a specialized DNS TXT record that follows a specific syntax. Here's what a typical SPF record looks like:
+SPF records are held in your domain's DNS as TXT records and adhere to a specific format. A standard SPF record may appear as follows:
 
 ```
 v=spf1 ip4:192.0.2.0/24 include:thirdparty.com include:_spf.google.com ~all
+
 ```
 
-Breaking down this record:
-- `v=spf1`: Version of SPF being used
-- `ip4:192.0.2.0/24`: Authorizes a specific IP range
-- `include:thirdparty.com`: Authorizes servers defined in thirdparty.com's SPF record
-- `include:_spf.google.com`: Authorizes Google's email servers (common for Google Workspace users)
-- `~all`: Softfail policy for all other sources
+Let's break this down:
 
-The record provides a clear set of rules for receivers to evaluate. When a mail server receives an email claiming to be from your domain, it checks if the sending IP matches any of these authorized sources.
+- **`v=spf1`**: This signifies that the record is using SPF version 1.
+  
+- **`ip4:192.0.2.0/24`**: This authorizes all IP addresses within the specified IPv4 range.
+
+- **`include:thirdparty.com`**: This allows servers listed in the SPF record of thirdparty.com to send emails on your behalf.
+
+- **`include:_spf.google.com`**: This grants authorization to Google's servers, which are typically used for Google Workspace email.
+
+- **`~all`**: This applies a softfail policy to any server not included in the previous specifications.
+
+This structure serves as a guide for receiving servers on how to process emails that appear to originate from your domain. If an email does not comply with the SPF guidelines, it may be flagged as suspicious or rejected, depending on the recipient's handling of SPF failures.
+
 
 ## <a id="why-is-spf-important"></a>Why is SPF Important?
 
-In today's threat landscape, SPF has become essential for several reasons:
+The Sender Policy Framework (SPF) is essential for email authentication, as it effectively combats [email spoofing](/email-sending-concepts/email-spoofing.md) a common tactic in phishing and spam. By allowing domain owners to designate which IP addresses or mail servers can send emails for their domain, SPF empowers receiving mail servers to verify the legitimacy of incoming messages. This significantly lowers the risk of malicious entities impersonating your domain to distribute fraudulent emails, which can harm your brand's reputation and lead to security issues.
 
-**Protection Against Email Spoofing**: Organizations without SPF are prime targets for impersonation attacks. Data from email security firms shows that domains without SPF are 4.3x more likely to be spoofed in phishing campaigns compared to protected domains. These attacks damage brand trust and can significantly impact customer relationships.
+Moreover, implementing SPF enhances your domain's email deliverability. When your emails successfully pass SPF checks, they are more likely to land in recipients' inboxes rather than getting lost in spam folders. Over time, consistent SPF alignment builds a strong domain reputation, fostering trust with email service providers and boosting the effectiveness of your email marketing efforts.
 
-**Deliverability Enhancement**: Major mailbox providers like Gmail, Outlook, and Yahoo incorporate authentication checks into their filtering algorithms. Internal testing across varied industry verticals consistently shows that properly authenticated emails achieve 10-15% better inbox placement compared to unauthenticated messages, with differences becoming even more pronounced during high-volume sending periods.
-
-**Foundation for Advanced Authentication**: SPF serves as the foundation for comprehensive email protection. While valuable on its own, SPF becomes significantly more powerful when combined with DKIM and enforced through DMARC policies. Email authentication should be viewed as an interconnected system rather than isolated components.
-
-**Compliance Requirements**: Many industries now require email authentication as part of regulatory compliance. The financial sector's FFIEC guidance, healthcare's HIPAA Security Rule guidance, and government contractors under CMMC all specifically reference email authentication as a necessary control.
+While SPF alone does not safeguard the visible “From” address, it checks the envelope sender. It is a critical component of modern email security. For comprehensive protection, combine SPF with [DKIM](/email-sending-concepts/dkim) and [DMARC](/email-sending-concepts/dmarc.md) to ensure thorough authentication coverage.
 
 ## <a id="frequently-asked-questions-about-spf"></a>Frequently Asked Questions About SPF
 
 <div class="dkim-faq">
 
 <div class="faq-item">
-<h3 class="question">How is SPF different from DKIM and DMARC?</h3>
-<div class="answer">
-These three technologies work together but serve different functions:
-
-- **SPF** verifies the sending server by checking its IP against authorized sources in DNS.
-- **DKIM** verifies the message content by applying a digital signature that receivers can validate.
-- **DMARC** builds on both by adding policy enforcement and reporting capabilities.
-
-Think of email authentication as layers of security: SPF validates the connection, DKIM validates the content, and DMARC coordinates these checks and determines what happens when they fail. Organizations with mature email programs implement all three technologies for comprehensive protection.
-</div>
+<h3 class="question">What is the main purpose of SPF?</h3>
+    <div class="answer">
+      SPF (Sender Policy Framework) helps prevent spoofing by specifying which mail servers are allowed to send emails on behalf of your domain.
+    </div>
 </div>
 
 <div class="faq-item">
-<h3 class="question">What are SPF's limitations?</h3>
-<div class="answer">
-Despite its value, SPF has several important limitations:
-
-1. **Forwarding Problems**: When email is forwarded, it often breaks SPF because the forwarding server (not your authorized server) delivers the message. This is especially problematic for mailing lists.
-
-2. **10 DNS Lookup Limit**: The SPF specification limits records to 10 DNS lookups, which can be challenging for organizations using numerous third-party senders.
-
-3. **No Content Protection**: SPF only validates the sending infrastructure, not the message content. A message passing SPF could still contain malicious content.
-
-4. **Header vs. Envelope Sender**: SPF only authenticates the envelope sender (return-path), not the visible From: header, creating potential alignment issues.
-
-These limitations explain why SPF alone is insufficient and should be complemented with DKIM and DMARC as part of a complete authentication strategy.
-</div>
+    <h3 class="question">Does SPF protect the "From" address?</h3>
+    <div class="answer">
+      No. SPF checks the return-path (envelope sender), not the visible From address seen by recipients.
+    </div>
 </div>
 
-<div class="faq-item">
-<h3 class="question">How do I create an effective SPF record?</h3>
-<div class="answer">
-Creating an effective SPF record involves finding the right balance between security and functionality. Here's a practical approach:
+  <div class="faq-item">
+    <h3 class="question">What happens if SPF fails?</h3>
+    <div class="answer">
+      If SPF fails, the receiving server may mark the message as spam, reject it, or ignore the result—depending on its local policy and DMARC settings.
+    </div>
+  </div>
 
-1. **Inventory your sending sources**: Document all legitimate services that send email on behalf of your domain (your mail server, marketing automation platforms, support systems, etc.)
-
-2. **Determine correct mechanisms**: For each service, identify the appropriate SPF mechanism (IP ranges or include statements).
-
-3. **Start conservatively**: Begin implementation with `~all` (softfail) to monitor impact before enforcing strict policies.
-
-4. **Consolidate lookups**: If approaching the 10-lookup limit, consider using a service that consolidates multiple includes or restructuring your email architecture.
-
-5. **Monitor and test**: Regularly validate your SPF record using tools like SPF Survey or mail-tester.com.
-
-A well-designed SPF record strikes the right balance between security (blocking unauthorized senders) and functionality (allowing legitimate services to send successfully).
-</div>
-</div>
-
-<div class="faq-item">
-<h3 class="question">How do I handle multiple sending services while staying within SPF's limitations?</h3>
-<div class="answer">
-Organizations using many third-party email services often struggle with the 10-DNS-lookup limit. Here are proven strategies to address this challenge:
-
-1. **Direct inclusion**: Where possible, obtain specific IP ranges for services rather than using their include mechanisms.
-
-2. **Subdomain delegation**: Create purpose-specific subdomains (e.g., marketing.example.com) with their own SPF records for different sending services.
-
-3. **SPF flattening**: Use services or tools that "flatten" multiple includes into a single record with direct IP references.
-
-4. **Service consolidation**: Evaluate whether your email ecosystem can be streamlined to reduce the number of separate sending services.
-
-For complex enterprise environments, a combination of these approaches typically works best. Large organizations might maintain their primary domain with a strict SPF policy while delegating specific sending functions to subdomains that have their own authentication records.
-</div>
-</div>
+  <div class="faq-item">
+    <h3 class="question">Can SPF break email forwarding?</h3>
+    <div class="answer">
+      Yes. When an email is forwarded, the forwarder's IP may not be authorized in the original domain’s SPF record, causing SPF to fail unless SRS (Sender Rewriting Scheme) is used.
+    </div>
+  </div>
 
 </div>
 

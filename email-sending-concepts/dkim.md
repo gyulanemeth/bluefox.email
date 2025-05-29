@@ -233,39 +233,39 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.com; s=2021;
 
 ## <a id="how-does-dkim-work"></a>How Does DKIM Work?
 
-The DKIM process works silently for email recipients, ensuring secure communication behind the scenes. When an email is ready to be sent through [SMTP](/email-sending-concepts/smtp), 
+DKIM functions seamlessly in the background, ensuring that your emails are both trusted and free from tampering. When an email is dispatched via [SMTP](/email-sending-concepts/smtp.md), the sending mail server generates a digital signature that verifies the message's authenticity and integrity.
 
-**the mail server automatically**:
+Here’s a detailed overview of the process:
 
-1. Generates a cryptographic hash of specific header fields and the message body.
-2. Encrypts this hash with the private DKIM key.
-3. Adds the resulting signature to the email headers.
+**On the Sending Side:**
+1. The server generates a hash of specific email headers along with the message body.
+2. This hash is then encrypted using a private DKIM key that is securely stored on the server.
+3. The resulting digital signature is appended to the email’s headers.
 
-On the **receiving side**, email providers like Gmail verify the signature by:
+**On the Receiving Side:**
+1. The recipient’s server reads the DKIM signature and retrieves the domain and selector information.
+2. It conducts a DNS lookup to obtain the corresponding public key (selector._domainkey.domain.com).
+3. Using this public key, the server decrypts the signature from the email.
+4. It recalculates the hash from the received message.
+5. Finally, it compares both hashes to verify that the message has not been altered during transit.
 
-1. Extracting the domain and selector from the DKIM signature.
-2. Fetching the public key from DNS (`selector._domainkey.domain.com`).
-3. Decrypting the signature using this public key.
-4. Recalculating the hash of the email contents.
-5. Comparing the decrypted hash with the newly computed one.
+If the signatures match, the email is deemed authentic, confirming that it originated from an authorized domain and that the content remained unchanged post-sending. This validation process is rapid, typically taking only milliseconds, yet it plays a vital role in the filtering decisions made by inbox providers.
 
-This verification process takes only milliseconds. If successful, it validates both domain ownership and message integrity, which are essential for inbox providers when making filtering decisions.
-
-The selector acts like a key ID, allowing organizations to rotate keys regularly without interruptting service or to maintain different keys for various sending sources, such as marketing platforms and transactional services.
+The selector in DKIM serves as a pointer to the appropriate key. This functionality allows organizations to periodically rotate keys for enhanced security or to assign different keys to various email platforms such as distinguishing between marketing tools and transactional systems—without disrupting email delivery. Hence, implementing DKIM is not just advisable; it is imperative.
 
 ## <a id="why-does-dkim-matter"></a>Why Does DKIM Matter?
 
-DKIM has transitioned from being optional to essential for anyone sending professional emails. Here’s why it’s crucial:
+DKIM has transitioned from a best practice to a fundamental requirement for large-scale email senders. It is crucial for enhancing email deliverability, protecting your domain from impersonation, and facilitating authentication frameworks like DMARC.
 
-**Impact on Deliverability**: Email providers use advanced filtering systems that heavily consider authentication signals. Research shows that unauthenticated emails have 10-15% lower chances of landing in the inbox, especially during peak sending times when filters become stricter.
+**Improved Deliverability:** Email providers increasingly depend on authentication signals to assess the trustworthiness of incoming messages. Emails lacking DKIM are more likely to be marked as suspicious, particularly during high-volume sending periods when filtering becomes stricter. Signing your emails with DKIM helps ensure they pass these assessments and reach the intended inbox.
 
-**Protection of Sender Reputation**: Your sending domain is a key part of your brand’s online identity. Without DKIM, malicious actors can impersonate legitimate domains, harming your reputation with email service providers and customers. Repairing this trust can take months.
+**Protecting Your Domain:** Without DKIM, attackers can easily forge your domain in the “From” field to send fraudulent emails. This spoofing can harm your brand's reputation and erode recipient trust. DKIM mitigates this risk by verifying that your messages are untampered and originate from an authorized sender.
 
-**Forensic Insights**: DKIM signatures provide vital information when troubleshooting delivery issues. They help pinpoint exactly where problems occur in the delivery process, making it easier to resolve issues quickly.
+**Troubleshooting and Analysis:** DKIM attaches a cryptographic signature to each email, facilitating the tracing and diagnosis of delivery problems. Whether addressing bounces or understanding why an email ended up in spam, DKIM offers essential insights that can expedite resolution.
 
-**Integration with [DMARC](/email-sending-concepts/dmarc)**: Effective [email security](/email-sending-concepts/email-authentication) needs a full authentication system. DMARC policies depend on DKIM and/or [SPF](/email-sending-concepts/spf) to protect domains properly. Without DKIM, organizations lack comprehensive DMARC coverage and reporting, leaving them in the dark about who is using their domain to send emails.
+**Supporting DMARC:** DKIM is a critical element for enforcing DMARC. To fully leverage DMARC's protection and reporting capabilities, your domain must have either DKIM or SPF correctly configured. Without DKIM, your domain may remain partially vulnerable, and DMARC reports may lack completeness.
 
-The reality is that today's email landscape increasingly distrusts unauthenticated messages. Major email providers, like Gmail, now alert users to messages that fail authentication checks, which can worry recipients even if they still receive those emails.
+In today's email landscape, where trust and security are paramount, implementing DKIM is not merely suggested; it is essential.
 
 ## <a id="frequently-asked-questions-about-dkim"></a>Frequently Asked Questions About DKIM
 
@@ -274,7 +274,7 @@ The reality is that today's email landscape increasingly distrusts unauthenticat
 <div class="faq-item">
 <h3 class="question">Do I need DKIM if I already use SPF?</h3>
 <div class="answer">
-Indeed, [SPF](/email-sending-concepts/spf) validates that an email originates from an authorized server, while DKIM guarantees that the email's content remains unaltered during transmission. Implementing both protocols enhances [email authentication](/email-sending-concepts/email-authentication) and significantly boosts deliverability.
+Indeed, SPF validates that an email originates from an authorized server, while DKIM guarantees that the email's content remains unaltered during transmission. Implementing both protocols enhances email authentication and significantly boosts deliverability.
 </div>
 </div>
 
