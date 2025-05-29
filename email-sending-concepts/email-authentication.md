@@ -274,7 +274,7 @@ Email authentication involves various technical methods that confirm the true se
 
 ## <a id="what-is-email-authentication"></a>What is Email Authentication?
 
-Email authentication encompasses methods such as SPF, DKIM, and DMARC that ensure the authenticity of emails. These protocols verify if the email was sent from an authorized server, confirm it hasn't been altered, and ensure it matches the claimed domain.
+Email authentication encompasses methods such as [SPF](/email-sending-concepts/spf.md), [DKIM](/email-sending-concepts/dkim.md), and [DMARC](/email-sending-concepts/dmarc.md) that ensure the authenticity of emails. These protocols verify if the email was sent from an authorized server, confirm it hasn't been altered, and ensure it matches the claimed domain.
 
 Think of it as a combination of a digital signature, permission verification, and policy enforcement, all designed to combat email fraud effectively.
 
@@ -291,7 +291,7 @@ Email authentication establishes a verification system to confirm the authentici
 
 #### 1. SPF (Sender Policy Framework)
 
-[SPF](/email-sending-concepts/spf) specifies the mail servers that are permitted to send emails for your domain. It operates through the following steps:
+**SPF** specifies the mail servers that are permitted to send emails for your domain. It operates through the following steps:
 
 - A DNS TXT record is created to outline all the authorized sending IP addresses.
 - Receiving mail servers verify if incoming emails are from an approved server.
@@ -304,7 +304,7 @@ v=spf1 include:_spf.google.com include:amazonses.com -all
 
 #### 2. DKIM (DomainKeys Identified Mail)
 
-[DKIM](/email-sending-concepts/dkim) adds a digital signature to every outgoing email that receiving servers can verify. This authentication method:
+**DKIM** adds a digital signature to every outgoing email that receiving servers can verify. This authentication method:
 
 - Signs emails with a private cryptographic key known only to the legitimate sender
 - Publishes the corresponding public key in a DNS TXT record
@@ -318,7 +318,7 @@ selector._domainkey.example.com. IN TXT "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBA
 
 #### 3. DMARC (Domain-based Message Authentication, Reporting & Conformance)
 
-[DMARC](/email-sending-concepts/dmarc) builds upon SPF and DKIM by:
+**DMARC** builds upon SPF and DKIM by:
 
 - Adding alignment checks between the visible From address and authenticated domains
 - Providing a policy framework for handling authentication failures
