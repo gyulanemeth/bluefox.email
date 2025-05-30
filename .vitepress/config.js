@@ -83,6 +83,7 @@ export default defineConfig({
             { text: 'Transactional Emails', link: '/docs/projects/transactional-emails' },
             { text: 'Triggered Emails', link: '/docs/projects/triggered-emails' },
             { text: 'Campaigns', link: '/docs/projects/campaigns' },
+            { text: 'Automations', link: '/docs/projects/automations' },
             { text: 'Contacts', link: '/docs/projects/contacts' },
             { text: 'Forms & Pages', link: '/docs/projects/forms-and-pages' },
             { text: 'Design System Settings', link: '/docs/projects/design-system-settings' },
