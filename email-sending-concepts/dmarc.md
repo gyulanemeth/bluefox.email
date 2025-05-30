@@ -204,7 +204,7 @@ Implementing DMARC is essential for individuals and organizations dedicated to p
 
 ## <a id="what-is-dmarc"></a>What is DMARC?
 
-DMARC, or Domain-based Message Authentication, Reporting & Conformance, is a protocol designed to enhance email security by working in conjunction with SPF (Sender Policy Framework) and DKIM (DomainKeys Identified Mail). It empowers domain owners to **dictate how email receivers should handle unauthenticated messages** that appear to originate from their domain.
+DMARC, or Domain-based Message Authentication, Reporting & Conformance, is a protocol designed to enhance email security by working with SPF and DKIM. It empowers domain owners to **dictate how email receivers should handle unauthenticated messages** that appear to originate from their domain.
 
 The primary functions of DMARC include:
 
@@ -242,7 +242,7 @@ It operates by verifying the **alignment** between the visible "From" domain and
 
 5. **Reporting**: If configured, the receiving server will send reports (aggregate and/or forensic) back to the domain owner.
 
-For instance, if an attempt is made to spoof invoice@example.com without the sending server being included in your SPF or without a valid DKIM signature, and your policy is set to `p=reject`, the email will be **blocked**.
+For instance, if an attempt is made to spoof `invoice@example.com` without the sending server being included in your SPF or without a valid DKIM signature, and your policy is set to `p=reject`, the email will be **blocked**.
 
 ## <a id="why-dmarc-is-important"></a>Why is DMARC Important?
 
