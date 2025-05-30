@@ -243,7 +243,7 @@ In addition to security, DMARC offers operational benefits. It fosters trust wit
 
 ## <a id="frequently-asked-questions-about-dmarc"></a>Frequently Asked Questions About DMARC
 
-<div class="dkim-faq">
+<div>
   <div class="faq-item">
     <h3 class="question">Do I need DMARC if I already have SPF and DKIM?</h3>
     <div class="answer">
