@@ -207,8 +207,8 @@ One of the key advantages of a modern email design system is how effortlessly a 
 The example below shows how the same email template transforms into two unique branded campaigns Apple and Tesla by changing just a few design variables:
 
 <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between;">
-  <img src="../public/assets/articles/apple-email-example.png" alt="Apple-style email" style="width: 48%; border: 1px solid #ccc; border-radius: 8px;">
-  <img src="../public/assets/articles/tesla-email-example.webp" alt="Tesla-style email" style="width: 48%; border: 1px solid #ccc; border-radius: 8px;">
+  <img src="/assets/articles/apple-email-example.png" alt="Apple-style email" style="width: 48%; border: 1px solid #ccc; border-radius: 8px;">
+  <img src="/assets/articles/tesla-email-example.webp" alt="Tesla-style email" style="width: 48%; border: 1px solid #ccc; border-radius: 8px;">
 </div>
 
 
