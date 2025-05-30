@@ -194,24 +194,31 @@ document.addEventListener('DOMContentLoaded', function() {
 }
 </style>
 
-When implementing email authentication, DMARC represents the final and arguably most crucial layer. While [SPF](/email-sending-concepts/spf.md) and [DKIM](/email-sending-concepts/dkim.md) are valuable on their own, without DMARC, you're missing critical policy enforcement and visibility. From years of working with email programs, I've seen that domains without DMARC remain vulnerable even when other authentication methods are in place. Many email marketers delay DMARC implementation, thinking it's overly complex, but this often leads to deliverability challenges that could have been avoided.
+Email fraud poses a significant threat. Daily, cybercriminals attempt to impersonate legitimate companies by sending fraudulent emails to customers and employees. These communications often appear genuine but are intended to extract sensitive information or deploy malware.
+
+This is where DMARC plays a crucial role.
+
+DMARC functions as the policy enforcer for email authentication. While [SPF](/email-sending-concepts/spf.md) and [DKIM](/email-sending-concepts/dkim.md) assist in verifying the origin and signature of an email, DMARC instructs receiving servers on how to manage messages that fail these authentication checks. Furthermore, it provides visibility into all entities sending emails from your domain, including both legitimate and malicious sources.
+
+Implementing DMARC is essential for individuals and organizations dedicated to protecting their brand and improving email deliverability. Many avoid this implementation due to perceived complexity, which can lead to unnecessary email security and deliverability challenges.
 
 ## <a id="what-is-dmarc"></a>What is DMARC?
 
-DMARC, which stands for Domain-based Message Authentication, Reporting, and Conformance, is a policy based on DNS that allows domain owners to dictate how email receivers should handle messages that do not pass SPF or DKIM checks. Additionally, it provides domain owners with reports on these failures, enabling them to track who is sending emails on their behalf, whether legitimately or otherwise.
+DMARC, or Domain-based Message Authentication, Reporting & Conformance, is a protocol designed to enhance email security by working in conjunction with SPF (Sender Policy Framework) and DKIM (DomainKeys Identified Mail). It empowers domain owners to dictate how email receivers should handle unauthenticated messages that appear to originate from their domain.
 
-To implement DMARC, you must publish a DMARC record in your domain's DNS as a TXT record at:
-`_dmarc.yourdomain.com`
+The primary functions of DMARC include:
 
-You can configure the policy as follows:
+1. Authenticating incoming emails through SPF and DKIM.
+2. Providing instructions to receiving servers on actions to take when an email fails authentication.
+3. Generating reports for the domain owner regarding attempts to send emails using their domain.
 
-- **none**: No action will be taken; this option is for monitoring purposes only.
-- **quarantine**: The message will be flagged as suspicious.
-- **reject**: The message will be completely rejected.
+These rules are established within a specific DNS record known as a DMARC record, which is formatted as follows:
+
+`v=DMARC1; p=none; rua=mailto:reports@yourdomain.com`
 
 ## <a id="how-does-dmarc-work"></a>How Does DMARC Work?
 
-DMARC operates by verifying the alignment between the visible "From" domain and the domains authenticated through SPF and/or DKIM. Here's a breakdown of the process that occurs each time an email is received:
+It operates by verifying the alignment between the visible "From" domain and the domains authenticated through SPF and/or DKIM. Here's a breakdown of the process that occurs each time an email is received:
 
 1. **Lookup**: The recipient checks for a DMARC record in the sender's DNS (`_dmarc.example.com`).
 
@@ -228,7 +235,7 @@ DMARC operates by verifying the alignment between the visible "From" domain and 
 
 For instance, if an attempt is made to spoof invoice@example.com without the sending server being included in your SPF or without a valid DKIM signature, and your policy is set to p=reject, the email will be blocked.
 
-## <a id="why-is-dmarc-important"></a>Why is DMARC Important?
+## <a id="why-dmarc-is-important"></a>Why is DMARC Important?
 
 DMARC is essential for protecting your domain from impersonation, phishing, and email spoofing. Without it, malicious actors can forge your domain in the “From” address, sending fraudulent emails that seem legitimate. While SPF and DKIM validate specific technical aspects, they do not ensure alignment with the domain visible to users, creating a vulnerability. DMARC addresses this by enforcing domain alignment, ensuring the visible sender matches authenticated sources, and allowing domain owners to control actions for messages that fail this check.
 
@@ -238,30 +245,30 @@ In addition to security, DMARC offers operational benefits. It fosters trust wit
 
 <div class="dkim-faq">
   <div class="faq-item">
-    <h3 class="question">Do I need DKIM if I already use SPF?</h3>
+    <h3 class="question">Do I need DMARC if I already have SPF and DKIM?</h3>
     <div class="answer">
-      Yes. SPF verifies the server sending the message, but DKIM ensures the message hasn't been altered in transit. SPF can break when emails are forwarded, while DKIM provides cryptographic proof that the email content is authentic. Used together, they greatly improve your email’s trustworthiness and deliverability.
+     Yes. SPF and DKIM handle the technical authentication, but DMARC adds policy enforcement and reporting. Without DMARC, unauthorized emails might still appear to come from your domain, and you won’t have insight into who is abusing it.
     </div>
   </div>
 
   <div class="faq-item">
-    <h3 class="question">What happens if the DKIM check fails?</h3>
+    <h3 class="question">Will implementing DMARC affect my email deliverability?</h3>
     <div class="answer">
-      A failed DKIM check means the email signature doesn't match the content or domain, which could indicate tampering or misconfiguration. While a DKIM failure alone doesn’t guarantee rejection, it weakens your domain’s credibility, especially if DMARC is enforcing strict policies. Some receiving servers may mark the email as spam or block it altogether.
+      When done properly, DMARC improves deliverability by proving to email providers that your emails are genuine. However, if set too strictly without alignment or monitoring, it can cause legitimate emails to be rejected. It’s best to begin with a “none” policy and gradually move to “quarantine” or “reject.”
     </div>
   </div>
 
   <div class="faq-item">
-    <h3 class="question">Can I have multiple DKIM selectors for one domain?</h3>
+    <h3 class="question">Is DMARC hard to set up?</h3>
     <div class="answer">
-      Absolutely. Multiple selectors allow you to manage different keys for various systems or rotate them without disrupting delivery. For instance, you might use one selector for your transactional emails and another for your marketing platform. Each selector points to its own DNS record with a unique public key.
+     It can look intimidating, but many email platforms offer help or automated tools to guide setup. Start with a monitoring-only mode to observe your domain’s traffic and then enforce stronger policies once you're confident.
     </div>
   </div>
 
   <div class="faq-item">
-    <h3 class="question">Does forwarding emails affect DKIM?</h3>
+    <h3 class="question">How do I monitor DMARC activity?</h3>
     <div class="answer">
-      Sometimes. If the email is forwarded but the content and headers remain intact, DKIM typically survives. However, some forwarders modify headers (like adding disclaimers), which can break the signature. This is one reason DKIM works best when combined with SPF and DMARC each can back the other up when one fails.
+    DMARC sends regular XML reports to the email address you specify in your DNS record. These reports can be difficult to read manually, so most organizations use DMARC report analyzers or dashboards to track and interpret the data.
     </div>
   </div>
 </div>

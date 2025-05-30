@@ -244,18 +244,18 @@ Here’s a detailed overview of the process:
 
 **On the Receiving Side:**
 1. The recipient’s server reads the DKIM signature and retrieves the domain and selector information.
-2. It conducts a DNS lookup to obtain the corresponding public key (selector._domainkey.domain.com).
+2. It conducts a DNS lookup to obtain the corresponding public key (`selector._domainkey.domain.com`).
 3. Using this public key, the server decrypts the signature from the email.
 4. It recalculates the hash from the received message.
 5. Finally, it compares both hashes to verify that the message has not been altered during transit.
 
-If the signatures match, the email is deemed authentic, confirming that it originated from an authorized domain and that the content remained unchanged post-sending. This validation process is rapid, typically taking only milliseconds, yet it plays a vital role in the filtering decisions made by inbox providers.
+When the signatures align, the email is considered authentic, indicating that it comes from an authorized domain and that the content has not been altered since it was sent. This validation process is swift, usually requiring only milliseconds, and is crucial for the filtering decisions made by inbox providers.
 
-The selector in DKIM serves as a pointer to the appropriate key. This functionality allows organizations to periodically rotate keys for enhanced security or to assign different keys to various email platforms such as distinguishing between marketing tools and transactional systems—without disrupting email delivery. Hence, implementing DKIM is not just advisable; it is imperative.
+The selector in DKIM serves as a pointer to the appropriate key. This functionality allows organizations to periodically rotate keys for enhanced security or to assign different keys to various email platforms such as distinguishing between marketing tools and transactional systems without disrupting email delivery. Hence, implementing DKIM is not just advisable, it is imperative.
 
 ## <a id="why-does-dkim-matter"></a>Why Does DKIM Matter?
 
-DKIM has transitioned from a best practice to a fundamental requirement for large-scale email senders. It is crucial for enhancing email deliverability, protecting your domain from impersonation, and facilitating authentication frameworks like DMARC.
+DKIM has transitioned from a best practice to a fundamental requirement for large-scale email senders. It is crucial for enhancing email deliverability, protecting your domain from impersonation, and facilitating authentication frameworks like [DMARC](/email-sending-concepts/dmarc.md).
 
 **Improved Deliverability:** Email providers increasingly depend on authentication signals to assess the trustworthiness of incoming messages. Emails lacking DKIM are more likely to be marked as suspicious, particularly during high-volume sending periods when filtering becomes stricter. Signing your emails with DKIM helps ensure they pass these assessments and reach the intended inbox.
 
@@ -263,7 +263,7 @@ DKIM has transitioned from a best practice to a fundamental requirement for larg
 
 **Troubleshooting and Analysis:** DKIM attaches a cryptographic signature to each email, facilitating the tracing and diagnosis of delivery problems. Whether addressing bounces or understanding why an email ended up in spam, DKIM offers essential insights that can expedite resolution.
 
-**Supporting DMARC:** DKIM is a critical element for enforcing DMARC. To fully leverage DMARC's protection and reporting capabilities, your domain must have either DKIM or SPF correctly configured. Without DKIM, your domain may remain partially vulnerable, and DMARC reports may lack completeness.
+**Supporting DMARC:** DKIM is a critical element for enforcing DMARC. To fully leverage DMARC's protection and reporting capabilities, your domain must have either DKIM or [SPF](/email-sending-concepts/spf.md) correctly configured. Without DKIM, your domain may remain partially vulnerable, and DMARC reports may lack completeness.
 
 In today's email landscape, where trust and security are paramount, implementing DKIM is not merely suggested; it is essential.
 
@@ -274,25 +274,33 @@ In today's email landscape, where trust and security are paramount, implementing
 <div class="faq-item">
 <h3 class="question">Do I need DKIM if I already use SPF?</h3>
 <div class="answer">
-Indeed, SPF validates that an email originates from an authorized server, while DKIM guarantees that the email's content remains unaltered during transmission. Implementing both protocols enhances email authentication and significantly boosts deliverability.
+Yes. While SPF verifies the IP address of the sending server, DKIM ensures the content of the email hasn’t been tampered with and confirms it was authorized by the domain. Using both together strengthens your email authentication and helps ensure better inbox placement.
 </div>
 </div>
 
 <div class="faq-item">
 <h3 class="question">What if I use third-party services for email marketing?</h3>
 <div class="answer">
-Yes. In fact, most email services like Google Workspace, Microsoft 365, Mailchimp, and others strongly recommend setting up DKIM. They usually provide the DKIM public key and selector, which you add to your domain’s DNS records.
+Most reputable email marketing platforms such as Google Workspace, Microsoft 365, Mailchimp, and others support DKIM. They provide you with a public DKIM key and selector to publish in your domain’s DNS. This allows those services to send authenticated emails on your behalf.
 </div>
 </div>
 
 <div class="faq-item">
 <h3 class="question">Does DKIM break if the email is forwarded?</h3>
 <div class="answer">
-Sometimes. Forwarding or modifying email headers (like adding disclaimers or changing subject lines) can invalidate the DKIM signature, leading to failure. This is one reason why DMARC includes both DKIM and SPF to provide fallback mechanisms.
+It can. If the forwarding process modifies the message headers or content (e.g., by adding a disclaimer or altering subject lines), the DKIM signature may become invalid. However, DKIM is generally more resilient to forwarding than SPF, and when paired with DMARC, it provides better protection and flexibility.
+</div>
+</div>
+
+<div class="faq-item">
+<h3 class="question">Can I rotate DKIM keys without affecting email delivery?</h3>
+<div class="answer">
+Yes. DKIM supports key rotation using different selectors. You can publish a new key under a new selector while the old one is still active, then gradually phase out the old key. This helps maintain security without interrupting email delivery.
 </div>
 </div>
 
 </div>
+
 
 <style>
 .on-this-page {

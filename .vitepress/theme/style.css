@@ -1,26 +1,7 @@
-/**
- * Customize default theme styling by overriding CSS variables:
- * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
- */
-
-/* Add smooth scrolling behavior site-wide */
 html {
   scroll-behavior: smooth;
-  /* Add padding to account for fixed header */
   scroll-padding-top: 70px;
 }
-
- /**
- * Fonts
- * -------------------------------------------------------------------------- */
- /* we use a direct import instead from npm packages... that way, we don't have a rendering blocking request...
- @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Indie+Flower&display=swap');
- */
-
-/**
- * Colors
- * -------------------------------------------------------------------------- */
-
  :root {
   --vp-c-brand:hsl(197, 87%, 50%);
   --vp-c-brand-light:	hsl(197, 87%, 60%);
