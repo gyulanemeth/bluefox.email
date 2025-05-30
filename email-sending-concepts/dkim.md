@@ -249,13 +249,13 @@ Here’s a detailed overview of the process:
 4. It recalculates the hash from the received message.
 5. Finally, it compares both hashes to verify that the message has not been altered during transit.
 
-When the signatures align, the email is considered **authentic**, indicating that it comes from an **authorized domain** and that the content has **not been altered** since it was sent. This **validation process is swift**, usually requiring only milliseconds, and is **crucial for the filtering decisions** made by inbox providers.
+When the signatures align, the email is considered authentic, indicating that it comes from an authorized domain and that the content has not been altered since it was sent. This validation process is swift, usually requiring only milliseconds, and is crucial for the filtering decisions made by inbox providers.
 
-The selector in DKIM serves as a pointer to the appropriate key. This functionality allows organizations to **periodically rotate keys for enhanced security** or to **assign different keys to various email platforms** such as distinguishing between marketing tools and transactional systems without disrupting email delivery. Hence, **implementing DKIM is not just advisable, it is imperative**.
+The selector in DKIM serves as a pointer to the appropriate key. This functionality allows organizations to periodically rotate keys for enhanced security or to assign different keys to various email platforms such as distinguishing between marketing tools and transactional systems without disrupting email delivery. Hence, **implementing DKIM is not just advisable, it is imperative**.
 
 ## <a id="why-does-dkim-matter"></a>Why Does DKIM Matter?
 
-DKIM (DomainKeys Identified Mail) **enhances the authenticity** of your emails, **fostering trust** with email providers and your audience. It verifies that messages remain unaltered during transit, **preventing tampering** and **blocking scammers** from impersonating your domain without your private key. Leading email services, such as Gmail and Yahoo, **utilize DKIM results to determine inbox delivery**. Additionally, **DKIM is vital for supporting [DMARC](/email-sending-concepts/dmarc.md)** policies, making it a **critical component of email security and brand protection**.
+DKIM (DomainKeys Identified Mail) enhances the authenticity of your emails, fostering trust with email providers and your audience. It verifies that messages remain unaltered during transit, **preventing tampering** and **blocking scammers** from impersonating your domain without your private key. Leading email services, such as Gmail and Yahoo, utilize DKIM results to determine inbox delivery. Additionally, **DKIM is vital for supporting DMARC** policies, making it a critical component of email security and brand protection.
 
 ## <a id="frequently-asked-questions-about-dkim"></a>Frequently Asked Questions About DKIM
 
@@ -263,7 +263,7 @@ DKIM (DomainKeys Identified Mail) **enhances the authenticity** of your emails, 
 <div class="faq-item">
 <h3 class="question">Does DKIM prevent spam?</h3>
 <div class="answer">
-Not directly, **DKIM verifies authenticity, not content quality**. However, **properly configured DKIM makes it less likely your emails will be marked as spam**.
+Not directly, DKIM verifies authenticity, not content quality. However, properly configured DKIM makes it less likely your emails will be marked as spam.
 </div>
 </div>
 
