@@ -242,7 +242,7 @@ It operates by verifying the **alignment** between the visible "From" domain and
 
 5. **Reporting**: If configured, the receiving server will send reports (aggregate and/or forensic) back to the domain owner.
 
-For instance, if an attempt is made to spoof invoice@example.com without the sending server being included in your SPF or without a valid DKIM signature, and your policy is set to p=reject, the email will be **blocked**.
+For instance, if an attempt is made to spoof invoice@example.com without the sending server being included in your SPF or without a valid DKIM signature, and your policy is set to `p=reject`, the email will be **blocked**.
 
 ## <a id="why-dmarc-is-important"></a>Why is DMARC Important?
 
