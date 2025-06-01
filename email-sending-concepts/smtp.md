@@ -49,11 +49,11 @@ head:
   </div>
 </div>
 
-**Simple Mail Transfer Protocol** is the **backbone of email delivery** on the internet. Every time you hit "send," SMTP quietly takes over, moving your message from your outbox to the recipient's inbox. While most users never see it in action, SMTP is one of the oldest and most essential protocols in the world of email.
+**Simple Mail Transfer Protocol** is the **backbone of email delivery** on the internet. Every time you hit **send**, SMTP quietly takes over, moving your message from your outbox to the recipient's inbox. While most users never see it in action, SMTP is one of the oldest and most essential protocols in the world of email.
 
 ## <a id="what-is-smtp"></a>What is SMTP?
 
-**SMTP** is a protocol that enables the **transfer of email messages between servers**. When you send an email, SMTP is responsible for relaying your message from your email client or server to the recipient's mail server. It's a "push" protocol, meaning it only handles sending, not retrieving emails.
+**SMTP** is a protocol that enables the **transfer of email messages between servers**. When you send an email, SMTP is responsible for relaying your message from your email client or server to the recipient's mail server. It's a **push** protocol, meaning it only handles sending, not retrieving emails.
 
 SMTP uses plain text commands and operates over the internet's TCP/IP infrastructure. It's designed to be **simple, reliable, and universally compatible**, which is why it's still in use decades after its creation.
 
@@ -61,9 +61,14 @@ SMTP uses plain text commands and operates over the internet's TCP/IP infrastruc
 
 When you send an email, your client (like Outlook or Gmail) connects to your outgoing mail server using **SMTP**. The process starts with a handshake (using commands like HELO or EHLO), then specifies the sender and recipient addresses, and finally transmits the message content.
 
-The sending server then tries to deliver the message directly to the recipient's mail server, again using SMTP. If the recipient's server is temporarily unavailable, the sending server will keep retrying for a set period before giving up and returning an error.
+The sending server then tries to deliver the message directly to the recipient's mail server, again using SMTP. If the recipient's server is temporarily unavailable, the sending server will keep retrying for a set period before giving up and returning an error. This temporary failure and retry process is known as a **soft bounce**. When a recipient address doesn't exist or the server permanently rejects the message, it's called a **hard bounce**, in this case, the message is immediately returned to the sender with an error notification.
 
 SMTP typically uses **port 25** for server-to-server communication, but **port 587** is now standard for client-to-server submission, and **port 465** is used for secure connections via [SSL/TLS](/email-sending-concepts/tls). By itself, SMTP does not encrypt messages, which is why modern email relies on extensions like **STARTTLS** for encryption and integrates with authentication protocols such as [SPF](/email-sending-concepts/spf), [DKIM](/email-sending-concepts/dkim), and [DMARC](/email-sending-concepts/dmarc).
+
+| SMTP Port | Primary Use | Security | Status | Best For |
+|-----------|------------|----------|--------|----------|
+| **465** | Implicit SSL/TLS | Encryption from connection start | Originally deprecated, now reinstated | Maximum security needs |
+| **587** | Message submission | STARTTLS (explicit encryption) | Current standard | Most email clients and services |
 
 ## <a id="why-is-smtp-important"></a>Why is SMTP Important?
 
@@ -71,7 +76,7 @@ SMTP typically uses **port 25** for server-to-server communication, but **port 5
 
 SMTP's extensibility has allowed it to evolve with the times. Security enhancements like **STARTTLS** and authentication checks with **SPF**, **DKIM**, and **DMARC** have kept SMTP relevant and secure, even as threats have grown more sophisticated.
 
-For businesses, a properly configured SMTP setup means **reliable delivery**, fewer bounced emails, and better protection against spam and [phishing](/email-sending-concepts/email-spoofing). Whether you're sending a single message or millions, SMTP is the protocol making it happen.
+For businesses, a properly configured SMTP setup means **reliable delivery**, fewer bounced emails, and better protection against spam and [email spoofing](/email-sending-concepts/email-spoofing). Whether you're sending a single message or millions, SMTP is the protocol making it happen.
 
 ## <a id="frequently-asked-questions-about-smtp"></a>Frequently Asked Questions About SMTP
 
@@ -80,7 +85,7 @@ For businesses, a properly configured SMTP setup means **reliable delivery**, fe
 <div class="faq-item">
 <h3 class="question">Is SMTP secure?</h3>
 <div class="answer">
-By default, SMTP does not encrypt messages. However, most modern servers use STARTTLS to encrypt the connection, and authentication protocols like SPF, DKIM, and DMARC to verify sender identity and prevent abuse. For sensitive data, consider using end-to-end encryption.
+By default, SMTP does not encrypt messages. However, most modern servers use STARTTLS on port 587 to encrypt the connection, and authentication protocols like SPF, DKIM, and DMARC to verify sender identity and prevent abuse. For sensitive data, consider using end-to-end encryption.
 </div>
 </div>
 

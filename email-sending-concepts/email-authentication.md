@@ -298,7 +298,7 @@ The system operates using three primary tools in conjunction: one verifies the a
 
 ## <a id="why-is-email-authentication-important"></a>Why is Email Authentication Important?
 
-Email authentication is essential for **safeguarding both senders and recipients** in digital communication. Without it, anyone can impersonate the sender, resulting in **email spoofing and phishing attacks** that can harm users and tarnish brand reputations. 
+Email authentication is essential for **safeguarding both senders and recipients** in digital communication. Without it, anyone can impersonate the sender, resulting in **[email spoofing](/email-sending-concepts/email-spoofing) and phishing attacks** that can harm users and tarnish brand reputations. 
 
 By confirming that a message genuinely originates from the claimed domain, authentication **prevents malicious individuals** from misusing trusted identities. It also increases the likelihood that legitimate emails land in inboxes rather than being marked as spam or rejected. 
 
@@ -326,7 +326,7 @@ For organizations, properly authenticated email **fosters trust with recipients*
 <div class="faq-item">
   <div class="question">Will email authentication affect my deliverability?</div>
   <div class="answer">
-    <p>Yes, positively! Properly authenticated emails are more likely to reach the inbox, as major email providers factor authentication status into their filtering processes.</p>
+    <p>Yes! Properly authenticated emails are more likely to reach the inbox, as major email providers factor authentication status into their filtering processes.</p>
   </div>
 </div>
 

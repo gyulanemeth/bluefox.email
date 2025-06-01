@@ -255,7 +255,7 @@ The selector in DKIM serves as a pointer to the appropriate key. This functional
 
 ## <a id="why-does-dkim-matter"></a>Why Does DKIM Matter?
 
-DKIM (DomainKeys Identified Mail) enhances the authenticity of your emails, fostering trust with email providers and your audience. It verifies that messages remain unaltered during transit, **preventing tampering** and **blocking scammers** from impersonating your domain without your private key. Leading email services, such as Gmail and Yahoo, utilize DKIM results to determine inbox delivery. Additionally, **DKIM is vital for supporting DMARC** policies, making it a critical component of email security and brand protection.
+DKIM (DomainKeys Identified Mail) enhances the authenticity of your emails, fostering trust with email providers and your audience. It verifies that messages remain unaltered during transit, **preventing tampering** and **blocking scammers** from impersonating your domain without your private key. Leading email services, such as Gmail and Yahoo, utilize DKIM results to determine inbox delivery. Additionally, **DKIM is vital for supporting [DMARC](/email-sending-concepts/dmarc.md)** policies, making it a critical component of email security and brand protection.
 
 ## <a id="frequently-asked-questions-about-dkim"></a>Frequently Asked Questions About DKIM
 
