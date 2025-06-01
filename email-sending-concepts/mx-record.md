@@ -74,7 +74,7 @@ Most businesses today use **third-party email providers**, which require specifi
 
 ## <a id="why-are-mx-records-important"></a>Why are MX Records Important?
 
-MX records are **absolutely essential** for receiving email. Without them, your domain is essentially **unreachable** – most mail servers will refuse to deliver messages to a domain that lacks MX records. Even though the [SMTP](/email-sending-concepts/smtp) standard allows fallback to the domain's A record, modern servers rarely do this for security reasons.
+MX records are **absolutely essential** for receiving email. Without them, your domain is essentially **unreachable**. Most mail servers will refuse to deliver messages to a domain that lacks MX records. Even though the [SMTP](/email-sending-concepts/smtp) standard allows fallback to the domain's A record, modern servers rarely do this for security reasons.
 
 Beyond basic delivery, MX records play a role in your **domain's reputation and deliverability**. Spam filters often check that your MX records **align with your other DNS settings**, such as [SPF](/email-sending-concepts/spf) and [DKIM](/email-sending-concepts/dkim), to confirm your domain's legitimacy. If your MX records are missing or misconfigured, you risk having emails **bounce or be marked as spam**. When switching email providers, updating your MX records is what **actually moves your email flow**. A single typo can cause **lost messages or downtime**, so accuracy is critical.
 
