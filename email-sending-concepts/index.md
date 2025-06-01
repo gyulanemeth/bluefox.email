@@ -232,6 +232,17 @@ h2[id^="section-"] {
   line-height: 1.6;
 }
 
+.glossary-item p a {
+  color: #13B0EE;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.glossary-item p a:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+
 .read-more {
   display: inline-block;
   color: #13B0EE !important;
