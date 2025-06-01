@@ -33,7 +33,7 @@ head:
 layout: post
 category: articles
 lastUpdated: true
-published: 2025-00-00
+published: 2025-06-02
 sidebar: false
 ---
 
