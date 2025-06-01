@@ -186,6 +186,7 @@ sidebar: false
   margin-bottom: 20px;
   padding-bottom: 15px;
   border-bottom: none;
+
 }
 
 .question {
@@ -334,7 +335,7 @@ In summary, SPF fosters trust with email providers, protects your audience from 
   <div class="faq-item">
     <h3 class="question">What happens if SPF fails?</h3>
     <div class="answer">
-      If SPF fails, the receiving server may mark the message as spam, reject it, or ignore the result—depending on its local policy and DMARC settings.
+      If SPF fails, the receiving server may mark the message as spam, reject it, or ignore the result depending on its local policy and <a href="/email-sending-concepts/dmarc">DMARC</a> settings.
     </div>
   </div>
 

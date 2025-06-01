@@ -34,19 +34,19 @@ sidebar: false
 
 # Email Sending Concepts
 
-Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanations for common email marketing, development, and authentication terms organized alphabetically.
+Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanations for common <strong>email marketing</strong>, <strong>development</strong>, and <strong>authentication</strong> terms organized alphabetically.
 
 ## <a id="section-d"></a>D
 
 <div class="glossary-item">
   <h3><a href="/email-sending-concepts/dkim">DKIM (DomainKeys Identified Mail)</a></h3>
-  <p>An email authentication method that adds a digital signature to verify the email hasn't been altered.</p>
+  <p>An <strong>email authentication method</strong> that adds a <strong>digital signature</strong> to verify the email hasn't been altered.</p>
   <a href="/email-sending-concepts/dkim" class="read-more">Read more</a>
 </div>
 
 <div class="glossary-item">
   <h3><a href="/email-sending-concepts/dmarc">DMARC (Domain-based Message Authentication, Reporting, and Conformance)</a></h3>
-  <p>A protocol that uses SPF and DKIM to protect domains from unauthorized use.</p>
+  <p>A protocol that uses <a href="/email-sending-concepts/spf">SPF</a> and <a href="/email-sending-concepts/dkim">DKIM</a> to protect domains from <strong>unauthorized use</strong>.</p>
   <a href="/email-sending-concepts/dmarc" class="read-more">Read more</a>
 </div>
 
@@ -54,13 +54,13 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 
 <div class="glossary-item">
   <h3><a href="/email-sending-concepts/email-authentication">Email Authentication</a></h3>
-  <p>Methods and protocols used to verify the legitimacy of email senders and messages.</p>
+  <p>Methods and protocols used to <strong>verify the legitimacy</strong> of email senders and messages.</p>
   <a href="/email-sending-concepts/email-authentication" class="read-more">Read more</a>
 </div>
 
 <div class="glossary-item">
   <h3><a href="/email-sending-concepts/email-spoofing">Email Spoofing</a></h3>
-  <p>The forgery of an email header to make messages appear to come from a trusted source.</p>
+  <p>The <strong>forgery of an email header</strong> to make messages appear to come from a trusted source.</p>
   <a href="/email-sending-concepts/email-spoofing" class="read-more">Read more</a>
 </div>
 
@@ -68,7 +68,7 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 
 <div class="glossary-item">
   <h3><a href="/email-sending-concepts/mx-record">MX Record</a></h3>
-  <p>DNS records that specify which mail servers are responsible for accepting email on behalf of a domain.</p>
+  <p><strong>DNS records</strong> that specify which mail servers are responsible for accepting email on behalf of a domain.</p>
   <a href="/email-sending-concepts/mx-record" class="read-more">Read more</a>
 </div>
 
@@ -76,21 +76,21 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 
 <div class="glossary-item">
   <h3><a href="/email-sending-concepts/return-path">Return Path</a></h3>
-  <p>The email address to which bounced messages are delivered when an email cannot be delivered.</p>
-  <a href="/email-sending-concepts/return-path-new" class="read-more">Read more</a>
+  <p>The email address to which <strong>bounced messages</strong> are delivered when an email cannot be delivered.</p>
+  <a href="/email-sending-concepts/return-path" class="read-more">Read more</a>
 </div>
 
 ## <a id="section-s"></a>S
 
 <div class="glossary-item">
   <h3><a href="/email-sending-concepts/smtp">SMTP (Simple Mail Transfer Protocol)</a></h3>
-  <p>The standard protocol used for sending and routing email messages across the internet.</p>
+  <p>The <strong>standard protocol</strong> used for sending and routing email messages across the internet.</p>
   <a href="/email-sending-concepts/smtp" class="read-more">Read more</a>
 </div>
 
 <div class="glossary-item">
   <h3><a href="/email-sending-concepts/spf">SPF (Sender Policy Framework)</a></h3>
-  <p>An authentication method that specifies which mail servers are authorized to send email on behalf of your domain.</p>
+  <p>An authentication method that specifies which <strong>mail servers are authorized</strong> to send email on behalf of your domain.</p>
   <a href="/email-sending-concepts/spf" class="read-more">Read more</a>
 </div>
 
@@ -98,7 +98,7 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 
 <div class="glossary-item">
   <h3><a href="/email-sending-concepts/tls">TLS (Transport Layer Security)</a></h3>
-  <p>A cryptographic protocol that provides secure communication over networks for email transmission.</p>
+  <p>A <strong>cryptographic protocol</strong> that provides secure communication over networks for email transmission.</p>
   <a href="/email-sending-concepts/tls" class="read-more">Read more</a>
 </div>
 
@@ -172,7 +172,6 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
   transition: transform 0.1s, opacity 0.1s;
 }
 
-/* Target effect for section headers */
 h2:target {
   animation: highlight-section 1.5s ease;
 }
@@ -186,18 +185,31 @@ h2:target {
   }
 }
 
+
+h2[id^="section-"] {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  border: none;
+  padding-top: 0.5rem;
+
+}
+
 .glossary-item {
-  padding: 25px 0;
-  border-bottom: 1px solid #eaeaea;
+  padding: 12px 0;
+  border: none; 
   transition: transform 0.2s ease;
 }
 
-.dark .glossary-item {
-  border-bottom: 1px solid #2d3748;
+.glossary-item + .glossary-item {
+  border-top: 1px solid #eaeaea;
 }
 
-.glossary-item:last-child {
-  border-bottom: none;
+.dark .glossary-item + .glossary-item {
+  border-top: 1px solid #2d3748;
+}
+
+.page-nav, .on-this-page {
+  display: none;
 }
 
 .glossary-item h3 {
@@ -222,13 +234,15 @@ h2:target {
 
 .read-more {
   display: inline-block;
-  color: #13B0EE;
+  color: #13B0EE !important;
   font-weight: 500;
   text-decoration: none;
   margin-top: 8px;
+  transition: all 0.2s ease;
 }
 
 .read-more:hover {
   text-decoration: underline;
+  opacity: 0.9;
 }
 </style>

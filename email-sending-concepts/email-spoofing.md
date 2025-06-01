@@ -309,7 +309,7 @@ Spoofing presents serious cybersecurity and business challenges. It's frequently
 
 Spoofed emails often act as gateways for **phishing attacks and malware**, leading to **data breaches** and compromised credentials. Moreover, beyond the technical risks, spoofing can harm your **reputation**, especially if customers receive fraudulent emails that seem to come from your domain, which can diminish trust and brand loyalty. 
 
-Additionally, not implementing proper email authentication can expose organizations—particularly in regulated sectors like healthcare, finance, and government—to legal and compliance repercussions.
+Additionally, not implementing proper email authentication can expose organizations, particularly in regulated sectors like healthcare, finance, and government, to legal and compliance repercussions.
 
 ## <a id="protecting-against-email-spoofing"></a>Protecting Against Email Spoofing
 
