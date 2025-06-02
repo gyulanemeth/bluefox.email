@@ -36,6 +36,14 @@ sidebar: false
 
 Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanations for common <strong>email marketing</strong>, <strong>development</strong>, and <strong>authentication</strong> terms organized alphabetically.
 
+## <a id="section-c"></a>C
+
+<div class="glossary-item">
+  <h3><a href="/email-sending-concepts/cname-record">CNAME Records</a></h3>
+  <p><strong>DNS records</strong> that create domain aliases by pointing one domain name to another, simplifying email service management.</p>
+  <a href="/email-sending-concepts/cname-record" class="read-more">Read more</a>
+</div>
+
 ## <a id="section-d"></a>D
 
 <div class="glossary-item">
@@ -70,12 +78,28 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
   <a href="/email-sending-concepts/email-spoofing" class="read-more">Read more</a>
 </div>
 
+## <a id="section-i"></a>I
+
+<div class="glossary-item">
+  <h3><a href="/email-sending-concepts/imap">IMAP (Internet Message Access Protocol)</a></h3>
+  <p>An email retrieval protocol that keeps messages on the server, allowing <strong>synchronization across multiple devices</strong>.</p>
+  <a href="/email-sending-concepts/imap" class="read-more">Read more</a>
+</div>
+
 ## <a id="section-m"></a>M
 
 <div class="glossary-item">
   <h3><a href="/email-sending-concepts/mx-record">MX Record</a></h3>
   <p><strong>DNS records</strong> that specify which mail servers are responsible for accepting email on behalf of a domain.</p>
   <a href="/email-sending-concepts/mx-record" class="read-more">Read more</a>
+</div>
+
+## <a id="section-p"></a>P
+
+<div class="glossary-item">
+  <h3><a href="/email-sending-concepts/pop3">POP3 (Post Office Protocol)</a></h3>
+  <p>An email retrieval protocol that typically <strong>downloads messages</strong> from the server to a local device.</p>
+  <a href="/email-sending-concepts/pop3" class="read-more">Read more</a>
 </div>
 
 ## <a id="section-r"></a>R

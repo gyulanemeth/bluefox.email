@@ -159,6 +159,20 @@ head:
 .dark .answer {
   color: #bbb;
 }
+
+/* Ensure section dividers are visible */
+hr, .section-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 40px 0;
+  width: 100%;
+  border: none;
+  display: block !important;
+}
+
+.dark hr, .dark .section-divider {
+  background-color: #2d3748;
+}
 </style>
 
 <script>
@@ -275,33 +289,17 @@ However, in multi-device environments where users expect consistent access acros
 
 ## <a id="frequently-asked-questions-about-pop3"></a>Frequently Asked Questions About POP3
 
-<div class="faq-item">
-<h3 class="question">Will POP3 delete my emails from the server?</h3>
-<div class="answer">
+### Will POP3 delete my emails from the server?
 By default, yes, but most modern email clients allow you to configure POP3 to leave copies on the server. Look for settings like "Leave a copy of messages on the server" or "Do not delete messages from server." This provides flexibility while still using the POP3 protocol.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Can I use POP3 with multiple devices?</h3>
-<div class="answer">
+### Can I use POP3 with multiple devices?
 Yes, but with limitations. If you configure POP3 to leave messages on the server, multiple devices can download the same emails. However, actions taken on one device (reading, organizing, replying) won't be reflected on other devices. For true multi-device synchronization, IMAP is generally a better choice.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Is POP3 secure?</h3>
-<div class="answer">
+### Is POP3 secure?
 Basic POP3 transmits credentials and emails in plain text. For security, use POP3S (POP3 over SSL/TLS) on port 995, which encrypts the entire connection. Most modern email clients default to secure connections, but it's worth verifying your settings, especially on older applications.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">How do POP3 and IMAP differ?</h3>
-<div class="answer">
+### How do POP3 and IMAP differ?
 POP3 typically downloads emails to your device and removes them from the server, while IMAP keeps emails on the server and synchronizes your view across multiple devices. POP3 is generally simpler and more bandwidth-efficient for single-device setups, while IMAP offers better multi-device support and server-based organization.
-</div>
-</div>
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -309,3 +307,5 @@ POP3 typically downloads emails to your device and removes them from the server,
 - [IMAP (Internet Message Access Protocol)](/email-sending-concepts/imap)
 - [TLS (Transport Layer Security)](/email-sending-concepts/tls)
 - [MX Record](/email-sending-concepts/mx-record)
+
+<GlossaryCTA />

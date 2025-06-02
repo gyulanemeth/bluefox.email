@@ -334,27 +334,14 @@ To protect your domain, follow these steps:
 
 ## <a id="frequently-asked-questions-about-email-spoofing"></a>Frequently Asked Questions About Email Spoofing
 
+### Can small businesses afford to implement anti-spoofing protections?
+Yes. SPF and DKIM are often free to set up, and basic DMARC monitoring tools are available at no cost. The investment is minimal compared to the potential losses.
 
-<div class="faq-item">
-  <div class="question">Can small businesses afford to implement anti-spoofing protections?</div>
-  <div class="answer">
-    <p>Yes. SPF and DKIM are often free to set up, and basic DMARC monitoring tools are available at no cost. The investment is minimal compared to the potential losses.</p>
-  </div>
-</div>
+### How can I tell if an email is spoofed?
+Check if the email address matches the sender's name. Look for urgent requests, unexpected links, or unusual tone. Most clients show warnings if SPF/DKIM/DMARC fail.
 
-<div class="faq-item">
-  <div class="question">How can I tell if an email is spoofed?</div>
-  <div class="answer">
-    <p>Check if the email address matches the sender’s name. Look for urgent requests, unexpected links, or unusual tone. Most clients show warnings if SPF/DKIM/DMARC fail.</p>
-  </div>
-</div>
-
-<div class="faq-item">
-  <div class="question">Is email spoofing illegal?</div>
-  <div class="answer">
-    <p>Yes, using spoofing for fraud or harm is illegal in most countries. Testing email systems with spoofing is only legal when properly authorized.</p>
-  </div>
-</div>
+### Is email spoofing illegal?
+Yes, using spoofing for fraud or harm is illegal in most countries. Testing email systems with spoofing is only legal when properly authorized.
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -363,3 +350,5 @@ To protect your domain, follow these steps:
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
+
+<GlossaryCTA />

@@ -159,6 +159,20 @@ head:
 .dark .answer {
   color: #bbb;
 }
+
+/* Ensure section dividers are visible */
+hr, .section-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 40px 0;
+  width: 100%;
+  border: none;
+  display: block !important;
+}
+
+.dark hr, .dark .section-divider {
+  background-color: #2d3748;
+}
 </style>
 
 <script>
@@ -272,33 +286,17 @@ Without these records, your email is more likely to be **flagged as spam or reje
 
 ## <a id="frequently-asked-questions-about-txt-records"></a>Frequently Asked Questions About TXT Records
 
-<div class="faq-item">
-<h3 class="question">How many TXT records can I have for my domain?</h3>
-<div class="answer">
+### How many TXT records can I have for my domain?
 You can have multiple TXT records for a domain, but only one TXT record per specific name/host. For example, you can have separate TXT records for example.com, _dmarc.example.com, and selector._domainkey.example.com, but you can't have two different TXT records both named exactly "_dmarc.example.com".
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Can TXT records affect email deliverability?</h3>
-<div class="answer">
+### Can TXT records affect email deliverability?
 Absolutely. Properly configured SPF, DKIM, and DMARC records (all implemented as TXT records) significantly improve deliverability. Missing or incorrect authentication records can cause legitimate emails to be marked as spam or rejected outright, especially by major providers like Gmail and Microsoft.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">How do I create or update TXT records?</h3>
-<div class="answer">
+### How do I create or update TXT records?
 TXT records are managed through your domain's DNS settings, typically in your domain registrar's control panel or DNS hosting provider. The exact process varies by provider, but generally involves navigating to DNS settings, selecting "Add Record", choosing "TXT" as the record type, and entering the appropriate name and value.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Can I use TXT records for purposes other than email?</h3>
-<div class="answer">
+### Can I use TXT records for purposes other than email?
 Yes. While email authentication is the most common use case, TXT records are also used to verify domain ownership for various services, implement security policies like BIMI (Brand Indicators for Message Identification), and even store general information about a domain or service.
-</div>
-</div>
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -308,3 +306,5 @@ Yes. While email authentication is the most common use case, TXT records are als
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
+
+<GlossaryCTA />

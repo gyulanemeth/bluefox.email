@@ -1,4 +1,3 @@
-<!-- filepath: c:\Users\Parth\Desktop\BlueFoxEmail\bluefox.email\.vitepress\theme\GlossaryDetailNav.vue -->
 <template>
   <div class="page-nav">
     <div class="page-nav-title">On This Page</div>
@@ -22,14 +21,13 @@ const props = defineProps({
 
 const activeLink = ref('')
 
-// Update active link based on scroll position
 function updateActiveLink() {
   if (typeof window === 'undefined') return
   
   const scrollPosition = window.scrollY + 100
   
   for (const link of props.links) {
-    const id = link.href.substring(1) // Remove the # from the href
+    const id = link.href.substring(1)
     const section = document.getElementById(id)
     
     if (section && section.offsetTop <= scrollPosition && 
@@ -40,7 +38,6 @@ function updateActiveLink() {
   }
 }
 
-// Smooth scroll to section
 function smoothScrollTo(event, href) {
   event.preventDefault()
   const targetElement = document.querySelector(href)
@@ -51,10 +48,8 @@ function smoothScrollTo(event, href) {
       behavior: 'smooth'
     })
     
-    // Update URL without scrolling
     history.pushState(null, null, href)
     
-    // Update active link
     activeLink.value = href
   }
 }

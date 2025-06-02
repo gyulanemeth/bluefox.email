@@ -65,37 +65,17 @@ When two email servers connect, they first negotiate whether both support **TLS*
 
 ## <a id="frequently-asked-questions-about-tls"></a>Frequently Asked Questions About TLS
 
-<div class="mx-faq">
-
-<div class="faq-item">
-<h3 class="question">Is TLS the same as SSL?</h3>
-<div class="answer">
+### Is TLS the same as SSL?
 No, TLS is the modern, more secure version that replaced SSL. Most references to SSL today actually mean TLS.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">How can I check if my email uses TLS?</h3>
-<div class="answer">
+### How can I check if my email uses TLS?
 Look for a lock icon or "secured by TLS" in your email client, or check the email headers for "TLS" or "STARTTLS."
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Does TLS encrypt the entire email?</h3>
-<div class="answer">
+### Does TLS encrypt the entire email?
 TLS encrypts the connection between servers, not the message itself. Once delivered, the email may be stored unencrypted.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">What happens if a server doesn't support TLS?</h3>
-<div class="answer">
+### What happens if a server doesn't support TLS?
 If either server lacks TLS, the email is sent in plain text. Some providers may refuse delivery to protect your privacy.
-</div>
-</div>
-
-</div>
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -104,3 +84,5 @@ If either server lacks TLS, the email is sent in plain text. Some providers may 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
+
+<GlossaryCTA />

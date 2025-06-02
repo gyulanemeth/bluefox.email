@@ -59,6 +59,7 @@ head:
   padding-left: 12px;
   font-size: 0.875rem;
   z-index: 10;
+  display: block !important;
 }
 
 .dark .page-nav {
@@ -159,10 +160,31 @@ head:
 .dark .answer {
   color: #bbb;
 }
+
+/* Ensure section dividers are visible */
+hr, .section-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 40px 0;
+  width: 100%;
+  border: none;
+  display: block !important;
+}
+
+.dark hr, .dark .section-divider {
+  background-color: #2d3748;
+}
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // Make sure navigation is visible by forcing display
+  const pageNav = document.querySelector('.page-nav');
+  if (pageNav) {
+    pageNav.style.display = 'block';
+  }
+  
+  // Set up navigation functionality
   const headings = document.querySelectorAll('h2');
   const navLinks = document.querySelectorAll('.page-nav-items a');
   
@@ -180,13 +202,19 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSection = '';
     for (let i = headings.length - 1; i >= 0; i--) {
       if (headings[i].offsetTop <= scrollPosition) {
-        currentSection = headings[i].querySelector('a[id]').getAttribute('id');
-        break;
+        const idElement = headings[i].querySelector('a[id]');
+        if (idElement) {
+          currentSection = idElement.getAttribute('id');
+          break;
+        }
       }
     }
     
     if (!currentSection && headings.length > 0) {
-      currentSection = headings[0].querySelector('a[id]').getAttribute('id');
+      const firstIdElement = headings[0].querySelector('a[id]');
+      if (firstIdElement) {
+        currentSection = firstIdElement.getAttribute('id');
+      }
     }
     
     highlightNavLink(currentSection);
@@ -211,6 +239,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   window.addEventListener('scroll', handleScroll);
+  
   if (window.location.hash) {
     const initialId = window.location.hash.substring(1);
     highlightNavLink(initialId);
@@ -250,37 +279,18 @@ This whole process typically happens in **milliseconds**, but it's essential for
 
 ## <a id="why-is-dns-important-for-email"></a>Why is DNS Important for Email?
 
-Without properly configured name records, email simply wouldn't work. These records are the **signposts that guide your messages** to their destination, **authenticate your identity** as a sender, and help **protect against fraud**. MX records direct incoming mail to your servers, SPF records authorize which servers can send on your behalf, DKIM records provide keys for verifying message signatures, and DMARC records set policies for handling suspicious messages. For businesses, maintaining accurate records is essential for **deliverability**—misconfigured settings often lead to **bounced messages**, **spam folder placement**, or **security vulnerabilities** that damage sender reputation.
+Without properly configured name records, email simply wouldn't work. These records are the **signposts that guide your messages** to their destination, **authenticate your identity** as a sender, and help **protect against fraud**. MX records direct incoming mail to your servers, SPF records authorize which servers can send on your behalf, DKIM records provide keys for verifying message signatures, and DMARC records set policies for handling suspicious messages. For businesses, maintaining accurate records is essential for **deliverability**, misconfigured settings often lead to **bounced messages**, **spam folder placement**, or **security vulnerabilities** that damage sender reputation.
 
 ## <a id="frequently-asked-questions-about-dns"></a>Frequently Asked Questions About DNS
 
-<div class="faq-item">
-<h3 class="question">How long do DNS changes take to propagate?</h3>
-<div class="answer">
+### How long do DNS changes take to propagate?
 DNS changes propagate based on the TTL (Time To Live) values set in your records. While some resolvers might see changes within minutes, complete worldwide propagation typically takes 24-48 hours. For critical email systems, it's best to make DNS changes during low-traffic periods and plan for this delay.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">What happens if my DNS provider goes down?</h3>
-<div class="answer">
+### What happens if my DNS provider goes down?
 If your DNS provider experiences an outage, existing connections might continue working due to cached DNS information, but new connections would fail once cache expires. For business-critical email, consider using DNS providers with strong uptime guarantees or even multiple providers for redundancy.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Can DNS issues cause emails to go to spam?</h3>
-<div class="answer">
+### Can DNS issues cause emails to go to spam?
 Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantly impact deliverability. Many spam filters check these records, and failures can lead to lower sender reputation scores. Regular DNS audits are recommended for any serious email sender.
-</div>
-</div>
-
-<div class="faq-item">
-<h3 class="question">How can I check my domain's DNS records?</h3>
-<div class="answer">
-You can use online DNS lookup tools like MXToolbox, Google's Admin Toolbox, or command-line utilities like 'dig' or 'nslookup'. These tools allow you to check specific record types (MX, TXT, etc.) and verify your email-related DNS configuration is correct.
-</div>
-</div>
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -290,3 +300,5 @@ You can use online DNS lookup tools like MXToolbox, Google's Admin Toolbox, or c
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 - [Email Authentication](/email-sending-concepts/email-authentication)
+
+<GlossaryCTA />

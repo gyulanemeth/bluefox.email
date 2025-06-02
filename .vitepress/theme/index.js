@@ -23,6 +23,7 @@ import RenderingIssues from "./RenderingIssues.vue";
 import Deliverability from "./Deliverability.vue";
 import Automation from "./Automation.vue";
 import Integration from "./Integration.vue";
+import GlossaryCTA from "./GlossaryCTA.vue";
 
 export default {
   extends: Theme,
@@ -67,5 +68,6 @@ export default {
     app.component("Deliverability", Deliverability);
     app.component("Automation", Automation);
     app.component("Integration", Integration);
+    app.component("GlossaryCTA", GlossaryCTA);
   },
 };

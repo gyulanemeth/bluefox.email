@@ -130,6 +130,20 @@ head:
     display: none;
   }
 }
+
+/* Ensure section dividers are visible */
+hr, .section-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 40px 0;
+  width: 100%;
+  border: none;
+  display: block !important;
+}
+
+.dark hr, .dark .section-divider {
+  background-color: #2d3748;
+}
 </style>
 
 <script>
@@ -228,69 +242,17 @@ The Return-Path plays a crucial role in **diagnosing email issues**, ensuring de
 
 ## <a id="frequently-asked-questions-about-return-path"></a>Frequently Asked Questions About Return Path
 
-<div class="dkim-faq">
-<div class="faq-item">
-<h3 class="question">What are common issues with Return Path implementation?</h3>
-<div class="answer">
+### What are common issues with Return Path implementation?
 Common issues include unmonitored bounce and complaint addresses, authentication failures when sending servers aren't authorized in SPF, and domain alignment problems causing DMARC failures. Proper configuration requires dedicated feedback processing and alignment between visible "From" domain and Return-Path domain.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Can Return Path be the same as the From address?</h3>
-<div class="answer">
+### Can Return Path be the same as the From address?
 Yes, for personal emails they're often identical. However, professional senders typically use specialized Return-Path addresses for automated bounce processing, campaign tracking, and better reputation management while maintaining domain alignment.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">How does Return Path affect email deliverability?</h3>
-<div class="answer">
+### How does Return Path affect email deliverability?
 Return Path affects deliverability through proper bounce and complaint handling, authentication via SPF verification, and reputation management as ISPs track bounce rates and complaint volumes by Return-Path domain. Properly configured Return Paths typically improve inbox placement rates significantly.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">What is Return Path verification?</h3>
-<div class="answer">
+### What is Return Path verification?
 It's the process where receiving mail servers validate that emails come from servers authorized to use the Return-Path domain, primarily using SPF. This involves checking if the sending IP is listed as authorized in the domain's SPF record.
-</div>
-</div>
-</div>
-
-<style>
-.dkim-faq {
-  margin: 25px 0;
-}
-
-.faq-item {
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: none;
-}
-.question {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.dark .question {
-  color: #e4e4e4;
-}
-
-.answer {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #444;
-}
-
-.dark .answer {
-  color: #bbb;
-}
-</style>
-
-
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -299,3 +261,5 @@ It's the process where receiving mail servers validate that emails come from ser
 - [Email Authentication](/email-sending-concepts/email-authentication)  
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)  
 - [MX Record](/email-sending-concepts/mx-record)
+
+<GlossaryCTA />

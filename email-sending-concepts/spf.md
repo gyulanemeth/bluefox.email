@@ -209,6 +209,20 @@ sidebar: false
 .dark .answer {
   color: #bbb;
 }
+
+/* Ensure section dividers are visible */
+hr, .section-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 40px 0;
+  width: 100%;
+  border: none;
+  display: block !important;
+}
+
+.dark hr, .dark .section-divider {
+  background-color: #2d3748;
+}
 </style>
 
 <script>
@@ -316,37 +330,17 @@ In summary, SPF fosters trust with email providers, protects your audience from 
 
 ## <a id="frequently-asked-questions-about-spf"></a>Frequently Asked Questions About SPF
 
-<div class="dkim-faq">
+### What is the main purpose of SPF?
+SPF (Sender Policy Framework) helps prevent spoofing by specifying which mail servers are allowed to send emails on behalf of your domain.
 
-<div class="faq-item">
-<h3 class="question">What is the main purpose of SPF?</h3>
-    <div class="answer">
-      SPF (Sender Policy Framework) helps prevent spoofing by specifying which mail servers are allowed to send emails on behalf of your domain.
-    </div>
-</div>
+### Does SPF protect the "From" address?
+No. SPF checks the return-path (envelope sender), not the visible From address seen by recipients.
 
-<div class="faq-item">
-    <h3 class="question">Does SPF protect the "From" address?</h3>
-    <div class="answer">
-      No. SPF checks the return-path (envelope sender), not the visible From address seen by recipients.
-    </div>
-</div>
+### What happens if SPF fails?
+If SPF fails, the receiving server may mark the message as spam, reject it, or ignore the result depending on its local policy and [DMARC](/email-sending-concepts/dmarc) settings.
 
-  <div class="faq-item">
-    <h3 class="question">What happens if SPF fails?</h3>
-    <div class="answer">
-      If SPF fails, the receiving server may mark the message as spam, reject it, or ignore the result depending on its local policy and <a href="/email-sending-concepts/dmarc">DMARC</a> settings.
-    </div>
-  </div>
-
-  <div class="faq-item">
-    <h3 class="question">Can SPF break email forwarding?</h3>
-    <div class="answer">
-      Yes. When an email is forwarded, the forwarder's IP may not be authorized in the original domain’s SPF record, causing SPF to fail unless SRS (Sender Rewriting Scheme) is used.
-    </div>
-  </div>
-
-</div>
+### Can SPF break email forwarding?
+Yes. When an email is forwarded, the forwarder's IP may not be authorized in the original domain's SPF record, causing SPF to fail unless SRS (Sender Rewriting Scheme) is used.
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -355,3 +349,5 @@ In summary, SPF fosters trust with email providers, protects your audience from 
 - [Email Authentication](/email-sending-concepts/email-authentication)  
 - [Email Spoofing](/email-sending-concepts/email-spoofing)  
 - [Return Path](/email-sending-concepts/return-path)
+
+<GlossaryCTA />

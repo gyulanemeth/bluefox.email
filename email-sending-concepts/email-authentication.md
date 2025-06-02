@@ -210,6 +210,20 @@ head:
 .dark .answer {
   color: #bbb;
 }
+
+/* Ensure section dividers are visible */
+hr, .section-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 40px 0;
+  width: 100%;
+  border: none;
+  display: block !important;
+}
+
+.dark hr, .dark .section-divider {
+  background-color: #2d3748;
+}
 </style>
 
 <script>
@@ -314,36 +328,17 @@ For organizations, properly authenticated email **fosters trust with recipients*
 
 ## <a id="frequently-asked-questions-about-email-authentication"></a>Frequently Asked Questions About Email Authentication
 
-<br>
+### Which email authentication protocol should I implement first?
+Begin with SPF for straightforward setup and immediate protection. Next, implement DKIM for message verification, followed by DMARC to enforce policies and enable reporting.
 
-<div class="faq-item">
-  <div class="question">Which email authentication protocol should I implement first?</div>
-  <div class="answer">
-    <p>Begin with SPF for straightforward setup and immediate protection. Next, implement DKIM for message verification, followed by DMARC to enforce policies and enable reporting.</p>
-  </div>
-</div>
+### Will email authentication affect my deliverability?
+Yes! Properly authenticated emails are more likely to reach the inbox, as major email providers factor authentication status into their filtering processes.
 
-<div class="faq-item">
-  <div class="question">Will email authentication affect my deliverability?</div>
-  <div class="answer">
-    <p>Yes! Properly authenticated emails are more likely to reach the inbox, as major email providers factor authentication status into their filtering processes.</p>
-  </div>
-</div>
+### What happens if authentication fails?
+That depends on your DMARC policy. With p=none, failed emails still get delivered but logged. With p=quarantine or p=reject, they may be sent to spam or blocked entirely.
 
-<div class="faq-item">
-  <div class="question">What happens if authentication fails?</div>
-  <div class="answer">
-    <p>That depends on your DMARC policy. With p=none, failed emails still get delivered but logged. With p=quarantine or p=reject, they may be sent to spam or blocked entirely.</p>
-  </div>
-</div>
-
-<div class="faq-item">
-  <div class="question">Do I need technical expertise to implement email authentication?</div>
-  <div class="answer">
-    <p>You’ll need basic knowledge of DNS management, but many email platforms offer guided setup or handle it for you.</p>
-  </div>
-</div>
-
+### Do I need technical expertise to implement email authentication?
+You'll need basic knowledge of DNS management, but many email platforms offer guided setup or handle it for you.
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -353,3 +348,5 @@ For organizations, properly authenticated email **fosters trust with recipients*
 - [Email Spoofing](/email-sending-concepts/email-spoofing)  
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)  
 - [Return Path](/email-sending-concepts/return-path)
+
+<GlossaryCTA />

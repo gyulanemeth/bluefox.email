@@ -59,6 +59,7 @@ head:
   padding-left: 12px;
   font-size: 0.875rem;
   z-index: 10;
+  display: block !important;
 }
 
 .dark .page-nav {
@@ -125,7 +126,6 @@ head:
   }
 }
 
-/* Hide on small screens */
 @media (max-width: 1024px) {
   .page-nav {
     display: none;
@@ -159,10 +159,37 @@ head:
 .dark .answer {
   color: #bbb;
 }
+
+.section-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 40px 0;
+  width: 100%;
+  display: block !important; 
+}
+
+hr {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 40px 0;
+  width: 100%;
+  border: none;
+  display: block !important;
+}
+
+.dark .section-divider,
+.dark hr {
+  background-color: #2d3748;
+}
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  const pageNav = document.querySelector('.page-nav');
+  if (pageNav) {
+    pageNav.style.display = 'block';
+  }
+
   const headings = document.querySelectorAll('h2');
   const navLinks = document.querySelectorAll('.page-nav-items a');
   
@@ -180,13 +207,19 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentSection = '';
     for (let i = headings.length - 1; i >= 0; i--) {
       if (headings[i].offsetTop <= scrollPosition) {
-        currentSection = headings[i].querySelector('a[id]').getAttribute('id');
-        break;
+        const idElement = headings[i].querySelector('a[id]');
+        if (idElement) {
+          currentSection = idElement.getAttribute('id');
+          break;
+        }
       }
     }
     
     if (!currentSection && headings.length > 0) {
-      currentSection = headings[0].querySelector('a[id]').getAttribute('id');
+      const firstIdElement = headings[0].querySelector('a[id]');
+      if (firstIdElement) {
+        currentSection = firstIdElement.getAttribute('id');
+      }
     }
     
     highlightNavLink(currentSection);
@@ -211,6 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   window.addEventListener('scroll', handleScroll);
+  
   if (window.location.hash) {
     const initialId = window.location.hash.substring(1);
     highlightNavLink(initialId);
@@ -247,3 +281,54 @@ When a DNS resolver encounters a CNAME record, it performs an additional lookup 
 5. The final IP address is returned to the original requester
 
 A CNAME record in DNS zone file format looks like this:
+
+
+This means "webmail.example.com is an alias for mail.provider.com." The resolver would then look up mail.provider.com to find its IP address.
+
+For email services, CNAMEs are frequently used to:
+
+- Verify domain ownership (by creating specific verification CNAMEs)
+- Set up specialized email services (like tracking or spam filtering)
+- Configure custom tracking domains for analytics
+- Establish subdomains for email marketing platforms
+
+One important limitation: you **cannot create a CNAME record for the root domain** if you have other records like MX or TXT at that same domain. This restriction exists because a CNAME effectively replaces all other records at that name with those of the target domain.
+
+## <a id="why-are-cname-records-important"></a>Why are CNAME Records Important?
+
+CNAME records serve several valuable purposes in domain and email management:
+
+**Simplified management**: When service provider IPs change, you don't need to update your DNS—only the target domain needs updating. For example, if your email service provider changes their infrastructure, you don't need to modify your DNS records if you're using a CNAME.
+
+**Service flexibility**: CNAMEs make it easier to switch service providers without changing user-facing addresses. Your customers can keep using the same email address even if you change backend providers.
+
+**Subdomain organization**: They allow logical organization of services using familiar names while keeping the actual hosting elsewhere. For example, `newsletter.yourdomain.com` can point to your email marketing platform.
+
+**Domain verification**: Many email and marketing services use CNAME records to verify domain ownership before allowing you to send from their platforms.
+
+**Technical requirements**: Some email authentication services require CNAME records for proper implementation, especially for features like custom tracking domains.
+
+For email marketers, proper CNAME configuration can be crucial for deliverability, as it enables proper tracking domain setup and authentication. For IT administrators, CNAMEs reduce maintenance overhead by centralizing DNS management.
+
+## <a id="frequently-asked-questions-about-cname-records"></a>Frequently Asked Questions About CNAME Records
+
+### Can I use a CNAME for my root domain?
+Technically, DNS standards don't allow a CNAME at the root domain (naked domain) if you have other records there, such as MX records for email. This is because a CNAME replaces all other record types. Some DNS providers offer workarounds like ANAME or ALIAS records, but these aren't standard across all providers.
+
+### Do CNAME records affect email delivery?
+Not directly, since email routing primarily relies on MX records. However, CNAME records can indirectly affect email by enabling proper setup of tracking domains, authentication services, and verification requirements. If you're using a CNAME for a mail subdomain, ensure it ultimately resolves to servers that handle email correctly.
+
+### How long do CNAME changes take to propagate?
+Like all DNS records, CNAME propagation depends on the TTL (Time To Live) values set in your records. While some resolvers might see changes within minutes, complete worldwide propagation typically takes 24-48 hours. Plan ahead when making CNAME changes to critical services.
+
+---
+
+## <a id="related-concepts"></a>Related Concepts
+
+- [DNS (Domain Name System)](/email-sending-concepts/dns)
+- [MX Record](/email-sending-concepts/mx-record)
+- [TXT Records](/email-sending-concepts/txt-record)
+- [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
+- [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
+
+<GlossaryCTA />

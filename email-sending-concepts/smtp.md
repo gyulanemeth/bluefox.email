@@ -34,6 +34,21 @@ head:
   - - meta
     - name: twitter:description
       content: "Learn how the Simple Mail Transfer Protocol works and why it's essential for email delivery across the internet."
+  - - style
+    - |
+      /* Ensure section dividers are visible */
+      hr, .section-divider {
+        height: 1px;
+        background-color: #e2e8f0;
+        margin: 40px 0;
+        width: 100%;
+        border: none;
+        display: block !important;
+      }
+
+      .dark hr, .dark .section-divider {
+        background-color: #2d3748;
+      }
 ---
 
 # SMTP
@@ -80,30 +95,14 @@ For businesses, a properly configured SMTP setup means **reliable delivery**, fe
 
 ## <a id="frequently-asked-questions-about-smtp"></a>Frequently Asked Questions About SMTP
 
-<div class="dkim-faq">
-
-<div class="faq-item">
-<h3 class="question">Is SMTP secure?</h3>
-<div class="answer">
+### Is SMTP secure?
 By default, SMTP does not encrypt messages. However, most modern servers use STARTTLS on port 587 to encrypt the connection, and authentication protocols like SPF, DKIM, and DMARC to verify sender identity and prevent abuse. For sensitive data, consider using end-to-end encryption.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">What's the difference between SMTP, IMAP, and POP3?</h3>
-<div class="answer">
+### What's the difference between SMTP, IMAP, and POP3?
 SMTP is used for sending emails. IMAP and POP3 are used for retrieving emails from a server to your device. Most email clients use SMTP to send and IMAP or POP3 to receive.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Why do emails sometimes get stuck in the outbox?</h3>
-<div class="answer">
+### Why do emails sometimes get stuck in the outbox?
 Common reasons include incorrect SMTP settings, authentication failures, network issues, or recipient's server unavailability. Check your configuration and internet connection if you encounter this problem.
-</div>
-</div>
-
-</div>
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -112,3 +111,5 @@ Common reasons include incorrect SMTP settings, authentication failures, network
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [MX Record](/email-sending-concepts/mx-record)
+
+<GlossaryCTA />

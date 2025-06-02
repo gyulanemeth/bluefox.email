@@ -192,6 +192,20 @@ document.addEventListener('DOMContentLoaded', function() {
     display: none;
   }
 }
+
+/* Ensure section dividers are visible */
+hr, .section-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 40px 0;
+  width: 100%;
+  border: none;
+  display: block !important;
+}
+
+.dark hr, .dark .section-divider {
+  background-color: #2d3748;
+}
 </style>
 
 Email fraud poses a significant threat. Daily, cybercriminals attempt to impersonate legitimate companies by sending fraudulent emails to customers and employees. These communications often appear genuine but are intended to extract sensitive information or deploy malware.
@@ -201,6 +215,7 @@ This is where DMARC plays a crucial role.
 DMARC functions as the **policy enforcer** for [email authentication](/email-sending-concepts/email-authentication). While [SPF](/email-sending-concepts/spf.md) and [DKIM](/email-sending-concepts/dkim.md) assist in verifying the origin and signature of an email, DMARC instructs receiving servers on how to manage messages that fail these authentication checks. Furthermore, it provides **visibility into all entities** sending emails from your domain, including both legitimate and malicious sources.
 
 Implementing DMARC is essential for individuals and organizations dedicated to protecting their brand and improving email deliverability. Many avoid this implementation due to perceived complexity, which can lead to unnecessary email security and deliverability challenges.
+
 
 ## <a id="what-is-dmarc"></a>What is DMARC?
 
@@ -252,36 +267,17 @@ In addition to security, DMARC offers operational benefits. It fosters **trust w
 
 ## <a id="frequently-asked-questions-about-dmarc"></a>Frequently Asked Questions About DMARC
 
-<div>
-  <div class="faq-item">
-    <h3 class="question">Do I need DMARC if I already have SPF and DKIM?</h3>
-    <div class="answer">
-     Yes. SPF and DKIM handle the technical authentication, but DMARC adds policy enforcement and reporting. Without DMARC, unauthorized emails might still appear to come from your domain, and you won’t have insight into who is abusing it.
-    </div>
-  </div>
+### Do I need DMARC if I already have SPF and DKIM?
+Yes. SPF and DKIM handle the technical authentication, but DMARC adds policy enforcement and reporting. Without DMARC, unauthorized emails might still appear to come from your domain, and you won't have insight into who is abusing it.
 
-  <div class="faq-item">
-    <h3 class="question">Will implementing DMARC affect my email deliverability?</h3>
-    <div class="answer">
-      When done properly, DMARC improves deliverability by proving to email providers that your emails are genuine. However, if set too strictly without alignment or monitoring, it can cause legitimate emails to be rejected. It’s best to begin with a “none” policy and gradually move to “quarantine” or “reject.”
-    </div>
-  </div>
+### Will implementing DMARC affect my email deliverability?
+When done properly, DMARC improves deliverability by proving to email providers that your emails are genuine. However, if set too strictly without alignment or monitoring, it can cause legitimate emails to be rejected. It's best to begin with a "none" policy and gradually move to "quarantine" or "reject."
 
-  <div class="faq-item">
-    <h3 class="question">Is DMARC hard to set up?</h3>
-    <div class="answer">
-     It can look intimidating, but many email platforms offer help or automated tools to guide setup. Start with a monitoring-only mode to observe your domain’s traffic and then enforce stronger policies once you're confident.
-    </div>
-  </div>
+### Is DMARC hard to set up?
+It can look intimidating, but many email platforms offer help or automated tools to guide setup. Start with a monitoring-only mode to observe your domain's traffic and then enforce stronger policies once you're confident.
 
-  <div class="faq-item">
-    <h3 class="question">How do I monitor DMARC activity?</h3>
-    <div class="answer">
-    DMARC sends regular XML reports to the email address you specify in your DNS record. These reports can be difficult to read manually, so most organizations use DMARC report analyzers or dashboards to track and interpret the data.
-    </div>
-  </div>
-</div>
-
+### How do I monitor DMARC activity?
+DMARC sends regular XML reports to the email address you specify in your DNS record. These reports can be difficult to read manually, so most organizations use DMARC report analyzers or dashboards to track and interpret the data.
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -290,3 +286,5 @@ In addition to security, DMARC offers operational benefits. It fosters **trust w
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [Domain Reputation](/email-sending-concepts/domain-reputation)
+
+<GlossaryCTA />

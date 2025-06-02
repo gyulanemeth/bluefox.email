@@ -267,33 +267,17 @@ For businesses, IMAP enables **collaborative features** like shared mailboxes an
 
 ## <a id="frequently-asked-questions-about-imap"></a>Frequently Asked Questions About IMAP
 
-<div class="faq-item">
-<h3 class="question">Is IMAP better than POP3?</h3>
-<div class="answer">
+### Is IMAP better than POP3?
 For most users, yes. IMAP keeps emails synchronized across all devices and stores them on the server for backup protection. POP3 typically downloads emails to a single device and often removes them from the server, which can lead to access issues and data loss. However, POP3 might be preferred in specific scenarios with limited connectivity or where local storage is a priority.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Does IMAP use more bandwidth than POP3?</h3>
-<div class="answer">
+### Does IMAP use more bandwidth than POP3?
 Initially, IMAP may use less bandwidth because it can download just headers rather than entire messages. However, over time, IMAP may use more bandwidth due to its continuous synchronization. The difference is rarely significant for most users, and the benefits of synchronization typically outweigh any bandwidth considerations.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Can I use IMAP offline?</h3>
-<div class="answer">
+### Can I use IMAP offline?
 Yes, most IMAP clients cache messages locally, allowing you to read previously downloaded emails offline. Changes made offline (like moving or marking messages) are queued and synchronized when you reconnect. However, you cannot receive new messages or access undownloaded content while offline.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Is IMAP secure?</h3>
-<div class="answer">
+### Is IMAP secure?
 IMAP itself doesn't provide security, but modern implementations use SSL/TLS encryption (IMAPS on port 993) to protect your connection. This prevents eavesdropping on your emails and credentials. Always ensure your email client is configured to use encrypted connections rather than plain IMAP.
-</div>
-</div>
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -301,3 +285,5 @@ IMAP itself doesn't provide security, but modern implementations use SSL/TLS enc
 - [POP3 (Post Office Protocol)](/email-sending-concepts/pop3)
 - [TLS (Transport Layer Security)](/email-sending-concepts/tls)
 - [MX Record](/email-sending-concepts/mx-record)
+
+<GlossaryCTA />

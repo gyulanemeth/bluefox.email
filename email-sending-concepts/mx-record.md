@@ -34,6 +34,20 @@ head:
   - - meta
     - name: twitter:description
       content: "Learn how MX records route emails to the correct servers and why they're essential for reliable email delivery."
+  - - style
+    - |
+      hr, .section-divider {
+        height: 1px;
+        background-color: #e2e8f0;
+        margin: 40px 0;
+        width: 100%;
+        border: none;
+        display: block !important;
+      }
+
+      .dark hr, .dark .section-divider {
+        background-color: #2d3748;
+      }
 ---
 
 # MX Records
@@ -80,29 +94,14 @@ Beyond basic delivery, MX records play a role in your **domain's reputation and 
 
 ## <a id="frequently-asked-questions-about-mx-records"></a>Frequently Asked Questions About MX Records
 
-<div class="mx-faq">
-
-<div class="faq-item">
-<h3 class="question">What happens if my domain has no MX records?</h3>
-<div class="answer">
+### What happens if my domain has no MX records?
 If your domain has no MX records, most mail servers will not deliver email to it, even though technically they could try the domain's A record. In practice, no MX means no email delivery. This makes MX records mandatory for any domain that needs to receive email.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">How long do MX record changes take to update?</h3>
-<div class="answer">
+### How long do MX record changes take to update?
 Changes to MX records depend on the TTL (Time To Live) value set in your DNS. Most updates take from a few minutes up to 48 hours to fully propagate worldwide. For planned migrations, it's smart to lower your TTL a day or two in advance.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Can I use MX records from different providers at the same time?</h3>
-<div class="answer">
+### Can I use MX records from different providers at the same time?
 You can, but it's only recommended for advanced setups like migrations or split delivery. Both providers must be configured to know which mailboxes they handle, or you risk lost emails. For most organizations, sticking to one provider is simpler and safer.
-</div>
-</div>
-</div>
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -112,3 +111,5 @@ You can, but it's only recommended for advanced setups like migrations or split 
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Return Path](/email-sending-concepts/return-path)
+
+<GlossaryCTA />

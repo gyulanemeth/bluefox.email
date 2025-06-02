@@ -197,22 +197,36 @@ document.addEventListener('DOMContentLoaded', function() {
   width: 2px;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 1280px) {
   .page-nav {
     right: 0.5rem;
   }
 }
 
-/* Hide on small screens */
+
 @media (max-width: 1024px) {
   .page-nav {
     display: none;
   }
 }
+
+hr, .section-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 40px 0;
+  width: 100%;
+  border: none;
+  display: block !important;
+}
+
+.dark hr, .dark .section-divider {
+  background-color: #2d3748;
+}
 </style>
 
 When starting with email marketing, it's essential to pay attention to DKIM. This isn't just a task for your tech team. It significantly influences whether your emails reach inboxes or end up in spam folders. Consider DKIM as your domain's signature on every email you send. Without it, mailbox providers such as Gmail or Outlook may doubt the authenticity of your emails.
+
 
 ## <a id="what-is-dkim"></a>What is DKIM?
 
@@ -259,112 +273,14 @@ DKIM (DomainKeys Identified Mail) enhances the authenticity of your emails, fost
 
 ## <a id="frequently-asked-questions-about-dkim"></a>Frequently Asked Questions About DKIM
 
-<div class="dkim-faq">
-<div class="faq-item">
-<h3 class="question">Does DKIM prevent spam?</h3>
-<div class="answer">
+### Does DKIM prevent spam?
 Not directly, DKIM verifies authenticity, not content quality. However, properly configured DKIM makes it less likely your emails will be marked as spam.
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">Can I have multiple DKIM keys?</h3>
-<div class="answer">
+### Can I have multiple DKIM keys?
 Yes. You can use different selectors to manage multiple keys, especially if you're sending from multiple sources (e.g., your ESP and internal systems).
-</div>
-</div>
 
-<div class="faq-item">
-<h3 class="question">What happens if DKIM fails?</h3>
-<div class="answer">
-If DKIM fails, the email might still be delivered depending on the recipient’s DMARC policy. But failing consistently can damage your sender reputation over time.
-</div>
-</div>
-
-</div>
-
-
-<style>
-.on-this-page {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  padding: 15px 20px;
-  margin-bottom: 30px;
-  border-left: 3px solid #13B0EE;
-}
-
-.dark .on-this-page {
-  background-color: #252529;
-  border-left: 3px solid #13B0EE;
-}
-
-.on-this-page-title {
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #555;
-  font-size: 0.9rem;
-}
-
-.dark .on-this-page-title {
-  color: #ccc;
-}
-
-.on-this-page ul {
-  list-style-type: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.on-this-page ul li {
-  margin-bottom: 5px;
-  line-height: 1.4;
-}
-
-.on-this-page ul li a {
-  color: #13B0EE;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.2s;
-}
-
-.on-this-page ul li a:hover {
-  color: #0e8ebf;
-  text-decoration: underline;
-}
-
-.dkim-faq {
-  margin: 25px 0;
-}
-
-.faq-item {
-  margin-bottom: 20px;
-  padding-bottom: 15px;
-  border-bottom: none;
-}
-
-.question {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 8px;
-}
-
-.dark .question {
-  color: #e4e4e4;
-}
-
-.answer {
-  font-size: 1rem;
-  line-height: 1.6;
-  color: #444;
-}
-
-.dark .answer {
-  color: #bbb;
-}
-
-
-</style>
+### What happens if DKIM fails?
+If DKIM fails, the email might still be delivered depending on the recipient's DMARC policy. But failing consistently can damage your sender reputation over time.
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -373,3 +289,5 @@ If DKIM fails, the email might still be delivered depending on the recipient’s
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
+
+<GlossaryCTA />
