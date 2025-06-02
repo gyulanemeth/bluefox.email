@@ -335,7 +335,7 @@ Begin with SPF for straightforward setup and immediate protection. Next, impleme
 Yes! Properly authenticated emails are more likely to reach the inbox, as major email providers factor authentication status into their filtering processes.
 
 ### What happens if authentication fails?
-That depends on your DMARC policy. With p=none, failed emails still get delivered but logged. With p=quarantine or p=reject, they may be sent to spam or blocked entirely.
+That depends on your DMARC policy. With `p=none`, failed emails still get delivered but logged. With `p=quarantine` or `p=reject`, they may be sent to spam or blocked entirely.
 
 ### Do I need technical expertise to implement email authentication?
 You'll need basic knowledge of DNS management, but many email platforms offer guided setup or handle it for you.
