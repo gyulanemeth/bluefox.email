@@ -45,6 +45,12 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 </div>
 
 <div class="glossary-item">
+  <h3><a href="/email-sending-concepts/dns">DNS (Domain Name System)</a></h3>
+  <p>The internet's <strong>phone book</strong> that translates domain names into IP addresses and stores critical <strong>email configuration records</strong>.</p>
+  <a href="/email-sending-concepts/dns" class="read-more">Read more</a>
+</div>
+
+<div class="glossary-item">
   <h3><a href="/email-sending-concepts/dmarc">DMARC (Domain-based Message Authentication, Reporting, and Conformance)</a></h3>
   <p>A protocol that uses <a href="/email-sending-concepts/spf">SPF</a> and <a href="/email-sending-concepts/dkim">DKIM</a> to protect domains from <strong>unauthorized use</strong>.</p>
   <a href="/email-sending-concepts/dmarc" class="read-more">Read more</a>
@@ -100,6 +106,12 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
   <h3><a href="/email-sending-concepts/tls">TLS (Transport Layer Security)</a></h3>
   <p>A <strong>cryptographic protocol</strong> that provides secure communication over networks for email transmission.</p>
   <a href="/email-sending-concepts/tls" class="read-more">Read more</a>
+</div>
+
+<div class="glossary-item">
+  <h3><a href="/email-sending-concepts/txt-record">TXT Records</a></h3>
+  <p><strong>DNS text records</strong> that store email authentication policies like SPF, DKIM, and DMARC to enable secure email delivery.</p>
+  <a href="/email-sending-concepts/txt-record" class="read-more">Read more</a>
 </div>
 
 <style>

@@ -280,7 +280,7 @@ For those sending emails at scale, whether for marketing, transactional communic
 
 This framework enables domain owners to **specify which mail servers are authorized** to send emails on their behalf. 
 
-This authorization information is stored in the domain's **DNS settings as a TXT record**. When an email is received from your domain, the recipient's email system verifies the SPF record to ensure that the sending server is permitted. 
+This authorization information is stored in the domain's **[DNS](/email-sending-concepts/dns) settings as a [TXT record](/email-sending-concepts/txt-record)**. When an email is received from your domain, the recipient's email system verifies the SPF record to ensure that the sending server is permitted. 
 
 In the absence of proper authentication, unauthorized individuals could send emails impersonating your domain, a common method employed in [phishing attacks](/email-sending-concepts/email-spoofing). Implementing proper verification clarifies the legitimate entities authorized to represent your brand through email communications.
 

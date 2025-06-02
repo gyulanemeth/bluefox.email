@@ -212,7 +212,7 @@ The primary functions of DMARC include:
 2. Providing instructions to receiving servers on actions to take when an email fails authentication.
 3. Generating **reports for the domain owner** regarding attempts to send emails using their domain.
 
-These rules are established within a specific DNS record known as a DMARC record, which is formatted as follows:
+These rules are established within a specific [DNS](/email-sending-concepts/dns) record known as a [TXT record](/email-sending-concepts/txt-record), which is formatted as follows:
 
 `v=DMARC1; p=none; rua=mailto:reports@yourdomain.com`
 
@@ -229,7 +229,7 @@ Let's break down this syntax:
 
 It operates by verifying the **alignment** between the visible "From" domain and the domains authenticated through SPF and/or DKIM. Here's a breakdown of the process that occurs each time an email is received:
 
-1. **Lookup**: The recipient checks for a DMARC record in the sender's DNS (`_dmarc.example.com`).
+1. **Lookup**: The recipient checks for a DMARC record in the sender's [DNS](/email-sending-concepts/dns) (`_dmarc.example.com`).
 
 2. **Alignment Check**: The system confirms whether the domain in the "From" address matches the domains authenticated by SPF and/or DKIM.
 

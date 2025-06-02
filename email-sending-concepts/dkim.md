@@ -218,7 +218,7 @@ When starting with email marketing, it's essential to pay attention to DKIM. Thi
 
 DKIM, or DomainKeys Identified Mail, establishes a trustworthy link between the domains sending emails and the messages themselves using cryptographic authentication. Think of it as a digital wax seal that not only identifies the sender but also ensures the message remains unchanged during delivery.
 
-This system uses asymmetric cryptography, which involves two keys: a **private key** that is safely kept on the sending server to sign each outgoing email, and a **public key** that is available in DNS for receiving servers to verify the signature.
+This system uses asymmetric cryptography, which involves two keys: a **private key** that is safely kept on the sending server to sign each outgoing email, and a **public key** that is available in [DNS](/email-sending-concepts/dns) for receiving servers to verify the signature.
 
 When properly configured, each message contains a unique DKIM signature header that looks similar to this:
 
@@ -243,7 +243,7 @@ Here’s a detailed overview of the process:
 3. The resulting digital signature is appended to the email’s headers.
 
 **On the Receiving Side:**
-1. The recipient’s server reads the DKIM signature and retrieves the domain and selector information.
+1. The recipient's server reads the DKIM signature and retrieves the domain and selector information.
 2. It conducts a DNS lookup to obtain the corresponding public key (`selector._domainkey.domain.com`).
 3. Using this public key, the server decrypts the signature from the email.
 4. It recalculates the hash from the received message.

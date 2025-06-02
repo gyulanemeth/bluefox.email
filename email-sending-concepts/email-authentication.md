@@ -292,7 +292,7 @@ Three primary tools perform this function:
 
 The system operates using three primary tools in conjunction: one verifies the authorization of the sending server to send emails for the domain, another appends a hidden signature to confirm the **integrity of the message**, and the third instructs email providers on the appropriate actions to take if discrepancies arise.
 
-- SPF verifies which mail servers are **authorized to send emails** for your domain.  
+- SPF verifies which mail servers are **authorized to send emails** for your domain through [DNS](/email-sending-concepts/dns) [TXT records](/email-sending-concepts/txt-record).  
 - DKIM appends a **digital signature** to each email, enabling recipients to confirm its origin and integrity.  
 - DMARC provides **instructions to email providers** on how to respond if SPF or DKIM checks fail, such as directing the email to the spam folder or blocking it entirely.
 

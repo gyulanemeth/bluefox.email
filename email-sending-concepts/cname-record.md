@@ -1,0 +1,249 @@
+---
+title: CNAME Records | BlueFox Email
+description: "Learn how CNAME records work in DNS, their role in email configurations, and how they help simplify domain management."
+thumbnail: /assets/glossary/cname-record-share.webp
+
+layout: post
+category: glossary
+lastUpdated: true
+published: 2025-05-19
+sidebar: false
+
+head:
+  - - meta
+    - name: description
+      content: "Learn how CNAME records work in DNS, their role in email configurations, and how they help simplify domain management."
+  - - meta
+    - property: og:title
+      content: "CNAME Records | BlueFox Email"
+  - - meta
+    - property: og:description
+      content: "Understand how CNAME records create domain aliases and why they're useful for email and web services."
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/glossary/cname-record-share.webp
+  - - meta
+    - property: og:url
+      content: "https://bluefox.email/email-sending-concepts/cname-record"
+  - - meta
+    - name: twitter:card
+      content: "summary_large_image"
+  - - meta
+    - name: twitter:title
+      content: "CNAME Records | BlueFox Email"
+  - - meta
+    - name: twitter:description
+      content: "Learn how CNAME records create domain aliases and why they're useful for email and web services."
+---
+
+# CNAME Records
+
+<div class="page-nav">
+  <div class="page-nav-title">On This Page</div>
+  <div class="page-nav-items">
+    <a href="#what-is-cname-record">What is a CNAME Record?</a>
+    <a href="#how-do-cname-records-work">How Do CNAME Records Work?</a>
+    <a href="#why-are-cname-records-important">Why are CNAME Records Important?</a>
+    <a href="#frequently-asked-questions-about-cname-records">FAQ</a>
+    <a href="#related-concepts">Related Concepts</a>
+  </div>
+</div>
+
+<style>
+.page-nav {
+  position: fixed;
+  right: 1.5rem;
+  top: 9rem;
+  width: 12rem;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 12px;
+  font-size: 0.875rem;
+  z-index: 10;
+}
+
+.dark .page-nav {
+  border-left: 1px solid #2d3748;
+}
+
+.page-nav-title {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.page-nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.page-nav-items a {
+  color: #64748b;
+  text-decoration: none;
+  padding: 3px 0;
+  position: relative;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.page-nav-items a:hover {
+  color: #13B0EE;
+  transform: translateX(3px);
+}
+
+.page-nav-items a.active {
+  color: #13B0EE;
+  font-weight: 500;
+  transform: translateX(3px);
+}
+
+.page-nav-items a:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -13px;
+  width: 1px;
+  height: 100%;
+  background: transparent;
+  transition: background-color 0.2s;
+}
+
+.page-nav-items a:hover:before {
+  background-color: #13B0EE;
+}
+
+.page-nav-items a.active:before {
+  background-color: #13B0EE;
+  width: 2px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1280px) {
+  .page-nav {
+    right: 0.5rem;
+  }
+}
+
+/* Hide on small screens */
+@media (max-width: 1024px) {
+  .page-nav {
+    display: none;
+  }
+}
+
+/* FAQ styling */
+.faq-item {
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: none;
+}
+
+.question {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.dark .question {
+  color: #e4e4e4;
+}
+
+.answer {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.dark .answer {
+  color: #bbb;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const headings = document.querySelectorAll('h2');
+  const navLinks = document.querySelectorAll('.page-nav-items a');
+  
+  function highlightNavLink(id) {
+    const targetLink = document.querySelector(`.page-nav-items a[href="#${id}"]`);
+    if (targetLink) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      targetLink.classList.add('active');
+    }
+  }
+  
+  function handleScroll() {
+    const scrollPosition = window.scrollY + 120;
+    
+    let currentSection = '';
+    for (let i = headings.length - 1; i >= 0; i--) {
+      if (headings[i].offsetTop <= scrollPosition) {
+        currentSection = headings[i].querySelector('a[id]').getAttribute('id');
+        break;
+      }
+    }
+    
+    if (!currentSection && headings.length > 0) {
+      currentSection = headings[0].querySelector('a[id]').getAttribute('id');
+    }
+    
+    highlightNavLink(currentSection);
+  }
+  
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.parentElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        
+        history.pushState(null, null, `#${targetId}`);
+        highlightNavLink(targetId);
+      }
+    });
+  });
+  
+  window.addEventListener('scroll', handleScroll);
+  if (window.location.hash) {
+    const initialId = window.location.hash.substring(1);
+    highlightNavLink(initialId);
+  } else {
+    handleScroll();
+  }
+});
+</script>
+
+CNAME records are like **digital signposts** in the [DNS](/email-sending-concepts/dns) system that direct traffic from one domain name to another. While they might seem technical, they serve a practical purpose in making domain management more flexible and maintenance easier. For email systems, CNAMEs play important roles in service verification and subdomain management.
+
+## <a id="what-is-cname-record"></a>What is a CNAME Record?
+
+A CNAME (Canonical Name) record is a type of DNS record that **creates an alias** from one domain name to another. Unlike A records that point directly to IP addresses, CNAME records point to another domain name, which then resolves to its own address records. Think of it as a permanent forwarding address that says, "This domain is just another name for that domain."
+
+For example, a CNAME record might allow `mail.example.com` to be an alias for `mail-service.provider.com`. This means when someone looks up `mail.example.com`, they're actually directed to whatever IP address `mail-service.provider.com` resolves to.
+
+Key characteristics of CNAME records:
+
+- They create **domain aliases** rather than direct IP mappings
+- They allow a domain to **inherit all subdomains** from its target
+- They simplify management by **centralizing changes** at the target domain
+- They cannot exist alongside certain other record types (like MX) at the same name
+- They're commonly used for **service verification** and **subdomain management**
+
+## <a id="how-do-cname-records-work"></a>How Do CNAME Records Work?
+
+When a DNS resolver encounters a CNAME record, it performs an additional lookup to find the final destination. This process is called **CNAME chaining** and involves multiple steps:
+
+1. A user or service requests information for a domain (e.g., `webmail.example.com`)
+2. The DNS resolver finds a CNAME record pointing to another domain (e.g., `mail.provider.com`)
+3. The resolver then performs a second lookup for this canonical name
+4. This process continues until it reaches a record with an actual IP address (an A or AAAA record)
+5. The final IP address is returned to the original requester
+
+A CNAME record in DNS zone file format looks like this:
