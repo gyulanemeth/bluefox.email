@@ -223,6 +223,13 @@ hr, .section-divider {
 .dark hr, .dark .section-divider {
   background-color: #2d3748;
 }
+
+.section-spacer {
+  height: 40px;
+  width: 100%;
+  display: block;
+  content: "";
+}
 </style>
 
 When starting with email marketing, it's essential to pay attention to DKIM. This isn't just a task for your tech team. It significantly influences whether your emails reach inboxes or end up in spam folders. Consider DKIM as your domain's signature on every email you send. Without it, mailbox providers such as Gmail or Outlook may doubt the authenticity of your emails.
@@ -282,9 +289,10 @@ Yes. You can use different selectors to manage multiple keys, especially if you'
 ### What happens if DKIM fails?
 If DKIM fails, the email might still be delivered depending on the recipient's DMARC policy. But failing consistently can damage your sender reputation over time.
 
-<br>
-<br>
+
+<div class="section-spacer"></div>
 <GlossaryCTA />
+
 
 ## <a id="related-concepts"></a>Related Concepts
 
