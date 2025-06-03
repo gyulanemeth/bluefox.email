@@ -298,6 +298,9 @@ TXT records are managed through your domain's DNS settings, typically in your do
 ### Can I use TXT records for purposes other than email?
 Yes. While email authentication is the most common use case, TXT records are also used to verify domain ownership for various services, implement security policies like BIMI (Brand Indicators for Message Identification), and even store general information about a domain or service.
 
+<div class="section-spacer"></div>
+<GlossaryCTA />
+
 ## <a id="related-concepts"></a>Related Concepts
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
@@ -306,5 +309,3 @@ Yes. While email authentication is the most common use case, TXT records are als
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
-
-<GlossaryCTA />

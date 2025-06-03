@@ -77,6 +77,9 @@ TLS encrypts the connection between servers, not the message itself. Once delive
 ### What happens if a server doesn't support TLS?
 If either server lacks TLS, the email is sent in plain text. Some providers may refuse delivery to protect your privacy.
 
+<div class="section-spacer"></div>
+<GlossaryCTA />
+
 ## <a id="related-concepts"></a>Related Concepts
 
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
@@ -84,5 +87,3 @@ If either server lacks TLS, the email is sent in plain text. Some providers may 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
-
-<GlossaryCTA />

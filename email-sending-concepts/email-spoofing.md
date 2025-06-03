@@ -343,6 +343,9 @@ Check if the email address matches the sender's name. Look for urgent requests, 
 ### Is email spoofing illegal?
 Yes, using spoofing for fraud or harm is illegal in most countries. Testing email systems with spoofing is only legal when properly authorized.
 
+<div class="section-spacer"></div>
+<GlossaryCTA />
+
 ## <a id="related-concepts"></a>Related Concepts
 
 - [Email Authentication](/email-sending-concepts/email-authentication)
@@ -350,5 +353,3 @@ Yes, using spoofing for fraud or harm is illegal in most countries. Testing emai
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
-
-<GlossaryCTA />

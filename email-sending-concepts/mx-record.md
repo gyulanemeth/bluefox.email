@@ -103,6 +103,9 @@ Changes to MX records depend on the TTL (Time To Live) value set in your DNS. Mo
 ### Can I use MX records from different providers at the same time?
 You can, but it's only recommended for advanced setups like migrations or split delivery. Both providers must be configured to know which mailboxes they handle, or you risk lost emails. For most organizations, sticking to one provider is simpler and safer.
 
+<div class="section-spacer"></div>
+<GlossaryCTA />
+
 ## <a id="related-concepts"></a>Related Concepts
 
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
@@ -111,5 +114,3 @@ You can, but it's only recommended for advanced setups like migrations or split 
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Return Path](/email-sending-concepts/return-path)
-
-<GlossaryCTA />

@@ -279,6 +279,9 @@ It can look intimidating, but many email platforms offer help or automated tools
 ### How do I monitor DMARC activity?
 DMARC sends regular XML reports to the email address you specify in your DNS record. These reports can be difficult to read manually, so most organizations use DMARC report analyzers or dashboards to track and interpret the data.
 
+<div class="section-spacer"></div>
+<GlossaryCTA />
+
 ## <a id="related-concepts"></a>Related Concepts
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
@@ -286,5 +289,3 @@ DMARC sends regular XML reports to the email address you specify in your DNS rec
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [Domain Reputation](/email-sending-concepts/domain-reputation)
-
-<GlossaryCTA />
