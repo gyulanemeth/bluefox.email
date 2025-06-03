@@ -52,79 +52,54 @@ sidebar: false
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const headings = document.querySelectorAll('h2');
+document.addEventListener('DOMContentLoaded', function () {
   const navLinks = document.querySelectorAll('.page-nav-items a');
-  
-  function highlightNavLink(id) {
-    const targetLink = document.querySelector(`.page-nav-items a[href="#${id}"]`);
-    if (targetLink) {
-      navLinks.forEach(link => link.classList.remove('active'));
-      targetLink.classList.add('active');
-    }
-  }
-    function handleScroll() {
-    const scrollPosition = window.scrollY + 120;
-    console.log('Scrolled to position:', scrollPosition);
-    
-    let currentSection = '';
-    console.log('Number of h2 elements:', headings.length);
-    headings.forEach((heading, index) => {
-      console.log(`Heading ${index} offsetTop:`, heading.offsetTop, 'text:', heading.textContent.trim());
-    });
-    
-    for (let i = headings.length - 1; i >= 0; i--) {
-      if (headings[i].offsetTop <= scrollPosition) {
-        const idElement = headings[i].querySelector('a[id]');
-        if (idElement) {
-          currentSection = idElement.getAttribute('id');
-          console.log('Found current section:', currentSection);
-        } else {
-          console.error('Missing ID element in heading:', headings[i].textContent.trim());
+  const sections = Array.from(document.querySelectorAll('h2')).map(h2 => {
+    const anchor = h2.querySelector('a[id]');
+    return anchor ? { id: anchor.id, el: h2 } : null;
+  }).filter(Boolean);
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px 0px -70% 0px', 
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.querySelector('a[id]')?.id;
+        if (id) {
+          navLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`.page-nav-items a[href="#${id}"]`);
+          if (activeLink) {
+            activeLink.classList.add('active');
+          }
         }
-        break;
       }
-    }
-    
-    if (!currentSection && headings.length > 0) {
-      const firstIdElement = headings[headings.length-1].querySelector('a[id]');
-      if (firstIdElement) {
-        currentSection = firstIdElement.getAttribute('id');
-        console.log('Using default section:', currentSection);
-      } else {
-        console.error('Missing ID element in default heading');
-      }
-    }
-    
-    console.log('Highlighting section:', currentSection);
-    highlightNavLink(currentSection);
-  }
-  
+    });
+  }, observerOptions);
+
+  sections.forEach(section => {
+    observer.observe(section.el);
+  });
+
   navLinks.forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
       e.preventDefault();
       const targetId = this.getAttribute('href').substring(1);
       const targetElement = document.getElementById(targetId);
-      
       if (targetElement) {
+        const scrollTarget = targetElement.closest('h2');
+        const topOffset = scrollTarget.offsetTop - 80;
         window.scrollTo({
-          top: targetElement.parentElement.offsetTop - 80,
+          top: topOffset,
           behavior: 'smooth'
         });
-        
         history.pushState(null, null, `#${targetId}`);
-        highlightNavLink(targetId);
       }
     });
   });
-  
-  window.addEventListener('scroll', handleScroll);
-  if (window.location.hash) {
-    const initialId = window.location.hash.substring(1);
-    highlightNavLink(initialId);
-  } else {
-    handleScroll();
-  }
 });
 </script>
 
@@ -138,6 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
   padding-left: 12px;
   font-size: 0.875rem;
   z-index: 10;
+  display: block !important;
 }
 
 .dark .page-nav {
@@ -197,31 +173,16 @@ document.addEventListener('DOMContentLoaded', function() {
   width: 2px;
 }
 
-
 @media (max-width: 1280px) {
   .page-nav {
     right: 0.5rem;
   }
 }
 
-
 @media (max-width: 1024px) {
   .page-nav {
     display: none;
   }
-}
-
-hr, .section-divider {
-  height: 1px;
-  background-color: #e2e8f0;
-  margin: 40px 0;
-  width: 100%;
-  border: none;
-  display: block !important;
-}
-
-.dark hr, .dark .section-divider {
-  background-color: #2d3748;
 }
 </style>
 

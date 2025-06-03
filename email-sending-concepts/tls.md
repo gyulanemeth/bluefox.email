@@ -44,6 +44,86 @@ head:
     content: "";
     margin-top: 80px;
   }
+  
+  .page-nav {
+  position: fixed;
+  right: 1.5rem;
+  top: 9rem;
+  width: 12rem;
+  border-left: 1px solid #e2e8f0;
+  padding-left: 12px;
+  font-size: 0.875rem;
+  z-index: 10;
+}
+
+.dark .page-nav {
+  border-left: 1px solid #2d3748;
+}
+
+.page-nav-title {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 0.75rem;
+}
+
+.page-nav-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.page-nav-items a {
+  color: #64748b;
+  text-decoration: none;
+  padding: 3px 0;
+  position: relative;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.page-nav-items a:hover {
+  color: #13B0EE;
+  transform: translateX(3px);
+}
+
+.page-nav-items a.active {
+  color: #13B0EE;
+  font-weight: 500;
+  transform: translateX(3px);
+}
+
+.page-nav-items a:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -13px;
+  width: 1px;
+  height: 100%;
+  background: transparent;
+  transition: background-color 0.2s;
+}
+
+.page-nav-items a:hover:before {
+  background-color: #13B0EE;
+}
+
+.page-nav-items a.active:before {
+  background-color: #13B0EE;
+  width: 2px;
+}
+
+@media (max-width: 1280px) {
+  .page-nav {
+    right: 0.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .page-nav {
+    display: none;
+  }
+}
 </style>
 
 # TLS
@@ -58,6 +138,71 @@ head:
     <a href="#related-concepts">Related Concepts</a>
   </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const headings = document.querySelectorAll('h2');
+  const navLinks = document.querySelectorAll('.page-nav-items a');
+  
+  function highlightNavLink(id) {
+    const targetLink = document.querySelector(`.page-nav-items a[href="#${id}"]`);
+    if (targetLink) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      targetLink.classList.add('active');
+    }
+  }
+  
+  function handleScroll() {
+    const scrollPosition = window.scrollY + 120;
+    
+    let currentSection = '';
+    for (let i = headings.length - 1; i >= 0; i--) {
+      if (headings[i].offsetTop <= scrollPosition) {
+        const idElement = headings[i].querySelector('a[id]');
+        if (idElement) {
+          currentSection = idElement.getAttribute('id');
+          break;
+        }
+      }
+    }
+    
+    if (!currentSection && headings.length > 0) {
+      const firstIdElement = headings[0].querySelector('a[id]');
+      if (firstIdElement) {
+        currentSection = firstIdElement.getAttribute('id');
+      }
+    }
+    
+    highlightNavLink(currentSection);
+  }
+  
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href').substring(1);
+      const targetElement = document.getElementById(targetId);
+      
+      if (targetElement) {
+        window.scrollTo({
+          top: targetElement.parentElement.offsetTop - 80,
+          behavior: 'smooth'
+        });
+        
+        history.pushState(null, null, `#${targetId}`);
+        highlightNavLink(targetId);
+      }
+    });
+  });
+  
+  window.addEventListener('scroll', handleScroll);
+  if (window.location.hash) {
+    const initialId = window.location.hash.substring(1);
+    highlightNavLink(initialId);
+  } else {
+    handleScroll();
+  }
+});
+</script>
 
 **Transport Layer Security (TLS)** is the standard technology for keeping email **private** as it travels across the internet. When you send an email, TLS acts like a secure tunnel, making sure that only the sender and recipient can read the message while it's in transit. Without TLS, emails move in **plain text** and can be intercepted by anyone with access to the network.
 

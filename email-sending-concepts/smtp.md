@@ -37,12 +37,16 @@ head:
 ---
 
 <style>
-    .section-spacer {
-  height: 40px;
-  width: 100%;
-  display: block;
-  content: "";
-  margin-top: 80px;
+@media (max-width: 1280px) {
+  .page-nav {
+    right: 0.5rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .page-nav {
+    display: none;
+  }
 }
 </style>
 
