@@ -319,5 +319,4 @@ POP3 typically downloads emails to your device and removes them from the server,
 - [TLS (Transport Layer Security)](/email-sending-concepts/tls)
 - [MX Record](/email-sending-concepts/mx-record)
 
-<div class="section-spacer"></div>
 <GlossaryCTA />

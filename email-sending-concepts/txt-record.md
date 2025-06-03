@@ -315,5 +315,4 @@ Yes. While email authentication is the most common use case, TXT records are als
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
 
-<div class="section-spacer"></div>
 <GlossaryCTA />

@@ -296,5 +296,4 @@ DMARC sends regular XML reports to the email address you specify in your DNS rec
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [Domain Reputation](/email-sending-concepts/domain-reputation)
 
-<div class="section-spacer"></div>
 <GlossaryCTA />

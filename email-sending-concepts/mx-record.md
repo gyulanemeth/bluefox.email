@@ -109,5 +109,4 @@ You can, but it's only recommended for advanced setups like migrations or split 
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Return Path](/email-sending-concepts/return-path)
 
-<div class="section-spacer"></div>
 <GlossaryCTA />

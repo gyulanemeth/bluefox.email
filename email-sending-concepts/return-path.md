@@ -271,5 +271,4 @@ It's the process where receiving mail servers validate that emails come from ser
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)  
 - [MX Record](/email-sending-concepts/mx-record)
 
-<div class="section-spacer"></div>
 <GlossaryCTA />

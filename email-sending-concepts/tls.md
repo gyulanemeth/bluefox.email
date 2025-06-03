@@ -59,33 +59,33 @@ head:
   </div>
 </div>
 
-**Transport Layer Security (TLS)** is the standard technology for keeping email private as it travels across the internet. When you send an email, TLS acts like a secure tunnel, making sure that only the sender and recipient can read the message while it's in transit. Without TLS, emails move in plain text and can be intercepted by anyone with access to the network.
+**Transport Layer Security (TLS)** is the standard technology for keeping email **private** as it travels across the internet. When you send an email, TLS acts like a secure tunnel, making sure that only the sender and recipient can read the message while it's in transit. Without TLS, emails move in **plain text** and can be intercepted by anyone with access to the network.
 
 ## <a id="what-is-tls"></a>What is TLS?
 
-**TLS** is a cryptographic protocol that encrypts data sent between servers, including email servers. It replaced the older SSL protocol and is now the backbone of secure internet communication. When enabled, TLS ensures that emails are not readable by third parties as they move from one server to another.
+**TLS** is a cryptographic protocol that **encrypts data** sent between servers, including email servers. It replaced the older SSL protocol and is now the backbone of secure internet communication. When enabled, TLS ensures that emails are not readable by third parties as they move from one server to another.
 
 ## <a id="how-does-tls-work"></a>How Does TLS Work?
 
-When two email servers connect, they first negotiate whether both support **TLS**. If they do, they establish an encrypted session before any email content is exchanged. This process, called the **TLS handshake**, uses certificates and keys to create a secure channel. If either server doesn't support TLS, the connection falls back to unencrypted delivery.
+When two email servers connect, they first negotiate whether both support **TLS**. If they do, they establish an **encrypted session** before any email content is exchanged. This process, called the **TLS handshake**, uses certificates and keys to create a secure channel. If either server doesn't support TLS, the connection falls back to **unencrypted delivery**.
 
 ## <a id="why-is-tls-important"></a>Why is TLS Important?
 
-**TLS protects sensitive information** like passwords, business data, and personal details from being intercepted during transit. It's a critical defense against eavesdropping and man-in-the-middle attacks. Most major providers, including Gmail and Outlook, require TLS for secure email delivery, and many spam filters check for its presence as a sign of trustworthiness.
+TLS **protects sensitive information** like passwords, business data, and personal details from being intercepted during transit. It's a critical defense against **eavesdropping** and man-in-the-middle attacks. Most major providers, including Gmail and Outlook, **require TLS** for secure email delivery, and many spam filters check for its presence as a sign of trustworthiness.
 
 ## <a id="frequently-asked-questions-about-tls"></a>Frequently Asked Questions About TLS
 
 ### Is TLS the same as SSL?
-No, TLS is the modern, more secure version that replaced SSL. Most references to SSL today actually mean TLS.
+No, TLS is the **modern, more secure version** that replaced SSL. Most references to SSL today actually mean TLS.
 
 ### How can I check if my email uses TLS?
 Look for a lock icon or "secured by TLS" in your email client, or check the email headers for "TLS" or "STARTTLS."
 
 ### Does TLS encrypt the entire email?
-TLS encrypts the connection between servers, not the message itself. Once delivered, the email may be stored unencrypted.
+TLS **encrypts the connection** between servers, not the message itself. Once delivered, the email may be stored unencrypted.
 
 ### What happens if a server doesn't support TLS?
-If either server lacks TLS, the email is sent in plain text. Some providers may refuse delivery to protect your privacy.
+If either server lacks TLS, the email is sent in **plain text**. Some providers may refuse delivery to protect your privacy.
 
 
 
@@ -97,5 +97,4 @@ If either server lacks TLS, the email is sent in plain text. Some providers may 
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 
-<div class="section-spacer"></div>
 <GlossaryCTA />

@@ -296,5 +296,4 @@ IMAP itself doesn't provide security, but modern implementations use SSL/TLS enc
 - [TLS (Transport Layer Security)](/email-sending-concepts/tls)
 - [MX Record](/email-sending-concepts/mx-record)
 
-<div class="section-spacer"></div>
 <GlossaryCTA />
