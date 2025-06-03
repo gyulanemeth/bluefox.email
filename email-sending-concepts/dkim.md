@@ -282,6 +282,8 @@ Yes. You can use different selectors to manage multiple keys, especially if you'
 ### What happens if DKIM fails?
 If DKIM fails, the email might still be delivered depending on the recipient's DMARC policy. But failing consistently can damage your sender reputation over time.
 
+<GlossaryCTA />
+
 ## <a id="related-concepts"></a>Related Concepts
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
@@ -290,4 +292,3 @@ If DKIM fails, the email might still be delivered depending on the recipient's D
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 
-<GlossaryCTA />
