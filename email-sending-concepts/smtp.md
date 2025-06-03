@@ -99,8 +99,6 @@ SMTP is used for sending emails. IMAP and POP3 are used for retrieving emails fr
 ### Why do emails sometimes get stuck in the outbox?
 Common reasons include incorrect SMTP settings, authentication failures, network issues, or recipient's server unavailability. Check your configuration and internet connection if you encounter this problem.
 
-<div class="section-spacer"></div>
-<GlossaryCTA />
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -109,3 +107,6 @@ Common reasons include incorrect SMTP settings, authentication failures, network
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [MX Record](/email-sending-concepts/mx-record)
+
+<div class="section-spacer"></div>
+<GlossaryCTA />

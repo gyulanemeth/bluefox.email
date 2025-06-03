@@ -300,8 +300,6 @@ If your DNS provider experiences an outage, existing connections might continue 
 ### Can DNS issues cause emails to go to spam?
 Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantly impact deliverability. Many spam filters check these records, and failures can lead to lower sender reputation scores. Regular DNS audits are recommended for any serious email sender.
 
-<div class="section-spacer"></div>
-<GlossaryCTA />
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -311,3 +309,6 @@ Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantl
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 - [Email Authentication](/email-sending-concepts/email-authentication)
+
+<div class="section-spacer"></div>
+<GlossaryCTA />

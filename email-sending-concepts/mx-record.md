@@ -55,7 +55,6 @@ head:
   width: 100%;
   display: block;
   content: "";
-  margin-top: 80px;
 }
 </style>
 

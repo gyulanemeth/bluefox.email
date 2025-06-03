@@ -262,8 +262,6 @@ Return Path affects deliverability through proper bounce and complaint handling,
 ### What is Return Path verification?
 It's the process where receiving mail servers validate that emails come from servers authorized to use the Return-Path domain, primarily using SPF. This involves checking if the sending IP is listed as authorized in the domain's SPF record.
 
-<div class="section-spacer"></div>
-<GlossaryCTA />
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -273,4 +271,5 @@ It's the process where receiving mail servers validate that emails come from ser
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)  
 - [MX Record](/email-sending-concepts/mx-record)
 
+<div class="section-spacer"></div>
 <GlossaryCTA />

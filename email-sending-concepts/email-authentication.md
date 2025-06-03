@@ -347,8 +347,6 @@ That depends on your DMARC policy. With `p=none`, failed emails still get delive
 ### Do I need technical expertise to implement email authentication?
 You'll need basic knowledge of DNS management, but many email platforms offer guided setup or handle it for you.
 
-<div class="section-spacer"></div>
-<GlossaryCTA />
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -359,3 +357,5 @@ You'll need basic knowledge of DNS management, but many email platforms offer gu
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)  
 - [Return Path](/email-sending-concepts/return-path)
 
+<div class="section-spacer"></div>
+<GlossaryCTA />

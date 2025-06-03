@@ -14,7 +14,7 @@
 
 <style scoped>
 .glossary-cta {
-  margin-top: 30px;
+  margin-top: 80px;
   margin-bottom: 80px;
   padding: 0;
   background: transparent;

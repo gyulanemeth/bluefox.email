@@ -310,8 +310,7 @@ Basic POP3 transmits credentials and emails in plain text. For security, use POP
 ### How do POP3 and IMAP differ?
 POP3 typically downloads emails to your device and removes them from the server, while IMAP keeps emails on the server and synchronizes your view across multiple devices. POP3 is generally simpler and more bandwidth-efficient for single-device setups, while IMAP offers better multi-device support and server-based organization.
 
-<div class="section-spacer"></div>
-<GlossaryCTA />
+
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -320,3 +319,5 @@ POP3 typically downloads emails to your device and removes them from the server,
 - [TLS (Transport Layer Security)](/email-sending-concepts/tls)
 - [MX Record](/email-sending-concepts/mx-record)
 
+<div class="section-spacer"></div>
+<GlossaryCTA />
