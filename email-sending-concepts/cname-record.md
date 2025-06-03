@@ -321,8 +321,6 @@ Not directly, since email routing primarily relies on MX records. However, CNAME
 ### How long do CNAME changes take to propagate?
 Like all DNS records, CNAME propagation depends on the TTL (Time To Live) values set in your records. While some resolvers might see changes within minutes, complete worldwide propagation typically takes 24-48 hours. Plan ahead when making CNAME changes to critical services.
 
----
-
 ## <a id="related-concepts"></a>Related Concepts
 
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
