@@ -206,6 +206,14 @@ hr, .section-divider {
 .dark hr, .dark .section-divider {
   background-color: #2d3748;
 }
+
+.section-spacer {
+  height: 40px;
+  width: 100%;
+  display: block;
+  content: "";
+  margin-top: 80px;
+}
 </style>
 
 Email fraud poses a significant threat. Daily, cybercriminals attempt to impersonate legitimate companies by sending fraudulent emails to customers and employees. These communications often appear genuine but are intended to extract sensitive information or deploy malware.

@@ -229,6 +229,7 @@ hr, .section-divider {
   width: 100%;
   display: block;
   content: "";
+  margin-top: 80px;
 }
 </style>
 
@@ -290,8 +291,6 @@ Yes. You can use different selectors to manage multiple keys, especially if you'
 If DKIM fails, the email might still be delivered depending on the recipient's DMARC policy. But failing consistently can damage your sender reputation over time.
 
 
-<div class="section-spacer"></div>
-<GlossaryCTA />
 
 
 ## <a id="related-concepts"></a>Related Concepts
@@ -302,3 +301,5 @@ If DKIM fails, the email might still be delivered depending on the recipient's D
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 
+<div class="section-spacer"></div>
+<GlossaryCTA />

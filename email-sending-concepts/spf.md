@@ -223,6 +223,14 @@ hr, .section-divider {
 .dark hr, .dark .section-divider {
   background-color: #2d3748;
 }
+
+  .section-spacer {
+  height: 40px;
+  width: 100%;
+  display: block;
+  content: "";
+  margin-top: 80px;
+}
 </style>
 
 <script>

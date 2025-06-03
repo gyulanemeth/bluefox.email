@@ -34,20 +34,6 @@ head:
   - - meta
     - name: twitter:description
       content: "Learn how MX records route emails to the correct servers and why they're essential for reliable email delivery."
-  - - style
-    - |
-      hr, .section-divider {
-        height: 1px;
-        background-color: #e2e8f0;
-        margin: 40px 0;
-        width: 100%;
-        border: none;
-        display: block !important;
-      }
-
-      .dark hr, .dark .section-divider {
-        background-color: #2d3748;
-      }
 ---
 
 # MX Records
@@ -62,6 +48,17 @@ head:
     <a href="#related-concepts">Related Concepts</a>
   </div>
 </div>
+
+<style>
+  .section-spacer {
+  height: 40px;
+  width: 100%;
+  display: block;
+  content: "";
+  margin-top: 80px;
+}
+</style>
+
 
 **MX records**, or Mail Exchange records, play a **crucial role** in email delivery. They ensure that **incoming emails reach the correct destination**. If your MX records are **misconfigured**, your domain won't receive emails, no matter the provider. These records operate in the background for all domains, whether you use Gmail, Outlook, or a custom mail server.
 
@@ -103,8 +100,6 @@ Changes to MX records depend on the TTL (Time To Live) value set in your DNS. Mo
 ### Can I use MX records from different providers at the same time?
 You can, but it's only recommended for advanced setups like migrations or split delivery. Both providers must be configured to know which mailboxes they handle, or you risk lost emails. For most organizations, sticking to one provider is simpler and safer.
 
-<div class="section-spacer"></div>
-<GlossaryCTA />
 
 ## <a id="related-concepts"></a>Related Concepts
 
@@ -114,3 +109,6 @@ You can, but it's only recommended for advanced setups like migrations or split 
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Return Path](/email-sending-concepts/return-path)
+
+<div class="section-spacer"></div>
+<GlossaryCTA />

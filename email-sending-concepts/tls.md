@@ -36,6 +36,16 @@ head:
       content: "Learn how Transport Layer Security (TLS) protects email in transit, why it matters for privacy, and how it fits into modern email security."
 ---
 
+<style>
+  .section-spacer {
+    height: 40px;
+    width: 100%;
+    display: block;
+    content: "";
+    margin-top: 80px;
+  }
+</style>
+
 # TLS
 
 <div class="page-nav">

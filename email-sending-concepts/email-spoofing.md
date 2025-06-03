@@ -210,6 +210,13 @@ head:
 .dark .answer {
   color: #bbb;
 }
+.section-spacer {
+  height: 40px;
+  width: 100%;
+  display: block;
+  content: "";
+  margin-top: 80px;
+}
 </style>
 
 <script>

@@ -34,22 +34,17 @@ head:
   - - meta
     - name: twitter:description
       content: "Learn how the Simple Mail Transfer Protocol works and why it's essential for email delivery across the internet."
-  - - style
-    - |
-      /* Ensure section dividers are visible */
-      hr, .section-divider {
-        height: 1px;
-        background-color: #e2e8f0;
-        margin: 40px 0;
-        width: 100%;
-        border: none;
-        display: block !important;
-      }
-
-      .dark hr, .dark .section-divider {
-        background-color: #2d3748;
-      }
 ---
+
+<style>
+    .section-spacer {
+  height: 40px;
+  width: 100%;
+  display: block;
+  content: "";
+  margin-top: 80px;
+}
+</style>
 
 # SMTP
 
