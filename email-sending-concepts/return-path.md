@@ -242,7 +242,7 @@ Key characteristics of the Return-Path:
 
 ## <a id="how-does-return-path-work"></a>How Does Return Path Work?
 
-When an email is sent, the sending server initiates communication with the receiving server using the SMTP protocol. During this exchange, one of the first commands issued by the sender is `MAIL FROM`, which specifies the **return address for bounce messages and complaints**. This address is not necessarily the same as the one shown in the "From" field that users see. It's a behind-the-scenes address that acts as the Return-Path. If the receiving server cannot deliver the message for instance, if the recipient's address is invalid or their inbox is full, it uses the Return-Path to send back a **bounce notification**. Similarly, when recipients mark messages as spam, these complaints are often forwarded to the Return-Path address.
+When an email is sent, the sending server initiates communication with the receiving server using the SMTP protocol. During this exchange, one of the first commands issued by the sender is `MAIL FROM`, which specifies the **return address for bounce messages and complaints**. This address is not necessarily the same as the one shown in the "From" field that users see. It's a behind-the-scenes address that acts as the Return-Path. If the receiving server cannot deliver the message, for instance, if the recipient's address is invalid or their inbox is full, it uses the Return-Path to send back a **bounce notification**. Similarly, when recipients mark messages as spam, these complaints are often forwarded to the Return-Path address.
 
 Once the receiving server accepts the message, it stamps the email with a Return-Path header containing the value of the `MAIL FROM` address. This header is preserved through the delivery chain and can be seen in the full email headers of the recipient's message. For domains using authentication protocols like [SPF](/email-sending-concepts/spf) and [DMARC](/email-sending-concepts/dmarc), the Return-Path is especially significant. SPF checks validate whether the IP address sending the email is allowed to send on behalf of the domain specified in the Return-Path. DMARC, in turn, requires that the Return-Path domain **aligns with the domain** in the "From" address (depending on policy).
 
@@ -255,7 +255,7 @@ The Return-Path plays a crucial role in **diagnosing email issues**, ensuring de
 ## <a id="frequently-asked-questions-about-return-path"></a>Frequently Asked Questions About Return Path
 
 ### What are common issues with Return Path implementation?
-Common issues include unmonitored bounce and complaint addresses, authentication failures when sending servers aren't authorized in SPF, and domain alignment problems causing DMARC failures. Proper configuration requires dedicated feedback processing and alignment between visible "From" domain and Return-Path domain.
+Common issues include unmonitored bounce and complaint addresses, authentication failures when sending servers aren't authorized in SPF, and domain alignment problems causing DMARC failures. Proper configuration requires dedicated feedback processing and alignment between the visible "From" domain and Return-Path domain.
 
 ### Can Return Path be the same as the From address?
 Yes, for personal emails they're often identical. However, professional senders typically use specialized Return-Path addresses for automated bounce processing, campaign tracking, and better reputation management while maintaining domain alignment.

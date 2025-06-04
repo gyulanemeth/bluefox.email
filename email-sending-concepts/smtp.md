@@ -36,33 +36,6 @@ head:
       content: "Learn how the Simple Mail Transfer Protocol works and why it's essential for email delivery across the internet."
 ---
 
-<style>
-@media (max-width: 1280px) {
-  .page-nav {
-    right: 0.5rem;
-  }
-}
-
-@media (max-width: 1024px) {
-  .page-nav {
-    display: none;
-  }
-}
-</style>
-
-# SMTP
-
-<div class="page-nav">
-  <div class="page-nav-title">On This Page</div>
-  <div class="page-nav-items">
-    <a href="#what-is-smtp">What is SMTP?</a>
-    <a href="#how-does-smtp-work">How Does SMTP Work?</a>
-    <a href="#why-is-smtp-important">Why is SMTP Important?</a>
-    <a href="#frequently-asked-questions-about-smtp">FAQ</a>
-    <a href="#related-concepts">Related Concepts</a>
-  </div>
-</div>
-
 **Simple Mail Transfer Protocol** is the **backbone of email delivery** on the internet. Every time you hit **send**, SMTP quietly takes over, moving your message from your outbox to the recipient's inbox. While most users never see it in action, SMTP is one of the oldest and most essential protocols in the world of email.
 
 ## <a id="what-is-smtp"></a>What is SMTP?

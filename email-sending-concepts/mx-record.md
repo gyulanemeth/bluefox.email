@@ -38,31 +38,6 @@ head:
 
 # MX Records
 
-<div class="page-nav">
-  <div class="page-nav-title">On This Page</div>
-  <div class="page-nav-items">
-    <a href="#what-is-mx-record">What is an MX Record?</a>
-    <a href="#how-do-mx-records-work">How Do MX Records Work?</a>
-    <a href="#why-are-mx-records-important">Why are MX Records Important?</a>
-    <a href="#frequently-asked-questions-about-mx-records">FAQ</a>
-    <a href="#related-concepts">Related Concepts</a>
-  </div>
-</div>
-
-<style>
-@media (max-width: 1280px) {
-  .page-nav {
-    right: 0.5rem;
-  }
-}
-
-@media (max-width: 1024px) {
-  .page-nav {
-    display: none;
-  }
-}
-</style>
-
 
 **MX records**, or Mail Exchange records, play a **crucial role** in email delivery. They ensure that **incoming emails reach the correct destination**. If your MX records are **misconfigured**, your domain won't receive emails, no matter the provider. These records operate in the background for all domains, whether you use Gmail, Outlook, or a custom mail server.
 
@@ -70,7 +45,7 @@ head:
 
 An MX record is a special type of **DNS (Domain Name System) record** that tells the world which mail servers should receive email for your domain. Think of it as your domain's **digital mailing address**. When someone sends a message to `you@example.com`, the MX record ensures that message is **routed to the correct server**.
 
-Each MX record points to a mail server, identified by its hostname, and includes a **priority value**. The lower the number, the **higher the priority**. This system allows for **backup server**, if the primary server is down, the next one in line will handle the email. For example, a business might have `mail1.example.com` as its main server (priority 10) and `mail2.example.com` as a backup (priority 20).
+Each MX record points to a mail server, identified by its hostname, and includes a **priority value**. The lower the number, the **higher the priority**. This system allows for a **backup server**, if the primary server is down, the next one in line will handle the email. For example, a business might have `mail1.example.com` as its main server (priority 10) and `mail2.example.com` as a backup (priority 20).
 
 Here's what a typical MX record looks like in DNS:
 
