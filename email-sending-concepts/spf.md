@@ -43,7 +43,7 @@ This protocol functions as a **gatekeeper for your email domain**, specifying wh
 
 For those sending emails at scale, whether for marketing, transactional communications, or customer support, establishing this authentication method should be one of your initial priorities.
 
-## <a id="what-is-spf"></a>What is SPF?
+## What is SPF?
 
 This framework enables domain owners to **specify which mail servers are authorized** to send emails on their behalf. 
 
@@ -51,7 +51,7 @@ This authorization information is stored in the domain's **[DNS](/email-sending-
 
 In the absence of proper authentication, unauthorized individuals could send emails impersonating your domain, a common method employed in [phishing attacks](/email-sending-concepts/email-spoofing). Implementing proper verification clarifies the legitimate entities authorized to represent your brand through email communications.
 
-## <a id="how-does-spf-work"></a>How Does SPF Work?
+## How Does SPF Work?
 
 At its core, this protocol enables receiving mail servers to confirm if an incoming email originates from an **authorized source** within the sender's domain. This verification occurs automatically during delivery in a fraction of a second.
 
@@ -71,7 +71,7 @@ Let's break it down:
 
 This configuration functions like a **guest list**. If a sending server is not included, the receiving server can choose to accept, flag, or reject the message. Proper SPF setup enhances email deliverability and protects your domain from misuse.
 
-## <a id="why-is-spf-important"></a>Why is SPF Important?
+## Why is SPF Important?
 
 It is essential for two primary reasons:
 
@@ -81,7 +81,7 @@ It is essential for two primary reasons:
 
 In summary, SPF fosters trust with email providers, protects your audience from fraudulent activities, and ensures that your legitimate emails are delivered to the appropriate destination.
 
-## <a id="frequently-asked-questions-about-spf"></a>Frequently Asked Questions About SPF
+## Frequently Asked Questions About SPF
 
 ### What is the main purpose of SPF?
 SPF (Sender Policy Framework) helps prevent spoofing by specifying which mail servers are allowed to send emails on behalf of your domain.
@@ -96,7 +96,7 @@ If SPF fails, the receiving server may mark the message as spam, reject it, or i
 Yes. When an email is forwarded, the forwarder's IP may not be authorized in the original domain's SPF record, causing SPF to fail unless SRS (Sender Rewriting Scheme) is used.
 
 
-## <a id="related-concepts"></a>Related Concepts
+## Related Concepts
 
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)

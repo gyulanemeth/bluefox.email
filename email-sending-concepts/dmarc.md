@@ -49,7 +49,7 @@ DMARC functions as the **policy enforcer** for [email authentication](/email-sen
 Implementing DMARC is essential for individuals and organizations dedicated to protecting their brand and improving email deliverability. Many avoid this implementation due to perceived complexity, which can lead to unnecessary email security and deliverability challenges.
 
 
-## <a id="what-is-dmarc"></a>What is DMARC?
+## What is DMARC?
 
 DMARC, or Domain-based Message Authentication, Reporting & Conformance, is a protocol designed to enhance email security by working with SPF and DKIM. It empowers domain owners to **dictate how email receivers should handle unauthenticated messages** that appear to originate from their domain.
 
@@ -72,7 +72,7 @@ Let's break down this syntax:
   - **reject**: Block the message completely
 - **rua=mailto:reports@yourdomain.com**: Specifies the email address where aggregate reports should be sent. These reports provide data about all messages claiming to be from your domain.
 
-## <a id="how-does-dmarc-work"></a>How Does DMARC Work?
+## How Does DMARC Work?
 
 It operates by verifying the **alignment** between the visible "From" domain and the domains authenticated through SPF and/or DKIM. Here's a breakdown of the process that occurs each time an email is received:
 
@@ -91,13 +91,13 @@ It operates by verifying the **alignment** between the visible "From" domain and
 
 For instance, if an attempt is made to spoof `invoice@example.com` without the sending server being included in your SPF or without a valid DKIM signature, and your policy is set to `p=reject`, the email will be **blocked**.
 
-## <a id="why-dmarc-is-important"></a>Why is DMARC Important?
+## Why is DMARC Important?
 
 DMARC is essential for **protecting your domain from impersonation, phishing, and [email spoofing](/email-sending-concepts/email-spoofing.md)**. Without it, malicious actors can forge your domain in the "From" address, sending fraudulent emails that seem legitimate. While SPF and DKIM validate specific technical aspects, they do not ensure alignment with the domain visible to users, creating a vulnerability. DMARC addresses this by **enforcing domain alignment**, ensuring the visible sender matches authenticated sources and allowing domain owners to control actions for messages that fail this check.
 
 In addition to security, DMARC offers operational benefits. It fosters **trust with email providers** and recipients, enhancing deliverability and reducing the chances of emails being marked as spam. DMARC reports provide valuable insights into how your domain is utilized, showing who sends emails on your behalf and their authentication success. Given that phishing is a primary attack vector, DMARC is essential. It is a **critical component of any email security and brand protection strategy**, and many inbox providers now require it for high-volume senders or those wishing to display brand logos via BIMI.
 
-## <a id="frequently-asked-questions-about-dmarc"></a>Frequently Asked Questions About DMARC
+## Frequently Asked Questions About DMARC
 
 ### Do I need DMARC if I already have SPF and DKIM?
 Yes. SPF and DKIM handle the technical authentication, but DMARC adds policy enforcement and reporting. Without DMARC, unauthorized emails might still appear to come from your domain, and you won't have insight into who is abusing it.
@@ -112,7 +112,7 @@ It can look intimidating, but many email platforms offer help or automated tools
 DMARC sends regular XML reports to the email address you specify in your DNS record. These reports can be difficult to read manually, so most organizations use DMARC report analyzers or dashboards to track and interpret the data.
 
 
-## <a id="related-concepts"></a>Related Concepts
+## Related Concepts
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)

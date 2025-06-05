@@ -42,7 +42,7 @@ Sending an email may seem straightforward, but several processes ensure that the
 
 Email authentication acts as a **digital identity verification** for your emails. Without it, anyone could impersonate your company, leading to trust issues, reduced deliverability, and potential fraud.
 
-## <a id="what-is-email-authentication"></a>What is Email Authentication?
+## What is Email Authentication?
 
 Email authentication encompasses methods such as [SPF](/email-sending-concepts/spf), [DKIM](/email-sending-concepts/dkim), and [DMARC](/email-sending-concepts/dmarc) that ensure the authenticity of emails. These protocols verify if the email was sent from an **authorized server**, confirm it hasn't been altered, and ensure it matches the claimed domain.
 
@@ -54,7 +54,7 @@ Three primary tools perform this function:
 - **DKIM**: Embeds an invisible signature in each email, enabling recipients to confirm that it has not been altered.
 - **DMARC**: Instructs email providers on the actions to take if SPF or DKIM checks fail and provides reports on the usage of your domain for email sending.
 
-## <a id="how-does-email-authentication-work"></a>How Does Email Authentication Work?
+## How Does Email Authentication Work?
 
 The system operates using three primary tools in conjunction: one verifies the authorization of the sending server to send emails for the domain, another appends a hidden signature to confirm the **integrity of the message**, and the third instructs email providers on the appropriate actions to take if discrepancies arise.
 
@@ -62,7 +62,7 @@ The system operates using three primary tools in conjunction: one verifies the a
 - DKIM appends a **digital signature** to each email, enabling recipients to confirm its origin and integrity.  
 - DMARC provides **instructions to email providers** on how to respond if SPF or DKIM checks fail, such as directing the email to the spam folder or blocking it entirely.
 
-## <a id="why-is-email-authentication-important"></a>Why is Email Authentication Important?
+## Why is Email Authentication Important?
 
 Email authentication is essential for **safeguarding both senders and recipients** in digital communication. Without it, anyone can impersonate the sender, resulting in **[email spoofing](/email-sending-concepts/email-spoofing) and phishing attacks** that can harm users and tarnish brand reputations. 
 
@@ -78,7 +78,7 @@ For organizations, properly authenticated email **fosters trust with recipients*
 | **DKIM** | Verify message integrity | Private key signing + DNS public key | `v=DKIM1; k=rsa; p=MIGfMA0GC...` |
 | **DMARC** | Set handling policies | DNS TXT record with policy | `v=DMARC1; p=reject; rua=mailto:...` |
 
-## <a id="frequently-asked-questions-about-email-authentication"></a>Frequently Asked Questions About Email Authentication
+## Frequently Asked Questions About Email Authentication
 
 ### Which email authentication protocol should I implement first?
 Begin with SPF for straightforward setup and immediate protection. Next, implement DKIM for message verification, followed by DMARC to enforce policies and enable reporting.
@@ -93,7 +93,7 @@ That depends on your DMARC policy. With `p=none`, failed emails still get delive
 You'll need basic knowledge of DNS management, but many email platforms offer guided setup or handle it for you.
 
 
-## <a id="related-concepts"></a>Related Concepts
+## Related Concepts
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)  
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)  

@@ -42,7 +42,7 @@ head:
 
 While [SMTP](/email-sending-concepts/smtp) handles sending emails, POP3 is one of the two main protocols used for **retrieving emails** from a server. Unlike its more modern counterpart [IMAP](/email-sending-concepts/imap), POP3 follows a **download-and-delete** model that transfers emails from the server to your local device. This traditional approach has both limitations and unique advantages in certain situations.
 
-## <a id="what-is-pop3"></a>What is POP3?
+## What is POP3?
 
 POP3 (Post Office Protocol version 3) is an **email retrieval protocol** that downloads messages from your mail server to your local device. The current version, POP3, has been in use since the 1980s, making it one of the oldest email protocols still in active use.
 
@@ -56,7 +56,7 @@ Key characteristics of POP3 include:
 - **Local storage**: Messages are stored primarily on your device.
 - **Single-device focus**: Designed for access from one primary device.
 
-## <a id="how-does-pop3-work"></a>How Does POP3 Work?
+## How Does POP3 Work?
 
 When you check your email using a POP3 client, the following sequence typically occurs:
 
@@ -79,7 +79,7 @@ Unlike [IMAP](/email-sending-concepts/imap), which maintains a synchronized view
 
 Modern POP3 implementations often include options to **leave copies on the server** for a specified period, providing some flexibility while maintaining the protocol's simplicity.
 
-## <a id="why-is-pop3-important"></a>When is POP3 Useful?
+## When is POP3 Useful?
 
 While [IMAP](/email-sending-concepts/imap) has become the standard for most users, POP3 remains valuable in specific scenarios:
 
@@ -93,7 +93,7 @@ For business users, POP3 provides a way to create **complete local archives** of
 
 However, in multi-device environments where users expect consistent access across phones, tablets, and computers, POP3's limitations become apparent, which is why most modern email services default to IMAP.
 
-## <a id="frequently-asked-questions-about-pop3"></a>Frequently Asked Questions About POP3
+## Frequently Asked Questions About POP3
 
 ### Will POP3 delete my emails from the server?
 By default, yes, but most modern email clients allow you to configure POP3 to leave copies on the server. Look for settings like "Leave a copy of messages on the server" or "Do not delete messages from server." This provides flexibility while still using the POP3 protocol.
@@ -109,7 +109,7 @@ POP3 typically downloads emails to your device and removes them from the server,
 
 
 
-## <a id="related-concepts"></a>Related Concepts
+## Related Concepts
 
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 - [IMAP (Internet Message Access Protocol)](/email-sending-concepts/imap)

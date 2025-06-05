@@ -40,7 +40,7 @@ head:
 
 TXT records might be the most **versatile entries** in your domain's DNS settings. These simple text-based records have become the **foundation of modern email authentication** and play a crucial role in email deliverability. While they were originally designed for human-readable notes, today they're primarily used by machines to verify sender identity, implement security policies, and enable various email services.
 
-## <a id="what-is-txt-record"></a>What is a TXT Record?
+## What is a TXT Record?
 
 A TXT (Text) record is a type of [DNS](/email-sending-concepts/dns) record that stores **text information** for a domain. Unlike specialized records like [MX](/email-sending-concepts/mx-record) that have a specific format and purpose, TXT records can contain virtually any text data. This flexibility makes them perfect for **storing authentication policies** and other machine-readable information.
 
@@ -55,7 +55,7 @@ A typical SPF record in TXT format looks like this:
 While a DMARC record might appear as:
 `v=DMARC1; p=reject; rua=mailto:dmarc-reports@example.com`
 
-## <a id="how-do-txt-records-work"></a>How Do TXT Records Work?
+## How Do TXT Records Work?
 
 When a TXT record is created in your domain's DNS, it becomes publicly accessible to anyone who performs a DNS lookup. Each record consists of a **name** (sometimes called the host or subdomain), a **TTL** (Time To Live), and the **text value** itself.
 
@@ -74,7 +74,7 @@ The contents of these TXT records provide **instructions to receiving servers** 
 
 One important limitation: TXT records have a **maximum length** (traditionally 255 characters per string), but modern DNS implementations allow for multiple strings that are automatically concatenated. This allows for longer policies like extensive SPF records that list many authorized senders.
 
-## <a id="why-are-txt-records-important"></a>Why are TXT Records Important?
+## Why are TXT Records Important?
 
 TXT records have become the **backbone of email security and deliverability**. Without them, modern authentication systems simply wouldn't work. They serve as the **public declaration of your email policies**, allowing receiving servers to make informed decisions about messages claiming to be from your domain.
 
@@ -88,7 +88,7 @@ For organizations sending email, properly configured TXT records are essential f
 
 Without these records, your email is more likely to be **flagged as spam or rejected entirely**. According to industry research, domains without proper authentication records see significantly lower inbox placement rates, directly impacting the effectiveness of email communications.
 
-## <a id="frequently-asked-questions-about-txt-records"></a>Frequently Asked Questions About TXT Records
+## Frequently Asked Questions About TXT Records
 
 ### How many TXT records can I have for my domain?
 You can have multiple TXT records for a domain, but only one TXT record per specific name/host. For example, you can have separate TXT records for example.com, _dmarc.example.com, and selector._domainkey.example.com, but you can't have two different TXT records both named exactly "_dmarc.example.com."
@@ -102,7 +102,7 @@ TXT records are managed through your domain's DNS settings, typically in your do
 ### Can I use TXT records for purposes other than email?
 Yes. While email authentication is the most common use case, TXT records are also used to verify domain ownership for various services, implement security policies like BIMI (Brand Indicators for Message Identification), and even store general information about a domain or service.
 
-## <a id="related-concepts"></a>Related Concepts
+## Related Concepts
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)

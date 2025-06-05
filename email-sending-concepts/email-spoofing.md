@@ -40,7 +40,7 @@ head:
 
 Email spoofing is a tactic used by attackers to **forge the sender's address**, making it look like the email is from a trusted source. This method is often found in **phishing scams**, business email compromise (BEC), and various cyber frauds. It can deceive recipients into sharing sensitive information, clicking on harmful links, or transferring money.
 
-## <a id="what-is-email-spoofing"></a>What is Email Spoofing?
+## What is Email Spoofing?
 
 Email spoofing occurs when the sender's email address is altered to **mimic someone else's identity**. This tactic takes advantage of the trust users place in familiar email addresses. The fundamental email protocol ([SMTP](/email-sending-concepts/smtp)) lacks robust security features, making spoofing relatively simple without proper safeguards.
 
@@ -51,7 +51,7 @@ Attackers leverage spoofing to:
 - Act as government agencies to distribute malware.
 - Mimic colleagues to establish trust for subsequent attacks.
 
-## <a id="how-does-email-spoofing-work"></a>How Does Email Spoofing Work?
+## How Does Email Spoofing Work?
 
 Spoofing takes advantage of vulnerabilities in the email system, particularly the SMTP protocol. Here's a straightforward breakdown of the process:
 
@@ -71,7 +71,7 @@ Spoofing takes advantage of vulnerabilities in the email system, particularly th
 
 4. **Combining Tricks**: Merging display spoofing with lookalike domains for added deception.
 
-## <a id="why-is-email-spoofing-dangerous"></a>Why is Email Spoofing Dangerous?
+## Why is Email Spoofing Dangerous?
 
 Spoofing presents serious cybersecurity and business challenges. It's frequently used in **Business Email Compromise (BEC) scams**, which have resulted in over [$43 billion in global losses from 2016 to 2023](https://www.ssh.com/academy/secure-information-sharing/what-is-business-email-compromise-bec), as reported by the FBI's Internet Crime Complaint Center. 
 
@@ -79,7 +79,7 @@ Spoofed emails often act as gateways for **phishing attacks and malware**, leadi
 
 Additionally, not implementing proper email authentication can expose organizations, particularly in regulated sectors like healthcare, finance, and government, to legal and compliance repercussions.
 
-## <a id="protecting-against-email-spoofing"></a>Protecting Against Email Spoofing
+## Protecting Against Email Spoofing
 
 Prevent spoofing through effective **email authentication** using three key technologies:
 
@@ -98,7 +98,7 @@ To protect your domain, follow these steps:
 2. **Deployment:** Implement SPF and DKIM, and initiate DMARC in "monitor" mode.
 3. **Enforcement:** Gradually tighten your policies to **reject unauthenticated messages**.
 
-## <a id="frequently-asked-questions-about-email-spoofing"></a>Frequently Asked Questions About Email Spoofing
+## Frequently Asked Questions About Email Spoofing
 
 ### Can small businesses afford to implement anti-spoofing protections?
 Yes. SPF and DKIM are often free to set up, and basic DMARC monitoring tools are available at no cost. The investment is minimal compared to the potential losses.
@@ -110,7 +110,7 @@ Check if the email address matches the sender's name. Look for urgent requests, 
 Yes, using spoofing for fraud or harm is illegal in most countries. Testing email systems with spoofing is only legal when properly authorized.
 
 
-## <a id="related-concepts"></a>Related Concepts
+## Related Concepts
 
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)

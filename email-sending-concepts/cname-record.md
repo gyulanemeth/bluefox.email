@@ -40,7 +40,7 @@ head:
 
 CNAME records are like **digital signposts** in the [DNS](/email-sending-concepts/dns) system that direct traffic from one domain name to another. While they might seem technical, they serve a practical purpose in making domain management more flexible and maintenance easier. For email systems, CNAMEs play important roles in service verification and subdomain management.
 
-## <a id="what-is-cname-record"></a>What is a CNAME Record?
+## What is a CNAME Record?
 
 A CNAME (Canonical Name) record is a type of DNS record that **creates an alias** from one domain name to another. Unlike A records, which point directly to IP addresses, CNAME records point to another domain name, which then resolves to its own address records. Think of it as a permanent forwarding address that says, "This domain is just another name for that domain."
 
@@ -54,7 +54,7 @@ Key characteristics of CNAME records:
 - They cannot exist alongside certain other record types (such as MX) at the same name
 - They're commonly used for **service verification** and **subdomain management**
 
-## <a id="how-do-cname-records-work"></a>How Do CNAME Records Work?
+## How Do CNAME Records Work?
 
 When a DNS resolver encounters a CNAME record, it performs an additional lookup to find the final destination. This process is called **CNAME chaining** and involves multiple steps:
 
@@ -70,7 +70,8 @@ A CNAME record in DNS zone file format looks like this:
 
 This means "webmail.example.com is an alias for mail.provider.com." The resolver would then look up mail.provider.com to find its IP address.
 
-For email services, CNAMEs are frequently used to:
+## What are CNAME Records Used For?
+CNAME records are used in various scenarios, particularly in web hosting and email services:
 
 - Verify domain ownership (by creating specific verification CNAMEs)
 - Set up specialized email services (like tracking or spam filtering)
@@ -79,11 +80,11 @@ For email services, CNAMEs are frequently used to:
 
 One important limitation: you **cannot create a CNAME record for the root domain** if you have other records like MX or TXT at that same domain. This restriction exists because a CNAME effectively replaces all other records at that name with those of the target domain.
 
-## <a id="why-are-cname-records-important"></a>Why are CNAME Records Important?
+## Why are CNAME Records Important?
 
 CNAME records serve several valuable purposes in domain and email management: they enable **simplified management** by centralizing changes at the target domain (when service provider IPs change, you don't need to update your DNS), provide **service flexibility** that makes switching providers easier without changing user-facing addresses, facilitate **subdomain organization** with familiar names while hosting elsewhere, assist in **domain verification** for email and marketing services, and satisfy **technical requirements** for email authentication services and custom tracking domains. For email marketers, proper CNAME configuration is crucial for deliverability through proper tracking domain setup, while IT administrators benefit from reduced maintenance overhead through centralized DNS management.
 
-## <a id="frequently-asked-questions-about-cname-records"></a>Frequently Asked Questions About CNAME Records
+## Frequently Asked Questions About CNAME Records
 
 ### Can I use a CNAME for my root domain?
 Technically, DNS standards don't allow a CNAME at the root domain (naked domain) if you have other records there, such as MX records for email. This is because a CNAME replaces all other record types. Some DNS providers offer workarounds like ANAME or ALIAS records, but these aren't standard across all providers.
@@ -94,8 +95,10 @@ Not directly, since email routing primarily relies on MX records. However, CNAME
 ### How long do CNAME changes take to propagate?
 Like all DNS records, CNAME propagation depends on the TTL (Time To Live) values set in your records. While some resolvers might see changes within minutes, complete worldwide propagation typically takes 24-48 hours. Plan ahead when making CNAME changes to critical services.
 
+### What is the difference between an MX and a CNAME record?
+An MX record directs email to mail servers for your domain, while a CNAME creates an alias from one domain to another. MX is for email routing; CNAME is for domain name redirection.
 
-## <a id="related-concepts"></a>Related Concepts
+## Related Concepts
 
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
 - [MX Record](/email-sending-concepts/mx-record)

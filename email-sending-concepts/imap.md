@@ -40,7 +40,7 @@ head:
 
 While [SMTP](/email-sending-concepts/smtp) handles sending emails, IMAP is responsible for **retrieving emails** from your mail server and organizing them on your devices. It's the protocol that enables your emails to stay **synchronized across multiple devices**, allowing you to read, reply to, and organize messages on your phone, then see those same changes reflected on your computer.
 
-## <a id="what-is-imap"></a>What is IMAP?
+## What is IMAP?
 
 IMAP (Internet Message Access Protocol) is a **standard email protocol** that allows you to access your emails from any device while keeping them stored on the mail server. This means you can view, organize, and respond to messages from multiple devices, with all actions **synchronized automatically**.
 
@@ -54,7 +54,7 @@ The current version, IMAP4, supports features like:
 - **Server-side searches**: Find messages without downloading your entire mailbox
 - **Offline operations**: Make changes locally that sync when you reconnect
 
-## <a id="how-does-imap-work"></a>How Does IMAP Work?
+## How Does IMAP Work?
 
 When you use an email client with IMAP, it establishes a **connection to your mail server** (typically on port 143 for unencrypted or port 993 for encrypted SSL/TLS connections). Unlike the "download and delete" model of POP3, IMAP keeps messages on the server while providing a **synchronized view** across devices.
 
@@ -71,7 +71,7 @@ IMAP uses a **stateful connection**, meaning the client maintains an ongoing ses
 
 For security, IMAP commonly uses **SSL/TLS encryption** to protect your messages and credentials in transit. Authentication typically employs **username/password combinations**, though more secure mechanisms like OAuth 2.0 are increasingly common.
 
-## <a id="why-is-imap-important"></a>Why is IMAP Important?
+## Why is IMAP Important?
 
 In today's multi-device world, IMAP is **essential for consistent email access** across phones, tablets, computers, and web interfaces. Its server-centric model offers several critical advantages:
 
@@ -83,7 +83,7 @@ In today's multi-device world, IMAP is **essential for consistent email access**
 
 For businesses, IMAP enables **collaborative features** like shared mailboxes and calendars. For individuals, it ensures you never lose access to important emails if a device is lost or damaged. The protocol's flexibility has made it the **standard choice** for most modern email services, including Gmail, Outlook.com, and Yahoo Mail.
 
-## <a id="frequently-asked-questions-about-imap"></a>Frequently Asked Questions About IMAP
+## Frequently Asked Questions About IMAP
 
 ### Is IMAP better than POP3?
 For most users, yes. IMAP keeps emails synchronized across all devices and stores them on the server for backup protection. POP3 typically downloads emails to a single device and often removes them from the server, which can lead to access issues and data loss. However, POP3 might be preferred in specific scenarios with limited connectivity or where local storage is a priority.
@@ -97,9 +97,7 @@ Yes, most IMAP clients cache messages locally, allowing you to read previously d
 ### Is IMAP secure?
 IMAP itself doesn't provide security, but modern implementations use SSL/TLS encryption (IMAPS on port 993) to protect your connection. This prevents eavesdropping on your emails and credentials. Always ensure your email client is configured to use encrypted connections rather than plain IMAP.
 
-
-
-## <a id="related-concepts"></a>Related Concepts
+## Related Concepts
 
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 - [POP3 (Post Office Protocol)](/email-sending-concepts/pop3)

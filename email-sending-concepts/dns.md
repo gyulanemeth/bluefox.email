@@ -40,7 +40,7 @@ head:
 
 Think of the Domain Name System as the internet's **phone book**, it's what translates human-friendly website addresses like `example.com` into the **numerical IP addresses** computers need to find each other. Without this essential system, **email delivery would be impossible**, and we'd all be trying to remember long strings of numbers instead of simple domain names.
 
-## <a id="what-is-dns"></a>What is DNS?
+## What is DNS?
 
 At its core, this system is a **massive, distributed database** that maps names to numbers and other information. For email, it goes beyond basic translation by storing **special records** that guide message delivery and help verify who sent what.
 
@@ -53,7 +53,7 @@ The most important email-related records include:
 
 What makes this system so powerful is that **no single organization controls it all**. This distributed approach makes it incredibly **reliable and scalable**, able to handle billions of lookups every day without breaking down.
 
-## <a id="how-does-dns-work"></a>How Does DNS Work?
+## How Does DNS Work?
 
 When you send an email, a fascinating behind-the-scenes process kicks into action. Your mail server needs to find where to deliver your message, so it starts a series of lookups:
 
@@ -66,11 +66,11 @@ When you send an email, a fascinating behind-the-scenes process kicks into actio
 
 This whole process typically happens in **milliseconds**, but it's essential for proper email delivery. If records are **misconfigured or missing**, messages won't reach their destination.
 
-## <a id="why-is-dns-important-for-email"></a>Why is DNS Important for Email?
+## Why is DNS Important for Email?
 
 Without properly configured name records, email simply wouldn't work. These records are the **signposts that guide your messages** to their destination, **authenticate your identity** as a sender, and help **protect against fraud**. MX records direct incoming mail to your servers, SPF records authorize which servers can send on your behalf, DKIM records provide keys for verifying message signatures, and DMARC records set policies for handling suspicious messages. For businesses, maintaining accurate records is essential for **deliverability**, misconfigured settings often lead to **bounced messages**, **spam folder placement**, or **security vulnerabilities** that damage sender reputation.
 
-## <a id="frequently-asked-questions-about-dns"></a>Frequently Asked Questions About DNS
+## Frequently Asked Questions About DNS
 
 ### How long do DNS changes take to propagate?
 DNS changes propagate based on the TTL (Time To Live) values set in your records. While some resolvers might see changes within minutes, complete worldwide propagation typically takes 24-48 hours. For critical email systems, it's best to make DNS changes during low-traffic periods and plan for this delay.
@@ -82,7 +82,7 @@ If your DNS provider experiences an outage, existing connections might continue 
 Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantly impact deliverability. Many spam filters check these records, and failures can lead to lower sender reputation scores. Regular DNS audits are recommended for any serious email sender.
 
 
-## <a id="related-concepts"></a>Related Concepts
+## Related Concepts
 
 - [MX Record](/email-sending-concepts/mx-record)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
