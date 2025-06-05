@@ -21,7 +21,7 @@ head:
       content: "Understand how MX records route emails to the correct servers and why they're essential for reliable email delivery."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/mx-record-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/mx-record"

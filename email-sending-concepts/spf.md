@@ -18,7 +18,7 @@ head:
       content: SPF is an email authentication method that specifies which mail servers are authorized to send emails on behalf of your domain, helping prevent email spoofing and improving deliverability.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/spf-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: https://bluefox.email/email-sending-concepts/spf

@@ -21,7 +21,7 @@ head:
       content: "Understand how TXT records store email authentication policies and why they're essential for email security and deliverability."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/txt-record-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/txt-record"
@@ -77,22 +77,12 @@ One important limitation: TXT records have a **maximum length** (traditionally 2
 
 ## Why are TXT Records Important?
 
-TXT records have become the **backbone of email security and deliverability**. Without them, modern authentication systems simply wouldn't work. They serve as the **public declaration of your email policies**, allowing receiving servers to make informed decisions about messages claiming to be from your domain.
-
-For organizations sending email, properly configured TXT records are essential for:
-
-- **Preventing email spoofing**: Authentic messages pass SPF and DKIM checks while fraudulent ones fail
-- **Improving deliverability**: Major providers like Gmail check authentication before deciding inbox placement
-- **Protecting brand reputation**: Properly authenticated email builds trust with recipients and services
-- **Providing clear handling instructions**: DMARC policies tell receivers exactly what to do with suspicious messages
-- **Enabling email intelligence**: DMARC reporting helps track both legitimate and fraudulent email usage
-
-Without these records, your email is more likely to be **flagged as spam or rejected entirely**. According to industry research, domains without proper authentication records see significantly lower inbox placement rates, directly impacting the effectiveness of email communications.
+TXT records are crucial for email security and deliverability because they publish your domain's authentication policies (SPF, DKIM, and DMARC) in DNS, allowing receiving **servers to verify message legitimacy**. Without them, emails are more likely to be rejected or marked as spam, and your domain becomes vulnerable to spoofing and phishing attacks. Properly configured TXT records prevent email spoofing, improve inbox placement with major providers like Gmail, protect brand reputation, provide clear handling instructions for suspicious messages, and **enable valuable reporting on email authentication**.
 
 ## Frequently Asked Questions About TXT Records
 
 ### How many TXT records can I have for my domain?
-You can have multiple TXT records for a domain, but only one TXT record per specific name/host. For example, you can have separate TXT records for example.com, _dmarc.example.com, and selector._domainkey.example.com, but you can't have two different TXT records both named exactly "_dmarc.example.com."
+You can have multiple TXT records for a domain, but only one TXT record per specific name/host. For example, you can have separate TXT records for `example.com`, `_dmarc.example.com`, and `selector._domainkey.example.com`, but you can't have two different TXT records both named exactly `_dmarc.example.com`.
 
 ### Can TXT records affect email deliverability?
 Absolutely. Properly configured SPF, DKIM, and DMARC records (all implemented as TXT records) significantly improve deliverability. Missing or incorrect authentication records can cause legitimate emails to be marked as spam or rejected outright, especially by major providers like Gmail and Microsoft.
@@ -100,7 +90,7 @@ Absolutely. Properly configured SPF, DKIM, and DMARC records (all implemented as
 ### How do I create or update TXT records?
 TXT records are managed through your domain's DNS settings, typically in your domain registrar's control panel or DNS hosting provider. The exact process varies by provider, but generally involves navigating to DNS settings, selecting "Add Record", choosing "TXT" as the record type, and entering the appropriate name and value.
 
-### Can I use TXT records for purposes other than email?
+### Can I use TXT records for other purposes than email?
 Yes. While email authentication is the most common use case, TXT records are also used to verify domain ownership for various services, implement security policies like BIMI (Brand Indicators for Message Identification), and even store general information about a domain or service.
 
 ## Related Concepts

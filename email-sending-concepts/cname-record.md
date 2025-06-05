@@ -21,7 +21,7 @@ head:
       content: "Understand how CNAME records create domain aliases and why they're useful for email and web services."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/cname-record-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/cname-record"

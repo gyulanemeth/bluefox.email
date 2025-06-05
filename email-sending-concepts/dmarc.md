@@ -18,7 +18,7 @@ head:
       content: DMARC is an email authentication protocol that unifies SPF and DKIM with policy enforcement and reporting. Learn what DMARC is, how it works, and why it matters for email security.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/dmarc-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: https://bluefox.email/email-sending-concepts/dmarc

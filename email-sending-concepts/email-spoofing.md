@@ -21,7 +21,7 @@ head:
       content: "Discover how email spoofing works and how modern authentication methods protect against this common cybersecurity threat."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/email-spoofing-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/email-spoofing"

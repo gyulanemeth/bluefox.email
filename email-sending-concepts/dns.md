@@ -21,7 +21,7 @@ head:
       content: "Understand how DNS translates domain names into IP addresses and why it's essential for email routing and security."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/dns-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/dns"

@@ -19,7 +19,7 @@ head:
       content: DKIM is an email authentication method that allows senders to digitally sign emails using a private key. Learn how it works, see examples, and understand its importance for email security.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/dkim-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: https://bluefox.email/email-sending-concepts/dkim

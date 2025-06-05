@@ -21,7 +21,7 @@ head:
       content: "Understand how the Return-Path header manages email bounces and why it's essential for maintaining good sender reputation."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/return-path-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/return-path"

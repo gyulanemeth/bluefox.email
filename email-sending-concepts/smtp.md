@@ -21,7 +21,7 @@ head:
       content: "Understand how SMTP enables email transmission across the internet and the security extensions that protect modern email communications."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/smtp-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/smtp"

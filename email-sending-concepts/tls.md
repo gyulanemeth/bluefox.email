@@ -21,7 +21,7 @@ head:
       content: "Understand how TLS encrypts email traffic and why it's essential for secure communication."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/tls-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/tls"
@@ -58,7 +58,7 @@ TLS **protects sensitive information** like passwords, business data, and person
 No, TLS is the **modern, more secure version** that replaced SSL. Most references to SSL today actually mean TLS.
 
 ### How can I check if my email uses TLS?
-Look for a lock icon or "secured by TLS" in your email client, or check the email headers for "TLS" or "STARTTLS."
+Look for a lock icon or "secured by TLS" in your email client, or check the email headers for **TLS** or **STARTTLS**.
 
 ### Does TLS encrypt the entire email?
 TLS **encrypts the connection** between servers, not the message itself. Once delivered, the email may be stored unencrypted.

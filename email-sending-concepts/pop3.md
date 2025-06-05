@@ -21,7 +21,7 @@ head:
       content: "Understand how POP3 enables email retrieval and when it might be the right choice for your email setup."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/pop3-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/pop3"
@@ -58,7 +58,7 @@ Key characteristics of POP3 include:
 
 When you check your email using a POP3 client, the following sequence typically occurs:
 
-1. Your email client **connects to the POP3 server** (usually on port 110, or port 995 for secure POP3S)
+1. Your email client **connects to the POP3 server** (usually on port 110, or port 995 for secure POP3)
 2. The client **authenticates** with your username and password
 3. The server provides a **list of available messages** with sizes
 4. Your client **downloads messages** (either all or selectively)
@@ -94,13 +94,13 @@ However, in multi-device environments where users expect consistent access acros
 ## Frequently Asked Questions About POP3
 
 ### Will POP3 delete my emails from the server?
-By default, yes, but most modern email clients allow you to configure POP3 to leave copies on the server. Look for settings like "Leave a copy of messages on the server" or "Do not delete messages from the server." This provides flexibility while still using the POP3 protocol.
+By default, yes, but most modern email clients allow you to configure POP3 to leave copies on the server. Look for settings like **Leave a copy of messages on the server** or "**Do not delete messages from the server**. This provides flexibility while still using the POP3 protocol.
 
 ### Can I use POP3 with multiple devices?
 Yes, but with limitations. If you configure POP3 to leave messages on the server, multiple devices can download the same emails. However, actions taken on one device (reading, organizing, replying) won't be reflected on other devices. For true multi-device synchronization, IMAP is generally a better choice.
 
 ### Is POP3 secure?
-Basic POP3 transmits credentials and emails in plain text. For security, use POP3S (POP3 over SSL/TLS) on port 995, which encrypts the entire connection. Most modern email clients default to secure connections, but it's worth verifying your settings, especially on older applications.
+Basic POP3 transmits credentials and emails in plain text. For security, use POP3S (POP3 over SSL/[TLS](/email-sending-concepts/tls.md)) on port 995, which encrypts the entire connection. Most modern email clients default to secure connections, but it's worth verifying your settings, especially on older applications.
 
 ### How do POP3 and IMAP differ?
 POP3 typically downloads emails to your device and removes them from the server, while IMAP keeps emails on the server and synchronizes your view across multiple devices. POP3 is generally simpler and more bandwidth-efficient for single-device setups, while IMAP offers better multi-device support and server-based organization.

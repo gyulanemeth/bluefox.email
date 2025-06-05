@@ -21,7 +21,7 @@ head:
       content: "Understand how IMAP enables email synchronization across devices and why it's essential for modern email workflows."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/imap-share.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/imap"
