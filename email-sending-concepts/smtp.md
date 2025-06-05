@@ -48,7 +48,7 @@ SMTP uses plain text commands and operates over the internet's TCP/IP infrastruc
 
 When you send an email, your client (like Outlook or Gmail) connects to your outgoing mail server using **SMTP**. The process starts with a handshake (using commands like HELO or EHLO), then specifies the sender and recipient addresses, and finally transmits the message content.
 
-The sending server then tries to deliver the message directly to the recipient's mail server, again using SMTP. If the recipient's server is temporarily unavailable, the sending server will keep retrying for a set period before giving up and returning an error. This temporary failure and retry process is known as a **soft bounce**. When a recipient address doesn't exist or the server permanently rejects the message, it's called a **hard bounce**, in this case, the message is immediately returned to the sender with an error notification.
+The sending server then tries to deliver the message directly to the recipient's mail server, again using SMTP. If the recipient's server is temporarily unavailable, the sending server will keep retrying for a set period before giving up and returning an error. This temporary failure and retry process is known as a **soft bounce**. When a recipient address doesn't exist or the server permanently rejects the message, it's called a **hard bounce**. In this case, the message is immediately returned to the sender with an error notification.
 
 SMTP typically uses **port 25** for server-to-server communication, but **port 587** is now standard for client-to-server submission, and **port 465** is used for secure connections via [SSL/TLS](/email-sending-concepts/tls). By itself, SMTP does not encrypt messages, which is why modern email relies on extensions like **STARTTLS** for encryption and integrates with authentication protocols such as [SPF](/email-sending-concepts/spf), [DKIM](/email-sending-concepts/dkim), and [DMARC](/email-sending-concepts/dmarc).
 
@@ -63,7 +63,7 @@ SMTP typically uses **port 25** for server-to-server communication, but **port 5
 
 SMTP's extensibility has allowed it to evolve with the times. Security enhancements like **STARTTLS** and authentication checks with **SPF**, **DKIM**, and **DMARC** have kept SMTP relevant and secure, even as threats have grown more sophisticated.
 
-For businesses, a properly configured SMTP setup means **reliable delivery**, fewer bounced emails, and better protection against spam and [email spoofing](/email-sending-concepts/email-spoofing). Whether you're sending a single message or millions, SMTP is the protocol making it happen.
+For businesses, a properly configured SMTP setup means **reliable delivery**, fewer bounced emails, and better protection against spam and [email spoofing](/email-sending-concepts/email-spoofing). Whether you're sending a single message or millions, SMTP is the protocol that makes it happen.
 
 ## Frequently Asked Questions About SMTP
 
@@ -74,7 +74,7 @@ By default, SMTP does not encrypt messages. However, most modern servers use STA
 SMTP is used for sending emails. IMAP and POP3 are used for retrieving emails from a server to your device. Most email clients use SMTP to send and IMAP or POP3 to receive.
 
 ### Why do emails sometimes get stuck in the outbox?
-Common reasons include incorrect SMTP settings, authentication failures, network issues, or recipient's server unavailability. Check your configuration and internet connection if you encounter this problem.
+Common reasons include incorrect SMTP settings, authentication failures, network issues, or the recipient's server unavailability. Check your configuration and internet connection if you encounter this problem.
 
 
 ## Related Concepts

@@ -91,7 +91,7 @@ DKIM (DomainKeys Identified Mail) enhances the authenticity of your emails, fost
 ## Frequently Asked Questions About DKIM
 
 ### Does DKIM prevent spam?
-Not directly, DKIM verifies authenticity, not content quality. However, properly configured DKIM makes it less likely your emails will be marked as spam.
+Not directly, DKIM verifies authenticity, not content quality. However, properly configured DKIM makes it less likely that your emails will be marked as spam. 
 
 ### Can I have multiple DKIM keys?
 Yes. You can use different selectors to manage multiple keys, especially if you're sending from multiple sources (e.g., your ESP and internal systems).

@@ -72,7 +72,7 @@ When an email server receives a message, it performs several DNS lookups to **va
 
 The contents of these TXT records provide **instructions to receiving servers** about how to process and validate incoming email. Since they're stored in DNS, which is distributed and cached worldwide, updates to TXT records don't take effect immediately – changes typically propagate within 24-48 hours, depending on the TTL values.
 
-One important limitation: TXT records have a **maximum length** (traditionally 255 characters per string), but modern DNS implementations allow for multiple strings that are automatically concatenated. This allows for longer policies like extensive SPF records that list many authorized senders.
+One important limitation: TXT records have a **maximum length** (traditionally 255 characters per string), but modern DNS implementations allow for multiple strings that are automatically concatenated. This allows for longer policies, like extensive SPF records that list many authorized senders.
 
 ## Why are TXT Records Important?
 

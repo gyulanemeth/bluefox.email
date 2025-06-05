@@ -76,7 +76,7 @@ Without properly configured name records, email simply wouldn't work. These reco
 DNS changes propagate based on the TTL (Time To Live) values set in your records. While some resolvers might see changes within minutes, complete worldwide propagation typically takes 24-48 hours. For critical email systems, it's best to make DNS changes during low-traffic periods and plan for this delay.
 
 ### What happens if my DNS provider goes down?
-If your DNS provider experiences an outage, existing connections might continue working due to cached DNS information, but new connections would fail once cache expires. For business-critical email, consider using DNS providers with strong uptime guarantees or even multiple providers for redundancy.
+If your DNS provider experiences an outage, existing connections might continue working due to cached DNS information, but new connections would fail once the cache expires. For business-critical email, consider using DNS providers with strong uptime guarantees or even multiple providers for redundancy.
 
 ### Can DNS issues cause emails to go to spam?
 Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantly impact deliverability. Many spam filters check these records, and failures can lead to lower sender reputation scores. Regular DNS audits are recommended for any serious email sender.

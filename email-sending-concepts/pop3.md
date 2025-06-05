@@ -96,7 +96,7 @@ However, in multi-device environments where users expect consistent access acros
 ## Frequently Asked Questions About POP3
 
 ### Will POP3 delete my emails from the server?
-By default, yes, but most modern email clients allow you to configure POP3 to leave copies on the server. Look for settings like "Leave a copy of messages on the server" or "Do not delete messages from server." This provides flexibility while still using the POP3 protocol.
+By default, yes, but most modern email clients allow you to configure POP3 to leave copies on the server. Look for settings like "Leave a copy of messages on the server" or "Do not delete messages from the server." This provides flexibility while still using the POP3 protocol.
 
 ### Can I use POP3 with multiple devices?
 Yes, but with limitations. If you configure POP3 to leave messages on the server, multiple devices can download the same emails. However, actions taken on one device (reading, organizing, replying) won't be reflected on other devices. For true multi-device synchronization, IMAP is generally a better choice.

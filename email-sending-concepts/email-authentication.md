@@ -81,7 +81,7 @@ For organizations, properly authenticated email **fosters trust with recipients*
 ## Frequently Asked Questions About Email Authentication
 
 ### Which email authentication protocol should I implement first?
-Begin with SPF for straightforward setup and immediate protection. Next, implement DKIM for message verification, followed by DMARC to enforce policies and enable reporting.
+Begin with SPF for a straightforward setup and immediate protection. Next, implement DKIM for message verification, followed by DMARC to enforce policies and enable reporting.
 
 ### Will email authentication affect my deliverability?
 Yes! Properly authenticated emails are more likely to reach the inbox, as major email providers factor authentication status into their filtering processes.

@@ -43,7 +43,7 @@ head:
 
 ## What is an MX Record?
 
-An MX record is a special type of **DNS (Domain Name System) record** that tells the world which mail servers should receive email for your domain. Think of it as your domain's **digital mailing address**. When someone sends a message to `you@example.com`, the MX record ensures that message is **routed to the correct server**.
+An MX record is a special type of **DNS (Domain Name System) record** that tells the world which mail servers should receive email for your domain. Think of it as your domain's **digital mailing address**. When someone sends a message to `you@example.com`, the MX record ensures that the message is **routed to the correct server**.
 
 Each MX record points to a mail server, identified by its hostname, and includes a **priority value**. The lower the number, the **higher the priority**. This system allows for a **backup server**, if the primary server is down, the next one in line will handle the email. For example, a business might have `mail1.example.com` as its main server (priority 10) and `mail2.example.com` as a backup (priority 20).
 
@@ -77,7 +77,7 @@ If your domain has no MX records, most mail servers will not deliver email to it
 Changes to MX records depend on the TTL (Time To Live) value set in your DNS. Most updates take from a few minutes up to 48 hours to fully propagate worldwide. For planned migrations, it's smart to lower your TTL a day or two in advance.
 
 ### Can I use MX records from different providers at the same time?
-You can, but it's only recommended for advanced setups like migrations or split delivery. Both providers must be configured to know which mailboxes they handle, or you risk lost emails. For most organizations, sticking to one provider is simpler and safer.
+You can, but it's only recommended for advanced setups like migrations or split delivery. Both providers must be configured to know which mailboxes they handle, or you risk losing emails. For most organizations, sticking to one provider is simpler and safer.
 
 
 ## Related Concepts

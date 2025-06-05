@@ -73,7 +73,7 @@ This means "webmail.example.com is an alias for mail.provider.com." The resolver
 ## What are CNAME Records Used For?
 CNAME records are used in various scenarios, particularly in web hosting and email services:
 
-- Verify domain ownership (by creating specific verification CNAMEs)
+- Verify domain ownership (by creating a specific verification CNAMEs)
 - Set up specialized email services (like tracking or spam filtering)
 - Configure custom tracking domains for analytics
 - Establish subdomains for email marketing platforms
@@ -90,7 +90,7 @@ CNAME records serve several valuable purposes in domain and email management: th
 Technically, DNS standards don't allow a CNAME at the root domain (naked domain) if you have other records there, such as MX records for email. This is because a CNAME replaces all other record types. Some DNS providers offer workarounds like ANAME or ALIAS records, but these aren't standard across all providers.
 
 ### Do CNAME records affect email delivery?
-Not directly, since email routing primarily relies on MX records. However, CNAME records can indirectly affect email by enabling proper setup of tracking domains, authentication services, and verification requirements. If you're using a CNAME for a mail subdomain, ensure it ultimately resolves to servers that handle email correctly.
+Not directly, since email routing primarily relies on MX records. However, CNAME records can indirectly affect email by enabling the proper setup of tracking domains, authentication services, and verification requirements. If you're using a CNAME for a mail subdomain, ensure it ultimately resolves to servers that handle email correctly.
 
 ### How long do CNAME changes take to propagate?
 Like all DNS records, CNAME propagation depends on the TTL (Time To Live) values set in your records. While some resolvers might see changes within minutes, complete worldwide propagation typically takes 24-48 hours. Plan ahead when making CNAME changes to critical services.
