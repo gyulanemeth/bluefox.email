@@ -111,5 +111,6 @@ Yes. While email authentication is the most common use case, TXT records are als
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
+- [CNAME Records](/email-sending-concepts/cname-record)
 
 <GlossaryCTA />
