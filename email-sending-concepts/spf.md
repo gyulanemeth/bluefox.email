@@ -37,6 +37,8 @@ published: 2025-05-19
 sidebar: false
 ---
 
+# SPF (Sender Policy Framework)
+
 When sending an email on behalf of your company or brand, it is essential to ensure that it reaches the recipient's inbox instead of being diverted to their spam folder or blocked entirely. One of the key mechanisms to achieve this is the **Sender Policy Framework (SPF)**.
 
 This protocol functions as a **gatekeeper for your email domain**, specifying which mail servers are authorized to send emails using your domain name. If an email is received from a server not listed in the SPF record, the recipient's email system may choose to reject it or mark it as suspicious.

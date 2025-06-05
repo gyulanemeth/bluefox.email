@@ -88,5 +88,6 @@ You can, but it's only recommended for advanced setups like migrations or split 
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Return Path](/email-sending-concepts/return-path)
+- [CNAME Records](/email-sending-concepts/cname-record)
 
 <GlossaryCTA />

@@ -36,6 +36,8 @@ head:
       content: "Learn how the Simple Mail Transfer Protocol works and why it's essential for email delivery across the internet."
 ---
 
+# SMTP (Simple Mail Transfer Protocol)
+
 **Simple Mail Transfer Protocol** is the **backbone of email delivery** on the internet. Every time you hit **send**, SMTP quietly takes over, moving your message from your outbox to the recipient's inbox. While most users never see it in action, SMTP is one of the oldest and most essential protocols in the world of email.
 
 ## What is SMTP?

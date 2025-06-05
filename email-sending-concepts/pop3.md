@@ -38,8 +38,6 @@ head:
 
 # POP3 (Post Office Protocol)
 
-
-
 While [SMTP](/email-sending-concepts/smtp) handles sending emails, POP3 is one of the two main protocols used for **retrieving emails** from a server. Unlike its more modern counterpart [IMAP](/email-sending-concepts/imap), POP3 follows a **download-and-delete** model that transfers emails from the server to your local device. This traditional approach has both limitations and unique advantages in certain situations.
 
 ## What is POP3?

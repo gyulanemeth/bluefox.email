@@ -52,6 +52,7 @@ In the email world, TXT records are primarily used for three critical functions:
 
 A typical SPF record in TXT format looks like this:
 `v=spf1 include:_spf.google.com -all`
+
 While a DMARC record might appear as:
 `v=DMARC1; p=reject; rua=mailto:dmarc-reports@example.com`
 
@@ -60,17 +61,17 @@ While a DMARC record might appear as:
 When a TXT record is created in your domain's DNS, it becomes publicly accessible to anyone who performs a DNS lookup. Each record consists of a **name** (sometimes called the host or subdomain), a **TTL** (Time To Live), and the **text value** itself.
 
 For email authentication, specific naming conventions are used:
-- SPF records are published at the root domain (e.g., `example.com`)
-- DKIM records use a special selector format (e.g., `selector._domainkey.example.com`)
-- DMARC records have a dedicated prefix (e.g., `_dmarc.example.com`)
+- **SPF** records are published at the root domain (e.g., `example.com`)
+- **DKIM** records use a special selector format (e.g., `selector._domainkey.example.com`)
+- **DMARC** records have a dedicated prefix (e.g., `_dmarc.example.com`)
 
 When an email server receives a message, it performs several DNS lookups to **validate the sender**:
 
-1. It checks for an SPF record to see if the sending server is authorized
-2. It extracts the DKIM selector from the email headers and looks up the corresponding public key
-3. It verifies the DMARC policy to determine how to handle authentication failures
+1. It checks for an **SPF** record to see if the sending server is authorized
+2. It extracts the **DKIM** selector from the email headers and looks up the corresponding public key
+3. It verifies the **DMARC** policy to determine how to handle authentication failures
 
-The contents of these TXT records provide **instructions to receiving servers** about how to process and validate incoming email. Since they're stored in DNS, which is distributed and cached worldwide, updates to TXT records don't take effect immediately – changes typically propagate within 24-48 hours, depending on the TTL values.
+The contents of these TXT records provide **instructions to receiving servers** about how to process and validate incoming email. Since they're stored in DNS, which is distributed and cached worldwide, updates to TXT records don't take effect immediately, changes typically propagate within 24-48 hours, depending on the TTL values.
 
 One important limitation: TXT records have a **maximum length** (traditionally 255 characters per string), but modern DNS implementations allow for multiple strings that are automatically concatenated. This allows for longer policies, like extensive SPF records that list many authorized senders.
 
