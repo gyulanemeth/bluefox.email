@@ -1,6 +1,8 @@
 ---
 title: Email Sending Concepts | BlueFox Email
 description: A comprehensive glossary of email marketing, development, and authentication terms.
+thumbnail: /assets/glossary/email-sending-glossary.webp
+
 head:
   - - meta
     - name: description

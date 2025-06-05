@@ -1,7 +1,7 @@
 ---
 title: TLS | BlueFox Email
 description: "Learn how Transport Layer Security (TLS) protects email in transit, why it matters for privacy, and how it fits into modern email security."
-thumbnail: /assets/glossary/tls-share.webp
+thumbnail: /assets/glossary/email-sending-glossary.webp
 
 layout: post
 category: glossary

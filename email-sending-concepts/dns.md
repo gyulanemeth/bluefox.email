@@ -1,7 +1,7 @@
 ---
 title: DNS (Domain Name System) | BlueFox Email
 description: "Learn how the Domain Name System (DNS) works, its critical role in email delivery, and how email-specific DNS records enable authentication and routing."
-thumbnail: /assets/glossary/dns-share.webp
+thumbnail: /assets/glossary/email-sending-glossary.webp
 
 layout: post
 category: glossary

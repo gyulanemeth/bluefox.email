@@ -1,7 +1,7 @@
 ---
 title: CNAME Records | BlueFox Email
 description: "Learn how CNAME records work in DNS, their role in email configurations, and how they help simplify domain management."
-thumbnail: /assets/glossary/cname-record-share.webp
+thumbnail: /assets/glossary/email-sending-glossary.webp
 
 layout: post
 category: glossary

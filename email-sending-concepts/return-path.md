@@ -1,7 +1,7 @@
 ---
 title: Return Path | BlueFox Email
 description: "Learn how the Return-Path header works in email systems, its role in bounce processing, and why it's crucial for deliverability and email campaign management."
-thumbnail: /assets/glossary/return-path-share.webp
+thumbnail: /assets/glossary/email-sending-glossary.webp
 
 layout: post
 category: glossary

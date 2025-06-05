@@ -1,7 +1,7 @@
 ---
 title: "Email Spoofing: Understanding the Threat and How to Protect Against It"
 description: "Learn what email spoofing is, how attackers forge sender addresses to impersonate trusted entities, and how authentication protocols can protect against this threat."
-thumbnail: /assets/glossary/email-spoofing-share.webp
+thumbnail: /assets/glossary/email-sending-glossary.webp
 
 layout: post
 category: glossary

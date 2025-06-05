@@ -1,7 +1,7 @@
 ---
 title: POP3 (Post Office Protocol) | BlueFox Email
 description: "Learn how POP3 works for email retrieval, its differences from IMAP, and why some users still prefer this traditional email protocol."
-thumbnail: /assets/glossary/pop3-share.webp
+thumbnail: /assets/glossary/email-sending-glossary.webp
 
 layout: post
 category: glossary

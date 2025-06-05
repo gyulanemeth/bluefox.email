@@ -1,7 +1,7 @@
 ---
 title: "Email Authentication: Securing Email Communications"
 description: "Learn about email authentication protocols like SPF, DKIM, and DMARC that verify sender identity and protect against email spoofing and phishing."
-thumbnail: /assets/glossary/email-authentication-share.webp
+thumbnail: /assets/glossary/email-sending-glossary.webp
 
 layout: post
 category: glossary
