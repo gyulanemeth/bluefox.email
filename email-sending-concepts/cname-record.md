@@ -87,7 +87,7 @@ CNAME records serve several valuable purposes in domain and email management: th
 ## Frequently Asked Questions About CNAME Records
 
 ### Can I use a CNAME for my root domain?
-Technically, DNS standards don't allow a CNAME at the root domain (naked domain) if you have other records there, such as MX records for email. This is because a CNAME replaces all other record types. Some DNS providers offer workarounds like ANAME or ALIAS records, but these aren't standard across all providers.
+Technically, DNS standards don't allow a CNAME at the root domain, if you have other records there, such as MX records for email. This is because a CNAME replaces all other record types. Some DNS providers offer workarounds like ANAME or ALIAS records, but these aren't standard across all providers.
 
 ### Do CNAME records affect email delivery?
 Not directly, since email routing primarily relies on MX records. However, CNAME records can indirectly affect email by enabling the proper setup of tracking domains, authentication services, and verification requirements. If you're using a CNAME for a mail subdomain, ensure it ultimately resolves to servers that handle email correctly.

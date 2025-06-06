@@ -53,8 +53,18 @@ In the email world, TXT records are primarily used for three critical functions:
 A typical SPF record in TXT format looks like this:
 `v=spf1 include:_spf.google.com -all`
 
+Let's break it down:
+- `v=spf1`: Specifies the SPF version being used
+- `include:_spf.google.com`: Includes Google's SPF record, authorizing Google's servers to send mail for your domain
+- `-all`: Strict policy that fails authentication for any servers not specified in the record
+
 While a DMARC record might appear as:
 `v=DMARC1; p=reject; rua=mailto:dmarc-reports@example.com`
+
+Let's break it down:
+- `v=DMARC1`: Indicates this is a DMARC record, version 1
+- `p=reject`: Policy that tells receiving servers to reject emails that fail authentication
+- `rua=mailto:dmarc-reports@example.com`: Specifies where aggregate reports should be sent
 
 ## How Do TXT Records Work?
 
