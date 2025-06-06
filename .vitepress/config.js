@@ -291,7 +291,7 @@ export default defineConfig({
         <div class="footer-container">
           <div class="footer-top">
             <div class="footer-logo">
-              <a href="/">
+              <a href="/" class="logo-link">
                 <img src="/assets/logo-text_inline.png" alt="bluefox.email logo" width="250" height="auto" />
               </a>
               <p class="footer-tagline">High deliverability & brand consistency.</p>

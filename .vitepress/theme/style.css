@@ -130,23 +130,34 @@ html {
   align-self: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
+  text-align: left;
   width: 250px;
-  margin-top: -15px; /* Shift the logo up slightly but not as much as before */
+  margin-top: -15px;
+  padding-left: 0;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .footer-logo img {
   max-width: 100%;
   height: auto;
   margin-bottom: 12px;
+  margin-left: 0;
+}
+
+.logo-link {
+  display: block;
+  padding: 0;
+  margin: 0;
 }
 
 .footer-tagline {
   font-size: 16px;
   color: var(--vp-c-text-2);
   margin: 0 0 16px 0;
-  text-align: center;
+  text-align: left;
+  padding-left: 0;
 }
 
 .footer-links {
@@ -226,7 +237,8 @@ html {
   border-radius: 20px;
   font-weight: 500;
   transition: background 0.2s ease, transform 0.2s ease;
-  align-self: center;
+  align-self: flex-start;
+  margin-left: 0;
 }
 
 .footer-cta:hover {
@@ -240,14 +252,15 @@ html {
   .footer-top {
     flex-direction: column;
   }
-  
-  .footer-logo {
+    .footer-logo {
     margin-bottom: 40px;
     width: 100%;
     max-width: 250px;
-    margin-left: auto;
+    margin-left: 0;
     margin-right: auto;
     margin-top: 0;
+    align-items: flex-start;
+    text-align: left;
   }
 
   .footer-links {
