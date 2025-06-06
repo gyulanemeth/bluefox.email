@@ -67,7 +67,6 @@ export default defineConfig({
       { text: "Pricing", link: "/pricing" },
       { text: "Tutorials", link: "/tutorials" },
       { text: "Articles", link: "/articles" },
-      { text: "Glossary", link: "/email-sending-concepts/" },
       { text: "Docs", link: "/docs/" },
       {
         component: "NavigationButton",
@@ -310,10 +309,12 @@ export default defineConfig({
                 <a href="/tutorials">Tutorials</a>
                 <a href="/articles">Articles</a>
                 <a href="/email-sending-concepts/">Glossary</a>
-              </div>
-              <div class="footer-column">
+              </div>              <div class="footer-column">
                 <h4>Connect</h4>
-                <a href="https://x.com/bluefoxemail" target="_blank" rel="noopener noreferrer">Twitter</a>              </div>
+                <a href="mailto:hello@bluefox.email">Email</a>
+                <a href="https://x.com/bluefoxemail" target="_blank" rel="noopener noreferrer">Twitter</a>
+                <a href="https://www.linkedin.com/company/bluefox-email/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+              </div>
             </div>
           </div>
           <div class="footer-bottom">

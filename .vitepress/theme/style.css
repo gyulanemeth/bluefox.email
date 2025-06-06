@@ -157,7 +157,7 @@ html {
   color: var(--vp-c-text-2);
   margin: 0 0 16px 0;
   text-align: left;
-  padding-left: 0;
+  padding-left: 3.5rem;
 }
 
 .footer-links {
@@ -238,7 +238,7 @@ html {
   font-weight: 500;
   transition: background 0.2s ease, transform 0.2s ease;
   align-self: flex-start;
-  margin-left: 0;
+  margin-left: 3.5rem;
 }
 
 .footer-cta:hover {
