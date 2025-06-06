@@ -284,7 +284,8 @@ export default defineConfig({
         text: "Partners",
         link: "/partners",
       },
-    ],    socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }],
+    ],
+    socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }],
     footer: {
       message: `
         <div class="footer-container">
