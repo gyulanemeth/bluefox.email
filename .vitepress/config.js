@@ -284,12 +284,40 @@ export default defineConfig({
         text: "Partners",
         link: "/partners",
       },
-    ],
-
-    socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }],
+    ],    socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }],
     footer: {
-      message:
-        '<a href="/terms-of-use">Terms of use.</a> | <a href="/privacy-policy">Privacy policy.</a> | <a href="/refund-policy">Refund policy.</a>',
+      message: `
+        <div class="footer-container">
+          <div class="footer-top">
+            <div class="footer-logo">
+              <a href="/">
+                <img src="/assets/logo-text_inline.png" alt="bluefox.email logo" width="250" height="auto" />
+              </a>
+              <p class="footer-tagline">High deliverability & brand consistency.</p>
+              <a href="https://app.bluefox.email/accounts/create-account" class="footer-cta">Sign up for free</a>
+            </div>
+            <div class="footer-links">
+              <div class="footer-column">
+                <h4>Company</h4>
+                <a href="/about">About</a>
+                <a href="/why">Why?</a>
+                <a href="/partners">Partners</a>
+              </div>
+              <div class="footer-column">
+                <h4>Resources</h4>
+                <a href="/docs/">Documentation</a>
+                <a href="/tutorials">Tutorials</a>
+                <a href="/articles">Articles</a>
+                <a href="/email-sending-concepts/">Glossary</a>
+              </div>
+              <div class="footer-column">
+                <h4>Connect</h4>
+                <a href="https://x.com/bluefoxemail" target="_blank" rel="noopener noreferrer">Twitter</a>
+              </div>
+            </div>          </div>          <div class="footer-bottom">
+            <a href="/terms-of-use">Terms of use.</a> &nbsp;|&nbsp; <a href="/privacy-policy">Privacy policy.</a> &nbsp;|&nbsp; <a href="/refund-policy">Refund policy.</a>
+          </div>
+        </div>`,
       copyright: "Copyright © 2025 Innovaris Group LLC.",
     },
   },

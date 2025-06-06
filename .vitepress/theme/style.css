@@ -103,3 +103,173 @@ html {
   --docsearch-primary-color: var(--vp-c-brand) !important;
 }
 
+/**
+ * Component: Footer
+ * -------------------------------------------------------------------------- */
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.footer-top {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--vp-c-divider);
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.footer-logo {
+  margin-bottom: 40px;
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 250px;
+  margin-top: -15px; /* Shift the logo up slightly but not as much as before */
+}
+
+.footer-logo img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.footer-tagline {
+  font-size: 16px;
+  color: var(--vp-c-text-2);
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 50px;
+  width: calc(100% - 300px);
+}
+
+.footer-column {
+  flex: 0 1 auto;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+  padding-top: 3px; /* Slight adjustment to align better with the logo position */
+}
+
+.footer-column h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  margin-top: 0;
+  padding-top: 0;
+  color: var(--vp-c-text-1);
+}
+
+.footer-column a {
+  font-size: 14px;
+  line-height: 28px;
+  color: var(--vp-c-text-2);
+  transition: color 0.2s ease;
+  margin-bottom: 8px;
+  text-decoration: none !important;
+}
+
+.footer-column a:hover {
+  color: var(--vp-c-brand);
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  gap: 5px;
+}
+
+.footer-bottom a {
+  color: var(--vp-c-text-2);
+  text-decoration: none !important;
+  transition: color 0.2s ease;
+  padding: 0 3px;
+}
+
+.footer-bottom a:hover {
+  color: var(--vp-c-brand);
+}
+
+.footer-cta {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: var(--vp-c-brand);
+  color: white !important;
+  border-radius: 20px;
+  font-weight: 500;
+  transition: background 0.2s ease, transform 0.2s ease;
+  align-self: center;
+}
+
+.footer-cta:hover {
+  background: var(--vp-c-brand-dark);
+  transform: translateY(-2px);
+  color: white !important;
+}
+
+
+@media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+  }
+  
+  .footer-logo {
+    margin-bottom: 40px;
+    width: 100%;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0; /* Reset the negative margin on mobile */
+  }
+
+  .footer-links {
+    gap: 30px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .footer-column {
+    min-width: 140px;
+    margin-left: 0;
+  }
+  
+  .footer-bottom {
+    flex-wrap: wrap;
+  }
+  .footer-bottom a {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 540px) {
+  .footer-links {
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .footer-column {
+    min-width: 100%;
+  }
+  
+  .footer-column h4 {
+    margin-bottom: 8px;
+  }
+}
+
