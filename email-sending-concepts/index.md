@@ -75,6 +75,12 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 </div>
 
 <div class="glossary-item">
+  <h3><a href="/email-sending-concepts/email-headers">Email Headers</a></h3>
+  <p><strong>Metadata fields</strong> that contain routing, authentication, and technical information about an email's journey and content.</p>
+  <a href="/email-sending-concepts/email-headers" class="read-more">Read more</a>
+</div>
+
+<div class="glossary-item">
   <h3><a href="/email-sending-concepts/email-spoofing">Email Spoofing</a></h3>
   <p>The <strong>forgery of an email header</strong> to make messages appear to come from a trusted source.</p>
   <a href="/email-sending-concepts/email-spoofing" class="read-more">Read more</a>
