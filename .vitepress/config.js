@@ -312,9 +312,10 @@ export default defineConfig({
               </div>
               <div class="footer-column">
                 <h4>Connect</h4>
-                <a href="https://x.com/bluefoxemail" target="_blank" rel="noopener noreferrer">Twitter</a>
-              </div>
-            </div>          </div>          <div class="footer-bottom">
+                <a href="https://x.com/bluefoxemail" target="_blank" rel="noopener noreferrer">Twitter</a>              </div>
+            </div>
+          </div>
+          <div class="footer-bottom">
             <a href="/terms-of-use">Terms of use.</a> &nbsp;|&nbsp; <a href="/privacy-policy">Privacy policy.</a> &nbsp;|&nbsp; <a href="/refund-policy">Refund policy.</a>
           </div>
         </div>`,
