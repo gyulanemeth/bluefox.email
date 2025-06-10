@@ -1,3 +1,7 @@
+---
+footer: false
+---
+
 # Refund Policy
 
 _Last Updated: Nov. 27, 2024_

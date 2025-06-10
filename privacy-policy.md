@@ -1,3 +1,7 @@
+---
+footer: false
+---
+
 # Privacy Policy
 
 _Last Updated: Oct. 17, 2024_

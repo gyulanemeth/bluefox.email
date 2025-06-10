@@ -1,3 +1,7 @@
+---
+footer: false
+---
+
 # Partners of bluefox.email
 
 We work with trusted professionals who can help you solve specific challenges. Whether it’s setting up AWS SES or handling custom development, these experts are ready to step in and make things easier for you.

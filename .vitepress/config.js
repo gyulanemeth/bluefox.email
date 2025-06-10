@@ -235,11 +235,8 @@ export default defineConfig({
       }
     ],
     socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }],
-    footer: {
-      message:
-        '<a href="/terms-of-use">Terms of use.</a> | <a href="/privacy-policy">Privacy policy.</a> | <a href="/refund-policy">Refund policy.</a> | <a href="/email-sending-concepts/">Glossary</a>',
-      copyright: "Copyright © 2025 Innovaris Group LLC.",
-    },
+    // Disabling the default footer as we're using a custom component
+    footer: false,
   },
   sitemap: {
     hostname: "https://bluefox.email",

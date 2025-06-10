@@ -24,13 +24,14 @@ import Deliverability from "./Deliverability.vue";
 import Automation from "./Automation.vue";
 import Integration from "./Integration.vue";
 import GlossaryCTA from "./GlossaryCTA.vue";
+import CustomFooter from "./CustomFooter.vue";
 
 export default {
   extends: Theme,
   Layout: () => {
     return h(Theme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
-      // Remove the DocNavigation reference since we're using the built-in navigation
+      'layout-bottom': () => h(CustomFooter)
     });
   },
   enhanceApp({ app, router, siteData }) {
@@ -66,10 +67,10 @@ export default {
     app.component("TestimonialDiv", TestimonialDiv);
     app.component("DesignSystem", DesignSystem);
     app.component("RenderingIssues", RenderingIssues);
-    app.component("Deliverability", Deliverability);
-    app.component("Automation", Automation);
+    app.component("Deliverability", Deliverability);    app.component("Automation", Automation);
     app.component("Integration", Integration);
     app.component("GlossaryCTA", GlossaryCTA);
+    app.component("CustomFooter", CustomFooter);
     // Remove the DocNavigation component registration since it's not needed
   },
 };
