@@ -118,5 +118,7 @@ DMARC sends regular XML reports to the email address you specify in your DNS rec
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
+- [DNS (Domain Name System)](/email-sending-concepts/dns)
+- [TXT Records (Text)](/email-sending-concepts/txt-record)
 
 <GlossaryCTA />

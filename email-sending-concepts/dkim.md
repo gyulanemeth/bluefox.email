@@ -109,5 +109,6 @@ If DKIM fails, the email might still be delivered depending on the recipient's D
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
+- [DNS (Domain Name System)](/email-sending-concepts/dns)
 
 <GlossaryCTA />
