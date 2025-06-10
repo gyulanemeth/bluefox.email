@@ -53,10 +53,10 @@ export default defineConfig({
       alt: "bluefox.email logo",
     },
 
-    // Disable the prev/next page links in the footer
+    // Enable next and previous links at the bottom of doc pages
     docFooter: {
-      prev: false,
-      next: false,
+      prev: "Previous",
+      next: "Next",
     },
 
     search: {
@@ -67,7 +67,6 @@ export default defineConfig({
       { text: "Pricing", link: "/pricing" },
       { text: "Tutorials", link: "/tutorials" },
       { text: "Articles", link: "/articles" },
-      { text: "Glossary", link: "/email-sending-concepts/" },
       { text: "Docs", link: "/docs/" },
       {
         component: "NavigationButton",
@@ -93,203 +92,86 @@ export default defineConfig({
       */
     ],
 
-    sidebar: [
-      {
-        text: "Docs",
-        link: "/docs/",
-        collapsed: false,
-        items: [
-          {
-            text: "Getting Started",
-            link: "/docs/getting-started",
-          },
-          {
-            text: "Account Dashboard",
-            link: "/docs/dashboard",
-          },
-          {
-            text: "Projects",
-            link: "/docs/projects/",
-            collapsed: false,
-            items: [
-              { text: "Project Dashboard", link: "/docs/projects/dashboard" },
-              {
-                text: "Creating a new project",
-                link: "/docs/projects/new-project",
-              },
-              {
-                text: "Transactional Emails",
-                link: "/docs/projects/transactional-emails",
-              },
-              {
-                text: "Triggered Emails",
-                link: "/docs/projects/triggered-emails",
-              },
-              { text: "Campaigns", link: "/docs/projects/campaigns" },
-              { text: "Contacts", link: "/docs/projects/contacts" },
-              { text: "Forms & Pages", link: "/docs/projects/forms-and-pages" },
-              {
-                text: "Design System Settings",
-                link: "/docs/projects/design-system-settings",
-              },
-              { text: "Settings", link: "/docs/projects/settings" },
-            ],
-          },
-          {
-            text: "API",
-            link: "/docs/api/",
-            collapsed: false,
-            items: [
-              {
-                text: "Contacts & Subscriber List Management",
-                link: "/docs/api/subscriber-list-management",
-              },
-              {
-                text: "Send Transactional Email",
-                link: "/docs/api/send-transactional-email",
-              },
-              {
-                text: "Send Triggered Email",
-                link: "/docs/api/send-triggered-email",
-              },
-              { text: "Send Attachments", link: "/docs/api/send-attachments" },
-            ],
-          },
-          {
-            text: "Integrations",
-            link: "/docs/integrations/",
-            collapsed: false,
-            items: [
-              {
-                text: "Webhooks for Event Notifications",
-                link: "/docs/integrations/webhooks",
-              },
-              { text: "Supabase", link: "/docs/integrations/supabase" },
-            ],
-          },
-          {
-            text: "Analytics",
-            link: "/docs/analytics",
-          },
-          {
-            text: "Email Personalization (Merge Tags)",
-            link: "/docs/email-personalization",
-          },
-          {
-            text: "Design Systems",
-            link: "/docs/design-systems/",
-            collapsed: false,
-            items: [
-              { text: "Variables", link: "/docs/design-systems/variables" },
-              {
-                text: "Blocks (or modules)",
-                link: "/docs/design-systems/blocks",
-              },
-              { text: "Templates", link: "/docs/design-systems/templates" },
-            ],
-          },
-          {
-            text: "Pricing/Credits",
-            link: "/docs/credits",
-          },
-        ],
-      },
-      {
-        text: "Best Practices",
-        link: "/email-best-practices-for-saas/",
-        collapsed: false,
-        items: [
-          {
-            text: "Double Opt-In",
-            link: "/email-best-practices-for-saas/double-opt-in",
-          },
-          {
-            text: "Unsubscribe and Pause Subscription",
-            link: "/email-best-practices-for-saas/unsubscribe-and-pause-subscription",
-          },
-          {
-            text: "DMARC",
-            link: "/email-best-practices-for-saas/dmarc",
-          },
-        ],
-      },
-      {
-        text: "Email Marketing Concepts",
-        link: "/email-marketing-concepts/",
-        collapsed: true,
-        items: [
-          {
-            text: "Copywriting",
-            link: "/email-marketing-concepts/copywriting/",
-          },
-          {
-            text: "Design",
-            link: "/email-marketing-concepts/design/",
-          },
-          {
-            text: "List management",
-            link: "/email-marketing-concepts/list-management/",
-          },
-          {
-            text: "Metrics and analytics",
-            link: "/email-marketing-concepts/metrics-and-analytics/",
-          },
-          {
-            text: "Deliverability",
-            link: "/email-marketing-concepts/deliverability/",
-          },
-          {
-            text: "Personalization",
-            link: "/email-marketing-concepts/personalization/",
-          },
-          {
-            text: "Automation",
-            link: "/email-marketing-concepts/automation/",
-          },
-          {
-            text: "Testing and optimization",
-            link: "/email-marketing-concepts/testing-and-optimization/",
-          },
-          {
-            text: "Strategy",
-            link: "/email-marketing-concepts/strategy/",
-          },
-          {
-            text: "Compliance and legal considerations",
-            link: "/email-marketing-concepts/compliance-and-legal-considerations/",
-          },
-        ],
-      },
-      {
-        text: "Why?",
-        link: "/why",
-      },
-      {
-        text: "About",
-        link: "/about",
-      },
-      {
-        text: "Terms of use",
-        link: "/terms-of-use",
-      },
-      {
-        text: "Privacy policy",
-        link: "/privacy-policy",
-      },
-      {
-        text: "Refund policy",
-        link: "/refund-policy",
-      },
-      {
-        text: "Partners",
-        link: "/partners",
-      },
-    ],
-
+    sidebar: {
+      "/docs/": [
+        {
+          text: "Getting Started",
+          items: [
+            { text: "Welcome", link: "/docs/" },
+            { text: "Getting Started", link: "/docs/getting-started" },
+            { text: "Dashboard", link: "/docs/dashboard" },
+            {
+              text: "Email Personalization",
+              link: "/docs/email-personalization",
+            },
+          ],
+        },
+        {
+          text: "Projects",
+          items: [
+            { text: "Projects Overview", link: "/docs/projects/" },
+            { text: "New Project", link: "/docs/projects/new-project" },
+            { text: "Dashboard", link: "/docs/projects/dashboard" },
+            {
+              text: "Transactional Emails",
+              link: "/docs/projects/transactional-emails",
+            },
+            {
+              text: "Triggered Emails",
+              link: "/docs/projects/triggered-emails",
+            },
+            { text: "Campaigns", link: "/docs/projects/campaigns" },
+            { text: "Contacts", link: "/docs/projects/contacts" },
+            { text: "Forms & Pages", link: "/docs/projects/forms-and-pages" },
+            {
+              text: "Design System Settings",
+              link: "/docs/projects/design-system-settings",
+            },
+            { text: "Settings", link: "/docs/projects/settings" },
+          ],
+        },
+        {
+          text: "Design Systems",
+          items: [
+            { text: "Design System Overview", link: "/docs/design-systems/" },
+            { text: "Variables", link: "/docs/design-systems/variables" },
+            { text: "Blocks", link: "/docs/design-systems/blocks" },
+            { text: "Templates", link: "/docs/design-systems/templates" },
+          ],
+        },
+        {
+          text: "API",
+          items: [
+            { text: "API Overview", link: "/docs/api/" },
+            {
+              text: "Send Transactional Email",
+              link: "/docs/api/send-transactional-email",
+            },
+            {
+              text: "Send Triggered Email",
+              link: "/docs/api/send-triggered-email",
+            },
+            { text: "Send Attachments", link: "/docs/api/send-attachments" },
+            {
+              text: "Subscriber List Management",
+              link: "/docs/api/subscriber-list-management",
+            },
+          ],
+        },
+        {
+          text: "Integrations",
+          items: [
+            { text: "Integrations Overview", link: "/docs/integrations/" },
+            { text: "Webhooks", link: "/docs/integrations/webhooks" },
+            { text: "Supabase", link: "/docs/integrations/supabase" },
+          ],
+        },
+      ],
+    },
     socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }],
     footer: {
       message:
-        '<a href="/terms-of-use">Terms of use.</a> | <a href="/privacy-policy">Privacy policy.</a> | <a href="/refund-policy">Refund policy.</a>',
+        '<a href="/terms-of-use">Terms of use.</a> | <a href="/privacy-policy">Privacy policy.</a> | <a href="/refund-policy">Refund policy.</a> | <a href="/email-sending-concepts/">Glossary</a>',
       copyright: "Copyright © 2025 Innovaris Group LLC.",
     },
   },

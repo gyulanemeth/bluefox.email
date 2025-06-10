@@ -30,6 +30,7 @@ export default {
   Layout: () => {
     return h(Theme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
+      // Remove the DocNavigation reference since we're using the built-in navigation
     });
   },
   enhanceApp({ app, router, siteData }) {
@@ -69,5 +70,6 @@ export default {
     app.component("Automation", Automation);
     app.component("Integration", Integration);
     app.component("GlossaryCTA", GlossaryCTA);
+    // Remove the DocNavigation component registration since it's not needed
   },
 };
