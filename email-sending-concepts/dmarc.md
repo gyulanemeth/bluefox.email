@@ -46,6 +46,7 @@ This is where DMARC plays a crucial role.
 
 DMARC functions as the **policy enforcer** for [email authentication](/email-sending-concepts/email-authentication). While [SPF](/email-sending-concepts/spf.md) and [DKIM](/email-sending-concepts/dkim.md) assist in verifying the origin and signature of an email, DMARC instructs receiving servers on how to manage messages that fail these authentication checks. Furthermore, it provides **visibility into all entities** sending emails from your domain, including both legitimate and malicious sources.
 
+
 Implementing DMARC is essential for individuals and organizations dedicated to protecting their brand and improving email deliverability. Many avoid this implementation due to perceived complexity, which can lead to unnecessary email security and deliverability challenges.
 
 

@@ -28,6 +28,28 @@ const selectedTestimonialId = ref(0)
 const testimonials = [
   {
     id: 0,
+    name: 'Nicole Darechuk',
+    initials: 'ND',
+    company: 'Consultant @Ndconsulting',
+    testimonial: `One of the best I've had in a long time working with an email marketing platform. I love how easy it is to configure branding elements for repurposing. I also love the campaign configuration and setup of new campaigns is so simple. Add to that, the support to get setup was above and beyond. I would highly recommend!`,
+    profileImg: '/assets/testimonials/ND.webp',
+    logo: '/assets/testimonials/NDcompany.webp',
+    logoAlt: 'ND Logo',
+    url: 'https://www.nicoledarechuk.com'
+  },
+  {
+    id: 1,
+    name: 'Garth Brennan',
+    initials: 'GB',
+    company: 'POS Solutions Australia',
+    testimonial: 'We have recently started using Bluefox. The combination of the Bluefox design tools and the reliability of AWS is very impressive. The emails we create appear in our clients\' inboxes exactly how we have designed them. This is a big step forward for us, after having issues with other email platforms, where the design was definitely not uniform across all email clients.',
+    profileImg: '/assets/testimonials/garth-brennan.jpg',
+    logo: '/assets/testimonials/possolutions-logo.png',
+    logoAlt: 'POS Solutions Logo',
+    url: 'https://possolutions.com.au'
+  },
+  {
+    id: 2,
     name: 'Matt Luo',
     initials: 'ML',
     company: 'Founder of ClarityText.com',
@@ -38,7 +60,7 @@ const testimonials = [
     url: 'https://www.claritytext.com'
   },
   {
-    id: 1,
+    id: 3,
     name: 'Gabriel Varaljay',
     initials: 'GV',
     company: 'Founder of TrendFingers.com',
@@ -49,7 +71,7 @@ const testimonials = [
     url: 'https://trendfingers.com'
   },
   {
-    id: 2,
+    id: 4,
     name: 'Gergely Csaba Nagy',
     initials: 'GN',
     company: 'Head of Marketing @chamaileon.io',

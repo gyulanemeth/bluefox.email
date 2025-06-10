@@ -128,7 +128,7 @@ The form will now capture subscriber's information and automatically add them to
 
 
 
-## Double opt-in
+## Double Opt-in
 
 Keep in mind that you should always implement [double opt-in](/email-best-practices-for-saas/double-opt-in), meaning that you only add your users to subscriber lists as active subscribers when they verify their email address!
 
@@ -168,7 +168,7 @@ Once double opt-in is activated, you can customize the message shown to subscrib
 
 ![Screenshot of the subscriber lists customizing confirmation message page](./project-subscriber-lists-manage-active-double-opt-in.webp)
 
-### Customizing the Redirect url
+### Customizing the Redirect URL
 
 Once double opt-in is activated, you can customize the message shown to subscribers after they confirm their email:
 

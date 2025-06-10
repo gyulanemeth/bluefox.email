@@ -44,7 +44,7 @@ You can find the campaigns of a project under the `Campaigns` tab.
 
 ![A screenshot of a project's campaigns.](./project-campaigns.webp)
 
-## Creating a campaign
+## Creating a Campaign
 
 In order to create a new campaign, press the `Create` button.
 ![A screenshot of a project's campaigns - new button highlighted.](./project-campaigns-create-button.webp)
@@ -91,7 +91,7 @@ And you can use merge tags in the email's `subject line` and `preview text` as w
 
 For more details, read our guide on [personalization with merge tags](/docs/email-personalization) and Handlebars.
 
-## Campaign states
+## Campaign States
 
 There are five states of a campaign: draft, scheduled, being sent (or the scheduled time is only a few minutes away), sent, and archived.
 

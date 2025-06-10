@@ -40,7 +40,7 @@ Variables in the design system allow you to define reusable values that can be a
 
 When a variable is updated, all templates and blocks using that variable will automatically reflect the changes. This allows for efficient design management and helps maintain a unified brand identity across projects.
 
-## Variables page
+## Variables Page
 The **variables page** is divided into two main sections:
 
 - **Left panel (variable list)**: Displays different types of variables (colors, fonts, images, text, links). Users can create, edit, delete, and manage variables.
@@ -49,9 +49,9 @@ The **variables page** is divided into two main sections:
 ![A screenshot of the design system variables section.](./design-system-variables.webp)
 
 
-## Types of variables
+## Types of Variables
 
-### 1. Color variables
+### 1. Color Variables
 Color variables store reusable colors, such as primary colors, neutrals, and accent colors. Each variable includes:
 
 - **Color name** (e.g., `color-primary`)
@@ -66,7 +66,7 @@ Color variables store reusable colors, such as primary colors, neutrals, and acc
 
 ---
 
-### 2. Font variables
+### 2. Font Variables
 Font variables define typography styles applied across templates. Each variable includes:
 
 - **Font name** (e.g., `font-primary`)
@@ -81,7 +81,7 @@ Font variables define typography styles applied across templates. Each variable 
 
 ---
 
-### 3. Image variables
+### 3. Image Variables
 Image variables store reusable images (e.g., brand logos, background images).
 
 - **Image**
@@ -97,7 +97,7 @@ Image variables store reusable images (e.g., brand logos, background images).
 
 ---
 
-### 4. Text variables
+### 4. Text Variables
 Text variables store reusable text elements, such as company slogans, default headings, dynamic text values, or legal copy in the footer. For example, a legal disclaimer or copyright notice in the footer can be managed as a text variable, ensuring consistency across all emails while allowing easy updates.
 
 - **Variable name** (e.g., `alt-text-website`)
@@ -112,7 +112,7 @@ Text variables store reusable text elements, such as company slogans, default he
 
 ---
 
-### 5. Links variables
+### 5. Links Variables
 Link variables store reusable URLs, such as website links, social media profiles, or call-to-action buttons.
 
 - **Variable Name** (e.g., `link-website`)

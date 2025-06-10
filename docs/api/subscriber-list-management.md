@@ -68,6 +68,15 @@ In the code guide dialog, these values are automatically filled in. If you copy 
 }
 ```
 
+:::info
+You can pass values for [merge tags](/docs/email-personalization) and [contact custom properties](/docs/projects/settings#contact-properties) inside the `data` field in the request body.
+Just make sure the keys match the merge tags or custom property names defined in your project settings.
+:::
+
+:::info NOTE
+ If [double Opt-In](/docs/projects/forms-and-pages#double-opt-in) is enabled, you can **bypass** it by setting the contact’s status to active directly through the API. This will mark the contact as confirmed without sending a confirmation email.
+:::
+
 **cUrl**:
 ```bash
  curl -X POST "https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##" -H "Content-Type: application/json" -H "Authorization: Bearer ##YOUR_API_KEY##" -d '{"name": "Jon Doe", "email": "jon@doe.com"}'
@@ -147,6 +156,10 @@ In the code guide dialog, these values are automatically filled in. If you copy 
   "name": "updated subscriber name"
 }
 ```
+:::info
+You can pass values for [merge tags](/docs/email-personalization) and [contact custom properties](/docs/projects/settings#contact-properties) inside the `data` field in the request body.
+Just make sure the keys match the merge tags or custom property names defined in your project settings.
+:::
 
 
 **cUrl**:
