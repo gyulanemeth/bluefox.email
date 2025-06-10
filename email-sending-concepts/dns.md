@@ -82,7 +82,7 @@ If your DNS provider experiences an outage, existing connections might continue 
 Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantly impact deliverability. Many spam filters check these records, and failures can lead to lower sender reputation scores. Regular DNS audits are recommended for any serious email sender.
 
 
-## Related Concepts
+## Related Content
 
 - [MX Record](/email-sending-concepts/mx-record)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)

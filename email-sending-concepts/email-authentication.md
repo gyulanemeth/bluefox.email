@@ -93,7 +93,7 @@ That depends on your DMARC policy. With `p=none`, failed emails still get delive
 You'll need basic knowledge of DNS management, but many email platforms offer guided setup or handle it for you.
 
 
-## Related Concepts
+## Related Content
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)  
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)  

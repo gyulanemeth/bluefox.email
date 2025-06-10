@@ -107,7 +107,7 @@ POP3 typically downloads emails to your device and removes them from the server,
 
 
 
-## Related Concepts
+## Related Content
 
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 - [IMAP (Internet Message Access Protocol)](/email-sending-concepts/imap)

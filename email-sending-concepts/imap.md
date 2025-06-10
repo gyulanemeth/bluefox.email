@@ -97,7 +97,7 @@ Yes, most IMAP clients cache messages locally, allowing you to read previously d
 ### Is IMAP secure?
 IMAP itself doesn't provide security, but modern implementations use SSL/TLS encryption (IMAPS on port 993) to protect your connection. This prevents eavesdropping on your emails and credentials. Always ensure your email client is configured to use encrypted connections rather than plain IMAP.
 
-## Related Concepts
+## Related Content
 
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 - [POP3 (Post Office Protocol)](/email-sending-concepts/pop3)

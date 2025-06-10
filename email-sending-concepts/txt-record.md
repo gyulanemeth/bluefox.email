@@ -71,7 +71,7 @@ Let's break it down:
 When a TXT record is created in your domain's DNS, it becomes publicly accessible to anyone who performs a DNS lookup. Each record consists of a **name** (sometimes called the host or subdomain), a **TTL** (Time To Live), and the **text value** itself.
 
 For email authentication, specific naming conventions are used:
-- **SPF** records are published at the root domain (e.g., `example.com`)
+- **SPF** records are published at the domain used for sending email - this can be the root domain (e.g., `example.com`) or any subdomain that sends mail (e.g., `mail.bluefox.email`). Each sending domain or subdomain needs its own SPF record.
 - **DKIM** records use a special selector format (e.g., `selector._domainkey.example.com`)
 - **DMARC** records have a dedicated prefix (e.g., `_dmarc.example.com`)
 
@@ -103,7 +103,7 @@ TXT records are managed through your domain's DNS settings, typically in your do
 ### Can I use TXT records for other purposes than email?
 Yes. While email authentication is the most common use case, TXT records are also used to verify domain ownership for various services, implement security policies like BIMI (Brand Indicators for Message Identification), and even store general information about a domain or service.
 
-## Related Concepts
+## Related Content
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)

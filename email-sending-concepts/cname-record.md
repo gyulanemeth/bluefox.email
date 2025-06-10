@@ -77,6 +77,14 @@ CNAME records are used in various scenarios, particularly in web hosting and ema
 - Set up specialized email services (like tracking or spam filtering)
 - Configure custom tracking domains for analytics
 - Establish subdomains for email marketing platforms
+- Implement email authentication systems indirectly
+
+In fact, many email service providers like Google, AWS, and Microsoft often recommend using CNAME records rather than direct [TXT records](/email-sending-concepts/txt-record) for email authentication mechanisms like DKIM and SPF. For example, instead of maintaining complex TXT records yourself, you might create a CNAME record that points to the provider's maintained TXT records. This approach allows the provider to update their authentication information without requiring you to make any changes to your DNS.
+
+For example, with DKIM, instead of adding a long cryptographic key as a TXT record:
+`selector._domainkey.yourdomain.com CNAME selector._domainkey.googlehosted.com`
+
+This approach simplifies management and ensures that authentication records stay current without manual intervention.
 
 One important limitation: you **cannot create a CNAME record for the root domain** if you have other records like MX or TXT at that same domain. This restriction exists because a CNAME effectively replaces all other records at that name with those of the target domain.
 
@@ -98,7 +106,7 @@ Like all DNS records, CNAME propagation depends on the TTL (Time To Live) values
 ### What is the difference between an MX and a CNAME record?
 An MX record directs email to mail servers for your domain, while a CNAME creates an alias from one domain to another. MX is for email routing; CNAME is for domain name redirection.
 
-## Related Concepts
+## Related Content
 
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
 - [MX Record](/email-sending-concepts/mx-record)

@@ -110,7 +110,7 @@ Check if the email address matches the sender's name. Look for urgent requests, 
 Yes, using spoofing for fraud or harm is illegal in most countries. Testing email systems with spoofing is only legal when properly authorized.
 
 
-## Related Concepts
+## Related Content
 
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)

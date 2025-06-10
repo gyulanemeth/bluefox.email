@@ -112,7 +112,7 @@ It can look intimidating, but many email platforms offer help or automated tools
 DMARC sends regular XML reports to the email address you specify in your DNS record. These reports can be difficult to read manually, so most organizations use DMARC report analyzers or dashboards to track and interpret the data.
 
 
-## Related Concepts
+## Related Content
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)

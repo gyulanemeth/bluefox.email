@@ -79,7 +79,7 @@ SMTP is used for sending emails. IMAP and POP3 are used for retrieving emails fr
 Common reasons include incorrect SMTP settings, authentication failures, network issues, or the recipient's server unavailability. Check your configuration and internet connection if you encounter this problem.
 
 
-## Related Concepts
+## Related Content
 
 - [TLS (Transport Layer Security)](/email-sending-concepts/tls)
 - [Email Authentication](/email-sending-concepts/email-authentication)

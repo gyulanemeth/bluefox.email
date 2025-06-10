@@ -68,7 +68,7 @@ If either server lacks TLS, the email is sent in **plain text**. Some providers 
 
 
 
-## Related Concepts
+## Related Content
 
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 - [Email Authentication](/email-sending-concepts/email-authentication)

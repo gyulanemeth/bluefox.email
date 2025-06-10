@@ -102,7 +102,7 @@ If DKIM fails, the email might still be delivered depending on the recipient's D
 
 
 
-## Related Concepts
+## Related Content
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)

@@ -80,7 +80,7 @@ Changes to MX records depend on the TTL (Time To Live) value set in your DNS. Mo
 You can, but it's only recommended for advanced setups like migrations or split delivery. Both providers must be configured to know which mailboxes they handle, or you risk losing emails. For most organizations, sticking to one provider is simpler and safer.
 
 
-## Related Concepts
+## Related Content
 
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
