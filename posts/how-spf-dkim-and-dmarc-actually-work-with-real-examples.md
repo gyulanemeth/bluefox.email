@@ -58,7 +58,8 @@ In this article, we’ll go through how these email authentication methods work,
 
 :::warning Who this is for
 
-This guide is for developers, marketers, or product folks who want to understand how email authentication really works. It's not just how to "turn it on." If you're setting up AWS SES, debugging deliverability issues, or just curious about what's in your email headers, you're in the right place.
+This guide is for developers, marketers, or product folks who want to understand how email authentication really works. It is not just how to "turn it on." If you're setting up AWS SES, debugging deliverability issues, or just curious about what's in your email headers, you're in the right place.
+
 
 We’ll use `dig` to inspect DNS records, highlight real email headers, and explain each protocol with examples from BlueFox Email.
 

@@ -1,5 +1,5 @@
-import { defineConfig } from 'vitepress'
-import tailwindcss from 'tailwindcss'
+import { defineConfig } from "vitepress";
+import tailwindcss from "tailwindcss";
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -7,15 +7,39 @@ export default defineConfig({
   title: "bluefox.email",
   description: "High deliverability & brand consistency.",
   head: [
-    ['script', { src: 'https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C', async: true }],
-    ['script', {}, `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`],
-    ['link', { rel: 'preload', as: 'image', href: '/assets/mascot-bring-your-own-awsses-dark-450x270.webp' }],
-    ['link', { rel: 'preload', as: 'image', href: '/assets/mascot-bring-your-own-awsses-450x270.webp' }]
+    [
+      "script",
+      {
+        src: "https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C",
+        async: true,
+      },
+    ],
+    [
+      "script",
+      {},
+      `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`,
+    ],
+    [
+      "link",
+      {
+        rel: "preload",
+        as: "image",
+        href: "/assets/mascot-bring-your-own-awsses-dark-450x270.webp",
+      },
+    ],
+    [
+      "link",
+      {
+        rel: "preload",
+        as: "image",
+        href: "/assets/mascot-bring-your-own-awsses-450x270.webp",
+      },
+    ],
   ],
   vite: {
     ssr: {
-      noExternal: ["vuetify"]
-    }
+      noExternal: ["vuetify"],
+    },
   },
   css: {
     postcss: {
@@ -25,36 +49,42 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: {
-      src: '/assets/bluefoxemail-logo-24x24.webp',
-      alt: 'bluefox.email logo'
+      src: "/assets/bluefoxemail-logo-24x24.webp",
+      alt: "bluefox.email logo",
+    },
+
+    // Enable next and previous links at the bottom of doc pages
+    docFooter: {
+      prev: "Previous",
+      next: "Next",
     },
 
     search: {
-      provider: 'local'
+      provider: "local",
     },
     nav: [
-      { text: 'Home', link: '/' },
-      { text: 'Pricing', link: '/pricing' },
-      { text: 'Tutorials', link: '/tutorials' },
-      { text: 'Articles', link: '/articles' },
-      { text: 'Docs', link: '/docs/' },
+      { text: "Home", link: "/" },
+      { text: "Pricing", link: "/pricing" },
+      { text: "Tutorials", link: "/tutorials" },
+      { text: "Articles", link: "/articles" },
+      { text: "Docs", link: "/docs/" },
       {
-        component: 'NavigationButton',
+        component: "NavigationButton",
         props: {
-          text: 'Login',
-          link: 'https://app.bluefox.email',
-          variant: 'outlined'
-        }
+          text: "Login",
+          link: "https://app.bluefox.email",
+          variant: "outlined",
+        },
       },
       {
-        component: 'NavigationButton',
+        component: "NavigationButton",
         props: {
-          text: 'Sign up',
-          link: 'https://app.bluefox.email/accounts/create-account',
-          variant: 'flat',
-          color: 'buttonBackground'
-        }
-      }
+          text: "Sign up",
+          link: "https://app.bluefox.email/accounts/create-account",
+          variant: "flat",
+          color: "buttonBackground",
+        },
+      },
       /*
       { text: 'Home', link: '/' },
       { text: 'Email Marketing Concepts', link: '/email-marketing-concepts/' },
@@ -62,7 +92,7 @@ export default defineConfig({
       */
     ],
 
-    sidebar: [
+     sidebar: [
       {
         text: 'Docs',
         link: '/docs/',
@@ -204,36 +234,36 @@ export default defineConfig({
         link: '/partners'
       }
     ],
-
-    socialLinks: [
-      { icon: 'x', link: 'https://x.com/bluefoxemail' }
-    ],
+    socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }],
     footer: {
-      message: '<a href="/terms-of-use">Terms of use.</a> | <a href="/privacy-policy">Privacy policy.</a> | <a href="/refund-policy">Refund policy.</a>',
-      copyright: 'Copyright © 2025 Innovaris Group LLC.'
-    }
+      message:
+        '<a href="/terms-of-use">Terms of use.</a> | <a href="/privacy-policy">Privacy policy.</a> | <a href="/refund-policy">Refund policy.</a> | <a href="/email-sending-concepts/">Glossary</a>',
+      copyright: "Copyright © 2025 Innovaris Group LLC.",
+    },
   },
   sitemap: {
-    hostname: 'https://bluefox.email'
+    hostname: "https://bluefox.email",
   },
   markdown: {
     config(md) {
       // Patch default image renderer
-      const defaultRender = md.renderer.rules.image || function (tokens, idx, options, env, self) {
-        return self.renderToken(tokens, idx, options)
-      }
+      const defaultRender =
+        md.renderer.rules.image ||
+        function (tokens, idx, options, env, self) {
+          return self.renderToken(tokens, idx, options);
+        };
 
       md.renderer.rules.image = function (tokens, idx, options, env, self) {
-        const token = tokens[idx]
-        const existingAttr = token.attrs?.map(([name]) => name) || []
+        const token = tokens[idx];
+        const existingAttr = token.attrs?.map(([name]) => name) || [];
 
         // Add loading="lazy" if not already present
-        if (!existingAttr.includes('loading')) {
-          token.attrPush(['loading', 'lazy'])
+        if (!existingAttr.includes("loading")) {
+          token.attrPush(["loading", "lazy"]);
         }
 
-        return defaultRender(tokens, idx, options, env, self)
-      }
-    }
-  }
-})
+        return defaultRender(tokens, idx, options, env, self);
+      };
+    },
+  },
+});
