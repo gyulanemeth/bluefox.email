@@ -68,6 +68,10 @@ const show = computed(() => {
     '/articles'
     // Removing '/about' and '/why' as requested
   ];
+    // Show footer on all email-sending-concepts glossary pages including index page
+  if (route.path.startsWith('/email-sending-concepts')) {
+    return true;
+  }
   
   // Only show footer on specifically allowed paths
   if (allowedPaths.includes(route.path)) {
@@ -165,7 +169,7 @@ const show = computed(() => {
   padding-top: 0;
   color: var(--vp-c-text-1);
   text-align: left;
-  min-height: 20px; /* Ensure consistent height */
+  min-height: 20px;
 }
 .footer-column a {
   font-size: 14px;

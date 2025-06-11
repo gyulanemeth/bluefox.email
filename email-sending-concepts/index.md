@@ -2,7 +2,6 @@
 title: Email Sending Concepts | BlueFox Email
 description: A comprehensive glossary of email marketing, development, and authentication terms.
 thumbnail: /assets/glossary/email-sending-glossary.webp
-footer: false
 pageClass: glossary-page
 prev: false
 next: false
@@ -116,7 +115,7 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 ## <a id="section-r"></a>R
 
 <div class="glossary-item">
-  <h3><a href="/email-sending-concepts/return-path">Return Path</a></h3>
+  <h3><a href="/email-sending-concepts/return-path">Return-Path</a></h3>
   <p>The email address to which <strong>bounced messages</strong> are delivered when an email cannot be delivered.</p>
   <a href="/email-sending-concepts/return-path" class="read-more">Read more</a>
 </div>
