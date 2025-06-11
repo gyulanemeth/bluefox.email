@@ -34,6 +34,8 @@ head:
 lastUpdated: true
 published: 2025-05-16
 sidebar: false
+aside: false
+outline: false
 ---
 
 # Email Sending Concepts
@@ -153,7 +155,8 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  margin: 30px 0;
+  gap: 6px;
+  margin: 2px 0;
   padding: 15px;
   background-color: #f8f9fa;
   border-radius: 8px;
@@ -165,7 +168,7 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 
 .glossary-nav a {
   display: inline-block;
-  width: 36px;
+  width: 36px; 
   height: 36px;
   line-height: 36px;
   text-align: center;
@@ -178,6 +181,7 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
   position: relative;
   overflow: hidden;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  font-size: 1rem;
 }
 
 .dark .glossary-nav a {
@@ -254,8 +258,14 @@ h2[id^="section-"] {
   border-top: 1px solid #2d3748;
 }
 
-.page-nav, .on-this-page {
-  display: none;
+/* Hide all navigation sidebar elements in glossary index */
+.page-nav, 
+.VPDocAside .VPDocAsideOutline,
+.VPLocalNav,
+.on-this-page,
+.aside-container,
+.VPDocAsideCarbonAds {
+  display: none !important;
 }
 
 .glossary-item h3 {
