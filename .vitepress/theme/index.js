@@ -31,7 +31,7 @@ export default {
   Layout: () => {
     return h(Theme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
-      'layout-bottom': () => h(CustomFooter)
+      "layout-bottom": () => h(CustomFooter),
     });
   },
   enhanceApp({ app, router, siteData }) {
@@ -67,7 +67,8 @@ export default {
     app.component("TestimonialDiv", TestimonialDiv);
     app.component("DesignSystem", DesignSystem);
     app.component("RenderingIssues", RenderingIssues);
-    app.component("Deliverability", Deliverability);    app.component("Automation", Automation);
+    app.component("Deliverability", Deliverability);
+    app.component("Automation", Automation);
     app.component("Integration", Integration);
     app.component("GlossaryCTA", GlossaryCTA);
     app.component("CustomFooter", CustomFooter);
