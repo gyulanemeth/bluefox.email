@@ -132,7 +132,7 @@ smtp.google.com.	219	IN	AAAA	2a00:1450:4025:401::1a
 As you can see, we use `smtp.google.com`, because we use Google Workspace.
 
 :::tip Looking up DNS records
-SPF, DKIM, and DMARC are also based on DNS records. As we saw with the MX record, the `dig` command will be useful to look up those entries as well! The only difference is that we'll be looking up [TXT record](/email-sending-concepts/txt-record.md)s instead of MX records.
+SPF, DKIM, and DMARC are also based on [DNS](/email-sending-concepts/dns.md) records. As we saw with the MX record, the `dig` command will be useful to look up those entries as well! The only difference is that we'll be looking up [TXT record](/email-sending-concepts/txt-record.md)s instead of MX records.
 :::
 
 
@@ -141,7 +141,7 @@ SPF, DKIM, and DMARC are also based on DNS records. As we saw with the MX record
 
 The goal of SPF is to prevent spammers from sending emails on behalf of your domain. It lets domain owners specify which mail servers (IP addresses) are authorized to send email on behalf of their domain.
 
-It uses a `TXT` record in your DNS settings.
+It uses a [`TXT` record](/email-sending-concepts/txt-record.md) in your DNS settings.
 
 For example, you can check the allowed mail servers for BlueFox Email using the `dig` command:
 
