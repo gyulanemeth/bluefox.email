@@ -206,6 +206,10 @@ const show = computed(() => {
 .footer-policy-links a {
   color: var(--vp-c-text-2);
   text-decoration: none;
+  transition: color 0.2s ease;
+}
+.footer-policy-links a:hover {
+  color: white;
 }
 .footer-copyright {
   font-size: 14px;
