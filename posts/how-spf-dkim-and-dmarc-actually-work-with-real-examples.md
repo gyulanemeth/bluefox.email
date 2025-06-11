@@ -141,7 +141,7 @@ SPF, DKIM, and DMARC are also based on [DNS](/email-sending-concepts/dns.md) rec
 
 The goal of SPF is to prevent spammers from sending emails on behalf of your domain. It lets domain owners specify which mail servers (IP addresses) are authorized to send email on behalf of their domain.
 
-It uses a [`TXT` record](/email-sending-concepts/txt-record.md) in your DNS settings.
+It uses a `TXT` record in your DNS settings.
 
 For example, you can check the allowed mail servers for BlueFox Email using the `dig` command:
 
