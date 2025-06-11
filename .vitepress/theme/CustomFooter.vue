@@ -84,7 +84,7 @@ const show = computed(() => {
 .custom-footer {
   padding-top: 60px;
   margin-top: 40px;
-  background-color: var(--vp-c-bg-soft);
+  /* background-color: var(--vp-c-bg-soft); */
   width: 100%;
   display: block;
   position: relative;
