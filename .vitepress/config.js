@@ -1,5 +1,5 @@
-import { defineConfig } from "vitepress";
-import tailwindcss from "tailwindcss";
+import { defineConfig } from 'vitepress'
+import tailwindcss from 'tailwindcss'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
