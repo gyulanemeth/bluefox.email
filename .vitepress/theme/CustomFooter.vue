@@ -85,16 +85,14 @@ const show = computed(() => {
 
 <style scoped>
 .custom-footer {
-  padding-top: 60px;
-  margin-top: 40px;
   width: 100%;
-  display: block;
-  position: relative;
-  z-index: 1;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  margin-top: 40px;
+  padding-top: 20px;
   border-top: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg);
+  position: relative;
+  z-index: 10;
+  
 }
 .vp-doc-aside-container .custom-footer {
   padding-right: calc(220px + 32px);
