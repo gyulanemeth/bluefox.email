@@ -94,9 +94,8 @@ const show = computed(() => {
   right: 0;
   border-top: 1px solid var(--vp-c-divider);
 }
-/* Add right padding on glossary page to prevent overlap with the side navigation */
 .vp-doc-aside-container .custom-footer {
-  padding-right: calc(220px + 32px); /* Navigation width + some spacing */
+  padding-right: calc(220px + 32px);
 }
 .footer-container {
   max-width: 1152px;
@@ -209,7 +208,7 @@ const show = computed(() => {
   transition: color 0.2s ease;
 }
 .footer-policy-links a:hover {
-  color: white;
+  color: var(--vp-c-text-1);
 }
 .footer-copyright {
   font-size: 14px;
