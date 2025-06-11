@@ -84,7 +84,7 @@ const show = computed(() => {
 .custom-footer {
   padding-top: 60px;
   margin-top: 40px;
-  /* background-color: var(--vp-c-bg-soft); */
+  background-color: var(--vp-c-bg-soft);
   width: 100%;
   display: block;
   position: relative;
@@ -92,6 +92,7 @@ const show = computed(() => {
   bottom: 0;
   left: 0;
   right: 0;
+  border-top: 1px solid var(--vp-c-divider);
 }
 /* Add right padding on glossary page to prevent overlap with the side navigation */
 .vp-doc-aside-container .custom-footer {
