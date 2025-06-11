@@ -87,7 +87,7 @@ const show = computed(() => {
 .custom-footer {
   width: 100%;
   margin-top: 40px;
-  padding-top: 20px;
+  padding-top: 40px;
   border-top: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg);
   position: relative;
@@ -108,7 +108,7 @@ const show = computed(() => {
   border-bottom: 1px solid var(--vp-c-divider);
   justify-content: space-between;
   align-items: flex-start;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
 }
 .footer-logo {
   margin-bottom: 40px;
@@ -197,7 +197,7 @@ const show = computed(() => {
   text-align: center;
   font-size: 14px;
   flex-wrap: wrap;
-  margin-top: 8px;
+  margin-top: 4px;
 }
 .policy-separator {
   margin: 0 4px;
@@ -217,9 +217,9 @@ const show = computed(() => {
   font-size: 14px;
   color: var(--vp-c-text-2);
   margin-top: 1px;
-  margin-bottom: 32px;
+  margin-bottom: 12px;
   text-align: center;
-  padding-bottom: 8px;
+  padding-bottom: 6px;
 }
 @media (max-width: 768px) {
   .custom-footer {
