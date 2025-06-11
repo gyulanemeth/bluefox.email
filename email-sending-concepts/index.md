@@ -72,6 +72,12 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 ## <a id="section-e"></a>E
 
 <div class="glossary-item">
+  <h3><a href="/email-sending-concepts/email-header">Email Headers</a></h3>
+  <p>Hidden <strong>metadata</strong> that travels with email messages, containing vital information about routing, authentication, and technical properties.</p>
+  <a href="/email-sending-concepts/email-header" class="read-more">Read more</a>
+</div>
+
+<div class="glossary-item">
   <h3><a href="/email-sending-concepts/email-authentication">Email Authentication</a></h3>
   <p>Methods and protocols used to <strong>verify the legitimacy</strong> of email senders and messages.</p>
   <a href="/email-sending-concepts/email-authentication" class="read-more">Read more</a>

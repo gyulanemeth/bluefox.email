@@ -97,7 +97,6 @@
 .cta-button:hover {
   background-color: #0f8ec0;
   color: #fff;
-  transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
