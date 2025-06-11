@@ -11,8 +11,7 @@
             <img src="/assets/logo-text_inline.png" alt="bluefox.email logo" width="250" height="auto" />
           </a>
           <p class="footer-tagline">BlueFox.email helps SaaS companies create and send beautiful transactional and marketing emails with high deliverability across all devices.</p>
-        </div>
-        <div class="footer-links">
+        </div>      <div class="footer-links">
           <div class="footer-column">
             <h4>Company</h4>
             <a href="/about">About</a>
@@ -166,6 +165,7 @@ const show = computed(() => {
   padding-top: 0;
   color: var(--vp-c-text-1);
   text-align: left;
+  min-height: 20px; /* Ensure consistent height */
 }
 .footer-column a {
   font-size: 14px;
@@ -176,6 +176,7 @@ const show = computed(() => {
   text-decoration: none !important;
   text-align: left;
   display: block;
+  padding: 2px 0;
 }
 .footer-column a:hover {
   color: var(--vp-c-brand);
@@ -205,6 +206,7 @@ const show = computed(() => {
   color: var(--vp-c-text-2);
   text-decoration: none;
   transition: color 0.2s ease;
+  padding: 2px 4px;
 }
 .footer-policy-links a:hover {
   color: var(--vp-c-text-1);
@@ -218,15 +220,20 @@ const show = computed(() => {
   padding-bottom: 8px;
 }
 @media (max-width: 768px) {
+  .custom-footer {
+    padding-top: 40px;
+    margin-top: 30px;
+  }
   .footer-container {
     padding: 0 24px;
   }
   .footer-top {
     flex-direction: column;
+    padding-bottom: 20px;
   }
   
   .footer-logo {
-    margin-bottom: 40px;
+    margin-bottom: 35px;
     width: 100%;
     max-width: 250px;
     margin-left: auto;
@@ -238,13 +245,13 @@ const show = computed(() => {
   .footer-tagline {
     text-align: center;
     width: 100%;
-    max-width: 250px;
+    max-width: 300px;
+    padding-left: 0;
   }
-  
   .footer-links {
-    gap: 20px;
     width: 100%;
     justify-content: center;
+    gap: 30px;
   }
   
   .footer-column {
@@ -254,48 +261,119 @@ const show = computed(() => {
   
   .footer-bottom {
     flex-wrap: wrap;
+    padding-top: 12px;
   }
 }
 @media (max-width: 640px) {
+  .custom-footer {
+    padding-top: 30px;
+  }
   .footer-links {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 15px 30px;
+    width: 100%;
+    justify-content: center;
   }
   
   .footer-column {
-    min-width: calc(50% - 24px);
-    margin: 0 0 20px 0;
+    min-width: unset;
+    width: 100%;
+    margin: 0;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .footer-column h4 {
+    text-align: center;
+  }
+  
+  .footer-column a {
+    text-align: center;
+  }
+  
+  .footer-policy-links {
+    margin-top: 12px;
   }
 }
 @media (max-width: 540px) {
-  .footer-links {
-    flex-direction: column;
-    gap: 24px;
-    align-items: flex-start;
+  .custom-footer {
+    padding-top: 25px;
   }
-  
+  .footer-container {
+    padding: 0 16px;
+  }
+  .footer-top {
+    padding-bottom: 15px;
+  }
+  .footer-logo {
+    margin-bottom: 30px;
+  }
+  .footer-links {
+    grid-gap: 10px;
+  }
   .footer-column {
-    min-width: 100%;
-    text-align: left;
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
   
   .footer-column h4 {
     margin-bottom: 8px;
+    text-align: center;
   }
   
-  .footer-policy-links {
+  .footer-column a {
+    text-align: center;
+    line-height: 24px;
+    margin-bottom: 6px;
+  }
+    .footer-policy-links {
     flex-direction: row;
     align-items: center;
-    gap: 4px;
-    flex-wrap: wrap;
+    gap: 2px;
+    margin-top: 15px;
     justify-content: center;
   }
   
   .footer-policy-links a {
     margin: 0;
+    font-size: 13px;
+  }
+  
+  .policy-separator {
+    margin: 0 2px;
+    font-size: 13px;
+  }
+  
+  .footer-copyright {
+    margin-top: 15px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .custom-footer {
+    padding-top: 20px;
+  }
+  .footer-logo img {
+    max-width: 200px;
+  }
+  .footer-tagline {
+    font-size: 13px;
+    max-width: 250px;
+  }
+  .footer-column a {
+    padding: 6px 0; /* Improve tap targets for mobile */
+    margin-bottom: 0;
+  }  .footer-policy-links a {
+    padding: 6px 5px; /* Improve tap targets for mobile */
+    font-size: 12px;
+  }
+  
+  .policy-separator {
+    font-size: 12px;
+  }
+  .footer-copyright {
+    margin-bottom: 24px;
   }
 }
 </style>
