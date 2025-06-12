@@ -67,7 +67,7 @@ A protocol that uses **SPF** and **DKIM** to protect domains from **unauthorized
 
 ## E
 
-### Email Header
+### Email Headers
 
 Hidden **metadata** that travels with email messages, containing vital information about routing, authentication, and technical properties.
 
