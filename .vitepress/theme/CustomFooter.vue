@@ -10,7 +10,7 @@
             <a href="/" class="logo-link">
               <img src="/assets/logo-text_inline.png" alt="bluefox.email logo" width="250" height="auto" />
             </a>
-            <p class="footer-tagline">BlueFox.email helps SaaS companies create and send beautiful transactional and marketing emails with high deliverability across all devices.</p>
+            <p class="footer-tagline">BlueFox Email helps SaaS companies create and send beautiful transactional and marketing emails with high deliverability across all devices.</p>
           </div>
         </div>
         <div class="footer-links-wrapper">
