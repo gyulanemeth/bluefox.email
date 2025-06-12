@@ -42,7 +42,7 @@ sidebar: false
 
 # How SPF, DKIM, and DMARC Actually Work (With Real Examples)
 
-Email authentication is essential if you don't want any random person sending emails in your name. In other words, to prevent [email spoofing](/email-sending-concepts/email-spoofing.md), it's strongly advised to set up [DKIM](/email-sending-concepts/dkim.md), [SPF](/email-sending-concepts/spf.md), and [DMARC](/email-sending-concepts/dmarc.md).
+[Email authentication](/email-sending-concepts/email-authentication.md) is essential if you don't want any random person sending emails in your name. In other words, to prevent [email spoofing](/email-sending-concepts/email-spoofing.md), it's strongly advised to set up [DKIM](/email-sending-concepts/dkim.md), [SPF](/email-sending-concepts/spf.md), and [DMARC](/email-sending-concepts/dmarc.md).
 
 In this article, we'll go through how these email authentication methods work, using real-life examples and digging into [email headers](/email-sending-concepts/email-header.md). The goal is to build a solid understanding of how these methods actually work, and how you can investigate if something's off.
 
@@ -251,7 +251,7 @@ pdfkmy3oobqoppvprayririsr5i5iljb.dkim.amazonses.com. 1800 IN TXT "p=MIIBIjANBgkq
 ;; MSG SIZE  rcvd: 559
 ```
 
-As you can see, it's actually a CNAME record pointing to a `TXT` record. This is how Amazon SES manages public/private DKIM key pairs.
+As you can see, it's actually a [CNAME record](/email-sending-concepts/cname-record.md) pointing to a `TXT` record. This is how Amazon SES manages public/private DKIM key pairs.
 
 In the `DKIM-Signature`, important parameters include:
 
