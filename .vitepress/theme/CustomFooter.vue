@@ -177,7 +177,7 @@ const show = computed(() => {
   color: var(--vp-c-text-2);
   transition: color 0.2s ease;
   margin-bottom: 10px;
-  text-decoration: none !important;
+  text-decoration: none;
   text-align: left;
   display: block;
   padding: 3px 0;
@@ -369,7 +369,8 @@ const show = computed(() => {
   .footer-column a {
     padding: 6px 0; /* Improve tap targets for mobile */
     margin-bottom: 0;
-  }  .footer-policy-links a {
+  }  
+  .footer-policy-links a {
     padding: 6px 5px; /* Improve tap targets for mobile */
     font-size: 12px;
   }
@@ -380,13 +381,5 @@ const show = computed(() => {
   .footer-copyright {
     margin-bottom: 24px;
   }
-}
-</style>
-
-<!-- Global styles (not scoped) to hide default VitePress footer -->
-<style>
-/* Hide the default VitePress footer since we're using a custom one */
-.VPFooter {
-  display: none !important;
 }
 </style>
