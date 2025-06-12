@@ -1,5 +1,6 @@
 ---
 description: Email marketing is a strategy for promoting products, building relationships, and nurturing leads through targeted emails. It requires planning, audience insight, and compliance with privacy laws.
+footer: false
 ---
 
 # Email Marketing Concepts

@@ -1,3 +1,7 @@
+---
+footer: false
+---
+
 # What is Double Opt-In?
 
 **Double opt-in** is a process often used in email marketing and online registrations to ensure that individuals genuinely want to receive communications or access certain services. It adds an extra layer of confirmation to verify the user's intent. Here's how it typically works:

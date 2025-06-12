@@ -1,3 +1,7 @@
+---
+footer: false
+---
+
 # Why Offering a "Pause Subscription" Option is Better Than Just "Unsubscribe"
 
 In the world of email marketing, customer retention is key. One effective strategy that can help reduce churn and maintain engagement is offering a "pause subscription" option in addition to the traditional "unsubscribe" button. Here's why it's a smart move:

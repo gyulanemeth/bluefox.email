@@ -1,3 +1,7 @@
+---
+footer: false
+---
+
 # Terms of Use
 
 _Last Updated: Nov. 27, 2024_

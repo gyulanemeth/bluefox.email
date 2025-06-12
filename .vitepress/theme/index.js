@@ -1,3 +1,4 @@
+// filepath: c:\Users\Parth\Desktop\BlueFoxEmail\bluefox.email\.vitepress\theme\index.js
 // https://vitepress.dev/guide/custom-theme
 import { h } from 'vue'
 import Theme from 'vitepress/theme'
@@ -22,13 +23,16 @@ import RenderingIssues from './RenderingIssues.vue'
 import Deliverability from './Deliverability.vue'
 import Automation from './Automation.vue'
 import Integration from './Integration.vue'
+import GlossaryCTA from './GlossaryCTA.vue'
+import CustomFooter from './CustomFooter.vue'
 
 export default {
   extends: Theme,
   Layout: () => {
     return h(Theme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
-    })
+      "layout-bottom": () => h(CustomFooter),
+    });
   },
   enhanceApp({ app, router, siteData }) {
     const vuetify = createVuetify({
@@ -38,22 +42,23 @@ export default {
         themes: {
           light: {
             colors: {
-              primary: '#13B0EE',
-              secondary: '#392C91',
-              buttonBackground: '#ebebef'
+              primary: "#13B0EE",
+              secondary: "#392C91",
+              buttonBackground: "#ebebef",
             },
           },
           dark: {
             colors: {
-              primary: '#392C91',
-              secondary: '#13B0EE',
-              buttonBackground: '#161618'
+              primary: "#392C91",
+              secondary: "#13B0EE",
+              buttonBackground: "#161618",
             },
-          }
+          },
         },
       },
-      ssr: true
-    })
+      ssr: true,
+    });
+
     app.use(vuetify)
 
     app.component('posts', Posts)
@@ -61,9 +66,11 @@ export default {
     app.component('NavigationButton', NavigationButton)
     app.component('TestimonialDiv', TestimonialDiv)
     app.component('DesignSystem', DesignSystem)
-    app.component('RenderingIssues', RenderingIssues)
-    app.component('Deliverability', Deliverability)
-    app.component('Automation', Automation)
-    app.component('Integration', Integration)
-  }
-}
+    app.component("RenderingIssues", RenderingIssues)
+    app.component("Deliverability", Deliverability)
+    app.component("Automation", Automation)
+    app.component("Integration", Integration)
+    app.component("GlossaryCTA", GlossaryCTA)
+    app.component("CustomFooter", CustomFooter)
+  },
+};
