@@ -1,5 +1,3 @@
-// filepath: c:\Users\Parth\Desktop\BlueFoxEmail\bluefox.email\.vitepress\theme\index.js
-// https://vitepress.dev/guide/custom-theme
 import { h } from 'vue'
 import Theme from 'vitepress/theme'
 import { createVuetify } from 'vuetify'
