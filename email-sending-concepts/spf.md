@@ -5,6 +5,7 @@ thumbnail: /assets/glossary/email-sending-glossary.webp
 
 layout: post
 category: glossary
+sidebar: false
 
 head:
   - - meta
@@ -32,9 +33,6 @@ head:
     - name: twitter:description
       content: SPF is an email authentication method that specifies which mail servers are authorized to send emails on behalf of your domain, helping prevent email spoofing and improving deliverability.
 
-lastUpdated: true
-published: 2025-05-19
-sidebar: false
 ---
 
 # SPF (Sender Policy Framework)

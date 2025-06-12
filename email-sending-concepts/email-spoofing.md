@@ -5,8 +5,6 @@ thumbnail: /assets/glossary/email-sending-glossary.webp
 
 layout: post
 category: glossary
-lastUpdated: true
-published: 2025-05-19
 sidebar: false
 
 head:

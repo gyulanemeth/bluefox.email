@@ -3,6 +3,7 @@ title: Email Sending Concepts | BlueFox Email
 description: A comprehensive glossary of email marketing, development, and authentication terms.
 thumbnail: /assets/glossary/email-sending-glossary.webp
 
+sidebar: false
 prev: false
 next: false
 head:
@@ -31,7 +32,6 @@ head:
     - name: twitter:description
       content: A comprehensive glossary of email marketing, development, and authentication terms.
 
-sidebar: false
 ---
 
 # Email Sending Concepts

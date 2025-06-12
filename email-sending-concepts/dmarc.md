@@ -3,6 +3,7 @@ title: DMARC (Domain-based Message Authentication, Reporting, and Conformance) |
 description: DMARC is an email authentication protocol that unifies SPF and DKIM with policy enforcement and reporting. Learn what DMARC is, how it works, and why it matters for email security.
 thumbnail: /assets/glossary/email-sending-glossary.webp
 
+sidebar: false
 layout: post
 category: glossary
 
@@ -31,11 +32,6 @@ head:
   - - meta
     - name: twitter:description
       content: DMARC is an email authentication protocol that unifies SPF and DKIM with policy enforcement and reporting.
-
-lastUpdated: true
-published: 2025-05-19
-sidebar: false
-
 ---
 
 # DMARC (Domain-based Message Authentication, Reporting, and Conformance)

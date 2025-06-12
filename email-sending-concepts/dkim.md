@@ -6,6 +6,7 @@ thumbnail: /assets/glossary/email-sending-glossary.webp
 
 layout: post
 category: glossary
+sidebar: false
 
 head:
   - - meta
@@ -32,11 +33,6 @@ head:
   - - meta
     - name: twitter:description
       content: DKIM is an email authentication method that allows senders to digitally sign emails using a private key. Learn how it works, see examples, and understand its importance for email security.
-
-lastUpdated: true
-published: 2025-05-19
-sidebar: false
-
 ---
 
 
