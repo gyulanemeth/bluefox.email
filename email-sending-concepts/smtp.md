@@ -1,7 +1,7 @@
 ---
 title: SMTP (Simple Mail Transfer Protocol) | BlueFox Email
 description: "Learn how the Simple Mail Transfer Protocol (SMTP) works, its role in email delivery, common ports, and how modern security extensions protect email in transit."
-thumbnail: /assets/glossary/email-sending-glossary.webp
+thumbnail: /assets/glossary/email-sending-glossary.png
 
 layout: post
 category: glossary
@@ -19,7 +19,7 @@ head:
       content: "Understand how SMTP enables email transmission across the internet and the security extensions that protect modern email communications."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.png
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/smtp"

@@ -44,7 +44,7 @@ sidebar: false
 
 [Email authentication](/email-sending-concepts/email-authentication.md) is essential if you don't want any random person sending emails in your name. In other words, to prevent [email spoofing](/email-sending-concepts/email-spoofing.md), it's strongly advised to set up [DKIM](/email-sending-concepts/dkim.md), [SPF](/email-sending-concepts/spf.md), and [DMARC](/email-sending-concepts/dmarc.md).
 
-In this article, we'll go through how these email authentication methods work, using real-life examples and digging into [email headers](/email-sending-concepts/email-header.md). The goal is to build a solid understanding of how these methods actually work, and how you can investigate if something's off.
+In this article, we'll go through how these email authentication methods work, using real-life examples and digging into [email headers](/email-sending-concepts/email-headers.md). The goal is to build a solid understanding of how these methods actually work, and how you can investigate if something's off.
 
 :::tip TLDR
 
@@ -61,7 +61,7 @@ In this article, we'll go through how these email authentication methods work, u
 This guide is for developers, marketers, or product folks who want to understand how email authentication really works. It is not just how to "turn it on." If you're setting up AWS SES, debugging deliverability issues, or just curious about what's in your email headers, you're in the right place.
 
 
-We'll use `dig` to inspect [DNS](/email-sending-concepts/dns.md) records, highlight real [email headers](/email-sending-concepts/email-header.md), and explain each protocol with examples from BlueFox Email.
+We'll use `dig` to inspect [DNS](/email-sending-concepts/dns.md) records, highlight real [email headers](/email-sending-concepts/email-headers.md), and explain each protocol with examples from BlueFox Email.
 
 :::
 

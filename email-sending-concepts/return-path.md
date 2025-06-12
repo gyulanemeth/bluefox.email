@@ -1,7 +1,7 @@
 ---
 title: Return Path | BlueFox Email
 description: "Learn how the Return-Path header works in email systems, its role in bounce processing, and why it's crucial for deliverability and email campaign management."
-thumbnail: /assets/glossary/email-sending-glossary.webp
+thumbnail: /assets/glossary/email-sending-glossary.png
 
 layout: post
 category: glossary
@@ -19,7 +19,7 @@ head:
       content: "Understand how the Return-Path header manages email bounces and why it's essential for maintaining good sender reputation."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.png
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/return-path"
@@ -40,7 +40,7 @@ Return-Path is a critical but often overlooked component of email that determine
 
 ## What is Return-Path?
 
-The Return-Path is an [email header](/email-sending-concepts/email-header.md) that specifies where **bounce messages** (notifications about delivery failures) should be directed. This address may differ from the visible "From" address. It represents the actual sender involved in the email transaction and is established during the [SMTP](/email-sending-concepts/smtp) session. The receiving server automatically adds this header, which plays a **crucial role in managing failed deliveries** and monitoring email delivery problems.
+The Return-Path is an [email header](/email-sending-concepts/email-headers.md) that specifies where **bounce messages** (notifications about delivery failures) should be directed. This address may differ from the visible "From" address. It represents the actual sender involved in the email transaction and is established during the [SMTP](/email-sending-concepts/smtp) session. The receiving server automatically adds this header, which plays a **crucial role in managing failed deliveries** and monitoring email delivery problems.
 
 Key characteristics of the Return-Path:
 - It's set during the SMTP transaction (the protocol used to send emails)

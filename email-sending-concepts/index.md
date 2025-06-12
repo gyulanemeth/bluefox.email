@@ -1,24 +1,23 @@
 ---
 title: Email Sending Concepts | BlueFox Email
-description: A comprehensive glossary of email marketing, development, and authentication terms.
-thumbnail: /assets/glossary/email-sending-glossary.webp
-
+description: Understand the core concepts behind email sending, from marketing techniques to technical protocols.
+thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
 prev: false
 next: false
 head:
   - - meta
     - name: description
-      content: A comprehensive glossary of email marketing, development, and authentication terms.
+      content: Understand the core concepts behind email sending, from marketing techniques to technical protocols.
   - - meta
     - property: og:title
-      content: Email Glossary | BlueFox Email
+      content: Email Sending Concepts | BlueFox Email
   - - meta
     - property: og:description
-      content: A comprehensive glossary of email marketing, development, and authentication terms.
+      content: Understand the core concepts behind email sending, from marketing techniques to technical protocols.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.png
   - - meta
     - property: og:url
       content: https://bluefox.email/email-sending-concepts/
@@ -27,11 +26,10 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Email Glossary | BlueFox Email
+      content: Email Sending Concepts | BlueFox Email
   - - meta
     - name: twitter:description
-      content: A comprehensive glossary of email marketing, development, and authentication terms.
-
+      content: Understand the core concepts behind email sending, from marketing techniques to technical protocols.
 ---
 
 # Email Sending Concepts
@@ -69,11 +67,11 @@ A protocol that uses **SPF** and **DKIM** to protect domains from **unauthorized
 
 ## E
 
-### Email Header
+### Email Headers
 
 Hidden **metadata** that travels with email messages, containing vital information about routing, authentication, and technical properties.
 
-[Read more](/email-sending-concepts/email-header)
+[Read more](/email-sending-concepts/email-headers)
 
 ### Email Authentication
 
