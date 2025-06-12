@@ -18,7 +18,7 @@ head:
       content: A comprehensive glossary of email marketing, development, and authentication terms.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary-share.png
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
   - - meta
     - property: og:url
       content: https://bluefox.email/email-sending-concepts/
