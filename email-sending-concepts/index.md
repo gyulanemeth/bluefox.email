@@ -46,6 +46,7 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 
 [Read more](/email-sending-concepts/cname-record)
 
+
 ## D
 
 ### DKIM (DomainKeys Identified Mail)
@@ -62,7 +63,7 @@ The internet's **phone book** that translates domain names into IP addresses and
 
 ### DMARC (Domain-based Message Authentication, Reporting & Conformance)
 
-A protocol that uses [SPF](/email-sending-concepts/spf) and [DKIM](/email-sending-concepts/dkim) to protect domains from **unauthorized use**.
+A protocol that uses **SPF** and **DKIM** to protect domains from **unauthorized use**.
 
 [Read more](/email-sending-concepts/dmarc)
 
@@ -143,3 +144,15 @@ A **cryptographic protocol** that provides secure communication over networks fo
 **DNS text records** that store email authentication policies like SPF, DKIM, and DMARC to enable secure email delivery.
 
 [Read more](/email-sending-concepts/txt-record)
+
+<style>
+a[href^="/email-sending-concepts/"] {
+  color: #13B0EE;
+  text-decoration: none;
+}
+
+a[href^="/email-sending-concepts/"]:hover {
+  text-decoration: underline;
+  opacity: 0.9;
+}
+</style>

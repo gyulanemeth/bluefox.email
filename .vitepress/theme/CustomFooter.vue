@@ -87,12 +87,12 @@ const show = computed(() => {
 .custom-footer {
   width: 100%;
   margin-top: 40px;
-  padding-top: 40px;
+  padding-top: 27px;
   border-top: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg);
   position: relative;
   z-index: 10;
-  
+  font-size: 10px !important;
 }
 .vp-doc-aside-container .custom-footer {
   padding-right: calc(220px + 32px);
@@ -108,17 +108,18 @@ const show = computed(() => {
   border-bottom: 1px solid var(--vp-c-divider);
   justify-content: space-between;
   align-items: flex-start;
-  padding-bottom: 10px;
+  padding-bottom: 15px;
+  margin-bottom: 6px;
 }
 .footer-logo {
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   align-self: flex-start;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
-  width: 250px;
-  margin-top: -18px;
+  width: 220px;
+  margin-top: -15px;
   padding-left: 0;
   box-sizing: border-box;
   position: relative;
@@ -126,7 +127,7 @@ const show = computed(() => {
 .footer-logo img {
   max-width: 100%;
   height: auto;
-  margin-bottom: 12px;
+  margin-bottom: 4px;
   margin-left: 0;
 }
 .logo-link {
@@ -135,20 +136,20 @@ const show = computed(() => {
   margin: 0;
 }
 .footer-tagline {
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 12px;
+  line-height: 1.4;
   color: var(--vp-c-text-2);
   margin: 0;
   text-align: left;
-  width: 270px;
-  padding-left: 1rem;
+  width: 240px;
+  padding-left: 0.8rem;
 }
 .footer-links {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 10px;
-  width: calc(100% - 280px);
+  width: calc(100% - 240px);
 }
 .footer-column {
   flex: 0 1 auto;
@@ -157,87 +158,89 @@ const show = computed(() => {
   flex-direction: column;
   margin-left: 0px;
   padding-top: 4px;
+  padding-bottom: 8px;
   text-align: left;
 }
 .footer-column h4 {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   margin-top: 0;
   padding-top: 0;
   color: var(--vp-c-text-1);
   text-align: left;
-  min-height: 20px;
+  min-height: 18px;
 }
 .footer-column a {
-  font-size: 14px;
-  line-height: 28px;
+  font-size: 13px;
+  line-height: 12px;
   color: var(--vp-c-text-2);
   transition: color 0.2s ease;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   text-decoration: none !important;
   text-align: left;
   display: block;
-  padding: 2px 0;
+  padding: 3px 0;
 }
 .footer-column a:hover {
-  color: var(--vp-c-brand);
+  color: #13B0EE;
 }
 .footer-bottom {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding-top: 16px;
+  padding-top: 20px;
+  padding-bottom: 5px;
   border-top: none;
 }
 .footer-policy-links {
   display: flex;
   justify-content: center;
   text-align: center;
-  font-size: 14px;
+  font-size: 13px;
   flex-wrap: wrap;
-  margin-top: 4px;
+  margin-top: -9px;
+  padding: 3px 0;
 }
 .policy-separator {
-  margin: 0 4px;
+  margin: 0 2px;
   color: var(--vp-c-text-2);
-  font-size: 14px;
+  font-size: 12px;
 }
 .footer-policy-links a {
   color: var(--vp-c-text-2);
   text-decoration: none;
   transition: color 0.2s ease;
-  padding: 2px 4px;
+  padding: 3px 3px;
 }
 .footer-policy-links a:hover {
   color: var(--vp-c-text-1);
 }
 .footer-copyright {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--vp-c-text-2);
-  margin-top: 1px;
-  margin-bottom: 12px;
+  margin-top: -12px;
+  margin-bottom: 10px;
   text-align: center;
-  padding-bottom: 6px;
+  padding: 5px 0 10px;
 }
 @media (max-width: 768px) {
   .custom-footer {
-    padding-top: 40px;
-    margin-top: 30px;
+    padding-top: 30px;
+    margin-top: 24px;
   }
   .footer-container {
     padding: 0 24px;
   }
   .footer-top {
     flex-direction: column;
-    padding-bottom: 20px;
+    padding-bottom: 16px;
   }
-  
-  .footer-logo {
-    margin-bottom: 35px;
+    .footer-logo {
+    margin-bottom: 25px;
     width: 100%;
-    max-width: 250px;
+    max-width: 220px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 0;
@@ -247,13 +250,13 @@ const show = computed(() => {
   .footer-tagline {
     text-align: center;
     width: 100%;
-    max-width: 300px;
+    max-width: 280px;
     padding-left: 0;
   }
   .footer-links {
     width: 100%;
     justify-content: center;
-    gap: 30px;
+    gap: 24px;
   }
   
   .footer-column {
@@ -268,12 +271,12 @@ const show = computed(() => {
 }
 @media (max-width: 640px) {
   .custom-footer {
-    padding-top: 30px;
+    padding-top: 25px;
   }
   .footer-links {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 15px 30px;
+    grid-gap: 12px 24px;
     width: 100%;
     justify-content: center;
   }
