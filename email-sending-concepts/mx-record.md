@@ -1,7 +1,7 @@
 ---
 title: MX Records | BlueFox Email
 description: "Learn how MX (Mail Exchange) records work, their role in email delivery, and how they direct incoming messages to the correct mail servers."
-thumbnail: /assets/glossary/email-sending-glossary.webp
+thumbnail: /assets/glossary/email-sending-glossary.png
 
 layout: post
 category: glossary
@@ -19,7 +19,7 @@ head:
       content: "Understand how MX records route emails to the correct servers and why they're essential for reliable email delivery."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.png
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/mx-record"

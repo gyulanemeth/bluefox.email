@@ -1,7 +1,7 @@
 ---
 title: "Email Spoofing: Understanding the Threat and How to Protect Against It"
 description: "Learn what email spoofing is, how attackers forge sender addresses to impersonate trusted entities, and how authentication protocols can protect against this threat."
-thumbnail: /assets/glossary/email-sending-glossary.webp
+thumbnail: /assets/glossary/email-sending-glossary.png
 
 layout: post
 category: glossary
@@ -19,7 +19,7 @@ head:
       content: "Discover how email spoofing works and how modern authentication methods protect against this common cybersecurity threat."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.png
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/email-spoofing"

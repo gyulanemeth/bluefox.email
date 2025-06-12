@@ -1,7 +1,7 @@
 ---
 title: POP3 (Post Office Protocol) | BlueFox Email
 description: "Learn how POP3 works for email retrieval, its differences from IMAP, and why some users still prefer this traditional email protocol."
-thumbnail: /assets/glossary/email-sending-glossary.webp
+thumbnail: /assets/glossary/email-sending-glossary.png
 
 layout: post
 category: glossary
@@ -19,7 +19,7 @@ head:
       content: "Understand how POP3 enables email retrieval and when it might be the right choice for your email setup."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.png
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/pop3"

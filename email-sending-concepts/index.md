@@ -1,6 +1,7 @@
 ---
 title: Email Sending Concepts | BlueFox Email
-description: A comprehensive glossary of email marketing, development, and authentication terms.
+description: Understand the core concepts behind email sending—from marketing techniques to technical protocols.
+
 thumbnail: /assets/glossary/email-sending-glossary.webp
 sidebar: false
 prev: false
@@ -8,13 +9,13 @@ next: false
 head:
   - - meta
     - name: description
-      content: A comprehensive glossary of email marketing, development, and authentication terms.
+      content: Understand the core concepts behind email sending—from marketing techniques to technical protocols.
   - - meta
     - property: og:title
       content: Email Glossary | BlueFox Email
   - - meta
     - property: og:description
-      content: A comprehensive glossary of email marketing, development, and authentication terms.
+      content: Understand the core concepts behind email sending—from marketing techniques to technical protocols.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
@@ -29,7 +30,7 @@ head:
       content: Email Glossary | BlueFox Email
   - - meta
     - name: twitter:description
-      content: A comprehensive glossary of email marketing, development, and authentication terms.
+      content: Understand the core concepts behind email sending—from marketing techniques to technical protocols.
 ---
 
 # Email Sending Concepts

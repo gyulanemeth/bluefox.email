@@ -1,7 +1,7 @@
 ---
 title: Email Headers | BlueFox Email
 description: "Learn how email headers work, their importance in email authentication, and how to interpret them for troubleshooting delivery issues and tracking message paths."
-thumbnail: /assets/glossary/email-sending-glossary.webp
+thumbnail: /assets/glossary/email-sending-glossary.png
 
 layout: post
 category: glossary
@@ -19,7 +19,7 @@ head:
       content: "Understand how email headers provide essential metadata for email routing, authentication, and security across the internet."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.png
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/email-headers"

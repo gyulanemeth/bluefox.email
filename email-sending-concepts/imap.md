@@ -1,7 +1,7 @@
 ---
 title: IMAP (Internet Message Access Protocol) | BlueFox Email
 description: "Learn how IMAP works for email retrieval, its advantages over POP3, and why it's the modern standard for accessing emails across multiple devices."
-thumbnail: /assets/glossary/email-sending-glossary.webp
+thumbnail: /assets/glossary/email-sending-glossary.png
 
 layout: post
 category: glossary
@@ -19,7 +19,7 @@ head:
       content: "Understand how IMAP enables email synchronization across devices and why it's essential for modern email workflows."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/email-sending-glossary.webp
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.png
   - - meta
     - property: og:url
       content: "https://bluefox.email/email-sending-concepts/imap"
