@@ -9,13 +9,13 @@ category: glossary
 head:
   - - meta
     - name: description
-      content: AWS SES is a cloud email service provider that helps digital marketers and application developers send marketing, notification, and transactional emails.
+      content: AWS SES is a cloud email service that helps digital marketers and application developers send marketing, notification, and transactional emails.
   - - meta
     - property: og:title
       content: Amazon SES (Simple Email Service) | BlueFox Email
   - - meta
     - property: og:description
-      content: AWS SES is a cloud email service provider that helps digital marketers and application developers send marketing, notification, and transactional emails.
+      content: AWS SES is a cloud email service that helps digital marketers and application developers send marketing, notification, and transactional emails.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
@@ -30,7 +30,7 @@ head:
       content: Amazon SES (Simple Email Service) | BlueFox Email
   - - meta
     - name: twitter:description
-      content: AWS SES is a cloud email service provider that helps digital marketers and application developers send marketing, notification, and transactional emails.
+      content: AWS SES is a cloud email service that helps digital marketers and application developers send marketing, notification, and transactional emails.
 ---
 
 # Amazon SES (Simple Email Service)
