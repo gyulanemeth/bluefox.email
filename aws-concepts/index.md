@@ -1,6 +1,6 @@
 ---
 title: AWS Concepts | BlueFox Email
-description: Understand the AWS services used for email sending and marketing.
+description: Learn about AWS concepts (A-Z) focusing on technologies related to email sending.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 
 sidebar: false
@@ -9,13 +9,12 @@ next: false
 head:
   - - meta
     - name: description
-      content: Understand the AWS services used for email sending and marketing.
-  - - meta
+      content: Learn about AWS concepts (A-Z) focusing on technologies related to email sending.
     - property: og:title
       content: AWS Concepts | BlueFox Email
   - - meta
     - property: og:description
-      content: Understand the AWS services used for email sending and marketing.
+      content: Learn about AWS concepts (A-Z) focusing on technologies related to email sending.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
@@ -30,7 +29,7 @@ head:
       content: AWS Concepts | BlueFox Email
   - - meta
     - name: twitter:description
-      content: Understand the AWS services used for email sending and marketing.
+      content: Learn about AWS concepts (A-Z) focusing on technologies related to email sending.
 ---
 
 # AWS Concepts
