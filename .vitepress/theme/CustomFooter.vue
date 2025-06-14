@@ -32,7 +32,7 @@
               <a href="mailto:hello@bluefox.email">Email</a>
               <a href="https://x.com/bluefoxemail" target="_blank" rel="noopener noreferrer">Twitter</a>
               <a href="https://www.linkedin.com/company/bluefox-email/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-            </div>            
+            </div>
             <div class="footer-column">
               <h4>Glossary</h4>
               <a href="/email-sending-concepts/">Email Sending Concepts</a>
@@ -77,12 +77,10 @@ const show = computed(() => {
   if (route.path.startsWith('/email-sending-concepts') || route.path.startsWith('/aws-concepts')) {
     return true;
   }
-  
   // Only show footer on specifically allowed paths
   if (allowedPaths.includes(route.path)) {
     return true;
   }
-  
   // Hide everywhere else
   return false;
 });
