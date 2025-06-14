@@ -7,20 +7,26 @@ const { isDark } = useData()
 <template>
   <div class="heroDiv">
     <div class="d-flex flex-column align-center justify-center pb-12 heroMain">
-      <h1 class="title text-center">Beautiful emails for SaaS companies</h1>
-      <p class="tagline text-center">Send consistent and beautiful transactional, triggered, & marketing emails that your customers will love.</p>
       <div>
-        <v-btn
-          rounded
-          size="large"
-          color="primary"
-          variant="flat"
-          class="no-uppercase mr-3"
-          href="https://app.bluefox.email/accounts/create-account"
-          target="_blank"
-        >
-          Get started
-        </v-btn>
+        <h1 class="title">
+          <div style="font-size: 1.3em; font-weight: 800;">Email that lands.</div>
+          <div style="font-size: 1.125em; font-weight: 700;">Design that works.</div>
+          <div style="font-size: 1em; font-weight: 600;">Pricing that won’t burn your budget.</div>
+        </h1>
+        <p class="tagline">Design beautiful emails, automate your flows, and deliver reliably.</p>
+        <p class="tagline">You only pay for the emails you send. No overpriced contact-based subscriptions.</p>
+        <div>
+          <v-btn
+            size="x-large"
+            color="primary"
+            variant="flat"
+            class="no-uppercase mt-4"
+            href="https://app.bluefox.email/accounts/create-account"
+            target="_blank"
+          >
+            <strong>Make Your Emails Shine</strong>
+          </v-btn>
+        </div>
       </div>
     </div>
       <img
@@ -62,7 +68,8 @@ const { isDark } = useData()
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    line-height: 1.3;
+    line-height: 1.2;
+    margin-bottom: 24px;
   }
   html.dark .title {
     background: -webkit-linear-gradient(
@@ -78,6 +85,7 @@ const { isDark } = useData()
 
   .tagline {
     font-size: 24px;
+    line-height: 24px;
     color: var(--vp-c-text-2);
   }
 
@@ -105,7 +113,7 @@ const { isDark } = useData()
 
   @media (max-width: 480px) {
     .heroDiv {
-      padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 48px) 24px 48px;
+      padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) 24px 48px;
     }
     .title {
       font-size: 40px;
@@ -117,10 +125,37 @@ const { isDark } = useData()
       max-width: 80%;
     }
   }
+
+  @media (max-width: 380px) {
+    .heroDiv {
+      padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) 24px 48px;
+    }
+    .title {
+      font-size: 32px;
+    }
+    .tagline {
+      font-size: 16px;
+    }
+    .cornerImage {
+      max-width: 60%;
+    }
+  }
   
   @media (orientation: landscape) {
     .cornerImage {
       max-width: calc(100vh / 2);
+    }
+  }
+
+  @media (orientation: landscape) and (max-height: 640px) {
+    .heroDiv {
+      padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 48px) 24px 48px;
+    }
+    .title {
+      font-size: 32px;
+    }
+    .tagline {
+      font-size: 16px;
     }
   }
 </style>
