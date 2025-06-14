@@ -36,6 +36,7 @@
             <div class="footer-column">
               <h4>Glossary</h4>
               <a href="/email-sending-concepts/">Email Sending Concepts</a>
+              <a href="/aws-concepts/">AWS Concepts</a>
             </div>
           </div>
         </div>
@@ -72,16 +73,14 @@ const show = computed(() => {
     '/articles'
     // Removing '/about' and '/why' as requested
   ];
-    // Show footer on all email-sending-concepts glossary pages including index page
-  if (route.path.startsWith('/email-sending-concepts')) {
+  // Show footer on all email-sending-concepts and aws-concepts glossary pages including index pages
+  if (route.path.startsWith('/email-sending-concepts') || route.path.startsWith('/aws-concepts')) {
     return true;
   }
-  
   // Only show footer on specifically allowed paths
   if (allowedPaths.includes(route.path)) {
     return true;
   }
-  
   // Hide everywhere else
   return false;
 });
