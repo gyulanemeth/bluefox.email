@@ -566,7 +566,6 @@ onBeforeUnmount(() => {
 
   <v-row class="mt-4 justify-center">
     <v-btn
-      rounded
       size="large"
       color="primary"
       variant="flat"
@@ -574,7 +573,7 @@ onBeforeUnmount(() => {
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
-      I want to send beautiful emails!
+      Let's Land Some Emails!
     </v-btn>
   </v-row>
 </section>
