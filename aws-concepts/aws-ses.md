@@ -56,7 +56,7 @@ Amazon SES is a **reliable, cost-effective service** that provides an easy way t
 It operates on a robust cloud infrastructure designed with multiple layers to ensure reliable email delivery:
 
 **1. Email Submission Layer**  
-When your application sends an email, it communicates with SES through either **[SMTP](/email-sending-concepts/smtp.md) interface or API calls**. The API approach offers more features like template management and delivery metrics, while SMTP provides **universal compatibility** with existing email systems.
+When your application sends an email, it communicates with SES through either **[SMTP](/email-sending-concepts/smtp) interface or API calls**. The API approach offers more features like template management and delivery metrics, while SMTP provides **universal compatibility** with existing email systems.
 
 **2. Processing and Verification Layer**  
 Once received, SES processes the email by checking **sender authentication**, applying content filtering, and validating against sending quotas. It verifies that you're authorized to send from the specified domain using [SPF](/email-sending-concepts/spf), [DKIM](/email-sending-concepts/dkim), and [DMARC](/email-sending-concepts/dmarc) protocols.
@@ -76,7 +76,7 @@ The service **continuously monitors** delivery metrics including opens, clicks, 
 
 ## Why Use Amazon SES?
 
-Organizations choose Amazon SES for its unique combination of **scalability, cost-efficiency, reliability, and technical capabilities**. The service effortlessly handles email volumes from hundreds to millions without additional infrastructure provisioning, while its **pay-as-you-go model** eliminates upfront costs and minimum commitments. Built on Amazon's globally distributed infrastructure, SES ensures consistent delivery performance through redundant systems that minimize service disruptions. The built-in authentication support for SPF, DKIM, and DMARC protocols **improves deliverability rates** and protects sender reputation from [spoofing attacks](/email-sending-concepts/email-spoofing.md). Additionally, comprehensive API capabilities enable developers to **seamlessly integrate email functionality** into applications, automate workflows, and customize the sending experience to meet specific business requirements, making SES an ideal solution for companies seeking a powerful yet flexible email delivery platform.
+Organizations choose Amazon SES for its unique combination of **scalability, cost-efficiency, reliability, and technical capabilities**. The service effortlessly handles email volumes from hundreds to millions without additional infrastructure provisioning, while its **pay-as-you-go model** eliminates upfront costs and minimum commitments. Built on Amazon's globally distributed infrastructure, SES ensures consistent delivery performance through redundant systems that minimize service disruptions. The built-in authentication support for SPF, DKIM, and DMARC protocols **improves deliverability rates** and protects sender reputation from [spoofing attacks](/email-sending-concepts/email-spoofing). Additionally, comprehensive API capabilities enable developers to **seamlessly integrate email functionality** into applications, automate workflows, and customize the sending experience to meet specific business requirements, making SES an ideal solution for companies seeking a powerful yet flexible email delivery platform.
 
 ## Frequently Asked Questions About Amazon SES
 
@@ -91,6 +91,9 @@ SES **automatically tracks** bounces and complaints, which can be sent to SNS, S
 
 ## Related Content
 
+- [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
+- [Amazon SNS Topics](/aws-concepts/aws-sns-topics)
+- [Amazon SNS Subscription](/aws-concepts/aws-sns-subscription)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)

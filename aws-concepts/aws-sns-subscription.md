@@ -48,7 +48,7 @@ SNS Subscriptions operate through a comprehensive workflow that begins with crea
 
 Many subscription types require confirmation before they become active. This **two-step verification** process ensures that the endpoint owner has deliberately chosen to receive notifications, which is particularly important for public-facing endpoints like HTTP webhooks. Once confirmed, the subscription becomes active and begins receiving messages.
 
-Subscriptions can include optional filter policies that determine which subset of messages from the topic should be delivered to the endpoint. This enables **targeted processing** where different systems can subscribe to the same topic but receive only the specific notification types they're designed to handle. For example, one system might process only hard bounces while another handles spam complaints.
+Subscriptions can include optional filter policies that determine which subset of messages from the topic should be delivered to the endpoint. This enables **targeted processing** where different systems can subscribe to the same topic but receive only the specific notification types they're designed to handle. For example, one system might process only hard [bounces](/email-sending-concepts/bounce-management) while another handles spam [complaints](/email-sending-concepts/email-complaints).
 
 When a message matching the subscription's filter policy is published to the topic, SNS delivers it to the endpoint using the appropriate protocol-specific format. Delivery includes **automatic retries** if the endpoint is temporarily unavailable, with different retry strategies depending on the endpoint type.
 
@@ -105,7 +105,7 @@ If an HTTP/S endpoint consistently fails, the subscription enters a **disabled s
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 - [Amazon SNS Topics](/aws-concepts/aws-sns-topics)
 - [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [Email Event Handling](/email-sending-concepts/email-event-handling)
 - [Bounce Management](/email-sending-concepts/bounce-management)
+- [Email Complaints](/email-sending-concepts/email-complaints)
 
 <GlossaryCTA />

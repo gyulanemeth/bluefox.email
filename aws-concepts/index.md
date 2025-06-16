@@ -44,6 +44,24 @@ Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS
 
 [Read more](/aws-concepts/aws-ses)
 
+### SNS (Simple Notification Service)
+
+**Amazon SNS** is a fully managed messaging service that enables publishers to send messages to subscribers, serving as a key component in email notification systems.
+
+[Read more](/aws-concepts/aws-sns)
+
+### SNS Topics
+
+**SNS Topics** are communication channels in Amazon SNS that organize and categorize messages, allowing multiple subscribers to receive targeted notifications.
+
+[Read more](/aws-concepts/aws-sns-topics)
+
+### SNS Subscription
+
+An **SNS Subscription** is an endpoint registered to receive notifications from an Amazon SNS topic, supporting multiple protocols for message delivery.
+
+[Read more](/aws-concepts/aws-sns-subscription)
+
 <style>
 a[href^="/aws-concepts/"] {
   color: #13B0EE;

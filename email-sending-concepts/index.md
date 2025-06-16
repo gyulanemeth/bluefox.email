@@ -36,6 +36,14 @@ head:
 
 Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanations for common **email marketing**, **development**, and **authentication** terms organized alphabetically.
 
+## B
+
+### Bounce Management
+
+The process of handling and responding to **rejected emails**, critical for maintaining **sender reputation** and optimizing email deliverability.
+
+[Read more](/email-sending-concepts/bounce-management)
+
 ## C
 
 ### CNAME Record
@@ -66,6 +74,12 @@ A protocol that uses **SPF** and **DKIM** to protect domains from **unauthorized
 [Read more](/email-sending-concepts/dmarc)
 
 ## E
+
+### Email Complaints
+
+When recipients report messages as **spam**, triggering feedback loops and potentially damaging **sender reputation** if not properly managed.
+
+[Read more](/email-sending-concepts/email-complaints)
 
 ### Email Headers
 

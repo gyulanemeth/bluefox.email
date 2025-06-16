@@ -57,9 +57,9 @@ For sophisticated email operations, SNS also supports **message filtering** thro
 
 AWS SES integrates natively with AWS SNS to provide **real-time feedback** on email sending activities. This integration is crucial for:
 
-1. **Bounce Management**: When emails bounce, SNS delivers notifications containing detailed information about the bounce type, reason, and recipient.
+1. **[Bounce Management](/email-sending-concepts/bounce-management)**: When emails bounce, SNS delivers notifications containing detailed information about the bounce type, reason, and recipient.
 
-2. **Complaint Handling**: When recipients mark emails as spam, SNS delivers notifications allowing senders to immediately remove these addresses from their lists.
+2. **[Complaint Handling](/email-sending-concepts/email-complaints)**: When recipients mark emails as spam, SNS delivers notifications allowing senders to immediately remove these addresses from their lists.
 
 3. **Delivery Confirmation**: SNS can notify when emails are successfully delivered, providing validation for critical communications.
 
@@ -103,10 +103,10 @@ No, SNS is designed for **straightforward integration** with SES. Basic setup re
 
 ## Related Content
 
-* [AWS SES](/aws-concepts/aws-ses)
-* [AWS SNS Topics](/aws-concepts/aws-sns-topics)
-* [AWS SNS Subscriptions](/aws-concepts/aws-sns-subscription)
-* [Email Bounces](/email-sending-concepts/bounce)
-* [Email Complaints](/email-sending-concepts/complaint)
+* [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
+* [Amazon SNS Topics](/aws-concepts/aws-sns-topics)
+* [Amazon SNS Subscriptions](/aws-concepts/aws-sns-subscription)
+* [Bounce Management](/email-sending-concepts/bounce-management)
+* [Email Complaints](/email-sending-concepts/email-complaints)
 
 <GlossaryCTA />

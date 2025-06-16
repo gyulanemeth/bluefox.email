@@ -47,7 +47,7 @@ According to [AWS documentation](https://docs.aws.amazon.com/sns/latest/dg/sns-g
 
 SNS Topics operate through a publish-subscribe architecture that enables one-to-many message distribution. When a topic receives a message, it immediately makes copies and distributes them to all subscribed endpoints. This **fan-out pattern** is fundamental to understanding how email event notifications work.
 
-A key feature of SNS Topics is **message filtering**, which allows [subscribers](/aws-concepts/aws-sns-subscription) to receive only specific message types. In email systems, this means different processors can receive only the specific email events they're designed to handle, such as bounces or complaints.
+A key feature of SNS Topics is **message filtering**, which allows [subscribers](/aws-concepts/aws-sns-subscription) to receive only specific message types. In email systems, this means different processors can receive only the specific email events they're designed to handle, such as [bounces](/email-sending-concepts/bounce-management) or [complaints](/email-sending-concepts/email-complaints).
 
 ## Topic Types and Characteristics
 
@@ -83,7 +83,7 @@ SNS implements a **"at-least-once" delivery model** with automatic retries for f
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 - [Amazon SNS Subscriptions](/aws-concepts/aws-sns-subscription)
 - [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [Email Event Handling](/email-sending-concepts/email-event-handling)
 - [Bounce Management](/email-sending-concepts/bounce-management)
+- [Email Complaints](/email-sending-concepts/email-complaints)
 
 <GlossaryCTA />
