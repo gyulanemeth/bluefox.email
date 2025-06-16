@@ -45,7 +45,7 @@ The service follows a **publisher-subscriber model** where applications publish 
 
 ## How Amazon SNS Works with Email Systems
 
-AWS SNS operates as a critical intermediary in email feedback systems. When an email event occurs in SES, such as a bounce or complaint, SES automatically publishes a notification message to a designated SNS topic. This **message publishing** process contains detailed information about the event, including recipient addresses, timestamps, and event-specific details.
+AWS SNS operates as a critical intermediary in email feedback systems. When an email event occurs in [SES](/aws-concepts/aws-ses.md), such as a bounce or complaint, SES automatically publishes a notification message to a designated SNS topic. This **message publishing** process contains detailed information about the event, including recipient addresses, timestamps, and event-specific details.
 
 Once published, the SNS topic **distributes copies of the message** simultaneously to all subscribed endpoints, ensuring rapid notification across multiple systems. This parallel distribution enables different parts of your infrastructure to react to email events concurrently without delays or dependencies.
 
