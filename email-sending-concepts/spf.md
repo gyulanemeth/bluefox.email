@@ -95,8 +95,10 @@ If SPF fails, the receiving server may mark the message as spam, reject it, or i
 ### Can SPF break email forwarding?
 Yes. When an email is forwarded, the forwarder's IP may not be authorized in the original domain's SPF record, causing SPF to fail unless SRS (Sender Rewriting Scheme) is used.
 
-
 ## Related Content
+:::tip Practical Guide
+**[How SPF, DKIM, and DMARC Actually Work (With Real Examples)](/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples)** — Learn how to verify SPF records with the `dig` command and understand how they're checked in real email scenarios.
+:::
 
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)

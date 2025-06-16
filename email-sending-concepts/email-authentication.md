@@ -92,6 +92,9 @@ You'll need basic knowledge of DNS management, but many email platforms offer gu
 
 
 ## Related Content
+:::tip Practical Guide
+**[How SPF, DKIM, and DMARC Actually Work (With Real Examples)](/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples)** — Learn how all three authentication methods work together in a comprehensive guide with real email header examination.
+:::
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)  
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)  
