@@ -99,6 +99,9 @@ If DKIM fails, the email might still be delivered depending on the recipient's D
 
 
 ## Related Content
+:::tip Practical Guide
+**[How SPF, DKIM, and DMARC Actually Work (With Real Examples)](/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples)** — See real email headers and learn how to investigate DKIM signatures with practical examples.
+:::
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)

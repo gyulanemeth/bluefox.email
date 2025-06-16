@@ -110,6 +110,9 @@ DMARC sends regular XML reports to the email address you specify in your DNS rec
 
 
 ## Related Content
+:::tip Practical Guide
+**[How SPF, DKIM, and DMARC Actually Work (With Real Examples)](/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples)** — Understand DMARC policies with real-world examples and learn how to properly implement p=none, p=quarantine, and p=reject settings.
+:::
 
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
