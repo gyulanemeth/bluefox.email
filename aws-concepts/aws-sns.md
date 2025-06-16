@@ -39,13 +39,13 @@ Amazon Simple Notification Service (SNS) is a fully managed **publish/subscribe 
 
 ## What is Amazon SNS?
 
-SNS is a **high-throughput, push-based messaging system** that can deliver messages to a variety of endpoints including Lambda functions, HTTP endpoints, email, SMS, and mobile push notifications. It acts as the communication backbone for AWS SES, allowing for real-time processing of email events.
+SNS is a **high-throughput, push-based messaging system** that can deliver messages to a variety of endpoints including Lambda functions, HTTP endpoints, email, SMS, and mobile push notifications. It acts as the communication backbone for [AWS SES](/aws-concepts/aws-ses.md), allowing for real-time processing of email events.
 
 The service follows a **publisher-subscriber model** where applications publish (send) messages to [topics](/aws-concepts/aws-sns-topics), and [subscribers](/aws-concepts/aws-sns-subscription) receive messages from topics they're subscribed to. This model enables **one-to-many communication** where a single notification can be processed by multiple systems simultaneously.
 
 ## How Amazon SNS Works with Email Systems
 
-AWS SNS operates as a critical intermediary in email feedback systems. When an email event occurs in [SES](/aws-concepts/aws-ses.md), such as a bounce or complaint, SES automatically publishes a notification message to a designated SNS topic. This **message publishing** process contains detailed information about the event, including recipient addresses, timestamps, and event-specific details.
+AWS SNS operates as a critical intermediary in email feedback systems. When an email event occurs in SES, such as a bounce or complaint, SES automatically publishes a notification message to a designated SNS topic. This **message publishing** process contains detailed information about the event, including recipient addresses, timestamps, and event-specific details.
 
 Once published, the SNS topic **distributes copies of the message** simultaneously to all subscribed endpoints, ensuring rapid notification across multiple systems. This parallel distribution enables different parts of your infrastructure to react to email events concurrently without delays or dependencies.
 
