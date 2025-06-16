@@ -47,7 +47,7 @@ Amazon SES is a **reliable, cost-effective service** that provides an easy way t
 - **Flexible Configuration Options**: Set up your email sending based on your specific use case, whether it's transactional, marketing, or notification emails.
 - **Analytics and Reporting**: Access detailed metrics on delivery rates, bounces, complaints, and rejections.
 - **Advanced Email Features**: Support for custom headers, MIME types, attachments, and more.
-- **Integration with Other AWS Services**: Works seamlessly with other AWS services like S3, SNS, and Lambda.
+- **Integration with Other AWS Services**: Works seamlessly with other AWS services like S3, [SNS](/aws-concepts/aws-sns), and Lambda.
 - **Email Receiving**: Route incoming emails to S3 buckets, trigger Lambda functions, or send notifications through SNS.
 - **Dedicated IP Addresses**: Option to lease dedicated IP addresses for exclusive use.
 
