@@ -196,7 +196,7 @@ onBeforeUnmount(() => {
   position: relative;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1276px) {
   .vp-toc-clone { display: none; }
 }
 </style>
