@@ -60,7 +60,7 @@ Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS
 
 An **SNS Subscription** is an endpoint registered to receive notifications from an Amazon SNS topic, supporting multiple protocols for message delivery.
 
-[Read more](/aws-concepts/aws-sns-subscription)
+[Read more](/aws-concepts/aws-sns-subscription.md)
 
 <style>
 a[href^="/aws-concepts/"] {

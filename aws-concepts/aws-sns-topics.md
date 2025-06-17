@@ -41,7 +41,7 @@ head:
 
 An SNS Topic is a logical access point and communication channel in Amazon Simple Notification Service. It functions as an **event router** that receives messages from publishers and fans them out to all subscribed endpoints. For email operations, topics are the backbone of feedback processing systems, enabling real-time handling of important delivery events.
 
-According to [AWS documentation](https://docs.aws.amazon.com/general/latest/gr/sns.html), a single SNS topic can support deliveries to **millions of endpoints** (up to 12.5 million subscriptions per standard topic), making it suitable for high-volume email notification processing.
+According to [AWS documentation](https://docs.aws.amazon.com/general/latest/gr/sns.html), a single SNS topic can support deliveries to **millions of subscription** (up to 12.5 million subscriptions per standard topic), making it suitable for high-volume email notification processing.
 
 ## How SNS Topics Work
 
@@ -83,14 +83,14 @@ SNS implements a **"at-least-once" delivery model** with automatic retries for f
 
 ### How can filtering improve email operations?
 
-In SES email systems, SNS topic filtering allows distinct handling logic for hard bounces, soft bounces, complaints, and deliveries. For example, organizations can route hard bounces to immediate suppression list updates while sending soft bounces to a monitoring system for tracking transient failures.
+In [SES](/aws-concepts/aws-ses.md) email systems, SNS topic filtering allows distinct handling logic for hard bounces, soft bounces, complaints, and deliveries. For example, organizations can route hard bounces to immediate suppression list updates while sending soft bounces to a monitoring system for tracking transient failures.
 
 ## Related Content
 
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 - [Amazon SNS Subscriptions](/aws-concepts/aws-sns-subscription)
 - [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [Bounce Management](/email-sending-concepts/bounce-management)
+- [Bounces](/email-sending-concepts/bounce)
 - [Email Complaints](/email-sending-concepts/email-complaints)
 
 <GlossaryCTA />

@@ -39,11 +39,11 @@ An **email bounce** occurs when an email cannot be delivered to its intended rec
 
 ## What is an Email Bounce?
 
-An email bounce occurs when a recipient's mail server rejects a message and returns a notification to the sender. This notification contains standardized error codes explaining why delivery failed. Bounces directly reflect your list quality and sending practices. According to [Amazon SES enforcement guidelines](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html), industry standards recommend keeping bounce rates below 2%, with top senders achieving under 1%. Higher rates trigger spam filters and damage sender reputation, potentially blocking future emails even to valid recipients.
+An email bounce occurs when a recipient's mail server rejects a message and returns a notification to the sender. This notification contains standardized error codes explaining why delivery failed. Bounces directly reflect your list quality and sending practices. According to [Amazon SES enforcement guidelines](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html), industry standards recommend keeping bounce rates below 2%. Higher rates trigger spam filters and damage sender reputation, potentially blocking future emails even to valid recipients.
 
 ## Types of Email Bounces
 
-Email bounces fall into two main categories: hard bounces and soft bounces. Each type signals different underlying issues and requires different approaches.
+Email bounces fall into two main categories: **hard bounces** and **soft bounces**. Each type signals different underlying issues and requires different approaches.
 
 ### Hard Bounces
 
