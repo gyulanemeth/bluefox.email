@@ -65,7 +65,7 @@ Soft bounces are **temporary delivery failures** that occur when an email can't 
 - **Full mailboxes** where the recipient has reached their storage limit
 - **Server downtime or technical issues** at the recipient's mail server
 - **Message size exceeds limits** set by the recipient's mail system
-- **Greylisting** where the server temporarily rejects unknown senders
+- **Greylisting**, where the recipient server temporarily rejects unknown senders to verify their legitimacy
 
 Soft bounces typically don't require immediate list removal but should be monitored. Most email systems automatically retry delivery for soft bounces over a 24-72 hour period before giving up.
 
@@ -99,7 +99,7 @@ Understanding these codes helps in properly categorizing bounces and taking appr
 
 ## How Email Service Providers Handle Bounces
 
-Modern email service providers like Amazon SES handle bounces through a multi-step process:
+Modern email service providers like [Amazon SES](/aws-concepts/aws-ses.md) handle bounces through a multi-step process:
 
 1. **Detection**: The ESP receives and parses bounce notifications from recipient servers
 2. **Classification**: Bounces are categorized as hard or soft based on response codes
@@ -113,17 +113,20 @@ This automation simplifies bounce management but still requires senders to monit
 
 Email bounces directly impact sender reputation, which determines whether your future emails reach the inbox or spam folder. Major ISPs and email providers like Gmail, Yahoo, and Outlook use bounce rates as a key metric when evaluating sender quality.
 
-Consistently high bounce rates signal to receiving servers that the sender doesn't follow list hygiene best practices. According to deliverability experts, maintaining bounce rates **below 2%** is essential for preserving good sender reputation. Services like Amazon SES enforce even stricter guidelines, requiring bounces to stay **below 5%** to maintain unrestricted sending privileges.
+Consistently high bounce rates signal to receiving servers that the sender doesn't follow list hygiene best practices. According to deliverability experts, maintaining bounce rates **below 2%** is essential for preserving good sender reputation. Services like Amazon SES enforce even stricter guidelines, requiring bounces to stay **below 5%** to maintain unrestricted sending privileges. According to [Amazon's official SES documentation](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html): "If your bounce rate is 5% or greater, we'll place your account under review. If your bounce rate is 10% or greater, we might pause your account's ability to send additional email until you resolve the issue that resulted in the high bounce rate."
 
 ## Frequently Asked Questions About Bounce Management
 
 ### How quickly should I remove hard bounced addresses?
+
 Hard bounced addresses should be removed from your active mailing lists **immediately** after the bounce is detected. Most email sending platforms do this automatically, but you should verify this process is working correctly.
 
 ### How many retry attempts should I make for soft bounces?
+
 Industry standard practice is to retry soft bounces **3-5 times over 24-72 hours** before considering the address problematic. After multiple failures, these addresses should be flagged for review or removal.
 
 ### Can a previously hard-bounced address become valid again?
+
 While technically possible (if someone recreates a deleted account with the same address), it's extremely rare and not worth the risk to sender reputation. Best practice is to maintain permanent suppression of hard bounced addresses.
 
 ## Related Content

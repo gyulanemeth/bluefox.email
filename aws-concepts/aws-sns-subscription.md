@@ -81,11 +81,11 @@ The **protocol diversity** allows email events to be processed by various system
 
 Amazon SNS Subscriptions enable numerous critical functions in email delivery operations:
 
-- **Bounce Processing Pipeline**: Multiple subscriptions to a bounce topic can route events to different systems simultaneously—Lambda functions for suppression list updates, SQS queues for analytics, and HTTP endpoints for CRM integration
+- **Bounce Processing Pipeline**: Multiple subscriptions to a bounce topic can route events to different systems simultaneously, including Lambda functions for suppression list updates, SQS queues for analytics, and HTTP endpoints for CRM integration.
 
-- **Tiered Complaint Handling**: Filter policies can distinguish between complaint categories, routing severe spam reports to urgent response systems while sending milder feedback to standard channels
+- **Tiered Complaint Handling**: Filter policies can distinguish between complaint categories, routing severe spam reports to urgent response systems while sending milder feedback to standard channels.
 
-- **Cross-Environment Testing**: Subscriptions can connect production email events to development environments with appropriate filtering, allowing testing with real-world data patterns
+- **Cross-Environment Testing**: Subscriptions can connect production email events to development environments with appropriate filtering, allowing testing with real-world data patterns.
 
 - **Multi-Region Resilience**: Critical email systems can create subscriptions delivering events to redundant processing systems across multiple regions, ensuring continuity during regional disruptions
 

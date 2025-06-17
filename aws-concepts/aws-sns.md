@@ -51,7 +51,7 @@ Once published, the SNS topic **distributes copies of the message** simultaneous
 
 The subscribers receiving these notifications, typically Lambda functions or SQS queues, then perform **event processing** tasks like updating suppression lists, logging analytics data, or triggering operational workflows. This processing happens in real-time, allowing immediate response to critical email events.
 
-For sophisticated email operations, SNS also supports **message filtering** through subscription filter policies. These filters enable subscribers to receive only specific types of email events, such as separating hard bounces from soft bounces, or processing complaints differently from delivery confirmations. According to [AWS documentation](https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html), these filter policies can be applied on a per-subscription basis, allowing each processing system to receive only the events relevant to its function.
+For sophisticated email operations, SNS also supports **message filtering** through subscription filter policies. These filters enable subscribers to receive only specific types of email events, such as separating hard bounces from soft bounces, or processing complaints differently from delivery confirmations. According to [AWS documentation](https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html), these filter policies can be applied on a **per-subscription basis** (not at the topic level), allowing each processing system to receive only the events relevant to its function.
 
 ## SNS-SES Integration
 
@@ -63,7 +63,7 @@ AWS SES integrates natively with AWS SNS to provide **real-time feedback** on em
 
 3. **Delivery Confirmation**: SNS can notify when emails are successfully delivered, providing validation for critical communications.
 
-4. **Rendering Failures**: SNS delivers notifications when emails encounter rendering problems, helping senders identify and fix formatting issues.
+4. **Format or Template Issues**: SNS delivers notifications when emails encounter format or template-related problems detected by SES (e.g., invalid content structures, template rendering failures), helping senders identify and fix these issues.
 
 This feedback loop is essential for maintaining a **healthy sender reputation** and optimizing email deliverability rates.
 
@@ -71,17 +71,17 @@ This feedback loop is essential for maintaining a **healthy sender reputation** 
 
 AWS SNS provides several benefits specifically for email systems, making it an essential component of a robust email infrastructure. The service offers **high reliability, durability, and scalability** while eliminating the operational complexity of managing messaging infrastructure.
 
-For email operations specifically, SNS enables **real-time reaction to email events**, allowing systems to immediately process bounces, complaints, and deliveries rather than waiting for batch processes. This immediate feedback loop helps maintain list hygiene, protect sender reputation, and ensure compliance with email sending best practices.
+For email operations specifically, SNS enables **real-time reaction to email events**, allowing immediate processing of feedback rather than waiting for batch processes. This immediate feedback loop helps maintain list hygiene, protect sender reputation, and ensure compliance with email sending best practices.
 
 The ability to fan out notifications to multiple processing systems simultaneously means that a single email event can trigger updates to customer databases, analytics systems, and operational dashboards without complicated coordination between systems.
 
 ## Common Email Use Cases for SNS
 
-1. **Bounce Processing**: Automatically update contact databases when emails bounce, preventing future sending attempts to invalid addresses.
+1. **Bounce Processing Automation**: Create automated workflows that update suppression lists and contact databases when emails bounce, preventing further sending to invalid addresses.
 
-2. **Complaint Monitoring**: Trigger immediate unsubscribe actions when recipients file spam complaints, protecting sender reputation.
+2. **Complaint Handling Systems**: Implement immediate unsubscribe actions and sender reputation protection when recipients file spam complaints.
 
-3. **Delivery Analytics**: Record successful deliveries in real-time analytics systems to track campaign performance.
+3. **Delivery Performance Monitoring**: Build real-time analytics dashboards to track campaign performance metrics and delivery success rates.
 
 4. **Automated Workflows**: Initiate follow-up communications based on email interaction events (opens, clicks, etc.).
 
@@ -95,7 +95,7 @@ SNS is a **push-based messaging service** that delivers messages to subscribers,
 
 ### What makes SNS suitable for handling email notifications?
 
-SNS's architecture provides **immediate delivery** of notifications, supports **multiple subscriber types** for different processing needs, and offers **filtering capabilities** that allow you to route different types of email events to different handling systems—all critical features for responsive email operations.
+SNS's architecture provides **immediate delivery** of notifications, supports **multiple subscriber types** for different processing needs, and offers **filtering capabilities** that allow you to route different types of email events to different handling systems, all critical features for responsive email operations.
 
 ### Is SNS difficult to implement for email event handling?
 
@@ -103,10 +103,10 @@ No, SNS is designed for **straightforward integration** with SES. Basic setup re
 
 ## Related Content
 
-* [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
-* [Amazon SNS Topics](/aws-concepts/aws-sns-topics)
-* [Amazon SNS Subscriptions](/aws-concepts/aws-sns-subscription)
-* [Bounce Management](/email-sending-concepts/bounce-management)
-* [Email Complaints](/email-sending-concepts/email-complaints)
+- [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
+- [Amazon SNS Topics](/aws-concepts/aws-sns-topics)
+- [Amazon SNS Subscriptions](/aws-concepts/aws-sns-subscription)
+- [Bounce Management](/email-sending-concepts/bounce-management)
+- [Email Complaints](/email-sending-concepts/email-complaints)
 
 <GlossaryCTA />
