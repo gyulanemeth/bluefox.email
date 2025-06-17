@@ -1,19 +1,19 @@
 ---
 layout: home
 
-title: No-Code Email Design & Automation for SaaS Teams
-description: Create and send consistent, beautiful transactional, triggered, and marketing emails with ease using bluefox.email — a powerful platform for SaaS companies. With a no-code editor, unified design system, and seamless Amazon SES integration, your emails look great everywhere, even in Outlook.
+title: Design Better Emails. Send Smarter. Pay Less. | BlueFox Email
+description: Send reliable, well-designed emails at a fair price. Automate flows and improve inbox placement with BlueFox Email.
 
 head:
   - - meta
     - name: description
-      content: "Create and send consistent, beautiful transactional, triggered, and marketing emails with ease using bluefox.email — a powerful platform for SaaS companies. With a no-code editor, unified design system, and seamless Amazon SES integration, your emails look great everywhere, even in Outlook."
+      content: "Send reliable, well-designed emails at a fair price. Automate flows and improve inbox placement with BlueFox Email."
   - - meta
     - property: og:title
-      content: No-Code Email Design & Automation for SaaS Teams
+      content: Design Better Emails. Send Smarter. Pay Less. | BlueFox Email
   - - meta
     - property: og:description
-      content: "Create and send consistent, beautiful transactional, triggered, and marketing emails with ease using bluefox.email — a powerful platform for SaaS companies. With a no-code editor, unified design system, and seamless Amazon SES integration, your emails look great everywhere, even in Outlook."
+      content: "Send reliable, well-designed emails at a fair price. Automate flows and improve inbox placement with BlueFox Email."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share.png
@@ -28,10 +28,10 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: No-Code Email Design & Automation for SaaS Teams
+      content: Design Better Emails. Send Smarter. Pay Less. | BlueFox Email
   - - meta
     - name: twitter:description
-      content: "Create and send consistent, beautiful transactional, triggered, and marketing emails with ease using bluefox.email — a powerful platform for SaaS companies. With a no-code editor, unified design system, and seamless Amazon SES integration, your emails look great everywhere, even in Outlook."
+      content: "Send reliable, well-designed emails at a fair price. Automate flows and improve inbox placement with BlueFox Email."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share.png

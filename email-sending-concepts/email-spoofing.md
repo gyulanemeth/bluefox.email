@@ -109,6 +109,9 @@ Yes, using spoofing for fraud or harm is illegal in most countries. Testing emai
 
 
 ## Related Content
+:::tip Practical Guide
+**[How SPF, DKIM, and DMARC Actually Work (With Real Examples)](/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples)** — Discover how to protect your domain from spoofing attacks by examining real email headers and understanding authentication failures.
+:::
 
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
