@@ -1,0 +1,97 @@
+---
+title: Email Bounces | BlueFox Email
+description: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
+thumbnail: /assets/glossary/email-sending-concepts-glossary.png
+sidebar: false
+layout: post
+category: glossary
+
+head:
+  - - meta
+    - name: description
+      content: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
+  - - meta
+    - property: og:title
+      content: Email Bounces | BlueFox Email
+  - - meta
+    - property: og:description
+      content: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/glossary/email-sending-concepts-glossary.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/email-sending-concepts/bounce
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: Email Bounces | BlueFox Email
+  - - meta
+    - name: twitter:description
+      content: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
+---
+
+# Email Bounces
+
+An **email bounce** occurs when an email cannot be delivered to its intended recipient and is returned to the sender with an error message. Bounces are a natural part of email sending, but understanding their causes and implications is crucial for maintaining good deliverability and sender reputation.
+
+## What is an Email Bounce?
+
+An email bounce occurs when a recipient's mail server rejects a message and returns a notification to the sender. This notification contains standardized error codes explaining why delivery failed. Bounces directly reflect your list quality and sending practices. According to [Amazon SES enforcement guidelines](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html), industry standards recommend keeping bounce rates below 2%, with top senders achieving under 1%. Higher rates trigger spam filters and damage sender reputation, potentially blocking future emails even to valid recipients.
+
+## Types of Email Bounces
+
+Email bounces fall into two main categories: hard bounces and soft bounces. Each type signals different underlying issues and requires different approaches.
+
+### Hard Bounces
+
+A hard bounce is a **permanent delivery failure** that occurs when an email cannot be delivered for unchangeable reasons. Common causes include invalid addresses, closed accounts, blocked domains, or nonexistent domains. These require immediate removal from mailing lists to protect sender reputation. Email service providers typically automate this process by maintaining suppression lists to prevent future sending attempts to these addresses.
+
+### Soft Bounces
+
+A soft bounce is a **temporary delivery failure** that can potentially be resolved. Causes include full mailboxes, server downtime, message size limits, or greylisting. Unlike hard bounces, these addresses don't need immediate removal as delivery systems typically retry for 24-72 hours. However, persistent soft bounces across multiple campaigns may indicate abandoned accounts that should eventually be removed.
+
+## Bounce Codes and Their Meaning
+
+Bounce messages typically include SMTP response codes that provide specific information about the delivery failure:
+- **5XX codes** (e.g., 550, 551) indicate permanent failures (hard bounces)
+- **4XX codes** (e.g., 421, 450) indicate temporary issues (soft bounces)
+- **Specific subcodes** provide more detailed information about the exact cause
+
+Understanding these codes helps in properly categorizing bounces and taking appropriate action. For instance, a 550 "Mailbox not found" requires immediate address removal, while a 421 "Service not available" might warrant retry attempts.
+
+## How Email Service Providers Handle Bounces
+
+Modern email service providers like [Amazon SES](/aws-concepts/aws-ses) automatically process bounce information by receiving notifications, classifying them as hard or soft based on response codes, and forwarding this data to senders through webhooks or [Amazon SNS Topics](/aws-concepts/aws-sns-topics). For hard bounces, ESPs automatically add addresses to suppression lists to prevent future sending attempts. They also compile bounce metrics into reports so senders can monitor trends and identify potential deliverability issues before they escalate.
+
+## How Bounces Impact Sender Reputation
+
+Email bounces directly influence how mailbox providers like Gmail, Yahoo, and Outlook evaluate your sending quality. High bounce rates signal poor list hygiene and questionable acquisition practices, damaging your sender reputation and reducing inbox placement. Industry experts recommend maintaining bounce rates **below 2%** for optimal deliverability.
+
+Email service providers enforce strict bounce thresholds as protective measures. Amazon SES, for example, requires bounces to stay **below 5%** to maintain unrestricted sending privileges. According to [Amazon](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html): "If your bounce rate is 5% or greater, we'll place your account under review. If your bounce rate is 10% or greater, we might pause your account's ability to send additional email." A damaged reputation from excessive bounces can affect your deliverability across the entire email ecosystem.
+
+## Frequently Asked Questions About Email Bounces
+
+### What happens when an email bounces?
+
+The receiving server returns a notification containing standardized error codes and explanatory text about why delivery failed. This information is processed and made available to the sender through reports or notification systems.
+
+### Why do valid email addresses sometimes bounce?
+
+Valid addresses can bounce due to temporary server outages, full mailboxes, content filtering, or greylisting policies. These issues often resolve themselves on subsequent sending attempts.
+
+### Do all bounces affect sender reputation equally?
+
+No. Hard bounces for non-existent addresses damage reputation most severely as they indicate poor list quality. Soft bounces have minimal impact unless they persist across multiple sending attempts.
+
+## Related Content
+
+- [Complaint Notification](/email-sending-concepts/complaint-notification)
+- [Email Authentication](/email-sending-concepts/email-authentication)
+- [SMTP Protocol](/email-sending-concepts/smtp)
+- [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
+- [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
+
+<GlossaryCTA />
