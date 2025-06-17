@@ -25,7 +25,8 @@ head:
   - - meta
     - name: twitter:card
       content: summary_large_image
-  - - meta    - name: twitter:title
+  - - meta    
+    - name: twitter:title
       content: Amazon SNS Subscription | BlueFox Email
   - - meta
     - name: twitter:description
