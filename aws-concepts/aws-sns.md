@@ -35,7 +35,7 @@ head:
 
 # Amazon SNS (Simple Notification Service)
 
-Amazon Simple Notification Service (SNS) is a fully managed **publish/subscribe messaging service** that enables the decoupling of microservices, distributed systems, and serverless applications. In the context of email operations, SNS serves as the critical notification infrastructure for processing events like bounces, complaints, and deliveries.
+Amazon Simple Notification Service (SNS) is a fully managed **publish/subscribe messaging service** that enables the decoupling of microservices, distributed systems, and serverless applications. In the context of email operations, SNS serves as the critical notification infrastructure for processing events like [bounces](/email-sending-concepts/bounce.md), [complaints](/email-sending-concepts/complaint-notification.md), and deliveries.
 
 ## What is Amazon SNS?
 
@@ -57,9 +57,9 @@ For sophisticated email operations, SNS also supports **message filtering** thro
 
 AWS SES integrates natively with AWS SNS to provide **real-time feedback** on email sending activities. This integration is crucial for:
 
-1. **[Bounce Management](/email-sending-concepts/bounce-management)**: When emails bounce, SNS delivers notifications containing detailed information about the bounce type, reason, and recipient.
+1. **Bounce Management**: When emails bounce, SNS delivers notifications containing detailed information about the bounce type, reason, and recipient.
 
-2. **[Complaint Handling](/email-sending-concepts/email-complaints)**: When recipients mark emails as spam, SNS delivers notifications allowing senders to immediately remove these addresses from their lists.
+2. **Complaint Handling**: When recipients mark emails as spam, SNS delivers notifications allowing senders to immediately remove these addresses from their lists.
 
 3. **Delivery Confirmation**: SNS can notify when emails are successfully delivered, providing validation for critical communications.
 

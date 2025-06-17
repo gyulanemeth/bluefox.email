@@ -35,7 +35,7 @@ head:
 
 # Amazon SNS Topics
 
-**Amazon SNS Topics** are named communication channels within the Simple Notification Service that serve as the central connection point between message publishers and subscribers. In email delivery systems, SNS Topics play a **vital role** in managing and distributing notifications about email events such as bounces, complaints, and deliveries as part of the [Amazon SNS](/aws-concepts/aws-sns) service.
+**Amazon SNS Topics** are named communication channels within the Simple Notification Service that serve as the central connection point between message publishers and subscribers. In email delivery systems, SNS Topics play a **vital role** in managing and distributing notifications about email events such as [bounces](/email-sending-concepts/bounce.md), [complaints](/email-sending-concepts/complaint-notification.md), and deliveries as part of the [Amazon SNS](/aws-concepts/aws-sns) service.
 
 ## What are Amazon SNS Topics?
 
@@ -47,7 +47,7 @@ According to [AWS documentation](https://docs.aws.amazon.com/general/latest/gr/s
 
 SNS Topics operate through a publish-subscribe architecture that enables one-to-many message distribution. When a topic receives a message, it immediately makes copies and distributes them to all subscribed endpoints. This **fan-out pattern** is fundamental to understanding how email event notifications work.
 
-A key feature of SNS Topics is **message filtering**, which allows subscribers to receive only specific message types **at the subscription level**. In email systems, this means different processors can receive only the specific email events they're designed to handle, such as [bounces](/email-sending-concepts/bounce-management) or [complaints](/email-sending-concepts/email-complaints), without needing to process all topic messages.
+A key feature of SNS Topics is **message filtering**, which allows subscribers to receive only specific message types **at the subscription level**. In email systems, this means different processors can receive only the specific email events they're designed to handle, such as bounces or complaints, without needing to process all topic messages.
 
 ## Topic Types and Characteristics
 
