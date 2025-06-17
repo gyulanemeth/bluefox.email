@@ -40,7 +40,7 @@ An **SNS Subscription** is the mechanism that connects a notification [topic](/a
 
 An SNS Subscription is a configuration that defines where and how notifications from an SNS Topic should be delivered. It creates a **persistent link** between a topic and an endpoint, allowing messages published to the topic to be automatically forwarded to the subscribed destination.
 
-For email delivery systems, subscriptions are the critical connection points that ensure notifications about email events reach the appropriate processing systems. According to [AWS documentation](https://docs.aws.amazon.com/sns/latest/dg/sns-create-subscribe-endpoint-to-topic.html), a single SNS Topic can support up to **12.5 million subscriptions** across various endpoint types.
+For email delivery systems, subscriptions are the critical connection points that ensure notifications about email events reach the appropriate processing systems. According to [AWS documentation](https://docs.aws.amazon.com/general/latest/gr/sns.html#limits_sns), a standard SNS Topic can support up to **12.5 million subscriptions** across various endpoint types.
 
 ## How SNS Subscriptions Work
 
@@ -92,12 +92,15 @@ Amazon SNS Subscriptions enable numerous critical functions in email delivery op
 ## Frequently Asked Questions About SNS Subscriptions
 
 ### How do I ensure my subscription doesn't miss any messages?
+
 SNS guarantees **at-least-once delivery** to active subscriptions. For mission-critical processing, combine SNS with SQS to create a durable buffer. The SQS queue will store messages even if your processing system is temporarily unavailable, ensuring no email events are missed.
 
 ### Can different subscriptions receive different message formats?
+
 Yes. Each subscription type receives messages formatted appropriately for its protocol. Additionally, SNS supports raw message delivery for SQS and Lambda subscriptions, allowing these endpoints to receive messages without the standard SNS message wrapper.
 
 ### What happens if an endpoint repeatedly fails to process messages?
+
 If an HTTP/S endpoint consistently fails, the subscription enters a **disabled state** after the retry policy is exhausted. For Lambda and SQS endpoints, failures are handled according to their respective retry and dead-letter queue configurations. This prevents endless delivery attempts to malfunctioning systems.
 
 ## Related Content

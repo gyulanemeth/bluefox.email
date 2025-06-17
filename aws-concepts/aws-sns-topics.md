@@ -41,7 +41,7 @@ head:
 
 An SNS Topic is a logical access point and communication channel in Amazon Simple Notification Service. It functions as an **event router** that receives messages from publishers and fans them out to all subscribed endpoints. For email operations, topics are the backbone of feedback processing systems, enabling real-time handling of important delivery events.
 
-According to [AWS documentation](https://docs.aws.amazon.com/sns/latest/dg/sns-getting-started.html), a single SNS topic can support deliveries to **millions of endpoints**, making it suitable for high-volume email notification processing.
+According to [AWS documentation](https://docs.aws.amazon.com/general/latest/gr/sns.html), a single SNS topic can support deliveries to **millions of endpoints** (up to 12.5 million subscriptions per standard topic), making it suitable for high-volume email notification processing.
 
 ## How SNS Topics Work
 
@@ -53,7 +53,7 @@ A key feature of SNS Topics is **message filtering**, which allows [subscribers]
 
 Amazon SNS offers two distinct topic types with different delivery characteristics:
 
-**Standard Topics** provide high-throughput, best-effort message ordering with at-least-once delivery guarantees. These topics can handle virtually unlimited messages per second according to [AWS documentation](https://docs.aws.amazon.com/sns/latest/dg/sns-publishing-to-topics.html), making them ideal for most email notification scenarios.
+**Standard Topics** provide high-throughput, best-effort message ordering with at-least-once delivery guarantees. These topics can handle very high message volumes (up to 30,000 messages per second in some regions) according to [AWS documentation](https://docs.aws.amazon.com/general/latest/gr/sns.html#sns-quotas), making them ideal for most email notification scenarios.
 
 **FIFO Topics** (First-In-First-Out) deliver messages in the exact order they're published with exactly-once processing guarantees. These topics are useful when the precise sequence of email events matters, though they have lower throughput limits than Standard Topics.
 
@@ -63,19 +63,22 @@ SNS Topics provide several fundamental benefits in message distribution systems:
 
 The **real-time nature** enables immediate reaction to events as they occur, which is vital for time-sensitive notifications like email delivery issues.
 
-Their **scalable architecture** handles varying message volumes without configuration changes. According to [AWS documentation](https://docs.aws.amazon.com/sns/latest/dg/sns-publishing-to-topics.html), standard topics can support virtually unlimited messages per second.
+Their **scalable architecture** handles varying message volumes without configuration changes. Standard topics can support very high throughput (up to 30,000 messages per second in some regions).
 
 The **loose coupling** principle means that publishers and subscribers can evolve independently, creating more flexible and maintainable system architectures.
 
 ## Frequently Asked Questions About SNS Topics
 
 ### How many subscribers can an SNS Topic have?
+
 A single SNS Topic can support up to **12.5 million subscriptions** across various endpoint types, according to AWS documentation.
 
 ### Can SNS Topics guarantee message processing order?
+
 Standard SNS Topics provide best-effort ordering but don't guarantee it. FIFO Topics ensure strict ordering with exactly-once processing guarantees, though with lower throughput.
 
 ### How reliable is message delivery with SNS Topics?
+
 SNS implements a **"at-least-once" delivery model** with automatic retries for failed deliveries. This design ensures high message durability even during temporary endpoint disruptions.
 
 ## Related Content
