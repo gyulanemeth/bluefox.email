@@ -106,7 +106,7 @@ No, SNS is designed for **straightforward integration** with SES. Basic setup re
 - [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
 - [Amazon SNS Topics](/aws-concepts/aws-sns-topics)
 - [Amazon SNS Subscriptions](/aws-concepts/aws-sns-subscription)
-- [Bounce Management](/email-sending-concepts/bounce-management)
+- [Email Bounces](/email-sending-concepts/bounce)
 - [Email Complaints](/email-sending-concepts/email-complaints)
 
 <GlossaryCTA />

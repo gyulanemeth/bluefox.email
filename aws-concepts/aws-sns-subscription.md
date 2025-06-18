@@ -109,7 +109,7 @@ If an HTTP/S endpoint consistently fails, the subscription enters a **disabled s
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 - [Amazon SNS Topics](/aws-concepts/aws-sns-topics)
 - [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [Bounce Management](/email-sending-concepts/bounce-management)
+- [Email Bounces](/email-sending-concepts/bounce)
 - [Email Complaints](/email-sending-concepts/email-complaints)
 
 <GlossaryCTA />
