@@ -87,7 +87,7 @@ AWS SES is a **"building block" email infrastructure** with pay-as-you-go pricin
 Yes, new accounts start in a **"sandbox" environment** with restricted sending capabilities. After proving good sending practices, you can request production access to increase your sending quota (emails per day) and sending rate (emails per second). AWS evaluates your **bounce and complaint rates** before granting higher limits.
 
 ### How does Amazon SES handle bounces and complaints?
-SES **automatically tracks** bounces and complaints, which can be sent to SNS, S3, or trigger Lambda functions. You must maintain bounce rates **below 5%** and complaint rates **below 0.1%** to avoid sending restrictions. SES also maintains a **suppression list** to prevent sending to problematic addresses. Please refer to offical guidelines from [gmail](https://support.google.com/a/answer/81126?hl=en#zippy=) for more information.
+SES **automatically tracks** bounces and complaints, which can be sent to SNS, S3, or trigger Lambda functions. You must maintain bounce rates **below 5%** and complaint rates **below 0.1%** to avoid sending restrictions. SES also maintains a **suppression list** to prevent sending to problematic addresses. Please refer to official guidelines from [gmail](https://support.google.com/a/answer/81126?hl=en#zippy=) for more information.
 
 ## Related Content
 

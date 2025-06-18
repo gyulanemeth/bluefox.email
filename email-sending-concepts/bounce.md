@@ -47,7 +47,7 @@ Email bounces fall into two main categories: **hard bounces** and **soft bounces
 
 ### Hard Bounces
 
-A hard bounce is a **permanent delivery failure** that occurs when an email cannot be delivered for unchangeable reasons. Common causes include invalid addresses, closed accounts, blocked domains, or nonexistent domains. These require immediate removal from mailing lists to protect sender reputation. Email service providers typically automate this process by maintaining suppression lists to prevent future sending attempts to these addresses.
+A hard bounce is a **permanent delivery failure** that occurs when an email cannot be delivered for unchangeable reasons. Common causes include invalid addresses, closed accounts, blocked domains, or nonexistent domains. These require immediate removal from mailing lists to protect the sender's reputation. Email service providers typically automate this process by maintaining suppression lists to prevent future sending attempts to these addresses.
 
 ### Soft Bounces
 
@@ -71,7 +71,7 @@ Modern email service providers like [Amazon SES](/aws-concepts/aws-ses) automati
 
 Email bounces directly influence how mailbox providers like Gmail, Yahoo, and Outlook evaluate your sending quality. High bounce rates signal poor list hygiene and questionable acquisition practices, damaging your sender reputation and reducing inbox placement. Industry experts recommend maintaining bounce rates **below 2%** for optimal deliverability.
 
-Email service providers enforce strict bounce thresholds as protective measures. Amazon SES, for example, requires bounces to stay **below 5%** to maintain unrestricted sending privileges. According to [Amazon](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html): "If your bounce rate is 5% or greater, we'll place your account under review. If your bounce rate is 10% or greater, we might pause your account's ability to send additional email." A damaged reputation from excessive bounces can affect your deliverability across the entire email ecosystem.
+Email service providers enforce strict bounce thresholds as protective measures. Amazon SES, for example, requires bounces to stay **below 5%** to maintain unrestricted sending privileges. According to [Amazon](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html): "If your bounce rate is 5% or greater, we'll place your account under review. If your bounce rate is 10% or greater, we might pause your account's ability to send additional emails." A damaged reputation from excessive bounces can affect your deliverability across the entire email ecosystem.
 
 ## Frequently Asked Questions About Email Bounces
 
