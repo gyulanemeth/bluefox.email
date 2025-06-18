@@ -41,7 +41,7 @@ head:
 
 An SNS Topic is a logical access point and communication channel in Amazon Simple Notification Service. It functions as an **event router** that receives messages from publishers and fans them out to all subscribed endpoints. For email operations, topics are the backbone of feedback processing systems, enabling real-time handling of important delivery events.
 
-According to [AWS documentation](https://docs.aws.amazon.com/general/latest/gr/sns.html), a single SNS topic can support deliveries to **millions of subscription** (up to 12.5 million subscriptions per standard topic), making it suitable for high-volume email notification processing.
+According to [AWS documentation](https://docs.aws.amazon.com/general/latest/gr/sns.html), a single SNS topic can support deliveries to **millions of subscriptions** (up to 12.5 million subscriptions per standard topic), making it suitable for high-volume email notification processing.
 
 ## How SNS Topics Work
 
