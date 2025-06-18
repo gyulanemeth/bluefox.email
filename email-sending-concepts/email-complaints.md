@@ -1,5 +1,5 @@
 ---
-title: Email Complaints | BlueFox Email
+title: Complaints | BlueFox Email
 description: Email complaints occur when recipients report messages as spam, triggering feedback loops and potentially damaging sender reputation if not properly managed.
 thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
@@ -12,7 +12,7 @@ head:
       content: Email complaints occur when recipients report messages as spam, triggering feedback loops and potentially damaging sender reputation if not properly managed.
   - - meta
     - property: og:title
-      content: Email Complaints | BlueFox Email
+      content: Complaints | BlueFox Email
   - - meta
     - property: og:description
       content: Email complaints occur when recipients report messages as spam, triggering feedback loops and potentially damaging sender reputation if not properly managed.
@@ -27,29 +27,29 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Email Complaints | BlueFox Email
+      content: Complaints | BlueFox Email
   - - meta
     - name: twitter:description
       content: Email complaints occur when recipients report messages as spam, triggering feedback loops and potentially damaging sender reputation if not properly managed.
 ---
 
-# Email Complaints
+# Complaints
 
-**Email complaints** occur when recipients actively report an email as unwanted or spam through their email client or service provider. These reports directly impact sender reputation and deliverability, making complaint management essential for professional email operations. Understanding the nature and implications of email complaints is crucial for maintaining a healthy sending program.
+**Complaints** occur when recipients actively report an email as unwanted or spam through their email client or service provider. These reports directly impact sender reputation and deliverability, making complaint management essential for professional email operations. Understanding the nature and implications of complaints is crucial for maintaining a healthy sending program.
 
-## What are Email Complaints?
+## What are Complaints?
 
-Email complaints are formal reports made by recipients who consider a message to be unwanted, inappropriate, or deceptive. The most common form of complaint happens when a user clicks the **"Mark as Spam"** or **"Report Spam"** button in their email client. These actions trigger notifications through **Feedback Loops (FBLs)** that alert the sender about the complaint. According to [AWS guidelines](https://docs.aws.amazon.com/ses/latest/dg/reputationdashboardmessages.html#calculate-complaint), complaint rates should remain **below 0.1%** (1 complaint per 1,000 emails) to maintain good deliverability. Major mailbox providers like Gmail, Yahoo, and Microsoft use complaint rates as a primary metric when determining whether to deliver future emails to the inbox or the spam folder.
+Complaints are formal reports made by recipients who consider a message to be unwanted, inappropriate, or deceptive. The most common form of complaint happens when a user clicks the **"Mark as Spam"** or **"Report Spam"** button in their email client. These actions trigger notifications through **Feedback Loops (FBLs)** that alert the sender about the complaint. According to [AWS guidelines](https://docs.aws.amazon.com/ses/latest/dg/reputationdashboardmessages.html#calculate-complaint), complaint rates should remain **below 0.1%** (1 complaint per 1,000 emails) to maintain good deliverability. Major mailbox providers like Gmail, Yahoo, and Microsoft use complaint rates as a primary metric when determining whether to deliver future emails to the inbox or the spam folder.
 
-## How Email Complaints Work
+## How Complaints Work
 
 The complaint process typically follows a specific workflow: a recipient receives an email they consider unwanted, they click **"Report Spam"** or a similar button in their email client, the mailbox provider records this action, and if the sender participates in Feedback Loops, the provider sends a notification back to the sender. The sender's email system then processes this complaint and takes appropriate action.
 
 While mailbox providers like Yahoo and Microsoft provide traditional Feedback Loops (FBLs), **Gmail is a notable exception**. Instead, Gmail aggregates user engagement signals, including spam reports, and adjusts sender reputation accordingly without providing individual complaint data. This makes it even more important to monitor overall complaint trends across all providers. Most FBLs deliver notifications through **standardized Abuse Reporting Format (ARF) messages**, which contain metadata about the original message and the complaint. Services like [Amazon SES](/aws-concepts/aws-ses) automatically process these ARF messages and make the complaint data available through [Amazon SNS](/aws-concepts/aws-sns) notifications for integration with suppression lists and monitoring systems.
 
-## Types of Email Complaints
+## Types of Complaints
 
-Email complaints can be categorized into several types, each with different implications:
+Complaints can be categorized into several types, each with different implications:
 
 - **Spam Reports**: The most common complaint type occurs when recipients mark messages as spam. These can happen for various reasons:
 

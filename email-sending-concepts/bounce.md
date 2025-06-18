@@ -1,5 +1,5 @@
 ---
-title: Email Bounces | BlueFox Email
+title: Bounces | BlueFox Email
 description: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
 thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
@@ -12,7 +12,7 @@ head:
       content: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
   - - meta
     - property: og:title
-      content: Email Bounces | BlueFox Email
+      content: Bounces | BlueFox Email
   - - meta
     - property: og:description
       content: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
@@ -27,21 +27,21 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Email Bounces | BlueFox Email
+      content: Bounces | BlueFox Email
   - - meta
     - name: twitter:description
       content: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
 ---
 
-# Email Bounces
+# Bounces
 
 An **email bounce** occurs when an email cannot be delivered to its intended recipient and is returned to the sender with an error message. Bounces are a natural part of email sending, but understanding their causes and implications is crucial for maintaining good deliverability and sender reputation.
 
-## What is an Email Bounce?
+## What is a Bounce?
 
 An email bounce occurs when a recipient's mail server rejects a message and returns a notification to the sender. This notification contains standardized error codes explaining why delivery failed. Bounces directly reflect your list quality and sending practices. According to [Amazon SES enforcement guidelines](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html), industry standards recommend keeping bounce rates below 2%. Higher rates trigger spam filters and damage sender reputation, potentially blocking future emails even to valid recipients.
 
-## Types of Email Bounces
+## Types of Bounces
 
 Email bounces fall into two main categories: **hard bounces** and **soft bounces**. Each type signals different underlying issues and requires different approaches.
 
