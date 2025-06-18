@@ -1,7 +1,7 @@
 ---
 title: Email Bounces | BlueFox Email
 description: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
-thumbnail: /assets/glossary/email-sending-glossary.png
+thumbnail: /assets/glossary/email-sending-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
@@ -18,7 +18,7 @@ head:
       content: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/email-sending-glossary.png
+      content: https://bluefox.email/assets/glossary/email-sending-concepts-glossary.png
   - - meta
     - property: og:url
       content: https://bluefox.email/email-sending-concepts/bounce
@@ -45,13 +45,13 @@ An email bounce occurs when a recipient's mail server rejects a message and retu
 
 Email bounces fall into two main categories: **hard bounces** and **soft bounces**. Each type signals different underlying issues and requires different approaches.
 
-### Hard Bounces
+| Characteristic      | Hard Bounces                                                                    | Soft Bounces                                                          |
+| ------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **Definition**      | Permanent delivery failures that cannot be resolved                             | Temporary delivery failures that may resolve with time                |
+| **Common Causes**   | Invalid email addresses, closed accounts, non-existent domains, blocked domains | Full mailboxes, server downtime, message size limits, greylisting     |
+| **Required Action** | Immediate removal from mailing lists                                            | It doesn't need an action and will retry attempts (typically 24-72 hours)                      |
 
-A hard bounce is a **permanent delivery failure** that occurs when an email cannot be delivered for unchangeable reasons. Common causes include invalid addresses, closed accounts, blocked domains, or nonexistent domains. These require immediate removal from mailing lists to protect the sender's reputation. Email service providers typically automate this process by maintaining suppression lists to prevent future sending attempts to these addresses.
-
-### Soft Bounces
-
-A soft bounce is a **temporary delivery failure** that can potentially be resolved. Causes include full mailboxes, server downtime, message size limits, or greylisting. Unlike hard bounces, these addresses don't need immediate removal as delivery systems typically retry for 24-72 hours. However, persistent soft bounces across multiple campaigns may indicate abandoned accounts that should eventually be removed.
+Email service providers typically automate suppression lists for hard bounces to prevent future sending attempts to these addresses. Persistent soft bounces across multiple campaigns may indicate abandoned accounts that should eventually be removed.
 
 ## Bounce Codes and Their Meaning
 
@@ -67,11 +67,15 @@ Understanding these codes helps in properly categorizing bounces and taking appr
 
 Modern email service providers like [Amazon SES](/aws-concepts/aws-ses) automatically process bounce information by receiving notifications, classifying them as hard or soft based on response codes, and forwarding this data to senders through webhooks or [Amazon SNS Topics](/aws-concepts/aws-sns-topics). For hard bounces, ESPs automatically add addresses to suppression lists to prevent future sending attempts. They also compile bounce metrics into reports so senders can monitor trends and identify potential deliverability issues before they escalate.
 
+:::tip Just a heads up
+In BlueFox Email, we automatically handle bounces for you. Just set up bounces in your project settings, and whenever there is a **hard bounce**, we will automatically add the email address to the suppression list to prevent future sending attempts. You will also receive an email notification when a bounce occurs, allowing you to take necessary actions, such as removing the email address from your list or all lists. You can also view bounce reports in your dashboard to monitor trends.
+:::
+
 ## How Bounces Impact Sender Reputation
 
 Email bounces directly influence how mailbox providers like Gmail, Yahoo, and Outlook evaluate your sending quality. High bounce rates signal poor list hygiene and questionable acquisition practices, damaging your sender reputation and reducing inbox placement. Industry experts recommend maintaining bounce rates **below 2%** for optimal deliverability.
 
-Email service providers enforce strict bounce thresholds as protective measures. Amazon SES, for example, requires bounces to stay **below 5%** to maintain unrestricted sending privileges. According to [Amazon](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html): "If your bounce rate is 5% or greater, we'll place your account under review. If your bounce rate is 10% or greater, we might pause your account's ability to send additional emails." A damaged reputation from excessive bounces can affect your deliverability across the entire email ecosystem.
+Email service providers enforce strict bounce thresholds as protective measures. Amazon SES, for example, requires bounces to stay **below 5%** to maintain unrestricted sending privileges. According to [Amazon](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html): "If your bounce rate is 5% or greater, we'll place your account under review. If your bounce rate is 10% or greater, we might pause your account's ability to send additional email." A damaged reputation from excessive bounces can affect your deliverability across the entire email ecosystem.
 
 ## Frequently Asked Questions About Email Bounces
 
@@ -89,7 +93,7 @@ No. Hard bounces for non-existent addresses damage reputation most severely as t
 
 ## Related Content
 
-- [Email Complaint](/email-sending-concepts/email-complaints)
+- [Email Complaints](/email-sending-concepts/complaint-notification)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [SMTP Protocol](/email-sending-concepts/smtp)
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
