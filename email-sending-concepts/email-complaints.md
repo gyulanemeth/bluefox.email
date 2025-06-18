@@ -1,7 +1,7 @@
 ---
 title: Email Complaints | BlueFox Email
 description: Email complaints occur when recipients report messages as spam, triggering feedback loops and potentially damaging sender reputation if not properly managed.
-thumbnail: /assets/glossary/email-sending-concepts-glossary.png
+thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
 layout: post
 category: glossary
@@ -18,7 +18,7 @@ head:
       content: Email complaints occur when recipients report messages as spam, triggering feedback loops and potentially damaging sender reputation if not properly managed.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/glossary/email-sending-concepts-glossary.png
+      content: https://bluefox.email/assets/glossary/email-sending-glossary.png
   - - meta
     - property: og:url
       content: https://bluefox.email/email-sending-concepts/email-complaints
