@@ -73,6 +73,14 @@ Email complaints can be categorized into several types, each with different impl
 
 Notable exceptions include **Gmail**, which doesn't provide traditional FBL data but instead uses aggregate complaint metrics to influence sender reputation. Direct complaints often indicate **more severe compliance issues** requiring immediate attention and investigation.
 
+## How Email Service Providers Handle Complaints
+
+Email service providers (ESPs) monitor complaint activity by integrating feedback loop data into their infrastructure. When a complaint is triggered, ESPs like [Amazon SES](/aws-concepts/aws-ses.md) parse the ARF message, typically delivered via [Amazon SNS Topics](/aws-concepts/aws-sns-topics.md) and automatically suppress the recipient’s address to prevent future delivery attempts. These systems also compile complaint metrics into dashboards, helping senders analyze trends, correlate complaints with campaign segments, and identify deliverability issues early. To protect their overall network reputation, ESPs may further adjust sending privileges based on complaint volume.
+
+:::::::tip Just a heads up
+In BlueFox Email, we automatically handle complaints for you. Just follow our instructions on setting up complaint webhook in your project settings, and whenever a recipient marks your email as spam, we’ll notify you by email. You can then take any necessary action, such as removing the email address from your list or all lists. You can also view complaint details in your project dashboard.
+:::::::
+
 ## Impact of Complaints on Email Deliverability
 
 Email complaints have an **immediate and significant impact** on sender reputation and deliverability. A single spam complaint carries more negative weight than multiple [bounces](/email-sending-concepts/bounce) because complaints represent an active negative choice by the recipient. Unlike bounces, which can be technical or passive, complaints are deliberate actions that signal user dissatisfaction.
@@ -85,10 +93,6 @@ Mailbox providers use complaint rates to determine how to handle future emails f
 4. **Permanent blacklisting** in severe cases
 
 Email service providers enforce strict complaint thresholds as protective measures. According to [AWS's official guidelines](https://docs.aws.amazon.com/ses/latest/dg/reputationdashboardmessages.html#calculate-complaint), AWS SES will place accounts under review when complaint rates approach 0.1% and may **suspend sending capabilities** if rates consistently exceed this threshold. Maintaining low complaint rates by quickly addressing user feedback is therefore essential for email program success.
-
-:::::::tip Just a heads up
-In BlueFox Email, we automatically handle complaints for you. Just enable complaints in your project settings, and whenever a recipient marks your email as spam, we’ll notify you by email. You can then take any necessary action, such as removing the email address from your list or all lists. You can also view complaint details in your project dashboard.
-:::::::
 
 ## Frequently Asked Questions About Email Complaints
 

@@ -45,11 +45,11 @@ An email bounce occurs when a recipient's mail server rejects a message and retu
 
 Email bounces fall into two main categories: **hard bounces** and **soft bounces**. Each type signals different underlying issues and requires different approaches.
 
-| Characteristic      | Hard Bounces                                                                    | Soft Bounces                                                          |
-| ------------------- | ------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| **Definition**      | Permanent delivery failures that cannot be resolved                             | Temporary delivery failures that may resolve with time                |
-| **Common Causes**   | Invalid email addresses, closed accounts, non-existent domains, blocked domains | Full mailboxes, server downtime, message size limits, greylisting     |
-| **Required Action** | Immediate removal from mailing lists                                            | It doesn't need an action and will retry attempts (typically 24-72 hours)                      |
+| Characteristic      | Hard Bounces                                                                    | Soft Bounces                                                              |
+| ------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
+| **Definition**      | Permanent delivery failures that cannot be resolved                             | Temporary delivery failures that may resolve with time                    |
+| **Common Causes**   | Invalid email addresses, closed accounts, non-existent domains, blocked domains | Full mailboxes, server downtime, message size limits, greylisting         |
+| **Required Action** | Immediate removal from mailing lists                                            | It doesn't need an action and will retry attempts (typically 24-72 hours) |
 
 Email service providers typically automate suppression lists for hard bounces to prevent future sending attempts to these addresses. Persistent soft bounces across multiple campaigns may indicate abandoned accounts that should eventually be removed.
 
@@ -65,10 +65,10 @@ Understanding these codes helps in properly categorizing bounces and taking appr
 
 ## How Email Service Providers Handle Bounces
 
-Modern email service providers like [Amazon SES](/aws-concepts/aws-ses) automatically process bounce information by receiving notifications, classifying them as hard or soft based on response codes, and forwarding this data to senders through webhooks or [Amazon SNS Topics](/aws-concepts/aws-sns-topics). For hard bounces, ESPs automatically add addresses to suppression lists to prevent future sending attempts. They also compile bounce metrics into reports so senders can monitor trends and identify potential deliverability issues before they escalate.
+Modern email service providers like [Amazon SES](/aws-concepts/aws-ses) automatically process bounce information by receiving notifications, classifying them as hard or soft based on response codes, and forwarding this data to senders through [Amazon SNS Topics](/aws-concepts/aws-sns-topics). These notifications can then be consumed by webhooks, Lambda functions, or other services configured to subscribe to the SNS topics. For hard bounces, ESPs automatically add addresses to suppression lists to prevent future sending attempts. They also compile bounce metrics into reports so senders can monitor trends and identify potential deliverability issues before they escalate.
 
 :::tip Just a heads up
-In BlueFox Email, we automatically handle bounces for you. Just set up bounces in your project settings, and whenever there is a **hard bounce**, we will automatically add the email address to the suppression list to prevent future sending attempts. You will also receive an email notification when a bounce occurs, allowing you to take necessary actions, such as removing the email address from your list or all lists. You can also view bounce reports in your dashboard to monitor trends.
+In BlueFox Email, we automatically handle bounces for you. Just follow our instructions on setting up bounce webhook in your project settings, and whenever there is a **hard bounce**, we will automatically add the email address to the suppression list to prevent future sending attempts. You will also receive an email notification when a bounce occurs, allowing you to take necessary actions, such as removing the email address from your list or all lists. You can also view bounce reports in your dashboard to monitor trends.
 :::
 
 ## How Bounces Impact Sender Reputation
