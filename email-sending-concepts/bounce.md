@@ -56,6 +56,7 @@ A soft bounce is a **temporary delivery failure** that can potentially be resolv
 ## Bounce Codes and Their Meaning
 
 Bounce messages typically include SMTP response codes that provide specific information about the delivery failure:
+
 - **5XX codes** (e.g., 550, 551) indicate permanent failures (hard bounces)
 - **4XX codes** (e.g., 421, 450) indicate temporary issues (soft bounces)
 - **Specific subcodes** provide more detailed information about the exact cause
@@ -88,7 +89,7 @@ No. Hard bounces for non-existent addresses damage reputation most severely as t
 
 ## Related Content
 
-- [Complaint Notification](/email-sending-concepts/complaint-notification)
+- [Email Complaint](/email-sending-concepts/email-complaints)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [SMTP Protocol](/email-sending-concepts/smtp)
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
