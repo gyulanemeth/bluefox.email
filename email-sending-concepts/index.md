@@ -36,21 +36,7 @@ head:
 
 Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanations for common **email marketing**, **development**, and **authentication** terms organized alphabetically.
 
-## B
-
-### Bounce
-
-An email bounce occurs when an email is rejected by the **recipient's server** and returned to the sender, impacting deliverability and sender reputation
-
-[Read more](/email-sending-concepts/bounce)
-
 ## C
-
-### Complaint Notification
-
-When recipients report messages as **spam**, triggering feedback loops and potentially damaging **sender reputation** if not properly managed.
-
-[Read more](/email-sending-concepts/complaint-notification)
 
 ### CNAME Record
 
@@ -80,17 +66,29 @@ A protocol that uses **SPF** and **DKIM** to protect domains from **unauthorized
 
 ## E
 
-### Email Headers
-
-Hidden **metadata** that travels with email messages, containing vital information about routing, authentication, and technical properties.
-
-[Read more](/email-sending-concepts/email-headers)
-
 ### Email Authentication
 
 Methods and protocols used to **verify the legitimacy** of email senders and messages.
 
 [Read more](/email-sending-concepts/email-authentication)
+
+### Email Bounces
+
+An email bounce occurs when an email is rejected by the **recipient's server** and returned to the sender, impacting deliverability and sender reputation.
+
+[Read more](/email-sending-concepts/bounce)
+
+### Email Complaints
+
+**Email complaints** occur when recipients mark messages as spam, indicating dissatisfaction with the content or sender, which can harm sender reputation.
+
+[Read more](/email-sending-concepts/email-complaints)
+
+### Email Headers
+
+Hidden **metadata** that travels with email messages, containing vital information about routing, authentication, and technical properties.
+
+[Read more](/email-sending-concepts/email-headers)
 
 ### Email Spoofing
 

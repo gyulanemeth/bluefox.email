@@ -86,6 +86,10 @@ Mailbox providers use complaint rates to determine how to handle future emails f
 
 Email service providers enforce strict complaint thresholds as protective measures. According to [AWS's official guidelines](https://docs.aws.amazon.com/ses/latest/dg/reputationdashboardmessages.html#calculate-complaint), AWS SES will place accounts under review when complaint rates approach 0.1% and may **suspend sending capabilities** if rates consistently exceed this threshold. Maintaining low complaint rates by quickly addressing user feedback is therefore essential for email program success.
 
+:::::::tip Just a heads up
+In BlueFox Email, we automatically handle complaints for you. Just enable complaints in your project settings, and whenever a recipient marks your email as spam, we’ll notify you by email. You can then take any necessary action, such as removing the email address from your list or all lists. You can also view complaint details in your project dashboard.
+:::::::
+
 ## Frequently Asked Questions About Email Complaints
 
 ### Can I keep sending to someone who marked my email as spam?
