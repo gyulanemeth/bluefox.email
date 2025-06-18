@@ -42,7 +42,7 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 
 An email bounce occurs when an email is rejected by the **recipient's server** and returned to the sender, impacting deliverability and sender reputation.
 
-[Read more](/email-sending-concepts/bounce)
+[Read more](/email-sending-concepts/bounces)
 
 ## C
 
@@ -50,7 +50,7 @@ An email bounce occurs when an email is rejected by the **recipient's server** a
 
 **Email complaints** occur when recipients mark messages as spam, indicating dissatisfaction with the content or sender, which can harm sender reputation.
 
-[Read more](/email-sending-concepts/email-complaints)
+[Read more](/email-sending-concepts/complaints)
 
 ### CNAME Record
 
