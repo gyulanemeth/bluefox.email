@@ -35,7 +35,7 @@ head:
 
 # Amazon SNS Topics
 
-**Amazon SNS Topics** are named communication channels within the Simple Notification Service that serve as the central connection point between message publishers and subscribers. In email delivery systems, SNS Topics play a **vital role** in managing and distributing notifications about email events such as [bounces](/email-sending-concepts/bounce.md), [complaints](/email-sending-concepts/email-complaints.md), and deliveries as part of the [Amazon SNS](/aws-concepts/aws-sns) service.
+**Amazon SNS Topics** are named communication channels within the Simple Notification Service that serve as the central connection point between message publishers and subscribers. In email delivery systems, SNS Topics play a **vital role** in managing and distributing notifications about email events such as [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and deliveries as part of the [Amazon SNS](/aws-concepts/aws-sns) service.
 
 ## What are Amazon SNS Topics?
 
@@ -90,7 +90,7 @@ In [SES](/aws-concepts/aws-ses.md) email systems, SNS topic filtering allows dis
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 - [Amazon SNS Subscriptions](/aws-concepts/aws-sns-subscription)
 - [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [Email Bounces](/email-sending-concepts/bounce)
-- [Email Complaints](/email-sending-concepts/email-complaints)
+- [Email Bounces](/email-sending-concepts/bounces)
+- [Email Complaints](/email-sending-concepts/complaints)
 
 <GlossaryCTA />

@@ -43,9 +43,9 @@ Amazon SES is a **reliable, cost-effective service** that provides an easy way t
 
 ### Key Features
 
-- **High Deliverability**: Amazon SES uses content filtering technologies and proactive bounce and [complaint](/email-sending-concepts/email-complaints.md) management to help maintain the sender reputation and achieve high inbox placement rates.
+- **High Deliverability**: Amazon SES uses content filtering technologies and proactive bounce and [complaint](/email-sending-concepts/complaints.md) management to help maintain the sender reputation and achieve high inbox placement rates.
 - **Flexible Configuration Options**: Set up your email sending based on your specific use case, whether it's transactional, marketing, or notification emails.
-- **Analytics and Reporting**: Access detailed metrics on delivery rates, bounces, complaints, and rejections.
+- **Analytics and Reporting**: Access detailed metrics on delivery rates, [bounces](/email-sending-concepts/bounces.md), complaints, and rejections.
 - **Advanced Email Features**: Support for custom headers, MIME types, attachments, and more.
 - **Integration with Other AWS Services**: Works seamlessly with other AWS services like S3, [SNS](/aws-concepts/aws-sns), and Lambda.
 - **Email Receiving**: Route incoming emails to S3 buckets, trigger Lambda functions, or send notifications through SNS.
@@ -81,12 +81,15 @@ Organizations choose Amazon SES for its unique combination of **scalability, cos
 ## Frequently Asked Questions About Amazon SES
 
 ### What is the difference between Amazon SES and other email service providers?
+
 AWS SES is a **"building block" email infrastructure** with pay-as-you-go pricing, while most other ESPs offer all-in-one marketing platforms with built-in campaign tools. SES integrates well with other AWS services and is **cost-effective for high volume**, but requires more technical expertise to implement.
 
 ### Does Amazon SES have sending limits?
+
 Yes, new accounts start in a **"sandbox" environment** with restricted sending capabilities. After proving good sending practices, you can request production access to increase your sending quota (emails per day) and sending rate (emails per second). AWS evaluates your **bounce and complaint rates** before granting higher limits.
 
 ### How does Amazon SES handle bounces and complaints?
+
 SES **automatically tracks** bounces and complaints, which can be sent to SNS, S3, or trigger Lambda functions. You must maintain bounce rates **below 5%** and complaint rates **below 0.1%** to avoid sending restrictions. SES also maintains a **suppression list** to prevent sending to problematic addresses. Please refer to official guidelines from [gmail](https://support.google.com/a/answer/81126?hl=en#zippy=) for more information.
 
 ## Related Content

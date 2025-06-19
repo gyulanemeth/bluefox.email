@@ -83,7 +83,7 @@ In BlueFox Email, we automatically handle complaints for you. Just follow our in
 
 ## Impact of Complaints on Email Deliverability
 
-Email complaints have an **immediate and significant impact** on sender reputation and deliverability. A single spam complaint carries more negative weight than multiple [bounces](/email-sending-concepts/bounce) because complaints represent an active negative choice by the recipient. Unlike bounces, which can be technical or passive, complaints are deliberate actions that signal user dissatisfaction.
+Email complaints have an **immediate and significant impact** on sender reputation and deliverability. A single spam complaint carries more negative weight than multiple [bounces](/email-sending-concepts/bounces) because complaints represent an active negative choice by the recipient. Unlike bounces, which can be technical or passive, complaints are deliberate actions that signal user dissatisfaction.
 
 Mailbox providers use complaint rates to determine how to handle future emails from the same sender. This assessment works alongside proper [email authentication](/email-sending-concepts/email-authentication) to evaluate overall sending quality. High complaint rates typically trigger progressively more severe consequences:
 
@@ -114,7 +114,7 @@ Most major ESPs provide complaint data through direct integrations with feedback
 
 ## Related Content
 
-- [Email Bounces](/email-sending-concepts/bounce)
+- [Email Bounces](/email-sending-concepts/bounces)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
