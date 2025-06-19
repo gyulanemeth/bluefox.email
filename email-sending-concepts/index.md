@@ -38,6 +38,12 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 
 ## B
 
+### Bounce Rate
+
+The **percentage of emails** that failed to reach recipients' inboxes, serving as a critical metric for deliverability and sender reputation.
+
+[Read more](/email-sending-concepts/bounce-rate)
+
 ### Bounces
 
 An email bounce occurs when an email is rejected by the **recipient's server** and returned to the sender, impacting deliverability and sender reputation.
@@ -98,6 +104,14 @@ The **forgery of an email header** to make messages appear to come from a truste
 
 [Read more](/email-sending-concepts/email-spoofing)
 
+## H
+
+### Hard Bounce
+
+A **permanent email delivery failure** that indicates the email address is invalid or no longer exists, requiring immediate removal from mailing lists.
+
+[Read more](/email-sending-concepts/hard-bounce)
+
 ## I
 
 ### IMAP (Internet Message Access Protocol)
@@ -131,6 +145,12 @@ The email address to which **bounced messages** are delivered when an email cann
 [Read more](/email-sending-concepts/return-path)
 
 ## S
+
+### Soft Bounce
+
+A **temporary email delivery failure** that may resolve with time, often due to full mailboxes, server issues, or message size limits.
+
+[Read more](/email-sending-concepts/soft-bounce)
 
 ### SMTP (Simple Mail Transfer Protocol)
 
