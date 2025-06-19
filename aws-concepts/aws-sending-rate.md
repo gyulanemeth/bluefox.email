@@ -52,7 +52,7 @@ Rate increases are determined by:
 
 - **Historical sending volume and frequency**
 - **Email content quality and compliance**
-- **[Bounce](/email-sending-concepts/bounce-rates)** and **[complaint](/email-sending-concepts/email-complaints)** rates
+- **[Bounce](/email-sending-concepts/bounce-rate)** and **[complaint](/email-sending-concepts/email-complaints)** rates
 - **Justification of business needs** during support requests
 
 If you exceed your current rate, SES returns a **Throttling** error. Your application should implement exponential backoff and retry logic to avoid delivery failures.
@@ -93,8 +93,8 @@ Repeated rate violations lead to **throttled delivery attempts**. If the issue p
 - [AWS SES Sending Quotas](/aws-concepts/aws-sending-quota)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 - [AWS Sandbox](/aws-concepts/aws-sandbox)
-- [Email Bounces](/email-sending-concepts/bounce)
-- [Email Complaints](/email-sending-concepts/email-complaints)
+- [Email Bounces](/email-sending-concepts/bounces)
+- [Email Complaints](/email-sending-concepts/complaints)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [SMTP](/email-sending-concepts/smtp)
 
