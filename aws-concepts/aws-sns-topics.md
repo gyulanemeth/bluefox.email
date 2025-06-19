@@ -83,7 +83,7 @@ SNS implements a **"at-least-once" delivery model** with automatic retries for f
 
 ### How can filtering improve email operations?
 
-In [SES](/aws-concepts/aws-ses.md) email systems, SNS topic filtering allows distinct handling logic for hard bounces, soft bounces, complaints, and deliveries. For example, organizations can route hard bounces to immediate suppression list updates while sending soft bounces to a monitoring system for tracking transient failures.
+In [SES](/aws-concepts/aws-ses.md) email systems, SNS topic filtering allows distinct handling logic for [hard bounces](/email-sending-concepts/hard-bounce), [soft bounces](/email-sending-concepts/soft-bounce), complaints, and deliveries. For example, organizations can route hard bounces to immediate suppression list updates while sending soft bounces to a monitoring system for tracking transient failures.
 
 ## Related Content
 

@@ -51,7 +51,7 @@ Once published, the SNS topic **distributes copies of the message** simultaneous
 
 The subscribers receiving these notifications, typically Lambda functions or SQS queues, then perform **event processing** tasks like updating suppression lists, logging analytics data, or triggering operational workflows. This processing happens in real-time, allowing immediate response to critical email events.
 
-For sophisticated email operations, SNS also supports **message filtering** through subscription filter policies. These filters enable subscribers to receive only specific types of email events, such as separating hard bounces from soft bounces, or processing complaints differently from delivery confirmations. According to [AWS documentation](https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html), these filter policies can be applied on a **per-subscription basis** (not at the topic level), allowing each processing system to receive only the events relevant to its function.
+For sophisticated email operations, SNS also supports **message filtering** through subscription filter policies. These filters enable subscribers to receive only specific types of email events, such as separating [hard bounces](/email-sending-concepts/hard-bounce) from [soft bounces](/email-sending-concepts/soft-bounce), or processing complaints differently from delivery confirmations. According to [AWS documentation](https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html), these filter policies can be applied on a **per-subscription basis** (not at the topic level), allowing each processing system to receive only the events relevant to its function.
 
 ## SNS-SES Integration
 
