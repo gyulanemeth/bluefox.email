@@ -93,7 +93,7 @@ No. Hard bounces for non-existent addresses damage reputation most severely as t
 
 ## Related Content
 
-- [Email Complaints](/email-sending-concepts/email-complaints)
+- [Email Complaints](/email-sending-concepts/complaints)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [SMTP Protocol](/email-sending-concepts/smtp)
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
