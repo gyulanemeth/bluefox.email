@@ -44,6 +44,12 @@ Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS
 
 [Read more](/aws-concepts/aws-ses)
 
+### SES Sending Quotas
+
+**Amazon SES sending quotas** define the number of emails an account can send in a 24-hour period and the rate per second, ensuring service integrity and deliverability.
+
+[Read more](/aws-concepts/aws-sending-qouta)
+
 ### SNS (Simple Notification Service)
 
 **Amazon SNS** is a fully managed messaging service that enables publishers to send messages to subscribers, serving as a key component in email notification systems.
