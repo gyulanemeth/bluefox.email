@@ -100,7 +100,7 @@ Effective bounce management depends on comprehensive **measurement systems** tha
 
 ### What's the difference between bounce rate and delivery rate?
 
-Bounce rate measures failed deliveries (percentage of emails that couldn't be delivered), while delivery rate measures successful deliveries (percentage of emails that reached recipients' mail servers). They are inversely related: Delivery Rate (%) = 100% - Bounce Rate (%).
+Bounce rate measures failed deliveries (percentage of emails that couldn't be delivered), while delivery rate measures successful deliveries (percentage of emails that reached recipients' mail servers). They are inversely related: `Delivery Rate (%) = 100% - Bounce Rate (%)`.
 
 ### Do soft bounces count in bounce rate calculations?
 
