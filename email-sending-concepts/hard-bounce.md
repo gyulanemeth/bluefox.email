@@ -72,7 +72,7 @@ These 5XX codes specifically indicate that the server has determined the failure
 
 Hard bounces demand **immediate removal** of affected addresses from all active mailing lists and their addition to a **permanent suppression list**. Unlike soft bounces, these addresses won't benefit from retry attempts and keeping them on your lists risks serious damage to your sender reputation. The most effective strategy is implementing **real-time validation** at collection points to prevent invalid addresses from entering your system in the first place, significantly reducing future hard bounce incidents.
 
-Professional senders should regularly **analyze bounce patterns** to identify potential issues with specific list segments or acquisition sources. While most Email Service Providers automatically handle suppression and blocking of hard-bounced addresses, maintaining proper **compliance documentation** of removals remains the sender's responsibility. This dual approach of prevention and meticulous management creates a robust defense against the deliverability and reputation challenges that hard bounces present.
+Professional senders should regularly **analyze bounce patterns** to identify potential issues with specific list segments or acquisition sources. While most Email Service Providers automatically handle suppression and blocking of hard bounced addresses, maintaining proper **compliance documentation** of removals remains the sender's responsibility. This dual approach of prevention and meticulous management creates a robust defense against the deliverability and reputation challenges that hard bounces present.
 
 :::tip Just a heads up
 In BlueFox Email, we automatically handle bounces for you. Just follow our instructions on setting up bounce webhook in your project settings, and whenever there is a **hard bounce**, we will automatically add the email address to the suppression list to prevent future sending attempts. You will also receive an email notification when a bounce occurs, allowing you to take necessary actions, such as removing the email address from your list or all lists. You can also view bounce reports in your dashboard to monitor trends.
@@ -84,7 +84,7 @@ In BlueFox Email, we automatically handle bounces for you. Just follow our instr
 
 Hard bounces represent permanent, unresolvable delivery failures (like non-existent addresses), while soft bounces are temporary issues (like full mailboxes) that may resolve with time. Hard bounces require immediate list removal, whereas soft bounces typically trigger retry attempts.
 
-### Can a hard-bounced email address ever become deliverable again?
+### Can a hard bounced email address ever become deliverable again?
 
 Generally, no. Once an address has generated a hard bounce due to being invalid, non-existent, or closed, it typically remains undeliverable. In rare cases, if a domain temporarily disappeared but was restored, an address might become valid again, but this is uncommon and not worth the reputation risk of continued sending attempts.
 
@@ -92,9 +92,9 @@ Generally, no. Once an address has generated a hard bounce due to being invalid,
 
 Industry standards consider hard bounce rates below 0.5% to be excellent, while rates between 0.5-2% are acceptable but suggest list hygiene opportunities. Hard bounce rates above 2% indicate serious list quality issues that require immediate attention. Most ESPs have even stricter thresholds for enforcement actions.
 
-### How quickly should I remove hard-bounced addresses from my list?
+### How quickly should I remove hard bounced addresses from my list?
 
-Hard-bounced addresses should be removed immediately upon the first bounce occurrence. There is no benefit to waiting or attempting redelivery, as the failure condition is permanent. Modern email systems typically handle this automatically through suppression list management.
+Hard bounced addresses should be removed immediately upon the first bounce occurrence. There is no benefit to waiting or attempting redelivery, as the failure condition is permanent. Modern email systems typically handle this automatically through suppression list management.
 
 ## Related Content
 

@@ -87,7 +87,7 @@ Hard bounces represent permanent, unresolvable delivery failures (like non-exist
 
 Industry standard practice is to attempt delivery between 3-5 times over a 24-72 hour period. After this window, continued attempts have diminishing returns and may waste sending resources.
 
-### When should I remove soft-bouncing addresses from my list?
+### When should I remove soft bouncing addresses from my list?
 
 Consider removing addresses that consistently soft bounce across 5+ consecutive sending attempts or over a 30+ day period, particularly for "mailbox full" errors which suggest account abandonment. For server-related soft bounces, more patience may be warranted.
 
@@ -97,7 +97,7 @@ Individual soft bounces have minimal impact on sender reputation as mailbox prov
 
 ### How can I reduce soft bounce rates?
 
-To minimize soft bounces, segment your lists by engagement level, respect recipient server limitations, avoid unnecessarily large attachments, implement proper authentication (SPF, DKIM, DMARC), and monitor your sending infrastructure for performance issues.
+To minimize soft bounces, segment your lists by engagement level, respect recipient server limitations, avoid unnecessarily large attachments, implement proper authentication ([SPF](/email-sending-concepts/spf.md), [DKIM](/email-sending-concepts/dkim.md), [DMARC](/email-sending-concepts/dmarc.md)), and monitor your sending infrastructure for performance issues.
 
 ## Related Content
 
