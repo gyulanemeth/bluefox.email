@@ -90,7 +90,7 @@ In [SES](/aws-concepts/aws-ses.md) email systems, SNS topic filtering allows dis
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 - [Amazon SNS Subscriptions](/aws-concepts/aws-sns-subscription)
 - [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [Email Bounces](/email-sending-concepts/bounces)
-- [Email Complaints](/email-sending-concepts/complaints)
+- [Bounces](/email-sending-concepts/bounces)
+- [Complaints](/email-sending-concepts/complaints)
 
 <GlossaryCTA />

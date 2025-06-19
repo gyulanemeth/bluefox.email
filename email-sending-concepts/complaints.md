@@ -114,7 +114,7 @@ Most major ESPs provide complaint data through direct integrations with feedback
 
 ## Related Content
 
-- [Email Bounces](/email-sending-concepts/bounces)
+- [Bounces](/email-sending-concepts/bounces)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
