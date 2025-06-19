@@ -36,14 +36,27 @@ head:
 
 Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanations for common **email marketing**, **development**, and **authentication** terms organized alphabetically.
 
+## B
+
+### Bounces
+
+An email bounce occurs when an email is rejected by the **recipient's server** and returned to the sender, impacting deliverability and sender reputation.
+
+[Read more](/email-sending-concepts/bounces)
+
 ## C
+
+### Complaints
+
+**Email complaints** occur when recipients mark messages as spam, indicating dissatisfaction with the content or sender, which can harm sender reputation.
+
+[Read more](/email-sending-concepts/complaints)
 
 ### CNAME Record
 
 **DNS records** that create domain aliases by pointing one domain name to another, simplifying email service management.
 
 [Read more](/email-sending-concepts/cname-record)
-
 
 ## D
 
@@ -67,17 +80,17 @@ A protocol that uses **SPF** and **DKIM** to protect domains from **unauthorized
 
 ## E
 
-### Email Headers
-
-Hidden **metadata** that travels with email messages, containing vital information about routing, authentication, and technical properties.
-
-[Read more](/email-sending-concepts/email-headers)
-
 ### Email Authentication
 
 Methods and protocols used to **verify the legitimacy** of email senders and messages.
 
 [Read more](/email-sending-concepts/email-authentication)
+
+### Email Headers
+
+Hidden **metadata** that travels with email messages, containing vital information about routing, authentication, and technical properties.
+
+[Read more](/email-sending-concepts/email-headers)
 
 ### Email Spoofing
 
@@ -87,7 +100,7 @@ The **forgery of an email header** to make messages appear to come from a truste
 
 ## I
 
-###  IMAP (Internet Message Access Protocol)
+### IMAP (Internet Message Access Protocol)
 
 An email retrieval protocol that keeps messages on the server, allowing **synchronization across multiple devices**.
 
@@ -104,6 +117,7 @@ An email retrieval protocol that keeps messages on the server, allowing **synchr
 ## P
 
 ### POP3 (Post Office Protocol version 3)
+
 An email retrieval protocol that typically **downloads messages** from the server to a local device.
 
 [Read more](/email-sending-concepts/pop3)
@@ -111,6 +125,7 @@ An email retrieval protocol that typically **downloads messages** from the serve
 ## R
 
 ### Return-Path
+
 The email address to which **bounced messages** are delivered when an email cannot be delivered.
 
 [Read more](/email-sending-concepts/return-path)
