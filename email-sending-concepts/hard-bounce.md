@@ -58,31 +58,21 @@ Hard bounces are critically important because they **directly impact sender repu
 
 Hard bounces are typically identified by their SMTP response codes in the 5XX range, indicating permanent failures:
 
-| SMTP Code | Common Description | Example Message |
-|-----------|-------------------|-----------------|
-| 550 | Mailbox unavailable | "550 Mailbox not found" or "550 User unknown" |
-| 551 | User not local | "551 User not local; please try forward-path" |
-| 552 | Exceeded storage allocation | "552 Mailbox size limit exceeded" (when permanent) |
-| 553 | Mailbox name invalid | "553 Mailbox name not allowed" |
-| 554 | Transaction failed | "554 Transaction failed" |
+| SMTP Code | Common Description          | Example Message                                    |
+| --------- | --------------------------- | -------------------------------------------------- |
+| 550       | Mailbox unavailable         | "550 Mailbox not found" or "550 User unknown"      |
+| 551       | User not local              | "551 User not local; please try forward-path"      |
+| 552       | Exceeded storage allocation | "552 Mailbox size limit exceeded" (when permanent) |
+| 553       | Mailbox name invalid        | "553 Mailbox name not allowed"                     |
+| 554       | Transaction failed          | "554 Transaction failed"                           |
 
 These 5XX codes specifically indicate that the server has determined the failure condition is permanent and repeated delivery attempts will not succeed.
 
 ## Handling Hard Bounces
 
-When a hard bounce occurs, immediate and specific actions are required:
+Hard bounces demand **immediate removal** of affected addresses from all active mailing lists and their addition to a **permanent suppression list**. Unlike soft bounces, these addresses won't benefit from retry attempts and keeping them on your lists risks serious damage to your sender reputation. The most effective strategy is implementing **real-time validation** at collection points to prevent invalid addresses from entering your system in the first place, significantly reducing future hard bounce incidents.
 
-1. **Remove the address immediately**: The email address should be removed from all active mailing lists without delay. Unlike soft bounces, there is no benefit to retry sending to hard-bounced addresses.
-
-2. **Add to suppression list**: The address should be added to a permanent suppression list to prevent accidental reintroduction to your sending lists.
-
-3. **Analyze patterns**: Examine hard bounces for patterns that might indicate larger list quality issues, particularly if they cluster around specific list segments or acquisition sources.
-
-4. **Update your acquisition processes**: Implement real-time email verification at the point of collection to prevent future hard bounces from typos or deliberately false email addresses.
-
-5. **Document removal**: For compliance purposes, maintain records of when and why addresses were removed due to hard bounces.
-
-Most Email Service Providers handle steps 1 and 2 automatically through suppression list management, but senders should still monitor patterns and optimize acquisition processes.
+Professional senders should regularly **analyze bounce patterns** to identify potential issues with specific list segments or acquisition sources. While most Email Service Providers automatically handle suppression and blocking of hard-bounced addresses, maintaining proper **compliance documentation** of removals remains the sender's responsibility. This dual approach of prevention and meticulous management creates a robust defense against the deliverability and reputation challenges that hard bounces present.
 
 :::tip Just a heads up
 In BlueFox Email, we automatically handle bounces for you. Just follow our instructions on setting up bounce webhook in your project settings, and whenever there is a **hard bounce**, we will automatically add the email address to the suppression list to prevent future sending attempts. You will also receive an email notification when a bounce occurs, allowing you to take necessary actions, such as removing the email address from your list or all lists. You can also view bounce reports in your dashboard to monitor trends.
