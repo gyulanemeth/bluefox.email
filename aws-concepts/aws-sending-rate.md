@@ -35,7 +35,7 @@ head:
 
 # Amazon SES Sending Rates
 
-**AWS SES sending rates** refer to the **maximum number of emails you can send per second** using [Amazon SES](/aws-concepts/aws-ses). This limit is distinct from the [sending quota](/aws-concepts/aws-sending-quota), which controls how many emails you can send over a 24-hour period.
+**AWS SES sending rates** refer to the **maximum number of emails you can send per second** using [Amazon SES](/aws-concepts/aws-ses). This limit is distinct from the [sending quota](/aws-concepts/aws-sending-quota.md), which controls how many emails you can send over a 24-hour period.
 
 ## Key Features of AWS SES Sending Rates
 
@@ -52,7 +52,7 @@ Rate increases are determined by:
 
 - **Historical sending volume and frequency**
 - **Email content quality and compliance**
-- **[Bounce](/email-sending-concepts/bounce-rate)** and **[complaint](/email-sending-concepts/email-complaints)** rates
+- **[Bounce](/email-sending-concepts/bounce-rate)** and **[complaint](/email-sending-concepts/complaints)** rates
 - **Justification of business needs** during support requests
 
 If you exceed your current rate, SES returns a **Throttling** error. Your application should implement exponential backoff and retry logic to avoid delivery failures.
@@ -67,7 +67,7 @@ SES enforces sending rate limits to maintain **infrastructure stability**, preve
 
 Managing your SES send rate effectively means understanding how **throttling**, **monitoring**, and **region-specific limits** interact. Use **CloudWatch metrics** to detect when throttling occurs, and adjust your email pacing accordingly. AWS recommends implementing **exponential backoff with jitter** to avoid retry collisions and improve delivery resilience.
 
-Although [sending quotas](/aws-concepts/aws-sending-quota) and sending rates work together, they require **separate management strategies**. Your infrastructure should respect both limits to avoid delivery issues. For applications needing higher throughput, you can send from **multiple AWS regions**, since each region has **independent rate limits**.
+Although sending quotas and sending rates work together, they require **separate management strategies**. Your infrastructure should respect both limits to avoid delivery issues. For applications needing higher throughput, you can send from **multiple AWS regions**, since each region has **independent rate limits**.
 
 ## Frequently Asked Questions About AWS SES Sending Rates
 
@@ -90,12 +90,12 @@ Repeated rate violations lead to **throttled delivery attempts**. If the issue p
 ## Related Content
 
 - [AWS SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS SES Sending Quotas](/aws-concepts/aws-sending-quota)
-- [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns)
-- [AWS Sandbox](/aws-concepts/aws-sandbox)
-- [Email Bounces](/email-sending-concepts/bounces)
-- [Email Complaints](/email-sending-concepts/complaints)
-- [Email Authentication](/email-sending-concepts/email-authentication)
-- [SMTP](/email-sending-concepts/smtp)
+- [AWS SES Sending Quotas](/aws-concepts/aws-sending-quota.md)
+- [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns.md)
+- [AWS Sandbox](/aws-concepts/aws-sandbox.md)
+- [Bounces](/email-sending-concepts/bounces.md)
+- [Complaints](/email-sending-concepts/complaints.md)
+- [Email Authentication](/email-sending-concepts/email-authentication.md)
+- [SMTP](/email-sending-concepts/smtp.md)
 
 <GlossaryCTA />

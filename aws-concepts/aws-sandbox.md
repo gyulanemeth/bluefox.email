@@ -66,7 +66,7 @@ To move from sandbox to production, you must submit a request through the [AWS S
 - Your **sending use case** (e.g., marketing, transactional, notifications)
 - How recipients have **opted in** to receive emails
 - Adoption of **email authentication** standards like SPF, DKIM, and DMARC
-- Your systems for managing **[bounces](/email-sending-concepts/bounce)** and **[complaints](/email-sending-concepts/email-complaints)**
+- Your systems for managing **[bounces](/email-sending-concepts/bounces)** and **[complaints](/email-sending-concepts/complaints)**
 
 AWS evaluates whether your content is **professional and compliant**, including **unsubscribe options**, clear sender identity, and **opt-in consent**. Keeping bounce rates **below 5%** and complaint rates **under 0.1%** ([source](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html)) significantly increases the chance of approval.
 
@@ -91,12 +91,12 @@ AWS provides a reason for rejection often due to **insufficient information**, q
 ## Related Content
 
 - [AWS SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS SES Sending Quotas](/aws-concepts/aws-sending-quota)
-- [AWS SES Sending Rates](/aws-concepts/aws-sending-rate)
-- [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns)
-- [Email Bounces](/email-sending-concepts/bounces)
-- [Email Complaints](/email-sending-concepts/email-complaints)
-- [Email Authentication](/email-sending-concepts/email-authentication)
-- [DNS Records](/email-sending-concepts/dns)
+- [AWS SES Sending Quotas](/aws-concepts/aws-sending-quota.md)
+- [AWS SES Sending Rates](/aws-concepts/aws-sending-rate.md)
+- [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns.md)
+- [Bounces](/email-sending-concepts/bounces.md)
+- [Complaints](/email-sending-concepts/complaints.md)
+- [Email Authentication](/email-sending-concepts/email-authentication.md)
+- [DNS Records](/email-sending-concepts/dns.md)
 
 <GlossaryCTA />

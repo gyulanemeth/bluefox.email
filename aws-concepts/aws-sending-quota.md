@@ -92,8 +92,8 @@ You gain higher daily and rate limits and are able to send to **any recipient**,
 - [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 - [AWS SNS Topics](/aws-concepts/aws-sns-topics)
 - [AWS SNS Subscription](/aws-concepts/aws-sns-subscription)
-- [Email Bounces](/email-sending-concepts/bounces)
-- [Email Complaints](/email-sending-concepts/complaints)
+- [Bounces](/email-sending-concepts/bounces)
+- [Complaints](/email-sending-concepts/complaints)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 
 <GlossaryCTA />

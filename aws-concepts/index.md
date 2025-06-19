@@ -54,7 +54,7 @@ The **Amazon SES sandbox** is a restricted environment where all new SES account
 
 **Amazon SES sending quotas** define the number of emails an account can send in a 24-hour period and the rate per second, ensuring service integrity and deliverability.
 
-[Read more](/aws-concepts/aws-sending-qouta)
+[Read more](/aws-concepts/aws-sending-quota)
 
 ### SES Sending Rates
 
