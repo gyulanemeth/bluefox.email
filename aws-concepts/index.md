@@ -44,6 +44,12 @@ Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS
 
 [Read more](/aws-concepts/aws-ses)
 
+### SES Production Mode
+
+**Amazon SES Production Mode** is the unrestricted operational state for AWS SES accounts that removes sandbox limitations and enables sending to any recipient with higher volume capabilities.
+
+[Read more](/aws-concepts/aws-production-mode)
+
 ### SES Sandbox
 
 The **Amazon SES sandbox** is a restricted environment where all new SES accounts begin, allowing exploration of SES capabilities while limiting sending to verified email addresses only.
