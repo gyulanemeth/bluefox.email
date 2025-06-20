@@ -41,12 +41,12 @@ head:
 
 - **Maximum Send Rate**: The per-second sending limit, such as [1 email per second in the sandbox environment](https://docs.aws.amazon.com/ses/latest/dg/manage-sending-quotas.html).
 - **Burst Capability**: Short-term ability to exceed the rate during traffic surges.
-- **Throttling Mechanism**: Excess sends are temporarily blocked with a *Throttling* error.
+- **Throttling Mechanism**: Excess sends are temporarily blocked with a _Throttling_ error.
 - **Dynamic Adjustment**: Rates may increase automatically based on reputation and engagement.
 
 ## How AWS SES Sending Rates Work
 
-New accounts in the [sandbox](/aws-concepts/aws-sandbox) are limited to a [maximum of 1 email per second](https://docs.aws.amazon.com/ses/latest/dg/manage-sending-quotas.html) and [200 emails per 24 hours](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html). Once an account is moved to production, AWS typically lifts these limits based on various criteria.
+New accounts in the [sandbox](/aws-concepts/aws-sandbox) are limited to a [maximum of 1 email per second](https://docs.aws.amazon.com/ses/latest/dg/manage-sending-quotas.html) and [200 emails per 24 hours](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html). Once an account is moved to [production](/aws-concepts/aws-production-mode.md), AWS typically lifts these limits based on various criteria.
 
 Rate increases are determined by:
 

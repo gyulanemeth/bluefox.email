@@ -74,7 +74,7 @@ AWS evaluates whether your content is **professional and compliant**, including 
 
 ### How long does my account have to stay in the sandbox?
 
-There is no minimum duration. You can request production access immediately, though a **history of compliant sending** may help expedite approval. Most requests are reviewed within **24–48 hours**.
+There is no minimum duration. You can request [production access](/aws-concepts/aws-production-mode.md) immediately, though a **history of compliant sending** may help expedite approval. Most requests are reviewed within **24–48 hours**.
 
 ### Can I still use SES effectively while in the sandbox?
 

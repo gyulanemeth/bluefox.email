@@ -41,7 +41,7 @@ head:
 
 Each SES account has a **Daily Sending Quota** (e.g., [200 emails/day in sandbox](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails)) and a **Maximum Send Rate** (e.g., [1 email/sec in sandbox](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails)). These limits operate on a **rolling 24-hour window** and apply to the entire AWS SES account, not individual identities. Quotas differ between **sandbox** and **production** environments.
 
-New accounts begin in the **sandbox**, where sending is restricted to verified email addresses or domains. To send freely, accounts must request production access via the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
+New accounts begin in the **sandbox**, where sending is restricted to verified email addresses or domains. To send freely, accounts must request [production access](/aws-concepts/aws-production-mode.md) via the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
 
 ### Quota Increases
 

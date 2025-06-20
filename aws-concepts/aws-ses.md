@@ -86,7 +86,7 @@ AWS SES is a **"building block" email infrastructure** with pay-as-you-go pricin
 
 ### Does Amazon SES have sending limits?
 
-Yes, new accounts start in a **"sandbox" environment** with restricted sending capabilities. After proving good sending practices, you can request production access to increase your sending quota (emails per day) and sending rate (emails per second). AWS evaluates your **bounce and complaint rates** before granting higher limits.
+Yes, new accounts start in a **"sandbox" environment** with restricted sending capabilities. After proving good sending practices, you can request [production access](/aws-concepts/aws-production-mode.md) to increase your sending quota (emails per day) and sending rate (emails per second). AWS evaluates your **bounce and complaint rates** before granting higher limits.
 
 ### How does Amazon SES handle bounces and complaints?
 
