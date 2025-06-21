@@ -39,9 +39,9 @@ head:
 
 ## How Sending Rate Works
 
-When you send emails using Amazon SES, the service evaluates each request against your **maximum send rate**, for example, 1 email per second in the [sandbox](/aws-concepts/aws-sandbox.md) environment. If your system tries to exceed that rate, SES doesn't queue or delay those messages. Instead, it responds with a **Throttling** error. It is your responsibility to catch these errors and retry the messages using techniques like **exponential backoff**.
+When you send emails using [Amazon SES](/aws-concepts/aws-ses.md), the service evaluates each request against your **maximum send rate**, for example, 1 email per second in the [sandbox](/aws-concepts/aws-sandbox.md) environment. If your system tries to exceed that rate, SES doesn't queue or delay those messages. Instead, it responds with a **Throttling** error. It is your responsibility to catch these errors and retry the messages using techniques like **exponential backoff**.
 
-Even in [production mode](/aws-concepts/aws-production-mode.md), where the rate is higher, the same mechanism applies. AWS allows short-term bursts above the send rate, but only within reason. If sustained spikes continue, SES will actively throttle delivery attempts. This behavior helps prevent flooding email providers with sudden traffic and safeguards your sender reputation.
+Even in [production mode](/aws-concepts/aws-production-mode.md), where the rate is significantly higher (varying based on your specific use case), the same mechanism applies. AWS allows short-term bursts above the send rate, but only within reason. If sustained spikes continue, SES will actively throttle delivery attempts. This behavior helps prevent flooding email providers with sudden traffic and safeguards your sender reputation.
 
 Importantly, SES tracks rate compliance independently of your daily quota. You might stay well below your quota and still get throttled if you send too fast. Also, note that the **send rate applies to total sending throughput**, not per connection. You can maintain multiple parallel SMTP or API connections, but their combined send speed must remain within your allowed rate.
 
@@ -53,7 +53,7 @@ For Amazon itself, this throttling system also protects the **shared SES infrast
 
 ## Factors That Influence Sending Rate
 
-Your sending rate is initially low (e.g., 1 email/second in the sandbox) but can increase based on your reputation. AWS evaluates several factors when adjusting your rate:
+Your sending rate is initially low (1 email/second in the [sandbox](/aws-concepts/aws-sandbox)) but increases when you move to **production mode** and can grow further based on your reputation. AWS evaluates several factors when adjusting your rate:
 
 - Your history of successful deliveries over time
 - Low **[bounce](/email-sending-concepts/bounce-rate)** and **[complaint](/email-sending-concepts/complaints)** rates
