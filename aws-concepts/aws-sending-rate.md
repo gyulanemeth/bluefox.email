@@ -35,63 +35,59 @@ head:
 
 # Amazon SES Sending Rates
 
-**AWS SES sending rates** refer to the **maximum number of emails you can send per second** using [Amazon SES](/aws-concepts/aws-ses). This limit is distinct from the [sending quota](/aws-concepts/aws-sending-quota.md), which controls how many emails you can send over a 24-hour period.
+**Amazon SES sending rate** refers to the number of emails your account can send **per second**. This is separate from your **[sending quota](/aws-concepts/aws-sending-quota.md)**, which controls the total number of emails you can send over a 24-hour period. While the quota addresses volume, the send rate governs delivery speed and ensures emails are transmitted at a controlled pace.
 
-## Key Features of AWS SES Sending Rates
+## How Sending Rate Works
 
-- **Maximum Send Rate**: The per-second sending limit, such as [1 email per second in the sandbox environment](https://docs.aws.amazon.com/ses/latest/dg/manage-sending-quotas.html).
-- **Burst Capability**: Short-term ability to exceed the rate during traffic surges.
-- **Throttling Mechanism**: Excess sends are temporarily blocked with a _Throttling_ error.
-- **Dynamic Adjustment**: Rates may increase automatically based on reputation and engagement.
+When you send emails using Amazon SES, the service evaluates each request against your **maximum send rate**, for example, 1 email per second in the [sandbox](/aws-concepts/aws-sandbox.md) environment. If your system tries to exceed that rate, SES doesn't queue or delay those messages. Instead, it responds with a **Throttling** error. It is your responsibility to catch these errors and retry the messages using techniques like **exponential backoff**.
 
-## How AWS SES Sending Rates Work
+Even in [production mode](/aws-concepts/aws-production-mode.md), where the rate is higher, the same mechanism applies. AWS allows short-term bursts above the send rate, but only within reason. If sustained spikes continue, SES will actively throttle delivery attempts. This behavior helps prevent flooding email providers with sudden traffic and safeguards your sender reputation.
 
-New accounts in the [sandbox](/aws-concepts/aws-sandbox) are limited to a [maximum of 1 email per second](https://docs.aws.amazon.com/ses/latest/dg/manage-sending-quotas.html) and [200 emails per 24 hours](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html). Once an account is moved to [production](/aws-concepts/aws-production-mode.md), AWS typically lifts these limits based on various criteria.
+Importantly, SES tracks rate compliance independently of your daily quota. You might stay well below your quota and still get throttled if you send too fast. Also, note that the **send rate applies to total sending throughput**, not per connection. You can maintain multiple parallel SMTP or API connections, but their combined send speed must remain within your allowed rate.
 
-Rate increases are determined by:
+## Why SES Enforces Per-Second Sending Rates
 
-- **Historical sending volume and frequency**
-- **Email content quality and compliance**
-- **[Bounce](/email-sending-concepts/bounce-rate)** and **[complaint](/email-sending-concepts/complaints)** rates
-- **Justification of business needs** during support requests
+The primary reason AWS enforces sending rates is to ensure **stable delivery**, avoid **provider-level blacklisting**, and prevent **service abuse**. Sudden or erratic bursts in email volume are one of the biggest triggers for spam filters and temporary blocks by inbox providers like Gmail or Outlook. By encouraging a smooth, gradual send pattern, SES helps maintain higher inbox placement and keeps you in good standing with ISPs.
 
-If you exceed your current rate, SES returns a **Throttling** error. Your application should implement exponential backoff and retry logic to avoid delivery failures.
+For Amazon itself, this throttling system also protects the **shared SES infrastructure**, ensuring one sender’s behavior doesn’t degrade performance for others. It’s a trust and safety mechanism, essential to maintaining Amazon SES's reputation across large-scale email ecosystems.
 
-It's important to note that SES limits **sending rate**, not **concurrent connections**. You can open multiple SMTP or API connections as long as the combined sending rate stays within your allowed threshold.
+## Factors That Influence Sending Rate
 
-## Why Amazon SES Enforces Sending Rates
+Your sending rate is initially low (e.g., 1 email/second in the sandbox) but can increase based on your reputation. AWS evaluates several factors when adjusting your rate:
 
-SES enforces sending rate limits to maintain **infrastructure stability**, prevent **system abuse**, and preserve **sender reputation**. Gradual increases based on proven reliability prevent sudden volume spikes that could trigger spam filters. These rate limits also reduce the chances of email bounces and promote better **inbox placement** by maintaining a steady, trusted traffic profile.
+- Your history of successful deliveries over time
+- Low **[bounce](/email-sending-concepts/bounce-rate)** and **[complaint](/email-sending-concepts/complaints)** rates
+- Consistent compliance with the [AWS Acceptable Use Policy](https://aws.amazon.com/aup)
+- The volume and pacing of your email traffic over time
 
-## Understanding Amazon SES Rate Management
+AWS may automatically increase your sending rate based on these metrics, or you can request a manual rate increase through the AWS Support Center, especially before a planned high-volume campaign.
 
-Managing your SES send rate effectively means understanding how **throttling**, **monitoring**, and **region-specific limits** interact. Use **CloudWatch metrics** to detect when throttling occurs, and adjust your email pacing accordingly. AWS recommends implementing **exponential backoff with jitter** to avoid retry collisions and improve delivery resilience.
+## Best Practices for Managing SES Send Rate
 
-Although sending quotas and sending rates work together, they require **separate management strategies**. Your infrastructure should respect both limits to avoid delivery issues. For applications needing higher throughput, you can send from **multiple AWS regions**, since each region has **independent rate limits**.
+To avoid delivery issues due to throttling, you should design your system to **respect the rate limit** by spreading email delivery evenly over time while implementing proper **retry logic** with exponential backoff and jitter to handle throttling errors gracefully. Proactively monitor SES metrics through **CloudWatch** to detect when you're approaching your send rate limits, and consider leveraging **multiple AWS regions** if you need to increase total throughput, as each region maintains its own independent rate limit and quota.
 
 ## Frequently Asked Questions About AWS SES Sending Rates
 
-### How do I know my current maximum sending rate?
+### How can I view my current send rate?
 
-You can check your current rate in the SES **Account Dashboard**, via the `GetSendQuota` API, or by contacting AWS Support. It is listed alongside your daily sending quota.
+You can check it in the **SES Account Dashboard**, or programmatically using the `GetSendQuota` API. It will display your per-second limit alongside your daily quota.
 
-### Can I request a temporary rate increase for a planned campaign?
+### Can I ask for a temporary rate increase?
 
-Yes. You may request a temporary rate boost by submitting a support case in advance. Clearly describe the event, expected volume, and timeline. AWS recommends submitting such requests **2–3 weeks ahead**.
+Yes. For one-time campaigns or events, you can submit a support request explaining your need, timing, and projected volume. It’s recommended to submit such requests at least **2–3 weeks in advance**.
 
-### How quickly will AWS increase my sending rate?
+### What happens if I exceed my send rate?
 
-Typical reviews occur within **24–48 hours**, but significant increases often require a strong sending history with low bounce and complaint rates. **New accounts** must build credibility over time.
+SES returns a **Throttling** error, and the message is not accepted for delivery. It’s not queued. You must retry after a short delay. Repeatedly ignoring this behavior can affect your sender score and account status.
 
-### What happens if I consistently exceed my sending rate?
+### Does the send rate limit apply to each connection?
 
-Repeated rate violations lead to **throttled delivery attempts**. If the issue persists, AWS may flag your account for review, especially if the retries result in degraded sender metrics or policy violations.
+No. The rate limit applies across your entire SES account, regardless of how many connections or sending threads you use. The aggregate throughput must stay within the allowed rate.
 
 ## Related Content
 
 - [AWS SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS SES Sending Quotas](/aws-concepts/aws-sending-quota.md)
-- [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns.md)
+- [Amazon SES Sending Quotas](/aws-concepts/aws-sending-quota.md)
 - [AWS Sandbox](/aws-concepts/aws-sandbox.md)
 - [Bounces](/email-sending-concepts/bounces.md)
 - [Complaints](/email-sending-concepts/complaints.md)

@@ -35,56 +35,53 @@ head:
 
 # Amazon SES Sending Quotas
 
-**Amazon SES sending quotas** define how many emails you can send in a 24-hour period and at what rate per second. These quotas help maintain the stability of [SES](/aws-concepts/aws-ses.md) infrastructure and protect sender reputation.
+**Amazon SES sending quotas** define how many emails your account is allowed to send over a rolling 24-hour period. These limits are in place to protect recipient inboxes, maintain AWS infrastructure stability, and build long-term sender reputation.
 
 ## Understanding SES Quotas
 
-Each SES account has a **Daily Sending Quota** (e.g., [200 emails/day in sandbox](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails)) and a **Maximum Send Rate** (e.g., [1 email/sec in sandbox](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails)). These limits operate on a **rolling 24-hour window** and apply to the entire AWS SES account, not individual identities. Quotas differ between **sandbox** and **production** environments.
+Each Amazon SES account has a **Daily Sending Quota**, which determines the maximum number of emails that can be sent in a 24-hour window. In [sandbox mode](/aws-concepts/aws-sandbox.md), this is typically [200 emails per day](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails).
 
-New accounts begin in the **sandbox**, where sending is restricted to verified email addresses or domains. To send freely, accounts must request [production access](/aws-concepts/aws-production-mode.md) via the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
+New accounts begin in the **sandbox**, where sending is limited to verified identities. To unlock higher limits and unrestricted recipients, you must request [production access](/aws-concepts/aws-production-mode.md) through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
 
-### Quota Increases
+## Why AWS Sets Sending Quotas
 
-Requests for higher limits are evaluated based on **sending history**, **performance**, and **compliance**. Important thresholds include:
+AWS implements sending quotas to benefit the entire email ecosystem by helping senders gradually ramp up activity while **reducing deliverability issues** from sudden volume spikes. These limits protect recipients from unsolicited or spam-like traffic and safeguard SES infrastructure from potential misuse while maintaining trusted relationships with major mailbox providers. According to [AWS documentation](https://docs.aws.amazon.com/ses/latest/dg/manage-sending-quotas.html), these quotas _"help to maintain the trusted relationship between Amazon SES and email providers"_ and are essential for preserving the overall health of the system.
 
-- **[Bounce rate](/email-sending-concepts/bounce-rate)** below 5%  
-- **[Complaint rate](/email-sending-concepts/complaints)** under 0.1%  
-- Strong content alignment with the [AWS Acceptable Use Policy](https://aws.amazon.com/aup/)
+## Quota Increases
 
-AWS also monitors accounts continuously and may **adjust quotas automatically** based on ongoing metrics and sender behavior.
+You can request a quota increase based on your account’s **sending performance**, **history**, and **compliance**. To qualify:
 
-### Regional Quotas
+- Keep **[bounce rates](/email-sending-concepts/bounce-rate)** below 5%
+- Keep **[complaint rates](/email-sending-concepts/complaints)** under 0.1%
+- Follow the [AWS Acceptable Use Policy](https://aws.amazon.com/aup) and send relevant, permission based content
 
-Quotas are **region-specific**, meaning limits are tracked independently per AWS region. This design allows you to **scale email operations** across regions, optimize throughput, and build redundancy.
+AWS may also adjust quotas automatically based on your usage and email metrics over time.
 
-## Why SES Imposes Sending Limits
+## Regional Quotas
 
-Sending quotas help protect the **shared infrastructure**, reduce the risk of **spam and abuse**, and ensure fair usage across AWS customers. By gradually scaling limits for reputable senders, Amazon SES improves **deliverability and trust** across the platform.
+SES quotas are applied **per AWS region**, meaning each region tracks and enforces its own limits. You can use this to your advantage by distributing email traffic across multiple regions to improve throughput and create redundancy.
 
 ## Best Practices for Managing SES Quotas
 
-- **Track Usage**: Monitor limits and consumption using the **SES console**, **CloudWatch**, or the `GetSendQuota` API.  
-- **Maintain Quality Metrics**: Keep bounce and complaint rates within AWS-recommended thresholds to preserve sending reputation.  
-- **Prepare for Throttling**: SES throttles rather than blocks email if quotas are exceeded — implement retry logic in your sending system.  
-- **Use Multiple Regions**: Distribute sending across AWS regions to boost total capacity and reduce risk of bottlenecks.
+Effective quota management requires **actively monitoring usage** through the SES Console, `GetSendQuota` API, or CloudWatch while maintaining strong sender reputation by staying within AWS recommended bounce and **complaint thresholds**. Implement robust throttling logic that **queues and retries messages** when SES throttles (rather than blocks) excessive sending attempts, and consider distributing email load across multiple AWS regions to achieve higher aggregate capacity and improved resilience.
 
 ## Frequently Asked Questions
 
 ### How long does it take to get a quota increase?
 
-Most requests are reviewed within **24–48 hours**, depending on your account history and requested volume.
+Requests are usually reviewed within **24–48 hours**, depending on volume and account reputation.
 
 ### Can SES reduce my quota?
 
-Yes. AWS may **lower your quota** or return your account to sandbox mode if your bounce/complaint rates are high or if policies are violated.
+Yes. If your sending metrics deteriorate or you violate policies, AWS may reduce your quota or return your account to sandbox mode.
 
 ### How do I check my current quota?
 
-Use the **SES console** or call the `GetSendQuota` API to view your current **daily limit** and **maximum send rate**.
+Use the SES console or `GetSendQuota` API to view your current daily sending limit and send rate.
 
 ### What changes after leaving the sandbox?
 
-You gain higher daily and rate limits and are able to send to **any recipient**, not just verified addresses or domains.
+Once in production mode, you're allowed to send to unverified recipients and receive increased sending limits.
 
 ## Related Content
 
