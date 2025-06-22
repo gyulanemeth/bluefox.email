@@ -70,7 +70,8 @@ const show = computed(() => {
     '/', // Home page
     '/pricing',
     '/tutorials',
-    '/articles'
+    '/articles',
+    '/for/aws-ses-users'
     // Removing '/about' and '/why' as requested
   ];
   // Show footer on all email-sending-concepts and aws-concepts glossary pages including index pages
