@@ -47,6 +47,7 @@ import TestimonialDiv from '../.vitepress/theme/TestimonialDiv.vue'
 import DesignSystem from '../.vitepress/theme/DesignSystem.vue'
 import RenderingIssues from '../.vitepress/theme/RenderingIssues.vue'
 import Automation from '../.vitepress/theme/Automation.vue'
+import ConnectAWS from '../.vitepress/theme/ConnectAWS.vue'
 import Integration from '../.vitepress/theme/IntegrationAWS.vue'
 import SendQueues from '../.vitepress/theme/SendQueues.vue'
 
@@ -312,7 +313,7 @@ onBeforeUnmount(() => {
 
 <section class="section-index">
   <h2 class="sectionTitle text-center mt-4 mb-6">
-    Feedback from our inbox
+    Feedback from Amazon SES users
   </h2>
   <TestimonialDiv
     :is-dark="isDark"
@@ -326,11 +327,11 @@ onBeforeUnmount(() => {
 
 <section id="design-system" class="value-prop">
   <h2 class="sectionTitle text-center mb-3 pt-0">
-    All Your Emails, One Powerful Platform
+    Send All your emails with Amazon SES in one powerful platform
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Manage transactional and marketing emails seamlessly in one place.
+      Combine the power of Amazon SES for both transactional and marketing emails, keep your brand consistent, and manage all your communications from one easy-to-use plaftorm.
     </div>
   </div>
 
@@ -342,11 +343,11 @@ onBeforeUnmount(() => {
 
 <section id="marketers" class="section-index">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Effortless Automations for Every Workflow
+    Effortless Email Automations
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Automate your email sequences with ease and keep your audience engaged without the hassle.
+      Building automated email workflows with Amazon SES can be complex and require custom coding. With BlueFox.email, you can easily automate everything from onboarding sequences to re-engagement campaigns and event-based triggers.
     </div>
   </div>
 
@@ -362,11 +363,11 @@ onBeforeUnmount(() => {
 
 <section id="designers" class="section-index">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Design Stunning Emails with Ease
+    Design Stunning Emails Without Writing a Line of Code
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Create eye-catching, professional emails in minutes with our drag-and-drop editor.
+      With Amazon SES, you're stuck hand-coding HTML and fixing rendering bugs. Maintaining changes is a nightmare. BlueFox Email lets you skip the code and design stunning emails with drag & drop, that will work on all major email clients, including Outlook.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -385,11 +386,11 @@ onBeforeUnmount(() => {
 
 <section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Master Your Audience with Smart List Management
+    Effortless Audience Management, from Segmentation to Complaints
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Easily organize, segment, and target your contacts to ensure the right message reaches the right audience
+      Manage and segment your audience with advanced filtering and list management features. Enjoy seamless integration with Amazon SES and SNS, and take advantage of features like double opt-in and easy subscription preferences.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -399,11 +400,11 @@ onBeforeUnmount(() => {
 
 <section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Gain Insights with Advanced Analytics
+    Advanced Analytics Made Easy
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Track performance, understand your audience, and optimize your campaigns with comprehensive reporting tools.
+      Say goodbye to the bare-bones reports of Amazon SES. With BlueFox.email, you get intuitive, detailed analytics that highlight what really matters, helping you optimize your email performance effortlessly.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -417,9 +418,32 @@ onBeforeUnmount(() => {
 
 <section id="developers" class="value-prop">
   <h2 class="sectionTitle text-center mb-3 pt-0">
-    How it works
+    Connect Quickly & Securely
   </h2>
 
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      You can be fully set up (including bounces & complaints via SNS) in just a few minutes! Choose the method which fits your workflow:
+    </div>
+  </div>
+
+  <ConnectAWS
+    class="mt-6"
+    :is-dark="isDark"
+    :xs="xs"
+  />
+</section>
+
+<section id="developers" class="value-prop" style="padding-top: 0;">
+  <h2 class="sectionTitle text-center mb-3">
+    Simple, technology-agnostic API
+  </h2>
+
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Whether you're using Node, Python, Go, Ruby, PHP, or anything else, you can send emails, manage lists, and trigger automations with just a few lines of code. It’s the easiest way to make SES feel like a modern email platform.
+    </div>
+  </div>
   <Integration
     class="mt-6"
     :is-dark="isDark"
@@ -485,11 +509,12 @@ onBeforeUnmount(() => {
 
 <section id="second-cta">
   <h2 class="sectionTitle text-center mb-3">
-    Ready to Transform Your Email Strategy?
+    Get Started with 3,000 Free Emails Every Month for a Year!
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Get started with BlueFox.email today and unlock the full potential of your Amazon SES.
+      Experience the full power of BlueFox.email with zero risk. For your first year, enjoy 3,000 free sends per month and see how easy it is to supercharge your Amazon SES experience.
+      <div>No subscription required!</div>
     </div>
   </div>
 
@@ -502,7 +527,7 @@ onBeforeUnmount(() => {
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
-      Let's Land Some Emails!
+      <strong>Turn SES into a Full-Fledged Email Platform</strong>
     </v-btn>
   </v-row>
 </section>

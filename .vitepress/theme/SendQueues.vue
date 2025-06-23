@@ -8,10 +8,10 @@ const { isDark } = useData()
   <div class="py-12 deliverabilityDiv">
     <v-container style="max-width: 800px">
       <h2 class="sectionTitle text-center mt-0 pt-0">
-        Hands-Free Send Queue Management
+        Keep SES. Just Make It Better.
       </h2>
       <div class="mt-4 text-center">
-        We handle your send queues for you, so you never have to worry about delays, retries, and rate limits.
+        BlueFox Email builds on top of your existing Amazon SES account -> no need to change your sending setup. You get a better UI, smarter workflows, and beautiful emails, without giving up control or deliverability.
       </div>
     </v-container>
   </div>

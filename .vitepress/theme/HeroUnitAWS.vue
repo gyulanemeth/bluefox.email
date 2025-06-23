@@ -7,12 +7,13 @@ const { isDark } = useData()
 <template>
   <div class="heroDiv">
     <div class="d-flex flex-column align-center justify-center pb-12 heroMain">
-      <div>
+      <div style="max-width:800px; width: 90%;">
         <h1 class="title">
           Supercharge Your Amazon SES
         </h1>
-        <p class="tagline">Turn your transactional tool into a full-fledged email powerhouse with advanced features,</p>
-        <p class="tagline">automation, beautiful designs, and powerful list management.</p>
+        <p class="tagline" style="font-size: 28px;"><strong>Amazon SES is powerful but basic.</strong></p>
+        <p class="tagline">BlueFox Email adds the features you need for beautiful designs, smart list management, effortless automation, and in-depth analytics.</p>
+        <p class="tagline">Get Started with 3.000 free sends per month, and personalized support.</p>
         <div>
           <v-btn
             size="x-large"
@@ -22,7 +23,7 @@ const { isDark } = useData()
             href="https://app.bluefox.email/accounts/create-account"
             target="_blank"
           >
-            <strong>Make Your Emails Shine</strong>
+            <strong>Get More from SES Today</strong>
           </v-btn>
         </div>
       </div>
@@ -83,7 +84,7 @@ const { isDark } = useData()
 
   .tagline {
     font-size: 24px;
-    line-height: 24px;
+    line-height: 28px;
     color: var(--vp-c-text-2);
   }
 
