@@ -16,7 +16,7 @@ head:
       content: "Connect your AWS SES account to BlueFox and unlock automation, stunning designs, smart list management, and detailed analytics. All in one place."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/share.png
+      content: https://bluefox.email/assets/share-amazon-ses.png
   - - meta
     - property: og:url
       content: https://bluefox.email/for/aws-ses-users
@@ -34,7 +34,7 @@ head:
       content: "Connect your AWS SES account to BlueFox and unlock automation, stunning designs, smart list management, and detailed analytics. All in one place."
   - - meta
     - name: twitter:image
-      content: https://bluefox.email/assets/share.png
+      content: https://bluefox.email/assets/share-amazon-ses.png
 ---
 <script setup>
 
