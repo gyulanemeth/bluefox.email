@@ -50,6 +50,20 @@ Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS
 
 [Read more](/aws-concepts/aws-delivery-policy)
 
+## I
+
+### IAM Permissions
+
+**AWS IAM Permissions** define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
+
+[Read more](/aws-concepts/aws-iam-permissions)
+
+### IAM Role
+
+**AWS IAM Roles** are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
+
+[Read more](/aws-concepts/aws-iam-role)
+
 ## S
 
 ### SES (Simple Email Service)
@@ -98,7 +112,7 @@ The **Amazon SES sandbox** is a restricted environment where all new SES account
 
 An **SNS Subscription** is an endpoint registered to receive notifications from an Amazon SNS topic, supporting multiple protocols for message delivery.
 
-[Read more](/aws-concepts/aws-sns-subscription.md)
+[Read more](/aws-concepts/aws-sns-subscription)
 
 <style>
 a[href^="/aws-concepts/"] {
