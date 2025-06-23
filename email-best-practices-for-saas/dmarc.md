@@ -1,3 +1,7 @@
+---
+footer: false
+---
+
 # What SaaS Owners Need to Know About DMARC
 
 Running a SaaS business means protecting your brand and your customers. One of the key tools to help you do that is DMARC—a protocol designed to stop email spoofing, where attackers send emails that look like they’re from your domain. Here’s a straightforward look at why DMARC matters and how to get it set up.

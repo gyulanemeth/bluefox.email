@@ -3,6 +3,13 @@
  * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
  */
 
+/* Add smooth scrolling behavior site-wide */
+html {
+  scroll-behavior: smooth;
+  /* Add padding to account for fixed header */
+  scroll-padding-top: 70px;
+}
+
  /**
  * Fonts
  * -------------------------------------------------------------------------- */

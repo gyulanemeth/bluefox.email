@@ -38,7 +38,7 @@ head:
 
 Automations allow you to create powerful workflows that streamline and automate your email processes. By triggering emails or actions based on specific events like when a contact is added or updated. You can automate tasks such as sending welcome emails, follow-ups, or reminders. This helps save time while ensuring your audience receives timely and relevant communication.
 
-With our email automation feature, you can easily configure automations to meet your needs, without the need for coding. You can add nodes such as timers, filters, and email sends to build custom workflows that fit your project.
+With our email automation feature, you can easily configure automations to meet your needs, without the need for coding. You can add nodes such as timers, filters, condition branches, and email sends to build custom workflows that fit your project.
 
 You can manage and view your automations under the **Automations** tab in your project.
 
@@ -46,8 +46,7 @@ You can manage and view your automations under the **Automations** tab in your p
 
 ## Creating an Automation
 
-To create a new automation:
-To create a new automation email, click the Create button.
+To create a new automation email click on the Create button.
 
 ![Automation creation form Icon](./project-automation-create-btn.webp)
 
@@ -119,18 +118,27 @@ When you click on the timer node:
 
 ## Audience Filter Node
 
-The **Audience Filter Node** allows you to include or exclude contacts based on their properties.
+The **Audience Filter Node** allows you to include or exclude contacts based on their properties or email Activites.
 
 When configuring the filter:
-
+### Property Tab
 - Select a **property** (e.g., `premium`).
 - Choose an **operator**: Any, Equals, Does Not Equal, Contains, Does Not Contain.
 - Enter a **value** (e.g., `true`).
 
 If the contact **passes** the filter, the automation continues to the next node. If it **fails**, the automation stops for that contact.
 
-![Automation node filter card Icon](./project-automation-node-filter-card.webp)
+![Automation node filter card Icon](./project-automation-node-filter-property-based-card.webp)
 
+### Email Activity Tab
+- Choose an **operator**: is-opened, is-clicked, is-not-opened, is-not-clicked.
+- Choose an earlier **Send Email** node from the automation to evaluate.
+- Link (only shown if using `is-clicked` or `is-not-clicked`): 
+  - Optionally specify a link (URL) from the email.
+  - If set, the condition checks whether that **specific link** was clicked or not.
+  - f left blank, it checks whether **any link** in the email was clicked or not.
+
+![Automation node filter card Icon](./project-automation-node-filter-email-based-card.webp)
 
 ## Send Email Node
 
@@ -159,6 +167,41 @@ You can access the **Advanced Settings** feature that allows you to customize ke
 
 For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings.html#advanced-settings).
 :::
+
+
+
+## Branching Node
+
+The **Branch Node** allows you to create conditional flows based on contact data or email activity. It splits your automation into **multiple paths** and continues only down the path whose **condition is met first**.
+
+![Automation node send card Icon](./project-automation-node-branching-card.webp)
+
+### Condition Node
+
+The **Condition Node** allows you to build dynamic decision paths in your automation. It checks if a contact meets a specific condition based on property values or email activity. If the condition is true, it follows that condition’s sequence, if false, it moves on to evaluate the next condition.
+
+
+
+
+When configuring the filter:
+#### Property Tab
+- Select a **property** (e.g., `premium`).
+- Choose an **operator**: Any, Equals, Does Not Equal, Contains, Does Not Contain.
+- Enter a **value** (e.g., `true`).
+
+If the contact **passes** the filter, the automation continues to the next node. If it **fails**, the automation stops for that contact.
+
+![Automation node filter card Icon](./project-automation-node-condition-property-based-card.webp)
+
+#### Email Activity Tab
+- Choose an **operator**: is-opened, is-clicked, is-not-opened, is-not-clicked.
+- Choose an earlier **Send Email** node from the automation to evaluate.
+- Link (only shown if using `is-clicked` or `is-not-clicked`): 
+  - Optionally specify a link (URL) from the email.
+  - If set, the condition checks whether that **specific link** was clicked or not.
+  - f left blank, it checks whether **any link** in the email was clicked or not.
+
+![Automation node filter card Icon](./project-automation-node-condition-email-based-card.webp)
 
 
 ## Managing Automations
