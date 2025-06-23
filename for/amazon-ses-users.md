@@ -367,7 +367,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Create stunning, HTML emails with our drag-and-drop editor, and enjoy flawless rendering on all major email clients, including Outlook.
+      With Amazon SES, you're stuck hand-coding HTML and fixing rendering bugs. Maintaining changes is a nightmare. BlueFox Email lets you skip the code and design stunning emails with drag & drop, that will work on all major email clients, including Outlook.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
