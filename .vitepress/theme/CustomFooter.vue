@@ -70,12 +70,11 @@ const show = computed(() => {
     '/', // Home page
     '/pricing',
     '/tutorials',
-    '/articles',
-    '/for/aws-ses-users'
+    '/articles'
     // Removing '/about' and '/why' as requested
   ];
   // Show footer on all email-sending-concepts and aws-concepts glossary pages including index pages
-  if (route.path.startsWith('/email-sending-concepts') || route.path.startsWith('/aws-concepts')) {
+  if (route.path.startsWith('/for') || route.path.startsWith('/email-sending-concepts') || route.path.startsWith('/aws-concepts')) {
     return true;
   }
   // Only show footer on specifically allowed paths
