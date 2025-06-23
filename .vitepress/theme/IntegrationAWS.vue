@@ -47,52 +47,6 @@ function getTabItem () {
 
 <template>
 <div>
-  <v-row class="mt-6">
-    <v-col>
-      <v-card
-        class="pa-8 d-flex flex-column align-center integrationCard"
-        variant="outlined"
-        height="100%"
-        :theme="isDark ? 'dark' : 'light'"
-      >
-        <h3 class="mt-3 integrationCardTitle">Connecting with Access Keys</h3>
-        <v-card-text class="mt-3 text-center" style="color: var(--vp-code-block-color)">
-          Quickly integrate your Amazon SES by entering your Access Key Id and Secret Acces Key. This method is straightforward and quick to set up.
-        </v-card-text>
-      </v-card>
-    </v-col>
-    <v-col>
-      <v-card
-        class="pa-8 d-flex flex-column align-center integrationCard"
-        variant="outlined"
-        height="100%"
-        :theme="isDark ? 'dark' : 'light'"
-      >
-        <h3 class="mt-3 integrationCardTitle">Connecting with STS</h3>
-        <v-card-text class="mt-3 text-center" style="color: var(--vp-code-block-color)">
-          Enhance your secuirity by using AWS Security Token Service. This option provides temporary credentials, offering an extra layer of protection for your account.
-        </v-card-text>
-      </v-card>
-    </v-col>
-    <v-col>
-      <v-card
-        class="pa-8 d-flex flex-column align-center integrationCard"
-        variant="outlined"
-        height="100%"
-        :theme="isDark ? 'dark' : 'light'"
-      >
-        <h3 class="mt-3 integrationCardTitle">Using our CloudFormation Script</h3>
-        <v-card-text class="mt-3 text-center" style="color: var(--vp-code-block-color)">
-          Simplify the setup process even further by using our CloudFormation script, which automates the entire integration seamlessly.
-        </v-card-text>
-      </v-card>
-    </v-col>
-  </v-row>
-  <div class="d-flex justify-center">
-    <h3 class="text-center mt-16" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Simple, technology-agnostic API
-    </h3>
-  </div>
   <div
     v-if="!xs"
     class="d-flex justify-center mt-6"
