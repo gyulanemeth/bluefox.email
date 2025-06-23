@@ -69,7 +69,7 @@ Before requesting production access, make sure you have the following technical 
 - **Provide an easy unsubscribe option**
   - Implement a **subscription preferences page** where recipients can unsubscribe from individual lists or all emails
   - Include a **visible unsubscribe link** in all marketing emails
-  - Implement **One-Click Unsubscribe (RFC 8089)**
+  - Implement **One-Click Unsubscribe (RFC 8058)**
 - **Use captchas on signup forms** (prevents bot signups and spam traps)
 - **Manage your sending volume carefully**
   - Avoid sudden spikes; ramp up email volume gradually
