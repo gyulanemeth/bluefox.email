@@ -35,7 +35,7 @@ head:
 
 # Amazon SNS Topics
 
-**Amazon SNS Topics** are named communication channels within the Simple Notification Service that serve as the central connection point between message publishers and subscribers. In email delivery systems, SNS Topics play a **vital role** in managing and distributing notifications about email events such as [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and deliveries as part of the [Amazon SNS](/aws-concepts/aws-sns) service.
+**Amazon SNS Topics** are named communication channels within the Simple Notification Service that serve as the central connection point between message publishers and subscribers. In email delivery systems, SNS Topics play a **vital role** in managing and distributing notifications about email events such as [bounces](/email-sending-concepts/bounces), [complaints](/email-sending-concepts/complaints), and deliveries that impact [deliverability](/email-sending-concepts/deliverability) as part of the [Amazon SNS](/aws-concepts/aws-sns) service.
 
 ## What are Amazon SNS Topics?
 
@@ -83,7 +83,7 @@ SNS implements a **"at-least-once" delivery model** with automatic retries for f
 
 ### How can filtering improve email operations?
 
-In [SES](/aws-concepts/aws-ses.md) email systems, SNS topic filtering allows distinct handling logic for [hard bounces](/email-sending-concepts/hard-bounce), [soft bounces](/email-sending-concepts/soft-bounce), complaints, and deliveries. For example, organizations can route hard bounces to immediate suppression list updates while sending soft bounces to a monitoring system for tracking transient failures.
+In [SES](/aws-concepts/aws-ses) email systems, SNS topic filtering allows distinct handling logic for [hard bounces](/email-sending-concepts/hard-bounce), [soft bounces](/email-sending-concepts/soft-bounce), complaints, and deliveries. For example, organizations can route hard bounces to immediate suppression list updates while sending soft bounces to a monitoring system for tracking transient failures.
 
 ## Related Content
 

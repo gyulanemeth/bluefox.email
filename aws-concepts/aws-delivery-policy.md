@@ -66,7 +66,7 @@ Delivery policies contain several important parameters that control retry behavi
 
 When using Amazon SNS to handle [Amazon SES](/aws-concepts/aws-ses) feedback notifications (such as bounces, complaints, or delivery confirmations), delivery policies ensure these critical signals aren't lost due to temporary processing issues.
 
-For example, if your system processes bounce notifications to maintain list hygiene, a robust delivery policy ensures that even if your endpoint is temporarily unavailable, SNS will continue retry attempts based on your configuration, preventing the permanent loss of important deliverability data.
+For example, if your system processes bounce notifications to maintain list hygiene, a robust delivery policy ensures that even if your endpoint is temporarily unavailable, SNS will continue retry attempts based on your configuration, preventing the permanent loss of important [deliverability](/email-sending-concepts/deliverability.md) data.
 
 The delivery policy works alongside the [Amazon SNS Dead-Letter Queue (DLQ)](https://docs.aws.amazon.com/sns/latest/dg/sns-dead-letter-queues.html) feature, which can capture messages that fail delivery after all retry attempts for later processing or analysis.
 

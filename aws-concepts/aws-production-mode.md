@@ -77,7 +77,7 @@ After gaining production access, it’s important to maintain good sending behav
 
 Proactive maintenance includes regularly cleaning your mailing list to remove invalid or disengaged addresses, implementing backoff strategies for throttling errors, and analyzing bounce notifications in real time. Monitoring tools like CloudWatch can help you detect issues early and correct course before they affect your reputation.
 
-If you plan a high-volume campaign, scale gradually rather than sending millions of emails all at once. Sudden traffic spikes, even if technically within quota, can damage deliverability or trigger temporary throttling. Controlled growth signals trustworthiness to inbox providers and helps preserve your SES standing.
+If you plan a high-volume campaign, scale gradually rather than sending millions of emails all at once. Sudden traffic spikes, even if technically within quota, can damage [deliverability](/email-sending-concepts/deliverability) or trigger temporary throttling. Controlled growth signals trustworthiness to inbox providers and helps preserve your SES standing.
 
 ## Frequently Asked Questions About Production Mode
 
