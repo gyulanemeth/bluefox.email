@@ -97,7 +97,7 @@ Individual soft bounces have minimal impact on sender reputation as mailbox prov
 
 ### How can I reduce soft bounce rates?
 
-To minimize [soft bounce rates](/email-sending-concepts/bounce-rate.md), segment your lists by engagement level, respect recipient server limitations, avoid unnecessarily large attachments, implement proper authentication ([SPF](/email-sending-concepts/spf.md), [DKIM](/email-sending-concepts/dkim.md), [DMARC](/email-sending-concepts/dmarc.md)), and monitor your sending infrastructure for performance issues that could contribute to higher soft bounce rates.
+To minimize soft [bounce rates](/email-sending-concepts/bounce-rate.md), segment your lists by engagement level, respect recipient server limitations, avoid unnecessarily large attachments, implement proper authentication ([SPF](/email-sending-concepts/spf.md), [DKIM](/email-sending-concepts/dkim.md), [DMARC](/email-sending-concepts/dmarc.md)), and monitor your sending infrastructure for performance issues that could contribute to higher soft bounce rates.
 
 ## Related Content
 
