@@ -2,6 +2,9 @@
 title: Bounce Rate | BlueFox Email
 description: Bounce rate measures the percentage of emails that couldn't be delivered to recipients, serving as a critical metric for email deliverability and sender reputation.
 thumbnail: /assets/glossary/email-sending-glossary.png
+prev:
+  text: 'Back to Email Sending Concepts'
+  link: '/email-sending-concepts/index'
 sidebar: false
 layout: post
 category: glossary
@@ -127,4 +130,5 @@ While authentication doesn't directly reduce bounces caused by invalid addresses
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 
+<GlossaryNavigation />
 <GlossaryCTA />
