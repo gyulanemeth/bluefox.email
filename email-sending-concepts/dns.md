@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: "Learn how DNS works and why it's the foundation of email delivery, authentication, and security."
 ---
+<GlossaryNavigation/>
 
 # DNS (Domain Name System)
 
@@ -88,4 +89,5 @@ Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantl
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

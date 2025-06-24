@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how the Simple Mail Transfer Protocol works and why it's essential for email delivery across the internet."
 ---
+<GlossaryNavigation/>
 
 # SMTP (Simple Mail Transfer Protocol)
 
@@ -85,4 +86,5 @@ Common reasons include incorrect SMTP settings, authentication failures, network
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [MX Record](/email-sending-concepts/mx-record)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

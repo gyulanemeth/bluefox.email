@@ -34,6 +34,7 @@ head:
       content: SPF is an email authentication method that specifies which mail servers are authorized to send emails on behalf of your domain, helping prevent email spoofing and improving deliverability.
 
 ---
+<GlossaryNavigation/>
 
 # SPF (Sender Policy Framework)
 
@@ -106,4 +107,5 @@ Yes. When an email is forwarded, the forwarder's IP may not be authorized in the
 - [Email Spoofing](/email-sending-concepts/email-spoofing)  
 - [Return Path](/email-sending-concepts/return-path)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

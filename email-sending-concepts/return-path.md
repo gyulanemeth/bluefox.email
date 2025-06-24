@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how the Return-Path works and why it's essential for managing bounces and maintaining email deliverability."
 ---
+<GlossaryNavigation/>
 
 # Return-Path
 
@@ -87,4 +88,5 @@ Unlike bounces, complaint notifications (when recipients mark emails as spam) ar
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)  
 - [MX Record](/email-sending-concepts/mx-record)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

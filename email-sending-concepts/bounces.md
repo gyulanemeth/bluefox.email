@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
 ---
+<GlossaryNavigation/>
 
 # Bounces
 
@@ -102,4 +103,5 @@ No. Hard bounces for non-existent addresses damage reputation most severely as t
 - [Hard Bounce](/email-sending-concepts/hard-bounce)
 - [Soft Bounce](/email-sending-concepts/soft-bounce)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

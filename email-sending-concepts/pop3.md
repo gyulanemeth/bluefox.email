@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how POP3 enables email retrieval and when it might be the right choice for your email setup."
 ---
+<GlossaryNavigation/>
 
 # POP3 (Post Office Protocol)
 
@@ -112,4 +113,5 @@ POP3 typically downloads emails to your device and removes them from the server,
 - [TLS (Transport Layer Security)](/email-sending-concepts/tls)
 - [MX Record](/email-sending-concepts/mx-record)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

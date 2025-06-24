@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn about email authentication protocols that verify sender identity and protect against email fraud."
 ---
+<GlossaryNavigation/>
 
 # Email Authentication
 
@@ -103,4 +104,5 @@ You'll need basic knowledge of DNS management, but many email platforms offer gu
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)  
 - [Return Path](/email-sending-concepts/return-path)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

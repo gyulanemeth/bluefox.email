@@ -33,6 +33,8 @@ head:
     - name: twitter:description
       content: DMARC is an email authentication protocol that unifies SPF and DKIM with policy enforcement and reporting.
 ---
+<GlossaryNavigation/>
+
 
 # DMARC (Domain-based Message Authentication, Reporting, and Conformance)
 
@@ -121,4 +123,5 @@ DMARC sends regular XML reports to the email address you specify in your DNS rec
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
 - [TXT Records (Text)](/email-sending-concepts/txt-record)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

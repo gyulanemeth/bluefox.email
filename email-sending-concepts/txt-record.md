@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how TXT records work and why they're critical for email authentication and deliverability."
 ---
+<GlossaryNavigation/>
 
 # TXT Records
 
@@ -111,4 +112,5 @@ Yes. While email authentication is the most common use case, TXT records are als
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [CNAME Records](/email-sending-concepts/cname-record)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

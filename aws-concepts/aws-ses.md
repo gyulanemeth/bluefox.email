@@ -101,4 +101,5 @@ SES **automatically tracks** bounces and complaints, which can be sent to SNS, S
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

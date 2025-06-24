@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how Transport Layer Security (TLS) protects email in transit, why it matters for privacy, and how it fits into modern email security."
 ---
+<GlossaryNavigation/>
 
 # TLS
 
@@ -74,4 +75,5 @@ If either server lacks TLS, the email is sent in **plain text**. Some providers 
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

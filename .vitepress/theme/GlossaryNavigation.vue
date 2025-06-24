@@ -3,6 +3,13 @@ import { useRoute } from 'vitepress'
 
 const route = useRoute()
 const currentPath = route.path
+const props = defineProps({
+  bottom: {
+    type: Boolean,
+    default: false
+  }
+})
+const bottomPosition = props.bottom
 
 // Determine which glossary this page belongs to
 const isAwsGlossary = currentPath.includes('/aws-concepts/')
@@ -23,25 +30,38 @@ if (isAwsGlossary) {
 </script>
 
 <template>
-  <div class="glossary-navigation">
-    <a :href="backLink" class="back-button">
-      <span class="arrow">←</span><span class="text">{{ backText }}</span>
-    </a>
+  <div class="glossary-navigation vp-doc" :class="{ 'bottom-navigation': bottomPosition }">
+    <div class="container">
+      <a :href="backLink" class="back-button">
+        <span class="arrow">←</span><span class="text">{{ backText }}</span>
+      </a>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .glossary-navigation {
-  margin: 3rem 0 1.5rem;
-  text-align: center;
+  margin: 0 0 1.5rem;
   width: 100%;
-  padding: 0 1rem;
+  padding: 0;
+}
+
+.bottom-navigation {
+  margin: 3rem 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 1px;
 }
 
 .back-button {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   padding: 0.75rem 1rem;
   background-color: var(--vp-c-bg-alt);
   border: 1px solid var(--vp-c-divider);
@@ -52,6 +72,8 @@ if (isAwsGlossary) {
   text-decoration: none !important;
   min-width: 200px;
   max-width: 100%;
+  margin-left: 0;
+  position: relative;
 }
 
 .back-button:hover {
@@ -79,12 +101,11 @@ if (isAwsGlossary) {
 /* Mobile-specific styles */
 @media (max-width: 640px) {
   .glossary-navigation {
-    margin: 2rem 0 1rem;
+    margin: 0.5rem 0 1rem;
   }
   
   .back-button {
     padding: 0.65rem 0.9rem;
-    width: 100%;
     font-size: 0.95rem;
   }
 }

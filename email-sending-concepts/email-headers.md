@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how email headers work and why they're crucial for email delivery, authentication, and troubleshooting."
 ---
+<GlossaryNavigation/>
 
 # Email Headers
 
@@ -141,4 +142,5 @@ Yes, headers contain information that can reveal your IP address, email client, 
 - [Return Path](/email-sending-concepts/return-path)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

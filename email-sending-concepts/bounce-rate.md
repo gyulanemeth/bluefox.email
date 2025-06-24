@@ -35,6 +35,7 @@ head:
     - name: twitter:description
       content: Bounce rate measures the percentage of emails that couldn't be delivered to recipients, serving as a critical metric for email deliverability and sender reputation.
 ---
+<GlossaryNavigation />
 
 # Bounce Rate
 
@@ -130,5 +131,5 @@ While authentication doesn't directly reduce bounces caused by invalid addresses
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 
-<GlossaryNavigation />
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

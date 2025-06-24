@@ -34,6 +34,7 @@ head:
     - name: twitter:description
       content: DKIM is an email authentication method that allows senders to digitally sign emails using a private key. Learn how it works, see examples, and understand its importance for email security.
 ---
+<GlossaryNavigation/>
 
 
 # DKIM (DomainKeys Identified Mail)
@@ -110,4 +111,5 @@ If DKIM fails, the email might still be delivered depending on the recipient's D
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
 
+<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />
