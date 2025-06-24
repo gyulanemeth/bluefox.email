@@ -49,7 +49,7 @@ SNS Subscriptions operate through a comprehensive workflow that begins with crea
 
 Many subscription types require confirmation before they become active. This **two-step verification** process ensures that the endpoint owner has deliberately chosen to receive notifications, which is particularly important for public-facing endpoints like HTTP webhooks. Once confirmed, the subscription becomes active and begins receiving messages.
 
-Subscriptions can include optional filter policies that determine which subset of messages from the topic should be delivered to the endpoint. This enables **targeted processing** where different systems can subscribe to the same topic but receive only the specific notification types they're designed to handle. For example, one system might process only hard bounces while another handles spam complaints.
+Subscriptions can include optional filter policies that determine which subset of messages from the topic should be delivered to the endpoint. This enables **targeted processing** where different systems can subscribe to the same topic but receive only the specific notification types they're designed to handle. For example, one system might process only [hard bounces](/email-sending-concepts/hard-bounce) while another handles spam complaints.
 
 When a message matching the subscription's filter policy is published to the topic, SNS delivers it to the endpoint using the appropriate protocol-specific format. Delivery includes **automatic retries** if the endpoint is temporarily unavailable, with different retry strategies depending on the endpoint type.
 
@@ -62,7 +62,7 @@ SNS supports various subscription protocols that serve different needs in email 
 Filter policies are JSON documents attached to AWS SNS subscriptions that determine which messages the subscription should receive. They enable sophisticated event routing without modifying the publishing application. Key capabilities include:
 
 - **Event-type routing**: Directing different email events (bounces, complaints, deliveries) to specialized processing systems
-- **Bounce differentiation**: Distinguishing between hard bounces (requiring immediate address removal) and soft bounces (triggering temporary suppression)
+- **Bounce differentiation**: Distinguishing between hard bounces (requiring immediate address removal) and [soft bounces](/email-sending-concepts/soft-bounce) (triggering temporary suppression)
 - **Domain-specific processing**: Routing events for different sending domains to separate endpoints for multi-tenant architectures
 - **Advanced matching**: Supporting exact matches, prefix matching, numeric comparisons, and existence checks for **highly customized** routing
 
@@ -109,7 +109,9 @@ If an HTTP/S endpoint consistently fails, the subscription enters a **disabled s
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 - [Amazon SNS Topics](/aws-concepts/aws-sns-topics)
 - [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [Email Bounces](/email-sending-concepts/bounces)
-- [Email Complaints](/email-sending-concepts/complaints)
+- [Bounces](/email-sending-concepts/bounces)
+- [Hard Bounce](/email-sending-concepts/hard-bounce)
+- [Soft Bounce](/email-sending-concepts/soft-bounce)
+- [Complaints](/email-sending-concepts/complaints)
 
 <GlossaryCTA />

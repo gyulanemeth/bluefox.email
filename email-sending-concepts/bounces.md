@@ -39,11 +39,11 @@ An **email bounce** occurs when an email cannot be delivered to its intended rec
 
 ## What is a Bounce?
 
-An email bounce occurs when a recipient's mail server rejects a message and returns a notification to the sender. This notification contains standardized error codes explaining why delivery failed. Bounces directly reflect your list quality and sending practices. According to [Amazon SES enforcement guidelines](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html), industry standards recommend keeping bounce rates below 2%. Higher rates trigger spam filters and damage sender reputation, potentially blocking future emails even to valid recipients.
+An email bounce occurs when a recipient's mail server rejects a message and returns a notification to the sender. This notification contains standardized error codes explaining why delivery failed. Bounces directly reflect your list quality and sending practices. According to [Amazon SES enforcement guidelines](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html), industry standards recommend keeping [bounce rates](/email-sending-concepts/bounce-rate) below 2%. Higher rates trigger spam filters and damage sender reputation, potentially blocking future emails even to valid recipients.
 
 ## Types of Bounces
 
-Email bounces fall into two main categories: **hard bounces** and **soft bounces**. Each type signals different underlying issues and requires different approaches.
+Email bounces fall into two main categories: **[hard bounces](/email-sending-concepts/hard-bounce.md)** and **[soft bounces](/email-sending-concepts/soft-bounce.md)**. Each type signals different underlying issues and requires different approaches.
 
 | Characteristic      | Hard Bounces                                                                    | Soft Bounces                                                              |
 | ------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
@@ -93,10 +93,13 @@ No. Hard bounces for non-existent addresses damage reputation most severely as t
 
 ## Related Content
 
-- [Email Complaints](/email-sending-concepts/complaints)
+- [Complaints](/email-sending-concepts/complaints)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [SMTP Protocol](/email-sending-concepts/smtp)
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 - [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
+- [Bounce Rate](/email-sending-concepts/bounce-rate)
+- [Hard Bounce](/email-sending-concepts/hard-bounce)
+- [Soft Bounce](/email-sending-concepts/soft-bounce)
 
 <GlossaryCTA />
