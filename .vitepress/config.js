@@ -1,41 +1,46 @@
 import { defineConfig } from 'vitepress'
 import tailwindcss from 'tailwindcss'
 
+const headConf = []
+if (process.env.VITE_APP_ENV == 'production') {
+  // only add GA if in production
+  headConf.push([
+    "script",
+    {
+      src: "https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C",
+      async: true,
+    },
+  ])
+  headConf.push([
+    "script",
+    {},
+    `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`,
+  ])
+}
+
+headConf.push([
+  "link",
+  {
+    rel: "preload",
+    as: "image",
+    href: "/assets/mascot-bring-your-own-awsses-dark-450x270.webp",
+  },
+])
+headConf.push([
+  "link",
+  {
+    rel: "preload",
+    as: "image",
+    href: "/assets/mascot-bring-your-own-awsses-450x270.webp",
+  },
+])
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   cleanUrls: true,
   title: "bluefox.email",
   description: "High deliverability & brand consistency.",
-  head: [
-    [
-      "script",
-      {
-        src: "https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C",
-        async: true,
-      },
-    ],
-    [
-      "script",
-      {},
-      `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`,
-    ],
-    [
-      "link",
-      {
-        rel: "preload",
-        as: "image",
-        href: "/assets/mascot-bring-your-own-awsses-dark-450x270.webp",
-      },
-    ],
-    [
-      "link",
-      {
-        rel: "preload",
-        as: "image",
-        href: "/assets/mascot-bring-your-own-awsses-450x270.webp",
-      },
-    ],
-  ],
+  head: headConf,
   vite: {
     ssr: {
       noExternal: ["vuetify"],
