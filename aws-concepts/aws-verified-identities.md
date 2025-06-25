@@ -61,21 +61,11 @@ The identity management system provides comprehensive tools to oversee your send
 
 ## Verified Identities in Sandbox Mode
 
-In [AWS SES sandbox mode](/aws-concepts/aws-sandbox), verified identities have additional restrictions:
-- You can only **send to** other verified email addresses or domains
-- [Sending quotas](/aws-concepts/aws-sending-quota) are limited to **200 emails per 24-hour period**
-- [Sending rate](/aws-concepts/aws-sending-rate) is restricted to **1 email per second**
-
-These limitations are removed once you request and receive [production access](/aws-concepts/aws-production-mode), but the requirement for sending from verified identities remains in place.
+In [AWS SES sandbox mode](/aws-concepts/aws-sandbox), verified identities operate under specific restrictions: emails can only be sent to other verified addresses or domains, [sending quotas](/aws-concepts/aws-sending-quota) are capped at **200 emails per 24-hour period**, and [sending rates](/aws-concepts/aws-sending-rate) are limited to **1 email per second**. While these constraints are lifted once you obtain [production access](/aws-concepts/aws-production-mode), the fundamental requirement to send only from properly verified identities remains permanent regardless of account status.
 
 ## Configuring Feedback Notifications
 
-Verified identities serve as connection points for important email feedback mechanisms. For each identity, you can configure:
-- **Bounce notifications** - Alert when emails can't be delivered
-- **Complaint notifications** - Alert when recipients mark emails as spam
-- **Delivery notifications** - Confirm when emails are successfully delivered
-
-These notifications are typically sent to [Amazon SNS topics](/aws-concepts/aws-sns-topics), allowing you to process feedback events and maintain list hygiene. According to best practices documented in the [AWS SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/monitor-sending-activity.html), properly handling these notifications is essential for maintaining a positive sender reputation.
+Verified identities function as integration points for critical email feedback loops, allowing you to configure **bounce notifications** (alerts for undeliverable emails), **complaint notifications** (alerts when recipients mark messages as spam), and **delivery notifications** (confirmations of successful delivery) for each identity. These notifications are routed to [Amazon SNS topics](/aws-concepts/aws-sns-topics) where you can process them programmatically to maintain list hygiene and sender reputation, with the [AWS SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/monitor-sending-activity.html) emphasizing that proper handling of these feedback mechanisms is fundamental to achieving optimal deliverability rates and maintaining trusted sender status.
 
 ## Frequently Asked Questions About Verified Identities
 
