@@ -45,43 +45,19 @@ Unlike traditional email services where you simply register an account with a us
 
 ## Types of Verified Identities
 
-Amazon SES supports two types of verified identities:
+Amazon SES supports two types of verified identities, each with distinct characteristics and verification methods:
 
-### 1. Domain Identities
-Domain identities allow you to send emails from **any address within a verified domain**. For example, verifying `yourdomain.com` enables sending from `any@yourdomain.com`, `support@yourdomain.com`, or any other address at that domain. Domain verification is performed by adding specific DNS records (TXT records) to your domain's configuration.
+| Identity Type | Scope | Verification Method | Best For |
+|---------------|-------|---------------------|----------|
+| **Domain Identity** | Entire domain (`yourdomain.com`) | DNS records (TXT) | Organizations that need to send from multiple addresses in the same domain |
+| **Email Address Identity** | Single address (`you@anydomain.com`) | Confirmation email with verification link | Individual users or when domain control is unavailable |
 
-### 2. Email Address Identities
-Email address identities are **individual email addresses** verified for sending. These are useful when you don't control an entire domain but need to send from a specific address. Verification occurs through a confirmation email with a verification link that must be clicked to complete the process.
-
-## The Verification Process
-
-### Domain Verification
-To verify a domain identity, you must:
-1. Add the **provided TXT records** to your domain's DNS settings
-2. Configure **DKIM authentication** by adding CNAME records (recommended)
-3. Optionally set up a **custom MAIL FROM domain** with MX records and SPF (TXT) records
-4. Wait for AWS to **validate your DNS records** (typically within 72 hours)
-
-### Email Address Verification
-To verify an email address identity:
-1. Request verification through the AWS SES console or API
-2. Receive a **verification email** at the specified address
-3. Click the **verification link** in the email
-4. Confirmation is usually **immediate** after clicking the link
 
 ## Identity Status and Management
 
-Each verified identity in AWS SES has a status that indicates its current verification state:
-- **Pending** - Verification has been requested but not completed
-- **Verified** - Successfully verified and ready for sending
-- **Failed** - Verification attempt unsuccessful (e.g., DNS records not properly configured)
-- **Temporary Failure** - Temporary issue with verification that may resolve automatically
+AWS SES assigns each verified identity a status indicator that reflects its verification state in the system. These statuses include **Pending** (verification requested but not completed), **Verified** (successfully confirmed and ready for sending), **Failed** (unsuccessful verification due to issues like incorrect DNS configuration), and **Temporary Failure** (temporary issues that may resolve automatically without user intervention).
 
-Identity management features allow you to:
-- **Track verification status** across all your identities
-- Configure **sending authorizations** to permit other AWS accounts to send from your identities
-- Set up **notification configurations** for bounces, complaints, and deliveries
-- Implement **sending policies** to control which services can use your identities
+The identity management system provides comprehensive tools to oversee your sending capabilities, including **verification status** tracking across all identities, sending authorization configuration for **third-party AWS accounts**, notification setup for handling [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and delivery events, and implementation of [sending policies](/aws-concepts/aws-delivery-policy.md) that determine which services can utilize your verified identities.
 
 ## Verified Identities in Sandbox Mode
 
