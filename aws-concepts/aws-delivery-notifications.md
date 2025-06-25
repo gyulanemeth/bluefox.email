@@ -74,10 +74,6 @@ AWS provides several approaches for processing delivery notification data: **Ama
 
 Delivery notifications are typically generated within seconds of successful delivery to the recipient's mail server, though exact timing can vary based on recipient server responsiveness.
 
-### Do delivery notifications count against my AWS SNS quota?
-
-Yes, each delivery notification sent to SNS counts as a published message for quota and billing purposes, which is why selective implementation is recommended for high-volume senders.
-
 ### How can I distinguish between different campaigns in delivery notifications?
 
 Include unique message tags in your emails when sending through SES. These tags will be included in the delivery notification JSON, allowing you to filter and categorize notifications by campaign, message type, or other dimensions.

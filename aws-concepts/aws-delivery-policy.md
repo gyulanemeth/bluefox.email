@@ -33,11 +33,11 @@ head:
       content: AWS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
 ---
 
-# AWS Delivery Policy
+# Amazon Delivery Policy
 
 **AWS Delivery Policy** is a configuration mechanism in [Amazon SNS](/aws-concepts/aws-sns) that defines how the service handles message delivery attempts when temporary failures occur. It enables fine-grained control over retry behavior for notifications, ensuring that important messages have the best chance of reaching their destinations even during transient issues.
 
-## What is an AWS Delivery Policy?
+## What is an Amazon Delivery Policy?
 
 A delivery policy is a **JSON document** that specifies how AWS SNS should handle message delivery retries when server-side errors occur (such as service unavailability) or when messages cannot be delivered to specific endpoints (like **HTTP**, **Amazon SQS**, or **AWS Lambda**). The policy defines parameters like how many times to retry, how long to wait between attempts, and the backoff strategy to use.
 
