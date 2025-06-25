@@ -73,40 +73,18 @@ AWS IAM uses a **deny-by-default** model, meaning that access to resources is de
 
 AWS IAM supports several types of policies that work together to define permissions:
 
-**Identity-based policies** are attached directly to IAM identities (users, groups, roles). These can be:
+| Policy Type | Attached To | Primary Purpose |
+|-------------|-------------|----------------|
+| **Identity-based Policies** | Users, groups, roles | Control what actions an identity can perform |
+| **Resource-based Policies** | AWS resources | Control who can access a specific resource |
+| **Permission Boundaries** | Users and roles | Set maximum permissions an identity can have |
 
-- **Managed policies**: Standalone policies that can be attached to multiple identities
-  - **AWS managed policies**: Created and maintained by AWS
-  - **Customer managed policies**: Created and maintained by customers
-- **Inline policies**: Embedded directly in a specific identity
-
-**Resource-based policies** are attached directly to resources like S3 buckets, SQS queues, or KMS keys. These define who can access the resource and what actions they can perform.
-
-**Permission boundaries** set the maximum permissions an identity can have, regardless of what other policies are attached. These are useful for delegating administration while maintaining control.
-
-**Service control policies (SCPs)** apply to entire AWS Organizations or organizational units, setting guardrails for what actions accounts can perform.
-
-**Session policies** limit permissions for temporary sessions assumed through federation or role assumption.
+These are the main policy types you'll encounter when working with AWS IAM. For comprehensive information about all policy types, including Service Control Policies and Session Policies, refer to the [AWS IAM Policy Types documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#access_policy-types).
 
 ## Core Permission Concepts
 
-Several important concepts underpin the IAM permissions model:
+The IAM permissions model revolves around six key elements: the **Principal** (user, role, or service) requests access to specific **Resources** (identified by ARNs) to perform **Actions** (API operations like `s3:GetObject`). The system handles **Authentication** (verifying identity via credentials) and **Authorization** (evaluating policies to permit/deny access), while **Conditions** enable context-based restrictions (time, IP, MFA). Understanding these components is essential for crafting effective IAM policies.
 
-**Principal** is the entity requesting access to an AWS resource. This could be a user, role, AWS service, or federated user.
-
-**Authentication** verifies the identity of the principal making the request through credentials like passwords, access keys, or session tokens.
-
-**Authorization** determines whether a request should be allowed based on applicable policies.
-
-**Actions** are the specific API calls or operations that can be performed, such as `s3:GetObject` or `ec2:StartInstances`.
-
-**Resources** are the AWS entities that principals can perform actions on, identified by Amazon Resource Names (ARNs).
-
-**Conditions** add contextual restrictions to permissions based on factors like time, IP address, or the presence of MFA.
-
-## Permission Best Practices
-
-When implementing IAM permissions, AWS recommends several security best practices: The **principle of least privilege** is fundamental – grant only the permissions necessary for each entity to perform its specific tasks, starting with minimal permissions and adding more as needed based on actual usage patterns. Implement **permission boundaries** to establish maximum permissions an identity can have, preventing privilege escalation even if additional policies are attached later, which is especially important in larger teams where multiple administrators might manage different aspects of the infrastructure. Use **resource-level permissions** when possible to restrict actions to specific AWS resources rather than granting broad access, for example, allowing access to specific S3 buckets rather than all S3 buckets in the account. Apply **conditional permissions** based on factors like time, source IP, or the presence of MFA; for instance, you might require administrative changes to configurations to come from your corporate network IP range and use multi-factor authentication. According to [AWS security best practices](https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html), regularly reviewing and auditing permission usage helps identify and remove unnecessary access, reducing the risk of misuse or security incidents.
 
 ## IAM Permissions in Email Infrastructure
 
@@ -126,10 +104,6 @@ For AWS-based email systems like those using [Amazon SES](/aws-concepts/aws-ses)
 
 The AWS IAM Access Analyzer provides policy evaluation capabilities, or you can use the AWS CLI command `aws iam get-policy` combined with `get-policy-version` to review policy contents. The IAM console also provides visual tools for examining permissions.
 
-### What's the difference between explicit and implicit denies?
-
-An explicit deny is a statement in a policy with "Effect": "Deny", which always overrides any allows. An implicit deny occurs by default when there is no matching allow statement. Explicit denies are useful when you need to ensure certain actions cannot be performed regardless of other attached policies.
-
 ### How do I troubleshoot permission issues?
 
 The AWS CloudTrail service logs all API calls with details about the request, including the identity, the action requested, and whether it was allowed or denied. The IAM console includes a policy simulator to test policies before applying them.
@@ -137,10 +111,6 @@ The AWS CloudTrail service logs all API calls with details about the request, in
 ### Can permissions be temporary or conditional?
 
 Yes, through session policies used with assumed roles and through condition elements in policies. Conditions can include time-based restrictions, source IP address requirements, resource tags, and many other attributes.
-
-### What permission model should I use for different team members?
-
-AWS recommends using groups for team-based permissions, with users assigned to appropriate groups. For temporary elevated access, use role assumption rather than modifying base permissions. For DevOps teams, consider combining permission boundaries with broader role permissions.
 
 ## Related Content
 

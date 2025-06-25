@@ -47,7 +47,16 @@ When an entity assumes a role, the **AWS Security Token Service (STS)** handles 
 
 ## Common Role Types
 
-AWS offers several specialized **role types** for different authentication scenarios and security requirements. **Service Roles** are specifically designed to be assumed by AWS services like CloudWatch, SES, or SNS, allowing these services to perform actions on your behalf through predefined trust relationships that identify the specific service as the principal. **Lambda Execution Roles** provide the serverless function runtime with precisely scoped permissions to access other AWS resources like databases, storage services, or messaging systems during function invocation. **Instance Profiles** serve as containers for IAM roles that provide temporary credentials to applications running on EC2 instances through the instance metadata service, eliminating the need for storing credentials in application files. **Cross-Account Roles** enable controlled access between separate AWS accounts in organizational structures, allowing users or services in one account to perform specified actions in another account based on carefully crafted permissions.
+AWS offers several specialized role types for different authentication scenarios and security requirements:
+
+| Role Type | Assumed By | Primary Purpose |
+|-----------|------------|----------------|
+| **Service Roles** | AWS services (CloudWatch, SES, SNS) | Allow AWS services to perform actions on your behalf through predefined trust relationships |
+| **Lambda Execution Roles** | Lambda functions | Grant serverless functions permissions to access other AWS resources during execution |
+| **Instance Profiles** | Applications on EC2 instances | Provide temporary credentials to applications without storing credentials in files |
+| **Cross-Account Roles** | Users/services from other AWS accounts | Enable controlled access between separate AWS accounts in an organization |
+
+These role types form the foundation of AWS's secure access delegation system, each addressing specific authentication needs while maintaining the principle of least privilege.
 
 ## IAM Roles for Email Systems
 
