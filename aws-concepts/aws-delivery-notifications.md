@@ -33,7 +33,7 @@ head:
       content: AWS Delivery Notifications provide real-time feedback on the status of emails sent through Amazon SES, allowing senders to track successful deliveries and adjust sending strategies accordingly.
 ---
 
-# AWS Delivery Notifications
+# Amazon Delivery Notifications
 
 **AWS Delivery Notifications** are event messages from [Amazon SES](/aws-concepts/aws-ses) that confirm when emails have been successfully delivered to recipients' mail servers. These notifications are part of SES's event publishing system, providing senders with real-time feedback on email delivery status beyond just [bounce](/email-sending-concepts/bounces) and [complaint](/email-sending-concepts/complaints) information.
 
