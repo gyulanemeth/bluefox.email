@@ -64,6 +64,14 @@ Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS
 
 [Read more](/aws-concepts/aws-iam-role)
 
+## R
+
+### Raw Email Sending
+
+**AWS Raw Email Sending** provides complete control over email structure, format, and content in Amazon SES, allowing for customized headers, attachments, and advanced formatting.
+
+[Read more](/aws-concepts/aws-raw-email-sending)
+
 ## S
 
 ### SES (Simple Email Service)

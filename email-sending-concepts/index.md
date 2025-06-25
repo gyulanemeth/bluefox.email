@@ -38,6 +38,12 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 
 ## B
 
+### Bulk Email Sending
+
+The practice of distributing **identical or personalized messages** to multiple recipients simultaneously, using specialized systems designed for high-volume sending.
+
+[Read more](/email-sending-concepts/bulk-email-sending)
+
 ### Bounce Rate
 
 The **percentage of emails** that failed to reach recipients' inboxes, serving as a critical metric for deliverability and sender reputation.
