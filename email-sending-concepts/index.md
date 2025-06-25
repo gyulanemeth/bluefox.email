@@ -140,6 +140,14 @@ An email retrieval protocol that keeps messages on the server, allowing **synchr
 
 [Read more](/email-sending-concepts/mx-record)
 
+## O
+
+### One-Click Unsubscribe
+
+A user-friendly mechanism that allows email recipients to **opt out of future communications** with a single action, without requiring login credentials or additional confirmations.
+
+[Read more](/email-sending-concepts/one-click-unsubscribe)
+
 ## P
 
 ### POP3 (Post Office Protocol version 3)
