@@ -84,6 +84,12 @@ An **email authentication method** that adds a **digital signature** to verify t
 
 [Read more](/email-sending-concepts/dkim)
 
+### Domain Reputation
+
+A measure of **sending domain trustworthiness** that affects email deliverability, based on historical sending practices and recipient engagement.
+
+[Read more](/email-sending-concepts/domain-reputation)
+
 ### DNS (Domain Name System)
 
 The internet's **phone book** that translates domain names into IP addresses and stores critical **email configuration records**.
@@ -131,6 +137,12 @@ A **permanent email delivery failure** that indicates the email address is inval
 An email retrieval protocol that keeps messages on the server, allowing **synchronization across multiple devices**.
 
 [Read more](/email-sending-concepts/imap)
+
+### IP Reputation
+
+The **trustworthiness score** of an email sending IP address based on historical sending behaviors, which influences whether emails reach the inbox or spam folder.
+
+[Read more](/email-sending-concepts/ip-reputation)
 
 ## M
 
