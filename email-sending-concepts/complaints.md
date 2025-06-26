@@ -123,6 +123,5 @@ Most major ESPs provide complaint data through direct integrations with feedback
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 - [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />
 

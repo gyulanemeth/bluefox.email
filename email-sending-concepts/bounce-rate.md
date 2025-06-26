@@ -131,5 +131,4 @@ While authentication doesn't directly reduce bounces caused by invalid addresses
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

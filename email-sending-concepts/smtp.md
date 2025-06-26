@@ -86,5 +86,4 @@ Common reasons include incorrect SMTP settings, authentication failures, network
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [MX Record](/email-sending-concepts/mx-record)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

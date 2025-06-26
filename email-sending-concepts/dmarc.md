@@ -123,5 +123,4 @@ DMARC sends regular XML reports to the email address you specify in your DNS rec
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
 - [TXT Records (Text)](/email-sending-concepts/txt-record)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

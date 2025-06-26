@@ -112,5 +112,4 @@ An MX record directs email to mail servers for your domain, while a CNAME create
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

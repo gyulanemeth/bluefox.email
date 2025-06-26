@@ -103,5 +103,4 @@ No. Hard bounces for non-existent addresses damage reputation most severely as t
 - [Hard Bounce](/email-sending-concepts/hard-bounce)
 - [Soft Bounce](/email-sending-concepts/soft-bounce)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

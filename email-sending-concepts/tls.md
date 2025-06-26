@@ -75,5 +75,4 @@ If either server lacks TLS, the email is sent in **plain text**. Some providers 
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

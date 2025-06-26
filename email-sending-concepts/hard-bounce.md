@@ -106,5 +106,4 @@ Hard bounced addresses should be removed immediately upon the first bounce occur
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

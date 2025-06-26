@@ -89,5 +89,4 @@ You can, but it's only recommended for advanced setups like migrations or split 
 - [Return Path](/email-sending-concepts/return-path)
 - [CNAME Records](/email-sending-concepts/cname-record)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

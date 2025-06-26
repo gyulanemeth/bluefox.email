@@ -114,5 +114,4 @@ If an HTTP/S endpoint consistently fails, the subscription enters a **disabled s
 - [Soft Bounce](/email-sending-concepts/soft-bounce)
 - [Complaints](/email-sending-concepts/complaints)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

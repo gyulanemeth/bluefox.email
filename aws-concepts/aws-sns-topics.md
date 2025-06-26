@@ -93,5 +93,4 @@ In [SES](/aws-concepts/aws-ses.md) email systems, SNS topic filtering allows dis
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

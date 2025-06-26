@@ -120,5 +120,4 @@ Yes, using spoofing for fraud or harm is illegal in most countries. Testing emai
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

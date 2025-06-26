@@ -109,5 +109,4 @@ No, SNS is designed for **straightforward integration** with SES. Basic setup re
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

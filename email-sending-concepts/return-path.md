@@ -88,5 +88,4 @@ Unlike bounces, complaint notifications (when recipients mark emails as spam) ar
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)  
 - [MX Record](/email-sending-concepts/mx-record)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

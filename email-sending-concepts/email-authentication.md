@@ -104,5 +104,4 @@ You'll need basic knowledge of DNS management, but many email platforms offer gu
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)  
 - [Return Path](/email-sending-concepts/return-path)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

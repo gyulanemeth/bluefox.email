@@ -89,5 +89,4 @@ Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantl
 - [SMTP (Simple Mail Transfer Protocol)](/email-sending-concepts/smtp)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />

@@ -107,5 +107,4 @@ Yes. When an email is forwarded, the forwarder's IP may not be authorized in the
 - [Email Spoofing](/email-sending-concepts/email-spoofing)  
 - [Return Path](/email-sending-concepts/return-path)
 
-<GlossaryNavigation :bottom="true" />
 <GlossaryCTA />
