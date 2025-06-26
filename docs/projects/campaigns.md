@@ -69,6 +69,9 @@ Finally, make changes in the drag 'n' drop email editor:
 When you are done, you can schedule your campaign, or you can send it immediately:
 ![A screenshot of a campaign - schedule and send button highlighted.](./project-campaign-schedule.webp)
 
+You can also check the subscriber list by clicking on this link, it will redirect you to the subscriber list:
+![A screenshot of a campaign - link to redirect to subscriber list.](./redirect-to-subscriber-list.webp)
+
 ## Personalization
 
 Since a campaigns is sent to a subscriber list, subscriber data, unsubscribe link, and pause subscription link are also included. You can use the following merge tags:
