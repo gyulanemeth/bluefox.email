@@ -45,22 +45,15 @@ By default, Amazon SNS uses a standard retry policy, but custom delivery policie
 
 ## Key Components of Delivery Policies
 
-Delivery policies contain several important parameters that control retry behavior:
+Delivery policies contain these essential parameters that control retry behavior:
 
-**Maximum Delivery Attempts** defines the total number of delivery attempts SNS will make, including the initial attempt. For email endpoints receiving [bounce](/email-sending-concepts/bounces) or [complaint](/email-sending-concepts/complaints) notifications, this can be set from 1-100 attempts, with a default of 3. Setting a higher value increases the likelihood of successful delivery during temporary outages.
-
-**Retry Delay** specifies the initial delay before the first retry occurs. This is typically set in seconds and determines how quickly SNS will attempt redelivery after the first failure. The default is often 20 seconds, providing sufficient time for transient issues to resolve.
-
-**Maximum Delay** establishes the upper limit on how long SNS will wait between retry attempts, regardless of backoff calculations. This prevents excessively long waits between retries as the backoff strategy scales.
-
-**Backoff Function** determines how the delay between retry attempts changes over time. The most common options are:
-
-- **Linear**: Each retry uses the same delay
-- **Arithmetic**: The delay increases by a fixed amount with each retry
-- **Geometric**: The delay increases by a fixed multiplier with each retry
-- **Exponential**: The delay increases exponentially with each retry (common for avoiding thundering herd problems)
-
-**Minimum Delay Retries** sets how many retry attempts should use the minimum delay before applying the backoff function, ensuring quick initial retries for time-sensitive notifications.
+| Parameter | Description |
+|-----------|-------------|
+ **Maximum Delivery Attempts** | Total delivery attempts including initial try |
+| **Retry Delay** | Time before first retry |
+| **Maximum Delay** | Upper limit on time between retries |
+| **Backoff Function** | Retry timing pattern |
+| **Minimum Delay Retries** | Initial retries using minimum delay |
 
 ## How Delivery Policies Work with Email Notifications
 

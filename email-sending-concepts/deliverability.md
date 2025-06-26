@@ -48,13 +48,12 @@ In today's sophisticated email ecosystem, major mailbox providers like Gmail, Ya
 
 Email deliverability depends on four fundamental pillars that work together to establish your sending reputation:
 
-**Sender Authentication** is the technical foundation of deliverability. Implementing [SPF](/email-sending-concepts/spf), [DKIM](/email-sending-concepts/dkim), and [DMARC](/email-sending-concepts/dmarc) protocols proves you are who you claim to be and protects against spoofing. Mailbox providers prioritize properly authenticated messages, as they demonstrate technical competence and security awareness.
-
-**Infrastructure Quality** refers to the technical setup that supports your email program. This includes using dedicated IPs with positive sending history, properly configured [DNS records](/email-sending-concepts/dns), secure [TLS](/email-sending-concepts/tls) connections, and clean IP neighborhoods when using shared services. Poor infrastructure can trigger technical filters before content is even evaluated.
-
-**Sender Reputation** is your track record as evaluated by receiving systems. It's influenced by [bounce rates](/email-sending-concepts/bounce-rate), [complaint rates](/email-sending-concepts/complaints), spam trap hits, blocklist appearances, and sending volume consistency. A strong reputation signals to mailbox providers that you are a trustworthy sender, while a damaged reputation can lead to filtering or blocking.
-
-**Recipient Engagement** has become increasingly important as mailbox providers focus on user preference signals. Open rates, click-through rates, reply rates, time spent reading emails, and moving emails between folders all provide signals about message value. Low engagement can relegate future messages to spam folders or promotional tabs.
+| Factor | Description | Key Components |
+|--------|-------------|----------------|
+| **Sender Authentication** | Technical foundation proving sender identity | [SPF](/email-sending-concepts/spf), [DKIM](/email-sending-concepts/dkim), [DMARC](/email-sending-concepts/dmarc) protocols |
+| **Infrastructure Quality** | Technical setup supporting email sending | Dedicated IPs, [DNS records](/email-sending-concepts/dns), [TLS](/email-sending-concepts/tls), clean IP neighborhoods |
+| **Sender Reputation** | Sending history as evaluated by receiving systems | [Bounce rates](/email-sending-concepts/bounce-rate), [complaint rates](/email-sending-concepts/complaints), spam trap hits, blocklists |
+| **Recipient Engagement** | How recipients interact with your emails | Opens, clicks, replies, time reading emails, folder movements |
 
 ## Measuring and Monitoring Deliverability
 
