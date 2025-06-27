@@ -1,6 +1,6 @@
 ---
-title: Amazon SES Production Mode | BlueFox Email
-description: Learn about AWS SES production mode, how it differs from sandbox mode, requirements for gaining production access, and best practices for maintaining production status.
+title: Amazon SES Production Access | BlueFox Email
+description: Learn about AWS SES production access, how it differs from sandbox mode, requirements for gaining production access, and best practices for maintaining production status.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
@@ -9,13 +9,13 @@ category: glossary
 head:
   - - meta
     - name: description
-      content: Learn about AWS SES production mode, how it differs from sandbox mode, requirements for gaining production access, and best practices for maintaining production status.
+      content: Learn about AWS SES production access, how it differs from sandbox mode, requirements for gaining production access, and best practices for maintaining production status.
   - - meta
     - property: og:title
-      content: Amazon SES Production Mode | BlueFox Email
+      content: Amazon SES Production Access | BlueFox Email
   - - meta
     - property: og:description
-      content: Learn about AWS SES production mode, how it differs from sandbox mode, requirements for gaining production access, and best practices for maintaining production status.
+      content: Learn about AWS SES production access, how it differs from sandbox mode, requirements for gaining production access, and best practices for maintaining production status.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
@@ -27,43 +27,47 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Amazon SES Production Mode | BlueFox Email
+      content: Amazon SES Production Access | BlueFox Email
   - - meta
     - name: twitter:description
-      content: Learn about AWS SES production mode, how it differs from sandbox mode, requirements for gaining production access, and best practices for maintaining production status.
+      content: Learn about AWS SES production access, how it differs from sandbox mode, requirements for gaining production access, and best practices for maintaining production status.
 ---
 
-# Amazon SES Production Mode
+# Amazon SES Production Access
 
-**Amazon SES Production Mode** is the unrestricted operational state that follows the initial [sandbox environment](/aws-concepts/aws-sandbox) for [AWS SES](/aws-concepts/aws-ses.md) accounts. It removes sandbox limitations and enables sending to any recipient with higher volume and throughput capabilities.
+**Amazon SES Production Access** is the unrestricted operational state that follows the initial [sandbox environment](/aws-concepts/aws-sandbox) for [AWS SES](/aws-concepts/aws-ses.md) accounts. It removes sandbox limitations and enables sending to any recipient with higher volume and throughput capabilities.
 
-## What Production Mode Offers
+## What Production Access Offers
 
-When your account is approved for production mode, the most immediate change is the ability to send emails to any valid recipient, not just to verified addresses. This unlocks full-scale outreach, allowing businesses to launch live campaigns and operational communications without manual whitelisting.
+When your account is approved for production access, the most immediate change is the ability to send emails to any valid recipient, not just to verified addresses. This unlocks full-scale outreach, allowing businesses to launch live campaigns and operational communications without manual whitelisting.
 
 Alongside this, SES raises your **[sending quota](/aws-concepts/aws-sending-quota.md)** from 200 emails per day to a significantly higher baseline that varies based on your specific use case. Initial production quotas can be substantial, and AWS may automatically increase them further as you establish a positive sending reputation. These expanded thresholds are essential for businesses that rely on timely bulk delivery, like newsletters, transactional updates, and service alerts.
 
-Production mode still provides **full access to both the SES API and [SMTP](/email-sending-concepts/smtp.md) interface**. Nothing is gated or restricted, meaning you can integrate SES deeply into your infrastructure, use advanced features like configuration sets and event publishing, and operate email pipelines at scale.
+Production access still provides **full access to both the SES API and [SMTP](/email-sending-concepts/smtp.md) interface**. Nothing is gated or restricted, meaning you can integrate SES deeply into your infrastructure, use advanced features like configuration sets and event publishing, and operate email pipelines at scale.
 
 Importantly, moving to production doesn’t mean SES stops monitoring your activity. In fact, email metrics like [bounce rate](/email-sending-concepts/bounce-rate.md), [complaint rate](/email-sending-concepts/complaints.md), and sending patterns are evaluated continuously. If your performance remains healthy, AWS may increase your [quotas](/aws-concepts/aws-sending-quota.md) automatically. On the other hand, violations or deteriorating metrics can result in reduced privileges or sandbox reinstatement. The system is built to reward good senders with growth while protecting the shared infrastructure from abuse.
 
-## How Production Mode Works
+## How Production Access Works
 
-Access to production mode must be formally requested through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html). During the review process, AWS evaluates whether your use case aligns with their policies and whether you’ve adopted responsible sending practices. This includes having verifiable opt-in processes, using [SPF](/email-sending-concepts/spf), [DKIM](/email-sending-concepts/dkim), and [DMARC](/email-sending-concepts/dmarc), and maintaining low bounce and complaint rates.
+Access to production access must be formally requested through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html). During the review process, AWS evaluates whether your use case aligns with their policies and whether you’ve adopted responsible sending practices. This includes having verifiable opt-in processes, using [SPF](/email-sending-concepts/spf), [DKIM](/email-sending-concepts/dkim), and [DMARC](/email-sending-concepts/dmarc), and maintaining low bounce and complaint rates.
 
 After approval, SES updates your account with new quota and rate values. These limits are **region-specific**, so if you're sending from multiple AWS regions, each one needs separate production access.
 
 From that point forward, your account operates with full SES capability, subject to ongoing compliance.
 
-## Benefits of Production Mode Access
+:::tip Practical Guide
+Learn how to successfully apply and maintain AWS SES production access with our detailed [step-by-step guide](/posts/how-to-get-and-maintain-production-access-to-amazon-ses).
+:::
 
-Transitioning to production mode is a key milestone for any email sender using SES. It removes the friction of manual testing and lets you engage with real users at real scale. Faster delivery throughput helps ensure that time-sensitive messages like password resets or security alerts reach inboxes promptly. Higher daily quotas allow for marketing and engagement at full volume, without artificial constraints.
+## Benefits of Production Access
 
-Additionally, production mode **supports better testing and optimization** across email clients and domains. You can observe how your emails behave across different providers and tune content accordingly. It also unlocks access to more sophisticated tooling in AWS, including feedback loops, delivery metrics via CloudWatch, and integration with [SNS](/aws-concepts/aws-sns) for real-time event handling.
+Transitioning to production access is a key milestone for any email sender using SES. It removes the friction of manual testing and lets you engage with real users at real scale. Faster delivery throughput helps ensure that time-sensitive messages like password resets or security alerts reach inboxes promptly. Higher daily quotas allow for marketing and engagement at full volume, without artificial constraints.
+
+Additionally, production access **supports better testing and optimization** across email clients and domains. You can observe how your emails behave across different providers and tune content accordingly. It also unlocks access to more sophisticated tooling in AWS, including feedback loops, delivery metrics via CloudWatch, and integration with [SNS](/aws-concepts/aws-sns) for real-time event handling.
 
 Ultimately, production access provides the stability and scalability needed for reliable email delivery, while still requiring adherence to best practices to maintain sender reputation and eligibility.
 
-## Requirements for Production Mode Approval
+## Requirements for Production Access Approval
 
 To move from [sandbox](/aws-concepts/aws-sandbox) to production, AWS expects a combination of technical readiness and policy compliance. Your use case should be clearly defined, whether it's marketing, transactional messaging, or system alerts and backed by an opt-in process that ensures recipients have agreed to receive communication.
 
