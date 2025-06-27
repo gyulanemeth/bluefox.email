@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: A hard bounce is a permanent email delivery failure that indicates the email address is invalid or no longer exists, requiring immediate removal from mailing lists.
 ---
+<GlossaryNavigation/>
 
 # Hard Bounce
 

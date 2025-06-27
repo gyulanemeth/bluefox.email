@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: A soft bounce is a temporary email delivery failure that may resolve with time, often due to full mailboxes, server issues, or message size limits.
 ---
+<GlossaryNavigation/>
 
 # Soft Bounce
 

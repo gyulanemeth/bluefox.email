@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: AWS SES is a cloud email service that helps digital marketers and application developers send marketing, notification, and transactional emails.
 ---
+<GlossaryNavigation />
 
 # Amazon SES (Simple Email Service)
 

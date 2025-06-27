@@ -32,7 +32,7 @@ head:
     - name: twitter:description
       content: AWS SNS is a fully managed messaging service that enables publishers to send messages to subscribers, serving as a key component in email notification systems.
 ---
-
+<GlossaryNavigation />
 # Amazon SNS (Simple Notification Service)
 
 Amazon Simple Notification Service (SNS) is a fully managed **publish/subscribe messaging service** that enables the decoupling of microservices, distributed systems, and serverless applications. In the context of email operations, SNS serves as the critical notification infrastructure for processing events like [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and deliveries.

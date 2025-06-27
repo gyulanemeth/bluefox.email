@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: Bounce rate measures the percentage of emails that couldn't be delivered to recipients, serving as a critical metric for email deliverability and sender reputation.
 ---
+<GlossaryNavigation />
 
 # Bounce Rate
 
