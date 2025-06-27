@@ -45,7 +45,11 @@ To prevent large-scale misuse, the sandbox enforces both a **sending quota** and
 
 Despite these constraints, the SES sandbox gives you **full access to features** such as SMTP sending, event publishing, bounce/complaint tracking, and email templates. This makes it ideal for development and integration work, letting teams validate their email infrastructure in a safe environment.
 
-To move beyond the sandbox and reach unverified recipients or higher volumes, users must apply for **production access** by submitting a request through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
+To move beyond the sandbox and reach unverified recipients or higher volumes, users must apply for **[production access](/aws-concepts/aws-production-access.md)** by submitting a request through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
+
+:::tip Practical Guide
+Learn how to successfully apply and maintain AWS SES production access with our detailed [step-by-step guide](/posts/how-to-get-and-maintain-production-access-to-amazon-ses).
+:::
 
 ## How the Amazon SES Sandbox Works
 
