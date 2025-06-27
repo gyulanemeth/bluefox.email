@@ -66,7 +66,7 @@ Email providers and inbox placement algorithms use bounce rates as key indicator
 | >5%         | Problematic    | High risk of blocks, throttling, or account suspension |
 | >10%        | Critical       | Almost certain sending restrictions or blockages       |
 
-Email providers like Gmail, Yahoo, and Microsoft apply their own internal thresholds, but generally align with these industry standards. AWS SES specifically enforces a 5% maximum bounce rate for [production sending](/aws-concepts/aws-production-mode.md), accounts exceeding this face potential review and restrictions.
+Email providers like Gmail, Yahoo, and Microsoft apply their own internal thresholds, but generally align with these industry standards. AWS SES specifically enforces a 5% maximum bounce rate for [production sending](/aws-concepts/aws-production-access.md), accounts exceeding this face potential review and restrictions.
 
 ## Impact of High Bounce Rates
 

@@ -41,7 +41,7 @@ head:
 
 Each [Amazon SES](/aws-concepts/aws-ses.md) account has a **Daily Sending Quota**, which determines the maximum number of emails that can be sent in a 24-hour window. In [sandbox mode](/aws-concepts/aws-sandbox.md), this is typically [200 emails per day](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails).
 
-New accounts begin in the **sandbox**, where sending is limited to verified identities. To unlock higher limits and unrestricted recipients, you must request [production access](/aws-concepts/aws-production-mode.md) through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
+New accounts begin in the **sandbox**, where sending is limited to verified identities. To unlock higher limits and unrestricted recipients, you must request [production access](/aws-concepts/aws-production-access.md) through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html). When approved for production access, a typical initial quota is **50,000 emails per day** (approximately 1.5 million emails per month).
 
 ## Why AWS Sets Sending Quotas
 
@@ -81,7 +81,7 @@ Use the SES console or `GetSendQuota` API to view your current daily sending lim
 
 ### What changes after leaving the sandbox?
 
-Once in [production mode](/aws-concepts/aws-production-mode), you're allowed to send to unverified recipients and receive significantly increased sending limits. The actual quotas vary based on your specific use case and may increase automatically over time as you establish a positive sending reputation.
+Once in production mode, you're allowed to send to unverified recipients and receive significantly increased sending limits. The actual quotas vary based on your specific use case and may increase automatically over time as you establish a positive sending reputation.
 
 ## Related Content
 

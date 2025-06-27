@@ -44,11 +44,11 @@ Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS
 
 [Read more](/aws-concepts/aws-ses)
 
-### SES Production Mode
+### SES Production Access
 
-**Amazon SES Production Mode** is the unrestricted operational state for AWS SES accounts that removes sandbox limitations and enables sending to any recipient with higher volume capabilities.
+**Amazon SES Production Access** is the unrestricted operational state for AWS SES accounts that removes sandbox limitations and enables sending to any recipient with higher volume capabilities.
 
-[Read more](/aws-concepts/aws-production-mode)
+[Read more](/aws-concepts/aws-production-access)
 
 ### SES Sandbox
 
