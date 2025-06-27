@@ -44,6 +44,30 @@ Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS
 
 [Read more](/aws-concepts/aws-ses)
 
+### SES Production Access
+
+**Amazon SES Production Access** is the unrestricted operational state for AWS SES accounts that removes sandbox limitations and enables sending to any recipient with higher volume capabilities.
+
+[Read more](/aws-concepts/aws-production-access)
+
+### SES Sandbox
+
+The **Amazon SES sandbox** is a restricted environment where all new SES accounts begin, allowing exploration of SES capabilities while limiting sending to verified email addresses only.
+
+[Read more](/aws-concepts/aws-sandbox)
+
+### SES Sending Quotas
+
+**Amazon SES sending quotas** define the number of emails an account can send in a 24-hour period and the rate per second, ensuring service integrity and deliverability.
+
+[Read more](/aws-concepts/aws-sending-quota)
+
+### SES Sending Rates
+
+**AWS SES sending rates** refer to the maximum number of emails you can send per second using Amazon SES, controlling throughput for optimal delivery performance.
+
+[Read more](/aws-concepts/aws-sending-rate)
+
 ### SNS (Simple Notification Service)
 
 **Amazon SNS** is a fully managed messaging service that enables publishers to send messages to subscribers, serving as a key component in email notification systems.
