@@ -66,7 +66,7 @@ Understanding these codes helps in properly categorizing bounces and taking appr
 
 ## How Email Service Providers Handle Bounces
 
-Modern email service providers like [Amazon SES](/aws-concepts/aws-ses) automatically process bounce information by receiving notifications, classifying them as hard or soft based on response codes, and forwarding this data to senders through [Amazon SNS Topics](/aws-concepts/aws-sns-topics). These notifications can then be consumed by webhooks, Lambda functions, or other services configured to subscribe to the SNS topics. For hard bounces, ESPs automatically add addresses to suppression lists to prevent future sending attempts. They also compile bounce metrics into reports so senders can monitor trends and identify potential deliverability issues before they escalate.
+Modern email service providers like [Amazon SES](/aws-concepts/ses) automatically process bounce information by receiving notifications, classifying them as hard or soft based on response codes, and forwarding this data to senders through [Amazon SNS Topics](/aws-concepts/sns-topics). These notifications can then be consumed by webhooks, Lambda functions, or other services configured to subscribe to the SNS topics. For hard bounces, ESPs automatically add addresses to suppression lists to prevent future sending attempts. They also compile bounce metrics into reports so senders can monitor trends and identify potential deliverability issues before they escalate.
 
 :::tip Just a heads up
 In BlueFox Email, we automatically handle bounces for you. Just follow our instructions on setting up bounce webhook in your project settings, and whenever there is a **hard bounce**, we will automatically add the email address to the suppression list to prevent future sending attempts. You will also receive an email notification when a bounce occurs, allowing you to take necessary actions, such as removing the email address from your list or all lists. You can also view bounce reports in your dashboard to monitor trends.
@@ -97,8 +97,8 @@ No. Hard bounces for non-existent addresses damage reputation most severely as t
 - [Complaints](/email-sending-concepts/complaints)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [SMTP Protocol](/email-sending-concepts/smtp)
-- [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
-- [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
+- [Amazon SNS (Simple Notification Service)](/aws-concepts/sns)
+- [Amazon SES (Simple Email Service)](/aws-concepts/ses)
 - [Bounce Rate](/email-sending-concepts/bounce-rate)
 - [Hard Bounce](/email-sending-concepts/hard-bounce)
 - [Soft Bounce](/email-sending-concepts/soft-bounce)

@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-sns/
+      content: https://bluefox.email/aws-concepts/sns/
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -39,9 +39,9 @@ Amazon Simple Notification Service (SNS) is a fully managed **publish/subscribe 
 
 ## What is Amazon SNS?
 
-SNS is a **high-throughput, push-based messaging system** that can deliver messages to a variety of endpoints including Lambda functions, HTTP endpoints, email, SMS, and mobile push notifications. It acts as the communication backbone for [AWS SES](/aws-concepts/aws-ses.md), allowing for real-time processing of email events.
+SNS is a **high-throughput, push-based messaging system** that can deliver messages to a variety of endpoints including Lambda functions, HTTP endpoints, email, SMS, and mobile push notifications. It acts as the communication backbone for [AWS SES](/aws-concepts/ses.md), allowing for real-time processing of email events.
 
-The service follows a **publisher-subscriber model** where applications publish (send) messages to [topics](/aws-concepts/aws-sns-topics), and [subscribers](/aws-concepts/aws-sns-subscription) receive messages from topics they're subscribed to. This model enables **one-to-many communication** where a single notification can be processed by multiple systems simultaneously.
+The service follows a **publisher-subscriber model** where applications publish (send) messages to [topics](/aws-concepts/sns-topics), and [subscribers](/aws-concepts/sns-subscription) receive messages from topics they're subscribed to. This model enables **one-to-many communication** where a single notification can be processed by multiple systems simultaneously.
 
 ## How Amazon SNS Works with Email Systems
 
@@ -103,9 +103,9 @@ No, SNS is designed for **straightforward integration** with SES. Basic setup re
 
 ## Related Content
 
-- [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [Amazon SNS Topics](/aws-concepts/aws-sns-topics)
-- [Amazon SNS Subscriptions](/aws-concepts/aws-sns-subscription)
+- [Amazon SES (Simple Email Service)](/aws-concepts/ses)
+- [Amazon SNS Topics](/aws-concepts/sns-topics)
+- [Amazon SNS Subscriptions](/aws-concepts/sns-subscription)
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)
 

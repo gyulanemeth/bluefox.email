@@ -107,6 +107,6 @@ To minimize soft [bounce rates](/email-sending-concepts/bounce-rate.md), segment
 - [Bounce Rate](/email-sending-concepts/bounce-rate)
 - [SMTP](/email-sending-concepts/smtp)
 - [Email Authentication](/email-sending-concepts/email-authentication)
-- [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
+- [Amazon SNS (Simple Notification Service)](/aws-concepts/sns)
 
 <GlossaryCTA />
