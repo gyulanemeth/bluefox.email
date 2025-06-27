@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how MX records route emails to the correct servers and why they're essential for reliable email delivery."
 ---
+<GlossaryNavigation/>
 
 # MX Records
 

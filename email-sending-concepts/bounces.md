@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
 ---
+<GlossaryNavigation/>
 
 # Bounces
 
