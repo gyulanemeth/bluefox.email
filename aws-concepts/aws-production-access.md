@@ -32,7 +32,7 @@ head:
     - name: twitter:description
       content: Learn about AWS SES production access, how it differs from sandbox mode, requirements for gaining production access, and best practices for maintaining production status.
 ---
-
+<GlossaryNavigation/>
 # Amazon SES Production Access
 
 **Amazon SES Production Access** is the unrestricted operational state that follows the initial [sandbox environment](/aws-concepts/aws-sandbox) for [AWS SES](/aws-concepts/aws-ses.md) accounts. It removes sandbox limitations and enables sending to any recipient with higher volume and throughput capabilities.

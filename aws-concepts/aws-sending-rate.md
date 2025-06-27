@@ -32,7 +32,7 @@ head:
     - name: twitter:description
       content: Learn about AWS SES sending rates, how they differ from quotas, factors that influence them, and best practices for optimal email delivery.
 ---
-
+<GlossaryNavigation/>
 # Amazon SES Sending Rates
 
 **Amazon SES sending rate** refers to the number of emails your account can send **per second**. This is separate from your **[sending quota](/aws-concepts/aws-sending-quota.md)**, which controls the total number of emails you can send over a 24-hour period. While the quota addresses volume, the send rate governs delivery speed and ensures emails are transmitted at a controlled pace.

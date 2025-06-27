@@ -32,7 +32,7 @@ head:
     - name: twitter:description
       content: Learn about the AWS SES sandbox environment, its purpose, limitations, and how to request production access for your email sending needs.
 ---
-
+<GlossaryNavigation/>
 # Amazon SES Sandbox
 
 The **Amazon SES sandbox** is a restricted environment where all new [Amazon SES](/aws-concepts/aws-ses) accounts begin. It allows users to explore SES capabilities in a controlled manner while protecting AWS’s infrastructure from misuse.

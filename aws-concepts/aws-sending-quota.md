@@ -32,7 +32,7 @@ head:
     - name: twitter:description
       content: Learn about AWS SES sending quotas, how they work, how to increase them, and best practices for managing your email sending limits.
 ---
-
+<GlossaryNavigation/>
 # Amazon SES Sending Quotas
 
 **Amazon SES sending quotas** define how many emails your account is allowed to send over a rolling 24-hour period. These limits are in place to protect recipient inboxes, maintain AWS infrastructure stability, and build long-term sender reputation.
