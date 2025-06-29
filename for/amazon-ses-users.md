@@ -313,7 +313,7 @@ onBeforeUnmount(() => {
 
 <section class="section-index">
   <h2 class="sectionTitle text-center mt-4 mb-6">
-    Feedback from Amazon SES users
+    Feedback from Amazon SES Users
   </h2>
   <TestimonialDiv
     :is-dark="isDark"
@@ -327,7 +327,7 @@ onBeforeUnmount(() => {
 
 <section id="design-system" class="value-prop">
   <h2 class="sectionTitle text-center mb-3 pt-0">
-    Send All your emails with Amazon SES in one powerful platform
+    Send All Your Emails with Amazon SES in One Powerful Platform
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
@@ -436,7 +436,7 @@ onBeforeUnmount(() => {
 
 <section id="developers" class="value-prop" style="padding-top: 0;">
   <h2 class="sectionTitle text-center mb-3">
-    Simple, technology-agnostic API
+    Simple, Technology-Agnostic API
   </h2>
 
   <div class="d-flex justify-center">
