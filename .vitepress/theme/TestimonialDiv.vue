@@ -28,6 +28,17 @@ const selectedTestimonialId = ref(0)
 const testimonials = [
   {
     id: 0,
+    name: 'Gabriel Varaljay',
+    initials: 'GV',
+    company: 'Founder of TrendFingers.com',
+    testimonial: `I’ve been using Blue Fox to send out my newsletters, and I couldn’t be happier. The system integrates seamlessly with my own AWS SES, giving me full control and transparency without the hefty price tag of overpriced black-box solutions like Mailchimp. Plus, I’ve noticed a significantly lower bounce rate compared to my previous provider—it’s an excellent choice for anyone seeking reliability and efficiency.`,
+    profileImg: '/assets/testimonials/gabriel-varaljay.webp',
+    logo: '/assets/testimonials/trendfingers.webp',
+    logoAlt: 'TrendFingers Logo',
+    url: 'https://trendfingers.com'
+  },
+  {
+    id: 1,
     name: 'Nicole Darechuk',
     initials: 'ND',
     company: 'Consultant @Ndconsulting',
@@ -38,7 +49,7 @@ const testimonials = [
     url: 'https://www.nicoledarechuk.com'
   },
   {
-    id: 1,
+    id: 2,
     name: 'Garth Brennan',
     initials: 'GB',
     company: 'POS Solutions Australia',
@@ -49,7 +60,7 @@ const testimonials = [
     url: 'https://possolutions.com.au'
   },
   {
-    id: 2,
+    id: 3,
     name: 'Matt Luo',
     initials: 'ML',
     company: 'Founder of ClarityText.com',
@@ -58,17 +69,6 @@ const testimonials = [
     logo: '/assets/testimonials/clarity-text.svg',
     logoAlt: 'ClarityText Logo',
     url: 'https://www.claritytext.com'
-  },
-  {
-    id: 3,
-    name: 'Gabriel Varaljay',
-    initials: 'GV',
-    company: 'Founder of TrendFingers.com',
-    testimonial: `I’ve been using Blue Fox to send out my newsletters, and I couldn’t be happier. The system integrates seamlessly with my own AWS SES, giving me full control and transparency without the hefty price tag of overpriced black-box solutions like Mailchimp. Plus, I’ve noticed a significantly lower bounce rate compared to my previous provider—it’s an excellent choice for anyone seeking reliability and efficiency.`,
-    profileImg: '/assets/testimonials/gabriel-varaljay.webp',
-    logo: '/assets/testimonials/trendfingers.webp',
-    logoAlt: 'TrendFingers Logo',
-    url: 'https://trendfingers.com'
   },
   {
     id: 4,
