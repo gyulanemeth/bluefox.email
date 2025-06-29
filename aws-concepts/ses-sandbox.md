@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/sandbox
+      content: https://bluefox.email/aws-concepts/ses-sandbox
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -45,7 +45,7 @@ To prevent large-scale misuse, the sandbox enforces both a **sending quota** and
 
 Despite these constraints, the SES sandbox gives you **full access to features** such as SMTP sending, event publishing, bounce/complaint tracking, and email templates. This makes it ideal for development and integration work, letting teams validate their email infrastructure in a safe environment.
 
-To move beyond the sandbox and reach unverified recipients or higher volumes, users must apply for **[production access](/aws-concepts/production-access.md)** by submitting a request through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
+To move beyond the sandbox and reach unverified recipients or higher volumes, users must apply for **[production access](/aws-concepts/ses-production-access.md)** by submitting a request through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
 
 :::tip Practical Guide
 Learn how to successfully apply and maintain AWS SES production access with our detailed [step-by-step guide](/posts/how-to-get-and-maintain-production-access-to-amazon-ses).
@@ -92,8 +92,8 @@ AWS typically provides a reason such as lack of opt-in evidence or missing unsub
 ## Related Content
 
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
-- [AWS SES Sending Quotas](/aws-concepts/sending-quota.md)
-- [AWS SES Sending Rates](/aws-concepts/sending-rate.md)
+- [AWS SES Sending Quotas](/aws-concepts/ses-sending-quota.md)
+- [AWS SES Sending Rates](/aws-concepts/ses-sending-rate.md)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns.md)
 - [Bounces](/email-sending-concepts/bounces.md)
 - [Complaints](/email-sending-concepts/complaints.md)

@@ -35,17 +35,17 @@ head:
 <GlossaryNavigation/>
 # Amazon SES Production Access
 
-**Amazon SES Production Access** is the unrestricted operational state that follows the initial [sandbox environment](/aws-concepts/sandbox) for [AWS SES](/aws-concepts/ses.md) accounts. It removes sandbox limitations and enables sending to any recipient with higher volume and throughput capabilities.
+**Amazon SES Production Access** is the unrestricted operational state that follows the initial [sandbox environment](/aws-concepts/ses-sandbox) for [AWS SES](/aws-concepts/ses.md) accounts. It removes sandbox limitations and enables sending to any recipient with higher volume and throughput capabilities.
 
 ## What Production Access Offers
 
 When your account is approved for production access, the most immediate change is the ability to send emails to any valid recipient, not just to verified addresses. This unlocks full-scale outreach, allowing businesses to launch live campaigns and operational communications without manual whitelisting.
 
-Alongside this, SES raises your **[sending quota](/aws-concepts/sending-quota.md)** from 200 emails per day to a significantly higher baseline that varies based on your specific use case. Initial production quotas can be substantial, and AWS may automatically increase them further as you establish a positive sending reputation. These expanded thresholds are essential for businesses that rely on timely bulk delivery, like newsletters, transactional updates, and service alerts.
+Alongside this, SES raises your **[sending quota](/aws-concepts/ses-sending-quota.md)** from 200 emails per day to a significantly higher baseline that varies based on your specific use case. Initial production quotas can be substantial, and AWS may automatically increase them further as you establish a positive sending reputation. These expanded thresholds are essential for businesses that rely on timely bulk delivery, like newsletters, transactional updates, and service alerts.
 
 Production access still provides **full access to both the SES API and [SMTP](/email-sending-concepts/smtp.md) interface**. Nothing is gated or restricted, meaning you can integrate SES deeply into your infrastructure, use advanced features like configuration sets and event publishing, and operate email pipelines at scale.
 
-Importantly, moving to production doesn’t mean SES stops monitoring your activity. In fact, email metrics like [bounce rate](/email-sending-concepts/bounce-rate.md), [complaint rate](/email-sending-concepts/complaints.md), and sending patterns are evaluated continuously. If your performance remains healthy, AWS may increase your [quotas](/aws-concepts/sending-quota.md) automatically. On the other hand, violations or deteriorating metrics can result in reduced privileges or sandbox reinstatement. The system is built to reward good senders with growth while protecting the shared infrastructure from abuse.
+Importantly, moving to production doesn’t mean SES stops monitoring your activity. In fact, email metrics like [bounce rate](/email-sending-concepts/bounce-rate.md), [complaint rate](/email-sending-concepts/complaints.md), and sending patterns are evaluated continuously. If your performance remains healthy, AWS may increase your [quotas](/aws-concepts/ses-sending-quota.md) automatically. On the other hand, violations or deteriorating metrics can result in reduced privileges or sandbox reinstatement. The system is built to reward good senders with growth while protecting the shared infrastructure from abuse.
 
 ## How Production Access Works
 
@@ -69,7 +69,7 @@ Ultimately, production access provides the stability and scalability needed for 
 
 ## Requirements for Production Access Approval
 
-To move from [sandbox](/aws-concepts/sandbox) to production, AWS expects a combination of technical readiness and policy compliance. Your use case should be clearly defined, whether it's marketing, transactional messaging, or system alerts and backed by an opt-in process that ensures recipients have agreed to receive communication.
+To move from [sandbox](/aws-concepts/ses-sandbox) to production, AWS expects a combination of technical readiness and policy compliance. Your use case should be clearly defined, whether it's marketing, transactional messaging, or system alerts and backed by an opt-in process that ensures recipients have agreed to receive communication.
 
 Your email system should implement **robust [authentication](/email-sending-concepts/email-authentication.md)** via SPF, DKIM, and preferably DMARC, and include an unsubscribe link where applicable. AWS also looks for complaint and bounce handling mechanisms, typically using SES’s built-in feedback loop support through [SNS](/aws-concepts/sns) or your own monitoring tools.
 
@@ -104,9 +104,9 @@ The SES dashboard shows your account limits. If your quota exceeds 200 emails/da
 ## Related Content
 
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
-- [AWS SES Sandbox](/aws-concepts/sandbox)
-- [AWS SES Sending Quotas](/aws-concepts/sending-quota)
-- [AWS SES Sending Rates](/aws-concepts/sending-rate)
+- [AWS SES Sandbox](/aws-concepts/ses-sandbox)
+- [AWS SES Sending Quotas](/aws-concepts/ses-sending-quota)
+- [AWS SES Sending Rates](/aws-concepts/ses-sending-rate)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Bounce Rate](/email-sending-concepts/bounce-rate)

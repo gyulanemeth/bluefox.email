@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/sending-quota
+      content: https://bluefox.email/aws-concepts/ses-sending-quota
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -39,9 +39,9 @@ head:
 
 ## Understanding SES Quotas
 
-Each [Amazon SES](/aws-concepts/ses.md) account has a **Daily Sending Quota**, which determines the maximum number of emails that can be sent in a 24-hour window. In [sandbox mode](/aws-concepts/sandbox.md), this is typically [200 emails per day](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails).
+Each [Amazon SES](/aws-concepts/ses.md) account has a **Daily Sending Quota**, which determines the maximum number of emails that can be sent in a 24-hour window. In [sandbox mode](/aws-concepts/ses-sandbox.md), this is typically [200 emails per day](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails).
 
-New accounts begin in the **sandbox**, where sending is limited to verified identities. To unlock higher limits and unrestricted recipients, you must request [production access](/aws-concepts/production-access.md) through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html). When approved for production access, a typical initial quota is **50,000 emails per day** (approximately 1.5 million emails per month).
+New accounts begin in the **sandbox**, where sending is limited to verified identities. To unlock higher limits and unrestricted recipients, you must request [production access](/aws-concepts/ses-production-access.md) through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html). When approved for production access, a typical initial quota is **50,000 emails per day** (approximately 1.5 million emails per month).
 
 ## Why AWS Sets Sending Quotas
 
