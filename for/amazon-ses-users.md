@@ -386,7 +386,7 @@ onBeforeUnmount(() => {
 
 <section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Effortless Audience Management, From Segmentation to Complaints
+    Effortless Audience Management, from Segmentation to Complaints
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
