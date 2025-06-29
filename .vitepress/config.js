@@ -79,10 +79,10 @@ export default defineConfig({
       {
         component: "NavigationButton",
         props: {
-          text: "Sign up",
+          text: "Get Started for Free",
           link: "https://app.bluefox.email/accounts/create-account",
           variant: "flat",
-          color: "buttonBackground",
+          color: "primary",
         },
       },
       /*
