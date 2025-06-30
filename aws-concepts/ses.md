@@ -44,7 +44,7 @@ Amazon SES is a **reliable, cost-effective service** that provides an easy way t
 
 ### Key Features
 
-- **High Deliverability**: Amazon SES uses content filtering technologies and proactive bounce and [complaint](/email-sending-concepts/complaints.md) management to help maintain the sender reputation and achieve high inbox placement rates.
+- **High [Deliverability](/email-sending-concepts/deliverability)**: Amazon SES uses content filtering technologies and proactive bounce and [complaint](/email-sending-concepts/complaints) management to help maintain the sender reputation and achieve high inbox placement rates.
 - **Flexible Configuration Options**: Set up your email sending based on your specific use case, whether it's transactional, marketing, or notification emails.
 - **Analytics and Reporting**: Access detailed metrics on delivery rates, [bounces](/email-sending-concepts/bounces.md), complaints, and rejections.
 - **Advanced Email Features**: Support for custom headers, MIME types, attachments, and more.
