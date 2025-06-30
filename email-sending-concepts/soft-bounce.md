@@ -53,7 +53,7 @@ Each of these causes results in a temporary failure notification, typically acco
 
 ## Why Soft Bounces Matter
 
-Soft bounces are important indicators for email marketers because they provide **early warning signals** of potential deliverability issues that could escalate if not monitored. While isolated soft bounces rarely impact sender reputation, patterns of persistent soft bounces to specific domains may indicate emerging problems with your sending practices or infrastructure. According to [AWS SES documentation](https://repost.aws/knowledge-center/ses-understand-soft-bounces), monitoring soft bounce subtypes (such as MailboxFull, MessageTooLarge, or ContentRejected) helps identify specific delivery issues that may require different handling approaches.
+Soft bounces are important indicators for email marketers because they provide **early warning signals** of potential deliverability issues that could escalate if not monitored. While isolated soft bounces rarely impact sender reputation, patterns of persistent soft bounces to specific domains may indicate emerging problems with your sending practices or infrastructure. According to this [AWS re:Post page](https://repost.aws/knowledge-center/ses-understand-soft-bounces), monitoring soft bounce subtypes (such as MailboxFull, MessageTooLarge, or ContentRejected) helps identify specific delivery issues that may require different handling approaches.
 
 Unlike hard bounces, soft bounces don't typically require immediate list removal, but they do represent valuable **engagement insights**. For example, consistently full mailboxes often indicate inactive or abandoned accounts, suggesting these users are no longer engaging with email. Tracking soft bounce patterns across time can reveal **technical delivery patterns** such as server maintenance schedules or peak traffic periods at specific recipient domains, allowing for more strategic sending.
 
@@ -97,7 +97,7 @@ Individual soft bounces have minimal impact on sender reputation as mailbox prov
 
 ### How can I reduce soft bounce rates?
 
-To minimize soft bounces, segment your lists by engagement level, respect recipient server limitations, avoid unnecessarily large attachments, implement proper authentication ([SPF](/email-sending-concepts/spf.md), [DKIM](/email-sending-concepts/dkim.md), [DMARC](/email-sending-concepts/dmarc.md)), and monitor your sending infrastructure for performance issues.
+To minimize soft [bounce rates](/email-sending-concepts/bounce-rate.md), segment your lists by engagement level, respect recipient server limitations, avoid unnecessarily large attachments, implement proper authentication ([SPF](/email-sending-concepts/spf.md), [DKIM](/email-sending-concepts/dkim.md), [DMARC](/email-sending-concepts/dmarc.md)), and monitor your sending infrastructure for performance issues that could contribute to higher soft bounce rates.
 
 ## Related Content
 
