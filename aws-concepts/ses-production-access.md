@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-production-mode
+      content: https://bluefox.email/aws-concepts/ses-production-access
   - - meta
     - name: twitter:card
       content: summary_large_image
