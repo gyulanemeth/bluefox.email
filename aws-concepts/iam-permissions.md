@@ -35,7 +35,7 @@ head:
 <GlossaryNavigation/>
 # AWS IAM Permissions
 
-**AWS IAM Permissions** are the fine-grained authorizations that specify which actions an identity (user, group, or [role](/aws-concepts/aws-iam-role)) can perform on specific AWS resources. They form the foundation of AWS's access control system, allowing organizations to implement the principle of least privilege across their cloud environments.
+**AWS IAM Permissions** are the fine-grained authorizations that specify which actions an identity (user, group, or [role](/aws-concepts/iam-role)) can perform on specific AWS resources. They form the foundation of AWS's access control system, allowing organizations to implement the principle of least privilege across their cloud environments.
 
 ## What are IAM Permissions?
 
@@ -114,7 +114,7 @@ Yes, through session policies used with assumed roles and through condition elem
 
 ## Related Content
 
-- [AWS IAM Role](/aws-concepts/aws-iam-role)
+- [AWS IAM Role](/aws-concepts/iam-role)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
 - [AWS Delivery Notifications](/aws-concepts/aws-delivery-notifications)

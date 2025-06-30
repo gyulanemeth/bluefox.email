@@ -35,7 +35,7 @@ head:
 <GlossaryNavigation/>
 # AWS IAM Role
 
-An **AWS IAM Role** is an identity that defines permissions for AWS services or users to access resources without using permanent credentials. Roles provide temporary security credentials that expire automatically.
+An **AWS IAM Role** is an identity that defines [permissions](/aws-concepts/iam-permissions.md) for AWS services or users to access resources without using permanent credentials. Roles provide temporary security credentials that expire automatically.
 
 ## What is an AWS IAM Role?
 
@@ -92,7 +92,7 @@ Create a role with a trust policy allowing Lambda to assume it, then add permiss
 
 ## Related Content
 
-- [AWS IAM Permissions](/aws-concepts/aws-iam-permissions)
+- [AWS IAM Permissions](/aws-concepts/iam-permissions)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
 - [AWS Delivery Notifications](/aws-concepts/aws-delivery-notifications)
