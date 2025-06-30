@@ -128,6 +128,12 @@ Your **bluefox.email** API key must be included in the `Authorization` header of
 
 For more details and guidance on integrating these endpoints, visit our [API documentation](/docs/api/).  
 
+### Contact Filtration
+
+You can filter your contacts with sevral options that allows you to segment your contacts by applying multiple filter conditions.
+
+To access contact filtration, checkout filter options on top in contacts section:
+![Screenshot of the contact filtration interface](./contact-filters.webp)
 
 ### Double Opt-in
 Double opt-in ensures that contacts confirm their subscription before receiving emails. You can enable and customize double opt-in from the double Opt-In settings in **forms and pages** tab.
