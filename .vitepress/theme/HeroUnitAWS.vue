@@ -12,7 +12,7 @@ const { isDark } = useData()
           Supercharge Your Amazon SES
         </h1>
         <p class="tagline">BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics, without giving up any control or deliverability.</p>
-        <p class="tagline" style="font-size: 20px; font-weight: 600;">Get started with 3,000 free sends per month, and personalized support.</p>
+        <p class="tagline2">Get started with 3,000 free sends per month, and personalized support.</p>
         <div>
           <v-btn
             size="x-large"
@@ -87,6 +87,14 @@ const { isDark } = useData()
     color: var(--vp-c-text-2);
   }
 
+  .tagline2 {
+    font-size: 20px;
+    line-height: 24px;
+    color: var(--vp-c-text-2);
+
+    font-weight: 600;
+  }
+
   a {
     text-decoration: none;
   }
@@ -119,6 +127,9 @@ const { isDark } = useData()
     .tagline {
       font-size: 18px;
     }
+    .tagline2 {
+      font-size: 16px;
+    }
     .cornerImage {
       max-width: 80%;
     }
@@ -133,6 +144,9 @@ const { isDark } = useData()
     }
     .tagline {
       font-size: 16px;
+    }
+    .tagline2 {
+      font-size: 14px;
     }
     .cornerImage {
       max-width: 60%;
@@ -154,6 +168,9 @@ const { isDark } = useData()
     }
     .tagline {
       font-size: 16px;
+    }
+    .tagline2 {
+      font-size: 14px;
     }
   }
 </style>

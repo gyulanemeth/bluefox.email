@@ -292,13 +292,13 @@ onBeforeUnmount(() => {
     }
 
     .value-prop h2 {
-      font-size: 20px !important;
-      line-height: 20 px !important;
+      font-size: 26px !important;
+      line-height: 28 px !important;
     }
 
     .section-index {
-      padding-top: 5vh;
-      padding-bottom: 5vh;
+      padding-top: 10vh;
+      padding-bottom: 10vh;
     }
   }
 
@@ -311,7 +311,7 @@ onBeforeUnmount(() => {
   <HeroUnit />
 </section>
 
-<section class="section-index">
+<section class="section-index value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-6">
     Feedback from Amazon SES Users
   </h2>
@@ -384,7 +384,7 @@ onBeforeUnmount(() => {
   </v-card>
 </section>
 
-<section class="value-prop">
+<section class="section-index value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
     Effortless Audience Management, from Segmentation to Complaints
   </h2>
@@ -514,7 +514,7 @@ onBeforeUnmount(() => {
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
       Experience the full power of BlueFox Email with zero risk. For your first year, enjoy 3,000 free sends per month and see how easy it is to supercharge your Amazon SES experience.
-      <div><strong>No subscription required!</strong></div>
+      <div class="mt-4"><strong>No subscription required!</strong></div>
     </div>
   </div>
 
@@ -523,7 +523,7 @@ onBeforeUnmount(() => {
       size="large"
       color="primary"
       variant="flat"
-      class="no-uppercase mr-3"
+      class="no-uppercase mt-4"
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
