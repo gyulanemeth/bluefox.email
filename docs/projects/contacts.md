@@ -130,7 +130,7 @@ For more details and guidance on integrating these endpoints, visit our [API doc
 
 ### Contact Filtration
 
-You can filter your contacts using the filter options available at the top of the contacts section
+You can filter your contacts using the filter options available at the top of the contacts section.
 ![Screenshot of the contact filtration interface](./contact-filters.webp)
 
 ### Double Opt-in
