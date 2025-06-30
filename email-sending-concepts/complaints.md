@@ -36,7 +36,7 @@ head:
 
 # Complaints
 
-**Complaints** occur when recipients actively report an email as unwanted or spam through their email client or service provider. These reports directly impact sender reputation and deliverability, making complaint management essential for professional email operations. Understanding the nature and implications of complaints is crucial for maintaining a healthy sending program.
+**Complaints** occur when recipients actively report an email as unwanted or spam through their email client or service provider. These reports directly impact sender reputation and [deliverability](/email-sending-concepts/deliverability), making complaint management essential for professional email operations. Understanding the nature and implications of complaints is crucial for maintaining a healthy sending program.
 
 ## What are Complaints?
 

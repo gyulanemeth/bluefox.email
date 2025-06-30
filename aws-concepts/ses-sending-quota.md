@@ -39,13 +39,13 @@ head:
 
 ## Understanding SES Quotas
 
-Each [Amazon SES](/aws-concepts/ses.md) account has a **Daily Sending Quota**, which determines the maximum number of emails that can be sent in a 24-hour window. In [sandbox mode](/aws-concepts/ses-sandbox.md), this is typically [200 emails per day](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails).
+Each [Amazon SES](/aws-concepts/aws-ses) account has a **Daily Sending Quota**, which determines the maximum number of emails that can be sent in a 24-hour window. In [sandbox mode](/aws-concepts/aws-sandbox), this is typically [200 emails per day](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails).
 
-New accounts begin in the **sandbox**, where sending is limited to verified identities. To unlock higher limits and unrestricted recipients, you must request [production access](/aws-concepts/ses-production-access.md) through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html). When approved for production access, a typical initial quota is **50,000 emails per day** (approximately 1.5 million emails per month).
+New accounts begin in the **sandbox**, where sending is limited to verified identities. To unlock higher limits and unrestricted recipients, you must request [production access](/aws-concepts/aws-production-mode) through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
 
 ## Why AWS Sets Sending Quotas
 
-AWS implements sending quotas to benefit the entire email ecosystem by helping senders gradually ramp up activity while **reducing deliverability issues** from sudden volume spikes. These limits protect recipients from unsolicited or spam-like traffic and safeguard SES infrastructure from potential misuse while maintaining trusted relationships with major mailbox providers. According to [AWS documentation](https://docs.aws.amazon.com/ses/latest/dg/manage-sending-quotas.html), these quotas _"help to maintain the trusted relationship between Amazon SES and email providers"_ and are essential for preserving the overall health of the system.
+AWS implements sending quotas to benefit the entire email ecosystem by helping senders gradually ramp up activity while **reducing [deliverability](/email-sending-concepts/deliverability) issues** from sudden volume spikes. These limits protect recipients from unsolicited or spam-like traffic and safeguard SES infrastructure from potential misuse while maintaining trusted relationships with major mailbox providers. According to [AWS documentation](https://docs.aws.amazon.com/ses/latest/dg/manage-sending-quotas.html), these quotas _"help to maintain the trusted relationship between Amazon SES and email providers"_ and are essential for preserving the overall health of the system.
 
 ## Quota Increases
 

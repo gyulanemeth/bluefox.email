@@ -36,7 +36,7 @@ head:
 
 # Bounce Rate
 
-**Bounce rate** is a critical email deliverability metric that measures the percentage of emails that failed to reach recipients' inboxes and were returned to the sender. This metric serves as a direct indicator of list quality, sending practices, and overall email program health.
+**Bounce rate** is a critical email [deliverability](/email-sending-concepts/deliverability) metric that measures the percentage of emails that failed to reach recipients' inboxes and were returned to the sender. This metric serves as a direct indicator of list quality, sending practices, and overall email program health.
 
 ## Understanding Bounce Rate
 
