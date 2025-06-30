@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how the Simple Mail Transfer Protocol works and why it's essential for email delivery across the internet."
 ---
+<GlossaryNavigation/>
 
 # SMTP (Simple Mail Transfer Protocol)
 

@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: Email complaints occur when recipients report messages as spam, triggering feedback loops and potentially damaging sender reputation if not properly managed.
 ---
+<GlossaryNavigation/>
 
 # Complaints
 
@@ -45,7 +46,7 @@ Complaints are formal reports made by recipients who consider a message to be un
 
 The complaint process typically follows a specific workflow: a recipient receives an email they consider unwanted, they click **"Report Spam"** or a similar button in their email client, the mailbox provider records this action, and if the sender participates in Feedback Loops, the provider sends a notification back to the sender. The sender's email system then processes this complaint and takes appropriate action.
 
-While mailbox providers like Yahoo and Microsoft provide traditional Feedback Loops (FBLs), **Gmail is a notable exception**. Instead, Gmail aggregates user engagement signals, including spam reports, and adjusts sender reputation accordingly without providing individual complaint data. This makes it even more important to monitor overall complaint trends across all providers. Most FBLs deliver notifications through **standardized Abuse Reporting Format (ARF) messages**, which contain metadata about the original message and the complaint. Services like [Amazon SES](/aws-concepts/aws-ses) automatically process these ARF messages and make the complaint data available through [Amazon SNS](/aws-concepts/aws-sns) notifications for integration with suppression lists and monitoring systems.
+While mailbox providers like Yahoo and Microsoft provide traditional Feedback Loops (FBLs), **Gmail is a notable exception**. Instead, Gmail aggregates user engagement signals, including spam reports, and adjusts sender reputation accordingly without providing individual complaint data. This makes it even more important to monitor overall complaint trends across all providers. Most FBLs deliver notifications through **standardized Abuse Reporting Format (ARF) messages**, which contain metadata about the original message and the complaint. Services like [Amazon SES](/aws-concepts/ses) automatically process these ARF messages and make the complaint data available through [Amazon SNS](/aws-concepts/sns) notifications for integration with suppression lists and monitoring systems.
 
 ## Types of Complaints
 
@@ -75,7 +76,7 @@ Notable exceptions include **Gmail**, which doesn't provide traditional FBL data
 
 ## How Email Service Providers Handle Complaints
 
-Email service providers (ESPs) monitor complaint activity by integrating feedback loop data into their infrastructure. When a complaint is triggered, ESPs like [Amazon SES](/aws-concepts/aws-ses.md) parse the ARF message, typically delivered via [Amazon SNS Topics](/aws-concepts/aws-sns-topics.md) and automatically suppress the recipient’s address to prevent future delivery attempts. These systems also compile complaint metrics into dashboards, helping senders analyze trends, correlate complaints with campaign segments, and identify deliverability issues early. To protect their overall network reputation, ESPs may further adjust sending privileges based on complaint volume.
+Email service providers (ESPs) monitor complaint activity by integrating feedback loop data into their infrastructure. When a complaint is triggered, ESPs like [Amazon SES](/aws-concepts/ses.md) parse the ARF message, typically delivered via [Amazon SNS Topics](/aws-concepts/sns-topics.md) and automatically suppress the recipient’s address to prevent future delivery attempts. These systems also compile complaint metrics into dashboards, helping senders analyze trends, correlate complaints with campaign segments, and identify deliverability issues early. To protect their overall network reputation, ESPs may further adjust sending privileges based on complaint volume.
 
 :::::::tip Just a heads up
 In BlueFox Email, we automatically handle complaints for you. Just follow our instructions on setting up complaint webhook in your project settings, and whenever a recipient marks your email as spam, we’ll notify you by email. You can then take any necessary action, such as removing the email address from your list or all lists. You can also view complaint details in your project dashboard.
@@ -119,7 +120,8 @@ Most major ESPs provide complaint data through direct integrations with feedback
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)
-- [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
-- [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
+- [Amazon SNS (Simple Notification Service)](/aws-concepts/sns)
+- [Amazon SES (Simple Email Service)](/aws-concepts/ses)
 
 <GlossaryCTA />
+

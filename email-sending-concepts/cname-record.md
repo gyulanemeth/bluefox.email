@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: "Learn how CNAME records create domain aliases and why they're useful for email and web services."
 ---
+<GlossaryNavigation/>
 
 # CNAME Records
 

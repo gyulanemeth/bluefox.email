@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: "Learn how DNS works and why it's the foundation of email delivery, authentication, and security."
 ---
+<GlossaryNavigation/>
 
 # DNS (Domain Name System)
 

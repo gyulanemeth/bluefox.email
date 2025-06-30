@@ -11,9 +11,8 @@ const { isDark } = useData()
         <h1 class="title">
           Supercharge Your Amazon SES
         </h1>
-        <p class="tagline" style="font-size: 28px;"><strong>Amazon SES is powerful but basic.</strong></p>
-        <p class="tagline">BlueFox Email adds the features you need for beautiful designs, smart list management, effortless automation, and in-depth analytics.</p>
-        <p class="tagline">Get Started with 3.000 free sends per month, and personalized support.</p>
+        <p class="tagline">BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics, without giving up any control or deliverability.</p>
+        <p class="tagline" style="font-size: 20px; font-weight: 600;">Get started with 3,000 free sends per month, and personalized support.</p>
         <div>
           <v-btn
             size="x-large"

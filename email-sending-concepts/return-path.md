@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how the Return-Path works and why it's essential for managing bounces and maintaining email deliverability."
 ---
+<GlossaryNavigation/>
 
 # Return-Path
 
