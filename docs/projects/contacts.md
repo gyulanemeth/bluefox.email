@@ -130,9 +130,7 @@ For more details and guidance on integrating these endpoints, visit our [API doc
 
 ### Contact Filtration
 
-You can filter your contacts with sevral options that allows you to segment your contacts by applying multiple filter conditions.
-
-To access contact filtration, checkout filter options on top in contacts section:
+You can filter your contacts using the filter options available at the top of the contacts section
 ![Screenshot of the contact filtration interface](./contact-filters.webp)
 
 ### Double Opt-in
