@@ -111,7 +111,7 @@ const { isDark } = useData()
 
   @media (max-width: 480px) {
     .heroDiv {
-      padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) 24px 48px;
+      padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 48px) 24px 48px;
     }
     .title {
       font-size: 40px;
@@ -126,7 +126,7 @@ const { isDark } = useData()
 
   @media (max-width: 380px) {
     .heroDiv {
-      padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) 24px 48px;
+      padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 48px) 24px 48px;
     }
     .title {
       font-size: 32px;
