@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: Bounce rate measures the percentage of emails that couldn't be delivered to recipients, serving as a critical metric for email deliverability and sender reputation.
 ---
+<GlossaryNavigation />
 
 # Bounce Rate
 
@@ -66,7 +67,7 @@ Email providers and inbox placement algorithms use bounce rates as key indicator
 | >5%         | Problematic    | High risk of blocks, throttling, or account suspension |
 | >10%        | Critical       | Almost certain sending restrictions or blockages       |
 
-Email providers like Gmail, Yahoo, and Microsoft apply their own internal thresholds, but generally align with these industry standards. AWS SES specifically enforces a 5% maximum bounce rate for [production sending](/aws-concepts/aws-production-mode.md), accounts exceeding this face potential review and restrictions.
+Email providers like Gmail, Yahoo, and Microsoft apply their own internal thresholds, but generally align with these industry standards. AWS SES specifically enforces a 5% maximum bounce rate for [production sending](/aws-concepts/ses-production-access.md), accounts exceeding this face potential review and restrictions.
 
 ## Impact of High Bounce Rates
 
@@ -125,6 +126,6 @@ While authentication doesn't directly reduce bounces caused by invalid addresses
 - [Soft Bounce](/email-sending-concepts/soft-bounce)
 - [SMTP](/email-sending-concepts/smtp)
 - [Email Authentication](/email-sending-concepts/email-authentication)
-- [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
+- [Amazon SNS (Simple Notification Service)](/aws-concepts/sns)
 
 <GlossaryCTA />

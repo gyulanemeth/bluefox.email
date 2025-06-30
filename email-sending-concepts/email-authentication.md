@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn about email authentication protocols that verify sender identity and protect against email fraud."
 ---
+<GlossaryNavigation/>
 
 # Email Authentication
 

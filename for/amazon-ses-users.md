@@ -313,7 +313,7 @@ onBeforeUnmount(() => {
 
 <section class="section-index">
   <h2 class="sectionTitle text-center mt-4 mb-6">
-    Feedback from Amazon SES users
+    Feedback from Amazon SES Users
   </h2>
   <TestimonialDiv
     :is-dark="isDark"
@@ -327,7 +327,7 @@ onBeforeUnmount(() => {
 
 <section id="design-system" class="value-prop">
   <h2 class="sectionTitle text-center mb-3 pt-0">
-    Send All your emails with Amazon SES in one powerful platform
+    Send All Your Emails with Amazon SES in One Powerful Platform
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
@@ -347,7 +347,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Building automated email workflows with Amazon SES can be complex and require custom coding. With BlueFox.email, you can easily automate everything from onboarding sequences to re-engagement campaigns and event-based triggers.
+      Building automated email workflows with Amazon SES can be complex and require custom coding. With BlueFox Email, you can easily automate everything from onboarding sequences to re-engagement campaigns and event-based triggers.
     </div>
   </div>
 
@@ -404,7 +404,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Say goodbye to the bare-bones reports of Amazon SES. With BlueFox.email, you get intuitive, detailed analytics that highlight what really matters, helping you optimize your email performance effortlessly.
+      Say goodbye to the bare-bones reports of Amazon SES. With BlueFox Email, you get intuitive, detailed analytics that highlight what really matters, helping you optimize your email performance effortlessly.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -436,7 +436,7 @@ onBeforeUnmount(() => {
 
 <section id="developers" class="value-prop" style="padding-top: 0;">
   <h2 class="sectionTitle text-center mb-3">
-    Simple, technology-agnostic API
+    Simple, Technology-Agnostic API
   </h2>
 
   <div class="d-flex justify-center">
@@ -513,8 +513,8 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Experience the full power of BlueFox.email with zero risk. For your first year, enjoy 3,000 free sends per month and see how easy it is to supercharge your Amazon SES experience.
-      <div>No subscription required!</div>
+      Experience the full power of BlueFox Email with zero risk. For your first year, enjoy 3,000 free sends per month and see how easy it is to supercharge your Amazon SES experience.
+      <div><strong>No subscription required!</strong></div>
     </div>
   </div>
 
@@ -527,7 +527,7 @@ onBeforeUnmount(() => {
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
-      <strong>Turn SES into a Full-Fledged Email Platform</strong>
+      <strong>Supercharge Your Amazon SES</strong>
     </v-btn>
   </v-row>
 </section>

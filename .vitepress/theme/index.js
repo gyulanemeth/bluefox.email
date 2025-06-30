@@ -22,6 +22,7 @@ import Deliverability from './Deliverability.vue'
 import Automation from './Automation.vue'
 import Integration from './Integration.vue'
 import GlossaryCTA from './GlossaryCTA.vue'
+import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
 
 export default {
@@ -30,7 +31,7 @@ export default {
     return h(Theme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
       "layout-bottom": () => h(CustomFooter),
-    });
+    })
   },
   enhanceApp({ app, router, siteData }) {
     const vuetify = createVuetify({
@@ -55,7 +56,7 @@ export default {
         },
       },
       ssr: true,
-    });
+    })
 
     app.use(vuetify)
 
@@ -64,11 +65,12 @@ export default {
     app.component('NavigationButton', NavigationButton)
     app.component('TestimonialDiv', TestimonialDiv)
     app.component('DesignSystem', DesignSystem)
-    app.component("RenderingIssues", RenderingIssues)
-    app.component("Deliverability", Deliverability)
-    app.component("Automation", Automation)
-    app.component("Integration", Integration)
-    app.component("GlossaryCTA", GlossaryCTA)
-    app.component("CustomFooter", CustomFooter)
+    app.component('RenderingIssues', RenderingIssues)
+    app.component('Deliverability', Deliverability)
+    app.component('Automation', Automation)
+    app.component('Integration', Integration)
+    app.component('GlossaryCTA', GlossaryCTA)
+    app.component('GlossaryNavigation', GlossaryNavigation)
+    app.component('CustomFooter', CustomFooter)
   },
-};
+}

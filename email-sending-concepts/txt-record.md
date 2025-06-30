@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how TXT records work and why they're critical for email authentication and deliverability."
 ---
+<GlossaryNavigation/>
 
 # TXT Records
 

@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-sns-topics
+      content: https://bluefox.email/aws-concepts/sns-topics
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -32,10 +32,10 @@ head:
     - name: twitter:description
       content: AWS SNS Topics are communication channels that enable publishers to distribute messages to multiple subscribers through Amazon's Simple Notification Service, critical for email event processing.
 ---
-
+<GlossaryNavigation />
 # Amazon SNS Topics
 
-**Amazon SNS Topics** are named communication channels within the Simple Notification Service that serve as the central connection point between message publishers and subscribers. In email delivery systems, SNS Topics play a **vital role** in managing and distributing notifications about email events such as [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and deliveries as part of the [Amazon SNS](/aws-concepts/aws-sns) service.
+**Amazon SNS Topics** are named communication channels within the Simple Notification Service that serve as the central connection point between message publishers and subscribers. In email delivery systems, SNS Topics play a **vital role** in managing and distributing notifications about email events such as [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and deliveries as part of the [Amazon SNS](/aws-concepts/sns) service.
 
 ## What are Amazon SNS Topics?
 
@@ -83,13 +83,13 @@ SNS implements a **"at-least-once" delivery model** with automatic retries for f
 
 ### How can filtering improve email operations?
 
-In [SES](/aws-concepts/aws-ses.md) email systems, SNS topic filtering allows distinct handling logic for [hard bounces](/email-sending-concepts/hard-bounce), [soft bounces](/email-sending-concepts/soft-bounce), complaints, and deliveries. For example, organizations can route hard bounces to immediate suppression list updates while sending soft bounces to a monitoring system for tracking transient failures.
+In [SES](/aws-concepts/ses.md) email systems, SNS topic filtering allows distinct handling logic for [hard bounces](/email-sending-concepts/hard-bounce), [soft bounces](/email-sending-concepts/soft-bounce), complaints, and deliveries. For example, organizations can route hard bounces to immediate suppression list updates while sending soft bounces to a monitoring system for tracking transient failures.
 
 ## Related Content
 
-- [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
-- [Amazon SNS Subscriptions](/aws-concepts/aws-sns-subscription)
-- [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
+- [Amazon SNS (Simple Notification Service)](/aws-concepts/sns)
+- [Amazon SNS Subscriptions](/aws-concepts/sns-subscription)
+- [Amazon SES (Simple Email Service)](/aws-concepts/ses)
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)
 

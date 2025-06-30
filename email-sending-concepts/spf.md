@@ -34,6 +34,7 @@ head:
       content: SPF is an email authentication method that specifies which mail servers are authorized to send emails on behalf of your domain, helping prevent email spoofing and improving deliverability.
 
 ---
+<GlossaryNavigation/>
 
 # SPF (Sender Policy Framework)
 

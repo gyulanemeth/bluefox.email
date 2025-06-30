@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-ses
+      content: https://bluefox.email/aws-concepts/ses
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: AWS SES is a cloud email service that helps digital marketers and application developers send marketing, notification, and transactional emails.
 ---
+<GlossaryNavigation />
 
 # Amazon SES (Simple Email Service)
 
@@ -47,7 +48,7 @@ Amazon SES is a **reliable, cost-effective service** that provides an easy way t
 - **Flexible Configuration Options**: Set up your email sending based on your specific use case, whether it's transactional, marketing, or notification emails.
 - **Analytics and Reporting**: Access detailed metrics on delivery rates, [bounces](/email-sending-concepts/bounces.md), complaints, and rejections.
 - **Advanced Email Features**: Support for custom headers, MIME types, attachments, and more.
-- **Integration with Other AWS Services**: Works seamlessly with other AWS services like S3, [SNS](/aws-concepts/aws-sns), and Lambda.
+- **Integration with Other AWS Services**: Works seamlessly with other AWS services like S3, [SNS](/aws-concepts/sns), and Lambda.
 - **Email Receiving**: Route incoming emails to S3 buckets, trigger Lambda functions, or send notifications through SNS.
 - **Dedicated IP Addresses**: Option to lease dedicated IP addresses for exclusive use.
 
@@ -86,7 +87,7 @@ AWS SES is a **"building block" email infrastructure** with pay-as-you-go pricin
 
 ### Does Amazon SES have sending limits?
 
-Yes, new accounts start in a **"sandbox" environment** with restricted sending capabilities. After proving good sending practices, you can request [production access](/aws-concepts/aws-production-mode.md) to increase your sending quota (emails per day) and sending rate (emails per second). AWS evaluates your **bounce and complaint rates** before granting higher limits.
+Yes, new accounts start in a **"sandbox" environment** with restricted sending capabilities. After proving good sending practices, you can request [production access](/aws-concepts/ses-production-access.md) to increase your sending quota (emails per day) and sending rate (emails per second). AWS evaluates your **bounce and complaint rates** before granting higher limits.
 
 ### How does Amazon SES handle bounces and complaints?
 
@@ -94,9 +95,9 @@ SES **automatically tracks** bounces and complaints, which can be sent to SNS, S
 
 ## Related Content
 
-- [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
-- [Amazon SNS Topics](/aws-concepts/aws-sns-topics)
-- [Amazon SNS Subscription](/aws-concepts/aws-sns-subscription)
+- [Amazon SNS (Simple Notification Service)](/aws-concepts/sns)
+- [Amazon SNS Topics](/aws-concepts/sns-topics)
+- [Amazon SNS Subscription](/aws-concepts/sns-subscription)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)

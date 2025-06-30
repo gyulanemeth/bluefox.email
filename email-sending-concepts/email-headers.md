@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how email headers work and why they're crucial for email delivery, authentication, and troubleshooting."
 ---
+<GlossaryNavigation/>
 
 # Email Headers
 

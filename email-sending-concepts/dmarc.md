@@ -33,6 +33,8 @@ head:
     - name: twitter:description
       content: DMARC is an email authentication protocol that unifies SPF and DKIM with policy enforcement and reporting.
 ---
+<GlossaryNavigation/>
+
 
 # DMARC (Domain-based Message Authentication, Reporting, and Conformance)
 
