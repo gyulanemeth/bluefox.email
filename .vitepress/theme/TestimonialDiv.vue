@@ -31,7 +31,7 @@ const testimonials = [
     name: 'Gabriel Varaljay',
     initials: 'GV',
     company: 'Founder of TrendFingers.com',
-    testimonial: `I’ve been using Blue Fox to send out my newsletters, and I couldn’t be happier. The system integrates seamlessly with my own AWS SES, giving me full control and transparency without the hefty price tag of overpriced black-box solutions like Mailchimp. Plus, I’ve noticed a significantly lower bounce rate compared to my previous provider. It’s an excellent choice for anyone seeking reliability and efficiency.`,
+    testimonial: `I’ve been using Blue Fox to send out my newsletters, and I couldn’t be happier. The system integrates seamlessly with my own AWS SES, giving me full control and transparency without the hefty price tag of overpriced black-box solutions like Mailchimp. It’s an excellent choice for anyone seeking reliability and efficiency.`,
     profileImg: '/assets/testimonials/gabriel-varaljay.webp',
     logo: '/assets/testimonials/trendfingers.webp',
     logoAlt: 'TrendFingers Logo',
