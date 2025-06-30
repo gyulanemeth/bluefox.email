@@ -60,9 +60,9 @@ These role types form the foundation of AWS's secure access delegation system, e
 
 ## IAM Roles for Email Systems
 
-When building robust email infrastructure with [Amazon SES](/aws-concepts/aws-ses), you'll need several carefully designed **role configurations** to maintain security and operational efficiency:
+When building robust email infrastructure with [Amazon SES](/aws-concepts/ses), you'll need several carefully designed **role configurations** to maintain security and operational efficiency:
 
-- **SES Notification Handler Role**: Allows Lambda functions to process [bounce](/email-sending-concepts/bounces) and [complaint](/email-sending-concepts/complaints) events from [SNS topics](/aws-concepts/aws-sns-topics). Requires permissions to read from specific SNS topics and update suppression lists or database records to maintain list hygiene and deliverability.
+- **SES Notification Handler Role**: Allows Lambda functions to process [bounce](/email-sending-concepts/bounces) and [complaint](/email-sending-concepts/complaints) events from [SNS topics](/aws-concepts/sns-topics). Requires permissions to read from specific SNS topics and update suppression lists or database records to maintain list hygiene and deliverability.
 
 - **Email Sending Role**: Grants applications permission to send emails via SES while enforcing governance through IAM conditions that limit which verified identities can be used as senders. Prevents unauthorized domain usage while enabling legitimate messaging.
 
@@ -93,8 +93,8 @@ Create a role with a trust policy allowing Lambda to assume it, then add permiss
 ## Related Content
 
 - [AWS IAM Permissions](/aws-concepts/aws-iam-permissions)
-- [AWS SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns)
+- [AWS SES (Simple Email Service)](/aws-concepts/ses)
+- [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
 - [AWS Delivery Notifications](/aws-concepts/aws-delivery-notifications)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 

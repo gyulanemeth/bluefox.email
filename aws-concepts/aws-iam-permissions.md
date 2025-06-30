@@ -88,7 +88,7 @@ The IAM permissions model revolves around six key elements: the **Principal** (u
 
 ## IAM Permissions in Email Infrastructure
 
-For AWS-based email systems like those using [Amazon SES](/aws-concepts/aws-ses), carefully designed IAM permissions are essential for security and operational integrity:
+For AWS-based email systems like those using [Amazon SES](/aws-concepts/ses), carefully designed IAM permissions are essential for security and operational integrity:
 
 - **Email Sending Permissions** such as `ses:SendEmail` and `ses:SendRawEmail` control who can send messages. These can be scoped to specific verified identities to control which domains and email addresses can be used for sending.
 
@@ -115,8 +115,8 @@ Yes, through session policies used with assumed roles and through condition elem
 ## Related Content
 
 - [AWS IAM Role](/aws-concepts/aws-iam-role)
-- [AWS SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns)
+- [AWS SES (Simple Email Service)](/aws-concepts/ses)
+- [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
 - [AWS Delivery Notifications](/aws-concepts/aws-delivery-notifications)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 
