@@ -32,7 +32,7 @@ head:
     - name: twitter:description
       content: AWS IAM Permissions define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
 ---
-
+<GlossaryNavigation/>
 # AWS IAM Permissions
 
 **AWS IAM Permissions** are the fine-grained authorizations that specify which actions an identity (user, group, or [role](/aws-concepts/aws-iam-role)) can perform on specific AWS resources. They form the foundation of AWS's access control system, allowing organizations to implement the principle of least privilege across their cloud environments.

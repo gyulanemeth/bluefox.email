@@ -32,7 +32,7 @@ head:
     - name: twitter:description
       content: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
 ---
-
+<GlossaryNavigation/>
 # AWS IAM Role
 
 An **AWS IAM Role** is an identity that defines permissions for AWS services or users to access resources without using permanent credentials. Roles provide temporary security credentials that expire automatically.
