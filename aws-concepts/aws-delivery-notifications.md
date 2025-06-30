@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: AWS Delivery Notifications provide real-time feedback on the status of emails sent through Amazon SES, allowing senders to track successful deliveries and adjust sending strategies accordingly.
 ---
+<GlossaryNavigation/>
 
 # Amazon Delivery Notifications
 

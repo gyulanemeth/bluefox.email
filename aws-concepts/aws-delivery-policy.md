@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: AWS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
 ---
+<GlossaryNavigation/>
 
 # Amazon Delivery Policy
 

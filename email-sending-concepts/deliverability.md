@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: Email deliverability refers to the ability to successfully deliver emails to recipients' inboxes rather than spam folders or being blocked entirely.
 ---
+<GlossaryNavigation/>
 
 # Deliverability
 
