@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/ses-sending-quota
+      content: https://bluefox.email/aws-concepts/aws-sending-quota
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -32,7 +32,7 @@ head:
     - name: twitter:description
       content: Learn about AWS SES sending quotas, how they work, how to increase them, and best practices for managing your email sending limits.
 ---
-<GlossaryNavigation/>
+
 # Amazon SES Sending Quotas
 
 **Amazon SES sending quotas** define how many emails your account is allowed to send over a rolling 24-hour period. These limits are in place to protect recipient inboxes, maintain AWS infrastructure stability, and build long-term sender reputation.
@@ -81,7 +81,7 @@ Use the SES console or `GetSendQuota` API to view your current daily sending lim
 
 ### What changes after leaving the sandbox?
 
-Once in production mode, you're allowed to send to unverified recipients and receive significantly increased sending limits. The actual quotas vary based on your specific use case and may increase automatically over time as you establish a positive sending reputation.
+Once in [production mode](/aws-concepts/ses-production-access), you're allowed to send to unverified recipients and receive significantly increased sending limits. The actual quotas vary based on your specific use case and may increase automatically over time as you establish a positive sending reputation.
 
 ## Related Content
 

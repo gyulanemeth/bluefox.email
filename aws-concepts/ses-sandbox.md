@@ -92,8 +92,8 @@ AWS typically provides a reason such as lack of opt-in evidence or missing unsub
 ## Related Content
 
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
-- [AWS SES Sending Quotas](/aws-concepts/ses-sending-quota.md)
-- [AWS SES Sending Rates](/aws-concepts/ses-sending-rate.md)
+- [AWS SES Sending Quotas](/aws-concepts/ses-sending-quota)
+- [AWS SES Sending Rates](/aws-concepts/ses-sending-rate)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns.md)
 - [Bounces](/email-sending-concepts/bounces.md)
 - [Complaints](/email-sending-concepts/complaints.md)

@@ -36,21 +36,21 @@ head:
 
 # Amazon Delivery Notifications
 
-**AWS Delivery Notifications** are event messages from [Amazon SES](/aws-concepts/aws-ses) that confirm when emails have been successfully delivered to recipients' mail servers. These notifications are part of SES's event publishing system, providing senders with real-time feedback on email delivery status beyond just [bounce](/email-sending-concepts/bounces) and [complaint](/email-sending-concepts/complaints) information.
+**AWS Delivery Notifications** are event messages from [Amazon SES](/aws-concepts/ses) that confirm when emails have been successfully delivered to recipients' mail servers. These notifications are part of SES's event publishing system, providing senders with real-time feedback on email delivery status beyond just [bounce](/email-sending-concepts/bounces) and [complaint](/email-sending-concepts/complaints) information.
 
 ## What are Amazon Delivery Notifications?
 
-AWS Delivery Notifications are **confirmation messages** generated when [Amazon SES](/aws-concepts/aws-ses) successfully hands over an email to a recipient's mail server. Unlike bounce and complaint notifications (which indicate delivery failures or recipient dissatisfaction), delivery notifications provide **positive confirmation** that your message reached its intended destination's mail server. These notifications are transmitted through [Amazon SNS](/aws-concepts/aws-sns) as **JSON-formatted events** that include detailed metadata about the delivery, including recipient email address, message ID, **timestamp of delivery**, processing time metrics, sending account details, and message tags with configuration set information. By enabling delivery notifications, you can build **comprehensive tracking systems** that monitor the full lifecycle of your messages from sending through delivery, helping to identify patterns in successful deliveries and potential optimizing opportunities.
+AWS Delivery Notifications are **confirmation messages** generated when [Amazon SES](/aws-concepts/ses) successfully hands over an email to a recipient's mail server. Unlike bounce and complaint notifications (which indicate delivery failures or recipient dissatisfaction), delivery notifications provide **positive confirmation** that your message reached its intended destination's mail server. These notifications are transmitted through [Amazon SNS](/aws-concepts/sns) as **JSON-formatted events** that include detailed metadata about the delivery, including recipient email address, message ID, **timestamp of delivery**, processing time metrics, sending account details, and message tags with configuration set information. By enabling delivery notifications, you can build **comprehensive tracking systems** that monitor the full lifecycle of your messages from sending through delivery, helping to identify patterns in successful deliveries and potential optimizing opportunities.
 
 ## How Delivery Notifications Work
 
 Delivery notifications are one component of Amazon SES's event publishing system. To receive these notifications, you need to:
 
-1. Create an [SNS topic](/aws-concepts/aws-sns-topics) to receive the notifications
+1. Create an [SNS topic](/aws-concepts/sns-topics) to receive the notifications
 2. Configure a SES [configuration set](https://docs.aws.amazon.com/ses/latest/dg/event-publishing-create-configuration-set.html) with event publishing enabled
 3. Add an SNS event destination to the configuration set, specifically enabling delivery events
 4. Include the configuration set name when sending emails
-5. Set up appropriate [subscriptions](/aws-concepts/aws-sns-subscription) to process the notification data
+5. Set up appropriate [subscriptions](/aws-concepts/sns-subscription) to process the notification data
 
 When an email sent with the specified configuration set is successfully delivered to the recipient's mail server, SES generates a delivery event and publishes it to the designated SNS topic. Your subscribed endpoints (like HTTP webhooks, Lambda functions, or SQS queues) then receive and process this data.
 
@@ -85,10 +85,10 @@ No, delivery notifications only confirm successful delivery to the recipient's m
 
 ## Related Content
 
-- [AWS SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns)
-- [AWS SNS Topics](/aws-concepts/aws-sns-topics)
-- [AWS SNS Subscription](/aws-concepts/aws-sns-subscription)
+- [AWS SES (Simple Email Service)](/aws-concepts/ses)
+- [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
+- [AWS SNS Topics](/aws-concepts/sns-topics)
+- [AWS SNS Subscription](/aws-concepts/sns-subscription)
 - [AWS Delivery Policy](/aws-concepts/aws-delivery-policy)
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)

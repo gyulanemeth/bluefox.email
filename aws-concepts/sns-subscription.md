@@ -35,7 +35,7 @@ head:
 <GlossaryNavigation />
 # Amazon SNS Subscription
 
-An **SNS Subscription** is the mechanism that connects a notification [topic](/aws-concepts/aws-sns-topics) to a specific endpoint destination within [Amazon SNS](/aws-concepts/aws-sns). In email delivery systems, AWS SNS subscriptions enable the **automated processing** of important events like [bounces](/email-sending-concepts/bounces), [complaints](/email-sending-concepts/complaints), and delivery confirmations that impact [deliverability](/email-sending-concepts/deliverability).
+An **SNS Subscription** is the mechanism that connects a notification [topic](/aws-concepts/sns-topics) to a specific endpoint destination within [Amazon SNS](/aws-concepts/sns). In email delivery systems, AWS SNS subscriptions enable the **automated processing** of important events like [bounces](/email-sending-concepts/bounces), [complaints](/email-sending-concepts/complaints), and delivery confirmations that impact [deliverability](/email-sending-concepts/deliverability).
 
 ## What is an Amazon SNS Subscription?
 

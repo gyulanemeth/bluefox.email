@@ -39,7 +39,7 @@ Amazon Simple Notification Service (SNS) is a fully managed **publish/subscribe 
 
 ## What is Amazon SNS?
 
-SNS is a **high-throughput, push-based messaging system** that can deliver messages to a variety of endpoints including Lambda functions, HTTP endpoints, email, SMS, and mobile push notifications. It acts as the communication backbone for [AWS SES](/aws-concepts/aws-ses), allowing for real-time processing of email events.
+SNS is a **high-throughput, push-based messaging system** that can deliver messages to a variety of endpoints including Lambda functions, HTTP endpoints, email, SMS, and mobile push notifications. It acts as the communication backbone for [AWS SES](/aws-concepts/ses), allowing for real-time processing of email events.
 
 The service follows a **publisher-subscriber model** where applications publish (send) messages to [topics](/aws-concepts/sns-topics), and [subscribers](/aws-concepts/sns-subscription) receive messages from topics they're subscribed to. This model enables **one-to-many communication** where a single notification can be processed by multiple systems simultaneously.
 

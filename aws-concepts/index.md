@@ -98,7 +98,7 @@ The **Amazon SES sandbox** is a restricted environment where all new SES account
 
 An **SNS Subscription** is an endpoint registered to receive notifications from an Amazon SNS topic, supporting multiple protocols for message delivery.
 
-[Read more](/aws-concepts/sns-subscription.md)
+[Read more](/aws-concepts/sns-subscription)
 
 <style>
 a[href^="/aws-concepts/"] {
