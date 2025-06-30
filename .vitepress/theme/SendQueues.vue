@@ -99,4 +99,13 @@ const { isDark } = useData()
       padding: 0 20px;
     }
   }
+
+  .sectionTitle {
+    font-size: 30px !important;
+  }
+  @media (max-width: 640px) {
+    .sectionTitle {
+      font-size: 26px !important;
+    }
+  }
 </style>
