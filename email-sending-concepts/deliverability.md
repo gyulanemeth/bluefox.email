@@ -58,7 +58,7 @@ Email deliverability depends on four fundamental pillars that work together to e
 
 ## Measuring and Monitoring Deliverability
 
-Understanding your current deliverability status requires systematic monitoring across multiple dimensions:
+Understanding your current deliverability status requires systematic monitoring across multiple dimensions.
 
 Email Service Providers (ESPs) typically provide **delivery rate metrics** that track messages accepted versus bounced, but these numbers don't reveal how many messages reached the inbox versus spam folders. For true deliverability insight, **seed list testing** and **panel-based monitoring** are essential. Seed tests send emails to a known set of test accounts across different providers to measure inbox placement, while panel data aggregates real recipient behavior to provide broader insights. Many providers like AWS offer [delivery notifications](/aws-concepts/delivery-notifications) that inform senders about successful deliveries in near real-time.
 
