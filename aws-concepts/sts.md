@@ -1,5 +1,5 @@
 ---
-title: Amazon STS (Security Token Service) | BlueFSTS provides several methods to acquire temporary credentials: **AssumeRole** for cross-account access or privilege escalation within policy boundaries; **AssumeRoleWithWebIdentity** for authentication via third-party identity providers like Google or Facebook; **AssumeRoleWithSAML** for integrating with SAML-compatible corporate identity systems enabling single sign-on; **GetSessionToken** for generating MFA-protected credentials; and **GetFederationToken** for creating longer-lasting federated user credentials. Each method returns temporary security credentials (access key ID, secret access key, and security token) that grant permissions according to the associated policies.x Email
+title: Amazon STS (Security Token Service) | BlueFox Email
 description: AWS STS is a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or federated users.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
@@ -93,8 +93,9 @@ Yes, STS can be used in all AWS regions. It can be configured to use either regi
 
 ## Related Content
 
-- [AWS IAM (Identity and Access Management)](/aws-concepts/aws-iam-role)
-- [AWS IAM Permissions](/aws-concepts/aws-iam-permissions)
+- [AWS IAM (Identity and Access Management)](/aws-concepts/iam)
+- [AWS IAM Role](/aws-concepts/iam-role)
+- [AWS IAM Permissions](/aws-concepts/iam-permissions)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
 

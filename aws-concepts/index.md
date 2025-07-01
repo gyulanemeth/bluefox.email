@@ -86,6 +86,12 @@ An **SNS Subscription** is an endpoint registered to receive notifications from 
 
 [Read more](/aws-concepts/sns-subscription)
 
+### STS (Security Token Service)
+
+**Amazon STS** is a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or federated users.
+
+[Read more](/aws-concepts/sts)
+
 <style>
 a[href^="/aws-concepts/"] {
   color: #13B0EE;
