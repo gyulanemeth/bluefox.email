@@ -36,6 +36,34 @@ head:
 
 Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS services and concepts related to email sending and management.
 
+## D
+
+### Delivery Notifications
+
+**AWS Delivery Notifications** provide real-time feedback when emails sent through Amazon SES are successfully delivered to recipients' mail servers, enabling comprehensive tracking and analytics.
+
+[Read more](/aws-concepts/aws-delivery-notifications)
+
+### Delivery Policy
+
+**AWS Delivery Policy** is a configuration mechanism in Amazon SNS that defines how the service handles message delivery retries when temporary failures occur, ensuring important notifications reach their destinations.
+
+[Read more](/aws-concepts/aws-delivery-policy)
+
+## I
+
+### IAM Permissions
+
+**AWS IAM Permissions** define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
+
+[Read more](/aws-concepts/iam-permissions)
+
+### IAM Role
+
+**AWS IAM Roles** are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
+
+[Read more](/aws-concepts/iam-role)
+
 ## S
 
 ### SES (Simple Email Service)
@@ -84,7 +112,13 @@ The **Amazon SES sandbox** is a restricted environment where all new SES account
 
 An **SNS Subscription** is an endpoint registered to receive notifications from an Amazon SNS topic, supporting multiple protocols for message delivery.
 
-[Read more](/aws-concepts/sns-subscription.md)
+[Read more](/aws-concepts/sns-subscription)
+
+### STS (Security Token Service)
+
+**Amazon STS** is a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or federated users.
+
+[Read more](/aws-concepts/sts)
 
 <style>
 a[href^="/aws-concepts/"] {
