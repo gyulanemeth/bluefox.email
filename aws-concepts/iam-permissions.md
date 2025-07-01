@@ -33,20 +33,14 @@ head:
       content: AWS IAM Permissions define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
 ---
 <GlossaryNavigation/>
+
 # AWS IAM Permissions
 
 **AWS IAM Permissions** are the fine-grained authorizations that specify which actions an identity (user, group, or [role](/aws-concepts/iam-role)) can perform on specific AWS resources. They form the foundation of AWS's access control system, allowing organizations to implement the principle of least privilege across their cloud environments.
 
 ## What are IAM Permissions?
 
-IAM Permissions are **access control statements** that define what actions are allowed or denied on which AWS resources. They are implemented through policy documents written in JSON format and attached to IAM identities. According to [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html), each permission statement contains several key elements:
-
-- **Effect**: Specifies whether to "Allow" or "Deny" access
-- **Action**: Defines the specific API operations that are covered by the rule
-- **Resource**: Specifies the AWS resources to which the permissions apply
-- **Condition** (optional): Sets requirements for when the permission is active
-
-Unlike role-based access control (RBAC) systems which assign permissions based on job roles, AWS IAM uses attribute-based access control (ABAC), allowing for more dynamic and fine-grained permissions based on attributes of the user, resource, or environment.
+IAM Permissions are **access control statements** implemented as JSON policy documents attached to IAM identities. Each statement contains essential elements: an **Effect** ("Allow" or "Deny"), **Actions** (specific API operations), **Resources** (AWS resources targeted), and optional **Conditions** (contextual requirements). Unlike traditional role-based systems, AWS IAM employs attribute-based access control, enabling more dynamic permissions based on user, resource, and environmental attributes.
 
 ## How IAM Permissions Work
 
