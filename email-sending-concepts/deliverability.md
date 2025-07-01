@@ -70,13 +70,13 @@ Maintaining visibility into email [authentication](/email-sending-concepts/email
 
 Several common issues frequently disrupt email deliverability:
 
-- **Poor list practices** – Purchased lists, missing double opt-in, and infrequent list cleaning lead to high bounce rates and poor engagement, damaging sender reputation.
+- **Poor list practices**: Purchased lists, missing double opt-in, and infrequent list cleaning lead to high bounce rates and poor engagement, damaging sender reputation.
 
-- **Authentication failures** – Missing or misconfigured SPF, DKIM or DMARC records signal potential fraud to mailbox providers, causing immediate filtering.
+- **Authentication failures**: Missing or misconfigured SPF, DKIM or DMARC records signal potential fraud to mailbox providers, causing immediate filtering.
 
-- **Content issues** – Spam-like terms, misleading subject lines, image-heavy emails, and broken HTML trigger content filters even when technical setup is perfect.
+- **Content issues**: Spam-like terms, misleading subject lines, image-heavy emails, and broken HTML trigger content filters even when technical setup is perfect.
 
-- **Inconsistent sending patterns** – Sudden volume spikes, erratic schedules, or abrupt content changes disrupt established reputation patterns and activate defensive filtering mechanisms.
+- **Inconsistent sending patterns**: Sudden volume spikes, erratic schedules, or abrupt content changes disrupt established reputation patterns and activate defensive filtering mechanisms.
 
 ## Improving Email Deliverability
 

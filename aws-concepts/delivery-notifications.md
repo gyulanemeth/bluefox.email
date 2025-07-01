@@ -60,10 +60,10 @@ It's important to note that delivery notifications confirm delivery to the recip
 
 Implementing delivery notifications provides several advantages for email senders:
 
-- **Enhanced Reporting** – Calculate accurate delivery rates by combining delivery data with bounce and complaint metrics
-- **Performance Optimization** – Use timing data to identify sending pattern improvements and infrastructure needs
-- **Engagement Insights** – Compare delivery timestamps with open/click events to determine optimal sending times
-- **Better Troubleshooting** – Distinguish between delivery failures and post-delivery filtering issues
+- **Enhanced Reporting**: Calculate accurate delivery rates by combining delivery data with bounce and complaint metrics
+- **Performance Optimization**: Use timing data to identify sending pattern improvements and infrastructure needs
+- **Engagement Insights**: Compare delivery timestamps with open/click events to determine optimal sending times
+- **Better Troubleshooting**: Distinguish between delivery failures and post-delivery filtering issues
 
 ## Monitoring and Managing Delivery Notifications
 
