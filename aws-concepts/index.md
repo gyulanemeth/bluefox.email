@@ -42,13 +42,13 @@ Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS
 
 **AWS Delivery Notifications** provide real-time feedback when emails sent through Amazon SES are successfully delivered to recipients' mail servers, enabling comprehensive tracking and analytics.
 
-[Read more](/aws-concepts/aws-delivery-notifications)
+[Read more](/aws-concepts/delivery-notifications)
 
 ### Delivery Policy
 
 **AWS Delivery Policy** is a configuration mechanism in Amazon SNS that defines how the service handles message delivery retries when temporary failures occur, ensuring important notifications reach their destinations.
 
-[Read more](/aws-concepts/aws-delivery-policy)
+[Read more](/aws-concepts/delivery-policy)
 
 ## I
 
@@ -112,7 +112,7 @@ The **Amazon SES sandbox** is a restricted environment where all new SES account
 
 An **SNS Subscription** is an endpoint registered to receive notifications from an Amazon SNS topic, supporting multiple protocols for message delivery.
 
-[Read more](/aws-concepts/sns-subscription.md)
+[Read more](/aws-concepts/sns-subscription)
 
 <style>
 a[href^="/aws-concepts/"] {

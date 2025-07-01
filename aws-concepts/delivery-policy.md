@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-delivery-policy
+      content: https://bluefox.email/aws-concepts/delivery-policy
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -32,12 +32,13 @@ head:
     - name: twitter:description
       content: AWS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
 ---
+<GlossaryNavigation/>
 
-# AWS Delivery Policy
+# Amazon Delivery Policy
 
 **AWS Delivery Policy** is a configuration mechanism in [Amazon SNS](/aws-concepts/sns) that defines how the service handles message delivery attempts when temporary failures occur. It enables fine-grained control over retry behavior for notifications, ensuring that important messages have the best chance of reaching their destinations even during transient issues.
 
-## What is an AWS Delivery Policy?
+## What is an Amazon Delivery Policy?
 
 A delivery policy is a **JSON document** that specifies how AWS SNS should handle message delivery retries when server-side errors occur (such as service unavailability) or when messages cannot be delivered to specific endpoints (like **HTTP**, **Amazon SQS**, or **AWS Lambda**). The policy defines parameters like how many times to retry, how long to wait between attempts, and the backoff strategy to use.
 
@@ -45,28 +46,21 @@ By default, Amazon SNS uses a standard retry policy, but custom delivery policie
 
 ## Key Components of Delivery Policies
 
-Delivery policies contain several important parameters that control retry behavior:
+Delivery policies contain these essential parameters that control retry behavior:
 
-**Maximum Delivery Attempts** defines the total number of delivery attempts SNS will make, including the initial attempt. For email endpoints receiving [bounce](/email-sending-concepts/bounces) or [complaint](/email-sending-concepts/complaints) notifications, this can be set from 1-100 attempts, with a default of 3. Setting a higher value increases the likelihood of successful delivery during temporary outages.
-
-**Retry Delay** specifies the initial delay before the first retry occurs. This is typically set in seconds and determines how quickly SNS will attempt redelivery after the first failure. The default is often 20 seconds, providing sufficient time for transient issues to resolve.
-
-**Maximum Delay** establishes the upper limit on how long SNS will wait between retry attempts, regardless of backoff calculations. This prevents excessively long waits between retries as the backoff strategy scales.
-
-**Backoff Function** determines how the delay between retry attempts changes over time. The most common options are:
-
-- **Linear**: Each retry uses the same delay
-- **Arithmetic**: The delay increases by a fixed amount with each retry
-- **Geometric**: The delay increases by a fixed multiplier with each retry
-- **Exponential**: The delay increases exponentially with each retry (common for avoiding thundering herd problems)
-
-**Minimum Delay Retries** sets how many retry attempts should use the minimum delay before applying the backoff function, ensuring quick initial retries for time-sensitive notifications.
+| Parameter | Description |
+|-----------|-------------|
+ **Maximum Delivery Attempts** | Total delivery attempts including initial try |
+| **Retry Delay** | Time before first retry |
+| **Maximum Delay** | Upper limit on time between retries |
+| **Backoff Function** | Retry timing pattern |
+| **Minimum Delay Retries** | Initial retries using minimum delay |
 
 ## How Delivery Policies Work with Email Notifications
 
 When using Amazon SNS to handle [Amazon SES](/aws-concepts/ses) feedback notifications (such as bounces, complaints, or delivery confirmations), delivery policies ensure these critical signals aren't lost due to temporary processing issues.
 
-For example, if your system processes bounce notifications to maintain list hygiene, a robust delivery policy ensures that even if your endpoint is temporarily unavailable, SNS will continue retry attempts based on your configuration, preventing the permanent loss of important deliverability data.
+For example, if your system processes bounce notifications to maintain list hygiene, a robust delivery policy ensures that even if your endpoint is temporarily unavailable, SNS will continue retry attempts based on your configuration, preventing the permanent loss of important [deliverability](/email-sending-concepts/deliverability.md) data.
 
 The delivery policy works alongside the [Amazon SNS Dead-Letter Queue (DLQ)](https://docs.aws.amazon.com/sns/latest/dg/sns-dead-letter-queues.html) feature, which can capture messages that fail delivery after all retry attempts for later processing or analysis.
 
@@ -94,7 +88,11 @@ SES publishes events to SNS once, but the delivery policy controls how SNS deliv
 - [AWS SNS Topics](/aws-concepts/sns-topics)
 - [AWS SNS Subscription](/aws-concepts/sns-subscription)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
+<<<<<<< HEAD:aws-concepts/aws-delivery-policy.md
 - [AWS Delivery Notifications](/aws-concepts/aws-delivery-notifications)
+=======
+- [AWS Delivery Notifications](/aws-concepts/delivery-notifications)
+>>>>>>> Deliverability-policy-notification:aws-concepts/delivery-policy.md
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)
 

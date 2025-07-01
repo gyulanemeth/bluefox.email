@@ -37,7 +37,7 @@ head:
 
 # TXT Records
 
-TXT records might be the most **versatile entries** in your domain's DNS settings. These simple text-based records have become the **foundation of modern email authentication** and play a crucial role in email deliverability. While they were originally designed for human-readable notes, today they're primarily used by machines to verify sender identity, implement security policies, and enable various email services.
+TXT records might be the most **versatile entries** in your domain's DNS settings. These simple text-based records have become the **foundation of modern email authentication** and play a crucial role in email [deliverability](/email-sending-concepts/deliverability). While they were originally designed for human-readable notes, today they're primarily used by machines to verify sender identity, implement security policies, and enable various email services.
 
 ## What is a TXT Record?
 
@@ -53,6 +53,7 @@ A typical SPF record in TXT format looks like this:
 `v=spf1 include:_spf.google.com -all`
 
 Let's break it down:
+
 - `v=spf1`: Specifies the SPF version being used
 - `include:_spf.google.com`: Includes Google's SPF record, authorizing Google's servers to send mail for your domain
 - `-all`: Strict policy that fails authentication for any servers not specified in the record
@@ -61,6 +62,7 @@ While a DMARC record might appear as:
 `v=DMARC1; p=reject; rua=mailto:dmarc-reports@example.com`
 
 Let's break it down:
+
 - `v=DMARC1`: Indicates this is a DMARC record, version 1
 - `p=reject`: Policy that tells receiving servers to reject emails that fail authentication
 - `rua=mailto:dmarc-reports@example.com`: Specifies where aggregate reports should be sent
@@ -70,6 +72,7 @@ Let's break it down:
 When a TXT record is created in your domain's DNS, it becomes publicly accessible to anyone who performs a DNS lookup. Each record consists of a **name** (sometimes called the host or subdomain), a **TTL** (Time To Live), and the **text value** itself.
 
 For email authentication, specific naming conventions are used:
+
 - **SPF** records are published at the domain used for sending email - this can be the root domain (e.g., `example.com`) or any subdomain that sends mail (e.g., `mail.bluefox.email`). Each sending domain or subdomain needs its own SPF record.
 - **DKIM** records use a special selector format (e.g., `selector._domainkey.example.com`)
 - **DMARC** records have a dedicated prefix (e.g., `_dmarc.example.com`)
@@ -91,15 +94,19 @@ TXT records are crucial for email security and deliverability because they publi
 ## Frequently Asked Questions About TXT Records
 
 ### How many TXT records can I have for my domain?
+
 You can have multiple TXT records for a domain, but only one TXT record per specific name/host. For example, you can have separate TXT records for `example.com`, `_dmarc.example.com`, and `selector._domainkey.example.com`, but you can't have two different TXT records both named exactly `_dmarc.example.com`.
 
 ### Can TXT records affect email deliverability?
+
 Absolutely. Properly configured SPF, DKIM, and DMARC records (all implemented as TXT records) significantly improve deliverability. Missing or incorrect authentication records can cause legitimate emails to be marked as spam or rejected outright, especially by major providers like Gmail and Microsoft.
 
 ### How do I create or update TXT records?
+
 TXT records are managed through your domain's DNS settings, typically in your domain registrar's control panel or DNS hosting provider. The exact process varies by provider, but generally involves navigating to DNS settings, selecting "Add Record", choosing "TXT" as the record type, and entering the appropriate name and value.
 
 ### Can I use TXT records for other purposes than email?
+
 Yes. While email authentication is the most common use case, TXT records are also used to verify domain ownership for various services, implement security policies like BIMI (Brand Indicators for Message Identification), and even store general information about a domain or service.
 
 ## Related Content
