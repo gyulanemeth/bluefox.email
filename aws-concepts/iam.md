@@ -77,6 +77,5 @@ Apply least privilege, use roles instead of access keys, enforce MFA, regularly 
 - [AWS IAM Permissions](/aws-concepts/iam-permissions)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
-- [AWS STS (Security Token Service)](/aws-concepts/sts)
 
 <GlossaryCTA />

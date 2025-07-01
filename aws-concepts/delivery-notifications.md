@@ -93,7 +93,7 @@ No, delivery notifications only confirm successful delivery to the recipient's m
 - [AWS SNS Topics](/aws-concepts/sns-topics)
 - [AWS SNS Subscription](/aws-concepts/sns-subscription)
 <<<<<<< HEAD:aws-concepts/aws-delivery-notifications.md
-- [AWS Delivery Policy](/aws-concepts/aws-delivery-policy)
+- [AWS Delivery Policy](/aws-concepts/delivery-policy)
 =======
 - [AWS Delivery Policy](/aws-concepts/delivery-policy)
 >>>>>>> Deliverability-policy-notification:aws-concepts/delivery-notifications.md

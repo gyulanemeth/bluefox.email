@@ -88,11 +88,7 @@ SES publishes events to SNS once, but the delivery policy controls how SNS deliv
 - [AWS SNS Topics](/aws-concepts/sns-topics)
 - [AWS SNS Subscription](/aws-concepts/sns-subscription)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
-<<<<<<< HEAD:aws-concepts/aws-delivery-policy.md
-- [AWS Delivery Notifications](/aws-concepts/aws-delivery-notifications)
-=======
 - [AWS Delivery Notifications](/aws-concepts/delivery-notifications)
->>>>>>> Deliverability-policy-notification:aws-concepts/delivery-policy.md
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)
 
