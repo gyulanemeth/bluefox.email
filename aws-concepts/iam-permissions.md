@@ -1,5 +1,5 @@
 ---
-title: AWS IAM Permissions | BlueFox Email
+title: Amazon IAM Permissions | BlueFox Email
 description: AWS IAM Permissions define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
@@ -12,7 +12,7 @@ head:
       content: AWS IAM Permissions define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
   - - meta
     - property: og:title
-      content: AWS IAM Permissions | BlueFox Email
+      content: Amazon IAM Permissions | BlueFox Email
   - - meta
     - property: og:description
       content: AWS IAM Permissions define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
@@ -21,13 +21,13 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-iam-permissions
+      content: https://bluefox.email/aws-concepts/iam-permissions
   - - meta
     - name: twitter:card
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: AWS IAM Permissions | BlueFox Email
+      content: Amazon IAM Permissions | BlueFox Email
   - - meta
     - name: twitter:description
       content: AWS IAM Permissions define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
@@ -111,7 +111,7 @@ Yes, through session policies used with assumed roles and through condition elem
 - [AWS IAM Role](/aws-concepts/iam-role)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
-- [AWS Delivery Notifications](/aws-concepts/aws-delivery-notifications)
+- [AWS Delivery Notifications](/aws-concepts/delivery-notifications)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 
 <GlossaryCTA />

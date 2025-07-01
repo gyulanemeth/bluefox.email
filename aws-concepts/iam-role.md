@@ -12,7 +12,7 @@ head:
       content: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
   - - meta
     - property: og:title
-      content: AWS IAM Role | BlueFox Email
+      content: Amazon IAM Role | BlueFox Email
   - - meta
     - property: og:description
       content: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-iam-role
+      content: https://bluefox.email/aws-concepts/iam-role
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -96,7 +96,7 @@ Create a role with a trust policy allowing Lambda to assume it, then add permiss
 - [AWS IAM Permissions](/aws-concepts/iam-permissions)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
-- [AWS Delivery Notifications](/aws-concepts/aws-delivery-notifications)
+- [AWS Delivery Notifications](/aws-concepts/delivery-notifications)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 
 <GlossaryCTA />
