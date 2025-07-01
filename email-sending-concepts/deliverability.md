@@ -60,7 +60,7 @@ Email deliverability depends on four fundamental pillars that work together to e
 
 Understanding your current deliverability status requires systematic monitoring across multiple dimensions:
 
-Email Service Providers (ESPs) typically provide **delivery rate metrics** that track messages accepted versus bounced, but these numbers don't reveal how many messages reached the inbox versus spam folders. For true deliverability insight, **seed list testing** and **panel-based monitoring** are essential. Seed tests send emails to a known set of test accounts across different providers to measure inbox placement, while panel data aggregates real recipient behavior to provide broader insights. Many providers like AWS offer [delivery notifications](/aws-concepts/aws-delivery-notifications) that inform senders about successful deliveries in near real-time.
+Email Service Providers (ESPs) typically provide **delivery rate metrics** that track messages accepted versus bounced, but these numbers don't reveal how many messages reached the inbox versus spam folders. For true deliverability insight, **seed list testing** and **panel-based monitoring** are essential. Seed tests send emails to a known set of test accounts across different providers to measure inbox placement, while panel data aggregates real recipient behavior to provide broader insights. Many providers like AWS offer [delivery notifications](/aws-concepts/delivery-notifications) that inform senders about successful deliveries in near real-time.
 
 **Engagement analytics** serve as important indirect deliverability indicators. Sudden drops in open rates may signal inbox placement issues, especially when isolated to specific mailbox providers. For [Gmail users](/email-sending-concepts/complaints#what-are-complaints) in particular, engagement metrics strongly influence future deliverability, creating a cycle where poor initial placement leads to lower engagement and even worse placement over time.
 
@@ -80,7 +80,7 @@ Several common issues frequently disrupt email deliverability:
 
 ## Improving Email Deliverability
 
-Enhancing deliverability requires implementing a **robust technical foundation** through complete email authentication with SPF, DKIM, and DMARC records, along with proper DNS configuration including [MX records](/email-sending-concepts/mx-record) and reverse DNS lookups. When using cloud email services like AWS SES, configure appropriate [delivery policies](/aws-concepts/aws-delivery-policy) to manage message retries and delivery attempts. Focus on **strategic list management** with confirmed opt-in processes, engagement segmentation, and sunset policies for inactive subscribers while maintaining low **bounce rates** (below 2%) and **complaint rates** (below 0.1%). Create **engagement-focused content** with personalization, mobile optimization, and A/B testing to maintain strong engagement metrics. Implement **progressive sending practices** like IP warming, volume ramping, and cohort-based sending, with proper feedback loops and bounce handling systems to adapt quickly to reputation signals.
+Enhancing deliverability requires implementing a **robust technical foundation** through complete email authentication with SPF, DKIM, and DMARC records, along with proper DNS configuration including [MX records](/email-sending-concepts/mx-record) and reverse DNS lookups. When using cloud email services like AWS SES, configure appropriate [delivery policies](/aws-concepts/delivery-policy) to manage message retries and delivery attempts. Focus on **strategic list management** with confirmed opt-in processes, engagement segmentation, and sunset policies for inactive subscribers while maintaining low **bounce rates** (below 2%) and **complaint rates** (below 0.1%). Create **engagement-focused content** with personalization, mobile optimization, and A/B testing to maintain strong engagement metrics. Implement **progressive sending practices** like IP warming, volume ramping, and cohort-based sending, with proper feedback loops and bounce handling systems to adapt quickly to reputation signals.
 
 ## Frequently Asked Questions About Email Deliverability
 
@@ -105,7 +105,7 @@ Depending on the severity of issues, deliverability recovery can take anywhere f
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
-- [AWS Delivery Notifications](/aws-concepts/aws-delivery-notifications)
-- [AWS Delivery Policy](/aws-concepts/aws-delivery-policy)
+- [AWS Delivery Notifications](/aws-concepts/delivery-notifications)
+- [AWS Delivery Policy](/aws-concepts/delivery-policy)
 
 <GlossaryCTA />

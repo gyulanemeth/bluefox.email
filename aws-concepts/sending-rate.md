@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-sending-rate
+      content: https://bluefox.email/aws-concepts/sending-rate
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -35,7 +35,7 @@ head:
 
 # Amazon SES Sending Rates
 
-**Amazon SES sending rate** refers to the number of emails your account can send **per second**. This is separate from your **[sending quota](/aws-concepts/aws-sending-quota)**, which controls the total number of emails you can send over a 24-hour period. While the quota addresses volume, the send rate governs delivery speed and ensures emails are transmitted at a controlled pace that supports good [deliverability](/email-sending-concepts/deliverability).
+**Amazon SES sending rate** refers to the number of emails your account can send **per second**. This is separate from your **[sending quota](/aws-concepts/sending-quota)**, which controls the total number of emails you can send over a 24-hour period. While the quota addresses volume, the send rate governs delivery speed and ensures emails are transmitted at a controlled pace that supports good [deliverability](/email-sending-concepts/deliverability).
 
 ## How Sending Rate Works
 

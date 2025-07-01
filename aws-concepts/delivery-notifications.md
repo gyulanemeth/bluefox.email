@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-delivery-notifications
+      content: https://bluefox.email/aws-concepts/delivery-notifications
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -67,7 +67,7 @@ Implementing delivery notifications provides several advantages for email sender
 
 ## Monitoring and Managing Delivery Notifications
 
-AWS provides several approaches for processing delivery notification data: **Amazon CloudWatch metrics** can be configured to aggregate delivery data across your sending activities, enabling trend visualization, alerting on delivery rate changes, and long-term performance monitoring, while for more detailed analysis, the notification JSON can be parsed and stored in databases or data warehouses for custom reporting. **Stream processing** can be implemented via AWS Lambda functions that receive notifications in real-time and update application databases or trigger follow-up actions, and for high-volume senders, **Amazon Kinesis Data Firehose** efficiently collects and transforms event data. When combined with the [AWS Delivery Policy](/aws-concepts/aws-delivery-policy) feature for SNS, you can ensure that even during temporary processing outages, your systems will eventually receive all delivery notifications according to your specified retry patterns.
+AWS provides several approaches for processing delivery notification data: **Amazon CloudWatch metrics** can be configured to aggregate delivery data across your sending activities, enabling trend visualization, alerting on delivery rate changes, and long-term performance monitoring, while for more detailed analysis, the notification JSON can be parsed and stored in databases or data warehouses for custom reporting. **Stream processing** can be implemented via AWS Lambda functions that receive notifications in real-time and update application databases or trigger follow-up actions, and for high-volume senders, **Amazon Kinesis Data Firehose** efficiently collects and transforms event data. When combined with the [AWS Delivery Policy](/aws-concepts/delivery-policy) feature for SNS, you can ensure that even during temporary processing outages, your systems will eventually receive all delivery notifications according to your specified retry patterns.
 
 ## Frequently Asked Questions
 
@@ -89,7 +89,7 @@ No, delivery notifications only confirm successful delivery to the recipient's m
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
 - [AWS SNS Topics](/aws-concepts/sns-topics)
 - [AWS SNS Subscription](/aws-concepts/sns-subscription)
-- [AWS Delivery Policy](/aws-concepts/aws-delivery-policy)
+- [AWS Delivery Policy](/aws-concepts/delivery-policy)
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)
 - [Email Deliverability](/email-sending-concepts/deliverability)
