@@ -50,7 +50,11 @@ To create a new transactional email, click the `Create` button.
 
 ![A screenshot of a project's transactional emails - new button highlighted.](./project-transactionals-create-button.webp)
 
-Next, select a template category defined in your project's design system.
+You can either paste a copied template or start from scratch.
+
+![A screenshot of a project's transactional emails - Copy and Past or Create from Scratch options.](./project-transactionals-options.webp)
+
+Next, (if starting from scratch) select a template category defined in your project's design system.
 
 ![A screenshot of a project's transactional emails - create: select template category.](./project-transactionals-create-select-category.webp)
 
