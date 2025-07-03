@@ -32,6 +32,45 @@ head:
     - name: twitter:description
       content: Bounce rate measures the percentage of emails that couldn't be delivered to recipients, serving as a critical metric for email deliverability and sender reputation.
 ---
+
+<SchemaMarkup
+  type="TechArticle"
+  title="Bounce Rate | BlueFox Email"
+  description="Bounce rate measures the percentage of emails that couldn't be delivered to recipients, serving as a critical metric for email deliverability and sender reputation."
+  url="https://bluefox.email/email-sending-concepts/bouncing-rate"
+  image="https://bluefox.email/assets/glossary/email-sending-glossary.png"
+  datePublished="2023-01-01"
+  dateModified="2025-07-02"
+  termName="Bounce Rate"
+  termDescription="A critical email deliverability metric that measures the percentage of emails that failed to reach recipients' inboxes and were returned to the sender."
+  :breadcrumbs="[
+    { name: 'Email Sending Concepts', url: 'https://bluefox.email/email-sending-concepts/' },
+    { name: 'Bounce Rate', url: 'https://bluefox.email/email-sending-concepts/bouncing-rate' }
+  ]"
+  :faqs="[
+    {
+      question: 'What\'s the difference between bounce rate and delivery rate?',
+      answer: 'Bounce rate measures failed deliveries (percentage of emails that couldn\'t be delivered), while delivery rate measures successful deliveries (percentage of emails that reached recipients\' mail servers). They are inversely related: Delivery Rate (%) = 100% - Bounce Rate (%).'
+    },
+    {
+      question: 'Do soft bounces count in bounce rate calculations?',
+      answer: 'Most ESPs include soft bounces in bounce rate calculations only after retry attempts have failed (typically after 24-72 hours), but specific handling varies by provider. AWS SES, for example, only includes soft bounces in bounce metrics when it\'s no longer attempting delivery.'
+    },
+    {
+      question: 'How quickly should I remove hard-bouncing addresses?',
+      answer: 'Hard bounces should be removed immediately after the first occurrence. Continued sending to these addresses can significantly damage sender reputation.'
+    },
+    {
+      question: 'Can temporary factors cause bounce rate spikes?',
+      answer: 'Yes, external factors like major ISP outages, mailbox provider policy changes, or technical issues can cause temporary bounce rate increases. Monitor industry news and differentiate between systemic issues and list problems.'
+    },
+    {
+      question: 'How do authentication protocols like DKIM and SPF affect bounce rates?',
+      answer: 'While authentication doesn\'t directly reduce bounces caused by invalid addresses, proper implementation can improve overall deliverability and prevent legitimate emails from being rejected due to security concerns, potentially decreasing certain types of soft bounces.'
+    }
+  ]"
+/>
+
 <GlossaryNavigation />
 
 # Bounce Rate
