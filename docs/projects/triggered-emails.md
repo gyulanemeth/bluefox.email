@@ -53,7 +53,7 @@ To create a new triggered email, press the `Create` button.
 ![A screenshot of a project's triggered emails - new button highlighted.](./project-triggered-emails-create-button.webp)
 
 You can either paste a copied template or start from scratch.
-![A screenshot of a project's triggered emails -Copy and Past or Create from Scratch options .](./project-triggered-emails-create-options.webp)
+![A screenshot of a project's triggered emails - Copy and Past or Create from Scratch options .](./project-triggered-emails-create-options.webp)
 
 Next (if starting from scratch), select a template category defined in your project's design system:
 

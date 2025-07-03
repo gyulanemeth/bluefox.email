@@ -49,7 +49,10 @@ You can find the campaigns of a project under the `Campaigns` tab.
 In order to create a new campaign, press the `Create` button.
 ![A screenshot of a project's campaigns - new button highlighted.](./project-campaigns-create-button.webp)
 
-After that, you will have to select a template to start from:
+You can either paste a copied template or start from scratch.
+![A screenshot of a project's Campaign emails - Copy and Past or Create from Scratch options .](./project-campaign-emails-create-options.webp)
+
+After that (if starting of scratch), you will have to select a template to start from:
 
 ![A screenshot of a project's campaigns - create: template selection.](./project-campaign-create-select-category.webp)
 
