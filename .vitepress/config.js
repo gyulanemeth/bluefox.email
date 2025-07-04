@@ -1,4 +1,4 @@
-import { defineConfig,loadEnv} from 'vitepress'
+import { defineConfig, loadEnv} from 'vitepress'
 import tailwindcss from 'tailwindcss'
 
 const headConf = []
