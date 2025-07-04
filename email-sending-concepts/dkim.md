@@ -1,5 +1,4 @@
 ---
-
 title: DKIM (DomainKeys Identified Mail) | BlueFox Email
 description: DKIM is an email authentication method that allows senders to digitally sign emails using a private key. Learn how it works, see examples, and understand its importance for email security.
 thumbnail: /assets/glossary/email-sending-glossary.png
@@ -7,6 +6,19 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 layout: post
 category: glossary
 sidebar: false
+datePublished: "2023-02-15"
+dateModified: "2023-09-20"
+termName: "DKIM (DomainKeys Identified Mail)"
+termDescription: "An email authentication method that adds a digital signature to messages, allowing receiving mail servers to verify if the message was sent by an authorized sender and wasn't altered in transit."
+faqs:
+  - question: "What is DKIM?"
+    answer: "DKIM (DomainKeys Identified Mail) is an email authentication method that adds a digital signature to messages, allowing receiving mail servers to verify if the message was sent by an authorized sender and wasn't altered in transit."
+  - question: "Why is DKIM important?"
+    answer: "DKIM is important because it helps prevent email spoofing and phishing by verifying the authenticity of email messages. It improves email deliverability and sender reputation, and works alongside SPF and DMARC to form a comprehensive email authentication system."
+  - question: "How does DKIM work?"
+    answer: "DKIM works by adding a digital signature to the email header using a private key that only the sender has access to. When the email is received, the receiving server can verify this signature using the public key published in the sender's DNS records. If the signature is valid, the email passed DKIM authentication."
+  - question: "How do I set up DKIM for my domain?"
+    answer: "To set up DKIM, you need to: 1) Generate a public/private key pair, 2) Publish the public key in your domain's DNS as a TXT record, 3) Configure your mail server or ESP to sign outgoing messages with the private key, and 4) Test your implementation using online DKIM verification tools."
 
 head:
   - - meta

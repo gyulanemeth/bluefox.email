@@ -24,7 +24,6 @@ import Integration from './Integration.vue'
 import GlossaryCTA from './GlossaryCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
-import SchemaMarkup from './SchemaMarkup.vue'
 
 export default {
   extends: Theme,
@@ -73,6 +72,5 @@ export default {
     app.component('GlossaryCTA', GlossaryCTA)
     app.component('GlossaryNavigation', GlossaryNavigation)
     app.component('CustomFooter', CustomFooter)
-    app.component('SchemaMarkup', SchemaMarkup)
   },
 }

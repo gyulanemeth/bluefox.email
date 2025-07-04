@@ -41,6 +41,137 @@ export default defineConfig({
   title: "bluefox.email",
   description: "High deliverability & brand consistency.",
   head: headConf,
+  transformPageData(pageData) {
+    // Add schema.org JSON-LD for glossary pages
+    if (pageData.relativePath.startsWith('email-sending-concepts/') && 
+        pageData.relativePath !== 'email-sending-concepts/index.md') {
+      
+      const fm = pageData.frontmatter
+      
+      // Only proceed if we have the necessary data
+      if (fm.title && fm.description) {
+        // Create the schema object
+        const schemaObj = {
+          '@context': 'https://schema.org',
+          '@type': 'TechArticle',
+          'headline': fm.title,
+          'description': fm.description,
+          'mainEntityOfPage': `https://bluefox.email/${pageData.relativePath.replace(/\.md$/, '')}`,
+          'author': {
+            '@type': 'Organization',
+            'name': 'BlueFox Email'
+          },
+          'publisher': {
+            '@type': 'Organization',
+            'name': 'BlueFox Email'
+          }
+        }
+        
+        // Add image if available
+        if (fm.thumbnail) {
+          schemaObj.image = `https://bluefox.email${fm.thumbnail}`
+        }
+        
+        // Add dates if available
+        if (fm.datePublished) {
+          schemaObj.datePublished = fm.datePublished
+        }
+        if (fm.dateModified) {
+          schemaObj.dateModified = fm.dateModified
+        }
+        
+        // Add term definition if available
+        if (fm.termName) {
+          schemaObj.mainEntity = {
+            '@type': 'DefinedTerm',
+            'name': fm.termName,
+            'description': fm.termDescription || fm.description
+          }
+        }
+        
+        // Create breadcrumb schema
+        const breadcrumbSchema = {
+          '@type': 'BreadcrumbList',
+          'itemListElement': [
+            {
+              '@type': 'ListItem',
+              'position': 1,
+              'name': 'BlueFox Email',
+              'item': 'https://bluefox.email/'
+            },
+            {
+              '@type': 'ListItem',
+              'position': 2,
+              'name': 'Email Sending Concepts',
+              'item': 'https://bluefox.email/email-sending-concepts/'
+            },
+            {
+              '@type': 'ListItem',
+              'position': 3,
+              'name': fm.termName || fm.title.split('|')[0].trim(),
+              'item': `https://bluefox.email/${pageData.relativePath.replace(/\.md$/, '')}`
+            }
+          ]
+        }
+        
+        // Process FAQs and ensure no duplicates
+        let faqItems = []
+        if (fm.faqs && Array.isArray(fm.faqs) && fm.faqs.length > 0) {
+          // Create a Set of question texts to identify duplicates
+          const questionSet = new Set()
+          fm.faqs.forEach(item => {
+            // If the question is already in the set, it's a duplicate
+            if (!questionSet.has(item.question)) {
+              questionSet.add(item.question)
+              faqItems.push({
+                '@type': 'Question',
+                'name': item.question,
+                'acceptedAnswer': {
+                  '@type': 'Answer',
+                  'text': item.answer
+                }
+              })
+            }
+          })
+        }
+        
+        // Create a single combined schema with @graph
+        const jsonLdData = {
+          '@context': 'https://schema.org',
+          '@graph': [
+            // TechArticle
+            schemaObj,
+            // BreadcrumbList
+            breadcrumbSchema
+          ]
+        }
+        
+        // Add FAQPage if we have FAQs
+        if (faqItems.length > 0) {
+          jsonLdData['@graph'].push({
+            '@type': 'FAQPage',
+            'mainEntity': faqItems
+          })
+        }
+        
+        // Remove any existing JSON-LD scripts from the head
+        if (!pageData.frontmatter.head) {
+          pageData.frontmatter.head = []
+        } else {
+          pageData.frontmatter.head = pageData.frontmatter.head.filter(item => 
+            !(item[0] === 'script' && item[1] && item[1].type === 'application/ld+json')
+          )
+        }
+        
+        // Add the JSON-LD script to the head
+        pageData.frontmatter.head.push([
+          'script',
+          { type: 'application/ld+json' },
+          JSON.stringify(jsonLdData)
+        ])
+      }
+    }
+  },
   vite: {
     ssr: {
       noExternal: ["vuetify"],
