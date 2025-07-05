@@ -36,7 +36,7 @@ head:
 
 Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS services and concepts related to email sending and management.
 
-## Amazon SES (Simple Email Service)
+## SES (Simple Email Service)
 
 ### SES (Simple Email Service)
 
@@ -74,7 +74,7 @@ The **Amazon SES sandbox** is a restricted environment where all new SES account
 
 [Read more](/aws-concepts/delivery-notifications)
 
-## Amazon SNS (Simple Notification Service)
+## SNS (Simple Notification Service)
 
 ### SNS (Simple Notification Service)
 
