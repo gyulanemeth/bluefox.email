@@ -54,7 +54,7 @@ Delivery notifications are one component of Amazon SES's event publishing system
 
 When an email sent with the specified configuration set is successfully delivered to the recipient's mail server, SES generates a delivery event and publishes it to the designated SNS topic. Your subscribed endpoints (like HTTP webhooks, Lambda functions, or SQS queues) then receive and process this data.
 
-It's important to note that delivery notifications confirm delivery to the recipient's mail server, not to the recipient's inbox. The distinction matters because successful delivery to a mail server doesn't guarantee inbox placement, the message could still be filtered to spam or rejected by subsequent internal filters.
+It's important to note that delivery notifications confirm [delivery](/email-sending-concepts/deliverability.md) to the recipient's mail server, not to the recipient's inbox. The distinction matters because successful delivery to a mail server doesn't guarantee inbox placement, the message could still be filtered to spam or rejected by subsequent internal filters.
 
 ## Benefits of Using Delivery Notifications
 
