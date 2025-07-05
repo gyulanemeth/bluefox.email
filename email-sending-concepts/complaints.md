@@ -36,7 +36,7 @@ head:
 
 # Complaints
 
-**Complaints** occur when recipients actively report an email as unwanted or spam through their email client or service provider. These reports directly impact sender reputation and deliverability, making complaint management essential for professional email operations. Understanding the nature and implications of complaints is crucial for maintaining a healthy sending program.
+**Complaints** occur when recipients actively report an email as unwanted or spam through their email client or service provider. These reports directly impact sender reputation and [deliverability](/email-sending-concepts/deliverability), making complaint management essential for professional email operations. Understanding the nature and implications of complaints is crucial for maintaining a healthy sending program.
 
 ## What are Complaints?
 
@@ -76,7 +76,7 @@ Notable exceptions include **Gmail**, which doesn't provide traditional FBL data
 
 ## How Email Service Providers Handle Complaints
 
-Email service providers (ESPs) monitor complaint activity by integrating feedback loop data into their infrastructure. When a complaint is triggered, ESPs like [Amazon SES](/aws-concepts/ses.md) parse the ARF message, typically delivered via [Amazon SNS Topics](/aws-concepts/sns-topics.md) and automatically suppress the recipient’s address to prevent future delivery attempts. These systems also compile complaint metrics into dashboards, helping senders analyze trends, correlate complaints with campaign segments, and identify deliverability issues early. To protect their overall network reputation, ESPs may further adjust sending privileges based on complaint volume.
+Email service providers (ESPs) monitor complaint activity by integrating feedback loop data into their infrastructure. When a complaint is triggered, ESPs like [Amazon SES](/aws-concepts/ses) parse the ARF message, typically delivered via [Amazon SNS Topics](/aws-concepts/sns-topics) and automatically suppress the recipient’s address to prevent future delivery attempts. These systems also compile complaint metrics into dashboards, helping senders analyze trends, correlate complaints with campaign segments, and identify deliverability issues early. To protect their overall network reputation, ESPs may further adjust sending privileges based on complaint volume.
 
 :::::::tip Just a heads up
 In BlueFox Email, we automatically handle complaints for you. Just follow our instructions on setting up complaint webhook in your project settings, and whenever a recipient marks your email as spam, we’ll notify you by email. You can then take any necessary action, such as removing the email address from your list or all lists. You can also view complaint details in your project dashboard.
