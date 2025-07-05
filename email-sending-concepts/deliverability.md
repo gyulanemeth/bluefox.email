@@ -106,7 +106,7 @@ Depending on the severity of issues, deliverability recovery can take anywhere f
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
-- [AWS Delivery Notifications](/aws-concepts/delivery-notifications)
-- [AWS Delivery Policy](/aws-concepts/delivery-policy)
+- [Delivery Notifications](/aws-concepts/delivery-notifications)
+- [Delivery Policy](/aws-concepts/delivery-policy)
 
 <GlossaryCTA />

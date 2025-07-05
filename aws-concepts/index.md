@@ -36,21 +36,7 @@ head:
 
 Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS services and concepts related to email sending and management.
 
-## D
-
-### Delivery Notifications
-
-**AWS Delivery Notifications** provide real-time feedback when emails sent through Amazon SES are successfully delivered to recipients' mail servers, enabling comprehensive tracking and analytics.
-
-[Read more](/aws-concepts/delivery-notifications)
-
-### Delivery Policy
-
-**AWS Delivery Policy** is a configuration mechanism in Amazon SNS that defines how the service handles message delivery retries when temporary failures occur, ensuring important notifications reach their destinations.
-
-[Read more](/aws-concepts/delivery-policy)
-
-## S
+## Amazon SES (Simple Email Service)
 
 ### SES (Simple Email Service)
 
@@ -82,6 +68,14 @@ The **Amazon SES sandbox** is a restricted environment where all new SES account
 
 [Read more](/aws-concepts/ses-sending-rate)
 
+### SES Delivery Notifications
+
+**Delivery Notifications** provide real-time feedback when emails sent through Amazon SES are successfully delivered to recipients' mail servers, enabling comprehensive tracking and analytics.
+
+[Read more](/aws-concepts/delivery-notifications)
+
+## Amazon SNS (Simple Notification Service)
+
 ### SNS (Simple Notification Service)
 
 **Amazon SNS** is a fully managed messaging service that enables publishers to send messages to subscribers, serving as a key component in email notification systems.
@@ -99,6 +93,12 @@ The **Amazon SES sandbox** is a restricted environment where all new SES account
 An **SNS Subscription** is an endpoint registered to receive notifications from an Amazon SNS topic, supporting multiple protocols for message delivery.
 
 [Read more](/aws-concepts/sns-subscription)
+
+### SNS Delivery Policy
+
+**SNS Delivery Policy** is a configuration mechanism in Amazon SNS that defines how the service handles message delivery retries when temporary failures occur, ensuring important notifications reach their destinations.
+
+[Read more](/aws-concepts/delivery-policy)
 
 <style>
 a[href^="/aws-concepts/"] {

@@ -1,6 +1,6 @@
 ---
-title: Amazon Delivery Notifications | BlueFox Email
-description: AWS Delivery Notifications provide real-time feedback on the status of emails sent through Amazon SES, allowing senders to track successful deliveries and adjust sending strategies accordingly.
+title: SES Delivery Notifications | BlueFox Email
+description: Delivery Notifications provide real-time feedback on the status of emails sent through Amazon SES, allowing senders to track successful deliveries and adjust sending strategies accordingly.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
@@ -9,13 +9,13 @@ category: glossary
 head:
   - - meta
     - name: description
-      content: AWS Delivery Notifications provide real-time feedback on the status of emails sent through Amazon SES, allowing senders to track successful deliveries and adjust sending strategies accordingly.
+      content: Delivery Notifications provide real-time feedback on the status of emails sent through Amazon SES, allowing senders to track successful deliveries and adjust sending strategies accordingly.
   - - meta
     - property: og:title
-      content: Amazon Delivery Notifications | BlueFox Email
+      content: SES Delivery Notifications | BlueFox Email
   - - meta
     - property: og:description
-      content: AWS Delivery Notifications provide real-time feedback on the status of emails sent through Amazon SES, allowing senders to track successful deliveries and adjust sending strategies accordingly.
+      content: Delivery Notifications provide real-time feedback on the status of emails sent through Amazon SES, allowing senders to track successful deliveries and adjust sending strategies accordingly.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
@@ -27,22 +27,22 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Amazon Delivery Notifications | BlueFox Email
+      content: SES Delivery Notifications | BlueFox Email
   - - meta
     - name: twitter:description
-      content: AWS Delivery Notifications provide real-time feedback on the status of emails sent through Amazon SES, allowing senders to track successful deliveries and adjust sending strategies accordingly.
+      content: Delivery Notifications provide real-time feedback on the status of emails sent through Amazon SES, allowing senders to track successful deliveries and adjust sending strategies accordingly.
 ---
 <GlossaryNavigation/>
 
-# Amazon Delivery Notifications
+# SES Delivery Notifications
 
-**AWS Delivery Notifications** are event messages from [Amazon SES](/aws-concepts/ses) that confirm when emails have been successfully delivered to recipients' mail servers. These notifications are part of SES's event publishing system, providing senders with real-time feedback on email delivery status beyond just [bounce](/email-sending-concepts/bounces) and [complaint](/email-sending-concepts/complaints) information.
+**Delivery Notifications** are event messages from [Amazon SES](/aws-concepts/ses) that confirm when emails have been successfully delivered to recipients' mail servers. These notifications are part of SES's event publishing system, providing senders with real-time feedback on email delivery status beyond just [bounce](/email-sending-concepts/bounces) and [complaint](/email-sending-concepts/complaints) information.
 
-## What are Amazon Delivery Notifications?
+## What are SES Delivery Notifications?
 
-AWS Delivery Notifications are **confirmation messages** generated when [Amazon SES](/aws-concepts/ses) successfully hands over an email to a recipient's mail server. Unlike bounce and complaint notifications (which indicate delivery failures or recipient dissatisfaction), delivery notifications provide **positive confirmation** that your message reached its intended destination's mail server. These notifications are transmitted through [Amazon SNS](/aws-concepts/sns) in various formats (e.g., JSON, email, SMS) that include detailed metadata about the delivery, including recipient email address, message ID, **timestamp of delivery**, processing time metrics, sending account details, and message tags with configuration set information. By enabling delivery notifications, you can build **comprehensive tracking systems** that monitor the full lifecycle of your messages from sending through delivery, helping to identify patterns in successful deliveries and potential optimizing opportunities.
+Delivery Notifications are **confirmation messages** generated when [Amazon SES](/aws-concepts/ses) successfully hands over an email to a recipient's mail server. Unlike bounce and complaint notifications (which indicate delivery failures or recipient dissatisfaction), delivery notifications provide **positive confirmation** that your message reached its intended destination's mail server. These notifications are transmitted through [Amazon SNS](/aws-concepts/sns) in various formats (e.g., JSON, email, SMS) that include detailed metadata about the delivery, including recipient email address, message ID, **timestamp of delivery**, processing time metrics, sending account details, and message tags with configuration set information. By enabling delivery notifications, you can build **comprehensive tracking systems** that monitor the full lifecycle of your messages from sending through delivery, helping to identify patterns in successful deliveries and potential optimizing opportunities.
 
-## How Delivery Notifications Work
+## How SES Delivery Notifications Work
 
 Delivery notifications are one component of Amazon SES's event publishing system. To receive these notifications, you need to:
 
@@ -56,7 +56,7 @@ When an email sent with the specified configuration set is successfully delivere
 
 It's important to note that delivery notifications confirm [delivery](/email-sending-concepts/deliverability.md) to the recipient's mail server, not to the recipient's inbox. The distinction matters because successful delivery to a mail server doesn't guarantee inbox placement, the message could still be filtered to spam or rejected by subsequent internal filters.
 
-## Benefits of Using Delivery Notifications
+## Benefits of Using SES Delivery Notifications
 
 Implementing delivery notifications provides several advantages for email senders:
 
@@ -65,7 +65,7 @@ Implementing delivery notifications provides several advantages for email sender
 - **Engagement Insights**: Compare delivery timestamps with open/click events to determine optimal sending times
 - **Better Troubleshooting**: Distinguish between delivery failures and post-delivery filtering issues
 
-## Monitoring and Managing Delivery Notifications
+## Monitoring and Managing SES Delivery Notifications
 
 AWS offers multiple complementary approaches for processing delivery notification data, each suited to different operational and analytical needs.
 
@@ -92,7 +92,7 @@ No, delivery notifications only confirm successful delivery to the recipient's m
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
 - [AWS SNS Topics](/aws-concepts/sns-topics)
 - [AWS SNS Subscription](/aws-concepts/sns-subscription)
-- [AWS Delivery Policy](/aws-concepts/delivery-policy)
+- [Delivery Policy](/aws-concepts/delivery-policy)
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)
 - [Email Deliverability](/email-sending-concepts/deliverability)
