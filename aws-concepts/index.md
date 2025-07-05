@@ -72,7 +72,7 @@ The **Amazon SES sandbox** is a restricted environment where all new SES account
 
 **Delivery Notifications** provide real-time feedback when emails sent through Amazon SES are successfully delivered to recipients' mail servers, enabling comprehensive tracking and analytics.
 
-[Read more](/aws-concepts/delivery-notifications)
+[Read more](/aws-concepts/ses-delivery-notifications)
 
 ## SNS (Simple Notification Service)
 
@@ -98,7 +98,7 @@ An **SNS Subscription** is an endpoint registered to receive notifications from 
 
 **SNS Delivery Policy** is a configuration mechanism in Amazon SNS that defines how the service handles message delivery retries when temporary failures occur, ensuring important notifications reach their destinations.
 
-[Read more](/aws-concepts/delivery-policy)
+[Read more](/aws-concepts/sns-delivery-policy)
 
 <style>
 a[href^="/aws-concepts/"] {

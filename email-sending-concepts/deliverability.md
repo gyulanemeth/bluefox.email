@@ -60,7 +60,7 @@ Email deliverability depends on four fundamental pillars that work together to e
 
 Understanding your current deliverability status requires systematic monitoring across multiple dimensions.
 
-Email Service Providers (ESPs) typically provide **delivery rate metrics** that track messages accepted versus bounced, but these numbers don't reveal how many messages reached the inbox versus spam folders. For true deliverability insight, **seed list testing** and **panel-based monitoring** are essential. Seed tests send emails to a known set of test accounts across different providers to measure inbox placement, while panel data aggregates real recipient behavior to provide broader insights. Many providers like AWS offer [delivery notifications](/aws-concepts/delivery-notifications) that inform senders about successful deliveries in near real-time.
+Email Service Providers (ESPs) typically provide **delivery rate metrics** that track messages accepted versus bounced, but these numbers don't reveal how many messages reached the inbox versus spam folders. For true deliverability insight, **seed list testing** and **panel-based monitoring** are essential. Seed tests send emails to a known set of test accounts across different providers to measure inbox placement, while panel data aggregates real recipient behavior to provide broader insights. Many providers like AWS offer [SES delivery notifications](/aws-concepts/ses-delivery-notifications) that inform senders about successful deliveries in near real-time.
 
 **Engagement analytics** serve as important indirect deliverability indicators. Sudden drops in open rates may signal inbox placement issues, especially when isolated to specific mailbox providers. For Gmail users in particular, engagement metrics strongly influence future deliverability, creating a cycle where poor initial placement leads to lower engagement and even worse placement over time.
 
@@ -106,7 +106,7 @@ Depending on the severity of issues, deliverability recovery can take anywhere f
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
-- [Delivery Notifications](/aws-concepts/delivery-notifications)
-- [Delivery Policy](/aws-concepts/delivery-policy)
+- [SES Delivery Notifications](/aws-concepts/ses-delivery-notifications)
+- [SNS Delivery Policy](/aws-concepts/sns-delivery-policy)
 
 <GlossaryCTA />

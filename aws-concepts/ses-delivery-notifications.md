@@ -69,7 +69,7 @@ Implementing delivery notifications provides several advantages for email sender
 
 AWS offers multiple complementary approaches for processing delivery notification data, each suited to different operational and analytical needs.
 
-To begin with, **CloudWatch Metrics Integration** aggregates delivery metrics across your sending activities, making it easier to visualize trends and set up alerts when delivery rates deviate from expected patterns. For deeper historical analysis, **Data Warehousing Solutions** can store the raw notification JSON data in databases, enabling teams to create detailed custom reports. Where immediate reaction is critical, **Real-time Stream Processing** with AWS Lambda functions allows for instant updates to application databases or the execution of follow-up workflows in response to delivery events. Additionally, high-volume senders can leverage **Amazon Kinesis Data Firehose** to efficiently collect, process, and transform large streams of event data at scale. When these strategies are combined with the [AWS Delivery Policy](/aws-concepts/delivery-policy) feature for SNS, which controls retry behavior and ensures durability they help maintain reliable and timely delivery of notifications even during temporary processing disruptions.
+To begin with, **CloudWatch Metrics Integration** aggregates delivery metrics across your sending activities, making it easier to visualize trends and set up alerts when delivery rates deviate from expected patterns. For deeper historical analysis, **Data Warehousing Solutions** can store the raw notification JSON data in databases, enabling teams to create detailed custom reports. Where immediate reaction is critical, **Real-time Stream Processing** with AWS Lambda functions allows for instant updates to application databases or the execution of follow-up workflows in response to delivery events. Additionally, high-volume senders can leverage **Amazon Kinesis Data Firehose** to efficiently collect, process, and transform large streams of event data at scale. When these strategies are combined with the [SNS Delivery Policy](/aws-concepts/sns-delivery-policy) feature for SNS, which controls retry behavior and ensures durability they help maintain reliable and timely delivery of notifications even during temporary processing disruptions.
 
 
 ## Frequently Asked Questions
@@ -92,7 +92,7 @@ No, delivery notifications only confirm successful delivery to the recipient's m
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
 - [AWS SNS Topics](/aws-concepts/sns-topics)
 - [AWS SNS Subscription](/aws-concepts/sns-subscription)
-- [Delivery Policy](/aws-concepts/delivery-policy)
+- [SNS Delivery Policy](/aws-concepts/sns-delivery-policy)
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)
 - [Email Deliverability](/email-sending-concepts/deliverability)
