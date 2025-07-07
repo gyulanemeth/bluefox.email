@@ -1,8 +1,10 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, loadEnv} from 'vitepress'
 import tailwindcss from 'tailwindcss'
 
 const headConf = []
-if (process.env.VITE_APP_ENV == 'production') {
+const env = loadEnv('', process.cwd())
+
+if (env.VITE_APP_ENV === 'production') {
   // only add GA if in production
   headConf.push([
     "script",

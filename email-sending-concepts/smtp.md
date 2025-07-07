@@ -64,7 +64,7 @@ SMTP typically uses **port 25** for server-to-server communication, but **port 5
 
 SMTP's extensibility has allowed it to evolve with the times. Security enhancements like **STARTTLS** and authentication checks with **SPF**, **DKIM**, and **DMARC** have kept SMTP relevant and secure, even as threats have grown more sophisticated.
 
-For businesses, a properly configured SMTP setup means **reliable delivery**, fewer bounced emails, and better protection against spam and [email spoofing](/email-sending-concepts/email-spoofing). Whether you're sending a single message or millions, SMTP is the protocol that makes it happen.
+For businesses, a properly configured SMTP setup means **reliable delivery**, fewer bounced emails, better [deliverability](/email-sending-concepts/deliverability), and better protection against spam and [email spoofing](/email-sending-concepts/email-spoofing). Whether you're sending a single message or millions, SMTP is the protocol that makes it happen.
 
 ## Frequently Asked Questions About SMTP
 

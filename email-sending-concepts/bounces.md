@@ -36,7 +36,7 @@ head:
 
 # Bounces
 
-An **email bounce** occurs when an email cannot be delivered to its intended recipient and is returned to the sender with an error message. Bounces are a natural part of email sending, but understanding their causes and implications is crucial for maintaining good deliverability and sender reputation.
+An **email bounce** occurs when an email cannot be delivered to its intended recipient and is returned to the sender with an error message. Bounces are a natural part of email sending, but understanding their causes and implications is crucial for maintaining good [deliverability](/email-sending-concepts/deliverability) and sender reputation.
 
 ## What is a Bounce?
 

@@ -66,6 +66,12 @@ An email bounce occurs when an email is rejected by the **recipient's server** a
 
 ## D
 
+### Deliverability
+
+The measure of **email success** in reaching recipients' inboxes rather than spam folders or being blocked entirely.
+
+[Read more](/email-sending-concepts/deliverability)
+
 ### DKIM (DomainKeys Identified Mail)
 
 An **email authentication method** that adds a **digital signature** to verify the email hasn't been altered.

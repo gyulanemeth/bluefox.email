@@ -61,7 +61,7 @@ If you attempt to exceed the send rate, SES will return a **Throttling** error. 
 
 ## Why Amazon Implements the SES Sandbox
 
-Amazon SES uses the sandbox model as a **reputation safeguard** for both AWS and the wider email ecosystem. It minimizes the risk of new users causing spam, phishing, or policy violations that could harm AWS's deliverability with major mailbox providers.
+Amazon SES uses the sandbox model as a **reputation safeguard** for both AWS and the wider email ecosystem. It minimizes the risk of new users causing spam, phishing, or policy violations that could harm AWS's [deliverability](/email-sending-concepts/deliverability) with major mailbox providers.
 
 It also acts as a **staging ground** for users to build confidence with SES. While the sending limits may feel restrictive, they provide a safe space to test features, verify setup (e.g., [SPF, DKIM, DMARC](/email-sending-concepts/email-authentication.md)), and monitor delivery feedback. This gradual ramp-up process ensures that only **compliant, trusted senders** are allowed into production.
 
@@ -92,8 +92,8 @@ AWS typically provides a reason such as lack of opt-in evidence or missing unsub
 ## Related Content
 
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
-- [AWS SES Sending Quotas](/aws-concepts/ses-sending-quota.md)
-- [AWS SES Sending Rates](/aws-concepts/ses-sending-rate.md)
+- [AWS SES Sending Quotas](/aws-concepts/ses-sending-quota)
+- [AWS SES Sending Rates](/aws-concepts/ses-sending-rate)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns.md)
 - [Bounces](/email-sending-concepts/bounces.md)
 - [Complaints](/email-sending-concepts/complaints.md)
