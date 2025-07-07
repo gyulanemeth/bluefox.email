@@ -1,6 +1,6 @@
 ---
-title: Amazon Delivery Policy | BlueFox Email
-description: AWS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
+title: SNS Delivery Policy | BlueFox Email
+description: SNS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
@@ -9,13 +9,13 @@ category: glossary
 head:
   - - meta
     - name: description
-      content: AWS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
+      content: SNS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
   - - meta
     - property: og:title
       content: Amazon Delivery Policy | BlueFox Email
   - - meta
     - property: og:description
-      content: AWS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
+      content: SNS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
@@ -30,21 +30,21 @@ head:
       content: Amazon Delivery Policy | BlueFox Email
   - - meta
     - name: twitter:description
-      content: AWS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
+      content: SNS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
 ---
 <GlossaryNavigation/>
 
-# Amazon Delivery Policy
+# SNS Delivery Policy
 
-**AWS Delivery Policy** is a configuration mechanism in [Amazon SNS](/aws-concepts/sns) that defines how the service handles message delivery attempts when temporary failures occur. It enables fine-grained control over retry behavior for notifications, ensuring that important messages have the best chance of reaching their destinations even during transient issues.
+**Delivery Policy** is a configuration mechanism in [Amazon SNS](/aws-concepts/sns) that defines how the service handles message delivery attempts when temporary failures occur. It enables fine-grained control over retry behavior for notifications, ensuring that important messages have the best chance of reaching their destinations even during transient issues.
 
-## What is an Amazon Delivery Policy?
+## What is an SNS Delivery Policy?
 
 A delivery policy is a **JSON document** that specifies how AWS SNS should handle message delivery retries when server-side errors occur (such as service unavailability) or when messages cannot be delivered to specific endpoints (like **HTTP**, **Amazon SQS**, or **AWS Lambda**). The policy defines parameters like how many times to retry, how long to wait between attempts, and the backoff strategy to use.
 
 By default, Amazon SNS uses a standard retry policy, but custom delivery policies provide greater flexibility for critical messaging scenarios where delivery assurance is paramount. You can configure delivery policies at both the [SNS topic](/aws-concepts/sns-topics) level (applying to all subscriptions) or for individual [subscriptions](/aws-concepts/sns-subscription) (overriding the topic-level policy).
 
-## Key Components of Delivery Policies
+## Key Components of SNS Delivery Policies
 
 Delivery policies contain these essential parameters that control retry behavior:
 
@@ -88,7 +88,7 @@ SES publishes events to SNS once, but the delivery policy controls how SNS deliv
 - [AWS SNS Topics](/aws-concepts/sns-topics)
 - [AWS SNS Subscription](/aws-concepts/sns-subscription)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
-- [AWS Delivery Notifications](/aws-concepts/delivery-notifications)
+- [SES Delivery Notifications](/aws-concepts/ses-delivery-notifications)
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)
 
