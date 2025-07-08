@@ -78,6 +78,25 @@ Each contact requires an email, but you can store additional data as well. The s
 
 For more information on managing custom attributes, visit the [Contact Attributes documentation](/docs/projects/settings#contact-properties)
 
+## Mass Contact Removal 
+
+You can remove contacts in bulk accross your subscriber lists. Just click the `Clean List` button at the top. 
+
+![Screenshot of the subscriber lists page - clean list](./project-contacts-clean-list.webp)
+
+You have options between contacts that are bounced or have complaints or you can remove both. 
+
+![Screenshot of the subscriber lists page - clean list options](./project-contacts-clean-list-options.webp)
+
+You can either remove the contacts or remove contacts and add it to the [suppression list](./suppression-list.md). Similarly you can also delete the contacts completely or delete them and add them to suppression list. 
+
+![Screenshot of the subscriber lists page - clean list options remove or delete](./project-contacts-clean-list-remove-delete.webp)
+
+::: warning
+When you are removing or deleting contacts, it will take effect in all of your subscriber lists.
+:::
+
+
 ## Import/Export CSV
 
 The **Import/Export** button allows you to efficiently manage contacts.

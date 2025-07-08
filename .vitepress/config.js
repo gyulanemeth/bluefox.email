@@ -139,6 +139,7 @@ export default defineConfig({
                 text: "Design System Settings",
                 link: "/docs/projects/design-system-settings",
               },
+              { text: "Suppression Lists", link: "/docs/projects/suppression-list" },
               { text: "Settings", link: "/docs/projects/settings" },
             ],
           },
