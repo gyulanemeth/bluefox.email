@@ -55,9 +55,9 @@ function getTabItem () {
         height="100%"
         :theme="isDark ? 'dark' : 'light'"
       >
-        <h3 class="mt-3 integrationCardTitle">Access Keys (Quick Start)</h3>
+        <h3 class="mt-3 integrationCardTitle">Access Keys</h3>
         <v-card-text class="mt-3 text-center" style="color: var(--vp-code-block-color)">
-          Connect using your Access Key ID and Secret Access Key. Fast and easy setup in under 5 minutes.
+          Connect using your Access Key ID and Secret Access Key, if you prefer a simple setup. This method is straightforward, but less secure than using STS.
         </v-card-text>
       </v-card>
     </v-col>
@@ -84,6 +84,7 @@ function getTabItem () {
         <h3 class="mt-3 integrationCardTitle">Using our CloudFormation Script</h3>
         <v-card-text class="mt-3 text-center" style="color: var(--vp-code-block-color)">
           We provide an AWS-native script to automate everything safely. Just review and deploy.
+          <div><strong>It literally takes a few minutes to get started!</strong></div>
         </v-card-text>
       </v-card>
     </v-col>
