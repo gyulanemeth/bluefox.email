@@ -66,9 +66,11 @@ To create a contact or list, click the Create button in the Contacts tab.
 ![Screenshot of the subscriber lists page - create button highlighted](./project-contacts-create.webp)
 
 When creating a Contact, you must enter an email. This is the only required field, but you can add additional attributes like name, phone number, or custom data. Contacts can also be subscribed to one or multiple lists during creation.
+
 ![Screenshot of the subscriber lists page - create dialog](./project-contacts-create-contact.webp)
 
 When creating a List, you need to provide a name and description. These details will appear on sign-up forms if the list is public.
+
 ![Screenshot of the subscriber lists page - create dialog](./project-contacts-create-list.webp)
 
 You have the option to upload a CSV file. Read more about it in the import/export CSV section.
@@ -108,6 +110,7 @@ These options are designed to give you flexibility depending on how you want to 
 ## Import/Export CSV
 
 The **Import/Export** button allows you to efficiently manage contacts.
+
 ![Screenshot of the subscriber lists page - import or export CSV](./project-contacts-import-export-btn.webp)
 
 - You can always import Contacts into your full contact database and export all Contacts from your project, regardless of the subscription list selection.
@@ -147,6 +150,7 @@ Managing your subscription list in bluefox.email is simple using our [subscripti
 ![Screenshot of the subscriber lists page - code guide button highlighted](./project-contacts-lists-code-guide.webp)
 
 Just copy and modify the code in your preferred programming language:
+
 ![Screenshot of the subscriber lists page - code guide dialog](./project-contacts-lists-code-guide-dialog-copy-btn.webp)
 
 ::: danger Security Warning  
