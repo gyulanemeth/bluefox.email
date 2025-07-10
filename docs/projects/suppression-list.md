@@ -55,13 +55,12 @@ Type in email of the contact with reason for adding to the suppression list for 
 
 ## Importing Contacts
 
-You can also import a list of contacts in a `.csv` file so you can put contacts in suppression list in bulk. Click on `import emails` button in top.
+To import a list of contacts in click on `import emails` button in top.
 
 ![Screenshot of the suppression list import button](./project-suppression-list-import-button.webp)
 
 ## Sort the list 
-
-You can also sort the list. Find sorting options by clicking on `Sort` button in top. 
+To sort contacts in list, find sorting options by clicking on `Sort` button in top. 
 
 ![Screenshot of the suppression list sort button](./project-suppression-list-sort-button.webp)
 

@@ -74,13 +74,13 @@ The access key must be able to send emails via SES from the region and the sendi
 We store your credentials encrypted, so even in the very unlikely event of data leakage, attackers won't be able to use your credentials.
 :::
 
-### Use STS
+### Use STS ( Security Token Service )
 
-If you want to quickly do the setup, you can do it via Amazon STS ( Security Token Service ). Just click the `Use STS` button and follow the steps given in `AWS Credentials Step Guide` and you are good to go. 
+STS is the most recommended way to connect your AWS account. Just click the `Use STS` button and follow the steps given in `AWS Credentials Step Guide` and you are good to go. 
 
 ![A screenshot of a project settings AWS credentials section.](./project-settings-aws-sts.webp)
 
-After you have done all the steps put in your `RoleArn` into the input field. By using STS, we will get temprory credentials based on your ARN.
+After you have done all the steps put in your `RoleArn` into the input field. STS uses your Role ARN to securely generate temporary credentials, removing the need to handle static access keys directly
 
 ### Managing Sender Identities
 

@@ -78,23 +78,31 @@ Each contact requires an email, but you can store additional data as well. The s
 
 For more information on managing custom attributes, visit the [Contact Attributes documentation](/docs/projects/settings#contact-properties)
 
-## Mass Contact Removal 
+## Mass Removal for Bounced or Complained Contacts
 
-You can remove contacts in bulk accross your subscriber lists. Just click the `Clean List` button at the top. 
+To help manage deliverability and list quality, you can perform bulk removal of bounced or complained contacts using the `Clean Contacts` option.
 
 ![Screenshot of the subscriber lists page - clean list](./project-contacts-clean-list.webp)
 
-You have options between contacts that are bounced or have complaints or you can remove both. 
+Inside any subscriber list or the main contact list, you’ll find a button labeled Clean Contacts. Clicking this button will display two categories: Bounces and Complaints. Hovering over either category will reveal a list of available actions.
 
 ![Screenshot of the subscriber lists page - clean list options](./project-contacts-clean-list-options.webp)
 
-You can either remove the contacts or remove contacts and add it to the [suppression list](./suppression-list.md). Similarly you can also delete the contacts completely or delete them and add them to suppression list. 
+Options for Bounces and Complaints
+Each category (Bounces or Complaints) provides the same set of actions. If you're inside a specific list, the following options will appear:
+- Remove from This List: Removes all bounced or complained contacts from the current list only. The contacts will remain in other lists and in your account.
+
+- Remove from All Lists: Removes the affected contacts from every list they belong to within the project, but keeps their records in your contact database.
+
+- Remove from All Lists and Add to Suppression List: Removes the contacts from all lists and adds them to the project’s suppression list, preventing any future emails from being sent to them.
+
+- Delete Contact: Permanently deletes the selected contacts from your account. They will no longer exist in any list or report.
+
+- Delete Contact and Add to Suppression List: Deletes the contacts entirely and adds them to the suppression list, ensuring they are never emailed again even if re-imported in the future.
 
 ![Screenshot of the subscriber lists page - clean list options remove or delete](./project-contacts-clean-list-remove-delete.webp)
 
-::: warning
-When you are removing or deleting contacts, it will take effect in all of your subscriber lists.
-:::
+These options are designed to give you flexibility depending on how you want to manage problematic addresses. The [suppression list](./suppression-list.md) can be accessed from the sidebar if you need to review or update it.
 
 
 ## Import/Export CSV
