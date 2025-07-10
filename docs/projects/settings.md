@@ -76,11 +76,25 @@ We store your credentials encrypted, so even in the very unlikely event of data 
 
 ### Use STS ( Security Token Service )
 
-STS is the most recommended way to connect your AWS account. Just click the `Use STS` button and follow the steps given in `AWS Credentials Step Guide` and you are good to go. 
+STS (Security Token Service) is AWS's secure method for temporary, limited-privilege credentials. It's more secure than long-lived access keys because credentials automatically expire and don't need to be stored in your application.
+
+Here's how to set it up:
+
+1. Click the `Use STS` button and expand the instructions banner
+2. Follow the step-by-step guide to create and configure your AWS role
+3. Copy the generated `RoleArn`.
+4. Paste the `RoleArn` into the input field here:
 
 ![A screenshot of a project settings AWS credentials section.](./project-settings-aws-sts.webp)
 
-After you have done all the steps put in your `RoleArn` into the input field. STS uses your Role ARN to securely generate temporary credentials, removing the need to handle static access keys directly
+5. Fill up rest of the input fields and once done hit `Save AWS Credentials`.
+
+Once configured, bluefox.email will use your Role ARN to securely generate temporary credentials on demand, eliminating the security risks of storing permanent access keys.
+
+:::warning Important Notes
+- You cannot use both STS and regular AWS credentials simultaneously. If you want to switch from STS to standard AWS credentials, you must first remove your STS configuration.
+- You cannot remove AWS credentials (either STS or standard) if you have scheduled campaigns or running automations that depend on them.
+:::
 
 ### Managing Sender Identities
 
@@ -131,21 +145,17 @@ The **reply-to email address** field allows you to specify where replies to your
 
 To know the [bounce and complaint numbers](/docs/projects/dashboard) of your emails, set up our webhooks in AWS SNS.
 
-To set up the hooks, press the setup buttons:
+To set up the hooks, expand the banner:
 
 ![A screenshot of a project settings AWS bounce and complaints section. (Not set up.)](./project-settings-aws-bounce-complaints.webp)
 
-... and follow the instructions. After finishing, you should see this:
+... and follow the instructions. After finishing, click on `Run Test` button and if everything is good you should see this:
 
 ![A screenshot of a project settings AWS bounce and complaints section. (Already set up.)](./project-settings-aws-bounce-complaints-done.webp)
 
 The **Identity Name** column displays the identities configured in your project. The green tick marks in the **Bounce Hook** and **Complaint Hook** columns indicate that the webhooks have been successfully set up for each identity. If any webhook fails to configure correctly, you can revisit the setup and re-test.
 
 Additionally, the red **Reset Bounce Webhook** and **Reset Complaint Webhook** buttons allow you to reset and reconfigure the webhooks if needed. This ensures that your setup remains flexible and can be updated whenever required. Once all green ticks are visible, the webhooks are fully operational, confirming that bounce and complaint events will be tracked effectively.
-
-::: tip Upcoming Feature
-We plan to introduce processes for bounces and complaints to automatically keep your lists clean. Currently, you need to analyze those numbers and manually keep your lists clean.
-:::
 
 ## API Keys
 
