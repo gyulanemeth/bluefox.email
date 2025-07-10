@@ -43,29 +43,51 @@ You can find the Suppression List for your project under the **Suppression Lists
 
 ![Screenshot of the suppression list tab](./project-suppression-list.webp)
 
-## Add Contacts
+## Add Email to Suppression List
 
-You can add contact by clicking on `Create` button at top-left corner.
+You can add an email by clicking on the `Create` button at top-left corner.
 
 ![Screenshot of the suppression list create button](./project-suppression-list-create-button.webp)
 
-Type in email of the contact with reason for adding to the suppression list for future references. 
+Type in the email address with a reason for adding it to the suppression list for future reference. 
 
 ![Screenshot of the suppression list create menu](./project-suppression-list-create-menu.webp)
 
 ## Importing Contacts
 
-To import a list of contacts in click on `import emails` button in top.
+Importing contacts to your suppression list is essential when you have multiple known problematic email addresses or need to migrate suppression data from another email service. This helps prevent bounces and complaints that could harm your sender reputation.
 
-![Screenshot of the suppression list import button](./project-suppression-list-import-button.webp)
+To import a list of contacts:
 
-## Sort the list 
-To sort contacts in list, find sorting options by clicking on `Sort` button in top. 
+1. Click on the `Import Emails` button at the top of the suppression list page
+   ![Screenshot of the suppression list import button](./project-suppression-list-import-button.webp)
+
+2. Upload a CSV file containing the email addresses you want to suppress
+   - The CSV file should have an "email" column containing the addresses
+   - You can optionally include a "reason" column to document why each address is being suppressed
+   
+3. Review the import preview to confirm the data is correctly formatted
+   
+4. Click `Import` to add all the addresses to your suppression list
+
+## Sorting the List
+
+To organize your suppression list, simply click on the `Sort By` option. This helps you quickly find specific entries.
 
 ![Screenshot of the suppression list sort button](./project-suppression-list-sort-button.webp)
 
-## Export contacts
+Sorting your list makes it easier to locate addresses or identify when contacts were added to the suppression list.
 
-You can also export your contact lists in a `.csv` file, just click on `Download .csv File` button in top.
+## Exporting Contacts
 
-![Screenshot of the suppression list download button](./project-suppression-list-download-button.webp)
+Exporting your suppression list creates a backup of your data, lets you analyze addresses in external tools, helps share lists across projects, and supports compliance documentation requirements.
+
+To export your suppression list:
+
+1. Click the `Download .csv File` button at the top of the page
+
+   ![Screenshot of the suppression list download button](./project-suppression-list-download-button.webp)
+
+2. The system will generate and download a CSV file containing all suppressed email addresses and their associated information.
+
+3. You can open this file in any spreadsheet application for further analysis or use it to import the suppression data into other systems.
