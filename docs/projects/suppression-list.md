@@ -59,7 +59,8 @@ Importing contacts to your suppression list is essential when you have multiple 
 
 To import a list of contacts:
 
-1. Click on the `Import Emails` button at the top of the suppression list page
+1. Click on the `Import Emails` button at the top of the suppression list page:
+
    ![Screenshot of the suppression list import button](./project-suppression-list-import-button.webp)
 
 2. Upload a CSV file containing the email addresses you want to suppress
