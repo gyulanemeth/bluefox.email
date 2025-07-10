@@ -16,7 +16,7 @@ if (env.VITE_APP_ENV === 'production') {
   headConf.push([
     "script",
     {},
-    `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`,
+    `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');\ngtag('config', 'AW-16693655873');`,
   ])
 }
 
