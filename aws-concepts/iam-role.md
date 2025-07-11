@@ -1,5 +1,5 @@
 ---
-title: Amazon IAM Role | BlueFox Email
+title: AWS IAM Role | BlueFox Email
 description: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
@@ -12,7 +12,7 @@ head:
       content: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
   - - meta
     - property: og:title
-      content: Amazon IAM Role | BlueFox Email
+      content: AWS IAM Role | BlueFox Email
   - - meta
     - property: og:description
       content: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
@@ -27,18 +27,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Amazon IAM Role | BlueFox Email
+      content: AWS IAM Role | BlueFox Email
   - - meta
     - name: twitter:description
       content: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
 ---
 <GlossaryNavigation/>
 
-# Amazon IAM Role
+# AWS IAM Role
 
 An **AWS IAM Role** is an identity that defines [permissions](/aws-concepts/iam-permissions.md) for AWS services or users to access resources without using permanent credentials. Roles provide temporary security credentials that expire automatically.
 
-## What is an Amazon IAM Role?
+## What is an AWS IAM Role?
 
 An IAM Role acts as a **secure delegation mechanism** that grants permissions without requiring long-term access keys, improving security by eliminating the need to share or embed credentials in application code. Each role consists of a trust policy that defines which entities can assume the role and permission policies that specify what actions are allowed on specific AWS resources. This **identity-based access control** approach follows AWS security best practices by providing just-in-time privileges. According to [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html), roles can be assumed by various entities including AWS services (like Lambda or EC2), applications running on compute instances, **federated identity providers** (like Active Directory or Google), or users from different AWS accounts in cross-account scenarios.
 
@@ -96,7 +96,7 @@ Create a role with a trust policy allowing Lambda to assume it, then add permiss
 - [AWS IAM Permissions](/aws-concepts/iam-permissions)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
-- [AWS Delivery Notifications](/aws-concepts/delivery-notifications)
+- [AWS Delivery Notifications](/aws-concepts/ses-delivery-notifications)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 
 <GlossaryCTA />
