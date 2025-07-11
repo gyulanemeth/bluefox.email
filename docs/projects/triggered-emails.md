@@ -42,7 +42,7 @@ For example, event notifications or weekly digest emails should be implemented u
 
 If you want to create email automations, use triggered emails. For instance, you can implement onboarding sequences: a user signs up, you send a welcome email, a day later, a link to a tutorial, and three days later, another one. You can also send emails based on user behavior, such as sending a targeted email if a user hasn't completed an important action in your app.
 
-You can find the triggered emails of a project under the `Triggered Emails` tab.
+You can find the triggered emails of a project by clicking on `Triggered Emails` tab in side-bar menu.
 
 ![A screenshot of a project's triggered emails.](./project-triggered-emails.webp)
 
@@ -52,7 +52,10 @@ To create a new triggered email, press the `Create` button.
 
 ![A screenshot of a project's triggered emails - new button highlighted.](./project-triggered-emails-create-button.webp)
 
-Next, select a template category defined in your project's design system:
+You can either paste a copied template or start from scratch.
+![A screenshot of a project's triggered emails - Copy and Past or Create from Scratch options .](./project-triggered-emails-create-options.webp)
+
+Next (if starting from scratch), select a template category defined in your project's design system:
 
 ![A screenshot of a project's triggered emails - create: template category selection.](./project-triggered-emails-create-select-category.webp)
 

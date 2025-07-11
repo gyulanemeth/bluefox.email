@@ -66,9 +66,11 @@ To create a contact or list, click the Create button in the Contacts tab.
 ![Screenshot of the subscriber lists page - create button highlighted](./project-contacts-create.webp)
 
 When creating a Contact, you must enter an email. This is the only required field, but you can add additional attributes like name, phone number, or custom data. Contacts can also be subscribed to one or multiple lists during creation.
+
 ![Screenshot of the subscriber lists page - create dialog](./project-contacts-create-contact.webp)
 
 When creating a List, you need to provide a name and description. These details will appear on sign-up forms if the list is public.
+
 ![Screenshot of the subscriber lists page - create dialog](./project-contacts-create-list.webp)
 
 You have the option to upload a CSV file. Read more about it in the import/export CSV section.
@@ -78,9 +80,37 @@ Each contact requires an email, but you can store additional data as well. The s
 
 For more information on managing custom attributes, visit the [Contact Attributes documentation](/docs/projects/settings#contact-properties)
 
+## Mass Removal for Bounced or Complained Contacts
+
+To help manage deliverability and list quality, you can perform bulk removal of bounced or complained contacts using the `Clean Contacts` option.
+
+![Screenshot of the subscriber lists page - clean list](./project-contacts-clean-list.webp)
+
+Inside any subscriber list or the main contact list, you’ll find a button labeled Clean Contacts. Clicking this button will display two categories: Bounces and Complaints. Hovering over either category will reveal a list of available actions.
+
+![Screenshot of the subscriber lists page - clean list options](./project-contacts-clean-list-options.webp)
+
+Options for Bounces and Complaints
+Each category (Bounces or Complaints) provides the same set of actions. If you're inside a specific list, the following options will appear:
+- Remove from This List: Removes all bounced or complained contacts from the current list only. The contacts will remain in other lists and in your account.
+
+- Remove from All Lists: Removes the affected contacts from every list they belong to within the project, but keeps their records in your contact database.
+
+- Remove from All Lists and Add to Suppression List: Removes the contacts from all lists and adds them to the project’s suppression list, preventing any future emails from being sent to them.
+
+- Delete Contact: Permanently deletes the selected contacts from your account. They will no longer exist in any list or report.
+
+- Delete Contact and Add to Suppression List: Deletes the contacts entirely and adds them to the suppression list, ensuring they are never emailed again even if re-imported in the future.
+
+![Screenshot of the subscriber lists page - clean list options remove or delete](./project-contacts-clean-list-remove-delete.webp)
+
+These options are designed to give you flexibility depending on how you want to manage problematic addresses. The [suppression list](./suppression-list.md) can be accessed from the sidebar if you need to review or update it.
+
+
 ## Import/Export CSV
 
 The **Import/Export** button allows you to efficiently manage contacts.
+
 ![Screenshot of the subscriber lists page - import or export CSV](./project-contacts-import-export-btn.webp)
 
 - You can always import Contacts into your full contact database and export all Contacts from your project, regardless of the subscription list selection.
@@ -120,6 +150,7 @@ Managing your subscription list in bluefox.email is simple using our [subscripti
 ![Screenshot of the subscriber lists page - code guide button highlighted](./project-contacts-lists-code-guide.webp)
 
 Just copy and modify the code in your preferred programming language:
+
 ![Screenshot of the subscriber lists page - code guide dialog](./project-contacts-lists-code-guide-dialog-copy-btn.webp)
 
 ::: danger Security Warning  
@@ -128,6 +159,10 @@ Your **bluefox.email** API key must be included in the `Authorization` header of
 
 For more details and guidance on integrating these endpoints, visit our [API documentation](/docs/api/).  
 
+### Contact Filtration
+
+You can filter your contacts using the filter options available at the top of the contacts section.
+![Screenshot of the contact filtration interface](./contact-filters.webp)
 
 ### Double Opt-in
 Double opt-in ensures that contacts confirm their subscription before receiving emails. You can enable and customize double opt-in from the double Opt-In settings in **forms and pages** tab.
