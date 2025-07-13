@@ -28,6 +28,13 @@ faqs:
     answer: "Yes, external factors like major ISP outages, mailbox provider policy changes, or technical issues can cause temporary bounce rate increases. Monitor industry news and differentiate between systemic issues and list problems."
   - question: "How do authentication protocols like DKIM and SPF affect bounce rates?"
     answer: "While authentication doesn't directly reduce bounces caused by invalid addresses, proper implementation can improve overall deliverability and prevent legitimate emails from being rejected due to security concerns, potentially decreasing certain types of soft bounces."
+relatedContent:
+  - /email-sending-concepts/bounces
+  - /email-sending-concepts/hard-bounce
+  - /email-sending-concepts/soft-bounce
+  - /email-sending-concepts/smtp
+  - /email-sending-concepts/email-authentication
+  - /aws-concepts/sns
 
 head:
   - - meta

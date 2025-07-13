@@ -71,7 +71,7 @@ export default defineConfig({
         
         // Add image if available
         if (fm.thumbnail) {
-          schemaObj.image = `https://bluefox.email${fm.thumbnail}`
+          schemaObj.image = `https://bluefox.email/assets/glossary/email-sending-glossary.png`
         }
         
         // Add dates if available
@@ -89,6 +89,56 @@ export default defineConfig({
             'name': fm.termName,
             'description': fm.termDescription || fm.description
           }
+          // Add 'about' property referencing DefinedTerm
+          schemaObj.about = {
+            '@type': 'DefinedTerm',
+            'name': fm.termName
+          }
+        }
+
+        // Add keywords if available
+        if (fm.keywords && Array.isArray(fm.keywords)) {
+          schemaObj.keywords = fm.keywords
+        } else {
+          // Fallback: try to infer from termName, title, and common concepts
+          let inferredKeywords = []
+          if (fm.termName) inferredKeywords.push(fm.termName)
+          if (fm.title) inferredKeywords.push(...fm.title.replace('| BlueFox Email', '').split(/\s|,|\|/).map(k => k.trim()).filter(Boolean))
+          // Add some common email concepts for glossary pages
+          if (pageData.relativePath.startsWith('email-sending-concepts/')) {
+            inferredKeywords.push('email deliverability', 'hard bounce', 'soft bounce', 'AWS SES')
+          }
+          schemaObj.keywords = Array.from(new Set(inferredKeywords))
+        }
+        // Add url property
+        schemaObj.url = `https://bluefox.email/${pageData.relativePath.replace(/\.md$/, '')}`
+        // Add isAccessibleForFree property
+        schemaObj.isAccessibleForFree = true
+        // Add inLanguage property (default to 'en')
+        schemaObj.inLanguage = 'en'
+
+        // Add mentions, isPartOf, and hasPart properties using related content links if available
+        if (fm.relatedContent && Array.isArray(fm.relatedContent)) {
+          // Mentions: array of URLs or DefinedTerm objects
+          schemaObj.mentions = fm.relatedContent.map(link => {
+            // If the link is an internal glossary/concept, use DefinedTerm
+            if (link.startsWith('/email-sending-concepts/') || link.startsWith('/aws-concepts/')) {
+              return {
+                '@type': 'DefinedTerm',
+                'url': `https://bluefox.email${link}`
+              }
+            }
+            // Otherwise, just use the URL
+            return { '@id': `https://bluefox.email${link}` }
+          })
+          // hasPart: array of URLs
+          schemaObj.hasPart = fm.relatedContent.map(link => ({ '@id': `https://bluefox.email${link}` }))
+        }
+        // isPartOf: the glossary collection
+        schemaObj.isPartOf = {
+          '@type': 'Collection',
+          'name': 'Email Sending Concepts',
+          'url': 'https://bluefox.email/email-sending-concepts/'
         }
         
         // Create breadcrumb schema
