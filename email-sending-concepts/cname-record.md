@@ -6,6 +6,33 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2024-01-15"
+dateModified: "2024-01-15"
+termName: "CNAME Records"
+termDescription: "DNS records that create domain aliases by pointing one domain name to another, commonly used for service verification, subdomain management, and email authentication setup."
+
+faqs:
+  - question: "Can I use a CNAME for my root domain?"
+    answer: "Technically, DNS standards don't allow a CNAME at the root domain, if you have other records there, such as MX records for email. This is because a CNAME replaces all other record types. Some DNS providers offer workarounds like ANAME or ALIAS records, but these aren't standard across all providers."
+  - question: "Do CNAME records affect email delivery?"
+    answer: "Not directly, since email routing primarily relies on MX records. However, CNAME records can indirectly affect email by enabling the proper setup of tracking domains, authentication services, and verification requirements. If you're using a CNAME for a mail subdomain, ensure it ultimately resolves to servers that handle email correctly."
+  - question: "How long do CNAME changes take to propagate?"
+    answer: "Like all DNS records, CNAME propagation depends on the TTL (Time To Live) values set in your records. While some resolvers might see changes within minutes, complete worldwide propagation typically takes 24-48 hours. Plan ahead when making CNAME changes to critical services."
+  - question: "What is the difference between an MX and a CNAME record?"
+    answer: "An MX record directs email to mail servers for your domain, while a CNAME creates an alias from one domain to another. MX is for email routing; CNAME is for domain name redirection."
+
+relatedContent:
+  - title: "DNS (Domain Name System)"
+    url: "/email-sending-concepts/dns"
+  - title: "MX Record"
+    url: "/email-sending-concepts/mx-record"
+  - title: "TXT Records"
+    url: "/email-sending-concepts/txt-record"
+  - title: "SPF (Sender Policy Framework)"
+    url: "/email-sending-concepts/spf"
+  - title: "DKIM (DomainKeys Identified Mail)"
+    url: "/email-sending-concepts/dkim"
+
 head:
   - - meta
     - name: description

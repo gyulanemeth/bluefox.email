@@ -5,6 +5,32 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
 prev: false
 next: false
+
+datePublished: "2024-01-15"
+dateModified: "2024-01-15"
+termName: "Email Sending Concepts"
+termDescription: "A comprehensive glossary of email marketing, development, and authentication terms covering deliverability, protocols, and best practices for successful email communications."
+
+faqs:
+  - question: "What topics are covered in the Email Sending Concepts glossary?"
+    answer: "The glossary covers email authentication protocols (SPF, DKIM, DMARC), deliverability concepts (bounce rates, complaints), technical protocols (SMTP, DNS, TLS), email retrieval methods (IMAP, POP3), and essential email infrastructure components."
+  - question: "How can this glossary help improve my email deliverability?"
+    answer: "Understanding these concepts helps you implement proper authentication, manage bounce rates effectively, configure DNS records correctly, and follow best practices that improve inbox placement and sender reputation."
+  - question: "Are these concepts relevant for both technical and marketing teams?"
+    answer: "Yes, the glossary bridges technical implementation details with marketing impact, helping both teams understand how proper email infrastructure affects campaign success and customer engagement."
+
+relatedContent:
+  - title: "Email Authentication"
+    url: "/email-sending-concepts/email-authentication"
+  - title: "Deliverability"
+    url: "/email-sending-concepts/deliverability"
+  - title: "SMTP (Simple Mail Transfer Protocol)"
+    url: "/email-sending-concepts/smtp"
+  - title: "DNS (Domain Name System)"
+    url: "/email-sending-concepts/dns"
+  - title: "SPF (Sender Policy Framework)"
+    url: "/email-sending-concepts/spf"
+
 head:
   - - meta
     - name: description

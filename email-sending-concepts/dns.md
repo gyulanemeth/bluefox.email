@@ -6,6 +6,31 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2024-01-15"
+dateModified: "2024-01-15"
+termName: "DNS (Domain Name System)"
+termDescription: "The internet's phone book that translates human-friendly domain names into IP addresses, essential for email routing, authentication, and delivery."
+
+faqs:
+  - question: "How long do DNS changes take to propagate?"
+    answer: "DNS changes propagate based on the TTL (Time To Live) values set in your records. While some resolvers might see changes within minutes, complete worldwide propagation typically takes 24-48 hours. For critical email systems, it's best to make DNS changes during low-traffic periods and plan for this delay."
+  - question: "What happens if my DNS provider goes down?"
+    answer: "If your DNS provider experiences an outage, existing connections might continue working due to cached DNS information, but new connections would fail once the cache expires. For business-critical email, consider using DNS providers with strong uptime guarantees or even multiple providers for redundancy."
+  - question: "Can DNS issues cause emails to go to spam?"
+    answer: "Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantly impact deliverability. Many spam filters check these records, and failures can lead to lower sender reputation scores. Regular DNS audits are recommended for any serious email sender."
+
+relatedContent:
+  - title: "MX Record"
+    url: "/email-sending-concepts/mx-record"
+  - title: "SPF (Sender Policy Framework)"
+    url: "/email-sending-concepts/spf"
+  - title: "DKIM (DomainKeys Identified Mail)"
+    url: "/email-sending-concepts/dkim"
+  - title: "DMARC (Domain-based Message Authentication, Reporting & Conformance)"
+    url: "/email-sending-concepts/dmarc"
+  - title: "Email Authentication"
+    url: "/email-sending-concepts/email-authentication"
+
 head:
   - - meta
     - name: description

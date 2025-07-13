@@ -7,6 +7,33 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2024-01-15"
+dateModified: "2024-01-15"
+termName: "DMARC (Domain-based Message Authentication, Reporting, and Conformance)"
+termDescription: "An email authentication protocol that unifies SPF and DKIM with policy enforcement and reporting capabilities to protect domains from email spoofing and phishing attacks."
+
+faqs:
+  - question: "Do I need DMARC if I already have SPF and DKIM?"
+    answer: "Yes. SPF and DKIM handle the technical authentication, but DMARC adds policy enforcement and reporting. Without DMARC, unauthorized emails might still appear to come from your domain, and you won't have insight into who is abusing it."
+  - question: "Will implementing DMARC affect my email deliverability?"
+    answer: "When done properly, DMARC improves deliverability by proving to email providers that your emails are genuine. However, if set too strictly without alignment or monitoring, it can cause legitimate emails to be rejected. It's best to begin with a \"none\" policy and gradually move to \"quarantine\" or \"reject.\""
+  - question: "Is DMARC hard to set up?"
+    answer: "It can look intimidating, but many email platforms offer help or automated tools to guide setup. Start with a monitoring-only mode to observe your domain's traffic and then enforce stronger policies once you're confident."
+  - question: "How do I monitor DMARC activity?"
+    answer: "DMARC sends regular XML reports to the email address you specify in your DNS record. These reports can be difficult to read manually, so most organizations use DMARC report analyzers or dashboards to track and interpret the data."
+
+relatedContent:
+  - title: "SPF (Sender Policy Framework)"
+    url: "/email-sending-concepts/spf"
+  - title: "DKIM (DomainKeys Identified Mail)"
+    url: "/email-sending-concepts/dkim"
+  - title: "Email Authentication"
+    url: "/email-sending-concepts/email-authentication"
+  - title: "Email Spoofing"
+    url: "/email-sending-concepts/email-spoofing"
+  - title: "DNS (Domain Name System)"
+    url: "/email-sending-concepts/dns"
+
 head:
   - - meta
     - name: description

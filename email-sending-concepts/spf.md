@@ -45,6 +45,18 @@ head:
   - - meta
     - name: twitter:description
       content: SPF is an email authentication method that specifies which mail servers are authorized to send emails on behalf of your domain, helping prevent email spoofing and improving deliverability.
+
+relatedContent:
+  - title: "DKIM (DomainKeys Identified Mail)"
+    url: "/email-sending-concepts/dkim"
+  - title: "DMARC (Domain-based Message Authentication, Reporting, and Conformance)"
+    url: "/email-sending-concepts/dmarc"
+  - title: "Email Authentication"
+    url: "/email-sending-concepts/email-authentication"
+  - title: "DNS (Domain Name System)"
+    url: "/email-sending-concepts/dns"
+  - title: "TXT Records"
+    url: "/email-sending-concepts/txt-record"
 ---
 <GlossaryNavigation/>
 

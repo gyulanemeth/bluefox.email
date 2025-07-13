@@ -19,6 +19,14 @@ faqs:
     answer: "DKIM works by adding a digital signature to the email header using a private key that only the sender has access to. When the email is received, the receiving server can verify this signature using the public key published in the sender's DNS records. If the signature is valid, the email passed DKIM authentication."
   - question: "How do I set up DKIM for my domain?"
     answer: "To set up DKIM, you need to: 1) Generate a public/private key pair, 2) Publish the public key in your domain's DNS as a TXT record, 3) Configure your mail server or ESP to sign outgoing messages with the private key, and 4) Test your implementation using online DKIM verification tools."
+relatedContent:
+  - /email-sending-concepts/spf
+  - /email-sending-concepts/dmarc
+  - /email-sending-concepts/email-authentication
+  - /email-sending-concepts/dns
+  - /email-sending-concepts/txt-record
+  - /email-sending-concepts/email-spoofing
+  - /email-sending-concepts/deliverability
 
 head:
   - - meta
