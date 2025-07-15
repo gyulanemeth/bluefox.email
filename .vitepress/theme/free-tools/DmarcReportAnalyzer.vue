@@ -187,7 +187,7 @@ export default {
           throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
         }
         
-        const response = await fetch(`${apiUrl}/captcha/generate`)
+        const response = await fetch(`${apiUrl}/v1/captcha/generate`)
         
         if (!response.ok) {
           throw new Error(`Failed to load captcha: ${response.status}`)
@@ -252,7 +252,7 @@ export default {
         uploadFormData.append('captchaText', this.formData.captchaText)
         uploadFormData.append('captchaProbe', this.captcha.probe)
 
-        const response = await fetch(`${apiUrl}/analyze-dmarc-report`, {
+        const response = await fetch(`${apiUrl}/v1/analyze-dmarc-report`, {
           method: 'POST',
           body: uploadFormData
         })
