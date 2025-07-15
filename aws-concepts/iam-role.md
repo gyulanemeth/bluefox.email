@@ -46,6 +46,10 @@ An IAM Role acts as a **secure delegation mechanism** that grants permissions wi
 
 When an entity assumes a role, the **AWS Security Token Service (STS)** handles the authentication process and provides **temporary security credentials** valid for a configurable duration between 15 minutes (900 seconds) and 12 hours (43200 seconds), as specified in [AWS documentation](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html). These credentials include an access key ID, a secret access key, and a security token that must be included in subsequent AWS API requests. This dynamic credential model eliminates the need to store long-lived access keys in code or configuration files, enhances security through **automatic credential rotation**, implements least privilege principles by granting permissions only when needed, and creates seamless service-to-service authentication without manual intervention. The role assumption process happens invisibly to end users, with services like Lambda or EC2 handling the underlying STS API calls and credential management automatically.
 
+:::tip BlueFox Recommendation
+**STS is our recommended way to connect your AWS SES to BlueFox Email.** Using Security Token Service instead of long-lived access keys provides enhanced security through temporary credentials that automatically expire. This approach eliminates the need to store permanent AWS credentials and follows security best practices by limiting permissions to only what's needed when it's needed. BlueFox Email supports STS integration through a simple Role ARN configuration in project settings.
+:::
+
 ## Common Role Types
 
 AWS offers several specialized role types for different authentication scenarios and security requirements:
