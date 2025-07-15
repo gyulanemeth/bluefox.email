@@ -134,6 +134,10 @@ export default {
 
       try {
         const apiUrl = import.meta.env.VITE_TOOLS_API_URL
+        if (!apiUrl) {
+          throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
+        }
+        
         const response = await fetch(`${apiUrl}/analyze-dkim`, {
           method: 'POST',
           headers: {
@@ -146,28 +150,52 @@ export default {
         })
 
         if (!response.ok) {
-          const errorData = await response.json()
-          throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+          let errorMessage = `HTTP error! status: ${response.status}`
+          try {
+            const errorData = await response.json()
+            errorMessage = errorData.error || errorData.message || errorMessage
+          } catch (parseError) {
+            console.error('Failed to parse error response:', parseError)
+          }
+          throw new Error(errorMessage)
         }
 
         const data = await response.json()
+        console.log('DKIM Backend response:', data) // Debug log
+
+        // Extract the actual result data from the nested response
+        const resultData = data.result || data
+
+        // Check if the response indicates success
+        if (!resultData.success && resultData.error) {
+          throw new Error(resultData.error)
+        }
 
         this.result = {
-          valid: data.success,
-          domain: data.domain,
-          selector: data.selector,
-          record: data.rawRecord,
-          checkedRecord: data.checkedRecord,
-          errors: data.success ? [] : [data.error],
-          score: data.score,
-          warnings: data.warnings,
-          recommendations: data.recommendations,
-          mailauthResult: data.mailauthResult
+          valid: resultData.success || false,
+          domain: resultData.domain || this.formData.domain,
+          selector: resultData.selector || this.formData.selector,
+          record: resultData.rawRecord || resultData.record || 'Not found',
+          checkedRecord: resultData.checkedRecord,
+          errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
+          score: resultData.score,
+          warnings: resultData.warnings || [],
+          recommendations: resultData.recommendations || [],
+          mailauthResult: resultData.mailauthRecord || resultData.mailauthResult
         }
 
       } catch (err) {
-        this.error = err?.message || 'Failed to check DKIM. Please try again.'
         console.error('DKIM check error:', err)
+        this.error = err?.message || 'Failed to check DKIM. Please try again.'
+        
+        // Show a more user-friendly error message
+        if (err.message.includes('fetch')) {
+          this.error = 'Cannot connect to the server. Please make sure the backend is running.'
+        } else if (err.message.includes('404')) {
+          this.error = 'API endpoint not found. Please check the server configuration.'
+        } else if (err.message.includes('500')) {
+          this.error = 'Server error occurred. Please try again later.'
+        }
       } finally {
         this.loading = false
       }

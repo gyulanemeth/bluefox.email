@@ -66,10 +66,10 @@
         </div>
 
         <!-- Enhanced Mailauth Information -->
-        <div v-if="result.mailauthResult && result.mailauthResult.headers" class="mailauth-section">
+        <div v-if="result.mailauthResult" class="mailauth-section">
           <h5>Email Authentication Analysis</h5>
           <div class="authentication-results">
-            <pre>{{ result.mailauthResult.headers }}</pre>
+            <pre>{{ JSON.stringify(result.mailauthResult, null, 2) }}</pre>
           </div>
         </div>
       </div>
@@ -133,7 +133,12 @@ export default {
       this.result = null
 
       try {
+        // Use the environment variable for API URL
         const apiUrl = import.meta.env.VITE_TOOLS_API_URL
+        if (!apiUrl) {
+          throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
+        }
+        
         const response = await fetch(`${apiUrl}/analyze-dmarc`, {
           method: 'POST',
           headers: {
@@ -143,32 +148,56 @@ export default {
         })
 
         if (!response.ok) {
-          const errorData = await response.json()
-          throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+          let errorMessage = `HTTP error! status: ${response.status}`
+          try {
+            const errorData = await response.json()
+            errorMessage = errorData.error || errorData.message || errorMessage
+          } catch (parseError) {
+            console.error('Failed to parse error response:', parseError)
+          }
+          throw new Error(errorMessage)
         }
 
         const data = await response.json()
+        console.log('Backend response:', data) // Debug log
+
+        // Extract the actual result data from the nested response
+        const resultData = data.result || data
+
+        // Check if the response indicates success
+        if (!resultData.success && resultData.error) {
+          throw new Error(resultData.error)
+        }
 
         this.result = {
-          valid: data.success,
-          domain: data.domain,
-          record: data.rawRecord,
-          policy: data.parsed?.p,
-          subdomainPolicy: data.parsed?.sp,
-          percentage: data.parsed?.pct || 100,
-          rua: data.parsed?.rua || [],
-          ruf: data.parsed?.ruf || [],
-          errors: data.success ? [] : [data.error],
-          analysis: data.explanations,
-          score: data.score,
-          warnings: data.warnings,
-          recommendations: data.recommendations,
-          mailauthResult: data.mailauthResult,
-          checkedRecord: data.checkedRecord
+          valid: resultData.success || false,
+          domain: resultData.domain || this.formData.domain,
+          record: resultData.rawRecord || resultData.record || 'Not found',
+          policy: resultData.parsed?.p || resultData.policy,
+          subdomainPolicy: resultData.parsed?.sp || resultData.subdomainPolicy,
+          percentage: resultData.parsed?.pct || resultData.percentage || 100,
+          rua: resultData.parsed?.rua || resultData.rua || [],
+          ruf: resultData.parsed?.ruf || resultData.ruf || [],
+          errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
+          analysis: resultData.explanations || resultData.analysis,
+          score: resultData.score,
+          warnings: resultData.warnings || [],
+          recommendations: resultData.recommendations || [],
+          mailauthResult: resultData.mailauthRecord || resultData.mailauthResult,
+          checkedRecord: resultData.checkedRecord
         }
       } catch (err) {
-        this.error = err?.message || 'Failed to check DMARC. Please try again.'
         console.error('DMARC check error:', err)
+        this.error = err?.message || 'Failed to check DMARC. Please try again.'
+        
+        // Show a more user-friendly error message
+        if (err.message.includes('fetch')) {
+          this.error = 'Cannot connect to the server. Please make sure the backend is running.'
+        } else if (err.message.includes('404')) {
+          this.error = 'API endpoint not found. Please check the server configuration.'
+        } else if (err.message.includes('500')) {
+          this.error = 'Server error occurred. Please try again later.'
+        }
       } finally {
         this.loading = false
       }
@@ -176,7 +205,6 @@ export default {
   }
 }
 </script>
-
 
 <style scoped>
 .dmarc-checker {

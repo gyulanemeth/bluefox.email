@@ -50,14 +50,6 @@
             <li v-for="mechanism in result.mechanisms" :key="mechanism">{{ mechanism }}</li>
           </ul>
         </div>
-
-        <!-- Enhanced Mailauth Information -->
-        <div v-if="result.mailauthResult && result.mailauthResult.headers" class="mailauth-section">
-          <h5>Email Authentication Analysis</h5>
-          <div class="authentication-results">
-            <pre>{{ result.mailauthResult.headers }}</pre>
-          </div>
-        </div>
       </div>
 
       <!-- Warnings -->
@@ -112,6 +104,10 @@ export default {
 
       try {
         const apiUrl = import.meta.env.VITE_TOOLS_API_URL
+        if (!apiUrl) {
+          throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
+        }
+        
         const response = await fetch(`${apiUrl}/analyze-spf`, {
           method: 'POST',
           headers: {
@@ -121,27 +117,51 @@ export default {
         })
 
         if (!response.ok) {
-          const errorData = await response.json()
-          throw new Error(errorData.error || `HTTP error! status: ${response.status}`)
+          let errorMessage = `HTTP error! status: ${response.status}`
+          try {
+            const errorData = await response.json()
+            errorMessage = errorData.error || errorData.message || errorMessage
+          } catch (parseError) {
+            console.error('Failed to parse error response:', parseError)
+          }
+          throw new Error(errorMessage)
         }
 
         const data = await response.json()
+        console.log('SPF Backend response:', data) // Debug log
+
+        // Extract the actual result data from the nested response
+        const resultData = data.result || data
+
+        // Check if the response indicates success
+        if (!resultData.success && resultData.error) {
+          throw new Error(resultData.error)
+        }
 
         this.result = {
-          valid: data.success,
-          domain: data.domain,
-          record: data.rawRecord,
-          mechanisms: data.parsed || [],
-          errors: data.success ? [] : [data.error],
-          score: data.score,
-          warnings: data.warnings,
-          recommendations: data.recommendations,
-          mailauthResult: data.mailauthResult
+          valid: resultData.success || false,
+          domain: resultData.domain || this.formData.domain,
+          record: resultData.rawRecord || resultData.record || 'Not found',
+          mechanisms: resultData.parsed || resultData.mechanisms || [],
+          errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
+          score: resultData.score,
+          warnings: resultData.warnings || [],
+          recommendations: resultData.recommendations || [],
+          mailauthResult: resultData.mailauthRecord || resultData.mailauthResult
         }
 
       } catch (err) {
-        this.error = err?.message || 'Failed to check SPF. Please try again.'
         console.error('SPF check error:', err)
+        this.error = err?.message || 'Failed to check SPF. Please try again.'
+        
+        // Show a more user-friendly error message
+        if (err.message.includes('fetch')) {
+          this.error = 'Cannot connect to the server. Please make sure the backend is running.'
+        } else if (err.message.includes('404')) {
+          this.error = 'API endpoint not found. Please check the server configuration.'
+        } else if (err.message.includes('500')) {
+          this.error = 'Server error occurred. Please try again later.'
+        }
       } finally {
         this.loading = false
       }
@@ -347,39 +367,6 @@ export default {
 .error-message {
   margin: 0;
   font-weight: 500;
-}
-
-.mailauth-section {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 8px;
-  border-left: 4px solid var(--vp-c-text-3, #6c757d);
-}
-
-.mailauth-section h5 {
-  margin: 0 0 1rem 0;
-  color: var(--vp-c-text-2, #495057);
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.authentication-results {
-  background: var(--vp-c-bg, #ffffff);
-  border: 1px solid var(--vp-c-border, #dee2e6);
-  border-radius: 6px;
-  padding: 1rem;
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.875rem;
-  overflow-x: auto;
-  color: var(--vp-c-text-1, #2d3748);
-}
-
-.authentication-results pre {
-  margin: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
-  line-height: 1.5;
 }
 
 /* Dark mode adjustments */
