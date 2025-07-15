@@ -144,9 +144,6 @@ export default {
       loading: false
     }
   },
-  mounted() {
-    // Component ready
-  },
   methods: {
     async checkMx() {
       this.loading = true
@@ -154,15 +151,13 @@ export default {
       this.result = null
 
       try {
-        // Call the MX analysis endpoint
-        const response = await fetch('http://localhost:3000/api/analyze-mx', {
+        const apiUrl = import.meta.env.VITE_TOOLS_API_URL
+        const response = await fetch(`${apiUrl}/analyze-mx`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            domain: this.formData.domain
-          })
+          body: JSON.stringify({ domain: this.formData.domain })
         })
 
         if (!response.ok) {
@@ -171,8 +166,7 @@ export default {
         }
 
         const data = await response.json()
-        
-        // Transform the response to match our frontend expectations
+
         this.result = {
           valid: data.success,
           domain: data.domain,
@@ -184,7 +178,7 @@ export default {
         }
 
       } catch (err) {
-        this.error = err.message || 'Failed to check MX records. Please try again.'
+        this.error = err?.message || 'Failed to check MX records. Please try again.'
         console.error('MX check error:', err)
       } finally {
         this.loading = false
@@ -192,10 +186,10 @@ export default {
     },
 
     hasUniquePriorities(records) {
-      if (!records || records.length === 0) return true
-      const priorities = records.map(r => r.priority)
-      const uniquePriorities = [...new Set(priorities)]
-      return uniquePriorities.length === records.length
+      if (!records || records.length === 0) return true;
+      const priorities = records.map(r => r.priority);
+      const uniquePriorities = [...new Set(priorities)];
+      return uniquePriorities.length === records.length;
     }
   }
 }

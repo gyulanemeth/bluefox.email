@@ -126,9 +126,6 @@ export default {
       loading: false
     }
   },
-  mounted() {
-    // Component ready
-  },
   methods: {
     async checkDkim() {
       this.loading = true
@@ -136,8 +133,8 @@ export default {
       this.result = null
 
       try {
-        // Call the DKIM analysis endpoint
-        const response = await fetch('http://localhost:3000/api/analyze-dkim', {
+        const apiUrl = import.meta.env.VITE_TOOLS_API_URL
+        const response = await fetch(`${apiUrl}/analyze-dkim`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -154,8 +151,7 @@ export default {
         }
 
         const data = await response.json()
-        
-        // Transform the response to match our frontend expectations
+
         this.result = {
           valid: data.success,
           domain: data.domain,
@@ -166,12 +162,11 @@ export default {
           score: data.score,
           warnings: data.warnings,
           recommendations: data.recommendations,
-          // Additional mailauth data if available
           mailauthResult: data.mailauthResult
         }
 
       } catch (err) {
-        this.error = err.message || 'Failed to check DKIM. Please try again.'
+        this.error = err?.message || 'Failed to check DKIM. Please try again.'
         console.error('DKIM check error:', err)
       } finally {
         this.loading = false

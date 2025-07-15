@@ -104,9 +104,6 @@ export default {
       loading: false
     }
   },
-  mounted() {
-    // Component ready
-  },
   methods: {
     async checkSpf() {
       this.loading = true
@@ -114,15 +111,13 @@ export default {
       this.result = null
 
       try {
-        // Call the SPF analysis endpoint
-        const response = await fetch('http://localhost:3000/api/analyze-spf', {
+        const apiUrl = import.meta.env.VITE_TOOLS_API_URL
+        const response = await fetch(`${apiUrl}/analyze-spf`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            domain: this.formData.domain
-          })
+          body: JSON.stringify({ domain: this.formData.domain })
         })
 
         if (!response.ok) {
@@ -131,8 +126,7 @@ export default {
         }
 
         const data = await response.json()
-        
-        // Transform the response to match our frontend expectations
+
         this.result = {
           valid: data.success,
           domain: data.domain,
@@ -142,12 +136,11 @@ export default {
           score: data.score,
           warnings: data.warnings,
           recommendations: data.recommendations,
-          // Additional mailauth data if available
           mailauthResult: data.mailauthResult
         }
 
       } catch (err) {
-        this.error = err.message || 'Failed to check SPF. Please try again.'
+        this.error = err?.message || 'Failed to check SPF. Please try again.'
         console.error('SPF check error:', err)
       } finally {
         this.loading = false

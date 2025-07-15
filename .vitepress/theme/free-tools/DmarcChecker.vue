@@ -126,9 +126,6 @@ export default {
       loading: false
     }
   },
-  mounted() {
-    // Component ready
-  },
   methods: {
     async checkDmarc() {
       this.loading = true
@@ -136,15 +133,13 @@ export default {
       this.result = null
 
       try {
-        // Call the DMARC analysis endpoint
-        const response = await fetch('http://localhost:3000/api/analyze-dmarc', {
+        const apiUrl = import.meta.env.VITE_TOOLS_API_URL
+        const response = await fetch(`${apiUrl}/analyze-dmarc`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({
-            domain: this.formData.domain
-          })
+          body: JSON.stringify({ domain: this.formData.domain })
         })
 
         if (!response.ok) {
@@ -153,8 +148,7 @@ export default {
         }
 
         const data = await response.json()
-        
-        // Transform the response to match our frontend expectations
+
         this.result = {
           valid: data.success,
           domain: data.domain,
@@ -169,13 +163,11 @@ export default {
           score: data.score,
           warnings: data.warnings,
           recommendations: data.recommendations,
-          // Additional mailauth data if available
           mailauthResult: data.mailauthResult,
           checkedRecord: data.checkedRecord
         }
-
       } catch (err) {
-        this.error = err.message || 'Failed to check DMARC. Please try again.'
+        this.error = err?.message || 'Failed to check DMARC. Please try again.'
         console.error('DMARC check error:', err)
       } finally {
         this.loading = false
@@ -184,6 +176,7 @@ export default {
   }
 }
 </script>
+
 
 <style scoped>
 .dmarc-checker {
