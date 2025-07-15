@@ -28,7 +28,47 @@
           <small class="help-text">Common selectors: default, google, mail, dkim, selector1, selector2</small>
         </div>
 
-        <button type="submit" :disabled="loading" class="check-btn">
+        <!-- Captcha Section -->
+        <div class="form-group captcha-section">
+          <label for="captcha">Security Verification:</label>
+          <div class="captcha-container">
+            <div class="captcha-image-container">
+              <div v-if="captcha.loading" class="captcha-loading">
+                Loading captcha...
+              </div>
+              <div v-else-if="captcha.image" 
+                   class="captcha-image" 
+                   v-html="captcha.image">
+              </div>
+              <div v-else class="captcha-placeholder">
+                <button type="button" @click="loadCaptcha" class="load-captcha-btn">
+                  Load Captcha
+                </button>
+              </div>
+            </div>
+            <button type="button" 
+                    @click="refreshCaptcha" 
+                    class="refresh-captcha-btn"
+                    :disabled="captcha.loading"
+                    title="Refresh captcha">
+              🔄
+            </button>
+          </div>
+          <input 
+            type="text" 
+            id="captcha"
+            name="captcha"
+            v-model="formData.captchaText" 
+            placeholder="Enter the text from the image above"
+            required
+            :disabled="loading || !captcha.image"
+            autocomplete="off"
+            class="captcha-input"
+          />
+          <small class="captcha-help">Enter the characters shown in the image above</small>
+        </div>
+
+        <button type="submit" :disabled="loading || !captcha.image || !formData.captchaText" class="check-btn">
           {{ loading ? 'Checking...' : 'Check DKIM' }}
         </button>
       </form>
@@ -119,15 +159,72 @@ export default {
     return {
       formData: {
         domain: '',
-        selector: 'default'
+        selector: 'default',
+        captchaText: ''
+      },
+      captcha: {
+        image: null,
+        probe: null,
+        loading: false
       },
       result: null,
       error: null,
       loading: false
     }
   },
+  mounted() {
+    // Load captcha when component mounts
+    this.loadCaptcha()
+  },
   methods: {
+    async loadCaptcha() {
+      this.captcha.loading = true
+      this.error = null
+      
+      try {
+        const apiUrl = import.meta.env.VITE_TOOLS_API_URL
+        if (!apiUrl) {
+          throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
+        }
+        
+        const response = await fetch(`${apiUrl}/captcha/generate`)
+        
+        if (!response.ok) {
+          throw new Error(`Failed to load captcha: ${response.status}`)
+        }
+        
+        const data = await response.json()
+        
+        if (data.result && data.result.success && data.result.captcha) {
+          this.captcha.image = data.result.captcha.image
+          this.captcha.probe = data.result.captcha.probe
+          this.formData.captchaText = '' // Clear previous input
+        } else {
+          throw new Error('Invalid captcha response from server')
+        }
+      } catch (err) {
+        console.error('Captcha loading error:', err)
+        this.error = `Failed to load captcha: ${err.message}`
+      } finally {
+        this.captcha.loading = false
+      }
+    },
+    
+    async refreshCaptcha() {
+      await this.loadCaptcha()
+    },
+
     async checkDkim() {
+      // Validate that we have all required data
+      if (!this.captcha.probe) {
+        this.error = 'Please load the captcha first'
+        return
+      }
+      
+      if (!this.formData.captchaText.trim()) {
+        this.error = 'Please enter the captcha text'
+        return
+      }
       this.loading = true
       this.error = null
       this.result = null
@@ -145,7 +242,9 @@ export default {
           },
           body: JSON.stringify({
             domain: this.formData.domain,
-            selector: this.formData.selector || 'default'
+            selector: this.formData.selector || 'default',
+            captchaText: this.formData.captchaText,
+            captchaProbe: this.captcha.probe
           })
         })
 
@@ -168,6 +267,10 @@ export default {
 
         // Check if the response indicates success
         if (!resultData.success && resultData.error) {
+          // If it's a captcha error, refresh the captcha
+          if (resultData.error.toLowerCase().includes('captcha')) {
+            await this.refreshCaptcha()
+          }
           throw new Error(resultData.error)
         }
 
@@ -183,6 +286,9 @@ export default {
           recommendations: resultData.recommendations || [],
           mailauthResult: resultData.mailauthRecord || resultData.mailauthResult
         }
+        
+        // Refresh captcha after successful submission
+        await this.refreshCaptcha()
 
       } catch (err) {
         console.error('DKIM check error:', err)
@@ -195,6 +301,8 @@ export default {
           this.error = 'API endpoint not found. Please check the server configuration.'
         } else if (err.message.includes('500')) {
           this.error = 'Server error occurred. Please try again later.'
+        } else if (err.message.toLowerCase().includes('captcha')) {
+          this.error = err.message + ' Please try again with the new captcha.'
         }
       } finally {
         this.loading = false
@@ -258,8 +366,103 @@ export default {
 .help-text {
   display: block;
   margin-top: 0.5rem;
-  font-size: 0.875rem;
   color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+/* Captcha specific styles */
+.captcha-section {
+  background: var(--vp-c-bg, #ffffff);
+  padding: 1.25rem;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.captcha-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.captcha-image-container {
+  flex: 1;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff !important; /* Force white background for captcha visibility */
+  border: 1px solid var(--vp-c-border-soft, #dee2e6);
+  border-radius: 6px;
+  padding: 0.5rem;
+}
+
+.captcha-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.captcha-loading,
+.captcha-placeholder {
+  color: #6b7280; /* Use fixed gray color for better contrast on white background */
+  font-style: italic;
+  text-align: center;
+}
+
+.load-captcha-btn {
+  background: var(--vp-c-brand-1, #10B1EF);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: background-color 0.2s ease;
+}
+
+.load-captcha-btn:hover {
+  background: var(--vp-c-brand-2, #0891d4);
+}
+
+.refresh-captcha-btn {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  color: var(--vp-c-text-1, #374151);
+  padding: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.refresh-captcha-btn:hover:not(:disabled) {
+  background: var(--vp-c-bg, #ffffff);
+  border-color: var(--vp-c-brand-1, #10B1EF);
+}
+
+.refresh-captcha-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.captcha-input {
+  margin-top: 0.75rem !important;
+}
+
+.captcha-help {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.875rem;
+  font-style: italic;
 }
 
 .check-btn {
@@ -505,6 +708,15 @@ export default {
   .recommendations-section h4,
   .errors-section h4 {
     font-size: 1.1rem;
+  }
+  
+  .captcha-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .refresh-captcha-btn {
+    align-self: center;
   }
 }
 </style>
