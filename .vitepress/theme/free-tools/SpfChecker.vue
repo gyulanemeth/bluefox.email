@@ -84,11 +84,52 @@
         <p><strong>Domain:</strong> {{ result.domain }}</p>
         <p><strong>SPF Record:</strong> {{ result.record || 'Not found' }}</p>
         
+        <div v-if="result.lookups !== undefined">
+          <p><strong>DNS Lookups:</strong> {{ result.lookups }}/10</p>
+          <div v-if="result.lookups > 10" class="lookup-warning">
+            ⚠️ Exceeds the 10 DNS lookup limit
+          </div>
+        </div>
+        
+        <div v-if="result.policy">
+          <p><strong>Policy:</strong> {{ result.policy }}</p>
+        </div>
+        
         <div v-if="result.mechanisms && result.mechanisms.length">
           <p><strong>SPF Mechanisms:</strong></p>
-          <ul>
-            <li v-for="mechanism in result.mechanisms" :key="mechanism">{{ mechanism }}</li>
-          </ul>
+          <div class="mechanisms-list">
+            <div v-for="mechanism in result.mechanisms" :key="mechanism.original" class="mechanism-item">
+              <span class="mechanism-text">{{ mechanism.original }}</span>
+              <span class="mechanism-type" :class="{ 'requires-lookup': mechanism.requiresLookup }">
+                {{ mechanism.type }}{{ mechanism.requiresLookup ? ' (DNS lookup)' : '' }}
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <div v-if="result.mailauthResult" class="mailauth-section">
+          <h5>Mailauth Analysis</h5>
+          <p><strong>Status:</strong> {{ result.mailauthResult.status?.result || 'Unknown' }}</p>
+          <div v-if="result.mailauthResult.info" class="auth-info">
+            <code>{{ result.mailauthResult.info }}</code>
+          </div>
+        </div>
+
+        <!-- IP Test Results -->
+        <div v-if="result.ipTestResults && result.ipTestResults.length" class="ip-test-section">
+          <h5>SPF Testing with Different IPs</h5>
+          <p class="section-description">SPF results can vary depending on the sending IP address. Here's how your SPF record responds to different test IPs:</p>
+          <div class="ip-test-grid">
+            <div v-for="ipTest in result.ipTestResults" :key="ipTest.ip" class="ip-test-card">
+              <div class="ip-test-header">
+                <span class="ip-address">{{ ipTest.ip }}</span>
+                <span :class="['ip-result', getIpResultClass(ipTest.result)]">
+                  {{ getDisplayResult(ipTest.result) }}
+                </span>
+              </div>
+              <p class="ip-explanation">{{ ipTest.explanation }}</p>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -221,7 +262,7 @@ export default {
           let errorMessage = `HTTP error! status: ${response.status}`
           try {
             const errorData = await response.json()
-            errorMessage = errorData.error || errorData.message || errorMessage
+            errorMessage = errorData.result?.error || errorData.error || errorData.message || errorMessage
           } catch (parseError) {
             console.error('Failed to parse error response:', parseError)
           }
@@ -247,12 +288,14 @@ export default {
           valid: resultData.success || false,
           domain: resultData.domain || this.formData.domain,
           record: resultData.rawRecord || resultData.record || 'Not found',
-          mechanisms: resultData.parsed || resultData.mechanisms || [],
+          lookups: resultData.lookups,
+          policy: resultData.policy,
+          mechanisms: resultData.mechanisms || [],
           errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
-          score: resultData.score,
           warnings: resultData.warnings || [],
           recommendations: resultData.recommendations || [],
-          mailauthResult: resultData.mailauthRecord || resultData.mailauthResult
+          mailauthResult: resultData.mailauthResult,
+          ipTestResults: resultData.ipTestResults || []
         }
         
         // Refresh captcha after successful submission
@@ -275,6 +318,52 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+
+    getIpResultClass(result) {
+      // Ensure result is a string and handle various formats
+      let resultStr = ''
+      if (typeof result === 'string') {
+        resultStr = result
+      } else if (result && typeof result === 'object' && result.result) {
+        resultStr = result.result
+      } else if (result && typeof result === 'object' && result.status) {
+        resultStr = result.status
+      } else {
+        resultStr = String(result || 'unknown')
+      }
+      
+      switch (resultStr.toLowerCase()) {
+        case 'pass':
+          return 'result-pass'
+        case 'fail':
+          return 'result-fail'
+        case 'softfail':
+          return 'result-softfail'
+        case 'neutral':
+          return 'result-neutral'
+        case 'permerror':
+        case 'temperror':
+          return 'result-error'
+        default:
+          return 'result-unknown'
+      }
+    },
+
+    getDisplayResult(result) {
+      // Safely extract and format the result for display
+      let resultStr = ''
+      if (typeof result === 'string') {
+        resultStr = result
+      } else if (result && typeof result === 'object' && result.result) {
+        resultStr = result.result
+      } else if (result && typeof result === 'object' && result.status) {
+        resultStr = result.status
+      } else {
+        resultStr = String(result || 'unknown')
+      }
+      
+      return resultStr.toUpperCase()
     }
   }
 }
@@ -506,6 +595,87 @@ export default {
   line-height: 1.6;
 }
 
+.lookup-warning {
+  background: var(--vp-warning-soft, #fffbf0);
+  color: var(--vp-c-warning-1, #d69e2e);
+  padding: 0.75rem;
+  border-radius: 6px;
+  border-left: 4px solid var(--vp-c-warning-1, #ffc107);
+  margin: 0.75rem 0;
+  font-weight: 600;
+}
+
+.mechanisms-list {
+  margin: 0.75rem 0;
+  padding: 0.75rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-border-soft, #dee2e6);
+}
+
+.mechanism-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+}
+
+.mechanism-item:last-child {
+  border-bottom: none;
+}
+
+.mechanism-text {
+  font-weight: 600;
+  color: var(--vp-c-text-1, #374151);
+}
+
+.mechanism-type {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2, #6b7280);
+  background: var(--vp-c-bg, #ffffff);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--vp-c-border-soft, #dee2e6);
+}
+
+.mechanism-type.requires-lookup {
+  background: var(--vp-warning-soft, #fffbf0);
+  color: var(--vp-c-warning-1, #d69e2e);
+  border-color: var(--vp-c-warning-2, #fbbf24);
+}
+
+.mailauth-section {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 8px;
+  border-left: 4px solid var(--vp-c-text-3, #6c757d);
+}
+
+.mailauth-section h5 {
+  margin: 0 0 1rem 0;
+  color: var(--vp-c-text-2, #495057);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.auth-info {
+  background: var(--vp-c-bg, #ffffff);
+  border: 1px solid var(--vp-c-border, #dee2e6);
+  border-radius: 6px;
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.auth-info code {
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-size: 0.875rem;
+  color: var(--vp-c-text-1, #2d3748);
+  word-break: break-all;
+}
+
 .info-section ul,
 .warnings-section ul,
 .recommendations-section ul,
@@ -623,6 +793,131 @@ export default {
   
   .refresh-captcha-btn {
     align-self: center;
+  }
+}
+
+/* IP Test Results Styling */
+.ip-test-section {
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 8px;
+  border-left: 4px solid var(--vp-c-brand-1, #10B1EF);
+}
+
+.ip-test-section h5 {
+  margin: 0 0 0.5rem 0;
+  color: var(--vp-c-brand-1, #10B1EF);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.section-description {
+  margin: 0 0 1rem 0;
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.ip-test-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.ip-test-card {
+  background: var(--vp-c-bg, #ffffff);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 8px;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.ip-test-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.ip-test-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.ip-address {
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-weight: 600;
+  color: var(--vp-c-text-1, #374151);
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}
+
+.ip-result {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.result-pass {
+  background: var(--vp-c-green-soft, #dcfce7);
+  color: var(--vp-c-green-dark, #166534);
+  border: 1px solid var(--vp-c-green-light, #86efac);
+}
+
+.result-fail {
+  background: var(--vp-c-red-soft, #fef2f2);
+  color: var(--vp-c-red-dark, #991b1b);
+  border: 1px solid var(--vp-c-red-light, #fca5a5);
+}
+
+.result-softfail {
+  background: var(--vp-c-yellow-soft, #fefce8);
+  color: var(--vp-c-yellow-dark, #854d0e);
+  border: 1px solid var(--vp-c-yellow-light, #fde047);
+}
+
+.result-neutral {
+  background: var(--vp-c-gray-soft, #f8fafc);
+  color: var(--vp-c-gray-dark, #374151);
+  border: 1px solid var(--vp-c-gray-light, #d1d5db);
+}
+
+.result-error {
+  background: var(--vp-c-red-soft, #fef2f2);
+  color: var(--vp-c-red-dark, #991b1b);
+  border: 1px solid var(--vp-c-red-light, #fca5a5);
+}
+
+.result-unknown {
+  background: var(--vp-c-gray-soft, #f1f5f9);
+  color: var(--vp-c-gray-dark, #64748b);
+  border: 1px solid var(--vp-c-gray-light, #cbd5e1);
+}
+
+.ip-explanation {
+  margin: 0;
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+
+/* Responsive adjustments for IP test cards */
+@media (max-width: 768px) {
+  .ip-test-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .ip-test-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
 }
 </style>
