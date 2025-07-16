@@ -38,10 +38,6 @@ head:
 
 **Validate your DMARC policy** and ensure your domain is protected against email spoofing with our comprehensive DMARC checker tool.
 
-<script setup>
-import { DmarcChecker } from '../.vitepress/theme/free-tools'
-</script>
-
 <DmarcChecker />
 
 [← Back to Free Tools](/free-tools/)

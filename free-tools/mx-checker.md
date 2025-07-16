@@ -37,10 +37,6 @@ head:
 
 **Lookup and validate MX records** for any domain with our comprehensive mail exchange record checker tool.
 
-<script setup>
-import MxChecker from '../.vitepress/theme/free-tools/MxChecker.vue'
-</script>
-
 <MxChecker />
 ---
 
