@@ -198,7 +198,7 @@ export default {
           throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
         }
         
-        const response = await fetch(`${apiUrl}/captcha/generate`)
+        const response = await fetch(`${apiUrl}/v1/captcha/generate`)
         
         if (!response.ok) {
           throw new Error(`Failed to load captcha: ${response.status}`)
@@ -246,7 +246,7 @@ export default {
           throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
         }
         
-        const response = await fetch(`${apiUrl}/analyze-spf`, {
+        const response = await fetch(`${apiUrl}/v1/analyze-spf`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
