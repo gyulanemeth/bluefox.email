@@ -5,6 +5,34 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
+datePublished: 2024-01-15T08:00:00Z
+dateModified: 2024-01-15T08:00:00Z
+termName: Amazon SES Sending Rates
+termDescription: The number of emails your AWS SES account can send per second, which is separate from your sending quota that controls total emails per 24-hour period.
+faqs:
+  - question: How can I view my current send rate?
+    answer: You can check it in the SES Account Dashboard, or programmatically using the GetSendQuota API. It will display your per-second limit alongside your daily quota.
+  - question: Can I ask for a temporary rate increase?
+    answer: Yes. For one-time campaigns or events, you can submit a support request explaining your need, timing, and projected volume. It's recommended to submit such requests at least 2–3 weeks in advance.
+  - question: What happens if I exceed my send rate?
+    answer: SES returns a Throttling error, and the message is not accepted for delivery. It's not queued. You must retry after a short delay. Repeatedly ignoring this behavior can affect your sender score and account status.
+  - question: Does the send rate limit apply to each connection?
+    answer: No. The rate limit applies across your entire SES account, regardless of how many connections or sending threads you use. The aggregate throughput must stay within the allowed rate.
+relatedContent:
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: Amazon SES Sending Quotas
+    url: /aws-concepts/ses-sending-quota
+  - title: AWS Sandbox
+    url: /aws-concepts/ses-sandbox
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Complaints
+    url: /email-sending-concepts/complaints
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: SMTP
+    url: /email-sending-concepts/smtp
 
 head:
   - - meta

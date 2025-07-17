@@ -7,6 +7,31 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2024-01-15"
+dateModified: "2024-01-15"
+termName: "MX Records"
+termDescription: "DNS records that specify which mail servers should receive email for a domain, acting as the digital mailing address that routes incoming messages to the correct destination."
+
+faqs:
+  - question: "What happens if my domain has no MX records?"
+    answer: "If your domain has no MX records, most mail servers will not deliver email to it, even though technically they could try the domain's A record. In practice, no MX means no email delivery. This makes MX records mandatory for any domain that needs to receive email."
+  - question: "How long do MX record changes take to update?"
+    answer: "Changes to MX records depend on the TTL (Time To Live) value set in your DNS. Most updates take from a few minutes up to 48 hours to fully propagate worldwide. For planned migrations, it's smart to lower your TTL a day or two in advance."
+  - question: "Can I use MX records from different providers at the same time?"
+    answer: "You can, but it's only recommended for advanced setups like migrations or split delivery. Both providers must be configured to know which mailboxes they handle, or you risk losing emails. For most organizations, sticking to one provider is simpler and safer."
+
+relatedContent:
+  - title: "SMTP (Simple Mail Transfer Protocol)"
+    url: "/email-sending-concepts/smtp"
+  - title: "SPF (Sender Policy Framework)"
+    url: "/email-sending-concepts/spf"
+  - title: "DKIM (DomainKeys Identified Mail)"
+    url: "/email-sending-concepts/dkim"
+  - title: "DMARC (Domain-based Message Authentication, Reporting & Conformance)"
+    url: "/email-sending-concepts/dmarc"
+  - title: "DNS (Domain Name System)"
+    url: "/email-sending-concepts/dns"
+
 head:
   - - meta
     - name: description

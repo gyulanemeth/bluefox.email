@@ -5,6 +5,30 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
+datePublished: 2024-01-15T08:00:00Z
+dateModified: 2024-01-15T08:00:00Z
+termName: Amazon SES (Simple Email Service)
+termDescription: A cloud-based email sending service designed to help digital marketers and application developers send marketing, notification, and transactional emails.
+faqs:
+  - question: What is the difference between Amazon SES and other email service providers?
+    answer: AWS SES is a "building block" email infrastructure with pay-as-you-go pricing, while most other ESPs offer all-in-one marketing platforms with built-in campaign tools. SES integrates well with other AWS services and is cost-effective for high volume, but requires more technical expertise to implement.
+  - question: Does Amazon SES have sending limits?
+    answer: Yes, new accounts start in a "sandbox" environment with restricted sending capabilities. After proving good sending practices, you can request production access to increase your sending quota (emails per day) and sending rate (emails per second). AWS evaluates your bounce and complaint rates before granting higher limits.
+  - question: How does Amazon SES handle bounces and complaints?
+    answer: SES automatically tracks bounces and complaints, which can be sent to SNS, S3, or trigger Lambda functions. You must maintain bounce rates below 5% and complaint rates below 0.1% to avoid sending restrictions. SES also maintains a suppression list to prevent sending to problematic addresses.
+relatedContent:
+  - title: Amazon SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: Amazon SNS Topics
+    url: /aws-concepts/sns-topics
+  - title: Amazon SNS Subscription
+    url: /aws-concepts/sns-subscription
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC (Domain-based Message Authentication, Reporting, and Conformance)
+    url: /email-sending-concepts/dmarc
 
 head:
   - - meta

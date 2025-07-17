@@ -5,6 +5,30 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
+datePublished: 2024-01-15T08:00:00Z
+dateModified: 2024-01-15T08:00:00Z
+termName: Amazon SNS Topics
+termDescription: Named communication channels within the Simple Notification Service that serve as the central connection point between message publishers and subscribers.
+faqs:
+  - question: How many subscribers can an SNS Topic have?
+    answer: A single SNS Topic can support up to 12.5 million subscriptions across various endpoint types, according to AWS documentation.
+  - question: Can SNS Topics guarantee message processing order?
+    answer: Standard SNS Topics provide best-effort ordering but don't guarantee it. FIFO Topics ensure strict ordering with exactly-once processing guarantees, though with lower throughput.
+  - question: How reliable is message delivery with SNS Topics?
+    answer: SNS implements a "at-least-once" delivery model with automatic retries for failed deliveries. This design ensures high message durability even during temporary endpoint disruptions.
+  - question: How can filtering improve email operations?
+    answer: In SES email systems, SNS topic filtering allows distinct handling logic for hard bounces, soft bounces, complaints, and deliveries. For example, organizations can route hard bounces to immediate suppression list updates while sending soft bounces to a monitoring system for tracking transient failures.
+relatedContent:
+  - title: Amazon SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: Amazon SNS Subscriptions
+    url: /aws-concepts/sns-subscription
+  - title: Amazon SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Complaints
+    url: /email-sending-concepts/complaints
 
 head:
   - - meta

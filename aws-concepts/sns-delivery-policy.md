@@ -5,6 +5,34 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
+datePublished: 2024-01-15T08:00:00Z
+dateModified: 2024-01-15T08:00:00Z
+termName: SNS Delivery Policy
+termDescription: A configuration mechanism in Amazon SNS that defines how the service handles message delivery attempts when temporary failures occur.
+faqs:
+  - question: Can delivery policies prevent message loss entirely?
+    answer: No, while they significantly reduce the risk of message loss due to temporary issues, they can't guarantee delivery if permanent errors occur or if all retry attempts fail.
+  - question: Do delivery policies affect SNS pricing?
+    answer: Yes, additional retry attempts count as message deliveries in the SNS pricing model, so aggressive retry policies may increase costs.
+  - question: Can I apply different policies to different types of notifications?
+    answer: Yes, by using different SNS topics or by configuring subscription-level delivery policies that override the topic-level settings.
+  - question: How do delivery policies interact with SES event publishing?
+    answer: SES publishes events to SNS once, but the delivery policy controls how SNS delivers those events to your endpoints, providing resilience for your email event processing.
+relatedContent:
+  - title: AWS SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: AWS SNS Topics
+    url: /aws-concepts/sns-topics
+  - title: AWS SNS Subscription
+    url: /aws-concepts/sns-subscription
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: SES Delivery Notifications
+    url: /aws-concepts/ses-delivery-notifications
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Complaints
+    url: /email-sending-concepts/complaints
 
 head:
   - - meta

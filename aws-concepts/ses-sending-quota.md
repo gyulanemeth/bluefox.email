@@ -5,6 +5,34 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
+datePublished: 2024-01-15T08:00:00Z
+dateModified: 2024-01-15T08:00:00Z
+termName: Amazon SES Sending Quotas
+termDescription: Limits that define how many emails your AWS SES account is allowed to send over a rolling 24-hour period to protect recipient inboxes and maintain infrastructure stability.
+faqs:
+  - question: How long does it take to get a quota increase?
+    answer: Requests are usually reviewed within 24–48 hours, depending on volume and account reputation.
+  - question: Can SES reduce my quota?
+    answer: Yes. If your sending metrics deteriorate or you violate policies, AWS may reduce your quota or return your account to sandbox mode.
+  - question: How do I check my current quota?
+    answer: Use the SES console or GetSendQuota API to view your current daily sending limit and send rate.
+  - question: What changes after leaving the sandbox?
+    answer: Once in production mode, you're allowed to send to unverified recipients and receive significantly increased sending limits. The actual quotas vary based on your specific use case and may increase automatically over time as you establish a positive sending reputation.
+relatedContent:
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: AWS SNS Topics
+    url: /aws-concepts/sns-topics
+  - title: AWS SNS Subscription
+    url: /aws-concepts/sns-subscription
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Complaints
+    url: /email-sending-concepts/complaints
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
 
 head:
   - - meta

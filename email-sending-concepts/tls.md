@@ -7,6 +7,33 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2024-01-15"
+dateModified: "2024-01-15"
+termName: "TLS (Transport Layer Security)"
+termDescription: "A cryptographic protocol that encrypts email communications between servers, protecting messages from interception during transit across the internet."
+
+faqs:
+  - question: "Is TLS the same as SSL?"
+    answer: "No, TLS is the modern, more secure version that replaced SSL. Most references to SSL today actually mean TLS."
+  - question: "How can I check if my email uses TLS?"
+    answer: "Look for a lock icon or \"secured by TLS\" in your email client, or check the email headers for TLS or STARTTLS."
+  - question: "Does TLS encrypt the entire email?"
+    answer: "TLS encrypts the connection between servers, not the message itself. Once delivered, the email may be stored unencrypted."
+  - question: "What happens if a server doesn't support TLS?"
+    answer: "If either server lacks TLS, the email is sent in plain text. Some providers may refuse delivery to protect your privacy."
+
+relatedContent:
+  - title: "SMTP (Simple Mail Transfer Protocol)"
+    url: "/email-sending-concepts/smtp"
+  - title: "Email Authentication"
+    url: "/email-sending-concepts/email-authentication"
+  - title: "SPF (Sender Policy Framework)"
+    url: "/email-sending-concepts/spf"
+  - title: "DKIM (DomainKeys Identified Mail)"
+    url: "/email-sending-concepts/dkim"
+  - title: "DMARC (Domain-based Message Authentication, Reporting & Conformance)"
+    url: "/email-sending-concepts/dmarc"
+
 head:
   - - meta
     - name: description

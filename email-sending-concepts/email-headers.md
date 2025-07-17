@@ -7,6 +7,31 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2024-01-15"
+dateModified: "2024-01-15"
+termName: "Email Headers"
+termDescription: "Hidden metadata fields in every email message that contain vital information about routing, authentication, and technical properties, serving as the digital passport for email communications."
+
+faqs:
+  - question: "How can I view the full headers of an email?"
+    answer: "Most email clients hide headers by default but provide ways to view them. In Gmail, open the email and click the three dots menu, then \"Show original.\" In Outlook, open the message, click \"File\" and then \"Properties\" to see the internet headers. Apple Mail users can select \"View\" and then \"Message\" followed by \"All Headers.\""
+  - question: "Can I modify email headers to improve deliverability?"
+    answer: "Some headers like Message-ID, DKIM-Signature, and Return-Path should be properly configured in your sending infrastructure to improve deliverability. However, tampering with headers after sending is impossible without breaking authentication signatures. Instead, focus on proper SPF, DKIM, and DMARC setup."
+  - question: "Do email headers affect privacy?"
+    answer: "Yes, headers contain information that can reveal your IP address, email client, and sometimes geographic location. When forwarding sensitive emails, consider using \"forward as attachment\" options to avoid exposing your original headers or use specialized privacy-focused email services that minimize header information."
+
+relatedContent:
+  - title: "SMTP (Simple Mail Transfer Protocol)"
+    url: "/email-sending-concepts/smtp"
+  - title: "SPF (Sender Policy Framework)"
+    url: "/email-sending-concepts/spf"
+  - title: "DKIM (DomainKeys Identified Mail)"
+    url: "/email-sending-concepts/dkim"
+  - title: "DMARC (Domain-based Message Authentication, Reporting & Conformance)"
+    url: "/email-sending-concepts/dmarc"
+  - title: "Return Path"
+    url: "/email-sending-concepts/return-path"
+
 head:
   - - meta
     - name: description

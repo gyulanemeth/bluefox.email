@@ -5,6 +5,28 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
+datePublished: 2024-01-15T08:00:00Z
+dateModified: 2024-01-15T08:00:00Z
+termName: Amazon SNS (Simple Notification Service)
+termDescription: A fully managed publish/subscribe messaging service that enables the decoupling of microservices, distributed systems, and serverless applications.
+faqs:
+  - question: What's the difference between Amazon SNS and Amazon SQS?
+    answer: SNS is a push-based messaging service that delivers messages to subscribers, while SQS is a queue-based messaging service that temporarily stores messages for consumers to pull. For email events, SNS is typically preferred as it enables immediate processing of time-sensitive notifications without polling.
+  - question: What makes SNS suitable for handling email notifications?
+    answer: SNS's architecture provides immediate delivery of notifications, supports multiple subscriber types for different processing needs, and offers filtering capabilities that allow you to route different types of email events to different handling systems, all critical features for responsive email operations.
+  - question: Is SNS difficult to implement for email event handling?
+    answer: No, SNS is designed for straightforward integration with SES. Basic setup requires minimal configuration, with the option to add more sophisticated filtering and routing as your needs evolve. Most email operations can be configured through the AWS console without writing custom code.
+relatedContent:
+  - title: Amazon SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: Amazon SNS Topics
+    url: /aws-concepts/sns-topics
+  - title: Amazon SNS Subscriptions
+    url: /aws-concepts/sns-subscription
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Complaints
+    url: /email-sending-concepts/complaints
 
 head:
   - - meta

@@ -5,6 +5,36 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
+datePublished: 2024-01-15T08:00:00Z
+dateModified: 2024-01-15T08:00:00Z
+termName: Amazon SES Sandbox
+termDescription: A restricted environment where all new Amazon SES accounts begin, allowing users to explore SES capabilities in a controlled manner while protecting AWS infrastructure from misuse.
+faqs:
+  - question: How long does my account have to stay in the sandbox?
+    answer: There's no mandatory waiting period. You can apply for production access immediately, but a short history of successful test sending can help demonstrate readiness.
+  - question: Can I still use SES effectively while in the sandbox?
+    answer: Yes. The sandbox includes full access to SES capabilities, so it's suitable for development, integration, and validation of your sending system even if delivery is limited to verified addresses.
+  - question: How do I verify a recipient email address?
+    answer: Go to the SES console, select "Email Addresses", and click "Verify a New Email Address". An email with a confirmation link will be sent. Once clicked, the address becomes verified.
+  - question: What happens if my production request is denied?
+    answer: AWS typically provides a reason such as lack of opt-in evidence or missing unsubscribe links. You can revise your setup and reapply. If needed, AWS Support may clarify next steps.
+relatedContent:
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS SES Sending Quotas
+    url: /aws-concepts/ses-sending-quota
+  - title: AWS SES Sending Rates
+    url: /aws-concepts/ses-sending-rate
+  - title: AWS SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Complaints
+    url: /email-sending-concepts/complaints
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: DNS Records
+    url: /email-sending-concepts/dns
 
 head:
   - - meta

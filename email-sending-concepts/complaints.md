@@ -5,6 +5,27 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
 layout: post
 category: glossary
+datePublished: "2023-01-01"
+dateModified: "2025-07-04"
+termName: "Complaints"
+termDescription: "Email complaints occur when recipients report messages as spam, triggering feedback loops and potentially damaging sender reputation if not properly managed."
+faqs:
+  - question: "Can I keep sending to someone who marked my email as spam?"
+    answer: "No. Once someone has submitted a spam complaint, you should immediately stop sending to that address across all your email programs. Continuing to send after a complaint can severely damage your sender reputation and potentially violate anti-spam regulations."
+  - question: "What's a \"safe\" complaint rate?"
+    answer: "Industry standards consider complaint rates below 0.1% (1 complaint per 1,000 emails) to be acceptable. Most email service providers, including Amazon SES, enforce limits in this range. However, top-performing senders typically maintain rates below 0.05%."
+  - question: "Why would someone mark my email as spam instead of unsubscribing?"
+    answer: "Recipients often choose the spam button because it's more visible and convenient than finding the unsubscribe link. They may not trust the unsubscribe mechanism, might not recall signing up for your emails, or want to send a stronger message than unsubscribing. For many users, it's also simply a habitual action for managing unwanted email."
+  - question: "How do I get access to complaint data?"
+    answer: "Most major ESPs provide complaint data through direct integrations with feedback loops, webhook notifications, API endpoints, and real-time notification services like Amazon SNS. Many platforms also offer aggregate reporting in their dashboard for tracking complaint metrics over time."
+relatedContent:
+  - /email-sending-concepts/bounces
+  - /email-sending-concepts/email-authentication
+  - /email-sending-concepts/spf
+  - /email-sending-concepts/dkim
+  - /email-sending-concepts/dmarc
+  - /aws-concepts/sns
+  - /aws-concepts/ses
 
 head:
   - - meta
