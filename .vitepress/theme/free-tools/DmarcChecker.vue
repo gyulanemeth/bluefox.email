@@ -153,170 +153,131 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'DmarcChecker',
-  data() {
-    return {
-      formData: {
-        domain: '',
-        captchaText: ''
-      },
-      captcha: {
-        image: null,
-        probe: null,
-        loading: false
-      },
-      result: null,
-      error: null,
-      loading: false
+<script setup>
+
+import { ref, reactive, onMounted } from 'vue'
+
+const formData = reactive({
+  domain: '',
+  captchaText: ''
+})
+
+const captcha = reactive({
+  image: null,
+  probe: null,
+  loading: false
+})
+
+const result = ref(null)
+const error = ref(null)
+const loading = ref(false)
+
+const loadCaptcha = async () => {
+  captcha.loading = true
+  error.value = null
+
+  try {
+    const apiUrl = import.meta.env.VITE_TOOLS_API_URL
+    if (!apiUrl) throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
+
+    const response = await fetch(`${apiUrl}/v1/captcha/generate`)
+    if (!response.ok) throw new Error(`Failed to load captcha: ${response.status}`)
+
+    const data = await response.json()
+    if (data.result && data.result.success && data.result.captcha) {
+      captcha.image = data.result.captcha.image
+      captcha.probe = data.result.captcha.probe
+      formData.captchaText = ''
+    } else {
+      throw new Error('Invalid captcha response from server')
     }
-  },
-  mounted() {
-    // Load captcha when component mounts
-    this.loadCaptcha()
-  },
-  methods: {
-    async loadCaptcha() {
-      this.captcha.loading = true
-      this.error = null
-      
-      try {
-        const apiUrl = import.meta.env.VITE_TOOLS_API_URL
-        if (!apiUrl) {
-          throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
-        }
-        
-        const response = await fetch(`${apiUrl}/v1/captcha/generate`)
-        
-        if (!response.ok) {
-          throw new Error(`Failed to load captcha: ${response.status}`)
-        }
-        
-        const data = await response.json()
-        
-        if (data.result && data.result.success && data.result.captcha) {
-          this.captcha.image = data.result.captcha.image
-          this.captcha.probe = data.result.captcha.probe
-          this.formData.captchaText = '' // Clear previous input
-        } else {
-          throw new Error('Invalid captcha response from server')
-        }
-      } catch (err) {
-        console.error('Captcha loading error:', err)
-        this.error = `Failed to load captcha: ${err.message}`
-      } finally {
-        this.captcha.loading = false
-      }
-    },
-    
-    async refreshCaptcha() {
-      await this.loadCaptcha()
-    },
-
-    async checkDmarc() {
-      // Validate that we have all required data
-      if (!this.captcha.probe) {
-        this.error = 'Please load the captcha first'
-        return
-      }
-      
-      if (!this.formData.captchaText.trim()) {
-        this.error = 'Please enter the captcha text'
-        return
-      }
-
-      this.loading = true
-      this.error = null
-      this.result = null
-
-      try {
-        const apiUrl = import.meta.env.VITE_TOOLS_API_URL
-        if (!apiUrl) {
-          throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
-        }
-        
-        const response = await fetch(`${apiUrl}/v1/analyze-dmarc`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ 
-            domain: this.formData.domain,
-            captchaText: this.formData.captchaText,
-            captchaProbe: this.captcha.probe
-          })
-        })
-
-        if (!response.ok) {
-          let errorMessage = `HTTP error! status: ${response.status}`
-          try {
-            const errorData = await response.json()
-            errorMessage = errorData.result?.error || errorData.error || errorData.message || errorMessage
-          } catch (parseError) {
-            console.error('Failed to parse error response:', parseError)
-          }
-          throw new Error(errorMessage)
-        }
-
-        const data = await response.json()
-        console.log('Backend response:', data) // Debug log
-
-        // Extract the actual result data from the nested response
-        const resultData = data.result || data
-
-        // Check if the response indicates success
-        if (!resultData.success && resultData.error) {
-          // If it's a captcha error, refresh the captcha
-          if (resultData.error.toLowerCase().includes('captcha')) {
-            await this.refreshCaptcha()
-          }
-          throw new Error(resultData.error)
-        }
-
-        this.result = {
-          valid: resultData.success || false,
-          domain: resultData.domain || this.formData.domain,
-          record: resultData.rawRecord || resultData.record || 'Not found',
-          policy: resultData.parsed?.p || resultData.policy,
-          subdomainPolicy: resultData.parsed?.sp || resultData.subdomainPolicy,
-          percentage: resultData.parsed?.pct || resultData.percentage || 100,
-          rua: resultData.parsed?.rua || resultData.rua || [],
-          ruf: resultData.parsed?.ruf || resultData.ruf || [],
-          errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
-          analysis: resultData.explanations || resultData.analysis,
-          score: resultData.score,
-          warnings: resultData.warnings || [],
-          recommendations: resultData.recommendations || [],
-          mailauthResult: resultData.mailauthRecord || resultData.mailauthResult,
-          checkedRecord: resultData.checkedRecord
-        }
-        
-        // Refresh captcha after successful submission
-        await this.refreshCaptcha()
-        
-      } catch (err) {
-        console.error('DMARC check error:', err)
-        this.error = err?.message || 'Failed to check DMARC. Please try again.'
-        
-        // Show a more user-friendly error message
-        if (err.message.includes('fetch')) {
-          this.error = 'Cannot connect to the server. Please make sure the backend is running.'
-        } else if (err.message.includes('404')) {
-          this.error = 'API endpoint not found. Please check the server configuration.'
-        } else if (err.message.includes('500')) {
-          this.error = 'Server error occurred. Please try again later.'
-        } else if (err.message.toLowerCase().includes('captcha')) {
-          this.error = err.message + ' Please try again with the new captcha.'
-        }
-      } finally {
-        this.loading = false
-      }
-    }
+  } catch (err) {
+    error.value = `Failed to load captcha: ${err.message}`
+  } finally {
+    captcha.loading = false
   }
 }
-</script>
 
+const refreshCaptcha = async () => {
+  await loadCaptcha()
+}
+
+const checkDmarc = async () => {
+  if (!captcha.probe) {
+    error.value = 'Please load the captcha first'
+    return
+  }
+  if (!formData.captchaText.trim()) {
+    error.value = 'Please enter the captcha text'
+    return
+  }
+  loading.value = true
+  error.value = null
+  result.value = null
+
+  try {
+    const apiUrl = import.meta.env.VITE_TOOLS_API_URL
+    if (!apiUrl) throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
+
+    const response = await fetch(`${apiUrl}/v1/analyze-dmarc`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        domain: formData.domain,
+        captchaText: formData.captchaText,
+        captchaProbe: captcha.probe
+      })
+    })
+
+    if (!response.ok) {
+      let errorMessage = `HTTP error! status: ${response.status}`
+      try {
+        const errorData = await response.json()
+        errorMessage = errorData.result?.error || errorData.error || errorData.message || errorMessage
+      } catch {}
+      throw new Error(errorMessage)
+    }
+
+    const data = await response.json()
+    const resultData = data.result || data
+    if (!resultData.success && resultData.error) {
+      if (resultData.error.toLowerCase().includes('captcha')) await refreshCaptcha()
+      throw new Error(resultData.error)
+    }
+
+    result.value = {
+      valid: resultData.success || false,
+      domain: resultData.domain || formData.domain,
+      record: resultData.rawRecord || resultData.record || 'Not found',
+      policy: resultData.parsed?.p || resultData.policy,
+      subdomainPolicy: resultData.parsed?.sp || resultData.subdomainPolicy,
+      percentage: resultData.parsed?.pct || resultData.percentage || 100,
+      rua: resultData.parsed?.rua || resultData.rua || [],
+      ruf: resultData.parsed?.ruf || resultData.ruf || [],
+      errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
+      analysis: resultData.explanations || resultData.analysis,
+      score: resultData.score,
+      warnings: resultData.warnings || [],
+      recommendations: resultData.recommendations || [],
+      mailauthResult: resultData.mailauthRecord || resultData.mailauthResult,
+      checkedRecord: resultData.checkedRecord
+    }
+    await refreshCaptcha()
+  } catch (err) {
+    error.value = err?.message || 'Failed to check DMARC. Please try again.'
+    if (err.message?.includes('fetch')) error.value = 'Cannot connect to the server. Please make sure the backend is running.'
+    else if (err.message?.includes('404')) error.value = 'API endpoint not found. Please check the server configuration.'
+    else if (err.message?.includes('500')) error.value = 'Server error occurred. Please try again later.'
+    else if (err.message?.toLowerCase().includes('captcha')) error.value = err.message + ' Please try again with the new captcha.'
+  } finally {
+    loading.value = false
+  }
+}
+
+onMounted(() => {
+  loadCaptcha()
+})
+</script>
 <style scoped>
 .dmarc-checker {
   max-width: 800px;
