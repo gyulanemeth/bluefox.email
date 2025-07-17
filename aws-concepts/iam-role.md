@@ -1,5 +1,5 @@
 ---
-title: Amazon IAM Role | BlueFox Email
+title: AWS IAM Role | BlueFox Email
 description: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
@@ -12,7 +12,7 @@ head:
       content: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
   - - meta
     - property: og:title
-      content: Amazon IAM Role | BlueFox Email
+      content: AWS IAM Role | BlueFox Email
   - - meta
     - property: og:description
       content: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
@@ -27,24 +27,28 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Amazon IAM Role | BlueFox Email
+      content: AWS IAM Role | BlueFox Email
   - - meta
     - name: twitter:description
       content: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
 ---
 <GlossaryNavigation/>
 
-# Amazon IAM Role
+# AWS IAM Role
 
 An **AWS IAM Role** is an identity that defines [permissions](/aws-concepts/iam-permissions.md) for AWS services or users to access resources without using permanent credentials. Roles provide temporary security credentials that expire automatically.
 
-## What is an Amazon IAM Role?
+## What is an AWS IAM Role?
 
 An IAM Role acts as a **secure delegation mechanism** that grants permissions without requiring long-term access keys, improving security by eliminating the need to share or embed credentials in application code. Each role consists of a trust policy that defines which entities can assume the role and permission policies that specify what actions are allowed on specific AWS resources. This **identity-based access control** approach follows AWS security best practices by providing just-in-time privileges. According to [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html), roles can be assumed by various entities including AWS services (like Lambda or EC2), applications running on compute instances, **federated identity providers** (like Active Directory or Google), or users from different AWS accounts in cross-account scenarios.
 
 ## How IAM Roles Work
 
 When an entity assumes a role, the **AWS Security Token Service (STS)** handles the authentication process and provides **temporary security credentials** valid for a configurable duration between 15 minutes (900 seconds) and 12 hours (43200 seconds), as specified in [AWS documentation](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html). These credentials include an access key ID, a secret access key, and a security token that must be included in subsequent AWS API requests. This dynamic credential model eliminates the need to store long-lived access keys in code or configuration files, enhances security through **automatic credential rotation**, implements least privilege principles by granting permissions only when needed, and creates seamless service-to-service authentication without manual intervention. The role assumption process happens invisibly to end users, with services like Lambda or EC2 handling the underlying STS API calls and credential management automatically.
+
+:::tip BlueFox Recommendation
+**STS is our recommended way to connect your AWS SES to BlueFox Email.** Using Security Token Service instead of long-lived access keys provides enhanced security through temporary credentials that automatically expire. This approach eliminates the need to store permanent AWS credentials and follows security best practices by limiting permissions to only what's needed when it's needed. BlueFox Email supports STS integration through a simple Role ARN configuration in project settings.
+:::
 
 ## Common Role Types
 
@@ -96,7 +100,7 @@ Create a role with a trust policy allowing Lambda to assume it, then add permiss
 - [AWS IAM Permissions](/aws-concepts/iam-permissions)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
-- [AWS Delivery Notifications](/aws-concepts/delivery-notifications)
+- [AWS Delivery Notifications](/aws-concepts/ses-delivery-notifications)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 
 <GlossaryCTA />

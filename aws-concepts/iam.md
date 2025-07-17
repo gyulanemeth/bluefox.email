@@ -1,5 +1,5 @@
 ---
-title: Amazon IAM (Identity and Access Management) | BlueFox Email
+title: AWS IAM (Identity and Access Management) | BlueFox Email
 description: AWS Identity and Access Management (IAM) is a web service that provides centralized control over authentication and authorization for AWS resources.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
@@ -12,7 +12,7 @@ head:
       content: AWS Identity and Access Management (IAM) is a web service that provides centralized control over authentication and authorization for AWS resources.
   - - meta
     - property: og:title
-      content: Amazon IAM (Identity and Access Management) | BlueFox Email
+      content: AWS IAM (Identity and Access Management) | BlueFox Email
   - - meta
     - property: og:description
       content: AWS Identity and Access Management (IAM) is a web service that provides centralized control over authentication and authorization for AWS resources.
@@ -27,14 +27,14 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Amazon IAM (Identity and Access Management) | BlueFox Email
+      content: AWS IAM (Identity and Access Management) | BlueFox Email
   - - meta
     - name: twitter:description
       content: AWS Identity and Access Management (IAM) is a web service that provides centralized control over authentication and authorization for AWS resources.
 ---
 <GlossaryNavigation/>
 
-# Amazon Identity and Access Management (IAM)
+# AWS Identity and Access Management (IAM)
 
 **AWS Identity and Access Management (IAM)** is a foundational security service that provides centralized access control for AWS resources. It enables organizations to securely manage identities and their relationships to AWS services through authentication (verifying identity) and authorization (determining access rights).
 
@@ -77,6 +77,5 @@ Apply least privilege, use roles instead of access keys, enforce MFA, regularly 
 - [AWS IAM Permissions](/aws-concepts/iam-permissions)
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
 - [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
-- [AWS STS (Security Token Service)](/aws-concepts/sts)
 
 <GlossaryCTA />
