@@ -36,11 +36,11 @@ head:
 
 # Amazon STS (Security Token Service)
 
-**AWS Security Token Service (STS)** is a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or federated users. These temporary credentials work almost identically to the long-term access key credentials that IAM users can use, with key differences in their temporary nature and enhanced security profile.
+**AWS Security Token Service (STS)** is a web service that enables you to request temporary, limited-privilege credentials for AWS [Identity and Access Management (IAM)](/aws-concepts/iam) users or federated users. These temporary credentials work almost identically to the long-term access key credentials that IAM users can use, with key differences in their temporary nature and enhanced security profile.
 
 ## What is Amazon STS?
 
-Amazon Security Token Service provides a mechanism to create and distribute **time-limited security credentials** that applications can use to access AWS resources. Instead of creating an IAM user with long-term credentials, STS enables you to issue short-lived tokens that expire after a defined period, typically between 15 minutes and 36 hours.
+Amazon Security Token Service provides a mechanism to create and distribute **time-limited security credentials** that applications can use to access AWS resources. Instead of creating an [IAM user](/aws-concepts/iam) with long-term credentials, STS enables you to issue short-lived tokens that expire after a defined period, typically between 15 minutes and 36 hours.
 
 These temporary credentials consist of:
 
@@ -53,7 +53,17 @@ By using temporary credentials, organizations can implement the **principle of l
 
 ## How Amazon STS Works
 
-STS provides several APIs to acquire temporary credentials: **AssumeRole** for temporarily adopting permissions of an IAM role (enabling cross-account access or privilege escalation within policy boundaries), **AssumeRoleWithWebIdentity** for authentication via third-party providers like Google or Facebook, **AssumeRoleWithSAML** for integration with SAML 2.0-compatible identity providers like Active Directory or Okta (enabling SSO), **GetSessionToken** for generating MFA-protected credentials for sensitive operations and **GetFederationToken** for creating longer-lasting credentials (up to 36 hours) for federated users. All these methods return temporary security credentials (access key ID, secret access key, and security token) that can be used to access AWS services based on the permissions in the associated policies.
+When you request temporary credentials from STS, the service validates your identity and the permissions you're requesting, then generates a set of temporary security credentials that include an access key ID, secret access key, and security token. These credentials are returned to your application along with an expiration timestamp, after which the credentials become invalid and cannot be used to access AWS resources.
+
+STS provides several APIs to acquire temporary credentials:
+
+- **AssumeRole**: Temporarily adopts permissions of an [IAM role](/aws-concepts/iam-role), enabling cross-account access or privilege escalation within policy boundaries
+- **AssumeRoleWithWebIdentity**: Enables authentication via third-party identity providers like Google or Facebook
+- **AssumeRoleWithSAML**: Integrates with SAML 2.0-compatible identity providers like Active Directory or Okta, enabling Single Sign-On (SSO)
+- **GetSessionToken**: Generates MFA-protected credentials for sensitive operations
+- **GetFederationToken**: Creates longer-lasting credentials (up to 36 hours) for federated users
+
+All these methods return temporary security credentials (access key ID, secret access key, and security token) that can be used to access AWS services based on the permissions defined in the associated [IAM policies](/aws-concepts/iam-permissions).
 
 ## STS in Email Systems
 
@@ -65,7 +75,7 @@ AWS STS provides several critical security advantages for modern cloud architect
 
 **Enhanced Security**: By using short-lived credentials, STS significantly reduces the risk associated with credential exposure. Even if temporary credentials are compromised, they will soon expire, limiting the potential damage.
 
-**Fine-Grained Access Control**: STS allows for very precise permissions through IAM policies, ensuring identities have exactly the access they need for specific tasks and nothing more.
+**Fine-Grained Access Control**: STS allows for very precise permissions through [IAM policies](/aws-concepts/iam-permissions), ensuring identities have exactly the access they need for specific tasks and nothing more.
 
 **Identity Federation**: Organizations can leverage their existing identity management systems rather than creating and managing separate AWS credentials for each user.
 
