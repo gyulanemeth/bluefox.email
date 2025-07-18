@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: "Learn how DNS works and why it's the foundation of email delivery, authentication, and security."
 ---
+<GlossaryNavigation/>
 
 # DNS (Domain Name System)
 
@@ -65,19 +66,21 @@ This whole process typically happens in **milliseconds**, but it's essential for
 
 ## Why is DNS Important for Email?
 
-Without properly configured name records, email simply wouldn't work. These records are the **signposts that guide your messages** to their destination, **authenticate your identity** as a sender, and help **protect against fraud**. MX records direct incoming mail to your servers, SPF records authorize which servers can send on your behalf, DKIM records provide keys for verifying message signatures, and DMARC records set policies for handling suspicious messages. For businesses, maintaining accurate records is essential for **deliverability**, misconfigured settings often lead to **bounced messages**, **spam folder placement**, or **security vulnerabilities** that damage sender reputation.
+Without properly configured name records, email simply wouldn't work. These records are the **signposts that guide your messages** to their destination, **authenticate your identity** as a sender, and help **protect against fraud**. MX records direct incoming mail to your servers, SPF records authorize which servers can send on your behalf, DKIM records provide keys for verifying message signatures, and DMARC records set policies for handling suspicious messages. For businesses, maintaining accurate records is essential for **[deliverability](/email-sending-concepts/deliverability)**, misconfigured settings often lead to **bounced messages**, **spam folder placement**, or **security vulnerabilities** that damage sender reputation.
 
 ## Frequently Asked Questions About DNS
 
 ### How long do DNS changes take to propagate?
+
 DNS changes propagate based on the TTL (Time To Live) values set in your records. While some resolvers might see changes within minutes, complete worldwide propagation typically takes 24-48 hours. For critical email systems, it's best to make DNS changes during low-traffic periods and plan for this delay.
 
 ### What happens if my DNS provider goes down?
+
 If your DNS provider experiences an outage, existing connections might continue working due to cached DNS information, but new connections would fail once the cache expires. For business-critical email, consider using DNS providers with strong uptime guarantees or even multiple providers for redundancy.
 
 ### Can DNS issues cause emails to go to spam?
-Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantly impact deliverability. Many spam filters check these records, and failures can lead to lower sender reputation scores. Regular DNS audits are recommended for any serious email sender.
 
+Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantly impact deliverability. Many spam filters check these records, and failures can lead to lower sender reputation scores. Regular DNS audits are recommended for any serious email sender.
 
 ## Related Content
 

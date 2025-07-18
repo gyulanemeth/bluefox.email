@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: A hard bounce is a permanent email delivery failure that indicates the email address is invalid or no longer exists, requiring immediate removal from mailing lists.
 ---
+<GlossaryNavigation/>
 
 # Hard Bounce
 
@@ -52,7 +53,7 @@ Each of these causes results in a permanent failure notification, typically acco
 
 ## Why Hard Bounces Matter
 
-Hard bounces are critically important because they **directly impact sender reputation** with mailbox providers like Gmail, Yahoo, and Outlook. These providers analyze hard bounce rates as a primary indicator of list quality and sending practices. According to [AWS SES guidelines](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html), maintaining hard bounce rates below **2%** is essential for optimal deliverability, with rates approaching 5% triggering account reviews and potential sending restrictions. Major email providers implement **progressively stricter delivery filtering** as hard bounce rates increase, leading to decreased inbox placement even for messages sent to valid addresses. The consequences extend beyond deliverability issues, as repeatedly sending to known hard bounce addresses may constitute negligent list management under regulations like CAN-SPAM and GDPR, potentially increasing legal liability.
+Hard bounces are critically important because they **directly impact sender reputation** with mailbox providers like Gmail, Yahoo, and Outlook. These providers analyze hard bounce rates as a primary indicator of list quality and sending practices. According to [AWS SES guidelines](https://docs.aws.amazon.com/ses/latest/dg/faqs-enforcement.html), maintaining hard bounce rates below **2%** is essential for optimal [deliverability](/email-sending-concepts/deliverability), with rates approaching 5% triggering account reviews and potential sending restrictions. Major email providers implement **progressively stricter delivery filtering** as hard bounce rates increase, leading to decreased inbox placement even for messages sent to valid addresses. The consequences extend beyond deliverability issues, as repeatedly sending to known hard bounce addresses may constitute negligent list management under regulations like CAN-SPAM and GDPR, potentially increasing legal liability.
 
 ## Hard Bounce Error Codes
 
@@ -103,6 +104,6 @@ Hard bounced addresses should be removed immediately upon the first bounce occur
 - [Bounce Rate](/email-sending-concepts/bounce-rate)
 - [SMTP](/email-sending-concepts/smtp)
 - [Email Authentication](/email-sending-concepts/email-authentication)
-- [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
+- [Amazon SNS (Simple Notification Service)](/aws-concepts/sns)
 
 <GlossaryCTA />

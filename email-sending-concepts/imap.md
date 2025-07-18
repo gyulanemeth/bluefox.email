@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how IMAP works for email retrieval, its advantages over POP3, and why it's the modern standard for accessing emails across multiple devices."
 ---
+<GlossaryNavigation/>
 
 # IMAP (Internet Message Access Protocol)
 

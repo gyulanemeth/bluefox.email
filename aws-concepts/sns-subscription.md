@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-sns-subscription
+      content: https://bluefox.email/aws-concepts/sns-subscription
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -32,10 +32,10 @@ head:
     - name: twitter:description
       content: AWS SNS Subscriptions connect notification topics to endpoint destinations, enabling automated processing of email events like bounces and complaints in messaging systems.
 ---
-
+<GlossaryNavigation />
 # Amazon SNS Subscription
 
-An **SNS Subscription** is the mechanism that connects a notification [topic](/aws-concepts/aws-sns-topics) to a specific endpoint destination within [Amazon SNS](/aws-concepts/aws-sns). In email delivery systems, AWS SNS subscriptions enable the **automated processing** of important events like [bounces](/email-sending-concepts/bounces), [complaints](/email-sending-concepts/complaints.md), and delivery confirmations.
+An **SNS Subscription** is the mechanism that connects a notification [topic](/aws-concepts/sns-topics) to a specific endpoint destination within [Amazon SNS](/aws-concepts/sns). In email delivery systems, AWS SNS subscriptions enable the **automated processing** of important events like [bounces](/email-sending-concepts/bounces), [complaints](/email-sending-concepts/complaints), and delivery confirmations that impact [deliverability](/email-sending-concepts/deliverability).
 
 ## What is an Amazon SNS Subscription?
 
@@ -106,9 +106,9 @@ If an HTTP/S endpoint consistently fails, the subscription enters a **disabled s
 
 ## Related Content
 
-- [Amazon SNS (Simple Notification Service)](/aws-concepts/aws-sns)
-- [Amazon SNS Topics](/aws-concepts/aws-sns-topics)
-- [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
+- [Amazon SNS (Simple Notification Service)](/aws-concepts/sns)
+- [Amazon SNS Topics](/aws-concepts/sns-topics)
+- [Amazon SES (Simple Email Service)](/aws-concepts/ses)
 - [Bounces](/email-sending-concepts/bounces)
 - [Hard Bounce](/email-sending-concepts/hard-bounce)
 - [Soft Bounce](/email-sending-concepts/soft-bounce)

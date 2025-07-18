@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how POP3 enables email retrieval and when it might be the right choice for your email setup."
 ---
+<GlossaryNavigation/>
 
 # POP3 (Post Office Protocol)
 

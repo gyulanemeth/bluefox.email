@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-iam-role
+      content: https://bluefox.email/aws-concepts/iam-role
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -32,10 +32,11 @@ head:
     - name: twitter:description
       content: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
 ---
+<GlossaryNavigation/>
 
 # AWS IAM Role
 
-An **AWS IAM Role** is an identity that defines permissions for AWS services or users to access resources without using permanent credentials. Roles provide temporary security credentials that expire automatically.
+An **AWS IAM Role** is an identity that defines [permissions](/aws-concepts/iam-permissions.md) for AWS services or users to access resources without using permanent credentials. Roles provide temporary security credentials that expire automatically.
 
 ## What is an AWS IAM Role?
 
@@ -44,6 +45,10 @@ An IAM Role acts as a **secure delegation mechanism** that grants permissions wi
 ## How IAM Roles Work
 
 When an entity assumes a role, the **AWS Security Token Service (STS)** handles the authentication process and provides **temporary security credentials** valid for a configurable duration between 15 minutes (900 seconds) and 12 hours (43200 seconds), as specified in [AWS documentation](https://docs.aws.amazon.com/STS/latest/APIReference/API_AssumeRole.html). These credentials include an access key ID, a secret access key, and a security token that must be included in subsequent AWS API requests. This dynamic credential model eliminates the need to store long-lived access keys in code or configuration files, enhances security through **automatic credential rotation**, implements least privilege principles by granting permissions only when needed, and creates seamless service-to-service authentication without manual intervention. The role assumption process happens invisibly to end users, with services like Lambda or EC2 handling the underlying STS API calls and credential management automatically.
+
+:::tip BlueFox Recommendation
+**STS is our recommended way to connect your AWS SES to BlueFox Email.** Using Security Token Service instead of long-lived access keys provides enhanced security through temporary credentials that automatically expire. This approach eliminates the need to store permanent AWS credentials and follows security best practices by limiting permissions to only what's needed when it's needed. BlueFox Email supports STS integration through a simple Role ARN configuration in project settings.
+:::
 
 ## Common Role Types
 
@@ -60,9 +65,9 @@ These role types form the foundation of AWS's secure access delegation system, e
 
 ## IAM Roles for Email Systems
 
-When building robust email infrastructure with [Amazon SES](/aws-concepts/aws-ses), you'll need several carefully designed **role configurations** to maintain security and operational efficiency:
+When building robust email infrastructure with [Amazon SES](/aws-concepts/ses), you'll need several carefully designed **role configurations** to maintain security and operational efficiency:
 
-- **SES Notification Handler Role**: Allows Lambda functions to process [bounce](/email-sending-concepts/bounces) and [complaint](/email-sending-concepts/complaints) events from [SNS topics](/aws-concepts/aws-sns-topics). Requires permissions to read from specific SNS topics and update suppression lists or database records to maintain list hygiene and deliverability.
+- **SES Notification Handler Role**: Allows Lambda functions to process [bounce](/email-sending-concepts/bounces) and [complaint](/email-sending-concepts/complaints) events from [SNS topics](/aws-concepts/sns-topics). Requires permissions to read from specific SNS topics and update suppression lists or database records to maintain list hygiene and deliverability.
 
 - **Email Sending Role**: Grants applications permission to send emails via SES while enforcing governance through IAM conditions that limit which verified identities can be used as senders. Prevents unauthorized domain usage while enabling legitimate messaging.
 
@@ -92,10 +97,10 @@ Create a role with a trust policy allowing Lambda to assume it, then add permiss
 
 ## Related Content
 
-- [AWS IAM Permissions](/aws-concepts/aws-iam-permissions)
-- [AWS SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns)
-- [AWS Delivery Notifications](/aws-concepts/aws-delivery-notifications)
+- [AWS IAM Permissions](/aws-concepts/iam-permissions)
+- [AWS SES (Simple Email Service)](/aws-concepts/ses)
+- [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
+- [AWS Delivery Notifications](/aws-concepts/ses-delivery-notifications)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 
 <GlossaryCTA />

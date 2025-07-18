@@ -32,8 +32,8 @@ head:
   - - meta
     - name: twitter:description
       content: SPF is an email authentication method that specifies which mail servers are authorized to send emails on behalf of your domain, helping prevent email spoofing and improving deliverability.
-
 ---
+<GlossaryNavigation/>
 
 # SPF (Sender Policy Framework)
 
@@ -45,9 +45,9 @@ For those sending emails at scale, whether for marketing, transactional communic
 
 ## What is SPF?
 
-This framework enables domain owners to **specify which mail servers are authorized** to send emails on their behalf. 
+This framework enables domain owners to **specify which mail servers are authorized** to send emails on their behalf.
 
-This authorization information is stored in the domain's **[DNS](/email-sending-concepts/dns) settings as a [TXT record](/email-sending-concepts/txt-record)**. When an email is received from your domain, the recipient's email system verifies the SPF record to ensure that the sending server is permitted. 
+This authorization information is stored in the domain's **[DNS](/email-sending-concepts/dns) settings as a [TXT record](/email-sending-concepts/txt-record)**. When an email is received from your domain, the recipient's email system verifies the SPF record to ensure that the sending server is permitted.
 
 In the absence of proper authentication, unauthorized individuals could send emails impersonating your domain, a common method employed in [phishing attacks](/email-sending-concepts/email-spoofing). Implementing proper verification clarifies the legitimate entities authorized to represent your brand through email communications.
 
@@ -69,7 +69,7 @@ Let's break it down:
 - `include:_spf.google.com`: Permits Google Workspace servers.
 - `~all`: Applies a soft fail for any sources not listed.
 
-This configuration functions like a **guest list**. If a sending server is not included, the receiving server can choose to accept, flag, or reject the message. Proper SPF setup enhances email deliverability and protects your domain from misuse.
+This configuration functions like a **guest list**. If a sending server is not included, the receiving server can choose to accept, flag, or reject the message. Proper SPF setup enhances email [deliverability](/email-sending-concepts/deliverability) and protects your domain from misuse.
 
 ## Why is SPF Important?
 
@@ -84,26 +84,31 @@ In summary, SPF fosters trust with email providers, protects your audience from 
 ## Frequently Asked Questions About SPF
 
 ### What is the main purpose of SPF?
+
 SPF (Sender Policy Framework) helps prevent spoofing by specifying which mail servers are allowed to send emails on behalf of your domain.
 
 ### Does SPF protect the "From" address?
+
 No. SPF checks the return-path (envelope sender), not the visible From address seen by recipients.
 
 ### What happens if SPF fails?
+
 If SPF fails, the receiving server may mark the message as spam, reject it, or ignore the result depending on its local policy and [DMARC](/email-sending-concepts/dmarc) settings.
 
 ### Can SPF break email forwarding?
+
 Yes. When an email is forwarded, the forwarder's IP may not be authorized in the original domain's SPF record, causing SPF to fail unless SRS (Sender Rewriting Scheme) is used.
 
 ## Related Content
+
 :::tip Practical Guide
 **[How SPF, DKIM, and DMARC Actually Work (With Real Examples)](/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples)** — Learn how to verify SPF records with the `dig` command and understand how they're checked in real email scenarios.
 :::
 
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)
-- [Email Authentication](/email-sending-concepts/email-authentication)  
-- [Email Spoofing](/email-sending-concepts/email-spoofing)  
+- [Email Authentication](/email-sending-concepts/email-authentication)
+- [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [Return Path](/email-sending-concepts/return-path)
 
 <GlossaryCTA />

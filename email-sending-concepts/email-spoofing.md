@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how email spoofing works and what defenses are available to protect your organization and customers."
 ---
+<GlossaryNavigation/>
 
 # Email Spoofing
 
