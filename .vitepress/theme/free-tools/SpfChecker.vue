@@ -1,3 +1,173 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+
+// === Config/Globals ===
+const API_URL = import.meta.env.VITE_TOOLS_API_URL
+if (!API_URL) {
+  throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
+}
+const ERROR_MSG = {
+  apiConfig: 'API URL not configured. Please set VITE_TOOLS_API_URL in your environment.',
+  connect: 'Cannot connect to the server. Please make sure the backend is running.',
+  endpoint: 'API endpoint not found. Please check the server configuration.',
+  server: 'Server error occurred. Please try again later.',
+  default: 'Failed to check SPF. Please try again.',
+  captchaFirst: 'Please load the captcha first',
+  captchaPrompt: 'Please enter the captcha text'
+}
+
+// === State ===
+const domain = ref('')
+const captchaText = ref('')
+const captchaImage = ref(null)
+const captchaProbe = ref(null)
+const captchaLoading = ref(false)
+const result = ref(null)
+const error = ref(null)
+const loading = ref(false)
+
+// === Captcha Handling ===
+async function loadCaptcha() {
+  captchaLoading.value = true
+  error.value = null
+  try {
+    const response = await fetch(`${API_URL}/v1/captcha/generate`)
+    if (!response.ok) {
+      throw new Error(`Failed to load captcha: ${response.status}`)
+    }
+    const data = await response.json()
+    if (data.result && data.result.success && data.result.captcha) {
+      captchaImage.value = data.result.captcha.image
+      captchaProbe.value = data.result.captcha.probe
+      captchaText.value = ''
+    } else {
+      throw new Error('Invalid captcha response from server')
+    }
+  } catch (err) {
+    error.value = `Failed to load captcha: ${err.message}`
+    captchaImage.value = null
+    captchaProbe.value = null
+    captchaText.value = ''
+  } finally {
+    captchaLoading.value = false
+  }
+}
+const refreshCaptcha = loadCaptcha
+
+// === API Error Handler ===
+function handleApiError(err) {
+  const msg = err?.message || ERROR_MSG.default
+  if (msg.toLowerCase().includes('captcha')) {
+    loadCaptcha()
+    error.value = msg + ' Please try again with the new captcha.'
+  } else if (msg.includes('fetch')) {
+    error.value = ERROR_MSG.connect
+  } else if (msg.includes('404')) {
+    error.value = ERROR_MSG.endpoint
+  } else if (msg.includes('500')) {
+    error.value = ERROR_MSG.server
+  } else {
+    error.value = msg
+  }
+}
+
+// === SPF CHECK ===
+async function checkSpf() {
+  error.value = null
+  result.value = null
+
+  if (!captchaProbe.value) {
+    error.value = ERROR_MSG.captchaFirst
+    return
+  }
+  if (!captchaText.value.trim()) {
+    error.value = ERROR_MSG.captchaPrompt
+    return
+  }
+  loading.value = true
+
+  try {
+    const response = await fetch(`${API_URL}/v1/analyze-spf`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        domain: domain.value,
+        captchaText: captchaText.value,
+        captchaProbe: captchaProbe.value
+      })
+    })
+
+    if (!response.ok) {
+      let errorMessage = `HTTP error! status: ${response.status}`
+      try {
+        const errorData = await response.json()
+        errorMessage = errorData.result?.error || errorData.error || errorData.message || errorMessage
+      } catch {}
+      throw new Error(errorMessage)
+    }
+
+    const data = await response.json()
+    const resultData = data.result || data
+    if (!resultData.success && resultData.error) {
+      if (resultData.error.toLowerCase().includes('captcha')) {
+        await refreshCaptcha()
+        captchaText.value = ''
+      }
+      throw new Error(resultData.error)
+    }
+
+    result.value = {
+      valid: resultData.success || false,
+      domain: resultData.domain || domain.value,
+      record: resultData.rawRecord || resultData.record || 'Not found',
+      lookups: resultData.lookups,
+      policy: resultData.policy,
+      mechanisms: resultData.mechanisms || [],
+      errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
+      warnings: resultData.warnings || [],
+      recommendations: resultData.recommendations || [],
+      mailauthResult: resultData.mailauthResult,
+      ipTestResults: resultData.ipTestResults || []
+    }
+    await refreshCaptcha()
+  } catch (err) {
+    handleApiError(err)
+  } finally {
+    loading.value = false
+  }
+}
+
+// Util: Result styling for IP test cards
+function getIpResultClass(result) {
+  let resultStr = ''
+  if (typeof result === 'string') resultStr = result
+  else if (result && typeof result === 'object' && result.result) resultStr = result.result
+  else if (result && typeof result === 'object' && result.status) resultStr = result.status
+  else resultStr = String(result || 'unknown')
+
+  switch (resultStr.toLowerCase()) {
+    case 'pass': return 'result-pass'
+    case 'fail': return 'result-fail'
+    case 'softfail': return 'result-softfail'
+    case 'neutral': return 'result-neutral'
+    case 'permerror':
+    case 'temperror': return 'result-error'
+    default: return 'result-unknown'
+  }
+}
+
+function getDisplayResult(result) {
+  let resultStr = ''
+  if (typeof result === 'string') resultStr = result
+  else if (result && typeof result === 'object' && result.result) resultStr = result.result
+  else if (result && typeof result === 'object' && result.status) resultStr = result.status
+  else resultStr = String(result || 'unknown')
+  return resultStr.toUpperCase()
+}
+
+onMounted(loadCaptcha)
+</script>
+
 <template>
   <div class="spf-checker">
     <div class="tool-form">
@@ -8,7 +178,7 @@
             type="text" 
             id="domain"
             name="domain"
-            v-model="formData.domain" 
+            v-model="domain" 
             placeholder="example.com"
             required
             :disabled="loading"
@@ -20,12 +190,12 @@
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
-              <div v-if="captcha.loading" class="captcha-loading">
+              <div v-if="captchaLoading" class="captcha-loading">
                 Loading captcha...
               </div>
-              <div v-else-if="captcha.image" 
+              <div v-else-if="captchaImage" 
                    class="captcha-image" 
-                   v-html="captcha.image">
+                   v-html="captchaImage">
               </div>
               <div v-else class="captcha-placeholder">
                 <button type="button" @click="loadCaptcha" class="load-captcha-btn">
@@ -36,7 +206,7 @@
             <button type="button" 
                     @click="refreshCaptcha" 
                     class="refresh-captcha-btn"
-                    :disabled="captcha.loading"
+                    :disabled="captchaLoading"
                     title="Refresh captcha">
               🔄
             </button>
@@ -45,17 +215,17 @@
             type="text" 
             id="captcha"
             name="captcha"
-            v-model="formData.captchaText" 
+            v-model="captchaText" 
             placeholder="Enter the text from the image above"
             required
-            :disabled="loading || !captcha.image"
+            :disabled="loading || !captchaImage"
             autocomplete="off"
             class="captcha-input"
           />
           <small class="captcha-help">Enter the characters shown in the image above</small>
         </div>
 
-        <button type="submit" :disabled="loading || !captcha.image || !formData.captchaText" class="check-btn">
+        <button type="submit" :disabled="loading || !captchaImage || !captchaText" class="check-btn">
           {{ loading ? 'Checking...' : 'Check SPF' }}
         </button>
       </form>
@@ -72,7 +242,6 @@
         <div v-else>
           <p><strong>✗ SPF Record Missing or Invalid</strong></p>
         </div>
-        
         <div v-if="result.score">
           <p><strong>Security Score:</strong> {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})</p>
         </div>
@@ -164,154 +333,6 @@
   </div>
 </template>
 
-<script setup>
-import { ref, reactive, onMounted } from 'vue'
-
-const formData = reactive({
-  domain: '',
-  captchaText: ''
-})
-
-const captcha = reactive({
-  image: null,
-  probe: null,
-  loading: false
-})
-
-const result = ref(null)
-const error = ref(null)
-const loading = ref(false)
-
-const loadCaptcha = async () => {
-  captcha.loading = true
-  error.value = null
-
-  try {
-    const apiUrl = import.meta.env.VITE_TOOLS_API_URL
-    if (!apiUrl) throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
-
-    const response = await fetch(`${apiUrl}/v1/captcha/generate`)
-    if (!response.ok) throw new Error(`Failed to load captcha: ${response.status}`)
-
-    const data = await response.json()
-    if (data.result && data.result.success && data.result.captcha) {
-      captcha.image = data.result.captcha.image
-      captcha.probe = data.result.captcha.probe
-      formData.captchaText = ''
-    } else {
-      throw new Error('Invalid captcha response from server')
-    }
-  } catch (err) {
-    error.value = `Failed to load captcha: ${err.message}`
-  } finally {
-    captcha.loading = false
-  }
-}
-
-const refreshCaptcha = async () => {
-  await loadCaptcha()
-}
-
-const checkSpf = async () => {
-  if (!captcha.probe) {
-    error.value = 'Please load the captcha first'
-    return
-  }
-  if (!formData.captchaText.trim()) {
-    error.value = 'Please enter the captcha text'
-    return
-  }
-  loading.value = true
-  error.value = null
-  result.value = null
-
-  try {
-    const apiUrl = import.meta.env.VITE_TOOLS_API_URL
-    if (!apiUrl) throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
-
-    const response = await fetch(`${apiUrl}/v1/analyze-spf`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        domain: formData.domain,
-        captchaText: formData.captchaText,
-        captchaProbe: captcha.probe
-      })
-    })
-
-    if (!response.ok) {
-      let errorMessage = `HTTP error! status: ${response.status}`
-      try {
-        const errorData = await response.json()
-        errorMessage = errorData.result?.error || errorData.error || errorData.message || errorMessage
-      } catch {}
-      throw new Error(errorMessage)
-    }
-
-    const data = await response.json()
-    const resultData = data.result || data
-    if (!resultData.success && resultData.error) {
-      if (resultData.error.toLowerCase().includes('captcha')) await refreshCaptcha()
-      throw new Error(resultData.error)
-    }
-
-    result.value = {
-      valid: resultData.success || false,
-      domain: resultData.domain || formData.domain,
-      record: resultData.rawRecord || resultData.record || 'Not found',
-      lookups: resultData.lookups,
-      policy: resultData.policy,
-      mechanisms: resultData.mechanisms || [],
-      errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
-      warnings: resultData.warnings || [],
-      recommendations: resultData.recommendations || [],
-      mailauthResult: resultData.mailauthResult,
-      ipTestResults: resultData.ipTestResults || []
-    }
-    await refreshCaptcha()
-  } catch (err) {
-    error.value = err?.message || 'Failed to check SPF. Please try again.'
-    if (err.message?.includes('fetch')) error.value = 'Cannot connect to the server. Please make sure the backend is running.'
-    else if (err.message?.includes('404')) error.value = 'API endpoint not found. Please check the server configuration.'
-    else if (err.message?.includes('500')) error.value = 'Server error occurred. Please try again later.'
-    else if (err.message?.toLowerCase().includes('captcha')) error.value = err.message + ' Please try again with the new captcha.'
-  } finally {
-    loading.value = false
-  }
-}
-
-// Util: Result styling for IP test cards
-function getIpResultClass(result) {
-  let resultStr = ''
-  if (typeof result === 'string') resultStr = result
-  else if (result && typeof result === 'object' && result.result) resultStr = result.result
-  else if (result && typeof result === 'object' && result.status) resultStr = result.status
-  else resultStr = String(result || 'unknown')
-
-  switch (resultStr.toLowerCase()) {
-    case 'pass': return 'result-pass'
-    case 'fail': return 'result-fail'
-    case 'softfail': return 'result-softfail'
-    case 'neutral': return 'result-neutral'
-    case 'permerror':
-    case 'temperror': return 'result-error'
-    default: return 'result-unknown'
-  }
-}
-
-function getDisplayResult(result) {
-  let resultStr = ''
-  if (typeof result === 'string') resultStr = result
-  else if (result && typeof result === 'object' && result.result) resultStr = result.result
-  else if (result && typeof result === 'object' && result.status) resultStr = result.status
-  else resultStr = String(result || 'unknown')
-  return resultStr.toUpperCase()
-}
-
-onMounted(() => {
-  loadCaptcha()
-})
-</script>
 
 <style scoped>
 .spf-checker {

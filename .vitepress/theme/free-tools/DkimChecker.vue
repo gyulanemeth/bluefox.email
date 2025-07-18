@@ -1,3 +1,174 @@
+<script setup>
+import { ref, onMounted } from 'vue'
+
+// === CONSTANTS ===
+const API_URL = import.meta.env.VITE_TOOLS_API_URL
+const DEFAULT_SELECTOR = 'default'
+
+const ERROR_MSG = {
+  apiConfig: 'API URL not configured. Please set VITE_TOOLS_API_URL in your environment.',
+  captchaFirst: 'Please load the captcha first.',
+  captchaPrompt: 'Please enter the captcha text.'
+}
+
+const errorMsgs = {
+  connect: 'Cannot connect to the server. Please make sure the backend is running.',
+  endpoint: 'API endpoint not found. Please check the server configuration.',
+  server: 'Server error occurred. Please try again later.'
+}
+
+// === STATE ===
+const domain = ref('')
+const selector = ref(DEFAULT_SELECTOR)
+const captchaText = ref('')
+const captchaImage = ref(null)
+const captchaProbe = ref(null)
+const captchaLoading = ref(false)
+const loading = ref(false)
+const error = ref(null)
+const result = ref(null)
+
+// === HELPERS ===
+function validateInputs() {
+  if (!captchaProbe.value) {
+    return ERROR_MSG.captchaFirst
+  }
+  if (!captchaText.value.trim()) {
+    return ERROR_MSG.captchaPrompt
+  }
+  if (!API_URL) {
+    return ERROR_MSG.apiConfig
+  }
+  return null
+}
+
+async function callDkimApi() {
+  const response = await fetch(`${API_URL}/v1/analyze-dkim`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      domain: domain.value,
+      selector: selector.value || DEFAULT_SELECTOR,
+      captchaText: captchaText.value,
+      captchaProbe: captchaProbe.value
+    })
+  })
+  let json
+  try {
+    json = await response.json()
+  } catch {
+    throw new Error(`HTTP error! status: ${response.status}`)
+  }
+  if (!response.ok) {
+    throw new Error(json.error || json.message || `HTTP error! status: ${response.status}`)
+  }
+  return json.result || json
+}
+
+function mapDkimResult(resultData) {
+  return {
+    valid: resultData.success || false,
+    domain: resultData.domain || domain.value,
+    selector: resultData.selector || selector.value,
+    record: resultData.rawRecord || resultData.record || 'Not found',
+    checkedRecord: resultData.checkedRecord,
+    errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
+    score: resultData.score,
+    warnings: resultData.warnings || [],
+    recommendations: resultData.recommendations || [],
+    mailauthResult: resultData.mailauthRecord || resultData.mailauthResult
+  }
+}
+
+async function handleDkimApiErrors(resultData) {
+  if (!resultData.success && resultData.error) {
+    if (resultData.error.toLowerCase().includes('captcha')) {
+      await refreshCaptcha()
+      captchaText.value = ''
+    }
+    throw new Error(resultData.error)
+  }
+}
+
+function handleApiError(msg) {
+  if (msg.includes('fetch')) {
+    return errorMsgs.connect
+  }
+  if (msg.includes('404')) {
+    return errorMsgs.endpoint
+  }
+  if (msg.includes('500')) {
+    return errorMsgs.server
+  }
+  if (msg.toLowerCase().includes('captcha')) {
+    return msg + ' Please try again with the new captcha.'
+  }
+  return msg
+}
+
+// === CAPTCHA ===
+async function loadCaptcha() {
+  captchaLoading.value = true
+  error.value = null
+  try {
+    if (!API_URL) {
+      throw new Error(ERROR_MSG.apiConfig)
+    }
+    const response = await fetch(`${API_URL}/v1/captcha/generate`)
+    if (!response.ok) {
+      throw new Error(`Failed to load captcha: ${response.status}`)
+    }
+    const data = await response.json()
+    if (data.result && data.result.success && data.result.captcha) {
+      captchaImage.value = data.result.captcha.image
+      captchaProbe.value = data.result.captcha.probe
+      captchaText.value = ''
+    } else {
+      throw new Error('Invalid captcha response from server')
+    }
+  } catch (err) {
+    error.value = `Failed to load captcha: ${err.message}`
+  } finally {
+    captchaLoading.value = false
+  }
+}
+
+async function refreshCaptcha() {
+  await loadCaptcha()
+}
+
+// === DKIM CHECK ===
+async function checkDkim() {
+  error.value = null
+  result.value = null
+  loading.value = true
+
+  const validationError = validateInputs()
+  if (validationError) {
+    error.value = validationError
+    loading.value = false
+    return
+  }
+
+  try {
+    const resultData = await callDkimApi()
+    await handleDkimApiErrors(resultData)
+    result.value = mapDkimResult(resultData)
+    await refreshCaptcha()
+  } catch (err) {
+    const msg = err?.message || 'Failed to check DKIM. Please try again.'
+    error.value = handleApiError(msg)
+  } finally {
+    loading.value = false
+  }
+}
+
+// === INIT ===
+onMounted(() => {
+  loadCaptcha()
+})
+</script>
+
 <template>
   <div class="dkim-checker">
     <div class="tool-form">
@@ -5,10 +176,10 @@
         <div class="form-group">
           <label for="domain">Domain:</label>
           <input 
-            type="text" 
+            type="text"
             id="domain"
             name="domain"
-            v-model="formData.domain" 
+            v-model="domain"
             placeholder="example.com"
             required
             :disabled="loading"
@@ -17,15 +188,17 @@
 
         <div class="form-group">
           <label for="selector">DKIM Selector:</label>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="selector"
             name="selector"
-            v-model="formData.selector" 
+            v-model="selector"
             placeholder="default, google, mail, etc."
             :disabled="loading"
           />
-          <small class="help-text">Common selectors: default, google, mail, dkim, selector1, selector2</small>
+          <small class="help-text">
+            Common selectors: default, google, mail, dkim, selector1, selector2
+          </small>
         </div>
 
         <!-- Captcha Section -->
@@ -33,12 +206,12 @@
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
-              <div v-if="captcha.loading" class="captcha-loading">
+              <div v-if="captchaLoading" class="captcha-loading">
                 Loading captcha...
               </div>
-              <div v-else-if="captcha.image" 
-                   class="captcha-image" 
-                   v-html="captcha.image">
+              <div v-else-if="captchaImage"
+                   class="captcha-image"
+                   v-html="captchaImage">
               </div>
               <div v-else class="captcha-placeholder">
                 <button type="button" @click="loadCaptcha" class="load-captcha-btn">
@@ -46,29 +219,29 @@
                 </button>
               </div>
             </div>
-            <button type="button" 
-                    @click="refreshCaptcha" 
+            <button type="button"
+                    @click="refreshCaptcha"
                     class="refresh-captcha-btn"
-                    :disabled="captcha.loading"
+                    :disabled="captchaLoading"
                     title="Refresh captcha">
               🔄
             </button>
           </div>
-          <input 
-            type="text" 
+          <input
+            type="text"
             id="captcha"
             name="captcha"
-            v-model="formData.captchaText" 
+            v-model="captchaText"
             placeholder="Enter the text from the image above"
             required
-            :disabled="loading || !captcha.image"
+            :disabled="loading || !captchaImage"
             autocomplete="off"
             class="captcha-input"
           />
           <small class="captcha-help">Enter the characters shown in the image above</small>
         </div>
 
-        <button type="submit" :disabled="loading || !captcha.image || !formData.captchaText" class="check-btn">
+        <button type="submit" :disabled="loading || !captchaImage || !captchaText" class="check-btn">
           {{ loading ? 'Checking...' : 'Check DKIM' }}
         </button>
       </form>
@@ -76,7 +249,7 @@
 
     <div v-if="result" class="result-section">
       <h3>DKIM Check Results</h3>
-      
+
       <!-- Status -->
       <div class="status-box">
         <div v-if="result.valid">
@@ -85,9 +258,11 @@
         <div v-else>
           <p><strong>✗ DKIM Record Missing or Invalid</strong></p>
         </div>
-        
         <div v-if="result.score">
-          <p><strong>Security Score:</strong> {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})</p>
+          <p>
+            <strong>Security Score:</strong>
+            {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
+          </p>
         </div>
       </div>
 
@@ -99,7 +274,6 @@
         <p v-if="result.checkedRecord"><strong>Checked Record:</strong> {{ result.checkedRecord }}</p>
         <p><strong>DKIM Record:</strong> {{ result.record || 'Not found' }}</p>
 
-        <!-- Enhanced Mailauth Information -->
         <div v-if="result.mailauthResult && result.mailauthResult.headers" class="mailauth-section">
           <h5>Email Authentication Analysis</h5>
           <div class="authentication-results">
@@ -108,7 +282,6 @@
         </div>
       </div>
 
-      <!-- DKIM Key Information -->
       <div v-if="result.valid && result.record" class="key-info-section">
         <h4>DKIM Key Information</h4>
         <div class="key-details">
@@ -121,7 +294,6 @@
         </div>
       </div>
 
-      <!-- Warnings -->
       <div v-if="result.warnings && result.warnings.length" class="warnings-section">
         <h4>⚠️ Warnings</h4>
         <ul>
@@ -129,15 +301,13 @@
         </ul>
       </div>
 
-      <!-- Recommendations -->
       <div v-if="result.recommendations && result.recommendations.length" class="recommendations-section">
         <h4>💡 Recommendations</h4>
         <ul>
           <li v-for="recommendation in result.recommendations" :key="recommendation">{{ recommendation }}</li>
         </ul>
       </div>
-      
-      <!-- Errors -->
+
       <div v-if="result.errors && result.errors.length" class="errors-section">
         <h4>Errors</h4>
         <ul>
@@ -151,128 +321,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, reactive, onMounted } from 'vue'
-
-const formData = reactive({
-  domain: '',
-  selector: 'default',
-  captchaText: ''
-})
-
-const captcha = reactive({
-  image: null,
-  probe: null,
-  loading: false
-})
-
-const result = ref(null)
-const error = ref(null)
-const loading = ref(false)
-
-const loadCaptcha = async () => {
-  captcha.loading = true
-  error.value = null
-
-  try {
-    const apiUrl = import.meta.env.VITE_TOOLS_API_URL
-    if (!apiUrl) throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
-
-    const response = await fetch(`${apiUrl}/v1/captcha/generate`)
-    if (!response.ok) throw new Error(`Failed to load captcha: ${response.status}`)
-
-    const data = await response.json()
-    if (data.result && data.result.success && data.result.captcha) {
-      captcha.image = data.result.captcha.image
-      captcha.probe = data.result.captcha.probe
-      formData.captchaText = ''
-    } else {
-      throw new Error('Invalid captcha response from server')
-    }
-  } catch (err) {
-    error.value = `Failed to load captcha: ${err.message}`
-  } finally {
-    captcha.loading = false
-  }
-}
-
-const refreshCaptcha = async () => {
-  await loadCaptcha()
-}
-
-const checkDkim = async () => {
-  if (!captcha.probe) {
-    error.value = 'Please load the captcha first'
-    return
-  }
-  if (!formData.captchaText.trim()) {
-    error.value = 'Please enter the captcha text'
-    return
-  }
-  loading.value = true
-  error.value = null
-  result.value = null
-
-  try {
-    const apiUrl = import.meta.env.VITE_TOOLS_API_URL
-    if (!apiUrl) throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
-
-    const response = await fetch(`${apiUrl}/v1/analyze-dkim`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        domain: formData.domain,
-        selector: formData.selector || 'default',
-        captchaText: formData.captchaText,
-        captchaProbe: captcha.probe
-      })
-    })
-
-    if (!response.ok) {
-      let errorMessage = `HTTP error! status: ${response.status}`
-      try {
-        const errorData = await response.json()
-        errorMessage = errorData.error || errorData.message || errorMessage
-      } catch {}
-      throw new Error(errorMessage)
-    }
-
-    const data = await response.json()
-    const resultData = data.result || data
-    if (!resultData.success && resultData.error) {
-      if (resultData.error.toLowerCase().includes('captcha')) await refreshCaptcha()
-      throw new Error(resultData.error)
-    }
-
-    result.value = {
-      valid: resultData.success || false,
-      domain: resultData.domain || formData.domain,
-      selector: resultData.selector || formData.selector,
-      record: resultData.rawRecord || resultData.record || 'Not found',
-      checkedRecord: resultData.checkedRecord,
-      errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
-      score: resultData.score,
-      warnings: resultData.warnings || [],
-      recommendations: resultData.recommendations || [],
-      mailauthResult: resultData.mailauthRecord || resultData.mailauthResult
-    }
-    await refreshCaptcha()
-  } catch (err) {
-    error.value = err?.message || 'Failed to check DKIM. Please try again.'
-    if (err.message?.includes('fetch')) error.value = 'Cannot connect to the server. Please make sure the backend is running.'
-    else if (err.message?.includes('404')) error.value = 'API endpoint not found. Please check the server configuration.'
-    else if (err.message?.includes('500')) error.value = 'Server error occurred. Please try again later.'
-    else if (err.message?.toLowerCase().includes('captcha')) error.value = err.message + ' Please try again with the new captcha.'
-  } finally {
-    loading.value = false
-  }
-}
-
-onMounted(() => {
-  loadCaptcha()
-})
-</script>
 
 <style scoped>
 .dkim-checker {
