@@ -57,15 +57,15 @@ Amazon SES supports two types of verified identities, each with distinct charact
 
 AWS SES assigns each verified identity a status indicator that reflects its verification state in the system. These statuses include **Pending** (verification requested but not completed), **Verified** (successfully confirmed and ready for sending), **Failed** (unsuccessful verification due to issues like incorrect DNS configuration), and **Temporary Failure** (temporary issues that may resolve automatically without user intervention).
 
-The identity management system provides comprehensive tools to oversee your sending capabilities, including **verification status** tracking across all identities, sending authorization configuration for **third-party AWS accounts**, notification setup for handling [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and delivery events, and implementation of [sending policies](/aws-concepts/aws-delivery-policy.md) that determine which services can utilize your verified identities.
+The identity management system provides comprehensive tools to oversee your sending capabilities, including **verification status** tracking across all identities, sending authorization configuration for **third-party AWS accounts**, notification setup for handling [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and delivery events, and implementation of [sending policies](/aws-concepts/sns-delivery-policy.md) that determine which services can utilize your verified identities.
 
 ## Verified Identities in Sandbox Mode
 
-In [AWS SES sandbox mode](/aws-concepts/aws-sandbox), verified identities operate under specific restrictions: emails can only be sent to other verified addresses or domains, [sending quotas](/aws-concepts/aws-sending-quota) are capped at **200 emails per 24-hour period**, and [sending rates](/aws-concepts/aws-sending-rate) are limited to **1 email per second**. While these constraints are lifted once you obtain [production access](/aws-concepts/aws-production-mode), the fundamental requirement to send only from properly verified identities remains permanent regardless of account status.
+In [AWS SES sandbox mode](/aws-concepts/ses-sandbox), verified identities operate under specific restrictions: emails can only be sent to other verified addresses or domains, [sending quotas](/aws-concepts/ses-sending-quota) are capped at **200 emails per 24-hour period**, and [sending rates](/aws-concepts/ses-sending-rate) are limited to **1 email per second**. While these constraints are lifted once you obtain [production access](/aws-concepts/ses-production-access), the fundamental requirement to send only from properly verified identities remains permanent regardless of account status.
 
 ## Configuring Feedback Notifications
 
-Verified identities function as integration points for critical email feedback loops, allowing you to configure **bounce notifications** (alerts for undeliverable emails), **complaint notifications** (alerts when recipients mark messages as spam), and **delivery notifications** (confirmations of successful delivery) for each identity. These notifications are routed to [Amazon SNS topics](/aws-concepts/aws-sns-topics) where you can process them programmatically to maintain list hygiene and sender reputation, with the [AWS SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/monitor-sending-activity.html) emphasizing that proper handling of these feedback mechanisms is fundamental to achieving optimal deliverability rates and maintaining trusted sender status.
+Verified identities function as integration points for critical email feedback loops, allowing you to configure **bounce notifications** (alerts for undeliverable emails), **complaint notifications** (alerts when recipients mark messages as spam), and **delivery notifications** (confirmations of successful delivery) for each identity. These notifications are routed to [Amazon SNS topics](/aws-concepts/sns-topics) where you can process them programmatically to maintain list hygiene and sender reputation, with the [AWS SES Developer Guide](https://docs.aws.amazon.com/ses/latest/dg/monitor-sending-activity.html) emphasizing that proper handling of these feedback mechanisms is fundamental to achieving optimal deliverability rates and maintaining trusted sender status.
 
 ## Frequently Asked Questions About Verified Identities
 
@@ -83,11 +83,11 @@ Yes, you can delete a verified identity at any time through the SES console or A
 
 ## Related Content
 
-- [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS SES Sandbox Mode](/aws-concepts/aws-sandbox)
-- [AWS SES Production Mode](/aws-concepts/aws-production-mode)
-- [AWS SES Sending Quotas](/aws-concepts/aws-sending-quota)
-- [AWS SNS Topics](/aws-concepts/aws-sns-topics)
+- [Amazon SES (Simple Email Service)](/aws-concepts/ses)
+- [AWS SES Sandbox Mode](/aws-concepts/ses-sandbox)
+- [AWS SES Production Mode](/aws-concepts/ses-production-access)
+- [AWS SES Sending Quotas](/aws-concepts/ses-sending-quota)
+- [AWS SNS Topics](/aws-concepts/sns-topics)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 
