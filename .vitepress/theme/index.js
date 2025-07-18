@@ -25,6 +25,13 @@ import GlossaryCTA from './GlossaryCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
 
+import DkimChecker from './free-tools/DkimChecker.vue'
+import DmarcChecker from './free-tools/DmarcChecker.vue'
+import SpfChecker from './free-tools/SpfChecker.vue'
+import MxChecker from './free-tools/MxChecker.vue'
+import DmarcReportAnalyzer from './free-tools/DmarcReportAnalyzer.vue'
+
+
 export default {
   extends: Theme,
   Layout: () => {
@@ -72,5 +79,10 @@ export default {
     app.component('GlossaryCTA', GlossaryCTA)
     app.component('GlossaryNavigation', GlossaryNavigation)
     app.component('CustomFooter', CustomFooter)
+    app.component('DkimChecker', DkimChecker)
+    app.component('DmarcChecker', DmarcChecker)
+    app.component('SpfChecker', SpfChecker)
+    app.component('MxChecker', MxChecker)
+    app.component('DmarcReportAnalyzer', DmarcReportAnalyzer)
   },
 }
