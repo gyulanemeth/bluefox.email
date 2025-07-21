@@ -66,6 +66,13 @@ enabling secure access management.
 
 [Read more](/aws-concepts/ses)
 
+### SES Verified Identities
+
+**AWS SES Verified Identities** are domains or email addresses that you've proven ownership of and are authorized to send emails from using Amazon SES. Verification is essential for sender authenticity and preventing spoofing or abuse.
+
+[Read more](/aws-concepts/ses-verified-identity.md)
+
+
 ### SES Production Access
 
 **Amazon SES Production Access** is the unrestricted operational state for AWS SES accounts that removes sandbox limitations and enables sending to any recipient with higher volume capabilities.
