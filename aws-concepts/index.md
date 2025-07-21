@@ -66,6 +66,12 @@ enabling secure access management.
 
 [Read more](/aws-concepts/ses)
 
+### SES Raw Email Sending
+
+**Amazon SES Raw Email Sending** is an advanced method that lets you send fully customized emails, including complex MIME content, attachments, and custom headers, giving you complete control over the email format.
+
+[Read more](/aws-concepts/ses-raw-email-sending)
+
 ### SES Verified Identities
 
 **AWS SES Verified Identities** are domains or email addresses that you've proven ownership of and are authorized to send emails from using Amazon SES. Verification is essential for sender authenticity and preventing spoofing or abuse.
