@@ -57,7 +57,7 @@ Email receivers calculate domain reputation by continuously monitoring key metri
 
 ## Why is Domain Reputation Important?
 
-Domain reputation has become the **cornerstone of email deliverability** because it provides a more persistent and comprehensive view of sender trustworthiness than IP-based metrics alone. Domain reputation follows your brand across different email sending platforms, giving mailbox providers a consistent way to evaluate your sending practices even when you change ESPs or use multiple sending services like [AWS SES](/aws-concepts/aws-ses). It's increasingly weighted more heavily than IP reputation in filtering decisions by major mailbox providers, especially as shared IP sending becomes more common. Additionally, domain reputation is more difficult to manipulate or reset than IP reputation, encouraging long-term adherence to best practices rather than short-term fixes.
+Domain reputation has become the **cornerstone of email deliverability** because it provides a more persistent and comprehensive view of sender trustworthiness than IP-based metrics alone. Domain reputation follows your brand across different email sending platforms, giving mailbox providers a consistent way to evaluate your sending practices even when you change ESPs or use multiple sending services like [AWS SES](/aws-concepts/ses). It's increasingly weighted more heavily than IP reputation in filtering decisions by major mailbox providers, especially as shared IP sending becomes more common. Additionally, domain reputation is more difficult to manipulate or reset than IP reputation, encouraging long-term adherence to best practices rather than short-term fixes.
 
 ## Building and Maintaining Domain Reputation
 

@@ -43,7 +43,7 @@ Bulk email sending is the process of dispatching **identical or personalized mes
 
 ## How Bulk Email Sending Works
 
-The bulk email sending process is a streamlined workflow that begins with careful list management and hygiene to ensure compliance with regulations like GDPR. Content is then prepared with optional personalization elements before configuring the sending infrastructure, typically an ESP or [Amazon SES](/aws-concepts/aws-ses), with proper authentication ([SPF](/email-sending-concepts/spf), [DKIM](/email-sending-concepts/dkim), [DMARC](/email-sending-concepts/dmarc)). During dispatch, the system manages sending volumes according to [rate limits](/aws-concepts/aws-sending-rate) and [quotas](/aws-concepts/aws-sending-quota) to maintain sender reputation. Finally, comprehensive feedback data on opens, clicks, [bounces](/email-sending-concepts/bounces), and [complaints](/email-sending-concepts/complaints) is collected to optimize future campaigns.
+The bulk email sending process is a streamlined workflow that begins with careful list management and hygiene to ensure compliance with regulations like GDPR. Content is then prepared with optional personalization elements before configuring the sending infrastructure, typically an ESP or [Amazon SES](/aws-concepts/ses), with proper authentication ([SPF](/email-sending-concepts/spf), [DKIM](/email-sending-concepts/dkim), [DMARC](/email-sending-concepts/dmarc)). During dispatch, the system manages sending volumes according to [rate limits](/aws-concepts/ses-sending-rate) and [quotas](/aws-concepts/ses-sending-quota) to maintain sender reputation. Finally, comprehensive feedback data on opens, clicks, [bounces](/email-sending-concepts/bounces), and [complaints](/email-sending-concepts/complaints) is collected to optimize future campaigns.
 
 ## Best Practices for Bulk Email Sending
 
@@ -89,7 +89,7 @@ Yes, when done in compliance with applicable regulations such as CAN-SPAM, GDPR,
 
 ## Related Content
 
-- [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
+- [Amazon SES (Simple Email Service)](/aws-concepts/ses)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)

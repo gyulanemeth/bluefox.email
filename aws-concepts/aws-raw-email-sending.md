@@ -35,7 +35,7 @@ head:
 
 # Amazon SES Raw Email Sending
 
-**AWS SES Raw Email Sending** refers to the advanced capability in [Amazon Simple Email Service](/aws-concepts/aws-ses) that allows developers to craft and send fully customized email messages with complete control over every aspect of the email structure, format, and content.
+**AWS SES Raw Email Sending** refers to the advanced capability in [Amazon Simple Email Service](/aws-concepts/ses) that allows developers to craft and send fully customized email messages with complete control over every aspect of the email structure, format, and content.
 
 ## What is Raw Email Sending?
 
@@ -45,7 +45,7 @@ This approach enables precise control over essential email components that affec
 
 ## How Raw Email Sending Works
 
-The raw email sending process in SES follows a streamlined workflow where you first construct a complete MIME message with all required headers and body content, then transmit this message to AWS using either the `SendRawEmail` API operation or [SMTP](/email-sending-concepts/smtp.md) interface with proper encoding, after which AWS SES performs essential verification checks while minimizing alterations to your carefully crafted message, and finally manages the entire delivery process including retries, [bounce](/email-sending-concepts/bounces) handling, [complaint](/email-sending-concepts/complaints) processing, and [delivery notification](/aws-concepts/aws-delivery-notifications) distribution according to the [verified identity's](/aws-concepts/aws-verified-identities) configuration settings.
+The raw email sending process in SES follows a streamlined workflow where you first construct a complete MIME message with all required headers and body content, then transmit this message to AWS using either the `SendRawEmail` API operation or [SMTP](/email-sending-concepts/smtp.md) interface with proper encoding, after which AWS SES performs essential verification checks while minimizing alterations to your carefully crafted message, and finally manages the entire delivery process including retries, [bounce](/email-sending-concepts/bounces) handling, [complaint](/email-sending-concepts/complaints) processing, and [delivery notification](/aws-concepts/ses-delivery-notifications) distribution according to the [verified identity's](/aws-concepts/aws-verified-identities) configuration settings.
 
 ## Common Use Cases
 
@@ -97,7 +97,7 @@ You'll need to implement tracking mechanisms manually when using raw email sendi
 
 ## Related Content
 
-- [Amazon SES (Simple Email Service)](/aws-concepts/aws-ses)
+- [Amazon SES (Simple Email Service)](/aws-concepts/ses)
 - [AWS SES Verified Identities](/aws-concepts/aws-verified-identities)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)

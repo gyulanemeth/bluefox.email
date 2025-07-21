@@ -70,7 +70,7 @@ Several resources can help you assess the reputation of your sending IP addresse
 
 - **Postmaster Tools**: Google Postmaster Tools and Microsoft SNDS provide limited reputation insights.
 - **Blocklist Monitoring**: Services like MXToolbox help check if your IP appears on major blocklists.
-- **ESP Analytics**: Email service providers like [AWS SES](/aws-concepts/aws-ses) often provide reputation metrics.
+- **ESP Analytics**: Email service providers like [AWS SES](/aws-concepts/ses) often provide reputation metrics.
 - **Third-Party Tools**: SenderScore, ReturnPath, and others offer comprehensive IP reputation monitoring.
 
 ## Frequently Asked Questions
@@ -95,7 +95,7 @@ IP reputation and [domain reputation](/email-sending-concepts/domain-reputation)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting & Conformance)](/email-sending-concepts/dmarc)
 - [Bounce Rate](/email-sending-concepts/bounce-rate)
-- [AWS SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS Sending Rate](/aws-concepts/aws-sending-rate)
+- [AWS SES (Simple Email Service)](/aws-concepts/ses)
+- [AWS Sending Rate](/aws-concepts/ses-sending-rate)
 
 <GlossaryCTA />

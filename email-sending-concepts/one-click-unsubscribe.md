@@ -94,7 +94,7 @@ No, not without obtaining new **explicit consent**. Re-adding previously unsubsc
 - [Complaints](/email-sending-concepts/complaints)
 - [Bounce Rate](/email-sending-concepts/bounce-rate)
 - [Email Authentication](/email-sending-concepts/email-authentication) 
-- [AWS SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS Sending Rate](/aws-concepts/aws-sending-rate)
+- [AWS SES (Simple Email Service)](/aws-concepts/ses)
+- [AWS Sending Rate](/aws-concepts/ses-sending-rate)
 
 <GlossaryCTA />
