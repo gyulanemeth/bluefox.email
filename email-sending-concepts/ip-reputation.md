@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: Learn about IP Reputation in email marketing, how it affects deliverability, and best practices for maintaining a positive sending reputation.
 ---
+<GlossaryNavigation />
 
 # IP Reputation
 

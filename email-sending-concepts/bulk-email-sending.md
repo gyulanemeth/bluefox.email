@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: Learn about bulk email sending, the practice of sending large volumes of emails to multiple recipients simultaneously, used for marketing campaigns, newsletters, and announcements.
 ---
+<GlossaryNavigation />
 
 # Bulk Email Sending
 

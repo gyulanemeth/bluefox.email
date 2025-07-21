@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how One-Click Unsubscribe works and why it's essential for email deliverability and regulatory compliance."
 ---
+<GlossaryNavigation />
 
 # One-Click Unsubscribe
 
