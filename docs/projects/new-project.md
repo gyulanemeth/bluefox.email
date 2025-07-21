@@ -36,9 +36,13 @@ head:
 
 # Creating a New Project
 
-You can create a new project by clicking the `Create` button in the top-left corner of the projects view.
+You can create a new project by clicking the drop-down in the top-left corner and then `Create` button.
 
 ![A screenshot of the projects view.](./project-create.webp)
+
+You can also click on the `Create` button in projects section to create new project.
+
+![A screenshot of the projects view.](./project-create-2.webp)
 
 ## Select a Design System
 

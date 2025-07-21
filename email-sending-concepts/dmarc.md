@@ -33,6 +33,8 @@ head:
     - name: twitter:description
       content: DMARC is an email authentication protocol that unifies SPF and DKIM with policy enforcement and reporting.
 ---
+<GlossaryNavigation/>
+
 
 # DMARC (Domain-based Message Authentication, Reporting, and Conformance)
 
@@ -42,9 +44,7 @@ This is where DMARC plays a crucial role.
 
 DMARC functions as the **policy enforcer** for [email authentication](/email-sending-concepts/email-authentication). While [SPF](/email-sending-concepts/spf.md) and [DKIM](/email-sending-concepts/dkim.md) assist in verifying the origin and signature of an email, DMARC instructs receiving servers on how to manage messages that fail these authentication checks. Furthermore, it provides **visibility into all entities** sending emails from your domain, including both legitimate and malicious sources.
 
-
-Implementing DMARC is essential for individuals and organizations dedicated to protecting their brand and improving email deliverability. Many avoid this implementation due to perceived complexity, which can lead to unnecessary email security and deliverability challenges.
-
+Implementing DMARC is essential for individuals and organizations dedicated to protecting their brand and improving email [deliverability](/email-sending-concepts/deliverability). Many avoid this implementation due to perceived complexity, which can lead to unnecessary email security and deliverability challenges.
 
 ## What is DMARC?
 
@@ -80,6 +80,7 @@ It operates by verifying the **alignment** between the visible "From" domain and
 3. **Authentication Check**: It evaluates if the email successfully passes either SPF or DKIM, ensuring that the authenticated method aligns with the "From" domain.
 
 4. **Policy Evaluation**: Depending on your DMARC policy (**none, quarantine, or reject**), the recipient determines the appropriate action:
+
    - Accept the message (none)
    - Redirect it to spam (quarantine)
    - Completely block it (reject)
@@ -97,19 +98,23 @@ In addition to security, DMARC offers operational benefits. It fosters **trust w
 ## Frequently Asked Questions About DMARC
 
 ### Do I need DMARC if I already have SPF and DKIM?
+
 Yes. SPF and DKIM handle the technical authentication, but DMARC adds policy enforcement and reporting. Without DMARC, unauthorized emails might still appear to come from your domain, and you won't have insight into who is abusing it.
 
 ### Will implementing DMARC affect my email deliverability?
+
 When done properly, DMARC improves deliverability by proving to email providers that your emails are genuine. However, if set too strictly without alignment or monitoring, it can cause legitimate emails to be rejected. It's best to begin with a "none" policy and gradually move to "quarantine" or "reject."
 
 ### Is DMARC hard to set up?
+
 It can look intimidating, but many email platforms offer help or automated tools to guide setup. Start with a monitoring-only mode to observe your domain's traffic and then enforce stronger policies once you're confident.
 
 ### How do I monitor DMARC activity?
+
 DMARC sends regular XML reports to the email address you specify in your DNS record. These reports can be difficult to read manually, so most organizations use DMARC report analyzers or dashboards to track and interpret the data.
 
-
 ## Related Content
+
 :::tip Practical Guide
 **[How SPF, DKIM, and DMARC Actually Work (With Real Examples)](/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples)** — Understand DMARC policies with real-world examples and learn how to properly implement p=none, p=quarantine, and p=reject settings.
 :::

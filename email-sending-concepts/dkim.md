@@ -1,5 +1,4 @@
 ---
-
 title: DKIM (DomainKeys Identified Mail) | BlueFox Email
 description: DKIM is an email authentication method that allows senders to digitally sign emails using a private key. Learn how it works, see examples, and understand its importance for email security.
 thumbnail: /assets/glossary/email-sending-glossary.png
@@ -34,12 +33,11 @@ head:
     - name: twitter:description
       content: DKIM is an email authentication method that allows senders to digitally sign emails using a private key. Learn how it works, see examples, and understand its importance for email security.
 ---
-
+<GlossaryNavigation/>
 
 # DKIM (DomainKeys Identified Mail)
 
 When starting with email marketing, it's essential to pay attention to DKIM. This isn't just a task for your tech team. It significantly influences whether your emails reach inboxes or end up in spam folders. Consider DKIM as your domain's signature on every email you send. Without it, mailbox providers such as Gmail or Outlook may doubt the authenticity of your emails.
-
 
 ## What is DKIM?
 
@@ -65,11 +63,13 @@ It functions seamlessly in the background, ensuring that your emails are both tr
 Here’s a detailed overview of the process:
 
 **On the Sending Side:**
+
 1. The server generates a hash of specific email headers along with the message body.
 2. This hash is then encrypted using a private DKIM key that is securely stored on the server.
 3. The resulting digital signature is appended to the email’s headers.
 
 **On the Receiving Side:**
+
 1. The recipient's server reads the DKIM signature and retrieves the domain and selector information.
 2. It conducts a DNS lookup to obtain the corresponding public key (`selector._domainkey.domain.com`).
 3. Using this public key, the server decrypts the signature from the email.
@@ -82,23 +82,24 @@ The selector in DKIM serves as a pointer to the appropriate key. This functional
 
 ## Why Does DKIM Matter?
 
-DKIM (DomainKeys Identified Mail) enhances the authenticity of your emails, fostering trust with email providers and your audience. It verifies that messages remain unaltered during transit, **preventing tampering** and **blocking scammers** from impersonating your domain without your private key. Leading email services, such as Gmail and Yahoo, utilize DKIM results to determine inbox delivery. Additionally, **DKIM is vital for supporting [DMARC](/email-sending-concepts/dmarc.md)** policies, making it a critical component of email security and brand protection.
+DKIM (DomainKeys Identified Mail) enhances the authenticity of your emails, fostering trust with email providers and your audience. It verifies that messages remain unaltered during transit, **preventing tampering** and **blocking scammers** from impersonating your domain without your private key. Leading email services, such as Gmail and Yahoo, utilize DKIM results to determine inbox [deliverability](/email-sending-concepts/deliverability). Additionally, **DKIM is vital for supporting [DMARC](/email-sending-concepts/dmarc.md)** policies, making it a critical component of email security and brand protection.
 
 ## Frequently Asked Questions About DKIM
 
 ### Does DKIM prevent spam?
-Not directly, DKIM verifies authenticity, not content quality. However, properly configured DKIM makes it less likely that your emails will be marked as spam. 
+
+Not directly, DKIM verifies authenticity, not content quality. However, properly configured DKIM makes it less likely that your emails will be marked as spam.
 
 ### Can I have multiple DKIM keys?
+
 Yes. You can use different selectors to manage multiple keys, especially if you're sending from multiple sources (e.g., your ESP and internal systems).
 
 ### What happens if DKIM fails?
+
 If DKIM fails, the email might still be delivered depending on the recipient's DMARC policy. But failing consistently can damage your sender reputation over time.
 
-
-
-
 ## Related Content
+
 :::tip Practical Guide
 **[How SPF, DKIM, and DMARC Actually Work (With Real Examples)](/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples)** — See real email headers and learn how to investigate DKIM signatures with practical examples.
 :::

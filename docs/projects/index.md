@@ -50,13 +50,14 @@ Every project in bluefox.email includes:
 - [Contacts](./contacts)
 - [Forms & Pages](./forms-and-pages)
 - [Design system settings](./design-system-settings)
+- [Suppression Lists](./suppression-list)
 - [Project settings](./settings)
 
 Each project comes with a subscription preferences page, which you can set up under the [subscriber lists](./contacts) tab.
 
 ## Navigating to Projects
 
-You can find the projects section by clicking the last icon on the left-hand side.
+You can find the projects section by clicking the drop down icon on the left-hand side.
 
 ![A screenshot of the projects section.](./projects.webp)
 
@@ -92,6 +93,7 @@ These tabs include:
 - [Contacts](./contacts)
 - [Forms & Pages](./forms-and-pages)
 - [Design system settings](./design-system-settings)
+- [Suppression Lists](./suppression-list)
 - [Project settings](./settings)
 
 Remember, the subscription preferences page is under the [Forms & Pages](./forms-and-pages) tab.

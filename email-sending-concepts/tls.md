@@ -33,6 +33,7 @@ head:
     - name: twitter:description
       content: "Learn how Transport Layer Security (TLS) protects email in transit, why it matters for privacy, and how it fits into modern email security."
 ---
+<GlossaryNavigation/>
 
 # TLS
 

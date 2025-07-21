@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-sending-quota
+      content: https://bluefox.email/aws-concepts/ses-sending-quota
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -32,20 +32,20 @@ head:
     - name: twitter:description
       content: Learn about AWS SES sending quotas, how they work, how to increase them, and best practices for managing your email sending limits.
 ---
-
+<GlossaryNavigation/>
 # Amazon SES Sending Quotas
 
 **Amazon SES sending quotas** define how many emails your account is allowed to send over a rolling 24-hour period. These limits are in place to protect recipient inboxes, maintain AWS infrastructure stability, and build long-term sender reputation.
 
 ## Understanding SES Quotas
 
-Each [Amazon SES](/aws-concepts/aws-ses.md) account has a **Daily Sending Quota**, which determines the maximum number of emails that can be sent in a 24-hour window. In [sandbox mode](/aws-concepts/aws-sandbox.md), this is typically [200 emails per day](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails).
+Each [Amazon SES](/aws-concepts/ses) account has a **Daily Sending Quota**, which determines the maximum number of emails that can be sent in a 24-hour window. In [sandbox mode](/aws-concepts/ses-sandbox), this is typically [200 emails per day](https://docs.aws.amazon.com/ses/latest/dg/quotas.html#limits-sending-emails).
 
-New accounts begin in the **sandbox**, where sending is limited to verified identities. To unlock higher limits and unrestricted recipients, you must request [production access](/aws-concepts/aws-production-mode.md) through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
+New accounts begin in the **sandbox**, where sending is limited to verified identities. To unlock higher limits and unrestricted recipients, you must request [production access](/aws-concepts/ses-production-access) through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
 
 ## Why AWS Sets Sending Quotas
 
-AWS implements sending quotas to benefit the entire email ecosystem by helping senders gradually ramp up activity while **reducing deliverability issues** from sudden volume spikes. These limits protect recipients from unsolicited or spam-like traffic and safeguard SES infrastructure from potential misuse while maintaining trusted relationships with major mailbox providers. According to [AWS documentation](https://docs.aws.amazon.com/ses/latest/dg/manage-sending-quotas.html), these quotas _"help to maintain the trusted relationship between Amazon SES and email providers"_ and are essential for preserving the overall health of the system.
+AWS implements sending quotas to benefit the entire email ecosystem by helping senders gradually ramp up activity while **reducing [deliverability](/email-sending-concepts/deliverability) issues** from sudden volume spikes. These limits protect recipients from unsolicited or spam-like traffic and safeguard SES infrastructure from potential misuse while maintaining trusted relationships with major mailbox providers. According to [AWS documentation](https://docs.aws.amazon.com/ses/latest/dg/manage-sending-quotas.html), these quotas _"help to maintain the trusted relationship between Amazon SES and email providers"_ and are essential for preserving the overall health of the system.
 
 ## Quota Increases
 
@@ -81,14 +81,14 @@ Use the SES console or `GetSendQuota` API to view your current daily sending lim
 
 ### What changes after leaving the sandbox?
 
-Once in [production mode](/aws-concepts/aws-production-mode), you're allowed to send to unverified recipients and receive significantly increased sending limits. The actual quotas vary based on your specific use case and may increase automatically over time as you establish a positive sending reputation.
+Once in production mode, you're allowed to send to unverified recipients and receive significantly increased sending limits. The actual quotas vary based on your specific use case and may increase automatically over time as you establish a positive sending reputation.
 
 ## Related Content
 
-- [AWS SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns)
-- [AWS SNS Topics](/aws-concepts/aws-sns-topics)
-- [AWS SNS Subscription](/aws-concepts/aws-sns-subscription)
+- [AWS SES (Simple Email Service)](/aws-concepts/ses)
+- [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
+- [AWS SNS Topics](/aws-concepts/sns-topics)
+- [AWS SNS Subscription](/aws-concepts/sns-subscription)
 - [Bounces](/email-sending-concepts/bounces)
 - [Complaints](/email-sending-concepts/complaints)
 - [Email Authentication](/email-sending-concepts/email-authentication)

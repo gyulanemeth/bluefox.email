@@ -21,7 +21,7 @@ head:
       content: https://bluefox.email/assets/glossary/aws-concepts-glossary.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/aws-concepts/aws-iam-permissions
+      content: https://bluefox.email/aws-concepts/iam-permissions
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -32,21 +32,15 @@ head:
     - name: twitter:description
       content: AWS IAM Permissions define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
 ---
+<GlossaryNavigation/>
 
 # AWS IAM Permissions
 
-**AWS IAM Permissions** are the fine-grained authorizations that specify which actions an identity (user, group, or [role](/aws-concepts/aws-iam-role)) can perform on specific AWS resources. They form the foundation of AWS's access control system, allowing organizations to implement the principle of least privilege across their cloud environments.
+**AWS IAM Permissions** are the fine-grained authorizations that specify which actions an identity (user, group, or [role](/aws-concepts/iam-role)) can perform on specific AWS resources. They form the foundation of AWS's access control system, allowing organizations to implement the principle of least privilege across their cloud environments.
 
 ## What are IAM Permissions?
 
-IAM Permissions are **access control statements** that define what actions are allowed or denied on which AWS resources. They are implemented through policy documents written in JSON format and attached to IAM identities. According to [AWS documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html), each permission statement contains several key elements:
-
-- **Effect**: Specifies whether to "Allow" or "Deny" access
-- **Action**: Defines the specific API operations that are covered by the rule
-- **Resource**: Specifies the AWS resources to which the permissions apply
-- **Condition** (optional): Sets requirements for when the permission is active
-
-Unlike role-based access control (RBAC) systems which assign permissions based on job roles, AWS IAM uses attribute-based access control (ABAC), allowing for more dynamic and fine-grained permissions based on attributes of the user, resource, or environment.
+IAM Permissions are **access control statements** implemented as JSON policy documents attached to IAM identities. Each statement contains essential elements: an **Effect** ("Allow" or "Deny"), **Actions** (specific API operations), **Resources** (AWS resources targeted), and optional **Conditions** (contextual requirements). Unlike traditional role-based systems, AWS IAM employs attribute-based access control, enabling more dynamic permissions based on user, resource, and environmental attributes.
 
 ## How IAM Permissions Work
 
@@ -88,7 +82,7 @@ The IAM permissions model revolves around six key elements: the **Principal** (u
 
 ## IAM Permissions in Email Infrastructure
 
-For AWS-based email systems like those using [Amazon SES](/aws-concepts/aws-ses), carefully designed IAM permissions are essential for security and operational integrity:
+For AWS-based email systems like those using [Amazon SES](/aws-concepts/ses), carefully designed IAM permissions are essential for security and operational integrity:
 
 - **Email Sending Permissions** such as `ses:SendEmail` and `ses:SendRawEmail` control who can send messages. These can be scoped to specific verified identities to control which domains and email addresses can be used for sending.
 
@@ -114,10 +108,10 @@ Yes, through session policies used with assumed roles and through condition elem
 
 ## Related Content
 
-- [AWS IAM Role](/aws-concepts/aws-iam-role)
-- [AWS SES (Simple Email Service)](/aws-concepts/aws-ses)
-- [AWS SNS (Simple Notification Service)](/aws-concepts/aws-sns)
-- [AWS Delivery Notifications](/aws-concepts/aws-delivery-notifications)
+- [AWS IAM Role](/aws-concepts/iam-role)
+- [AWS SES (Simple Email Service)](/aws-concepts/ses)
+- [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
+- [AWS Delivery Notifications](/aws-concepts/ses-delivery-notifications)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 
 <GlossaryCTA />
