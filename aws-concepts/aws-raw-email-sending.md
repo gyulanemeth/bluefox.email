@@ -80,25 +80,21 @@ When implementing raw email sending, several factors require careful attention:
 ## Frequently Asked Questions
 
 ### When should I use raw email sending versus the simple API methods?
-
-Use raw email sending when you need precise control over email structure, require advanced features like attachments or calendar invites, need to implement custom headers, or are integrating with systems that already generate properly formatted email messages. For simpler use cases where basic content and formatting are sufficient, the standard SES API methods are more straightforward.
+Use raw sending for advanced features like attachments or custom headers; simple APIs are best for basic emails.
 
 ### Does raw email sending affect deliverability?
-
-While raw email sending gives you more control, it also places more responsibility on your implementation to follow email best practices. Poorly constructed raw emails may negatively impact [deliverability](/email-sending-concepts/deliverability.md). However, when properly implemented, raw emails can achieve the same or better deliverability as those sent through simplified APIs.
+Yes, if not implemented correctly. Follow best practices to maintain good deliverability.
 
 ### Can I use templates with raw email sending?
-
-AWS SES templates aren't directly compatible with raw email sending. However, you can implement your own templating system that generates complete raw email messages, giving you both the benefits of templates and the control of raw sending.
+SES templates don’t work directly, but you can create your own templates for raw emails.
 
 ### How do I track opens and clicks with raw email sending?
-
-You'll need to implement tracking mechanisms manually when using raw email sending. This typically involves adding tracking pixels for opens and rewriting links for click tracking. Many email marketing libraries offer these capabilities for raw emails, or you can use third-party services like BlueFox Email that provide comprehensive tracking while still allowing raw message customization.
+Manually add tracking pixels and rewrite links, or use a third-party tracking tool.
 
 ## Related Content
 
 - [Amazon SES (Simple Email Service)](/aws-concepts/ses)
-- [AWS SES Verified Identities](/aws-concepts/aws-verified-identities)
+- [AWS SES Verified Identities](/aws-concepts/ses-verified-identities)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [Email Headers](/email-sending-concepts/email-headers)
