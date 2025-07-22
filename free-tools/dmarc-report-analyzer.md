@@ -37,9 +37,7 @@ head:
 
 **Parse and analyze DMARC aggregate reports** to gain deep insights into your email authentication performance and security posture.
 
-## Coming Soon
-
-Our free DMARC report analyzer tool is currently under development and will be available shortly.
+<DmarcReportAnalyzer />
 
 ---
 
