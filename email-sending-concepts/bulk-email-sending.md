@@ -94,7 +94,7 @@ Yes, when done in compliance with applicable regulations such as CAN-SPAM, GDPR,
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
-- [Email Deliverability](/email-sending-concepts/email-authentication)
+- [Email Deliverability](/email-sending-concepts/deliverability)
 - [Bounce Rate](/email-sending-concepts/bounce-rate)
 
 <GlossaryCTA />
