@@ -32,12 +32,11 @@ head:
     - name: twitter:description
       content: Free online MX record checker tool to lookup and validate mail exchange records, check email server configuration, and analyze email routing for domains.
 ---
+<GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
+
 
 # Free MX Record Checker
 
 **Lookup and validate MX records** for any domain with our comprehensive mail exchange record checker tool.
 
 <MxChecker />
----
-
-[← Back to Free Tools](/free-tools/)

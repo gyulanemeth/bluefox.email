@@ -32,6 +32,7 @@ head:
     - name: twitter:description
       content: Free online DMARC report analyzer tool to parse and analyze DMARC aggregate reports, identify authentication failures, and improve email security posture.
 ---
+<GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
 
 # Free DMARC Report Analyzer
 
@@ -39,6 +40,3 @@ head:
 
 <DmarcReportAnalyzer />
 
----
-
-[← Back to Free Tools](/free-tools/)

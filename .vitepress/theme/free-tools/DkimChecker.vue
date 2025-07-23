@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
+
 // === CONSTANTS ===
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
 const DEFAULT_SELECTOR = 'default'
@@ -224,7 +225,7 @@ onMounted(() => {
                     class="refresh-captcha-btn"
                     :disabled="captchaLoading"
                     title="Refresh captcha">
-              🔄
+              <img src="/assets/reload.webp" alt="reload button">
             </button>
           </div>
           <input
@@ -452,6 +453,17 @@ onMounted(() => {
   justify-content: center;
   transition: all 0.2s ease;
 }
+
+.dark .refresh-captcha-btn {
+  background: #fff !important;
+  border: 1px solid #333 !important;
+  color: #222 !important;
+}
+
+.dark .refresh-captcha-btn img {
+  filter: invert(0);
+}
+
 
 .refresh-captcha-btn:hover:not(:disabled) {
   background: var(--vp-c-bg, #ffffff);

@@ -33,11 +33,10 @@ head:
     - name: twitter:description
       content: Free online DMARC checker tool to validate your domain's DMARC policy, check alignment, and analyze email authentication settings for improved deliverability.
 ---
+<GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
 
 # Free DMARC Checker
 
 **Validate your DMARC policy** and ensure your domain is protected against email spoofing with our comprehensive DMARC checker tool.
 
 <DmarcChecker />
-
-[← Back to Free Tools](/free-tools/)

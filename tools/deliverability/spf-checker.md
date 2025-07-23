@@ -34,12 +34,11 @@ head:
       content: Free online SPF checker tool to validate Sender Policy Framework records, check DNS syntax, and analyze email authentication for improved deliverability.
 ---
 
+<GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
+
+
 # Free SPF Checker
 
 **Validate your SPF records** and ensure your domain's email authentication is properly configured with our comprehensive SPF checker tool.
 
 <SpfChecker />
-
----
-
-[← Back to Free Tools](/free-tools/)

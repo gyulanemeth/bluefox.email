@@ -26,7 +26,7 @@
               <a href="/docs/">Documentation</a>
               <a href="/tutorials">Tutorials</a>
               <a href="/articles">Articles</a>
-              <a href="/free-tools">Free Tools</a>
+              <a href="/tools">Tools</a>
             </div>
             <div class="footer-column">
               <h4>Connect</h4>
@@ -72,14 +72,14 @@ const show = computed(() => {
     '/pricing',
     '/tutorials',
     '/articles',
-    '/free-tools'
+    '/tools'
     // Removing '/about' and '/why' as requested
   ];
   // Show footer on all email-sending-concepts, aws-concepts, and free-tools pages including index pages
   if (route.path.startsWith('/for') || 
       route.path.startsWith('/email-sending-concepts') || 
       route.path.startsWith('/aws-concepts') ||
-      route.path.startsWith('/free-tools')) {
+      route.path.startsWith('/tools')) {
     return true;
   }
   // Only show footer on specifically allowed paths

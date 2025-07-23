@@ -72,7 +72,6 @@ export default defineConfig({
     nav: [
       { text: "Home", link: "/" },
       { text: "Pricing", link: "/pricing" },
-      { text: "Free Tools", link: "/free-tools/" },
       { text: "Tutorials", link: "/tutorials" },
       { text: "Articles", link: "/articles" },
       { text: "Docs", link: "/docs/" },

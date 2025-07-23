@@ -34,11 +34,11 @@ head:
       content: Free online DKIM checker tool to validate DomainKeys Identified Mail signatures, verify DNS records, and analyze email authentication for improved deliverability.
 ---
 
+<GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
+
 # Free DKIM Checker
 
 **Validate your DKIM signatures** and ensure your email authentication is working correctly with our comprehensive DKIM checker tool.
 
 
 <DkimChecker />
-
-[← Back to Free Tools](/free-tools/)

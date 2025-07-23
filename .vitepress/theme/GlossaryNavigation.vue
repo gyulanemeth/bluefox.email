@@ -1,31 +1,40 @@
 <script setup>
 import { useRoute } from 'vitepress'
 
-const route = useRoute()
-const currentPath = route.path
+// Props for optional override
 const props = defineProps({
+  link: {
+    type: String,
+    default: null
+  },
+  label: {
+    type: String,
+    default: null
+  },
   bottom: {
     type: Boolean,
     default: false
   }
 })
+
+const route = useRoute()
+const currentPath = route.path
 const bottomPosition = props.bottom
 
-// Determine which glossary this page belongs to
-const isAwsGlossary = currentPath.includes('/aws-concepts/')
-const isEmailSendingGlossary = currentPath.includes('/email-sending-concepts/')
-const isEmailMarketingGlossary = currentPath.includes('/email-marketing-concepts/')
+// Fallbacks if no prop provided
+let backLink = props.link
+let backText = props.label
 
-// Set the appropriate back link and text
-let backLink = '/'
-let backText = 'Back to Glossary'
-
-if (isAwsGlossary) {
-  backLink = '/aws-concepts/'
-  backText = 'Back to AWS Concepts'
-} else if (isEmailSendingGlossary) {
-  backLink = '/email-sending-concepts/'
-  backText = 'Back to Email Sending Concepts'
+if (!backLink || !backText) {
+  const isAwsGlossary = currentPath.includes('/aws-concepts/')
+  const isEmailSendingGlossary = currentPath.includes('/email-sending-concepts/')
+  if (isAwsGlossary) {
+    backLink = '/aws-concepts/'
+    backText = 'Back to AWS Concepts'
+  } else if (isEmailSendingGlossary) {
+    backLink = '/email-sending-concepts/'
+    backText = 'Back to Email Sending Concepts'
+  }
 }
 </script>
 
@@ -33,7 +42,8 @@ if (isAwsGlossary) {
   <div class="glossary-navigation vp-doc" :class="{ 'bottom-navigation': bottomPosition }">
     <div class="container">
       <a :href="backLink" class="back-button">
-        <span class="arrow">←</span><span class="text">{{ backText }}</span>
+        <span class="arrow">←</span>
+        <span class="text">{{ backText }}</span>
       </a>
     </div>
   </div>
