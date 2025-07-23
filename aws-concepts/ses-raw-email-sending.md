@@ -39,7 +39,7 @@ head:
 
 ## What is Raw Email Sending?
 
-Raw email sending in Amazon SES provides developers with direct control over the entire [MIME](/email-sending-concepts/email-headers) structure, including headers, body parts, attachments, and encoding. Unlike the simplified sending methods that abstract away email complexity, raw email sending exposes the underlying email protocols and standards, allowing for maximum customization and flexibility.
+Raw email sending in Amazon SES provides developers with direct control over the entire MIME structure, including headers, body parts, attachments, and encoding. Unlike the simplified sending methods that abstract away email complexity, raw email sending exposes the underlying email protocols and standards, allowing for maximum customization and flexibility.
 
 This approach enables precise control over essential email components that affect deliverability, rendering, and recipient experience. According to the [AWS documentation](https://docs.aws.amazon.com/ses/latest/dg/send-email-raw.html), raw email sending is particularly valuable for applications requiring **sophisticated formatting, attachments, or custom headers** that aren't available through simpler API methods.
 
