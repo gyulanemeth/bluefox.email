@@ -53,7 +53,7 @@ By using temporary credentials, organizations can implement the **principle of l
 
 ## How Amazon STS Works
 
-When you request **temporary credentials from STS**, the service validates your identity and the permissions you're requesting, then generates a set of temporary security **credentials that include an access key ID**, secret access key, and security token. These credentials are returned to your application along with an expiration timestamp, after which the credentials become invalid and cannot be used to access AWS resources.
+When you request **temporary credentials from STS**, the service validates your identity and the requested permissions, then generates a set of temporary security **credentials that include** an **access key ID**, **secret access key**, and **security token**. These credentials are returned to your application along with an expiration timestamp, after which the credentials become invalid and cannot be used to access AWS resources.
 
 STS provides several APIs to acquire temporary credentials:
 
