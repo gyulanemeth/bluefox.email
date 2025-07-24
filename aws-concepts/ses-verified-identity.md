@@ -55,9 +55,15 @@ Amazon SES supports two types of verified identities, each with distinct charact
 
 ## Identity Status and Management
 
-AWS SES assigns each verified identity a status indicator that reflects its verification state in the system. These statuses include **Pending** (verification requested but not completed), **Verified** (successfully confirmed and ready for sending), **Failed** (unsuccessful verification due to issues like incorrect DNS configuration), and **Temporary Failure** (temporary issues that may resolve automatically without user intervention).
+AWS SES assigns each verified identity a status indicator that reflects its verification state in the system:
 
-The identity management system provides comprehensive tools to oversee your sending capabilities, including **verification status** tracking across all identities, sending authorization configuration for **third-party AWS accounts**, notification setup for handling [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and delivery events, and implementation of [sending policies](/aws-concepts/sns-delivery-policy.md) that determine which services can utilize your verified identities.
+- **Pending:** Verification has been requested but is not yet completed.
+- **Verified:** The identity is successfully confirmed and ready for sending.
+- **Failed:** Verification was unsuccessful, often due to issues like incorrect DNS configuration.
+- **Temporary Failure:** There are temporary issues that may resolve automatically without user intervention.
+
+The identity management system provides comprehensive tools to oversee your sending capabilities. You can track verification status across all identities, configure sending authorization for third-party AWS accounts, set up notifications for [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and delivery events, and implement [sending policies](/aws-concepts/sns-delivery-policy.md) that determine which services can use your verified identities.
+
 
 ## Verified Identities in Sandbox Mode
 

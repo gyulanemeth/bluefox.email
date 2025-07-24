@@ -41,11 +41,11 @@ head:
 
 ## What is One-Click Unsubscribe?
 
-One-Click Unsubscribe provides email recipients with a standardized, **immediate method** to remove themselves from email lists or marketing communications. It appears either as a special link near the sender information in modern email clients (like Gmail's "Unsubscribe" button) or as a prominently displayed link in the email footer. When clicked, it immediately processes the unsubscribe request **without requiring additional steps** from the user.
+One-Click Unsubscribe provides email recipients with a standardized, **immediate method** to remove themselves from email lists or marketing communications. It appears either as a special link near the sender information in modern [email clients](/email-sending-concepts/smtp.md) (like Gmail's "Unsubscribe" button) or as a prominently displayed link in the email footer. When clicked, it immediately processes the unsubscribe request **without requiring additional steps** from the user.
 
 ## How One-Click Unsubscribe Works
 
-The One-Click Unsubscribe mechanism is primarily implemented through standardized [email headers](/email-sending-concepts/email-headers) that work behind the scenes to facilitate the unsubscribe process. Email senders include special headers in their messages that [email clients](/email-sending-concepts/smtp) recognize and can present as unsubscribe options to users.
+The One-Click Unsubscribe mechanism is primarily implemented through standardized [email headers](/email-sending-concepts/email-headers) that work behind the scenes to facilitate the unsubscribe process. Email senders include special headers in their messages that email clients recognize and can present as unsubscribe options to users.
 
 The implementation centers around the **`List-Unsubscribe`** and **`List-Unsubscribe-Post`** headers, which provide recipient email clients with the necessary information to process unsubscribe requests automatically.
 
@@ -59,7 +59,7 @@ Modern email clients like Gmail and Apple Mail scan these headers and display us
 
 ## Why is One-Click Unsubscribe Important?
 
-One-Click Unsubscribe has become a critical component of modern email marketing because it enhances [deliverability](/email-sending-concepts/deliverability) by gaining favor with email providers, reduces [spam complaints](/email-sending-concepts/complaints) by offering an easy alternative to marking emails as spam, improves user experience through a hassle-free opt-out method, manages list quality by filtering out uninterested subscribers, and simplifies **regulatory compliance** across multiple international jurisdictions. These benefits collectively result in better **sender reputation**, higher engagement metrics, and a more efficient email marketing program.
+One-Click Unsubscribe has become a critical component of modern email marketing because it enhances [deliverability](/email-sending-concepts/deliverability) by gaining favor with email providers, reduces [spam complaints](/email-sending-concepts/complaints) by offering an easy alternative to marking emails as spam, improves user experience through a hassle-free opt-out method, manages list quality by filtering out uninterested subscribers, and simplifies **regulatory compliance** across multiple international jurisdictions. These benefits collectively result in better **[sender reputation](/email-sending-concepts/deliverability)**, higher engagement metrics, and a more efficient email marketing program.
 
 ## Regulatory Considerations
 
@@ -72,7 +72,7 @@ One-Click Unsubscribe functionality is mandated by various email and privacy reg
 
 ## Common Implementation Challenges
 
-Organizations implementing One-Click Unsubscribe often face technical and operational challenges including **multi-list management** issues where unsubscribes must properly propagate across all related mailing lists, delayed processing systems that risk regulatory violations, authentication barriers that contradict the one-click principle, and technical failures such as broken links or database errors that can prevent successful unsubscribe processing. Addressing these challenges requires robust systems design and **regular testing** to ensure compliance and maintain [sender reputation](/email-sending-concepts/deliverability).
+Organizations implementing One-Click Unsubscribe often face technical and operational challenges including **multi-list management** issues where unsubscribes must properly propagate across all related mailing lists, delayed processing systems that risk regulatory violations, authentication barriers that contradict the one-click principle, and technical failures such as broken links or database errors that can prevent successful unsubscribe processing. Addressing these challenges requires robust systems design and **regular testing** to ensure compliance and maintain sender reputation
 
 ## Frequently Asked Questions
 
