@@ -5,10 +5,9 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
-datePublished: 2024-01-15T08:00:00Z
-dateModified: 2024-01-15T08:00:00Z
-termName: Amazon SES Sandbox
-termDescription: A restricted environment where all new Amazon SES accounts begin, allowing users to explore SES capabilities in a controlled manner while protecting AWS infrastructure from misuse.
+datePublished: 2025-06-30
+dateModified: 2025-06-30
+
 faqs:
   - question: How long does my account have to stay in the sandbox?
     answer: There's no mandatory waiting period. You can apply for production access immediately, but a short history of successful test sending can help demonstrate readiness.
@@ -18,6 +17,7 @@ faqs:
     answer: Go to the SES console, select "Email Addresses", and click "Verify a New Email Address". An email with a confirmation link will be sent. Once clicked, the address becomes verified.
   - question: What happens if my production request is denied?
     answer: AWS typically provides a reason such as lack of opt-in evidence or missing unsubscribe links. You can revise your setup and reapply. If needed, AWS Support may clarify next steps.
+    
 relatedContent:
   - title: AWS SES (Simple Email Service)
     url: /aws-concepts/ses

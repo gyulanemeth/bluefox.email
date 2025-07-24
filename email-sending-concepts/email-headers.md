@@ -7,10 +7,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-01-15"
-dateModified: "2024-01-15"
-termName: "Email Headers"
-termDescription: "Hidden metadata fields in every email message that contain vital information about routing, authentication, and technical properties, serving as the digital passport for email communications."
+datePublished: "2024-07-16"
+dateModified: "2024-07-16"
 
 faqs:
   - question: "How can I view the full headers of an email?"
@@ -21,16 +19,11 @@ faqs:
     answer: "Yes, headers contain information that can reveal your IP address, email client, and sometimes geographic location. When forwarding sensitive emails, consider using \"forward as attachment\" options to avoid exposing your original headers or use specialized privacy-focused email services that minimize header information."
 
 relatedContent:
-  - title: "SMTP (Simple Mail Transfer Protocol)"
-    url: "/email-sending-concepts/smtp"
-  - title: "SPF (Sender Policy Framework)"
-    url: "/email-sending-concepts/spf"
-  - title: "DKIM (DomainKeys Identified Mail)"
-    url: "/email-sending-concepts/dkim"
-  - title: "DMARC (Domain-based Message Authentication, Reporting & Conformance)"
-    url: "/email-sending-concepts/dmarc"
-  - title: "Return Path"
-    url: "/email-sending-concepts/return-path"
+  - /email-sending-concepts/smtp
+  - /email-sending-concepts/spf
+  - /email-sending-concepts/dkim
+  - /email-sending-concepts/dmarc
+  - /email-sending-concepts/return-path
 
 head:
   - - meta

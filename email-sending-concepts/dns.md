@@ -6,10 +6,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-01-15"
-dateModified: "2024-01-15"
-termName: "DNS (Domain Name System)"
-termDescription: "The internet's phone book that translates human-friendly domain names into IP addresses, essential for email routing, authentication, and delivery."
+datePublished: "2025-07-05"
+dateModified: "2025-07-05"
 
 faqs:
   - question: "How long do DNS changes take to propagate?"
@@ -20,16 +18,12 @@ faqs:
     answer: "Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantly impact deliverability. Many spam filters check these records, and failures can lead to lower sender reputation scores. Regular DNS audits are recommended for any serious email sender."
 
 relatedContent:
-  - title: "MX Record"
-    url: "/email-sending-concepts/mx-record"
-  - title: "SPF (Sender Policy Framework)"
-    url: "/email-sending-concepts/spf"
-  - title: "DKIM (DomainKeys Identified Mail)"
-    url: "/email-sending-concepts/dkim"
-  - title: "DMARC (Domain-based Message Authentication, Reporting & Conformance)"
-    url: "/email-sending-concepts/dmarc"
-  - title: "Email Authentication"
-    url: "/email-sending-concepts/email-authentication"
+  - /email-sending-concepts/mx-record
+  - /email-sending-concepts/spf
+  - /email-sending-concepts/dkim
+  - /email-sending-concepts/dmarc
+  - /email-sending-concepts/dmarc
+  - /email-sending-concepts/email-authentication
 
 head:
   - - meta

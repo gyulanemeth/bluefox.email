@@ -5,10 +5,10 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
 layout: post
 category: glossary
-datePublished: "2023-01-01"
-dateModified: "2025-07-04"
-termName: "Complaints"
-termDescription: "Email complaints occur when recipients report messages as spam, triggering feedback loops and potentially damaging sender reputation if not properly managed."
+
+datePublished: "2025-07-26"
+dateModified: "2025-07-30"
+
 faqs:
   - question: "Can I keep sending to someone who marked my email as spam?"
     answer: "No. Once someone has submitted a spam complaint, you should immediately stop sending to that address across all your email programs. Continuing to send after a complaint can severely damage your sender reputation and potentially violate anti-spam regulations."

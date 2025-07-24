@@ -6,10 +6,10 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 layout: post
 category: glossary
 sidebar: false
-datePublished: "2023-02-15"
-dateModified: "2023-09-20"
-termName: "DKIM (DomainKeys Identified Mail)"
-termDescription: "An email authentication method that adds a digital signature to messages, allowing receiving mail servers to verify if the message was sent by an authorized sender and wasn't altered in transit."
+
+datePublished: "2023-07-05"
+dateModified: "2023-07-05"
+
 faqs:
   - question: "What is DKIM?"
     answer: "DKIM (DomainKeys Identified Mail) is an email authentication method that adds a digital signature to messages, allowing receiving mail servers to verify if the message was sent by an authorized sender and wasn't altered in transit."

@@ -7,10 +7,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-01-15"
-dateModified: "2024-01-15"
-termName: "Email Spoofing"
-termDescription: "A cybersecurity threat where attackers forge email sender addresses to impersonate trusted entities, often used in phishing attacks and business email compromise scams."
+datePublished: "2024-07-23"
+dateModified: "2024-07-23"
 
 faqs:
   - question: "Can small businesses afford to implement anti-spoofing protections?"
@@ -21,16 +19,11 @@ faqs:
     answer: "Yes, using spoofing for fraud or harm is illegal in most countries. Testing email systems with spoofing is only legal when properly authorized."
 
 relatedContent:
-  - title: "Email Authentication"
-    url: "/email-sending-concepts/email-authentication"
-  - title: "SPF (Sender Policy Framework)"
-    url: "/email-sending-concepts/spf"
-  - title: "DKIM (DomainKeys Identified Mail)"
-    url: "/email-sending-concepts/dkim"
-  - title: "DMARC (Domain-based Message Authentication, Reporting, and Conformance)"
-    url: "/email-sending-concepts/dmarc"
-  - title: "SMTP (Simple Mail Transfer Protocol)"
-    url: "/email-sending-concepts/smtp"
+  - /email-sending-concepts/email-authentication
+  - /email-sending-concepts/spf
+  - /email-sending-concepts/dkim
+  - /email-sending-concepts/dmarc
+  - /email-sending-concepts/smtp
 
 head:
   - - meta

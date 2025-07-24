@@ -5,10 +5,10 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
 layout: post
 category: glossary
-datePublished: "2023-01-01"
-dateModified: "2025-07-04"
-termName: "Deliverability"
-termDescription: "Email deliverability refers to the ability to successfully deliver emails to recipients' inboxes rather than spam folders or being blocked entirely."
+
+datePublished: "2025-07-05"
+dateModified: "2025-07-05"
+
 faqs:
   - question: "What's the difference between delivery and deliverability?"
     answer: "Delivery means an email was accepted by the receiving server without generating a bounce, while deliverability specifically refers to inbox placement rather than spam folder placement. An email can have perfect delivery (no bounces) but poor deliverability (most messages going to spam)."

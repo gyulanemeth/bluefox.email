@@ -7,10 +7,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-01-15"
-dateModified: "2024-01-15"
-termName: "TXT Records"
-termDescription: "Versatile DNS records that store text information for domains, primarily used for email authentication through SPF, DKIM, and DMARC protocols."
+datePublished: "2025-06-30"
+dateModified: "2025-06-30"
 
 faqs:
   - question: "How many TXT records can I have for my domain?"
@@ -19,16 +17,11 @@ faqs:
     answer: "Absolutely. Properly configured SPF, DKIM, and DMARC records (all implemented as TXT records) significantly improve deliverability. Missing or incorrect authentication records can cause legitimate emails to be marked as spam or rejected outright, especially by major providers like Gmail and Microsoft."
 
 relatedContent:
-  - title: "SPF (Sender Policy Framework)"
-    url: "/email-sending-concepts/spf"
-  - title: "DKIM (DomainKeys Identified Mail)"
-    url: "/email-sending-concepts/dkim"
-  - title: "DMARC (Domain-based Message Authentication, Reporting, and Conformance)"
-    url: "/email-sending-concepts/dmarc"
-  - title: "DNS (Domain Name System)"
-    url: "/email-sending-concepts/dns"
-  - title: "Email Authentication"
-    url: "/email-sending-concepts/email-authentication"
+  - /email-sending-concepts/spf"
+  -  "/email-sending-concepts/dkim"
+  -  "/email-sending-concepts/dmarc"
+  -  "/email-sending-concepts/dns"
+  -  "/email-sending-concepts/email-authentication"
 
 head:
   - - meta

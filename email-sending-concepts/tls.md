@@ -7,10 +7,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-01-15"
-dateModified: "2024-01-15"
-termName: "TLS (Transport Layer Security)"
-termDescription: "A cryptographic protocol that encrypts email communications between servers, protecting messages from interception during transit across the internet."
+datePublished: "2025-06-30"
+dateModified: "2025-06-30"
 
 faqs:
   - question: "Is TLS the same as SSL?"
@@ -23,16 +21,11 @@ faqs:
     answer: "If either server lacks TLS, the email is sent in plain text. Some providers may refuse delivery to protect your privacy."
 
 relatedContent:
-  - title: "SMTP (Simple Mail Transfer Protocol)"
-    url: "/email-sending-concepts/smtp"
-  - title: "Email Authentication"
-    url: "/email-sending-concepts/email-authentication"
-  - title: "SPF (Sender Policy Framework)"
-    url: "/email-sending-concepts/spf"
-  - title: "DKIM (DomainKeys Identified Mail)"
-    url: "/email-sending-concepts/dkim"
-  - title: "DMARC (Domain-based Message Authentication, Reporting & Conformance)"
-    url: "/email-sending-concepts/dmarc"
+  - /email-sending-concepts/smtp"
+  - /email-sending-concepts/email-authentication"
+  - /email-sending-concepts/spf"
+  - /email-sending-concepts/dkim"
+  - /email-sending-concepts/dmarc"
 
 head:
   - - meta

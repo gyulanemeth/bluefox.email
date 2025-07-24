@@ -6,10 +6,8 @@ sidebar: false
 layout: post
 category: glossary
 
-datePublished: "2024-01-15"
-dateModified: "2024-01-15"
-termName: "SES Delivery Notifications"
-termDescription: "Event messages from Amazon SES that confirm when emails have been successfully delivered to recipients' mail servers, providing real-time feedback on email delivery status."
+datePublished: "2025-06-30"
+dateModified: "2025-06-30"
 
 faqs:
   - question: "How quickly are delivery notifications generated?"
@@ -20,18 +18,12 @@ faqs:
     answer: "No, delivery notifications only confirm successful delivery to the recipient's mail server. The message could still be filtered to spam or blocked by internal filters after delivery."
 
 relatedContent:
-  - title: "AWS SES (Simple Email Service)"
-    url: "/aws-concepts/ses"
-  - title: "AWS SNS (Simple Notification Service)"
-    url: "/aws-concepts/sns"
-  - title: "AWS SNS Topics"
-    url: "/aws-concepts/sns-topics"
-  - title: "AWS SNS Subscription"
-    url: "/aws-concepts/sns-subscription"
-  - title: "SNS Delivery Policy"
-    url: "/aws-concepts/sns-delivery-policy"
-  - title: "Email Deliverability"
-    url: "/email-sending-concepts/deliverability"
+  - /aws-concepts/ses"
+  - /aws-concepts/sns"
+  - /aws-concepts/sns-topics"
+  - /aws-concepts/sns-subscription"
+  - /aws-concepts/sns-delivery-policy"
+  - /email-sending-concepts/deliverability"
 
 head:
   - - meta

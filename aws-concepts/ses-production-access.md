@@ -5,10 +5,10 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
-datePublished: 2024-01-15T08:00:00Z
-dateModified: 2024-01-15T08:00:00Z
-termName: Amazon SES Production Access
-termDescription: The unrestricted operational state that follows the initial sandbox environment for AWS SES accounts, removing sandbox limitations and enabling sending to any recipient with higher volume and throughput capabilities.
+
+datePublished: 2025-06-30
+dateModified: 2025-06-30
+
 faqs:
   - question: How long does it take to get production access?
     answer: Most requests are reviewed within 24–48 hours. Complex cases or unusually high requested limits may require additional time.
@@ -18,23 +18,16 @@ faqs:
     answer: Yes. SES production access is region-specific. You must apply separately for each region where you intend to send email.
   - question: How do I know if my account is in production mode?
     answer: The SES dashboard shows your account limits. If your quota exceeds 200 emails/day and you can send to unverified recipients, your account is in production.
+
 relatedContent:
-  - title: AWS SES (Simple Email Service)
-    url: /aws-concepts/ses
-  - title: AWS SES Sandbox
-    url: /aws-concepts/ses-sandbox
-  - title: AWS SES Sending Quotas
-    url: /aws-concepts/ses-sending-quota
-  - title: AWS SES Sending Rates
-    url: /aws-concepts/ses-sending-rate
-  - title: AWS SNS (Simple Notification Service)
-    url: /aws-concepts/sns
-  - title: Email Authentication
-    url: /email-sending-concepts/email-authentication
-  - title: Bounce Rate
-    url: /email-sending-concepts/bounce-rate
-  - title: Complaints
-    url: /email-sending-concepts/complaints
+  - /aws-concepts/ses
+  - /aws-concepts/ses-sandbox
+  - /aws-concepts/ses-sending-quota
+  - /aws-concepts/ses-sending-rate
+  - /aws-concepts/sns
+  - /email-sending-concepts/email-authentication
+  - /email-sending-concepts/bounce-rate
+  - /email-sending-concepts/complaints
 
 head:
   - - meta

@@ -7,10 +7,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-01-15"
-dateModified: "2024-01-15"
-termName: "IMAP (Internet Message Access Protocol)"
-termDescription: "A modern email protocol that allows users to access and synchronize emails across multiple devices while keeping messages stored on the mail server."
+datePublished: "2025-06-26"
+dateModified: "2025-06-26"
 
 faqs:
   - question: "Is IMAP better than POP3?"

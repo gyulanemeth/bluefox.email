@@ -5,10 +5,9 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
 layout: post
 category: glossary
-datePublished: "2023-01-01"
-dateModified: "2025-07-04"
-termName: "Bounce Rate"
-termDescription: "A critical email deliverability metric that measures the percentage of emails that failed to reach recipients' inboxes and were returned to the sender."
+datePublished: "2025-07-27"
+dateModified: "2025-07-30"
+
 faqs:
   - question: "What's the difference between bounce rate and delivery rate?"
     answer: "Bounce rate measures failed deliveries (percentage of emails that couldn't be delivered), while delivery rate measures successful deliveries (percentage of emails that reached recipients' mail servers). They are inversely related: Delivery Rate (%) = 100% - Bounce Rate (%)."
@@ -20,6 +19,7 @@ faqs:
     answer: "Yes, external factors like major ISP outages, mailbox provider policy changes, or technical issues can cause temporary bounce rate increases. Monitor industry news and differentiate between systemic issues and list problems."
   - question: "How do authentication protocols like DKIM and SPF affect bounce rates?"
     answer: "While authentication doesn't directly reduce bounces caused by invalid addresses, proper implementation can improve overall deliverability and prevent legitimate emails from being rejected due to security concerns, potentially decreasing certain types of soft bounces."
+    
 relatedContent:
   - /email-sending-concepts/bounces
   - /email-sending-concepts/hard-bounce

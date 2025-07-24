@@ -7,10 +7,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-01-15"
-dateModified: "2024-01-15"
-termName: "Return Path"
-termDescription: "An email header that specifies where bounce messages and delivery failure notifications should be sent, playing a crucial role in email deliverability and list management."
+datePublished: "2025-06-30"
+dateModified: "2025-06-30"
 
 faqs:
   - question: "What are the common issues with Return-Path implementation?"
@@ -21,16 +19,11 @@ faqs:
     answer: "Return-Path affects deliverability through proper bounce handling, authentication via SPF verification, and reputation management as ISPs track bounce rates by Return-Path domain. Properly configured Return-Paths typically improve inbox placement rates significantly."
 
 relatedContent:
-  - title: "SPF (Sender Policy Framework)"
-    url: "/email-sending-concepts/spf"
-  - title: "DMARC (Domain-based Message Authentication, Reporting, and Conformance)"
-    url: "/email-sending-concepts/dmarc"
-  - title: "SMTP (Simple Mail Transfer Protocol)"
-    url: "/email-sending-concepts/smtp"
-  - title: "Email Headers"
-    url: "/email-sending-concepts/email-headers"
-  - title: "Bounces"
-    url: "/email-sending-concepts/bounces"
+  - email-sending-concepts/spf
+  - email-sending-concepts/dmarc
+  - email-sending-concepts/smtp
+  - email-sending-concepts/email-headers
+  - email-sending-concepts/bounces
 
 head:
   - - meta

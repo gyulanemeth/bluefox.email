@@ -7,10 +7,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-01-15"
-dateModified: "2024-01-15"
-termName: "Email Authentication"
-termDescription: "The process of verifying the identity of email senders through protocols like SPF, DKIM, and DMARC to protect against email spoofing, phishing, and fraud."
+datePublished: "2024-07-16"
+dateModified: "2024-07-16"
 
 faqs:
   - question: "Which email authentication protocol should I implement first?"
@@ -23,16 +21,11 @@ faqs:
     answer: "You'll need basic knowledge of DNS management, but many email platforms offer guided setup or handle it for you."
 
 relatedContent:
-  - title: "SPF (Sender Policy Framework)"
-    url: "/email-sending-concepts/spf"
-  - title: "DKIM (DomainKeys Identified Mail)"
-    url: "/email-sending-concepts/dkim"
-  - title: "DMARC (Domain-based Message Authentication, Reporting, and Conformance)"
-    url: "/email-sending-concepts/dmarc"
-  - title: "Email Spoofing"
-    url: "/email-sending-concepts/email-spoofing"
-  - title: "SMTP (Simple Mail Transfer Protocol)"
-    url: "/email-sending-concepts/smtp"
+  - /email-sending-concepts/spf
+  - /email-sending-concepts/dkim
+  - /email-sending-concepts/dmarc
+  - /email-sending-concepts/email-spoofing
+  - /email-sending-concepts/smtp
 
 head:
   - - meta

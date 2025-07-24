@@ -6,10 +6,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-01-15"
-dateModified: "2024-01-15"
-termName: "CNAME Records"
-termDescription: "DNS records that create domain aliases by pointing one domain name to another, commonly used for service verification, subdomain management, and email authentication setup."
+datePublished: "2025-07-26"
+dateModified: "2025-07-26"
 
 faqs:
   - question: "Can I use a CNAME for my root domain?"

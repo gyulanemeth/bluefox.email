@@ -6,10 +6,9 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 layout: post
 category: glossary
 sidebar: false
-datePublished: "2023-02-10"
-dateModified: "2023-10-05"
-termName: "SPF (Sender Policy Framework)"
-termDescription: "An email authentication protocol that allows domain owners to specify which mail servers are authorized to send email on behalf of their domain, helping to prevent email spoofing and improve deliverability."
+datePublished: "2025-06-30"
+dateModified: "2025-06-30"
+
 faqs:
   - question: "What is SPF in email?"
     answer: "SPF (Sender Policy Framework) is an email authentication protocol that allows domain owners to specify which mail servers are authorized to send email on behalf of their domain. It creates a DNS record that lists authorized sending servers, helping receiving mail servers verify if an email claiming to be from your domain is legitimate."
@@ -19,6 +18,13 @@ faqs:
     answer: "A basic SPF record looks like this: v=spf1 ip4:192.168.1.1 include:_spf.example.com ~all. This specifies SPF version 1, authorizes the IP address 192.168.1.1, includes all IPs authorized for example.com, and suggests a soft fail (~all) for all other sources."
   - question: "Why is SPF important for email deliverability?"
     answer: "SPF improves email deliverability by helping prevent your domain from being used in spoofing and phishing attacks. Emails that pass SPF checks are less likely to be marked as spam. Many email providers consider SPF authentication when determining whether to deliver emails to the inbox or spam folder."
+
+relatedContent:
+  - /email-sending-concepts/dkim
+  - /email-sending-concepts/dmarc
+  - /email-sending-concepts/email-authentication
+  - /email-sending-concepts/dns
+  - /email-sending-concepts/txt-record
 
 head:
   - - meta
@@ -46,17 +52,6 @@ head:
     - name: twitter:description
       content: SPF is an email authentication method that specifies which mail servers are authorized to send emails on behalf of your domain, helping prevent email spoofing and improving deliverability.
 
-relatedContent:
-  - title: "DKIM (DomainKeys Identified Mail)"
-    url: "/email-sending-concepts/dkim"
-  - title: "DMARC (Domain-based Message Authentication, Reporting, and Conformance)"
-    url: "/email-sending-concepts/dmarc"
-  - title: "Email Authentication"
-    url: "/email-sending-concepts/email-authentication"
-  - title: "DNS (Domain Name System)"
-    url: "/email-sending-concepts/dns"
-  - title: "TXT Records"
-    url: "/email-sending-concepts/txt-record"
 ---
 <GlossaryNavigation/>
 

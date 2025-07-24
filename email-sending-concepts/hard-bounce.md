@@ -5,10 +5,10 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
 layout: post
 category: glossary
-datePublished: "2023-01-01"
-dateModified: "2025-07-04"
-termName: "Hard Bounce"
-termDescription: "A permanent email delivery failure that indicates the email address is invalid or no longer exists, requiring immediate removal from mailing lists."
+
+datePublished: "2025-07-27"
+dateModified: "2025-07-30"
+
 faqs:
   - question: "How are hard bounces different from soft bounces?"
     answer: "Hard bounces represent permanent, unresolvable delivery failures (like non-existent addresses), while soft bounces are temporary issues (like full mailboxes) that may resolve with time. Hard bounces require immediate list removal, whereas soft bounces typically trigger retry attempts."
@@ -18,6 +18,7 @@ faqs:
     answer: "Industry standards consider hard bounce rates below 0.5% to be excellent, while rates between 0.5-2% are acceptable but suggest list hygiene opportunities. Hard bounce rates above 2% indicate serious list quality issues that require immediate attention. Most ESPs have even stricter thresholds for enforcement actions."
   - question: "How quickly should I remove hard bounced addresses from my list?"
     answer: "Hard bounced addresses should be removed immediately upon the first bounce occurrence. There is no benefit to waiting or attempting redelivery, as the failure condition is permanent. Modern email systems typically handle this automatically through suppression list management."
+
 relatedContent:
   - /email-sending-concepts/bounces
   - /email-sending-concepts/soft-bounce

@@ -5,10 +5,10 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
 layout: post
 category: glossary
-datePublished: "2023-01-01"
-dateModified: "2025-07-04"
-termName: "Bounces"
-termDescription: "An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation."
+
+datePublished: "2025-07-27"
+dateModified: "2025-07-30"
+
 faqs:
   - question: "What happens when an email bounces?"
     answer: "The receiving server returns a notification containing standardized error codes and explanatory text about why delivery failed. This information is processed and made available to the sender through reports or notification systems."

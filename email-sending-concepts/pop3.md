@@ -7,10 +7,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-01-15"
-dateModified: "2024-01-15"
-termName: "POP3 (Post Office Protocol)"
-termDescription: "An email retrieval protocol that downloads messages from a server to a local device using a download-and-delete model, designed primarily for single-device email access."
+datePublished: "2024-06-23"
+dateModified: "2024-06-23"
 
 faqs:
   - question: "Will POP3 delete my emails from the server?"
@@ -21,14 +19,11 @@ faqs:
     answer: "Basic POP3 transmits credentials and emails in plain text. For security, use POP3S (POP3 over SSL/TLS) on port 995, which encrypts the entire connection. Most modern email clients default to secure connections, but it's worth verifying your settings, especially on older applications."
 
 relatedContent:
-  - title: "IMAP (Internet Message Access Protocol)"
-    url: "/email-sending-concepts/imap"
-  - title: "SMTP (Simple Mail Transfer Protocol)"
-    url: "/email-sending-concepts/smtp"
-  - title: "TLS (Transport Layer Security)"
-    url: "/email-sending-concepts/tls"
-  - title: "Email Headers"
-    url: "/email-sending-concepts/email-headers"
+  - /email-sending-concepts/imap
+  - /email-sending-concepts/smtp
+  - /email-sending-concepts/tls
+  - /email-sending-concepts/email-headers
+    /email-sending-concepts/email-headers
 
 head:
   - - meta
