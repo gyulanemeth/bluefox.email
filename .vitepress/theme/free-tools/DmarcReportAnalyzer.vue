@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
 
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
@@ -22,6 +22,43 @@ const error = ref(null)
 const result = ref(null)
 const captchaSolved = ref(false)
 
+// --- Drag and Drop State ---
+const isDragging = ref(false)
+let dragLeaveTimeout = null
+function handleDragOver(e) {
+  e.preventDefault()
+  if (dragLeaveTimeout) clearTimeout(dragLeaveTimeout)
+  isDragging.value = true
+}
+function handleDragLeave(e) {
+  e.preventDefault()
+  // Prevent flicker on nested elements
+  dragLeaveTimeout = setTimeout(() => {
+    isDragging.value = false
+  }, 30)
+}
+function handleDrop(e) {
+  e.preventDefault()
+  isDragging.value = false
+  const dropped = e.dataTransfer.files[0]
+  if (dropped && dropped.name.endsWith('.xml')) {
+    file.value = dropped
+    fileName.value = dropped.name
+    xmlPaste.value = ''
+    error.value = null
+  } else {
+    error.value = 'Only XML files are supported.'
+  }
+}
+
+// For truncating file name with tooltip
+const MAX_FILENAME_LEN = 30
+const truncatedFileName = computed(() => {
+  if (!fileName.value) return ''
+  if (fileName.value.length <= MAX_FILENAME_LEN) return fileName.value
+  return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
+})
+
 // --- HELPERS ---
 function isProbeExpired() {
   return !captchaProbe.value || Date.now() / 1000 > captchaExpires.value
@@ -34,7 +71,6 @@ function shouldShowCaptcha() {
     isProbeExpired()
   )
 }
-
 function validateInputs() {
   if (!xmlPaste.value.trim() && !file.value) {
     return 'Paste your DMARC XML or upload an XML file to analyze.'
@@ -81,18 +117,6 @@ function clearFile() {
   file.value = null
   fileName.value = ''
   error.value = null
-}
-function handleDrop(e) {
-  e.preventDefault()
-  const dropped = e.dataTransfer.files[0]
-  if (dropped && dropped.name.endsWith('.xml')) {
-    file.value = dropped
-    fileName.value = dropped.name
-    xmlPaste.value = ''
-    error.value = null
-  } else {
-    error.value = 'Only XML files are supported.'
-  }
 }
 
 // --- CAPTCHA REFRESH ---
@@ -176,6 +200,7 @@ onMounted(async () => {
 </script>
 
 
+
 <template>
   <div class="dmarc-analyzer">
     <div class="tool-form">
@@ -194,14 +219,20 @@ onMounted(async () => {
             autocorrect="off"
           />
         </div>
-        <!-- File Upload Input -->
+        <!-- File Upload Input with Drag Hover Effect -->
         <div class="form-group">
           <label>Or Upload XML File:</label>
           <div
             class="file-upload-area"
-            @dragover.prevent
+            :class="{ 'drag-hover': isDragging }"
+            @dragover="handleDragOver"
+            @dragleave="handleDragLeave"
             @drop="handleDrop"
           >
+            <!-- Drag overlay -->
+            <div v-if="isDragging" class="drag-overlay">
+              <span>Drop XML file here…</span>
+            </div>
             <input
               type="file"
               accept=".xml"
@@ -210,17 +241,28 @@ onMounted(async () => {
               style="display: none;"
               id="fileInput"
             />
-            <label for="fileInput" class="file-upload-label" :class="{ disabled: !!xmlPaste || loading }">
-              <span v-if="fileName">{{ fileName }}</span>
-              <span v-else>Click or drag XML file here</span>
-            </label>
-            <button
-              v-if="fileName"
-              type="button"
-              class="remove-file-btn"
-              @click="clearFile"
-              :disabled="loading"
-            >Remove</button>
+            <template v-if="!isDragging">
+              <label
+                v-if="!fileName"
+                for="fileInput"
+                class="file-upload-label"
+                :class="{ disabled: !!xmlPaste || loading }"
+              >
+                Click or drag XML file here
+              </label>
+              <div v-else class="file-name-row">
+                <span
+                  class="file-name"
+                  :title="fileName"
+                >{{ truncatedFileName }}</span>
+                <button
+                  type="button"
+                  class="remove-file-btn"
+                  @click="clearFile"
+                  :disabled="loading"
+                >Remove</button>
+              </div>
+            </template>
           </div>
         </div>
         <!-- Captcha Section (stateless, per-component) -->
@@ -371,6 +413,7 @@ onMounted(async () => {
 </template>
 
 
+
 <style scoped>
 .dmarc-analyzer {
   max-width: 800px;
@@ -448,6 +491,103 @@ onMounted(async () => {
   cursor: not-allowed;
 }
 
+/* File upload and drag styles */
+.file-upload-area {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  position: relative;
+  transition: border 0.2s, background 0.2s;
+  min-height: 44px;
+}
+.file-upload-area.drag-hover {
+  border: 2px dashed var(--vp-c-brand, #13B0EE);
+  background: var(--vp-c-brand-dimm, #e6f7ff);
+}
+.drag-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 177, 239, 0.08);
+  color: var(--vp-c-brand, #10B1EF);
+  font-size: 1.08rem;
+  font-weight: 600;
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.file-upload-label {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  color: var(--vp-c-text-1, #374151);
+  font-size: 0.95rem;
+  user-select: none;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.file-upload-label.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* File name row and truncation */
+.file-name-row {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.file-name {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 220px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  font-weight: 600;
+  color: var(--vp-c-text-1, #374151);
+  padding-right: 1rem;
+  transition: color 0.2s;
+}
+.file-name:hover {
+  color: var(--vp-c-brand-1, #10B1EF);
+}
+
+/* Remove button pinned to end */
+.remove-file-btn {
+  margin-left: auto;
+  background: var(--vp-c-danger-1, #dc3545);
+  color: white;
+  border: none;
+  padding: 0.32rem 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.87rem;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+  align-self: center;
+}
+
+.remove-file-btn:hover:not(:disabled) {
+  background: var(--vp-c-danger-2, #c82333);
+}
+
+.remove-file-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Captcha specific styles */
 .captcha-section {
   background: var(--vp-c-bg, #ffffff);
   padding: 1.25rem;
@@ -539,51 +679,6 @@ onMounted(async () => {
   color: var(--vp-c-text-2, #6b7280);
   font-size: 0.875rem;
   font-style: italic;
-}
-
-.file-upload-area {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 0.5rem;
-}
-
-.file-upload-label {
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  color: var(--vp-c-text-1, #374151);
-  font-size: 0.95rem;
-  user-select: none;
-  transition: background 0.2s;
-}
-
-.file-upload-label.disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.remove-file-btn {
-  background: var(--vp-c-danger-1, #dc3545);
-  color: white;
-  border: none;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  transition: background-color 0.2s ease;
-}
-
-.remove-file-btn:hover:not(:disabled) {
-  background: var(--vp-c-danger-2, #c82333);
-}
-
-.remove-file-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
 }
 
 .analyze-btn {
@@ -766,62 +861,42 @@ onMounted(async () => {
   font-weight: 500;
 }
 
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-  .analyze-btn {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  
-  .analyze-btn:hover:not(:disabled) {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  }
-  
-  .result-section {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-}
-
 /* Responsive design */
 @media (max-width: 768px) {
   .dmarc-analyzer {
     padding: 0 0.5rem;
   }
-  
   .tool-form,
   .result-section {
     padding: 1rem;
     margin: 1rem 0;
   }
-  
   .form-group input,
   .form-group textarea.xml-paste,
   .analyze-btn {
     padding: 0.75rem;
   }
-  
   .result-section h3 {
     font-size: 1.25rem;
   }
-  
   .result-content h4 {
     font-size: 1.1rem;
   }
-  
   .summary-grid,
   .policy-grid {
     grid-template-columns: 1fr;
   }
-  
+  .file-name {
+    max-width: 120px;
+  }
   .table-header,
   .table-row {
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }
-  
   .table-header {
     display: none;
   }
-  
   .table-row {
     display: flex;
     flex-direction: column;
@@ -831,18 +906,15 @@ onMounted(async () => {
     border-radius: 8px;
     margin-bottom: 0.5rem;
   }
-  
   .table-row > span::before {
     content: attr(data-label) ": ";
     font-weight: 600;
     color: var(--vp-c-text-2, #6b7280);
   }
-  
   .captcha-container {
     flex-direction: column;
     align-items: stretch;
   }
-  
   .refresh-captcha-btn {
     align-self: center;
   }

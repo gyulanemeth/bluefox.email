@@ -18,6 +18,7 @@ const ERROR_MSG = {
 
 // === State ===
 const domain = ref('')
+const testIp = ref('') // NEW: user-provided IP for test
 const captchaText = ref('')
 const captchaImage = ref(null)
 const captchaProbe = ref(null)
@@ -108,14 +109,19 @@ async function checkSpf() {
   loading.value = true
 
   try {
+    const bodyObj = {
+      domain: domain.value,
+      captchaText: shouldShowCaptcha() ? captchaText.value : '',
+      captchaProbe: captchaProbe.value
+    }
+    if (testIp.value && testIp.value.trim().length > 0) {
+      bodyObj.testIp = testIp.value.trim()
+    }
+
     const response = await fetch(`${API_URL}/v1/analyze-spf`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        domain: domain.value,
-        captchaText: shouldShowCaptcha() ? captchaText.value : '',
-        captchaProbe: captchaProbe.value
-      })
+      body: JSON.stringify(bodyObj)
     })
 
     if (!response.ok) {
@@ -137,6 +143,7 @@ async function checkSpf() {
       throw new Error(resultData.error)
     }
 
+    // Flatten result and also support .ipTestResult
     result.value = {
       valid: resultData.success || false,
       domain: resultData.domain || domain.value,
@@ -148,7 +155,7 @@ async function checkSpf() {
       warnings: resultData.warnings || [],
       recommendations: resultData.recommendations || [],
       mailauthResult: resultData.mailauthResult,
-      ipTestResults: resultData.ipTestResults || []
+      ipTestResult: resultData.ipTestResult || null
     }
     // On success, hide captcha for 1 minute (in-memory)
     captchaSolved.value = true
@@ -161,7 +168,7 @@ async function checkSpf() {
   }
 }
 
-// Util: Result styling for IP test cards
+// Util: Result styling for IP test card
 function getIpResultClass(result) {
   let resultStr = ''
   if (typeof result === 'string') resultStr = result
@@ -201,6 +208,7 @@ onMounted(() => {
   <div class="spf-checker">
     <div class="tool-form">
       <form @submit.prevent="checkSpf">
+        <!-- Domain input -->
         <div class="form-group">
           <label for="domain">Domain:</label>
           <input 
@@ -212,6 +220,21 @@ onMounted(() => {
             required
             :disabled="loading"
           />
+        </div>
+
+        <!-- Optional IP input -->
+        <div class="form-group">
+          <label for="ipTest">Optional: Test SPF with a specific IP</label>
+          <input
+            type="text"
+            id="ipTest"
+            name="ipTest"
+            v-model="testIp"
+            placeholder="Enter IPv4/IPv6 address (e.g. 203.0.113.2)"
+            :disabled="loading"
+            autocomplete="off"
+          />
+          <small class="form-help">Leave blank to skip IP-based test.</small>
         </div>
 
         <!-- Captcha Section (shows only when needed) -->
@@ -262,6 +285,7 @@ onMounted(() => {
       </form>
     </div>
 
+    <!-- Result Section -->
     <div v-if="result" class="result-section">
       <h3>SPF Check Results</h3>
       
@@ -314,21 +338,23 @@ onMounted(() => {
             <code>{{ result.mailauthResult.info }}</code>
           </div>
         </div>
+      </div>
 
-        <!-- IP Test Results -->
-        <div v-if="result.ipTestResults && result.ipTestResults.length" class="ip-test-section">
-          <h5>SPF Testing with Different IPs</h5>
-          <p class="section-description">SPF results can vary depending on the sending IP address. Here's how your SPF record responds to different test IPs:</p>
-          <div class="ip-test-grid">
-            <div v-for="ipTest in result.ipTestResults" :key="ipTest.ip" class="ip-test-card">
-              <div class="ip-test-header">
-                <span class="ip-address">{{ ipTest.ip }}</span>
-                <span :class="['ip-result', getIpResultClass(ipTest.result)]">
-                  {{ getDisplayResult(ipTest.result) }}
-                </span>
-              </div>
-              <p class="ip-explanation">{{ ipTest.explanation }}</p>
-            </div>
+      <!-- IP Test Result Card (only if IP was tested) -->
+      <div v-if="result.ipTestResult" class="ip-test-section">
+        <h5>SPF Test for IP: <span class="ip-address">{{ result.ipTestResult.ip }}</span></h5>
+        <div class="ip-test-card">
+          <div class="ip-test-header">
+            <span :class="['ip-result', getIpResultClass(result.ipTestResult.result)]">
+              {{ getDisplayResult(result.ipTestResult.result) }}
+            </span>
+          </div>
+          <p class="ip-explanation">{{ result.ipTestResult.explanation }}</p>
+          <div v-if="result.ipTestResult.details">
+            <details style="margin-top: 0.5rem;">
+              <summary>Show SPF Engine Details</summary>
+              <pre>{{ JSON.stringify(result.ipTestResult.details, null, 2) }}</pre>
+            </details>
           </div>
         </div>
       </div>
@@ -363,6 +389,7 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .spf-checker {
@@ -415,6 +442,15 @@ onMounted(() => {
   cursor: not-allowed;
 }
 
+.form-help {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.85rem;
+  font-style: italic;
+  opacity: 0.9;
+}
+
 /* Captcha specific styles */
 .captcha-section {
   background: var(--vp-c-bg, #ffffff);
@@ -437,7 +473,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff !important; /* Force white background for captcha visibility */
+  background: #ffffff !important;
   border: 1px solid var(--vp-c-border-soft, #dee2e6);
   border-radius: 6px;
   padding: 0.5rem;
@@ -451,7 +487,7 @@ onMounted(() => {
 
 .captcha-loading,
 .captcha-placeholder {
-  color: #6b7280; /* Use fixed gray color for better contrast on white background */
+  color: #6b7280;
   font-style: italic;
   text-align: center;
 }
@@ -748,60 +784,7 @@ onMounted(() => {
   font-weight: 500;
 }
 
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-  .check-btn {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  
-  .check-btn:hover:not(:disabled) {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-  }
-  
-  .result-section {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-  .spf-checker {
-    padding: 0 0.5rem;
-  }
-  
-  .tool-form,
-  .result-section {
-    padding: 1rem;
-    margin: 1rem 0;
-  }
-  
-  .form-group input,
-  .check-btn {
-    padding: 0.75rem;
-  }
-  
-  .result-section h3 {
-    font-size: 1.25rem;
-  }
-  
-  .info-section h4,
-  .warnings-section h4,
-  .recommendations-section h4,
-  .errors-section h4 {
-    font-size: 1.1rem;
-  }
-  
-  .captcha-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .refresh-captcha-btn {
-    align-self: center;
-  }
-}
-
-/* IP Test Results Styling */
+/* --- IP Test Section/Card Styling --- */
 .ip-test-section {
   margin-top: 1.5rem;
   padding: 1.25rem;
@@ -817,38 +800,19 @@ onMounted(() => {
   font-weight: 600;
 }
 
-.section-description {
-  margin: 0 0 1rem 0;
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-.ip-test-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
 .ip-test-card {
-  background: var(--vp-c-bg, #ffffff);
+  background: var(--vp-c-bg, #fff);
   border: 1px solid var(--vp-c-border, #e5e7eb);
   border-radius: 8px;
   padding: 1rem;
-  transition: all 0.2s ease;
-}
-
-.ip-test-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1rem;
 }
 
 .ip-test-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  gap: 1.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .ip-address {
@@ -875,31 +839,26 @@ onMounted(() => {
   color: var(--vp-c-green-dark, #166534);
   border: 1px solid var(--vp-c-green-light, #86efac);
 }
-
 .result-fail {
   background: var(--vp-c-red-soft, #fef2f2);
   color: var(--vp-c-red-dark, #991b1b);
   border: 1px solid var(--vp-c-red-light, #fca5a5);
 }
-
 .result-softfail {
   background: var(--vp-c-yellow-soft, #fefce8);
   color: var(--vp-c-yellow-dark, #854d0e);
   border: 1px solid var(--vp-c-yellow-light, #fde047);
 }
-
 .result-neutral {
   background: var(--vp-c-gray-soft, #f8fafc);
   color: var(--vp-c-gray-dark, #374151);
   border: 1px solid var(--vp-c-gray-light, #d1d5db);
 }
-
 .result-error {
   background: var(--vp-c-red-soft, #fef2f2);
   color: var(--vp-c-red-dark, #991b1b);
   border: 1px solid var(--vp-c-red-light, #fca5a5);
 }
-
 .result-unknown {
   background: var(--vp-c-gray-soft, #f1f5f9);
   color: var(--vp-c-gray-dark, #64748b);
@@ -913,16 +872,59 @@ onMounted(() => {
   line-height: 1.4;
 }
 
-/* Responsive adjustments for IP test cards */
-@media (max-width: 768px) {
-  .ip-test-grid {
-    grid-template-columns: 1fr;
+@media (prefers-color-scheme: dark) {
+  .check-btn {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
-  
+  .check-btn:hover:not(:disabled) {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  }
+  .result-section {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .spf-checker {
+    padding: 0 0.5rem;
+  }
+  .tool-form,
+  .result-section {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  .form-group input,
+  .check-btn {
+    padding: 0.75rem;
+  }
+  .result-section h3 {
+    font-size: 1.25rem;
+  }
+  .info-section h4,
+  .warnings-section h4,
+  .recommendations-section h4,
+  .errors-section h4 {
+    font-size: 1.1rem;
+  }
+  .captcha-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .refresh-captcha-btn {
+    align-self: center;
+  }
+  .ip-test-section {
+    padding: 1rem;
+  }
+  .ip-test-card {
+    padding: 0.75rem;
+  }
   .ip-test-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
   }
 }
+
 </style>
