@@ -1,11 +1,10 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
 
 // --- CONSTANTS ---
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
 
-// --- CAPTCHA STATE (in-memory only, per component instance) ---
 const {
   captchaProbe,
   captchaImage,
@@ -14,15 +13,13 @@ const {
   loadCaptcha
 } = useCaptcha()
 
-// --- LOCAL STATE ---
 const domain = ref('')
 const captchaText = ref('')
 const loading = ref(false)
 const error = ref(null)
 const result = ref(null)
-const captchaSolved = ref(false) // Tracks if user solved (per-probe)
+const captchaSolved = ref(false)
 
-// --- CAPTCHA LOGIC ---
 function isProbeExpired() {
   return !captchaProbe.value || Date.now() / 1000 > captchaExpires.value
 }
@@ -34,8 +31,6 @@ function shouldShowCaptcha() {
     isProbeExpired()
   )
 }
-
-// --- VALIDATION ---
 function validateInputs() {
   if (!API_URL) return 'API URL not configured. Please set VITE_TOOLS_API_URL.'
   if (shouldShowCaptcha()) {
@@ -45,15 +40,11 @@ function validateInputs() {
   if (!domain.value.trim()) return 'Please enter a domain name.'
   return null
 }
-
-// --- CAPTCHA REFRESH BUTTON ---
 async function refreshCaptcha() {
   captchaText.value = ''
   captchaSolved.value = false
   await loadCaptcha()
 }
-
-// --- API CALL ---
 async function callDmarcApi() {
   const response = await fetch(`${API_URL}/v1/analyze-dmarc`, {
     method: 'POST',
@@ -84,8 +75,6 @@ async function callDmarcApi() {
 
   return json.result || json
 }
-
-// --- MAIN ACTION ---
 async function checkDmarc() {
   error.value = null
   result.value = null
@@ -108,8 +97,6 @@ async function checkDmarc() {
   try {
     const resultData = await callDmarcApi()
     result.value = mapDmarcResult(resultData)
-
-    // --- On success: hide captcha UI, clear input, but keep the probe for session ---
     if (resultData.success) {
       captchaSolved.value = true
       captchaText.value = ''
@@ -124,8 +111,6 @@ async function checkDmarc() {
     loading.value = false
   }
 }
-
-// --- OTHER HELPERS (unchanged from your code) ---
 function handleApiError(msg) {
   if (msg.includes('fetch')) return 'Cannot connect to the server. Please make sure the backend is running.'
   if (msg.includes('404')) return 'API endpoint not found. Please check the server configuration.'
@@ -138,22 +123,44 @@ function mapDmarcResult(resultData) {
     valid: !!resultData.success,
     domain: resultData.domain || domain.value,
     record: resultData.rawRecord || resultData.record || 'Not found',
-    policy: resultData.parsed?.p || resultData.policy,
-    subdomainPolicy: resultData.parsed?.sp || resultData.subdomainPolicy,
-    percentage: resultData.parsed?.pct || resultData.percentage || 100,
-    rua: resultData.parsed?.rua || resultData.rua || [],
-    ruf: resultData.parsed?.ruf || resultData.ruf || [],
+    parsed: resultData.parsed || {},
+    checkedRecord: resultData.checkedRecord,
     errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
-    analysis: resultData.explanations || resultData.analysis,
     score: resultData.score,
     warnings: resultData.warnings || [],
     recommendations: resultData.recommendations || [],
-    mailauthResult: resultData.mailauthRecord || resultData.mailauthResult,
-    checkedRecord: resultData.checkedRecord
   }
 }
 
-// --- INITIALIZE ON MOUNT ---
+// DMARC TAG TABLE
+const DMARC_TAG_DESCRIPTIONS = {
+  v: "DMARC version tag (should be DMARC1).",
+  p: "Policy for main domain (none/quarantine/reject).",
+  sp: "Subdomain policy (if present).",
+  rua: "Aggregate report recipient(s).",
+  ruf: "Forensic report recipient(s).",
+  adkim: "DKIM alignment mode (r=relaxed, s=strict).",
+  aspf: "SPF alignment mode (r=relaxed, s=strict).",
+  pct: "Percent of mail subject to filtering.",
+  fo: "Failure reporting options.",
+  ri: "Report interval in seconds."
+}
+const dmarcTags = computed(() => {
+  const parsed = result.value?.parsed || {}
+  return [
+    { tag: "v", value: parsed.v || "", description: DMARC_TAG_DESCRIPTIONS.v },
+    { tag: "p", value: parsed.p || "", description: DMARC_TAG_DESCRIPTIONS.p },
+    { tag: "sp", value: parsed.sp || "", description: DMARC_TAG_DESCRIPTIONS.sp },
+    { tag: "rua", value: parsed.rua || "", description: DMARC_TAG_DESCRIPTIONS.rua },
+    { tag: "ruf", value: parsed.ruf || "", description: DMARC_TAG_DESCRIPTIONS.ruf },
+    { tag: "adkim", value: parsed.adkim || "", description: DMARC_TAG_DESCRIPTIONS.adkim },
+    { tag: "aspf", value: parsed.aspf || "", description: DMARC_TAG_DESCRIPTIONS.aspf },
+    { tag: "pct", value: parsed.pct != null ? parsed.pct : "", description: DMARC_TAG_DESCRIPTIONS.pct },
+    { tag: "fo", value: parsed.fo || "", description: DMARC_TAG_DESCRIPTIONS.fo },
+    { tag: "ri", value: parsed.ri || "", description: DMARC_TAG_DESCRIPTIONS.ri },
+  ].filter(item => item.value !== "")
+})
+
 onMounted(async () => {
   await loadCaptcha()
   captchaSolved.value = false
@@ -251,36 +258,27 @@ onMounted(async () => {
         <h4>Basic Information</h4>
         <p><strong>Domain:</strong> {{ result.domain }}</p>
         <p v-if="result.checkedRecord"><strong>Checked Record:</strong> {{ result.checkedRecord }}</p>
-        <p><strong>Record:</strong> {{ result.record || 'Not found' }}</p>
-        <div v-if="result.policy">
-          <p><strong>Policy:</strong> {{ result.policy }}</p>
-          <p><strong>Subdomain Policy:</strong> {{ result.subdomainPolicy || 'Inherits from main policy' }}</p>
-          <p><strong>Coverage:</strong> {{ result.percentage || '100' }}%</p>
-          <div v-if="result.rua && result.rua.length">
-            <p><strong>Aggregate Reports:</strong></p>
-            <ul>
-              <li v-for="email in result.rua" :key="email">{{ email }}</li>
-            </ul>
-          </div>
-          <div v-if="result.ruf && result.ruf.length">
-            <p><strong>Forensic Reports:</strong></p>
-            <ul>
-              <li v-for="email in result.ruf" :key="email">{{ email }}</li>
-            </ul>
-          </div>
-        </div>
-        <div v-if="result.mailauthResult" class="mailauth-section">
-          <h5>Email Authentication Analysis</h5>
-          <div class="authentication-results">
-            <pre>{{ JSON.stringify(result.mailauthResult, null, 2) }}</pre>
-          </div>
-        </div>
+        <p><strong>DMARC Record:</strong> {{ result.record }}</p>
       </div>
-      <div v-if="result.analysis" class="analysis-section">
-        <h4>Policy Analysis</h4>
-        <div v-for="(explanation, key) in result.analysis" :key="key">
-          <p><strong>{{ key.toUpperCase() }}:</strong> {{ explanation }}</p>
-        </div>
+      <!-- DMARC Record Breakdown Table -->
+      <div v-if="dmarcTags.length" class="dmarc-table-section">
+        <h4>DMARC Record Breakdown</h4>
+        <table class="dmarc-record-table">
+          <thead>
+            <tr>
+              <th style="width: 60px;">Tag</th>
+              <th style="width: 200px;">Value</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="tag in dmarcTags" :key="tag.tag">
+              <td>{{ tag.tag.toUpperCase() }}</td>
+              <td>{{ tag.value }}</td>
+              <td>{{ tag.description }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
       <div v-if="result.warnings && result.warnings.length" class="warnings-section">
         <h4>⚠️ Warnings</h4>
@@ -627,6 +625,28 @@ onMounted(async () => {
   font-weight: 600;
 }
 
+.dmarc-table-section {
+  margin: 2em 0 0 0;
+}
+.dmarc-record-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  background: var(--vp-c-bg, #fff);
+}
+.dmarc-record-table th,
+.dmarc-record-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  font-size: 0.97em;
+  vertical-align: top;
+}
+.dmarc-record-table th {
+  background: #f5f5f5;
+  font-weight: bold;
+  text-align: left;
+}
+
 .authentication-results {
   background: var(--vp-c-bg, #ffffff);
   border: 1px solid var(--vp-c-border, #dee2e6);
@@ -643,6 +663,20 @@ onMounted(async () => {
   white-space: pre-wrap;
   word-break: break-word;
   line-height: 1.5;
+}
+
+@media (prefers-color-scheme: dark) {
+  .dmarc-record-table,
+  .dmarc-record-table th,
+  .dmarc-record-table td {
+    background: var(--vp-c-bg, #17181c) !important;
+    color: var(--vp-c-text-1, #e9e9e9);
+    border-color: #282a36;
+  }
+  .dmarc-record-table th {
+    background: #252736 !important;
+    color: #aad0f7;
+  }
 }
 
 /* Dark mode adjustments */
