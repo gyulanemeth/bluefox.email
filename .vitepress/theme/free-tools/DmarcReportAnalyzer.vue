@@ -1,48 +1,58 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useCaptcha } from './useCaptcha.js'
 
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
 
-const ERROR_MSG = {
-  apiConfig: 'API URL not configured. Please set VITE_TOOLS_API_URL in your environment.',
-  captchaFirst: 'Please load the captcha first.',
-  captchaPrompt: 'Please enter the captcha text.'
-}
-const errorMsgs = {
-  connect: 'Cannot connect to the server. Please make sure the backend is running.',
-  endpoint: 'API endpoint not found. Please check the server configuration.',
-  server: 'Server error occurred. Please try again later.'
-}
+// CAPTCHA (stateless, per component)
+const {
+  captchaProbe,
+  captchaImage,
+  captchaExpires,
+  captchaLoading,
+  loadCaptcha
+} = useCaptcha()
 
-// === STATE ===
 const xmlPaste = ref('')
 const file = ref(null)
 const fileName = ref('')
 const captchaText = ref('')
-const captchaImage = ref(null)
-const captchaProbe = ref(null)
-const captchaLoading = ref(false)
 const loading = ref(false)
 const error = ref(null)
 const result = ref(null)
+const captchaSolved = ref(false)
 
-// === HELPERS ===
+// --- HELPERS ---
+function isProbeExpired() {
+  return !captchaProbe.value || Date.now() / 1000 > captchaExpires.value
+}
+function shouldShowCaptcha() {
+  return (
+    !captchaSolved.value ||
+    !captchaProbe.value ||
+    !captchaImage.value ||
+    isProbeExpired()
+  )
+}
+
 function validateInputs() {
   if (!xmlPaste.value.trim() && !file.value) {
     return 'Paste your DMARC XML or upload an XML file to analyze.'
   }
-  if (!captchaProbe.value) {
-    return ERROR_MSG.captchaFirst
-  }
-  if (!captchaText.value.trim()) {
-    return ERROR_MSG.captchaPrompt
-  }
-  if (!API_URL) {
-    return ERROR_MSG.apiConfig
+  if (!API_URL) return 'API URL not configured.'
+  if (shouldShowCaptcha()) {
+    if (!captchaProbe.value) return 'Please load the captcha first.'
+    if (!captchaText.value.trim()) return 'Please enter the captcha text.'
   }
   return null
 }
-
+function handleApiError(msg) {
+  if (msg.includes('fetch')) return 'Cannot connect to the server. Please make sure the backend is running.'
+  if (msg.includes('404')) return 'API endpoint not found. Please check the server configuration.'
+  if (msg.includes('500')) return 'Server error occurred. Please try again later.'
+  if (msg.toLowerCase().includes('captcha')) return msg + ' Please try again with the new captcha.'
+  return msg
+}
 function formatDateRange(dateRange) {
   if (!dateRange) return 'Unknown'
   if (dateRange.start && dateRange.end) {
@@ -51,41 +61,7 @@ function formatDateRange(dateRange) {
   return typeof dateRange === 'string' ? dateRange : 'Unknown'
 }
 
-function handleApiError(msg) {
-  if (msg.includes('fetch')) return errorMsgs.connect
-  if (msg.includes('404')) return errorMsgs.endpoint
-  if (msg.includes('500')) return errorMsgs.server
-  if (msg.toLowerCase().includes('captcha')) return msg + ' Please try again with the new captcha.'
-  return msg
-}
-
-// === CAPTCHA ===
-async function loadCaptcha() {
-  captchaLoading.value = true
-  error.value = null
-  try {
-    if (!API_URL) throw new Error(ERROR_MSG.apiConfig)
-    const response = await fetch(`${API_URL}/v1/captcha/generate`)
-    if (!response.ok) throw new Error(`Failed to load captcha: ${response.status}`)
-    const data = await response.json()
-    if (data.result && data.result.captcha) {
-      captchaImage.value = data.result.captcha.image
-      captchaProbe.value = data.result.captcha.probe
-      captchaText.value = ''
-    } else {
-      throw new Error('Invalid captcha response from server')
-    }
-  } catch (err) {
-    error.value = `Failed to load captcha: ${err.message}`
-  } finally {
-    captchaLoading.value = false
-  }
-}
-async function refreshCaptcha() {
-  await loadCaptcha()
-}
-
-// === FILE HANDLING ===
+// --- FILE HANDLING ---
 function handleFileChange(e) {
   const selected = e.target.files[0]
   if (!selected) {
@@ -99,13 +75,11 @@ function handleFileChange(e) {
   }
   file.value = selected
   fileName.value = selected.name
-  // Clear paste field if file chosen
   xmlPaste.value = ''
 }
 function clearFile() {
   file.value = null
   fileName.value = ''
-  // (optional) clear error on clear
   error.value = null
 }
 function handleDrop(e) {
@@ -121,26 +95,37 @@ function handleDrop(e) {
   }
 }
 
-// === MAIN SUBMIT ===
+// --- CAPTCHA REFRESH ---
+async function refreshCaptcha() {
+  captchaText.value = ''
+  captchaSolved.value = false
+  await loadCaptcha()
+}
+
+// --- MAIN SUBMIT ---
 async function analyzeReport() {
   error.value = null
   result.value = null
   loading.value = true
 
+  if (isProbeExpired()) {
+    await refreshCaptcha()
+    error.value = 'Captcha expired, please solve the new captcha.'
+    loading.value = false
+    return
+  }
   const validationError = validateInputs()
   if (validationError) {
     error.value = validationError
     loading.value = false
     return
   }
-
   try {
     let response, data
     if (file.value) {
-      // Use file upload endpoint
       const formData = new FormData()
       formData.append('file', file.value)
-      formData.append('captchaText', captchaText.value)
+      formData.append('captchaText', captchaSolved.value ? '' : captchaText.value)
       formData.append('captchaProbe', captchaProbe.value)
       response = await fetch(`${API_URL}/v1/analyze-dmarc-report-upload`, {
         method: 'POST',
@@ -148,31 +133,32 @@ async function analyzeReport() {
       })
       data = await response.json()
     } else {
-      // Use pasted XML
-      const reqOptions = {
+      response = await fetch(`${API_URL}/v1/analyze-dmarc-report`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           xml: xmlPaste.value,
-          captchaText: captchaText.value,
+          captchaText: captchaSolved.value ? '' : captchaText.value,
           captchaProbe: captchaProbe.value
         })
-      }
-      response = await fetch(`${API_URL}/v1/analyze-dmarc-report`, reqOptions)
+      })
       data = await response.json()
     }
 
-    const resultData = data.result || data
-    if (!response.ok || !resultData.success) {
-      if (resultData.error && resultData.error.toLowerCase().includes('captcha')) {
+    const json = data
+    if (!response.ok || !json.result?.success) {
+      if (json.result?.error && json.result.error.toLowerCase().includes('captcha')) {
         await refreshCaptcha()
-        captchaText.value = ''
+        error.value = 'Captcha expired or invalid. Please complete the new captcha.'
+      } else {
+        error.value = json.result?.error || 'Unknown error.'
       }
-      throw new Error(resultData.error || 'Failed to analyze DMARC report.')
+      loading.value = false
+      return
     }
-    result.value = resultData
-    await refreshCaptcha()
-    // Reset upload field after successful upload
+    result.value = json.result
+    captchaSolved.value = true
+    captchaText.value = ''
     clearFile()
   } catch (err) {
     const msg = err?.message || 'Failed to analyze DMARC report. Please try again.'
@@ -182,15 +168,19 @@ async function analyzeReport() {
   }
 }
 
-onMounted(() => {
-  loadCaptcha()
+// --- ON MOUNT: Fetch captcha fresh ---
+onMounted(async () => {
+  await loadCaptcha()
+  captchaSolved.value = false
 })
 </script>
+
 
 <template>
   <div class="dmarc-analyzer">
     <div class="tool-form">
       <form @submit.prevent="analyzeReport">
+        <!-- XML Paste Input -->
         <div class="form-group">
           <label for="xmlPaste">Paste DMARC Report XML:</label>
           <textarea
@@ -204,6 +194,7 @@ onMounted(() => {
             autocorrect="off"
           />
         </div>
+        <!-- File Upload Input -->
         <div class="form-group">
           <label>Or Upload XML File:</label>
           <div
@@ -232,20 +223,15 @@ onMounted(() => {
             >Remove</button>
           </div>
         </div>
-        <!-- Captcha Section -->
-        <div class="form-group captcha-section">
+        <!-- Captcha Section (stateless, per-component) -->
+        <div class="form-group captcha-section" v-if="shouldShowCaptcha()">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
-              <div v-if="captchaLoading" class="captcha-loading">
-                Loading captcha...
-              </div>
-              <div v-else-if="captchaImage"
-                   class="captcha-image"
-                   v-html="captchaImage">
-              </div>
+              <div v-if="captchaLoading" class="captcha-loading">Loading captcha...</div>
+              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage"></div>
               <div v-else class="captcha-placeholder">
-                <button type="button" @click="loadCaptcha" class="load-captcha-btn">
+                <button type="button" @click="refreshCaptcha" class="load-captcha-btn">
                   Load Captcha
                 </button>
               </div>
@@ -255,13 +241,12 @@ onMounted(() => {
                     class="refresh-captcha-btn"
                     :disabled="captchaLoading"
                     title="Refresh captcha">
-              <img src="/assets/reload.webp" alt="reload button">
+              <img src="/assets/reload.webp" alt="reload button" />
             </button>
           </div>
           <input
             type="text"
             id="captcha"
-            name="captcha"
             v-model="captchaText"
             placeholder="Enter the text from the image above"
             required
@@ -271,13 +256,21 @@ onMounted(() => {
           />
           <small class="captcha-help">Enter the characters shown in the image above</small>
         </div>
+        <!-- Submit Button -->
         <button type="submit"
-                :disabled="loading || (!xmlPaste && !file) || !captchaImage || !captchaText"
+                :disabled="loading || (!xmlPaste && !file) || (shouldShowCaptcha() && (!captchaImage || !captchaText))"
                 class="analyze-btn">
           {{ loading ? 'Analyzing...' : 'Analyze Report' }}
         </button>
       </form>
     </div>
+
+    <!-- Error Section -->
+    <div v-if="error" class="error-section">
+      <p class="error-message">{{ error }}</p>
+    </div>
+
+    <!-- Results Section -->
     <div v-if="result" class="result-section">
       <h3>DMARC Report Analysis</h3>
       <div class="report-summary">
@@ -312,7 +305,9 @@ onMounted(() => {
           </div>
           <div class="summary-item">
             <span class="label">Score:</span>
-            <span class="value">{{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})</span>
+            <span class="value">
+              {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
+            </span>
           </div>
           <div class="summary-item">
             <span class="label">Date Range:</span>
@@ -371,9 +366,6 @@ onMounted(() => {
           <li v-for="r in result.recommendations" :key="r">{{ r }}</li>
         </ul>
       </div>
-    </div>
-    <div v-if="error" class="error-section">
-      <p class="error-message">{{ error }}</p>
     </div>
   </div>
 </template>
@@ -456,34 +448,6 @@ onMounted(() => {
   cursor: not-allowed;
 }
 
-.file-info {
-  margin-top: 0.5rem;
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.875rem;
-}
-
-.remove-file-btn {
-  background: var(--vp-c-danger-1, #dc3545);
-  color: white;
-  border: none;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.75rem;
-  margin-left: 0.5rem;
-  transition: background-color 0.2s ease;
-}
-
-.remove-file-btn:hover:not(:disabled) {
-  background: var(--vp-c-danger-2, #c82333);
-}
-
-.remove-file-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Captcha specific styles */
 .captcha-section {
   background: var(--vp-c-bg, #ffffff);
   padding: 1.25rem;
@@ -505,7 +469,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff !important; /* Force white background for captcha visibility */
+  background: #ffffff !important;
   border: 1px solid var(--vp-c-border-soft, #dee2e6);
   border-radius: 6px;
   padding: 0.5rem;
@@ -519,7 +483,7 @@ onMounted(() => {
 
 .captcha-loading,
 .captcha-placeholder {
-  color: #6b7280; /* Use fixed gray color for better contrast on white background */
+  color: #6b7280;
   font-style: italic;
   text-align: center;
 }
@@ -555,16 +519,6 @@ onMounted(() => {
   transition: all 0.2s ease;
 }
 
-.dark .refresh-captcha-btn {
-  background: #fff !important;
-  border: 1px solid #333 !important;
-  color: #222 !important;
-}
-
-.dark .refresh-captcha-btn img {
-  filter: invert(0);
-}
-
 .refresh-captcha-btn:hover:not(:disabled) {
   background: var(--vp-c-bg, #ffffff);
   border-color: var(--vp-c-brand-1, #10B1EF);
@@ -593,6 +547,7 @@ onMounted(() => {
   gap: 1rem;
   margin-top: 0.5rem;
 }
+
 .file-upload-label {
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -604,11 +559,13 @@ onMounted(() => {
   user-select: none;
   transition: background 0.2s;
 }
+
 .file-upload-label.disabled {
   opacity: 0.6;
   cursor: not-allowed;
   pointer-events: none;
 }
+
 .remove-file-btn {
   background: var(--vp-c-danger-1, #dc3545);
   color: white;
@@ -619,9 +576,11 @@ onMounted(() => {
   font-size: 0.85rem;
   transition: background-color 0.2s ease;
 }
+
 .remove-file-btn:hover:not(:disabled) {
   background: var(--vp-c-danger-2, #c82333);
 }
+
 .remove-file-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -888,6 +847,4 @@ onMounted(() => {
     align-self: center;
   }
 }
-
-
 </style>

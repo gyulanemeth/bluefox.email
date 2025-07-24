@@ -1,103 +1,138 @@
 <script setup>
 import { ref, onMounted } from 'vue'
+import { useCaptcha } from './useCaptcha.js'
 
-// === CONSTANTS & ERROR MAPS ===
+// --- CONSTANTS ---
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
-const ERROR_MSG = {
-  apiConfig: 'API URL not configured. Please set VITE_TOOLS_API_URL in your environment.',
-  captchaFirst: 'Please load the captcha first.',
-  captchaPrompt: 'Please enter the captcha text.',
-  default: 'Failed to check DMARC. Please try again.'
-}
-const errorMsgs = {
-  connect: 'Cannot connect to the server. Please make sure the backend is running.',
-  endpoint: 'API endpoint not found. Please check the server configuration.',
-  server: 'Server error occurred. Please try again later.'
-}
 
-// === STATE ===
+// --- CAPTCHA STATE (in-memory only, per component instance) ---
+const {
+  captchaProbe,
+  captchaImage,
+  captchaExpires,
+  captchaLoading,
+  loadCaptcha
+} = useCaptcha()
+
+// --- LOCAL STATE ---
 const domain = ref('')
 const captchaText = ref('')
-const captchaImage = ref(null)
-const captchaProbe = ref(null)
-const captchaLoading = ref(false)
 const loading = ref(false)
 const error = ref(null)
 const result = ref(null)
+const captchaSolved = ref(false) // Tracks if user solved (per-probe)
 
-// === HELPERS ===
+// --- CAPTCHA LOGIC ---
+function isProbeExpired() {
+  return !captchaProbe.value || Date.now() / 1000 > captchaExpires.value
+}
+function shouldShowCaptcha() {
+  return (
+    !captchaSolved.value ||
+    !captchaProbe.value ||
+    !captchaImage.value ||
+    isProbeExpired()
+  )
+}
+
+// --- VALIDATION ---
 function validateInputs() {
-  if (!API_URL) {
-    return ERROR_MSG.apiConfig
+  if (!API_URL) return 'API URL not configured. Please set VITE_TOOLS_API_URL.'
+  if (shouldShowCaptcha()) {
+    if (!captchaProbe.value) return 'Please load the captcha first.'
+    if (!captchaText.value.trim()) return 'Please enter the captcha text.'
   }
-  if (!captchaProbe.value) {
-    return ERROR_MSG.captchaFirst
-  }
-  if (!captchaText.value.trim()) {
-    return ERROR_MSG.captchaPrompt
-  }
+  if (!domain.value.trim()) return 'Please enter a domain name.'
   return null
 }
 
-async function loadCaptchaAndClearInput() {
-  captchaLoading.value = true
-  error.value = null
-  try {
-    if (!API_URL) {
-      throw new Error(ERROR_MSG.apiConfig)
-    }
-    const response = await fetch(`${API_URL}/v1/captcha/generate`)
-    if (!response.ok) {
-      throw new Error(`Failed to load captcha: ${response.status}`)
-    }
-    const data = await response.json()
-    if (data.result && data.result.success && data.result.captcha) {
-      captchaImage.value = data.result.captcha.image
-      captchaProbe.value = data.result.captcha.probe
-      captchaText.value = ''
-    } else {
-      throw new Error('Invalid captcha response from server')
-    }
-  } catch (err) {
-    error.value = `Failed to load captcha: ${err.message}`
-    captchaImage.value = null
-    captchaProbe.value = null
-    captchaText.value = ''
-  } finally {
-    captchaLoading.value = false
-  }
+// --- CAPTCHA REFRESH BUTTON ---
+async function refreshCaptcha() {
+  captchaText.value = ''
+  captchaSolved.value = false
+  await loadCaptcha()
 }
 
+// --- API CALL ---
 async function callDmarcApi() {
   const response = await fetch(`${API_URL}/v1/analyze-dmarc`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       domain: domain.value,
-      captchaText: captchaText.value,
-      captchaProbe: captchaProbe.value
+      captchaText: captchaSolved.value ? '' : captchaText.value,
+      captchaProbe: captchaProbe.value,
     })
   })
+
   let json
   try {
     json = await response.json()
   } catch {
     throw new Error(`HTTP error! status: ${response.status}`)
   }
+
+  const backendError = (json.error || (json.result && json.result.error) || '').toLowerCase()
   if (!response.ok) {
-    let errorMessage = `HTTP error! status: ${response.status}`
-    if (json.result && json.result.error) {
-      errorMessage = json.result.error
-    } else if (json.error) {
-      errorMessage = json.error
-    } else if (json.message) {
-      errorMessage = json.message
+    if (backendError.includes('captcha')) {
+      await refreshCaptcha()
+      throw new Error('Captcha expired or invalid. Please solve the new captcha.')
+    } else {
+      throw new Error(json.error || json.message || `HTTP error! status: ${response.status}`)
     }
-    throw new Error(errorMessage)
   }
+
   return json.result || json
 }
 
+// --- MAIN ACTION ---
+async function checkDmarc() {
+  error.value = null
+  result.value = null
+  loading.value = true
+
+  if (isProbeExpired()) {
+    await refreshCaptcha()
+    error.value = 'Captcha expired, please solve the new captcha.'
+    loading.value = false
+    return
+  }
+
+  const validationError = validateInputs()
+  if (validationError) {
+    error.value = validationError
+    loading.value = false
+    return
+  }
+
+  try {
+    const resultData = await callDmarcApi()
+    result.value = mapDmarcResult(resultData)
+
+    // --- On success: hide captcha UI, clear input, but keep the probe for session ---
+    if (resultData.success) {
+      captchaSolved.value = true
+      captchaText.value = ''
+    }
+  } catch (err) {
+    if ((err?.message || '').toLowerCase().includes('captcha')) {
+      // Already handled by refreshCaptcha above
+    } else {
+      error.value = handleApiError(err?.message || 'Failed to check DMARC. Please try again.')
+    }
+  } finally {
+    loading.value = false
+  }
+}
+
+// --- OTHER HELPERS (unchanged from your code) ---
+function handleApiError(msg) {
+  if (msg.includes('fetch')) return 'Cannot connect to the server. Please make sure the backend is running.'
+  if (msg.includes('404')) return 'API endpoint not found. Please check the server configuration.'
+  if (msg.includes('500')) return 'Server error occurred. Please try again later.'
+  if (msg.toLowerCase().includes('captcha')) return msg + ' Please try again with the new captcha.'
+  return msg
+}
 function mapDmarcResult(resultData) {
   return {
     valid: !!resultData.success,
@@ -118,64 +153,10 @@ function mapDmarcResult(resultData) {
   }
 }
 
-async function handleDmarcApiErrors(resultData) {
-  if (!resultData.success && resultData.error) {
-    if (resultData.error.toLowerCase().includes('captcha')) {
-      await loadCaptchaAndClearInput()
-    }
-    throw new Error(resultData.error)
-  }
-}
-
-function handleApiError(msg) {
-  if (msg.includes('fetch')) {
-    return errorMsgs.connect
-  }
-  if (msg.includes('404')) {
-    return errorMsgs.endpoint
-  }
-  if (msg.includes('500')) {
-    return errorMsgs.server
-  }
-  if (msg.toLowerCase().includes('captcha')) {
-    return msg + ' Please try again with the new captcha.'
-  }
-  return msg
-}
-
-// === MAIN ACTION ===
-async function checkDmarc() {
-  error.value = null
-  result.value = null
-  loading.value = true
-
-  const validationError = validateInputs()
-  if (validationError) {
-    error.value = validationError
-    loading.value = false
-    return
-  }
-
-  try {
-    const resultData = await callDmarcApi()
-    await handleDmarcApiErrors(resultData)
-    result.value = mapDmarcResult(resultData)
-    await loadCaptchaAndClearInput()
-  } catch (err) {
-    const msg = err?.message || ERROR_MSG.default
-    error.value = handleApiError(msg)
-  } finally {
-    loading.value = false
-  }
-}
-
-function refreshCaptcha() {
-  loadCaptchaAndClearInput()
-}
-
-// === INIT ===
-onMounted(() => {
-  loadCaptchaAndClearInput()
+// --- INITIALIZE ON MOUNT ---
+onMounted(async () => {
+  await loadCaptcha()
+  captchaSolved.value = false
 })
 </script>
 
@@ -183,45 +164,45 @@ onMounted(() => {
   <div class="dmarc-checker">
     <div class="tool-form">
       <form @submit.prevent="checkDmarc">
+        <!-- Domain input -->
         <div class="form-group">
           <label for="domain">Domain:</label>
           <input
             type="text"
             id="domain"
-            name="domain"
             v-model="domain"
             placeholder="example.com"
             required
             :disabled="loading"
           />
         </div>
-        <!-- Captcha Section -->
-        <div class="form-group captcha-section">
+
+        <!-- Captcha Section (stateless, per-component) -->
+        <div class="form-group captcha-section" v-if="shouldShowCaptcha()">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
-              <div v-if="captchaLoading" class="captcha-loading">
-                Loading captcha...
-              </div>
+              <div v-if="captchaLoading" class="captcha-loading">Loading captcha...</div>
               <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage"></div>
               <div v-else class="captcha-placeholder">
-                <button type="button" @click="loadCaptchaAndClearInput" class="load-captcha-btn">
+                <button type="button" @click="refreshCaptcha" class="load-captcha-btn">
                   Load Captcha
                 </button>
               </div>
             </div>
-            <button type="button"
-                    @click="refreshCaptcha"
-                    class="refresh-captcha-btn"
-                    :disabled="captchaLoading"
-                    title="Refresh captcha">
-              <img src="/assets/reload.webp" alt="reload button">
+            <button
+              type="button"
+              @click="refreshCaptcha"
+              class="refresh-captcha-btn"
+              :disabled="captchaLoading"
+              title="Refresh captcha"
+            >
+              <img src="/assets/reload.webp" alt="reload button" />
             </button>
           </div>
           <input
             type="text"
             id="captcha"
-            name="captcha"
             v-model="captchaText"
             placeholder="Enter the text from the image above"
             required
@@ -231,15 +212,26 @@ onMounted(() => {
           />
           <small class="captcha-help">Enter the characters shown in the image above</small>
         </div>
-        <button type="submit" :disabled="loading || !captchaImage || !captchaText" class="check-btn">
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          :disabled="loading || (shouldShowCaptcha() && (!captchaImage || !captchaText))"
+          class="check-btn"
+        >
           {{ loading ? 'Checking...' : 'Check DMARC' }}
         </button>
       </form>
     </div>
 
+    <!-- Error Section -->
+    <div v-if="error" class="error-section">
+      <p class="error-message">{{ error }}</p>
+    </div>
+
+    <!-- DMARC Result Section -->
     <div v-if="result" class="result-section">
       <h3>DMARC Check Results</h3>
-      <!-- Status -->
       <div class="status-box">
         <div v-if="result.valid">
           <p><strong>✓ DMARC Record Found</strong></p>
@@ -248,7 +240,10 @@ onMounted(() => {
           <p><strong>✗ DMARC Record Missing or Invalid</strong></p>
         </div>
         <div v-if="result.score">
-          <p><strong>Security Score:</strong> {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})</p>
+          <p>
+            <strong>Security Score:</strong>
+            {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
+          </p>
         </div>
       </div>
       <!-- Basic Information -->
@@ -274,7 +269,6 @@ onMounted(() => {
             </ul>
           </div>
         </div>
-        <!-- Enhanced Mailauth Information -->
         <div v-if="result.mailauthResult" class="mailauth-section">
           <h5>Email Authentication Analysis</h5>
           <div class="authentication-results">
@@ -282,28 +276,24 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <!-- Policy Analysis -->
       <div v-if="result.analysis" class="analysis-section">
         <h4>Policy Analysis</h4>
         <div v-for="(explanation, key) in result.analysis" :key="key">
           <p><strong>{{ key.toUpperCase() }}:</strong> {{ explanation }}</p>
         </div>
       </div>
-      <!-- Warnings -->
       <div v-if="result.warnings && result.warnings.length" class="warnings-section">
         <h4>⚠️ Warnings</h4>
         <ul>
           <li v-for="warning in result.warnings" :key="warning">{{ warning }}</li>
         </ul>
       </div>
-      <!-- Recommendations -->
       <div v-if="result.recommendations && result.recommendations.length" class="recommendations-section">
         <h4>💡 Recommendations</h4>
         <ul>
           <li v-for="recommendation in result.recommendations" :key="recommendation">{{ recommendation }}</li>
         </ul>
       </div>
-      <!-- Errors -->
       <div v-if="result.errors && result.errors.length" class="errors-section">
         <h4>Errors</h4>
         <ul>
@@ -311,12 +301,10 @@ onMounted(() => {
         </ul>
       </div>
     </div>
-
-    <div v-if="error" class="error-section">
-      <p class="error-message">{{ error }}</p>
-    </div>
   </div>
 </template>
+
+
 
 <style scoped>
 .dmarc-checker {

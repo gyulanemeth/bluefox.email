@@ -26,15 +26,30 @@ const result = ref(null)
 const error = ref(null)
 const loading = ref(false)
 
+// === In-memory Captcha State ===
+const captchaSolved = ref(false)
+const captchaSolvedUntil = ref(0) // Unix timestamp
+
+function now() {
+  return Math.floor(Date.now() / 1000)
+}
+function shouldShowCaptcha() {
+  if (!captchaSolved.value) return true
+  if (!captchaProbe.value || !captchaImage.value) return true
+  if (now() > captchaSolvedUntil.value) {
+    captchaSolved.value = false
+    return true
+  }
+  return false
+}
+
 // === Captcha Handling ===
 async function loadCaptcha() {
   captchaLoading.value = true
   error.value = null
   try {
     const response = await fetch(`${API_URL}/v1/captcha/generate`)
-    if (!response.ok) {
-      throw new Error(`Failed to load captcha: ${response.status}`)
-    }
+    if (!response.ok) throw new Error(`Failed to load captcha: ${response.status}`)
     const data = await response.json()
     if (data.result && data.result.success && data.result.captcha) {
       captchaImage.value = data.result.captcha.image
@@ -52,13 +67,17 @@ async function loadCaptcha() {
     captchaLoading.value = false
   }
 }
-const refreshCaptcha = loadCaptcha
+const refreshCaptcha = async () => {
+  captchaSolved.value = false
+  captchaSolvedUntil.value = 0
+  await loadCaptcha()
+}
 
 // === API Error Handler ===
 function handleApiError(err) {
   const msg = err?.message || ERROR_MSG.default
   if (msg.toLowerCase().includes('captcha')) {
-    loadCaptcha()
+    refreshCaptcha()
     error.value = msg + ' Please try again with the new captcha.'
   } else if (msg.includes('fetch')) {
     error.value = ERROR_MSG.connect
@@ -76,13 +95,15 @@ async function checkSpf() {
   error.value = null
   result.value = null
 
-  if (!captchaProbe.value) {
-    error.value = ERROR_MSG.captchaFirst
-    return
-  }
-  if (!captchaText.value.trim()) {
-    error.value = ERROR_MSG.captchaPrompt
-    return
+  if (shouldShowCaptcha()) {
+    if (!captchaProbe.value) {
+      error.value = ERROR_MSG.captchaFirst
+      return
+    }
+    if (!captchaText.value.trim()) {
+      error.value = ERROR_MSG.captchaPrompt
+      return
+    }
   }
   loading.value = true
 
@@ -92,7 +113,7 @@ async function checkSpf() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         domain: domain.value,
-        captchaText: captchaText.value,
+        captchaText: shouldShowCaptcha() ? captchaText.value : '',
         captchaProbe: captchaProbe.value
       })
     })
@@ -129,7 +150,10 @@ async function checkSpf() {
       mailauthResult: resultData.mailauthResult,
       ipTestResults: resultData.ipTestResults || []
     }
-    await refreshCaptcha()
+    // On success, hide captcha for 1 minute (in-memory)
+    captchaSolved.value = true
+    captchaSolvedUntil.value = now() + 60
+    captchaText.value = ''
   } catch (err) {
     handleApiError(err)
   } finally {
@@ -165,7 +189,12 @@ function getDisplayResult(result) {
   return resultStr.toUpperCase()
 }
 
-onMounted(loadCaptcha)
+// On mount, always reset state
+onMounted(() => {
+  captchaSolved.value = false
+  captchaSolvedUntil.value = 0
+  loadCaptcha()
+})
 </script>
 
 <template>
@@ -185,8 +214,8 @@ onMounted(loadCaptcha)
           />
         </div>
 
-        <!-- Captcha Section -->
-        <div class="form-group captcha-section">
+        <!-- Captcha Section (shows only when needed) -->
+        <div class="form-group captcha-section" v-if="shouldShowCaptcha()">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
@@ -225,7 +254,9 @@ onMounted(loadCaptcha)
           <small class="captcha-help">Enter the characters shown in the image above</small>
         </div>
 
-        <button type="submit" :disabled="loading || !captchaImage || !captchaText" class="check-btn">
+        <button type="submit"
+                :disabled="loading || (shouldShowCaptcha() && (!captchaImage || !captchaText))"
+                class="check-btn">
           {{ loading ? 'Checking...' : 'Check SPF' }}
         </button>
       </form>
@@ -332,7 +363,6 @@ onMounted(loadCaptcha)
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .spf-checker {

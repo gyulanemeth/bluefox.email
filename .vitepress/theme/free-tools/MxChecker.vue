@@ -1,55 +1,48 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 
-// === CONSTANTS & ERROR MAPS ===
+// --- CONSTANTS ---
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
-const ERROR_MSG = {
-  apiConfig: 'API URL not configured. Please set VITE_TOOLS_API_URL in your environment.',
-  captchaFirst: 'Please load the captcha first.',
-  captchaPrompt: 'Please enter the captcha text.',
-  default: 'Failed to check MX records. Please try again.'
-}
-const errorMsgs = {
-  connect: 'Cannot connect to the server. Please make sure the backend is running.',
-  endpoint: 'API endpoint not found. Please check the server configuration.',
-  server: 'Server error occurred. Please try again later.'
-}
 
-// === STATE ===
-const domain = ref('')
-const captchaText = ref('')
+// --- CAPTCHA STATE ---
 const captchaImage = ref(null)
 const captchaProbe = ref(null)
 const captchaLoading = ref(false)
+const captchaText = ref('')
+
+// --- FORM STATE ---
+const domain = ref('')
 const loading = ref(false)
 const error = ref(null)
 const result = ref(null)
 
-// === HELPERS ===
-function validateInputs() {
-  if (!API_URL) {
-    return ERROR_MSG.apiConfig
+// --- CAPTCHA MEMORY ---
+const captchaSolved = ref(false)
+const captchaSolvedUntil = ref(0) // Unix timestamp in seconds
+
+// --- HELPERS ---
+function now() {
+  return Math.floor(Date.now() / 1000)
+}
+
+// Show captcha box if never solved, or expired, or probe/image missing
+function shouldShowCaptcha() {
+  if (!captchaSolved.value) return true
+  if (!captchaProbe.value || !captchaImage.value) return true
+  if (now() > captchaSolvedUntil.value) {
+    captchaSolved.value = false
+    return true
   }
-  if (!captchaProbe.value) {
-    return ERROR_MSG.captchaFirst
-  }
-  if (!captchaText.value.trim()) {
-    return ERROR_MSG.captchaPrompt
-  }
-  return null
+  return false
 }
 
 async function loadCaptchaAndClearInput() {
   captchaLoading.value = true
   error.value = null
   try {
-    if (!API_URL) {
-      throw new Error(ERROR_MSG.apiConfig)
-    }
+    if (!API_URL) throw new Error('API URL not configured.')
     const response = await fetch(`${API_URL}/v1/captcha/generate`)
-    if (!response.ok) {
-      throw new Error(`Failed to load captcha: ${response.status}`)
-    }
+    if (!response.ok) throw new Error(`Failed to load captcha: ${response.status}`)
     const data = await response.json()
     if (data.result && data.result.success && data.result.captcha) {
       captchaImage.value = data.result.captcha.image
@@ -68,13 +61,31 @@ async function loadCaptchaAndClearInput() {
   }
 }
 
+function refreshCaptcha() {
+  captchaSolved.value = false
+  captchaSolvedUntil.value = 0
+  loadCaptchaAndClearInput()
+}
+
+// --- VALIDATION ---
+function validateInputs() {
+  if (!API_URL) return 'API URL not configured.'
+  if (shouldShowCaptcha()) {
+    if (!captchaProbe.value) return 'Please load the captcha first.'
+    if (!captchaText.value.trim()) return 'Please enter the captcha text.'
+  }
+  if (!domain.value.trim()) return 'Please enter a domain name.'
+  return null
+}
+
+// --- MAIN ACTION ---
 async function callMxApi() {
   const response = await fetch(`${API_URL}/v1/analyze-mx`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       domain: domain.value,
-      captchaText: captchaText.value,
+      captchaText: shouldShowCaptcha() ? captchaText.value : '',
       captchaProbe: captchaProbe.value
     })
   })
@@ -85,14 +96,7 @@ async function callMxApi() {
     throw new Error(`HTTP error! status: ${response.status}`)
   }
   if (!response.ok) {
-    let errorMessage = `HTTP error! status: ${response.status}`
-    if (json.result && json.result.error) {
-      errorMessage = json.result.error
-    } else if (json.error) {
-      errorMessage = json.error
-    } else if (json.message) {
-      errorMessage = json.message
-    }
+    let errorMessage = json?.result?.error || json?.error || json?.message || `HTTP error! status: ${response.status}`
     throw new Error(errorMessage)
   }
   return json.result || json
@@ -110,42 +114,13 @@ function mapMxResult(resultData) {
   }
 }
 
-async function handleMxApiErrors(resultData) {
-  if (!resultData.success && resultData.error) {
-    if (resultData.error.toLowerCase().includes('captcha')) {
-      await loadCaptchaAndClearInput()
-    }
-    throw new Error(resultData.error)
-  }
-}
-
-function handleApiError(msg) {
-  if (msg.includes('fetch')) {
-    return errorMsgs.connect
-  }
-  if (msg.includes('404')) {
-    return errorMsgs.endpoint
-  }
-  if (msg.includes('500')) {
-    return errorMsgs.server
-  }
-  if (msg.toLowerCase().includes('captcha')) {
-    return msg + ' Please try again with the new captcha.'
-  }
-  return msg
-}
-
-// Helper: check if all MX records have unique priorities
 function hasUniquePriorities(records) {
-  if (!records || records.length === 0) {
-    return true
-  }
+  if (!records || records.length === 0) return true
   const priorities = records.map(r => r.priority)
   const uniquePriorities = [...new Set(priorities)]
   return uniquePriorities.length === records.length
 }
 
-// === MAIN ACTION ===
 async function checkMx() {
   error.value = null
   result.value = null
@@ -160,26 +135,32 @@ async function checkMx() {
 
   try {
     const resultData = await callMxApi()
-    await handleMxApiErrors(resultData)
+    if (!resultData.success && resultData.error?.toLowerCase().includes('captcha')) {
+      captchaSolved.value = false
+      captchaSolvedUntil.value = 0
+      await loadCaptchaAndClearInput()
+      throw new Error('Captcha expired or invalid. Please solve the new captcha.')
+    }
     result.value = mapMxResult(resultData)
-    await loadCaptchaAndClearInput()
+    // On success, hide captcha for 1 minute (in-memory)
+    captchaSolved.value = true
+    captchaSolvedUntil.value = now() + 60 // 1 minute "solved" state
+    captchaText.value = ''
   } catch (err) {
-    const msg = err?.message || ERROR_MSG.default
-    error.value = handleApiError(msg)
+    error.value = err?.message || 'Failed to check MX records. Please try again.'
   } finally {
     loading.value = false
   }
 }
 
-function refreshCaptcha() {
-  loadCaptchaAndClearInput()
-}
-
-// === INIT ===
+// --- ON MOUNT ---
 onMounted(() => {
+  captchaSolved.value = false
+  captchaSolvedUntil.value = 0
   loadCaptchaAndClearInput()
 })
 </script>
+
 
 <template>
   <div class="mx-checker">
@@ -197,8 +178,8 @@ onMounted(() => {
             :disabled="loading"
           />
         </div>
-        <!-- Captcha Section -->
-        <div class="form-group captcha-section">
+        <!-- Captcha Section (hidden after solve for 1 min) -->
+        <div class="form-group captcha-section" v-if="shouldShowCaptcha()">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
@@ -237,7 +218,9 @@ onMounted(() => {
           <small class="captcha-help">Enter the characters shown in the image above</small>
         </div>
 
-        <button type="submit" :disabled="loading || !captchaImage || !captchaText" class="check-btn">
+        <button type="submit"
+                :disabled="loading || (shouldShowCaptcha() && (!captchaImage || !captchaText))"
+                class="check-btn">
           {{ loading ? 'Checking...' : 'Check MX Records' }}
         </button>
       </form>
@@ -341,6 +324,7 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .mx-checker {
