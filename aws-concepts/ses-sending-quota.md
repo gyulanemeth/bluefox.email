@@ -5,10 +5,10 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
-datePublished: 2024-01-15T08:00:00Z
-dateModified: 2024-01-15T08:00:00Z
-termName: Amazon SES Sending Quotas
-termDescription: Limits that define how many emails your AWS SES account is allowed to send over a rolling 24-hour period to protect recipient inboxes and maintain infrastructure stability.
+datePublished: 2025-06-30
+dateModified: 2025-06-30
+
+
 faqs:
   - question: How long does it take to get a quota increase?
     answer: Requests are usually reviewed within 24–48 hours, depending on volume and account reputation.

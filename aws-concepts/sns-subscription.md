@@ -5,10 +5,9 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 layout: post
 category: glossary
-datePublished: 2024-01-15T08:00:00Z
-dateModified: 2024-01-15T08:00:00Z
-termName: Amazon SNS Subscription
-termDescription: The mechanism that connects a notification topic to a specific endpoint destination within Amazon SNS, enabling automated processing of email events.
+datePublished: 2025-06-30
+dateModified: 2025-06-30
+
 faqs:
   - question: How do I ensure my subscription doesn't miss any messages?
     answer: SNS guarantees at-least-once delivery to active subscriptions. For mission-critical processing, combine SNS with SQS to create a durable buffer. The SQS queue will store messages even if your processing system is temporarily unavailable, ensuring no email events are missed.
@@ -16,6 +15,7 @@ faqs:
     answer: Yes. Each subscription type receives messages formatted appropriately for its protocol. Additionally, SNS supports raw message delivery for SQS and Lambda subscriptions, allowing these endpoints to receive messages without the standard SNS message wrapper.
   - question: What happens if an endpoint repeatedly fails to process messages?
     answer: If an HTTP/S endpoint consistently fails, the subscription enters a disabled state after the retry policy is exhausted. For Lambda and SQS endpoints, failures are handled according to their respective retry and dead-letter queue configurations. This prevents endless delivery attempts to malfunctioning systems.
+    
 relatedContent:
   - title: Amazon SNS (Simple Notification Service)
     url: /aws-concepts/sns
