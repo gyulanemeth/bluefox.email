@@ -20,11 +20,16 @@ faqs:
     answer: "SPF improves email deliverability by helping prevent your domain from being used in spoofing and phishing attacks. Emails that pass SPF checks are less likely to be marked as spam. Many email providers consider SPF authentication when determining whether to deliver emails to the inbox or spam folder."
 
 relatedContent:
-  - /email-sending-concepts/dkim
-  - /email-sending-concepts/dmarc
-  - /email-sending-concepts/email-authentication
-  - /email-sending-concepts/dns
-  - /email-sending-concepts/txt-record
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: DNS (Domain Name System)
+    url: /email-sending-concepts/dns
+  - title: TXT Records
+    url: /email-sending-concepts/txt-record
 
 head:
   - - meta

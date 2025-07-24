@@ -18,6 +18,7 @@ faqs:
     answer: Yes, by using different SNS topics or by configuring subscription-level delivery policies that override the topic-level settings.
   - question: How do delivery policies interact with SES event publishing?
     answer: SES publishes events to SNS once, but the delivery policy controls how SNS delivers those events to your endpoints, providing resilience for your email event processing.
+    
 relatedContent:
   - title: AWS SNS (Simple Notification Service)
     url: /aws-concepts/sns

@@ -19,14 +19,14 @@ faqs:
     answer: "Yes, most IMAP clients cache messages locally, allowing you to read previously downloaded emails offline. Changes made offline (like moving or marking messages) are queued and synchronized when you reconnect. However, you cannot receive new messages or access undownloaded content while offline."
 
 relatedContent:
-  - title: "POP3 (Post Office Protocol)"
-    url: "/email-sending-concepts/pop3"
-  - title: "SMTP (Simple Mail Transfer Protocol)"
-    url: "/email-sending-concepts/smtp"
-  - title: "TLS (Transport Layer Security)"
-    url: "/email-sending-concepts/tls"
-  - title: "Email Headers"
-    url: "/email-sending-concepts/email-headers"
+  - title: POP3 (Post Office Protocol)
+    url: /email-sending-concepts/pop3
+  - title: SMTP (Simple Mail Transfer Protocol)
+    url: /email-sending-concepts/smtp
+  - title: TLS (Transport Layer Security)
+    url: /email-sending-concepts/tls
+  - title: Email Headers
+    url: /email-sending-concepts/email-headers
 
 head:
   - - meta

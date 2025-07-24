@@ -19,11 +19,16 @@ faqs:
     answer: "Return-Path affects deliverability through proper bounce handling, authentication via SPF verification, and reputation management as ISPs track bounce rates by Return-Path domain. Properly configured Return-Paths typically improve inbox placement rates significantly."
 
 relatedContent:
-  - email-sending-concepts/spf
-  - email-sending-concepts/dmarc
-  - email-sending-concepts/smtp
-  - email-sending-concepts/email-headers
-  - email-sending-concepts/bounces
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+  - title: Email Headers
+    url: /email-sending-concepts/email-headers
+  - title: Bounces
+    url: /email-sending-concepts/bounces
 
 head:
   - - meta

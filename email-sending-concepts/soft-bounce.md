@@ -22,12 +22,18 @@ faqs:
     answer: "To minimize soft bounce rates, segment your lists by engagement level, respect recipient server limitations, avoid unnecessarily large attachments, implement proper authentication (SPF, DKIM, DMARC), and monitor your sending infrastructure for performance issues that could contribute to higher soft bounce rates."
 
 relatedContent:
-  - /email-sending-concepts/bounces
-  - /email-sending-concepts/hard-bounce
-  - /email-sending-concepts/bounce-rate
-  - /email-sending-concepts/smtp
-  - /email-sending-concepts/email-authentication
-  - /aws-concepts/sns
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Hard Bounce
+    url: /email-sending-concepts/hard-bounce
+  - title: Bounce Rate
+    url: /email-sending-concepts/bounce-rate
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: Amazon SNS (Simple Notification Service)
+    url: /aws-concepts/sns
 
 head:
   - - meta

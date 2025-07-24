@@ -17,13 +17,20 @@ faqs:
   - question: "Do all bounces affect sender reputation equally?"
     answer: "No. Hard bounces for non-existent addresses damage reputation most severely as they indicate poor list quality. Soft bounces have minimal impact unless they persist across multiple sending attempts."
 relatedContent:
-  - /email-sending-concepts/bounce-rate
-  - /email-sending-concepts/hard-bounce
-  - /email-sending-concepts/soft-bounce
-  - /email-sending-concepts/smtp
-  - /email-sending-concepts/email-authentication
-  - /aws-concepts/sns
-  - /aws-concepts/ses
+  - title: Bounce Rate
+    url: /email-sending-concepts/bounce-rate
+  - title: Hard Bounce
+    url: /email-sending-concepts/hard-bounce
+  - title: Soft Bounce
+    url: /email-sending-concepts/soft-bounce
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: Amazon SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: Amazon SES (Simple Email Service)
+    url: /aws-concepts/ses
 
 head:
   - - meta

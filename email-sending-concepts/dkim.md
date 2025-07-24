@@ -20,13 +20,20 @@ faqs:
   - question: "How do I set up DKIM for my domain?"
     answer: "To set up DKIM, you need to: 1) Generate a public/private key pair, 2) Publish the public key in your domain's DNS as a TXT record, 3) Configure your mail server or ESP to sign outgoing messages with the private key, and 4) Test your implementation using online DKIM verification tools."
 relatedContent:
-  - /email-sending-concepts/spf
-  - /email-sending-concepts/dmarc
-  - /email-sending-concepts/email-authentication
-  - /email-sending-concepts/dns
-  - /email-sending-concepts/txt-record
-  - /email-sending-concepts/email-spoofing
-  - /email-sending-concepts/deliverability
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: DNS (Domain Name System)
+    url: /email-sending-concepts/dns
+  - title: TXT Records
+    url: /email-sending-concepts/txt-record
+  - title: Email Spoofing
+    url: /email-sending-concepts/email-spoofing
+  - title: Deliverability
+    url: /email-sending-concepts/deliverability
 
 head:
   - - meta

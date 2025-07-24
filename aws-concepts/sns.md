@@ -16,6 +16,7 @@ faqs:
     answer: SNS's architecture provides immediate delivery of notifications, supports multiple subscriber types for different processing needs, and offers filtering capabilities that allow you to route different types of email events to different handling systems, all critical features for responsive email operations.
   - question: Is SNS difficult to implement for email event handling?
     answer: No, SNS is designed for straightforward integration with SES. Basic setup requires minimal configuration, with the option to add more sophisticated filtering and routing as your needs evolve. Most email operations can be configured through the AWS console without writing custom code.
+    
 relatedContent:
   - title: Amazon SES (Simple Email Service)
     url: /aws-concepts/ses

@@ -18,12 +18,16 @@ faqs:
     answer: "Yes. Missing or incorrect DNS records like SPF, DKIM, and DMARC can significantly impact deliverability. Many spam filters check these records, and failures can lead to lower sender reputation scores. Regular DNS audits are recommended for any serious email sender."
 
 relatedContent:
-  - /email-sending-concepts/mx-record
-  - /email-sending-concepts/spf
-  - /email-sending-concepts/dkim
-  - /email-sending-concepts/dmarc
-  - /email-sending-concepts/dmarc
-  - /email-sending-concepts/email-authentication
+  - title: MX Record
+    url: /email-sending-concepts/mx-record
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
 
 head:
   - - meta

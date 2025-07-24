@@ -20,16 +20,16 @@ faqs:
     answer: "An MX record directs email to mail servers for your domain, while a CNAME creates an alias from one domain to another. MX is for email routing; CNAME is for domain name redirection."
 
 relatedContent:
-  - title: "DNS (Domain Name System)"
-    url: "/email-sending-concepts/dns"
-  - title: "MX Record"
-    url: "/email-sending-concepts/mx-record"
-  - title: "TXT Records"
-    url: "/email-sending-concepts/txt-record"
-  - title: "SPF (Sender Policy Framework)"
-    url: "/email-sending-concepts/spf"
-  - title: "DKIM (DomainKeys Identified Mail)"
-    url: "/email-sending-concepts/dkim"
+  - title: DNS (Domain Name System)
+    url: /email-sending-concepts/dns
+  - title: MX Record
+    url: /email-sending-concepts/mx-record
+  - title: TXT Records
+    url: /email-sending-concepts/txt-record
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
 
 head:
   - - meta

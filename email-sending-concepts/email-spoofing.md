@@ -19,11 +19,16 @@ faqs:
     answer: "Yes, using spoofing for fraud or harm is illegal in most countries. Testing email systems with spoofing is only legal when properly authorized."
 
 relatedContent:
-  - /email-sending-concepts/email-authentication
-  - /email-sending-concepts/spf
-  - /email-sending-concepts/dkim
-  - /email-sending-concepts/dmarc
-  - /email-sending-concepts/smtp
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: SMTP
+    url: /email-sending-concepts/smtp
 
 head:
   - - meta

@@ -19,12 +19,16 @@ faqs:
     answer: "Common reasons include incorrect SMTP settings, authentication failures, network issues, or the recipient's server unavailability. Check your configuration and internet connection if you encounter this problem."
 
 relatedContent:
-  - /email-sending-concepts/tls
-  - /email-sending-concepts/email-authentication
-  - /email-sending-concepts/spf
-  - /email-sending-concepts/dkim
-  - /email-sending-concepts/dkim
-  - /email-sending-concepts/mx-record
+  - title: TLS (Transport Layer Security)
+    url: /email-sending-concepts/tls
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: MX Record
+    url: /email-sending-concepts/mx-record
 
 head:
   - - meta

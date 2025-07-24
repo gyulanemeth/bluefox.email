@@ -21,11 +21,16 @@ faqs:
     answer: "You'll need basic knowledge of DNS management, but many email platforms offer guided setup or handle it for you."
 
 relatedContent:
-  - /email-sending-concepts/spf
-  - /email-sending-concepts/dkim
-  - /email-sending-concepts/dmarc
-  - /email-sending-concepts/email-spoofing
-  - /email-sending-concepts/smtp
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Email Spoofing
+    url: /email-sending-concepts/email-spoofing
+  - title: SMTP
+    url: /email-sending-concepts/smtp
 
 head:
   - - meta

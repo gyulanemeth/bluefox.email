@@ -18,6 +18,7 @@ faqs:
     answer: SNS implements a "at-least-once" delivery model with automatic retries for failed deliveries. This design ensures high message durability even during temporary endpoint disruptions.
   - question: How can filtering improve email operations?
     answer: In SES email systems, SNS topic filtering allows distinct handling logic for hard bounces, soft bounces, complaints, and deliveries. For example, organizations can route hard bounces to immediate suppression list updates while sending soft bounces to a monitoring system for tracking transient failures.
+    
 relatedContent:
   - title: Amazon SNS (Simple Notification Service)
     url: /aws-concepts/sns

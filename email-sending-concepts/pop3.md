@@ -19,11 +19,14 @@ faqs:
     answer: "Basic POP3 transmits credentials and emails in plain text. For security, use POP3S (POP3 over SSL/TLS) on port 995, which encrypts the entire connection. Most modern email clients default to secure connections, but it's worth verifying your settings, especially on older applications."
 
 relatedContent:
-  - /email-sending-concepts/imap
-  - /email-sending-concepts/smtp
-  - /email-sending-concepts/tls
-  - /email-sending-concepts/email-headers
-    /email-sending-concepts/email-headers
+  - title: IMAP (Internet Message Access Protocol)
+    url: /email-sending-concepts/imap
+  - title: SMTP (Simple Mail Transfer Protocol)
+    url: /email-sending-concepts/smtp
+  - title: TLS (Transport Layer Security)
+    url: /email-sending-concepts/tls
+  - title: Email Headers
+    url: /email-sending-concepts/email-headers
 
 head:
   - - meta

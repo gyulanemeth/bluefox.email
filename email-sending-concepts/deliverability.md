@@ -17,15 +17,24 @@ faqs:
   - question: "How long does it take to fix poor deliverability?"
     answer: "Depending on the severity of issues, deliverability recovery can take anywhere from a few days to several months. Technical fixes can be implemented quickly, but rebuilding damaged sender reputation often requires prolonged demonstration of improved sending practices."
 relatedContent:
-  - /email-sending-concepts/bounces
-  - /email-sending-concepts/complaints
-  - /email-sending-concepts/spf
-  - /email-sending-concepts/dkim
-  - /email-sending-concepts/dmarc
-  - /email-sending-concepts/email-authentication
-  - /email-sending-concepts/dns
-  - /aws-concepts/ses-delivery-notifications
-  - /aws-concepts/sns-delivery-policy
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Complaints
+    url: /email-sending-concepts/complaints
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: DNS (Domain Name System)
+    url: /email-sending-concepts/dns
+  - title: SES Delivery Notifications
+    url: /aws-concepts/ses-delivery-notifications
+  - title: SNS Delivery Policy
+    url: /aws-concepts/sns-delivery-policy
 
 head:
   - - meta

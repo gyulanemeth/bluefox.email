@@ -20,12 +20,18 @@ faqs:
     answer: "Hard bounced addresses should be removed immediately upon the first bounce occurrence. There is no benefit to waiting or attempting redelivery, as the failure condition is permanent. Modern email systems typically handle this automatically through suppression list management."
 
 relatedContent:
-  - /email-sending-concepts/bounces
-  - /email-sending-concepts/soft-bounce
-  - /email-sending-concepts/bounce-rate
-  - /email-sending-concepts/smtp
-  - /email-sending-concepts/email-authentication
-  - /aws-concepts/sns
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Soft Bounce
+    url: /email-sending-concepts/soft-bounce
+  - title: Bounce Rate
+    url: /email-sending-concepts/bounce-rate
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: Amazon SNS (Simple Notification Service)
+    url: /aws-concepts/sns
 
 head:
   - - meta

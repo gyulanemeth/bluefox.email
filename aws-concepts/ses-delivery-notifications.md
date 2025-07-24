@@ -17,13 +17,20 @@ faqs:
   - question: "Do delivery notifications guarantee the recipient received my message?"
     answer: "No, delivery notifications only confirm successful delivery to the recipient's mail server. The message could still be filtered to spam or blocked by internal filters after delivery."
 
+
 relatedContent:
-  - /aws-concepts/ses"
-  - /aws-concepts/sns"
-  - /aws-concepts/sns-topics"
-  - /aws-concepts/sns-subscription"
-  - /aws-concepts/sns-delivery-policy"
-  - /email-sending-concepts/deliverability"
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: AWS SNS Topics
+    url: /aws-concepts/sns-topics
+  - title: AWS SNS Subscription
+    url: /aws-concepts/sns-subscription
+  - title: SNS Delivery Policy
+    url: /aws-concepts/sns-delivery-policy
+  - title: Deliverability
+    url: /email-sending-concepts/deliverability
 
 head:
   - - meta

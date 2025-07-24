@@ -19,11 +19,16 @@ faqs:
     answer: "You can, but it's only recommended for advanced setups like migrations or split delivery. Both providers must be configured to know which mailboxes they handle, or you risk losing emails. For most organizations, sticking to one provider is simpler and safer."
 
 relatedContent:
-  - /email-sending-concepts/smtp
-  - /email-sending-concepts/spf
-  - /email-sending-concepts/dkim
-  - /email-sending-concepts/dmarc
-  - /email-sending-concepts/dns
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: DNS (Domain Name System)
+    url: /email-sending-concepts/dns
 
 head:
   - - meta

@@ -19,11 +19,16 @@ faqs:
     answer: "Yes, headers contain information that can reveal your IP address, email client, and sometimes geographic location. When forwarding sensitive emails, consider using \"forward as attachment\" options to avoid exposing your original headers or use specialized privacy-focused email services that minimize header information."
 
 relatedContent:
-  - /email-sending-concepts/smtp
-  - /email-sending-concepts/spf
-  - /email-sending-concepts/dkim
-  - /email-sending-concepts/dmarc
-  - /email-sending-concepts/return-path
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Return-Path
+    url: /email-sending-concepts/return-path
 
 head:
   - - meta

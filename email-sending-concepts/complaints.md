@@ -19,13 +19,20 @@ faqs:
   - question: "How do I get access to complaint data?"
     answer: "Most major ESPs provide complaint data through direct integrations with feedback loops, webhook notifications, API endpoints, and real-time notification services like Amazon SNS. Many platforms also offer aggregate reporting in their dashboard for tracking complaint metrics over time."
 relatedContent:
-  - /email-sending-concepts/bounces
-  - /email-sending-concepts/email-authentication
-  - /email-sending-concepts/spf
-  - /email-sending-concepts/dkim
-  - /email-sending-concepts/dmarc
-  - /aws-concepts/sns
-  - /aws-concepts/ses
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Amazon SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: Amazon SES (Simple Email Service)
+    url: /aws-concepts/ses
 
 head:
   - - meta

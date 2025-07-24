@@ -17,11 +17,16 @@ faqs:
     answer: "Absolutely. Properly configured SPF, DKIM, and DMARC records (all implemented as TXT records) significantly improve deliverability. Missing or incorrect authentication records can cause legitimate emails to be marked as spam or rejected outright, especially by major providers like Gmail and Microsoft."
 
 relatedContent:
-  - /email-sending-concepts/spf"
-  -  "/email-sending-concepts/dkim"
-  -  "/email-sending-concepts/dmarc"
-  -  "/email-sending-concepts/dns"
-  -  "/email-sending-concepts/email-authentication"
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: DNS (Domain Name System)
+    url: /email-sending-concepts/dns
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
 
 head:
   - - meta

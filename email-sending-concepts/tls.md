@@ -21,11 +21,16 @@ faqs:
     answer: "If either server lacks TLS, the email is sent in plain text. Some providers may refuse delivery to protect your privacy."
 
 relatedContent:
-  - /email-sending-concepts/smtp"
-  - /email-sending-concepts/email-authentication"
-  - /email-sending-concepts/spf"
-  - /email-sending-concepts/dkim"
-  - /email-sending-concepts/dmarc"
+  - title: SMTP (Simple Mail Transfer Protocol)
+    url: /email-sending-concepts/smtp
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
 
 head:
   - - meta
