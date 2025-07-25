@@ -7,8 +7,8 @@ sidebar: false
 layout: post
 category: glossary
 
-datePublished: "2024-07-05"
-dateModified: "2024-07-05"
+datePublished: "2025-07-05"
+dateModified: "2025-07-05"
 
 faqs:
   - question: "Do I need DMARC if I already have SPF and DKIM?"

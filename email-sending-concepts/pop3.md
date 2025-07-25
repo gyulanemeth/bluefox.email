@@ -7,8 +7,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-06-23"
-dateModified: "2024-06-23"
+datePublished: "2025-06-23"
+dateModified: "2025-06-23"
 
 faqs:
   - question: "Will POP3 delete my emails from the server?"

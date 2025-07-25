@@ -7,8 +7,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2024-07-16"
-dateModified: "2024-07-16"
+datePublished: "2025-07-16"
+dateModified: "2025-07-16"
 
 faqs:
   - question: "Which email authentication protocol should I implement first?"

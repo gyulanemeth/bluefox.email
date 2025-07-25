@@ -7,8 +7,8 @@ layout: post
 category: glossary
 sidebar: false
 
-datePublished: "2023-07-05"
-dateModified: "2023-07-05"
+datePublished: "2025-07-05"
+dateModified: "2025-07-05"
 
 faqs:
   - question: "What is DKIM?"
