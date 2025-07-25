@@ -2,10 +2,39 @@
 title: Deliverability | BlueFox Email
 description: Email deliverability refers to the ability to successfully deliver emails to recipients' inboxes rather than spam folders or being blocked entirely.
 thumbnail: /assets/glossary/email-sending-glossary.png
-
+sidebar: false
 layout: post
 category: glossary
-sidebar: false
+
+datePublished: "2025-07-05"
+dateModified: "2025-07-05"
+
+faqs:
+  - question: "What's the difference between delivery and deliverability?"
+    answer: "Delivery means an email was accepted by the receiving server without generating a bounce, while deliverability specifically refers to inbox placement rather than spam folder placement. An email can have perfect delivery (no bounces) but poor deliverability (most messages going to spam)."
+  - question: "Do email authentication protocols guarantee inbox placement?"
+    answer: "No, authentication is necessary but not sufficient for good deliverability. While SPF, DKIM, and DMARC verify message legitimacy, inbox placement also depends on sender reputation, content quality, and recipient engagement."
+  - question: "How long does it take to fix poor deliverability?"
+    answer: "Depending on the severity of issues, deliverability recovery can take anywhere from a few days to several months. Technical fixes can be implemented quickly, but rebuilding damaged sender reputation often requires prolonged demonstration of improved sending practices."
+relatedContent:
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Complaints
+    url: /email-sending-concepts/complaints
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: DNS (Domain Name System)
+    url: /email-sending-concepts/dns
+  - title: SES Delivery Notifications
+    url: /aws-concepts/ses-delivery-notifications
+  - title: SNS Delivery Policy
+    url: /aws-concepts/sns-delivery-policy
 
 head:
   - - meta

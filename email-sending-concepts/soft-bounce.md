@@ -6,6 +6,35 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2025-07-27"
+dateModified: "2025-07-30"
+
+faqs:
+  - question: "How are soft bounces different from hard bounces?"
+    answer: "Hard bounces represent permanent, unresolvable delivery failures (like non-existent addresses), while soft bounces are temporary issues (like full mailboxes) that may resolve with time. Hard bounces require immediate list removal, whereas soft bounces typically trigger retry attempts."
+  - question: "How many retry attempts should be made for soft bounces?"
+    answer: "Industry standard practice is to attempt delivery between 3-5 times over a 24-72 hour period. After this window, continued attempts have diminishing returns and may waste sending resources."
+  - question: "When should I remove soft bouncing addresses from my list?"
+    answer: "Consider removing addresses that consistently soft bounce across 5+ consecutive sending attempts or over a 30+ day period, particularly for \"mailbox full\" errors which suggest account abandonment. For server-related soft bounces, more patience may be warranted."
+  - question: "Do soft bounces affect sender reputation?"
+    answer: "Individual soft bounces have minimal impact on sender reputation as mailbox providers recognize they represent temporary conditions. However, repeatedly sending to addresses that consistently soft bounce without implementing suppression rules may eventually impact engagement metrics."
+  - question: "How can I reduce soft bounce rates?"
+    answer: "To minimize soft bounce rates, segment your lists by engagement level, respect recipient server limitations, avoid unnecessarily large attachments, implement proper authentication (SPF, DKIM, DMARC), and monitor your sending infrastructure for performance issues that could contribute to higher soft bounce rates."
+
+relatedContent:
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Hard Bounce
+    url: /email-sending-concepts/hard-bounce
+  - title: Bounce Rate
+    url: /email-sending-concepts/bounce-rate
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: Amazon SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+
 head:
   - - meta
     - name: description

@@ -6,6 +6,30 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 layout: post
 category: glossary
 sidebar: false
+datePublished: "2025-06-30"
+dateModified: "2025-06-30"
+
+faqs:
+  - question: "What is SPF in email?"
+    answer: "SPF (Sender Policy Framework) is an email authentication protocol that allows domain owners to specify which mail servers are authorized to send email on behalf of their domain. It creates a DNS record that lists authorized sending servers, helping receiving mail servers verify if an email claiming to be from your domain is legitimate."
+  - question: "How does SPF work?"
+    answer: "SPF works by publishing a DNS TXT record that lists all authorized IP addresses and servers that can send email from your domain. When a receiving mail server gets an email claiming to be from your domain, it checks the sending server's IP against your published SPF record. If the IP is listed, the email passes SPF authentication."
+  - question: "What does an SPF record look like?"
+    answer: "A basic SPF record looks like this: v=spf1 ip4:192.168.1.1 include:_spf.example.com ~all. This specifies SPF version 1, authorizes the IP address 192.168.1.1, includes all IPs authorized for example.com, and suggests a soft fail (~all) for all other sources."
+  - question: "Why is SPF important for email deliverability?"
+    answer: "SPF improves email deliverability by helping prevent your domain from being used in spoofing and phishing attacks. Emails that pass SPF checks are less likely to be marked as spam. Many email providers consider SPF authentication when determining whether to deliver emails to the inbox or spam folder."
+
+relatedContent:
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: DNS (Domain Name System)
+    url: /email-sending-concepts/dns
+  - title: TXT Records
+    url: /email-sending-concepts/txt-record
 
 head:
   - - meta
@@ -32,6 +56,7 @@ head:
   - - meta
     - name: twitter:description
       content: SPF is an email authentication method that specifies which mail servers are authorized to send emails on behalf of your domain, helping prevent email spoofing and improving deliverability.
+
 ---
 <GlossaryNavigation/>
 

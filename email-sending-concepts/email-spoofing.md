@@ -7,6 +7,29 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2024-07-23"
+dateModified: "2024-07-23"
+
+faqs:
+  - question: "Can small businesses afford to implement anti-spoofing protections?"
+    answer: "Yes. SPF and DKIM are often free to set up, and basic DMARC monitoring tools are available at no cost. The investment is minimal compared to the potential losses."
+  - question: "How can I tell if an email is spoofed?"
+    answer: "Check if the email address matches the sender's name. Look for urgent requests, unexpected links, or unusual tone. Most clients show warnings if SPF/DKIM/DMARC fail."
+  - question: "Is email spoofing illegal?"
+    answer: "Yes, using spoofing for fraud or harm is illegal in most countries. Testing email systems with spoofing is only legal when properly authorized."
+
+relatedContent:
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+
 head:
   - - meta
     - name: description
