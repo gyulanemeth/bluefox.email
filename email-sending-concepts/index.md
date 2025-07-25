@@ -9,13 +9,6 @@ next: false
 datePublished: "2025-06-23"
 dateModified: "2025-06-23"
 
-relatedContent:
-  - /email-sending-concepts/email-authentication
-  - /email-sending-concepts/deliverability
-  - /email-sending-concepts/smtp
-  - /email-sending-concepts/dns
-  - /email-sending-concepts/spf
-
 head:
   - - meta
     - name: description
