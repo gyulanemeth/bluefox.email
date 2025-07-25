@@ -21,13 +21,10 @@ function resolveImageUrl(fm, data) {
   if (fm.thumbnail && typeof fm.thumbnail === 'string') {
     if (fm.thumbnail.startsWith('http')) {
       return fm.thumbnail
-    } else {
-      return `https://bluefox.email${fm.thumbnail}`
-    }
+    } 
+    return `https://bluefox.email${fm.thumbnail}`
   } else if (data.imageFileName) {
     return `https://bluefox.email/assets/glossary/${data.imageFileName}`
-  } else {
-    return undefined
   }
 }
 
@@ -46,23 +43,19 @@ function getGlossarySchemaFields(fm) {
 // --- RELATED CONTENT / MENTIONS MAPPER ---
 function mapMentions(relatedContent) {
   if (!relatedContent || !Array.isArray(relatedContent)) {
-    return undefined
+    return
   }
   return relatedContent.map(link => {
     if (typeof link === 'string') {
       if (link.startsWith('/email-sending-concepts/') || link.startsWith('/aws-concepts/')) {
         return { '@type': 'DefinedTerm', url: `https://bluefox.email${link}` }
-      } else {
-        return { '@id': `https://bluefox.email${link}` }
       }
+      return { '@id': `https://bluefox.email${link}` }
     } else if (link.url) {
       if (link.url.startsWith('/email-sending-concepts/') || link.url.startsWith('/aws-concepts/')) {
         return { '@type': 'DefinedTerm', url: `https://bluefox.email${link.url}` }
-      } else {
-        return { '@id': `https://bluefox.email${link.url}` }
       }
-    } else {
-      return undefined
+      return { '@id': `https://bluefox.email${link.url}` }
     }
   })
 }
@@ -72,24 +65,23 @@ function getSubPagesInfo(collectionFolder) {
   const absDir = path.resolve(process.cwd(), collectionFolder)
   if (!fs.existsSync(absDir)) {
     return []
-  } else {
-    return fs.readdirSync(absDir)
-      .filter(file => file.endsWith('.md') && file !== 'index.md')
-      .map(file => {
-        const filePath = path.join(absDir, file)
-        const { data: fm } = matter.read(filePath)
-        let name
-        if (fm.title) {
-          name = fm.title
-        } else {
-          name = file.replace(/\.md$/, '')
-        }
-        return {
-          name: name,
-          url: `https://bluefox.email/${collectionFolder}/${file.replace(/\.md$/, '')}`,
-        }
-      })
   }
+  return fs.readdirSync(absDir)
+    .filter(file => file.endsWith('.md') && file !== 'index.md')
+    .map(file => {
+      const filePath = path.join(absDir, file)
+      const { data: fm } = matter.read(filePath)
+      let name
+      if (fm.title) {
+        name = fm.title
+      } else {
+        name = file.replace(/\.md$/, '')
+      }
+      return {
+        name: name,
+        url: `https://bluefox.email/${collectionFolder}/${file.replace(/\.md$/, '')}`,
+      }
+    })
 }
 
 // --- INDEX PAGE SCHEMA ---
@@ -151,6 +143,7 @@ function addSchemaMarkupForIndex(pageData, data) {
     pageData.frontmatter.head = []
   } else {
     pageData.frontmatter.head = pageData.frontmatter.head.filter(item => {
+      // removing the current ld+json script if it exists
       if (item[0] === 'script' && item[1] && item[1].type === 'application/ld+json') {
         return false
       } else {
