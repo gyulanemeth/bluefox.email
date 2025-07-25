@@ -7,8 +7,8 @@ sidebar: false
 prev: false
 next: false
 
-datePublished: "2025-01-15"
-dateModified: "2025-01-15"
+datePublished: "2025-06-30"
+dateModified: "2025-07-15"
 
 head:
   - - meta
