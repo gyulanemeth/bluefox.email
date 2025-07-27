@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv} from 'vitepress'
 import tailwindcss from 'tailwindcss'
+import { addSchemaMarkup } from './theme/schemaMarkup'
 
 const headConf = []
 const env = loadEnv('', process.cwd())
@@ -43,6 +44,9 @@ export default defineConfig({
   title: "bluefox.email",
   description: "High deliverability & brand consistency.",
   head: headConf,
+  transformPageData(pageData) {
+    addSchemaMarkup(pageData)
+  },
   vite: {
     ssr: {
       noExternal: ["vuetify"],

@@ -6,6 +6,33 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2025-07-27"
+dateModified: "2025-07-30"
+
+faqs:
+  - question: "How are hard bounces different from soft bounces?"
+    answer: "Hard bounces represent permanent, unresolvable delivery failures (like non-existent addresses), while soft bounces are temporary issues (like full mailboxes) that may resolve with time. Hard bounces require immediate list removal, whereas soft bounces typically trigger retry attempts."
+  - question: "Can a hard bounced email address ever become deliverable again?"
+    answer: "Generally, no. Once an address has generated a hard bounce due to being invalid, non-existent, or closed, it typically remains undeliverable. In rare cases, if a domain temporarily disappeared but was restored, an address might become valid again, but this is uncommon and not worth the reputation risk of continued sending attempts."
+  - question: "What is an acceptable hard bounce rate?"
+    answer: "Industry standards consider hard bounce rates below 0.5% to be excellent, while rates between 0.5-2% are acceptable but suggest list hygiene opportunities. Hard bounce rates above 2% indicate serious list quality issues that require immediate attention. Most ESPs have even stricter thresholds for enforcement actions."
+  - question: "How quickly should I remove hard bounced addresses from my list?"
+    answer: "Hard bounced addresses should be removed immediately upon the first bounce occurrence. There is no benefit to waiting or attempting redelivery, as the failure condition is permanent. Modern email systems typically handle this automatically through suppression list management."
+
+relatedContent:
+  - title: Bounces
+    url: /email-sending-concepts/bounces
+  - title: Soft Bounce
+    url: /email-sending-concepts/soft-bounce
+  - title: Bounce Rate
+    url: /email-sending-concepts/bounce-rate
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: Amazon SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+
 head:
   - - meta
     - name: description

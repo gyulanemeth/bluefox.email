@@ -7,6 +7,34 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2025-07-05"
+dateModified: "2025-07-05"
+
+faqs:
+  - question: "What is DKIM?"
+    answer: "DKIM (DomainKeys Identified Mail) is an email authentication method that adds a digital signature to messages, allowing receiving mail servers to verify if the message was sent by an authorized sender and wasn't altered in transit."
+  - question: "Why is DKIM important?"
+    answer: "DKIM is important because it helps prevent email spoofing and phishing by verifying the authenticity of email messages. It improves email deliverability and sender reputation, and works alongside SPF and DMARC to form a comprehensive email authentication system."
+  - question: "How does DKIM work?"
+    answer: "DKIM works by adding a digital signature to the email header using a private key that only the sender has access to. When the email is received, the receiving server can verify this signature using the public key published in the sender's DNS records. If the signature is valid, the email passed DKIM authentication."
+  - question: "How do I set up DKIM for my domain?"
+    answer: "To set up DKIM, you need to: 1) Generate a public/private key pair, 2) Publish the public key in your domain's DNS as a TXT record, 3) Configure your mail server or ESP to sign outgoing messages with the private key, and 4) Test your implementation using online DKIM verification tools."
+relatedContent:
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: DNS (Domain Name System)
+    url: /email-sending-concepts/dns
+  - title: TXT Records
+    url: /email-sending-concepts/txt-record
+  - title: Email Spoofing
+    url: /email-sending-concepts/email-spoofing
+  - title: Deliverability
+    url: /email-sending-concepts/deliverability
+
 head:
   - - meta
     - name: description
