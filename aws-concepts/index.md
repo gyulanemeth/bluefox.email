@@ -6,6 +6,10 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 prev: false
 next: false
+
+datePublished: "2025-06-30"
+dateModified: "2025-07-28"
+
 head:
   - - meta
     - name: description

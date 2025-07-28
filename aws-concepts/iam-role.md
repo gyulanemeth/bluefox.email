@@ -6,6 +6,31 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2025-07-25"
+dateModified: "2025-07-28"
+
+faqs:
+  - question: "What's the difference between an IAM Role and an IAM User?"
+    answer: "A Role provides temporary credentials that expire, while a User has permanent credentials. Roles are for programmatic access by services, while Users represent human operators or system accounts."
+  - question: "How do I monitor role usage?"
+    answer: "AWS CloudTrail logs all API calls, including role assumptions. You can use CloudTrail logs to track which entities are using your roles and what actions they're performing."
+  - question: "Can I restrict when a role can be used?"
+    answer: "Yes, with IAM condition elements in policies. You can restrict roles based on time of day, source IP address, MFA status, and many other factors."
+  - question: "How do I set up a role for SES event processing?"
+    answer: "Create a role with a trust policy allowing Lambda to assume it, then add permissions policies granting access to SNS topics containing SES events and any downstream services needed to process those events."
+
+relatedContent:
+  - title: AWS IAM Permissions
+    url: /aws-concepts/iam-permissions
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: AWS Delivery Notifications
+    url: /aws-concepts/ses-delivery-notifications
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+
 head:
   - - meta
     - name: description
@@ -32,6 +57,7 @@ head:
     - name: twitter:description
       content: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
 ---
+
 <GlossaryNavigation/>
 
 # AWS IAM Role

@@ -6,6 +6,32 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2025-07-27"
+dateModified: "2025-07-30"
+
+faqs:
+  - question: "What happens when an email bounces?"
+    answer: "The receiving server returns a notification containing standardized error codes and explanatory text about why delivery failed. This information is processed and made available to the sender through reports or notification systems."
+  - question: "Why do valid email addresses sometimes bounce?"
+    answer: "Valid addresses can bounce due to temporary server outages, full mailboxes, content filtering, or greylisting policies. These issues often resolve themselves on subsequent sending attempts."
+  - question: "Do all bounces affect sender reputation equally?"
+    answer: "No. Hard bounces for non-existent addresses damage reputation most severely as they indicate poor list quality. Soft bounces have minimal impact unless they persist across multiple sending attempts."
+relatedContent:
+  - title: Bounce Rate
+    url: /email-sending-concepts/bounce-rate
+  - title: Hard Bounce
+    url: /email-sending-concepts/hard-bounce
+  - title: Soft Bounce
+    url: /email-sending-concepts/soft-bounce
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: Amazon SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: Amazon SES (Simple Email Service)
+    url: /aws-concepts/ses
+
 head:
   - - meta
     - name: description

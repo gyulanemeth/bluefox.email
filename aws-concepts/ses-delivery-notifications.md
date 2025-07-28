@@ -6,6 +6,32 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2025-06-30"
+dateModified: "2025-06-30"
+
+faqs:
+  - question: "How quickly are delivery notifications generated?"
+    answer: "Delivery notifications are typically generated within seconds of successful delivery to the recipient's mail server, though exact timing can vary based on recipient server responsiveness."
+  - question: "How can I distinguish between different campaigns in delivery notifications?"
+    answer: "Include unique message tags in your emails when sending through SES. These tags will be included in the delivery notification JSON, allowing you to filter and categorize notifications by campaign, message type, or other dimensions."
+  - question: "Do delivery notifications guarantee the recipient received my message?"
+    answer: "No, delivery notifications only confirm successful delivery to the recipient's mail server. The message could still be filtered to spam or blocked by internal filters after delivery."
+
+
+relatedContent:
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: AWS SNS Topics
+    url: /aws-concepts/sns-topics
+  - title: AWS SNS Subscription
+    url: /aws-concepts/sns-subscription
+  - title: SNS Delivery Policy
+    url: /aws-concepts/sns-delivery-policy
+  - title: Deliverability
+    url: /email-sending-concepts/deliverability
+
 head:
   - - meta
     - name: description

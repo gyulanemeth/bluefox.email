@@ -6,6 +6,29 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2025-07-25"
+dateModified: "2025-07-28"
+
+faqs:
+  - question: "How does IAM evaluate multiple policies when determining access?"
+    answer: "IAM uses a deny-by-default model. Any explicit deny overrides allows, and if no policy explicitly allows an action, access is denied."
+  - question: "What is the difference between IAM roles and users?"
+    answer: "Users have permanent credentials for individuals. Roles provide temporary credentials that can be assumed by trusted entities for time-limited access."
+  - question: "How does IAM support the Zero Trust security model?"
+    answer: "IAM enforces 'never trust, always verify' by requiring authentication for every request. It uses contextual conditions and fine-grained permissions to limit access to only what's necessary."
+  - question: "What are IAM best practices for secure AWS environments?"
+    answer: "Apply least privilege, use roles instead of access keys, enforce MFA, regularly audit permissions, and implement permission boundaries."
+
+relatedContent:
+  - title: AWS IAM Role
+    url: /aws-concepts/iam-role
+  - title: AWS IAM Permissions
+    url: /aws-concepts/iam-permissions
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+
 head:
   - - meta
     - name: description
@@ -32,6 +55,7 @@ head:
     - name: twitter:description
       content: AWS Identity and Access Management (IAM) is a web service that provides centralized control over authentication and authorization for AWS resources.
 ---
+
 <GlossaryNavigation/>
 
 # AWS Identity and Access Management (IAM)
