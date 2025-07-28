@@ -6,6 +6,29 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2025-07-25"
+dateModified: "2025-07-28"
+
+faqs:
+  - question: "How do I view all permissions granted to a specific user or role?"
+    answer: "The AWS IAM Access Analyzer provides policy evaluation capabilities, or you can use the AWS CLI command `aws iam get-policy` combined with `get-policy-version` to review policy contents. The IAM console also provides visual tools for examining permissions."
+  - question: "How do I troubleshoot permission issues?"
+    answer: "The AWS CloudTrail service logs all API calls with details about the request, including the identity, the action requested, and whether it was allowed or denied. The IAM console includes a policy simulator to test policies before applying them."
+  - question: "Can permissions be temporary or conditional?"
+    answer: "Yes, through session policies used with assumed roles and through condition elements in policies. Conditions can include time-based restrictions, source IP address requirements, resource tags, and many other attributes."
+
+relatedContent:
+  - title: AWS IAM Role
+    url: /aws-concepts/iam-role
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+  - title: AWS Delivery Notifications
+    url: /aws-concepts/ses-delivery-notifications
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+
 head:
   - - meta
     - name: description
@@ -32,6 +55,7 @@ head:
     - name: twitter:description
       content: AWS IAM Permissions define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
 ---
+
 <GlossaryNavigation/>
 
 # AWS IAM Permissions
