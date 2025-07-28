@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 // --- CONSTANTS ---
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
@@ -7,6 +7,7 @@ const API_URL = import.meta.env.VITE_TOOLS_API_URL
 // --- CAPTCHA STATE ---
 const captchaImage = ref(null)
 const captchaProbe = ref(null)
+const captchaExpires = ref(0)
 const captchaLoading = ref(false)
 const captchaText = ref('')
 
@@ -16,26 +17,23 @@ const loading = ref(false)
 const error = ref(null)
 const result = ref(null)
 
-// --- CAPTCHA MEMORY ---
+// --- GLOBAL CAPTCHA MEMORY (in-memory, NOT localStorage) ---
 const captchaSolved = ref(false)
 const captchaSolvedUntil = ref(0) // Unix timestamp in seconds
 
-// --- HELPERS ---
 function now() {
   return Math.floor(Date.now() / 1000)
 }
 
-// Show captcha box if never solved, or expired, or probe/image missing
-function shouldShowCaptcha() {
-  if (!captchaSolved.value) return true
-  if (!captchaProbe.value || !captchaImage.value) return true
-  if (now() > captchaSolvedUntil.value) {
-    captchaSolved.value = false
-    return true
-  }
-  return false
-}
+// --- Show/hide captcha input ---
+const shouldShowCaptcha = computed(() =>
+  !captchaSolved.value ||
+  !captchaProbe.value ||
+  !captchaImage.value ||
+  now() > captchaSolvedUntil.value
+)
 
+// --- LOAD CAPTCHA ---
 async function loadCaptchaAndClearInput() {
   captchaLoading.value = true
   error.value = null
@@ -47,6 +45,7 @@ async function loadCaptchaAndClearInput() {
     if (data.result && data.result.success && data.result.captcha) {
       captchaImage.value = data.result.captcha.image
       captchaProbe.value = data.result.captcha.probe
+      captchaExpires.value = data.result.captcha.expires
       captchaText.value = ''
     } else {
       throw new Error('Invalid captcha response from server')
@@ -61,16 +60,19 @@ async function loadCaptchaAndClearInput() {
   }
 }
 
-function refreshCaptcha() {
+function clearSession() {
+  captchaProbe.value = null
+  captchaImage.value = null
+  captchaExpires.value = 0
+  captchaText.value = ''
   captchaSolved.value = false
   captchaSolvedUntil.value = 0
-  loadCaptchaAndClearInput()
 }
 
 // --- VALIDATION ---
 function validateInputs() {
   if (!API_URL) return 'API URL not configured.'
-  if (shouldShowCaptcha()) {
+  if (shouldShowCaptcha.value) {
     if (!captchaProbe.value) return 'Please load the captcha first.'
     if (!captchaText.value.trim()) return 'Please enter the captcha text.'
   }
@@ -85,7 +87,7 @@ async function callMxApi() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       domain: domain.value,
-      captchaText: shouldShowCaptcha() ? captchaText.value : '',
+      captchaText: shouldShowCaptcha.value ? captchaText.value : '',
       captchaProbe: captchaProbe.value
     })
   })
@@ -144,7 +146,7 @@ async function checkMx() {
     result.value = mapMxResult(resultData)
     // On success, hide captcha for 1 minute (in-memory)
     captchaSolved.value = true
-    captchaSolvedUntil.value = now() + 60 // 1 minute "solved" state
+    captchaSolvedUntil.value = now() + 60 // 1 minute
     captchaText.value = ''
   } catch (err) {
     error.value = err?.message || 'Failed to check MX records. Please try again.'
@@ -153,11 +155,10 @@ async function checkMx() {
   }
 }
 
-// --- ON MOUNT ---
-onMounted(() => {
-  captchaSolved.value = false
-  captchaSolvedUntil.value = 0
-  loadCaptchaAndClearInput()
+// --- ON MOUNT: Always fresh, always ready ---
+onMounted(async () => {
+  clearSession()
+  await loadCaptchaAndClearInput()
 })
 </script>
 
@@ -179,7 +180,7 @@ onMounted(() => {
           />
         </div>
         <!-- Captcha Section (hidden after solve for 1 min) -->
-        <div class="form-group captcha-section" v-if="shouldShowCaptcha()">
+        <div class="form-group captcha-section" v-if="shouldShowCaptcha">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
@@ -197,7 +198,7 @@ onMounted(() => {
               </div>
             </div>
             <button type="button" 
-                    @click="refreshCaptcha" 
+                    @click="() => { clearSession(); loadCaptchaAndClearInput(); }" 
                     class="refresh-captcha-btn"
                     :disabled="captchaLoading"
                     title="Refresh captcha">
@@ -219,7 +220,7 @@ onMounted(() => {
         </div>
 
         <button type="submit"
-                :disabled="loading || (shouldShowCaptcha() && (!captchaImage || !captchaText))"
+                :disabled="loading || (shouldShowCaptcha && (!captchaImage || !captchaText))"
                 class="check-btn">
           {{ loading ? 'Checking...' : 'Check MX Records' }}
         </button>
@@ -324,6 +325,7 @@ onMounted(() => {
     </div>
   </div>
 </template>
+
 
 
 <style scoped>

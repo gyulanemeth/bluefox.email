@@ -1,28 +1,82 @@
-// useCaptcha.js (stateless, NO localStorage)
-import { ref } from 'vue'
+// useCaptcha.js
+import { ref, computed } from 'vue'
 
-const captchaProbe    = ref(null)
-const captchaImage    = ref(null)
-const captchaExpires  = ref(0)
-const captchaLoading  = ref(false)
+const PROBE_KEY         = 'captchaProbe'
+const IMAGE_KEY         = 'captchaImage'
+const EXPIRES_KEY       = 'captchaExpires'
+const SOLVED_UNTIL_KEY  = 'captchaSolvedUntil'
 
+function now() {
+  return Math.floor(Date.now() / 1000)
+}
+
+// ——— reactive values, initialized from localStorage ———
+const captchaProbe   = ref(localStorage.getItem(PROBE_KEY))
+const captchaImage   = ref(localStorage.getItem(IMAGE_KEY))
+const captchaExpires = ref(Number(localStorage.getItem(EXPIRES_KEY) || 0))
+const captchaSolvedUntil = ref(Number(localStorage.getItem(SOLVED_UNTIL_KEY) || 0))
+const captchaLoading = ref(false)
+
+// ——— computed flags ———
+// has the probe itself expired?
+const isProbeExpired = computed(() =>
+  !captchaProbe.value || now() > captchaExpires.value
+)
+// has the user already solved the current probe?
+const isSolved = computed(() =>
+  captchaSolvedUntil.value > now() &&
+  !isProbeExpired.value
+)
+
+// ——— load a new captcha from server ———
 async function loadCaptcha() {
   captchaLoading.value = true
   try {
     const API_URL = import.meta.env.VITE_TOOLS_API_URL
-    const res = await fetch(`${API_URL}/v1/captcha/generate`)
+    const res     = await fetch(`${API_URL}/v1/captcha/generate`)
     const { result } = await res.json()
-    captchaProbe.value   = result.captcha.probe
-    captchaImage.value   = result.captcha.image
-    captchaExpires.value = result.captcha.expires
-  } catch (error) {
-    captchaProbe.value = null
-    captchaImage.value = null
-    captchaExpires.value = 0
-    throw error
+    const { probe, image, expires } = result.captcha
+
+    // update refs + localStorage
+    captchaProbe.value   = probe
+    captchaImage.value   = image
+    captchaExpires.value = expires
+    localStorage.setItem(PROBE_KEY, probe)
+    localStorage.setItem(IMAGE_KEY, image)
+    localStorage.setItem(EXPIRES_KEY, String(expires))
+
+    // reset solved flag
+    captchaSolvedUntil.value = 0
+    localStorage.removeItem(SOLVED_UNTIL_KEY)
+  } catch (err) {
+    // on error, clear everything
+    clearSession()
+    throw err
   } finally {
     captchaLoading.value = false
   }
+}
+
+// ——— mark the current probe as solved ———
+function markSolved() {
+  // solve only if probe is still valid
+  if (!isProbeExpired.value) {
+    captchaSolvedUntil.value = captchaExpires.value
+    localStorage.setItem(SOLVED_UNTIL_KEY, String(captchaExpires.value))
+  }
+}
+
+// ——— clear everything ———
+function clearSession() {
+  captchaProbe.value      = null
+  captchaImage.value      = null
+  captchaExpires.value    = 0
+  captchaSolvedUntil.value= 0
+
+  localStorage.removeItem(PROBE_KEY)
+  localStorage.removeItem(IMAGE_KEY)
+  localStorage.removeItem(EXPIRES_KEY)
+  localStorage.removeItem(SOLVED_UNTIL_KEY)
 }
 
 export function useCaptcha() {
@@ -31,6 +85,10 @@ export function useCaptcha() {
     captchaImage,
     captchaExpires,
     captchaLoading,
-    loadCaptcha
+    isProbeExpired,
+    isSolved,
+    loadCaptcha,
+    markSolved,
+    clearSession
   }
 }

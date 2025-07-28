@@ -1,11 +1,9 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 // === Config/Globals ===
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
-if (!API_URL) {
-  throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
-}
+if (!API_URL) throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
 const ERROR_MSG = {
   apiConfig: 'API URL not configured. Please set VITE_TOOLS_API_URL in your environment.',
   connect: 'Cannot connect to the server. Please make sure the backend is running.',
@@ -18,10 +16,11 @@ const ERROR_MSG = {
 
 // === State ===
 const domain = ref('')
-const testIp = ref('') // NEW: user-provided IP for test
+const testIp = ref('')
 const captchaText = ref('')
 const captchaImage = ref(null)
 const captchaProbe = ref(null)
+const captchaExpires = ref(0)
 const captchaLoading = ref(false)
 const result = ref(null)
 const error = ref(null)
@@ -34,15 +33,12 @@ const captchaSolvedUntil = ref(0) // Unix timestamp
 function now() {
   return Math.floor(Date.now() / 1000)
 }
-function shouldShowCaptcha() {
-  if (!captchaSolved.value) return true
-  if (!captchaProbe.value || !captchaImage.value) return true
-  if (now() > captchaSolvedUntil.value) {
-    captchaSolved.value = false
-    return true
-  }
-  return false
-}
+const shouldShowCaptcha = computed(() =>
+  !captchaSolved.value ||
+  !captchaProbe.value ||
+  !captchaImage.value ||
+  now() > captchaSolvedUntil.value
+)
 
 // === Captcha Handling ===
 async function loadCaptcha() {
@@ -55,6 +51,7 @@ async function loadCaptcha() {
     if (data.result && data.result.success && data.result.captcha) {
       captchaImage.value = data.result.captcha.image
       captchaProbe.value = data.result.captcha.probe
+      captchaExpires.value = data.result.captcha.expires
       captchaText.value = ''
     } else {
       throw new Error('Invalid captcha response from server')
@@ -96,7 +93,7 @@ async function checkSpf() {
   error.value = null
   result.value = null
 
-  if (shouldShowCaptcha()) {
+  if (shouldShowCaptcha.value) {
     if (!captchaProbe.value) {
       error.value = ERROR_MSG.captchaFirst
       return
@@ -111,7 +108,7 @@ async function checkSpf() {
   try {
     const bodyObj = {
       domain: domain.value,
-      captchaText: shouldShowCaptcha() ? captchaText.value : '',
+      captchaText: shouldShowCaptcha.value ? captchaText.value : '',
       captchaProbe: captchaProbe.value
     }
     if (testIp.value && testIp.value.trim().length > 0) {
@@ -155,7 +152,8 @@ async function checkSpf() {
       warnings: resultData.warnings || [],
       recommendations: resultData.recommendations || [],
       mailauthResult: resultData.mailauthResult,
-      ipTestResult: resultData.ipTestResult || null
+      ipTestResult: resultData.ipTestResult || null,
+      score: resultData.score
     }
     // On success, hide captcha for 1 minute (in-memory)
     captchaSolved.value = true
@@ -238,7 +236,7 @@ onMounted(() => {
         </div>
 
         <!-- Captcha Section (shows only when needed) -->
-        <div class="form-group captcha-section" v-if="shouldShowCaptcha()">
+        <div class="form-group captcha-section" v-if="shouldShowCaptcha">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
@@ -278,7 +276,7 @@ onMounted(() => {
         </div>
 
         <button type="submit"
-                :disabled="loading || (shouldShowCaptcha() && (!captchaImage || !captchaText))"
+                :disabled="loading || (shouldShowCaptcha && (!captchaImage || !captchaText))"
                 class="check-btn">
           {{ loading ? 'Checking...' : 'Check SPF' }}
         </button>
@@ -288,7 +286,6 @@ onMounted(() => {
     <!-- Result Section -->
     <div v-if="result" class="result-section">
       <h3>SPF Check Results</h3>
-      
       <!-- Status -->
       <div class="status-box">
         <div v-if="result.valid">
@@ -301,24 +298,20 @@ onMounted(() => {
           <p><strong>Security Score:</strong> {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})</p>
         </div>
       </div>
-
       <!-- Basic Information -->
       <div class="info-section">
         <h4>Basic Information</h4>
         <p><strong>Domain:</strong> {{ result.domain }}</p>
         <p><strong>SPF Record:</strong> {{ result.record || 'Not found' }}</p>
-        
         <div v-if="result.lookups !== undefined">
           <p><strong>DNS Lookups:</strong> {{ result.lookups }}/10</p>
           <div v-if="result.lookups > 10" class="lookup-warning">
             ⚠️ Exceeds the 10 DNS lookup limit
           </div>
         </div>
-        
         <div v-if="result.policy">
           <p><strong>Policy:</strong> {{ result.policy }}</p>
         </div>
-        
         <div v-if="result.mechanisms && result.mechanisms.length">
           <p><strong>SPF Mechanisms:</strong></p>
           <div class="mechanisms-list">
@@ -330,7 +323,6 @@ onMounted(() => {
             </div>
           </div>
         </div>
-        
         <div v-if="result.mailauthResult" class="mailauth-section">
           <h5>Mailauth Analysis</h5>
           <p><strong>Status:</strong> {{ result.mailauthResult.status?.result || 'Unknown' }}</p>
@@ -339,7 +331,6 @@ onMounted(() => {
           </div>
         </div>
       </div>
-
       <!-- IP Test Result Card (only if IP was tested) -->
       <div v-if="result.ipTestResult" class="ip-test-section">
         <h5>SPF Test for IP: <span class="ip-address">{{ result.ipTestResult.ip }}</span></h5>
@@ -358,7 +349,6 @@ onMounted(() => {
           </div>
         </div>
       </div>
-
       <!-- Warnings -->
       <div v-if="result.warnings && result.warnings.length" class="warnings-section">
         <h4>⚠️ Warnings</h4>
@@ -366,7 +356,6 @@ onMounted(() => {
           <li v-for="warning in result.warnings" :key="warning">{{ warning }}</li>
         </ul>
       </div>
-
       <!-- Recommendations -->
       <div v-if="result.recommendations && result.recommendations.length" class="recommendations-section">
         <h4>💡 Recommendations</h4>
@@ -374,7 +363,6 @@ onMounted(() => {
           <li v-for="recommendation in result.recommendations" :key="recommendation">{{ recommendation }}</li>
         </ul>
       </div>
-      
       <!-- Errors -->
       <div v-if="result.errors && result.errors.length" class="errors-section">
         <h4>Errors</h4>

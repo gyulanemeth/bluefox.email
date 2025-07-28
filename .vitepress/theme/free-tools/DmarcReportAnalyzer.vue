@@ -4,23 +4,25 @@ import { useCaptcha } from './useCaptcha.js'
 
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
 
-// CAPTCHA (stateless, per component)
 const {
   captchaProbe,
   captchaImage,
   captchaExpires,
   captchaLoading,
-  loadCaptcha
+  isProbeExpired,
+  isSolved,
+  loadCaptcha,
+  markSolved,
+  clearSession
 } = useCaptcha()
 
-const xmlPaste = ref('')
-const file = ref(null)
-const fileName = ref('')
-const captchaText = ref('')
-const loading = ref(false)
-const error = ref(null)
-const result = ref(null)
-const captchaSolved = ref(false)
+const xmlPaste   = ref('')
+const file       = ref(null)
+const fileName   = ref('')
+const captchaText= ref('')
+const loading    = ref(false)
+const error      = ref(null)
+const result     = ref(null)
 
 // --- Drag and Drop State ---
 const isDragging = ref(false)
@@ -32,7 +34,6 @@ function handleDragOver(e) {
 }
 function handleDragLeave(e) {
   e.preventDefault()
-  // Prevent flicker on nested elements
   dragLeaveTimeout = setTimeout(() => {
     isDragging.value = false
   }, 30)
@@ -51,7 +52,6 @@ function handleDrop(e) {
   }
 }
 
-// For truncating file name with tooltip
 const MAX_FILENAME_LEN = 30
 const truncatedFileName = computed(() => {
   if (!fileName.value) return ''
@@ -59,24 +59,20 @@ const truncatedFileName = computed(() => {
   return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
 })
 
-// --- HELPERS ---
-function isProbeExpired() {
-  return !captchaProbe.value || Date.now() / 1000 > captchaExpires.value
-}
-function shouldShowCaptcha() {
-  return (
-    !captchaSolved.value ||
-    !captchaProbe.value ||
-    !captchaImage.value ||
-    isProbeExpired()
-  )
-}
+// --- Captcha Logic ---
+const shouldShowCaptcha = computed(() =>
+  !isSolved.value ||
+  isProbeExpired.value ||
+  !captchaProbe.value ||
+  !captchaImage.value
+)
+
 function validateInputs() {
   if (!xmlPaste.value.trim() && !file.value) {
     return 'Paste your DMARC XML or upload an XML file to analyze.'
   }
   if (!API_URL) return 'API URL not configured.'
-  if (shouldShowCaptcha()) {
+  if (shouldShowCaptcha.value) {
     if (!captchaProbe.value) return 'Please load the captcha first.'
     if (!captchaText.value.trim()) return 'Please enter the captcha text.'
   }
@@ -97,7 +93,7 @@ function formatDateRange(dateRange) {
   return typeof dateRange === 'string' ? dateRange : 'Unknown'
 }
 
-// --- FILE HANDLING ---
+// --- File Handling ---
 function handleFileChange(e) {
   const selected = e.target.files[0]
   if (!selected) {
@@ -119,20 +115,20 @@ function clearFile() {
   error.value = null
 }
 
-// --- CAPTCHA REFRESH ---
+// --- Captcha Refresh ---
 async function refreshCaptcha() {
   captchaText.value = ''
-  captchaSolved.value = false
+  clearSession()
   await loadCaptcha()
 }
 
-// --- MAIN SUBMIT ---
+// --- Main Submit ---
 async function analyzeReport() {
   error.value = null
   result.value = null
   loading.value = true
 
-  if (isProbeExpired()) {
+  if (isProbeExpired.value) {
     await refreshCaptcha()
     error.value = 'Captcha expired, please solve the new captcha.'
     loading.value = false
@@ -149,7 +145,7 @@ async function analyzeReport() {
     if (file.value) {
       const formData = new FormData()
       formData.append('file', file.value)
-      formData.append('captchaText', captchaSolved.value ? '' : captchaText.value)
+      formData.append('captchaText', shouldShowCaptcha.value ? captchaText.value : '')
       formData.append('captchaProbe', captchaProbe.value)
       response = await fetch(`${API_URL}/v1/analyze-dmarc-report-upload`, {
         method: 'POST',
@@ -162,7 +158,7 @@ async function analyzeReport() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           xml: xmlPaste.value,
-          captchaText: captchaSolved.value ? '' : captchaText.value,
+          captchaText: shouldShowCaptcha.value ? captchaText.value : '',
           captchaProbe: captchaProbe.value
         })
       })
@@ -181,8 +177,8 @@ async function analyzeReport() {
       return
     }
     result.value = json.result
-    captchaSolved.value = true
     captchaText.value = ''
+    markSolved()
     clearFile()
   } catch (err) {
     const msg = err?.message || 'Failed to analyze DMARC report. Please try again.'
@@ -192,14 +188,10 @@ async function analyzeReport() {
   }
 }
 
-// --- ON MOUNT: Fetch captcha fresh ---
 onMounted(async () => {
   await loadCaptcha()
-  captchaSolved.value = false
 })
 </script>
-
-
 
 <template>
   <div class="dmarc-analyzer">
@@ -265,8 +257,9 @@ onMounted(async () => {
             </template>
           </div>
         </div>
-        <!-- Captcha Section (stateless, per-component) -->
-        <div class="form-group captcha-section" v-if="shouldShowCaptcha()">
+
+        <!-- Captcha Section (global shared) -->
+        <div class="form-group captcha-section" v-if="shouldShowCaptcha">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
@@ -300,7 +293,7 @@ onMounted(async () => {
         </div>
         <!-- Submit Button -->
         <button type="submit"
-                :disabled="loading || (!xmlPaste && !file) || (shouldShowCaptcha() && (!captchaImage || !captchaText))"
+                :disabled="loading || (!xmlPaste && !file) || (shouldShowCaptcha && (!captchaImage || !captchaText))"
                 class="analyze-btn">
           {{ loading ? 'Analyzing...' : 'Analyze Report' }}
         </button>
