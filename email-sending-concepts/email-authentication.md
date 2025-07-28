@@ -7,6 +7,31 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2025-07-16"
+dateModified: "2025-07-16"
+
+faqs:
+  - question: "Which email authentication protocol should I implement first?"
+    answer: "Begin with SPF for a straightforward setup and immediate protection. Next, implement DKIM for message verification, followed by DMARC to enforce policies and enable reporting."
+  - question: "Will email authentication affect my deliverability?"
+    answer: "Yes! Properly authenticated emails are more likely to reach the inbox, as major email providers factor authentication status into their filtering processes."
+  - question: "What happens if authentication fails?"
+    answer: "That depends on your DMARC policy. With p=none, failed emails still get delivered but logged. With p=quarantine or p=reject, they may be sent to spam or blocked entirely."
+  - question: "Do I need technical expertise to implement email authentication?"
+    answer: "You'll need basic knowledge of DNS management, but many email platforms offer guided setup or handle it for you."
+
+relatedContent:
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Email Spoofing
+    url: /email-sending-concepts/email-spoofing
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+
 head:
   - - meta
     - name: description

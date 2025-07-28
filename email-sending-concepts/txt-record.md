@@ -7,6 +7,27 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2025-06-30"
+dateModified: "2025-06-30"
+
+faqs:
+  - question: "How many TXT records can I have for my domain?"
+    answer: "You can have multiple TXT records for a domain, but only one TXT record per specific name/host. For example, you can have separate TXT records for example.com, _dmarc.example.com, and selector._domainkey.example.com, but you can't have two different TXT records both named exactly _dmarc.example.com."
+  - question: "Can TXT records affect email deliverability?"
+    answer: "Absolutely. Properly configured SPF, DKIM, and DMARC records (all implemented as TXT records) significantly improve deliverability. Missing or incorrect authentication records can cause legitimate emails to be marked as spam or rejected outright, especially by major providers like Gmail and Microsoft."
+
+relatedContent:
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: DNS (Domain Name System)
+    url: /email-sending-concepts/dns
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+
 head:
   - - meta
     - name: description

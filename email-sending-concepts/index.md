@@ -5,6 +5,10 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false
 prev: false
 next: false
+
+datePublished: "2025-06-23"
+dateModified: "2025-07-15"
+
 head:
   - - meta
     - name: description

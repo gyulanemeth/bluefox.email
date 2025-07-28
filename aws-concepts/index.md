@@ -6,6 +6,10 @@ thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
 prev: false
 next: false
+
+datePublished: "2025-06-30"
+dateModified: "2025-07-28"
+
 head:
   - - meta
     - name: description
@@ -35,6 +39,28 @@ head:
 # AWS Concepts
 
 Welcome to the BlueFox Email AWS glossary! Here you'll find explanations for AWS services and concepts related to email sending and management.
+
+
+## IAM (Identity and Access Management)
+
+### IAM (Identity and Access Management)
+
+**AWS IAM** (Identity and Access Management) is a web service that provides centralized control over authentication and authorization for AWS resources, 
+enabling secure access management.
+
+[Read more](/aws-concepts/iam)
+
+### IAM Permissions
+
+**AWS IAM Permissions** define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
+
+[Read more](/aws-concepts/iam-permissions)
+
+### IAM Role
+
+**AWS IAM Role** is an identity that defines permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
+
+[Read more](/aws-concepts/iam-role)
 
 ## SES (Simple Email Service)
 
