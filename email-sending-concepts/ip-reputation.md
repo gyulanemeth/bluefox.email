@@ -6,6 +6,37 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2025-07-25"
+dateModified: "2025-07-25"
+
+faqs:
+  - question: "How long does it take to build an IP reputation?"
+    answer: "Establishing a baseline IP reputation typically takes 4–8 weeks of consistent sending with positive engagement metrics, though building strong reputation with major providers may require several months."
+  - question: "Can a bad IP reputation be fixed?"
+    answer: "Yes, damaged IP reputation can be repaired through improved practices. For severe reputation damage, it's sometimes more efficient to migrate to a new IP address with proper warming procedures."
+  - question: "Is a dedicated IP always better than a shared IP?"
+    answer: "Not necessarily. Dedicated IPs suit high-volume senders with consistent practices, while low-volume senders (<100,000 emails/month) often benefit from shared IPs' collective sending patterns."
+  - question: "How does IP reputation relate to domain reputation?"
+    answer: "IP reputation and domain reputation work together in filtering. IP reputation evaluates during SMTP connection, while domain reputation provides persistent identity across different sending infrastructures."
+
+relatedContent:
+  - title: Domain Reputation
+    url: /email-sending-concepts/domain-reputation
+  - title: Email Deliverability
+    url: /email-sending-concepts/deliverability
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC (Domain-based Message Authentication, Reporting & Conformance)
+    url: /email-sending-concepts/dmarc
+  - title: Bounce Rate
+    url: /email-sending-concepts/bounce-rate
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS Sending Rate
+    url: /aws-concepts/ses-sending-rate
+
 head:
   - - meta
     - name: description
@@ -32,6 +63,7 @@ head:
     - name: twitter:description
       content: Learn about IP Reputation in email marketing, how it affects deliverability, and best practices for maintaining a positive sending reputation.
 ---
+
 <GlossaryNavigation />
 
 # IP Reputation

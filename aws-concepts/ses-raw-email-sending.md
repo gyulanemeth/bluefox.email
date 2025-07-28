@@ -6,6 +6,31 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2025-07-25"
+dateModified: "2025-07-25"
+
+faqs:
+  - question: "When should I use raw email sending versus the simple API methods?"
+    answer: "Use raw sending for advanced features like attachments or custom headers; simple APIs are best for basic emails."
+  - question: "Does raw email sending affect deliverability?"
+    answer: "Yes, if not implemented correctly. Follow best practices to maintain good deliverability."
+  - question: "Can I use templates with raw email sending?"
+    answer: "SES templates don’t work directly, but you can create your own templates for raw emails."
+  - question: "How do I track opens and clicks with raw email sending?"
+    answer: "Manually add tracking pixels and rewrite links, or use a third-party tracking tool."
+
+relatedContent:
+  - title: Amazon SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS SES Verified Identities
+    url: /aws-concepts/ses-verified-identity
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: Email Headers
+    url: /email-sending-concepts/email-headers
+
 head:
   - - meta
     - name: description

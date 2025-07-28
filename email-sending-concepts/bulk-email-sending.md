@@ -6,6 +6,31 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2025-07-25"
+dateModified: "2025-07-25"
+
+faqs:
+  - question: "What volume constitutes 'bulk' email sending?"
+    answer: "While there's no universal definition, sending to more than a few hundred recipients at once is typically considered bulk sending. Enterprise-level bulk sending may involve millions of recipients per campaign."
+  - question: "How do I prevent my bulk emails from being marked as spam?"
+    answer: "Focus on list quality (permission-based, engaged subscribers), content relevance, proper technical configuration (authentication, consistent sending domains), and steady sending patterns rather than erratic volume spikes."
+  - question: "Is bulk email sending legal?"
+    answer: "Yes, when done in compliance with applicable regulations such as CAN-SPAM, GDPR, CASL, and other regional laws. This typically requires permission from recipients, clear identification of the sender, and easy unsubscribe options."
+
+relatedContent:
+  - title: Amazon SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: Email Deliverability
+    url: /email-sending-concepts/deliverability
+  - title: Bounce Rate
+    url: /email-sending-concepts/bounce-rate
+
 head:
   - - meta
     - name: description
@@ -32,6 +57,7 @@ head:
     - name: twitter:description
       content: Learn about bulk email sending, the practice of sending large volumes of emails to multiple recipients simultaneously, used for marketing campaigns, newsletters, and announcements.
 ---
+
 <GlossaryNavigation />
 
 # Bulk Email Sending

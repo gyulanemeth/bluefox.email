@@ -6,6 +6,35 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2025-07-25"
+dateModified: "2025-07-25"
+
+faqs:
+  - question: "Can I use subdomains as verified identities?"
+    answer: "Yes, you can verify specific subdomains separately from the parent domain. For example, you could verify `marketing.example.com` as its own identity, distinct from `example.com`."
+  - question: "Do I need to verify identities in each AWS region separately?"
+    answer: "Yes, identity verifications are region-specific. If you plan to send emails from multiple AWS regions, you must verify your domains and email addresses in each region you plan to use."
+  - question: "What happens if I need to send from multiple domains?"
+    answer: "You can verify as many domains and email addresses as needed within your AWS account. Each identity is verified and managed independently, with its own notification settings and sending authorizations."
+  - question: "Can I delete a verified identity?"
+    answer: "Yes, you can delete a verified identity at any time through the SES console or API. However, once deleted, you would need to go through the verification process again if you wish to use that identity for sending."
+
+relatedContent:
+  - title: Amazon SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS SES Sandbox Mode
+    url: /aws-concepts/ses-sandbox
+  - title: AWS SES Production Mode
+    url: /aws-concepts/ses-production-access
+  - title: AWS SES Sending Quotas
+    url: /aws-concepts/ses-sending-quota
+  - title: AWS SNS Topics
+    url: /aws-concepts/sns-topics
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+
 head:
   - - meta
     - name: description

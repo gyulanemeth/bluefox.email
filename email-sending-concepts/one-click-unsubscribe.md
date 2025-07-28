@@ -1,11 +1,39 @@
 ---
 title: One-Click Unsubscribe | BlueFox Email
-description: "Learn about One-Click Unsubscribe mechanism in email marketing, how it works, implementation methods, and regulatory requirements."
+description: Learn about One-Click Unsubscribe mechanism in email marketing, how it works, implementation methods, and regulatory requirements.
 thumbnail: /assets/glossary/email-sending-glossary.png
-
 layout: post
 category: glossary
 sidebar: false
+
+datePublished: "2025-07-25"
+dateModified: "2025-07-25"
+
+faqs:
+  - question: "Is it legal to ask for a reason when someone unsubscribes?"
+    answer: "You may request feedback after the unsubscribe is already processed, but making it required violates the one-click principle and regulatory requirements."
+  - question: "Should we confirm unsubscribe requests with an email?"
+    answer: "Confirmation emails are acceptable but must clearly indicate that the unsubscribe has already been completed with no further action required."
+  - question: "How does One-Click Unsubscribe affect deliverability?"
+    answer: "Implementing proper one-click unsubscribe typically improves deliverability metrics by reducing spam complaints and demonstrating compliance with best practices."
+  - question: "Can we re-add users who have unsubscribed to our lists?"
+    answer: "No, not without obtaining new explicit consent. Re-adding previously unsubscribed users without permission violates most email regulations and can severely damage sender reputation."
+
+relatedContent:
+  - title: Email Deliverability
+    url: /email-sending-concepts/deliverability
+  - title: Email Headers
+    url: /email-sending-concepts/email-headers
+  - title: Complaints
+    url: /email-sending-concepts/complaints
+  - title: Bounce Rate
+    url: /email-sending-concepts/bounce-rate
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS Sending Rate
+    url: /aws-concepts/ses-sending-rate
 
 head:
   - - meta
@@ -33,6 +61,7 @@ head:
     - name: twitter:description
       content: "Learn how One-Click Unsubscribe works and why it's essential for email deliverability and regulatory compliance."
 ---
+
 <GlossaryNavigation />
 
 # One-Click Unsubscribe

@@ -7,6 +7,33 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2025-07-25"
+dateModified: "2025-07-25"
+
+faqs:
+  - question: "How long does it take to build a domain reputation?"
+    answer: "Building a positive domain reputation typically takes 4–8 weeks of consistent, positive sending behavior, though establishing strong reputation with major providers may require several months."
+  - question: "Should I use subdomains for different types of email?"
+    answer: "Using dedicated subdomains (e.g., marketing.yourdomain.com, transactional.yourdomain.com) helps isolate reputations for different sending purposes, protecting critical messages from cross-contamination."
+  - question: "What's more important: IP reputation or domain reputation?"
+    answer: "Both matter, but domain reputation has become increasingly dominant in filtering decisions at major providers. A strong domain reputation can sometimes overcome modest IP reputation issues, but rarely the reverse."
+
+relatedContent:
+  - title: IP Reputation
+    url: /email-sending-concepts/ip-reputation
+  - title: Email Deliverability
+    url: /email-sending-concepts/deliverability
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC (Domain-based Message Authentication, Reporting & Conformance)
+    url: /email-sending-concepts/dmarc
+  - title: Bounce Rate
+    url: /email-sending-concepts/bounce-rate
+  - title: Complaints
+    url: /email-sending-concepts/complaints
+
 head:
   - - meta
     - name: description
@@ -33,6 +60,7 @@ head:
     - name: twitter:description
       content: Learn how domain reputation works and why it's crucial for email deliverability success.
 ---
+
 <GlossaryNavigation />
 
 # Domain Reputation
