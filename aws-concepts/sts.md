@@ -6,6 +6,31 @@ sidebar: false
 layout: post
 category: glossary
 
+datePublished: "2025-07-25"
+dateModified: "2025-07-28"
+
+faqs:
+  - question: "How long can temporary credentials remain valid?"
+    answer: "Temporary credentials can be valid for as little as 15 minutes up to a maximum of 36 hours, depending on the method used to request them and the parameters specified. The default is typically 1 hour."
+  - question: "Is there an additional cost for using STS?"
+    answer: "No, AWS STS is available at no additional charge. You pay only for the AWS resources accessed using the temporary credentials."
+  - question: "How does STS handle credential revocation?"
+    answer: "While STS credentials cannot be directly revoked before their expiration time, you can effectively revoke them by modifying the associated IAM policies to deny access. This change takes effect almost immediately."
+  - question: "Can STS be used across all AWS regions?"
+    answer: "Yes, STS can be used in all AWS regions. It can be configured to use either regional endpoints for lower latency or a single global endpoint for simplicity."
+
+relatedContent:
+  - title: AWS IAM (Identity and Access Management)
+    url: /aws-concepts/iam
+  - title: AWS IAM Role
+    url: /aws-concepts/iam-role
+  - title: AWS IAM Permissions
+    url: /aws-concepts/iam-permissions
+  - title: AWS SES (Simple Email Service)
+    url: /aws-concepts/ses
+  - title: AWS SNS (Simple Notification Service)
+    url: /aws-concepts/sns
+
 head:
   - - meta
     - name: description
