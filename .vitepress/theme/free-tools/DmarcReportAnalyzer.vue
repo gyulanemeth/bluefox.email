@@ -16,13 +16,13 @@ const {
   clearSession
 } = useCaptcha()
 
-const xmlPaste   = ref('')
-const file       = ref(null)
-const fileName   = ref('')
-const captchaText= ref('')
-const loading    = ref(false)
-const error      = ref(null)
-const result     = ref(null)
+const xmlPaste    = ref('')
+const file        = ref(null)
+const fileName    = ref('')
+const captchaText = ref('')
+const loading     = ref(false)
+const error       = ref(null)
+const result      = ref(null)
 
 // --- Drag and Drop State ---
 const isDragging = ref(false)
@@ -188,8 +188,11 @@ async function analyzeReport() {
   }
 }
 
+// only fetch on mount if we have no probe or it’s expired
 onMounted(async () => {
-  await loadCaptcha()
+  if (!captchaProbe.value || isProbeExpired.value) {
+    await loadCaptcha()
+  }
 })
 </script>
 

@@ -7,7 +7,6 @@ const API_URL = import.meta.env.VITE_TOOLS_API_URL
 const {
   captchaProbe,
   captchaImage,
-  captchaExpires,
   captchaLoading,
   isProbeExpired,
   isSolved,
@@ -138,8 +137,11 @@ const dmarcTags = computed(() => {
     .filter(i => i.value !== '')
 })
 
+// only fetch on mount if no probe or it's expired
 onMounted(async () => {
-  await loadCaptcha()
+  if (!captchaProbe.value || isProbeExpired.value) {
+    await loadCaptcha()
+  }
 })
 </script>
 

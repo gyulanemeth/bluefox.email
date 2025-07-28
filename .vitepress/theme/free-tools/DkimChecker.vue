@@ -97,7 +97,7 @@ async function checkDkim() {
     }
 
     // success!
-    result.value = json.result
+    result.value      = json.result
     captchaText.value = ''
     markSolved()      // globally mark this probe as OK until expiry
 
@@ -135,8 +135,11 @@ const dkimTags = computed(() => {
     })
 })
 
+// only fetch on mount if we have no probe or it’s expired
 onMounted(async () => {
-  await loadCaptcha()
+  if (!captchaProbe.value || isProbeExpired.value) {
+    await loadCaptcha()
+  }
 })
 </script>
 

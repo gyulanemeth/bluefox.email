@@ -1,180 +1,129 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useCaptcha } from './useCaptcha.js'
 
-// === Config/Globals ===
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
-if (!API_URL) throw new Error('API URL not configured. Please set VITE_TOOLS_API_URL in your environment.')
-const ERROR_MSG = {
-  apiConfig: 'API URL not configured. Please set VITE_TOOLS_API_URL in your environment.',
-  connect: 'Cannot connect to the server. Please make sure the backend is running.',
-  endpoint: 'API endpoint not found. Please check the server configuration.',
-  server: 'Server error occurred. Please try again later.',
-  default: 'Failed to check SPF. Please try again.',
-  captchaFirst: 'Please load the captcha first',
-  captchaPrompt: 'Please enter the captcha text'
-}
+if (!API_URL) throw new Error('VITE_TOOLS_API_URL not set')
 
-// === State ===
-const domain = ref('')
-const testIp = ref('')
+// shared captcha state (localStorage-backed)
+const {
+  captchaProbe,
+  captchaImage,
+  captchaLoading,
+  isProbeExpired,
+  isSolved,
+  loadCaptcha,
+  markSolved,
+  clearSession
+} = useCaptcha()
+
+// form state
+const domain      = ref('')
+const testIp      = ref('')
 const captchaText = ref('')
-const captchaImage = ref(null)
-const captchaProbe = ref(null)
-const captchaExpires = ref(0)
-const captchaLoading = ref(false)
-const result = ref(null)
-const error = ref(null)
-const loading = ref(false)
+const loading     = ref(false)
+const error       = ref(null)
+const result      = ref(null)
 
-// === In-memory Captcha State ===
-const captchaSolved = ref(false)
-const captchaSolvedUntil = ref(0) // Unix timestamp
-
-function now() {
-  return Math.floor(Date.now() / 1000)
-}
+// only show captcha when there's no valid, unexpired solve
 const shouldShowCaptcha = computed(() =>
-  !captchaSolved.value ||
+  !isSolved.value ||
+  isProbeExpired.value ||
   !captchaProbe.value ||
-  !captchaImage.value ||
-  now() > captchaSolvedUntil.value
+  !captchaImage.value
 )
 
-// === Captcha Handling ===
-async function loadCaptcha() {
-  captchaLoading.value = true
-  error.value = null
-  try {
-    const response = await fetch(`${API_URL}/v1/captcha/generate`)
-    if (!response.ok) throw new Error(`Failed to load captcha: ${response.status}`)
-    const data = await response.json()
-    if (data.result && data.result.success && data.result.captcha) {
-      captchaImage.value = data.result.captcha.image
-      captchaProbe.value = data.result.captcha.probe
-      captchaExpires.value = data.result.captcha.expires
-      captchaText.value = ''
-    } else {
-      throw new Error('Invalid captcha response from server')
+function refreshCaptcha() {
+  captchaText.value = ''
+  clearSession()
+  return loadCaptcha()
+}
+
+function validateInputs() {
+  if (!domain.value.trim()) return 'Please enter a domain.'
+  if (shouldShowCaptcha.value) {
+    if (!captchaProbe.value) return 'Please load the captcha first.'
+    if (!captchaText.value.trim()) return 'Please enter the captcha text.'
+  }
+  return null
+}
+
+async function callSpfApi() {
+  const body = {
+    domain:       domain.value,
+    captchaProbe: captchaProbe.value,
+    captchaText:  shouldShowCaptcha.value ? captchaText.value : ''
+  }
+  if (testIp.value.trim()) body.testIp = testIp.value.trim()
+
+  const res = await fetch(`${API_URL}/v1/analyze-spf`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  })
+  const json = await res.json().catch(() => {
+    throw new Error(`HTTP error! status: ${res.status}`)
+  })
+  if (!res.ok) {
+    const msg = json.result?.error || json.error || `HTTP ${res.status}`
+    if (msg.toLowerCase().includes('captcha')) {
+      await refreshCaptcha()
     }
-  } catch (err) {
-    error.value = `Failed to load captcha: ${err.message}`
-    captchaImage.value = null
-    captchaProbe.value = null
-    captchaText.value = ''
-  } finally {
-    captchaLoading.value = false
+    throw new Error(msg)
   }
-}
-const refreshCaptcha = async () => {
-  captchaSolved.value = false
-  captchaSolvedUntil.value = 0
-  await loadCaptcha()
+  return json.result || json
 }
 
-// === API Error Handler ===
-function handleApiError(err) {
-  const msg = err?.message || ERROR_MSG.default
-  if (msg.toLowerCase().includes('captcha')) {
-    refreshCaptcha()
-    error.value = msg + ' Please try again with the new captcha.'
-  } else if (msg.includes('fetch')) {
-    error.value = ERROR_MSG.connect
-  } else if (msg.includes('404')) {
-    error.value = ERROR_MSG.endpoint
-  } else if (msg.includes('500')) {
-    error.value = ERROR_MSG.server
-  } else {
-    error.value = msg
+function mapResult(d) {
+  return {
+    valid:           !!d.success,
+    domain:          d.domain || domain.value,
+    record:          d.rawRecord || d.record || 'Not found',
+    lookups:         d.lookups,
+    policy:          d.policy,
+    mechanisms:      d.mechanisms || [],
+    warnings:        d.warnings || [],
+    recommendations: d.recommendations || [],
+    errors:          d.success ? [] : [d.error || 'Unknown error'],
+    mailauthResult:  d.mailauthResult,
+    ipTestResult:    d.ipTestResult || null,
+    score:           d.score
   }
 }
 
-// === SPF CHECK ===
 async function checkSpf() {
-  error.value = null
+  error.value  = null
   result.value = null
 
-  if (shouldShowCaptcha.value) {
-    if (!captchaProbe.value) {
-      error.value = ERROR_MSG.captchaFirst
-      return
-    }
-    if (!captchaText.value.trim()) {
-      error.value = ERROR_MSG.captchaPrompt
-      return
-    }
+  if (isProbeExpired.value) {
+    await refreshCaptcha()
+    error.value = 'Captcha expired — please solve the new one.'
+    return
   }
+
+  const vErr = validateInputs()
+  if (vErr) {
+    error.value = vErr
+    return
+  }
+
   loading.value = true
-
   try {
-    const bodyObj = {
-      domain: domain.value,
-      captchaText: shouldShowCaptcha.value ? captchaText.value : '',
-      captchaProbe: captchaProbe.value
-    }
-    if (testIp.value && testIp.value.trim().length > 0) {
-      bodyObj.testIp = testIp.value.trim()
-    }
-
-    const response = await fetch(`${API_URL}/v1/analyze-spf`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(bodyObj)
-    })
-
-    if (!response.ok) {
-      let errorMessage = `HTTP error! status: ${response.status}`
-      try {
-        const errorData = await response.json()
-        errorMessage = errorData.result?.error || errorData.error || errorData.message || errorMessage
-      } catch {}
-      throw new Error(errorMessage)
-    }
-
-    const data = await response.json()
-    const resultData = data.result || data
-    if (!resultData.success && resultData.error) {
-      if (resultData.error.toLowerCase().includes('captcha')) {
-        await refreshCaptcha()
-        captchaText.value = ''
-      }
-      throw new Error(resultData.error)
-    }
-
-    // Flatten result and also support .ipTestResult
-    result.value = {
-      valid: resultData.success || false,
-      domain: resultData.domain || domain.value,
-      record: resultData.rawRecord || resultData.record || 'Not found',
-      lookups: resultData.lookups,
-      policy: resultData.policy,
-      mechanisms: resultData.mechanisms || [],
-      errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
-      warnings: resultData.warnings || [],
-      recommendations: resultData.recommendations || [],
-      mailauthResult: resultData.mailauthResult,
-      ipTestResult: resultData.ipTestResult || null,
-      score: resultData.score
-    }
-    // On success, hide captcha for 1 minute (in-memory)
-    captchaSolved.value = true
-    captchaSolvedUntil.value = now() + 60
+    const data = await callSpfApi()
+    result.value = mapResult(data)
     captchaText.value = ''
+    markSolved()
   } catch (err) {
-    handleApiError(err)
+    error.value = err.message || 'Failed to check SPF.'
   } finally {
     loading.value = false
   }
 }
 
-// Util: Result styling for IP test card
-function getIpResultClass(result) {
-  let resultStr = ''
-  if (typeof result === 'string') resultStr = result
-  else if (result && typeof result === 'object' && result.result) resultStr = result.result
-  else if (result && typeof result === 'object' && result.status) resultStr = result.status
-  else resultStr = String(result || 'unknown')
-
-  switch (resultStr.toLowerCase()) {
+// formatting helpers
+function getIpResultClass(res) {
+  const out = typeof res === 'string' ? res : res.result || res.status || ''
+  switch (out.toLowerCase()) {
     case 'pass': return 'result-pass'
     case 'fail': return 'result-fail'
     case 'softfail': return 'result-softfail'
@@ -184,21 +133,16 @@ function getIpResultClass(result) {
     default: return 'result-unknown'
   }
 }
-
-function getDisplayResult(result) {
-  let resultStr = ''
-  if (typeof result === 'string') resultStr = result
-  else if (result && typeof result === 'object' && result.result) resultStr = result.result
-  else if (result && typeof result === 'object' && result.status) resultStr = result.status
-  else resultStr = String(result || 'unknown')
-  return resultStr.toUpperCase()
+function getDisplayResult(res) {
+  return (typeof res === 'string' ? res : res.result || res.status || '')
+    .toUpperCase()
 }
 
-// On mount, always reset state
-onMounted(() => {
-  captchaSolved.value = false
-  captchaSolvedUntil.value = 0
-  loadCaptcha()
+// on mount: load a fresh captcha if needed
+onMounted(async () => {
+  if (!captchaProbe.value || isProbeExpired.value) {
+    await loadCaptcha()
+  }
 })
 </script>
 
@@ -210,83 +154,79 @@ onMounted(() => {
         <div class="form-group">
           <label for="domain">Domain:</label>
           <input 
-            type="text" 
             id="domain"
-            name="domain"
             v-model="domain" 
             placeholder="example.com"
-            required
             :disabled="loading"
+            required
           />
         </div>
 
         <!-- Optional IP input -->
         <div class="form-group">
-          <label for="ipTest">Optional: Test SPF with a specific IP</label>
+          <label for="ipTest">Optional: Test SPF for a specific IP</label>
           <input
-            type="text"
             id="ipTest"
-            name="ipTest"
             v-model="testIp"
-            placeholder="Enter IPv4/IPv6 address (e.g. 203.0.113.2)"
+            placeholder="e.g. 203.0.113.2"
             :disabled="loading"
             autocomplete="off"
           />
           <small class="form-help">Leave blank to skip IP-based test.</small>
         </div>
 
-        <!-- Captcha Section (shows only when needed) -->
-        <div class="form-group captcha-section" v-if="shouldShowCaptcha">
+        <!-- Captcha (only when needed) -->
+        <div v-if="shouldShowCaptcha" class="form-group captcha-section">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
               <div v-if="captchaLoading" class="captcha-loading">
                 Loading captcha...
               </div>
-              <div v-else-if="captchaImage" 
-                   class="captcha-image" 
-                   v-html="captchaImage">
-              </div>
+              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage"/>
               <div v-else class="captcha-placeholder">
-                <button type="button" @click="loadCaptcha" class="load-captcha-btn">
+                <button type="button" @click="refreshCaptcha" class="load-captcha-btn">
                   Load Captcha
                 </button>
               </div>
             </div>
-            <button type="button" 
-                    @click="refreshCaptcha" 
-                    class="refresh-captcha-btn"
-                    :disabled="captchaLoading"
-                    title="Refresh captcha">
-              <img src="/assets/reload.webp" alt="reload button">
-            </button>
+            <button
+              type="button"
+              @click="refreshCaptcha"
+              class="refresh-captcha-btn"
+              :disabled="captchaLoading"
+              title="Refresh captcha"
+            >🔄</button>
           </div>
-          <input 
-            type="text" 
+          <input
             id="captcha"
-            name="captcha"
-            v-model="captchaText" 
-            placeholder="Enter the text from the image above"
-            required
+            v-model="captchaText"
+            placeholder="Enter the characters above"
             :disabled="loading || !captchaImage"
-            autocomplete="off"
+            required
             class="captcha-input"
           />
-          <small class="captcha-help">Enter the characters shown in the image above</small>
+          <small class="captcha-help">Enter the text shown above</small>
         </div>
 
-        <button type="submit"
-                :disabled="loading || (shouldShowCaptcha && (!captchaImage || !captchaText))"
-                class="check-btn">
+        <button
+          type="submit"
+          class="check-btn"
+          :disabled="loading || (shouldShowCaptcha && !captchaText)"
+        >
           {{ loading ? 'Checking...' : 'Check SPF' }}
         </button>
       </form>
     </div>
 
-    <!-- Result Section -->
+    <!-- Error -->
+    <div v-if="error" class="error-section">
+      <p class="error-message">{{ error }}</p>
+    </div>
+
+    <!-- Results -->
     <div v-if="result" class="result-section">
       <h3>SPF Check Results</h3>
-      <!-- Status -->
       <div class="status-box">
         <div v-if="result.valid">
           <p><strong>✓ SPF Record Found</strong></p>
@@ -295,45 +235,52 @@ onMounted(() => {
           <p><strong>✗ SPF Record Missing or Invalid</strong></p>
         </div>
         <div v-if="result.score">
-          <p><strong>Security Score:</strong> {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})</p>
+          <p>
+            <strong>Security Score:</strong>
+            {{ result.score.value }}/{{ result.score.outOf }}
+            ({{ result.score.level }})
+          </p>
         </div>
       </div>
-      <!-- Basic Information -->
+
       <div class="info-section">
         <h4>Basic Information</h4>
         <p><strong>Domain:</strong> {{ result.domain }}</p>
-        <p><strong>SPF Record:</strong> {{ result.record || 'Not found' }}</p>
-        <div v-if="result.lookups !== undefined">
-          <p><strong>DNS Lookups:</strong> {{ result.lookups }}/10</p>
-          <div v-if="result.lookups > 10" class="lookup-warning">
-            ⚠️ Exceeds the 10 DNS lookup limit
-          </div>
-        </div>
-        <div v-if="result.policy">
-          <p><strong>Policy:</strong> {{ result.policy }}</p>
-        </div>
-        <div v-if="result.mechanisms && result.mechanisms.length">
-          <p><strong>SPF Mechanisms:</strong></p>
-          <div class="mechanisms-list">
-            <div v-for="mechanism in result.mechanisms" :key="mechanism.original" class="mechanism-item">
-              <span class="mechanism-text">{{ mechanism.original }}</span>
-              <span class="mechanism-type" :class="{ 'requires-lookup': mechanism.requiresLookup }">
-                {{ mechanism.type }}{{ mechanism.requiresLookup ? ' (DNS lookup)' : '' }}
-              </span>
-            </div>
-          </div>
-        </div>
-        <div v-if="result.mailauthResult" class="mailauth-section">
-          <h5>Mailauth Analysis</h5>
-          <p><strong>Status:</strong> {{ result.mailauthResult.status?.result || 'Unknown' }}</p>
-          <div v-if="result.mailauthResult.info" class="auth-info">
-            <code>{{ result.mailauthResult.info }}</code>
-          </div>
+        <p><strong>SPF Record:</strong> {{ result.record }}</p>
+        <p v-if="result.lookups !== undefined">
+          <strong>DNS Lookups:</strong> {{ result.lookups }}/10
+          <span v-if="result.lookups > 10" class="lookup-warning">
+            ⚠️ Exceeds limit
+          </span>
+        </p>
+        <p v-if="result.policy"><strong>Policy:</strong> {{ result.policy }}</p>
+      </div>
+
+      <div v-if="result.mechanisms.length" class="mechanisms-list">
+        <h4>Mechanisms</h4>
+        <div
+          v-for="m in result.mechanisms"
+          :key="m.original"
+          class="mechanism-item"
+        >
+          <span class="mechanism-text">{{ m.original }}</span>
+          <span
+            class="mechanism-type"
+            :class="{ 'requires-lookup': m.requiresLookup }"
+          >
+            {{ m.type }}{{ m.requiresLookup ? ' (DNS)' : '' }}
+          </span>
         </div>
       </div>
-      <!-- IP Test Result Card (only if IP was tested) -->
+
+      <div v-if="result.mailauthResult" class="mailauth-section">
+        <h4>Mailauth</h4>
+        <p><strong>Status:</strong> {{ result.mailauthResult.status.result }}</p>
+        <pre v-if="result.mailauthResult.info" class="auth-info">{{ result.mailauthResult.info }}</pre>
+      </div>
+
       <div v-if="result.ipTestResult" class="ip-test-section">
-        <h5>SPF Test for IP: <span class="ip-address">{{ result.ipTestResult.ip }}</span></h5>
+        <h4>SPF Test for IP {{ result.ipTestResult.ip }}</h4>
         <div class="ip-test-card">
           <div class="ip-test-header">
             <span :class="['ip-result', getIpResultClass(result.ipTestResult.result)]">
@@ -341,43 +288,28 @@ onMounted(() => {
             </span>
           </div>
           <p class="ip-explanation">{{ result.ipTestResult.explanation }}</p>
-          <div v-if="result.ipTestResult.details">
-            <details style="margin-top: 0.5rem;">
-              <summary>Show SPF Engine Details</summary>
-              <pre>{{ JSON.stringify(result.ipTestResult.details, null, 2) }}</pre>
-            </details>
-          </div>
+          <details v-if="result.ipTestResult.details">
+            <summary>Details</summary>
+            <pre>{{ JSON.stringify(result.ipTestResult.details, null, 2) }}</pre>
+          </details>
         </div>
       </div>
-      <!-- Warnings -->
-      <div v-if="result.warnings && result.warnings.length" class="warnings-section">
-        <h4>⚠️ Warnings</h4>
-        <ul>
-          <li v-for="warning in result.warnings" :key="warning">{{ warning }}</li>
-        </ul>
-      </div>
-      <!-- Recommendations -->
-      <div v-if="result.recommendations && result.recommendations.length" class="recommendations-section">
-        <h4>💡 Recommendations</h4>
-        <ul>
-          <li v-for="recommendation in result.recommendations" :key="recommendation">{{ recommendation }}</li>
-        </ul>
-      </div>
-      <!-- Errors -->
-      <div v-if="result.errors && result.errors.length" class="errors-section">
-        <h4>Errors</h4>
-        <ul>
-          <li v-for="error in result.errors" :key="error">{{ error }}</li>
-        </ul>
-      </div>
-    </div>
 
-    <div v-if="error" class="error-section">
-      <p class="error-message">{{ error }}</p>
+      <div v-if="result.warnings.length" class="warnings-section">
+        <h4>⚠️ Warnings</h4>
+        <ul><li v-for="w in result.warnings" :key="w">{{ w }}</li></ul>
+      </div>
+      <div v-if="result.recommendations.length" class="recommendations-section">
+        <h4>💡 Recommendations</h4>
+        <ul><li v-for="r in result.recommendations" :key="r">{{ r }}</li></ul>
+      </div>
+      <div v-if="result.errors.length" class="errors-section">
+        <h4>Errors</h4>
+        <ul><li v-for="e in result.errors" :key="e">{{ e }}</li></ul>
+      </div>
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .spf-checker {

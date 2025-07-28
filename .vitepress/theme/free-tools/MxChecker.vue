@@ -1,330 +1,284 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
+import { useCaptcha } from './useCaptcha.js'
 
-// --- CONSTANTS ---
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
 
-// --- CAPTCHA STATE ---
-const captchaImage = ref(null)
-const captchaProbe = ref(null)
-const captchaExpires = ref(0)
-const captchaLoading = ref(false)
+// localStorage–backed captcha state
+const {
+  captchaProbe,
+  captchaImage,
+  captchaLoading,
+  isProbeExpired,
+  isSolved,
+  loadCaptcha,
+  markSolved,
+  clearSession
+} = useCaptcha()
+
+// form state
+const domain      = ref('')
 const captchaText = ref('')
+const loading     = ref(false)
+const error       = ref(null)
+const result      = ref(null)
 
-// --- FORM STATE ---
-const domain = ref('')
-const loading = ref(false)
-const error = ref(null)
-const result = ref(null)
-
-// --- GLOBAL CAPTCHA MEMORY (in-memory, NOT localStorage) ---
-const captchaSolved = ref(false)
-const captchaSolvedUntil = ref(0) // Unix timestamp in seconds
-
-function now() {
-  return Math.floor(Date.now() / 1000)
-}
-
-// --- Show/hide captcha input ---
+// show captcha input when there's no valid solve
 const shouldShowCaptcha = computed(() =>
-  !captchaSolved.value ||
+  !isSolved.value ||
+  isProbeExpired.value ||
   !captchaProbe.value ||
-  !captchaImage.value ||
-  now() > captchaSolvedUntil.value
+  !captchaImage.value
 )
 
-// --- LOAD CAPTCHA ---
-async function loadCaptchaAndClearInput() {
-  captchaLoading.value = true
-  error.value = null
-  try {
-    if (!API_URL) throw new Error('API URL not configured.')
-    const response = await fetch(`${API_URL}/v1/captcha/generate`)
-    if (!response.ok) throw new Error(`Failed to load captcha: ${response.status}`)
-    const data = await response.json()
-    if (data.result && data.result.success && data.result.captcha) {
-      captchaImage.value = data.result.captcha.image
-      captchaProbe.value = data.result.captcha.probe
-      captchaExpires.value = data.result.captcha.expires
-      captchaText.value = ''
-    } else {
-      throw new Error('Invalid captcha response from server')
-    }
-  } catch (err) {
-    error.value = `Failed to load captcha: ${err.message}`
-    captchaImage.value = null
-    captchaProbe.value = null
-    captchaText.value = ''
-  } finally {
-    captchaLoading.value = false
-  }
-}
-
-function clearSession() {
-  captchaProbe.value = null
-  captchaImage.value = null
-  captchaExpires.value = 0
-  captchaText.value = ''
-  captchaSolved.value = false
-  captchaSolvedUntil.value = 0
-}
-
-// --- VALIDATION ---
 function validateInputs() {
   if (!API_URL) return 'API URL not configured.'
-  if (shouldShowCaptcha.value) {
-    if (!captchaProbe.value) return 'Please load the captcha first.'
-    if (!captchaText.value.trim()) return 'Please enter the captcha text.'
-  }
   if (!domain.value.trim()) return 'Please enter a domain name.'
+  if (shouldShowCaptcha.value && !captchaText.value.trim()) {
+    return 'Please enter the captcha text.'
+  }
   return null
 }
 
-// --- MAIN ACTION ---
+async function refreshCaptcha() {
+  captchaText.value = ''
+  clearSession()
+  await loadCaptcha()
+}
+
 async function callMxApi() {
-  const response = await fetch(`${API_URL}/v1/analyze-mx`, {
+  const res = await fetch(`${API_URL}/v1/analyze-mx`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      domain: domain.value,
-      captchaText: shouldShowCaptcha.value ? captchaText.value : '',
-      captchaProbe: captchaProbe.value
+      domain:       domain.value,
+      captchaProbe: captchaProbe.value,
+      captchaText:  shouldShowCaptcha.value ? captchaText.value : ''
     })
   })
-  let json
-  try {
-    json = await response.json()
-  } catch {
-    throw new Error(`HTTP error! status: ${response.status}`)
-  }
-  if (!response.ok) {
-    let errorMessage = json?.result?.error || json?.error || json?.message || `HTTP error! status: ${response.status}`
-    throw new Error(errorMessage)
+  const json = await res.json().catch(() => {
+    throw new Error(`HTTP error! status: ${res.status}`)
+  })
+  if (!res.ok) {
+    const msg = json?.result?.error || json?.error || `HTTP ${res.status}`
+    if (msg.toLowerCase().includes('captcha')) {
+      await refreshCaptcha()
+    }
+    throw new Error(msg)
   }
   return json.result || json
 }
 
-function mapMxResult(resultData) {
+function mapMxResult(data) {
   return {
-    valid: !!resultData.success,
-    domain: resultData.domain || domain.value,
-    records: resultData.records || resultData.mxRecords || [],
-    errors: resultData.success ? [] : [resultData.error || 'Unknown error occurred'],
-    score: resultData.score,
-    warnings: resultData.warnings || [],
-    recommendations: resultData.recommendations || []
+    valid:           !!data.success,
+    domain:          data.domain || domain.value,
+    records:         data.records || data.mxRecords || [],
+    errors:          data.success ? [] : [data.error || 'Unknown error occurred'],
+    score:           data.score,
+    warnings:        data.warnings || [],
+    recommendations: data.recommendations || []
   }
 }
 
 function hasUniquePriorities(records) {
-  if (!records || records.length === 0) return true
-  const priorities = records.map(r => r.priority)
-  const uniquePriorities = [...new Set(priorities)]
-  return uniquePriorities.length === records.length
+  if (!records?.length) return true
+  return new Set(records.map(r => r.priority)).size === records.length
 }
 
 async function checkMx() {
-  error.value = null
+  error.value  = null
   result.value = null
   loading.value = true
 
-  const validationError = validateInputs()
-  if (validationError) {
-    error.value = validationError
+  if (isProbeExpired.value) {
+    await refreshCaptcha()
+    error.value   = 'Captcha expired — please solve the new one.'
+    loading.value = false
+    return
+  }
+
+  const vErr = validateInputs()
+  if (vErr) {
+    error.value   = vErr
     loading.value = false
     return
   }
 
   try {
-    const resultData = await callMxApi()
-    if (!resultData.success && resultData.error?.toLowerCase().includes('captcha')) {
-      captchaSolved.value = false
-      captchaSolvedUntil.value = 0
-      await loadCaptchaAndClearInput()
-      throw new Error('Captcha expired or invalid. Please solve the new captcha.')
-    }
-    result.value = mapMxResult(resultData)
-    // On success, hide captcha for 1 minute (in-memory)
-    captchaSolved.value = true
-    captchaSolvedUntil.value = now() + 60 // 1 minute
+    const data = await callMxApi()
+    result.value     = mapMxResult(data)
     captchaText.value = ''
+    markSolved()
   } catch (err) {
-    error.value = err?.message || 'Failed to check MX records. Please try again.'
+    error.value = err.message || 'Failed to check MX records.'
   } finally {
     loading.value = false
   }
 }
 
-// --- ON MOUNT: Always fresh, always ready ---
+// on mount: clear any solved state & fetch a fresh captcha
 onMounted(async () => {
   clearSession()
-  await loadCaptchaAndClearInput()
+  await loadCaptcha()
 })
 </script>
-
 
 <template>
   <div class="mx-checker">
     <div class="tool-form">
       <form @submit.prevent="checkMx">
+        <!-- Domain -->
         <div class="form-group">
           <label for="domain">Domain:</label>
-          <input 
-            type="text" 
+          <input
             id="domain"
-            name="domain"
-            v-model="domain" 
+            v-model="domain"
             placeholder="example.com"
-            required
             :disabled="loading"
+            required
           />
         </div>
-        <!-- Captcha Section (hidden after solve for 1 min) -->
-        <div class="form-group captcha-section" v-if="shouldShowCaptcha">
+
+        <!-- Captcha -->
+        <div v-if="shouldShowCaptcha" class="form-group captcha-section">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
               <div v-if="captchaLoading" class="captcha-loading">
-                Loading captcha...
+                Loading captcha…
               </div>
-              <div v-else-if="captchaImage" 
-                   class="captcha-image" 
-                   v-html="captchaImage">
-              </div>
+              <div
+                v-else-if="captchaImage"
+                class="captcha-image"
+                v-html="captchaImage"
+              />
               <div v-else class="captcha-placeholder">
-                <button type="button" @click="loadCaptchaAndClearInput" class="load-captcha-btn">
+                <button
+                  type="button"
+                  @click="refreshCaptcha"
+                  class="load-captcha-btn"
+                >
                   Load Captcha
                 </button>
               </div>
             </div>
-            <button type="button" 
-                    @click="() => { clearSession(); loadCaptchaAndClearInput(); }" 
-                    class="refresh-captcha-btn"
-                    :disabled="captchaLoading"
-                    title="Refresh captcha">
-              <img src="/assets/reload.webp" alt="reload button">
+            <button
+              type="button"
+              @click="refreshCaptcha"
+              class="refresh-captcha-btn"
+              :disabled="captchaLoading"
+              title="Refresh captcha"
+            >
+              🔄
             </button>
           </div>
-          <input 
-            type="text" 
+          <input
             id="captcha"
-            name="captcha"
-            v-model="captchaText" 
-            placeholder="Enter the text from the image above"
-            required
+            v-model="captchaText"
+            placeholder="Enter the characters above"
             :disabled="loading || !captchaImage"
-            autocomplete="off"
+            required
             class="captcha-input"
           />
-          <small class="captcha-help">Enter the characters shown in the image above</small>
+          <small class="captcha-help">
+            Enter the characters shown in the image above
+          </small>
         </div>
 
-        <button type="submit"
-                :disabled="loading || (shouldShowCaptcha && (!captchaImage || !captchaText))"
-                class="check-btn">
-          {{ loading ? 'Checking...' : 'Check MX Records' }}
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="check-btn"
+          :disabled="loading || (shouldShowCaptcha && !captchaText)"
+        >
+          {{ loading ? 'Checking…' : 'Check MX Records' }}
         </button>
       </form>
     </div>
 
+    <!-- Error -->
+    <div v-if="error" class="error-section">
+      <p class="error-message">{{ error }}</p>
+    </div>
+
+    <!-- Results -->
     <div v-if="result" class="result-section">
       <h3>MX Records Check Results</h3>
-      <!-- Status -->
       <div class="status-box">
         <div v-if="result.valid">
           <p><strong>✓ MX Records Found</strong></p>
-          <p><strong>Total Records:</strong> {{ result.records ? result.records.length : 0 }}</p>
+          <p><strong>Total Records:</strong> {{ result.records.length }}</p>
         </div>
         <div v-else>
           <p><strong>✗ No MX Records Found</strong></p>
         </div>
         <div v-if="result.score">
-          <p><strong>Configuration Score:</strong> {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})</p>
+          <p>
+            <strong>Score:</strong> {{ result.score.value }}/{{ result.score.outOf }}
+            ({{ result.score.level }})
+          </p>
         </div>
       </div>
-      <!-- MX Records Information -->
-      <div v-if="result.records && result.records.length" class="mx-records-section">
+
+      <div v-if="result.records.length" class="mx-records-section">
         <h4>MX Records</h4>
-        <div class="mx-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Priority</th>
-                <th>Mail Server</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="record in result.records" :key="record.exchange">
-                <td>{{ record.priority }}</td>
-                <td>{{ record.exchange }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <table class="mx-table">
+          <thead>
+            <tr><th>Priority</th><th>Mail Server</th></tr>
+          </thead>
+          <tbody>
+            <tr v-for="r in result.records" :key="r.exchange">
+              <td>{{ r.priority }}</td>
+              <td>{{ r.exchange }}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <!-- Basic Information -->
+
       <div class="info-section">
-        <h4>Basic Information</h4>
+        <h4>Basic Info</h4>
         <p><strong>Domain:</strong> {{ result.domain }}</p>
-        <p><strong>Records Found:</strong> {{ result.records ? result.records.length : 0 }}</p>
-        <div v-if="result.records && result.records.length">
-          <p><strong>Primary Mail Server:</strong> {{ result.records[0].exchange }} (Priority: {{ result.records[0].priority }})</p>
-          <div v-if="result.records.length > 1">
-            <p><strong>Backup Servers:</strong></p>
-            <ul>
-              <li v-for="record in result.records.slice(1)" :key="record.exchange">
-                {{ record.exchange }} (Priority: {{ record.priority }})
-              </li>
-            </ul>
-          </div>
-        </div>
+        <p><strong>Records:</strong> {{ result.records.length }}</p>
       </div>
-      <!-- Configuration Analysis -->
+
       <div v-if="result.valid" class="analysis-section">
-        <h4>Configuration Analysis</h4>
+        <h4>Analysis</h4>
         <div class="analysis-grid">
           <div class="analysis-item">
             <span class="label">Redundancy:</span>
-            <span class="value" :class="result.records.length > 1 ? 'good' : 'warning'">
-              {{ result.records.length > 1 ? 'Multiple servers configured' : 'Single server (consider adding backup)' }}
+            <span :class="result.records.length > 1 ? 'value good' : 'value warning'">
+              {{ result.records.length > 1 ? 'Multiple servers' : 'Single server' }}
             </span>
           </div>
           <div class="analysis-item">
-            <span class="label">Priority Configuration:</span>
-            <span class="value" :class="hasUniquePriorities(result.records) ? 'good' : 'warning'">
-              {{ hasUniquePriorities(result.records) ? 'Proper priority setup' : 'Some records have same priority' }}
+            <span class="label">Priority setup:</span>
+            <span
+              :class="hasUniquePriorities(result.records) ? 'value good' : 'value warning'"
+            >
+              {{ hasUniquePriorities(result.records) ? 'Unique priorities' : 'Duplicate priorities' }}
             </span>
           </div>
         </div>
       </div>
-      <!-- Warnings -->
-      <div v-if="result.warnings && result.warnings.length" class="warnings-section">
-        <h4>⚠️ Warnings</h4>
-        <ul>
-          <li v-for="warning in result.warnings" :key="warning">{{ warning }}</li>
-        </ul>
-      </div>
-      <!-- Recommendations -->
-      <div v-if="result.recommendations && result.recommendations.length" class="recommendations-section">
-        <h4>💡 Recommendations</h4>
-        <ul>
-          <li v-for="recommendation in result.recommendations" :key="recommendation">{{ recommendation }}</li>
-        </ul>
-      </div>
-      <!-- Errors -->
-      <div v-if="result.errors && result.errors.length" class="errors-section">
-        <h4>Errors</h4>
-        <ul>
-          <li v-for="errorMsg in result.errors" :key="errorMsg">{{ errorMsg }}</li>
-        </ul>
-      </div>
-    </div>
 
-    <div v-if="error" class="error-section">
-      <p class="error-message">{{ error }}</p>
+      <div v-if="result.warnings.length" class="warnings-section">
+        <h4>⚠️ Warnings</h4>
+        <ul><li v-for="w in result.warnings" :key="w">{{ w }}</li></ul>
+      </div>
+      <div v-if="result.recommendations.length" class="recommendations-section">
+        <h4>💡 Recommendations</h4>
+        <ul><li v-for="r in result.recommendations" :key="r">{{ r }}</li></ul>
+      </div>
+      <div v-if="result.errors.length" class="errors-section">
+        <h4>Errors</h4>
+        <ul><li v-for="e in result.errors" :key="e">{{ e }}</li></ul>
+      </div>
     </div>
   </div>
 </template>
+
+
 
 
 
