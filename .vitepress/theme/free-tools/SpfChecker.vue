@@ -631,7 +631,7 @@ onMounted(async () => {
   box-shadow: none;
 }
 
-/* Results */
+/* Results Section */
 .result-section {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -830,6 +830,22 @@ onMounted(async () => {
   line-height: 1.4;
 }
 
+/* Prevent overflow & wrap JSON in IP test details */
+.ip-test-section details {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.ip-test-section details pre {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+  margin: 0.5rem 0;
+  padding: 1rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 6px;
+}
+
 /* Lists */
 .info-section ul,
 .warnings-section ul,
@@ -886,7 +902,7 @@ onMounted(async () => {
 
 /* Error Message (Top Level) */
 .error-section {
-  background: var(--vp-danger-soft, #f8d7da);
+  background: var(--vp-c-danger-soft, #f8d7da);
   color: var(--vp-c-danger-1, #721c24);
   padding: 1rem;
   border-radius: 8px;
@@ -899,7 +915,7 @@ onMounted(async () => {
   font-weight: 500;
 }
 
-/* Icon Placeholders (for MDI WebP/SVG integration) */
+/* Icon Placeholders */
 .icon-warning::before,
 .icon-info::before,
 .icon-error::before,
