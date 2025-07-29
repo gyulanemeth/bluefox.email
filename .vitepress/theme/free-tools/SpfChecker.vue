@@ -25,6 +25,10 @@ const loading     = ref(false)
 const error       = ref(null)
 const result      = ref(null)
 
+// navigation history
+const history = ref([])
+const currentIndex = ref(-1)
+
 // only show captcha when there's no valid, unexpired solve
 const shouldShowCaptcha = computed(() =>
   !isSolved.value ||
@@ -61,9 +65,11 @@ async function callSpfApi() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   })
+
   const json = await res.json().catch(() => {
     throw new Error(`HTTP error! status: ${res.status}`)
   })
+
   if (!res.ok) {
     const msg = json.result?.error || json.error || `HTTP ${res.status}`
     if (msg.toLowerCase().includes('captcha')) {
@@ -71,6 +77,7 @@ async function callSpfApi() {
     }
     throw new Error(msg)
   }
+
   return json.result || json
 }
 
@@ -81,7 +88,14 @@ function mapResult(d) {
     record:          d.rawRecord || d.record || 'Not found',
     lookups:         d.lookups,
     policy:          d.policy,
-    mechanisms:      d.mechanisms || [],
+    mechanisms: (d.mechanisms || []).map(m => {
+      const match = m.original.toLowerCase().match(/^(include|redirect|a|mx):([^\s\/]+)/)
+      const targetDomain = match ? match[2] : null
+      return {
+        ...m,
+        targetDomain
+      }
+    }),
     warnings:        d.warnings || [],
     recommendations: d.recommendations || [],
     errors:          d.success ? [] : [d.error || 'Unknown error'],
@@ -92,19 +106,30 @@ function mapResult(d) {
 }
 
 async function checkSpf() {
-  error.value  = null
-  result.value = null
+  error.value = null
 
-  if (isProbeExpired.value) {
-    await refreshCaptcha()
-    error.value = 'Captcha expired — please solve the new one.'
-    return
+  // Trim inputs
+  domain.value = domain.value.trim()
+  testIp.value = testIp.value.trim()
+
+  // Clear forward history if user went back and now checks a new domain
+  if (currentIndex.value < history.value.length - 1) {
+    history.value = history.value.slice(0, currentIndex.value + 1)
   }
 
-  const vErr = validateInputs()
-  if (vErr) {
-    error.value = vErr
-    return
+  // Save current state before overwriting
+  if (result.value && domain.value) {
+    const currentState = {
+      domain: domain.value,
+      testIp: testIp.value,
+      result: result.value
+    }
+    if (history.value[currentIndex.value]?.domain !== domain.value) {
+      history.value.push(currentState)
+      currentIndex.value++
+    } else {
+      history.value[currentIndex.value].testIp = testIp.value
+    }
   }
 
   loading.value = true
@@ -113,11 +138,43 @@ async function checkSpf() {
     result.value = mapResult(data)
     captchaText.value = ''
     markSolved()
+
+    // Final save
+    const finalState = {
+      domain: domain.value,
+      testIp: testIp.value,
+      result: result.value
+    }
+    if (currentIndex.value === -1 || history.value[currentIndex.value]?.domain !== domain.value) {
+      history.value.push(finalState)
+      currentIndex.value++
+    } else {
+      history.value[currentIndex.value] = finalState
+    }
   } catch (err) {
     error.value = err.message || 'Failed to check SPF.'
   } finally {
     loading.value = false
   }
+}
+
+function goBack() {
+  if (currentIndex.value <= 0) return
+
+  const previous = history.value[currentIndex.value - 1]
+  currentIndex.value--
+  domain.value = previous.domain
+  testIp.value = previous.testIp || ''
+  result.value = previous.result
+  error.value = null
+}
+
+function checkIncludedDomain(includedDomain) {
+  domain.value = includedDomain
+  result.value = null
+  error.value = null
+  testIp.value = ''
+  checkSpf()
 }
 
 // formatting helpers
@@ -133,6 +190,7 @@ function getIpResultClass(res) {
     default: return 'result-unknown'
   }
 }
+
 function getDisplayResult(res) {
   return (typeof res === 'string' ? res : res.result || res.status || '')
     .toUpperCase()
@@ -161,7 +219,6 @@ onMounted(async () => {
             required
           />
         </div>
-
         <!-- Optional IP input -->
         <div class="form-group">
           <label for="ipTest">Optional: Test SPF for a specific IP</label>
@@ -174,7 +231,6 @@ onMounted(async () => {
           />
           <small class="form-help">Leave blank to skip IP-based test.</small>
         </div>
-
         <!-- Captcha (only when needed) -->
         <div v-if="shouldShowCaptcha" class="form-group captcha-section">
           <label for="captcha">Security Verification:</label>
@@ -196,7 +252,9 @@ onMounted(async () => {
               class="refresh-captcha-btn"
               :disabled="captchaLoading"
               title="Refresh captcha"
-            >🔄</button>
+            >
+              <span class="icon-refresh" aria-hidden="true"></span>
+            </button>
           </div>
           <input
             id="captcha"
@@ -208,7 +266,6 @@ onMounted(async () => {
           />
           <small class="captcha-help">Enter the text shown above</small>
         </div>
-
         <button
           type="submit"
           class="check-btn"
@@ -221,18 +278,24 @@ onMounted(async () => {
 
     <!-- Error -->
     <div v-if="error" class="error-section">
+      <span class="icon-error" aria-hidden="true"></span>
       <p class="error-message">{{ error }}</p>
     </div>
 
     <!-- Results -->
     <div v-if="result" class="result-section">
-      <h3>SPF Check Results</h3>
+      <h3>
+        <span v-if="result.valid" class="icon-success" aria-hidden="true"></span>
+        <span v-else class="icon-error" aria-hidden="true"></span>
+        SPF Check Results
+      </h3>
+
       <div class="status-box">
         <div v-if="result.valid">
-          <p><strong>✓ SPF Record Found</strong></p>
+          <p><strong>SPF Record Found</strong></p>
         </div>
         <div v-else>
-          <p><strong>✗ SPF Record Missing or Invalid</strong></p>
+          <p><strong>SPF Record Missing or Invalid</strong></p>
         </div>
         <div v-if="result.score">
           <p>
@@ -250,7 +313,7 @@ onMounted(async () => {
         <p v-if="result.lookups !== undefined">
           <strong>DNS Lookups:</strong> {{ result.lookups }}/10
           <span v-if="result.lookups > 10" class="lookup-warning">
-            ⚠️ Exceeds limit
+            <span class="icon-warning" aria-hidden="true"></span> Exceeds limit
           </span>
         </p>
         <p v-if="result.policy"><strong>Policy:</strong> {{ result.policy }}</p>
@@ -263,7 +326,21 @@ onMounted(async () => {
           :key="m.original"
           class="mechanism-item"
         >
-          <span class="mechanism-text">{{ m.original }}</span>
+          <span class="mechanism-text">
+            <template v-if="m.type === 'include' && m.targetDomain">
+              include:
+              <a
+                href="#"
+                @click.prevent="checkIncludedDomain(m.targetDomain)"
+                class="inline-link"
+              >
+                {{ m.targetDomain }}
+              </a>
+            </template>
+            <template v-else>
+              {{ m.original }}
+            </template>
+          </span>
           <span
             class="mechanism-type"
             :class="{ 'requires-lookup': m.requiresLookup }"
@@ -271,6 +348,14 @@ onMounted(async () => {
             {{ m.type }}{{ m.requiresLookup ? ' (DNS)' : '' }}
           </span>
         </div>
+      </div>
+
+      <!-- Back Button – Placed right after mechanisms -->
+      <div v-if="currentIndex > 0" class="back-nav">
+        <button type="button" @click="goBack" class="back-btn">
+          <span class="icon-back" aria-hidden="true"></span>
+          Back to "{{ history[currentIndex - 1]?.domain }}"
+        </button>
       </div>
 
       <div v-if="result.mailauthResult" class="mailauth-section">
@@ -296,28 +381,75 @@ onMounted(async () => {
       </div>
 
       <div v-if="result.warnings.length" class="warnings-section">
-        <h4>⚠️ Warnings</h4>
-        <ul><li v-for="w in result.warnings" :key="w">{{ w }}</li></ul>
+        <h4><span class="icon-warning" aria-hidden="true"></span> Warnings</h4>
+        <ul>
+          <li v-for="(w, i) in result.warnings" :key="i">{{ w }}</li>
+        </ul>
       </div>
+
       <div v-if="result.recommendations.length" class="recommendations-section">
-        <h4>💡 Recommendations</h4>
-        <ul><li v-for="r in result.recommendations" :key="r">{{ r }}</li></ul>
+        <h4><span class="icon-info" aria-hidden="true"></span> Recommendations</h4>
+        <ul>
+          <li v-for="(r, i) in result.recommendations" :key="i">{{ r }}</li>
+        </ul>
       </div>
+
       <div v-if="result.errors.length" class="errors-section">
-        <h4>Errors</h4>
-        <ul><li v-for="e in result.errors" :key="e">{{ e }}</li></ul>
+        <h4><span class="icon-error" aria-hidden="true"></span> Errors</h4>
+        <ul>
+          <li v-for="e in result.errors" :key="e">{{ e }}</li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+/* Main Container */
 .spf-checker {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
+/* Back Navigation */
+.back-nav {
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.back-btn {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  color: var(--vp-c-brand-1, #10B1EF);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.back-btn:hover:not(:disabled) {
+  background: var(--vp-c-bg, #ffffff);
+  color: var(--vp-c-brand-2, #0891d4);
+  border-color: var(--vp-c-brand-1, #10B1EF);
+}
+
+.dark .back-btn {
+  background: #333;
+  border: 1px solid #555;
+  color: var(--vp-c-brand-1, #10B1EF);
+}
+
+.dark .back-btn:hover {
+  background: #444;
+  color: #fff;
+}
+
+/* Form Styles */
 .tool-form {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -371,7 +503,7 @@ onMounted(async () => {
   opacity: 0.9;
 }
 
-/* Captcha specific styles */
+/* Captcha Styles */
 .captcha-section {
   background: var(--vp-c-bg, #ffffff);
   padding: 1.25rem;
@@ -449,10 +581,6 @@ onMounted(async () => {
   color: #222 !important;
 }
 
-.dark .refresh-captcha-btn img {
-  filter: invert(0);
-}
-
 .refresh-captcha-btn:hover:not(:disabled) {
   background: var(--vp-c-bg, #ffffff);
   border-color: var(--vp-c-brand-1, #10B1EF);
@@ -475,6 +603,7 @@ onMounted(async () => {
   font-style: italic;
 }
 
+/* Button */
 .check-btn {
   background: var(--vp-c-brand-1, #10B1EF);
   color: #ffffff;
@@ -502,6 +631,7 @@ onMounted(async () => {
   box-shadow: none;
 }
 
+/* Results */
 .result-section {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -531,23 +661,27 @@ onMounted(async () => {
   font-size: 1rem;
 }
 
-.info-section, 
-.warnings-section, 
-.recommendations-section, 
+/* Info, Warnings, Recommendations, Errors */
+.info-section,
+.warnings-section,
+.recommendations-section,
 .errors-section {
   border-top: 1px solid var(--vp-c-border-soft, #eee);
   padding-top: 1.5rem;
   margin-top: 1.5rem;
 }
 
-.info-section h4, 
-.warnings-section h4, 
-.recommendations-section h4, 
+.info-section h4,
+.warnings-section h4,
+.recommendations-section h4,
 .errors-section h4 {
   margin: 0 0 1rem 0;
   color: var(--vp-c-text-1, #333);
   font-size: 1.25rem;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .info-section p {
@@ -556,6 +690,7 @@ onMounted(async () => {
   line-height: 1.6;
 }
 
+/* Lookup Warning */
 .lookup-warning {
   background: var(--vp-warning-soft, #fffbf0);
   color: var(--vp-c-warning-1, #d69e2e);
@@ -566,6 +701,7 @@ onMounted(async () => {
   font-weight: 600;
 }
 
+/* Mechanisms List */
 .mechanisms-list {
   margin: 0.75rem 0;
   padding: 0.75rem;
@@ -592,6 +728,17 @@ onMounted(async () => {
   color: var(--vp-c-text-1, #374151);
 }
 
+.inline-link {
+  color: var(--vp-c-brand-1, #10B1EF);
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.inline-link:hover {
+  opacity: 0.8;
+}
+
 .mechanism-type {
   font-size: 0.875rem;
   color: var(--vp-c-text-2, #6b7280);
@@ -607,117 +754,13 @@ onMounted(async () => {
   border-color: var(--vp-c-warning-2, #fbbf24);
 }
 
-.mailauth-section {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 8px;
-  border-left: 4px solid var(--vp-c-text-3, #6c757d);
-}
-
-.mailauth-section h5 {
-  margin: 0 0 1rem 0;
-  color: var(--vp-c-text-2, #495057);
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
-.auth-info {
-  background: var(--vp-c-bg, #ffffff);
-  border: 1px solid var(--vp-c-border, #dee2e6);
-  border-radius: 6px;
-  padding: 0.75rem;
-  margin-top: 0.75rem;
-}
-
-.auth-info code {
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.875rem;
-  color: var(--vp-c-text-1, #2d3748);
-  word-break: break-all;
-}
-
-.info-section ul,
-.warnings-section ul,
-.recommendations-section ul,
-.errors-section ul {
-  margin: 0.5rem 0;
-  padding-left: 1.5rem;
-}
-
-.info-section li,
-.warnings-section li,
-.recommendations-section li,
-.errors-section li {
-  margin: 0.25rem 0;
-  color: var(--vp-c-text-2, #4a5568);
-  line-height: 1.5;
-}
-
-.warnings-section {
-  background: var(--vp-warning-soft, #fffbf0);
-  padding: 1.25rem;
-  border-radius: 8px;
-  border-left: 4px solid var(--vp-c-warning-1, #ffc107);
-  margin-top: 1.5rem;
-}
-
-.warnings-section h4 {
-  color: var(--vp-c-warning-1, #d69e2e);
-}
-
-.recommendations-section {
-  background: var(--vp-tip-soft, #f0f9ff);
-  padding: 1.25rem;
-  border-radius: 8px;
-  border-left: 4px solid var(--vp-c-tip-1, #17a2b8);
-  margin-top: 1.5rem;
-}
-
-.recommendations-section h4 {
-  color: var(--vp-c-tip-1, #17a2b8);
-}
-
-.errors-section {
-  background: var(--vp-danger-soft, #fdf2f2);
-  padding: 1.25rem;
-  border-radius: 8px;
-  border-left: 4px solid var(--vp-c-danger-1, #dc3545);
-  margin-top: 1.5rem;
-}
-
-.errors-section h4 {
-  color: var(--vp-c-danger-1, #dc3545);
-}
-
-.error-section {
-  background: var(--vp-danger-soft, #f8d7da);
-  color: var(--vp-c-danger-1, #721c24);
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 1rem 0;
-  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
-}
-
-.error-message {
-  margin: 0;
-  font-weight: 500;
-}
-
-/* --- IP Test Section/Card Styling --- */
+/* IP Test Section */
 .ip-test-section {
   margin-top: 1.5rem;
   padding: 1.25rem;
   background: var(--vp-c-bg-soft, #f8f9fa);
   border-radius: 8px;
   border-left: 4px solid var(--vp-c-brand-1, #10B1EF);
-}
-
-.ip-test-section h5 {
-  margin: 0 0 0.5rem 0;
-  color: var(--vp-c-brand-1, #10B1EF);
-  font-size: 1.1rem;
-  font-weight: 600;
 }
 
 .ip-test-card {
@@ -735,16 +778,6 @@ onMounted(async () => {
   margin-bottom: 0.5rem;
 }
 
-.ip-address {
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-weight: 600;
-  color: var(--vp-c-text-1, #374151);
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.875rem;
-}
-
 .ip-result {
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
@@ -759,26 +792,31 @@ onMounted(async () => {
   color: var(--vp-c-green-dark, #166534);
   border: 1px solid var(--vp-c-green-light, #86efac);
 }
+
 .result-fail {
   background: var(--vp-c-red-soft, #fef2f2);
   color: var(--vp-c-red-dark, #991b1b);
   border: 1px solid var(--vp-c-red-light, #fca5a5);
 }
+
 .result-softfail {
   background: var(--vp-c-yellow-soft, #fefce8);
   color: var(--vp-c-yellow-dark, #854d0e);
   border: 1px solid var(--vp-c-yellow-light, #fde047);
 }
+
 .result-neutral {
   background: var(--vp-c-gray-soft, #f8fafc);
   color: var(--vp-c-gray-dark, #374151);
   border: 1px solid var(--vp-c-gray-light, #d1d5db);
 }
+
 .result-error {
   background: var(--vp-c-red-soft, #fef2f2);
   color: var(--vp-c-red-dark, #991b1b);
   border: 1px solid var(--vp-c-red-light, #fca5a5);
 }
+
 .result-unknown {
   background: var(--vp-c-gray-soft, #f1f5f9);
   color: var(--vp-c-gray-dark, #64748b);
@@ -792,6 +830,95 @@ onMounted(async () => {
   line-height: 1.4;
 }
 
+/* Lists */
+.info-section ul,
+.warnings-section ul,
+.recommendations-section ul,
+.errors-section ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.info-section li,
+.warnings-section li,
+.recommendations-section li,
+.errors-section li {
+  margin: 0.25rem 0;
+  color: var(--vp-c-text-2, #4a5568);
+  line-height: 1.5;
+}
+
+/* Warning Section */
+.warnings-section {
+  background: var(--vp-warning-soft, #fffbf0);
+  padding: 1.25rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--vp-c-warning-1, #ffc107);
+}
+
+.warnings-section h4 {
+  color: var(--vp-c-warning-1, #d69e2e);
+}
+
+/* Recommendations Section */
+.recommendations-section {
+  background: var(--vp-tip-soft, #f0f9ff);
+  padding: 1.25rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--vp-c-tip-1, #17a2b8);
+}
+
+.recommendations-section h4 {
+  color: var(--vp-c-tip-1, #17a2b8);
+}
+
+/* Errors Section */
+.errors-section {
+  background: var(--vp-danger-soft, #fdf2f2);
+  padding: 1.25rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--vp-c-danger-1, #dc3545);
+}
+
+.errors-section h4 {
+  color: var(--vp-c-danger-1, #dc3545);
+}
+
+/* Error Message (Top Level) */
+.error-section {
+  background: var(--vp-danger-soft, #f8d7da);
+  color: var(--vp-c-danger-1, #721c24);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
+}
+
+.error-message {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Icon Placeholders (for MDI WebP/SVG integration) */
+.icon-warning::before,
+.icon-info::before,
+.icon-error::before,
+.icon-success::before,
+.icon-back::before,
+.icon-refresh::before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  margin-right: 6px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: text-bottom;
+  opacity: 0.8;
+}
+
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
   .check-btn {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -802,9 +929,14 @@ onMounted(async () => {
   .result-section {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
+  .dark .refresh-captcha-btn {
+    background: #fff !important;
+    border: 1px solid #333 !important;
+    color: #222 !important;
+  }
 }
 
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
   .spf-checker {
     padding: 0 0.5rem;
@@ -845,6 +977,12 @@ onMounted(async () => {
     align-items: flex-start;
     gap: 0.5rem;
   }
+  .back-nav {
+    margin: 1rem 0;
+  }
+  .back-btn {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
 }
-
 </style>

@@ -224,7 +224,6 @@ onMounted(async () => {
             @dragleave="handleDragLeave"
             @drop="handleDrop"
           >
-            <!-- Drag overlay -->
             <div v-if="isDragging" class="drag-overlay">
               <span>Drop XML file here…</span>
             </div>
@@ -246,22 +245,13 @@ onMounted(async () => {
                 Click or drag XML file here
               </label>
               <div v-else class="file-name-row">
-                <span
-                  class="file-name"
-                  :title="fileName"
-                >{{ truncatedFileName }}</span>
-                <button
-                  type="button"
-                  class="remove-file-btn"
-                  @click="clearFile"
-                  :disabled="loading"
-                >Remove</button>
+                <span class="file-name" :title="fileName">{{ truncatedFileName }}</span>
+                <button type="button" class="remove-file-btn" @click="clearFile" :disabled="loading">Remove</button>
               </div>
             </template>
           </div>
         </div>
-
-        <!-- Captcha Section (global shared) -->
+        <!-- Captcha Section -->
         <div class="form-group captcha-section" v-if="shouldShowCaptcha">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
@@ -365,6 +355,18 @@ onMounted(async () => {
           </div>
         </div>
       </div>
+
+      <!-- Domain Alignment Status Block -->
+      <div v-if="result.domainAlignmentIssue !== undefined" class="alignment-status-box"
+           :class="result.domainAlignmentIssue ? 'fail' : 'pass'">
+        <span v-if="result.domainAlignmentIssue">
+          <strong>Domain Alignment Issue Detected:</strong> Some emails failed DMARC alignment.
+        </span>
+        <span v-else>
+          <strong>No domain alignment issue detected.</strong>
+        </span>
+      </div>
+
       <div class="sources-section">
         <h4>Sources</h4>
         <div class="sources-table">
@@ -382,67 +384,57 @@ onMounted(async () => {
           >
             <span class="ip">{{ src.ip }}</span>
             <span class="count">{{ src.count }}</span>
-            <span class="result" :class="{ pass: src.dmarcResult === 'Pass', fail: src.dmarcResult !== 'Pass' }">
-              {{ src.dmarcResult }}
+            <span
+              class="result"
+              :class="src.dmarcResult === 'Pass' ? 'pass' : 'fail'"
+            >
+              {{ src.dmarcResult === 'Pass' ? 'Pass' : 'Fail' }}
             </span>
-            <span class="result" :class="{ pass: src.spfResult === 'pass', fail: src.spfResult !== 'pass' }">
-              {{ src.spfResult }}
+            <span
+              class="result"
+              :class="src.spfResult === 'pass' ? 'pass' : 'fail'"
+            >
+              {{ src.spfResult === 'pass' ? 'Pass' : 'Fail' }}
             </span>
-            <span class="result" :class="{ pass: src.dkimResult === 'pass', fail: src.dkimResult !== 'pass' }">
-              {{ src.dkimResult }}
+            <span
+              class="result"
+              :class="src.dkimResult === 'pass' ? 'pass' : 'fail'"
+            >
+              {{ src.dkimResult === 'pass' ? 'Pass' : 'Fail' }}
             </span>
           </div>
         </div>
       </div>
-      <div class="recommendations" v-if="result.warnings.length || result.recommendations.length">
-        <h4>Warnings</h4>
-        <ul>
-          <li v-for="w in result.warnings" :key="w">{{ w }}</li>
-        </ul>
-        <h4>Recommendations</h4>
-        <ul>
-          <li v-for="r in result.recommendations" :key="r">{{ r }}</li>
-        </ul>
+
+      <!-- Recommendations & Warnings -->
+      <div v-if="result.warnings.length || result.recommendations.length" class="recommendation-status-group">
+        <div v-if="result.warnings.length" class="status-box warning">
+          <h4>Warnings</h4>
+          <ul>
+            <li v-for="w in result.warnings" :key="w">{{ w }}</li>
+          </ul>
+        </div>
+        <div v-if="result.recommendations.length" class="status-box recommendation">
+          <h4>Recommendations</h4>
+          <ul>
+            <li v-for="r in result.recommendations" :key="r">{{ r }}</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 
-
 <style scoped>
+/* ROOT */
 .dmarc-analyzer {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-.form-group textarea.xml-paste {
-  width: 100%;
-  min-height: 140px;
-  padding: 0.875rem 1rem;
-  border: 2px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
-  font-size: 1rem;
-  background: var(--vp-c-bg, #ffffff);
-  color: var(--vp-c-text-1, #374151);
-  resize: vertical;
-  transition: all 0.2s ease;
-  box-sizing: border-box;
-}
-
-.form-group textarea.xml-paste:focus {
-  outline: none;
-  border-color: var(--vp-c-brand-1, #10B1EF);
-  box-shadow: 0 0 0 3px var(--vp-c-brand-soft, rgba(16, 177, 239, 0.1));
-}
-
-.form-group textarea.xml-paste:disabled {
-  background: var(--vp-c-bg-mute, #f1f5f9);
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
+/* --- FORM STYLES --- */
 .tool-form {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -450,11 +442,7 @@ onMounted(async () => {
   border-radius: 12px;
   border: 1px solid var(--vp-c-border, #e5e7eb);
 }
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
+.form-group { margin-bottom: 1.5rem; }
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
@@ -462,40 +450,40 @@ onMounted(async () => {
   color: var(--vp-c-text-1, #374151);
   font-size: 0.9rem;
 }
-
-.form-group input {
+.form-group input,
+.form-group textarea.xml-paste {
   width: 100%;
   padding: 0.875rem 1rem;
   border: 2px solid var(--vp-c-border, #e5e7eb);
   border-radius: 8px;
   font-size: 1rem;
-  transition: all 0.2s ease;
-  box-sizing: border-box;
-  background: var(--vp-c-bg, #ffffff);
+  background: var(--vp-c-bg, #fff);
   color: var(--vp-c-text-1, #374151);
+  transition: all 0.2s;
+  box-sizing: border-box;
 }
-
-.form-group input:focus {
+.form-group input:focus,
+.form-group textarea.xml-paste:focus {
   outline: none;
   border-color: var(--vp-c-brand-1, #10B1EF);
   box-shadow: 0 0 0 3px var(--vp-c-brand-soft, rgba(16, 177, 239, 0.1));
 }
-
-.form-group input:disabled {
+.form-group input:disabled,
+.form-group textarea.xml-paste:disabled {
   background: var(--vp-c-bg-mute, #f1f5f9);
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* File upload and drag styles */
+/* --- FILE UPLOAD & DRAG --- */
 .file-upload-area {
   display: flex;
   align-items: center;
   gap: 1rem;
   margin-top: 0.5rem;
   position: relative;
-  transition: border 0.2s, background 0.2s;
   min-height: 44px;
+  transition: border 0.2s, background 0.2s;
 }
 .file-upload-area.drag-hover {
   border: 2px dashed var(--vp-c-brand, #13B0EE);
@@ -503,7 +491,7 @@ onMounted(async () => {
 }
 .drag-overlay {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -515,7 +503,6 @@ onMounted(async () => {
   pointer-events: none;
   z-index: 2;
 }
-
 .file-upload-label {
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -525,21 +512,17 @@ onMounted(async () => {
   color: var(--vp-c-text-1, #374151);
   font-size: 0.95rem;
   user-select: none;
-  transition: background 0.2s;
   white-space: nowrap;
+  transition: background 0.2s;
 }
-
 .file-upload-label.disabled {
   opacity: 0.6;
   cursor: not-allowed;
   pointer-events: none;
 }
-
-/* File name row and truncation */
 .file-name-row {
   display: flex;
   align-items: center;
-  flex: 1 1 auto;
   min-width: 0;
 }
 .file-name {
@@ -554,11 +537,7 @@ onMounted(async () => {
   padding-right: 1rem;
   transition: color 0.2s;
 }
-.file-name:hover {
-  color: var(--vp-c-brand-1, #10B1EF);
-}
-
-/* Remove button pinned to end */
+.file-name:hover { color: var(--vp-c-brand-1, #10B1EF); }
 .remove-file-btn {
   margin-left: auto;
   background: var(--vp-c-danger-1, #dc3545);
@@ -569,61 +548,44 @@ onMounted(async () => {
   cursor: pointer;
   font-size: 0.87rem;
   font-weight: 600;
-  transition: background-color 0.2s ease;
   white-space: nowrap;
   align-self: center;
+  transition: background 0.2s;
 }
+.remove-file-btn:hover:not(:disabled) { background: var(--vp-c-danger-2, #c82333); }
+.remove-file-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-.remove-file-btn:hover:not(:disabled) {
-  background: var(--vp-c-danger-2, #c82333);
-}
-
-.remove-file-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* Captcha specific styles */
+/* --- CAPTCHA --- */
 .captcha-section {
-  background: var(--vp-c-bg, #ffffff);
+  background: var(--vp-c-bg, #fff);
   padding: 1.25rem;
   border: 1px solid var(--vp-c-border, #e5e7eb);
   border-radius: 8px;
   margin-bottom: 1.5rem;
 }
-
 .captcha-container {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1rem;
 }
-
 .captcha-image-container {
   flex: 1;
   min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff !important;
+  background: #fff !important;
   border: 1px solid var(--vp-c-border-soft, #dee2e6);
   border-radius: 6px;
   padding: 0.5rem;
 }
-
-.captcha-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.captcha-loading,
-.captcha-placeholder {
+.captcha-image { display: flex; align-items: center; justify-content: center; }
+.captcha-loading, .captcha-placeholder {
   color: #6b7280;
   font-style: italic;
   text-align: center;
 }
-
 .load-captcha-btn {
   background: var(--vp-c-brand-1, #10B1EF);
   color: white;
@@ -632,13 +594,9 @@ onMounted(async () => {
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.875rem;
-  transition: background-color 0.2s ease;
+  transition: background 0.2s;
 }
-
-.load-captcha-btn:hover {
-  background: var(--vp-c-brand-2, #0891d4);
-}
-
+.load-captcha-btn:hover { background: var(--vp-c-brand-2, #0891d4); }
 .refresh-captcha-btn {
   background: var(--vp-c-bg-soft, #f8f9fa);
   border: 1px solid var(--vp-c-border, #e5e7eb);
@@ -652,23 +610,14 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.2s;
 }
-
 .refresh-captcha-btn:hover:not(:disabled) {
-  background: var(--vp-c-bg, #ffffff);
+  background: var(--vp-c-bg, #fff);
   border-color: var(--vp-c-brand-1, #10B1EF);
 }
-
-.refresh-captcha-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.captcha-input {
-  margin-top: 0.75rem !important;
-}
-
+.refresh-captcha-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.captcha-input { margin-top: 0.75rem !important; }
 .captcha-help {
   display: block;
   margin-top: 0.5rem;
@@ -677,121 +626,113 @@ onMounted(async () => {
   font-style: italic;
 }
 
+/* --- BUTTONS --- */
 .analyze-btn {
   background: var(--vp-c-brand-1, #10B1EF);
-  color: #ffffff;
+  color: #fff;
   padding: 0.875rem 2rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
-  transition: all 0.2s ease;
   width: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
 .analyze-btn:hover:not(:disabled) {
   background: var(--vp-c-brand-2, #0891d4);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
-
 .analyze-btn:disabled {
   background: var(--vp-c-bg-mute, #9ca3af);
   cursor: not-allowed;
-  transform: none;
   box-shadow: none;
+  transform: none;
 }
 
+/* --- RESULTS --- */
 .result-section {
   margin: 2rem 0;
   padding: 1.5rem;
   border: 1px solid var(--vp-c-border, #e5e7eb);
   border-radius: 12px;
-  background: var(--vp-c-bg, #ffffff);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background: var(--vp-c-bg, #fff);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-
 .result-section h3 {
   margin: 0 0 1.5rem 0;
   color: var(--vp-c-text-1, #1a202c);
   font-size: 1.5rem;
   font-weight: 700;
 }
-
-.result-content h4 {
-  margin: 0 0 1rem 0;
-  color: var(--vp-c-text-1, #333);
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.report-summary,
-.policy-info,
-.sources-section,
-.recommendations {
+.report-summary {
   border-top: 1px solid var(--vp-c-border-soft, #eee);
   padding-top: 1.5rem;
   margin-top: 1.5rem;
 }
-
 .report-summary:first-child {
   border-top: none;
   padding-top: 0;
   margin-top: 0;
 }
-
-.summary-grid,
-.policy-grid {
+.summary-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
-
-.summary-item,
-.policy-item {
+.summary-item {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
-
-.summary-item .label,
-.policy-item .label {
+.summary-item .label {
   color: var(--vp-c-text-2, #6b7280);
   font-size: 0.875rem;
   font-weight: 500;
 }
-
-.summary-item .value,
-.policy-item .value {
+.summary-item .value {
   color: var(--vp-c-text-1, #374151);
   font-weight: 600;
   font-size: 1rem;
 }
 
-.value.excellent {
-  color: var(--vp-c-tip-1, #28a745);
+/* --- ALIGNMENT STATUS BOX --- */
+.alignment-status-box {
+  margin: 2rem 0 0.5rem 0;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1.08rem;
+  border-left: 6px solid #eee;
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+}
+.alignment-status-box.pass {
+  color: #217b2d;
+  border-left-color: #22bb33;
+  background: #ebf7ed;
+}
+.alignment-status-box.fail {
+  color: #b91c1c;
+  border-left-color: #ea4335;
+  background: #fbeaea;
 }
 
-.value.good {
-  color: var(--vp-c-tip-1, #28a745);
+/* --- SOURCES TABLE --- */
+.sources-section {
+  border-top: 1px solid var(--vp-c-border-soft, #eee);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
 }
-
-.value.warning {
-  color: var(--vp-c-warning-1, #ffc107);
-}
-
-.value.poor {
-  color: var(--vp-c-danger-1, #dc3545);
-}
-
 .sources-table {
   overflow-x: auto;
   margin-top: 1rem;
 }
-
 .table-header,
 .table-row {
   display: grid;
@@ -801,48 +742,69 @@ onMounted(async () => {
   border-bottom: 1px solid var(--vp-c-border-soft, #eee);
   align-items: center;
 }
-
 .table-header {
   background: var(--vp-c-bg-soft, #f8f9fa);
   font-weight: 600;
   color: var(--vp-c-text-1, #374151);
   font-size: 0.875rem;
 }
-
-.table-row:hover {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-}
-
+.table-row:hover { background: var(--vp-c-bg-soft, #f8f9fa); }
 .table-row .ip {
   font-family: var(--vp-font-family-mono, monospace);
   font-size: 0.875rem;
 }
-
-.table-row .count {
+.table-row .count { font-weight: 600; }
+.table-row .result {
   font-weight: 600;
 }
-
 .table-row .result.pass {
-  color: var(--vp-c-tip-1, #28a745);
-  font-weight: 600;
+  color: #22bb33;
+  background: none;
 }
-
 .table-row .result.fail {
-  color: var(--vp-c-danger-1, #dc3545);
-  font-weight: 600;
+  color: #ea4335;
+  background: none;
 }
 
-.recommendations ul {
-  margin: 0.5rem 0;
+/* --- STATUS BLOCKS (Warnings & Recommendations) --- */
+.status-box {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  border-left-width: 5px;
+  border-left-style: solid;
+  border-top: 1px solid var(--vp-c-border-soft, #dee2e6);
+  font-size: 1rem;
+}
+.status-box.warning {
+  border-left-color: #ffc107;
+  background: #fffbea;
+  color: #856404;
+}
+.status-box.recommendation {
+  border-left-color: #10B1EF;
+  background: #eaf6fd;
+  color: #065985;
+}
+.status-box h4 {
+  margin: 0 0 0.6rem 0;
+  font-weight: 700;
+  font-size: 1.05em;
+  letter-spacing: 0.01em;
+}
+.status-box ul {
+  margin: 0.2rem 0 0 0;
   padding-left: 1.5rem;
+  line-height: 1.7;
 }
-
-.recommendations li {
-  margin: 0.5rem 0;
-  color: var(--vp-c-text-2, #4a5568);
-  line-height: 1.5;
+.status-box li {
+  margin-bottom: 0.2rem;
+  color: inherit;
 }
+.recommendation-status-group { margin-top: 2rem; }
 
+/* --- ERRORS --- */
 .error-section {
   background: var(--vp-danger-soft, #f8d7da);
   color: var(--vp-c-danger-1, #721c24);
@@ -851,48 +813,25 @@ onMounted(async () => {
   margin: 1rem 0;
   border: 1px solid var(--vp-c-danger-2, #f5c6cb);
 }
+.error-message { margin: 0; font-weight: 500; }
 
-.error-message {
-  margin: 0;
-  font-weight: 500;
-}
-
-/* Responsive design */
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-  .dmarc-analyzer {
-    padding: 0 0.5rem;
-  }
+  .dmarc-analyzer { padding: 0 0.5rem; }
   .tool-form,
-  .result-section {
-    padding: 1rem;
-    margin: 1rem 0;
-  }
+  .result-section { padding: 1rem; margin: 1rem 0; }
   .form-group input,
   .form-group textarea.xml-paste,
-  .analyze-btn {
-    padding: 0.75rem;
-  }
-  .result-section h3 {
-    font-size: 1.25rem;
-  }
-  .result-content h4 {
-    font-size: 1.1rem;
-  }
-  .summary-grid,
-  .policy-grid {
-    grid-template-columns: 1fr;
-  }
-  .file-name {
-    max-width: 120px;
-  }
+  .analyze-btn { padding: 0.75rem; }
+  .result-section h3 { font-size: 1.25rem; }
+  .summary-grid { grid-template-columns: 1fr; }
+  .file-name { max-width: 120px; }
   .table-header,
   .table-row {
     grid-template-columns: 1fr;
     gap: 0.5rem;
   }
-  .table-header {
-    display: none;
-  }
+  .table-header { display: none; }
   .table-row {
     display: flex;
     flex-direction: column;
@@ -902,17 +841,8 @@ onMounted(async () => {
     border-radius: 8px;
     margin-bottom: 0.5rem;
   }
-  .table-row > span::before {
-    content: attr(data-label) ": ";
-    font-weight: 600;
-    color: var(--vp-c-text-2, #6b7280);
-  }
-  .captcha-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .refresh-captcha-btn {
-    align-self: center;
-  }
+  .captcha-container { flex-direction: column; align-items: stretch; }
+  .refresh-captcha-btn { align-self: center; }
 }
 </style>
+
