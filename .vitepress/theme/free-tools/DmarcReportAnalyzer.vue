@@ -198,6 +198,7 @@ onMounted(async () => {
 
 <template>
   <div class="dmarc-analyzer">
+    <!-- Form -->
     <div class="tool-form">
       <form @submit.prevent="analyzeReport">
         <!-- XML Paste Input -->
@@ -214,7 +215,8 @@ onMounted(async () => {
             autocorrect="off"
           />
         </div>
-        <!-- File Upload Input with Drag Hover Effect -->
+
+        <!-- File Upload / Drag & Drop -->
         <div class="form-group">
           <label>Or Upload XML File:</label>
           <div
@@ -246,61 +248,84 @@ onMounted(async () => {
               </label>
               <div v-else class="file-name-row">
                 <span class="file-name" :title="fileName">{{ truncatedFileName }}</span>
-                <button type="button" class="remove-file-btn" @click="clearFile" :disabled="loading">Remove</button>
+                <button
+                  type="button"
+                  class="remove-file-btn"
+                  @click="clearFile"
+                  :disabled="loading"
+                >
+                  Remove
+                </button>
               </div>
             </template>
           </div>
         </div>
-        <!-- Captcha Section -->
+
+        <!-- Captcha -->
         <div class="form-group captcha-section" v-if="shouldShowCaptcha">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
-              <div v-if="captchaLoading" class="captcha-loading">Loading captcha...</div>
-              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage"></div>
+              <div v-if="captchaLoading" class="captcha-loading">Loading captcha…</div>
+              <div
+                v-else-if="captchaImage"
+                class="captcha-image"
+                v-html="captchaImage"
+              />
               <div v-else class="captcha-placeholder">
-                <button type="button" @click="refreshCaptcha" class="load-captcha-btn">
+                <button
+                  type="button"
+                  @click="refreshCaptcha"
+                  class="load-captcha-btn"
+                >
                   Load Captcha
                 </button>
               </div>
             </div>
-            <button type="button"
-                    @click="refreshCaptcha"
-                    class="refresh-captcha-btn"
-                    :disabled="captchaLoading"
-                    title="Refresh captcha">
-              <img src="/assets/reload.webp" alt="reload button" />
+            <button
+              type="button"
+              @click="refreshCaptcha"
+              class="refresh-captcha-btn"
+              :disabled="captchaLoading"
+              title="Refresh captcha"
+            >
+              🔄
             </button>
           </div>
           <input
-            type="text"
             id="captcha"
             v-model="captchaText"
-            placeholder="Enter the text from the image above"
-            required
+            placeholder="Enter the characters above"
             :disabled="loading || !captchaImage"
-            autocomplete="off"
+            required
             class="captcha-input"
           />
-          <small class="captcha-help">Enter the characters shown in the image above</small>
+          <small class="captcha-help">
+            Enter the characters shown in the image above
+          </small>
         </div>
-        <!-- Submit Button -->
-        <button type="submit"
-                :disabled="loading || (!xmlPaste && !file) || (shouldShowCaptcha && (!captchaImage || !captchaText))"
-                class="analyze-btn">
-          {{ loading ? 'Analyzing...' : 'Analyze Report' }}
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="analyze-btn"
+          :disabled="loading || (!xmlPaste && !file) || (shouldShowCaptcha && !captchaText)"
+        >
+          {{ loading ? 'Analyzing…' : 'Analyze Report' }}
         </button>
       </form>
     </div>
 
-    <!-- Error Section -->
+    <!-- Global Error -->
     <div v-if="error" class="error-section">
       <p class="error-message">{{ error }}</p>
     </div>
 
-    <!-- Results Section -->
+    <!-- Results -->
     <div v-if="result" class="result-section">
       <h3>DMARC Report Analysis</h3>
+
+      <!-- Summary Grids -->
       <div class="report-summary">
         <div class="summary-grid">
           <div class="summary-item">
@@ -356,9 +381,12 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Domain Alignment Status Block -->
-      <div v-if="result.domainAlignmentIssue !== undefined" class="alignment-status-box"
-           :class="result.domainAlignmentIssue ? 'fail' : 'pass'">
+      <!-- Alignment Status -->
+      <div
+        v-if="result.domainAlignmentIssue !== undefined"
+        class="alignment-status-box"
+        :class="result.domainAlignmentIssue ? 'fail' : 'pass'"
+      >
         <span v-if="result.domainAlignmentIssue">
           <strong>Domain Alignment Issue Detected:</strong> Some emails failed DMARC alignment.
         </span>
@@ -367,15 +395,12 @@ onMounted(async () => {
         </span>
       </div>
 
+      <!-- Sources Table -->
       <div class="sources-section">
         <h4>Sources</h4>
         <div class="sources-table">
           <div class="table-header">
-            <span>IP</span>
-            <span>Count</span>
-            <span>DMARC</span>
-            <span>SPF</span>
-            <span>DKIM</span>
+            <span>IP</span><span>Count</span><span>DMARC</span><span>SPF</span><span>DKIM</span>
           </div>
           <div
             v-for="src in result.sources"
@@ -384,42 +409,33 @@ onMounted(async () => {
           >
             <span class="ip">{{ src.ip }}</span>
             <span class="count">{{ src.count }}</span>
-            <span
-              class="result"
-              :class="src.dmarcResult === 'Pass' ? 'pass' : 'fail'"
-            >
+            <span class="result" :class="src.dmarcResult === 'Pass' ? 'pass' : 'fail'">
               {{ src.dmarcResult === 'Pass' ? 'Pass' : 'Fail' }}
             </span>
-            <span
-              class="result"
-              :class="src.spfResult === 'pass' ? 'pass' : 'fail'"
-            >
+            <span class="result" :class="src.spfResult === 'pass' ? 'pass' : 'fail'">
               {{ src.spfResult === 'pass' ? 'Pass' : 'Fail' }}
             </span>
-            <span
-              class="result"
-              :class="src.dkimResult === 'pass' ? 'pass' : 'fail'"
-            >
+            <span class="result" :class="src.dkimResult === 'pass' ? 'pass' : 'fail'">
               {{ src.dkimResult === 'pass' ? 'Pass' : 'Fail' }}
             </span>
           </div>
         </div>
       </div>
 
-      <!-- Recommendations & Warnings -->
-      <div v-if="result.warnings.length || result.recommendations.length" class="recommendation-status-group">
-        <div v-if="result.warnings.length" class="status-box warning">
-          <h4>Warnings</h4>
-          <ul>
-            <li v-for="w in result.warnings" :key="w">{{ w }}</li>
-          </ul>
-        </div>
-        <div v-if="result.recommendations.length" class="status-box recommendation">
-          <h4>Recommendations</h4>
-          <ul>
-            <li v-for="r in result.recommendations" :key="r">{{ r }}</li>
-          </ul>
-        </div>
+      <!-- Warnings -->
+      <div v-if="result.warnings?.length" class="warnings-section">
+        <h4>⚠️ Warnings</h4>
+        <ul>
+          <li v-for="w in result.warnings" :key="w">{{ w }}</li>
+        </ul>
+      </div>
+
+      <!-- Recommendations -->
+      <div v-if="result.recommendations?.length" class="recommendations-section">
+        <h4>💡 Recommendations</h4>
+        <ul>
+          <li v-for="r in result.recommendations" :key="r">{{ r }}</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -442,7 +458,9 @@ onMounted(async () => {
   border-radius: 12px;
   border: 1px solid var(--vp-c-border, #e5e7eb);
 }
-.form-group { margin-bottom: 1.5rem; }
+.form-group {
+  margin-bottom: 1.5rem;
+}
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
@@ -466,7 +484,7 @@ onMounted(async () => {
 .form-group textarea.xml-paste:focus {
   outline: none;
   border-color: var(--vp-c-brand-1, #10B1EF);
-  box-shadow: 0 0 0 3px var(--vp-c-brand-soft, rgba(16, 177, 239, 0.1));
+  box-shadow: 0 0 0 3px var(--vp-c-brand-soft, rgba(16,177,239,0.1));
 }
 .form-group input:disabled,
 .form-group textarea.xml-paste:disabled {
@@ -495,7 +513,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(16, 177, 239, 0.08);
+  background: rgba(16,177,239,0.08);
   color: var(--vp-c-brand, #10B1EF);
   font-size: 1.08rem;
   font-weight: 600;
@@ -511,8 +529,8 @@ onMounted(async () => {
   border: 1px solid var(--vp-c-border, #e5e7eb);
   color: var(--vp-c-text-1, #374151);
   font-size: 0.95rem;
-  user-select: none;
   white-space: nowrap;
+  user-select: none;
   transition: background 0.2s;
 }
 .file-upload-label.disabled {
@@ -537,11 +555,12 @@ onMounted(async () => {
   padding-right: 1rem;
   transition: color 0.2s;
 }
-.file-name:hover { color: var(--vp-c-brand-1, #10B1EF); }
+.file-name:hover {
+  color: var(--vp-c-brand-1, #10B1EF);
+}
 .remove-file-btn {
-  margin-left: auto;
   background: var(--vp-c-danger-1, #dc3545);
-  color: white;
+  color: #fff;
   border: none;
   padding: 0.32rem 0.9rem;
   border-radius: 4px;
@@ -549,11 +568,15 @@ onMounted(async () => {
   font-size: 0.87rem;
   font-weight: 600;
   white-space: nowrap;
-  align-self: center;
   transition: background 0.2s;
 }
-.remove-file-btn:hover:not(:disabled) { background: var(--vp-c-danger-2, #c82333); }
-.remove-file-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.remove-file-btn:hover:not(:disabled) {
+  background: var(--vp-c-danger-2, #c82333);
+}
+.remove-file-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
 
 /* --- CAPTCHA --- */
 .captcha-section {
@@ -580,15 +603,15 @@ onMounted(async () => {
   border-radius: 6px;
   padding: 0.5rem;
 }
-.captcha-image { display: flex; align-items: center; justify-content: center; }
-.captcha-loading, .captcha-placeholder {
+.captcha-loading,
+.captcha-placeholder {
   color: #6b7280;
   font-style: italic;
   text-align: center;
 }
 .load-captcha-btn {
   background: var(--vp-c-brand-1, #10B1EF);
-  color: white;
+  color: #fff;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
@@ -596,7 +619,9 @@ onMounted(async () => {
   font-size: 0.875rem;
   transition: background 0.2s;
 }
-.load-captcha-btn:hover { background: var(--vp-c-brand-2, #0891d4); }
+.load-captcha-btn:hover {
+  background: var(--vp-c-brand-2, #0891d4);
+}
 .refresh-captcha-btn {
   background: var(--vp-c-bg-soft, #f8f9fa);
   border: 1px solid var(--vp-c-border, #e5e7eb);
@@ -616,8 +641,13 @@ onMounted(async () => {
   background: var(--vp-c-bg, #fff);
   border-color: var(--vp-c-brand-1, #10B1EF);
 }
-.refresh-captcha-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-.captcha-input { margin-top: 0.75rem !important; }
+.refresh-captcha-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.captcha-input {
+  margin-top: 0.75rem !important;
+}
 .captcha-help {
   display: block;
   margin-top: 0.5rem;
@@ -626,7 +656,7 @@ onMounted(async () => {
   font-style: italic;
 }
 
-/* --- BUTTONS --- */
+/* --- BUTTON --- */
 .analyze-btn {
   background: var(--vp-c-brand-1, #10B1EF);
   color: #fff;
@@ -667,19 +697,16 @@ onMounted(async () => {
   font-size: 1.5rem;
   font-weight: 700;
 }
+
+/* --- SUMMARY GRID --- */
 .report-summary {
   border-top: 1px solid var(--vp-c-border-soft, #eee);
   padding-top: 1.5rem;
   margin-top: 1.5rem;
 }
-.report-summary:first-child {
-  border-top: none;
-  padding-top: 0;
-  margin-top: 0;
-}
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
@@ -701,7 +728,7 @@ onMounted(async () => {
 
 /* --- ALIGNMENT STATUS BOX --- */
 .alignment-status-box {
-  margin: 2rem 0 0.5rem 0;
+  margin: 2rem 0 0.5rem;
   padding: 1rem 1.5rem;
   border-radius: 8px;
   font-weight: 600;
@@ -748,63 +775,70 @@ onMounted(async () => {
   color: var(--vp-c-text-1, #374151);
   font-size: 0.875rem;
 }
-.table-row:hover { background: var(--vp-c-bg-soft, #f8f9fa); }
+.table-row:hover {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+}
 .table-row .ip {
   font-family: var(--vp-font-family-mono, monospace);
   font-size: 0.875rem;
 }
-.table-row .count { font-weight: 600; }
-.table-row .result {
+.table-row .count {
   font-weight: 600;
 }
 .table-row .result.pass {
   color: #22bb33;
-  background: none;
 }
 .table-row .result.fail {
   color: #ea4335;
-  background: none;
 }
 
-/* --- STATUS BLOCKS (Warnings & Recommendations) --- */
-.status-box {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  padding: 1.25rem 1.5rem;
+/* --- WARNINGS & RECOMMENDATIONS --- */
+.warnings-section,
+.recommendations-section {
+  padding: 1.25rem;
   border-radius: 8px;
-  margin-bottom: 1.5rem;
-  border-left-width: 5px;
-  border-left-style: solid;
-  border-top: 1px solid var(--vp-c-border-soft, #dee2e6);
-  font-size: 1rem;
+  margin-top: 1.5rem;
 }
-.status-box.warning {
-  border-left-color: #ffc107;
-  background: #fffbea;
-  color: #856404;
+.warnings-section {
+  background: var(--vp-warning-soft, #fffbf0);
+  border-left: 4px solid var(--vp-c-warning-1, #ffc107);
 }
-.status-box.recommendation {
-  border-left-color: #10B1EF;
-  background: #eaf6fd;
-  color: #065985;
+.warnings-section h4 {
+  margin: 0 0 1rem 0;
+  color: var(--vp-c-warning-1, #d69e2e);
+  font-size: 1.25rem;
+  font-weight: 600;
 }
-.status-box h4 {
-  margin: 0 0 0.6rem 0;
-  font-weight: 700;
-  font-size: 1.05em;
-  letter-spacing: 0.01em;
-}
-.status-box ul {
-  margin: 0.2rem 0 0 0;
+.warnings-section ul {
+  margin: 0.5rem 0;
   padding-left: 1.5rem;
-  line-height: 1.7;
 }
-.status-box li {
-  margin-bottom: 0.2rem;
-  color: inherit;
+.warnings-section li {
+  margin: 0.25rem 0;
+  color: var(--vp-c-text-2, #4a5568);
+  line-height: 1.5;
 }
-.recommendation-status-group { margin-top: 2rem; }
+.recommendations-section {
+  background: var(--vp-tip-soft, #f0f9ff);
+  border-left: 4px solid var(--vp-c-tip-1, #17a2b8);
+}
+.recommendations-section h4 {
+  margin: 0 0 1rem 0;
+  color: var(--vp-c-tip-1, #17a2b8);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.recommendations-section ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+.recommendations-section li {
+  margin: 0.25rem 0;
+  color: var(--vp-c-text-2, #4a5568);
+  line-height: 1.5;
+}
 
-/* --- ERRORS --- */
+/* --- ERROR SECTION --- */
 .error-section {
   background: var(--vp-danger-soft, #f8d7da);
   color: var(--vp-c-danger-1, #721c24);
@@ -813,25 +847,35 @@ onMounted(async () => {
   margin: 1rem 0;
   border: 1px solid var(--vp-c-danger-2, #f5c6cb);
 }
-.error-message { margin: 0; font-weight: 500; }
+.error-message {
+  margin: 0;
+  font-weight: 500;
+}
 
 /* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-  .dmarc-analyzer { padding: 0 0.5rem; }
+  .dmarc-analyzer {
+    padding: 0 0.5rem;
+  }
   .tool-form,
-  .result-section { padding: 1rem; margin: 1rem 0; }
+  .result-section {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
   .form-group input,
   .form-group textarea.xml-paste,
-  .analyze-btn { padding: 0.75rem; }
-  .result-section h3 { font-size: 1.25rem; }
-  .summary-grid { grid-template-columns: 1fr; }
-  .file-name { max-width: 120px; }
-  .table-header,
-  .table-row {
-    grid-template-columns: 1fr;
-    gap: 0.5rem;
+  .analyze-btn {
+    padding: 0.75rem;
   }
-  .table-header { display: none; }
+  .result-section h3 {
+    font-size: 1.25rem;
+  }
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  .table-header {
+    display: none;
+  }
   .table-row {
     display: flex;
     flex-direction: column;
@@ -841,8 +885,17 @@ onMounted(async () => {
     border-radius: 8px;
     margin-bottom: 0.5rem;
   }
-  .captcha-container { flex-direction: column; align-items: stretch; }
-  .refresh-captcha-btn { align-self: center; }
+  .captcha-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .refresh-captcha-btn {
+    align-self: center;
+  }
+  .file-name {
+    max-width: 120px;
+  }
 }
 </style>
+
 
