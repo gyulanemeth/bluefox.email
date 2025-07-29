@@ -207,7 +207,7 @@ onMounted(async () => {
               class="refresh-captcha-btn"
               :disabled="captchaLoading"
               title="New Captcha"
-            >🔄</button>
+            ><img src="/public/assets/reload.webp" alt="reload captcha"></button>
           </div>
           <input
             class="captcha-input"
@@ -244,7 +244,7 @@ onMounted(async () => {
         <h4>Basic Information</h4>
         <p><strong>Domain:</strong> {{ result.domain }}</p>
         <p><strong>Selector:</strong> {{ result.selector }}</p>
-        <p><strong>Record:</strong> {{ result.rawRecord || result.record }}</p>
+        <p><strong>Record:</strong>{{ result.rawRecord || result.record }}</p>
       </div>
 
       <div v-if="dkimTags.length" class="dkim-table-section">
@@ -452,7 +452,7 @@ onMounted(async () => {
 }
 
 .error-section {
-  background: var(--vp-danger-soft, #f8d7da);
+  background: var(--vp-c-danger-soft, #f8d7da);
   color: var(--vp-c-danger-1, #721c24);
   padding: 1rem;
   border-radius: 8px;
@@ -486,24 +486,32 @@ onMounted(async () => {
   font-weight: 600;
 }
 
-.dkim-record-table {
-  width: 100%;
+/* New/updated DKIM table styles */
+.dkim-table-section .dkim-record-table {
+  margin: 1rem auto;        /* center the table */
+  width: auto;              /* size to content */
+  table-layout: auto;       /* allow dynamic column widths */
   border-collapse: collapse;
-  margin: 1em 0;
 }
 
-.dkim-record-table th,
-.dkim-record-table td {
+.dkim-table-section .dkim-record-table th,
+.dkim-table-section .dkim-record-table td {
   border: 1px solid #ddd;
   padding: 8px;
   font-size: 0.96em;
   vertical-align: top;
 }
 
-.dkim-record-table th {
-  background: #f5f5f5;
+.dkim-table-section .dkim-record-table th {
+  background: var(--vp-c-bg-soft, #f8f9fa);
   font-weight: bold;
   text-align: left;
+}
+
+/* wrap long values in column 2 instead of scrolling */
+.dkim-table-section .dkim-record-table td:nth-child(2) {
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .dkim-key {
@@ -547,5 +555,3 @@ onMounted(async () => {
   color: #77bdfb;
 }
 </style>
-
-
