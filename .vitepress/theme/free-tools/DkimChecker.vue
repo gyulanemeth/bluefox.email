@@ -2,7 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
 
-const API_URL          = import.meta.env.VITE_TOOLS_API_URL
+const API_URL = import.meta.env.VITE_TOOLS_API_URL
 const DEFAULT_SELECTOR = 'default'
 
 const {
@@ -12,103 +12,120 @@ const {
   captchaLoading,
   isProbeExpired,
   isSolved,
+  shouldShowCaptcha,
+  hasError,
+  currentError,
   loadCaptcha,
+  refreshCaptcha,
   markSolved,
-  clearSession
-} = useCaptcha()
+  clearSession,
+  setError,
+  clearError,
+  handleServerError,
+  validateCaptchaInput,
+  autoResolveError,
+  isCurrentlyExpired,
+  CAPTCHA_ERRORS
+} = useCaptcha('dkim-checker')
 
-const domain      = ref('')
-const selector    = ref(DEFAULT_SELECTOR)
+// Form state
+const domain = ref('')
+const selector = ref(DEFAULT_SELECTOR)
 const captchaText = ref('')
-const loading     = ref(false)
-const error       = ref('')
-const result      = ref(null)
+const loading = ref(false)
+const result = ref(null)
 
-const shouldShowCaptcha = computed(() =>
-  !isSolved.value ||
-  isProbeExpired.value ||
-  !captchaProbe.value ||
-  !captchaImage.value
-)
-
+// Enhanced validation
 function validateInputs() {
-  if (!API_URL)             return 'API URL is not configured.'
-  if (!domain.value.trim()) return 'Please enter a domain.'
-  if (shouldShowCaptcha.value) {
-    if (!captchaProbe.value)       return 'Please load the captcha first.'
-    if (!captchaText.value.trim()) return 'Please enter the captcha text.'
+  if (!API_URL) {
+    setError('NETWORK_ERROR', 'API configuration is missing. Please contact support.')
+    return false
   }
-  return null
+  
+  if (!domain.value.trim()) {
+    setError('MISSING_TEXT', 'Please enter the domain you want to check (e.g., example.com)')
+    return false
+  }
+  
+  if (shouldShowCaptcha.value) {
+    return validateCaptchaInput(captchaText.value)
+  }
+  
+  return true
 }
 
-async function refreshCaptcha() {
-  captchaText.value = ''
-  clearSession()     // drops previous probe/image
-  await loadCaptcha()
-}
-
+// Enhanced checkDkim with precise timing and error handling
 async function checkDkim() {
-  error.value   = ''
-  result.value  = null
+  clearError()
+  result.value = null
   loading.value = true
 
-  // If the probe itself has expired, force a new one
-  if (isProbeExpired.value) {
-    await refreshCaptcha()
-    error.value   = 'Captcha expired — please solve the new one.'
-    loading.value = false
-    return
-  }
-
-  const vErr = validateInputs()
-  if (vErr) {
-    error.value   = vErr
-    loading.value = false
-    return
-  }
-
   try {
-    const payload = {
-      domain:       domain.value,
-      selector:     selector.value,
-      captchaProbe: captchaProbe.value,
-      captchaText:  captchaText.value
+    // Use real-time expiry check with buffer
+    if (isCurrentlyExpired()) {
+      console.log('CAPTCHA expired detected - refreshing')
+      await refreshCaptcha('expired')
+      loading.value = false
+      return
     }
-    const res  = await fetch(`${API_URL}/v1/analyze-dkim`, {
+
+    // Validate inputs
+    if (!validateInputs()) {
+      return
+    }
+
+    // Double-check expiry right before sending request
+    if (isCurrentlyExpired()) {
+      console.log('CAPTCHA expired during validation - refreshing')
+      await refreshCaptcha('expired')
+      loading.value = false
+      return
+    }
+
+    const payload = {
+      domain: domain.value.trim(),
+      selector: selector.value.trim() || DEFAULT_SELECTOR,
+      captchaProbe: captchaProbe.value,
+      captchaText: captchaText.value.trim()
+    }
+
+    const res = await fetch(`${API_URL}/v1/analyze-dkim`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify(payload)
+      body: JSON.stringify(payload)
     })
+    
     const json = await res.json()
 
-    // server‐side error or invalid captcha
+    // Enhanced server response handling
     if (!res.ok || !json.result?.success) {
-      const msg = json.result?.error || 'Unknown error.'
-      if (msg.toLowerCase().includes('captcha')) {
-        // wrong or expired
-        await refreshCaptcha()
-        error.value = msg.toLowerCase().includes('expired')
-          ? 'Captcha expired — please solve the new one.'
-          : 'Captcha incorrect — please try again with the new captcha.'
-      } else {
-        error.value = msg
+      const serverError = json.result?.error || 'Server error occurred'
+      console.log('Server error received:', serverError)
+      
+      const errorType = handleServerError(serverError)
+      console.log('Parsed error type:', errorType)
+      
+      // Auto-resolve specific error types
+      if (errorType === 'expired' || errorType === 'incorrect') {
+        await autoResolveError()
       }
       return
     }
 
-    // success!
-    result.value      = json.result
+    // Success
+    result.value = json.result
     captchaText.value = ''
-    markSolved()      // globally mark this probe as OK until expiry
+    markSolved()
 
-  } catch (e) {
-    console.error(e)
-    error.value = 'Network or server error.'
+  } catch (networkError) {
+    console.error('DKIM Check Error:', networkError)
+    setError('NETWORK_ERROR')
   } finally {
     loading.value = false
   }
 }
 
+// DKIM parsing logic
 const DKIM_TAG_DESCRIPTIONS = {
   v: "Version (always 'DKIM1').",
   k: "Key type (e.g., 'rsa').",
@@ -135,7 +152,6 @@ const dkimTags = computed(() => {
     })
 })
 
-// only fetch on mount if we have no probe or it’s expired
 onMounted(async () => {
   if (!captchaProbe.value || isProbeExpired.value) {
     await loadCaptcha()
@@ -143,13 +159,14 @@ onMounted(async () => {
 })
 </script>
 
+
 <template>
   <div class="dkim-checker">
     <div class="tool-form">
       <form @submit.prevent="checkDkim">
-        <!-- Domain -->
+        <!-- Domain Input -->
         <div class="form-group">
-          <label for="domain">Domain:</label>
+          <label for="domain">Domain to Check:</label>
           <input
             id="domain"
             v-model="domain"
@@ -157,110 +174,151 @@ onMounted(async () => {
             required
             :disabled="loading"
           />
+          <small class="help-text">
+            Enter the domain name you want to check for DKIM records
+          </small>
         </div>
 
-        <!-- Selector -->
+        <!-- Selector Input -->
         <div class="form-group">
           <label for="selector">DKIM Selector:</label>
           <input
             id="selector"
             v-model="selector"
-            placeholder="default, google, etc."
+            placeholder="default"
             :disabled="loading"
           />
           <small class="help-text">
-            Common selectors: default, google, mail, dkim…
+            Most common selectors are: <code>default</code>, <code>google</code>, <code>mail</code>
           </small>
         </div>
 
-        <!-- Expiration Banner -->
+        <!-- Expiration banner - Same as DMARC -->
         <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
-          ⚠️ Your verification has expired. Please refresh the captcha below.
+          Your verification has expired. Please refresh the captcha below.
         </div>
 
-        <!-- Captcha -->
+        <!-- CAPTCHA Section -->
         <div class="form-group captcha-section" v-if="shouldShowCaptcha">
-          <label>Security Verification:</label>
+          <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
               <div v-if="captchaLoading" class="captcha-loading">
-                Loading captcha…
+                Loading captcha...
               </div>
               <div
                 v-else-if="captchaImage"
                 class="captcha-image"
                 v-html="captchaImage"
+                role="img"
+                aria-label="Security verification image"
               />
               <div v-else class="captcha-placeholder">
                 <button
                   type="button"
-                  @click="refreshCaptcha"
+                  @click="loadCaptcha"
                   class="load-captcha-btn"
                 >
                   Load Captcha
                 </button>
               </div>
             </div>
+            
             <button
               type="button"
-              @click="refreshCaptcha"
+              @click="refreshCaptcha('manual')"
               class="refresh-captcha-btn"
               :disabled="captchaLoading"
-              title="New Captcha"
-            ><img src="/assets/reload.webp?url" alt="reload captcha"></button>
+              title="Get a new verification image"
+              aria-label="Refresh verification image"
+            >
+              <img src="/assets/reload.webp?url" alt="Refresh">
+            </button>
           </div>
+          
           <input
+            id="captcha"
             class="captcha-input"
             v-model="captchaText"
-            placeholder="Enter characters above"
-            required
+            type="text"
+            placeholder="Enter the text from the image above"
             :disabled="loading || !captchaImage"
+            autocomplete="off"
+            required
           />
           <small class="captcha-help">
             Enter the characters shown in the image above
           </small>
         </div>
 
+        <!-- Submit Button -->
         <button
-          class="check-btn"
           type="submit"
+          class="check-btn"
           :disabled="loading || (shouldShowCaptcha && !captchaText)"
         >
-          {{ loading ? 'Checking…' : 'Check DKIM' }}
+          <span v-if="loading" class="btn-loading">
+            <div class="loading-spinner small"></div>
+            Checking...
+          </span>
+          <span v-else>Check DKIM Record</span>
         </button>
       </form>
-
-      <div v-if="error" class="error-section">
-        {{ error }}
-      </div>
     </div>
 
+    <!-- Error Section - Same placement as DMARC (after form, before results) -->
+    <div v-if="hasError" class="error-section">
+      <p class="error-message">{{ currentError.message }}</p>
+    </div>
+
+    <!-- Results Section -->
     <div v-if="result" class="result-section">
       <h3>DKIM Check Results</h3>
-      <p v-if="result.success">✓ DKIM Record Found</p>
-      <p v-else>✗ DKIM Record Missing or Invalid</p>
+      <div class="status-indicator">
+        <p v-if="result.success" class="status-success">
+          DKIM Record Found
+        </p>
+        <p v-else class="status-error">
+          DKIM Record Missing or Invalid
+        </p>
+      </div>
 
       <div class="info-section">
         <h4>Basic Information</h4>
-        <p><strong>Domain:</strong> {{ result.domain }}</p>
-        <p><strong>Selector:</strong> {{ result.selector }}</p>
-        <p><strong>Record:</strong>{{ result.rawRecord || result.record }}</p>
+        <div class="info-grid">
+          <div class="info-item">
+            <strong>Domain:</strong> {{ result.domain }}
+          </div>
+          <div class="info-item">
+            <strong>Selector:</strong> {{ result.selector }}
+          </div>
+          <div class="info-item record-display">
+            <strong>Record:</strong>
+            <code class="dkim-record">{{ result.rawRecord || result.record }}</code>
+          </div>
+        </div>
       </div>
 
       <div v-if="dkimTags.length" class="dkim-table-section">
         <h4>Record Breakdown</h4>
-        <table class="dkim-record-table">
-          <thead>
-            <tr><th>Tag</th><th>Value</th><th>Description</th></tr>
-          </thead>
-          <tbody>
-            <tr v-for="tag in dkimTags" :key="tag.tag">
-              <td>{{ tag.tag }}</td>
-              <td>{{ tag.value }}</td>
-              <td>{{ tag.description }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-container">
+          <table class="dkim-record-table">
+            <thead>
+              <tr>
+                <th>Tag</th>
+                <th>Value</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="tag in dkimTags" :key="tag.tag">
+                <td class="tag-column">{{ tag.tag }}</td>
+                <td class="value-column">{{ tag.value }}</td>
+                <td class="description-column">{{ tag.description }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
@@ -323,8 +381,28 @@ onMounted(async () => {
   color: var(--vp-c-text-2, #6b7280);
   font-size: 0.875rem;
   font-style: italic;
+  line-height: 1.4;
 }
 
+.help-text code {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  padding: 0.125rem 0.25rem;
+  border-radius: 3px;
+  font-size: 0.8rem;
+}
+
+/* Captcha expiration message - Same as DMARC */
+.captcha-expired-message {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
+/* Captcha specific styles - Same as DMARC */
 .captcha-section {
   background: var(--vp-c-bg, #ffffff);
   padding: 1.25rem;
@@ -346,7 +424,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff !important;
+  background: #ffffff !important; /* Force white background for captcha visibility */
   border: 1px solid var(--vp-c-border-soft, #dee2e6);
   border-radius: 6px;
   padding: 0.5rem;
@@ -360,7 +438,7 @@ onMounted(async () => {
 
 .captcha-loading,
 .captcha-placeholder {
-  color: #6b7280;
+  color: #6b7280; /* Use fixed gray color for better contrast on white background */
   font-style: italic;
   text-align: center;
 }
@@ -396,6 +474,16 @@ onMounted(async () => {
   transition: all 0.2s ease;
 }
 
+.dark .refresh-captcha-btn {
+  background: #fff !important;
+  border: 1px solid #333 !important;
+  color: #222 !important;
+}
+
+.dark .refresh-captcha-btn img {
+  filter: invert(0);
+}
+
 .refresh-captcha-btn:hover:not(:disabled) {
   background: var(--vp-c-bg, #ffffff);
   border-color: var(--vp-c-brand-1, #10B1EF);
@@ -404,6 +492,11 @@ onMounted(async () => {
 .refresh-captcha-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.refresh-captcha-btn img {
+  width: 16px;
+  height: 16px;
 }
 
 .captcha-input {
@@ -445,14 +538,38 @@ onMounted(async () => {
   box-shadow: none;
 }
 
-.error-message {
-  margin: 0;
-  font-weight: 500;
-  color: var(--vp-c-danger-1, #721c24);
+/* Loading spinner */
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid var(--vp-c-brand-1, #10B1EF);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
 }
 
+.loading-spinner.small {
+  width: 12px;
+  height: 12px;
+  border-width: 1.5px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.btn-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* Error Section - Same as DMARC */
 .error-section {
-  background: var(--vp-c-danger-soft, #f8d7da);
+  background: var(--vp-danger-soft, #f8d7da);
   color: var(--vp-c-danger-1, #721c24);
   padding: 1rem;
   border-radius: 8px;
@@ -460,6 +577,12 @@ onMounted(async () => {
   border: 1px solid var(--vp-c-danger-2, #f5c6cb);
 }
 
+.error-message {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Results Section */
 .result-section {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -469,12 +592,29 @@ onMounted(async () => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.status-box {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  padding: 1.25rem;
-  border: 1px solid var(--vp-c-border-soft, #dee2e6);
-  border-radius: 8px;
+.result-section h3 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  color: var(--vp-c-text-1, #333);
+  font-size: 1.5rem;
+}
+
+.status-indicator {
   margin-bottom: 1.5rem;
+}
+
+.status-success {
+  color: #059669;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.status-error {
+  color: #dc2626;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin: 0;
 }
 
 .info-section h4,
@@ -486,72 +626,153 @@ onMounted(async () => {
   font-weight: 600;
 }
 
-/* New/updated DKIM table styles */
-.dkim-table-section .dkim-record-table {
-  margin: 1rem auto;        /* center the table */
-  width: auto;              /* size to content */
-  table-layout: auto;       /* allow dynamic column widths */
-  border-collapse: collapse;
+.info-grid {
+  display: grid;
+  gap: 1rem;
 }
 
-.dkim-table-section .dkim-record-table th,
-.dkim-table-section .dkim-record-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  font-size: 0.96em;
+.info-item {
+  padding: 0.75rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-border-soft, #dee2e6);
+}
+
+.info-item strong {
+  color: var(--vp-c-text-1, #333);
+}
+
+.record-display {
+  grid-column: 1 / -1;
+}
+
+.dkim-record {
+  display: block;
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  background: var(--vp-c-bg, #ffffff);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 4px;
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-size: 0.875rem;
+  word-break: break-all;
+  white-space: pre-wrap;
+  line-height: 1.4;
+}
+
+/* Enhanced DKIM table styles */
+.table-container {
+  overflow-x: auto;
+  margin: 1rem 0;
+  border-radius: 8px;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+}
+
+.dkim-record-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--vp-c-bg, #ffffff);
+}
+
+.dkim-record-table th,
+.dkim-record-table td {
+  border: 1px solid var(--vp-c-border-soft, #dee2e6);
+  padding: 0.75rem;
+  text-align: left;
   vertical-align: top;
 }
 
-.dkim-table-section .dkim-record-table th {
+.dkim-record-table th {
   background: var(--vp-c-bg-soft, #f8f9fa);
-  font-weight: bold;
-  text-align: left;
+  font-weight: 600;
+  color: var(--vp-c-text-1, #333);
+  font-size: 0.9rem;
 }
 
-/* wrap long values in column 2 instead of scrolling */
-.dkim-table-section .dkim-record-table td:nth-child(2) {
-  white-space: pre-wrap;
-  word-break: break-word;
-}
-
-.dkim-key {
+.tag-column {
+  width: 60px;
   font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.97em;
-  word-break: break-all;
-  white-space: pre-line;
+  font-weight: 600;
+  color: var(--vp-c-brand-1, #10B1EF);
 }
 
-/* Responsive */
+.value-column {
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-size: 0.875rem;
+  word-break: break-all;
+  white-space: pre-wrap;
+  max-width: 300px;
+}
+
+.description-column {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2, #6b7280);
+  line-height: 1.4;
+}
+
+/* Enhanced responsive design */
 @media (max-width: 768px) {
   .dkim-checker {
     padding: 0 0.5rem;
   }
+  
   .tool-form,
   .result-section {
     padding: 1rem;
     margin: 1rem 0;
   }
+  
   .form-group input,
   .check-btn {
     padding: 0.75rem;
   }
+  
+  .captcha-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .refresh-captcha-btn {
+    align-self: center;
+    margin-top: 0.5rem;
+  }
+  
+  .table-container {
+    font-size: 0.875rem;
+  }
+  
+  .dkim-record-table th,
+  .dkim-record-table td {
+    padding: 0.5rem;
+  }
+  
+  .value-column {
+    max-width: 200px;
+  }
 }
 
-/* Dark theme tweaks */
-.dark .dkim-record-table,
-.dark .dkim-record-table th,
-.dark .dkim-record-table td {
-  background: var(--vp-c-bg, #17181c) !important;
-  color: var(--vp-c-text-1, #e9e9e9);
-  border-color: #282a36;
-}
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+  .dark .dkim-record-table,
+  .dark .dkim-record-table th,
+  .dark .dkim-record-table td {
+    background: var(--vp-c-bg, #17181c) !important;
+    color: var(--vp-c-text-1, #e9e9e9);
+    border-color: #282a36;
+  }
 
-.dark .dkim-record-table th {
-  background: #252736 !important;
-  color: #aad0f7;
-}
+  .dark .dkim-record-table th {
+    background: #252736 !important;
+    color: #aad0f7;
+  }
 
-.dark .dkim-key {
-  color: #77bdfb;
+  .dark .tag-column {
+    color: #77bdfb;
+  }
+  
+  .dark .dkim-record {
+    color: #77bdfb;
+    background: var(--vp-c-bg-soft, #252736);
+  }
 }
 </style>

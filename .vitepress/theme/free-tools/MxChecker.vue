@@ -4,79 +4,133 @@ import { useCaptcha } from './useCaptcha.js'
 
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
 
-// localStorage–backed captcha state
+// Use enhanced composable with context
 const {
   captchaProbe,
   captchaImage,
+  captchaExpires,
   captchaLoading,
   isProbeExpired,
   isSolved,
+  shouldShowCaptcha,
+  hasError,
+  currentError,
   loadCaptcha,
+  refreshCaptcha,
   markSolved,
-  clearSession
-} = useCaptcha()
+  clearSession,
+  setError,
+  clearError,
+  handleServerError,
+  validateCaptchaInput,
+  autoResolveError,
+  isCurrentlyExpired,
+  CAPTCHA_ERRORS
+} = useCaptcha('mx-checker')
 
-// form state
-const domain      = ref('')
+// Form state
+const domain = ref('')
 const captchaText = ref('')
-const loading     = ref(false)
-const error       = ref(null)
-const result      = ref(null)
+const loading = ref(false)
+const result = ref(null)
 
-// show captcha input when there's no valid solve
-const shouldShowCaptcha = computed(() =>
-  !isSolved.value ||
-  isProbeExpired.value ||
-  !captchaProbe.value ||
-  !captchaImage.value
-)
-
+// Enhanced validation using composable functions
 function validateInputs() {
-  if (!API_URL) return 'API URL not configured.'
-  if (!domain.value.trim()) return 'Please enter a domain name.'
-  if (shouldShowCaptcha.value && !captchaText.value.trim()) {
-    return 'Please enter the captcha text.'
+  if (!API_URL) {
+    setError('NETWORK_ERROR', 'API configuration is missing. Please contact support.')
+    return false
   }
-  return null
+  
+  if (!domain.value.trim()) {
+    setError('MISSING_TEXT', 'Please enter the domain you want to check (e.g., example.com)')
+    return false
+  }
+  
+  if (shouldShowCaptcha.value) {
+    return validateCaptchaInput(captchaText.value)
+  }
+  
+  return true
 }
 
-async function refreshCaptcha() {
-  captchaText.value = ''
-  clearSession()
-  await loadCaptcha()
-}
+// Enhanced checkMx with precise timing and error handling
+async function checkMx() {
+  clearError()
+  result.value = null
+  loading.value = true
 
-async function callMxApi() {
-  const res = await fetch(`${API_URL}/v1/analyze-mx`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      domain:       domain.value,
-      captchaProbe: captchaProbe.value,
-      captchaText:  shouldShowCaptcha.value ? captchaText.value : ''
-    })
-  })
-  const json = await res.json().catch(() => {
-    throw new Error(`HTTP error! status: ${res.status}`)
-  })
-  if (!res.ok) {
-    const msg = json?.result?.error || json?.error || `HTTP ${res.status}`
-    if (msg.toLowerCase().includes('captcha')) {
-      await refreshCaptcha()
+  try {
+    // Use real-time expiry check with buffer
+    if (isCurrentlyExpired()) {
+      console.log('CAPTCHA expired detected - refreshing')
+      await refreshCaptcha('expired')
+      loading.value = false
+      return
     }
-    throw new Error(msg)
+
+    // Validate inputs
+    if (!validateInputs()) {
+      return
+    }
+
+    // Double-check expiry right before sending request
+    if (isCurrentlyExpired()) {
+      console.log('CAPTCHA expired during validation - refreshing')
+      await refreshCaptcha('expired')
+      loading.value = false
+      return
+    }
+
+    const payload = {
+      domain: domain.value.trim(),
+      captchaProbe: captchaProbe.value,
+      captchaText: captchaText.value.trim()
+    }
+
+    const res = await fetch(`${API_URL}/v1/analyze-mx`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    
+    const json = await res.json()
+
+    // Enhanced server response handling
+    if (!res.ok || !json.result?.success) {
+      const serverError = json.result?.error || 'Server error occurred'
+      console.log('Server error received:', serverError)
+      
+      const errorType = handleServerError(serverError)
+      console.log('Parsed error type:', errorType)
+      
+      // Auto-resolve specific error types
+      if (errorType === 'expired' || errorType === 'incorrect') {
+        await autoResolveError()
+      }
+      return
+    }
+
+    // Success
+    result.value = mapMxResult(json.result)
+    captchaText.value = ''
+    markSolved()
+
+  } catch (networkError) {
+    console.error('MX Check Error:', networkError)
+    setError('NETWORK_ERROR')
+  } finally {
+    loading.value = false
   }
-  return json.result || json
 }
 
 function mapMxResult(data) {
   return {
-    valid:           !!data.success,
-    domain:          data.domain || domain.value,
-    records:         data.records || data.mxRecords || [],
-    errors:          data.success ? [] : [data.error || 'Unknown error occurred'],
-    score:           data.score,
-    warnings:        data.warnings || [],
+    valid: !!data.success,
+    domain: data.domain || domain.value,
+    records: data.records || data.mxRecords || [],
+    errors: data.success ? [] : [data.error || 'Unknown error occurred'],
+    score: data.score,
+    warnings: data.warnings || [],
     recommendations: data.recommendations || []
   }
 }
@@ -86,41 +140,10 @@ function hasUniquePriorities(records) {
   return new Set(records.map(r => r.priority)).size === records.length
 }
 
-async function checkMx() {
-  error.value  = null
-  result.value = null
-  loading.value = true
-
-  if (isProbeExpired.value) {
-    await refreshCaptcha()
-    error.value   = 'Captcha expired — please solve the new one.'
-    loading.value = false
-    return
-  }
-
-  const vErr = validateInputs()
-  if (vErr) {
-    error.value   = vErr
-    loading.value = false
-    return
-  }
-
-  try {
-    const data = await callMxApi()
-    result.value     = mapMxResult(data)
-    captchaText.value = ''
-    markSolved()
-  } catch (err) {
-    error.value = err.message || 'Failed to check MX records.'
-  } finally {
-    loading.value = false
-  }
-}
-
-// on mount: clear any solved state & fetch a fresh captcha
 onMounted(async () => {
-  clearSession()
-  await loadCaptcha()
+  if (!captchaProbe.value || isProbeExpired.value) {
+    await loadCaptcha()
+  }
 })
 </script>
 
@@ -140,6 +163,11 @@ onMounted(async () => {
           />
         </div>
 
+        <!-- Expiration banner -->
+        <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
+          Your verification has expired. Please refresh the captcha below.
+        </div>
+
         <!-- Captcha -->
         <div v-if="shouldShowCaptcha" class="form-group captcha-section">
           <label for="captcha">Security Verification:</label>
@@ -156,7 +184,7 @@ onMounted(async () => {
               <div v-else class="captcha-placeholder">
                 <button
                   type="button"
-                  @click="refreshCaptcha"
+                  @click="loadCaptcha"
                   class="load-captcha-btn"
                 >
                   Load Captcha
@@ -165,7 +193,7 @@ onMounted(async () => {
             </div>
             <button
               type="button"
-              @click="refreshCaptcha"
+              @click="refreshCaptcha('manual')"
               class="refresh-captcha-btn"
               :disabled="captchaLoading"
               title="Refresh captcha"
@@ -176,8 +204,10 @@ onMounted(async () => {
           <input
             id="captcha"
             v-model="captchaText"
-            placeholder="Enter the characters above"
+            type="text"
+            placeholder="Enter the text from the image above"
             :disabled="loading || !captchaImage"
+            autocomplete="off"
             required
             class="captcha-input"
           />
@@ -192,14 +222,18 @@ onMounted(async () => {
           class="check-btn"
           :disabled="loading || (shouldShowCaptcha && !captchaText)"
         >
-          {{ loading ? 'Checking…' : 'Check MX Records' }}
+          <span v-if="loading" class="btn-loading">
+            <div class="loading-spinner small"></div>
+            Checking…
+          </span>
+          <span v-else>Check MX Records</span>
         </button>
       </form>
     </div>
 
-    <!-- Error -->
-    <div v-if="error" class="error-section">
-      <p class="error-message">{{ error }}</p>
+    <!-- Enhanced Error Section -->
+    <div v-if="hasError" class="error-section">
+      <p class="error-message">{{ currentError.message }}</p>
     </div>
 
     <!-- Results -->
@@ -207,11 +241,11 @@ onMounted(async () => {
       <h3>MX Records Check Results</h3>
       <div class="status-box">
         <div v-if="result.valid">
-          <p><strong>✓ MX Records Found</strong></p>
+          <p><strong>MX Records Found</strong></p>
           <p><strong>Total Records:</strong> {{ result.records.length }}</p>
         </div>
         <div v-else>
-          <p><strong>✗ No MX Records Found</strong></p>
+          <p><strong>No MX Records Found</strong></p>
         </div>
         <div v-if="result.score">
           <p>
@@ -221,19 +255,48 @@ onMounted(async () => {
         </div>
       </div>
 
+      <!-- Enhanced MX Records Card-Based Layout -->
       <div v-if="result.records.length" class="mx-records-section">
         <h4>MX Records</h4>
-        <table class="mx-table">
-          <thead>
-            <tr><th>Priority</th><th>Mail Server</th></tr>
-          </thead>
-          <tbody>
-            <tr v-for="r in result.records" :key="r.exchange">
-              <td>{{ r.priority }}</td>
-              <td>{{ r.exchange }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="mx-records-container">
+          <div class="mx-records-list">
+            <div 
+              v-for="(record, index) in result.records" 
+              :key="record.exchange"
+              class="mx-record-item"
+            >
+              <div class="mx-record-content">
+                <div class="priority-section">
+                  <div class="priority-badge">{{ record.priority }}</div>
+                  <span class="priority-label">Priority</span>
+                </div>
+                <div class="server-section">
+                  <div class="server-name">{{ record.exchange }}</div>
+                  <div class="server-meta">
+                    <span class="server-type">Mail Exchange Server</span>
+                    <span class="server-status">• Active</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Summary stats -->
+          <div class="mx-summary-stats">
+            <div class="stat-card">
+              <div class="stat-number">{{ result.records.length }}</div>
+              <div class="stat-label">Mail Servers</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">{{ Math.min(...result.records.map(r => r.priority)) }}</div>
+              <div class="stat-label">Highest Priority</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-number">{{ hasUniquePriorities(result.records) ? 'Yes' : 'No' }}</div>
+              <div class="stat-label">Unique Priorities</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="info-section">
@@ -263,11 +326,11 @@ onMounted(async () => {
       </div>
 
       <div v-if="result.warnings.length" class="warnings-section">
-        <h4>⚠️ Warnings</h4>
+        <h4>Warnings</h4>
         <ul><li v-for="w in result.warnings" :key="w">{{ w }}</li></ul>
       </div>
       <div v-if="result.recommendations.length" class="recommendations-section">
-        <h4>💡 Recommendations</h4>
+        <h4>Recommendations</h4>
         <ul><li v-for="r in result.recommendations" :key="r">{{ r }}</li></ul>
       </div>
       <div v-if="result.errors.length" class="errors-section">
@@ -277,7 +340,6 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .mx-checker {
@@ -330,6 +392,17 @@ onMounted(async () => {
   cursor: not-allowed;
 }
 
+/* Captcha expiration message */
+.captcha-expired-message {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
 /* Captcha specific styles */
 .captcha-section {
   background: var(--vp-c-bg, #ffffff);
@@ -352,7 +425,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff !important; /* Force white background for captcha visibility */
+  background: #ffffff !important;
   border: 1px solid var(--vp-c-border-soft, #dee2e6);
   border-radius: 6px;
   padding: 0.5rem;
@@ -366,7 +439,7 @@ onMounted(async () => {
 
 .captcha-loading,
 .captcha-placeholder {
-  color: #6b7280; /* Use fixed gray color for better contrast on white background */
+  color: #6b7280;
   font-style: italic;
   text-align: center;
 }
@@ -461,6 +534,50 @@ onMounted(async () => {
   box-shadow: none;
 }
 
+/* Loading spinner */
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid var(--vp-c-brand-1, #10B1EF);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+.loading-spinner.small {
+  width: 12px;
+  height: 12px;
+  border-width: 1.5px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.btn-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* Error Section */
+.error-section {
+  background: var(--vp-danger-soft, #f8d7da);
+  color: var(--vp-c-danger-1, #721c24);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
+}
+
+.error-message {
+  margin: 0;
+  font-weight: 500;
+}
+
 .result-section {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -490,49 +607,161 @@ onMounted(async () => {
   font-size: 1rem;
 }
 
+/* Enhanced MX Records Section - Card-Based Layout */
 .mx-records-section {
-  background: var(--vp-tip-soft, #f0f9ff);
-  padding: 1.25rem;
-  border-radius: 8px;
-  border-left: 4px solid var(--vp-c-tip-1, #28a745);
+  border-top: 1px solid var(--vp-c-border-soft, #eee);
+  padding-top: 1.5rem;
   margin-top: 1.5rem;
 }
 
 .mx-records-section h4 {
-  color: var(--vp-c-tip-1, #28a745);
-  margin: 0 0 1rem 0;
+  margin: 0 0 1.5rem 0;
+  color: var(--vp-c-text-1, #333);
   font-size: 1.25rem;
   font-weight: 600;
 }
 
-.mx-table {
-  margin-top: 1rem;
-}
-
-.mx-table table {
-  width: 100%;
-  border-collapse: collapse;
+.mx-records-container {
   background: var(--vp-c-bg, #ffffff);
-  border-radius: 6px;
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.mx-table th,
-.mx-table td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid var(--vp-c-border, #dee2e6);
+.mx-records-list {
+  padding: 0;
 }
 
-.mx-table th {
+.mx-record-item {
+  border-bottom: 1px solid var(--vp-c-border-soft, #f1f5f9);
+  transition: background-color 0.2s ease;
+}
+
+.mx-record-item:last-child {
+  border-bottom: none;
+}
+
+.mx-record-item:hover {
   background: var(--vp-c-bg-soft, #f8f9fa);
+}
+
+.mx-record-content {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  align-items: center;
+}
+
+/* Priority Section */
+.priority-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.priority-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--vp-c-brand-1, #10B1EF), var(--vp-c-brand-2, #0891d4));
+  color: white;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 4px 12px rgba(16, 177, 239, 0.25);
+}
+
+.priority-label {
+  font-size: 0.75rem;
+  color: var(--vp-c-text-2, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
+}
+
+/* Server Section */
+.server-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.server-name {
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
   font-weight: 600;
-  color: var(--vp-c-text-2, #495057);
+  color: var(--vp-c-text-1, #333);
+  font-size: 1rem;
+  word-break: break-all;
+  line-height: 1.4;
 }
 
-.mx-table tr:hover {
+.server-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.server-type {
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.server-status {
+  color: #22c55e;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+/* Summary Stats */
+.mx-summary-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   background: var(--vp-c-bg-soft, #f8f9fa);
+  border-top: 1px solid var(--vp-c-border-soft, #f1f5f9);
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.stat-card:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 25%;
+  bottom: 25%;
+  width: 1px;
+  background: var(--vp-c-border-soft, #dee2e6);
+}
+
+.stat-number {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--vp-c-brand-1, #10B1EF);
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  font-size: 0.8rem;
+  color: var(--vp-c-text-2, #6b7280);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 500;
 }
 
 .info-section, 
@@ -659,22 +888,35 @@ onMounted(async () => {
   color: var(--vp-c-danger-1, #dc3545);
 }
 
-.error-section {
-  background: var(--vp-danger-soft, #f8d7da);
-  color: var(--vp-c-danger-1, #721c24);
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 1rem 0;
-  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
-}
-
-.error-message {
-  margin: 0;
-  font-weight: 500;
-}
-
-/* Dark mode adjustments */
+/* Dark mode support */
 @media (prefers-color-scheme: dark) {
+  .mx-records-container {
+    background: var(--vp-c-bg, #17181c);
+    border-color: #282a36;
+  }
+  
+  .mx-record-item {
+    border-color: #282a36;
+  }
+  
+  .server-name {
+    color: #77bdfb;
+  }
+  
+  .priority-badge {
+    background: linear-gradient(135deg, #77bdfb, #5ba7f7);
+    color: #1a1a1a;
+  }
+  
+  .mx-summary-stats {
+    background: #252736;
+    border-color: #282a36;
+  }
+  
+  .stat-card::after {
+    background: #282a36;
+  }
+
   .check-btn {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
@@ -726,5 +968,56 @@ onMounted(async () => {
   .refresh-captcha-btn {
     align-self: center;
   }
+
+  .mx-record-content {
+    grid-template-columns: 100px 1fr;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+  
+  .priority-badge {
+    width: 42px;
+    height: 42px;
+    font-size: 0.9rem;
+  }
+  
+  .server-name {
+    font-size: 0.9rem;
+  }
+  
+  .mx-summary-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+  }
+  
+  .stat-card:not(:last-child)::after {
+    display: none;
+  }
+  
+  .stat-card:not(:last-child) {
+    border-bottom: 1px solid var(--vp-c-border-soft, #dee2e6);
+  }
+}
+
+@media (max-width: 480px) {
+  .mx-record-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .priority-section {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .server-meta {
+    justify-content: center;
+  }
 }
 </style>
+

@@ -5,109 +5,59 @@ import { useCaptcha } from './useCaptcha.js'
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
 if (!API_URL) throw new Error('VITE_TOOLS_API_URL not set')
 
-// shared captcha state (localStorage-backed)
+// Use enhanced composable with context
 const {
   captchaProbe,
   captchaImage,
+  captchaExpires,
   captchaLoading,
   isProbeExpired,
   isSolved,
+  shouldShowCaptcha,
+  hasError,
+  currentError,
   loadCaptcha,
+  refreshCaptcha,
   markSolved,
-  clearSession
-} = useCaptcha()
+  clearSession,
+  setError,
+  clearError,
+  handleServerError,
+  validateCaptchaInput,
+  autoResolveError,
+  isCurrentlyExpired,
+  CAPTCHA_ERRORS
+} = useCaptcha('spf-checker')
 
 // form state
-const domain      = ref('')
-const testIp      = ref('')
+const domain = ref('')
+const testIp = ref('')
 const captchaText = ref('')
-const loading     = ref(false)
-const error       = ref(null)
-const result      = ref(null)
+const loading = ref(false)
+const result = ref(null)
 
 // navigation history
 const history = ref([])
 const currentIndex = ref(-1)
 
-// only show captcha when there's no valid, unexpired solve
-const shouldShowCaptcha = computed(() =>
-  !isSolved.value ||
-  isProbeExpired.value ||
-  !captchaProbe.value ||
-  !captchaImage.value
-)
-
-function refreshCaptcha() {
-  captchaText.value = ''
-  clearSession()
-  return loadCaptcha()
-}
-
+// Enhanced validation using composable functions
 function validateInputs() {
-  if (!domain.value.trim()) return 'Please enter a domain.'
+  if (!domain.value.trim()) {
+    setError('MISSING_TEXT', 'Please enter the domain you want to check (e.g., example.com)')
+    return false
+  }
+  
   if (shouldShowCaptcha.value) {
-    if (!captchaProbe.value) return 'Please load the captcha first.'
-    if (!captchaText.value.trim()) return 'Please enter the captcha text.'
+    return validateCaptchaInput(captchaText.value)
   }
-  return null
+  
+  return true
 }
 
-async function callSpfApi() {
-  const body = {
-    domain:       domain.value,
-    captchaProbe: captchaProbe.value,
-    captchaText:  shouldShowCaptcha.value ? captchaText.value : ''
-  }
-  if (testIp.value.trim()) body.testIp = testIp.value.trim()
-
-  const res = await fetch(`${API_URL}/v1/analyze-spf`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  })
-
-  const json = await res.json().catch(() => {
-    throw new Error(`HTTP error! status: ${res.status}`)
-  })
-
-  if (!res.ok) {
-    const msg = json.result?.error || json.error || `HTTP ${res.status}`
-    if (msg.toLowerCase().includes('captcha')) {
-      await refreshCaptcha()
-    }
-    throw new Error(msg)
-  }
-
-  return json.result || json
-}
-
-function mapResult(d) {
-  return {
-    valid:           !!d.success,
-    domain:          d.domain || domain.value,
-    record:          d.rawRecord || d.record || 'Not found',
-    lookups:         d.lookups,
-    policy:          d.policy,
-    mechanisms: (d.mechanisms || []).map(m => {
-      const match = m.original.toLowerCase().match(/^(include|redirect|a|mx):([^\s\/]+)/)
-      const targetDomain = match ? match[2] : null
-      return {
-        ...m,
-        targetDomain
-      }
-    }),
-    warnings:        d.warnings || [],
-    recommendations: d.recommendations || [],
-    errors:          d.success ? [] : [d.error || 'Unknown error'],
-    mailauthResult:  d.mailauthResult,
-    ipTestResult:    d.ipTestResult || null,
-    score:           d.score
-  }
-}
-
+// Enhanced checkSpf with precise timing and error handling
 async function checkSpf() {
-  error.value = null
-
+  clearError()
+  
   // Trim inputs
   domain.value = domain.value.trim()
   testIp.value = testIp.value.trim()
@@ -133,9 +83,61 @@ async function checkSpf() {
   }
 
   loading.value = true
+
   try {
-    const data = await callSpfApi()
-    result.value = mapResult(data)
+    // Use real-time expiry check with buffer
+    if (isCurrentlyExpired()) {
+      console.log('CAPTCHA expired detected - refreshing')
+      await refreshCaptcha('expired')
+      loading.value = false
+      return
+    }
+
+    // Validate inputs
+    if (!validateInputs()) {
+      return
+    }
+
+    // Double-check expiry right before sending request
+    if (isCurrentlyExpired()) {
+      console.log('CAPTCHA expired during validation - refreshing')
+      await refreshCaptcha('expired')
+      loading.value = false
+      return
+    }
+
+    const payload = {
+      domain: domain.value,
+      captchaProbe: captchaProbe.value,
+      captchaText: captchaText.value.trim()
+    }
+    if (testIp.value.trim()) payload.testIp = testIp.value.trim()
+
+    const res = await fetch(`${API_URL}/v1/analyze-spf`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    
+    const json = await res.json()
+
+    // Enhanced server response handling
+    if (!res.ok || !json.result?.success) {
+      const serverError = json.result?.error || 'Server error occurred'
+      console.log('Server error received:', serverError)
+      
+      const errorType = handleServerError(serverError)
+      console.log('Parsed error type:', errorType)
+      
+      // Auto-resolve specific error types
+      if (errorType === 'expired' || errorType === 'incorrect') {
+        await autoResolveError()
+      }
+      return
+    }
+
+    // Success
+    result.value = mapResult(json.result)
     captchaText.value = ''
     markSolved()
 
@@ -151,10 +153,36 @@ async function checkSpf() {
     } else {
       history.value[currentIndex.value] = finalState
     }
-  } catch (err) {
-    error.value = err.message || 'Failed to check SPF.'
+
+  } catch (networkError) {
+    console.error('SPF Check Error:', networkError)
+    setError('NETWORK_ERROR')
   } finally {
     loading.value = false
+  }
+}
+
+function mapResult(d) {
+  return {
+    valid: !!d.success,
+    domain: d.domain || domain.value,
+    record: d.rawRecord || d.record || 'Not found',
+    lookups: d.lookups,
+    policy: d.policy,
+    mechanisms: (d.mechanisms || []).map(m => {
+      const match = m.original.toLowerCase().match(/^(include|redirect|a|mx):([^\s\/]+)/)
+      const targetDomain = match ? match[2] : null
+      return {
+        ...m,
+        targetDomain
+      }
+    }),
+    warnings: d.warnings || [],
+    recommendations: d.recommendations || [],
+    errors: d.success ? [] : [d.error || 'Unknown error'],
+    mailauthResult: d.mailauthResult,
+    ipTestResult: d.ipTestResult || null,
+    score: d.score
   }
 }
 
@@ -166,13 +194,13 @@ function goBack() {
   domain.value = previous.domain
   testIp.value = previous.testIp || ''
   result.value = previous.result
-  error.value = null
+  clearError()
 }
 
 function checkIncludedDomain(includedDomain) {
   domain.value = includedDomain
   result.value = null
-  error.value = null
+  clearError()
   testIp.value = ''
   checkSpf()
 }
@@ -196,7 +224,6 @@ function getDisplayResult(res) {
     .toUpperCase()
 }
 
-// on mount: load a fresh captcha if needed
 onMounted(async () => {
   if (!captchaProbe.value || isProbeExpired.value) {
     await loadCaptcha()
@@ -231,8 +258,14 @@ onMounted(async () => {
           />
           <small class="form-help">Leave blank to skip IP-based test.</small>
         </div>
-        <!-- Captcha (only when needed) -->
-        <div v-if="shouldShowCaptcha" class="form-group captcha-section">
+
+        <!-- Expiration banner -->
+        <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
+          Your verification has expired. Please refresh the captcha below.
+        </div>
+
+        <!-- Captcha (only when needed) - FIXED: integrated into form -->
+        <div v-if="shouldShowCaptcha" class="form-group">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
@@ -241,14 +274,14 @@ onMounted(async () => {
               </div>
               <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage"/>
               <div v-else class="captcha-placeholder">
-                <button type="button" @click="refreshCaptcha" class="load-captcha-btn">
+                <button type="button" @click="loadCaptcha" class="load-captcha-btn">
                   Load Captcha
                 </button>
               </div>
             </div>
             <button
               type="button"
-              @click="refreshCaptcha"
+              @click="refreshCaptcha('manual')"
               class="refresh-captcha-btn"
               :disabled="captchaLoading"
               title="Refresh captcha"
@@ -259,27 +292,36 @@ onMounted(async () => {
           <input
             id="captcha"
             v-model="captchaText"
-            placeholder="Enter the characters above"
-            :disabled="loading || !captchaImage"
+            type="text"
+            placeholder="Enter the text from the image above"
+            :disabled="loading || !captchaImage || isProbeExpired"
+            autocomplete="off"
             required
             class="captcha-input"
           />
-          <small class="captcha-help">Enter the text shown above</small>
+          <small class="captcha-help">
+            Enter the characters shown in the image above
+          </small>
         </div>
+
         <button
           type="submit"
           class="check-btn"
-          :disabled="loading || (shouldShowCaptcha && !captchaText)"
+          :disabled="loading || (shouldShowCaptcha && (!captchaText || isProbeExpired))"
         >
-          {{ loading ? 'Checking...' : 'Check SPF' }}
+          <span v-if="loading" class="btn-loading">
+            <div class="loading-spinner small"></div>
+            Checking...
+          </span>
+          <span v-else>Check SPF</span>
         </button>
       </form>
     </div>
 
-    <!-- Error -->
-    <div v-if="error" class="error-section">
+    <!-- Enhanced Error Section -->
+    <div v-if="hasError" class="error-section">
       <span class="icon-error" aria-hidden="true"></span>
-      <p class="error-message">{{ error }}</p>
+      <p class="error-message">{{ currentError.message }}</p>
     </div>
 
     <!-- Results -->
@@ -350,11 +392,10 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Back Button – Placed right after mechanisms -->
+      <!-- Simple Back Button -->
       <div v-if="currentIndex > 0" class="back-nav">
         <button type="button" @click="goBack" class="back-btn">
-          <span class="icon-back" aria-hidden="true"></span>
-          Back to "{{ history[currentIndex - 1]?.domain }}"
+          ← Back to "{{ history[currentIndex - 1]?.domain }}"
         </button>
       </div>
 
@@ -412,7 +453,7 @@ onMounted(async () => {
   padding: 0 1rem;
 }
 
-/* Back Navigation */
+/* Simple Back Navigation */
 .back-nav {
   margin: 1.5rem 0;
   text-align: left;
@@ -420,12 +461,13 @@ onMounted(async () => {
 
 .back-btn {
   background: var(--vp-c-bg-soft, #f8f9fa);
-  color: var(--vp-c-brand-1, #10B1EF);
+  color: var(--vp-c-text-1, #374151);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1rem;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
+  font-weight: 500;
   transition: all 0.2s ease;
   display: inline-flex;
   align-items: center;
@@ -434,19 +476,25 @@ onMounted(async () => {
 
 .back-btn:hover:not(:disabled) {
   background: var(--vp-c-bg, #ffffff);
-  color: var(--vp-c-brand-2, #0891d4);
+  color: var(--vp-c-brand-1, #10B1EF);
   border-color: var(--vp-c-brand-1, #10B1EF);
 }
 
+.back-btn:active {
+  transform: translateY(1px);
+}
+
+/* Dark mode support */
 .dark .back-btn {
-  background: #333;
-  border: 1px solid #555;
-  color: var(--vp-c-brand-1, #10B1EF);
+  background: #2d3748;
+  border-color: #4a5568;
+  color: #e2e8f0;
 }
 
 .dark .back-btn:hover {
-  background: #444;
-  color: #fff;
+  background: #374151;
+  color: var(--vp-c-brand-1, #10B1EF);
+  border-color: var(--vp-c-brand-1, #10B1EF);
 }
 
 /* Form Styles */
@@ -503,15 +551,17 @@ onMounted(async () => {
   opacity: 0.9;
 }
 
-/* Captcha Styles */
-.captcha-section {
-  background: var(--vp-c-bg, #ffffff);
-  padding: 1.25rem;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+.captcha-expired-message {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
 }
 
+/* CAPTCHA styles - FIXED: no separate container styling */
 .captcha-container {
   display: flex;
   align-items: center;
@@ -581,6 +631,10 @@ onMounted(async () => {
   color: #222 !important;
 }
 
+.dark .refresh-captcha-btn img {
+  filter: invert(0);
+}
+
 .refresh-captcha-btn:hover:not(:disabled) {
   background: var(--vp-c-bg, #ffffff);
   border-color: var(--vp-c-brand-1, #10B1EF);
@@ -589,6 +643,11 @@ onMounted(async () => {
 .refresh-captcha-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.refresh-captcha-btn img {
+  width: 16px;
+  height: 16px;
 }
 
 .captcha-input {
@@ -629,6 +688,35 @@ onMounted(async () => {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid var(--vp-c-brand-1, #10B1EF);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+.loading-spinner.small {
+  width: 12px;
+  height: 12px;
+  border-width: 1.5px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.btn-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
 }
 
 /* Results Section */
@@ -997,8 +1085,9 @@ onMounted(async () => {
     margin: 1rem 0;
   }
   .back-btn {
-    font-size: 0.9rem;
-    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+    gap: 0.5rem;
   }
 }
 </style>

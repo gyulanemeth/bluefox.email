@@ -4,101 +4,119 @@ import { useCaptcha } from './useCaptcha.js'
 
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
 
+// Use enhanced composable with context
 const {
   captchaProbe,
   captchaImage,
+  captchaExpires,
   captchaLoading,
   isProbeExpired,
   isSolved,
+  shouldShowCaptcha,
+  hasError,
+  currentError,
   loadCaptcha,
+  refreshCaptcha,
   markSolved,
-  clearSession
-} = useCaptcha()
+  clearSession,
+  setError,
+  clearError,
+  handleServerError,
+  validateCaptchaInput,
+  autoResolveError,
+  isCurrentlyExpired,
+  CAPTCHA_ERRORS
+} = useCaptcha('dmarc-checker')
 
-const domain      = ref('')
+const domain = ref('')
 const captchaText = ref('')
-const loading     = ref(false)
-const error       = ref(null)
-const result      = ref(null)
+const loading = ref(false)
+const result = ref(null)
 
-const shouldShowCaptcha = computed(() =>
-  !isSolved.value ||
-  isProbeExpired.value ||
-  !captchaProbe.value ||
-  !captchaImage.value
-)
-
+// Enhanced validation using composable functions
 function validateInputs() {
-  if (!API_URL) return 'API URL not configured. Please set VITE_TOOLS_API_URL.'
-  if (!domain.value.trim()) return 'Please enter a domain name.'
+  if (!API_URL) {
+    setError('NETWORK_ERROR', 'API configuration is missing. Please contact support.')
+    return false
+  }
+  
+  if (!domain.value.trim()) {
+    setError('MISSING_TEXT', 'Please enter the domain you want to check (e.g., example.com)')
+    return false
+  }
+  
   if (shouldShowCaptcha.value) {
-    if (!captchaProbe.value) return 'Please load the captcha first.'
-    if (!captchaText.value.trim()) return 'Please enter the captcha text.'
+    return validateCaptchaInput(captchaText.value)
   }
-  return null
+  
+  return true
 }
 
-async function refreshCaptcha() {
-  captchaText.value = ''
-  clearSession()
-  await loadCaptcha()
-}
-
-async function callDmarcApi() {
-  const res = await fetch(`${API_URL}/v1/analyze-dmarc`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      domain:       domain.value,
-      captchaProbe: captchaProbe.value,
-      captchaText:  captchaText.value
-    })
-  })
-  let json
-  try {
-    json = await res.json()
-  } catch {
-    throw new Error(`HTTP error! status: ${res.status}`)
-  }
-  const be = (json.error || json.result?.error || '').toLowerCase()
-  if (!res.ok) {
-    if (be.includes('captcha')) {
-      await refreshCaptcha()
-      throw new Error('Captcha expired or invalid. Please solve the new captcha.')
-    }
-    throw new Error(json.error || json.message || `HTTP error! status: ${res.status}`)
-  }
-  return json.result || json
-}
-
+// Enhanced checkDmarc with precise timing and error handling
 async function checkDmarc() {
-  error.value  = null
+  clearError()
   result.value = null
   loading.value = true
 
-  if (isProbeExpired.value) {
-    await refreshCaptcha()
-    error.value = 'Captcha expired, please solve the new captcha.'
-    loading.value = false
-    return
-  }
-
-  const vErr = validateInputs()
-  if (vErr) {
-    error.value = vErr
-    loading.value = false
-    return
-  }
-
   try {
-    const data = await callDmarcApi()
-    result.value = mapDmarcResult(data)
-    if (data.success) {
-      captchaText.value = ''
-      markSolved()
+    // Use real-time expiry check with buffer
+    if (isCurrentlyExpired()) {
+      console.log('CAPTCHA expired detected - refreshing')
+      await refreshCaptcha('expired')
+      loading.value = false
+      return
     }
-  } catch (err) {
-    error.value = err?.message || 'Unknown error'
+
+    // Validate inputs
+    if (!validateInputs()) {
+      return
+    }
+
+    // Double-check expiry right before sending request
+    if (isCurrentlyExpired()) {
+      console.log('CAPTCHA expired during validation - refreshing')
+      await refreshCaptcha('expired')
+      loading.value = false
+      return
+    }
+
+    const payload = {
+      domain: domain.value.trim(),
+      captchaProbe: captchaProbe.value,
+      captchaText: captchaText.value.trim()
+    }
+
+    const res = await fetch(`${API_URL}/v1/analyze-dmarc`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    
+    const json = await res.json()
+
+    // Enhanced server response handling
+    if (!res.ok || !json.result?.success) {
+      const serverError = json.result?.error || 'Server error occurred'
+      console.log('Server error received:', serverError)
+      
+      const errorType = handleServerError(serverError)
+      console.log('Parsed error type:', errorType)
+      
+      // Auto-resolve specific error types
+      if (errorType === 'expired' || errorType === 'incorrect') {
+        await autoResolveError()
+      }
+      return
+    }
+
+    // Success
+    result.value = mapDmarcResult(json.result)
+    captchaText.value = ''
+    markSolved()
+
+  } catch (networkError) {
+    console.error('DMARC Check Error:', networkError)
+    setError('NETWORK_ERROR')
   } finally {
     loading.value = false
   }
@@ -106,30 +124,31 @@ async function checkDmarc() {
 
 function mapDmarcResult(d) {
   return {
-    valid:           !!d.success,
-    domain:          d.domain || domain.value,
-    record:          d.rawRecord || d.record || 'Not found',
-    parsed:          d.parsed || {},
-    checkedRecord:   d.checkedRecord,
-    errors:          d.success ? [] : [d.error || 'Unknown error occurred'],
-    score:           d.score,
-    warnings:        d.warnings || [],
+    valid: !!d.success,
+    domain: d.domain || domain.value,
+    record: d.rawRecord || d.record || 'Not found',
+    parsed: d.parsed || {},
+    checkedRecord: d.checkedRecord,
+    errors: d.success ? [] : [d.error || 'Unknown error occurred'],
+    score: d.score,
+    warnings: d.warnings || [],
     recommendations: d.recommendations || []
   }
 }
 
 const DMARC_TAG_DESCRIPTIONS = {
-  v:    "DMARC version tag (should be DMARC1).",
-  p:    "Policy for main domain (none/quarantine/reject).",
-  sp:   "Subdomain policy (if present).",
-  rua:  "Aggregate report recipient(s).",
-  ruf:  "Forensic report recipient(s).",
-  adkim:"DKIM alignment mode (r=relaxed, s=strict).",
+  v: "DMARC version tag (should be DMARC1).",
+  p: "Policy for main domain (none/quarantine/reject).",
+  sp: "Subdomain policy (if present).",
+  rua: "Aggregate report recipient(s).",
+  ruf: "Forensic report recipient(s).",
+  adkim: "DKIM alignment mode (r=relaxed, s=strict).",
   aspf: "SPF alignment mode (r=relaxed, s=strict).",
-  pct:  "Percent of mail subject to filtering.",
-  fo:   "Failure reporting options.",
-  ri:   "Report interval in seconds."
+  pct: "Percent of mail subject to filtering.",
+  fo: "Failure reporting options.",
+  ri: "Report interval in seconds."
 }
+
 const dmarcTags = computed(() => {
   const p = result.value?.parsed || {}
   return Object.entries(DMARC_TAG_DESCRIPTIONS)
@@ -137,7 +156,6 @@ const dmarcTags = computed(() => {
     .filter(i => i.value !== '')
 })
 
-// only fetch on mount if no probe or it's expired
 onMounted(async () => {
   if (!captchaProbe.value || isProbeExpired.value) {
     await loadCaptcha()
@@ -164,7 +182,7 @@ onMounted(async () => {
 
         <!-- Expiration banner -->
         <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
-          ⚠️ Your verification has expired. Please refresh the captcha below.
+          Your verification has expired. Please refresh the captcha below.
         </div>
 
         <!-- Captcha Section -->
@@ -183,7 +201,7 @@ onMounted(async () => {
               <div v-else class="captcha-placeholder">
                 <button
                   type="button"
-                  @click="refreshCaptcha"
+                  @click="loadCaptcha"
                   class="load-captcha-btn"
                 >
                   Load Captcha
@@ -192,7 +210,7 @@ onMounted(async () => {
             </div>
             <button
               type="button"
-              @click="refreshCaptcha"
+              @click="refreshCaptcha('manual')"
               class="refresh-captcha-btn"
               :disabled="captchaLoading"
               title="Refresh captcha"
@@ -221,14 +239,18 @@ onMounted(async () => {
           class="check-btn"
           :disabled="loading || (shouldShowCaptcha && !captchaText)"
         >
-          {{ loading ? 'Checking...' : 'Check DMARC' }}
+          <span v-if="loading" class="btn-loading">
+            <div class="loading-spinner small"></div>
+            Checking...
+          </span>
+          <span v-else>Check DMARC</span>
         </button>
       </form>
     </div>
 
-    <!-- Error Section -->
-    <div v-if="error" class="error-section">
-      <p class="error-message">{{ error }}</p>
+    <!-- Error Section - Enhanced error display -->
+    <div v-if="hasError" class="error-section">
+      <p class="error-message">{{ currentError.message }}</p>
     </div>
 
     <!-- Results Section -->
@@ -237,10 +259,10 @@ onMounted(async () => {
       <!-- Status -->
       <div class="status-box">
         <div v-if="result.valid">
-          <p><strong>✓ DMARC Record Found</strong></p>
+          <p><strong>DMARC Record Found</strong></p>
         </div>
         <div v-else>
-          <p><strong>✗ DMARC Record Missing or Invalid</strong></p>
+          <p><strong>DMARC Record Missing or Invalid</strong></p>
         </div>
         <div v-if="result.score">
           <p>
@@ -281,14 +303,14 @@ onMounted(async () => {
       </div>
       <!-- Warnings -->
       <div v-if="result.warnings?.length" class="warnings-section">
-        <h4>⚠️ Warnings</h4>
+        <h4>Warnings</h4>
         <ul>
           <li v-for="w in result.warnings" :key="w">{{ w }}</li>
         </ul>
       </div>
       <!-- Recommendations -->
       <div v-if="result.recommendations?.length" class="recommendations-section">
-        <h4>💡 Recommendations</h4>
+        <h4>Recommendations</h4>
         <ul>
           <li v-for="rec in result.recommendations" :key="rec">{{ rec }}</li>
         </ul>
@@ -303,7 +325,6 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
 
 <style scoped>
 .dmarc-checker {
@@ -356,6 +377,17 @@ onMounted(async () => {
   cursor: not-allowed;
 }
 
+/* Captcha expiration message */
+.captcha-expired-message {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+}
+
 /* Captcha specific styles */
 .captcha-section {
   background: var(--vp-c-bg, #ffffff);
@@ -378,7 +410,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff !important; /* Force white background for captcha visibility */
+  background: #ffffff !important;
   border: 1px solid var(--vp-c-border-soft, #dee2e6);
   border-radius: 6px;
   padding: 0.5rem;
@@ -392,7 +424,7 @@ onMounted(async () => {
 
 .captcha-loading,
 .captcha-placeholder {
-  color: #6b7280; /* Use fixed gray color for better contrast on white background */
+  color: #6b7280;
   font-style: italic;
   text-align: center;
 }
@@ -485,6 +517,50 @@ onMounted(async () => {
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid var(--vp-c-brand-1, #10B1EF);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+.loading-spinner.small {
+  width: 12px;
+  height: 12px;
+  border-width: 1.5px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.btn-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* Error Section */
+.error-section {
+  background: var(--vp-danger-soft, #f8d7da);
+  color: var(--vp-c-danger-1, #721c24);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
+}
+
+.error-message {
+  margin: 0;
+  font-weight: 500;
 }
 
 .result-section {
@@ -597,44 +673,17 @@ onMounted(async () => {
   color: var(--vp-c-danger-1, #dc3545);
 }
 
-.error-section {
-  background: var(--vp-danger-soft, #f8d7da);
-  color: var(--vp-c-danger-1, #721c24);
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 1rem 0;
-  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
-}
-
-.error-message {
-  margin: 0;
-  font-weight: 500;
-}
-
-.mailauth-section {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 8px;
-  border-left: 4px solid var(--vp-c-text-3, #6c757d);
-}
-
-.mailauth-section h5 {
-  margin: 0 0 1rem 0;
-  color: var(--vp-c-text-2, #495057);
-  font-size: 1.1rem;
-  font-weight: 600;
-}
-
 .dmarc-table-section {
   margin: 2em 0 0 0;
 }
+
 .dmarc-record-table {
   width: 100%;
   border-collapse: collapse;
   margin: 1em 0;
   background: var(--vp-c-bg, #fff);
 }
+
 .dmarc-record-table th,
 .dmarc-record-table td {
   border: 1px solid #ddd;
@@ -642,28 +691,11 @@ onMounted(async () => {
   font-size: 0.97em;
   vertical-align: top;
 }
+
 .dmarc-record-table th {
   background: #f5f5f5;
   font-weight: bold;
   text-align: left;
-}
-
-.authentication-results {
-  background: var(--vp-c-bg, #ffffff);
-  border: 1px solid var(--vp-c-border, #dee2e6);
-  border-radius: 6px;
-  padding: 1rem;
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.875rem;
-  overflow-x: auto;
-  color: var(--vp-c-text-1, #2d3748);
-}
-
-.authentication-results pre {
-  margin: 0;
-  white-space: pre-wrap;
-  word-break: break-word;
-  line-height: 1.5;
 }
 
 @media (prefers-color-scheme: dark) {

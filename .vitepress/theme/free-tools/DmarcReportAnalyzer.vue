@@ -4,6 +4,7 @@ import { useCaptcha } from './useCaptcha.js'
 
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
 
+// Use enhanced composable with context
 const {
   captchaProbe,
   captchaImage,
@@ -11,33 +12,46 @@ const {
   captchaLoading,
   isProbeExpired,
   isSolved,
+  shouldShowCaptcha,
+  hasError,
+  currentError,
   loadCaptcha,
+  refreshCaptcha,
   markSolved,
-  clearSession
-} = useCaptcha()
+  clearSession,
+  setError,
+  clearError,
+  handleServerError,
+  validateCaptchaInput,
+  autoResolveError,
+  isCurrentlyExpired,
+  CAPTCHA_ERRORS
+} = useCaptcha('dmarc-report-analyzer')
 
-const xmlPaste    = ref('')
-const file        = ref(null)
-const fileName    = ref('')
+const xmlPaste = ref('')
+const file = ref(null)
+const fileName = ref('')
 const captchaText = ref('')
-const loading     = ref(false)
-const error       = ref(null)
-const result      = ref(null)
+const loading = ref(false)
+const result = ref(null)
 
 // --- Drag and Drop State ---
 const isDragging = ref(false)
 let dragLeaveTimeout = null
+
 function handleDragOver(e) {
   e.preventDefault()
   if (dragLeaveTimeout) clearTimeout(dragLeaveTimeout)
   isDragging.value = true
 }
+
 function handleDragLeave(e) {
   e.preventDefault()
   dragLeaveTimeout = setTimeout(() => {
     isDragging.value = false
   }, 30)
 }
+
 function handleDrop(e) {
   e.preventDefault()
   isDragging.value = false
@@ -46,9 +60,9 @@ function handleDrop(e) {
     file.value = dropped
     fileName.value = dropped.name
     xmlPaste.value = ''
-    error.value = null
+    clearError()
   } else {
-    error.value = 'Only XML files are supported.'
+    setError('NETWORK_ERROR', 'Only XML files are supported.')
   }
 }
 
@@ -59,32 +73,25 @@ const truncatedFileName = computed(() => {
   return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
 })
 
-// --- Captcha Logic ---
-const shouldShowCaptcha = computed(() =>
-  !isSolved.value ||
-  isProbeExpired.value ||
-  !captchaProbe.value ||
-  !captchaImage.value
-)
-
+// Enhanced validation using composable functions
 function validateInputs() {
   if (!xmlPaste.value.trim() && !file.value) {
-    return 'Paste your DMARC XML or upload an XML file to analyze.'
+    setError('MISSING_TEXT', 'Please paste your DMARC XML or upload an XML file to analyze.')
+    return false
   }
-  if (!API_URL) return 'API URL not configured.'
+
+  if (!API_URL) {
+    setError('NETWORK_ERROR', 'API configuration is missing. Please contact support.')
+    return false
+  }
+
   if (shouldShowCaptcha.value) {
-    if (!captchaProbe.value) return 'Please load the captcha first.'
-    if (!captchaText.value.trim()) return 'Please enter the captcha text.'
+    return validateCaptchaInput(captchaText.value)
   }
-  return null
+
+  return true
 }
-function handleApiError(msg) {
-  if (msg.includes('fetch')) return 'Cannot connect to the server. Please make sure the backend is running.'
-  if (msg.includes('404')) return 'API endpoint not found. Please check the server configuration.'
-  if (msg.includes('500')) return 'Server error occurred. Please try again later.'
-  if (msg.toLowerCase().includes('captcha')) return msg + ' Please try again with the new captcha.'
-  return msg
-}
+
 function formatDateRange(dateRange) {
   if (!dateRange) return 'Unknown'
   if (dateRange.start && dateRange.end) {
@@ -101,46 +108,50 @@ function handleFileChange(e) {
     return
   }
   if (!selected.name.endsWith('.xml')) {
-    error.value = 'Only XML files are supported.'
+    setError('NETWORK_ERROR', 'Only XML files are supported.')
     clearFile()
     return
   }
   file.value = selected
   fileName.value = selected.name
   xmlPaste.value = ''
+  clearError()
 }
+
 function clearFile() {
   file.value = null
   fileName.value = ''
-  error.value = null
+  clearError()
 }
 
-// --- Captcha Refresh ---
-async function refreshCaptcha() {
-  captchaText.value = ''
-  clearSession()
-  await loadCaptcha()
-}
-
-// --- Main Submit ---
+// Enhanced analyzeReport with precise timing and error handling
 async function analyzeReport() {
-  error.value = null
+  clearError()
   result.value = null
   loading.value = true
 
-  if (isProbeExpired.value) {
-    await refreshCaptcha()
-    error.value = 'Captcha expired, please solve the new captcha.'
-    loading.value = false
-    return
-  }
-  const validationError = validateInputs()
-  if (validationError) {
-    error.value = validationError
-    loading.value = false
-    return
-  }
   try {
+    // Use real-time expiry check with buffer
+    if (isCurrentlyExpired()) {
+      console.log('CAPTCHA expired detected - refreshing')
+      await refreshCaptcha('expired')
+      loading.value = false
+      return
+    }
+
+    // Validate inputs
+    if (!validateInputs()) {
+      return
+    }
+
+    // Double-check expiry right before sending request
+    if (isCurrentlyExpired()) {
+      console.log('CAPTCHA expired during validation - refreshing')
+      await refreshCaptcha('expired')
+      loading.value = false
+      return
+    }
+
     let response, data
     if (file.value) {
       const formData = new FormData()
@@ -165,30 +176,35 @@ async function analyzeReport() {
       data = await response.json()
     }
 
-    const json = data
-    if (!response.ok || !json.result?.success) {
-      if (json.result?.error && json.result.error.toLowerCase().includes('captcha')) {
-        await refreshCaptcha()
-        error.value = 'Captcha expired or invalid. Please complete the new captcha.'
-      } else {
-        error.value = json.result?.error || 'Unknown error.'
+    // Enhanced server response handling
+    if (!response.ok || !data.result?.success) {
+      const serverError = data.result?.error || 'Server error occurred'
+      console.log('Server error received:', serverError)
+      
+      const errorType = handleServerError(serverError)
+      console.log('Parsed error type:', errorType)
+      
+      // Auto-resolve specific error types
+      if (errorType === 'expired' || errorType === 'incorrect') {
+        await autoResolveError()
       }
-      loading.value = false
       return
     }
-    result.value = json.result
+
+    // Success
+    result.value = data.result
     captchaText.value = ''
     markSolved()
     clearFile()
-  } catch (err) {
-    const msg = err?.message || 'Failed to analyze DMARC report. Please try again.'
-    error.value = handleApiError(msg)
+
+  } catch (networkError) {
+    console.error('DMARC Report Analysis Error:', networkError)
+    setError('NETWORK_ERROR')
   } finally {
     loading.value = false
   }
 }
 
-// only fetch on mount if we have no probe or it’s expired
 onMounted(async () => {
   if (!captchaProbe.value || isProbeExpired.value) {
     await loadCaptcha()
@@ -261,6 +277,11 @@ onMounted(async () => {
           </div>
         </div>
 
+        <!-- Expiration banner -->
+        <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
+          Your verification has expired. Please refresh the captcha below.
+        </div>
+
         <!-- Captcha -->
         <div class="form-group captcha-section" v-if="shouldShowCaptcha">
           <label for="captcha">Security Verification:</label>
@@ -275,7 +296,7 @@ onMounted(async () => {
               <div v-else class="captcha-placeholder">
                 <button
                   type="button"
-                  @click="refreshCaptcha"
+                  @click="loadCaptcha"
                   class="load-captcha-btn"
                 >
                   Load Captcha
@@ -284,7 +305,7 @@ onMounted(async () => {
             </div>
             <button
               type="button"
-              @click="refreshCaptcha"
+              @click="refreshCaptcha('manual')"
               class="refresh-captcha-btn"
               :disabled="captchaLoading"
               title="Refresh captcha"
@@ -295,8 +316,10 @@ onMounted(async () => {
           <input
             id="captcha"
             v-model="captchaText"
-            placeholder="Enter the characters above"
+            type="text"
+            placeholder="Enter the text from the image above"
             :disabled="loading || !captchaImage"
+            autocomplete="off"
             required
             class="captcha-input"
           />
@@ -311,17 +334,21 @@ onMounted(async () => {
           class="analyze-btn"
           :disabled="loading || (!xmlPaste && !file) || (shouldShowCaptcha && !captchaText)"
         >
-          {{ loading ? 'Analyzing…' : 'Analyze Report' }}
+          <span v-if="loading" class="btn-loading">
+            <div class="loading-spinner small"></div>
+            Analyzing…
+          </span>
+          <span v-else>Analyze Report</span>
         </button>
       </form>
     </div>
 
-    <!-- Global Error -->
-    <div v-if="error" class="error-section">
-      <p class="error-message">{{ error }}</p>
+    <!-- Enhanced Error Section -->
+    <div v-if="hasError" class="error-section">
+      <p class="error-message">{{ currentError.message }}</p>
     </div>
 
-    <!-- Results -->
+    <!-- Results Section -->
     <div v-if="result" class="result-section">
       <h3>DMARC Report Analysis</h3>
 
@@ -424,7 +451,7 @@ onMounted(async () => {
 
       <!-- Warnings -->
       <div v-if="result.warnings?.length" class="warnings-section">
-        <h4>⚠️ Warnings</h4>
+        <h4>Warnings</h4>
         <ul>
           <li v-for="w in result.warnings" :key="w">{{ w }}</li>
         </ul>
@@ -432,7 +459,7 @@ onMounted(async () => {
 
       <!-- Recommendations -->
       <div v-if="result.recommendations?.length" class="recommendations-section">
-        <h4>💡 Recommendations</h4>
+        <h4>Recommendations</h4>
         <ul>
           <li v-for="r in result.recommendations" :key="r">{{ r }}</li>
         </ul>
@@ -440,7 +467,6 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
 
 <style scoped>
 /* ROOT */
@@ -458,9 +484,11 @@ onMounted(async () => {
   border-radius: 12px;
   border: 1px solid var(--vp-c-border, #e5e7eb);
 }
+
 .form-group {
   margin-bottom: 1.5rem;
 }
+
 .form-group label {
   display: block;
   margin-bottom: 0.5rem;
@@ -468,6 +496,7 @@ onMounted(async () => {
   color: var(--vp-c-text-1, #374151);
   font-size: 0.9rem;
 }
+
 .form-group input,
 .form-group textarea.xml-paste {
   width: 100%;
@@ -480,17 +509,30 @@ onMounted(async () => {
   transition: all 0.2s;
   box-sizing: border-box;
 }
+
 .form-group input:focus,
 .form-group textarea.xml-paste:focus {
   outline: none;
   border-color: var(--vp-c-brand-1, #10B1EF);
   box-shadow: 0 0 0 3px var(--vp-c-brand-soft, rgba(16,177,239,0.1));
 }
+
 .form-group input:disabled,
 .form-group textarea.xml-paste:disabled {
   background: var(--vp-c-bg-mute, #f1f5f9);
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* Captcha expiration message */
+.captcha-expired-message {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
 }
 
 /* --- FILE UPLOAD & DRAG --- */
@@ -503,10 +545,12 @@ onMounted(async () => {
   min-height: 44px;
   transition: border 0.2s, background 0.2s;
 }
+
 .file-upload-area.drag-hover {
   border: 2px dashed var(--vp-c-brand, #13B0EE);
   background: var(--vp-c-brand-dimm, #e6f7ff);
 }
+
 .drag-overlay {
   position: absolute;
   inset: 0;
@@ -521,6 +565,7 @@ onMounted(async () => {
   pointer-events: none;
   z-index: 2;
 }
+
 .file-upload-label {
   cursor: pointer;
   padding: 0.5rem 1rem;
@@ -533,16 +578,19 @@ onMounted(async () => {
   user-select: none;
   transition: background 0.2s;
 }
+
 .file-upload-label.disabled {
   opacity: 0.6;
   cursor: not-allowed;
   pointer-events: none;
 }
+
 .file-name-row {
   display: flex;
   align-items: center;
   min-width: 0;
 }
+
 .file-name {
   flex: 1 1 0;
   min-width: 0;
@@ -555,9 +603,11 @@ onMounted(async () => {
   padding-right: 1rem;
   transition: color 0.2s;
 }
+
 .file-name:hover {
   color: var(--vp-c-brand-1, #10B1EF);
 }
+
 .remove-file-btn {
   background: var(--vp-c-danger-1, #dc3545);
   color: #fff;
@@ -570,9 +620,11 @@ onMounted(async () => {
   white-space: nowrap;
   transition: background 0.2s;
 }
+
 .remove-file-btn:hover:not(:disabled) {
   background: var(--vp-c-danger-2, #c82333);
 }
+
 .remove-file-btn:disabled {
   opacity: 0.6;
   cursor: not-allowed;
@@ -586,12 +638,14 @@ onMounted(async () => {
   border-radius: 8px;
   margin-bottom: 1.5rem;
 }
+
 .captcha-container {
   display: flex;
   align-items: center;
   gap: 0.75rem;
   margin-bottom: 1rem;
 }
+
 .captcha-image-container {
   flex: 1;
   min-height: 50px;
@@ -603,12 +657,14 @@ onMounted(async () => {
   border-radius: 6px;
   padding: 0.5rem;
 }
+
 .captcha-loading,
 .captcha-placeholder {
   color: #6b7280;
   font-style: italic;
   text-align: center;
 }
+
 .load-captcha-btn {
   background: var(--vp-c-brand-1, #10B1EF);
   color: #fff;
@@ -619,9 +675,11 @@ onMounted(async () => {
   font-size: 0.875rem;
   transition: background 0.2s;
 }
+
 .load-captcha-btn:hover {
   background: var(--vp-c-brand-2, #0891d4);
 }
+
 .refresh-captcha-btn {
   background: var(--vp-c-bg-soft, #f8f9fa);
   border: 1px solid var(--vp-c-border, #e5e7eb);
@@ -637,17 +695,31 @@ onMounted(async () => {
   justify-content: center;
   transition: all 0.2s;
 }
+
+.dark .refresh-captcha-btn {
+  background: #fff !important;
+  border: 1px solid #333 !important;
+  color: #222 !important;
+}
+
+.dark .refresh-captcha-btn img {
+  filter: invert(0);
+}
+
 .refresh-captcha-btn:hover:not(:disabled) {
   background: var(--vp-c-bg, #fff);
   border-color: var(--vp-c-brand-1, #10B1EF);
 }
+
 .refresh-captcha-btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
 .captcha-input {
   margin-top: 0.75rem !important;
 }
+
 .captcha-help {
   display: block;
   margin-top: 0.5rem;
@@ -670,16 +742,62 @@ onMounted(async () => {
   transition: all 0.2s;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 .analyze-btn:hover:not(:disabled) {
   background: var(--vp-c-brand-2, #0891d4);
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
+
 .analyze-btn:disabled {
   background: var(--vp-c-bg-mute, #9ca3af);
   cursor: not-allowed;
   box-shadow: none;
   transform: none;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid var(--vp-c-brand-1, #10B1EF);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+.loading-spinner.small {
+  width: 12px;
+  height: 12px;
+  border-width: 1.5px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.btn-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+/* --- ERROR SECTION --- */
+.error-section {
+  background: var(--vp-danger-soft, #f8d7da);
+  color: var(--vp-c-danger-1, #721c24);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
+}
+
+.error-message {
+  margin: 0;
+  font-weight: 500;
 }
 
 /* --- RESULTS --- */
@@ -691,6 +809,7 @@ onMounted(async () => {
   background: var(--vp-c-bg, #fff);
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
+
 .result-section h3 {
   margin: 0 0 1.5rem 0;
   color: var(--vp-c-text-1, #1a202c);
@@ -704,22 +823,26 @@ onMounted(async () => {
   padding-top: 1.5rem;
   margin-top: 1.5rem;
 }
+
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
+
 .summary-item {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
 }
+
 .summary-item .label {
   color: var(--vp-c-text-2, #6b7280);
   font-size: 0.875rem;
   font-weight: 500;
 }
+
 .summary-item .value {
   color: var(--vp-c-text-1, #374151);
   font-weight: 600;
@@ -739,11 +862,13 @@ onMounted(async () => {
   gap: 0.8em;
   box-shadow: 0 1px 6px rgba(0,0,0,0.04);
 }
+
 .alignment-status-box.pass {
   color: #217b2d;
   border-left-color: #22bb33;
   background: #ebf7ed;
 }
+
 .alignment-status-box.fail {
   color: #b91c1c;
   border-left-color: #ea4335;
@@ -756,10 +881,12 @@ onMounted(async () => {
   padding-top: 1.5rem;
   margin-top: 1.5rem;
 }
+
 .sources-table {
   overflow-x: auto;
   margin-top: 1rem;
 }
+
 .table-header,
 .table-row {
   display: grid;
@@ -769,25 +896,31 @@ onMounted(async () => {
   border-bottom: 1px solid var(--vp-c-border-soft, #eee);
   align-items: center;
 }
+
 .table-header {
   background: var(--vp-c-bg-soft, #f8f9fa);
   font-weight: 600;
   color: var(--vp-c-text-1, #374151);
   font-size: 0.875rem;
 }
+
 .table-row:hover {
   background: var(--vp-c-bg-soft, #f8f9fa);
 }
+
 .table-row .ip {
   font-family: var(--vp-font-family-mono, monospace);
   font-size: 0.875rem;
 }
+
 .table-row .count {
   font-weight: 600;
 }
+
 .table-row .result.pass {
   color: #22bb33;
 }
+
 .table-row .result.fail {
   color: #ea4335;
 }
@@ -799,57 +932,51 @@ onMounted(async () => {
   border-radius: 8px;
   margin-top: 1.5rem;
 }
+
 .warnings-section {
   background: var(--vp-warning-soft, #fffbf0);
   border-left: 4px solid var(--vp-c-warning-1, #ffc107);
 }
+
 .warnings-section h4 {
   margin: 0 0 1rem 0;
   color: var(--vp-c-warning-1, #d69e2e);
   font-size: 1.25rem;
   font-weight: 600;
 }
+
 .warnings-section ul {
   margin: 0.5rem 0;
   padding-left: 1.5rem;
 }
+
 .warnings-section li {
   margin: 0.25rem 0;
   color: var(--vp-c-text-2, #4a5568);
   line-height: 1.5;
 }
+
 .recommendations-section {
   background: var(--vp-tip-soft, #f0f9ff);
   border-left: 4px solid var(--vp-c-tip-1, #17a2b8);
 }
+
 .recommendations-section h4 {
   margin: 0 0 1rem 0;
   color: var(--vp-c-tip-1, #17a2b8);
   font-size: 1.25rem;
   font-weight: 600;
 }
+
 .recommendations-section ul {
   margin: 0.5rem 0;
   padding-left: 1.5rem;
 }
+
 .recommendations-section li {
   margin: 0.25rem 0;
   color: var(--vp-c-text-2, #4a5568);
   line-height: 1.5;
-}
-
-/* --- ERROR SECTION --- */
-.error-section {
-  background: var(--vp-danger-soft, #f8d7da);
-  color: var(--vp-c-danger-1, #721c24);
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 1rem 0;
-  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
-}
-.error-message {
-  margin: 0;
-  font-weight: 500;
 }
 
 /* --- RESPONSIVE --- */
@@ -857,25 +984,31 @@ onMounted(async () => {
   .dmarc-analyzer {
     padding: 0 0.5rem;
   }
+  
   .tool-form,
   .result-section {
     padding: 1rem;
     margin: 1rem 0;
   }
+  
   .form-group input,
   .form-group textarea.xml-paste,
   .analyze-btn {
     padding: 0.75rem;
   }
+  
   .result-section h3 {
     font-size: 1.25rem;
   }
+  
   .summary-grid {
     grid-template-columns: 1fr;
   }
+  
   .table-header {
     display: none;
   }
+  
   .table-row {
     display: flex;
     flex-direction: column;
@@ -885,13 +1018,16 @@ onMounted(async () => {
     border-radius: 8px;
     margin-bottom: 0.5rem;
   }
+  
   .captcha-container {
     flex-direction: column;
     align-items: stretch;
   }
+  
   .refresh-captcha-btn {
     align-self: center;
   }
+  
   .file-name {
     max-width: 120px;
   }
