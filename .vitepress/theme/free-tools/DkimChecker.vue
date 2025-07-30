@@ -207,7 +207,7 @@ onMounted(async () => {
               class="refresh-captcha-btn"
               :disabled="captchaLoading"
               title="New Captcha"
-            ><img src="/public/assets/reload.webp" alt="reload captcha"></button>
+            ><img src="/assets/reload.webp?url" alt="reload captcha"></button>
           </div>
           <input
             class="captcha-input"

@@ -253,7 +253,7 @@ onMounted(async () => {
               :disabled="captchaLoading"
               title="Refresh captcha"
             >
-              <span class="icon-refresh" aria-hidden="true"></span>
+              <img src="/assets/reload.webp?url" alt="reload captcha">
             </button>
           </div>
           <input

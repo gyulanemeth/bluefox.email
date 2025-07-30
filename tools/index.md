@@ -42,19 +42,4 @@ Welcome to our toolbox—your gateway to a collection of **free online tools** d
 
 Quickly check your domain’s email authentication setup with our DMARC, SPF, DKIM, and MX record checkers. Prevent spoofing, fix deliverability issues, and ensure your emails land in the inbox—not spam.
 
-[Explore Deliverability Tools →](/tools/deliverability)
-
-
-## Email Header Analyzer
-
-Paste any email header and instantly decode it. Trace the path your message took, spot deliverability problems, and identify misconfigurations in seconds.
-
-[Try Header Analyzer →](/tools/email-header-analyzer)
-
-
-## Productivity Toolkit
-
-Beyond deliverability, find simple utilities to boost your workflow. Whether you need a safe text encoder, a strong password generator, or a random string for testing—our productivity tools have you covered.
-
-[See Productivity Tools →](/tools/productivity)
-
+[Explore Deliverability Tools →](/tools/deliverability/index.md)

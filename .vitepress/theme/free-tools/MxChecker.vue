@@ -170,7 +170,7 @@ onMounted(async () => {
               :disabled="captchaLoading"
               title="Refresh captcha"
             >
-              🔄
+              <img src="/assets/reload.webp?url" alt="reload captcha">
             </button>
           </div>
           <input
@@ -277,9 +277,6 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-
-
 
 
 <style scoped>
