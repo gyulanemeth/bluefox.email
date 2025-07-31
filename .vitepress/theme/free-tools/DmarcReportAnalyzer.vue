@@ -1,33 +1,32 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
 
+// Constants
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
+if (!API_URL) throw new Error('VITE_TOOLS_API_URL not set')
 
-// Use enhanced composable with context
+const MAX_FILENAME_LEN = 30
+
+// Composables
 const {
   captchaProbe,
   captchaImage,
-  captchaExpires,
   captchaLoading,
   isProbeExpired,
-  isSolved,
   shouldShowCaptcha,
   hasError,
   currentError,
   loadCaptcha,
   refreshCaptcha,
   markSolved,
-  clearSession,
   setError,
   clearError,
-  handleServerError,
   validateCaptchaInput,
-  autoResolveError,
-  isCurrentlyExpired,
-  CAPTCHA_ERRORS
+  isCurrentlyExpired
 } = useCaptcha('dmarc-report-analyzer')
 
+// Local state
 const xmlPaste = ref('')
 const file = ref(null)
 const fileName = ref('')
@@ -35,10 +34,46 @@ const captchaText = ref('')
 const loading = ref(false)
 const result = ref(null)
 
-// --- Drag and Drop State ---
+// Drag and drop state
 const isDragging = ref(false)
 let dragLeaveTimeout = null
 
+// Computed
+const isFormDisabled = computed(() => 
+  loading.value || (!xmlPaste.value.trim() && !file.value) || (shouldShowCaptcha.value && (!captchaText.value || isProbeExpired.value))
+)
+
+const truncatedFileName = computed(() => {
+  if (!fileName.value) return ''
+  if (fileName.value.length <= MAX_FILENAME_LEN) return fileName.value
+  return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
+})
+
+// Watch for CAPTCHA expiration and clear results
+watch(isProbeExpired, (newExpired, oldExpired) => {
+  if (newExpired && !oldExpired && result.value) {
+    console.log('CAPTCHA expired - clearing results')
+    result.value = null
+  }
+})
+
+// Methods
+function validateInputs() {
+  if (!xmlPaste.value.trim() && !file.value) {
+    setError('MISSING_TEXT', 'Please paste your DMARC XML or upload an XML file to analyze.')
+    return false
+  }
+  
+  return shouldShowCaptcha.value ? validateCaptchaInput(captchaText.value) : true
+}
+
+async function handleCaptchaExpiry() {
+  console.log('CAPTCHA expired detected - refreshing')
+  await refreshCaptcha('expired')
+  loading.value = false
+}
+
+// Drag and drop handlers
 function handleDragOver(e) {
   e.preventDefault()
   if (dragLeaveTimeout) clearTimeout(dragLeaveTimeout)
@@ -66,41 +101,7 @@ function handleDrop(e) {
   }
 }
 
-const MAX_FILENAME_LEN = 30
-const truncatedFileName = computed(() => {
-  if (!fileName.value) return ''
-  if (fileName.value.length <= MAX_FILENAME_LEN) return fileName.value
-  return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
-})
-
-// Enhanced validation using composable functions
-function validateInputs() {
-  if (!xmlPaste.value.trim() && !file.value) {
-    setError('MISSING_TEXT', 'Please paste your DMARC XML or upload an XML file to analyze.')
-    return false
-  }
-
-  if (!API_URL) {
-    setError('NETWORK_ERROR', 'API configuration is missing. Please contact support.')
-    return false
-  }
-
-  if (shouldShowCaptcha.value) {
-    return validateCaptchaInput(captchaText.value)
-  }
-
-  return true
-}
-
-function formatDateRange(dateRange) {
-  if (!dateRange) return 'Unknown'
-  if (dateRange.start && dateRange.end) {
-    return `${new Date(dateRange.start * 1000).toLocaleString()} — ${new Date(dateRange.end * 1000).toLocaleString()}`
-  }
-  return typeof dateRange === 'string' ? dateRange : 'Unknown'
-}
-
-// --- File Handling ---
+// File handling
 function handleFileChange(e) {
   const selected = e.target.files[0]
   if (!selected) {
@@ -124,45 +125,49 @@ function clearFile() {
   clearError()
 }
 
-// Enhanced analyzeReport with precise timing and error handling
+// Format helpers
+function formatDateRange(dateRange) {
+  if (!dateRange) return 'Unknown'
+  if (dateRange.start && dateRange.end) {
+    return `${new Date(dateRange.start * 1000).toLocaleString()} — ${new Date(dateRange.end * 1000).toLocaleString()}`
+  }
+  return typeof dateRange === 'string' ? dateRange : 'Unknown'
+}
+
 async function analyzeReport() {
   clearError()
   result.value = null
   loading.value = true
 
   try {
-    // Use real-time expiry check with buffer
+    // Check CAPTCHA expiry
     if (isCurrentlyExpired()) {
-      console.log('CAPTCHA expired detected - refreshing')
-      await refreshCaptcha('expired')
-      loading.value = false
+      await handleCaptchaExpiry()
       return
     }
 
     // Validate inputs
-    if (!validateInputs()) {
-      return
-    }
+    if (!validateInputs()) return
 
-    // Double-check expiry right before sending request
+    // Double-check expiry before request
     if (isCurrentlyExpired()) {
-      console.log('CAPTCHA expired during validation - refreshing')
-      await refreshCaptcha('expired')
-      loading.value = false
+      await handleCaptchaExpiry()
       return
     }
 
     let response, data
+    
+    // Prepare request based on input type
     if (file.value) {
       const formData = new FormData()
       formData.append('file', file.value)
       formData.append('captchaText', shouldShowCaptcha.value ? captchaText.value : '')
       formData.append('captchaProbe', captchaProbe.value)
+      
       response = await fetch(`${API_URL}/v1/analyze-dmarc-report-upload`, {
         method: 'POST',
         body: formData
       })
-      data = await response.json()
     } else {
       response = await fetch(`${API_URL}/v1/analyze-dmarc-report`, {
         method: 'POST',
@@ -173,32 +178,28 @@ async function analyzeReport() {
           captchaProbe: captchaProbe.value
         })
       })
-      data = await response.json()
     }
+    
+    data = await response.json()
 
-    // Enhanced server response handling
+    // Handle server/network errors
     if (!response.ok || !data.result?.success) {
-      const serverError = data.result?.error || 'Server error occurred'
-      console.log('Server error received:', serverError)
-      
-      const errorType = handleServerError(serverError)
-      console.log('Parsed error type:', errorType)
-      
-      // Auto-resolve specific error types
-      if (errorType === 'expired' || errorType === 'incorrect') {
-        await autoResolveError()
-      }
+      setError('NETWORK_ERROR', data.result?.error || 'Server error occurred')
       return
     }
 
-    // Success
-    result.value = data.result
+    // Handle success
+    result.value = {
+      ...data.result,
+      valid: true
+    }
+    
     captchaText.value = ''
     markSolved()
     clearFile()
 
-  } catch (networkError) {
-    console.error('DMARC Report Analysis Error:', networkError)
+  } catch (error) {
+    console.error('DMARC Report Analysis Error:', error)
     setError('NETWORK_ERROR')
   } finally {
     loading.value = false
@@ -214,54 +215,60 @@ onMounted(async () => {
 
 <template>
   <div class="dmarc-analyzer">
-    <!-- Form -->
     <div class="tool-form">
       <form @submit.prevent="analyzeReport">
-        <!-- XML Paste Input -->
-        <div class="form-group">
-          <label for="xmlPaste">Paste DMARC Report XML:</label>
-          <textarea
-            id="xmlPaste"
-            rows="8"
-            class="xml-paste"
-            v-model="xmlPaste"
-            placeholder="Paste your DMARC XML here..."
-            :disabled="!!file || loading"
-            autocomplete="off"
-            autocorrect="off"
-          />
-        </div>
-
-        <!-- File Upload / Drag & Drop -->
-        <div class="form-group">
-          <label>Or Upload XML File:</label>
-          <div
-            class="file-upload-area"
-            :class="{ 'drag-hover': isDragging }"
-            @dragover="handleDragOver"
-            @dragleave="handleDragLeave"
-            @drop="handleDrop"
-          >
-            <div v-if="isDragging" class="drag-overlay">
-              <span>Drop XML file here…</span>
+        <!-- Form fields container with drag overlay -->
+        <div 
+          class="form-fields-container"
+          :class="{ 'drag-hover': isDragging }"
+          @dragover="handleDragOver"
+          @dragleave="handleDragLeave"
+          @drop="handleDrop"
+        >
+          <!-- Drag overlay covers only form fields area -->
+          <div v-if="isDragging" class="drag-overlay-fields">
+            <div class="drag-content">
+              <div class="drag-icon">📁</div>
+              <span class="drag-text">Drop XML file here</span>
+              <small class="drag-subtext">Release to upload</small>
             </div>
-            <input
-              type="file"
-              accept=".xml"
-              @change="handleFileChange"
-              :disabled="!!xmlPaste || loading"
-              style="display: none;"
-              id="fileInput"
+          </div>
+
+          <!-- XML Paste Input -->
+          <div class="form-group">
+            <label for="xmlPaste">Paste DMARC Report XML:</label>
+            <textarea
+              id="xmlPaste"
+              v-model="xmlPaste"
+              rows="8"
+              placeholder="Paste your DMARC XML here..."
+              :disabled="!!file || loading"
+              autocomplete="off"
+              autocorrect="off"
             />
-            <template v-if="!isDragging">
-              <label
-                v-if="!fileName"
-                for="fileInput"
-                class="file-upload-label"
-                :class="{ disabled: !!xmlPaste || loading }"
-              >
-                Click or drag XML file here
-              </label>
+          </div>
+
+          <!-- File Upload / Drag & Drop -->
+          <div class="form-group">
+            <label>Or Upload XML File:</label>
+            <div class="file-upload-area">
+              <input
+                type="file"
+                accept=".xml"
+                @change="handleFileChange"
+                :disabled="!!xmlPaste || loading"
+                style="display: none;"
+                id="fileInput"
+              />
+              <template v-if="!fileName">
+                <label
+                  for="fileInput"
+                  class="file-upload-label"
+                  :class="{ disabled: !!xmlPaste || loading }"
+                >
+                  Click to select XML file or drag anywhere in this area
+                </label>
+              </template>
               <div v-else class="file-name-row">
                 <span class="file-name" :title="fileName">{{ truncatedFileName }}</span>
                 <button
@@ -273,32 +280,27 @@ onMounted(async () => {
                   Remove
                 </button>
               </div>
-            </template>
+            </div>
           </div>
         </div>
 
-        <!-- Expiration banner -->
+        <!-- Captcha and Submit sections remain outside the drag area -->
+        <!-- Captcha Expiration Warning -->
         <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
           Your verification has expired. Please refresh the captcha below.
         </div>
 
-        <!-- Captcha -->
-        <div class="form-group captcha-section" v-if="shouldShowCaptcha">
+        <!-- Captcha Section -->
+        <div v-if="shouldShowCaptcha" class="form-group">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
-              <div v-if="captchaLoading" class="captcha-loading">Loading captcha…</div>
-              <div
-                v-else-if="captchaImage"
-                class="captcha-image"
-                v-html="captchaImage"
-              />
+              <div v-if="captchaLoading" class="captcha-loading">
+                Loading captcha...
+              </div>
+              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage" />
               <div v-else class="captcha-placeholder">
-                <button
-                  type="button"
-                  @click="loadCaptcha"
-                  class="load-captcha-btn"
-                >
+                <button type="button" @click="loadCaptcha" class="load-captcha-btn">
                   Load Captcha
                 </button>
               </div>
@@ -310,7 +312,7 @@ onMounted(async () => {
               :disabled="captchaLoading"
               title="Refresh captcha"
             >
-              <img src="/assets/reload.webp?url" alt="reload captcha">
+              <img src="/assets/reload.webp?url" alt="reload" />
             </button>
           </div>
           <input
@@ -318,32 +320,27 @@ onMounted(async () => {
             v-model="captchaText"
             type="text"
             placeholder="Enter the text from the image above"
-            :disabled="loading || !captchaImage"
+            :disabled="loading || !captchaImage || isProbeExpired"
             autocomplete="off"
             required
-            class="captcha-input"
           />
           <small class="captcha-help">
             Enter the characters shown in the image above
           </small>
         </div>
 
-        <!-- Submit -->
-        <button
-          type="submit"
-          class="analyze-btn"
-          :disabled="loading || (!xmlPaste && !file) || (shouldShowCaptcha && !captchaText)"
-        >
+        <!-- Submit Button -->
+        <button type="submit" class="check-btn" :disabled="isFormDisabled">
           <span v-if="loading" class="btn-loading">
-            <div class="loading-spinner small"></div>
-            Analyzing…
+            <div class="loading-spinner"></div>
+            Analyzing...
           </span>
           <span v-else>Analyze Report</span>
         </button>
       </form>
     </div>
 
-    <!-- Enhanced Error Section -->
+    <!-- Error Display -->
     <div v-if="hasError" class="error-section">
       <p class="error-message">{{ currentError.message }}</p>
     </div>
@@ -352,8 +349,9 @@ onMounted(async () => {
     <div v-if="result" class="result-section">
       <h3>DMARC Report Analysis</h3>
 
-      <!-- Summary Grids -->
-      <div class="report-summary">
+      <!-- Summary -->
+      <div class="info-section">
+        <h4>Report Summary</h4>
         <div class="summary-grid">
           <div class="summary-item">
             <span class="label">Email Provider:</span>
@@ -371,10 +369,10 @@ onMounted(async () => {
           </div>
           <div class="summary-item">
             <span class="label">Report ID:</span>
-            <span class="value">{{ result.reportId || 'Unknown' }}</span>
+            <span class="value monospace" :title="result.reportId || 'Unknown'">
+              {{ result.reportId || 'Unknown' }}
+            </span>
           </div>
-        </div>
-        <div class="summary-grid">
           <div class="summary-item">
             <span class="label">Messages:</span>
             <span class="value">{{ result.totalMessages }}</span>
@@ -384,24 +382,31 @@ onMounted(async () => {
             <span class="value">{{ result.passRate }}%</span>
           </div>
           <div class="summary-item">
+            <span class="label">Date Range:</span>
+            <span class="value">{{ formatDateRange(result.dateRange) }}</span>
+          </div>
+          <div v-if="result.score" class="summary-item">
             <span class="label">Score:</span>
             <span class="value">
               {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
             </span>
           </div>
-          <div class="summary-item">
-            <span class="label">Date Range:</span>
-            <span class="value">{{ formatDateRange(result.dateRange) }}</span>
-          </div>
-          <div class="summary-item">
+        </div>
+      </div>
+
+      <!-- Policy Information -->
+      <div v-if="result.policy" class="policy-section">
+        <h4>DMARC Policy</h4>
+        <div class="policy-grid">
+          <div class="policy-item">
             <span class="label">DMARC Policy:</span>
             <span class="value">{{ result.policy.dmarc }}</span>
           </div>
-          <div class="summary-item">
+          <div class="policy-item">
             <span class="label">SPF Alignment:</span>
             <span class="value">{{ result.policy.spfAlignment }}</span>
           </div>
-          <div class="summary-item">
+          <div class="policy-item">
             <span class="label">DKIM Alignment:</span>
             <span class="value">{{ result.policy.dkimAlignment }}</span>
           </div>
@@ -423,11 +428,15 @@ onMounted(async () => {
       </div>
 
       <!-- Sources Table -->
-      <div class="sources-section">
-        <h4>Sources</h4>
+      <div v-if="result.sources?.length" class="sources-section">
+        <h4>Email Sources</h4>
         <div class="sources-table">
           <div class="table-header">
-            <span>IP</span><span>Count</span><span>DMARC</span><span>SPF</span><span>DKIM</span>
+            <span>IP Address</span>
+            <span>Count</span>
+            <span>DMARC</span>
+            <span>SPF</span>
+            <span>DKIM</span>
           </div>
           <div
             v-for="src in result.sources"
@@ -449,19 +458,18 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Warnings -->
-      <div v-if="result.warnings?.length" class="warnings-section">
+      <!-- Warnings, Recommendations -->
+      <div v-if="result.warnings?.length" class="section warnings-section">
         <h4>Warnings</h4>
         <ul>
-          <li v-for="w in result.warnings" :key="w">{{ w }}</li>
+          <li v-for="warning in result.warnings" :key="warning">{{ warning }}</li>
         </ul>
       </div>
 
-      <!-- Recommendations -->
-      <div v-if="result.recommendations?.length" class="recommendations-section">
+      <div v-if="result.recommendations?.length" class="section recommendations-section">
         <h4>Recommendations</h4>
         <ul>
-          <li v-for="r in result.recommendations" :key="r">{{ r }}</li>
+          <li v-for="rec in result.recommendations" :key="rec">{{ rec }}</li>
         </ul>
       </div>
     </div>
@@ -469,20 +477,105 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* ROOT */
+/* Base Layout */
 .dmarc-analyzer {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* --- FORM STYLES --- */
+/* Tool Form - Remove drag functionality from main card */
 .tool-form {
   margin: 2rem 0;
   padding: 1.5rem;
   background: var(--vp-c-bg-soft, #f8f9fa);
   border-radius: 12px;
   border: 1px solid var(--vp-c-border, #e5e7eb);
+}
+
+/* Form Fields Container - Only this area handles drag */
+.form-fields-container {
+  position: relative;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  margin-bottom: 1.5rem;
+}
+
+.form-fields-container.drag-hover {
+  background: rgba(16, 177, 239, 0.02);
+  border-radius: 8px;
+}
+
+/* Subtle Fields-Only Drag Overlay */
+.drag-overlay-fields {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 177, 239, 0.08);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  pointer-events: none;
+  border-radius: 8px;
+  border: 2px dashed rgba(16, 177, 239, 0.3);
+  animation: fadeInSubtle 0.2s ease-out;
+}
+
+.drag-content {
+  text-align: center;
+  color: var(--vp-c-brand-1, #10B1EF);
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(16, 177, 239, 0.2);
+  box-shadow: 0 4px 16px rgba(16, 177, 239, 0.1);
+  animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+.drag-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  opacity: 0.8;
+}
+
+.drag-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--vp-c-brand-1, #10B1EF);
+}
+
+.drag-subtext {
+  font-size: 0.875rem;
+  opacity: 0.7;
+  font-weight: 500;
+  color: var(--vp-c-text-2, #6b7280);
+}
+
+/* Subtle Animations */
+@keyframes fadeInSubtle {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.02);
+    opacity: 0.95;
+  }
 }
 
 .form-group {
@@ -498,85 +591,64 @@ onMounted(async () => {
 }
 
 .form-group input,
-.form-group textarea.xml-paste {
+.form-group textarea {
   width: 100%;
   padding: 0.875rem 1rem;
   border: 2px solid var(--vp-c-border, #e5e7eb);
   border-radius: 8px;
   font-size: 1rem;
-  background: var(--vp-c-bg, #fff);
-  color: var(--vp-c-text-1, #374151);
-  transition: all 0.2s;
+  transition: border-color 0.2s ease;
   box-sizing: border-box;
+  background: var(--vp-c-bg, #ffffff);
+  color: var(--vp-c-text-1, #374151);
 }
 
 .form-group input:focus,
-.form-group textarea.xml-paste:focus {
+.form-group textarea:focus {
   outline: none;
   border-color: var(--vp-c-brand-1, #10B1EF);
-  box-shadow: 0 0 0 3px var(--vp-c-brand-soft, rgba(16,177,239,0.1));
+  box-shadow: 0 0 0 3px var(--vp-c-brand-soft, rgba(16, 177, 239, 0.1));
 }
 
 .form-group input:disabled,
-.form-group textarea.xml-paste:disabled {
+.form-group textarea:disabled {
   background: var(--vp-c-bg-mute, #f1f5f9);
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-/* Captcha expiration message */
-.captcha-expired-message {
-  background: #fff3cd;
-  border: 1px solid #ffc107;
-  color: #856404;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-}
-
-/* --- FILE UPLOAD & DRAG --- */
+/* File Upload Area */
 .file-upload-area {
   display: flex;
   align-items: center;
   gap: 1rem;
   margin-top: 0.5rem;
-  position: relative;
   min-height: 44px;
-  transition: border 0.2s, background 0.2s;
-}
-
-.file-upload-area.drag-hover {
-  border: 2px dashed var(--vp-c-brand, #13B0EE);
-  background: var(--vp-c-brand-dimm, #e6f7ff);
-}
-
-.drag-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(16,177,239,0.08);
-  color: var(--vp-c-brand, #10B1EF);
-  font-size: 1.08rem;
-  font-weight: 600;
-  border-radius: 6px;
-  pointer-events: none;
-  z-index: 2;
+  padding: 0.5rem;
+  border-radius: 8px;
+  transition: all 0.2s ease;
 }
 
 .file-upload-label {
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background: var(--vp-c-bg, #ffffff);
+  border: 2px dashed var(--vp-c-border, #e5e7eb);
   color: var(--vp-c-text-1, #374151);
   font-size: 0.95rem;
-  white-space: nowrap;
+  text-align: center;
   user-select: none;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  flex: 1;
+  font-weight: 500;
+}
+
+.file-upload-label:hover:not(.disabled) {
+  border-color: var(--vp-c-brand-1, #10B1EF);
+  background: var(--vp-c-brand-soft, rgba(16, 177, 239, 0.05));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .file-upload-label.disabled {
@@ -588,41 +660,43 @@ onMounted(async () => {
 .file-name-row {
   display: flex;
   align-items: center;
+  gap: 1rem;
   min-width: 0;
+  flex: 1;
+  padding: 0.5rem 1rem;
+  background: var(--vp-c-bg, #ffffff);
+  border: 2px solid var(--vp-c-brand-1, #10B1EF);
+  border-radius: 8px;
 }
 
 .file-name {
-  flex: 1 1 0;
+  flex: 1;
   min-width: 0;
-  max-width: 220px;
+  font-weight: 600;
+  color: var(--vp-c-brand-1, #10B1EF);
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  font-weight: 600;
-  color: var(--vp-c-text-1, #374151);
-  padding-right: 1rem;
-  transition: color 0.2s;
-}
-
-.file-name:hover {
-  color: var(--vp-c-brand-1, #10B1EF);
 }
 
 .remove-file-btn {
   background: var(--vp-c-danger-1, #dc3545);
-  color: #fff;
+  color: white;
   border: none;
-  padding: 0.32rem 0.9rem;
-  border-radius: 4px;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 0.87rem;
-  font-weight: 600;
+  font-size: 0.875rem;
+  font-weight: 500;
   white-space: nowrap;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
 }
 
 .remove-file-btn:hover:not(:disabled) {
   background: var(--vp-c-danger-2, #c82333);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3);
 }
 
 .remove-file-btn:disabled {
@@ -630,13 +704,15 @@ onMounted(async () => {
   cursor: not-allowed;
 }
 
-/* --- CAPTCHA --- */
-.captcha-section {
-  background: var(--vp-c-bg, #fff);
-  padding: 1.25rem;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+/* CAPTCHA Styles */
+.captcha-expired-message {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  color: #856404;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
 }
 
 .captcha-container {
@@ -652,7 +728,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff !important;
+  background: #ffffff;
   border: 1px solid var(--vp-c-border-soft, #dee2e6);
   border-radius: 6px;
   padding: 0.5rem;
@@ -667,13 +743,13 @@ onMounted(async () => {
 
 .load-captcha-btn {
   background: var(--vp-c-brand-1, #10B1EF);
-  color: #fff;
+  color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.875rem;
-  transition: background 0.2s;
+  transition: background-color 0.2s ease;
 }
 
 .load-captcha-btn:hover {
@@ -683,31 +759,19 @@ onMounted(async () => {
 .refresh-captcha-btn {
   background: var(--vp-c-bg-soft, #f8f9fa);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  color: var(--vp-c-text-1, #374151);
   padding: 0.5rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s;
-}
-
-.dark .refresh-captcha-btn {
-  background: #fff !important;
-  border: 1px solid #333 !important;
-  color: #222 !important;
-}
-
-.dark .refresh-captcha-btn img {
-  filter: invert(0);
+  transition: all 0.2s ease;
 }
 
 .refresh-captcha-btn:hover:not(:disabled) {
-  background: var(--vp-c-bg, #fff);
+  background: var(--vp-c-bg, #ffffff);
   border-color: var(--vp-c-brand-1, #10B1EF);
 }
 
@@ -716,8 +780,9 @@ onMounted(async () => {
   cursor: not-allowed;
 }
 
-.captcha-input {
-  margin-top: 0.75rem !important;
+.refresh-captcha-btn img {
+  width: 16px;
+  height: 16px;
 }
 
 .captcha-help {
@@ -728,54 +793,32 @@ onMounted(async () => {
   font-style: italic;
 }
 
-/* --- BUTTON --- */
-.analyze-btn {
+/* Button */
+.check-btn {
   background: var(--vp-c-brand-1, #10B1EF);
-  color: #fff;
+  color: #ffffff;
   padding: 0.875rem 2rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
+  transition: all 0.2s ease;
   width: 100%;
-  transition: all 0.2s;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.analyze-btn:hover:not(:disabled) {
+.check-btn:hover:not(:disabled) {
   background: var(--vp-c-brand-2, #0891d4);
   transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.analyze-btn:disabled {
+.check-btn:disabled {
   background: var(--vp-c-bg-mute, #9ca3af);
   cursor: not-allowed;
-  box-shadow: none;
   transform: none;
-}
-
-/* Loading spinner */
-.loading-spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid #f3f3f3;
-  border-top: 2px solid var(--vp-c-brand-1, #10B1EF);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  display: inline-block;
-}
-
-.loading-spinner.small {
-  width: 12px;
-  height: 12px;
-  border-width: 1.5px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  box-shadow: none;
 }
 
 .btn-loading {
@@ -785,7 +828,21 @@ onMounted(async () => {
   justify-content: center;
 }
 
-/* --- ERROR SECTION --- */
+.loading-spinner {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #f3f3f3;
+  border-top: 1.5px solid var(--vp-c-brand-1, #10B1EF);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Error Section */
 .error-section {
   background: var(--vp-danger-soft, #f8d7da);
   color: var(--vp-c-danger-1, #721c24);
@@ -800,14 +857,14 @@ onMounted(async () => {
   font-weight: 500;
 }
 
-/* --- RESULTS --- */
+/* Results Section */
 .result-section {
   margin: 2rem 0;
   padding: 1.5rem;
   border: 1px solid var(--vp-c-border, #e5e7eb);
   border-radius: 12px;
-  background: var(--vp-c-bg, #fff);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background: var(--vp-c-bg, #ffffff);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .result-section h3 {
@@ -817,16 +874,23 @@ onMounted(async () => {
   font-weight: 700;
 }
 
-/* --- SUMMARY GRID --- */
-.report-summary {
+/* Info Section */
+.info-section {
   border-top: 1px solid var(--vp-c-border-soft, #eee);
   padding-top: 1.5rem;
   margin-top: 1.5rem;
 }
 
+.info-section h4 {
+  margin: 0 0 1rem 0;
+  color: var(--vp-c-text-1, #333);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem;
   margin-top: 1rem;
 }
@@ -835,23 +899,82 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  padding: 0.75rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-border-soft, #dee2e6);
+  min-width: 0;
+  overflow: hidden;
 }
 
 .summary-item .label {
   color: var(--vp-c-text-2, #6b7280);
   font-size: 0.875rem;
   font-weight: 500;
+  flex-shrink: 0;
 }
 
 .summary-item .value {
   color: var(--vp-c-text-1, #374151);
   font-weight: 600;
   font-size: 1rem;
+  word-break: break-all;
+  overflow-wrap: break-word;
+  line-height: 1.4;
+  min-width: 0;
 }
 
-/* --- ALIGNMENT STATUS BOX --- */
+.summary-item .value.monospace {
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-size: 0.875rem;
+  letter-spacing: -0.25px;
+}
+
+/* Policy Section */
+.policy-section {
+  border-top: 1px solid var(--vp-c-border-soft, #eee);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.policy-section h4 {
+  margin: 0 0 1rem 0;
+  color: var(--vp-c-text-1, #333);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.policy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.policy-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-border-soft, #dee2e6);
+}
+
+.policy-item .label {
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.policy-item .value {
+  color: var(--vp-c-text-1, #374151);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* Alignment Status */
 .alignment-status-box {
-  margin: 2rem 0 0.5rem;
+  margin: 1.5rem 0;
   padding: 1rem 1.5rem;
   border-radius: 8px;
   font-weight: 600;
@@ -859,8 +982,8 @@ onMounted(async () => {
   border-left: 6px solid #eee;
   display: flex;
   align-items: center;
-  gap: 0.8em;
-  box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+  gap: 0.8rem;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
 }
 
 .alignment-status-box.pass {
@@ -875,26 +998,35 @@ onMounted(async () => {
   background: #fbeaea;
 }
 
-/* --- SOURCES TABLE --- */
+/* Sources Table */
 .sources-section {
   border-top: 1px solid var(--vp-c-border-soft, #eee);
   padding-top: 1.5rem;
   margin-top: 1.5rem;
 }
 
+.sources-section h4 {
+  margin: 0 0 1rem 0;
+  color: var(--vp-c-text-1, #333);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
 .sources-table {
   overflow-x: auto;
-  margin-top: 1rem;
+  background: var(--vp-c-bg, #ffffff);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 8px;
 }
 
 .table-header,
 .table-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   gap: 1rem;
-  padding: 0.75rem;
-  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
+  padding: 0.75rem 1rem;
   align-items: center;
+  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
 }
 
 .table-header {
@@ -904,6 +1036,10 @@ onMounted(async () => {
   font-size: 0.875rem;
 }
 
+.table-row:last-child {
+  border-bottom: none;
+}
+
 .table-row:hover {
   background: var(--vp-c-bg-soft, #f8f9fa);
 }
@@ -911,26 +1047,45 @@ onMounted(async () => {
 .table-row .ip {
   font-family: var(--vp-font-family-mono, monospace);
   font-size: 0.875rem;
+  color: var(--vp-c-text-1, #374151);
 }
 
 .table-row .count {
   font-weight: 600;
+  color: var(--vp-c-text-1, #374151);
 }
 
 .table-row .result.pass {
   color: #22bb33;
+  font-weight: 600;
 }
 
 .table-row .result.fail {
   color: #ea4335;
+  font-weight: 600;
 }
 
-/* --- WARNINGS & RECOMMENDATIONS --- */
-.warnings-section,
-.recommendations-section {
+/* Result Sections */
+.section {
+  margin-top: 1.5rem;
   padding: 1.25rem;
   border-radius: 8px;
-  margin-top: 1.5rem;
+}
+
+.section h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.section ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.section li {
+  margin: 0.5rem 0;
+  line-height: 1.5;
 }
 
 .warnings-section {
@@ -939,21 +1094,7 @@ onMounted(async () => {
 }
 
 .warnings-section h4 {
-  margin: 0 0 1rem 0;
   color: var(--vp-c-warning-1, #d69e2e);
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.warnings-section ul {
-  margin: 0.5rem 0;
-  padding-left: 1.5rem;
-}
-
-.warnings-section li {
-  margin: 0.25rem 0;
-  color: var(--vp-c-text-2, #4a5568);
-  line-height: 1.5;
 }
 
 .recommendations-section {
@@ -962,46 +1103,76 @@ onMounted(async () => {
 }
 
 .recommendations-section h4 {
-  margin: 0 0 1rem 0;
   color: var(--vp-c-tip-1, #17a2b8);
-  font-size: 1.25rem;
-  font-weight: 600;
 }
 
-.recommendations-section ul {
-  margin: 0.5rem 0;
-  padding-left: 1.5rem;
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .form-fields-container.drag-hover {
+    background: rgba(16, 177, 239, 0.03);
+  }
+  
+  .drag-overlay-fields {
+    background: rgba(16, 177, 239, 0.12);
+    border-color: rgba(16, 177, 239, 0.4);
+  }
+  
+  .drag-content {
+    background: rgba(30, 30, 30, 0.95);
+    border-color: rgba(16, 177, 239, 0.3);
+  }
+  
+  .refresh-captcha-btn {
+    background: #fff;
+    border-color: #333;
+    color: #222;
+  }
+  
+  .recommendations-section,
+  .recommendations-section ul,
+  .recommendations-section li {
+    color: #2d3748 !important;
+  }
 }
 
-.recommendations-section li {
-  margin: 0.25rem 0;
-  color: var(--vp-c-text-2, #4a5568);
-  line-height: 1.5;
-}
-
-/* --- RESPONSIVE --- */
+/* Responsive */
 @media (max-width: 768px) {
   .dmarc-analyzer {
     padding: 0 0.5rem;
   }
   
-  .tool-form,
-  .result-section {
+  .tool-form {
     padding: 1rem;
     margin: 1rem 0;
   }
   
-  .form-group input,
-  .form-group textarea.xml-paste,
-  .analyze-btn {
-    padding: 0.75rem;
+  .drag-content {
+    padding: 1rem;
   }
   
-  .result-section h3 {
-    font-size: 1.25rem;
+  .drag-icon {
+    font-size: 1.75rem;
   }
   
-  .summary-grid {
+  .drag-text {
+    font-size: 1rem;
+  }
+  
+  .drag-subtext {
+    font-size: 0.8rem;
+  }
+  
+  .captcha-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .refresh-captcha-btn {
+    align-self: center;
+  }
+  
+  .summary-grid,
+  .policy-grid {
     grid-template-columns: 1fr;
   }
   
@@ -1014,24 +1185,14 @@ onMounted(async () => {
     flex-direction: column;
     text-align: left;
     padding: 1rem;
-    border: 1px solid var(--vp-c-border-soft, #eee);
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
+    border-bottom: 1px solid var(--vp-c-border-soft, #eee);
+    gap: 0.5rem;
   }
   
-  .captcha-container {
+  .file-name-row {
     flex-direction: column;
     align-items: stretch;
-  }
-  
-  .refresh-captcha-btn {
-    align-self: center;
-  }
-  
-  .file-name {
-    max-width: 120px;
+    gap: 0.5rem;
   }
 }
 </style>
-
-

@@ -8,7 +8,7 @@ const SOLVED_UNTIL_KEY = 'captchaSolvedUntil'
 // Enhanced error configuration matching backend responses
 const CAPTCHA_ERRORS = {
   EXPIRED: {
-    message: 'Your security verification has expired. Please complete the new verification below.',
+    message: 'Your security verification has expired. Please complete the new verification above.',
     action: 'refresh',
     severity: 'warning',
     autoResolve: true

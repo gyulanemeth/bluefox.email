@@ -1,62 +1,84 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
+import { useUrlState } from './useUrlState.js'
 
+// Constants
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
 if (!API_URL) throw new Error('VITE_TOOLS_API_URL not set')
 
-// Use enhanced composable with context
+// Composables
 const {
   captchaProbe,
   captchaImage,
-  captchaExpires,
   captchaLoading,
   isProbeExpired,
-  isSolved,
   shouldShowCaptcha,
   hasError,
   currentError,
   loadCaptcha,
   refreshCaptcha,
   markSolved,
-  clearSession,
   setError,
   clearError,
   handleServerError,
   validateCaptchaInput,
   autoResolveError,
-  isCurrentlyExpired,
-  CAPTCHA_ERRORS
+  isCurrentlyExpired
 } = useCaptcha('spf-checker')
 
-// form state
-const domain = ref('')
-const testIp = ref('')
+const {
+  domain,
+  testIp,
+  initialize: initializeUrlState,
+  setField
+} = useUrlState({
+  fields: ['domain', 'testIp'],
+  autoExecute: true,
+  onAutoExecute: checkSpf
+})
+
+// Local state
 const captchaText = ref('')
 const loading = ref(false)
 const result = ref(null)
 
-// navigation history
+// Navigation history
 const history = ref([])
 const currentIndex = ref(-1)
 
-// Enhanced validation using composable functions
+// Computed
+const isFormDisabled = computed(() => 
+  loading.value || (shouldShowCaptcha.value && (!captchaText.value || isProbeExpired.value))
+)
+
+// Watch for CAPTCHA expiration and clear results - THIS IS THE FIX!
+watch(isProbeExpired, (newExpired, oldExpired) => {
+  if (newExpired && !oldExpired && result.value) {
+    console.log('CAPTCHA expired - clearing results')
+    result.value = null
+  }
+})
+
+// Methods
 function validateInputs() {
-  if (!domain.value.trim()) {
+  if (!domain.value?.trim()) {
     setError('MISSING_TEXT', 'Please enter the domain you want to check (e.g., example.com)')
     return false
   }
   
-  if (shouldShowCaptcha.value) {
-    return validateCaptchaInput(captchaText.value)
-  }
-  
-  return true
+  return shouldShowCaptcha.value ? validateCaptchaInput(captchaText.value) : true
 }
 
-// Enhanced checkSpf with precise timing and error handling
+async function handleCaptchaExpiry() {
+  console.log('CAPTCHA expired detected - refreshing')
+  await refreshCaptcha('expired')
+  loading.value = false
+}
+
 async function checkSpf() {
   clearError()
+  result.value = null // This clears results at the start of new checks
   
   // Trim inputs
   domain.value = domain.value.trim()
@@ -85,27 +107,22 @@ async function checkSpf() {
   loading.value = true
 
   try {
-    // Use real-time expiry check with buffer
+    // Check CAPTCHA expiry
     if (isCurrentlyExpired()) {
-      console.log('CAPTCHA expired detected - refreshing')
-      await refreshCaptcha('expired')
-      loading.value = false
+      await handleCaptchaExpiry()
       return
     }
 
     // Validate inputs
-    if (!validateInputs()) {
-      return
-    }
+    if (!validateInputs()) return
 
-    // Double-check expiry right before sending request
+    // Double-check expiry before request
     if (isCurrentlyExpired()) {
-      console.log('CAPTCHA expired during validation - refreshing')
-      await refreshCaptcha('expired')
-      loading.value = false
+      await handleCaptchaExpiry()
       return
     }
 
+    // Make request
     const payload = {
       domain: domain.value,
       captchaProbe: captchaProbe.value,
@@ -113,31 +130,48 @@ async function checkSpf() {
     }
     if (testIp.value.trim()) payload.testIp = testIp.value.trim()
 
-    const res = await fetch(`${API_URL}/v1/analyze-spf`, {
+    const response = await fetch(`${API_URL}/v1/analyze-spf`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     })
     
-    const json = await res.json()
+    const json = await response.json()
 
-    // Enhanced server response handling
-    if (!res.ok || !json.result?.success) {
+    // Handle errors
+    if (!response.ok || !json.result?.success) {
       const serverError = json.result?.error || 'Server error occurred'
-      console.log('Server error received:', serverError)
-      
       const errorType = handleServerError(serverError)
-      console.log('Parsed error type:', errorType)
       
-      // Auto-resolve specific error types
       if (errorType === 'expired' || errorType === 'incorrect') {
         await autoResolveError()
       }
       return
     }
 
-    // Success
-    result.value = mapResult(json.result)
+    // Handle success
+    result.value = {
+      valid: !!json.result.success,
+      domain: json.result.domain || domain.value,
+      record: json.result.rawRecord || json.result.record || 'Not found',
+      lookups: json.result.lookups,
+      policy: json.result.policy,
+      mechanisms: (json.result.mechanisms || []).map(m => {
+        const match = m.original.toLowerCase().match(/^(include|redirect|a|mx):([^\s\/]+)/)
+        const targetDomain = match ? match[2] : null
+        return {
+          ...m,
+          targetDomain
+        }
+      }),
+      warnings: json.result.warnings || [],
+      recommendations: json.result.recommendations || [],
+      errors: json.result.success ? [] : [json.result.error || 'Unknown error'],
+      mailauthResult: json.result.mailauthResult,
+      ipTestResult: json.result.ipTestResult || null,
+      score: json.result.score
+    }
+
     captchaText.value = ''
     markSolved()
 
@@ -154,35 +188,11 @@ async function checkSpf() {
       history.value[currentIndex.value] = finalState
     }
 
-  } catch (networkError) {
-    console.error('SPF Check Error:', networkError)
+  } catch (error) {
+    console.error('SPF Check Error:', error)
     setError('NETWORK_ERROR')
   } finally {
     loading.value = false
-  }
-}
-
-function mapResult(d) {
-  return {
-    valid: !!d.success,
-    domain: d.domain || domain.value,
-    record: d.rawRecord || d.record || 'Not found',
-    lookups: d.lookups,
-    policy: d.policy,
-    mechanisms: (d.mechanisms || []).map(m => {
-      const match = m.original.toLowerCase().match(/^(include|redirect|a|mx):([^\s\/]+)/)
-      const targetDomain = match ? match[2] : null
-      return {
-        ...m,
-        targetDomain
-      }
-    }),
-    warnings: d.warnings || [],
-    recommendations: d.recommendations || [],
-    errors: d.success ? [] : [d.error || 'Unknown error'],
-    mailauthResult: d.mailauthResult,
-    ipTestResult: d.ipTestResult || null,
-    score: d.score
   }
 }
 
@@ -191,24 +201,26 @@ function goBack() {
 
   const previous = history.value[currentIndex.value - 1]
   currentIndex.value--
-  domain.value = previous.domain
-  testIp.value = previous.testIp || ''
+  setField('domain', previous.domain)
+  setField('testIp', previous.testIp || '')
   result.value = previous.result
   clearError()
 }
 
 function checkIncludedDomain(includedDomain) {
-  domain.value = includedDomain
+  setField('domain', includedDomain)
+  setField('testIp', '')
   result.value = null
   clearError()
-  testIp.value = ''
   checkSpf()
 }
 
-// formatting helpers
+// Clean formatting helpers - safe and simple
 function getIpResultClass(res) {
-  const out = typeof res === 'string' ? res : res.result || res.status || ''
-  switch (out.toLowerCase()) {
+  const resultString = typeof res === 'string' ? res : 
+                      (res?.result || res?.status?.result || res?.status || '')
+  
+  switch (String(resultString).toLowerCase()) {
     case 'pass': return 'result-pass'
     case 'fail': return 'result-fail'
     case 'softfail': return 'result-softfail'
@@ -220,38 +232,56 @@ function getIpResultClass(res) {
 }
 
 function getDisplayResult(res) {
-  return (typeof res === 'string' ? res : res.result || res.status || '')
-    .toUpperCase()
+  const resultString = typeof res === 'string' ? res : 
+                      (res?.result || res?.status?.result || res?.status || '')
+  
+  const normalized = String(resultString).toLowerCase()
+  
+  switch (normalized) {
+    case 'pass': return 'PASS'
+    case 'fail': return 'FAIL'
+    case 'softfail': return 'SOFTFAIL'
+    case 'neutral': return 'NEUTRAL'
+    case 'temperror': return 'TEMP ERROR'
+    case 'permerror': return 'PERM ERROR'
+    default: return normalized ? normalized.toUpperCase() : 'UNKNOWN'
+  }
 }
 
 onMounted(async () => {
+  await initializeUrlState()
+  
   if (!captchaProbe.value || isProbeExpired.value) {
     await loadCaptcha()
   }
 })
 </script>
 
+
 <template>
   <div class="spf-checker">
     <div class="tool-form">
       <form @submit.prevent="checkSpf">
-        <!-- Domain input -->
+        <!-- Domain Input -->
         <div class="form-group">
           <label for="domain">Domain:</label>
-          <input 
+          <input
             id="domain"
-            v-model="domain" 
+            v-model="domain"
+            type="text"
             placeholder="example.com"
             :disabled="loading"
             required
           />
         </div>
-        <!-- Optional IP input -->
+
+        <!-- Optional IP Input -->
         <div class="form-group">
-          <label for="ipTest">Optional: Test SPF for a specific IP</label>
+          <label for="testIp">Optional: Test SPF for a specific IP</label>
           <input
-            id="ipTest"
+            id="testIp"
             v-model="testIp"
+            type="text"
             placeholder="e.g. 203.0.113.2"
             :disabled="loading"
             autocomplete="off"
@@ -259,12 +289,12 @@ onMounted(async () => {
           <small class="form-help">Leave blank to skip IP-based test.</small>
         </div>
 
-        <!-- Expiration banner -->
+        <!-- Captcha Expiration Warning -->
         <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
           Your verification has expired. Please refresh the captcha below.
         </div>
 
-        <!-- Captcha (only when needed) - FIXED: integrated into form -->
+        <!-- Captcha Section -->
         <div v-if="shouldShowCaptcha" class="form-group">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
@@ -272,7 +302,7 @@ onMounted(async () => {
               <div v-if="captchaLoading" class="captcha-loading">
                 Loading captcha...
               </div>
-              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage"/>
+              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage" />
               <div v-else class="captcha-placeholder">
                 <button type="button" @click="loadCaptcha" class="load-captcha-btn">
                   Load Captcha
@@ -286,7 +316,7 @@ onMounted(async () => {
               :disabled="captchaLoading"
               title="Refresh captcha"
             >
-              <img src="/assets/reload.webp?url" alt="reload captcha">
+              <img src="/assets/reload.webp?url" alt="reload" />
             </button>
           </div>
           <input
@@ -297,20 +327,16 @@ onMounted(async () => {
             :disabled="loading || !captchaImage || isProbeExpired"
             autocomplete="off"
             required
-            class="captcha-input"
           />
           <small class="captcha-help">
             Enter the characters shown in the image above
           </small>
         </div>
 
-        <button
-          type="submit"
-          class="check-btn"
-          :disabled="loading || (shouldShowCaptcha && (!captchaText || isProbeExpired))"
-        >
+        <!-- Submit Button -->
+        <button type="submit" class="check-btn" :disabled="isFormDisabled">
           <span v-if="loading" class="btn-loading">
-            <div class="loading-spinner small"></div>
+            <div class="loading-spinner"></div>
             Checking...
           </span>
           <span v-else>Check SPF</span>
@@ -318,36 +344,25 @@ onMounted(async () => {
       </form>
     </div>
 
-    <!-- Enhanced Error Section -->
+    <!-- Error Display -->
     <div v-if="hasError" class="error-section">
-      <span class="icon-error" aria-hidden="true"></span>
       <p class="error-message">{{ currentError.message }}</p>
     </div>
 
     <!-- Results -->
     <div v-if="result" class="result-section">
-      <h3>
-        <span v-if="result.valid" class="icon-success" aria-hidden="true"></span>
-        <span v-else class="icon-error" aria-hidden="true"></span>
-        SPF Check Results
-      </h3>
+      <h3>SPF Check Results</h3>
 
+      <!-- Status -->
       <div class="status-box">
-        <div v-if="result.valid">
-          <p><strong>SPF Record Found</strong></p>
-        </div>
-        <div v-else>
-          <p><strong>SPF Record Missing or Invalid</strong></p>
-        </div>
-        <div v-if="result.score">
-          <p>
-            <strong>Security Score:</strong>
-            {{ result.score.value }}/{{ result.score.outOf }}
-            ({{ result.score.level }})
-          </p>
-        </div>
+        <p><strong>{{ result.valid ? 'SPF Record Found' : 'SPF Record Missing or Invalid' }}</strong></p>
+        <p v-if="result.score">
+          <strong>Security Score:</strong>
+          {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
+        </p>
       </div>
 
+      <!-- Basic Information -->
       <div class="info-section">
         <h4>Basic Information</h4>
         <p><strong>Domain:</strong> {{ result.domain }}</p>
@@ -355,90 +370,94 @@ onMounted(async () => {
         <p v-if="result.lookups !== undefined">
           <strong>DNS Lookups:</strong> {{ result.lookups }}/10
           <span v-if="result.lookups > 10" class="lookup-warning">
-            <span class="icon-warning" aria-hidden="true"></span> Exceeds limit
+            ⚠️ Exceeds limit
           </span>
         </p>
         <p v-if="result.policy"><strong>Policy:</strong> {{ result.policy }}</p>
       </div>
 
-      <div v-if="result.mechanisms.length" class="mechanisms-list">
+      <!-- Mechanisms -->
+      <div v-if="result.mechanisms?.length" class="mechanisms-section">
         <h4>Mechanisms</h4>
-        <div
-          v-for="m in result.mechanisms"
-          :key="m.original"
-          class="mechanism-item"
-        >
-          <span class="mechanism-text">
-            <template v-if="m.type === 'include' && m.targetDomain">
-              include:
-              <a
-                href="#"
-                @click.prevent="checkIncludedDomain(m.targetDomain)"
-                class="inline-link"
-              >
-                {{ m.targetDomain }}
-              </a>
-            </template>
-            <template v-else>
-              {{ m.original }}
-            </template>
-          </span>
-          <span
-            class="mechanism-type"
-            :class="{ 'requires-lookup': m.requiresLookup }"
+        <div class="mechanisms-list">
+          <div
+            v-for="m in result.mechanisms"
+            :key="m.original"
+            class="mechanism-item"
           >
-            {{ m.type }}{{ m.requiresLookup ? ' (DNS)' : '' }}
-          </span>
+            <span class="mechanism-text">
+              <template v-if="m.type === 'include' && m.targetDomain">
+                include:
+                <a
+                  href="#"
+                  @click.prevent="checkIncludedDomain(m.targetDomain)"
+                  class="inline-link"
+                >
+                  {{ m.targetDomain }}
+                </a>
+              </template>
+              <template v-else>
+                {{ m.original }}
+              </template>
+            </span>
+            <span
+              class="mechanism-type"
+              :class="{ 'requires-lookup': m.requiresLookup }"
+            >
+              {{ m.type }}{{ m.requiresLookup ? ' (DNS)' : '' }}
+            </span>
+          </div>
         </div>
       </div>
 
-      <!-- Simple Back Button -->
+      <!-- Back Button -->
       <div v-if="currentIndex > 0" class="back-nav">
         <button type="button" @click="goBack" class="back-btn">
           ← Back to "{{ history[currentIndex - 1]?.domain }}"
         </button>
       </div>
 
-      <div v-if="result.mailauthResult" class="mailauth-section">
+      <!-- IP Test Results - IMPROVED DESIGN -->
+      <div v-if="result.ipTestResult" class="section ip-test-section">
+        <h4>SPF Test for IP {{ result.ipTestResult.ip || testIp }}</h4>
+        <div class="ip-test-card">
+          <div class="ip-test-result-display">
+            <span :class="['ip-result-badge', getIpResultClass(result.ipTestResult.result)]">
+              {{ getDisplayResult(result.ipTestResult.result) }}
+            </span>
+          </div>
+          <p v-if="result.ipTestResult.explanation" class="ip-explanation">
+            {{ result.ipTestResult.explanation }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Mailauth Results -->
+      <div v-if="result.mailauthResult" class="section mailauth-section">
         <h4>Mailauth</h4>
         <p><strong>Status:</strong> {{ result.mailauthResult.status.result }}</p>
         <pre v-if="result.mailauthResult.info" class="auth-info">{{ result.mailauthResult.info }}</pre>
       </div>
 
-      <div v-if="result.ipTestResult" class="ip-test-section">
-        <h4>SPF Test for IP {{ result.ipTestResult.ip }}</h4>
-        <div class="ip-test-card">
-          <div class="ip-test-header">
-            <span :class="['ip-result', getIpResultClass(result.ipTestResult.result)]">
-              {{ getDisplayResult(result.ipTestResult.result) }}
-            </span>
-          </div>
-          <p class="ip-explanation">{{ result.ipTestResult.explanation }}</p>
-          <details v-if="result.ipTestResult.details">
-            <summary>Details</summary>
-            <pre>{{ JSON.stringify(result.ipTestResult.details, null, 2) }}</pre>
-          </details>
-        </div>
-      </div>
-
-      <div v-if="result.warnings.length" class="warnings-section">
-        <h4><span class="icon-warning" aria-hidden="true"></span> Warnings</h4>
+      <!-- Warnings, Recommendations, Errors -->
+      <div v-if="result.warnings?.length" class="section warnings-section">
+        <h4>Warnings</h4>
         <ul>
-          <li v-for="(w, i) in result.warnings" :key="i">{{ w }}</li>
+          <li v-for="warning in result.warnings" :key="warning">{{ warning }}</li>
         </ul>
       </div>
 
-      <div v-if="result.recommendations.length" class="recommendations-section">
-        <h4><span class="icon-info" aria-hidden="true"></span> Recommendations</h4>
+      <div v-if="result.recommendations?.length" class="section recommendations-section">
+        <h4>Recommendations</h4>
         <ul>
-          <li v-for="(r, i) in result.recommendations" :key="i">{{ r }}</li>
+          <li v-for="rec in result.recommendations" :key="rec">{{ rec }}</li>
         </ul>
       </div>
 
-      <div v-if="result.errors.length" class="errors-section">
-        <h4><span class="icon-error" aria-hidden="true"></span> Errors</h4>
+      <div v-if="result.errors?.length" class="section errors-section">
+        <h4>Errors</h4>
         <ul>
-          <li v-for="e in result.errors" :key="e">{{ e }}</li>
+          <li v-for="error in result.errors" :key="error">{{ error }}</li>
         </ul>
       </div>
     </div>
@@ -446,55 +465,11 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* Main Container */
+/* Base Layout */
 .spf-checker {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
-}
-
-/* Simple Back Navigation */
-.back-nav {
-  margin: 1.5rem 0;
-  text-align: left;
-}
-
-.back-btn {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  color: var(--vp-c-text-1, #374151);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.back-btn:hover:not(:disabled) {
-  background: var(--vp-c-bg, #ffffff);
-  color: var(--vp-c-brand-1, #10B1EF);
-  border-color: var(--vp-c-brand-1, #10B1EF);
-}
-
-.back-btn:active {
-  transform: translateY(1px);
-}
-
-/* Dark mode support */
-.dark .back-btn {
-  background: #2d3748;
-  border-color: #4a5568;
-  color: #e2e8f0;
-}
-
-.dark .back-btn:hover {
-  background: #374151;
-  color: var(--vp-c-brand-1, #10B1EF);
-  border-color: var(--vp-c-brand-1, #10B1EF);
 }
 
 /* Form Styles */
@@ -524,7 +499,7 @@ onMounted(async () => {
   border: 2px solid var(--vp-c-border, #e5e7eb);
   border-radius: 8px;
   font-size: 1rem;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease;
   box-sizing: border-box;
   background: var(--vp-c-bg, #ffffff);
   color: var(--vp-c-text-1, #374151);
@@ -544,13 +519,13 @@ onMounted(async () => {
 
 .form-help {
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-style: italic;
-  opacity: 0.9;
 }
 
+/* CAPTCHA Styles */
 .captcha-expired-message {
   background: #fff3cd;
   border: 1px solid #ffc107;
@@ -561,7 +536,6 @@ onMounted(async () => {
   font-size: 0.875rem;
 }
 
-/* CAPTCHA styles - FIXED: no separate container styling */
 .captcha-container {
   display: flex;
   align-items: center;
@@ -575,16 +549,10 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff !important;
+  background: #ffffff;
   border: 1px solid var(--vp-c-border-soft, #dee2e6);
   border-radius: 6px;
   padding: 0.5rem;
-}
-
-.captcha-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .captcha-loading,
@@ -612,27 +580,15 @@ onMounted(async () => {
 .refresh-captcha-btn {
   background: var(--vp-c-bg-soft, #f8f9fa);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  color: var(--vp-c-text-1, #374151);
   padding: 0.5rem;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 1rem;
   width: 2.5rem;
   height: 2.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-}
-
-.dark .refresh-captcha-btn {
-  background: #fff !important;
-  border: 1px solid #333 !important;
-  color: #222 !important;
-}
-
-.dark .refresh-captcha-btn img {
-  filter: invert(0);
 }
 
 .refresh-captcha-btn:hover:not(:disabled) {
@@ -648,10 +604,6 @@ onMounted(async () => {
 .refresh-captcha-btn img {
   width: 16px;
   height: 16px;
-}
-
-.captcha-input {
-  margin-top: 0.75rem !important;
 }
 
 .captcha-help {
@@ -690,21 +642,20 @@ onMounted(async () => {
   box-shadow: none;
 }
 
-/* Loading spinner */
-.loading-spinner {
-  width: 16px;
-  height: 16px;
-  border: 2px solid #f3f3f3;
-  border-top: 2px solid var(--vp-c-brand-1, #10B1EF);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  display: inline-block;
+.btn-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
 }
 
-.loading-spinner.small {
+.loading-spinner {
   width: 12px;
   height: 12px;
-  border-width: 1.5px;
+  border: 1.5px solid #f3f3f3;
+  border-top: 1.5px solid var(--vp-c-brand-1, #10B1EF);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
@@ -712,11 +663,19 @@ onMounted(async () => {
   100% { transform: rotate(360deg); }
 }
 
-.btn-loading {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: center;
+/* Error Section */
+.error-section {
+  background: var(--vp-danger-soft, #f8d7da);
+  color: var(--vp-c-danger-1, #721c24);
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
+}
+
+.error-message {
+  margin: 0;
+  font-weight: 500;
 }
 
 /* Results Section */
@@ -749,27 +708,18 @@ onMounted(async () => {
   font-size: 1rem;
 }
 
-/* Info, Warnings, Recommendations, Errors */
-.info-section,
-.warnings-section,
-.recommendations-section,
-.errors-section {
+/* Info Section */
+.info-section {
   border-top: 1px solid var(--vp-c-border-soft, #eee);
   padding-top: 1.5rem;
   margin-top: 1.5rem;
 }
 
-.info-section h4,
-.warnings-section h4,
-.recommendations-section h4,
-.errors-section h4 {
+.info-section h4 {
   margin: 0 0 1rem 0;
   color: var(--vp-c-text-1, #333);
   font-size: 1.25rem;
   font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
 }
 
 .info-section p {
@@ -778,24 +728,35 @@ onMounted(async () => {
   line-height: 1.6;
 }
 
-/* Lookup Warning */
 .lookup-warning {
   background: var(--vp-warning-soft, #fffbf0);
   color: var(--vp-c-warning-1, #d69e2e);
-  padding: 0.75rem;
-  border-radius: 6px;
-  border-left: 4px solid var(--vp-c-warning-1, #ffc107);
-  margin: 0.75rem 0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-left: 0.5rem;
+}
+
+/* Mechanisms Section */
+.mechanisms-section {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--vp-c-border-soft, #eee);
+  padding-top: 1.5rem;
+}
+
+.mechanisms-section h4 {
+  margin: 0 0 1rem 0;
+  color: var(--vp-c-text-1, #333);
+  font-size: 1.25rem;
   font-weight: 600;
 }
 
-/* Mechanisms List */
 .mechanisms-list {
-  margin: 0.75rem 0;
-  padding: 0.75rem;
   background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 6px;
+  border-radius: 8px;
   border: 1px solid var(--vp-c-border-soft, #dee2e6);
+  padding: 0.75rem;
 }
 
 .mechanism-item {
@@ -804,7 +765,7 @@ onMounted(async () => {
   align-items: center;
   padding: 0.5rem 0;
   border-bottom: 1px solid var(--vp-c-border-soft, #eee);
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-family: monospace;
 }
 
 .mechanism-item:last-child {
@@ -842,121 +803,62 @@ onMounted(async () => {
   border-color: var(--vp-c-warning-2, #fbbf24);
 }
 
-/* IP Test Section */
-.ip-test-section {
+/* Back Button */
+.back-nav {
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.back-btn {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  color: var(--vp-c-text-1, #374151);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.back-btn:hover:not(:disabled) {
+  background: var(--vp-c-bg, #ffffff);
+  color: var(--vp-c-brand-1, #10B1EF);
+  border-color: var(--vp-c-brand-1, #10B1EF);
+}
+
+.back-btn:active {
+  transform: translateY(1px);
+}
+
+/* Result Sections */
+.section {
   margin-top: 1.5rem;
   padding: 1.25rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
   border-radius: 8px;
-  border-left: 4px solid var(--vp-c-brand-1, #10B1EF);
 }
 
-.ip-test-card {
-  background: var(--vp-c-bg, #fff);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-}
-
-.ip-test-header {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 0.5rem;
-}
-
-.ip-result {
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
+.section h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1.25rem;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
-.result-pass {
-  background: var(--vp-c-green-soft, #dcfce7);
-  color: var(--vp-c-green-dark, #166534);
-  border: 1px solid var(--vp-c-green-light, #86efac);
-}
-
-.result-fail {
-  background: var(--vp-c-red-soft, #fef2f2);
-  color: var(--vp-c-red-dark, #991b1b);
-  border: 1px solid var(--vp-c-red-light, #fca5a5);
-}
-
-.result-softfail {
-  background: var(--vp-c-yellow-soft, #fefce8);
-  color: var(--vp-c-yellow-dark, #854d0e);
-  border: 1px solid var(--vp-c-yellow-light, #fde047);
-}
-
-.result-neutral {
-  background: var(--vp-c-gray-soft, #f8fafc);
-  color: var(--vp-c-gray-dark, #374151);
-  border: 1px solid var(--vp-c-gray-light, #d1d5db);
-}
-
-.result-error {
-  background: var(--vp-c-red-soft, #fef2f2);
-  color: var(--vp-c-red-dark, #991b1b);
-  border: 1px solid var(--vp-c-red-light, #fca5a5);
-}
-
-.result-unknown {
-  background: var(--vp-c-gray-soft, #f1f5f9);
-  color: var(--vp-c-gray-dark, #64748b);
-  border: 1px solid var(--vp-c-gray-light, #cbd5e1);
-}
-
-.ip-explanation {
+.section ul {
   margin: 0;
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.875rem;
-  line-height: 1.4;
-}
-
-/* Prevent overflow & wrap JSON in IP test details */
-.ip-test-section details {
-  max-width: 100%;
-  overflow-x: auto;
-}
-
-.ip-test-section details pre {
-  white-space: pre-wrap;
-  word-break: break-word;
-  overflow-wrap: anywhere;
-  margin: 0.5rem 0;
-  padding: 1rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 6px;
-}
-
-/* Lists */
-.info-section ul,
-.warnings-section ul,
-.recommendations-section ul,
-.errors-section ul {
-  margin: 0.5rem 0;
   padding-left: 1.5rem;
 }
 
-.info-section li,
-.warnings-section li,
-.recommendations-section li,
-.errors-section li {
-  margin: 0.25rem 0;
-  color: var(--vp-c-text-2, #4a5568);
+.section li {
+  margin: 0.5rem 0;
   line-height: 1.5;
 }
 
-/* Warning Section */
 .warnings-section {
   background: var(--vp-warning-soft, #fffbf0);
-  padding: 1.25rem;
-  border-radius: 8px;
   border-left: 4px solid var(--vp-c-warning-1, #ffc107);
 }
 
@@ -964,11 +866,8 @@ onMounted(async () => {
   color: var(--vp-c-warning-1, #d69e2e);
 }
 
-/* Recommendations Section */
 .recommendations-section {
   background: var(--vp-tip-soft, #f0f9ff);
-  padding: 1.25rem;
-  border-radius: 8px;
   border-left: 4px solid var(--vp-c-tip-1, #17a2b8);
 }
 
@@ -976,11 +875,8 @@ onMounted(async () => {
   color: var(--vp-c-tip-1, #17a2b8);
 }
 
-/* Errors Section */
 .errors-section {
   background: var(--vp-danger-soft, #fdf2f2);
-  padding: 1.25rem;
-  border-radius: 8px;
   border-left: 4px solid var(--vp-c-danger-1, #dc3545);
 }
 
@@ -988,106 +884,180 @@ onMounted(async () => {
   color: var(--vp-c-danger-1, #dc3545);
 }
 
-/* Error Message (Top Level) */
-.error-section {
-  background: var(--vp-c-danger-soft, #f8d7da);
-  color: var(--vp-c-danger-1, #721c24);
-  padding: 1rem;
-  border-radius: 8px;
+/* IP Test Section - IMPROVED DESIGN (No hover effects, better centering) */
+.ip-test-section {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-left: 4px solid var(--vp-c-brand-1, #10B1EF);
+}
+
+.ip-test-card {
+  background: var(--vp-c-bg, #fff);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 12px;
+  padding: 2rem;
   margin: 1rem 0;
-  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-.error-message {
-  margin: 0;
-  font-weight: 500;
+.ip-test-result-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
-/* Icon Placeholders */
-.icon-warning::before,
-.icon-info::before,
-.icon-error::before,
-.icon-success::before,
-.icon-back::before,
-.icon-refresh::before {
-  content: '';
+.ip-result-badge {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin-right: 6px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  vertical-align: text-bottom;
-  opacity: 0.8;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.result-pass {
+  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+  color: #166534;
+  border: 2px solid #22c55e;
+}
+
+.result-fail {
+  background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+  color: #991b1b;
+  border: 2px solid #ef4444;
+}
+
+.result-softfail {
+  background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
+  color: #854d0e;
+  border: 2px solid #f59e0b;
+}
+
+.result-neutral {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  color: #374151;
+  border: 2px solid #6b7280;
+}
+
+.result-error {
+  background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
+  color: #991b1b;
+  border: 2px solid #ef4444;
+}
+
+.result-unknown {
+  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+  color: #64748b;
+  border: 2px solid #94a3b8;
+}
+
+.ip-explanation {
+  margin: 0;
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+  max-width: 600px;
+  width: 100%;
+}
+
+/* Mailauth Section */
+.mailauth-section h4 {
+  color: var(--vp-c-text-1, #333);
+}
+
+.auth-info {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  padding: 1rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  margin: 1rem 0;
 }
 
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
-  .check-btn {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  .refresh-captcha-btn {
+    background: #fff;
+    border-color: #333;
+    color: #222;
   }
-  .check-btn:hover:not(:disabled) {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  
+  .back-btn {
+    background: #2d3748;
+    border-color: #4a5568;
+    color: #e2e8f0;
   }
-  .result-section {
+  
+  .back-btn:hover {
+    background: #374151;
+    color: var(--vp-c-brand-1, #10B1EF);
+    border-color: var(--vp-c-brand-1, #10B1EF);
+  }
+  
+  /* Fix recommendations text color in dark mode */
+  .recommendations-section,
+  .recommendations-section ul,
+  .recommendations-section li {
+    color: #2d3748 !important;
+  }
+  
+  /* Dark mode support for IP test */
+  .ip-test-card {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   }
-  .dark .refresh-captcha-btn {
-    background: #fff !important;
-    border: 1px solid #333 !important;
-    color: #222 !important;
+  
+  .ip-result-badge {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
 }
 
-/* Responsive Design */
+/* Responsive */
 @media (max-width: 768px) {
   .spf-checker {
     padding: 0 0.5rem;
   }
+  
   .tool-form,
   .result-section {
     padding: 1rem;
     margin: 1rem 0;
   }
-  .form-group input,
-  .check-btn {
-    padding: 0.75rem;
-  }
-  .result-section h3 {
-    font-size: 1.25rem;
-  }
-  .info-section h4,
-  .warnings-section h4,
-  .recommendations-section h4,
-  .errors-section h4 {
-    font-size: 1.1rem;
-  }
+  
   .captcha-container {
     flex-direction: column;
     align-items: stretch;
   }
+  
   .refresh-captcha-btn {
     align-self: center;
   }
-  .ip-test-section {
-    padding: 1rem;
-  }
-  .ip-test-card {
-    padding: 0.75rem;
-  }
-  .ip-test-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.5rem;
-  }
-  .back-nav {
-    margin: 1rem 0;
-  }
+  
   .back-btn {
     font-size: 0.85rem;
     padding: 0.6rem 1rem;
-    gap: 0.5rem;
+  }
+  
+  /* Responsive design for IP test */
+  .ip-test-card {
+    padding: 1.5rem 1rem;
+  }
+  
+  .ip-result-badge {
+    font-size: 1.25rem;
+    padding: 0.75rem 1.5rem;
+  }
+  
+  .ip-explanation {
+    font-size: 0.875rem;
   }
 }
 </style>
