@@ -217,8 +217,7 @@ function checkIncludedDomain(includedDomain) {
 
 // Clean formatting helpers - safe and simple
 function getIpResultClass(res) {
-  const resultString = typeof res === 'string' ? res : 
-                      (res?.result || res?.status?.result || res?.status || '')
+  const resultString = typeof res === 'string' ? res : (res?.result || res?.status?.result || res?.status || '')
   
   switch (String(resultString).toLowerCase()) {
     case 'pass': return 'result-pass'
@@ -232,8 +231,7 @@ function getIpResultClass(res) {
 }
 
 function getDisplayResult(res) {
-  const resultString = typeof res === 'string' ? res : 
-                      (res?.result || res?.status?.result || res?.status || '')
+  const resultString = typeof res === 'string' ? res : (res?.result || res?.status?.result || res?.status || '')
   
   const normalized = String(resultString).toLowerCase()
   
@@ -256,7 +254,6 @@ onMounted(async () => {
   }
 })
 </script>
-
 
 <template>
   <div class="spf-checker">
@@ -376,6 +373,22 @@ onMounted(async () => {
         <p v-if="result.policy"><strong>Policy:</strong> {{ result.policy }}</p>
       </div>
 
+      <!-- NEW: Compact IP Test Container -->
+      <div v-if="result.ipTestResult" class="section ip-test-compact">
+        <h4>IP Test Result</h4>
+        <div class="ip-test-compact-card">
+          <div class="ip-test-info">
+            <span class="ip-address">{{ result.ipTestResult.ip || testIp }}</span>
+            <span :class="['ip-result-compact', getIpResultClass(result.ipTestResult.result)]">
+              {{ getDisplayResult(result.ipTestResult.result) }}
+            </span>
+          </div>
+          <p v-if="result.ipTestResult.explanation" class="ip-explanation-compact">
+            {{ result.ipTestResult.explanation }}
+          </p>
+        </div>
+      </div>
+
       <!-- Mechanisms -->
       <div v-if="result.mechanisms?.length" class="mechanisms-section">
         <h4>Mechanisms</h4>
@@ -415,21 +428,6 @@ onMounted(async () => {
         <button type="button" @click="goBack" class="back-btn">
           ← Back to "{{ history[currentIndex - 1]?.domain }}"
         </button>
-      </div>
-
-      <!-- IP Test Results - IMPROVED DESIGN -->
-      <div v-if="result.ipTestResult" class="section ip-test-section">
-        <h4>SPF Test for IP {{ result.ipTestResult.ip || testIp }}</h4>
-        <div class="ip-test-card">
-          <div class="ip-test-result-display">
-            <span :class="['ip-result-badge', getIpResultClass(result.ipTestResult.result)]">
-              {{ getDisplayResult(result.ipTestResult.result) }}
-            </span>
-          </div>
-          <p v-if="result.ipTestResult.explanation" class="ip-explanation">
-            {{ result.ipTestResult.explanation }}
-          </p>
-        </div>
       </div>
 
       <!-- Mailauth Results -->
@@ -738,6 +736,98 @@ onMounted(async () => {
   margin-left: 0.5rem;
 }
 
+/* Compact IP Test Container - Minimal but highlighted */
+.ip-test-compact {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-left: 4px solid var(--vp-c-brand-1, #10B1EF);
+  margin-top: 1.5rem;
+}
+
+.ip-test-compact h4 {
+  color: var(--vp-c-brand-1, #10B1EF);
+  margin-bottom: 0.75rem;
+}
+
+.ip-test-compact-card {
+  background: var(--vp-c-bg, #fff);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.ip-test-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.ip-address {
+  font-family: monospace;
+  font-size: 0.95rem;
+  color: var(--vp-c-text-1, #374151);
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--vp-c-border-soft, #dee2e6);
+}
+
+.ip-result-compact {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Compact result colors - subtle but clear */
+.ip-result-compact.result-pass {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #22c55e;
+}
+
+.ip-result-compact.result-fail {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #ef4444;
+}
+
+.ip-result-compact.result-softfail {
+  background: #fefce8;
+  color: #854d0e;
+  border: 1px solid #f59e0b;
+}
+
+.ip-result-compact.result-neutral {
+  background: #f8fafc;
+  color: #374151;
+  border: 1px solid #6b7280;
+}
+
+.ip-result-compact.result-error {
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid #ef4444;
+}
+
+.ip-result-compact.result-unknown {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #94a3b8;
+}
+
+.ip-explanation-compact {
+  margin: 0.5rem 0 0 0;
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-style: italic;
+}
+
 /* Mechanisms Section */
 .mechanisms-section {
   margin-top: 1.5rem;
@@ -884,91 +974,6 @@ onMounted(async () => {
   color: var(--vp-c-danger-1, #dc3545);
 }
 
-/* IP Test Section - IMPROVED DESIGN (No hover effects, better centering) */
-.ip-test-section {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-left: 4px solid var(--vp-c-brand-1, #10B1EF);
-}
-
-.ip-test-card {
-  background: var(--vp-c-bg, #fff);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 12px;
-  padding: 2rem;
-  margin: 1rem 0;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.ip-test-result-display {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
-  width: 100%;
-}
-
-.ip-result-badge {
-  padding: 1rem 2rem;
-  border-radius: 12px;
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  display: inline-block;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.result-pass {
-  background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-  color: #166534;
-  border: 2px solid #22c55e;
-}
-
-.result-fail {
-  background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
-  color: #991b1b;
-  border: 2px solid #ef4444;
-}
-
-.result-softfail {
-  background: linear-gradient(135deg, #fefce8 0%, #fef3c7 100%);
-  color: #854d0e;
-  border: 2px solid #f59e0b;
-}
-
-.result-neutral {
-  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-  color: #374151;
-  border: 2px solid #6b7280;
-}
-
-.result-error {
-  background: linear-gradient(135deg, #fef2f2 0%, #fecaca 100%);
-  color: #991b1b;
-  border: 2px solid #ef4444;
-}
-
-.result-unknown {
-  background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-  color: #64748b;
-  border: 2px solid #94a3b8;
-}
-
-.ip-explanation {
-  margin: 0;
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 1rem;
-  line-height: 1.6;
-  text-align: center;
-  max-width: 600px;
-  width: 100%;
-}
-
 /* Mailauth Section */
 .mailauth-section h4 {
   color: var(--vp-c-text-1, #333);
@@ -1010,13 +1015,8 @@ onMounted(async () => {
     color: #2d3748 !important;
   }
   
-  /* Dark mode support for IP test */
-  .ip-test-card {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .ip-result-badge {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  .ip-test-compact-card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   }
 }
 
@@ -1046,18 +1046,19 @@ onMounted(async () => {
     padding: 0.6rem 1rem;
   }
   
-  /* Responsive design for IP test */
-  .ip-test-card {
-    padding: 1.5rem 1rem;
+  .ip-test-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
   }
   
-  .ip-result-badge {
-    font-size: 1.25rem;
-    padding: 0.75rem 1.5rem;
+  .ip-address {
+    font-size: 0.85rem;
   }
   
-  .ip-explanation {
-    font-size: 0.875rem;
+  .ip-result-compact {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.7rem;
   }
 }
 </style>
