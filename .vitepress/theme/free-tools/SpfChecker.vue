@@ -149,7 +149,7 @@ async function checkSpf() {
       return
     }
 
-    // Handle success
+    // Handle success - FIXED: Always initialize ipTestResult consistently
     result.value = {
       valid: !!json.result.success,
       domain: json.result.domain || domain.value,
@@ -168,7 +168,12 @@ async function checkSpf() {
       recommendations: json.result.recommendations || [],
       errors: json.result.success ? [] : [json.result.error || 'Unknown error'],
       mailauthResult: json.result.mailauthResult,
-      ipTestResult: json.result.ipTestResult || null,
+      // FIXED: Always initialize ipTestResult to prevent hydration mismatches
+      ipTestResult: json.result.ipTestResult ? {
+        ip: json.result.ipTestResult.ip || testIp.value || 'Unknown',
+        result: json.result.ipTestResult.result || 'Unknown',
+        explanation: json.result.ipTestResult.explanation || null
+      } : null,
       score: json.result.score
     }
 
@@ -373,21 +378,23 @@ onMounted(async () => {
         <p v-if="result.policy"><strong>Policy:</strong> {{ result.policy }}</p>
       </div>
 
-      <!-- NEW: Compact IP Test Container -->
-      <div v-if="result.ipTestResult" class="section ip-test-compact">
-        <h4>IP Test Result</h4>
-        <div class="ip-test-compact-card">
-          <div class="ip-test-info">
-            <span class="ip-address">{{ result.ipTestResult.ip || testIp }}</span>
-            <span :class="['ip-result-compact', getIpResultClass(result.ipTestResult.result)]">
-              {{ getDisplayResult(result.ipTestResult.result) }}
-            </span>
+      <!-- FIXED: Compact IP Test Container with proper safety checks -->
+      <ClientOnly>
+        <div v-if="result.ipTestResult" class="section ip-test-compact">
+          <h4>IP Test Result</h4>
+          <div class="ip-test-compact-card">
+            <div class="ip-test-info">
+              <span class="ip-address">{{ result.ipTestResult.ip }}</span>
+              <span :class="['ip-result-compact', getIpResultClass(result.ipTestResult.result)]">
+                {{ getDisplayResult(result.ipTestResult.result) }}
+              </span>
+            </div>
+            <p v-if="result.ipTestResult.explanation" class="ip-explanation-compact">
+              {{ result.ipTestResult.explanation }}
+            </p>
           </div>
-          <p v-if="result.ipTestResult.explanation" class="ip-explanation-compact">
-            {{ result.ipTestResult.explanation }}
-          </p>
         </div>
-      </div>
+      </ClientOnly>
 
       <!-- Mechanisms -->
       <div v-if="result.mechanisms?.length" class="mechanisms-section">
