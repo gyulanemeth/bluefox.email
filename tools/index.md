@@ -35,7 +35,7 @@ head:
 
 # Free Tools by BlueFox Email
 
-Welcome to our toolbox, your gateway to a collection of **free online tools** designed to help you send, manage, and monitor your emails more effectively. Currently, we offer comprehensive **email deliverability tools** to help you authenticate and secure your domains. We're actively expanding our toolkit and will soon include **pre-send tools** such as link checkers and email HTML validation tools to further enhance your email workflow.
+Welcome to our toolbox, your gateway to a collection of **free online tools**. Currently, we offer comprehensive **email deliverability tools** to help you authenticate and secure your domains. We're actively expanding our toolkit and will soon include **pre-send tools** such as link checkers and email HTML validation tools to further enhance your email workflow.
 
 ## Email Deliverability Tools
 
