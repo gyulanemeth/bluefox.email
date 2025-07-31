@@ -369,16 +369,9 @@ onMounted(async () => {
         <h4>Basic Information</h4>
         <p><strong>Domain:</strong> {{ result.domain }}</p>
         <p><strong>SPF Record:</strong> {{ result.record }}</p>
-        <p v-if="result.lookups !== undefined">
-          <strong>DNS Lookups:</strong> {{ result.lookups }}/10
-          <span v-if="result.lookups > 10" class="lookup-warning">
-            ⚠️ Exceeds limit
-          </span>
-        </p>
         <p v-if="result.policy"><strong>Policy:</strong> {{ result.policy }}</p>
       </div>
 
-      <!-- FIXED: Compact IP Test Container with proper safety checks -->
       <ClientOnly>
         <div v-if="result.ipTestResult" class="section ip-test-compact">
           <h4>IP Test Result</h4>
