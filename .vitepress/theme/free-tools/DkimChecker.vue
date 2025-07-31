@@ -657,9 +657,7 @@ onMounted(async () => {
   overflow-x: auto;
   margin: 1rem 0;
   padding: 0 1rem;
-  border-radius: 8px;
   background: var(--vp-c-bg, #ffffff);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .dkim-table {
@@ -667,11 +665,13 @@ onMounted(async () => {
   border-collapse: collapse;
   margin: 0;
   background: var(--vp-c-bg, #fff);
+  border-radius: 8px;
+  border: 1px solid var(--vp-c-border-soft, #ddd);
+
 }
 
 .dkim-table th,
 .dkim-table td {
-  border: 1px solid var(--vp-c-border-soft, #ddd);
   padding: 0.875rem 1.25rem;
   text-align: left;
   vertical-align: top;
