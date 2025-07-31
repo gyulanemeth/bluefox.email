@@ -39,6 +39,6 @@ Welcome to our toolbox, your gateway to a collection of **free online tools**. C
 
 ## Email Deliverability Tools
 
-Quickly check your domain’s email authentication setup with our DMARC, SPF, DKIM, and MX record checkers. Prevent spoofing, fix deliverability issues, and ensure your emails land in the inbox—not spam.
+Quickly check your domain’s email authentication setup with our DMARC, SPF, DKIM, and MX record checkers. Prevent spoofing, fix deliverability issues, and ensure your emails land in the inbox, not spam.
 
 [Explore Deliverability Tools →](/tools/deliverability/index.md)
