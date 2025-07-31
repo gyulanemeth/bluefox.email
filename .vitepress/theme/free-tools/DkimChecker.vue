@@ -635,35 +635,44 @@ onMounted(async () => {
   color: var(--vp-c-text-1, #333);
 }
 
-/* DKIM Table */
 .dkim-table-section {
-  margin-top: 1.5rem;
-  border-top: 1px solid var(--vp-c-border-soft, #eee);
-  padding-top: 1.5rem;
+  
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
 }
 
 .dkim-table-section h4 {
   margin: 0 0 1rem 0;
   color: var(--vp-c-text-1, #333);
+  border-top: 1px solid var(--vp-c-border-soft, #eee);
   font-size: 1.25rem;
   font-weight: 600;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
 }
 
 .table-container {
   overflow-x: auto;
+  margin: 1rem 0;
+  padding: 0 1rem;
+  border-radius: 8px;
+  background: var(--vp-c-bg, #ffffff);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .dkim-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1rem 0;
+  margin: 0;
   background: var(--vp-c-bg, #fff);
 }
 
 .dkim-table th,
 .dkim-table td {
   border: 1px solid var(--vp-c-border-soft, #ddd);
-  padding: 0.75rem;
+  padding: 0.875rem 1.25rem;
   text-align: left;
   vertical-align: top;
 }
@@ -671,11 +680,12 @@ onMounted(async () => {
 .dkim-table th {
   background: var(--vp-c-bg-soft, #f5f5f5);
   font-weight: 600;
+  border-bottom: 2px solid var(--vp-c-border, #e5e7eb);
 }
 
-.tag-col { width: 80px; }
-.value-col { width: 200px; }
-.desc-col { width: auto; }
+.tag-col { width: 15%; min-width: 80px; }
+.value-col { width: 50%; min-width: 200px; }
+.desc-col { width: 35%; min-width: 150px; }
 
 .tag-cell { 
   font-family: monospace; 
@@ -687,6 +697,7 @@ onMounted(async () => {
   font-family: monospace; 
   word-break: break-all;
   font-size: 0.875rem;
+  line-height: 1.4;
 }
 
 .desc-cell {
@@ -774,6 +785,18 @@ onMounted(async () => {
     margin: 1rem 0;
   }
   
+  /* Adjust table margins for mobile */
+  .dkim-table-section {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .table-container {
+    margin: 1rem -1rem;
+  }
+  
   .captcha-container {
     flex-direction: column;
     align-items: stretch;
@@ -785,11 +808,12 @@ onMounted(async () => {
   
   .dkim-table {
     font-size: 0.875rem;
+    min-width: 600px; /* Ensure horizontal scroll on small screens */
   }
   
   .dkim-table th,
   .dkim-table td {
-    padding: 0.5rem;
+    padding: 0.5rem 0.75rem;
   }
 }
 </style>
