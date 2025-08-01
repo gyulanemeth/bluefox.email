@@ -650,18 +650,20 @@ onMounted(async () => {
   gap: 0.5rem;
 }
 
+/* FIXED: Priority Badge - Default for light mode */
 .priority-badge {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, var(--vp-c-brand-1, #10B1EF), var(--vp-c-brand-2, #0891d4));
+  background: #1976d2; /* Solid dark blue for light mode */
   color: white;
   border-radius: 12px;
   font-weight: 700;
   font-size: 1rem;
-  box-shadow: 0 4px 12px rgba(16, 177, 239, 0.25);
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+  border: 1px solid rgba(25, 118, 210, 0.2);
 }
 
 .priority-label {
@@ -683,7 +685,7 @@ onMounted(async () => {
 .server-name {
   font-family: var(--vp-font-family-mono, 'Courier New', monospace);
   font-weight: 600;
-  color: var(--vp-c-text-1, #333);
+  color: var(--vp-c-text-1, #2d3748); /* Darker color for light mode */
   font-size: 1rem;
   word-break: break-all;
   line-height: 1.4;
@@ -864,9 +866,12 @@ onMounted(async () => {
     color: #77bdfb;
   }
   
+  /* Dark mode priority badge with gradient */
   .priority-badge {
-    background: linear-gradient(135deg, #77bdfb, #5ba7f7);
-    color: #1a1a1a;
+    background: linear-gradient(135deg, #77bdfb, #5ba7f7) !important;
+    color: #1a1a1a !important;
+    box-shadow: 0 2px 8px rgba(119, 189, 251, 0.3) !important;
+    border: 1px solid rgba(119, 189, 251, 0.2) !important;
   }
   
   .mx-summary-stats {
@@ -958,3 +963,4 @@ onMounted(async () => {
   }
 }
 </style>
+
