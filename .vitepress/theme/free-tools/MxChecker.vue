@@ -103,24 +103,19 @@ async function checkMx() {
     })
     
     const json = await response.json()
-
-    // Handle errors
-    if (!response.ok || !json.result?.success) {
-      const serverError = json.result?.error || 'Server error occurred'
-      const errorType = handleServerError(serverError)
+    if (!response.ok) {
+      const errorType = handleServerError(json)
       
       if (errorType === 'expired' || errorType === 'incorrect') {
         await autoResolveError()
       }
       return
     }
-
-    // Handle success
+    
     result.value = {
-      valid: !!json.result.success,
+      valid: true,
       domain: json.result.domain || domain.value,
       records: json.result.records || json.result.mxRecords || [],
-      errors: json.result.success ? [] : [json.result.error || 'Unknown error occurred'],
       score: json.result.score,
       warnings: json.result.warnings || [],
       recommendations: json.result.recommendations || []
@@ -131,7 +126,7 @@ async function checkMx() {
 
   } catch (error) {
     console.error('MX Check Error:', error)
-    setError('NETWORK_ERROR')
+    setError('NETWORK_ERROR', 'Network connection failed. Please try again.')
   } finally {
     loading.value = false
   }
@@ -314,7 +309,7 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Warnings, Recommendations, Errors -->
+      <!-- Warnings, Recommendations -->
       <div v-if="result.warnings?.length" class="section warnings-section">
         <h4>Warnings</h4>
         <ul>
@@ -328,26 +323,17 @@ onMounted(async () => {
           <li v-for="rec in result.recommendations" :key="rec">{{ rec }}</li>
         </ul>
       </div>
-
-      <div v-if="result.errors?.length" class="section errors-section">
-        <h4>Errors</h4>
-        <ul>
-          <li v-for="error in result.errors" :key="error">{{ error }}</li>
-        </ul>
-      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-/* Base Layout */
 .mx-checker {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* Form Styles */
 .tool-form {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -650,14 +636,13 @@ onMounted(async () => {
   gap: 0.5rem;
 }
 
-/* FIXED: Priority Badge - Default for light mode */
 .priority-badge {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 48px;
   height: 48px;
-  background: #1976d2; /* Solid dark blue for light mode */
+  background: #1976d2;
   color: white;
   border-radius: 12px;
   font-weight: 700;
@@ -685,7 +670,7 @@ onMounted(async () => {
 .server-name {
   font-family: var(--vp-font-family-mono, 'Courier New', monospace);
   font-weight: 600;
-  color: var(--vp-c-text-1, #2d3748); /* Darker color for light mode */
+  color: var(--vp-c-text-1, #2d3748);
   font-size: 1rem;
   word-break: break-all;
   line-height: 1.4;
@@ -836,15 +821,6 @@ onMounted(async () => {
   color: var(--vp-c-tip-1, #17a2b8);
 }
 
-.errors-section {
-  background: var(--vp-danger-soft, #fdf2f2);
-  border-left: 4px solid var(--vp-c-danger-1, #dc3545);
-}
-
-.errors-section h4 {
-  color: var(--vp-c-danger-1, #dc3545);
-}
-
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
   .refresh-captcha-btn {
@@ -866,7 +842,6 @@ onMounted(async () => {
     color: #77bdfb;
   }
   
-  /* Dark mode priority badge with gradient */
   .priority-badge {
     background: linear-gradient(135deg, #77bdfb, #5ba7f7) !important;
     color: #1a1a1a !important;
@@ -883,7 +858,6 @@ onMounted(async () => {
     background: #282a36;
   }
   
-  /* Fix recommendations text color in dark mode */
   .recommendations-section,
   .recommendations-section ul,
   .recommendations-section li {
@@ -963,4 +937,3 @@ onMounted(async () => {
   }
 }
 </style>
-

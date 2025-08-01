@@ -22,7 +22,9 @@ const {
   markSolved,
   setError,
   clearError,
+  handleServerError,
   validateCaptchaInput,
+  autoResolveError,
   isCurrentlyExpired
 } = useCaptcha('dmarc-report-analyzer')
 
@@ -61,6 +63,12 @@ watch(isProbeExpired, (newExpired, oldExpired) => {
 function validateInputs() {
   if (!xmlPaste.value.trim() && !file.value) {
     setError('MISSING_TEXT', 'Please paste your DMARC XML or upload an XML file to analyze.')
+    return false
+  }
+  
+  // ADDED: Check if captcha probe exists when needed
+  if (shouldShowCaptcha.value && !captchaProbe.value) {
+    setError('MISSING_PROBE', 'Please load the captcha first.')
     return false
   }
   
@@ -155,40 +163,57 @@ async function analyzeReport() {
       return
     }
 
+    // Debug captcha values
+    console.log('Debug - Captcha values:', {
+      captchaProbe: captchaProbe.value,
+      captchaText: captchaText.value,
+      shouldShowCaptcha: shouldShowCaptcha.value
+    })
+
     let response, data
     
-    // Prepare request based on input type
     if (file.value) {
+      // File upload using FormData
       const formData = new FormData()
       formData.append('file', file.value)
-      formData.append('captchaText', shouldShowCaptcha.value ? captchaText.value : '')
-      formData.append('captchaProbe', captchaProbe.value)
+      formData.append('captchaText', captchaText.value || '') // FIXED: Always send
+      formData.append('captchaProbe', captchaProbe.value || '') // FIXED: Always send
       
-      response = await fetch(`${API_URL}/v1/analyze-dmarc-report-upload`, {
+      // Debug FormData
+      for (let [key, value] of formData.entries()) {
+        console.log(`FormData ${key}:`, value)
+      }
+      
+      response = await fetch(`${API_URL}/v1/analyze-dmarc-report`, {
         method: 'POST',
         body: formData
       })
     } else {
+      const requestBody = {
+        xmlContent: xmlPaste.value,
+        captchaText: captchaText.value || '', 
+        captchaProbe: captchaProbe.value || ''
+      }
+      
+      console.log('Request body:', requestBody)
+      
       response = await fetch(`${API_URL}/v1/analyze-dmarc-report`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          xml: xmlPaste.value,
-          captchaText: shouldShowCaptcha.value ? captchaText.value : '',
-          captchaProbe: captchaProbe.value
-        })
+        body: JSON.stringify(requestBody)
       })
     }
     
     data = await response.json()
-
-    // Handle server/network errors
-    if (!response.ok || !data.result?.success) {
-      setError('NETWORK_ERROR', data.result?.error || 'Server error occurred')
+    if (!response.ok) {
+      const errorType = handleServerError(data)
+      
+      if (errorType === 'expired' || errorType === 'incorrect') {
+        await autoResolveError()
+      }
       return
     }
 
-    // Handle success
     result.value = {
       ...data.result,
       valid: true
@@ -200,7 +225,7 @@ async function analyzeReport() {
 
   } catch (error) {
     console.error('DMARC Report Analysis Error:', error)
-    setError('NETWORK_ERROR')
+    setError('NETWORK_ERROR', 'Network connection failed. Please try again.')
   } finally {
     loading.value = false
   }
@@ -284,7 +309,6 @@ onMounted(async () => {
           </div>
         </div>
 
-        <!-- Captcha and Submit sections remain outside the drag area -->
         <!-- Captcha Expiration Warning -->
         <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
           Your verification has expired. Please refresh the captcha below.
@@ -484,7 +508,6 @@ onMounted(async () => {
   padding: 0 1rem;
 }
 
-/* Tool Form - Remove drag functionality from main card */
 .tool-form {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -1131,6 +1154,11 @@ onMounted(async () => {
   .recommendations-section,
   .recommendations-section ul,
   .recommendations-section li {
+    color: #2d3748 !important;
+  }
+  .warnings-section,
+  .warnings-section ul,
+  .warnings-section li {
     color: #2d3748 !important;
   }
 }

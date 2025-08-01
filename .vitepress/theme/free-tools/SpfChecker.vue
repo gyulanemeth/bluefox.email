@@ -52,7 +52,7 @@ const isFormDisabled = computed(() =>
   loading.value || (shouldShowCaptcha.value && (!captchaText.value || isProbeExpired.value))
 )
 
-// Watch for CAPTCHA expiration and clear results - THIS IS THE FIX!
+// Watch for CAPTCHA expiration and clear results
 watch(isProbeExpired, (newExpired, oldExpired) => {
   if (newExpired && !oldExpired && result.value) {
     console.log('CAPTCHA expired - clearing results')
@@ -138,10 +138,8 @@ async function checkSpf() {
     
     const json = await response.json()
 
-    // Handle errors
-    if (!response.ok || !json.result?.success) {
-      const serverError = json.result?.error || 'Server error occurred'
-      const errorType = handleServerError(serverError)
+    if (!response.ok) {
+      const errorType = handleServerError(json)
       
       if (errorType === 'expired' || errorType === 'incorrect') {
         await autoResolveError()
@@ -149,9 +147,8 @@ async function checkSpf() {
       return
     }
 
-    // Handle success - FIXED: Always initialize ipTestResult consistently
     result.value = {
-      valid: !!json.result.success,
+      valid: true,
       domain: json.result.domain || domain.value,
       record: json.result.rawRecord || json.result.record || 'Not found',
       lookups: json.result.lookups,
@@ -166,9 +163,7 @@ async function checkSpf() {
       }),
       warnings: json.result.warnings || [],
       recommendations: json.result.recommendations || [],
-      errors: json.result.success ? [] : [json.result.error || 'Unknown error'],
       mailauthResult: json.result.mailauthResult,
-      // FIXED: Always initialize ipTestResult to prevent hydration mismatches
       ipTestResult: json.result.ipTestResult ? {
         ip: json.result.ipTestResult.ip || testIp.value || 'Unknown',
         result: json.result.ipTestResult.result || 'Unknown',
@@ -195,7 +190,7 @@ async function checkSpf() {
 
   } catch (error) {
     console.error('SPF Check Error:', error)
-    setError('NETWORK_ERROR')
+    setError('NETWORK_ERROR', 'Network connection failed. Please try again.')
   } finally {
     loading.value = false
   }
@@ -437,7 +432,7 @@ onMounted(async () => {
         <pre v-if="result.mailauthResult.info" class="auth-info">{{ result.mailauthResult.info }}</pre>
       </div>
 
-      <!-- Warnings, Recommendations, Errors -->
+      <!-- Warnings, Recommendations -->
       <div v-if="result.warnings?.length" class="section warnings-section">
         <h4>Warnings</h4>
         <ul>
@@ -451,26 +446,17 @@ onMounted(async () => {
           <li v-for="rec in result.recommendations" :key="rec">{{ rec }}</li>
         </ul>
       </div>
-
-      <div v-if="result.errors?.length" class="section errors-section">
-        <h4>Errors</h4>
-        <ul>
-          <li v-for="error in result.errors" :key="error">{{ error }}</li>
-        </ul>
-      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-/* Base Layout */
 .spf-checker {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* Form Styles */
 .tool-form {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -965,15 +951,6 @@ onMounted(async () => {
   color: var(--vp-c-tip-1, #17a2b8);
 }
 
-.errors-section {
-  background: var(--vp-danger-soft, #fdf2f2);
-  border-left: 4px solid var(--vp-c-danger-1, #dc3545);
-}
-
-.errors-section h4 {
-  color: var(--vp-c-danger-1, #dc3545);
-}
-
 /* Mailauth Section */
 .mailauth-section h4 {
   color: var(--vp-c-text-1, #333);
@@ -1008,7 +985,6 @@ onMounted(async () => {
     border-color: var(--vp-c-brand-1, #10B1EF);
   }
   
-  /* Fix recommendations text color in dark mode */
   .recommendations-section,
   .recommendations-section ul,
   .recommendations-section li {

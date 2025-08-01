@@ -33,7 +33,9 @@ const {
   markSolved,
   setError,
   clearError,
+  handleServerError,
   validateCaptchaInput,
+  autoResolveError,
   isCurrentlyExpired
 } = useCaptcha('dkim-checker')
 
@@ -132,40 +134,30 @@ async function checkDkim() {
     })
     
     const json = await response.json()
-
-    // Handle server/network errors
-    if (!response.ok || !json.result) {
-      setError('NETWORK_ERROR', 'Server error occurred')
+    if (!response.ok) {
+      const errorType = handleServerError(json)
+      
+      if (errorType === 'expired' || errorType === 'incorrect') {
+        await autoResolveError()
+      }
       return
     }
-
-    // CAPTCHA was processed successfully - mark as solved
+    result.value = {
+      valid: true,
+      domain: json.result.domain || domain.value,
+      selector: json.result.selector || selector.value,
+      record: json.result.rawRecord || json.result.record,
+      rawRecord: json.result.rawRecord || json.result.record,
+      warnings: json.result.warnings || [],
+      recommendations: json.result.recommendations || [],
+      score: json.result.score
+    }
     captchaText.value = ''
     markSolved()
 
-    // Handle DKIM check result
-    if (json.result.success && (json.result.rawRecord || json.result.record)) {
-      // DKIM record found - show results
-      result.value = {
-        valid: true,
-        domain: json.result.domain || domain.value,
-        selector: json.result.selector || selector.value,
-        record: json.result.rawRecord || json.result.record,
-        rawRecord: json.result.rawRecord || json.result.record,
-        success: true,
-        warnings: json.result.warnings || [],
-        recommendations: json.result.recommendations || [],
-        score: json.result.score
-      }
-    } else {
-      // DKIM record not found - show error message only
-      const errorMsg = json.result.error || `DKIM record not found for selector '${selector.value || DEFAULT_SELECTOR}'.`
-      setError('MISSING_TEXT', errorMsg)
-    }
-
   } catch (error) {
     console.error('DKIM Check Error:', error)
-    setError('NETWORK_ERROR')
+    setError('NETWORK_ERROR', 'Network connection failed. Please try again.')
   } finally {
     loading.value = false
   }
@@ -346,7 +338,6 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* Base Layout */
 .dkim-checker {
   max-width: 800px;
   margin: 0 auto;
@@ -636,7 +627,6 @@ onMounted(async () => {
 }
 
 .dkim-table-section {
-  
   margin-left: -1.5rem;
   margin-right: -1.5rem;
   padding-left: 1.5rem;
@@ -667,7 +657,6 @@ onMounted(async () => {
   background: var(--vp-c-bg, #fff);
   border-radius: 8px;
   border: 1px solid var(--vp-c-border-soft, #ddd);
-
 }
 
 .dkim-table th,
@@ -808,7 +797,7 @@ onMounted(async () => {
   
   .dkim-table {
     font-size: 0.875rem;
-    min-width: 600px; /* Ensure horizontal scroll on small screens */
+    min-width: 600px;
   }
   
   .dkim-table th,

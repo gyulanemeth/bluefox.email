@@ -5,8 +5,20 @@ const IMAGE_KEY = 'captchaImage'
 const EXPIRES_KEY = 'captchaExpires'
 const SOLVED_UNTIL_KEY = 'captchaSolvedUntil'
 
-// Enhanced error configuration matching backend responses
+// Updated error configuration to match standard-api-errors backend responses
 const CAPTCHA_ERRORS = {
+  AUTHENTICATION_ERROR: {
+    message: 'Security verification failed. Please try again with the new verification.',
+    action: 'refresh',
+    severity: 'error',
+    autoResolve: true
+  },
+  VALIDATION_ERROR: {
+    message: 'Please enter the characters shown in the verification image to continue.',
+    action: 'focus',
+    severity: 'info',
+    autoResolve: false
+  },
   EXPIRED: {
     message: 'Your security verification has expired. Please complete the new verification above.',
     action: 'refresh',
@@ -28,7 +40,7 @@ const CAPTCHA_ERRORS = {
   MISSING_PROBE: {
     message: 'Security verification is required. Please load the verification image first.',
     action: 'load',
-    severity: 'warning',
+    severity: 'warning',  
     autoResolve: false
   },
   NETWORK_ERROR: {
@@ -45,6 +57,12 @@ const CAPTCHA_ERRORS = {
   },
   SERVER_ERROR: {
     message: 'Server error occurred. Please try again later.',
+    action: 'retry',
+    severity: 'error',
+    autoResolve: false
+  },
+  INTERNAL_SERVER_ERROR: {
+    message: 'An internal server error occurred. Please try again later.',
     action: 'retry',
     severity: 'error',
     autoResolve: false
@@ -103,8 +121,6 @@ export function useCaptcha(context = 'default') {
     
     const currentTime = now()
     const expiryTime = state.captchaExpires.value
-    
-    // Add 10-second buffer to account for network delays
     const bufferTime = 10
     return currentTime > (expiryTime - bufferTime)
   }
@@ -140,7 +156,6 @@ export function useCaptcha(context = 'default') {
   
   const currentError = computed(() => globalErrorState.value)
 
-  // Enhanced load captcha with error handling
   async function loadCaptcha() {
     state.captchaLoading.value = true
     clearError()
@@ -154,6 +169,11 @@ export function useCaptcha(context = 'default') {
       const res = await fetch(`${API_URL}/v1/captcha/generate`)
       
       if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}))
+        if (errorData.error?.name) {
+          handleStandardApiError(errorData.error)
+          return
+        }
         throw new Error(`HTTP ${res.status}: ${res.statusText}`)
       }
       
@@ -189,8 +209,7 @@ export function useCaptcha(context = 'default') {
       state.captchaLoading.value = false
     }
   }
-
-  // Enhanced refresh captcha with reason tracking
+  
   async function refreshCaptcha(reason = 'manual') {
     try {
       clearError()
@@ -249,27 +268,69 @@ export function useCaptcha(context = 'default') {
     return true
   }
 
-  // Enhanced server error handling that matches backend responses
-  function handleServerError(serverMessage, serverResponse = null) {
+  function handleStandardApiError(error) {
+    const { name, message } = error
+    
+    switch (name) {
+      case 'AUTHENTICATION_ERROR':
+        // Check if it's captcha-related
+        if (message.toLowerCase().includes('captcha') || 
+            message.toLowerCase().includes('verification')) {
+          
+          if (message.toLowerCase().includes('expired')) {
+            setError('EXPIRED', message)
+            return 'expired'
+          } else {
+            setError('AUTHENTICATION_ERROR', message)
+            return 'incorrect'
+          }
+        }
+        setError('AUTHENTICATION_ERROR', message)
+        return 'auth_error'
+        
+      case 'VALIDATION_ERROR':
+        setError('VALIDATION_ERROR', message)
+        return 'validation'
+        
+      case 'INTERNAL_SERVER_ERROR':
+        setError('INTERNAL_SERVER_ERROR', message)
+        return 'server_error'
+        
+      default:
+        setError('SERVER_ERROR', message)
+        return 'server_error'
+    }
+  }
+
+  function handleServerError(serverErrorData, serverResponse = null) {
+    if (serverErrorData && typeof serverErrorData === 'object' && serverErrorData.error) {
+      return handleStandardApiError(serverErrorData.error)
+    }
+    const serverMessage = typeof serverErrorData === 'string' 
+      ? serverErrorData 
+      : serverErrorData?.message || 'Unknown error'
+    
     const lowerMsg = serverMessage.toLowerCase()
     
-    if (lowerMsg.includes('captcha')) {
-      // Match backend error messages exactly
+    if (lowerMsg.includes('captcha') || lowerMsg.includes('verification')) {
       if (lowerMsg.includes('expired') || lowerMsg.includes('expire')) {
         setError('EXPIRED')
         return 'expired'
       } 
-      else if (lowerMsg.includes('don\'t match') || lowerMsg.includes('incorrect') || lowerMsg.includes('invalid') || lowerMsg.includes('wrong')) {
+      else if (lowerMsg.includes('don\'t match') || 
+               lowerMsg.includes('incorrect') || 
+               lowerMsg.includes('invalid') || 
+               lowerMsg.includes('wrong')) {
         setError('INCORRECT')
         return 'incorrect'
       }
-      else if (lowerMsg.includes('enter the characters') || lowerMsg.includes('missing')) {
+      else if (lowerMsg.includes('enter the characters') || 
+               lowerMsg.includes('missing')) {
         setError('MISSING_TEXT')
         return 'missing'
       }
       else {
-        // Generic captcha error - but still distinct
-        setError('INCORRECT', 'Security verification failed. Please try again with the new verification.')
+        setError('AUTHENTICATION_ERROR', 'Security verification failed. Please try again.')
         return 'incorrect'
       }
     } else {
@@ -288,8 +349,12 @@ export function useCaptcha(context = 'default') {
     }
 
     try {
-      if (errorType === 'EXPIRED' || errorType === 'INCORRECT') {
-        await refreshCaptcha(errorType.toLowerCase())
+      if (errorType === 'EXPIRED' || 
+          errorType === 'INCORRECT' || 
+          errorType === 'AUTHENTICATION_ERROR') {
+        await refreshCaptcha(
+          errorType === 'EXPIRED' ? 'expired' : 'incorrect'
+        )
         return true
       }
     } catch (error) {
@@ -325,6 +390,7 @@ export function useCaptcha(context = 'default') {
     setError,
     clearError,
     handleServerError,
+    handleStandardApiError,
     validateCaptchaInput,
     autoResolveError,
     isCurrentlyExpired,

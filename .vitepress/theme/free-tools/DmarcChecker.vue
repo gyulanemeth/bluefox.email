@@ -123,26 +123,21 @@ async function checkDmarc() {
     })
     
     const json = await response.json()
-
-    // Handle errors
-    if (!response.ok || !json.result?.success) {
-      const serverError = json.result?.error || 'Server error occurred'
-      const errorType = handleServerError(serverError)
+    if (!response.ok) {
+      const errorType = handleServerError(json)
       
       if (errorType === 'expired' || errorType === 'incorrect') {
         await autoResolveError()
       }
       return
     }
-
-    // Handle success
+    
     result.value = {
-      valid: !!json.result.success,
+      valid: true,
       domain: json.result.domain || domain.value,
       record: json.result.rawRecord || json.result.record || 'Not found',
       parsed: json.result.parsed || {},
       checkedRecord: json.result.checkedRecord,
-      errors: json.result.success ? [] : [json.result.error || 'Unknown error occurred'],
       score: json.result.score,
       warnings: json.result.warnings || [],
       recommendations: json.result.recommendations || []
@@ -153,7 +148,7 @@ async function checkDmarc() {
 
   } catch (error) {
     console.error('DMARC Check Error:', error)
-    setError('NETWORK_ERROR')
+    setError('NETWORK_ERROR', 'Network connection failed. Please try again.')
   } finally {
     loading.value = false
   }
@@ -289,7 +284,7 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Warnings, Recommendations, Errors -->
+      <!-- Warnings, Recommendations -->
       <div v-if="result.warnings?.length" class="section warnings-section">
         <h4>Warnings</h4>
         <ul>
@@ -303,26 +298,17 @@ onMounted(async () => {
           <li v-for="rec in result.recommendations" :key="rec">{{ rec }}</li>
         </ul>
       </div>
-
-      <div v-if="result.errors?.length" class="section errors-section">
-        <h4>Errors</h4>
-        <ul>
-          <li v-for="error in result.errors" :key="error">{{ error }}</li>
-        </ul>
-      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-/* Base Layout */
 .dmarc-checker {
   max-width: 800px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* Form Styles */
 .tool-form {
   margin: 2rem 0;
   padding: 1.5rem;
@@ -661,15 +647,6 @@ onMounted(async () => {
 
 .recommendations-section h4 {
   color: var(--vp-c-tip-1, #17a2b8);
-}
-
-.errors-section {
-  background: var(--vp-danger-soft, #fdf2f2);
-  border-left: 4px solid var(--vp-c-danger-1, #dc3545);
-}
-
-.errors-section h4 {
-  color: var(--vp-c-danger-1, #dc3545);
 }
 
 /* Dark Mode */
