@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv} from 'vitepress'
 import tailwindcss from 'tailwindcss'
-import { addSchemaMarkup } from './theme/schemaMarkup'
+import { addSchemaMarkup } from './theme/SchemaMarkup/schemaMarkup'
+import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
 
 const headConf = []
 const env = loadEnv('', process.cwd())
@@ -45,6 +46,7 @@ export default defineConfig({
   description: "High deliverability & brand consistency.",
   head: headConf,
   transformPageData(pageData) {
+    addToolsSchemaMarkup(pageData)
     addSchemaMarkup(pageData)
   },
   vite: {

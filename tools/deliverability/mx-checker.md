@@ -6,6 +6,25 @@ sidebar: false
 layout: post
 category: tools
 
+datePublished: "2025-08-01"
+dateModified: "2025-08-01"
+
+keywords:
+  - MX record checker
+  - MX record lookup
+  - mail exchange records
+  - email server configuration
+  - email routing
+  - DNS validation
+  - domain verification
+  - email infrastructure
+  - SMTP configuration
+  - free tool
+  - email deliverability
+  - mail server check
+  - email setup validation
+  - DNS analysis
+
 head:
   - - meta
     - name: description
@@ -21,7 +40,7 @@ head:
       content: https://bluefox.email/assets/tools/mx-checker.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/free-tools/mx-checker
+      content: https://bluefox.email/tools/deliverability/mx-checker
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -32,6 +51,7 @@ head:
     - name: twitter:description
       content: Free online MX record checker tool to lookup and validate mail exchange records, check email server configuration, and analyze email routing for domains.
 ---
+
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
 
 

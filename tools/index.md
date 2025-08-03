@@ -1,21 +1,24 @@
 ---
 title: Free Tools for Email Deliverability & More | BlueFox Email
-description: Discover a curated selection of free tools for email deliverability, authentication, and productivity. Enhance your email performance and workflow with BlueFox Email’s powerful utilities.
+description: Discover a curated selection of free tools for email deliverability, authentication, and productivity. Enhance your email performance and workflow with BlueFox Email's powerful utilities.
 thumbnail: /assets/tools/free-tools.png
 sidebar: false
 layout: post
 category: tools
 
+datePublished: "2025-08-01"
+dateModified: "2025-08-01"
+
 head:
   - - meta
     - name: description
-      content: Discover a curated selection of free tools for email deliverability, authentication, and productivity. Enhance your email performance and workflow with BlueFox Email’s powerful utilities.
+      content: Discover a curated selection of free tools for email deliverability, authentication, and productivity. Enhance your email performance and workflow with BlueFox Email's powerful utilities.
   - - meta
     - property: og:title
       content: Free Tools for Email Deliverability & More | BlueFox Email
   - - meta
     - property: og:description
-      content: Discover a curated selection of free tools for email deliverability, authentication, and productivity. Enhance your email performance and workflow with BlueFox Email’s powerful utilities.
+      content: Discover a curated selection of free tools for email deliverability, authentication, and productivity. Enhance your email performance and workflow with BlueFox Email's powerful utilities.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/tools/free-tools.png
@@ -30,7 +33,7 @@ head:
       content: Free Tools for Email Deliverability & More | BlueFox Email
   - - meta
     - name: twitter:description
-      content: Discover a curated selection of free tools for email deliverability, authentication, and productivity. Enhance your email performance and workflow with BlueFox Email’s powerful utilities.
+      content: Discover a curated selection of free tools for email deliverability, authentication, and productivity. Enhance your email performance and workflow with BlueFox Email's powerful utilities.
 ---
 
 # Free Tools by BlueFox Email

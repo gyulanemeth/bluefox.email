@@ -7,6 +7,23 @@ aside: false
 layout: post
 category: tools
 
+datePublished: "2024-08-01"
+dateModified: "2025-08-01"
+
+keywords:
+  - DKIM checker
+  - DKIM validation
+  - email authentication
+  - DNS validation
+  - email deliverability
+  - domain verification
+  - email security
+  - free tool
+  - DKIM signatures
+  - email infrastructure
+  - DomainKeys Identified Mail
+  - email validation tool
+
 head:
   - - meta
     - name: description
@@ -22,7 +39,7 @@ head:
       content: https://bluefox.email/assets/tools/dkim-checker.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/free-tools/dkim-checker
+      content: https://bluefox.email/tools/deliverability/dkim-checker
   - - meta
     - name: twitter:card
       content: summary_large_image

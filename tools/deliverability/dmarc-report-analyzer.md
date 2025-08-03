@@ -6,6 +6,25 @@ sidebar: false
 layout: post
 category: tools
 
+datePublished: "2025-08-01"
+dateModified: "2025-08-01"
+
+keywords:
+  - DMARC report analyzer
+  - DMARC aggregate reports
+  - DMARC report parser
+  - email authentication analysis
+  - DMARC insights
+  - email security posture
+  - authentication failures
+  - DMARC reporting
+  - free tool
+  - email deliverability
+  - domain security
+  - DMARC analytics
+  - email forensics
+  - security analysis
+
 head:
   - - meta
     - name: description
@@ -21,7 +40,7 @@ head:
       content: https://bluefox.email/assets/tools/dmarc-report-analyzer.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/free-tools/dmarc-report-analyzer
+      content: https://bluefox.email/tools/deliverability/dmarc-report-analyzer
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -32,6 +51,7 @@ head:
     - name: twitter:description
       content: Free online DMARC report analyzer tool to parse and analyze DMARC aggregate reports, identify authentication failures, and improve email security posture.
 ---
+
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
 
 # Free DMARC Report Analyzer

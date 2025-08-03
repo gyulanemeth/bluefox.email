@@ -7,6 +7,25 @@ aside: false
 layout: post
 category: tools
 
+datePublished: "2025-08-01"
+dateModified: "2025-08-01"
+
+keywords:
+  - SPF checker
+  - SPF validation
+  - SPF records
+  - Sender Policy Framework
+  - DNS syntax validation
+  - email authentication
+  - email deliverability
+  - domain verification
+  - anti-spoofing
+  - email security
+  - DNS validation
+  - authorized senders
+  - free tool
+  - email infrastructure
+
 head:
   - - meta
     - name: description
@@ -22,7 +41,7 @@ head:
       content: https://bluefox.email/assets/tools/spf-checker.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/free-tools/spf-checker
+      content: https://bluefox.email/tools/deliverability/spf-checker
   - - meta
     - name: twitter:card
       content: summary_large_image
