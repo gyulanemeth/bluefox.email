@@ -250,20 +250,48 @@ onMounted(async () => {
         <p v-if="result.score">
           <strong>Security Score:</strong>
           {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Comprehensive score based on policy strength, alignment settings, and reporting configuration.</span>
+          </span>
         </p>
       </div>
 
       <!-- Basic Information -->
       <div class="info-section">
-        <h4>Basic Information</h4>
+        <h4>
+          Basic Information
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Essential details about the DMARC record found for this domain.</span>
+          </span>
+        </h4>
         <p><strong>Domain:</strong> {{ result.domain }}</p>
-        <p v-if="result.checkedRecord"><strong>Checked Record:</strong> {{ result.checkedRecord }}</p>
-        <p><strong>DMARC Record:</strong> {{ result.record }}</p>
+        <p v-if="result.checkedRecord">
+          <strong>Checked Record:</strong> {{ result.checkedRecord }}
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">The DNS record location where DMARC policy was found (usually _dmarc.[domain]).</span>
+          </span>
+        </p>
+        <p>
+          <strong>DMARC Record:</strong> {{ result.record }}
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">The complete DMARC policy string retrieved from DNS.</span>
+          </span>
+        </p>
       </div>
 
       <!-- DMARC Tags Table -->
       <div v-if="dmarcTags.length" class="dmarc-table-section">
-        <h4>DMARC Record Breakdown</h4>
+        <h4>
+          DMARC Record Breakdown
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Each tag in the DMARC record explained. These define the email authentication policy and reporting.</span>
+          </span>
+        </h4>
         <div class="table-container">
           <table class="dmarc-table">
             <thead>
@@ -556,6 +584,46 @@ onMounted(async () => {
   line-height: 1.6;
 }
 
+/* Info tip styles */
+.info-tip {
+  display: inline-block;
+  margin-left: .3rem;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--vp-c-brand-1, #10B1EF);
+  color: #fff;
+  font-size: .675rem;
+  cursor: help;
+  position: relative;
+}
+
+.info-tip-pop {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 125%;
+  transform: translateX(-50%);
+  min-width: 220px;
+  padding: .6rem .8rem;
+  border-radius: 6px;
+  background: var(--vp-c-bg, #ffffff);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  color: var(--vp-c-text-1, #374151);
+  font-size: .775rem;
+  z-index: 10;
+  transition: opacity .15s;
+}
+
+.info-tip:hover .info-tip-pop,
+.info-tip:focus .info-tip-pop {
+  opacity: 1;
+}
+
 /* DMARC Table */
 .dmarc-table-section {
   margin-top: 1.5rem;
@@ -662,11 +730,10 @@ onMounted(async () => {
     color: #222;
   }
   
-  /* Fix recommendations text color in dark mode */
   .recommendations-section,
   .recommendations-section ul,
   .recommendations-section li {
-    color: #2d3748 !important; /* Dark grey/black text */
+    color: #2d3748 !important;
   }
 }
 

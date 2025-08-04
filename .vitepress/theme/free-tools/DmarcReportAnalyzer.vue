@@ -66,7 +66,6 @@ function validateInputs() {
     return false
   }
   
-  // ADDED: Check if captcha probe exists when needed
   if (shouldShowCaptcha.value && !captchaProbe.value) {
     setError('MISSING_PROBE', 'Please load the captcha first.')
     return false
@@ -163,7 +162,6 @@ async function analyzeReport() {
       return
     }
 
-    // Debug captcha values
     console.log('Debug - Captcha values:', {
       captchaProbe: captchaProbe.value,
       captchaText: captchaText.value,
@@ -176,10 +174,9 @@ async function analyzeReport() {
       // File upload using FormData
       const formData = new FormData()
       formData.append('file', file.value)
-      formData.append('captchaText', captchaText.value || '') // FIXED: Always send
-      formData.append('captchaProbe', captchaProbe.value || '') // FIXED: Always send
+      formData.append('captchaText', captchaText.value || '')
+      formData.append('captchaProbe', captchaProbe.value || '')
       
-      // Debug FormData
       for (let [key, value] of formData.entries()) {
         console.log(`FormData ${key}:`, value)
       }
@@ -375,11 +372,23 @@ onMounted(async () => {
 
       <!-- Summary -->
       <div class="info-section">
-        <h4>Report Summary</h4>
+        <h4>
+          Report Summary
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Key metrics and details extracted from the DMARC aggregate report.</span>
+          </span>
+        </h4>
         <div class="summary-grid">
           <div class="summary-item">
             <span class="label">Email Provider:</span>
-            <span class="value">{{ result.emailProvider || result.organization || 'Unknown' }}</span>
+            <span class="value">
+              {{ result.emailProvider || result.organization || 'Unknown' }}
+              <span class="info-tip" tabindex="0">
+                ?
+                <span class="info-tip-pop">The organization that sent this DMARC report (usually the receiving mail server).</span>
+              </span>
+            </span>
           </div>
           <div class="summary-item">
             <span class="label">Domain:</span>
@@ -399,11 +408,23 @@ onMounted(async () => {
           </div>
           <div class="summary-item">
             <span class="label">Messages:</span>
-            <span class="value">{{ result.totalMessages }}</span>
+            <span class="value">
+              {{ result.totalMessages }}
+              <span class="info-tip" tabindex="0">
+                ?
+                <span class="info-tip-pop">Total number of email messages included in this DMARC report.</span>
+              </span>
+            </span>
           </div>
           <div class="summary-item">
             <span class="label">Pass Rate:</span>
-            <span class="value">{{ result.passRate }}%</span>
+            <span class="value">
+              {{ result.passRate }}%
+              <span class="info-tip" tabindex="0">
+                ?
+                <span class="info-tip-pop">Percentage of messages that passed DMARC authentication (either SPF or DKIM aligned).</span>
+              </span>
+            </span>
           </div>
           <div class="summary-item">
             <span class="label">Date Range:</span>
@@ -413,6 +434,10 @@ onMounted(async () => {
             <span class="label">Score:</span>
             <span class="value">
               {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
+              <span class="info-tip" tabindex="0">
+                ?
+                <span class="info-tip-pop">Overall assessment of your DMARC authentication performance based on pass rates and configurations.</span>
+              </span>
             </span>
           </div>
         </div>
@@ -420,7 +445,13 @@ onMounted(async () => {
 
       <!-- Policy Information -->
       <div v-if="result.policy" class="policy-section">
-        <h4>DMARC Policy</h4>
+        <h4>
+          DMARC Policy
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">The DMARC policy configuration that was in effect during this reporting period.</span>
+          </span>
+        </h4>
         <div class="policy-grid">
           <div class="policy-item">
             <span class="label">DMARC Policy:</span>
@@ -453,7 +484,13 @@ onMounted(async () => {
 
       <!-- Sources Table -->
       <div v-if="result.sources?.length" class="sources-section">
-        <h4>Email Sources</h4>
+        <h4>
+          Email Sources
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">IP addresses that sent email claiming to be from your domain, with their authentication results.</span>
+          </span>
+        </h4>
         <div class="sources-table">
           <div class="table-header">
             <span>IP Address</span>
@@ -897,6 +934,46 @@ onMounted(async () => {
   font-weight: 700;
 }
 
+/* Info tip styles */
+.info-tip {
+  display: inline-block;
+  margin-left: .3rem;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--vp-c-brand-1, #10B1EF);
+  color: #fff;
+  font-size: .675rem;
+  cursor: help;
+  position: relative;
+}
+
+.info-tip-pop {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 125%;
+  transform: translateX(-50%);
+  min-width: 220px;
+  padding: .6rem .8rem;
+  border-radius: 6px;
+  background: var(--vp-c-bg, #ffffff);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  color: var(--vp-c-text-1, #374151);
+  font-size: .775rem;
+  z-index: 9999;
+  transition: opacity .15s;
+}
+
+.info-tip:hover .info-tip-pop,
+.info-tip:focus .info-tip-pop {
+  opacity: 1;
+}
+
 /* Info Section */
 .info-section {
   border-top: 1px solid var(--vp-c-border-soft, #eee);
@@ -927,7 +1004,7 @@ onMounted(async () => {
   border-radius: 6px;
   border: 1px solid var(--vp-c-border-soft, #dee2e6);
   min-width: 0;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .summary-item .label {
@@ -945,6 +1022,10 @@ onMounted(async () => {
   overflow-wrap: break-word;
   line-height: 1.4;
   min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
 }
 
 .summary-item .value.monospace {
@@ -981,6 +1062,7 @@ onMounted(async () => {
   background: var(--vp-c-bg-soft, #f8f9fa);
   border-radius: 6px;
   border: 1px solid var(--vp-c-border-soft, #dee2e6);
+  overflow: visible;
 }
 
 .policy-item .label {

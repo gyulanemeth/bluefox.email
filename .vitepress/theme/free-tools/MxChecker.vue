@@ -234,19 +234,41 @@ onMounted(async () => {
         <p v-if="result.score">
           <strong>Security Score:</strong>
           {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Assessment based on redundancy, priority configuration, and mail server setup quality.</span>
+          </span>
         </p>
       </div>
 
       <!-- Basic Information -->
       <div class="info-section">
-        <h4>Basic Information</h4>
+        <h4>
+          Basic Information
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Essential details about the mail exchange configuration for this domain.</span>
+          </span>
+        </h4>
         <p><strong>Domain:</strong> {{ result.domain }}</p>
-        <p><strong>Records Found:</strong> {{ result.records.length }}</p>
+        <p>
+          <strong>Records Found:</strong> {{ result.records.length }}
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">MX records tell email servers where to deliver mail for this domain. Multiple records provide redundancy.</span>
+          </span>
+        </p>
       </div>
 
       <!-- MX Records Section -->
       <div v-if="result.records.length" class="mx-records-section">
-        <h4>MX Records</h4>
+        <h4>
+          MX Records
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Mail exchange servers listed by priority. Lower priority numbers are preferred for mail delivery.</span>
+          </span>
+        </h4>
         <div class="mx-records-container">
           <div class="mx-records-list">
             <div 
@@ -290,7 +312,13 @@ onMounted(async () => {
 
       <!-- Analysis Section -->
       <div v-if="result.valid" class="section analysis-section">
-        <h4>Analysis</h4>
+        <h4>
+          Analysis
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Quick assessment of your MX record configuration for reliability and best practices.</span>
+          </span>
+        </h4>
         <div class="analysis-grid">
           <div class="analysis-item">
             <span class="label">Redundancy:</span>
@@ -579,6 +607,46 @@ onMounted(async () => {
   margin: 0.75rem 0;
   color: var(--vp-c-text-2, #4a5568);
   line-height: 1.6;
+}
+
+/* Info tip styles */
+.info-tip {
+  display: inline-block;
+  margin-left: .3rem;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--vp-c-brand-1, #10B1EF);
+  color: #fff;
+  font-size: .675rem;
+  cursor: help;
+  position: relative;
+}
+
+.info-tip-pop {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 125%;
+  transform: translateX(-50%);
+  min-width: 220px;
+  padding: .6rem .8rem;
+  border-radius: 6px;
+  background: var(--vp-c-bg, #ffffff);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  color: var(--vp-c-text-1, #374151);
+  font-size: .775rem;
+  z-index: 10;
+  transition: opacity .15s;
+}
+
+.info-tip:hover .info-tip-pop,
+.info-tip:focus .info-tip-pop {
+  opacity: 1;
 }
 
 /* MX Records Section */

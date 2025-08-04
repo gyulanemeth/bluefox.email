@@ -282,23 +282,49 @@ onMounted(async () => {
         <p v-if="result.score">
           <strong>Security Score:</strong>
           {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Security assessment based on key strength, algorithm choice, and record configuration.</span>
+          </span>
         </p>
       </div>
 
       <!-- Basic Information -->
       <div class="info-section">
-        <h4>Basic Information</h4>
+        <h4>
+          Basic Information
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Core details about the DKIM record found for this domain and selector.</span>
+          </span>
+        </h4>
         <p><strong>Domain:</strong> {{ result.domain }}</p>
-        <p><strong>Selector:</strong> {{ result.selector }}</p>
+        <p>
+          <strong>Selector:</strong> {{ result.selector }}
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">The DKIM selector used to locate the public key. Different services often use different selectors.</span>
+          </span>
+        </p>
         <p><strong>DKIM Record:</strong></p>
         <div class="record-display">
           <code class="dkim-record">{{ result.record }}</code>
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">The complete DKIM TXT record retrieved from DNS at [selector]._domainkey.[domain].</span>
+          </span>
         </div>
       </div>
 
       <!-- DKIM Tags Table -->
       <div v-if="dkimTags.length" class="dkim-table-section">
-        <h4>DKIM Record Breakdown</h4>
+        <h4>
+          DKIM Record Breakdown
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Each component of the DKIM record explained. These tags define the public key and signature parameters.</span>
+          </span>
+        </h4>
         <div class="table-container">
           <table class="dkim-table">
             <thead>
@@ -610,6 +636,7 @@ onMounted(async () => {
 
 .record-display {
   margin-top: 0.5rem;
+  position: relative;
 }
 
 .dkim-record {
@@ -624,6 +651,47 @@ onMounted(async () => {
   white-space: pre-wrap;
   line-height: 1.4;
   color: var(--vp-c-text-1, #333);
+  margin-right: 2rem;
+}
+
+/* Info tip styles */
+.info-tip {
+  display: inline-block;
+  margin-left: .3rem;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--vp-c-brand-1, #10B1EF);
+  color: #fff;
+  font-size: .675rem;
+  cursor: help;
+  position: relative;
+}
+
+.info-tip-pop {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 125%;
+  transform: translateX(-50%);
+  min-width: 220px;
+  padding: .6rem .8rem;
+  border-radius: 6px;
+  background: var(--vp-c-bg, #ffffff);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  color: var(--vp-c-text-1, #374151);
+  font-size: .775rem;
+  z-index: 10;
+  transition: opacity .15s;
+}
+
+.info-tip:hover .info-tip-pop,
+.info-tip:focus .info-tip-pop {
+  opacity: 1;
 }
 
 .dkim-table-section {
@@ -754,7 +822,6 @@ onMounted(async () => {
     color: #77bdfb;
   }
   
-  /* Fix recommendations text color in dark mode */
   .recommendations-section,
   .recommendations-section ul,
   .recommendations-section li {
@@ -774,7 +841,6 @@ onMounted(async () => {
     margin: 1rem 0;
   }
   
-  /* Adjust table margins for mobile */
   .dkim-table-section {
     margin-left: -1rem;
     margin-right: -1rem;
@@ -803,6 +869,10 @@ onMounted(async () => {
   .dkim-table th,
   .dkim-table td {
     padding: 0.5rem 0.75rem;
+  }
+  
+  .dkim-record {
+    margin-right: 1rem;
   }
 }
 </style>

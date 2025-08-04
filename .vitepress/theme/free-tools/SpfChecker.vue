@@ -78,8 +78,8 @@ async function handleCaptchaExpiry() {
 
 async function checkSpf() {
   clearError()
-  result.value = null // This clears results at the start of new checks
-  
+  result.value = null
+
   // Trim inputs
   domain.value = domain.value.trim()
   testIp.value = testIp.value.trim()
@@ -356,20 +356,56 @@ onMounted(async () => {
         <p v-if="result.score">
           <strong>Security Score:</strong>
           {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Heuristic score (0–{{ result.score.outOf }}) indicating relative SPF robustness.</span>
+          </span>
         </p>
       </div>
 
       <!-- Basic Information -->
       <div class="info-section">
-        <h4>Basic Information</h4>
+        <h4>
+          Basic Information
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Summary of the SPF record published for this domain.</span>
+          </span>
+        </h4>
         <p><strong>Domain:</strong> {{ result.domain }}</p>
-        <p><strong>SPF Record:</strong> {{ result.record }}</p>
-        <p v-if="result.policy"><strong>Policy:</strong> {{ result.policy }}</p>
+        <p>
+          <strong>SPF Record:</strong> {{ result.record }}
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">The exact TXT string returned from DNS that begins with v=spf1.</span>
+          </span>
+        </p>
+        <p v-if="result.policy">
+          <strong>Policy:</strong> {{ result.policy }}
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">The final mechanism (-all, ~all, ?all) that decides how mail failing SPF is treated.</span>
+          </span>
+        </p>
+        <p v-if="result.lookups !== undefined">
+          <strong>DNS Lookups:</strong> {{ result.lookups }}
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">RFC 7208 allows at most 10 DNS lookups during SPF evaluation. Exceeding this causes permerror.</span>
+          </span>
+          <span v-if="result.lookups > 10" class="lookup-warning">(exceeds 10 — SPF evaluation may fail)</span>
+        </p>
       </div>
 
       <ClientOnly>
         <div v-if="result.ipTestResult" class="section ip-test-compact">
-          <h4>IP Test Result</h4>
+          <h4>
+            IP Test Result
+            <span class="info-tip" tabindex="0">
+              ?
+              <span class="info-tip-pop">Live SPF evaluation for the IP you entered. Useful for troubleshooting delivery issues.</span>
+            </span>
+          </h4>
           <div class="ip-test-compact-card">
             <div class="ip-test-info">
               <span class="ip-address">{{ result.ipTestResult.ip }}</span>
@@ -386,7 +422,13 @@ onMounted(async () => {
 
       <!-- Mechanisms -->
       <div v-if="result.mechanisms?.length" class="mechanisms-section">
-        <h4>Mechanisms</h4>
+        <h4>
+          Mechanisms
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Each directive in the SPF record. 'DNS' means it triggers an extra DNS lookup.</span>
+          </span>
+        </h4>
         <div class="mechanisms-list">
           <div
             v-for="m in result.mechanisms"
@@ -427,7 +469,13 @@ onMounted(async () => {
 
       <!-- Mailauth Results -->
       <div v-if="result.mailauthResult" class="section mailauth-section">
-        <h4>Mailauth</h4>
+        <h4>
+          Mailauth
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Validation result from the mailauth library — confirms parser agreement with your record.</span>
+          </span>
+        </h4>
         <p><strong>Status:</strong> {{ result.mailauthResult.status.result }}</p>
         <pre v-if="result.mailauthResult.info" class="auth-info">{{ result.mailauthResult.info }}</pre>
       </div>
@@ -712,6 +760,47 @@ onMounted(async () => {
   line-height: 1.6;
 }
 
+/* Info tip styles */
+.info-tip {
+  display: inline-block;
+  margin-left: .3rem;
+  width: 1rem;
+  height: 1rem;
+  line-height: 1rem;
+  text-align: center;
+  border-radius: 50%;
+  background: var(--vp-c-brand-1, #10B1EF);
+  color: #fff;
+  font-size: .675rem;
+  cursor: help;
+  position: relative;
+}
+
+.info-tip-pop {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  top: 125%;
+  transform: translateX(-50%);
+  min-width: 220px;
+  padding: .6rem .8rem;
+  border-radius: 6px;
+  background: var(--vp-c-bg, #ffffff);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  color: var(--vp-c-text-1, #374151);
+  font-size: .775rem;
+  z-index: 10;
+  transition: opacity .15s;
+}
+
+.info-tip:hover .info-tip-pop,
+.info-tip:focus .info-tip-pop {
+  opacity: 1;
+}
+
+/* Lookup warning */
 .lookup-warning {
   background: var(--vp-warning-soft, #fffbf0);
   color: var(--vp-c-warning-1, #d69e2e);
@@ -722,7 +811,7 @@ onMounted(async () => {
   margin-left: 0.5rem;
 }
 
-/* Compact IP Test Container - Minimal but highlighted */
+/* Compact IP Test Container */
 .ip-test-compact {
   background: var(--vp-c-bg-soft, #f8f9fa);
   border-left: 4px solid var(--vp-c-brand-1, #10B1EF);
@@ -769,7 +858,7 @@ onMounted(async () => {
   letter-spacing: 0.5px;
 }
 
-/* Compact result colors - subtle but clear */
+/* Compact result colors */
 .ip-result-compact.result-pass {
   background: #dcfce7;
   color: #166534;
