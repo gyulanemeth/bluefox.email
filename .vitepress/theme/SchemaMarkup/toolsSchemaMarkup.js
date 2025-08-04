@@ -64,7 +64,7 @@ function getToolSubPagesInfo(collectionFolder) {
       const { data: fm } = matter.read(filePath)
       let name
       if (fm.title) {
-        name = fm.title  // ← KEEP FULL TITLE (exactly like glossary)
+        name = fm.title
       } else {
         name = file.replace(/\.md$/, '')
       }
@@ -88,7 +88,7 @@ function getToolSubsections(toolsFolder) {
       if (fs.existsSync(subsectionPath)) {
         const { data: fm } = matter.read(subsectionPath)
         return {
-          name: fm.title ? fm.title : dirent.name,  // ← KEEP FULL TITLE
+          name: fm.title ? fm.title : dirent.name,
           url: `https://bluefox.email/${toolsFolder}/${dirent.name}/`
         }
       }
@@ -110,7 +110,6 @@ function addSchemaMarkupForMainToolsIndex(pageData, data) {
     url: sub.url
   }))
   
-  // Generate keywords EXACTLY like glossary: title + subsection names
   const keywords = Array.from(
     new Set([fm.title, ...subsections.map(sub => sub.name)].filter(Boolean))
   )
@@ -174,7 +173,6 @@ function addSchemaMarkupForToolCategoryIndex(pageData, data) {
     url: sub.url
   }))
   
-  // Generate keywords EXACTLY like glossary: title + tool titles (full titles from gray-matter)
   const keywords = Array.from(
     new Set([fm.title, ...subPages.map(sub => sub.name)].filter(Boolean))
   )
