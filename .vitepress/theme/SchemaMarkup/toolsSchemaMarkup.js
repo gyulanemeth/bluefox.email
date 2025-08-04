@@ -5,13 +5,13 @@ import matter from 'gray-matter'
 // --- TOOLS COLLECTION CONFIG ---
 const TOOLS_COLLECTION_CONFIG = {
   'tools': {
-    imageFileName: 'free-tools.png',
+    imageFileName: 'FreeTools.png',
     collectionName: 'Tools',
     collectionUrl: 'https://bluefox.email/tools/',
     isMainToolsIndex: true
   },
   'tools/deliverability': {
-    imageFileName: 'free-email-tools.png',
+    imageFileName: 'FreeDeliverabilityTools.png',
     collectionName: 'Email Authentication Tools',
     collectionUrl: 'https://bluefox.email/tools/deliverability/',
     parentCollection: {
@@ -29,7 +29,7 @@ function resolveImageUrl(fm, data) {
     } 
     return `https://bluefox.email${fm.thumbnail}`
   } else if (data.imageFileName) {
-    return `https://bluefox.email/assets/tools/${data.imageFileName}`
+    return `https://bluefox.email/assets/${data.imageFileName}`
   }
 }
 
