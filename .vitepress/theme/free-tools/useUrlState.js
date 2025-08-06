@@ -12,7 +12,6 @@ export function useUrlState(options = {}) {
   const router = useRouter()
   const route = useRoute()
 
-  // Fields that should never appear in URL
   const EXCLUDED_FIELDS = ['captchaText', 'captchaProbe', 'captchaImage']
   const state = createReactiveState(fields)
   let urlUpdateTimer = null
@@ -25,7 +24,6 @@ export function useUrlState(options = {}) {
     return reactiveState
   }
 
-  // Updates URL with current field values (debounced)
   function updateURL() {
     clearTimeout(urlUpdateTimer)
     
@@ -69,9 +67,10 @@ export function useUrlState(options = {}) {
     return typeof value === 'string' ? value.trim() : value
   }
 
-  // Loads values from URL query parameters into state
   function loadFromURL() {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined') {
+      return
+    }
     
     const urlParams = new URLSearchParams(window.location.search)
     
@@ -102,9 +101,10 @@ export function useUrlState(options = {}) {
     return autoExecute && onAutoExecute && state.domain?.value?.trim()
   }
 
-  // Performs auto-execution with proper timing
   async function performAutoExecution() {
-    if (!canAutoExecute()) return
+    if (!canAutoExecute()) {
+      return
+    }
 
     await nextTick()
     setTimeout(() => {
@@ -112,7 +112,6 @@ export function useUrlState(options = {}) {
     }, 100)
   }
 
-  // Main initialization - call this in onMounted()
   async function initialize() {
     try {
       loadFromURL()
@@ -134,7 +133,9 @@ export function useUrlState(options = {}) {
   }
 
   function getShareableURL() {
-    if (typeof window === 'undefined') return ''
+    if (typeof window === 'undefined') {
+      return ''
+    }
     
     const baseURL = `${window.location.origin}${window.location.pathname}`
     const queryParams = new URLSearchParams()
@@ -153,7 +154,9 @@ export function useUrlState(options = {}) {
   }
 
   function clearURL() {
-    if (typeof window === 'undefined') return
+    if (typeof window === 'undefined') {
+      return
+    }
     
     const baseUrl = window.location.pathname
     window.history.replaceState({}, '', baseUrl)
@@ -168,22 +171,13 @@ export function useUrlState(options = {}) {
   }
 
   return {
-    // Reactive state
     ...state,
-    
-    // Core methods
     initialize,
     setField,
-    
-    // URL methods
     updateURL,
     getShareableURL,
     clearURL,
-    
-    // Utility methods
     resetState,
-    
-    // State checks
     canAutoExecute: canAutoExecute()
   }
 }

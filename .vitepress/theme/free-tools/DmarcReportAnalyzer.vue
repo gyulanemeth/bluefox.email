@@ -1,48 +1,41 @@
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
 
-// Constants
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
-if (!API_URL) throw new Error('VITE_TOOLS_API_URL not set')
+
+if (!API_URL) {
+  throw new Error('VITE_TOOLS_API_URL not set')
+}
 
 const MAX_FILENAME_LEN = 30
 
-// Composables
 const {
   captchaProbe,
   captchaImage,
   captchaLoading,
   isProbeExpired,
+  isSolved,
   shouldShowCaptcha,
-  hasError,
-  currentError,
   loadCaptcha,
   refreshCaptcha,
   markSolved,
-  setError,
-  clearError,
-  handleServerError,
-  validateCaptchaInput,
-  autoResolveError,
-  isCurrentlyExpired
-} = useCaptcha('dmarc-report-analyzer')
+} = useCaptcha()
 
-// Local state
 const xmlPaste = ref('')
 const file = ref(null)
 const fileName = ref('')
 const captchaText = ref('')
 const loading = ref(false)
 const result = ref(null)
+const errorMessage = ref('')
 
 // Drag and drop state
 const isDragging = ref(false)
 let dragLeaveTimeout = null
 
-// Computed
 const isFormDisabled = computed(() => 
-  loading.value || (!xmlPaste.value.trim() && !file.value) || (shouldShowCaptcha.value && (!captchaText.value || isProbeExpired.value))
+  loading.value || (!xmlPaste.value.trim() && !file.value) || (shouldShowCaptcha.value && !captchaText.value?.trim())
 )
 
 const truncatedFileName = computed(() => {
@@ -51,39 +44,39 @@ const truncatedFileName = computed(() => {
   return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
 })
 
-// Watch for CAPTCHA expiration and clear results
-watch(isProbeExpired, (newExpired, oldExpired) => {
-  if (newExpired && !oldExpired && result.value) {
-    console.log('CAPTCHA expired - clearing results')
+watch(isProbeExpired, (expired, prev) => {
+  if (expired && !prev) {
     result.value = null
+    captchaText.value = ''
   }
 })
 
-// Methods
+watch(shouldShowCaptcha, (show, prev) => {
+  if (show && !prev) {
+    captchaText.value = ''
+  }
+})
+
 function validateInputs() {
   if (!xmlPaste.value.trim() && !file.value) {
-    setError('MISSING_TEXT', 'Please paste your DMARC XML or upload an XML file to analyze.')
+    errorMessage.value = 'Please paste your DMARC XML or upload an XML file to analyze.'
     return false
   }
   
-  if (shouldShowCaptcha.value && !captchaProbe.value) {
-    setError('MISSING_PROBE', 'Please load the captcha first.')
+  if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
+    errorMessage.value = 'Please enter the captcha text'
     return false
   }
   
-  return shouldShowCaptcha.value ? validateCaptchaInput(captchaText.value) : true
-}
-
-async function handleCaptchaExpiry() {
-  console.log('CAPTCHA expired detected - refreshing')
-  await refreshCaptcha('expired')
-  loading.value = false
+  return true
 }
 
 // Drag and drop handlers
 function handleDragOver(e) {
   e.preventDefault()
-  if (dragLeaveTimeout) clearTimeout(dragLeaveTimeout)
+  if (dragLeaveTimeout) {
+    clearTimeout(dragLeaveTimeout)
+  }
   isDragging.value = true
 }
 
@@ -98,38 +91,42 @@ function handleDrop(e) {
   e.preventDefault()
   isDragging.value = false
   const dropped = e.dataTransfer.files[0]
+  
   if (dropped && dropped.name.endsWith('.xml')) {
     file.value = dropped
     fileName.value = dropped.name
     xmlPaste.value = ''
-    clearError()
+    errorMessage.value = ''
   } else {
-    setError('NETWORK_ERROR', 'Only XML files are supported.')
+    errorMessage.value = 'Only XML files are supported.'
   }
 }
 
 // File handling
 function handleFileChange(e) {
   const selected = e.target.files[0]
+  
   if (!selected) {
     clearFile()
     return
   }
+  
   if (!selected.name.endsWith('.xml')) {
-    setError('NETWORK_ERROR', 'Only XML files are supported.')
+    errorMessage.value = 'Only XML files are supported.'
     clearFile()
     return
   }
+  
   file.value = selected
   fileName.value = selected.name
   xmlPaste.value = ''
-  clearError()
+  errorMessage.value = ''
 }
 
 function clearFile() {
   file.value = null
   fileName.value = ''
-  clearError()
+  errorMessage.value = ''
 }
 
 // Format helpers
@@ -142,31 +139,15 @@ function formatDateRange(dateRange) {
 }
 
 async function analyzeReport() {
-  clearError()
   result.value = null
   loading.value = true
+  errorMessage.value = ''
 
   try {
-    // Check CAPTCHA expiry
-    if (isCurrentlyExpired()) {
-      await handleCaptchaExpiry()
+    if (!validateInputs()) {
+      loading.value = false
       return
     }
-
-    // Validate inputs
-    if (!validateInputs()) return
-
-    // Double-check expiry before request
-    if (isCurrentlyExpired()) {
-      await handleCaptchaExpiry()
-      return
-    }
-
-    console.log('Debug - Captcha values:', {
-      captchaProbe: captchaProbe.value,
-      captchaText: captchaText.value,
-      shouldShowCaptcha: shouldShowCaptcha.value
-    })
 
     let response, data
     
@@ -174,11 +155,12 @@ async function analyzeReport() {
       // File upload using FormData
       const formData = new FormData()
       formData.append('file', file.value)
-      formData.append('captchaText', captchaText.value || '')
       formData.append('captchaProbe', captchaProbe.value || '')
       
-      for (let [key, value] of formData.entries()) {
-        console.log(`FormData ${key}:`, value)
+      if (shouldShowCaptcha.value) {
+        formData.append('captchaText', captchaText.value.trim())
+      } else {
+        formData.append('captchaText', '')
       }
       
       response = await fetch(`${API_URL}/v1/analyze-dmarc-report`, {
@@ -188,11 +170,14 @@ async function analyzeReport() {
     } else {
       const requestBody = {
         xmlContent: xmlPaste.value,
-        captchaText: captchaText.value || '', 
         captchaProbe: captchaProbe.value || ''
       }
       
-      console.log('Request body:', requestBody)
+      if (shouldShowCaptcha.value) {
+        requestBody.captchaText = captchaText.value.trim()
+      } else {
+        requestBody.captchaText = ''
+      }
       
       response = await fetch(`${API_URL}/v1/analyze-dmarc-report`, {
         method: 'POST',
@@ -202,11 +187,13 @@ async function analyzeReport() {
     }
     
     data = await response.json()
+    
     if (!response.ok) {
-      const errorType = handleServerError(data)
+      errorMessage.value = data.error?.message || data.message || 'An error occurred. Please try again.'
       
-      if (errorType === 'expired' || errorType === 'incorrect') {
-        await autoResolveError()
+      if (response.status === 401) {
+        await refreshCaptcha()
+        captchaText.value = ''
       }
       return
     }
@@ -221,15 +208,17 @@ async function analyzeReport() {
     clearFile()
 
   } catch (error) {
-    console.error('DMARC Report Analysis Error:', error)
-    setError('NETWORK_ERROR', 'Network connection failed. Please try again.')
+    console.error('Network error:', error)
+    errorMessage.value = 'Network connection failed. Please try again.'
   } finally {
     loading.value = false
   }
 }
 
 onMounted(async () => {
-  if (!captchaProbe.value || isProbeExpired.value) {
+  await nextTick()
+  
+  if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
     await loadCaptcha()
   }
 })
@@ -328,7 +317,7 @@ onMounted(async () => {
             </div>
             <button
               type="button"
-              @click="refreshCaptcha('manual')"
+              @click="refreshCaptcha"
               class="refresh-captcha-btn"
               :disabled="captchaLoading"
               title="Refresh captcha"
@@ -341,7 +330,7 @@ onMounted(async () => {
             v-model="captchaText"
             type="text"
             placeholder="Enter the text from the image above"
-            :disabled="loading || !captchaImage || isProbeExpired"
+            :disabled="loading || !captchaImage"
             autocomplete="off"
             required
           />
@@ -362,8 +351,8 @@ onMounted(async () => {
     </div>
 
     <!-- Error Display -->
-    <div v-if="hasError" class="error-section">
-      <p class="error-message">{{ currentError.message }}</p>
+    <div v-if="errorMessage" class="error-section">
+      <p class="error-message">{{ errorMessage }}</p>
     </div>
 
     <!-- Results Section -->

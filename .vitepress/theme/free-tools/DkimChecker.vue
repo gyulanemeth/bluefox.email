@@ -1,14 +1,15 @@
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
 import { useUrlState } from './useUrlState.js'
 
-// Constants
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
-if (!API_URL) throw new Error('VITE_TOOLS_API_URL not set')
+
+if (!API_URL) {
+  throw new Error('VITE_TOOLS_API_URL not set')
+}
 
 const DEFAULT_SELECTOR = 'default'
-
 const DKIM_TAG_DESCRIPTIONS = {
   v: "Version (always 'DKIM1').",
   k: "Key type (e.g., 'rsa').",
@@ -19,30 +20,22 @@ const DKIM_TAG_DESCRIPTIONS = {
   n: "Free-form notes."
 }
 
-// Composables
 const {
   captchaProbe,
   captchaImage,
   captchaLoading,
   isProbeExpired,
+  isSolved,
   shouldShowCaptcha,
-  hasError,
-  currentError,
   loadCaptcha,
   refreshCaptcha,
   markSolved,
-  setError,
-  clearError,
-  handleServerError,
-  validateCaptchaInput,
-  autoResolveError,
-  isCurrentlyExpired
-} = useCaptcha('dkim-checker')
+} = useCaptcha()
 
 const {
   domain,
   selector,
-  initialize: initializeUrlState,
+  initialize: initUrlState,
   setField
 } = useUrlState({
   fields: ['domain', 'selector'],
@@ -50,14 +43,14 @@ const {
   onAutoExecute: checkDkim
 })
 
-// Local state
 const captchaText = ref('')
 const loading = ref(false)
 const result = ref(null)
+const errorMessage = ref('')
 
-// Computed
-const isFormDisabled = computed(() => 
-  loading.value || (shouldShowCaptcha.value && (!captchaText.value || isProbeExpired.value))
+const isFormDisabled = computed(() =>
+  loading.value ||
+  (shouldShowCaptcha.value && !captchaText.value?.trim())
 )
 
 const dkimTags = computed(() => {
@@ -76,72 +69,72 @@ const dkimTags = computed(() => {
     })
 })
 
-// Watch for CAPTCHA expiration and clear results
-watch(isProbeExpired, (newExpired, oldExpired) => {
-  if (newExpired && !oldExpired && result.value) {
-    console.log('CAPTCHA expired - clearing results')
+watch(isProbeExpired, (expired, prev) => {
+  if (expired && !prev) {
     result.value = null
+    captchaText.value = ''
   }
 })
 
-// Methods
+watch(shouldShowCaptcha, (show, prev) => {
+  if (show && !prev) {
+    captchaText.value = ''
+  }
+})
+
 function validateInputs() {
   if (!domain.value?.trim()) {
-    setError('MISSING_TEXT', 'Please enter the domain you want to check (e.g., example.com)')
+    errorMessage.value = 'Please enter a domain name'
     return false
   }
   
-  return shouldShowCaptcha.value ? validateCaptchaInput(captchaText.value) : true
-}
-
-async function handleCaptchaExpiry() {
-  console.log('CAPTCHA expired detected - refreshing')
-  await refreshCaptcha('expired')
-  loading.value = false
+  if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
+    errorMessage.value = 'Please enter the captcha text'
+    return false
+  }
+  
+  return true
 }
 
 async function checkDkim() {
-  clearError()
   result.value = null
   loading.value = true
+  errorMessage.value = ''
 
   try {
-    // Check CAPTCHA expiry
-    if (isCurrentlyExpired()) {
-      await handleCaptchaExpiry()
+    if (!validateInputs()) {
+      loading.value = false
       return
     }
-
-    // Validate inputs
-    if (!validateInputs()) return
-
-    // Double-check expiry before request
-    if (isCurrentlyExpired()) {
-      await handleCaptchaExpiry()
-      return
+    const requestBody = {
+      domain: domain.value.trim(),
+      selector: selector.value.trim() || DEFAULT_SELECTOR,
+      captchaProbe: captchaProbe.value,
+    }
+    if (shouldShowCaptcha.value) {
+      requestBody.captchaText = captchaText.value.trim()
+    } else {
+      requestBody.captchaText = ''
     }
 
-    // Make request
     const response = await fetch(`${API_URL}/v1/analyze-dkim`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        domain: domain.value.trim(),
-        selector: selector.value.trim() || DEFAULT_SELECTOR,
-        captchaProbe: captchaProbe.value,
-        captchaText: captchaText.value.trim()
-      })
+      body: JSON.stringify(requestBody)
     })
     
     const json = await response.json()
+    
     if (!response.ok) {
-      const errorType = handleServerError(json)
+      errorMessage.value = json.error?.message || json.message || 'An error occurred. Please try again.'
       
-      if (errorType === 'expired' || errorType === 'incorrect') {
-        await autoResolveError()
+      if (response.status === 401) {
+        await refreshCaptcha()
+        captchaText.value = ''
       }
       return
     }
+
     result.value = {
       valid: true,
       domain: json.result.domain || domain.value,
@@ -152,26 +145,25 @@ async function checkDkim() {
       recommendations: json.result.recommendations || [],
       score: json.result.score
     }
+    
     captchaText.value = ''
     markSolved()
-
+    
   } catch (error) {
-    console.error('DKIM Check Error:', error)
-    setError('NETWORK_ERROR', 'Network connection failed. Please try again.')
+    console.error('Network error:', error)
+    errorMessage.value = 'Network connection failed. Please try again.'
   } finally {
     loading.value = false
   }
 }
 
 onMounted(async () => {
-  await initializeUrlState()
-  
-  // Set default selector if none provided
+  await initUrlState()
   if (!selector.value) {
     setField('selector', DEFAULT_SELECTOR)
   }
-  
-  if (!captchaProbe.value || isProbeExpired.value) {
+  await nextTick()
+  if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
     await loadCaptcha()
   }
 })
@@ -179,9 +171,10 @@ onMounted(async () => {
 
 <template>
   <div class="dkim-checker">
+    <!-- ── FORM ── -->
     <div class="tool-form">
       <form @submit.prevent="checkDkim">
-        <!-- Domain Input -->
+        <!-- Domain -->
         <div class="form-group">
           <label for="domain">Domain:</label>
           <input
@@ -197,7 +190,7 @@ onMounted(async () => {
           </small>
         </div>
 
-        <!-- Selector Input -->
+        <!-- Selector -->
         <div class="form-group">
           <label for="selector">DKIM Selector:</label>
           <input
@@ -208,33 +201,48 @@ onMounted(async () => {
             :disabled="loading"
           />
           <small class="form-help">
-            Most common selectors are: <code>default</code>, <code>google</code>, <code>mail</code>
+            Most common selectors: <code>default</code>, <code>google</code>, <code>mail</code>
           </small>
         </div>
 
-        <!-- Captcha Expiration Warning -->
-        <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
+        <!-- Expired probe notice -->
+        <div
+          v-if="captchaProbe && isProbeExpired"
+          class="captcha-expired-message"
+        >
           Your verification has expired. Please refresh the captcha below.
         </div>
 
-        <!-- Captcha Section -->
+        <!-- CAPTCHA -->
         <div v-if="shouldShowCaptcha" class="form-group">
           <label for="captcha">Security Verification:</label>
+
           <div class="captcha-container">
             <div class="captcha-image-container">
               <div v-if="captchaLoading" class="captcha-loading">
                 Loading captcha...
               </div>
-              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage" />
+
+              <div
+                v-else-if="captchaImage"
+                class="captcha-image"
+                v-html="captchaImage"
+              />
+
               <div v-else class="captcha-placeholder">
-                <button type="button" @click="loadCaptcha" class="load-captcha-btn">
+                <button
+                  type="button"
+                  @click="loadCaptcha"
+                  class="load-captcha-btn"
+                >
                   Load Captcha
                 </button>
               </div>
             </div>
+
             <button
               type="button"
-              @click="refreshCaptcha('manual')"
+              @click="refreshCaptcha"
               class="refresh-captcha-btn"
               :disabled="captchaLoading"
               title="Refresh captcha"
@@ -242,12 +250,13 @@ onMounted(async () => {
               <img src="/assets/reload.webp?url" alt="reload" />
             </button>
           </div>
+
           <input
             id="captcha"
             v-model="captchaText"
             type="text"
             placeholder="Enter the text from the image above"
-            :disabled="loading || !captchaImage || isProbeExpired"
+            :disabled="loading || !captchaImage"
             autocomplete="off"
             required
           />
@@ -256,8 +265,12 @@ onMounted(async () => {
           </small>
         </div>
 
-        <!-- Submit Button -->
-        <button type="submit" class="check-btn" :disabled="isFormDisabled">
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="check-btn"
+          :disabled="isFormDisabled"
+        >
           <span v-if="loading" class="btn-loading">
             <div class="loading-spinner"></div>
             Checking...
@@ -267,18 +280,21 @@ onMounted(async () => {
       </form>
     </div>
 
-    <!-- Error Display -->
-    <div v-if="hasError" class="error-section">
-      <p class="error-message">{{ currentError.message }}</p>
+    <!-- Error -->
+    <div v-if="errorMessage" class="error-section">
+      <p class="error-message">{{ errorMessage }}</p>
     </div>
 
     <!-- Results -->
     <div v-if="result" class="result-section">
       <h3>DKIM Check Results</h3>
-      
-      <!-- Status -->
+
       <div class="status-box">
-        <p><strong>{{ result.valid ? 'DKIM Record Found' : 'DKIM Record Missing or Invalid' }}</strong></p>
+        <p>
+          <strong>
+            {{ result.valid ? 'DKIM Record Found' : 'DKIM Record Missing or Invalid' }}
+          </strong>
+        </p>
         <p v-if="result.score">
           <strong>Security Score:</strong>
           {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
@@ -289,7 +305,6 @@ onMounted(async () => {
         </p>
       </div>
 
-      <!-- Basic Information -->
       <div class="info-section">
         <h4>
           Basic Information
@@ -316,7 +331,6 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- DKIM Tags Table -->
       <div v-if="dkimTags.length" class="dkim-table-section">
         <h4>
           DKIM Record Breakdown
@@ -345,18 +359,24 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Warnings, Recommendations -->
       <div v-if="result.warnings?.length" class="section warnings-section">
         <h4>Warnings</h4>
         <ul>
-          <li v-for="warning in result.warnings" :key="warning">{{ warning }}</li>
+          <li v-for="warning in result.warnings" :key="warning">
+            {{ warning }}
+          </li>
         </ul>
       </div>
 
-      <div v-if="result.recommendations?.length" class="section recommendations-section">
+      <div
+        v-if="result.recommendations?.length"
+        class="section recommendations-section"
+      >
         <h4>Recommendations</h4>
         <ul>
-          <li v-for="rec in result.recommendations" :key="rec">{{ rec }}</li>
+          <li v-for="rec in result.recommendations" :key="rec">
+            {{ rec }}
+          </li>
         </ul>
       </div>
     </div>

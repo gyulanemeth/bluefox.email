@@ -1,31 +1,25 @@
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
 import { useUrlState } from './useUrlState.js'
 
-// Constants
 const API_URL = import.meta.env.VITE_TOOLS_API_URL
-if (!API_URL) throw new Error('VITE_TOOLS_API_URL not set')
 
-// Composables
+if (!API_URL) {
+  throw new Error('VITE_TOOLS_API_URL not set')
+}
+
 const {
   captchaProbe,
   captchaImage,
   captchaLoading,
   isProbeExpired,
+  isSolved,
   shouldShowCaptcha,
-  hasError,
-  currentError,
   loadCaptcha,
   refreshCaptcha,
   markSolved,
-  setError,
-  clearError,
-  handleServerError,
-  validateCaptchaInput,
-  autoResolveError,
-  isCurrentlyExpired
-} = useCaptcha('mx-checker')
+} = useCaptcha()
 
 const {
   domain,
@@ -36,78 +30,78 @@ const {
   onAutoExecute: checkMx
 })
 
-// Local state
 const captchaText = ref('')
 const loading = ref(false)
 const result = ref(null)
+const errorMessage = ref('')
 
-// Computed
 const isFormDisabled = computed(() => 
-  loading.value || (shouldShowCaptcha.value && (!captchaText.value || isProbeExpired.value))
+  loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
 )
 
-// Watch for CAPTCHA expiration and clear results
-watch(isProbeExpired, (newExpired, oldExpired) => {
-  if (newExpired && !oldExpired && result.value) {
-    console.log('CAPTCHA expired - clearing results')
+watch(isProbeExpired, (expired, prev) => {
+  if (expired && !prev) {
     result.value = null
+    captchaText.value = ''
   }
 })
 
-// Methods
+watch(shouldShowCaptcha, (show, prev) => {
+  if (show && !prev) {
+    captchaText.value = ''
+  }
+})
+
 function validateInputs() {
   if (!domain.value?.trim()) {
-    setError('MISSING_TEXT', 'Please enter the domain you want to check (e.g., example.com)')
+    errorMessage.value = 'Please enter a domain name'
     return false
   }
   
-  return shouldShowCaptcha.value ? validateCaptchaInput(captchaText.value) : true
-}
-
-async function handleCaptchaExpiry() {
-  console.log('CAPTCHA expired detected - refreshing')
-  await refreshCaptcha('expired')
-  loading.value = false
+  if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
+    errorMessage.value = 'Please enter the captcha text'
+    return false
+  }
+  
+  return true
 }
 
 async function checkMx() {
-  clearError()
   result.value = null
   loading.value = true
+  errorMessage.value = ''
 
   try {
-    // Check CAPTCHA expiry
-    if (isCurrentlyExpired()) {
-      await handleCaptchaExpiry()
+    if (!validateInputs()) {
+      loading.value = false
       return
     }
 
-    // Validate inputs
-    if (!validateInputs()) return
-
-    // Double-check expiry before request
-    if (isCurrentlyExpired()) {
-      await handleCaptchaExpiry()
-      return
+    const requestBody = {
+      domain: domain.value.trim(),
+      captchaProbe: captchaProbe.value,
     }
 
-    // Make request
+    if (shouldShowCaptcha.value) {
+      requestBody.captchaText = captchaText.value.trim()
+    } else {
+      requestBody.captchaText = ''
+    }
+
     const response = await fetch(`${API_URL}/v1/analyze-mx`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        domain: domain.value.trim(),
-        captchaProbe: captchaProbe.value,
-        captchaText: captchaText.value.trim()
-      })
+      body: JSON.stringify(requestBody)
     })
     
     const json = await response.json()
+    
     if (!response.ok) {
-      const errorType = handleServerError(json)
+      errorMessage.value = json.error?.message || json.message || 'An error occurred. Please try again.'
       
-      if (errorType === 'expired' || errorType === 'incorrect') {
-        await autoResolveError()
+      if (response.status === 401) {
+        await refreshCaptcha()
+        captchaText.value = ''
       }
       return
     }
@@ -125,8 +119,8 @@ async function checkMx() {
     markSolved()
 
   } catch (error) {
-    console.error('MX Check Error:', error)
-    setError('NETWORK_ERROR', 'Network connection failed. Please try again.')
+    console.error('Network error:', error)
+    errorMessage.value = 'Network connection failed. Please try again.'
   } finally {
     loading.value = false
   }
@@ -140,7 +134,9 @@ function hasUniquePriorities(records) {
 onMounted(async () => {
   await initializeUrlState()
   
-  if (!captchaProbe.value || isProbeExpired.value) {
+  await nextTick()
+  
+  if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
     await loadCaptcha()
   }
 })
@@ -185,7 +181,7 @@ onMounted(async () => {
             </div>
             <button
               type="button"
-              @click="refreshCaptcha('manual')"
+              @click="refreshCaptcha"
               class="refresh-captcha-btn"
               :disabled="captchaLoading"
               title="Refresh captcha"
@@ -198,7 +194,7 @@ onMounted(async () => {
             v-model="captchaText"
             type="text"
             placeholder="Enter the text from the image above"
-            :disabled="loading || !captchaImage || isProbeExpired"
+            :disabled="loading || !captchaImage"
             autocomplete="off"
             required
           />
@@ -219,8 +215,8 @@ onMounted(async () => {
     </div>
 
     <!-- Error Display -->
-    <div v-if="hasError" class="error-section">
-      <p class="error-message">{{ currentError.message }}</p>
+    <div v-if="errorMessage" class="error-section">
+      <p class="error-message">{{ errorMessage }}</p>
     </div>
 
     <!-- Results -->
