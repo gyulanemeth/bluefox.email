@@ -25,23 +25,23 @@ export function useCaptcha() {
     !captchaImage.value
   )
 
-  const markSolved = () => {
-    if (!isProbeExpired.value) {
-      captchaSolvedUntil.value = captchaExpires.value
-    }
-  }
-
-  const loadCaptcha = async () => {
+  async function loadCaptcha() {
     captchaLoading.value = true
     try {
       const API_URL = import.meta.env.VITE_TOOLS_API_URL
-      if (!API_URL) throw new Error('Missing API URL')
+      if (!API_URL) {
+        throw new Error('Missing API URL')
+      }
 
       const res = await fetch(`${API_URL}/v1/captcha/generate`)
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`)
+      }
 
       const { result } = await res.json()
-      if (!result?.captcha) throw new Error('Bad response')
+      if (!result?.captcha) {
+        throw new Error('Bad response')
+      }
 
       const { probe, image, expires } = result.captcha
 
@@ -58,12 +58,18 @@ export function useCaptcha() {
     }
   }
 
-  const refreshCaptcha = async () => {
+  async function refreshCaptcha() {
     clearSession()
     await loadCaptcha()
   }
 
-  const clearSession = () => {
+  function markSolved() {
+    if (!isProbeExpired.value) {
+      captchaSolvedUntil.value = captchaExpires.value
+    }
+  }
+
+  function clearSession() {
     captchaProbe.value = null
     captchaImage.value = null
     captchaExpires.value = 0
@@ -71,19 +77,21 @@ export function useCaptcha() {
   }
 
   return {
-    captchaProbe,
-    captchaImage,
-    captchaLoading,
-    captchaExpires,
-
-    isProbeExpired,
-    isSolved,
-    shouldShowCaptcha,
-
+    // Getter functions instead of direct refs
+    getCaptchaProbe: () => captchaProbe.value,
+    getCaptchaImage: () => captchaImage.value,
+    getCaptchaLoading: () => captchaLoading.value,
+    getCaptchaExpires: () => captchaExpires.value,
+    
+    // State checkers
+    getIsProbeExpired: () => isProbeExpired.value,
+    getIsSolved: () => isSolved.value,
+    getShouldShowCaptcha: () => shouldShowCaptcha.value,
+    
+    // Action functions
     loadCaptcha,
     refreshCaptcha,
     markSolved,
     clearSession,
-    now
   }
 }

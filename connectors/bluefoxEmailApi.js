@@ -38,7 +38,6 @@ export default () => {
         }
         return res
     }
-
     return {
         subscribe,
         verifySubscription

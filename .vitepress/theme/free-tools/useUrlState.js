@@ -1,16 +1,12 @@
 import { ref, watch, nextTick } from 'vue'
-import { useRouter, useRoute } from 'vitepress'
 
 export function useUrlState(options = {}) {
   const {
     fields = ['domain'],
     autoExecute = true,
     onAutoExecute = null,
-    debounceMs = 300
+    debounceMs = 300,
   } = options
-
-  const router = useRouter()
-  const route = useRoute()
 
   const EXCLUDED_FIELDS = ['captchaText', 'captchaProbe', 'captchaImage']
   const state = createReactiveState(fields)
@@ -24,40 +20,6 @@ export function useUrlState(options = {}) {
     return reactiveState
   }
 
-  function updateURL() {
-    clearTimeout(urlUpdateTimer)
-    
-    urlUpdateTimer = setTimeout(() => {
-      const newQuery = buildQueryObject()
-      const newUrl = buildNewUrl(newQuery)
-      
-      if (typeof window !== 'undefined') {
-        window.history.replaceState({}, '', newUrl)
-      }
-    }, debounceMs)
-  }
-
-  function buildQueryObject() {
-    const queryParams = new URLSearchParams()
-    
-    fields.forEach(field => {
-      if (shouldIncludeInUrl(field)) {
-        const value = getFieldValue(field)
-        if (value) {
-          queryParams.set(field, value)
-        }
-      }
-    })
-    
-    return queryParams
-  }
-
-  function buildNewUrl(queryParams) {
-    const baseUrl = window.location.pathname
-    const queryString = queryParams.toString()
-    return queryString ? `${baseUrl}?${queryString}` : baseUrl
-  }
-
   function shouldIncludeInUrl(field) {
     return !EXCLUDED_FIELDS.includes(field)
   }
@@ -67,101 +29,88 @@ export function useUrlState(options = {}) {
     return typeof value === 'string' ? value.trim() : value
   }
 
-  function loadFromURL() {
-    if (typeof window === 'undefined') {
-      return
-    }
-    
-    const urlParams = new URLSearchParams(window.location.search)
-    
-    fields.forEach(field => {
-      const urlValue = urlParams.get(field)
-      if (urlValue && state[field]) {
-        state[field].value = urlValue
+  // Update URL based on a given object of field:value
+  function updateURLWithParams(params) {
+    clearTimeout(urlUpdateTimer)
+
+    urlUpdateTimer = setTimeout(() => {
+      const queryParams = new URLSearchParams()
+
+      // Iterate over fields, set from params or current state
+      fields.forEach(field => {
+        if (shouldIncludeInUrl(field)) {
+          const val = params.hasOwnProperty(field) ? params[field] : getFieldValue(field)
+          if (val && val.toString().trim() !== '') {
+            queryParams.set(field, val.toString().trim())
+          }
+        }
+      })
+
+      if (typeof window !== 'undefined') {
+        const baseUrl = window.location.pathname
+        const queryString = queryParams.toString()
+        const newUrl = queryString ? `${baseUrl}?${queryString}` : baseUrl
+        window.history.replaceState({}, '', newUrl)
+      }
+    }, debounceMs)
+  }
+
+  // Update reactive state fields from provided params
+  function updateStateWithParams(params) {
+    Object.keys(params).forEach(key => {
+      if (state[key] && typeof params[key] !== 'undefined') {
+        state[key].value = params[key]
       }
     })
   }
 
-  function setupURLWatchers() {
-    const watchableFields = getWatchableFields()
-    
-    if (watchableFields.length > 0) {
-      watch(watchableFields, updateURL, { deep: true })
-    }
-  }
+  // Load all state fields from URL on init
+  function loadFromURL() {
+    if (typeof window === 'undefined') return
 
-  function getWatchableFields() {
-    return fields
-      .filter(shouldIncludeInUrl)
-      .map(field => state[field])
-      .filter(Boolean)
-  }
-
-  function canAutoExecute() {
-    return autoExecute && onAutoExecute && state.domain?.value?.trim()
-  }
-
-  async function performAutoExecution() {
-    if (!canAutoExecute()) {
-      return
-    }
-
-    await nextTick()
-    setTimeout(() => {
-      onAutoExecute()
-    }, 100)
-  }
-
-  async function initialize() {
-    try {
-      loadFromURL()
-      setupURLWatchers()
-      await performAutoExecution()
-    } catch (error) {
-      console.error('URL state initialization failed:', error)
-    }
-  }
-
-  function setField(fieldName, value) {
-    if (!state[fieldName]) {
-      console.warn(`Field '${fieldName}' not found in URL state`)
-      return
-    }
-    
-    state[fieldName].value = value
-    updateURL()
-  }
-
-  function getShareableURL() {
-    if (typeof window === 'undefined') {
-      return ''
-    }
-    
-    const baseURL = `${window.location.origin}${window.location.pathname}`
-    const queryParams = new URLSearchParams()
-    
+    const urlParams = new URLSearchParams(window.location.search)
     fields.forEach(field => {
-      if (shouldIncludeInUrl(field)) {
-        const value = getFieldValue(field)
-        if (value) {
-          queryParams.set(field, value)
+      if (state[field] && shouldIncludeInUrl(field)) {
+        const val = urlParams.get(field)
+        if (val !== null) {
+          state[field].value = val
         }
       }
     })
-    
-    const queryString = queryParams.toString()
-    return queryString ? `${baseURL}?${queryString}` : baseURL
   }
 
-  function clearURL() {
-    if (typeof window === 'undefined') {
-      return
+  // Watch reactive fields and run callback (default updates URL)
+  function setupWatchers(callback = updateURLCallback) {
+    const watchFields = fields
+      .filter(shouldIncludeInUrl)
+      .map(field => state[field])
+      .filter(Boolean)
+
+    if (watchFields.length > 0) {
+      watch(watchFields, callback, { deep: true })
     }
-    
+  }
+
+  // Default watch callback updates URL with current state
+  function updateURLCallback() {
+    const currentParams = {}
+    fields.forEach(field => {
+      if (shouldIncludeInUrl(field)) {
+        currentParams[field] = getFieldValue(field)
+      }
+    })
+    updateURLWithParams(currentParams)
+  }
+
+  // Clear URL query params, reload without them
+  function clearURL() {
+    if (typeof window === 'undefined') return
+
     const baseUrl = window.location.pathname
     window.history.replaceState({}, '', baseUrl)
   }
 
+  // Reset all state fields to empty string
   function resetState() {
     fields.forEach(field => {
       if (state[field]) {
@@ -170,14 +119,48 @@ export function useUrlState(options = {}) {
     })
   }
 
+  function canAutoExecute() {
+    return autoExecute && onAutoExecute && state.domain?.value?.trim()
+  }
+
+  async function performAutoExecution() {
+    if (!canAutoExecute()) return
+
+    await nextTick()
+    setTimeout(() => {
+      onAutoExecute()
+    }, 100)
+  }
+
+  // Main initialization function to call from component's onMounted
+  async function initialize() {
+    try {
+      loadFromURL()
+      setupWatchers()
+      await performAutoExecution()
+    } catch (error) {
+      console.error('URL state initialization failed:', error)
+    }
+  }
+
   return {
-    ...state,
-    initialize,
-    setField,
-    updateURL,
-    getShareableURL,
+    getFieldValue,
+    setFieldValue: (field, val) => {
+
+      if (!state[field]) {
+        console.warn(`Field '${field}' not found`)
+        return
+      }
+      state[field].value = val
+      updateURLWithParams({ [field]: val })
+    },
+
+    updateURLWithParams,
+    updateStateWithParams,
+
     clearURL,
     resetState,
-    canAutoExecute: canAutoExecute()
+    initialize,
+    state,
   }
 }

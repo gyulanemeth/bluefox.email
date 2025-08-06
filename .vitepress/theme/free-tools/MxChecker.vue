@@ -2,51 +2,48 @@
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
 import { useUrlState } from './useUrlState.js'
+import { checkMx } from '../../../connectors/bluefoxEmailToolsApi.js'
 
-const API_URL = import.meta.env.VITE_TOOLS_API_URL
-
-if (!API_URL) {
-  throw new Error('VITE_TOOLS_API_URL not set')
-}
+const domain = ref('')
+const captchaText = ref('')
+const loading = ref(false)
+const result = ref(null)
+const errorMessage = ref('')
 
 const {
-  captchaProbe,
-  captchaImage,
-  captchaLoading,
-  isProbeExpired,
-  isSolved,
-  shouldShowCaptcha,
+  getCaptchaProbe,
+  getCaptchaImage,
+  getCaptchaLoading,
+  getIsProbeExpired,
+  getIsSolved,
+  getShouldShowCaptcha,
   loadCaptcha,
   refreshCaptcha,
   markSolved,
 } = useCaptcha()
 
 const {
-  domain,
-  initialize: initializeUrlState
+  getFieldValue,
+  setFieldValue,
+  initialize: initializeUrlState,
 } = useUrlState({
   fields: ['domain'],
   autoExecute: true,
-  onAutoExecute: checkMx
+  onAutoExecute: checkMxHandler
 })
 
-const captchaText = ref('')
-const loading = ref(false)
-const result = ref(null)
-const errorMessage = ref('')
-
-const isFormDisabled = computed(() => 
-  loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
+const isFormDisabled = computed(() =>
+  loading.value || (getShouldShowCaptcha() && !captchaText.value?.trim())
 )
 
-watch(isProbeExpired, (expired, prev) => {
+watch(() => getIsProbeExpired(), (expired, prev) => {
   if (expired && !prev) {
     result.value = null
     captchaText.value = ''
   }
 })
 
-watch(shouldShowCaptcha, (show, prev) => {
+watch(() => getShouldShowCaptcha(), (show, prev) => {
   if (show && !prev) {
     captchaText.value = ''
   }
@@ -57,16 +54,16 @@ function validateInputs() {
     errorMessage.value = 'Please enter a domain name'
     return false
   }
-  
-  if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
+
+  if (getShouldShowCaptcha() && !captchaText.value?.trim()) {
     errorMessage.value = 'Please enter the captcha text'
     return false
   }
-  
+
   return true
 }
 
-async function checkMx() {
+async function checkMxHandler() {
   result.value = null
   loading.value = true
   errorMessage.value = ''
@@ -77,50 +74,29 @@ async function checkMx() {
       return
     }
 
-    const requestBody = {
-      domain: domain.value.trim(),
-      captchaProbe: captchaProbe.value,
-    }
-
-    if (shouldShowCaptcha.value) {
-      requestBody.captchaText = captchaText.value.trim()
-    } else {
-      requestBody.captchaText = ''
-    }
-
-    const response = await fetch(`${API_URL}/v1/analyze-mx`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(requestBody)
+    const data = await checkMx({
+      domain: domain.value,
+      captchaProbe: getCaptchaProbe(),
+      captchaText: getShouldShowCaptcha() ? captchaText.value : ''
     })
-    
-    const json = await response.json()
-    
-    if (!response.ok) {
-      errorMessage.value = json.error?.message || json.message || 'An error occurred. Please try again.'
-      
-      if (response.status === 401) {
-        await refreshCaptcha()
-        captchaText.value = ''
-      }
-      return
-    }
-    
+
     result.value = {
       valid: true,
-      domain: json.result.domain || domain.value,
-      records: json.result.records || json.result.mxRecords || [],
-      score: json.result.score,
-      warnings: json.result.warnings || [],
-      recommendations: json.result.recommendations || []
+      domain: data.result.domain || domain.value,
+      records: data.result.records || data.result.mxRecords || [],
+      score: data.result.score,
+      warnings: data.result.warnings || [],
+      recommendations: data.result.recommendations || []
     }
-    
+
     captchaText.value = ''
     markSolved()
-
-  } catch (error) {
-    console.error('Network error:', error)
-    errorMessage.value = 'Network connection failed. Please try again.'
+  } catch (err) {
+    errorMessage.value = err.message || 'Network error. Please try again.'
+    if (err.status === 401) {
+      await refreshCaptcha()
+      captchaText.value = ''
+    }
   } finally {
     loading.value = false
   }
@@ -132,11 +108,16 @@ function hasUniquePriorities(records) {
 }
 
 onMounted(async () => {
-  await initializeUrlState()
+  domain.value = getFieldValue('domain') || ''
   
+  watch(domain, (newDomain) => {
+    setFieldValue('domain', newDomain)
+  })
+  
+  await initializeUrlState()
   await nextTick()
   
-  if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
+  if (!getIsSolved() && (!getCaptchaProbe() || getIsProbeExpired())) {
     await loadCaptcha()
   }
 })
@@ -145,7 +126,7 @@ onMounted(async () => {
 <template>
   <div class="mx-checker">
     <div class="tool-form">
-      <form @submit.prevent="checkMx">
+      <form @submit.prevent="checkMxHandler">
         <!-- Domain Input -->
         <div class="form-group">
           <label for="domain">Domain:</label>
@@ -160,19 +141,17 @@ onMounted(async () => {
         </div>
 
         <!-- Captcha Expiration Warning -->
-        <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
+        <div v-if="getCaptchaProbe() && getIsProbeExpired()" class="captcha-expired-message">
           Your verification has expired. Please refresh the captcha below.
         </div>
 
         <!-- Captcha Section -->
-        <div v-if="shouldShowCaptcha" class="form-group">
+        <div v-if="getShouldShowCaptcha()" class="form-group">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
-              <div v-if="captchaLoading" class="captcha-loading">
-                Loading captcha...
-              </div>
-              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage" />
+              <div v-if="getCaptchaLoading()" class="captcha-loading">Loading captcha...</div>
+              <div v-else-if="getCaptchaImage()" class="captcha-image" v-html="getCaptchaImage()" />
               <div v-else class="captcha-placeholder">
                 <button type="button" @click="loadCaptcha" class="load-captcha-btn">
                   Load Captcha
@@ -183,7 +162,7 @@ onMounted(async () => {
               type="button"
               @click="refreshCaptcha"
               class="refresh-captcha-btn"
-              :disabled="captchaLoading"
+              :disabled="getCaptchaLoading()"
               title="Refresh captcha"
             >
               <img src="/assets/reload.webp?url" alt="reload" />
@@ -194,7 +173,7 @@ onMounted(async () => {
             v-model="captchaText"
             type="text"
             placeholder="Enter the text from the image above"
-            :disabled="loading || !captchaImage"
+            :disabled="loading || !getCaptchaImage()"
             autocomplete="off"
             required
           />
