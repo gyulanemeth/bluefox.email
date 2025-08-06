@@ -1,22 +1,17 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
-
-const API_URL = import.meta.env.VITE_TOOLS_API_URL
-
-if (!API_URL) {
-  throw new Error('VITE_TOOLS_API_URL not set')
-}
+import { analyzeDmarcReport } from '../../../connectors/bluefoxEmailToolsApi.js'
 
 const MAX_FILENAME_LEN = 30
 
 const {
-  captchaProbe,
-  captchaImage,
-  captchaLoading,
-  isProbeExpired,
-  isSolved,
-  shouldShowCaptcha,
+  getCaptchaProbe,
+  getCaptchaImage,
+  getCaptchaLoading,
+  getIsProbeExpired,
+  getIsSolved,
+  getShouldShowCaptcha,
   loadCaptcha,
   refreshCaptcha,
   markSolved,
@@ -35,7 +30,7 @@ const isDragging = ref(false)
 let dragLeaveTimeout = null
 
 const isFormDisabled = computed(() => 
-  loading.value || (!xmlPaste.value.trim() && !file.value) || (shouldShowCaptcha.value && !captchaText.value?.trim())
+  loading.value || (!xmlPaste.value.trim() && !file.value) || (getShouldShowCaptcha() && !captchaText.value?.trim())
 )
 
 const truncatedFileName = computed(() => {
@@ -44,14 +39,14 @@ const truncatedFileName = computed(() => {
   return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
 })
 
-watch(isProbeExpired, (expired, prev) => {
+watch(() => getIsProbeExpired(), (expired, prev) => {
   if (expired && !prev) {
     result.value = null
     captchaText.value = ''
   }
 })
 
-watch(shouldShowCaptcha, (show, prev) => {
+watch(() => getShouldShowCaptcha(), (show, prev) => {
   if (show && !prev) {
     captchaText.value = ''
   }
@@ -63,7 +58,7 @@ function validateInputs() {
     return false
   }
   
-  if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
+  if (getShouldShowCaptcha() && !captchaText.value?.trim()) {
     errorMessage.value = 'Please enter the captcha text'
     return false
   }
@@ -149,54 +144,12 @@ async function analyzeReport() {
       return
     }
 
-    let response, data
-    
-    if (file.value) {
-      // File upload using FormData
-      const formData = new FormData()
-      formData.append('file', file.value)
-      formData.append('captchaProbe', captchaProbe.value || '')
-      
-      if (shouldShowCaptcha.value) {
-        formData.append('captchaText', captchaText.value.trim())
-      } else {
-        formData.append('captchaText', '')
-      }
-      
-      response = await fetch(`${API_URL}/v1/analyze-dmarc-report`, {
-        method: 'POST',
-        body: formData
-      })
-    } else {
-      const requestBody = {
-        xmlContent: xmlPaste.value,
-        captchaProbe: captchaProbe.value || ''
-      }
-      
-      if (shouldShowCaptcha.value) {
-        requestBody.captchaText = captchaText.value.trim()
-      } else {
-        requestBody.captchaText = ''
-      }
-      
-      response = await fetch(`${API_URL}/v1/analyze-dmarc-report`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody)
-      })
-    }
-    
-    data = await response.json()
-    
-    if (!response.ok) {
-      errorMessage.value = data.error?.message || data.message || 'An error occurred. Please try again.'
-      
-      if (response.status === 401) {
-        await refreshCaptcha()
-        captchaText.value = ''
-      }
-      return
-    }
+    const data = await analyzeDmarcReport({
+      xmlContent: file.value ? null : xmlPaste.value,
+      file: file.value,
+      captchaProbe: getCaptchaProbe(),
+      captchaText: getShouldShowCaptcha() ? captchaText.value : ''
+    })
 
     result.value = {
       ...data.result,
@@ -207,9 +160,12 @@ async function analyzeReport() {
     markSolved()
     clearFile()
 
-  } catch (error) {
-    console.error('Network error:', error)
-    errorMessage.value = 'Network connection failed. Please try again.'
+  } catch (err) {
+    errorMessage.value = err.message || 'Network error. Please try again.'
+    if (err.status === 401) {
+      await refreshCaptcha()
+      captchaText.value = ''
+    }
   } finally {
     loading.value = false
   }
@@ -218,11 +174,12 @@ async function analyzeReport() {
 onMounted(async () => {
   await nextTick()
   
-  if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
+  if (!getIsSolved() && (!getCaptchaProbe() || getIsProbeExpired())) {
     await loadCaptcha()
   }
 })
 </script>
+
 
 <template>
   <div class="dmarc-analyzer">

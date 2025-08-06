@@ -1,37 +1,11 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
-import { useUrlState } from './useUrlState.js'
+import { checkSpf } from '../../../connectors/bluefoxEmailToolsApi.js'
+import { syncWithUrl, loadFromUrl } from './urlUtils.js'
 
-const API_URL = import.meta.env.VITE_TOOLS_API_URL
-
-if (!API_URL) {
-  throw new Error('VITE_TOOLS_API_URL not set')
-}
-
-const {
-  captchaProbe,
-  captchaImage,
-  captchaLoading,
-  isProbeExpired,
-  isSolved,
-  shouldShowCaptcha,
-  loadCaptcha,
-  refreshCaptcha,
-  markSolved,
-} = useCaptcha()
-
-const {
-  domain,
-  testIp,
-  initialize: initializeUrlState,
-  setField
-} = useUrlState({
-  fields: ['domain', 'testIp'],
-  autoExecute: true,
-  onAutoExecute: checkSpf
-})
-
+const domain = ref('')
+const testIp = ref('')
 const captchaText = ref('')
 const loading = ref(false)
 const result = ref(null)
@@ -40,21 +14,37 @@ const errorMessage = ref('')
 const history = ref([])
 const currentIndex = ref(-1)
 
+const {
+  getCaptchaProbe,
+  getCaptchaImage,
+  getCaptchaLoading,
+  getIsProbeExpired,
+  getIsSolved,
+  getShouldShowCaptcha,
+  loadCaptcha,
+  refreshCaptcha,
+  markSolved,
+} = useCaptcha()
+
 const isFormDisabled = computed(() => 
-  loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
+  loading.value || (getShouldShowCaptcha() && !captchaText.value?.trim())
 )
 
-watch(isProbeExpired, (expired, prev) => {
+watch(() => getIsProbeExpired(), (expired, prev) => {
   if (expired && !prev) {
     result.value = null
     captchaText.value = ''
   }
 })
 
-watch(shouldShowCaptcha, (show, prev) => {
+watch(() => getShouldShowCaptcha(), (show, prev) => {
   if (show && !prev) {
     captchaText.value = ''
   }
+})
+
+watch([domain, testIp], () => {
+  syncWithUrl({ domain: domain.value, testIp: testIp.value })
 })
 
 function validateInputs() {
@@ -63,7 +53,7 @@ function validateInputs() {
     return false
   }
   
-  if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
+  if (getShouldShowCaptcha() && !captchaText.value?.trim()) {
     errorMessage.value = 'Please enter the captcha text'
     return false
   }
@@ -71,7 +61,7 @@ function validateInputs() {
   return true
 }
 
-async function checkSpf() {
+async function checkSpfHandler() {
   result.value = null
   errorMessage.value = ''
 
@@ -104,46 +94,20 @@ async function checkSpf() {
       return
     }
 
-    const payload = {
+    const data = await checkSpf({
       domain: domain.value,
-      captchaProbe: captchaProbe.value,
-    }
-
-    if (shouldShowCaptcha.value) {
-      payload.captchaText = captchaText.value.trim()
-    } else {
-      payload.captchaText = ''
-    }
-
-    if (testIp.value.trim()) {
-      payload.testIp = testIp.value.trim()
-    }
-
-    const response = await fetch(`${API_URL}/v1/analyze-spf`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      captchaProbe: getCaptchaProbe(),
+      captchaText: getShouldShowCaptcha() ? captchaText.value : '',
+      testIp: testIp.value.trim() || undefined
     })
-    
-    const json = await response.json()
-
-    if (!response.ok) {
-      errorMessage.value = json.error?.message || json.message || 'An error occurred. Please try again.'
-      
-      if (response.status === 401) {
-        await refreshCaptcha()
-        captchaText.value = ''
-      }
-      return
-    }
 
     result.value = {
       valid: true,
-      domain: json.result.domain || domain.value,
-      record: json.result.rawRecord || json.result.record || 'Not found',
-      lookups: json.result.lookups,
-      policy: json.result.policy,
-      mechanisms: (json.result.mechanisms || []).map(m => {
+      domain: data.result.domain || domain.value,
+      record: data.result.rawRecord || data.result.record || 'Not found',
+      lookups: data.result.lookups,
+      policy: data.result.policy,
+      mechanisms: (data.result.mechanisms || []).map(m => {
         const match = m.original.toLowerCase().match(/^(include|redirect|a|mx):([^\s\/]+)/)
         const targetDomain = match ? match[2] : null
         return {
@@ -151,15 +115,15 @@ async function checkSpf() {
           targetDomain
         }
       }),
-      warnings: json.result.warnings || [],
-      recommendations: json.result.recommendations || [],
-      mailauthResult: json.result.mailauthResult,
-      ipTestResult: json.result.ipTestResult ? {
-        ip: json.result.ipTestResult.ip || testIp.value || 'Unknown',
-        result: json.result.ipTestResult.result || 'Unknown',
-        explanation: json.result.ipTestResult.explanation || null
+      warnings: data.result.warnings || [],
+      recommendations: data.result.recommendations || [],
+      mailauthResult: data.result.mailauthResult,
+      ipTestResult: data.result.ipTestResult ? {
+        ip: data.result.ipTestResult.ip || testIp.value || 'Unknown',
+        result: data.result.ipTestResult.result || 'Unknown',
+        explanation: data.result.ipTestResult.explanation || null
       } : null,
-      score: json.result.score
+      score: data.result.score
     }
 
     captchaText.value = ''
@@ -177,9 +141,12 @@ async function checkSpf() {
       history.value[currentIndex.value] = finalState
     }
 
-  } catch (error) {
-    console.error('Network error:', error)
-    errorMessage.value = 'Network connection failed. Please try again.'
+  } catch (err) {
+    errorMessage.value = err.message || 'Network error. Please try again.'
+    if (err.status === 401) {
+      await refreshCaptcha()
+      captchaText.value = ''
+    }
   } finally {
     loading.value = false
   }
@@ -190,18 +157,18 @@ function goBack() {
 
   const previous = history.value[currentIndex.value - 1]
   currentIndex.value--
-  setField('domain', previous.domain)
-  setField('testIp', previous.testIp || '')
+  domain.value = previous.domain
+  testIp.value = previous.testIp || ''
   result.value = previous.result
   errorMessage.value = ''
 }
 
 function checkIncludedDomain(includedDomain) {
-  setField('domain', includedDomain)
-  setField('testIp', '')
+  domain.value = includedDomain
+  testIp.value = ''
   result.value = null
   errorMessage.value = ''
-  checkSpf()
+  checkSpfHandler()
 }
 
 function getIpResultClass(res) {
@@ -235,20 +202,25 @@ function getDisplayResult(res) {
 }
 
 onMounted(async () => {
-  await initializeUrlState()
+  loadFromUrl({ domain, testIp })
   
   await nextTick()
   
-  if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
+  if (domain.value.trim()) {
+    checkSpfHandler()
+  }
+  
+  if (!getIsSolved() && (!getCaptchaProbe() || getIsProbeExpired())) {
     await loadCaptcha()
   }
 })
 </script>
 
+
 <template>
   <div class="spf-checker">
     <div class="tool-form">
-      <form @submit.prevent="checkSpf">
+      <form @submit.prevent="checkSpfHandler">
         <!-- Domain Input -->
         <div class="form-group">
           <label for="domain">Domain:</label>
@@ -277,19 +249,19 @@ onMounted(async () => {
         </div>
 
         <!-- Captcha Expiration Warning -->
-        <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
+        <div v-if="getCaptchaProbe() && getIsProbeExpired()" class="captcha-expired-message">
           Your verification has expired. Please refresh the captcha below.
         </div>
 
         <!-- Captcha Section -->
-        <div v-if="shouldShowCaptcha" class="form-group">
+        <div v-if="getShouldShowCaptcha()" class="form-group">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
             <div class="captcha-image-container">
-              <div v-if="captchaLoading" class="captcha-loading">
+              <div v-if="getCaptchaLoading()" class="captcha-loading">
                 Loading captcha...
               </div>
-              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage" />
+              <div v-else-if="getCaptchaImage()" class="captcha-image" v-html="getCaptchaImage()" />
               <div v-else class="captcha-placeholder">
                 <button type="button" @click="loadCaptcha" class="load-captcha-btn">
                   Load Captcha
@@ -300,7 +272,7 @@ onMounted(async () => {
               type="button"
               @click="refreshCaptcha"
               class="refresh-captcha-btn"
-              :disabled="captchaLoading"
+              :disabled="getCaptchaLoading()"
               title="Refresh captcha"
             >
               <img src="/assets/reload.webp?url" alt="reload" />
@@ -311,7 +283,7 @@ onMounted(async () => {
             v-model="captchaText"
             type="text"
             placeholder="Enter the text from the image above"
-            :disabled="loading || !captchaImage"
+            :disabled="loading || !getCaptchaImage()"
             autocomplete="off"
             required
           />

@@ -1,8 +1,8 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { useCaptcha } from './useCaptcha.js'
-import { useUrlState } from './useUrlState.js'
 import { checkMx } from '../../../connectors/bluefoxEmailToolsApi.js'
+import { syncWithUrl, loadFromUrl } from './urlUtils.js'
 
 const domain = ref('')
 const captchaText = ref('')
@@ -22,16 +22,6 @@ const {
   markSolved,
 } = useCaptcha()
 
-const {
-  getFieldValue,
-  setFieldValue,
-  initialize: initializeUrlState,
-} = useUrlState({
-  fields: ['domain'],
-  autoExecute: true,
-  onAutoExecute: checkMxHandler
-})
-
 const isFormDisabled = computed(() =>
   loading.value || (getShouldShowCaptcha() && !captchaText.value?.trim())
 )
@@ -47,6 +37,10 @@ watch(() => getShouldShowCaptcha(), (show, prev) => {
   if (show && !prev) {
     captchaText.value = ''
   }
+})
+
+watch(domain, () => {
+  syncWithUrl({ domain: domain.value })
 })
 
 function validateInputs() {
@@ -108,26 +102,25 @@ function hasUniquePriorities(records) {
 }
 
 onMounted(async () => {
-  domain.value = getFieldValue('domain') || ''
-  
-  watch(domain, (newDomain) => {
-    setFieldValue('domain', newDomain)
-  })
-  
-  await initializeUrlState()
+  loadFromUrl({ domain })
+
   await nextTick()
   
+  if (domain.value.trim()) {
+    checkMxHandler()
+  }
+
   if (!getIsSolved() && (!getCaptchaProbe() || getIsProbeExpired())) {
     await loadCaptcha()
   }
 })
 </script>
 
+
 <template>
   <div class="mx-checker">
     <div class="tool-form">
       <form @submit.prevent="checkMxHandler">
-        <!-- Domain Input -->
         <div class="form-group">
           <label for="domain">Domain:</label>
           <input
@@ -140,12 +133,10 @@ onMounted(async () => {
           />
         </div>
 
-        <!-- Captcha Expiration Warning -->
         <div v-if="getCaptchaProbe() && getIsProbeExpired()" class="captcha-expired-message">
           Your verification has expired. Please refresh the captcha below.
         </div>
 
-        <!-- Captcha Section -->
         <div v-if="getShouldShowCaptcha()" class="form-group">
           <label for="captcha">Security Verification:</label>
           <div class="captcha-container">
@@ -182,7 +173,6 @@ onMounted(async () => {
           </small>
         </div>
 
-        <!-- Submit Button -->
         <button type="submit" class="check-btn" :disabled="isFormDisabled">
           <span v-if="loading" class="btn-loading">
             <div class="loading-spinner"></div>
@@ -202,7 +192,6 @@ onMounted(async () => {
     <div v-if="result" class="result-section">
       <h3>MX Records Check Results</h3>
       
-      <!-- Status -->
       <div class="status-box">
         <p><strong>{{ result.valid ? 'MX Records Found' : 'No MX Records Found' }}</strong></p>
         <p v-if="result.valid"><strong>Total Records:</strong> {{ result.records.length }}</p>
@@ -216,7 +205,6 @@ onMounted(async () => {
         </p>
       </div>
 
-      <!-- Basic Information -->
       <div class="info-section">
         <h4>
           Basic Information
@@ -235,7 +223,6 @@ onMounted(async () => {
         </p>
       </div>
 
-      <!-- MX Records Section -->
       <div v-if="result.records.length" class="mx-records-section">
         <h4>
           MX Records
@@ -267,7 +254,6 @@ onMounted(async () => {
             </div>
           </div>
           
-          <!-- Summary stats -->
           <div class="mx-summary-stats">
             <div class="stat-card">
               <div class="stat-number">{{ result.records.length }}</div>
@@ -285,7 +271,6 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Analysis Section -->
       <div v-if="result.valid" class="section analysis-section">
         <h4>
           Analysis
@@ -312,7 +297,6 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Warnings, Recommendations -->
       <div v-if="result.warnings?.length" class="section warnings-section">
         <h4>Warnings</h4>
         <ul>
