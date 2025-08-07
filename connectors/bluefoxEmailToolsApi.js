@@ -153,3 +153,22 @@ export async function checkDkim({ domain, selector, captchaProbe, captchaText })
 
   return json
 }
+
+export async function generateCaptcha() {
+  const response = await fetch(`${BASE_URL}/v1/captcha/generate`)
+  
+  if (!response.ok) {
+    const error = new Error(`HTTP ${response.status}`)
+    error.status = response.status
+    throw error
+  }
+
+  const json = await response.json()
+  
+  if (!json.result?.captcha) {
+    throw new Error('Invalid captcha response')
+  }
+
+  return json.result.captcha
+}
+
