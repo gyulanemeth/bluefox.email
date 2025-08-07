@@ -6,7 +6,7 @@ import {
   loadNewCaptcha, 
   clearCaptchaStorage, 
   markCaptchaSolved 
-} from './captchaUtils.js'
+} from './helpers/captchaHandler.js'
 
 // ---- VARIABLES ----
 const MAX_FILENAME_LEN = 30

@@ -1,8 +1,8 @@
-import { generateCaptcha } from '../../../connectors/bluefoxEmailToolsApi.js'
+import { generateCaptcha } from '../../../../connectors/bluefoxEmailToolsApi.js'
 
 export function loadCaptchaFromStorage() {
   if (typeof window === 'undefined') return {}
-  
+
   try {
     const stored = {
       probe: localStorage.getItem('captchaProbe'),
@@ -10,7 +10,7 @@ export function loadCaptchaFromStorage() {
       expires: localStorage.getItem('captchaExpires'),
       solvedUntil: localStorage.getItem('captchaSolvedUntil')
     }
-    
+
     return {
       probe: stored.probe || null,
       image: stored.image || null,
@@ -25,20 +25,20 @@ export function loadCaptchaFromStorage() {
 
 export function saveCaptchaToStorage(captchaState) {
   if (typeof window === 'undefined') return
-  
+
   try {
     if (captchaState.probe) {
       localStorage.setItem('captchaProbe', captchaState.probe)
     } else {
       localStorage.removeItem('captchaProbe')
     }
-    
+
     if (captchaState.image) {
       localStorage.setItem('captchaImage', captchaState.image)
     } else {
       localStorage.removeItem('captchaImage')
     }
-    
+
     localStorage.setItem('captchaExpires', captchaState.expires.toString())
     localStorage.setItem('captchaSolvedUntil', captchaState.solvedUntil.toString())
   } catch (err) {
@@ -49,17 +49,17 @@ export function saveCaptchaToStorage(captchaState) {
 export async function loadNewCaptcha() {
   try {
     const { probe, image, expires } = await generateCaptcha()
-    
+
     const captchaState = {
       probe,
       image,
       expires,
       solvedUntil: 0
     }
-    
+
     // Save to localStorage
     saveCaptchaToStorage(captchaState)
-    
+
     return captchaState
   } catch (err) {
     console.error('Failed to load captcha:', err)
@@ -74,9 +74,9 @@ export function clearCaptchaStorage() {
     expires: 0,
     solvedUntil: 0
   }
-  
+
   saveCaptchaToStorage(emptyCaptchaState)
-  
+
   return emptyCaptchaState
 }
 

@@ -1,13 +1,13 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { checkDmarc } from '../../../connectors/bluefoxEmailToolsApi.js'
-import { syncWithUrl, loadFromUrl } from './urlUtils.js'
+import { syncWithUrl, loadFromUrl } from './helpers/urlSync.js'
 import { 
   loadCaptchaFromStorage, 
   loadNewCaptcha, 
   clearCaptchaStorage, 
   markCaptchaSolved 
-} from './captchaUtils.js'
+} from './helpers/captchaHandler.js'
 
 // ---- VARIABLES ----
 const DMARC_TAG_DESCRIPTIONS = {
