@@ -1,21 +1,15 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
-import { useCaptcha } from './useCaptcha.js'
 import { analyzeDmarcReport } from '../../../connectors/bluefoxEmailToolsApi.js'
+import { 
+  loadCaptchaFromStorage, 
+  loadNewCaptcha, 
+  clearCaptchaStorage, 
+  markCaptchaSolved 
+} from './captchaUtils.js'
 
+// ---- VARIABLES ----
 const MAX_FILENAME_LEN = 30
-
-const {
-  getCaptchaProbe,
-  getCaptchaImage,
-  getCaptchaLoading,
-  getIsProbeExpired,
-  getIsSolved,
-  getShouldShowCaptcha,
-  loadCaptcha,
-  refreshCaptcha,
-  markSolved,
-} = useCaptcha()
 
 const xmlPaste = ref('')
 const file = ref(null)
@@ -29,8 +23,33 @@ const errorMessage = ref('')
 const isDragging = ref(false)
 let dragLeaveTimeout = null
 
+// Captcha state
+const captchaProbe = ref(null)
+const captchaImage = ref(null)
+const captchaExpires = ref(0)
+const captchaSolvedUntil = ref(0)
+const captchaLoading = ref(false)
+
+const now = () => Math.floor(Date.now() / 1000)
+
+// Computed properties
+const isProbeExpired = computed(() =>
+  !captchaProbe.value || now() > captchaExpires.value
+)
+
+const isSolved = computed(() =>
+  captchaSolvedUntil.value > now() && !isProbeExpired.value
+)
+
+const shouldShowCaptcha = computed(() =>
+  !isSolved.value ||
+  isProbeExpired.value ||
+  !captchaProbe.value ||
+  !captchaImage.value
+)
+
 const isFormDisabled = computed(() => 
-  loading.value || (!xmlPaste.value.trim() && !file.value) || (getShouldShowCaptcha() && !captchaText.value?.trim())
+  loading.value || (!xmlPaste.value.trim() && !file.value) || (shouldShowCaptcha.value && !captchaText.value?.trim())
 )
 
 const truncatedFileName = computed(() => {
@@ -39,18 +58,51 @@ const truncatedFileName = computed(() => {
   return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
 })
 
-watch(() => getIsProbeExpired(), (expired, prev) => {
-  if (expired && !prev) {
-    result.value = null
-    captchaText.value = ''
-  }
-})
+// ---- FUNCTIONS ----
+function loadCaptchaState() {
+  const stored = loadCaptchaFromStorage()
+  captchaProbe.value = stored.probe
+  captchaImage.value = stored.image
+  captchaExpires.value = stored.expires
+  captchaSolvedUntil.value = stored.solvedUntil
+}
 
-watch(() => getShouldShowCaptcha(), (show, prev) => {
-  if (show && !prev) {
-    captchaText.value = ''
+async function loadCaptcha() {
+  captchaLoading.value = true
+  try {
+    const captchaState = await loadNewCaptcha()
+    
+    captchaProbe.value = captchaState.probe
+    captchaImage.value = captchaState.image
+    captchaExpires.value = captchaState.expires
+    captchaSolvedUntil.value = captchaState.solvedUntil
+
+  } catch (err) {
+    clearCaptchaSession()
+  } finally {
+    captchaLoading.value = false
   }
-})
+}
+
+async function refreshCaptcha() {
+  clearCaptchaSession()
+  await loadCaptcha()
+}
+
+function markSolved() {
+  if (!isProbeExpired.value) {
+    const captchaState = markCaptchaSolved(captchaExpires.value)
+    captchaSolvedUntil.value = captchaState.solvedUntil
+  }
+}
+
+function clearCaptchaSession() {
+  const captchaState = clearCaptchaStorage()
+  captchaProbe.value = captchaState.probe
+  captchaImage.value = captchaState.image
+  captchaExpires.value = captchaState.expires
+  captchaSolvedUntil.value = captchaState.solvedUntil
+}
 
 function validateInputs() {
   if (!xmlPaste.value.trim() && !file.value) {
@@ -58,7 +110,7 @@ function validateInputs() {
     return false
   }
   
-  if (getShouldShowCaptcha() && !captchaText.value?.trim()) {
+  if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
     errorMessage.value = 'Please enter the captcha text'
     return false
   }
@@ -147,8 +199,8 @@ async function analyzeReport() {
     const data = await analyzeDmarcReport({
       xmlContent: file.value ? null : xmlPaste.value,
       file: file.value,
-      captchaProbe: getCaptchaProbe(),
-      captchaText: getShouldShowCaptcha() ? captchaText.value : ''
+      captchaProbe: captchaProbe.value,
+      captchaText: shouldShowCaptcha.value ? captchaText.value : ''
     })
 
     result.value = {
@@ -171,15 +223,31 @@ async function analyzeReport() {
   }
 }
 
+// ---- WATCHES ----
+watch(isProbeExpired, (expired, prev) => {
+  if (expired && !prev) {
+    result.value = null
+    captchaText.value = ''
+  }
+})
+
+watch(shouldShowCaptcha, (show, prev) => {
+  if (show && !prev) {
+    captchaText.value = ''
+  }
+})
+
+// ---- LIFECYCLE ----
 onMounted(async () => {
+  loadCaptchaState()
+  
   await nextTick()
   
-  if (!getIsSolved() && (!getCaptchaProbe() || getIsProbeExpired())) {
+  if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
     await loadCaptcha()
   }
 })
 </script>
-
 
 <template>
   <div class="dmarc-analyzer">

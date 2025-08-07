@@ -1,9 +1,15 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
-import { useCaptcha } from './useCaptcha.js'
 import { checkDkim } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { syncWithUrl, loadFromUrl } from './urlUtils.js'
+import { 
+  loadCaptchaFromStorage, 
+  loadNewCaptcha, 
+  clearCaptchaStorage, 
+  markCaptchaSolved 
+} from './captchaUtils.js'
 
+// ---- VARIABLES ----
 const DEFAULT_SELECTOR = 'default'
 const DKIM_TAG_DESCRIPTIONS = {
   v: "Version (always 'DKIM1').",
@@ -22,21 +28,34 @@ const loading = ref(false)
 const result = ref(null)
 const errorMessage = ref('')
 
-const {
-  getCaptchaProbe,
-  getCaptchaImage,
-  getCaptchaLoading,
-  getIsProbeExpired,
-  getIsSolved,
-  getShouldShowCaptcha,
-  loadCaptcha,
-  refreshCaptcha,
-  markSolved,
-} = useCaptcha()
+// Captcha state
+const captchaProbe = ref(null)
+const captchaImage = ref(null)
+const captchaExpires = ref(0)
+const captchaSolvedUntil = ref(0)
+const captchaLoading = ref(false)
+
+const now = () => Math.floor(Date.now() / 1000)
+
+// Computed properties
+const isProbeExpired = computed(() =>
+  !captchaProbe.value || now() > captchaExpires.value
+)
+
+const isSolved = computed(() =>
+  captchaSolvedUntil.value > now() && !isProbeExpired.value
+)
+
+const shouldShowCaptcha = computed(() =>
+  !isSolved.value ||
+  isProbeExpired.value ||
+  !captchaProbe.value ||
+  !captchaImage.value
+)
 
 const isFormDisabled = computed(() =>
   loading.value ||
-  (getShouldShowCaptcha() && !captchaText.value?.trim())
+  (shouldShowCaptcha.value && !captchaText.value?.trim())
 )
 
 const dkimTags = computed(() => {
@@ -55,23 +74,51 @@ const dkimTags = computed(() => {
     })
 })
 
-// Simple URL state management functions
-watch(() => getIsProbeExpired(), (expired, prev) => {
-  if (expired && !prev) {
-    result.value = null
-    captchaText.value = ''
-  }
-})
+// ---- FUNCTIONS ----
+function loadCaptchaState() {
+  const stored = loadCaptchaFromStorage()
+  captchaProbe.value = stored.probe
+  captchaImage.value = stored.image
+  captchaExpires.value = stored.expires
+  captchaSolvedUntil.value = stored.solvedUntil
+}
 
-watch(() => getShouldShowCaptcha(), (show, prev) => {
-  if (show && !prev) {
-    captchaText.value = ''
-  }
-})
+async function loadCaptcha() {
+  captchaLoading.value = true
+  try {
+    const captchaState = await loadNewCaptcha()
+    
+    captchaProbe.value = captchaState.probe
+    captchaImage.value = captchaState.image
+    captchaExpires.value = captchaState.expires
+    captchaSolvedUntil.value = captchaState.solvedUntil
 
-watch([domain, selector], () => {
-  syncWithUrl({ domain: domain.value, selector: selector.value })
-})
+  } catch (err) {
+    clearCaptchaSession()
+  } finally {
+    captchaLoading.value = false
+  }
+}
+
+async function refreshCaptcha() {
+  clearCaptchaSession()
+  await loadCaptcha()
+}
+
+function markSolved() {
+  if (!isProbeExpired.value) {
+    const captchaState = markCaptchaSolved(captchaExpires.value)
+    captchaSolvedUntil.value = captchaState.solvedUntil
+  }
+}
+
+function clearCaptchaSession() {
+  const captchaState = clearCaptchaStorage()
+  captchaProbe.value = captchaState.probe
+  captchaImage.value = captchaState.image
+  captchaExpires.value = captchaState.expires
+  captchaSolvedUntil.value = captchaState.solvedUntil
+}
 
 function validateInputs() {
   if (!domain.value?.trim()) {
@@ -79,7 +126,7 @@ function validateInputs() {
     return false
   }
   
-  if (getShouldShowCaptcha() && !captchaText.value?.trim()) {
+  if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
     errorMessage.value = 'Please enter the captcha text'
     return false
   }
@@ -101,8 +148,8 @@ async function checkDkimHandler() {
     const data = await checkDkim({
       domain: domain.value,
       selector: selector.value || DEFAULT_SELECTOR,
-      captchaProbe: getCaptchaProbe(),
-      captchaText: getShouldShowCaptcha() ? captchaText.value : ''
+      captchaProbe: captchaProbe.value,
+      captchaText: shouldShowCaptcha.value ? captchaText.value : ''
     })
 
     result.value = {
@@ -130,7 +177,27 @@ async function checkDkimHandler() {
   }
 }
 
+// ---- WATCHES ----
+watch(isProbeExpired, (expired, prev) => {
+  if (expired && !prev) {
+    result.value = null
+    captchaText.value = ''
+  }
+})
+
+watch(shouldShowCaptcha, (show, prev) => {
+  if (show && !prev) {
+    captchaText.value = ''
+  }
+})
+
+watch([domain, selector], () => {
+  syncWithUrl({ domain: domain.value, selector: selector.value })
+})
+
+// ---- LIFECYCLE ----
 onMounted(async () => {
+  loadCaptchaState()
   loadFromUrl({ domain, selector })
   
   if (!selector.value) {
@@ -144,7 +211,7 @@ onMounted(async () => {
     checkDkimHandler()
   }
   
-  if (!getIsSolved() && (!getCaptchaProbe() || getIsProbeExpired())) {
+  if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
     await loadCaptcha()
   }
 })
@@ -188,26 +255,26 @@ onMounted(async () => {
 
         <!-- Expired probe notice -->
         <div
-          v-if="getCaptchaProbe() && getIsProbeExpired()"
+          v-if="captchaProbe && isProbeExpired"
           class="captcha-expired-message"
         >
           Your verification has expired. Please refresh the captcha below.
         </div>
 
         <!-- CAPTCHA -->
-        <div v-if="getShouldShowCaptcha()" class="form-group">
+        <div v-if="shouldShowCaptcha" class="form-group">
           <label for="captcha">Security Verification:</label>
 
           <div class="captcha-container">
             <div class="captcha-image-container">
-              <div v-if="getCaptchaLoading()" class="captcha-loading">
+              <div v-if="captchaLoading" class="captcha-loading">
                 Loading captcha...
               </div>
 
               <div
-                v-else-if="getCaptchaImage()"
+                v-else-if="captchaImage"
                 class="captcha-image"
-                v-html="getCaptchaImage()"
+                v-html="captchaImage"
               />
 
               <div v-else class="captcha-placeholder">
@@ -225,7 +292,7 @@ onMounted(async () => {
               type="button"
               @click="refreshCaptcha"
               class="refresh-captcha-btn"
-              :disabled="getCaptchaLoading()"
+              :disabled="captchaLoading"
               title="Refresh captcha"
             >
               <img src="/assets/reload.webp?url" alt="reload" />
@@ -237,7 +304,7 @@ onMounted(async () => {
             v-model="captchaText"
             type="text"
             placeholder="Enter the text from the image above"
-            :disabled="loading || !getCaptchaImage()"
+            :disabled="loading || !captchaImage"
             autocomplete="off"
             required
           />
@@ -363,9 +430,6 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
-<!-- Keep your existing styles unchanged -->
-
 
 <style scoped>
 .dkim-checker {
