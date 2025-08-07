@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, watch, nextTick } from 'vue'
+import { ref, onMounted, watch, nextTick } from 'vue'
 import { checkMx } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { syncWithUrl, loadFromUrl } from './urlUtils.js'
 import { 
@@ -9,51 +9,49 @@ import {
   markCaptchaSolved 
 } from './captchaUtils.js'
 
+// ---- VARIABLES ----
 const domain = ref('')
 const captchaText = ref('')
 const loading = ref(false)
 const result = ref(null)
 const errorMessage = ref('')
 
-// ---- CAPTCHA STATE ----
+// Captcha state
 const captchaProbe = ref(null)
 const captchaImage = ref(null)
 const captchaExpires = ref(0)
 const captchaSolvedUntil = ref(0)
 const captchaLoading = ref(false)
 
+// Captcha status refs
+const isProbeExpired = ref(false)
+const isSolved = ref(false)
+const shouldShowCaptcha = ref(true)
+const isFormDisabled = ref(true)
+
 const now = () => Math.floor(Date.now() / 1000)
 
-const isProbeExpired = computed(() =>
-  !captchaProbe.value || now() > captchaExpires.value
-)
+// ---- FUNCTIONS ----
+function updateCaptchaStatus() {
+  isProbeExpired.value = !captchaProbe.value || now() > captchaExpires.value
+  isSolved.value = captchaSolvedUntil.value > now() && !isProbeExpired.value
+  shouldShowCaptcha.value = !isSolved.value || isProbeExpired.value || !captchaProbe.value || !captchaImage.value
+  isFormDisabled.value = loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
+}
 
-const isSolved = computed(() =>
-  captchaSolvedUntil.value > now() && !isProbeExpired.value
-)
-
-const shouldShowCaptcha = computed(() =>
-  !isSolved.value ||
-  isProbeExpired.value ||
-  !captchaProbe.value ||
-  !captchaImage.value
-)
-
-const isFormDisabled = computed(() =>
-  loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
-)
-
-// ---- CAPTCHA FUNCTIONS USING UTILS ----
 function loadCaptchaState() {
   const stored = loadCaptchaFromStorage()
   captchaProbe.value = stored.probe
   captchaImage.value = stored.image
   captchaExpires.value = stored.expires
   captchaSolvedUntil.value = stored.solvedUntil
+  updateCaptchaStatus()
 }
 
 async function loadCaptcha() {
   captchaLoading.value = true
+  updateCaptchaStatus()
+  
   try {
     const captchaState = await loadNewCaptcha()
     
@@ -66,6 +64,7 @@ async function loadCaptcha() {
     clearCaptchaSession()
   } finally {
     captchaLoading.value = false
+    updateCaptchaStatus()
   }
 }
 
@@ -78,6 +77,7 @@ function markSolved() {
   if (!isProbeExpired.value) {
     const captchaState = markCaptchaSolved(captchaExpires.value)
     captchaSolvedUntil.value = captchaState.solvedUntil
+    updateCaptchaStatus()
   }
 }
 
@@ -87,27 +87,9 @@ function clearCaptchaSession() {
   captchaImage.value = captchaState.image
   captchaExpires.value = captchaState.expires
   captchaSolvedUntil.value = captchaState.solvedUntil
+  updateCaptchaStatus()
 }
 
-// ---- WATCHERS ----
-watch(isProbeExpired, (expired, prev) => {
-  if (expired && !prev) {
-    result.value = null
-    captchaText.value = ''
-  }
-})
-
-watch(shouldShowCaptcha, (show, prev) => {
-  if (show && !prev) {
-    captchaText.value = ''
-  }
-})
-
-watch(domain, () => {
-  syncWithUrl({ domain: domain.value })
-})
-
-// ---- FORM LOGIC ----
 function validateInputs() {
   if (!domain.value?.trim()) {
     errorMessage.value = 'Please enter a domain name'
@@ -126,10 +108,12 @@ async function checkMxHandler() {
   result.value = null
   loading.value = true
   errorMessage.value = ''
+  updateCaptchaStatus()
 
   try {
     if (!validateInputs()) {
       loading.value = false
+      updateCaptchaStatus()
       return
     }
 
@@ -158,6 +142,7 @@ async function checkMxHandler() {
     }
   } finally {
     loading.value = false
+    updateCaptchaStatus()
   }
 }
 
@@ -166,10 +151,35 @@ function hasUniquePriorities(records) {
   return new Set(records.map(r => r.priority)).size === records.length
 }
 
+// ---- WATCHES ----
+watch(isProbeExpired, (expired, prev) => {
+  if (expired && !prev) {
+    result.value = null
+    captchaText.value = ''
+  }
+})
+
+watch(shouldShowCaptcha, (show, prev) => {
+  if (show && !prev) {
+    captchaText.value = ''
+  }
+})
+
+watch(domain, () => {
+  syncWithUrl({ domain: domain.value })
+})
+
+watch(loading, () => {
+  updateCaptchaStatus()
+})
+
+watch(captchaText, () => {
+  updateCaptchaStatus()
+})
+
+// ---- LIFECYCLE ----
 onMounted(async () => {
-  // Load captcha state from localStorage
   loadCaptchaState()
-  
   loadFromUrl({ domain })
 
   await nextTick()
@@ -183,7 +193,6 @@ onMounted(async () => {
   }
 })
 </script>
-
 
 <template>
   <div class="mx-checker">
