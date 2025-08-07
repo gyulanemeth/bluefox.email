@@ -1,4 +1,3 @@
-// captchaUtils.js
 import { generateCaptcha } from '../../../connectors/bluefoxEmailToolsApi.js'
 
 export function loadCaptchaFromStorage() {
