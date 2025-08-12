@@ -36,9 +36,11 @@ head:
 
 # Design System Components
 
-Components in the design system enable you to define reusable design elements that can be applied across templates and campaigns. They help you maintain consistency and efficiency by letting you update visual elements in a single place, with changes reflected instantly across all associated emails.
+Components in the design system enable you to define reusable design elements that can be applied across blocks and templates. They help you maintain consistency and efficiency by letting you update visual elements in a single place, with changes reflected instantly across all associated emails.
 
-When a component is updated, every template using it automatically reflects the changes, streamlining design management and supporting unified branding across projects.
+For example, a **`primary-button`** component could store the style and settings for your main call‑to‑action button. Once created, you can insert it into any block or template.
+
+When a component is updated, every block or template using it automatically reflects the changes, streamlining design management and supporting unified branding across projects.
 
 ## Components Page
 
@@ -71,13 +73,9 @@ Text components store reusable text elements, such as headings, taglines, discla
 
 **Managing text components**
 - **Create**: Click "Create" to add a new text. Select either "From Scratch" or "Copy & Paste".
-- **Edit**: Click the pencil icon to adjust text content, text alignment, link, paddings, and text background.
+- **Edit**: Click the pencil icon to adjust text content, text alignment, link formatting, paddings, and text background.
 - **Delete**: Click the trash icon to remove a text component.
 - **Preview**: Click the eye icon to see where the text is used in templates.
-
-::: tip
-Sometimes you might want to convert `text` to `typed text` by clicking the button on the right panel which says the same to use text components.
-:::
 
 ---
 
