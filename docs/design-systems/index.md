@@ -61,12 +61,16 @@ Everything in a design system is built to be reusable and scalable, ensuring tha
 
 ## Navigating to Design System
 
-You can find the design system section by clicking on it's icon on the left-hand side.
+You can find the design system section in sidebar on left-hand side.
 
 ![A screenshot of the design system section.](./design-system-icon.webp)
 
 ## Creating a New Design System
-To create a new design system, navigate to the design system section and click on "Create" You can choose to start from scratch or use a default design system as your base. Once created, you can add variables, blocks, and templates to build your system.
+To create a new design system, navigate to the design system section and click on "Create", you can find this button in drop-down menu.
+
+![A screenshot of the design system create dialog.](./design-system-create-button.webp)
+
+You can choose to start from scratch or use a default design system as your base. Once created, you can add variables, blocks, and templates to build your system.
 
 ![A screenshot of the design system create dialog.](./design-system-create-dialog.webp)
 

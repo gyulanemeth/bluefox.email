@@ -7,6 +7,10 @@ sidebar: false
 aside: false
 prev: false
 next: false
+
+datePublished: "2025-06-23"
+dateModified: "2025-07-15"
+
 head:
   - - meta
     - name: description
@@ -41,7 +45,27 @@ head:
 
 Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanations for common **email marketing**, **development**, and **authentication** terms organized alphabetically.
 
-### C {#c}
+## B
+
+### Bounce Rate
+
+The **percentage of emails** that failed to reach recipients' inboxes, serving as a critical metric for deliverability and sender reputation.
+
+[Read more](/email-sending-concepts/bounce-rate)
+
+### Bounces
+
+An email bounce occurs when an email is rejected by the **recipient's server** and returned to the sender, impacting deliverability and sender reputation.
+
+[Read more](/email-sending-concepts/bounces)
+
+## C
+
+### Complaints
+
+**Email complaints** occur when recipients mark messages as spam, indicating dissatisfaction with the content or sender, which can harm sender reputation.
+
+[Read more](/email-sending-concepts/complaints)
 
 ## CNAME Record
 
@@ -49,9 +73,15 @@ Welcome to the BlueFox Email Glossary! Here you'll find definitions and explanat
 
 [Read more](/email-sending-concepts/cname-record)
 
-### D {#d}
+## D
 
-## DKIM (DomainKeys Identified Mail)
+### Deliverability
+
+The measure of **email success** in reaching recipients' inboxes rather than spam folders or being blocked entirely.
+
+[Read more](/email-sending-concepts/deliverability)
+
+### DKIM (DomainKeys Identified Mail)
 
 An **email authentication method** that adds a **digital signature** to verify the email hasn't been altered.
 
@@ -69,19 +99,19 @@ A protocol that uses **SPF** and **DKIM** to protect domains from **unauthorized
 
 [Read more](/email-sending-concepts/dmarc)
 
-### E {#e}
+## E
+
+### Email Authentication
+
+Methods and protocols used to **verify the legitimacy** of email senders and messages.
+
+[Read more](/email-sending-concepts/email-authentication)
 
 ## Email Header
 
 Hidden **metadata** that travels with email messages, containing vital information about routing, authentication, and technical properties.
 
-[Read more](/email-sending-concepts/email-header)
-
-## Email Authentication
-
-Methods and protocols used to **verify the legitimacy** of email senders and messages.
-
-[Read more](/email-sending-concepts/email-authentication)
+[Read more](/email-sending-concepts/email-headers)
 
 ## Email Spoofing
 
@@ -89,9 +119,17 @@ The **forgery of an email header** to make messages appear to come from a truste
 
 [Read more](/email-sending-concepts/email-spoofing)
 
-### I {#i}
+## H
 
-## IMAP (Internet Message Access Protocol)
+### Hard Bounce
+
+A **permanent email delivery failure** that indicates the email address is invalid or no longer exists, requiring immediate removal from mailing lists.
+
+[Read more](/email-sending-concepts/hard-bounce)
+
+## I
+
+### IMAP (Internet Message Access Protocol)
 
 An email retrieval protocol that keeps messages on the server, allowing **synchronization across multiple devices**.
 
@@ -109,6 +147,8 @@ An email retrieval protocol that keeps messages on the server, allowing **synchr
 
 ## POP3 (Post Office Protocol version 3)
 
+### POP3 (Post Office Protocol version 3)
+
 An email retrieval protocol that typically **downloads messages** from the server to a local device.
 
 [Read more](/email-sending-concepts/pop3)
@@ -117,11 +157,19 @@ An email retrieval protocol that typically **downloads messages** from the serve
 
 ## Return-Path
 
+### Return-Path
+
 The email address to which **bounced messages** are delivered when an email cannot be delivered.
 
 [Read more](/email-sending-concepts/return-path)
 
-### S {#s}
+## S
+
+### Soft Bounce
+
+A **temporary email delivery failure** that may resolve with time, often due to full mailboxes, server issues, or message size limits.
+
+[Read more](/email-sending-concepts/soft-bounce)
 
 ## SMTP (Simple Mail Transfer Protocol)
 

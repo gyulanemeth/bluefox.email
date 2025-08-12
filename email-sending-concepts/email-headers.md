@@ -7,6 +7,29 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2024-07-16"
+dateModified: "2024-07-16"
+
+faqs:
+  - question: "How can I view the full headers of an email?"
+    answer: "Most email clients hide headers by default but provide ways to view them. In Gmail, open the email and click the three dots menu, then \"Show original.\" In Outlook, open the message, click \"File\" and then \"Properties\" to see the internet headers. Apple Mail users can select \"View\" and then \"Message\" followed by \"All Headers.\""
+  - question: "Can I modify email headers to improve deliverability?"
+    answer: "Some headers like Message-ID, DKIM-Signature, and Return-Path should be properly configured in your sending infrastructure to improve deliverability. However, tampering with headers after sending is impossible without breaking authentication signatures. Instead, focus on proper SPF, DKIM, and DMARC setup."
+  - question: "Do email headers affect privacy?"
+    answer: "Yes, headers contain information that can reveal your IP address, email client, and sometimes geographic location. When forwarding sensitive emails, consider using \"forward as attachment\" options to avoid exposing your original headers or use specialized privacy-focused email services that minimize header information."
+
+relatedContent:
+  - title: SMTP
+    url: /email-sending-concepts/smtp
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Return-Path
+    url: /email-sending-concepts/return-path
+
 head:
   - - meta
     - name: description
@@ -33,6 +56,7 @@ head:
     - name: twitter:description
       content: "Learn how email headers work and why they're crucial for email delivery, authentication, and troubleshooting."
 ---
+<GlossaryNavigation/>
 
 # Email Headers
 
@@ -98,15 +122,18 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.com; s=20210601;
 Let's break this down:
 
 **Authentication-Results**: The receiving server's summary of all authentication checks
+
 - `dkim=pass`: The digital signature matched, confirming the message hasn't been altered
 - `spf=pass`: The sending server is authorized to send email for this domain
 - `dmarc=pass`: The message passed both DKIM and SPF checks according to the domain's policy
 
 **Received-SPF**: Detailed results of the SPF check
+
 - `pass`: The email came from an authorized IP address
 - `client-ip=192.0.2.1`: The specific IP address that sent the message
 
 **DKIM-Signature**: The digital signature attached to verify the message
+
 - `v=1`: The DKIM version
 - `a=rsa-sha256`: The encryption algorithm used
 - `d=example.com`: The domain claiming responsibility for the message
@@ -119,17 +146,20 @@ This layered approach creates a **verifiable chain of custody** for each email. 
 
 ## Why are Email Headers Important?
 
-Email headers are **crucial for security and deliverability** as they provide the technical foundation for all major email authentication protocols. They help mailbox providers determine message legitimacy, enable advanced features like conversation threading, and serve as invaluable **troubleshooting tools** when delivery issues arise. Without properly configured headers, messages often land in spam folders or get rejected entirely. For businesses, optimizing these headers is essential for maintaining high inbox placement rates, while for technical teams, headers provide the diagnostic information needed to resolve delivery problems and improve email performance. Even as email has evolved over decades, headers remain the consistent **technical backbone** holding the entire system together.
+Email headers are **crucial for security and [deliverability](/email-sending-concepts/deliverability)** as they provide the technical foundation for all major email authentication protocols. They help mailbox providers determine message legitimacy, enable advanced features like conversation threading, and serve as invaluable **troubleshooting tools** when delivery issues arise. Without properly configured headers, messages often land in spam folders or get rejected entirely. For businesses, optimizing these headers is essential for maintaining high inbox placement rates, while for technical teams, headers provide the diagnostic information needed to resolve delivery problems and improve email performance. Even as email has evolved over decades, headers remain the consistent **technical backbone** holding the entire system together.
 
 ## Frequently Asked Questions About Email Headers
 
 ### How can I view the full headers of an email?
+
 Most email clients hide headers by default but provide ways to view them. In Gmail, open the email and click the three dots menu, then "Show original." In Outlook, open the message, click "File" and then "Properties" to see the internet headers. Apple Mail users can select "View" and then "Message" followed by "All Headers."
 
 ### Can I modify email headers to improve deliverability?
+
 Some headers like Message-ID, DKIM-Signature, and Return-Path should be properly configured in your sending infrastructure to improve deliverability. However, tampering with headers after sending is impossible without breaking authentication signatures. Instead, focus on proper SPF, DKIM, and DMARC setup.
 
 ### Do email headers affect privacy?
+
 Yes, headers contain information that can reveal your IP address, email client, and sometimes geographic location. When forwarding sensitive emails, consider using "forward as attachment" options to avoid exposing your original headers or use specialized privacy-focused email services that minimize header information.
 
 ## Related Content

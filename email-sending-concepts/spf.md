@@ -6,6 +6,30 @@ thumbnail: /assets/glossary/email-sending-glossary.png
 layout: post
 category: glossary
 sidebar: false
+datePublished: "2025-06-30"
+dateModified: "2025-06-30"
+
+faqs:
+  - question: "What is SPF in email?"
+    answer: "SPF (Sender Policy Framework) is an email authentication protocol that allows domain owners to specify which mail servers are authorized to send email on behalf of their domain. It creates a DNS record that lists authorized sending servers, helping receiving mail servers verify if an email claiming to be from your domain is legitimate."
+  - question: "How does SPF work?"
+    answer: "SPF works by publishing a DNS TXT record that lists all authorized IP addresses and servers that can send email from your domain. When a receiving mail server gets an email claiming to be from your domain, it checks the sending server's IP against your published SPF record. If the IP is listed, the email passes SPF authentication."
+  - question: "What does an SPF record look like?"
+    answer: "A basic SPF record looks like this: v=spf1 ip4:192.168.1.1 include:_spf.example.com ~all. This specifies SPF version 1, authorizes the IP address 192.168.1.1, includes all IPs authorized for example.com, and suggests a soft fail (~all) for all other sources."
+  - question: "Why is SPF important for email deliverability?"
+    answer: "SPF improves email deliverability by helping prevent your domain from being used in spoofing and phishing attacks. Emails that pass SPF checks are less likely to be marked as spam. Many email providers consider SPF authentication when determining whether to deliver emails to the inbox or spam folder."
+
+relatedContent:
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: DMARC
+    url: /email-sending-concepts/dmarc
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: DNS (Domain Name System)
+    url: /email-sending-concepts/dns
+  - title: TXT Records
+    url: /email-sending-concepts/txt-record
 
 head:
   - - meta
@@ -34,6 +58,7 @@ head:
       content: SPF is an email authentication method that specifies which mail servers are authorized to send emails on behalf of your domain, helping prevent email spoofing and improving deliverability.
 
 ---
+<GlossaryNavigation/>
 
 # SPF (Sender Policy Framework)
 
@@ -45,9 +70,9 @@ For those sending emails at scale, whether for marketing, transactional communic
 
 ## What is SPF?
 
-This framework enables domain owners to **specify which mail servers are authorized** to send emails on their behalf. 
+This framework enables domain owners to **specify which mail servers are authorized** to send emails on their behalf.
 
-This authorization information is stored in the domain's **[DNS](/email-sending-concepts/dns) settings as a [TXT record](/email-sending-concepts/txt-record)**. When an email is received from your domain, the recipient's email system verifies the SPF record to ensure that the sending server is permitted. 
+This authorization information is stored in the domain's **[DNS](/email-sending-concepts/dns) settings as a [TXT record](/email-sending-concepts/txt-record)**. When an email is received from your domain, the recipient's email system verifies the SPF record to ensure that the sending server is permitted.
 
 In the absence of proper authentication, unauthorized individuals could send emails impersonating your domain, a common method employed in [phishing attacks](/email-sending-concepts/email-spoofing). Implementing proper verification clarifies the legitimate entities authorized to represent your brand through email communications.
 
@@ -69,7 +94,7 @@ Let's break it down:
 - `include:_spf.google.com`: Permits Google Workspace servers.
 - `~all`: Applies a soft fail for any sources not listed.
 
-This configuration functions like a **guest list**. If a sending server is not included, the receiving server can choose to accept, flag, or reject the message. Proper SPF setup enhances email deliverability and protects your domain from misuse.
+This configuration functions like a **guest list**. If a sending server is not included, the receiving server can choose to accept, flag, or reject the message. Proper SPF setup enhances email [deliverability](/email-sending-concepts/deliverability) and protects your domain from misuse.
 
 ## Why is SPF Important?
 
@@ -84,26 +109,31 @@ In summary, SPF fosters trust with email providers, protects your audience from 
 ## Frequently Asked Questions About SPF
 
 ### What is the main purpose of SPF?
+
 SPF (Sender Policy Framework) helps prevent spoofing by specifying which mail servers are allowed to send emails on behalf of your domain.
 
 ### Does SPF protect the "From" address?
+
 No. SPF checks the return-path (envelope sender), not the visible From address seen by recipients.
 
 ### What happens if SPF fails?
+
 If SPF fails, the receiving server may mark the message as spam, reject it, or ignore the result depending on its local policy and [DMARC](/email-sending-concepts/dmarc) settings.
 
 ### Can SPF break email forwarding?
+
 Yes. When an email is forwarded, the forwarder's IP may not be authorized in the original domain's SPF record, causing SPF to fail unless SRS (Sender Rewriting Scheme) is used.
 
 ## Related Content
+
 :::tip Practical Guide
 **[How SPF, DKIM, and DMARC Actually Work (With Real Examples)](/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples)** — Learn how to verify SPF records with the `dig` command and understand how they're checked in real email scenarios.
 :::
 
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)
-- [Email Authentication](/email-sending-concepts/email-authentication)  
-- [Email Spoofing](/email-sending-concepts/email-spoofing)  
+- [Email Authentication](/email-sending-concepts/email-authentication)
+- [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [Return Path](/email-sending-concepts/return-path)
 
 <GlossaryCTA />

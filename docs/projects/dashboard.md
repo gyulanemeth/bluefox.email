@@ -76,7 +76,7 @@ The chart below displays the performance of transactional, triggered, and campai
 - **Unpaused Trends**: Tracks the number of subscriptions were unpaused during a time period, providing insight into periods of disengagement.
 - **Resubscribed**: The number of subscribers who have rejoined your email lists after previously unsubscribing, indicating successful re-engagement efforts.
 
-The chart above visualizes the subscriber metrics across the project, including active, paused, unsubscribed, and resubscribed users, providing insights into user engagement and retention.
+The chart below visualizes the subscriber metrics across the project, including active, paused, unsubscribed, and resubscribed users, providing insights into user engagement and retention.
 ![Project Subscription Analytics](./project-analytics-subscription-stats.webp)
 
 For more information on how to use the **Project Dashboard Statistics**, refer to the [Analytics Documentation](/docs/analytics).

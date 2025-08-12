@@ -1,41 +1,54 @@
-import { defineConfig } from 'vitepress'
+import { defineConfig, loadEnv} from 'vitepress'
 import tailwindcss from 'tailwindcss'
+import { addSchemaMarkup } from './theme/SchemaMarkup/schemaMarkup'
+import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
+
+const headConf = []
+const env = loadEnv('', process.cwd())
+
+if (env.VITE_APP_ENV === 'production') {
+  // only add GA if in production
+  headConf.push([
+    "script",
+    {
+      src: "https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C",
+      async: true,
+    },
+  ])
+  headConf.push([
+    "script",
+    {},
+    `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');\ngtag('config', 'AW-16693655873');`,
+  ])
+}
+
+headConf.push([
+  "link",
+  {
+    rel: "preload",
+    as: "image",
+    href: "/assets/mascot-bring-your-own-awsses-dark-450x270.webp",
+  },
+])
+headConf.push([
+  "link",
+  {
+    rel: "preload",
+    as: "image",
+    href: "/assets/mascot-bring-your-own-awsses-450x270.webp",
+  },
+])
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   cleanUrls: true,
   title: "bluefox.email",
   description: "High deliverability & brand consistency.",
-  head: [
-    [
-      "script",
-      {
-        src: "https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C",
-        async: true,
-      },
-    ],
-    [
-      "script",
-      {},
-      `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');`,
-    ],
-    [
-      "link",
-      {
-        rel: "preload",
-        as: "image",
-        href: "/assets/mascot-bring-your-own-awsses-dark-450x270.webp",
-      },
-    ],
-    [
-      "link",
-      {
-        rel: "preload",
-        as: "image",
-        href: "/assets/mascot-bring-your-own-awsses-450x270.webp",
-      },
-    ],
-  ],
+  head: headConf,
+  transformPageData(pageData) {
+    addToolsSchemaMarkup(pageData)
+    addSchemaMarkup(pageData)
+  },
   vite: {
     ssr: {
       noExternal: ["vuetify"],
@@ -79,10 +92,10 @@ export default defineConfig({
       {
         component: "NavigationButton",
         props: {
-          text: "Sign up",
+          text: "Get Started for Free",
           link: "https://app.bluefox.email/accounts/create-account",
           variant: "flat",
-          color: "buttonBackground",
+          color: "primary",
         },
       },
       /*
@@ -132,6 +145,7 @@ export default defineConfig({
                 text: "Design System Settings",
                 link: "/docs/projects/design-system-settings",
               },
+              { text: "Suppression Lists", link: "/docs/projects/suppression-list" },
               { text: "Settings", link: "/docs/projects/settings" },
             ],
           },

@@ -7,6 +7,29 @@ layout: post
 category: glossary
 sidebar: false
 
+datePublished: "2025-06-30"
+dateModified: "2025-06-30"
+
+faqs:
+  - question: "Is SMTP secure?"
+    answer: "By default, SMTP does not encrypt messages. However, most modern servers use STARTTLS on port 587 to encrypt the connection, and authentication protocols like SPF, DKIM, and DMARC to verify sender identity and prevent abuse. For sensitive data, consider using end-to-end encryption."
+  - question: "What's the difference between SMTP, IMAP, and POP3?"
+    answer: "SMTP is used for sending emails. IMAP and POP3 are used for retrieving emails from a server to your device. Most email clients use SMTP to send and IMAP or POP3 to receive."
+  - question: "Why do emails sometimes get stuck in the outbox?"
+    answer: "Common reasons include incorrect SMTP settings, authentication failures, network issues, or the recipient's server unavailability. Check your configuration and internet connection if you encounter this problem."
+
+relatedContent:
+  - title: TLS (Transport Layer Security)
+    url: /email-sending-concepts/tls
+  - title: Email Authentication
+    url: /email-sending-concepts/email-authentication
+  - title: SPF (Sender Policy Framework)
+    url: /email-sending-concepts/spf
+  - title: DKIM (DomainKeys Identified Mail)
+    url: /email-sending-concepts/dkim
+  - title: MX Record
+    url: /email-sending-concepts/mx-record
+
 head:
   - - meta
     - name: description
@@ -33,6 +56,7 @@ head:
     - name: twitter:description
       content: "Learn how the Simple Mail Transfer Protocol works and why it's essential for email delivery across the internet."
 ---
+<GlossaryNavigation/>
 
 # SMTP (Simple Mail Transfer Protocol)
 
@@ -63,7 +87,7 @@ SMTP typically uses **port 25** for server-to-server communication, but **port 5
 
 SMTP's extensibility has allowed it to evolve with the times. Security enhancements like **STARTTLS** and authentication checks with **SPF**, **DKIM**, and **DMARC** have kept SMTP relevant and secure, even as threats have grown more sophisticated.
 
-For businesses, a properly configured SMTP setup means **reliable delivery**, fewer bounced emails, and better protection against spam and [email spoofing](/email-sending-concepts/email-spoofing). Whether you're sending a single message or millions, SMTP is the protocol that makes it happen.
+For businesses, a properly configured SMTP setup means **reliable delivery**, fewer bounced emails, better [deliverability](/email-sending-concepts/deliverability), and better protection against spam and [email spoofing](/email-sending-concepts/email-spoofing). Whether you're sending a single message or millions, SMTP is the protocol that makes it happen.
 
 ## Frequently Asked Questions About SMTP
 
