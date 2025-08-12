@@ -194,12 +194,20 @@ export default defineConfig({
             link: "/docs/design-systems/",
             collapsed: false,
             items: [
-              { text: "Variables", link: "/docs/design-systems/variables" },
+              { text: "Variables", 
+                link: "/docs/design-systems/variables" 
+              }, 
+              {
+                text: "Components",
+                link: "/docs/design-systems/components"
+              },
               {
                 text: "Blocks (or modules)",
                 link: "/docs/design-systems/blocks",
               },
-              { text: "Templates", link: "/docs/design-systems/templates" },
+              { text: "Templates", 
+                link: "/docs/design-systems/templates" 
+              }
             ],
           },
           {

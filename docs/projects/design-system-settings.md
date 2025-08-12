@@ -52,6 +52,10 @@ To see where a variable is used, click the preview icon next to it:
 
 ![A screenshot of a project's design system settings section - preview icon highlighted.](./project-design-variables-preview-button.webp)
 
+If you want to copy and paste a variable, click the copy icon next to it:
+
+![A screenshot of a project's design system settings section - copy icon highlighted.](./project-design-variables-copy-button.webp)
+
 You will see the preview of the blocks and templates on the right-hand side:
 
 ![A screenshot of a project's design system settings section - preview highlighted.](./project-design-variables-preview.webp)
