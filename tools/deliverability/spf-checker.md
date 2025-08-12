@@ -51,6 +51,9 @@ head:
   - - meta
     - name: twitter:description
       content: Free online SPF checker tool to validate Sender Policy Framework records, check DNS syntax, and analyze email authentication for improved deliverability.
+  - - meta
+    - name: twitter:image
+      content: https://bluefox.email/assets/free-deliverability-tools.png
 ---
 
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />

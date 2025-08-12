@@ -50,6 +50,9 @@ head:
   - - meta
     - name: twitter:description
       content: Free online MX record checker tool to lookup and validate mail exchange records, check email server configuration, and analyze email routing for domains.
+  - - meta
+    - name: twitter:image
+      content: https://bluefox.email/assets/free-deliverability-tools.png
 ---
 
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />

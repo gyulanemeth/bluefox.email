@@ -49,6 +49,10 @@ head:
   - - meta
     - name: twitter:description
       content: Free online DKIM checker tool to validate DomainKeys Identified Mail signatures, verify DNS records, and analyze email authentication for improved deliverability.
+  - - meta
+    - name: twitter:image
+      content: https://bluefox.email/assets/free-deliverability-tools.png
+      
 ---
 
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />

@@ -34,6 +34,9 @@ head:
   - - meta
     - name: twitter:description
       content: Discover a curated selection of free tools for email deliverability, authentication, and productivity. Enhance your email performance and workflow with BlueFox Email's powerful utilities.
+  - - meta
+    - name: twitter:image
+      content: https://bluefox.email/assets/free-tools.png
 ---
 
 # Free Tools by BlueFox Email

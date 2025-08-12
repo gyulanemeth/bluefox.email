@@ -50,6 +50,9 @@ head:
   - - meta
     - name: twitter:description
       content: Free online DMARC checker tool to validate your domain's DMARC policy, check alignment, and analyze email authentication settings for improved deliverability.
+  - - meta
+    - name: twitter:image
+      content: https://bluefox.email/assets/free-deliverability-tools.png
 ---
 
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
