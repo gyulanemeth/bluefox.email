@@ -36,7 +36,7 @@ head:
 
 # Design System Components
 
-Components in the design system enable you to define reusable design elements that can be applied across blocks and templates. They help you maintain consistency and efficiency by letting you update visual elements in a single place, with changes reflected instantly across all associated emails.
+Components in the design systems enable you to define reusable design elements that can be applied across blocks and templates. They help you maintain consistency and efficiency by letting you update visual elements in a single place, with changes reflected instantly across all associated emails.
 
 For example, a **`primary-button`** component could store the style and settings for your main call‑to‑action button. Once created, you can insert it into any block or template.
 
