@@ -1,7 +1,7 @@
 ---
 title: Free DMARC Checker | Validate DMARC Policy | BlueFox Email
 description: Free online DMARC checker tool to validate your domain's DMARC policy, check alignment, and analyze email authentication settings for improved deliverability.
-thumbnail: /assets/FreeDeliverabilityTools.png
+thumbnail: /assets/free-deliverability-tools.png
 sidebar: false
 aside: false
 layout: post
@@ -37,7 +37,7 @@ head:
       content: Free online DMARC checker tool to validate your domain's DMARC policy, check alignment, and analyze email authentication settings for improved deliverability.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/tools/dmarc-checker.png
+      content: https://bluefox.email/assets/free-deliverability-tools.png
   - - meta
     - property: og:url
       content: https://bluefox.email/tools/deliverability/dmarc-checker
@@ -50,6 +50,9 @@ head:
   - - meta
     - name: twitter:description
       content: Free online DMARC checker tool to validate your domain's DMARC policy, check alignment, and analyze email authentication settings for improved deliverability.
+  - - meta
+    - name: twitter:image
+      content: https://bluefox.email/assets/free-deliverability-tools.png
 ---
 
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
