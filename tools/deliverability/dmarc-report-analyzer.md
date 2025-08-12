@@ -1,7 +1,7 @@
 ---
 title: Free DMARC Report Analyzer | Parse DMARC Aggregate Reports | BlueFox Email
 description: Free online DMARC report analyzer tool to parse and analyze DMARC aggregate reports, identify authentication failures, and improve email security posture.
-thumbnail: /assets/FreeDeliverabilityTools.png
+thumbnail: /assets/free-deliverability-tools.png
 sidebar: false
 layout: post
 category: tools
@@ -37,7 +37,7 @@ head:
       content: Free online DMARC report analyzer tool to parse and analyze DMARC aggregate reports, identify authentication failures, and improve email security posture.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/FreeDeliverabilityTools.png
+      content: https://bluefox.email/assets/free-deliverability-tools.png
   - - meta
     - property: og:url
       content: https://bluefox.email/tools/deliverability/dmarc-report-analyzer

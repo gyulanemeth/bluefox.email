@@ -1,7 +1,7 @@
 ---
 title: Free Email Deliverability Tools | BlueFox Email
 description: Comprehensive collection of free email deliverability tools including DMARC checker, SPF validator, DKIM verifier, MX record lookup, and DMARC report analyzer.
-thumbnail: /assets/FreeDeliverabilityTools.png
+thumbnail: /assets/free-deliverability-tools.png
 sidebar: false
 layout: post
 category: tools
@@ -21,7 +21,7 @@ head:
       content: Comprehensive collection of free email deliverability tools including DMARC checker, SPF validator, DKIM verifier, MX record lookup, and DMARC report analyzer.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/FreeDeliverabilityTools.png
+      content: https://bluefox.email/assets/free-deliverability-tools.png
   - - meta
     - property: og:url
       content: https://bluefox.email/tools/deliverability/

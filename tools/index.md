@@ -1,7 +1,7 @@
 ---
 title: Free Tools for Email Deliverability & More | BlueFox Email
 description: Discover a curated selection of free tools for email deliverability, authentication, and productivity. Enhance your email performance and workflow with BlueFox Email's powerful utilities.
-thumbnail: /assets/FreeTools.png
+thumbnail: /assets/free-tools.png
 sidebar: false
 layout: post
 category: tools
@@ -21,7 +21,7 @@ head:
       content: Discover a curated selection of free tools for email deliverability, authentication, and productivity. Enhance your email performance and workflow with BlueFox Email's powerful utilities.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/FreeTools.png
+      content: https://bluefox.email/assets/free-tools.png
   - - meta
     - property: og:url
       content: https://bluefox.email/tools/
