@@ -36,11 +36,11 @@ head:
 
 # Design System Components
 
-Components in the design systems enable you to define reusable design elements that can be applied across blocks and templates. They help you maintain consistency and efficiency by letting you update visual elements in a single place, with changes reflected instantly across all associated emails.
+Components in design systems enable you to define reusable design elements that can be applied across blocks and templates. They help you maintain consistency and efficiency by letting you update visual elements in a single place, with changes reflected instantly across all associated emails.
 
 For example, a **`primary-button`** component could store the style and settings for your main call‑to‑action button. Once created, you can insert it into any block or template.
 
-When a component is updated, every block or template using it automatically reflects the changes, streamlining design management and supporting unified branding across projects.
+When a component is updated, every block or template using it automatically reflects the change, streamlining design management and supporting unified branding across projects.
 
 ## Components Page
 
@@ -53,7 +53,7 @@ The **components page** is divided into two main sections:
 
 ## Types of Components
 
-All components include a **component name** that identifies them. Each type also includes a unique set of configurable properties.
+All components include a **component name**, which identifies them. Each type also includes a unique set of configurable properties.
 
 ### 1. Button Components
 
@@ -119,4 +119,4 @@ If you want to detach the component and edit the styles independently, you can d
 
 ## Conclusion
 
-Components allow you to efficiently manage design consistency and reusability across templates and campaigns. The **eye icon** provides a quick preview of where each component is used, making updates and edits straightforward. Components centralize your building blocks, ready to be used wherever you need them.
+Components allow you to efficiently manage design consistency and reusability across blocks and templates. The **eye icon** provides a quick preview of where each component is used, making updates and edits straightforward. Components centralize your building blocks, ready to be used wherever you need them.
