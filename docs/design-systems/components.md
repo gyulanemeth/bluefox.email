@@ -36,93 +36,73 @@ head:
 
 # Design System Components
 
-Components in the design system let you create reusable design elements that can be inserted anywhere in your email templates and campaigns. They act like dynamic building blocks whether it’s a button, an image, a text section, or a divider, once a component is created, you can use it across multiple templates with just a click.  
+Components in the design system allow you to create reusable design elements that can be applied across templates and campaigns. They ensure consistency and make it easy to update design elements across multiple emails without manually modifying each template.
 
-When a component is updated, **all templates and emails using it will automatically reflect the changes**, saving you time and ensuring visual and functional consistency across every email you send.
+When a component is updated, all templates and campaigns using that component will automatically reflect the changes. This allows for efficient design management and helps maintain a unified brand identity across projects.
 
 ## Components Page
-
 The **components page** is divided into two main sections:
 
-- **Left panel (components list)** – Displays your saved components, organized by types. You can create, edit, delete, and manage components from here.
-- **Right panel (preview section)** – Shows a live preview of the selected component and how it will appear inside an email. This allows you to make changes with confidence, knowing exactly how they will be rendered.
+- **Left panel (components list)**: Displays different types of components (buttons, images, text, dividers). Users can create, edit, delete, and manage components.
+- **Right panel (preview section)**: Shows how the selected component is applied in templates by displaying a live example, providing immediate feedback on its effect on designs.
 
 ![A screenshot of the design system components section.](./design-system-components.webp)
-
 
 ## Types of Components
 
 ### 1. Button Components
-Button components store reusable call‑to‑action buttons (e.g., “Buy Now”, “Learn More”, “Sign Up”).
-  
-Each button component includes:
+Button components store reusable call-to-action buttons. Each component includes:
+
 - **Component name** (e.g., `btn-primary`)
-- **Button label** (e.g., `Shop Now`)
-- **Link URL**
-- **Style properties** (color, border radius, font, padding, etc.)
 
 **Managing button components**
-- **Create**: Click "Create" to build a new button with your preferred styles and link.
-- **Edit**: Update styles, label, or URL by clicking the pencil icon.
-- **Delete**: Click the trash icon to remove the button from your library.
-- **Preview**: See how the button looks in an email by clicking the eye icon.
+- **Create**: Click "Create" to add a new button component.
+- **Edit**: Click the pencil icon to modify component name, element size, button alignment, button text settings, margins, paddings, border, and button background.
+- **Delete**: Click the trash icon to remove a button component.
+- **Preview**: Click the eye icon to see where the button is used in templates.
 
-### 2. Image Components
-Image components store reusable images (e.g., company logos, product images, banners).
+---
 
-- **Component name** (e.g., `image-logo`)
-- **Image file or URL**
-- **Alt text** (optional)
-- **Linked URL** (optional)
+### 2. Text Components
+Text components store reusable text elements, such as headings, taglines, disclaimers, or signature paragraphs. Each component includes:
 
-**Managing image components**
-- **Create**: Click "Create" to upload or select an image.
-- **Edit**: Replace or update image properties via the pencil icon.
-- **Delete**: Remove an image by clicking the trash icon.
-- **Preview**: See image placement by clicking the eye icon.
-
-
-### 3. Text Components
-Text components store blocks of reusable text such as headings, taglines, disclaimers, or signature paragraphs.
-
-- **Component name** (e.g., `footer-disclaimer`)
-- **Text content** (can include basic formatting)
-- **Style properties** (font, size, color)
+- **Component name** (e.g., `text-disclaimer`)
 
 **Managing text components**
-- **Create**: Add a new text block by clicking "Create".
-- **Edit**: Update content or style in the editor via the pencil icon.
-- **Delete**: Remove a text block by clicking the trash icon.
-- **Preview**: View the component’s appearance via the eye icon.
+- **Create**: Click "Create" to add a new text component.
+- **Edit**: Click the pencil icon to modify component name, text content, text alignment, link, paddings, and text background.
+- **Delete**: Click the trash icon to remove a text component.
+- **Preview**: Click the eye icon to see where the text is used in templates.
 
 ::: tip 
-Sometimes you might wanna convert `text` to `type text` by clicking the button on the right panel which says the same to use text components.
+Sometimes you might want to convert `text` to `type text` by clicking the button on the right panel which says the same to use text components.
 :::
 
+---
 
-### 4. Divider Components
-Divider components are reusable horizontal lines or section breaks to separate content visually.
+### 3. Divider Components
+Divider components store reusable horizontal lines or section breaks to separate content visually. Each component includes:
 
 - **Component name** (e.g., `divider-primary`)
-- **Style settings** (line thickness, color, padding)
 
 **Managing divider components**
-- **Create**: Add a new divider by clicking "Create".
-- **Edit**: Change line style or properties using the pencil icon.
-- **Delete**: Remove a divider by clicking the trash icon.
-- **Preview**: See how the divider appears in an email by clicking the eye icon.
+- **Create**: Click "Create" to add a new divider component.
+- **Edit**: Click the pencil icon to modify component name, paddings, line properties, and divider background.
+- **Delete**: Click the trash icon to remove a divider component.
+- **Preview**: Click the eye icon to see where the divider is used in templates.
 
-## Creating Components
+---
 
-To create a new component, click the "Create" button on the preferred component tab.
+### 4. Image Components
+Image components store reusable images (e.g., company logos, product images, banners). Each component includes:
 
-![A screenshot of the design system components creation.](design-system-component-creation.webp)
+- **Component name** (e.g., `image-logo`)
 
-You can either start from scratch or paste component styles you copied. Give your new component a name, and voila! You have successfully created a component. 
-
-Click on the edit icon to modify your component. You will be able to change its properties and styles from left side panel. 
-
-![A screenshot of the design system components editing.](design-system-component-editing.webp)
+**Managing image components**
+- **Create**: Click "Create" to add a new image component.
+- **Edit**: Click the pencil icon to modify component name, element size, image alignment, margins, paddings, border, and image background.
+- **Delete**: Click the trash icon to remove an image component.
+- **Preview**: Click the eye icon to see where the image is used in templates.
 
 ## Using Components in Templates
 
@@ -136,6 +116,10 @@ You can also "drag and drop" the component styles. Click on the `Components` ico
 
 ![A screenshot of the design system components list.](design-system-component-list.webp)
 
+If you want to detach the component and edit the styles independently, you can do so by selecting the component and choosing the `Detach` option from the right side panel.
+
+![A screenshot of the design system components detach option.](design-system-component-detach.webp)
+
 ## Conclusion
 
-Components help you maintain brand consistency, save time, and make bulk updates easy. Whether it’s reusing your company’s call-to-action button, a product image, or footer text, components put your design building blocks in one place ready to be used anywhere you need them.
+Components make it easy to manage design consistency across templates and campaigns. The **eye icon** provides a quick preview of where each component is used, ensuring smooth editing. Components put your design building blocks in one place ready to be used anywhere you need them.
