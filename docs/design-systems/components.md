@@ -38,13 +38,13 @@ head:
 
 Components in the design system enable you to define reusable design elements that can be applied across templates and campaigns. They help you maintain consistency and efficiency by letting you update visual elements in a single place, with changes reflected instantly across all associated emails.
 
-When a component is updated, every template using it automatically reflects the changes—streamlining design management and supporting unified branding across projects.
+When a component is updated, every template using it automatically reflects the changes, streamlining design management and supporting unified branding across projects.
 
 ## Components Page
 
 The **components page** is divided into two main sections:
 
-- **Left panel (components list)**: Displays different types of components—buttons, images, text, dividers. Users can create, edit, delete, and manage components.
+- **Left panel (components list)**: Displays different types of components, buttons, images, text, dividers. Users can create, edit, delete, and manage components.
 - **Right panel (preview section)**: Shows a live example of how the selected component is used in templates, providing immediate feedback on changes.
 
 ![A screenshot of the design system components section.](./design-system-components.webp)
@@ -121,4 +121,4 @@ If you want to detach the component and edit the styles independently, you can d
 
 ## Conclusion
 
-Components allow you to efficiently manage design consistency and reusability across templates and campaigns. The **eye icon** provides a quick preview of where each component is used—making updates and edits straightforward. Components centralize your building blocks, ready to be used wherever you need them.
+Components allow you to efficiently manage design consistency and reusability across templates and campaigns. The **eye icon** provides a quick preview of where each component is used, making updates and edits straightforward. Components centralize your building blocks, ready to be used wherever you need them.
