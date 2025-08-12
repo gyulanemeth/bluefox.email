@@ -115,6 +115,10 @@ You can also drag and drop component styles. Click the `Components` icon in the 
 
 ![A screenshot of the design system components list.](design-system-component-list.webp)
 
+If you want to detach the component and edit the styles independently, you can do so by selecting the component and choosing the `Detach` option from the right side panel.
+
+![A screenshot of the design system components detach option.](design-system-component-detach.webp)
+
 ## Conclusion
 
 Components allow you to efficiently manage design consistency and reusability across templates and campaigns. The **eye icon** provides a quick preview of where each component is used—making updates and edits straightforward. Components centralize your building blocks, ready to be used wherever you need them.
