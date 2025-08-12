@@ -37,7 +37,7 @@ head:
       content: Free online MX record checker tool to lookup and validate mail exchange records, check email server configuration, and analyze email routing for domains.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/tools/mx-checker.png
+      content: https://bluefox.email/assets/FreeDeliverabilityTools.png
   - - meta
     - property: og:url
       content: https://bluefox.email/tools/deliverability/mx-checker

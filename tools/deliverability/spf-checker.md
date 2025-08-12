@@ -38,7 +38,7 @@ head:
       content: Free online SPF checker tool to validate Sender Policy Framework records, check DNS syntax, and analyze email authentication for improved deliverability.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/tools/spf-checker.png
+      content: https://bluefox.email/assets/FreeDeliverabilityTools.png
   - - meta
     - property: og:url
       content: https://bluefox.email/tools/deliverability/spf-checker

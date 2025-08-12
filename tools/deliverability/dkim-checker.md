@@ -36,7 +36,7 @@ head:
       content: Free online DKIM checker tool to validate DomainKeys Identified Mail signatures, verify DNS records, and analyze email authentication for improved deliverability.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/tools/dkim-checker.png
+      content: https://bluefox.email/assets/FreeDeliverabilityTools.png
   - - meta
     - property: og:url
       content: https://bluefox.email/tools/deliverability/dkim-checker
