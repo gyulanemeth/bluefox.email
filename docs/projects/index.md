@@ -49,7 +49,7 @@ Every project in bluefox.email includes:
 - [Automations](./automations)
 - [Contacts](./contacts)
 - [Forms & Pages](./forms-and-pages)
-- [Design system settings](./design-system-settings)
+- [Design system variables](./design-system-variables)
 - [Suppression Lists](./suppression-list)
 - [Project settings](./settings)
 
