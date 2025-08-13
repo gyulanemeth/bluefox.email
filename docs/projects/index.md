@@ -50,6 +50,7 @@ Every project in bluefox.email includes:
 - [Contacts](./contacts)
 - [Forms & Pages](./forms-and-pages)
 - [Design system variables](./design-system-variables)
+- [Design system components](./design-system-components)
 - [Suppression Lists](./suppression-list)
 - [Project settings](./settings)
 
@@ -92,7 +93,8 @@ These tabs include:
 - [Automations](./automations)
 - [Contacts](./contacts)
 - [Forms & Pages](./forms-and-pages)
-- [Design system settings](./design-system-settings)
+- [Design system variables](./design-system-variables)
+- [Design system components](./design-system-components)
 - [Suppression Lists](./suppression-list)
 - [Project settings](./settings)
 

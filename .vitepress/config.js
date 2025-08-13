@@ -161,6 +161,10 @@ export default defineConfig({
                 link: "/docs/projects/design-system-variables",
               },
               {
+                text: "Design System Components",
+                link: "/docs/projects/design-system-components",
+              },
+              {
                 text: "Suppression Lists",
                 link: "/docs/projects/suppression-list"
               },
