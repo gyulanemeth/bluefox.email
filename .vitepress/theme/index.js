@@ -30,6 +30,7 @@ import DmarcChecker from './free-tools/DmarcChecker.vue'
 import SpfChecker from './free-tools/SpfChecker.vue'
 import MxChecker from './free-tools/MxChecker.vue'
 import DmarcReportAnalyzer from './free-tools/DmarcReportAnalyzer.vue'
+import FreeToolsIndex from './free-tools/FreeToolsIndex.vue'
 
 
 export default {
@@ -84,5 +85,6 @@ export default {
     app.component('SpfChecker', SpfChecker)
     app.component('MxChecker', MxChecker)
     app.component('DmarcReportAnalyzer', DmarcReportAnalyzer)
+    app.component('FreeToolsIndex', FreeToolsIndex)
   },
 }

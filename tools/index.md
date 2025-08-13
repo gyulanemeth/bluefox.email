@@ -41,10 +41,8 @@ head:
 
 # Free Tools by BlueFox Email
 
-Welcome to our toolbox, your gateway to a collection of **free online tools**. Currently, we offer comprehensive **email deliverability tools** to help you authenticate and secure your domains. We're actively expanding our toolkit and will soon include **pre-send tools** such as link checkers and email HTML validation tools to further enhance your email workflow.
+Welcome to our comprehensive toolbox, your gateway to a growing collection of **professional-grade free online tools** designed specifically for email professionals, SaaS teams, and digital marketers.
 
-## Email Deliverability Tools
+Currently, we offer a complete suite of **email deliverability tools** to help you authenticate and secure your domains, ensuring maximum inbox placement. We're actively expanding our toolkit and will soon include **pre-send validation tools**, **analytics dashboards**, and **domain monitoring utilities** to create the most comprehensive free email toolset available.
 
-Quickly check your domain’s email authentication setup with our DMARC, SPF, DKIM, and MX record checkers. Prevent spoofing, fix deliverability issues, and ensure your emails land in the inbox, not spam.
-
-[Explore Deliverability Tools →](/tools/deliverability/index.md)
+<FreeToolsIndex level="main" />
