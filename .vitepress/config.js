@@ -124,18 +124,54 @@ export default defineConfig({
             link: "/docs/projects/",
             collapsed: false,
             items: [
-              { text: "Project Dashboard", link: "/docs/projects/dashboard" },
-              { text: "Creating a new project", link: "/docs/projects/new-project" },
-              { text: "Transactional Emails", link: "/docs/projects/transactional-emails" },
-              { text: "Triggered Emails", link: "/docs/projects/triggered-emails" },
-              { text: "Campaigns", link: "/docs/projects/campaigns" },
-              { text: "Automations", link: "/docs/projects/automations" },
-              { text: "Contacts", link: "/docs/projects/contacts" },
-              { text: "Forms & Pages", link: "/docs/projects/forms-and-pages" },
-              { text: "Design System Variables", link: "/docs/projects/design-system-variables" },
-              { text: "Design System Components", link: "/docs/projects/design-system-components" },
-              { text: "Suppression Lists", link: "/docs/projects/suppression-list" },
-              { text: "Settings", link: "/docs/projects/settings" },
+              {
+                text: "Project Dashboard",
+                link: "/docs/projects/dashboard"
+              },
+              {
+                text: "Creating a new project",
+                link: "/docs/projects/new-project",
+              },
+              {
+                text: "Transactional Emails",
+                link: "/docs/projects/transactional-emails",
+              },
+              {
+                text: "Triggered Emails",
+                link: "/docs/projects/triggered-emails",
+              },
+              {
+                text: "Campaigns",
+                link: "/docs/projects/campaigns"
+              },
+              {
+                text: "Automations",
+                link: "/docs/projects/automations"
+              },
+              {
+                text: "Contacts",
+                link: "/docs/projects/contacts"
+              },
+              {
+                text: "Forms & Pages",
+                link: "/docs/projects/forms-and-pages"
+              },
+              {
+                text: "Design System Variables",
+                link: "/docs/projects/design-system-variables",
+              },
+              {
+                text: "Design System Components",
+                link: "/docs/projects/design-system-components",
+              },
+              {
+                text: "Suppression Lists",
+                link: "/docs/projects/suppression-list"
+              },
+              {
+                text: "Settings",
+                link: "/docs/projects/settings"
+              },
             ],
           },
           {
