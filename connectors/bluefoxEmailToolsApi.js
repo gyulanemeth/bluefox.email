@@ -56,7 +56,6 @@ export async function checkSpf({ domain, captchaProbe, captchaText, testIp }) {
   return json
 }
 
-
 export async function checkDmarc({ domain, captchaProbe, captchaText }) {
   const body = {
     domain: domain.trim(),
@@ -154,6 +153,38 @@ export async function checkDkim({ domain, selector, captchaProbe, captchaText })
   return json
 }
 
+export async function checkLinks({ urls, timeout, includeProxy, captchaProbe, captchaText }) {
+  const body = {
+    urls: typeof urls === 'string' ? urls.trim() : urls,
+    captchaProbe,
+    captchaText: captchaText ? captchaText.trim() : ''
+  }
+
+  if (timeout) {
+    body.timeout = timeout
+  }
+
+  if (includeProxy !== undefined) {
+    body.includeProxy = includeProxy
+  }
+
+  const response = await fetch(`${BASE_URL}/v1/check-links`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  })
+
+  const json = await response.json()
+
+  if (!response.ok) {
+    const error = new Error(json.error?.message || json.message || 'API error')
+    error.status = response.status
+    throw error
+  }
+
+  return json
+}
+
 export async function generateCaptcha() {
   const response = await fetch(`${BASE_URL}/v1/captcha/generate`)
   
@@ -171,4 +202,3 @@ export async function generateCaptcha() {
 
   return json.result.captcha
 }
-
