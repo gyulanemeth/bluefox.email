@@ -8,7 +8,7 @@ import {
   markCaptchaSolved
 } from './helpers/captchaHandler.js'
 
-// ---- VARIABLES ----
+// ---- State ----
 const mode = ref('urls')
 const rawUrls = ref('')
 const htmlTemplate = ref('')
@@ -20,58 +20,45 @@ const result = ref(null)
 const errorMessage = ref('')
 const extractedLinks = ref([])
 
+// Split view state for results
+const selectedResult = ref(null)
+const selectedIndex = ref(0)
+
 // Captcha state
 const captchaProbe = ref(null)
 const captchaImage = ref(null)
 const captchaExpires = ref(0)
 const captchaSolvedUntil = ref(0)
 const captchaLoading = ref(false)
-
-// Preview state
-const showingPreview = ref({})
 const loadingStates = ref({})
 const reloadKeys = ref({})
 
+// ---- Computed ----
 const now = () => Math.floor(Date.now() / 1000)
-
-// Computed properties
-const isProbeExpired = computed(() =>
-  !captchaProbe.value || now() > captchaExpires.value
-)
-
-const isSolved = computed(() =>
-  captchaSolvedUntil.value > now() && !isProbeExpired.value
-)
-
+const isProbeExpired = computed(() => !captchaProbe.value || now() > captchaExpires.value)
+const isSolved = computed(() => captchaSolvedUntil.value > now() && !isProbeExpired.value)
 const shouldShowCaptcha = computed(() =>
-  !isSolved.value ||
-  isProbeExpired.value ||
-  !captchaProbe.value ||
-  !captchaImage.value
+  !isSolved.value || isProbeExpired.value || !captchaProbe.value || !captchaImage.value
 )
-
 const isFormDisabled = computed(() =>
-  loading.value ||
-  (shouldShowCaptcha.value && !captchaText.value?.trim())
+  loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
 )
 
-// ---- FUNCTIONS ----
+// Auto-select first result when results load
+watch(result, (newResult) => {
+  if (newResult && newResult.length > 0) {
+    selectedIndex.value = 0
+    selectedResult.value = newResult[0]
+  }
+})
+
+// ---- Functions ----
 function extractLinksFromText(text) {
   if (!text || typeof text !== 'string') return []
-  
-  // Match URLs in the text (both Markdown and raw URLs)
   const urlRegex = /\bhttps?:\/\/[^\s)<>"']+/gi
-  
-  // Find all matches (ignore anchor text and non-URLs)
   const matches = text.match(urlRegex) || []
-  
-  // Remove duplicates and normalize
   const unique = [...new Set(matches.map(url => url.trim()))]
-  
-  return unique.map(url => ({
-    href: url,
-    text: url
-  }))
+  return unique.map(url => ({ href: url, text: url }))
 }
 
 function extractLinksFromHTML(html) {
@@ -91,14 +78,8 @@ function extractLinksFromHTML(html) {
         !link.href.startsWith('#') &&
         !link.href.startsWith('mailto:')
       )
-      .map(link => ({
-        ...link,
-        href: link.href.trim()
-      }))
-  } catch (error) {
-    console.error('Error parsing HTML:', error)
-    return []
-  }
+      .map(link => ({ ...link, href: link.href.trim() }))
+  } catch { return [] }
 }
 
 function updateExtractedLinks() {
@@ -107,30 +88,48 @@ function updateExtractedLinks() {
     : extractLinksFromText(rawUrls.value)
 }
 
+function getStatusText(status) {
+  const map = {
+    working: 'Working', broken: 'Broken', redirect: 'Redirect',
+    error: 'Error', soft404: 'Soft 404'
+  }
+  return map[status] || 'Unknown'
+}
+
+function getStatusColor(status) {
+  const map = {
+    working: '#28a745', broken: '#dc3545', error: '#dc3545',
+    redirect: '#ffc107', soft404: '#ffc107'
+  }
+  return map[status] || '#6c757d'
+}
+
+function selectResult(resultItem, index) {
+  selectedResult.value = resultItem
+  selectedIndex.value = index
+}
+
 function getCodeSnippetForLink(url) {
   if (mode.value !== 'html' || !htmlTemplate.value) return ''
-  
   const lines = htmlTemplate.value.split('\n')
   const lineIndex = lines.findIndex(line => line.includes(url))
-  
   if (lineIndex === -1) return ''
-  
-  // Get 2 lines before and after for context
   const start = Math.max(0, lineIndex - 2)
   const end = Math.min(lines.length, lineIndex + 3)
   const contextLines = lines.slice(start, end)
-  
   return contextLines.map((line, idx) => {
     const actualLineNum = start + idx + 1
     const isTargetLine = (start + idx) === lineIndex
     const escapedLine = line.replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    
-    return isTargetLine 
-      ? `<span class="line-number">${actualLineNum}:</span> <mark class="highlight-line">${escapedLine}</mark>`
-      : `<span class="line-number">${actualLineNum}:</span> ${escapedLine}`
+    if (isTargetLine) {
+      return `<span class="line-number">${actualLineNum}:</span> <mark class="highlight-line">${escapedLine}</mark>`
+    } else {
+      return `<span class="line-number">${actualLineNum}:</span> ${escapedLine}`
+    }
   }).join('\n')
 }
 
+// Captcha functions
 function loadCaptchaState() {
   const stored = loadCaptchaFromStorage()
   captchaProbe.value = stored.probe
@@ -147,11 +146,8 @@ async function loadCaptcha() {
     captchaImage.value = captchaState.image
     captchaExpires.value = captchaState.expires
     captchaSolvedUntil.value = captchaState.solvedUntil
-  } catch (err) {
-    clearCaptchaSession()
-  } finally {
-    captchaLoading.value = false
-  }
+  } catch { clearCaptchaSession() }
+  finally { captchaLoading.value = false }
 }
 
 async function refreshCaptcha() {
@@ -197,101 +193,55 @@ function validateInputs() {
   return true
 }
 
-function getStatusIcon(status) {
-  const icons = {
-    working: 'Working',
-    broken: 'Broken',
-    redirect: 'Redirect',
-    error: 'Error',
-    soft404: 'Soft 404'
-  }
-  return icons[status] || 'Unknown'
-}
-
-function togglePreview(index) {
-  showingPreview.value = {
-    ...showingPreview.value,
-    [index]: !showingPreview.value[index]
-  }
-}
-
-async function reloadSingleLink(url, index) {
-  // Check if captcha is expired before attempting reload
-  if (isProbeExpired.value) {
-    console.log('[Reload] Captcha expired, clearing results')
-    result.value = null
-    errorMessage.value = 'Your verification has expired. Please refresh the captcha to continue.'
-    return
-  }
-
-  // Set loading state
-  loadingStates.value = {
-    ...loadingStates.value,
-    [index]: true
-  }
+async function reloadSelectedResult() {
+  if (!selectedResult.value || isProbeExpired.value) return
+  
+  loadingStates.value = { ...loadingStates.value, [selectedIndex.value]: true }
   
   try {
     const data = await checkLinks({
-      urls: [url],
+      urls: [selectedResult.value.url],
       timeout: timeout.value,
       includeProxy: includeProxy.value,
       captchaProbe: captchaProbe.value,
-      captchaText: '' // No captcha needed for single reloads
+      captchaText: ''
     })
     
-    if (data.result && data.result.length > 0) {
+    if (data.result && data.result.length > 0 && result.value) {
       const updatedResult = data.result[0]
-      if (result.value && Array.isArray(result.value)) {
-        const resultIndex = result.value.findIndex(r => r.url === url)
-        if (resultIndex !== -1) {
-          result.value[resultIndex] = updatedResult
-          reloadKeys.value = {
-            ...reloadKeys.value,
-            [index]: (reloadKeys.value[index] || 0) + 1
-          }
+      const resultIndex = result.value.findIndex(r => r.url === selectedResult.value.url)
+      if (resultIndex !== -1) {
+        result.value[resultIndex] = updatedResult
+        selectedResult.value = updatedResult
+        reloadKeys.value = {
+          ...reloadKeys.value,
+          [selectedIndex.value]: (reloadKeys.value[selectedIndex.value] || 0) + 1
         }
       }
     }
   } catch (err) {
-    console.error(`[Reload] Error reloading ${url}:`, err)
-    
-    // If captcha error, clear results and show form
-    if (err.status === 401) {
-      result.value = null
-      await refreshCaptcha()
-      captchaText.value = ''
-      errorMessage.value = 'Your verification has expired. Please refresh the captcha to continue.'
-    } else {
-      errorMessage.value = `Failed to reload ${url}: ${err.message}`
-      setTimeout(() => {
-        if (errorMessage.value.includes('Failed to reload')) {
-          errorMessage.value = ''
-        }
-      }, 5000)
-    }
+    errorMessage.value = `Failed to reload: ${err.message}`
+    setTimeout(() => {
+      if (errorMessage.value.includes('Failed to reload')) {
+        errorMessage.value = ''
+      }
+    }, 5000)
   } finally {
-    loadingStates.value = {
-      ...loadingStates.value,
-      [index]: false
-    }
+    loadingStates.value = { ...loadingStates.value, [selectedIndex.value]: false }
   }
-}
-
-function clearReloadStates() {
-  loadingStates.value = {}
-  reloadKeys.value = {}
 }
 
 async function checkLinksHandler() {
   result.value = null
   loading.value = true
   errorMessage.value = ''
-  clearReloadStates()
+  
   try {
     if (!validateInputs()) {
       loading.value = false
       return
     }
+    
     const urlsToCheck = extractedLinks.value.map(link => link.href)
     const data = await checkLinks({
       urls: urlsToCheck,
@@ -300,9 +250,17 @@ async function checkLinksHandler() {
       captchaProbe: captchaProbe.value,
       captchaText: shouldShowCaptcha.value ? captchaText.value : ''
     })
+    
     result.value = data.result
     captchaText.value = ''
     markSolved()
+
+     await nextTick()
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    })
+    
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
     if (err.status === 401) {
@@ -314,25 +272,23 @@ async function checkLinksHandler() {
   }
 }
 
-// ---- WATCHES ----
+function resetToForm() {
+  result.value = null
+  selectedResult.value = null
+  selectedIndex.value = 0
+}
+
+// ---- Watches ----
 watch([mode, rawUrls, htmlTemplate], updateExtractedLinks, { immediate: true })
-
-watch(mode, () => { 
-  result.value = null 
-})
-
+watch(mode, () => { result.value = null })
 watch(isProbeExpired, (expired, prev) => {
   if (expired && !prev) {
-    console.log('[Watch] Captcha expired, clearing results')
     result.value = null
     captchaText.value = ''
   }
 })
-
 watch(shouldShowCaptcha, (show, prev) => {
-  if (show && !prev) {
-    captchaText.value = ''
-  }
+  if (show && !prev) captchaText.value = ''
 })
 
 onMounted(async () => {
@@ -346,51 +302,49 @@ onMounted(async () => {
 
 <template>
   <div class="link-checker">
-    <!-- Modern Pill Tabs Mode Switcher -->
-    <div class="input-mode-tabs">
-      <button 
-        type="button"
-        :class="['tab-btn', { active: mode === 'urls' }]"
-        @click="mode = 'urls'"
-      >
-        Paste URLs
-      </button>
-      <button 
-        type="button"
-        :class="['tab-btn', { active: mode === 'html' }]"
-        @click="mode = 'html'"
-      >
-        HTML Template
-      </button>
-    </div>
+    <!-- Form Stage -->
+    <div v-if="!result" class="form-stage">
+      <div class="mode-tabs">
+        <button 
+          :class="['tab', { active: mode === 'urls' }]"
+          @click="mode = 'urls'"
+        >
+          Paste URLs
+        </button>
+        <button 
+          :class="['tab', { active: mode === 'html' }]"
+          @click="mode = 'html'"
+        >
+          HTML Template
+        </button>
+      </div>
 
-    <!-- Input Form -->
-    <div class="tool-form">
-      <form @submit.prevent="checkLinksHandler">
-        <!-- URLs Input -->
-        <div v-if="mode === 'urls'" class="form-group">
-          <label for="rawUrlsInput">URLs to Check:</label>
-          <textarea
-            id="rawUrlsInput"
-            v-model="rawUrls"
-            rows="6"
-            placeholder="https://example.com&#10;https://google.com&#10;https://github.com"
-            :disabled="loading"
-            required
-          />
-          <small class="form-help">
-            Paste or type URLs here, one per line or comma separated. Markdown links and raw URLs are supported.
-          </small>
-        </div>
+      <div class="tool-form">
+        <form @submit.prevent="checkLinksHandler">
+          <!-- URLs Input -->
+          <div v-if="mode === 'urls'" class="form-group">
+            <label for="rawUrlsInput">URLs to Check:</label>
+            <textarea
+              id="rawUrlsInput"
+              v-model="rawUrls"
+              rows="6"
+              placeholder="https://example.com&#10;https://google.com&#10;https://github.com"
+              :disabled="loading"
+              required
+            ></textarea>
+            <small class="form-help">
+              Paste or type URLs here, one per line or comma separated. Markdown links and raw URLs are supported.
+            </small>
+          </div>
 
-        <!-- HTML Template Input -->
-        <div v-else class="form-group">
-          <label for="htmlTemplate">HTML Email Template:</label>
-          <textarea
-            id="htmlTemplate"
-            v-model="htmlTemplate"
-            rows="12"
-            placeholder="Paste your HTML email template here...
+          <!-- HTML Template Input -->
+          <div v-else class="form-group">
+            <label for="htmlTemplate">HTML Email Template:</label>
+            <textarea
+              id="htmlTemplate"
+              v-model="htmlTemplate"
+              rows="12"
+              placeholder="Paste your HTML email template here...
 
 Example:
 <html>
@@ -399,314 +353,281 @@ Example:
   <a href='https://google.com'>Google</a>
 </body>
 </html>"
-            :disabled="loading"
-            required
-          />
-          <small class="form-help">
-            Paste your HTML email template here. All hyperlinks will be automatically extracted and checked.
-          </small>
-        </div>
+              :disabled="loading"
+              required
+            ></textarea>
+            <small class="form-help">
+              Paste your HTML email template here. All hyperlinks will be automatically extracted and checked.
+            </small>
+          </div>
 
-        <!-- HTML Template Live Preview -->
-        <div v-if="mode === 'html' && htmlTemplate.trim()" class="form-group">
-          <label>HTML Template Preview:</label>
-          <iframe
-            :srcdoc="htmlTemplate"
-            class="html-template-preview"
-            sandbox="allow-scripts allow-same-origin"
-            title="HTML Template Live Preview"
-          ></iframe>
-          <small class="form-help">
-            Live preview of your HTML template as it would appear in an email client.
-          </small>
-        </div>
+          <!-- HTML Template Live Preview -->
+          <div v-if="mode === 'html' && htmlTemplate.trim()" class="form-group">
+            <label>HTML Template Preview:</label>
+            <iframe
+              :srcdoc="htmlTemplate"
+              class="html-template-preview"
+              sandbox="allow-scripts allow-same-origin"
+              title="HTML Template Live Preview"
+            ></iframe>
+            <small class="form-help">
+              Live preview of your HTML template as it would appear in an email client.
+            </small>
+          </div>
 
-        <!-- Extracted Links Preview -->
-        <div v-if="extractedLinks.length > 0" class="form-group">
-          <label>Extracted Links ({{ extractedLinks.length }}):</label>
-          <div class="extracted-links">
-            <div 
-              v-for="(link, index) in extractedLinks" 
-              :key="index"
-              class="extracted-link"
-            >
-              <div class="link-info">
-                <span class="link-url">{{ link.href }}</span>
-                <span v-if="mode === 'html'" class="link-text">{{ link.text }}</span>
+          <!-- Extracted Links Preview -->
+          <div v-if="extractedLinks.length > 0" class="form-group">
+            <label>Extracted Links ({{ extractedLinks.length }}):</label>
+            <div class="extracted-links">
+              <div 
+                v-for="(link, index) in extractedLinks" 
+                :key="index"
+                class="extracted-link"
+              >
+                <div class="link-info">
+                  <span class="link-url">{{ link.href }}</span>
+                  <span v-if="mode === 'html'" class="link-text">{{ link.text }}</span>
+                </div>
               </div>
             </div>
+            <small class="form-help">
+              These links will be checked when you submit the form.
+            </small>
           </div>
-          <small class="form-help">
-            These links will be checked when you submit the form.
-          </small>
-        </div>
 
-        <!-- No Links Found Warning -->
-        <div v-else-if="(mode === 'urls' ? rawUrls.trim() : htmlTemplate.trim())" class="form-group">
-          <div class="no-links-warning">
-            <p>Warning: No valid links found in your {{ mode === 'urls' ? 'URL list' : 'HTML template' }}.</p>
-            <small v-if="mode === 'html'">Make sure your HTML contains &lt;a href="..."&gt; tags with valid URLs.</small>
-            <small v-else>Make sure your text contains valid URLs starting with http:// or https://</small>
-          </div>
-        </div>
-
-        <!-- Options -->
-        <div class="form-group">
-          <div class="form-options">
-            <div class="option-group">
-              <label for="timeout">Timeout (ms):</label>
-              <input
-                id="timeout"
-                v-model="timeout"
-                type="number"
-                min="1000"
-                max="30000"
-                :disabled="loading"
-              />
+          <!-- No Links Found Warning -->
+          <div v-else-if="(mode === 'urls' ? rawUrls.trim() : htmlTemplate.trim())" class="form-group">
+            <div class="no-links-warning">
+              <p>Warning: No valid links found in your {{ mode === 'urls' ? 'URL list' : 'HTML template' }}.</p>
+              <small v-if="mode === 'html'">Make sure your HTML contains &lt;a href="..."&gt; tags with valid URLs.</small>
+              <small v-else>Make sure your text contains valid URLs starting with http:// or https://</small>
             </div>
-            <div class="checkbox-group">
-              <label class="checkbox-label">
-                <input 
-                  type="checkbox" 
-                  v-model="includeProxy"
+          </div>
+
+          <!-- Options -->
+          <div class="form-group">
+            <div class="form-options">
+              <div class="option-group">
+                <label for="timeout">Timeout (ms):</label>
+                <input
+                  id="timeout"
+                  v-model="timeout"
+                  type="number"
+                  min="1000"
+                  max="30000"
                   :disabled="loading"
-                > 
-                Include page preview content
-                <span class="info-tip" tabindex="0">
-                  ?
-                  <span class="info-tip-pop">Enable this to fetch webpage content for iframe preview. May increase processing time.</span>
-                </span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <!-- Expired probe notice -->
-        <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
-          Your verification has expired. Please refresh the captcha below.
-        </div>
-
-        <!-- CAPTCHA -->
-        <div v-if="shouldShowCaptcha" class="form-group">
-          <label for="captcha">Security Verification:</label>
-          <div class="captcha-container">
-            <div class="captcha-image-container">
-              <div v-if="captchaLoading" class="captcha-loading">
-                Loading captcha...
+                />
               </div>
-              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage" />
-              <div v-else class="captcha-placeholder">
-                <button
-                  type="button"
-                  @click="loadCaptcha"
-                  class="load-captcha-btn"
-                >
-                  Load Captcha
-                </button>
+              <div class="checkbox-group">
+                <label class="checkbox-label">
+                  <input 
+                    type="checkbox" 
+                    v-model="includeProxy"
+                    :disabled="loading"
+                  > 
+                  Include page preview content
+                  <span class="info-tip" tabindex="0">
+                    ?
+                    <span class="info-tip-pop">Enable this to fetch webpage content for iframe preview. May increase processing time.</span>
+                  </span>
+                </label>
               </div>
             </div>
-            <button
-              type="button"
-              @click="refreshCaptcha"
-              class="refresh-captcha-btn"
-              :disabled="captchaLoading"
-              title="Refresh captcha"
-            >
-              <img src="/assets/reload.webp?url" alt="reload" />
-            </button>
           </div>
-          <input
-            id="captcha"
-            v-model="captchaText"
-            type="text"
-            placeholder="Enter the text from the image above"
-            :disabled="loading || !captchaImage"
-            autocomplete="off"
-            required
-          />
-          <small class="captcha-help">
-            Enter the characters shown in the image above
-          </small>
-        </div>
 
-        <!-- Submit -->
-        <button
-          type="submit"
-          class="check-btn"
-          :disabled="isFormDisabled || extractedLinks.length === 0"
-        >
-          <span v-if="loading" class="btn-loading">
-            <div class="loading-spinner"></div>
-            Checking {{ extractedLinks.length }} Links...
-          </span>
-          <span v-else>Check {{ extractedLinks.length }} Links</span>
-        </button>
-      </form>
-    </div>
+          <!-- Expired probe notice -->
+          <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
+            Your verification has expired. Please refresh the captcha below.
+          </div>
 
-    <!-- Error -->
-    <div v-if="errorMessage" class="error-section">
-      <p class="error-message">{{ errorMessage }}</p>
-    </div>
+          <!-- CAPTCHA -->
+          <div v-if="shouldShowCaptcha" class="form-group">
+            <label for="captcha">Security Verification:</label>
+            <div class="captcha-container">
+              <div class="captcha-image-container">
+                <div v-if="captchaLoading" class="captcha-loading">
+                  Loading captcha...
+                </div>
+                <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage"></div>
+                <div v-else class="captcha-placeholder">
+                  <button
+                    type="button"
+                    @click="loadCaptcha"
+                    class="load-captcha-btn"
+                  >
+                    Load Captcha
+                  </button>
+                </div>
+              </div>
+              <button
+                type="button"
+                @click="refreshCaptcha"
+                class="refresh-captcha-btn"
+                :disabled="captchaLoading"
+                title="Refresh captcha"
+              >
+                <img src="/assets/reload.webp?url" alt="reload" />
+              </button>
+            </div>
+            <input
+              id="captcha"
+              v-model="captchaText"
+              type="text"
+              placeholder="Enter the text from the image above"
+              :disabled="loading || !captchaImage"
+              autocomplete="off"
+              required
+            />
+            <small class="captcha-help">
+              Enter the characters shown in the image above
+            </small>
+          </div>
 
-    <!-- Results -->
-    <div v-if="result && Array.isArray(result)" class="result-section">
-      <h3>Link Check Results</h3>
-
-      <!-- Summary -->
-      <div class="summary-section">
-        <h4>
-          Summary
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Overview of all checked links categorized by their status.</span>
-          </span>
-        </h4>
-        <div class="summary-grid">
-          <div class="summary-item total">
-            <span class="count">{{ result.length }}</span>
-            <span class="label">Total</span>
-          </div>
-          <div class="summary-item working">
-            <span class="count">{{ result.filter(r => r.status === 'working').length }}</span>
-            <span class="label">Working</span>
-          </div>
-          <div class="summary-item broken">
-            <span class="count">{{ result.filter(r => r.status === 'broken').length }}</span>
-            <span class="label">Broken</span>
-          </div>
-          <div class="summary-item redirects">
-            <span class="count">{{ result.filter(r => r.status === 'redirect').length }}</span>
-            <span class="label">Redirects</span>
-          </div>
-          <div class="summary-item errors">
-            <span class="count">{{ result.filter(r => r.status === 'error').length }}</span>
-            <span class="label">Errors</span>
-          </div>
-        </div>
+          <!-- Submit -->
+          <button
+            type="submit"
+            class="check-btn"
+            :disabled="isFormDisabled || extractedLinks.length === 0"
+          >
+            <span v-if="loading" class="btn-loading">
+              <div class="loading-spinner"></div>
+              Checking {{ extractedLinks.length }} Links...
+            </span>
+            <span v-else>Check {{ extractedLinks.length }} Links</span>
+          </button>
+        </form>
       </div>
 
-      <!-- Individual Results -->
-      <div class="links-section">
-        <h4>
-          Detailed Results
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Individual status and details for each checked URL.</span>
-          </span>
-        </h4>
-        <div class="links-results">
-          <div 
-            v-for="(linkResult, index) in result" 
-            :key="index"
-            class="link-result"
-            :class="linkResult.status"
-          >
-            <div class="link-header">
-              <span class="status-icon">{{ getStatusIcon(linkResult.status) }}</span>
-              <div class="link-info-detailed">
-                <a :href="linkResult.url" target="_blank" class="link-url">
-                  {{ linkResult.url }}
-                </a>
-                <span v-if="mode === 'html' && extractedLinks.find(l => l.href === linkResult.url)?.text" class="anchor-text">
-                  "{{ extractedLinks.find(l => l.href === linkResult.url)?.text }}"
-                </span>
-              </div>
-              <span class="status-code" :class="linkResult.status">
-                {{ linkResult.status === 'soft404' ? 'Soft 404' : linkResult.statusCode }}
-              </span>
+      <div v-if="errorMessage" class="error-section">
+        <p class="error-message">{{ errorMessage }}</p>
+      </div>
+    </div>
+
+    <!-- Results Split View Stage -->
+    <div v-else class="results-stage">
+      <!-- Results Header -->
+      <div class="results-header">
+        <h2>Link Check Results</h2>
+        <button @click="resetToForm" class="back-btn">
+          ← Back to Form
+        </button>
+      </div>
+
+      <!-- Split View Container -->
+      <div class="split-view">
+        <!-- Left Panel: Results List -->
+        <div class="results-panel">
+          <div class="results-summary">
+            <div class="summary-item">
+              <span class="count">{{ result.length }}</span>
+              <span class="label">Total</span>
             </div>
-            
-            <div class="link-details">
-              <span class="response-time">{{ linkResult.responseTime }}ms</span>
-              <span v-if="linkResult.method" class="method">{{ linkResult.method }}</span>
-              <span v-if="linkResult.finalUrl && linkResult.finalUrl !== linkResult.url" class="final-url">
-                → {{ linkResult.finalUrl }}
-              </span>
-              <span v-if="linkResult.error" class="error-text">{{ linkResult.error }}</span>
+            <div class="summary-item working">
+              <span class="count">{{ result.filter(r => r.status === 'working').length }}</span>
+              <span class="label">Working</span>
+            </div>
+            <div class="summary-item broken">
+              <span class="count">{{ result.filter(r => r.status === 'broken').length }}</span>
+              <span class="label">Broken</span>
+            </div>
+            <div class="summary-item error">
+              <span class="count">{{ result.filter(r => r.status === 'error').length }}</span>
+              <span class="label">Errors</span>
+            </div>
+          </div>
+
+          <div class="results-list">
+            <div
+              v-for="(linkResult, index) in result"
+              :key="index"
+              @click="selectResult(linkResult, index)"
+              :class="['result-item', linkResult.status, { selected: selectedIndex === index }]"
+            >
+              <div class="result-status">
+                <span class="status-dot" :class="linkResult.status"></span>
+                <span class="status-text">{{ getStatusText(linkResult.status) }}</span>
+              </div>
+              <div class="result-url">{{ linkResult.url }}</div>
+              <div class="result-meta">
+                <span v-if="linkResult.statusCode" class="status-code">{{ linkResult.statusCode }}</span>
+                <span class="response-time">{{ linkResult.responseTime }}ms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Panel: Selected Result Details -->
+        <div class="details-panel">
+          <div v-if="selectedResult" class="details-content">
+            <div class="details-header">
+              <h3>Link Details</h3>
+              <button
+                @click="reloadSelectedResult"
+                :disabled="loadingStates[selectedIndex]"
+                class="reload-btn"
+                title="Reload this link"
+              >
+                <img 
+                  v-if="!loadingStates[selectedIndex]" 
+                  src="/assets/reload.webp?url" 
+                  alt="reload"
+                />
+                <div v-else class="spinner"></div>
+                {{ loadingStates[selectedIndex] ? 'Reloading...' : 'Reload' }}
+              </button>
             </div>
 
-            <!-- Iframe Preview (only for working links) -->
-            <div v-if="linkResult.pageContent && includeProxy && linkResult.status === 'working'" class="iframe-container">
-              <div class="iframe-controls">
-                <button 
-                  @click="togglePreview(index)" 
-                  class="preview-toggle"
-                  type="button"
-                >
-                  {{ showingPreview[index] ? 'Hide Preview' : 'Show Preview' }}
-                </button>
-                <button 
-                  v-if="showingPreview[index]"
-                  @click="reloadSingleLink(linkResult.url, index)"
-                  :disabled="loadingStates[index]"
-                  class="reload-button"
-                  type="button"
-                  title="Reload this link"
-                >
-                  <img v-if="!loadingStates[index]" src="/assets/reload.webp?url" alt="reload" class="reload-icon" />
-                  <span v-else class="reload-spinner"></span>
-                  {{ loadingStates[index] ? 'Reloading...' : 'Reload' }}
-                </button>
-              </div>
-              <iframe 
-                v-if="showingPreview[index]"
-                :key="`iframe-${index}-${reloadKeys[index] || 0}`"
-                :srcdoc="linkResult.pageContent"
-                class="link-preview"
+            <a 
+              :href="selectedResult.url" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="detail-url"
+            >
+              {{ selectedResult.url }}
+            </a>
+            
+            <div class="detail-status" :class="selectedResult.status">
+              <span class="status-dot" :class="selectedResult.status"></span>
+              <span class="status-text">{{ getStatusText(selectedResult.status) }}</span>
+              <span v-if="selectedResult.statusCode" class="detail-status-code">
+                {{ selectedResult.statusCode }}
+              </span>
+              <span class="response-time">{{ selectedResult.responseTime }}ms</span>
+            </div>
+
+            <div v-if="selectedResult.error" class="detail-error">
+              <strong>Error:</strong> {{ selectedResult.error }}
+            </div>
+
+            <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="detail-redirect">
+              <strong>Redirects to:</strong> {{ selectedResult.finalUrl }}
+            </div>
+
+            <div v-if="mode === 'html' && (selectedResult.status === 'broken' || selectedResult.status === 'error')" class="code-location">
+              <h4>Code Location:</h4>
+              <pre class="code-snippet" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
+            </div>
+
+            <div v-if="selectedResult.pageContent && includeProxy && selectedResult.status === 'working'" class="preview-section">
+              <h4>Page Preview:</h4>
+              <iframe
+                :key="`detail-${selectedIndex}-${reloadKeys[selectedIndex] || 0}`"
+                :srcdoc="selectedResult.pageContent"
+                class="detail-preview"
                 sandbox="allow-scripts allow-same-origin"
                 title="Page Content Preview"
               ></iframe>
             </div>
 
-            <!-- Soft 404 Block (no preview) -->
-            <div v-else-if="linkResult.status === 'soft404'" class="iframe-container">
-              <div class="soft404-preview">
-                <p><strong>Soft 404 Detected:</strong> This page returns the homepage content instead of the requested page.</p>
-                <p class="soft404-explanation">
-                  The server responds with HTTP 200 but shows generic homepage content, indicating the requested page doesn't exist.
-                </p>
-                <button 
-                  @click="reloadSingleLink(linkResult.url, index)"
-                  :disabled="loadingStates[index]"
-                  class="retry-button"
-                  type="button"
-                >
-                  <img v-if="!loadingStates[index]" src="/assets/reload.webp?url" alt="reload" class="reload-icon" />
-                  <span v-else class="reload-spinner"></span>
-                  {{ loadingStates[index] ? 'Retrying...' : 'Retry Link' }}
-                </button>
-              </div>
+            <div v-if="selectedResult.status === 'soft404'" class="soft404-info">
+              <h4>Soft 404 Detected</h4>
+              <p>This page returns the homepage content instead of the requested page. The server responds with HTTP 200 but shows generic content, indicating the page doesn't exist.</p>
             </div>
+          </div>
 
-            <!-- Error Preview for Broken Links -->
-            <div v-else-if="(linkResult.status === 'broken' || linkResult.status === 'error') && includeProxy" class="iframe-container">
-              <div class="error-preview">
-                <p><strong>Cannot preview:</strong> {{ linkResult.error || 'Page not accessible' }}</p>
-                <button 
-                  @click="reloadSingleLink(linkResult.url, index)"
-                  :disabled="loadingStates[index]"
-                  class="retry-button"
-                  type="button"
-                >
-                  <img v-if="!loadingStates[index]" src="/assets/reload.webp?url" alt="reload" class="reload-icon" />
-                  <span v-else class="reload-spinner"></span>
-                  {{ loadingStates[index] ? 'Retrying...' : 'Retry Link' }}
-                </button>
-              </div>
-            </div>
-
-            <!-- Code Snippet for Broken Links in HTML Mode -->
-            <div v-if="(linkResult.status === 'broken' || linkResult.status === 'error') && mode === 'html'" class="code-snippet-container">
-              <button 
-                @click="showingPreview['code-' + index] = !showingPreview['code-' + index]"
-                class="code-snippet-toggle"
-                type="button"
-              >
-                {{ showingPreview['code-' + index] ? 'Hide Code' : 'Show Code Location' }}
-              </button>
-              <pre v-if="showingPreview['code-' + index]" class="code-snippet" v-html="getCodeSnippetForLink(linkResult.url)"></pre>
-            </div>
+          <div v-else class="no-selection">
+            <h3>Select a Link</h3>
+            <p>Click on any link from the left panel to view its details here.</p>
           </div>
         </div>
       </div>
@@ -715,14 +636,30 @@ Example:
 </template>
 
 <style scoped>
-.link-checker {
+/* Form Stage - Keep original width */
+.form-stage {
   max-width: 900px;
   margin: 0 auto;
   padding: 0 1rem;
 }
 
-/* Modern Pill Tabs */
-.input-mode-tabs {
+.results-stage {
+  width: 85vw !important;
+  margin: 2rem !important;
+  padding: 0 2rem !important;
+  position: static !important;
+  left: auto !important;
+  right: auto !important;
+  margin-left: -15vw !important;
+}
+
+
+.link-checker {
+  width: 100%;
+}
+
+/* Mode Tabs */
+.mode-tabs {
   display: flex;
   background: var(--vp-c-bg-soft, #f1f5f9);
   border-radius: 8px;
@@ -731,7 +668,7 @@ Example:
   width: fit-content;
 }
 
-.tab-btn {
+.tab {
   padding: 8px 16px;
   border: none;
   background: transparent;
@@ -741,28 +678,25 @@ Example:
   font-weight: 500;
   font-size: 0.875rem;
   transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
-.tab-btn.active {
+.tab.active {
   background: var(--vp-c-bg, #ffffff);
   color: var(--vp-c-text-1, #1e293b);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.tab-btn:hover:not(.active) {
+.tab:hover:not(.active) {
   color: var(--vp-c-text-1, #1e293b);
 }
 
-/* Form Styles */
+/* Form */
 .tool-form {
-  margin: 2rem 0;
-  padding: 1.5rem;
   background: var(--vp-c-bg-soft, #f8f9fa);
   border-radius: 12px;
   border: 1px solid var(--vp-c-border, #e5e7eb);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .form-group {
@@ -924,7 +858,7 @@ Example:
   margin: 0;
 }
 
-/* CAPTCHA Styles */
+/* CAPTCHA */
 .captcha-expired-message {
   background: #fff3cd;
   border: 1px solid #ffc107;
@@ -1013,7 +947,7 @@ Example:
   font-style: italic;
 }
 
-/* Button */
+/* Submit Button */
 .check-btn {
   background: var(--vp-c-brand);
   color: #ffffff;
@@ -1032,11 +966,6 @@ Example:
   background: var(--vp-c-brand-light);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(19, 176, 238, 0.25);
-}
-
-.check-btn:active:not(:disabled) {
-  background: var(--vp-c-brand-dark);
-  transform: translateY(0);
 }
 
 .check-btn:disabled {
@@ -1063,17 +992,16 @@ Example:
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  to { transform: rotate(360deg); }
 }
 
-/* Error Section */
+/* Error */
 .error-section {
   background: var(--vp-danger-soft, #f8d7da);
   color: var(--vp-c-danger-1, #721c24);
   padding: 1rem;
   border-radius: 8px;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
   border: 1px solid var(--vp-c-danger-2, #f5c6cb);
 }
 
@@ -1082,336 +1010,324 @@ Example:
   font-weight: 500;
 }
 
-/* Results Section */
-.result-section {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 12px;
-  background: var(--vp-c-bg, #ffffff);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+/* Results Header */
+.results-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
-.result-section h3 {
-  margin: 0 0 1.5rem 0;
-  color: var(--vp-c-text-1, #1a202c);
+.results-header h2 {
+  margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-}
-
-.result-section h4 {
-  margin: 0 0 1rem 0;
   color: var(--vp-c-text-1, #333);
-  font-size: 1.25rem;
-  font-weight: 600;
-  border-top: 1px solid var(--vp-c-border-soft, #eee);
-  padding-top: 1.5rem;
-  margin-top: 1.5rem;
 }
 
-.result-section h4:first-of-type {
-  border-top: none;
-  padding-top: 0;
-  margin-top: 0;
+.back-btn {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border: 1px solid var(--vp-c-border, #ddd);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--vp-c-text-1, #333);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
 }
 
-/* Summary */
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 1rem;
-  margin: 1rem 0;
+.back-btn:hover {
+  background: var(--vp-c-bg, #fff);
+  border-color: var(--vp-c-brand);
+}
+
+/* Split View - Much wider with better proportions */
+.split-view {
+  display: flex;
+  height: 750px;
+  background: var(--vp-c-bg, #fff);
+  border-radius: 12px;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  max-width: 1900px; /* Internal constraint within the expanded container */
+  margin: 0 auto;
+}
+
+.results-panel {
+  width: 450px;
+  min-width: 400px;
+  border-right: 1px solid var(--vp-c-border-soft, #eee);
+  background: var(--vp-c-bg-alt, #fafafa);
+  display: flex;
+  flex-direction: column;
+}
+
+.details-panel {
+  flex: 1;
+  background: var(--vp-c-bg, #fff);
+  overflow-y: auto;
+}
+
+/* Results Summary */
+.results-summary {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
+  background: var(--vp-c-bg, #fff);
 }
 
 .summary-item {
   text-align: center;
-  padding: 1rem;
-  border-radius: 8px;
+  padding: 0.6rem 0.5rem;
+  border-radius: 6px;
   background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  border: 1px solid var(--vp-c-border-soft, #eee);
+  flex: 1;
+  font-size: 0.85rem;
 }
+
+.summary-item.working { border-left: 3px solid #28a745; }
+.summary-item.broken { border-left: 3px solid #dc3545; }
+.summary-item.error { border-left: 3px solid #dc3545; }
 
 .summary-item .count {
   display: block;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-weight: bold;
   margin-bottom: 0.25rem;
 }
 
 .summary-item .label {
-  font-size: 0.875rem;
-  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.7rem;
+  color: var(--vp-c-text-2, #666);
 }
 
-.summary-item.total { background: var(--vp-c-bg-soft); color: var(--vp-c-text-1); }
-.summary-item.working { background: #d4edda; color: #155724; }
-.summary-item.broken { background: #f8d7da; color: #721c24; }
-.summary-item.redirects { background: #fff3cd; color: #856404; }
-
-/* Links Results */
-.links-results {
-  margin: 1rem 0;
+/* Results List */
+.results-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
 }
 
-.link-result {
-  border: 1px solid var(--vp-c-border, #e5e7eb);
+.result-item {
+  padding: 0.875rem;
+  margin-bottom: 0.5rem;
   border-radius: 8px;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  background: var(--vp-c-bg, #ffffff);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 0.5px solid gray;
 }
 
-.link-result.working { border-left: 4px solid #28a745; }
-.link-result.broken { border-left: 4px solid #dc3545; }
-.link-result.redirect { border-left: 4px solid #ffc107; }
-.link-result.soft404 { border-left: 4px solid #ffc107; }
-.link-result.error { border-left: 4px solid #dc3545; }
 
-.link-header {
+.result-item:hover {
+  background: var(--vp-c-bg, #fff);
+  border-color: var(--vp-c-border, #e5e7eb);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.result-item.selected {
+  background: var(--vp-c-bg, #fff);
+  border-color: var(--vp-c-brand, #3b82f6);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.result-item.working { border-left: 4px solid #28a745; }
+.result-item.broken { border-left: 4px solid #dc3545; }
+.result-item.error { border-left: 4px solid #dc3545; }
+.result-item.redirect { border-left: 4px solid #ffc107; }
+.result-item.soft404 { border-left: 4px solid #ffc107; }
+
+.result-status {
   display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
-.status-icon {
-  font-size: 0.875rem;
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ddd;
+}
+
+.status-dot.working { background: #28a745; }
+.status-dot.broken { background: #dc3545; }
+.status-dot.error { background: #dc3545; }
+.status-dot.redirect { background: #ffc107; }
+.status-dot.soft404 { background: #ffc107; }
+
+.status-text {
   font-weight: 600;
-  margin-top: 0.125rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  background: var(--vp-c-bg-soft);
-  color: var(--vp-c-text-2);
-}
-
-.link-info-detailed {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.link-url {
-  color: var(--vp-c-brand);
-  text-decoration: none;
-  word-break: break-all;
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.9rem;
-}
-
-.link-url:hover {
-  text-decoration: underline;
-}
-
-.anchor-text {
   font-size: 0.8rem;
-  color: var(--vp-c-text-2, #6b7280);
-  font-style: italic;
+}
+
+.result-url {
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-size: 0.75rem;
+  color: var(--vp-c-text-1, #333);
+  margin-bottom: 0.5rem;
+  word-break: break-all;
+  line-height: 1.3;
+}
+
+.result-meta {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  color: var(--vp-c-text-2, #666);
 }
 
 .status-code {
-  background: var(--vp-c-text-2, #6c757d);
-  color: white;
-  padding: 0.125rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  height: fit-content;
-}
-
-.status-code.soft404 {
-  background: #ffc107;
-  color: #000;
-}
-
-.link-details {
-  display: flex;
-  gap: 1rem;
-  font-size: 0.875rem;
-  color: var(--vp-c-text-2, #666);
-  flex-wrap: wrap;
-}
-
-.method {
-  background: var(--vp-c-bg-soft);
+  background: var(--vp-c-bg-soft, #f8f9fa);
   padding: 0.125rem 0.375rem;
   border-radius: 3px;
-  font-size: 0.75rem;
-  font-weight: 500;
 }
 
-.final-url {
-  color: var(--vp-c-brand);
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+/* Details Panel */
+.details-content {
+  padding: 2rem;
 }
 
-.error-text {
-  color: var(--vp-c-danger-1, #dc3545);
-  font-weight: 500;
-}
-
-/* Iframe Preview */
-.iframe-container {
-  margin-top: 1rem;
-  border-top: 1px solid var(--vp-c-border-soft, #eee);
-  padding-top: 1rem;
-}
-
-/* Iframe Controls */
-.iframe-controls {
+.details-header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
+}
+
+.details-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1, #333);
+}
+
+.reload-btn {
+  background: var(--vp-c-brand);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.75rem;
-  align-items: center;
-}
-
-.preview-toggle {
-  background: var(--vp-c-text-2, #6c757d);
-  color: white;
-  border: none;
-  padding: 0.375rem 0.75rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: background-color 0.2s ease;
-}
-
-.preview-toggle:hover {
-  background: var(--vp-c-text-1, #495057);
-}
-
-.reload-button, .retry-button {
-  background: var(--vp-c-brand, #007bff);
-  color: white;
-  border: none;
-  padding: 0.375rem 0.75rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
 }
 
-.reload-button:hover:not(:disabled), 
-.retry-button:hover:not(:disabled) {
-  background: var(--vp-c-brand-light, #0056b3);
-  transform: translateY(-1px);
+.reload-btn:hover:not(:disabled) {
+  background: var(--vp-c-brand-light);
 }
 
-.reload-button:disabled, 
-.retry-button:disabled {
-  background: var(--vp-c-bg-mute, #9ca3af);
+.reload-btn:disabled {
+  background: #999;
   cursor: not-allowed;
-  transform: none;
 }
 
-.retry-button {
-  background: var(--vp-c-warning, #ffc107);
-  color: #000;
+.reload-btn img {
+  width: 16px;
+  height: 16px;
 }
 
-.retry-button:hover:not(:disabled) {
-  background: #ffb300;
-}
-
-.reload-icon {
-  width: 12px;
-  height: 12px;
-}
-
-.reload-spinner {
-  width: 12px;
-  height: 12px;
+.spinner {
+  width: 16px;
+  height: 16px;
   border: 1.5px solid rgba(255, 255, 255, 0.3);
-  border-top: 1.5px solid currentColor;
+  border-top: 1.5px solid white;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
 
-.link-preview {
-  width: 100%;
-  height: 400px;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 6px;
-  background: white;
-}
-
-/* Soft 404 Preview */
-.soft404-preview {
-  background: #fff3cd;
-  color: #856404;
+.detail-url {
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-size: 1rem;
+  color: var(--vp-c-brand);
+  margin-bottom: 1.5rem;
+  word-break: break-all;
+  line-height: 1.4;
+  background: var(--vp-c-bg-soft, #f8f9fa);
   padding: 1rem;
   border-radius: 6px;
-  border: 1px solid #ffc107;
+  text-decoration: none;
+  display: block;
 }
 
-.soft404-preview p {
-  margin: 0 0 0.5rem 0;
+.detail-url:hover {
+  background: var(--vp-c-bg, #fff);
+  border: 1px solid var(--vp-c-brand);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.soft404-explanation {
-  font-size: 0.875rem;
-  font-style: italic;
-  margin-bottom: 1rem !important;
+.detail-status {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  background: var(--vp-c-bg-soft, #f8f9fa);
 }
 
-/* Error Preview */
-.error-preview {
+.detail-status .status-text {
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.detail-status-code {
+  background: var(--vp-c-bg, #fff);
+  padding: 0.5rem 0.75rem;
+  border-radius: 4px;
+  border: 1px solid var(--vp-c-border-soft, #eee);
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-size: 0.9rem;
+}
+
+.detail-error,
+.detail-redirect {
   background: #f8d7da;
   color: #721c24;
-  padding: 1rem;
-  border-radius: 6px;
-  border: 1px solid #f5c6cb;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
 }
 
-.error-preview p {
-  margin: 0;
-  flex: 1;
+.detail-redirect {
+  background: #fff3cd;
+  color: #856404;
 }
 
-/* Code Snippet */
-.code-snippet-container {
-  margin-top: 1rem;
-  border-top: 1px solid var(--vp-c-border-soft, #eee);
-  padding-top: 1rem;
+.code-location {
+  margin: 2rem 0;
 }
 
-.code-snippet-toggle {
-  background: var(--vp-c-bg-soft, #f1f5f9);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.375rem 0.75rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  margin-bottom: 0.75rem;
-  transition: background-color 0.2s ease;
-}
-
-.code-snippet-toggle:hover {
-  background: var(--vp-c-bg, #ffffff);
+.code-location h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
 }
 
 .code-snippet {
   background: #f8f9fa;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 6px;
-  padding: 1rem;
+  border: 1px solid var(--vp-c-border, #ddd);
+  border-radius: 8px;
+  padding: 1.5rem;
   font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.875rem;
+  font-size: 0.85rem;
   overflow-x: auto;
   white-space: pre-wrap;
   line-height: 1.5;
+  margin: 0;
 }
 
 .line-number {
-  color: var(--vp-c-text-2, #6b7280);
+  color: var(--vp-c-text-2, #666);
   margin-right: 1rem;
   user-select: none;
 }
@@ -1422,10 +1338,69 @@ Example:
   border-radius: 3px;
 }
 
+.preview-section {
+  margin: 2rem 0;
+}
+
+.preview-section h4 {
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.detail-preview {
+  width: 100%;
+  height: 600px;
+  border: 1px solid var(--vp-c-border, #ddd);
+  border-radius: 8px;
+  background: white;
+}
+
+.soft404-info {
+  background: #fff3cd;
+  color: #856404;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+.soft404-info h4 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.soft404-info p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.no-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: var(--vp-c-text-2, #666);
+}
+
+.no-selection h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.no-selection p {
+  margin: 0;
+  font-size: 1rem;
+}
+
 /* Info tip styles */
 .info-tip {
   display: inline-block;
-  margin-left: .3rem;
+  margin-left: 0.3rem;
   width: 1rem;
   height: 1rem;
   line-height: 1rem;
@@ -1433,7 +1408,7 @@ Example:
   border-radius: 50%;
   background: var(--vp-c-brand);
   color: #fff;
-  font-size: .675rem;
+  font-size: 0.675rem;
   cursor: help;
   position: relative;
   vertical-align: middle;
@@ -1448,16 +1423,16 @@ Example:
   transform: translateX(-50%);
   width: max-content;
   max-width: min(300px, 90vw);
-  padding: .8rem 1rem;
+  padding: 0.8rem 1rem;
   border-radius: 8px;
   background: var(--vp-c-bg, #ffffff);
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   color: var(--vp-c-text-1, #374151);
-  font-size: .825rem;
+  font-size: 0.825rem;
   line-height: 1.5;
   z-index: 1000;
-  transition: opacity .2s ease, transform .2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
   transform: translateX(-50%) translateY(-4px);
   word-wrap: break-word;
   hyphens: auto;
@@ -1485,15 +1460,71 @@ Example:
 }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .link-checker {
-    padding: 0 0.5rem;
+@media (max-width: 1800px) {
+  .detail-preview {
+    height: 500px;
+  }
+}
+
+@media (max-width: 1400px) {
+  .results-panel {
+    width: 400px;
+    min-width: 350px;
   }
   
-  .tool-form,
-  .result-section {
+  .detail-preview {
+    height: 450px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .results-stage {
+    /* Reset the viewport-breaking styles on mobile */
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    max-width: 1000px !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .split-view {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .results-panel {
+    width: 100%;
+    max-height: 350px;
+    border-right: none;
+    border-bottom: 1px solid var(--vp-c-border-soft, #eee);
+  }
+
+  .details-panel {
+    min-height: 500px;
+  }
+  
+  .detail-preview {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-stage {
+    padding: 0 0.5rem;
+  }
+
+  .results-stage {
+    padding: 0 0.5rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  .tool-form {
     padding: 1rem;
-    margin: 1rem 0;
   }
 
   .form-options {
@@ -1506,39 +1537,28 @@ Example:
     justify-content: space-between;
   }
 
-  .summary-grid {
-    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-    gap: 0.5rem;
-  }
-
-  .summary-item {
-    padding: 0.75rem 0.5rem;
-  }
-
-  .link-header {
+  .results-summary {
     flex-wrap: wrap;
-  }
-
-  .link-details {
-    flex-direction: column;
     gap: 0.5rem;
   }
 
-  .link-preview,
-  .html-template-preview {
+  .html-template-preview,
+  .detail-preview {
     height: 300px;
   }
 
-  .iframe-controls {
+  .details-header {
     flex-direction: column;
+    gap: 1rem;
     align-items: stretch;
   }
-  
-  .error-preview,
-  .soft404-preview {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
+
+  .split-view {
+    height: auto;
+  }
+
+  .details-content {
+    padding: 1rem;
   }
 
   .info-tip-pop {
@@ -1552,38 +1572,15 @@ Example:
     max-width: none !important;
     z-index: 9999;
   }
-  
+
   .info-tip-pop::before {
     display: none;
   }
-  
+
   .info-tip:hover .info-tip-pop,
   .info-tip:focus .info-tip-pop {
     transform: none !important;
   }
 }
-
-/* Dark mode adjustments */
-@media (prefers-color-scheme: dark) {
-  .refresh-captcha-btn {
-    background: var(--vp-c-bg-soft);
-    border-color: var(--vp-c-border);
-    color: var(--vp-c-text-1);
-  }
-  
-  .refresh-captcha-btn:hover:not(:disabled) {
-    border-color: var(--vp-c-brand);
-  }
-  
-  .info-tip-pop {
-    background: var(--vp-c-bg-soft, #252736);
-    border-color: var(--vp-c-border, #404040);
-    box-shadow: 0 8px 24px rgba(0,0,0,.3);
-  }
-  
-  .info-tip-pop::before {
-    background: var(--vp-c-bg-soft, #252736);
-    border-color: var(--vp-c-border, #404040);
-  }
-}
 </style>
+
