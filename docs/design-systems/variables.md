@@ -59,7 +59,7 @@ Color variables store reusable colors, such as primary colors, neutrals, and acc
 - **Main variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
 
 **Managing color variables**
-- **Create**: Click "Create" to add a new color.
+- **Create**: Click "Create" to add a new color. Select either "From Scratch" or "Copy & Paste". 
 - **Edit**: Click the pencil icon to change the color name or value.
 - **Delete**: Click the trash icon to remove a color.
 - **Preview**: Click the eye icon to see where the color is used in templates/blocks.
@@ -74,7 +74,7 @@ Font variables define typography styles applied across templates. Each variable 
 - **Main variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
 
 **Managing font variables**
-- **Create**: Click "Create" to add a new font.
+- **Create**: Click "Create" to add a new font. Select either "From Scratch" or "Copy & Paste".
 - **Edit**: Modify font styles by clicking the pencil icon.
 - **Delete**: Remove fonts by clicking the trash icon.
 - **Preview**: See where the font is used by clicking the eye icon.
@@ -90,7 +90,7 @@ Image variables store reusable images (e.g., brand logos, background images).
 
 **Managing image variables**
 - **Copy**: Copy the image link by clicking the link icon.
-- **Create**: Click "Create" to add a new image.
+- **Create**: Click "Create" to add a new image. Select either "From Scratch" or "Copy & Paste".
 - **Edit**: Modify the image by clicking the pencil icon.
 - **Delete**: Remove image by clicking the trash icon.
 - **Preview**: See where the image is used by clicking the eye icon.
@@ -105,7 +105,7 @@ Text variables store reusable text elements, such as company slogans, default he
 - **Main variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
 
 **Managing text variables**
-- **Create**: Click "Create" to add a new text.
+- **Create**: Click "Create" to add a new text. Select either "From Scratch" or "Copy & Paste".
 - **Edit**: Modify text by clicking the pencil icon.
 - **Delete**: Remove text by clicking the trash icon.
 - **Preview**: See where the text is used by clicking the eye icon.
@@ -120,7 +120,7 @@ Link variables store reusable URLs, such as website links, social media profiles
 - **Main Variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
 
 **Managing text variables**
-- **Create**: Click "Create" to add a new link.
+- **Create**: Click "Create" to add a new link. Select either "From Scratch" or "Copy & Paste".
 - **Edit**: Modify link by clicking the pencil icon.
 - **Delete**: Remove link by clicking the trash icon.
 - **Preview**: See where the link is used by clicking the eye icon.
