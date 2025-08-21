@@ -8,7 +8,6 @@ import {
   markCaptchaSolved
 } from './helpers/captchaHandler.js'
 
-// ---- State ----
 const mode = ref('urls')
 const rawUrls = ref('')
 const htmlTemplate = ref('')
@@ -20,11 +19,9 @@ const result = ref(null)
 const errorMessage = ref('')
 const extractedLinks = ref([])
 
-// Split view state for results
 const selectedResult = ref(null)
 const selectedIndex = ref(0)
 
-// Captcha state
 const captchaProbe = ref(null)
 const captchaImage = ref(null)
 const captchaExpires = ref(0)
@@ -33,7 +30,6 @@ const captchaLoading = ref(false)
 const loadingStates = ref({})
 const reloadKeys = ref({})
 
-// ---- Computed ----
 const now = () => Math.floor(Date.now() / 1000)
 const isProbeExpired = computed(() => !captchaProbe.value || now() > captchaExpires.value)
 const isSolved = computed(() => captchaSolvedUntil.value > now() && !isProbeExpired.value)
@@ -44,7 +40,6 @@ const isFormDisabled = computed(() =>
   loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
 )
 
-// Auto-select first result when results load
 watch(result, (newResult) => {
   if (newResult && newResult.length > 0) {
     selectedIndex.value = 0
@@ -52,7 +47,6 @@ watch(result, (newResult) => {
   }
 })
 
-// ---- Functions ----
 function extractLinksFromText(text) {
   if (!text || typeof text !== 'string') return []
   const urlRegex = /\bhttps?:\/\/[^\s)<>"']+/gi
@@ -96,14 +90,6 @@ function getStatusText(status) {
   return map[status] || 'Unknown'
 }
 
-function getStatusColor(status) {
-  const map = {
-    working: '#28a745', broken: '#dc3545', error: '#dc3545',
-    redirect: '#ffc107', soft404: '#ffc107'
-  }
-  return map[status] || '#6c757d'
-}
-
 function selectResult(resultItem, index) {
   selectedResult.value = resultItem
   selectedIndex.value = index
@@ -129,7 +115,6 @@ function getCodeSnippetForLink(url) {
   }).join('\n')
 }
 
-// Captcha functions
 function loadCaptchaState() {
   const stored = loadCaptchaFromStorage()
   captchaProbe.value = stored.probe
@@ -255,7 +240,7 @@ async function checkLinksHandler() {
     captchaText.value = ''
     markSolved()
 
-     await nextTick()
+    await nextTick()
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
@@ -278,7 +263,6 @@ function resetToForm() {
   selectedIndex.value = 0
 }
 
-// ---- Watches ----
 watch([mode, rawUrls, htmlTemplate], updateExtractedLinks, { immediate: true })
 watch(mode, () => { result.value = null })
 watch(isProbeExpired, (expired, prev) => {
@@ -302,7 +286,6 @@ onMounted(async () => {
 
 <template>
   <div class="link-checker">
-    <!-- Form Stage -->
     <div v-if="!result" class="form-stage">
       <div class="mode-tabs">
         <button 
@@ -321,7 +304,6 @@ onMounted(async () => {
 
       <div class="tool-form">
         <form @submit.prevent="checkLinksHandler">
-          <!-- URLs Input -->
           <div v-if="mode === 'urls'" class="form-group">
             <label for="rawUrlsInput">URLs to Check:</label>
             <textarea
@@ -337,7 +319,6 @@ onMounted(async () => {
             </small>
           </div>
 
-          <!-- HTML Template Input -->
           <div v-else class="form-group">
             <label for="htmlTemplate">HTML Email Template:</label>
             <textarea
@@ -361,7 +342,6 @@ Example:
             </small>
           </div>
 
-          <!-- HTML Template Live Preview -->
           <div v-if="mode === 'html' && htmlTemplate.trim()" class="form-group">
             <label>HTML Template Preview:</label>
             <iframe
@@ -375,7 +355,6 @@ Example:
             </small>
           </div>
 
-          <!-- Extracted Links Preview -->
           <div v-if="extractedLinks.length > 0" class="form-group">
             <label>Extracted Links ({{ extractedLinks.length }}):</label>
             <div class="extracted-links">
@@ -395,7 +374,6 @@ Example:
             </small>
           </div>
 
-          <!-- No Links Found Warning -->
           <div v-else-if="(mode === 'urls' ? rawUrls.trim() : htmlTemplate.trim())" class="form-group">
             <div class="no-links-warning">
               <p>Warning: No valid links found in your {{ mode === 'urls' ? 'URL list' : 'HTML template' }}.</p>
@@ -404,7 +382,6 @@ Example:
             </div>
           </div>
 
-          <!-- Options -->
           <div class="form-group">
             <div class="form-options">
               <div class="option-group">
@@ -435,12 +412,10 @@ Example:
             </div>
           </div>
 
-          <!-- Expired probe notice -->
           <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
             Your verification has expired. Please refresh the captcha below.
           </div>
 
-          <!-- CAPTCHA -->
           <div v-if="shouldShowCaptcha" class="form-group">
             <label for="captcha">Security Verification:</label>
             <div class="captcha-container">
@@ -483,7 +458,6 @@ Example:
             </small>
           </div>
 
-          <!-- Submit -->
           <button
             type="submit"
             class="check-btn"
@@ -503,9 +477,7 @@ Example:
       </div>
     </div>
 
-    <!-- Results Split View Stage -->
     <div v-else class="results-stage">
-      <!-- Results Header -->
       <div class="results-header">
         <h2>Link Check Results</h2>
         <button @click="resetToForm" class="back-btn">
@@ -513,9 +485,7 @@ Example:
         </button>
       </div>
 
-      <!-- Split View Container -->
       <div class="split-view">
-        <!-- Left Panel: Results List -->
         <div class="results-panel">
           <div class="results-summary">
             <div class="summary-item">
@@ -556,7 +526,6 @@ Example:
           </div>
         </div>
 
-        <!-- Right Panel: Selected Result Details -->
         <div class="details-panel">
           <div v-if="selectedResult" class="details-content">
             <div class="details-header">
@@ -636,7 +605,6 @@ Example:
 </template>
 
 <style scoped>
-/* Form Stage - Keep original width */
 .form-stage {
   max-width: 900px;
   margin: 0 auto;
@@ -653,12 +621,10 @@ Example:
   margin-left: -15vw !important;
 }
 
-
 .link-checker {
   width: 100%;
 }
 
-/* Mode Tabs */
 .mode-tabs {
   display: flex;
   background: var(--vp-c-bg-soft, #f1f5f9);
@@ -690,7 +656,6 @@ Example:
   color: var(--vp-c-text-1, #1e293b);
 }
 
-/* Form */
 .tool-form {
   background: var(--vp-c-bg-soft, #f8f9fa);
   border-radius: 12px;
@@ -753,7 +718,6 @@ Example:
   line-height: 1.4;
 }
 
-/* HTML Template Preview */
 .html-template-preview {
   width: 100%;
   height: 300px;
@@ -763,7 +727,6 @@ Example:
   margin-bottom: 0.5rem;
 }
 
-/* Extracted Links Preview */
 .extracted-links {
   max-height: 200px;
   overflow-y: auto;
@@ -817,7 +780,6 @@ Example:
   font-size: 0.875rem;
 }
 
-/* Form Options */
 .form-options {
   display: flex;
   gap: 2rem;
@@ -858,7 +820,6 @@ Example:
   margin: 0;
 }
 
-/* CAPTCHA */
 .captcha-expired-message {
   background: #fff3cd;
   border: 1px solid #ffc107;
@@ -947,7 +908,6 @@ Example:
   font-style: italic;
 }
 
-/* Submit Button */
 .check-btn {
   background: var(--vp-c-brand);
   color: #ffffff;
@@ -995,7 +955,6 @@ Example:
   to { transform: rotate(360deg); }
 }
 
-/* Error */
 .error-section {
   background: var(--vp-danger-soft, #f8d7da);
   color: var(--vp-c-danger-1, #721c24);
@@ -1010,7 +969,6 @@ Example:
   font-weight: 500;
 }
 
-/* Results Header */
 .results-header {
   display: flex;
   justify-content: space-between;
@@ -1041,7 +999,6 @@ Example:
   border-color: var(--vp-c-brand);
 }
 
-/* Split View - Much wider with better proportions */
 .split-view {
   display: flex;
   height: 750px;
@@ -1050,7 +1007,7 @@ Example:
   border: 1px solid var(--vp-c-border, #e5e7eb);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   overflow: hidden;
-  max-width: 1900px; /* Internal constraint within the expanded container */
+  max-width: 1900px;
   margin: 0 auto;
 }
 
@@ -1069,7 +1026,6 @@ Example:
   overflow-y: auto;
 }
 
-/* Results Summary */
 .results-summary {
   display: flex;
   gap: 0.75rem;
@@ -1104,7 +1060,6 @@ Example:
   color: var(--vp-c-text-2, #666);
 }
 
-/* Results List */
 .results-list {
   flex: 1;
   overflow-y: auto;
@@ -1119,7 +1074,6 @@ Example:
   transition: all 0.2s ease;
   border: 0.5px solid gray;
 }
-
 
 .result-item:hover {
   background: var(--vp-c-bg, #fff);
@@ -1186,7 +1140,6 @@ Example:
   border-radius: 3px;
 }
 
-/* Details Panel */
 .details-content {
   padding: 2rem;
 }
@@ -1397,7 +1350,6 @@ Example:
   font-size: 1rem;
 }
 
-/* Info tip styles */
 .info-tip {
   display: inline-block;
   margin-left: 0.3rem;
@@ -1459,7 +1411,6 @@ Example:
   transform: translateX(-50%) translateY(0);
 }
 
-/* Responsive */
 @media (max-width: 1800px) {
   .detail-preview {
     height: 500px;
@@ -1479,7 +1430,6 @@ Example:
 
 @media (max-width: 1024px) {
   .results-stage {
-    /* Reset the viewport-breaking styles on mobile */
     position: static !important;
     left: auto !important;
     right: auto !important;
@@ -1583,4 +1533,3 @@ Example:
   }
 }
 </style>
-
