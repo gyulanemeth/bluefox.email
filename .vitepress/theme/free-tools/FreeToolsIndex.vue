@@ -6,6 +6,11 @@ const props = defineProps({
     type: String,
     default: 'category',
     validator: (value) => ['main', 'category'].includes(value)
+  },
+  category: {
+    type: String,
+    default: 'deliverability',
+    validator: (value) => ['deliverability', 'content'].includes(value)
   }
 })
 
@@ -17,16 +22,6 @@ const navigateToItem = (link) => {
     window.location.href = link
   }
 }
-
-// Available categories
-const availableCategories = [
-  {
-    name: 'Email Deliverability Tools',
-    description: 'Check your domain\'s email authentication setup with DMARC, SPF, DKIM, and MX record checkers.',
-    toolCount: 5,
-    link: '/tools/deliverability/'
-  }
-]
 
 // Deliverability tools - clean, professional design
 const deliverabilityTools = [
@@ -66,8 +61,48 @@ const deliverabilityTools = [
     category: 'analytics'
   }
 ]
+
+// Content tools
+const contentTools = [
+  {
+    name: 'Link Checker',
+    description: 'Validate your email links and ensure your email content is working correctly.',
+    link: '/tools/content/link-checker',
+    features: ['URL Validation'],
+    category: 'validation'
+  },
+]
+
+// Dynamic tool counts - automatically update when you modify the arrays above
+const deliverabilityToolCount = computed(() => deliverabilityTools.length)
+const contentToolCount = computed(() => contentTools.length)
+
+// Available categories with dynamic tool counts
+const availableCategories = computed(() => [
+  {
+    name: 'Email Deliverability Tools',
+    description: 'Check your domain\'s email authentication setup with DMARC, SPF, DKIM, and MX record checkers.',
+    toolCount: deliverabilityToolCount.value,
+    link: '/tools/deliverability/'
+  },
+  {
+    name: 'Content Creation Tools',
+    description: 'Free tools to help you create, analyze, and improve online content.',
+    toolCount: contentToolCount.value,
+    link: '/tools/content/'
+  }
+])
+
+// Get current tools based on category
+const currentTools = computed(() => {
+  if (props.category === 'content') {
+    return contentTools
+  }
+  return deliverabilityTools
+})
 </script>
 
+<!-- Template and styles remain exactly the same -->
 <template>
   <div class="tools-container">
     <!-- Main Level: Tool Categories -->
@@ -94,7 +129,7 @@ const deliverabilityTools = [
     <!-- Category Level: Individual Tools -->
     <div v-if="isCategoryLevel" class="tools-grid">
       <div 
-        v-for="tool in deliverabilityTools" 
+        v-for="tool in currentTools" 
         :key="tool.name"
         class="tool-card"
         :class="`category-${tool.category}`"
@@ -129,7 +164,7 @@ const deliverabilityTools = [
 /* Category Grid (Main Level) */
 .category-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 2rem;
   margin: 2rem 0;
 }
@@ -212,7 +247,7 @@ const deliverabilityTools = [
   min-height: 200px;
 }
 
-/* Category-based accent colors */
+/* Deliverability category colors */
 .tool-card.category-authentication {
   border-left: 3px solid #10b981;
 }
@@ -223,6 +258,23 @@ const deliverabilityTools = [
 
 .tool-card.category-analytics {
   border-left: 3px solid #8b5cf6;
+}
+
+/* Content tools category colors */
+.tool-card.category-validation {
+  border-left: 3px solid #f59e0b;
+}
+
+.tool-card.category-quality {
+  border-left: 3px solid #06b6d4;
+}
+
+.tool-card.category-analysis {
+  border-left: 3px solid #84cc16;
+}
+
+.tool-card.category-seo {
+  border-left: 3px solid #ec4899;
 }
 
 /* Diagonal pop-out effect for tool cards */
