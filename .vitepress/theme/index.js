@@ -85,5 +85,6 @@ export default {
     app.component('SpfChecker', SpfChecker)
     app.component('MxChecker', MxChecker)
     app.component('DmarcReportAnalyzer', DmarcReportAnalyzer)
+    app.component('LinkChecker', LinkChecker)
   },
 }
