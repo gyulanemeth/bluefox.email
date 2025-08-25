@@ -8,7 +8,6 @@ import {
   markCaptchaSolved
 } from './helpers/captchaHandler.js'
 
-// Removed mode ref since we only have HTML template now
 const htmlTemplate = ref('')
 const captchaText = ref('')
 const loading = ref(false)
@@ -27,12 +26,11 @@ const captchaLoading = ref(false)
 const loadingStates = ref({})
 const reloadKeys = ref({})
 
-// Preview mode toggle
-const previewMode = ref('desktop') // 'desktop' or 'mobile'
+const previewMode = ref('desktop')
+const templatePreviewMode = ref('desktop')
+const activeDetailsTab = ref('page-preview')
 
-// Fixed timeout to 10 seconds
 const timeout = 10000
-// Always include proxy content for preview
 const includeProxy = true
 
 const now = () => Math.floor(Date.now() / 1000)
@@ -88,6 +86,7 @@ function getStatusText(status) {
 function selectResult(resultItem, index) {
   selectedResult.value = resultItem
   selectedIndex.value = index
+  activeDetailsTab.value = 'page-preview'
 }
 
 function getCodeSnippetForLink(url) {
@@ -110,18 +109,15 @@ function getCodeSnippetForLink(url) {
   }).join('\n')
 }
 
-// Enhanced copy to clipboard functionality with visual feedback
 async function copyToClipboard(text, event = null) {
   try {
     await navigator.clipboard.writeText(text)
     
-    // Visual feedback for the button that was clicked
     let button = null
     
     if (event && event.target) {
       button = event.target.closest('button')
     } else {
-      // Find button for extracted links or detail copy
       const buttons = document.querySelectorAll('.copy-link-btn, .copy-detail-btn')
       buttons.forEach(btn => {
         if (btn.title && btn.title.includes(text)) {
@@ -139,7 +135,6 @@ async function copyToClipboard(text, event = null) {
     
     return true
   } catch {
-    // Fallback for older browsers
     const textArea = document.createElement('textarea')
     textArea.value = text
     document.body.appendChild(textArea)
@@ -150,9 +145,52 @@ async function copyToClipboard(text, event = null) {
   }
 }
 
-// Preview mode functions
 function setPreviewMode(mode) {
   previewMode.value = mode
+}
+
+function setTemplatePreviewMode(mode) {
+  templatePreviewMode.value = mode
+}
+
+function setActiveDetailsTab(tab) {
+  activeDetailsTab.value = tab
+}
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+function getHighlightedTemplate(targetUrl) {
+  if (!htmlTemplate.value || !targetUrl) return ''
+  
+  let highlightedHtml = htmlTemplate.value
+  
+  const escapedUrl = escapeRegExp(targetUrl)
+  const linkRegex = new RegExp(`(<a[^>]*href=["']${escapedUrl}["'][^>]*>)`, 'gi')
+  
+  highlightedHtml = highlightedHtml.replace(linkRegex, (match) => {
+    return match.replace('<a', '<a style="border: 5px solid #dc3545 !important; padding: 4px 6px !important; border-radius: 4px !important; box-shadow: 0 0 12px rgba(220, 53, 69, 0.4) !important;"')
+  })
+  
+  const highlightedTemplate = `
+    <style>
+      a[href="${targetUrl}"] {
+        border: 5px solid #dc3545 !important;
+        padding: 4px 6px !important;
+        border-radius: 4px !important;
+        box-shadow: 0 0 12px rgba(220, 53, 69, 0.4) !important;
+      }
+      
+      body {
+        margin: 8px !important;
+        padding: 8px !important;
+      }
+    </style>
+    ${highlightedHtml}
+  `
+  
+  return highlightedTemplate
 }
 
 function loadCaptchaState() {
@@ -593,7 +631,7 @@ Example:
               </div>
 
               <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="detail-redirect">
-                <strong>Redirects to: </strong> 
+                <strong>Redirects to:</strong> 
                 <span class="redirect-url" :title="selectedResult.finalUrl">{{ selectedResult.finalUrl }}</span>
               </div>
 
@@ -602,18 +640,91 @@ Example:
                 <pre class="code-snippet" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
               </div>
 
-              <div v-if="selectedResult.pageContent && selectedResult.status === 'working'" class="preview-section">
-                <h4>Page Preview:</h4>
-                <iframe
-                  :key="`detail-${selectedIndex}-${reloadKeys[selectedIndex] || 0}`"
-                  :srcdoc="selectedResult.pageContent"
-                  class="detail-preview"
-                  sandbox="allow-scripts allow-same-origin"
-                  title="Page Content Preview"
-                ></iframe>
-                <small class="form-help mobile-only-message preview-hidden-message">
-                  Page preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the full page preview.
-                </small>
+              <div v-if="selectedResult && selectedResult.status !== 'error'" class="preview-tabs-section">
+                <div class="preview-tabs-header">
+                  <div class="preview-tabs-nav">
+                    <button
+                      @click="setActiveDetailsTab('page-preview')"
+                      :class="['preview-tab-btn', { active: activeDetailsTab === 'page-preview' }]"
+                      v-if="selectedResult.pageContent && selectedResult.status === 'working'"
+                    >
+                      <span>Page Preview</span>
+                    </button>
+                    <button
+                      @click="setActiveDetailsTab('template-preview')"
+                      :class="['preview-tab-btn', { active: activeDetailsTab === 'template-preview' }]"
+                    >
+                      <span>Link Location</span>
+                    </button>
+                  </div>
+                </div>
+
+                <div class="preview-tabs-content">
+                  <div v-if="activeDetailsTab === 'page-preview'" class="preview-tab-panel">
+                    <div v-if="selectedResult.pageContent && selectedResult.status === 'working'">
+                      <div class="tab-panel-header">
+                        <h4>Page Content Preview</h4>
+                        <small class="tab-panel-help">Live preview of the destination page</small>
+                      </div>
+                      <div class="page-preview-container">
+                        <iframe
+                          :key="`detail-${selectedIndex}-${reloadKeys[selectedIndex] || 0}`"
+                          :srcdoc="selectedResult.pageContent"
+                          class="detail-preview"
+                          sandbox="allow-scripts allow-same-origin"
+                          title="Page Content Preview"
+                        ></iframe>
+                      </div>
+                      <small class="form-help mobile-only-message preview-hidden-message">
+                        Page preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the full page preview.
+                      </small>
+                    </div>
+                    <div v-else class="no-preview-content">
+                      <h4>No Page Preview Available</h4>
+                      <p>Page preview is only available for working links that return content.</p>
+                    </div>
+                  </div>
+
+                  <div v-if="activeDetailsTab === 'template-preview'" class="preview-tab-panel">
+                    <div class="tab-panel-header">
+                      <h4>Template Preview - Link Location</h4>
+                      <div class="template-preview-switcher">
+                        <button
+                          type="button"
+                          @click="setTemplatePreviewMode('desktop')"
+                          :class="['template-preview-btn', { active: templatePreviewMode === 'desktop' }]"
+                          title="Desktop Template Preview"
+                        >
+                          <img src="/assets/monitor.webp?url" alt="desktop" />
+                          <span>Desktop</span>
+                        </button>
+                        <button
+                          type="button"
+                          @click="setTemplatePreviewMode('mobile')"
+                          :class="['template-preview-btn', { active: templatePreviewMode === 'mobile' }]"
+                          title="Mobile Template Preview"
+                        >
+                          <img src="/assets/cellphone.webp?url" alt="mobile" />
+                          <span>Mobile</span>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="template-preview-container">
+                      <iframe
+                        :srcdoc="getHighlightedTemplate(selectedResult.url)"
+                        :class="['template-preview-iframe', templatePreviewMode]"
+                        sandbox="allow-scripts allow-same-origin"
+                        title="Template Preview with Highlighted Link"
+                      ></iframe>
+                    </div>
+                    <small class="tab-panel-help template-preview-mobile-hidden">
+                      Original template with the selected link highlighted with a red border. Switch views to see how it appears on different devices.
+                    </small>
+                    <small class="tab-panel-help template-preview-mobile-only">
+                      Template preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the highlighted template.
+                    </small>
+                  </div>
+                </div>
               </div>
 
               <div v-if="selectedResult.status === 'soft404'" class="soft404-info">
@@ -883,7 +994,7 @@ Example:
 
 .detail-preview {
   width: 100%;
-  height: 1200px;
+  height: 600px;
   border: 1px solid var(--vp-c-border, #ddd);
   border-radius: 8px;
   background: white;
@@ -1506,14 +1617,218 @@ Example:
   border-radius: 3px;
 }
 
-.preview-section {
+.preview-tabs-section {
   margin: 2rem 0;
 }
 
-.preview-section h4 {
-  margin: 0 0 1rem 0;
+.preview-tabs-header {
+  margin-bottom: 1.5rem;
+}
+
+.preview-tabs-nav {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--vp-c-border-soft, #eee);
+  padding-bottom: 0.5rem;
+}
+
+.preview-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border: none;
+  background: transparent;
+  color: var(--vp-c-text-2, #64748b);
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  position: relative;
+}
+
+.preview-tab-btn.active {
+  background: var(--vp-c-brand);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.preview-tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--vp-c-brand);
+}
+
+.preview-tab-btn:hover:not(.active) {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  color: var(--vp-c-text-1, #1e293b);
+}
+
+.preview-tabs-content {
+  min-height: 400px;
+}
+
+.preview-tab-panel {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tab-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
+}
+
+.tab-panel-header h4 {
+  margin: 0;
   font-size: 1rem;
   font-weight: 600;
+  color: var(--vp-c-text-1, #333);
+}
+
+.tab-panel-help {
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.page-preview-container {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 8px;
+  padding: 1.5rem;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+}
+
+.template-preview-switcher {
+  display: flex;
+  background: var(--vp-c-bg-soft, #f1f5f9);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+}
+
+.template-preview-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: none;
+  background: transparent;
+  color: var(--vp-c-text-2, #64748b);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.template-preview-btn img {
+  width: 14px;
+  height: 14px;
+  opacity: 0.7;
+}
+
+.template-preview-btn.active {
+  background: var(--vp-c-brand);
+  color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.template-preview-btn.active img {
+  opacity: 1;
+  filter: brightness(0) invert(1);
+}
+
+.template-preview-btn:hover:not(.active) {
+  color: var(--vp-c-text-1, #1e293b);
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.template-preview-btn:hover:not(.active) img {
+  opacity: 1;
+}
+
+.template-preview-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+}
+
+.template-preview-iframe {
+  height: 500px;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.template-preview-iframe.desktop {
+  width: 100%;
+  max-width: 800px;
+}
+
+.template-preview-iframe.mobile {
+  width: 320px;
+  max-width: 320px;
+}
+
+.template-preview-mobile-hidden {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--vp-c-text-2, #6b7280);
+}
+
+.template-preview-mobile-only {
+  display: none;
+  font-size: 0.8rem;
+  color: var(--vp-c-text-2, #6b7280);
+}
+
+.no-preview-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  text-align: center;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 12px;
+  padding: 2rem;
+  border: 2px dashed var(--vp-c-border, #e5e7eb);
+}
+
+.no-preview-content h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--vp-c-text-1, #333);
+  font-size: 1.1rem;
+}
+
+.no-preview-content p {
+  margin: 0;
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.9rem;
 }
 
 .soft404-info {
@@ -1688,11 +2003,23 @@ Example:
     display: none !important;
   }
 
+  .preview-tabs-section {
+    display: none !important;
+  }
+
   .mobile-hidden-message {
     display: none !important;
   }
 
   .mobile-only-message {
+    display: block !important;
+  }
+
+  .template-preview-mobile-hidden {
+    display: none !important;
+  }
+  
+  .template-preview-mobile-only {
     display: block !important;
   }
 
@@ -2049,6 +2376,10 @@ Example:
     display: flex;
   }
 
+  .preview-tabs-section {
+    display: block;
+  }
+
   .mobile-hidden-message {
     display: block;
   }
@@ -2057,14 +2388,31 @@ Example:
     display: none;
   }
 
+  .template-preview-mobile-hidden {
+    display: block;
+  }
+  
+  .template-preview-mobile-only {
+    display: none;
+  }
+
   .html-template-preview.mobile {
     width: 300px;
     max-width: 300px;
   }
 
+  .template-preview-iframe.mobile {
+    width: 280px;
+    max-width: 280px;
+  }
+
+  .template-preview-iframe {
+    height: 400px;
+  }
+
   .detail-preview {
     display: block;
-    height: 700px;
+    height: 500px;
   }
 
   .details-header {
@@ -2093,11 +2441,16 @@ Example:
     width: 375px;
     max-width: 375px;
   }
+
+  .template-preview-iframe.mobile {
+    width: 320px;
+    max-width: 320px;
+  }
 }
 
 @media (max-width: 1800px) {
   .detail-preview {
-    height: 1000px;
+    height: 600px;
   }
   
   .split-view {
@@ -2116,8 +2469,7 @@ Example:
   }
   
   .detail-preview {
-    height: 900px;
+    height: 500px;
   }
 }
 </style>
-
