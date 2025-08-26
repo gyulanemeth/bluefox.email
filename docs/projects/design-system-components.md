@@ -49,9 +49,12 @@ If you override a component, the change applies **only to this project**. Other 
 ## Managing Components
 
 - **Edit:** Click the pencil icon next to a component to modify its properties.  
-  When editing, the right panel switches from showing a static preview to showing editable fields such as size, alignment, text content, paddings, borders, or backgrounds, depending on the component type.
-
   ![A screenshot of a project's design system components section - edit icon highlighted.](./project-design-components-edit-button.webp)
+
+  When editing, the right panel switches from showing a static preview to showing editable fields such as size, alignment, text content, paddings, borders, or backgrounds, depending on the component type.
+  
+  ![A screenshot of a project's design system components section - edit mode highlighted.](./project-design-components-edit-mode.webp)
+
 
 - **Preview:** Click the preview icon (eye) to see how the component will appear in blocks and templates. The preview is displayed on the right panel.
 
