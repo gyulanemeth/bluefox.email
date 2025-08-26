@@ -47,6 +47,7 @@ watch(result, (newResult) => {
   if (newResult && newResult.length > 0) {
     selectedIndex.value = 0
     selectedResult.value = newResult[0]
+    activeDetailsTab.value = 'page-preview'
   }
 })
 
@@ -76,17 +77,25 @@ function updateExtractedLinks() {
 }
 
 function getStatusText(status) {
-  const map = {
-    working: 'Working', broken: 'Broken', redirect: 'Redirect',
-    error: 'Error', soft404: 'Soft 404'
+  const statusMap = {
+    working: 'Working', 
+    broken: 'Broken', 
+    redirect: 'Redirect',
+    error: 'Error', 
+    soft404: 'Soft 404'
   }
-  return map[status] || 'Unknown'
+  return statusMap[status] || 'Unknown'
 }
 
 function selectResult(resultItem, index) {
   selectedResult.value = resultItem
   selectedIndex.value = index
-  activeDetailsTab.value = 'page-preview'
+  // Bug fix: Always default to page-preview when clicking a new link
+  if (resultItem.pageContent && resultItem.status === 'working') {
+    activeDetailsTab.value = 'page-preview'
+  } else {
+    activeDetailsTab.value = 'template-preview'
+  }
 }
 
 function getCodeSnippetForLink(url) {
@@ -94,18 +103,20 @@ function getCodeSnippetForLink(url) {
   const lines = htmlTemplate.value.split('\n')
   const lineIndex = lines.findIndex(line => line.includes(url))
   if (lineIndex === -1) return ''
+  
   const start = Math.max(0, lineIndex - 2)
   const end = Math.min(lines.length, lineIndex + 3)
   const contextLines = lines.slice(start, end)
+  
   return contextLines.map((line, idx) => {
     const actualLineNum = start + idx + 1
     const isTargetLine = (start + idx) === lineIndex
     const escapedLine = line.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    
     if (isTargetLine) {
       return `<span class="line-number">${actualLineNum}:</span> <mark class="highlight-line">${escapedLine}</mark>`
-    } else {
-      return `<span class="line-number">${actualLineNum}:</span> ${escapedLine}`
     }
+    return `<span class="line-number">${actualLineNum}:</span> ${escapedLine}`
   }).join('\n')
 }
 
@@ -114,7 +125,6 @@ async function copyToClipboard(text, event = null) {
     await navigator.clipboard.writeText(text)
     
     let button = null
-    
     if (event && event.target) {
       button = event.target.closest('button')
     } else {
@@ -128,9 +138,7 @@ async function copyToClipboard(text, event = null) {
     
     if (button) {
       button.classList.add('copied')
-      setTimeout(() => {
-        button.classList.remove('copied')
-      }, 1000)
+      setTimeout(() => button.classList.remove('copied'), 1000)
     }
     
     return true
@@ -165,7 +173,6 @@ function getHighlightedTemplate(targetUrl) {
   if (!htmlTemplate.value || !targetUrl) return ''
   
   let highlightedHtml = htmlTemplate.value
-  
   const escapedUrl = escapeRegExp(targetUrl)
   const linkRegex = new RegExp(`(<a[^>]*href=["']${escapedUrl}["'][^>]*>)`, 'gi')
   
@@ -173,7 +180,7 @@ function getHighlightedTemplate(targetUrl) {
     return match.replace('<a', '<a style="border: 5px solid #dc3545 !important; padding: 4px 6px !important; border-radius: 4px !important; box-shadow: 0 0 12px rgba(220, 53, 69, 0.4) !important;"')
   })
   
-  const highlightedTemplate = `
+  return `
     <style>
       a[href="${targetUrl}"] {
         border: 5px solid #dc3545 !important;
@@ -189,8 +196,6 @@ function getHighlightedTemplate(targetUrl) {
     </style>
     ${highlightedHtml}
   `
-  
-  return highlightedTemplate
 }
 
 function loadCaptchaState() {
@@ -209,8 +214,11 @@ async function loadCaptcha() {
     captchaImage.value = captchaState.image
     captchaExpires.value = captchaState.expires
     captchaSolvedUntil.value = captchaState.solvedUntil
-  } catch { clearCaptchaSession() }
-  finally { captchaLoading.value = false }
+  } catch {
+    clearCaptchaSession()
+  } finally {
+    captchaLoading.value = false
+  }
 }
 
 async function refreshCaptcha() {
@@ -314,10 +322,7 @@ async function checkLinksHandler() {
     markSolved()
 
     await nextTick()
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    })
+    window.scrollTo({ top: 0, behavior: 'smooth' })
     
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
@@ -337,12 +342,14 @@ function resetToForm() {
 }
 
 watch(htmlTemplate, updateExtractedLinks, { immediate: true })
+
 watch(isProbeExpired, (expired, prev) => {
   if (expired && !prev) {
     result.value = null
     captchaText.value = ''
   }
 })
+
 watch(shouldShowCaptcha, (show, prev) => {
   if (show && !prev) captchaText.value = ''
 })
@@ -631,7 +638,7 @@ Example:
               </div>
 
               <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="detail-redirect">
-                <strong>Redirects to:</strong> 
+                <strong>Redirects to:</strong><br>
                 <span class="redirect-url" :title="selectedResult.finalUrl">{{ selectedResult.finalUrl }}</span>
               </div>
 
@@ -1000,10 +1007,6 @@ Example:
   background: white;
 }
 
-.preview-hidden-message {
-  margin-top: 1rem;
-}
-
 .extracted-links {
   max-height: 250px;
   overflow-y: auto;
@@ -1055,7 +1058,6 @@ Example:
   font-size: 0.8rem;
   color: var(--vp-c-text-2, #6b7280);
   font-style: italic;
-  margin-left: 0;
 }
 
 .copy-link-btn {
@@ -1077,10 +1079,6 @@ Example:
   background: var(--vp-c-bg, #ffffff);
   border-color: var(--vp-c-brand);
   transform: scale(1.05);
-}
-
-.copy-link-btn:active {
-  transform: scale(0.95);
 }
 
 .copy-link-btn img {
@@ -1452,10 +1450,6 @@ Example:
   background: var(--vp-c-bg, #ffffff);
   border-color: var(--vp-c-brand);
   transform: scale(1.05);
-}
-
-.copy-detail-btn:active {
-  transform: scale(0.95);
 }
 
 .copy-detail-btn img {
@@ -1872,134 +1866,9 @@ Example:
   font-size: 1rem;
 }
 
-@media (max-width: 480px) {
-  .link-checker-breakout {
-    width: 100% !important;
-    position: static !important;
-    left: auto !important;
-    margin-left: 0 !important;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .link-checker {
-    padding: 0 0.75rem;
-    max-width: 100vw;
-  }
-  
-  .form-title {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  
-  .tool-form {
-    padding: 1rem;
-    border-radius: 8px;
-  }
-  
-  .form-group textarea {
-    font-size: 0.875rem;
-    padding: 0.75rem;
-    min-height: 120px;
-  }
-
-  .results-summary {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 0.5rem;
-    padding: 0.75rem;
-  }
-  
-  .summary-item {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.8rem;
-  }
-  
-  .summary-item .count {
-    font-size: 1.2rem;
-    margin-bottom: 0.375rem;
-  }
-  
-  .summary-item .label {
-    font-size: 0.75rem;
-  }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-  .results-summary {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.5rem;
-    padding: 0.75rem;
-  }
-
-  .summary-item {
-    padding: 0.6rem 0.4rem;
-    font-size: 0.75rem;
-  }
-
-  .summary-item .count {
-    font-size: 1rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .summary-item .label {
-    font-size: 0.65rem;
-  }
-}
-
 @media (max-width: 768px) {
-  .link-checker-breakout {
-    width: 100% !important;
-    position: static !important;
-    left: auto !important;
-    margin-left: 0 !important;
-    overflow-x: hidden;
-  }
-  
-  .link-checker {
-    padding: 0 1rem;
-    max-width: 100vw;
-  }
-
-  .form-stage {
-    padding: 1rem 0;
-    min-height: auto;
-  }
-
-  .tool-form {
-    padding: 1.25rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-  }
-
-  .form-title {
-    font-size: 1.375rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .form-group {
-    margin-bottom: 1.25rem;
-  }
-  
-  .form-group input,
-  .form-group textarea {
-    padding: 0.75rem;
-    font-size: 0.9rem;
-    border-radius: 6px;
-  }
-  
-  .form-group textarea {
-    min-height: 150px;
-    font-size: 0.8rem;
-  }
-
   .preview-container,
   .preview-header {
-    display: none !important;
-  }
-
-  .detail-preview {
     display: none !important;
   }
 
@@ -2023,354 +1892,19 @@ Example:
     display: block !important;
   }
 
-  .extracted-links {
-    max-height: 180px;
-    padding: 0;
-    border: none;
-    background: transparent;
-    gap: 0.5rem;
-  }
-
-  .extracted-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0.75rem;
-    margin-bottom: 0.5rem;
-    border-radius: 8px;
-    background: var(--vp-c-bg-soft, #f8f9fa);
-    border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  }
-
-  .link-info {
-    flex: 1;
-    min-width: 0;
-    margin-right: 0.75rem;
-  }
-
-  .link-url {
-    white-space: normal !important;
-    word-break: break-all !important;
-    text-overflow: initial !important;
-    font-size: 0.8rem;
-    line-height: 1.3;
-    overflow: visible;
-  }
-
-  .link-text {
-    font-size: 0.75rem;
-    margin-top: 0.25rem;
-    line-height: 1.2;
-  }
-
-  .copy-link-btn {
-    width: 2.5rem;
-    height: 2.5rem;
-    padding: 0.5rem;
-    flex-shrink: 0;
-    align-self: flex-start;
-  }
-
-  .copy-link-btn img {
-    width: 14px;
-    height: 14px;
-  }
-
-  .results-header {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-    margin-bottom: 1.25rem;
-    padding: 0 0.5rem;
-  }
-
-  .results-header h2 {
-    font-size: 1.25rem;
-  }
-
-  .back-btn {
-    align-self: center;
-    padding: 0.6rem 1.25rem;
-    font-size: 0.875rem;
-    min-height: 44px;
-  }
-
   .split-view {
     display: block !important;
     height: auto !important;
-    min-height: 80vh;
-    padding: 0;
-    margin: 0;
-    max-width: 100%;
-    border-radius: 8px;
-    overflow: visible;
   }
 
   .results-panel {
     width: 100% !important;
-    min-width: auto !important;
-    height: auto !important;
-    min-height: 300px;
     border-right: none;
     border-bottom: 1px solid var(--vp-c-border-soft, #eee);
-    border-radius: 8px 8px 0 0;
-    overflow: hidden;
-    display: flex !important;
-    flex-direction: column;
-  }
-
-  .details-panel {
-    min-height: 300px !important;
-    overflow-y: auto !important;
-    -webkit-overflow-scrolling: touch !important;
-    border-radius: 0 0 8px 8px;
-    padding: 0;
-  }
-
-  .results-summary {
-    flex-shrink: 0 !important;
-    border-bottom: 1px solid var(--vp-c-border-soft, #eee);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: var(--vp-c-bg, #fff);
-  }
-  
-  .results-list {
-    flex: 1 !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    padding: 0.5rem;
-    min-height: 200px !important;
-    max-height: 400px !important;
-    -webkit-overflow-scrolling: touch !important;
-    overscroll-behavior: contain !important;
-  }
-
-  .result-item {
-    padding: 0.75rem;
-    margin-bottom: 0.5rem;
-    border-radius: 6px;
-    border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-    flex-shrink: 0;
-    min-height: 80px;
-  }
-
-  .result-status {
-    margin-bottom: 0.375rem;
-  }
-
-  .status-text {
-    font-size: 0.75rem;
-  }
-
-  .result-url {
-    font-size: 0.7rem;
-    white-space: normal !important;
-    word-break: break-all !important;
-    line-height: 1.3;
-    margin-bottom: 0.375rem;
-  }
-
-  .result-meta {
-    font-size: 0.65rem;
-    gap: 0.5rem;
-  }
-
-  .details-content {
-    padding: 1rem;
-    min-height: 100%;
-  }
-
-  .details-header {
-    flex-direction: column;
-    gap: 0.75rem;
-    text-align: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.75rem;
-  }
-
-  .details-header h3 {
-    font-size: 1.1rem;
-  }
-
-  .header-actions {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .copy-detail-btn,
-  .reload-btn {
-    width: 3rem;
-    height: 3rem;
-    padding: 0.75rem;
-  }
-
-  .copy-detail-btn img,
-  .reload-btn img {
-    width: 18px;
-    height: 18px;
-  }
-
-  .detail-url {
-    font-size: 0.875rem;
-    word-break: break-all !important;
-    white-space: normal !important;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-  }
-
-  .detail-status {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-  }
-
-  .detail-status .status-text {
-    font-size: 0.9rem;
-  }
-
-  .detail-status-code {
-    padding: 0.375rem 0.5rem;
-    font-size: 0.8rem;
-  }
-
-  .detail-error,
-  .detail-redirect {
-    padding: 1rem;
-    margin-bottom: 1rem;
-    font-size: 0.875rem;
-  }
-
-  .redirect-url {
-    word-break: break-all !important;
-    white-space: normal !important;
-    max-width: none;
-  }
-
-  .code-snippet {
-    padding: 1rem;
-    font-size: 0.75rem;
-    border-radius: 6px;
-    overflow-x: auto;
-    max-width: 100%;
-  }
-
-  .line-number {
-    margin-right: 0.5rem;
-  }
-
-  .captcha-container {
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: stretch;
-  }
-
-  .captcha-image-container {
-    min-height: 60px;
-    padding: 0.75rem;
-  }
-
-  .refresh-captcha-btn {
-    width: 100%;
-    height: 3rem;
-    align-self: center;
-    max-width: 120px;
-  }
-
-  .check-btn {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    min-height: 48px;
-  }
-
-  .btn-loading {
-    gap: 0.75rem;
-  }
-
-  .loading-spinner {
-    width: 16px;
-    height: 16px;
-    border-width: 2px;
-  }
-
-  .no-selection {
-    padding: 2rem 1rem;
-    min-height: 200px;
-  }
-
-  .no-selection h3 {
-    font-size: 1.1rem;
-  }
-
-  .no-selection p {
-    font-size: 0.9rem;
-  }
-
-  .soft404-info {
-    padding: 1rem;
-    margin: 1rem 0;
-  }
-
-  .soft404-info h4 {
-    font-size: 0.95rem;
-  }
-
-  .soft404-info p {
-    font-size: 0.85rem;
   }
 }
 
-@media (max-width: 480px) {
-  .results-panel {
-    min-height: 250px !important;
-  }
-  
-  .results-list {
-    max-height: 300px !important;
-    min-height: 150px !important;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .link-checker {
-    padding: 0 1.5rem;
-  }
-
-  .results-summary {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.6rem;
-    padding: 0.875rem;
-  }
-
-  .summary-item {
-    padding: 0.7rem 0.5rem;
-    font-size: 0.8rem;
-  }
-
-  .split-view {
-    display: flex !important;
-    flex-direction: row;
-    height: auto;
-    min-height: 600px;
-  }
-
-  .results-panel {
-    width: 350px !important;
-    min-width: 350px !important;
-    max-height: 600px;
-    overflow: hidden;
-  }
-
-  .details-panel {
-    flex: 1;
-    min-height: 600px;
-  }
-
+@media (min-width: 769px) {
   .preview-header,
   .preview-container {
     display: flex;
@@ -2394,82 +1928,6 @@ Example:
   
   .template-preview-mobile-only {
     display: none;
-  }
-
-  .html-template-preview.mobile {
-    width: 300px;
-    max-width: 300px;
-  }
-
-  .template-preview-iframe.mobile {
-    width: 280px;
-    max-width: 280px;
-  }
-
-  .template-preview-iframe {
-    height: 400px;
-  }
-
-  .detail-preview {
-    display: block;
-    height: 500px;
-  }
-
-  .details-header {
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
-  }
-
-  .header-actions {
-    display: flex;
-    gap: 0.5rem;
-  }
-}
-
-@media (min-width: 1025px) {
-  .results-summary {
-    display: flex !important;
-    gap: 0.75rem;
-  }
-  
-  .summary-item {
-    flex: 1;
-  }
-
-  .html-template-preview.mobile {
-    width: 375px;
-    max-width: 375px;
-  }
-
-  .template-preview-iframe.mobile {
-    width: 320px;
-    max-width: 320px;
-  }
-}
-
-@media (max-width: 1800px) {
-  .detail-preview {
-    height: 600px;
-  }
-  
-  .split-view {
-    max-width: 1400px;
-  }
-}
-
-@media (max-width: 1400px) {
-  .split-view {
-    max-width: 1200px;
-  }
-  
-  .results-panel {
-    width: 450px;
-    min-width: 400px;
-  }
-  
-  .detail-preview {
-    height: 500px;
   }
 }
 </style>

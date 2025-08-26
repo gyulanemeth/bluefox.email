@@ -11,18 +11,22 @@ datePublished: "2024-08-01"
 dateModified: "2025-08-01"
 
 keywords:
-  - DKIM checker
-  - DKIM validation
-  - email authentication
-  - DNS validation
-  - email deliverability
-  - domain verification
-  - email security
-  - free tool
-  - DKIM signatures
-  - email infrastructure
-  - DomainKeys Identified Mail
-  - email validation tool
+  - link checker
+  - link validation
+  - email link checker
+  - broken link detector
+  - URL validator
+  - HTML email links
+  - link testing tool
+  - email template checker
+  - hyperlink validation
+  - link status checker
+  - email content validation
+  - free link checker
+  - email URL tester
+  - link verification
+  - email template testing
+  - HTML link scanner
 
 head:
   - - meta
@@ -39,7 +43,7 @@ head:
       content: https://bluefox.email/assets/free-deliverability-tools.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/tools/deliverability/dkim-checker
+      content: https://bluefox.email/tools/content/link-checker
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -52,7 +56,6 @@ head:
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/free-deliverability-tools.png
-      
 ---
 
 <GlossaryNavigation link="/tools/content" label="Back to content Tools" />
