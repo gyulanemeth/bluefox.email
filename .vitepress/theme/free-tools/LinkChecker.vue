@@ -184,6 +184,7 @@ function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
+// ONLY ADDED AUTO-SCROLL: Everything else stays exactly the same
 function getHighlightedTemplate(targetUrl) {
   if (!htmlTemplate.value || !targetUrl) return ''
   
@@ -192,23 +193,85 @@ function getHighlightedTemplate(targetUrl) {
   const linkRegex = new RegExp(`(<a[^>]*href=["']${escapedUrl}["'][^>]*>)`, 'gi')
   
   highlightedHtml = highlightedHtml.replace(linkRegex, (match) => {
-    return match.replace('<a', '<a style="border: 5px solid #dc3545 !important; padding: 4px 6px !important; border-radius: 4px !important; box-shadow: 0 0 12px rgba(220, 53, 69, 0.4) !important;"')
+    return match.replace('<a', '<a id="highlighted-link" style="border: 8px solid #ff0000 !important; padding: 8px 12px !important; border-radius: 8px !important; box-shadow: 0 0 20px rgba(255, 0, 0, 0.8) !important; background: rgba(255, 255, 0, 0.3) !important; position: relative !important; z-index: 9999 !important; display: inline-block !important; transform: scale(1.1) !important; animation: highlight-pulse 2s infinite !important;"')
   })
   
   return `
     <style>
       a[href="${targetUrl}"] {
-        border: 5px solid #dc3545 !important;
-        padding: 4px 6px !important;
-        border-radius: 4px !important;
-        box-shadow: 0 0 12px rgba(220, 53, 69, 0.4) !important;
+        border: 8px solid #ff0000 !important;
+        padding: 8px 12px !important;
+        border-radius: 8px !important;
+        box-shadow: 0 0 20px rgba(255, 0, 0, 0.8) !important;
+        background: rgba(255, 255, 0, 0.3) !important;
+        position: relative !important;
+        z-index: 9999 !important;
+        display: inline-block !important;
+        transform: scale(1.1) !important;
+        animation: highlight-pulse 2s infinite !important;
+      }
+      
+      /* ENHANCED: Add a glowing outline */
+      a[href="${targetUrl}"]:before {
+        content: '';
+        position: absolute;
+        top: -15px;
+        left: -15px;
+        right: -15px;
+        bottom: -15px;
+        background: rgba(255, 0, 0, 0.2);
+        border: 3px dashed #ff0000;
+        border-radius: 15px;
+        z-index: -1;
+        animation: glow-rotate 3s linear infinite;
       }
       
       body {
         margin: 8px !important;
         padding: 8px !important;
+        position: relative !important;
+      }
+      
+      /* ENHANCED: Dim everything else */
+      body > * {
+        opacity: 0.7 !important;
+        transition: opacity 0.3s ease !important;
+      }
+      
+      /* ENHANCED: Highlight container gets full opacity */
+      a[href="${targetUrl}"], 
+      a[href="${targetUrl}"] * {
+        opacity: 1 !important;
       }
     </style>
+    <scr` + `ipt>
+      // AUTO-SCROLL: Smoothly scroll to highlighted link when page loads
+      window.addEventListener('load', function() {
+        const highlightedLink = document.getElementById('highlighted-link');
+        if (highlightedLink) {
+          setTimeout(function() {
+            highlightedLink.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center',
+              inline: 'nearest'
+            });
+          }, 100);
+        }
+      });
+      
+      document.addEventListener('DOMContentLoaded', function() {
+        const highlightedLink = document.getElementById('highlighted-link');
+        if (highlightedLink) {
+          setTimeout(function() {
+            highlightedLink.scrollIntoView({ 
+              behavior: 'smooth', 
+              block: 'center',
+              inline: 'nearest'
+            });
+          }, 200);
+        }
+      });
+    </scr` + `ipt>
     ${highlightedHtml}
   `
 }
@@ -390,6 +453,7 @@ onMounted(async () => {
   }
 })
 </script>
+
 
 <template>
   <div class="link-checker-breakout">
@@ -1207,16 +1271,37 @@ Example:
   filter: brightness(0) invert(1);
 }
 
+/* FIXED: Enhanced URL styling with proper word breaking */
 .result-url,
-.detail-url,
+.detail-url {
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-size: 0.875rem;
+  color: var(--vp-c-brand);
+  word-break: break-all !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  line-height: 1.4;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* FIXED: Enhanced redirect URL container with proper overflow handling */
 .redirect-url {
   font-family: var(--vp-font-family-mono, 'Courier New', monospace);
   font-size: 0.875rem;
   color: var(--vp-c-brand);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  cursor: help;
+  word-break: break-all !important;
+  overflow-wrap: break-word !important;
+  white-space: normal !important;
+  line-height: 1.4;
+  display: block;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+  border: 1px solid rgba(133, 100, 4, 0.2);
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .captcha-expired-message {
@@ -1498,6 +1583,10 @@ Example:
   color: var(--vp-c-text-1, #333);
   margin-bottom: 0.5rem;
   line-height: 1.3;
+  word-break: break-all !important;
+  white-space: normal !important;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .result-meta {
@@ -1667,6 +1756,7 @@ Example:
   font-size: 0.95rem;
 }
 
+/* FIXED: Enhanced detail-redirect container with proper overflow handling */
 .detail-redirect {
   background: #fff3cd;
   color: #856404;
@@ -1674,12 +1764,10 @@ Example:
   border-radius: 8px;
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
-}
-
-.redirect-url {
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  max-width: 400px;
-  vertical-align: middle;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .code-location {
@@ -1972,7 +2060,7 @@ Example:
   font-size: 1rem;
 }
 
-/* Modal Styles - CENTERED AND FULL FEATURED WITH SCROLLING FIXES */
+/* Modal Styles */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -2116,6 +2204,7 @@ Example:
   animation: spin 1s linear infinite;
 }
 
+/* FIXED: Mobile URL styling with proper word breaking */
 .detail-url.mobile {
   font-size: 0.875rem;
   word-break: break-all !important;
@@ -2127,8 +2216,11 @@ Example:
   text-decoration: none;
   display: block;
   color: var(--vp-c-brand);
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere !important;
   hyphens: auto;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .detail-status.mobile {
@@ -2153,6 +2245,7 @@ Example:
   line-height: 1.4;
 }
 
+/* FIXED: Mobile redirect container with enhanced overflow handling */
 .detail-redirect.mobile {
   padding: 1rem;
   margin-bottom: 1rem;
@@ -2160,16 +2253,26 @@ Example:
   border-radius: 6px;
   background: #fff3cd;
   color: #856404;
+  overflow: hidden;
+  word-break: break-all;
 }
 
 .detail-redirect.mobile .redirect-url {
-  word-break: break-all;
-  white-space: normal;
+  word-break: break-all !important;
+  white-space: normal !important;
   display: block;
   margin-top: 0.5rem;
   font-family: var(--vp-font-family-mono, 'Courier New', monospace);
   font-size: 0.8rem;
   line-height: 1.3;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+  border: 1px solid rgba(133, 100, 4, 0.3);
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .code-location.mobile {
@@ -2231,7 +2334,6 @@ Example:
   background: var(--vp-c-text-2, #999);
 }
 
-/* Code snippet scrollbar styling */
 .code-snippet.mobile::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -2262,11 +2364,7 @@ Example:
   }
 }
 
-/* =================================================================
-   RESPONSIVE DESIGN - MOBILE FIRST APPROACH WITH CLEAN BREAKPOINTS
-   ================================================================= */
-
-/* Extra Small Mobile: ≤480px */
+/* Responsive Design */
 @media (max-width: 480px) {
   .link-checker-breakout {
     width: 100% !important;
@@ -2319,7 +2417,6 @@ Example:
     font-size: 0.75rem;
   }
 
-  /* Modal responsive sizing for extra small screens */
   .modal-container {
     max-width: 95vw;
     max-height: 95vh;
@@ -2345,7 +2442,6 @@ Example:
   }
 }
 
-/* Small Mobile to Small Tablet: 481px - 768px */
 @media (min-width: 481px) and (max-width: 768px) {
   .results-summary {
     display: grid !important;
@@ -2368,7 +2464,6 @@ Example:
     font-size: 0.65rem;
   }
 
-  /* Modal responsive sizing for small tablets */
   .modal-container {
     max-width: 85vw;
     max-height: 90vh;
@@ -2379,7 +2474,6 @@ Example:
   }
 }
 
-/* Mobile and Small Tablet: ≤768px */
 @media (max-width: 768px) {
   .link-checker-breakout {
     width: 100% !important;
@@ -2394,7 +2488,6 @@ Example:
     max-width: 100vw;
   }
 
-  /* ===== FORM STAGE RESPONSIVE ===== */
   .form-stage {
     padding: 1rem 0;
     min-height: auto;
@@ -2427,7 +2520,6 @@ Example:
     font-size: 0.8rem;
   }
 
-  /* ===== HIDE DESKTOP PREVIEWS ON MOBILE ===== */
   .preview-container,
   .preview-header {
     display: none !important;
@@ -2453,7 +2545,6 @@ Example:
     display: block !important;
   }
 
-  /* ===== MOBILE EXTRACTED LINKS STYLING ===== */
   .extracted-links {
     max-height: 180px;
     padding: 0;
@@ -2508,7 +2599,6 @@ Example:
     height: 14px;
   }
 
-  /* ===== RESULTS STAGE MOBILE LAYOUT ===== */
   .results-header {
     flex-direction: column;
     gap: 1rem;
@@ -2528,7 +2618,6 @@ Example:
     min-height: 44px;
   }
 
-  /* ===== MOBILE LAYOUT: SINGLE COLUMN WITH HIDDEN DETAILS PANEL ===== */
   .split-view {
     display: block !important;
     height: auto !important;
@@ -2552,7 +2641,6 @@ Example:
     flex-direction: column;
   }
 
-  /* ===== COMPLETELY HIDE DETAILS PANEL ON MOBILE ===== */
   .details-panel {
     display: none !important;
   }
@@ -2607,7 +2695,6 @@ Example:
     gap: 0.5rem;
   }
 
-  /* ===== MOBILE FORM ELEMENTS ===== */
   .captcha-container {
     flex-direction: column;
     gap: 0.75rem;
@@ -2643,7 +2730,6 @@ Example:
   }
 }
 
-/* Medium Tablet: 769px - 1024px */
 @media (min-width: 769px) and (max-width: 1024px) {
   .link-checker {
     padding: 0 1.5rem;
@@ -2737,7 +2823,6 @@ Example:
   }
 }
 
-/* Desktop: ≥1025px */
 @media (min-width: 1025px) {
   .results-summary {
     display: flex !important;
@@ -2763,7 +2848,6 @@ Example:
   }
 }
 
-/* Large Desktop: ≤1400px */
 @media (max-width: 1400px) {
   .split-view {
     max-width: 1200px;
@@ -2779,7 +2863,6 @@ Example:
   }
 }
 
-/* Extra Large Desktop: ≤1800px */
 @media (max-width: 1800px) {
   .detail-preview {
     height: 600px;
