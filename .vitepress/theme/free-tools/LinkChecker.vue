@@ -30,6 +30,10 @@ const previewMode = ref('desktop')
 const templatePreviewMode = ref('desktop')
 const activeDetailsTab = ref('page-preview')
 
+// Modal functionality
+const showModal = ref(false)
+const isMobile = ref(false)
+
 const timeout = 10000
 const includeProxy = true
 
@@ -42,6 +46,7 @@ const shouldShowCaptcha = computed(() =>
 const isFormDisabled = computed(() =>
   loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
 )
+const shouldUseModal = computed(() => isMobile.value && window.innerWidth <= 768)
 
 watch(result, (newResult) => {
   if (newResult && newResult.length > 0) {
@@ -90,12 +95,22 @@ function getStatusText(status) {
 function selectResult(resultItem, index) {
   selectedResult.value = resultItem
   selectedIndex.value = index
-  // Bug fix: Always default to page-preview when clicking a new link
+  
+  // Check if mobile and open modal instead
+  if (shouldUseModal.value) {
+    showModal.value = true
+  }
+  
+  // Smart tab selection for desktop
   if (resultItem.pageContent && resultItem.status === 'working') {
     activeDetailsTab.value = 'page-preview'
   } else {
     activeDetailsTab.value = 'template-preview'
   }
+}
+
+function closeModal() {
+  showModal.value = false
 }
 
 function getCodeSnippetForLink(url) {
@@ -339,6 +354,14 @@ function resetToForm() {
   result.value = null
   selectedResult.value = null
   selectedIndex.value = 0
+  showModal.value = false
+}
+
+function handleResize() {
+  isMobile.value = window.innerWidth <= 768
+  if (!isMobile.value) {
+    showModal.value = false
+  }
 }
 
 watch(htmlTemplate, updateExtractedLinks, { immediate: true })
@@ -357,6 +380,11 @@ watch(shouldShowCaptcha, (show, prev) => {
 onMounted(async () => {
   loadCaptchaState()
   await nextTick()
+  
+  // Check initial screen size
+  handleResize()
+  window.addEventListener('resize', handleResize)
+  
   if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
     await loadCaptcha()
   }
@@ -743,6 +771,84 @@ Example:
             <div v-else class="no-selection">
               <h3>Select a Link</h3>
               <p>Click on any link from the left panel to view its details here.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile Modal - Only shows on mobile -->
+        <div v-if="showModal && selectedResult" class="modal-overlay" @click="closeModal">
+          <div class="modal-container" @click.stop>
+            <div class="modal-header">
+              <h3>Link Details</h3>
+              <button @click="closeModal" class="close-modal-btn">
+                <span>&times;</span>
+              </button>
+            </div>
+            
+            <div class="modal-content">
+              <!-- FULL DETAILS CONTENT - Same as desktop -->
+              <div class="details-header mobile">
+                <div class="header-actions">
+                  <button
+                    @click="copyToClipboard(selectedResult.url)"
+                    class="copy-detail-btn mobile"
+                    :title="`Copy ${selectedResult.url} to clipboard`"
+                  >
+                    <img src="/assets/copy.webp?url" alt="copy" />
+                  </button>
+                  <button
+                    @click="reloadSelectedResult"
+                    :disabled="loadingStates[selectedIndex]"
+                    class="reload-btn mobile"
+                    title="Reload this link"
+                  >
+                    <img 
+                      v-if="!loadingStates[selectedIndex]" 
+                      src="/assets/reload.webp?url" 
+                      alt="reload"
+                    />
+                    <div v-else class="spinner"></div>
+                  </button>
+                </div>
+              </div>
+
+              <a 
+                :href="selectedResult.url" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="detail-url mobile"
+                :title="selectedResult.url"
+              >
+                {{ selectedResult.url }}
+              </a>
+              
+              <div class="detail-status mobile" :class="selectedResult.status">
+                <span class="status-dot" :class="selectedResult.status"></span>
+                <span class="status-text">{{ getStatusText(selectedResult.status) }}</span>
+                <span v-if="selectedResult.statusCode" class="detail-status-code">
+                  {{ selectedResult.statusCode }}
+                </span>
+                <span class="response-time">{{ selectedResult.responseTime }}ms</span>
+              </div>
+
+              <div v-if="selectedResult.error" class="detail-error mobile">
+                <strong>Error:</strong> {{ selectedResult.error }}
+              </div>
+
+              <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="detail-redirect mobile">
+                <strong>Redirects to:</strong><br>
+                <span class="redirect-url">{{ selectedResult.finalUrl }}</span>
+              </div>
+
+              <div v-if="selectedResult.status === 'broken' || selectedResult.status === 'error'" class="code-location mobile">
+                <h4>Code Location:</h4>
+                <pre class="code-snippet mobile" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
+              </div>
+
+              <div v-if="selectedResult.status === 'soft404'" class="soft404-info mobile">
+                <h4>Soft 404 Detected</h4>
+                <p>This page returns the homepage content instead of the requested page.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -1504,8 +1610,8 @@ Example:
 .spinner {
   width: 16px;
   height: 16px;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  border-top: 1.5px solid white;
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
+  border-top: 1.5px solid var(--vp-c-brand);
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
@@ -1866,7 +1972,462 @@ Example:
   font-size: 1rem;
 }
 
+/* Modal Styles - CENTERED AND FULL FEATURED WITH SCROLLING FIXES */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.modal-container {
+  background: var(--vp-c-bg, #fff);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: modalSlideIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  flex-shrink: 0;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1, #333);
+}
+
+.close-modal-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--vp-c-text-2, #666);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.close-modal-btn:hover {
+  background: var(--vp-c-border-soft, #eee);
+  color: var(--vp-c-text-1, #333);
+}
+
+.modal-content {
+  padding: 1.5rem;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  max-height: calc(90vh - 80px);
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile-specific styles for details in modal */
+.details-header.mobile {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
+}
+
+.copy-detail-btn.mobile,
+.reload-btn.mobile {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  padding: 0.75rem;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin-left: 0.5rem;
+}
+
+.copy-detail-btn.mobile:hover,
+.reload-btn.mobile:hover:not(:disabled) {
+  background: var(--vp-c-bg, #ffffff);
+  border-color: var(--vp-c-brand);
+  transform: scale(1.05);
+}
+
+.copy-detail-btn.mobile img,
+.reload-btn.mobile img {
+  width: 18px;
+  height: 18px;
+  opacity: 0.7;
+}
+
+.copy-detail-btn.mobile:hover img,
+.reload-btn.mobile:hover:not(:disabled) img {
+  opacity: 1;
+}
+
+.copy-detail-btn.mobile.copied {
+  background: var(--vp-c-brand);
+  border-color: var(--vp-c-brand);
+}
+
+.copy-detail-btn.mobile.copied img {
+  opacity: 1;
+  filter: brightness(0) invert(1);
+}
+
+.reload-btn.mobile:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.reload-btn.mobile .spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-top: 2px solid var(--vp-c-brand);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.detail-url.mobile {
+  font-size: 0.875rem;
+  word-break: break-all !important;
+  white-space: normal !important;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 6px;
+  text-decoration: none;
+  display: block;
+  color: var(--vp-c-brand);
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.detail-status.mobile {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 6px;
+}
+
+.detail-error.mobile {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  background: #f8d7da;
+  color: #721c24;
+  word-break: break-word;
+  line-height: 1.4;
+}
+
+.detail-redirect.mobile {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  background: #fff3cd;
+  color: #856404;
+}
+
+.detail-redirect.mobile .redirect-url {
+  word-break: break-all;
+  white-space: normal;
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.code-location.mobile {
+  margin: 1rem 0;
+}
+
+.code-snippet.mobile {
+  font-size: 0.75rem;
+  padding: 1rem;
+  max-height: 200px !important;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+  background: #f8f9fa;
+  border: 1px solid var(--vp-c-border, #ddd);
+  border-radius: 8px;
+  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-break: break-all;
+  -webkit-overflow-scrolling: touch;
+}
+
+.soft404-info.mobile {
+  background: #fff3cd;
+  color: #856404;
+  padding: 1rem;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.soft404-info.mobile h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.soft404-info.mobile p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* Modal scrollbar styling */
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: var(--vp-c-bg-soft, #f1f1f1);
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--vp-c-border, #ccc);
+  border-radius: 4px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--vp-c-text-2, #999);
+}
+
+/* Code snippet scrollbar styling */
+.code-snippet.mobile::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.code-snippet.mobile::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.code-snippet.mobile::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.code-snippet.mobile::-webkit-scrollbar-thumb:hover {
+  background: #999;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* =================================================================
+   RESPONSIVE DESIGN - MOBILE FIRST APPROACH WITH CLEAN BREAKPOINTS
+   ================================================================= */
+
+/* Extra Small Mobile: ≤480px */
+@media (max-width: 480px) {
+  .link-checker-breakout {
+    width: 100% !important;
+    position: static !important;
+    left: auto !important;
+    margin-left: 0 !important;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .link-checker {
+    padding: 0 0.75rem;
+    max-width: 100vw;
+  }
+  
+  .form-title {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .tool-form {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+  
+  .form-group textarea {
+    font-size: 0.875rem;
+    padding: 0.75rem;
+    min-height: 120px;
+  }
+
+  .results-summary {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+  
+  .summary-item {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .summary-item .count {
+    font-size: 1.2rem;
+    margin-bottom: 0.375rem;
+  }
+  
+  .summary-item .label {
+    font-size: 0.75rem;
+  }
+
+  /* Modal responsive sizing for extra small screens */
+  .modal-container {
+    max-width: 95vw;
+    max-height: 95vh;
+  }
+  
+  .modal-content {
+    padding: 1rem;
+    max-height: calc(95vh - 70px);
+  }
+  
+  .code-snippet.mobile {
+    max-height: 150px !important;
+    font-size: 0.7rem;
+  }
+
+  .results-panel {
+    min-height: 250px !important;
+  }
+  
+  .results-list {
+    max-height: 300px !important;
+    min-height: 150px !important;
+  }
+}
+
+/* Small Mobile to Small Tablet: 481px - 768px */
+@media (min-width: 481px) and (max-width: 768px) {
+  .results-summary {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .summary-item {
+    padding: 0.6rem 0.4rem;
+    font-size: 0.75rem;
+  }
+
+  .summary-item .count {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .summary-item .label {
+    font-size: 0.65rem;
+  }
+
+  /* Modal responsive sizing for small tablets */
+  .modal-container {
+    max-width: 85vw;
+    max-height: 90vh;
+  }
+  
+  .code-snippet.mobile {
+    max-height: 180px !important;
+  }
+}
+
+/* Mobile and Small Tablet: ≤768px */
 @media (max-width: 768px) {
+  .link-checker-breakout {
+    width: 100% !important;
+    position: static !important;
+    left: auto !important;
+    margin-left: 0 !important;
+    overflow-x: hidden;
+  }
+  
+  .link-checker {
+    padding: 0 1rem;
+    max-width: 100vw;
+  }
+
+  /* ===== FORM STAGE RESPONSIVE ===== */
+  .form-stage {
+    padding: 1rem 0;
+    min-height: auto;
+  }
+
+  .tool-form {
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+  }
+
+  .form-title {
+    font-size: 1.375rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+    border-radius: 6px;
+  }
+  
+  .form-group textarea {
+    min-height: 150px;
+    font-size: 0.8rem;
+  }
+
+  /* ===== HIDE DESKTOP PREVIEWS ON MOBILE ===== */
   .preview-container,
   .preview-header {
     display: none !important;
@@ -1892,19 +2453,234 @@ Example:
     display: block !important;
   }
 
+  /* ===== MOBILE EXTRACTED LINKS STYLING ===== */
+  .extracted-links {
+    max-height: 180px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    gap: 0.5rem;
+  }
+
+  .extracted-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 8px;
+    background: var(--vp-c-bg-soft, #f8f9fa);
+    border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+
+  .link-info {
+    flex: 1;
+    min-width: 0;
+    margin-right: 0.75rem;
+  }
+
+  .link-url {
+    white-space: normal !important;
+    word-break: break-all !important;
+    text-overflow: initial !important;
+    font-size: 0.8rem;
+    line-height: 1.3;
+    overflow: visible;
+  }
+
+  .link-text {
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    line-height: 1.2;
+  }
+
+  .copy-link-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0.5rem;
+    flex-shrink: 0;
+    align-self: flex-start;
+  }
+
+  .copy-link-btn img {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* ===== RESULTS STAGE MOBILE LAYOUT ===== */
+  .results-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    padding: 0 0.5rem;
+  }
+
+  .results-header h2 {
+    font-size: 1.25rem;
+  }
+
+  .back-btn {
+    align-self: center;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.875rem;
+    min-height: 44px;
+  }
+
+  /* ===== MOBILE LAYOUT: SINGLE COLUMN WITH HIDDEN DETAILS PANEL ===== */
   .split-view {
     display: block !important;
     height: auto !important;
+    min-height: auto !important;
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    border-radius: 8px;
+    overflow: visible;
   }
 
   .results-panel {
     width: 100% !important;
+    min-width: auto !important;
+    height: auto !important;
+    min-height: 300px;
     border-right: none;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  /* ===== COMPLETELY HIDE DETAILS PANEL ON MOBILE ===== */
+  .details-panel {
+    display: none !important;
+  }
+
+  .results-summary {
+    flex-shrink: 0 !important;
     border-bottom: 1px solid var(--vp-c-border-soft, #eee);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--vp-c-bg, #fff);
+  }
+  
+  .results-list {
+    flex: 1 !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding: 0.5rem;
+    min-height: 300px !important;
+    max-height: 60vh !important;
+    -webkit-overflow-scrolling: touch !important;
+    overscroll-behavior: contain !important;
+  }
+
+  .result-item {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+    flex-shrink: 0;
+    min-height: 80px;
+  }
+
+  .result-status {
+    margin-bottom: 0.375rem;
+  }
+
+  .status-text {
+    font-size: 0.75rem;
+  }
+
+  .result-url {
+    font-size: 0.7rem;
+    white-space: normal !important;
+    word-break: break-all !important;
+    line-height: 1.3;
+    margin-bottom: 0.375rem;
+  }
+
+  .result-meta {
+    font-size: 0.65rem;
+    gap: 0.5rem;
+  }
+
+  /* ===== MOBILE FORM ELEMENTS ===== */
+  .captcha-container {
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .captcha-image-container {
+    min-height: 60px;
+    padding: 0.75rem;
+  }
+
+  .refresh-captcha-btn {
+    width: 100%;
+    height: 3rem;
+    align-self: center;
+    max-width: 120px;
+  }
+
+  .check-btn {
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    min-height: 48px;
+  }
+
+  .btn-loading {
+    gap: 0.75rem;
+  }
+
+  .loading-spinner {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
   }
 }
 
-@media (min-width: 769px) {
+/* Medium Tablet: 769px - 1024px */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .link-checker {
+    padding: 0 1.5rem;
+  }
+
+  .results-summary {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.6rem;
+    padding: 0.875rem;
+  }
+
+  .summary-item {
+    padding: 0.7rem 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .split-view {
+    display: flex !important;
+    flex-direction: row;
+    height: auto;
+    min-height: 600px;
+  }
+
+  .results-panel {
+    width: 350px !important;
+    min-width: 350px !important;
+    max-height: 600px;
+    overflow: hidden;
+  }
+
+  .details-panel {
+    flex: 1;
+    min-height: 600px;
+    display: block !important;
+  }
+
   .preview-header,
   .preview-container {
     display: flex;
@@ -1929,5 +2705,89 @@ Example:
   .template-preview-mobile-only {
     display: none;
   }
+
+  .html-template-preview.mobile {
+    width: 300px;
+    max-width: 300px;
+  }
+
+  .template-preview-iframe.mobile {
+    width: 280px;
+    max-width: 280px;
+  }
+
+  .template-preview-iframe {
+    height: 400px;
+  }
+
+  .detail-preview {
+    display: block;
+    height: 500px;
+  }
+
+  .details-header {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .header-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+/* Desktop: ≥1025px */
+@media (min-width: 1025px) {
+  .results-summary {
+    display: flex !important;
+    gap: 0.75rem;
+  }
+  
+  .summary-item {
+    flex: 1;
+  }
+
+  .details-panel {
+    display: block !important;
+  }
+
+  .html-template-preview.mobile {
+    width: 375px;
+    max-width: 375px;
+  }
+
+  .template-preview-iframe.mobile {
+    width: 320px;
+    max-width: 320px;
+  }
+}
+
+/* Large Desktop: ≤1400px */
+@media (max-width: 1400px) {
+  .split-view {
+    max-width: 1200px;
+  }
+  
+  .results-panel {
+    width: 450px;
+    min-width: 400px;
+  }
+  
+  .detail-preview {
+    height: 500px;
+  }
+}
+
+/* Extra Large Desktop: ≤1800px */
+@media (max-width: 1800px) {
+  .detail-preview {
+    height: 600px;
+  }
+  
+  .split-view {
+    max-width: 1400px;
+  }
 }
 </style>
+
