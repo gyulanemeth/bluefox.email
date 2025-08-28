@@ -1,99 +1,121 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
-import { checkLinks } from '../../../connectors/bluefoxEmailToolsApi.js'
-import { loadCaptchaFromStorage, loadNewCaptcha, clearCaptchaStorage, markCaptchaSolved } from './helpers/captchaHandler.js'
+import { checkLinks, getProxiedUrl } from '../../../connectors/bluefoxEmailToolsApi.js'
+import {
+  loadCaptchaFromStorage,
+  loadNewCaptcha,
+  clearCaptchaStorage,
+  markCaptchaSolved
+} from './helpers/captchaHandler.js'
 
-// State
 const htmlTemplate = ref('')
-const timeout = ref(10000)
 const captchaText = ref('')
 const loading = ref(false)
 const result = ref(null)
 const errorMessage = ref('')
 const extractedLinks = ref([])
 
-// Preview modes
-const previewMode = ref('desktop')
-const templatePreviewMode = ref('desktop')
-const activeDetailsTab = ref('page-preview')
-
-// Results state
 const selectedResult = ref(null)
-const selectedIndex = ref(null)
-const showModal = ref(false)
-const loadingStates = ref({})
-const reloadCounter = ref(0)
+const selectedIndex = ref(0)
 
-// Captcha state
 const captchaProbe = ref(null)
 const captchaImage = ref(null)
 const captchaExpires = ref(0)
 const captchaSolvedUntil = ref(0)
 const captchaLoading = ref(false)
+const loadingStates = ref({})
+const reloadKeys = ref({})
 
-// Computed
+const previewMode = ref('desktop')
+const templatePreviewMode = ref('desktop')
+const activeDetailsTab = ref('page-preview')
+
+// Modal functionality
+const showModal = ref(false)
+const isMobile = ref(false)
+
+const timeout = 10000
+const includeProxy = true
+
 const now = () => Math.floor(Date.now() / 1000)
+const isProbeExpired = computed(() => !captchaProbe.value || now() > captchaExpires.value)
+const isSolved = computed(() => captchaSolvedUntil.value > now() && !isProbeExpired.value)
+const shouldShowCaptcha = computed(() =>
+  !isSolved.value || isProbeExpired.value || !captchaProbe.value || !captchaImage.value
+)
+const isFormDisabled = computed(() =>
+  loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
+)
+const shouldUseModal = computed(() => isMobile.value && window.innerWidth <= 768)
 
-const isProbeExpired = computed(() => {
-  return !captchaProbe.value || now() > captchaExpires.value
-})
-
-const isSolved = computed(() => {
-  return captchaSolvedUntil.value > now() && !isProbeExpired.value
-})
-
-const shouldShowCaptcha = computed(() => {
-  return !isSolved.value || isProbeExpired.value || !captchaProbe.value || !captchaImage.value
-})
-
-const isFormDisabled = computed(() => {
-  return loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
-})
-
-// Functions
-function extractLinksFromHTML(html) {
-  if (!html || typeof html !== 'string') {
-    return []
+watch(result, (newResult) => {
+  if (newResult && newResult.length > 0) {
+    selectedIndex.value = 0
+    selectedResult.value = newResult[0]
+    activeDetailsTab.value = 'page-preview'
   }
-  
+})
+
+function extractLinksFromHTML(html) {
+  if (!html || typeof html !== 'string') return []
   try {
     const parser = new DOMParser()
     const doc = parser.parseFromString(html, 'text/html')
     const anchors = Array.from(doc.querySelectorAll('a[href]'))
-    
     return anchors
       .map(a => ({
         href: a.getAttribute('href'),
         text: a.textContent?.trim() || 'No anchor text'
       }))
-      .filter(link => {
-        return link.href && 
-               link.href.trim().length > 0 && 
-               !link.href.startsWith('#') && 
-               !link.href.startsWith('mailto:')
-      })
+      .filter(link =>
+        link.href &&
+        link.href.trim().length > 0 &&
+        !link.href.startsWith('#') &&
+        !link.href.startsWith('mailto:')
+      )
       .map(link => ({ ...link, href: link.href.trim() }))
-  } catch (error) {
-    console.error('Error parsing HTML:', error)
-    return []
-  }
+  } catch { return [] }
 }
 
 function updateExtractedLinks() {
   extractedLinks.value = extractLinksFromHTML(htmlTemplate.value)
 }
 
-function getCodeSnippetForLink(url) {
-  if (!htmlTemplate.value) {
-    return ''
+function getStatusText(status) {
+  const statusMap = {
+    working: 'Working',
+    broken: 'Broken',
+    redirect: 'Redirect',
+    error: 'Error',
+    soft404: 'Soft 404'
   }
-  
+  return statusMap[status] || 'Unknown'
+}
+
+function selectResult(resultItem, index) {
+  selectedResult.value = resultItem
+  selectedIndex.value = index
+
+  if (shouldUseModal.value) {
+    showModal.value = true
+  }
+
+  if (resultItem.status === 'working') {
+    activeDetailsTab.value = 'page-preview'
+  } else {
+    activeDetailsTab.value = 'template-preview'
+  }
+}
+
+function closeModal() {
+  showModal.value = false
+}
+
+function getCodeSnippetForLink(url) {
+  if (!htmlTemplate.value) return ''
   const lines = htmlTemplate.value.split('\n')
   const lineIndex = lines.findIndex(line => line.includes(url))
-  
-  if (lineIndex === -1) {
-    return ''
-  }
+  if (lineIndex === -1) return ''
   
   const start = Math.max(0, lineIndex - 2)
   const end = Math.min(lines.length, lineIndex + 3)
@@ -101,26 +123,161 @@ function getCodeSnippetForLink(url) {
   
   return contextLines.map((line, idx) => {
     const actualLineNum = start + idx + 1
-    const isTargetLine = start + idx === lineIndex
+    const isTargetLine = (start + idx) === lineIndex
     const escapedLine = line.replace(/</g, '&lt;').replace(/>/g, '&gt;')
     
     if (isTargetLine) {
-      return `<span class="line-number">${actualLineNum}</span><mark class="highlight-line">${escapedLine}</mark>`
-    } else {
-      return `<span class="line-number">${actualLineNum}</span>${escapedLine}`
+      return `<span class="line-number">${actualLineNum}:</span> <mark class="highlight-line">${escapedLine}</mark>`
     }
+    return `<span class="line-number">${actualLineNum}:</span> ${escapedLine}`
   }).join('\n')
 }
 
-function getHighlightedTemplate(url) {
-  if (!htmlTemplate.value) {
-    return ''
+async function copyToClipboard(text, event = null) {
+  try {
+    await navigator.clipboard.writeText(text)
+    
+    let button = null
+    if (event && event.target) {
+      button = event.target.closest('button')
+    } else {
+      const buttons = document.querySelectorAll('.copy-link-btn, .copy-detail-btn')
+      buttons.forEach(btn => {
+        if (btn.title && btn.title.includes(text)) {
+          button = btn
+        }
+      })
+    }
+    
+    if (button) {
+      button.classList.add('copied')
+      setTimeout(() => button.classList.remove('copied'), 1000)
+    }
+    
+    return true
+  } catch {
+    const textArea = document.createElement('textarea')
+    textArea.value = text
+    document.body.appendChild(textArea)
+    textArea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textArea)
+    return true
   }
+}
+
+function setPreviewMode(mode) {
+  previewMode.value = mode
+}
+
+function setTemplatePreviewMode(mode) {
+  templatePreviewMode.value = mode
+}
+
+function setActiveDetailsTab(tab) {
+  activeDetailsTab.value = tab
+}
+
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+// ENHANCED: Auto-scroll + Enhanced highlighting for template preview
+function getHighlightedTemplate(targetUrl) {
+  if (!htmlTemplate.value || !targetUrl) return ''
   
-  return htmlTemplate.value.replace(
-    new RegExp(`href=['"]${url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}['"]`, 'gi'),
-    `href="${url}" style="border: 2px solid red; background: yellow; padding: 2px;"`
-  )
+  let highlightedHtml = htmlTemplate.value
+  const escapedUrl = escapeRegExp(targetUrl)
+  const linkRegex = new RegExp(`(<a[^>]*href=["']${escapedUrl}["'][^>]*>)`, 'gi')
+  
+  highlightedHtml = highlightedHtml.replace(linkRegex, (match) => {
+    return match.replace('<a', '<a id="highlighted-link" style="border: 8px solid #ff0000 !important; padding: 8px 12px !important; border-radius: 8px !important; box-shadow: 0 0 20px rgba(255, 0, 0, 0.8) !important; background: rgba(255, 255, 0, 0.3) !important; position: relative !important; z-index: 9999 !important; display: inline-block !important; transform: scale(1.1) !important; animation: highlight-pulse 2s infinite !important;"')
+  })
+  
+  return [
+    '<style>',
+      `a[href="${targetUrl}"] {`,
+        'border: 8px solid #ff0000 !important;',
+        'padding: 8px 12px !important;',
+        'border-radius: 8px !important;',
+        'box-shadow: 0 0 20px rgba(255, 0, 0, 0.8) !important;',
+        'background: rgba(255, 255, 0, 0.3) !important;',
+        'position: relative !important;',
+        'z-index: 9999 !important;',
+        'display: inline-block !important;',
+        'transform: scale(1.1) !important;',
+        'animation: highlight-pulse 2s infinite !important;',
+      '}',
+      `a[href="${targetUrl}"]:before {`,
+        'content: "";',
+        'position: absolute;',
+        'top: -15px;',
+        'left: -15px;',
+        'right: -15px;',
+        'bottom: -15px;',
+        'background: rgba(255, 0, 0, 0.2);',
+        'border: 3px dashed #ff0000;',
+        'border-radius: 15px;',
+        'z-index: -1;',
+        'animation: glow-rotate 3s linear infinite;',
+      '}',
+      '@keyframes highlight-pulse {',
+        '0%, 100% {',
+          'box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);',
+          'background: rgba(255, 255, 0, 0.3);',
+        '}',
+        '50% {',
+          'box-shadow: 0 0 35px rgba(255, 0, 0, 1);',
+          'background: rgba(255, 255, 0, 0.6);',
+        '}',
+      '}',
+      'body {',
+        'margin: 8px !important;',
+        'padding: 8px !important;',
+        'position: relative !important;',
+      '}',
+      'body > * {',
+        'opacity: 0.7 !important;',
+        'transition: opacity 0.3s ease !important;',
+      '}',
+      `a[href="${targetUrl}"], a[href="${targetUrl}"] * {`,
+        'opacity: 1 !important;',
+      '}',
+    '</style>',
+    '<scr' + 'ipt>',
+      'window.addEventListener("load", function() {',
+        'const highlightedLink = document.getElementById("highlighted-link");',
+        'if (highlightedLink) {',
+          'setTimeout(function() {',
+            'highlightedLink.scrollIntoView({',
+              'behavior: "smooth",',
+              'block: "center",',
+              'inline: "nearest"',
+            '});',
+          '}, 100);',
+        '}',
+      '});',
+      'document.addEventListener("DOMContentLoaded", function() {',
+        'const highlightedLink = document.getElementById("highlighted-link");',
+        'if (highlightedLink) {',
+          'setTimeout(function() {',
+            'highlightedLink.scrollIntoView({',
+              'behavior: "smooth",',
+              'block: "center",',
+              'inline: "nearest"',
+            '});',
+          '}, 200);',
+        '}',
+      '});',
+    '</scr' + 'ipt>',
+    highlightedHtml
+  ].join('')
+}
+
+// NEW: Get proxied URL for iframe
+function getPagePreviewUrl(url) {
+  if (!url || !url.trim()) return ''
+  return getProxiedUrl(url)
 }
 
 function loadCaptchaState() {
@@ -139,7 +296,7 @@ async function loadCaptcha() {
     captchaImage.value = captchaState.image
     captchaExpires.value = captchaState.expires
     captchaSolvedUntil.value = captchaState.solvedUntil
-  } catch (err) {
+  } catch {
     clearCaptchaSession()
   } finally {
     captchaLoading.value = false
@@ -181,97 +338,44 @@ function validateInputs() {
     errorMessage.value = 'Please enter the captcha text'
     return false
   }
-  
   return true
 }
 
-function getStatusText(status) {
-  const statusMap = {
-    working: 'Working',
-    broken: 'Broken',
-    redirect: 'Redirect',
-    error: 'Error',
-    blocked: 'Blocked',
-    soft404: 'Soft 404'
-  }
-  return statusMap[status] || 'Unknown'
-}
-
-function setPreviewMode(mode) {
-  previewMode.value = mode
-}
-
-function setTemplatePreviewMode(mode) {
-  templatePreviewMode.value = mode
-}
-
-function setActiveDetailsTab(tab) {
-  activeDetailsTab.value = tab
-}
-
-function selectResult(linkResult, index) {
-  selectedResult.value = linkResult
-  selectedIndex.value = index
-  
-  if (window.innerWidth <= 768) {
-    showModal.value = true
-  }
-}
-
-function closeModal() {
-  showModal.value = false
-}
-
-function resetToForm() {
-  result.value = null
-  selectedResult.value = null
-  selectedIndex.value = null
-  closeModal()
-}
-
-function hasPreview(linkResult) {
-  return linkResult && 
-         (linkResult.status === 'working' || linkResult.status === 'redirect') &&
-         linkResult.proxyUrl
-}
-
-async function copyToClipboard(text) {
-  try {
-    await navigator.clipboard.writeText(text)
-  } catch (err) {
-    console.error('Failed to copy to clipboard:', err)
-  }
-}
-
 async function reloadSelectedResult() {
-  if (!selectedResult.value || isProbeExpired.value) {
-    return
-  }
+  if (!selectedResult.value || isProbeExpired.value) return
   
-  loadingStates.value[selectedIndex.value] = true
-  reloadCounter.value++
+  loadingStates.value = { ...loadingStates.value, [selectedIndex.value]: true }
   
   try {
     const data = await checkLinks({
       urls: [selectedResult.value.url],
-      timeout: timeout.value,
-      includeProxy: true,
+      timeout: timeout,
+      includeProxy: includeProxy,
       captchaProbe: captchaProbe.value,
       captchaText: ''
     })
     
-    if (data.result && data.result.length > 0) {
+    if (data.result && data.result.length > 0 && result.value) {
       const updatedResult = data.result[0]
       const resultIndex = result.value.findIndex(r => r.url === selectedResult.value.url)
       if (resultIndex !== -1) {
         result.value[resultIndex] = updatedResult
         selectedResult.value = updatedResult
+        reloadKeys.value = {
+          ...reloadKeys.value,
+          [selectedIndex.value]: (reloadKeys.value[selectedIndex.value] || 0) + 1
+        }
       }
     }
   } catch (err) {
     errorMessage.value = `Failed to reload: ${err.message}`
+    setTimeout(() => {
+      if (errorMessage.value.includes('Failed to reload')) {
+        errorMessage.value = ''
+      }
+    }, 5000)
   } finally {
-    loadingStates.value[selectedIndex.value] = false
+    loadingStates.value = { ...loadingStates.value, [selectedIndex.value]: false }
   }
 }
 
@@ -289,8 +393,8 @@ async function checkLinksHandler() {
     const urlsToCheck = extractedLinks.value.map(link => link.href)
     const data = await checkLinks({
       urls: urlsToCheck,
-      timeout: timeout.value,
-      includeProxy: true,
+      timeout: timeout,
+      includeProxy: includeProxy,
       captchaProbe: captchaProbe.value,
       captchaText: shouldShowCaptcha.value ? captchaText.value : ''
     })
@@ -298,6 +402,10 @@ async function checkLinksHandler() {
     result.value = data.result
     captchaText.value = ''
     markSolved()
+
+    await nextTick()
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
     if (err.status === 401) {
@@ -309,8 +417,21 @@ async function checkLinksHandler() {
   }
 }
 
-// Watches
-watch([htmlTemplate], updateExtractedLinks, { immediate: true })
+function resetToForm() {
+  result.value = null
+  selectedResult.value = null
+  selectedIndex.value = 0
+  showModal.value = false
+}
+
+function handleResize() {
+  isMobile.value = window.innerWidth <= 768
+  if (!isMobile.value) {
+    showModal.value = false
+  }
+}
+
+watch(htmlTemplate, updateExtractedLinks, { immediate: true })
 
 watch(isProbeExpired, (expired, prev) => {
   if (expired && !prev) {
@@ -320,17 +441,17 @@ watch(isProbeExpired, (expired, prev) => {
 })
 
 watch(shouldShowCaptcha, (show, prev) => {
-  if (show && !prev) {
-    captchaText.value = ''
-  }
+  if (show && !prev) captchaText.value = ''
 })
 
-// Lifecycle
 onMounted(async () => {
   loadCaptchaState()
   await nextTick()
   
-  if (!isSolved.value || !captchaProbe.value || isProbeExpired.value) {
+  handleResize()
+  window.addEventListener('resize', handleResize)
+  
+  if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
     await loadCaptcha()
   }
 })
@@ -396,15 +517,15 @@ Example:
                   <iframe
                     :srcdoc="htmlTemplate"
                     :class="['html-template-preview', previewMode]"
-                    sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                    sandbox="allow-scripts allow-same-origin"
                     title="HTML Template Live Preview"
                   ></iframe>
                 </div>
                 <small class="form-help mobile-hidden-message">
-                  Live preview of your HTML template. Switch between desktop and mobile views.
+                  Live preview of your HTML template. Switch between desktop and mobile views to see how it appears on different devices.
                 </small>
                 <small class="form-help mobile-only-message">
-                  Preview is hidden on mobile devices for better performance.
+                  Preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the HTML template preview.
                 </small>
               </div>
 
@@ -433,7 +554,7 @@ Example:
                   </div>
                 </div>
                 <small class="form-help">
-                  These links will be checked when you submit the form.
+                  These links will be checked when you submit the form. Click the copy icon to copy individual URLs.
                 </small>
               </div>
 
@@ -537,10 +658,6 @@ Example:
                 <span class="count">{{ result.filter(r => r.status === 'error').length }}</span>
                 <span class="label">Errors</span>
               </div>
-              <div class="summary-item blocked">
-                <span class="count">{{ result.filter(r => r.status === 'blocked').length }}</span>
-                <span class="label">Blocked</span>
-              </div>
             </div>
 
             <div class="results-list">
@@ -556,9 +673,7 @@ Example:
                 </div>
                 <div class="result-url" :title="linkResult.url">{{ linkResult.url }}</div>
                 <div class="result-meta">
-                  <span v-if="linkResult.statusCode" class="status-code">
-                    {{ linkResult.statusCode }}
-                  </span>
+                  <span v-if="linkResult.statusCode" class="status-code">{{ linkResult.statusCode }}</span>
                   <span class="response-time">{{ linkResult.responseTime }}ms</span>
                 </div>
               </div>
@@ -632,7 +747,7 @@ Example:
                     <button
                       @click="setActiveDetailsTab('page-preview')"
                       :class="['preview-tab-btn', { active: activeDetailsTab === 'page-preview' }]"
-                      v-if="hasPreview(selectedResult)"
+                      v-if="selectedResult.status === 'working'"
                     >
                       <span>Page Preview</span>
                     </button>
@@ -647,27 +762,23 @@ Example:
 
                 <div class="preview-tabs-content">
                   <div v-if="activeDetailsTab === 'page-preview'" class="preview-tab-panel">
-                    <div v-if="hasPreview(selectedResult)">
+                    <div v-if="selectedResult.status === 'working'">
                       <div class="tab-panel-header">
                         <h4>Page Content Preview</h4>
-                        <small class="tab-panel-help">Live preview through local proxy with corrected MIME types</small>
+                        <small class="tab-panel-help">Live preview of the destination page</small>
                       </div>
                       <div class="page-preview-container">
                         <iframe
-                          :key="`proxy-${selectedIndex}-${reloadCounter}`"
-                          :src="`/v1/proxy?url=${encodeURIComponent(selectedResult.url)}`"
+                          :key="`detail-${selectedIndex}-${reloadKeys[selectedIndex] || 0}`"
+                          :src="getPagePreviewUrl(selectedResult.url)"
                           class="detail-preview"
-                          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                          sandbox="allow-scripts allow-same-origin"
                           title="Page Content Preview"
                         ></iframe>
                       </div>
                       <small class="form-help mobile-only-message preview-hidden-message">
                         Page preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the full page preview.
                       </small>
-                    </div>
-                    <div v-else-if="selectedResult.status === 'soft404'" class="soft404-info">
-                      <h4>Soft 404 Detected</h4>
-                      <p>This page returns the homepage content instead of the requested page. The server responds with HTTP 200 but shows generic content, indicating the page doesn't exist.</p>
                     </div>
                     <div v-else class="no-preview-content">
                       <h4>No Page Preview Available</h4>
@@ -703,7 +814,7 @@ Example:
                       <iframe
                         :srcdoc="getHighlightedTemplate(selectedResult.url)"
                         :class="['template-preview-iframe', templatePreviewMode]"
-                        sandbox="allow-scripts allow-same-origin allow-forms"
+                        sandbox="allow-scripts allow-same-origin"
                         title="Template Preview with Highlighted Link"
                       ></iframe>
                     </div>
@@ -717,10 +828,9 @@ Example:
                 </div>
               </div>
 
-              <div v-if="selectedResult.status === 'blocked'" class="blocked-info">
-                <h4>Blocked by Security Tools</h4>
-                <p>This link was blocked by browser security extensions (ad blockers, privacy tools, or corporate policies). This is common for tracking URLs and may affect email campaign click-through rates.</p>
-                <small><strong>Tip:</strong> Consider using direct links instead of click-tracking services for better deliverability.</small>
+              <div v-if="selectedResult.status === 'soft404'" class="soft404-info">
+                <h4>Soft 404 Detected</h4>
+                <p>This page returns the homepage content instead of the requested page. The server responds with HTTP 200 but shows generic content, indicating the page doesn't exist.</p>
               </div>
             </div>
 
@@ -731,6 +841,7 @@ Example:
           </div>
         </div>
 
+        <!-- Mobile Modal - Only shows on mobile -->
         <div v-if="showModal && selectedResult" class="modal-overlay" @click="closeModal">
           <div class="modal-container" @click.stop>
             <div class="modal-header">
@@ -802,11 +913,6 @@ Example:
               <div v-if="selectedResult.status === 'soft404'" class="soft404-info mobile">
                 <h4>Soft 404 Detected</h4>
                 <p>This page returns the homepage content instead of the requested page.</p>
-              </div>
-
-              <div v-if="selectedResult.status === 'blocked'" class="blocked-info mobile">
-                <h4>Blocked by Security Tools</h4>
-                <p>This link was blocked by browser security extensions or corporate policies.</p>
               </div>
             </div>
           </div>
@@ -2768,4 +2874,3 @@ Example:
   }
 }
 </style>
-

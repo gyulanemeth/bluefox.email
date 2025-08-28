@@ -185,9 +185,14 @@ export async function checkLinks({ urls, timeout, includeProxy, captchaProbe, ca
   return json
 }
 
+export function getProxiedUrl(url) {
+  if (!url) return null
+  return `${BASE_URL}/v1/proxy?url=${encodeURIComponent(url)}`
+}
+
 export async function generateCaptcha() {
   const response = await fetch(`${BASE_URL}/v1/captcha/generate`)
-  
+
   if (!response.ok) {
     const error = new Error(`HTTP ${response.status}`)
     error.status = response.status
@@ -195,7 +200,7 @@ export async function generateCaptcha() {
   }
 
   const json = await response.json()
-  
+
   if (!json.result?.captcha) {
     throw new Error('Invalid captcha response')
   }
