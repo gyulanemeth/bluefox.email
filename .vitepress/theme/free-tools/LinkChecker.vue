@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
-import { checkLinks, getProxiedUrl } from '../../../connectors/bluefoxEmailToolsApi.js'
+import { checkLinks } from '../../../connectors/bluefoxEmailToolsApi.js'
 import {
   loadCaptchaFromStorage,
   loadNewCaptcha,
@@ -36,6 +36,8 @@ const isMobile = ref(false)
 
 const timeout = 10000
 const includeProxy = true
+
+const pagePreviewUrl = ref('')
 
 const now = () => Math.floor(Date.now() / 1000)
 const isProbeExpired = computed(() => !captchaProbe.value || now() > captchaExpires.value)
@@ -99,12 +101,9 @@ function selectResult(resultItem, index) {
   if (shouldUseModal.value) {
     showModal.value = true
   }
-
-  if (resultItem.status === 'working') {
-    activeDetailsTab.value = 'page-preview'
-  } else {
-    activeDetailsTab.value = 'template-preview'
-  }
+  activeDetailsTab.value = 'page-preview'
+  
+  updatePagePreviewUrl(resultItem)
 }
 
 function closeModal() {
@@ -136,7 +135,6 @@ function getCodeSnippetForLink(url) {
 async function copyToClipboard(text, event = null) {
   try {
     await navigator.clipboard.writeText(text)
-    
     let button = null
     if (event && event.target) {
       button = event.target.closest('button')
@@ -148,12 +146,10 @@ async function copyToClipboard(text, event = null) {
         }
       })
     }
-    
     if (button) {
       button.classList.add('copied')
       setTimeout(() => button.classList.remove('copied'), 1000)
     }
-    
     return true
   } catch {
     const textArea = document.createElement('textarea')
@@ -169,31 +165,26 @@ async function copyToClipboard(text, event = null) {
 function setPreviewMode(mode) {
   previewMode.value = mode
 }
-
 function setTemplatePreviewMode(mode) {
   templatePreviewMode.value = mode
 }
-
 function setActiveDetailsTab(tab) {
   activeDetailsTab.value = tab
 }
 
+// --- Highlighted Location Template Preview ---
 function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-// ENHANCED: Auto-scroll + Enhanced highlighting for template preview
 function getHighlightedTemplate(targetUrl) {
   if (!htmlTemplate.value || !targetUrl) return ''
-  
   let highlightedHtml = htmlTemplate.value
   const escapedUrl = escapeRegExp(targetUrl)
   const linkRegex = new RegExp(`(<a[^>]*href=["']${escapedUrl}["'][^>]*>)`, 'gi')
-  
   highlightedHtml = highlightedHtml.replace(linkRegex, (match) => {
     return match.replace('<a', '<a id="highlighted-link" style="border: 8px solid #ff0000 !important; padding: 8px 12px !important; border-radius: 8px !important; box-shadow: 0 0 20px rgba(255, 0, 0, 0.8) !important; background: rgba(255, 255, 0, 0.3) !important; position: relative !important; z-index: 9999 !important; display: inline-block !important; transform: scale(1.1) !important; animation: highlight-pulse 2s infinite !important;"')
   })
-  
   return [
     '<style>',
       `a[href="${targetUrl}"] {`,
@@ -231,6 +222,11 @@ function getHighlightedTemplate(targetUrl) {
           'background: rgba(255, 255, 0, 0.6);',
         '}',
       '}',
+      '@keyframes glow-rotate {',
+        '0% { transform: rotate(0deg); opacity: 0.3; }',
+        '50% { opacity: 0.8; }',
+        '100% { transform: rotate(360deg); opacity: 0.3; }',
+      '}',
       'body {',
         'margin: 8px !important;',
         'padding: 8px !important;',
@@ -249,11 +245,7 @@ function getHighlightedTemplate(targetUrl) {
         'const highlightedLink = document.getElementById("highlighted-link");',
         'if (highlightedLink) {',
           'setTimeout(function() {',
-            'highlightedLink.scrollIntoView({',
-              'behavior: "smooth",',
-              'block: "center",',
-              'inline: "nearest"',
-            '});',
+            'highlightedLink.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });',
           '}, 100);',
         '}',
       '});',
@@ -261,11 +253,7 @@ function getHighlightedTemplate(targetUrl) {
         'const highlightedLink = document.getElementById("highlighted-link");',
         'if (highlightedLink) {',
           'setTimeout(function() {',
-            'highlightedLink.scrollIntoView({',
-              'behavior: "smooth",',
-              'block: "center",',
-              'inline: "nearest"',
-            '});',
+            'highlightedLink.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });',
           '}, 200);',
         '}',
       '});',
@@ -274,12 +262,49 @@ function getHighlightedTemplate(targetUrl) {
   ].join('')
 }
 
-// NEW: Get proxied URL for iframe
-function getPagePreviewUrl(url) {
+async function getPagePreviewDataUrl(url) {
   if (!url || !url.trim()) return ''
-  return getProxiedUrl(url)
+  try {
+    const response = await fetch(`http://localhost:3000/v1/proxy?url=${encodeURIComponent(url)}`)
+    const data = await response.json()
+    if (data.result && data.result.dataUrl) {
+      return data.result.dataUrl
+    }
+    throw new Error('No dataUrl returned')
+  } catch (error) {
+    console.error('Error getting page preview:', error)
+    return ''
+  }
 }
 
+async function updatePagePreviewUrl(selected) {
+  // Only fetch preview for working, broken, error, or redirect links
+  if (selected && (selected.status === 'working' || selected.status === 'broken' || selected.status === 'error' || selected.status === 'redirect' || selected.status === 'soft404')) {
+    pagePreviewUrl.value = await getPagePreviewDataUrl(selected.url)
+  } else {
+    pagePreviewUrl.value = ''
+  }
+}
+// Update page preview when selection or tab changes (only for Page Preview tab)
+watch([selectedResult, activeDetailsTab, previewMode], async ([selected, tab, mode]) => {
+  if (!selected || tab !== 'page-preview') return
+  await updatePagePreviewUrl(selected)
+}, { immediate: true })
+
+function setDesktopMode() {
+  previewMode.value = 'desktop'
+}
+function setMobileMode() {
+  previewMode.value = 'mobile'
+}
+function setTemplateDesktopMode() {
+  templatePreviewMode.value = 'desktop'
+}
+function setTemplateMobileMode() {
+  templatePreviewMode.value = 'mobile'
+}
+
+// ---- CAPTCHA (existing) ----
 function loadCaptchaState() {
   const stored = loadCaptchaFromStorage()
   captchaProbe.value = stored.probe
@@ -287,7 +312,6 @@ function loadCaptchaState() {
   captchaExpires.value = stored.expires
   captchaSolvedUntil.value = stored.solvedUntil
 }
-
 async function loadCaptcha() {
   captchaLoading.value = true
   try {
@@ -302,19 +326,16 @@ async function loadCaptcha() {
     captchaLoading.value = false
   }
 }
-
 async function refreshCaptcha() {
   clearCaptchaSession()
   await loadCaptcha()
 }
-
 function markSolved() {
   if (!isProbeExpired.value) {
     const captchaState = markCaptchaSolved(captchaExpires.value)
     captchaSolvedUntil.value = captchaState.solvedUntil
   }
 }
-
 function clearCaptchaSession() {
   const captchaState = clearCaptchaStorage()
   captchaProbe.value = captchaState.probe
@@ -322,18 +343,15 @@ function clearCaptchaSession() {
   captchaExpires.value = captchaState.expires
   captchaSolvedUntil.value = captchaState.solvedUntil
 }
-
 function validateInputs() {
   if (!htmlTemplate.value?.trim()) {
     errorMessage.value = 'Please paste your HTML email template'
     return false
   }
-  
   if (extractedLinks.value.length === 0) {
     errorMessage.value = 'No valid links found in your HTML template'
     return false
   }
-  
   if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
     errorMessage.value = 'Please enter the captcha text'
     return false
@@ -343,9 +361,7 @@ function validateInputs() {
 
 async function reloadSelectedResult() {
   if (!selectedResult.value || isProbeExpired.value) return
-  
   loadingStates.value = { ...loadingStates.value, [selectedIndex.value]: true }
-  
   try {
     const data = await checkLinks({
       urls: [selectedResult.value.url],
@@ -354,7 +370,6 @@ async function reloadSelectedResult() {
       captchaProbe: captchaProbe.value,
       captchaText: ''
     })
-    
     if (data.result && data.result.length > 0 && result.value) {
       const updatedResult = data.result[0]
       const resultIndex = result.value.findIndex(r => r.url === selectedResult.value.url)
@@ -366,6 +381,7 @@ async function reloadSelectedResult() {
           [selectedIndex.value]: (reloadKeys.value[selectedIndex.value] || 0) + 1
         }
       }
+      await updatePagePreviewUrl(updatedResult)
     }
   } catch (err) {
     errorMessage.value = `Failed to reload: ${err.message}`
@@ -383,13 +399,11 @@ async function checkLinksHandler() {
   result.value = null
   loading.value = true
   errorMessage.value = ''
-  
   try {
     if (!validateInputs()) {
       loading.value = false
       return
-    }
-    
+    }  
     const urlsToCheck = extractedLinks.value.map(link => link.href)
     const data = await checkLinks({
       urls: urlsToCheck,
@@ -398,14 +412,11 @@ async function checkLinksHandler() {
       captchaProbe: captchaProbe.value,
       captchaText: shouldShowCaptcha.value ? captchaText.value : ''
     })
-    
     result.value = data.result
     captchaText.value = ''
     markSolved()
-
     await nextTick()
     window.scrollTo({ top: 0, behavior: 'smooth' })
-    
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
     if (err.status === 401) {
@@ -423,34 +434,25 @@ function resetToForm() {
   selectedIndex.value = 0
   showModal.value = false
 }
-
 function handleResize() {
   isMobile.value = window.innerWidth <= 768
-  if (!isMobile.value) {
-    showModal.value = false
-  }
+  if (!isMobile.value) showModal.value = false
 }
-
 watch(htmlTemplate, updateExtractedLinks, { immediate: true })
-
 watch(isProbeExpired, (expired, prev) => {
   if (expired && !prev) {
     result.value = null
     captchaText.value = ''
   }
 })
-
 watch(shouldShowCaptcha, (show, prev) => {
   if (show && !prev) captchaText.value = ''
 })
-
 onMounted(async () => {
   loadCaptchaState()
   await nextTick()
-  
   handleResize()
   window.addEventListener('resize', handleResize)
-  
   if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
     await loadCaptcha()
   }
@@ -462,8 +464,7 @@ onMounted(async () => {
     <div class="link-checker">
       <div v-if="!result" class="form-stage">
         <div class="form-container">
-          <h2 class="form-title">HTML Email Link Checker</h2>
-          
+          <h2 class="form-title">HTML Email Link Checker</h2>          
           <div class="tool-form">
             <form @submit.prevent="checkLinksHandler">
               <div class="form-group">
@@ -568,7 +569,6 @@ Example:
               <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
                 Your verification has expired. Please refresh the captcha below.
               </div>
-
               <div v-if="shouldShowCaptcha" class="form-group">
                 <label for="captcha">Security Verification:</label>
                 <div class="captcha-container">
@@ -624,7 +624,6 @@ Example:
               </button>
             </form>
           </div>
-
           <div v-if="errorMessage" class="error-section">
             <p class="error-message">{{ errorMessage }}</p>
           </div>
@@ -638,7 +637,6 @@ Example:
             ← Back to Form
           </button>
         </div>
-
         <div class="split-view">
           <div class="results-panel">
             <div class="results-summary">
@@ -659,7 +657,6 @@ Example:
                 <span class="label">Errors</span>
               </div>
             </div>
-
             <div class="results-list">
               <div
                 v-for="(linkResult, index) in result"
@@ -679,7 +676,6 @@ Example:
               </div>
             </div>
           </div>
-
           <div class="details-panel">
             <div v-if="selectedResult" class="details-content">
               <div class="details-header">
@@ -707,7 +703,6 @@ Example:
                   </button>
                 </div>
               </div>
-
               <a 
                 :href="selectedResult.url" 
                 target="_blank" 
@@ -717,7 +712,6 @@ Example:
               >
                 {{ selectedResult.url }}
               </a>
-              
               <div class="detail-status" :class="selectedResult.status">
                 <span class="status-dot" :class="selectedResult.status"></span>
                 <span class="status-text">{{ getStatusText(selectedResult.status) }}</span>
@@ -726,28 +720,21 @@ Example:
                 </span>
                 <span class="response-time">{{ selectedResult.responseTime }}ms</span>
               </div>
-
               <div v-if="selectedResult.error" class="detail-error">
                 <strong>Error:</strong> {{ selectedResult.error }}
               </div>
-
               <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="detail-redirect">
                 <strong>Redirects to:</strong><br>
                 <span class="redirect-url" :title="selectedResult.finalUrl">{{ selectedResult.finalUrl }}</span>
               </div>
-
-              <div v-if="selectedResult.status === 'broken' || selectedResult.status === 'error'" class="code-location">
-                <h4>Code Location:</h4>
-                <pre class="code-snippet" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
-              </div>
-
-              <div v-if="selectedResult && selectedResult.status !== 'error'" class="preview-tabs-section">
+              
+              <!-- FIXED: Preview tabs section with proper switcher positioning -->
+              <div v-if="selectedResult" class="preview-tabs-section">
                 <div class="preview-tabs-header">
                   <div class="preview-tabs-nav">
                     <button
                       @click="setActiveDetailsTab('page-preview')"
                       :class="['preview-tab-btn', { active: activeDetailsTab === 'page-preview' }]"
-                      v-if="selectedResult.status === 'working'"
                     >
                       <span>Page Preview</span>
                     </button>
@@ -758,57 +745,83 @@ Example:
                       <span>Link Location</span>
                     </button>
                   </div>
+                  
+                  <div v-if="activeDetailsTab === 'page-preview'" class="tab-switcher">
+                    <div class="preview-switcher">
+                      <button 
+                        type="button" 
+                        @click="setPreviewMode('desktop')" 
+                        :class="['preview-btn', { active: previewMode === 'desktop' }]"
+                        title="Desktop Preview"
+                      >
+                        <img src="/assets/monitor.webp?url" alt="desktop" />
+                        <span>Desktop</span>
+                      </button>
+                      <button 
+                        type="button" 
+                        @click="setPreviewMode('mobile')" 
+                        :class="['preview-btn', { active: previewMode === 'mobile' }]"
+                        title="Mobile Preview"
+                      >
+                        <img src="/assets/cellphone.webp?url" alt="mobile" />
+                        <span>Mobile</span>
+                      </button>
+                    </div>
+                  </div>
+                  
+                  <div v-if="activeDetailsTab === 'template-preview'" class="tab-switcher">
+                    <div class="template-preview-switcher">
+                      <button 
+                        type="button" 
+                        @click="setTemplatePreviewMode('desktop')" 
+                        :class="['template-preview-btn', { active: templatePreviewMode === 'desktop' }]"
+                        title="Desktop Template Preview"
+                      >
+                        <img src="/assets/monitor.webp?url" alt="desktop" />
+                        <span>Desktop</span>
+                      </button>
+                      <button 
+                        type="button" 
+                        @click="setTemplatePreviewMode('mobile')" 
+                        :class="['template-preview-btn', { active: templatePreviewMode === 'mobile' }]"
+                        title="Mobile Template Preview"
+                      >
+                        <img src="/assets/cellphone.webp?url" alt="mobile" />
+                        <span>Mobile</span>
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 <div class="preview-tabs-content">
                   <div v-if="activeDetailsTab === 'page-preview'" class="preview-tab-panel">
-                    <div v-if="selectedResult.status === 'working'">
-                      <div class="tab-panel-header">
-                        <h4>Page Content Preview</h4>
-                        <small class="tab-panel-help">Live preview of the destination page</small>
-                      </div>
-                      <div class="page-preview-container">
-                        <iframe
-                          :key="`detail-${selectedIndex}-${reloadKeys[selectedIndex] || 0}`"
-                          :src="getPagePreviewUrl(selectedResult.url)"
-                          class="detail-preview"
-                          sandbox="allow-scripts allow-same-origin"
-                          title="Page Content Preview"
-                        ></iframe>
-                      </div>
-                      <small class="form-help mobile-only-message preview-hidden-message">
-                        Page preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the full page preview.
-                      </small>
+                    <div class="tab-panel-header">
+                      <h4>Page Content Preview</h4>
+                      <small class="tab-panel-help">Live preview of the destination page</small>
                     </div>
-                    <div v-else class="no-preview-content">
-                      <h4>No Page Preview Available</h4>
-                      <p>Page preview is only available for working links that return content.</p>
+                    <div class="page-preview-container">
+                      <iframe
+                        v-if="pagePreviewUrl"
+                        :key="`detail-${selectedIndex}-${reloadKeys[selectedIndex] || 0}-${previewMode}`"
+                        :src="pagePreviewUrl"
+                        :class="['detail-preview', previewMode]"
+                        sandbox="allow-scripts allow-same-origin"
+                        title="Page Content Preview"
+                      ></iframe>
+                      <div v-else class="no-preview-content">
+                        <h4>No Page Preview Available</h4>
+                        <p>Page preview is only available for fetched links that return content.</p>
+                      </div>
                     </div>
+                    <small class="form-help mobile-only-message preview-hidden-message">
+                      Page preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the full page preview.
+                    </small>
                   </div>
 
                   <div v-if="activeDetailsTab === 'template-preview'" class="preview-tab-panel">
                     <div class="tab-panel-header">
                       <h4>Template Preview - Link Location</h4>
-                      <div class="template-preview-switcher">
-                        <button
-                          type="button"
-                          @click="setTemplatePreviewMode('desktop')"
-                          :class="['template-preview-btn', { active: templatePreviewMode === 'desktop' }]"
-                          title="Desktop Template Preview"
-                        >
-                          <img src="/assets/monitor.webp?url" alt="desktop" />
-                          <span>Desktop</span>
-                        </button>
-                        <button
-                          type="button"
-                          @click="setTemplatePreviewMode('mobile')"
-                          :class="['template-preview-btn', { active: templatePreviewMode === 'mobile' }]"
-                          title="Mobile Template Preview"
-                        >
-                          <img src="/assets/cellphone.webp?url" alt="mobile" />
-                          <span>Mobile</span>
-                        </button>
-                      </div>
+                      <small class="tab-panel-help">Original template with the selected link highlighted</small>
                     </div>
                     <div class="template-preview-container">
                       <iframe
@@ -824,6 +837,12 @@ Example:
                     <small class="tab-panel-help template-preview-mobile-only">
                       Template preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the highlighted template.
                     </small>
+                    
+                    <!-- ENHANCED: Code location for both broken AND error links -->
+                    <div v-if="selectedResult.status === 'broken' || selectedResult.status === 'error'" class="code-location">
+                      <h4>Code Location:</h4>
+                      <pre class="code-snippet" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -833,7 +852,6 @@ Example:
                 <p>This page returns the homepage content instead of the requested page. The server responds with HTTP 200 but shows generic content, indicating the page doesn't exist.</p>
               </div>
             </div>
-
             <div v-else class="no-selection">
               <h3>Select a Link</h3>
               <p>Click on any link from the left panel to view its details here.</p>
@@ -1097,6 +1115,7 @@ Example:
   border-radius: 8px;
   padding: 4px;
   gap: 2px;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
 }
 
 .preview-btn {
@@ -1176,6 +1195,17 @@ Example:
   border: 1px solid var(--vp-c-border, #ddd);
   border-radius: 8px;
   background: white;
+}
+
+.detail-preview.desktop {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.detail-preview.mobile {
+  width: 375px;
+  max-width: 375px;
+  margin: 0 auto;
 }
 
 .extracted-links {
@@ -1272,7 +1302,7 @@ Example:
   filter: brightness(0) invert(1);
 }
 
-/* FIXED: Enhanced URL styling with proper word breaking */
+/* Enhanced URL styling with proper word breaking */
 .result-url,
 .detail-url {
   font-family: var(--vp-font-family-mono, 'Courier New', monospace);
@@ -1286,7 +1316,7 @@ Example:
   box-sizing: border-box;
 }
 
-/* FIXED: Enhanced redirect URL container with proper overflow handling */
+/* Enhanced redirect URL container with proper overflow handling */
 .redirect-url {
   font-family: var(--vp-font-family-mono, 'Courier New', monospace);
   font-size: 0.875rem;
@@ -1757,7 +1787,7 @@ Example:
   font-size: 0.95rem;
 }
 
-/* FIXED: Enhanced detail-redirect container with proper overflow handling */
+/* Enhanced detail-redirect container with proper overflow handling */
 .detail-redirect {
   background: #fff3cd;
   color: #856404;
@@ -1810,15 +1840,26 @@ Example:
   margin: 2rem 0;
 }
 
+/* FIXED: Preview tabs header with proper layout for switchers */
 .preview-tabs-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
 }
 
 .preview-tabs-nav {
   display: flex;
   gap: 0.5rem;
-  border-bottom: 2px solid var(--vp-c-border-soft, #eee);
-  padding-bottom: 0.5rem;
+}
+
+/* FIXED: Tab switcher container for proper positioning */
+.tab-switcher {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 .preview-tab-btn {
@@ -1900,8 +1941,12 @@ Example:
   border-radius: 8px;
   padding: 1.5rem;
   border: 1px solid var(--vp-c-border, #e5e7eb);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
+/* FIXED: Template preview switcher styling */
 .template-preview-switcher {
   display: flex;
   background: var(--vp-c-bg-soft, #f1f5f9);
@@ -2205,7 +2250,7 @@ Example:
   animation: spin 1s linear infinite;
 }
 
-/* FIXED: Mobile URL styling with proper word breaking */
+/* Mobile URL styling with proper word breaking */
 .detail-url.mobile {
   font-size: 0.875rem;
   word-break: break-all !important;
@@ -2246,7 +2291,7 @@ Example:
   line-height: 1.4;
 }
 
-/* FIXED: Mobile redirect container with enhanced overflow handling */
+/* Mobile redirect container with enhanced overflow handling */
 .detail-redirect.mobile {
   padding: 1rem;
   margin-bottom: 1rem;
@@ -2544,6 +2589,24 @@ Example:
   
   .template-preview-mobile-only {
     display: block !important;
+  }
+
+  /* Mobile responsive adjustments for tab switchers */
+  .preview-tabs-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .tab-switcher {
+    margin-left: 0;
+    justify-content: center;
+  }
+  
+  .preview-switcher,
+  .template-preview-switcher {
+    width: 100%;
+    justify-content: center;
   }
 
   .extracted-links {

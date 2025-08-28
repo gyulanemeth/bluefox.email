@@ -62,7 +62,7 @@ head:
 
 # Free Link Checker
 
-**Validate your email links** and ensure your email content is working correctly with our comprehensive link checker tool.
+**Validate your email links** and ensure your email content is working correctly, before you hit the send!
 
 
 <LinkChecker />

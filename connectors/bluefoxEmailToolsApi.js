@@ -187,7 +187,7 @@ export async function checkLinks({ urls, timeout, includeProxy, captchaProbe, ca
 
 export function getProxiedUrl(url) {
   if (!url) return null
-  return `${BASE_URL}/v1/proxy?url=${encodeURIComponent(url)}`
+  return `${BASE_URL}/v1/proxy?url=${url}`
 }
 
 export async function generateCaptcha() {
