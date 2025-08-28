@@ -728,7 +728,6 @@ Example:
                 <span class="redirect-url" :title="selectedResult.finalUrl">{{ selectedResult.finalUrl }}</span>
               </div>
               
-              <!-- FIXED: Preview tabs section with proper switcher positioning -->
               <div v-if="selectedResult" class="preview-tabs-section">
                 <div class="preview-tabs-header">
                   <div class="preview-tabs-nav">
@@ -981,9 +980,13 @@ Example:
   color: var(--vp-c-text-1, #1e293b);
 }
 
+
 .results-stage {
   width: 100%;
   max-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .results-header {
@@ -991,9 +994,10 @@ Example:
   justify-content: space-between;
   align-items: center;
   margin-bottom: 2rem;
+  width: 100%;
   max-width: 1600px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 0 clamp(1rem, 5vw, 4rem);
+  box-sizing: border-box;
 }
 
 .results-header h2 {
@@ -1001,6 +1005,26 @@ Example:
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--vp-c-text-1, #333);
+  flex: 1;
+  text-align: left;
+}
+
+.back-btn {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border: 1px solid var(--vp-c-border, #ddd);
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--vp-c-text-1, #333);
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.back-btn:hover {
+  background: var(--vp-c-bg, #fff);
+  border-color: var(--vp-c-brand);
 }
 
 .split-view {
@@ -1011,8 +1035,10 @@ Example:
   border: 1px solid var(--vp-c-border, #e5e7eb);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   overflow: hidden;
-  max-width: 1600px;
+  width: 100%;
+  max-width: 1600px; /* Same as results-header max-width */
   margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .results-panel {
@@ -1501,22 +1527,6 @@ Example:
   font-size: 0.875rem;
 }
 
-.back-btn {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #ddd);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  color: var(--vp-c-text-1, #333);
-  font-size: 0.9rem;
-  transition: all 0.2s ease;
-}
-
-.back-btn:hover {
-  background: var(--vp-c-bg, #fff);
-  border-color: var(--vp-c-brand);
-}
-
 .results-summary {
   display: flex;
   gap: 0.75rem;
@@ -1840,7 +1850,6 @@ Example:
   margin: 2rem 0;
 }
 
-/* FIXED: Preview tabs header with proper layout for switchers */
 .preview-tabs-header {
   display: flex;
   justify-content: space-between;
@@ -1855,7 +1864,6 @@ Example:
   gap: 0.5rem;
 }
 
-/* FIXED: Tab switcher container for proper positioning */
 .tab-switcher {
   display: flex;
   align-items: center;
@@ -1946,7 +1954,6 @@ Example:
   align-items: flex-start;
 }
 
-/* FIXED: Template preview switcher styling */
 .template-preview-switcher {
   display: flex;
   background: var(--vp-c-bg-soft, #f1f5f9);
@@ -2410,7 +2417,6 @@ Example:
   }
 }
 
-/* Responsive Design */
 @media (max-width: 480px) {
   .link-checker-breakout {
     width: 100% !important;
@@ -2424,6 +2430,41 @@ Example:
   .link-checker {
     padding: 0 0.75rem;
     max-width: 100vw;
+  }
+
+  .results-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    padding: 0 0.75rem;
+    align-items: center;
+    max-width: 100%;
+  }
+
+  .results-header h2 {
+    font-size: 1.25rem;
+    text-align: center;
+    flex: none;
+  }
+
+  .back-btn {
+    align-self: center;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.875rem;
+    min-height: 44px;
+    width: auto;
+  }
+
+  .split-view {
+    display: block !important;
+    height: auto !important;
+    min-height: auto !important;
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+    border-radius: 8px;
+    overflow: visible;
   }
   
   .form-title {
@@ -2489,6 +2530,26 @@ Example:
 }
 
 @media (min-width: 481px) and (max-width: 768px) {
+  .results-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+    margin-bottom: 1.25rem;
+    padding: 0 1.5rem;
+    align-items: center;
+    max-width: 1200px;
+  }
+
+  .results-header h2 {
+    font-size: 1.375rem;
+    text-align: center;
+    flex: none;
+  }
+
+  .split-view {
+    max-width: 1200px;
+  }
+
   .results-summary {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
@@ -2517,6 +2578,24 @@ Example:
   
   .code-snippet.mobile {
     max-height: 180px !important;
+  }
+
+  /* Mobile responsive adjustments for tab switchers */
+  .preview-tabs-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+  
+  .tab-switcher {
+    margin-left: 0;
+    justify-content: center;
+  }
+  
+  .preview-switcher,
+  .template-preview-switcher {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -2591,24 +2670,6 @@ Example:
     display: block !important;
   }
 
-  /* Mobile responsive adjustments for tab switchers */
-  .preview-tabs-header {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: stretch;
-  }
-  
-  .tab-switcher {
-    margin-left: 0;
-    justify-content: center;
-  }
-  
-  .preview-switcher,
-  .template-preview-switcher {
-    width: 100%;
-    justify-content: center;
-  }
-
   .extracted-links {
     max-height: 180px;
     padding: 0;
@@ -2661,36 +2722,6 @@ Example:
   .copy-link-btn img {
     width: 14px;
     height: 14px;
-  }
-
-  .results-header {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-    margin-bottom: 1.25rem;
-    padding: 0 0.5rem;
-  }
-
-  .results-header h2 {
-    font-size: 1.25rem;
-  }
-
-  .back-btn {
-    align-self: center;
-    padding: 0.6rem 1.25rem;
-    font-size: 0.875rem;
-    min-height: 44px;
-  }
-
-  .split-view {
-    display: block !important;
-    height: auto !important;
-    min-height: auto !important;
-    padding: 0;
-    margin: 0;
-    max-width: 100%;
-    border-radius: 8px;
-    overflow: visible;
   }
 
   .results-panel {
@@ -2799,6 +2830,15 @@ Example:
     padding: 0 1.5rem;
   }
 
+  .results-header {
+    max-width: 1200px;
+    padding: 0 1.5rem;
+  }
+
+  .split-view {
+    max-width: 1200px;
+  }
+
   .results-summary {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
@@ -2888,6 +2928,15 @@ Example:
 }
 
 @media (min-width: 1025px) {
+  .results-header {
+    max-width: 1600px;
+    padding: 0 clamp(1rem, 5vw, 4rem);
+  }
+
+  .split-view {
+    max-width: 1600px;
+  }
+
   .results-summary {
     display: flex !important;
     gap: 0.75rem;
@@ -2913,6 +2962,10 @@ Example:
 }
 
 @media (max-width: 1400px) {
+  .results-header {
+    max-width: 1200px;
+  }
+
   .split-view {
     max-width: 1200px;
   }
@@ -2932,8 +2985,13 @@ Example:
     height: 600px;
   }
   
+  .results-header {
+    max-width: 1400px;
+  }
+
   .split-view {
     max-width: 1400px;
   }
 }
 </style>
+
