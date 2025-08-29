@@ -38,6 +38,7 @@ const timeout = 10000
 const includeProxy = true
 
 const pagePreviewUrl = ref('')
+const loadingPreview = ref(false) // Added for skeleton loader
 
 const now = () => Math.floor(Date.now() / 1000)
 
@@ -250,50 +251,31 @@ async function copyToClipboard(text, event = null) {
   }
 }
 
-function setPreviewMode(mode) {
-  previewMode.value = mode
-}
-
-function setTemplatePreviewMode(mode) {
-  templatePreviewMode.value = mode
-}
-
-function setActiveDetailsTab(tab) {
-  activeDetailsTab.value = tab
-}
-
-function escapeRegExp(string) {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
-
 function getHighlightedTemplate(url) {
   if (!htmlTemplate.value || !url) {
     return ''
   }
 
   let content = htmlTemplate.value
-  const escaped = escapeRegExp(url)
+  const escaped = url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
   const linkRegex = new RegExp(`(<a[^>]*href=["']${escaped}["'][^>]*>)`, 'gi')
 
   content = content.replace(linkRegex, match => {
     return match.replace(
       '<a',
-      '<a id="highlighted-link" style="border: 3px solid #ff0000 !important; padding: 8px 12px !important; border-radius: 8px !important; box-shadow: 0 0 15px rgba(255,0,0,0.6) !important; background: rgba(255,255,0,0.2) !important; position: relative !important; z-index: 9999 !important; display: inline-block !important; transform: scale(1.05) !important; transition: all 0.3s ease !important;"'
+      '<a id="highlighted-link" style="outline: 4px solid #ff0000 !important; box-shadow: 0 0 0 2px #ffff00, 0 0 20px rgba(255,0,0,0.8) !important; background: rgba(255,255,0,0.3) !important; position: relative !important; z-index: 9999 !important; display: inline-block !important; transition: all 0.3s ease !important;"'
     )
   })
 
   const styleBlock = [
     '<style>',
     `a[href="${url}"] {`,
-    'border: 3px solid #ff0000 !important;',
-    'padding: 8px 12px !important;',
-    'border-radius: 8px !important;',
-    'box-shadow: 0 0 15px rgba(255,0,0,0.6) !important;',
-    'background: rgba(255,255,0,0.2) !important;',
+    'outline: 4px solid #ff0000 !important;',
+    'box-shadow: 0 0 0 2px #ffff00, 0 0 20px rgba(255,0,0,0.8) !important;',
+    'background: rgba(255,255,0,0.3) !important;',
     'position: relative !important;',
     'z-index: 9999 !important;',
     'display: inline-block !important;',
-    'transform: scale(1.05) !important;',
     'transition: all 0.3s ease !important;',
     '}',
     'body {',
@@ -334,10 +316,13 @@ function getHighlightedTemplate(url) {
   return styleBlock + scrollScript + content
 }
 
+// Updated function with skeleton loading
 async function getPagePreviewDataUrl(url) {
   if (!url || !url.trim()) {
     return ''
   }
+
+  loadingPreview.value = true
 
   try {
     const data = await getPagePreview(url)
@@ -361,21 +346,35 @@ async function getPagePreviewDataUrl(url) {
       console.error('Error getting page preview:', error)
     }
     return ''
+  } finally {
+    // Keep skeleton for minimum 500ms for better UX
+    setTimeout(() => {
+      loadingPreview.value = false
+    }, 500)
   }
 }
 
+// Updated function with loading state
 async function updatePagePreviewUrl(item) {
   if (!item) {
     pagePreviewUrl.value = ''
+    loadingPreview.value = false
     return
   }
 
   const validStatuses = ['working', 'broken', 'error', 'redirect', 'soft404']
   if (validStatuses.includes(item.status)) {
+    loadingPreview.value = true
     pagePreviewUrl.value = await getPagePreviewDataUrl(item.url)
   } else {
     pagePreviewUrl.value = ''
+    loadingPreview.value = false
   }
+}
+
+// New function to handle iframe load
+function onPreviewLoad() {
+  loadingPreview.value = false
 }
 
 watch(
@@ -383,6 +382,7 @@ watch(
   async ([item, tab]) => {
     if (!item) {
       pagePreviewUrl.value = ''
+      loadingPreview.value = false
       return
     }
 
@@ -559,6 +559,7 @@ function resetToForm() {
   selectedResult.value = null
   selectedIndex.value = 0
   showModal.value = false
+  loadingPreview.value = false
 }
 
 function handleResize() {
@@ -633,7 +634,7 @@ Example:
                   <div class="preview-switcher">
                     <button
                       type="button"
-                      @click="setPreviewMode('desktop')"
+                      @click="previewMode = 'desktop'"
                       :class="['preview-btn', { active: previewMode === 'desktop' }]"
                       title="Desktop Preview"
                     >
@@ -642,7 +643,7 @@ Example:
                     </button>
                     <button
                       type="button"
-                      @click="setPreviewMode('mobile')"
+                      @click="previewMode = 'mobile'"
                       :class="['preview-btn', { active: previewMode === 'mobile' }]"
                       title="Mobile Preview"
                     >
@@ -887,13 +888,13 @@ Example:
                 <div class="preview-tabs-header">
                   <div class="preview-tabs-nav">
                     <button
-                      @click="setActiveDetailsTab('page-preview')"
+                      @click="activeDetailsTab = 'page-preview'"
                       :class="['preview-tab-btn', { active: activeDetailsTab === 'page-preview' }]"
                     >
                       <span>Page Preview</span>
                     </button>
                     <button
-                      @click="setActiveDetailsTab('template-preview')"
+                      @click="activeDetailsTab = 'template-preview'"
                       :class="['preview-tab-btn', { active: activeDetailsTab === 'template-preview' }]"
                     >
                       <span>Link Location</span>
@@ -904,7 +905,7 @@ Example:
                     <div class="preview-switcher">
                       <button 
                         type="button" 
-                        @click="setPreviewMode('desktop')" 
+                        @click="previewMode = 'desktop'" 
                         :class="['preview-btn', { active: previewMode === 'desktop' }]"
                         title="Desktop Preview"
                       >
@@ -913,7 +914,7 @@ Example:
                       </button>
                       <button 
                         type="button" 
-                        @click="setPreviewMode('mobile')" 
+                        @click="previewMode = 'mobile'" 
                         :class="['preview-btn', { active: previewMode === 'mobile' }]"
                         title="Mobile Preview"
                       >
@@ -927,7 +928,7 @@ Example:
                     <div class="template-preview-switcher">
                       <button 
                         type="button" 
-                        @click="setTemplatePreviewMode('desktop')" 
+                        @click="templatePreviewMode = 'desktop'" 
                         :class="['template-preview-btn', { active: templatePreviewMode === 'desktop' }]"
                         title="Desktop Template Preview"
                       >
@@ -936,7 +937,7 @@ Example:
                       </button>
                       <button 
                         type="button" 
-                        @click="setTemplatePreviewMode('mobile')" 
+                        @click="templatePreviewMode = 'mobile'" 
                         :class="['template-preview-btn', { active: templatePreviewMode === 'mobile' }]"
                         title="Mobile Template Preview"
                       >
@@ -954,14 +955,31 @@ Example:
                       <small class="tab-panel-help">Live preview of the destination page</small>
                     </div>
                     <div class="page-preview-container">
+                      <!-- Skeleton loader while loading -->
+                      <div v-if="loadingPreview" :class="['preview-skeleton', previewMode]">
+                        <div class="skeleton-header"></div>
+                        <div class="skeleton-content">
+                          <div class="skeleton-line"></div>
+                          <div class="skeleton-line"></div>
+                          <div class="skeleton-line short"></div>
+                          <div class="skeleton-box"></div>
+                          <div class="skeleton-line"></div>
+                          <div class="skeleton-line short"></div>
+                        </div>
+                      </div>
+                      
+                      <!-- Actual iframe preview -->
                       <iframe
-                        v-if="pagePreviewUrl"
+                        v-else-if="pagePreviewUrl"
                         :key="`detail-${selectedIndex}-${reloadKeys[selectedIndex] || 0}-${previewMode}`"
                         :src="pagePreviewUrl"
                         :class="['detail-preview', previewMode]"
                         sandbox="allow-scripts allow-same-origin"
                         title="Page Content Preview"
+                        @load="onPreviewLoad"
                       ></iframe>
+                      
+                      <!-- No preview message -->
                       <div v-else class="no-preview-content">
                         <h4>No Page Preview Available</h4>
                         <p>Page preview is only available for fetched links that return content.</p>
@@ -1102,8 +1120,6 @@ Example:
     </div>
   </div>
 </template>
-
-
 <style scoped>
 .link-checker-breakout {
   width: 100vw;
@@ -1114,6 +1130,95 @@ Example:
   margin-bottom: 2rem;
   overflow-x: hidden;
   box-sizing: border-box;
+}
+
+/* Skeleton loader styles */
+.preview-skeleton {
+  width: 100%;
+  height: 600px;
+  background: white;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 8px;
+  padding: 2rem;
+  box-sizing: border-box;
+  animation: pulse 1.5s ease-in-out infinite alternate;
+}
+
+.preview-skeleton.mobile {
+  width: 375px;
+  max-width: 375px;
+  margin: 0 auto;
+}
+
+.skeleton-header {
+  height: 60px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+  margin-bottom: 2rem;
+}
+
+.skeleton-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeleton-line {
+  height: 20px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-line.short {
+  width: 60%;
+}
+
+.skeleton-box {
+  height: 200px;
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 6px;
+  margin: 1rem 0;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+/* Responsive skeleton styles */
+@media (max-width: 768px) {
+  .preview-skeleton {
+    height: 400px;
+    padding: 1rem;
+  }
+  
+  .skeleton-header {
+    height: 40px;
+    margin-bottom: 1rem;
+  }
+  
+  .skeleton-box {
+    height: 120px;
+  }
 }
 
 .redirect-header {
@@ -1208,7 +1313,6 @@ Example:
   color: var(--vp-c-text-1, #1e293b);
 }
 
-
 .results-stage {
   width: 100%;
   max-width: none;
@@ -1224,7 +1328,7 @@ Example:
   margin-bottom: 2rem;
   width: 100%;
   max-width: 1600px;
-  padding: 0 clamp(1rem, 5vw, 4rem);
+  padding: 0 clamp(0.3rem, 4vw, 0.3rem);
   box-sizing: border-box;
 }
 
@@ -1264,7 +1368,7 @@ Example:
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   overflow: hidden;
   width: 100%;
-  max-width: 1600px; /* Same as results-header max-width */
+  max-width: 1600px;
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -1556,7 +1660,6 @@ Example:
   filter: brightness(0) invert(1);
 }
 
-/* Enhanced URL styling with proper word breaking */
 .result-url,
 .detail-url {
   font-family: var(--vp-font-family-mono, 'Courier New', monospace);
@@ -1570,7 +1673,6 @@ Example:
   box-sizing: border-box;
 }
 
-/* Enhanced redirect URL container with proper overflow handling */
 .redirect-url {
   font-family: var(--vp-font-family-mono, 'Courier New', monospace);
   font-size: 0.875rem;
@@ -2025,7 +2127,6 @@ Example:
   font-size: 0.95rem;
 }
 
-/* Enhanced detail-redirect container with proper overflow handling */
 .detail-redirect {
   background: #fff3cd;
   color: #856404;
@@ -2416,7 +2517,6 @@ Example:
   -webkit-overflow-scrolling: touch;
 }
 
-/* Mobile-specific styles for details in modal */
 .details-header.mobile {
   display: flex;
   justify-content: flex-end;
@@ -2485,7 +2585,6 @@ Example:
   animation: spin 1s linear infinite;
 }
 
-/* Mobile URL styling with proper word breaking */
 .detail-url.mobile {
   font-size: 0.875rem;
   word-break: break-all !important;
@@ -2526,7 +2625,6 @@ Example:
   line-height: 1.4;
 }
 
-/* Mobile redirect container with enhanced overflow handling */
 .detail-redirect.mobile {
   padding: 1rem;
   margin-bottom: 1rem;
@@ -2596,7 +2694,6 @@ Example:
   line-height: 1.4;
 }
 
-/* Modal scrollbar styling */
 .modal-content::-webkit-scrollbar {
   width: 8px;
 }
@@ -2759,13 +2856,14 @@ Example:
 
 @media (min-width: 481px) and (max-width: 768px) {
   .results-header {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-    margin-bottom: 1.25rem;
-    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
+    margin-bottom: 2rem;
+    width: 100%;
+    max-width: 1600px;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   .results-header h2 {
@@ -2808,7 +2906,6 @@ Example:
     max-height: 180px !important;
   }
 
-  /* Mobile responsive adjustments for tab switchers */
   .preview-tabs-header {
     flex-direction: column;
     gap: 1rem;
@@ -3158,7 +3255,7 @@ Example:
 @media (min-width: 1025px) {
   .results-header {
     max-width: 1600px;
-    padding: 0 clamp(1rem, 5vw, 4rem);
+    padding: 0 clamp(0.3rem, 4vw, 0.3rem);
   }
 
   .split-view {
@@ -3222,4 +3319,3 @@ Example:
   }
 }
 </style>
-
