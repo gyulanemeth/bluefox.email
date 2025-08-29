@@ -253,38 +253,19 @@ function getHighlightedTemplate(url) {
     return ''
   }
 
-  let content = htmlTemplate.value
   const escaped = url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  const linkRegex = new RegExp(`(<a[^>]*href=["']${escaped}["'][^>]*>)`, 'gi')
-
-  content = content.replace(linkRegex, match => {
-    return match.replace(
-      '<a',
-      '<a id="highlighted-link" style="outline: 4px solid #ff0000 !important; box-shadow: 0 0 0 2px #ffff00, 0 0 20px rgba(255,0,0,0.8) !important; background: rgba(255,255,0,0.3) !important; position: relative !important; z-index: 9999 !important; display: inline-block !important; transition: all 0.3s ease !important;"'
-    )
-  })
-
+  
   const styleBlock = [
     '<style>',
-    `a[href="${url}"] {`,
-    'outline: 4px solid #ff0000 !important;',
-    'box-shadow: 0 0 0 2px #ffff00, 0 0 20px rgba(255,0,0,0.8) !important;',
-    'background: rgba(255,255,0,0.3) !important;',
-    'position: relative !important;',
-    'z-index: 9999 !important;',
+    `a[href="${escaped}"] {`,
+    'outline: 2px solid #ff0000 !important;',
+    'outline-offset: 1px !important;',
     'display: inline-block !important;',
-    'transition: all 0.3s ease !important;',
     '}',
-    'body {',
-    'margin: 8px !important;',
-    'padding: 8px !important;',
-    '}',
-    'body > * {',
-    'opacity: 0.8 !important;',
-    'transition: opacity 0.3s ease !important;',
-    '}',
-    `a[href="${url}"], a[href="${url}"] * {`,
-    'opacity: 1 !important;',
+    `a[href^="${escaped}"] {`,
+    'outline: 2px solid #ff0000 !important;',
+    'outline-offset: 1px !important;',
+    'display: inline-block !important;',
     '}',
     '</style>'
   ].join('\n')
@@ -292,7 +273,7 @@ function getHighlightedTemplate(url) {
   const scrollScript = [
     '<scr' + 'ipt>',
     'window.addEventListener("load", function() {',
-    'const el = document.getElementById("highlighted-link");',
+    `const el = document.querySelector('a[href="${escaped}"], a[href^="${escaped}"]');`,
     'if (el) {',
     'setTimeout(function() {',
     'el.scrollIntoView({ behavior: "smooth", block: "center" });',
@@ -300,7 +281,7 @@ function getHighlightedTemplate(url) {
     '}',
     '});',
     'document.addEventListener("DOMContentLoaded", function() {',
-    'const el = document.getElementById("highlighted-link");',
+    `const el = document.querySelector('a[href="${escaped}"], a[href^="${escaped}"]');`,
     'if (el) {',
     'setTimeout(function() {',
     'el.scrollIntoView({ behavior: "smooth", block: "center" });',
@@ -310,7 +291,7 @@ function getHighlightedTemplate(url) {
     '</scr' + 'ipt>'
   ].join('\n')
 
-  return styleBlock + scrollScript + content
+  return styleBlock + scrollScript + htmlTemplate.value
 }
 
 async function getPagePreviewDataUrl(url) {
