@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
-import { checkLinks } from '../../../connectors/bluefoxEmailToolsApi.js'
+import { checkLinks, getPagePreview  } from '../../../connectors/bluefoxEmailToolsApi.js'
 import {
   loadCaptchaFromStorage,
   loadNewCaptcha,
@@ -340,8 +340,7 @@ async function getPagePreviewDataUrl(url) {
   }
 
   try {
-    const response = await fetch(`http://localhost:3000/v1/proxy?url=${encodeURIComponent(url)}`)
-    const data = await response.json()
+    const data = await getPagePreview(url)
 
     if (data.result && data.result.dataUrl) {
       return data.result.dataUrl
@@ -355,7 +354,12 @@ async function getPagePreviewDataUrl(url) {
     throw new Error('No dataUrl returned from proxy')
 
   } catch (error) {
-    console.error('Error getting page preview:', error)
+    if (error.name === 'TypeError' && error.message.includes('Failed to fetch')) {
+      console.error('Backend server is not running or not accessible')
+      console.error('Please ensure your API server is running')
+    } else {
+      console.error('Error getting page preview:', error)
+    }
     return ''
   }
 }
@@ -987,13 +991,14 @@ Example:
                     <small class="tab-panel-help template-preview-mobile-only">
                       Template preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the highlighted template.
                     </small>
-                    
-                    <div v-if="selectedResult.status === 'broken' || selectedResult.status === 'error'" class="code-location">
-                      <h4>Code Location:</h4>
-                      <pre class="code-snippet" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
-                    </div>
                   </div>
                 </div>
+              </div>
+
+              <!-- FIXED: Code location moved OUTSIDE tabs so it's always visible for broken/error links -->
+              <div v-if="selectedResult.status === 'broken' || selectedResult.status === 'error'" class="code-location">
+                <h4>Code Location:</h4>
+                <pre class="code-snippet" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
               </div>
 
               <div v-if="selectedResult.status === 'soft404'" class="soft404-info">
@@ -1097,6 +1102,7 @@ Example:
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .link-checker-breakout {

@@ -207,3 +207,24 @@ export async function generateCaptcha() {
 
   return json.result.captcha
 }
+
+export async function getPagePreview(url) {
+  if (!url || !url.trim()) {
+    throw new Error('URL parameter is required')
+  }
+
+  const response = await fetch(`${BASE_URL}/v1/proxy?url=${url.trim()}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  })
+
+  const json = await response.json()
+
+  if (!response.ok) {
+    const error = new Error(json.error?.message || json.message || 'API error')
+    error.status = response.status
+    throw error
+  }
+
+  return json
+}
