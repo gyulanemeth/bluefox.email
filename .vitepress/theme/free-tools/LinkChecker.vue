@@ -34,11 +34,8 @@ const templatePreviewMode = ref('desktop')
 const showModal = ref(false)
 const isMobile = ref(false)
 
-const timeout = 10000
-const includeProxy = true
-
 const pagePreviewUrl = ref('')
-const loadingPreview = ref(false) // Added for skeleton loader
+const loadingPreview = ref(false)
 
 const now = () => Math.floor(Date.now() / 1000)
 
@@ -316,7 +313,6 @@ function getHighlightedTemplate(url) {
   return styleBlock + scrollScript + content
 }
 
-// Updated function with skeleton loading
 async function getPagePreviewDataUrl(url) {
   if (!url || !url.trim()) {
     return ''
@@ -347,14 +343,12 @@ async function getPagePreviewDataUrl(url) {
     }
     return ''
   } finally {
-    // Keep skeleton for minimum 500ms for better UX
     setTimeout(() => {
       loadingPreview.value = false
     }, 500)
   }
 }
 
-// Updated function with loading state
 async function updatePagePreviewUrl(item) {
   if (!item) {
     pagePreviewUrl.value = ''
@@ -372,7 +366,6 @@ async function updatePagePreviewUrl(item) {
   }
 }
 
-// New function to handle iframe load
 function onPreviewLoad() {
   loadingPreview.value = false
 }
@@ -477,8 +470,6 @@ async function reloadSelectedResult() {
   try {
     const data = await checkLinks({
       urls: [selectedResult.value.url],
-      timeout,
-      includeProxy,
       captchaProbe: captchaProbe.value,
       captchaText: ''
     })
@@ -529,8 +520,6 @@ async function checkLinksHandler() {
 
     const data = await checkLinks({
       urls: urlsToCheck,
-      timeout,
-      includeProxy,
       captchaProbe: captchaProbe.value,
       captchaText: shouldShowCaptcha.value ? captchaText.value : ''
     })
@@ -596,6 +585,7 @@ onMounted(async () => {
   }
 })
 </script>
+
 
 <template>
   <div class="link-checker-breakout">
