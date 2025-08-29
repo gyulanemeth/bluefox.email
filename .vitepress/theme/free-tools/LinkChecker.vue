@@ -17,20 +17,20 @@ const extractedLinks = ref([])
 
 const selectedResult = ref(null)
 const selectedIndex = ref(0)
+const activeDetailsTab = ref('page-preview')
 
 const captchaProbe = ref(null)
 const captchaImage = ref(null)
 const captchaExpires = ref(0)
 const captchaSolvedUntil = ref(0)
 const captchaLoading = ref(false)
+
 const loadingStates = ref({})
 const reloadKeys = ref({})
 
 const previewMode = ref('desktop')
 const templatePreviewMode = ref('desktop')
-const activeDetailsTab = ref('page-preview')
 
-// Modal functionality
 const showModal = ref(false)
 const isMobile = ref(false)
 
@@ -40,43 +40,108 @@ const includeProxy = true
 const pagePreviewUrl = ref('')
 
 const now = () => Math.floor(Date.now() / 1000)
-const isProbeExpired = computed(() => !captchaProbe.value || now() > captchaExpires.value)
-const isSolved = computed(() => captchaSolvedUntil.value > now() && !isProbeExpired.value)
-const shouldShowCaptcha = computed(() =>
-  !isSolved.value || isProbeExpired.value || !captchaProbe.value || !captchaImage.value
-)
-const isFormDisabled = computed(() =>
-  loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
-)
-const shouldUseModal = computed(() => isMobile.value && window.innerWidth <= 768)
+
+const isProbeExpired = computed(() => {
+  if (!captchaProbe.value) {
+    return true
+  }
+  return now() > captchaExpires.value
+})
+
+const isSolved = computed(() => {
+  if (captchaSolvedUntil.value <= now()) {
+    return false
+  }
+  if (isProbeExpired.value) {
+    return false
+  }
+  return true
+})
+
+const shouldShowCaptcha = computed(() => {
+  if (!isSolved.value) {
+    return true
+  }
+  if (isProbeExpired.value) {
+    return true
+  }
+  if (!captchaProbe.value) {
+    return true
+  }
+  if (!captchaImage.value) {
+    return true
+  }
+  return false
+})
+
+const isFormDisabled = computed(() => {
+  if (loading.value) {
+    return true
+  }
+  if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
+    return true
+  }
+  return false
+})
+
+const shouldUseModal = computed(() => {
+  if (!isMobile.value) {
+    return false
+  }
+  if (window.innerWidth <= 768) {
+    return true
+  }
+  return false
+})
 
 watch(result, (newResult) => {
   if (newResult && newResult.length > 0) {
     selectedIndex.value = 0
     selectedResult.value = newResult[0]
-    activeDetailsTab.value = 'page-preview'
   }
 })
 
 function extractLinksFromHTML(html) {
-  if (!html || typeof html !== 'string') return []
+  if (!html || typeof html !== 'string') {
+    return []
+  }
+
   try {
     const parser = new DOMParser()
     const doc = parser.parseFromString(html, 'text/html')
     const anchors = Array.from(doc.querySelectorAll('a[href]'))
-    return anchors
-      .map(a => ({
+    const links = anchors.map(a => {
+      return {
         href: a.getAttribute('href'),
         text: a.textContent?.trim() || 'No anchor text'
-      }))
-      .filter(link =>
-        link.href &&
-        link.href.trim().length > 0 &&
-        !link.href.startsWith('#') &&
-        !link.href.startsWith('mailto:')
-      )
-      .map(link => ({ ...link, href: link.href.trim() }))
-  } catch { return [] }
+      }
+    }).filter(link => {
+      if (!link.href) {
+        return false
+      }
+      const trimmed = link.href.trim()
+      if (!trimmed) {
+        return false
+      }
+      if (trimmed.startsWith('#')) {
+        return false
+      }
+      if (trimmed.startsWith('mailto:')) {
+        return false
+      }
+      return true
+    }).map(link => {
+      return {
+        href: link.href.trim(),
+        text: link.text
+      }
+    })
+
+    return links
+
+  } catch {
+    return []
+  }
 }
 
 function updateExtractedLinks() {
@@ -91,19 +156,22 @@ function getStatusText(status) {
     error: 'Error',
     soft404: 'Soft 404'
   }
-  return statusMap[status] || 'Unknown'
+
+  if (statusMap[status]) {
+    return statusMap[status]
+  }
+  return 'Unknown'
 }
 
-function selectResult(resultItem, index) {
-  selectedResult.value = resultItem
+function selectResult(item, index) {
+  selectedResult.value = item
   selectedIndex.value = index
 
   if (shouldUseModal.value) {
     showModal.value = true
   }
-  activeDetailsTab.value = 'page-preview'
-  
-  updatePagePreviewUrl(resultItem)
+
+  updatePagePreviewUrl(item)
 }
 
 function closeModal() {
@@ -111,46 +179,65 @@ function closeModal() {
 }
 
 function getCodeSnippetForLink(url) {
-  if (!htmlTemplate.value) return ''
+  if (!htmlTemplate.value) {
+    return ''
+  }
+
   const lines = htmlTemplate.value.split('\n')
   const lineIndex = lines.findIndex(line => line.includes(url))
-  if (lineIndex === -1) return ''
-  
+
+  if (lineIndex === -1) {
+    return ''
+  }
+
   const start = Math.max(0, lineIndex - 2)
   const end = Math.min(lines.length, lineIndex + 3)
-  const contextLines = lines.slice(start, end)
-  
-  return contextLines.map((line, idx) => {
-    const actualLineNum = start + idx + 1
-    const isTargetLine = (start + idx) === lineIndex
+  const segment = lines.slice(start, end)
+
+  const snippet = segment.map((line, idx) => {
+    const actualLine = start + idx + 1
+    const isTarget = (start + idx) === lineIndex
     const escapedLine = line.replace(/</g, '&lt;').replace(/>/g, '&gt;')
-    
-    if (isTargetLine) {
-      return `<span class="line-number">${actualLineNum}:</span> <mark class="highlight-line">${escapedLine}</mark>`
+
+    if (isTarget) {
+      return `<span class="line-number">${actualLine}:</span> <mark class="highlight-line">${escapedLine}</mark>`
     }
-    return `<span class="line-number">${actualLineNum}:</span> ${escapedLine}`
+
+    return `<span class="line-number">${actualLine}:</span> ${escapedLine}`
+
   }).join('\n')
+
+  return snippet
 }
 
 async function copyToClipboard(text, event = null) {
   try {
     await navigator.clipboard.writeText(text)
+
     let button = null
+
     if (event && event.target) {
       button = event.target.closest('button')
-    } else {
+    }
+
+    if (!button) {
       const buttons = document.querySelectorAll('.copy-link-btn, .copy-detail-btn')
       buttons.forEach(btn => {
-        if (btn.title && btn.title.includes(text)) {
+        if (btn.title?.includes(text)) {
           button = btn
         }
       })
     }
+
     if (button) {
       button.classList.add('copied')
-      setTimeout(() => button.classList.remove('copied'), 1000)
+      setTimeout(() => {
+        button.classList.remove('copied')
+      }, 1000)
     }
+
     return true
+
   } catch {
     const textArea = document.createElement('textarea')
     textArea.value = text
@@ -158,6 +245,7 @@ async function copyToClipboard(text, event = null) {
     textArea.select()
     document.execCommand('copy')
     document.body.removeChild(textArea)
+
     return true
   }
 }
@@ -165,196 +253,247 @@ async function copyToClipboard(text, event = null) {
 function setPreviewMode(mode) {
   previewMode.value = mode
 }
+
 function setTemplatePreviewMode(mode) {
   templatePreviewMode.value = mode
 }
+
 function setActiveDetailsTab(tab) {
   activeDetailsTab.value = tab
 }
 
-// --- Highlighted Location Template Preview ---
 function escapeRegExp(string) {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
-function getHighlightedTemplate(targetUrl) {
-  if (!htmlTemplate.value || !targetUrl) return ''
-  let highlightedHtml = htmlTemplate.value
-  const escapedUrl = escapeRegExp(targetUrl)
-  const linkRegex = new RegExp(`(<a[^>]*href=["']${escapedUrl}["'][^>]*>)`, 'gi')
-  highlightedHtml = highlightedHtml.replace(linkRegex, (match) => {
-    return match.replace('<a', '<a id="highlighted-link" style="border: 3px solid #ff0000 !important; padding: 8px 12px !important; border-radius: 8px !important; box-shadow: 0 0 15px rgba(255, 0, 0, 0.6) !important; background: rgba(255, 255, 0, 0.2) !important; position: relative !important; z-index: 9999 !important; display: inline-block !important; transform: scale(1.05) !important;"')
+function getHighlightedTemplate(url) {
+  if (!htmlTemplate.value || !url) {
+    return ''
+  }
+
+  let content = htmlTemplate.value
+  const escaped = escapeRegExp(url)
+  const linkRegex = new RegExp(`(<a[^>]*href=["']${escaped}["'][^>]*>)`, 'gi')
+
+  content = content.replace(linkRegex, match => {
+    return match.replace(
+      '<a',
+      '<a id="highlighted-link" style="border: 3px solid #ff0000 !important; padding: 8px 12px !important; border-radius: 8px !important; box-shadow: 0 0 15px rgba(255,0,0,0.6) !important; background: rgba(255,255,0,0.2) !important; position: relative !important; z-index: 9999 !important; display: inline-block !important; transform: scale(1.05) !important; transition: all 0.3s ease !important;"'
+    )
   })
-  return [
+
+  const styleBlock = [
     '<style>',
-      `a[href="${targetUrl}"] {`,
-        'border: 3px solid #ff0000 !important;',
-        'padding: 8px 12px !important;',
-        'border-radius: 8px !important;',
-        'box-shadow: 0 0 15px rgba(255, 0, 0, 0.6) !important;',
-        'background: rgba(255, 255, 0, 0.2) !important;',
-        'position: relative !important;',
-        'z-index: 9999 !important;',
-        'display: inline-block !important;',
-        'transform: scale(1.05) !important;',
-        'transition: all 0.3s ease !important;',
-      '}',
-      'body {',
-        'margin: 8px !important;',
-        'padding: 8px !important;',
-        'position: relative !important;',
-      '}',
-      'body > * {',
-        'opacity: 0.8 !important;',
-        'transition: opacity 0.3s ease !important;',
-      '}',
-      `a[href="${targetUrl}"], a[href="${targetUrl}"] * {`,
-        'opacity: 1 !important;',
-      '}',
-    '</style>',
+    `a[href="${url}"] {`,
+    'border: 3px solid #ff0000 !important;',
+    'padding: 8px 12px !important;',
+    'border-radius: 8px !important;',
+    'box-shadow: 0 0 15px rgba(255,0,0,0.6) !important;',
+    'background: rgba(255,255,0,0.2) !important;',
+    'position: relative !important;',
+    'z-index: 9999 !important;',
+    'display: inline-block !important;',
+    'transform: scale(1.05) !important;',
+    'transition: all 0.3s ease !important;',
+    '}',
+    'body {',
+    'margin: 8px !important;',
+    'padding: 8px !important;',
+    '}',
+    'body > * {',
+    'opacity: 0.8 !important;',
+    'transition: opacity 0.3s ease !important;',
+    '}',
+    `a[href="${url}"], a[href="${url}"] * {`,
+    'opacity: 1 !important;',
+    '}',
+    '</style>'
+  ].join('\n')
+
+  const scrollScript = [
     '<scr' + 'ipt>',
-      'window.addEventListener("load", function() {',
-        'const highlightedLink = document.getElementById("highlighted-link");',
-        'if (highlightedLink) {',
-          'setTimeout(function() {',
-            'highlightedLink.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });',
-          '}, 100);',
-        '}',
-      '});',
-      'document.addEventListener("DOMContentLoaded", function() {',
-        'const highlightedLink = document.getElementById("highlighted-link");',
-        'if (highlightedLink) {',
-          'setTimeout(function() {',
-            'highlightedLink.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });',
-          '}, 200);',
-        '}',
-      '});',
-    '</scr' + 'ipt>',
-    highlightedHtml
-  ].join('')
+    'window.addEventListener("load", function() {',
+    'const el = document.getElementById("highlighted-link");',
+    'if (el) {',
+    'setTimeout(function() {',
+    'el.scrollIntoView({ behavior: "smooth", block: "center" });',
+    '}, 100);',
+    '}',
+    '});',
+    'document.addEventListener("DOMContentLoaded", function() {',
+    'const el = document.getElementById("highlighted-link");',
+    'if (el) {',
+    'setTimeout(function() {',
+    'el.scrollIntoView({ behavior: "smooth", block: "center" });',
+    '}, 200);',
+    '}',
+    '});',
+    '</scr' + 'ipt>'
+  ].join('\n')
+
+  return styleBlock + scrollScript + content
 }
 
 async function getPagePreviewDataUrl(url) {
-  if (!url || !url.trim()) return ''
+  if (!url || !url.trim()) {
+    return ''
+  }
+
   try {
     const response = await fetch(`http://localhost:3000/v1/proxy?url=${encodeURIComponent(url)}`)
     const data = await response.json()
+
     if (data.result && data.result.dataUrl) {
       return data.result.dataUrl
     }
-    throw new Error('No dataUrl returned')
+
+    if (data.result && data.result.error) {
+      console.warn('Proxy returned error:', data.result.error)
+      return ''
+    }
+
+    throw new Error('No dataUrl returned from proxy')
+
   } catch (error) {
     console.error('Error getting page preview:', error)
     return ''
   }
 }
 
-async function updatePagePreviewUrl(selected) {
-  // Only fetch preview for working, broken, error, or redirect links
-  if (selected && (selected.status === 'working' || selected.status === 'broken' || selected.status === 'error' || selected.status === 'redirect' || selected.status === 'soft404')) {
-    pagePreviewUrl.value = await getPagePreviewDataUrl(selected.url)
+async function updatePagePreviewUrl(item) {
+  if (!item) {
+    pagePreviewUrl.value = ''
+    return
+  }
+
+  const validStatuses = ['working', 'broken', 'error', 'redirect', 'soft404']
+  if (validStatuses.includes(item.status)) {
+    pagePreviewUrl.value = await getPagePreviewDataUrl(item.url)
   } else {
     pagePreviewUrl.value = ''
   }
 }
-// Update page preview when selection or tab changes (only for Page Preview tab)
-watch([selectedResult, activeDetailsTab, previewMode], async ([selected, tab, mode]) => {
-  if (!selected || tab !== 'page-preview') return
-  await updatePagePreviewUrl(selected)
-}, { immediate: true })
 
-function setDesktopMode() {
-  previewMode.value = 'desktop'
-}
-function setMobileMode() {
-  previewMode.value = 'mobile'
-}
-function setTemplateDesktopMode() {
-  templatePreviewMode.value = 'desktop'
-}
-function setTemplateMobileMode() {
-  templatePreviewMode.value = 'mobile'
-}
+watch(
+  [selectedResult, activeDetailsTab],
+  async ([item, tab]) => {
+    if (!item) {
+      pagePreviewUrl.value = ''
+      return
+    }
 
-// ---- CAPTCHA (existing) ----
+    if (tab === 'template-preview') {
+      return
+    }
+
+    if (tab === 'page-preview') {
+      await updatePagePreviewUrl(item)
+    }
+  },
+  { immediate: true }
+)
+
 function loadCaptchaState() {
   const stored = loadCaptchaFromStorage()
+
   captchaProbe.value = stored.probe
   captchaImage.value = stored.image
   captchaExpires.value = stored.expires
   captchaSolvedUntil.value = stored.solvedUntil
 }
+
 async function loadCaptcha() {
   captchaLoading.value = true
+
   try {
-    const captchaState = await loadNewCaptcha()
-    captchaProbe.value = captchaState.probe
-    captchaImage.value = captchaState.image
-    captchaExpires.value = captchaState.expires
-    captchaSolvedUntil.value = captchaState.solvedUntil
+    const state = await loadNewCaptcha()
+
+    captchaProbe.value = state.probe
+    captchaImage.value = state.image
+    captchaExpires.value = state.expires
+    captchaSolvedUntil.value = state.solvedUntil
+
   } catch {
     clearCaptchaSession()
   } finally {
     captchaLoading.value = false
   }
 }
+
 async function refreshCaptcha() {
   clearCaptchaSession()
   await loadCaptcha()
 }
+
 function markSolved() {
   if (!isProbeExpired.value) {
-    const captchaState = markCaptchaSolved(captchaExpires.value)
-    captchaSolvedUntil.value = captchaState.solvedUntil
+    const state = markCaptchaSolved(captchaExpires.value)
+    captchaSolvedUntil.value = state.solvedUntil
   }
 }
+
 function clearCaptchaSession() {
-  const captchaState = clearCaptchaStorage()
-  captchaProbe.value = captchaState.probe
-  captchaImage.value = captchaState.image
-  captchaExpires.value = captchaState.expires
-  captchaSolvedUntil.value = captchaState.solvedUntil
+  const state = clearCaptchaStorage()
+
+  captchaProbe.value = state.probe
+  captchaImage.value = state.image
+  captchaExpires.value = state.expires
+  captchaSolvedUntil.value = state.solvedUntil
 }
+
 function validateInputs() {
   if (!htmlTemplate.value?.trim()) {
     errorMessage.value = 'Please paste your HTML email template'
     return false
   }
+
   if (extractedLinks.value.length === 0) {
     errorMessage.value = 'No valid links found in your HTML template'
     return false
   }
+
   if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
     errorMessage.value = 'Please enter the captcha text'
     return false
   }
+
   return true
 }
 
 async function reloadSelectedResult() {
-  if (!selectedResult.value || isProbeExpired.value) return
-  loadingStates.value = { ...loadingStates.value, [selectedIndex.value]: true }
+  if (!selectedResult.value || isProbeExpired.value) {
+    return
+  }
+
+  loadingStates.value = {
+    ...loadingStates.value,
+    [selectedIndex.value]: true
+  }
+
   try {
     const data = await checkLinks({
       urls: [selectedResult.value.url],
-      timeout: timeout,
-      includeProxy: includeProxy,
+      timeout,
+      includeProxy,
       captchaProbe: captchaProbe.value,
       captchaText: ''
     })
+
     if (data.result && data.result.length > 0 && result.value) {
-      const updatedResult = data.result[0]
-      const resultIndex = result.value.findIndex(r => r.url === selectedResult.value.url)
-      if (resultIndex !== -1) {
-        result.value[resultIndex] = updatedResult
-        selectedResult.value = updatedResult
+      const updated = data.result[0]
+      const idx = result.value.findIndex(r => r.url === updated.url)
+
+      if (idx !== -1) {
+        result.value[idx] = updated
+        selectedResult.value = updated
         reloadKeys.value = {
           ...reloadKeys.value,
           [selectedIndex.value]: (reloadKeys.value[selectedIndex.value] || 0) + 1
         }
+        await updatePagePreviewUrl(updated)
       }
-      await updatePagePreviewUrl(updatedResult)
     }
+
   } catch (err) {
     errorMessage.value = `Failed to reload: ${err.message}`
     setTimeout(() => {
@@ -362,8 +501,12 @@ async function reloadSelectedResult() {
         errorMessage.value = ''
       }
     }, 5000)
+
   } finally {
-    loadingStates.value = { ...loadingStates.value, [selectedIndex.value]: false }
+    loadingStates.value = {
+      ...loadingStates.value,
+      [selectedIndex.value]: false
+    }
   }
 }
 
@@ -371,30 +514,37 @@ async function checkLinksHandler() {
   result.value = null
   loading.value = true
   errorMessage.value = ''
+
   try {
     if (!validateInputs()) {
       loading.value = false
       return
-    }  
-    const urlsToCheck = extractedLinks.value.map(link => link.href)
+    }
+
+    const urlsToCheck = extractedLinks.value.map(l => l.href)
+
     const data = await checkLinks({
       urls: urlsToCheck,
-      timeout: timeout,
-      includeProxy: includeProxy,
+      timeout,
+      includeProxy,
       captchaProbe: captchaProbe.value,
       captchaText: shouldShowCaptcha.value ? captchaText.value : ''
     })
+
     result.value = data.result
     captchaText.value = ''
     markSolved()
     await nextTick()
     window.scrollTo({ top: 0, behavior: 'smooth' })
+
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
+
     if (err.status === 401) {
       await refreshCaptcha()
       captchaText.value = ''
     }
+
   } finally {
     loading.value = false
   }
@@ -406,25 +556,36 @@ function resetToForm() {
   selectedIndex.value = 0
   showModal.value = false
 }
+
 function handleResize() {
   isMobile.value = window.innerWidth <= 768
-  if (!isMobile.value) showModal.value = false
+
+  if (!isMobile.value) {
+    showModal.value = false
+  }
 }
+
 watch(htmlTemplate, updateExtractedLinks, { immediate: true })
+
 watch(isProbeExpired, (expired, prev) => {
   if (expired && !prev) {
     result.value = null
     captchaText.value = ''
   }
 })
+
 watch(shouldShowCaptcha, (show, prev) => {
-  if (show && !prev) captchaText.value = ''
+  if (show && !prev) {
+    captchaText.value = ''
+  }
 })
+
 onMounted(async () => {
   loadCaptchaState()
   await nextTick()
   handleResize()
   window.addEventListener('resize', handleResize)
+
   if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
     await loadCaptcha()
   }
@@ -541,6 +702,7 @@ Example:
               <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
                 Your verification has expired. Please refresh the captcha below.
               </div>
+
               <div v-if="shouldShowCaptcha" class="form-group">
                 <label for="captcha">Security Verification:</label>
                 <div class="captcha-container">
@@ -596,6 +758,7 @@ Example:
               </button>
             </form>
           </div>
+
           <div v-if="errorMessage" class="error-section">
             <p class="error-message">{{ errorMessage }}</p>
           </div>
@@ -609,6 +772,7 @@ Example:
             ← Back to Form
           </button>
         </div>
+
         <div class="split-view">
           <div class="results-panel">
             <div class="results-summary">
@@ -629,6 +793,7 @@ Example:
                 <span class="label">Errors</span>
               </div>
             </div>
+
             <div class="results-list">
               <div
                 v-for="(linkResult, index) in result"
@@ -648,6 +813,7 @@ Example:
               </div>
             </div>
           </div>
+
           <div class="details-panel">
             <div v-if="selectedResult" class="details-content">
               <div class="details-header">
@@ -675,6 +841,7 @@ Example:
                   </button>
                 </div>
               </div>
+
               <a 
                 :href="selectedResult.url" 
                 target="_blank" 
@@ -684,6 +851,7 @@ Example:
               >
                 {{ selectedResult.url }}
               </a>
+
               <div class="detail-status" :class="selectedResult.status">
                 <span class="status-dot" :class="selectedResult.status"></span>
                 <span class="status-text">{{ getStatusText(selectedResult.status) }}</span>
@@ -692,11 +860,22 @@ Example:
                 </span>
                 <span class="response-time">{{ selectedResult.responseTime }}ms</span>
               </div>
+
               <div v-if="selectedResult.error" class="detail-error">
                 <strong>Error:</strong> {{ selectedResult.error }}
               </div>
+
               <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="detail-redirect">
-                <strong>Redirects to:</strong><br>
+                <div class="redirect-header">
+                  <strong>Redirects to:</strong>
+                  <button
+                    @click="copyToClipboard(selectedResult.finalUrl)"
+                    class="copy-redirect-btn"
+                    :title="`Copy ${selectedResult.finalUrl} to clipboard`"
+                  >
+                    <img src="/assets/copy.webp?url" alt="copy" />
+                  </button>
+                </div>
                 <span class="redirect-url" :title="selectedResult.finalUrl">{{ selectedResult.finalUrl }}</span>
               </div>
               
@@ -809,7 +988,6 @@ Example:
                       Template preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the highlighted template.
                     </small>
                     
-                    <!-- ENHANCED: Code location for both broken AND error links -->
                     <div v-if="selectedResult.status === 'broken' || selectedResult.status === 'error'" class="code-location">
                       <h4>Code Location:</h4>
                       <pre class="code-snippet" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
@@ -823,6 +1001,7 @@ Example:
                 <p>This page returns the homepage content instead of the requested page. The server responds with HTTP 200 but shows generic content, indicating the page doesn't exist.</p>
               </div>
             </div>
+
             <div v-else class="no-selection">
               <h3>Select a Link</h3>
               <p>Click on any link from the left panel to view its details here.</p>
@@ -830,7 +1009,6 @@ Example:
           </div>
         </div>
 
-        <!-- Mobile Modal - Only shows on mobile -->
         <div v-if="showModal && selectedResult" class="modal-overlay" @click="closeModal">
           <div class="modal-container" @click.stop>
             <div class="modal-header">
@@ -890,7 +1068,16 @@ Example:
               </div>
 
               <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="detail-redirect mobile">
-                <strong>Redirects to:</strong><br>
+                <div class="redirect-header mobile">
+                  <strong>Redirects to:</strong>
+                  <button
+                    @click="copyToClipboard(selectedResult.finalUrl)"
+                    class="copy-redirect-btn mobile"
+                    :title="`Copy ${selectedResult.finalUrl} to clipboard`"
+                  >
+                    <img src="/assets/copy.webp?url" alt="copy" />
+                  </button>
+                </div>
                 <span class="redirect-url">{{ selectedResult.finalUrl }}</span>
               </div>
 
@@ -921,6 +1108,69 @@ Example:
   margin-bottom: 2rem;
   overflow-x: hidden;
   box-sizing: border-box;
+}
+
+.redirect-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.redirect-header.mobile {
+  margin-bottom: 0.25rem;
+}
+
+.copy-redirect-btn {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  padding: 0.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.copy-redirect-btn:hover {
+  background: var(--vp-c-bg, #ffffff);
+  border-color: var(--vp-c-brand);
+  transform: scale(1.05);
+}
+
+.copy-redirect-btn img {
+  width: 10px;
+  height: 10px;
+  opacity: 0.7;
+}
+
+.copy-redirect-btn:hover img {
+  opacity: 1;
+}
+
+.copy-redirect-btn.copied {
+  background: var(--vp-c-brand);
+  border-color: var(--vp-c-brand);
+}
+
+.copy-redirect-btn.copied img {
+  opacity: 1;
+  filter: brightness(0) invert(1);
+}
+
+.copy-redirect-btn.mobile {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.5rem;
+}
+
+.copy-redirect-btn.mobile img {
+  width: 12px;
+  height: 12px;
 }
 
 .link-checker {
