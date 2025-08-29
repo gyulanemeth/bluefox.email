@@ -56,7 +56,6 @@ export async function checkSpf({ domain, captchaProbe, captchaText, testIp }) {
   return json
 }
 
-
 export async function checkDmarc({ domain, captchaProbe, captchaText }) {
   const body = {
     domain: domain.trim(),
@@ -154,9 +153,46 @@ export async function checkDkim({ domain, selector, captchaProbe, captchaText })
   return json
 }
 
+export async function checkLinks({ urls, timeout, includeProxy, captchaProbe, captchaText }) {
+  const body = {
+    urls: typeof urls === 'string' ? urls.trim() : urls,
+    captchaProbe,
+    captchaText: captchaText ? captchaText.trim() : ''
+  }
+
+  if (timeout) {
+    body.timeout = timeout
+  }
+
+  if (includeProxy !== undefined) {
+    body.includeProxy = includeProxy
+  }
+
+  const response = await fetch(`${BASE_URL}/v1/check-links`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  })
+
+  const json = await response.json()
+
+  if (!response.ok) {
+    const error = new Error(json.error?.message || json.message || 'API error')
+    error.status = response.status
+    throw error
+  }
+
+  return json
+}
+
+export function getProxiedUrl(url) {
+  if (!url) return null
+  return `${BASE_URL}/v1/proxy?url=${url}`
+}
+
 export async function generateCaptcha() {
   const response = await fetch(`${BASE_URL}/v1/captcha/generate`)
-  
+
   if (!response.ok) {
     const error = new Error(`HTTP ${response.status}`)
     error.status = response.status
@@ -164,7 +200,7 @@ export async function generateCaptcha() {
   }
 
   const json = await response.json()
-  
+
   if (!json.result?.captcha) {
     throw new Error('Invalid captcha response')
   }
@@ -172,3 +208,23 @@ export async function generateCaptcha() {
   return json.result.captcha
 }
 
+export async function getPagePreview(url) {
+  if (!url || !url.trim()) {
+    throw new Error('URL parameter is required')
+  }
+
+  const response = await fetch(`${BASE_URL}/v1/proxy?url=${url.trim()}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' }
+  })
+
+  const json = await response.json()
+
+  if (!response.ok) {
+    const error = new Error(json.error?.message || json.message || 'API error')
+    error.status = response.status
+    throw error
+  }
+
+  return json
+}
