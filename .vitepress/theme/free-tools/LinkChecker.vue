@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, watch, nextTick } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { checkLinks, getPagePreview  } from '../../../connectors/bluefoxEmailToolsApi.js'
 import {
   loadCaptchaFromStorage,
@@ -37,17 +37,17 @@ const isMobile = ref(false)
 const pagePreviewUrl = ref('')
 const loadingPreview = ref(false)
 
-const now = () => Math.floor(Date.now() / 1000)
+const currentTime = ref(Math.floor(Date.now() / 1000))
 
 const isProbeExpired = computed(() => {
   if (!captchaProbe.value) {
     return true
   }
-  return now() > captchaExpires.value
+  return currentTime.value > captchaExpires.value
 })
 
 const isSolved = computed(() => {
-  if (captchaSolvedUntil.value <= now()) {
+  if (captchaSolvedUntil.value <= currentTime.value) {
     return false
   }
   if (isProbeExpired.value) {
@@ -90,13 +90,6 @@ const shouldUseModal = computed(() => {
     return true
   }
   return false
-})
-
-watch(result, (newResult) => {
-  if (newResult && newResult.length > 0) {
-    selectedIndex.value = 0
-    selectedResult.value = newResult[0]
-  }
 })
 
 function extractLinksFromHTML(html) {
@@ -162,6 +155,14 @@ function getStatusText(status) {
 }
 
 function selectResult(item, index) {
+  if (isProbeExpired.value) {
+    result.value = null
+    selectedResult.value = null
+    captchaText.value = ''
+    errorMessage.value = 'Your verification has expired. Please solve the captcha to continue.'
+    return
+  }
+  
   selectedResult.value = item
   selectedIndex.value = index
 
@@ -347,30 +348,6 @@ async function updatePagePreviewUrl(item) {
   }
 }
 
-function onPreviewLoad() {
-  loadingPreview.value = false
-}
-
-watch(
-  [selectedResult, activeDetailsTab],
-  async ([item, tab]) => {
-    if (!item) {
-      pagePreviewUrl.value = ''
-      loadingPreview.value = false
-      return
-    }
-
-    if (tab === 'template-preview') {
-      return
-    }
-
-    if (tab === 'page-preview') {
-      await updatePagePreviewUrl(item)
-    }
-  },
-  { immediate: true }
-)
-
 function loadCaptchaState() {
   const stored = loadCaptchaFromStorage()
 
@@ -540,12 +517,42 @@ function handleResize() {
   }
 }
 
+watch(result, (newResult) => {
+  if (newResult && newResult.length > 0) {
+    selectedIndex.value = 0
+    selectedResult.value = newResult[0]
+  }
+})
+
+watch(
+  [selectedResult, activeDetailsTab],
+  async ([item, tab]) => {
+    if (!item) {
+      pagePreviewUrl.value = ''
+      loadingPreview.value = false
+      return
+    }
+
+    if (tab === 'template-preview') {
+      return
+    }
+
+    if (tab === 'page-preview') {
+      await updatePagePreviewUrl(item)
+    }
+  },
+  { immediate: true }
+)
+
 watch(htmlTemplate, updateExtractedLinks, { immediate: true })
 
-watch(isProbeExpired, (expired, prev) => {
-  if (expired && !prev) {
+watch(isProbeExpired, async(expired, prev) => {
+  if (expired && !prev && result.value) {
     result.value = null
+    selectedResult.value = null
     captchaText.value = ''
+    await refreshCaptcha()
+    errorMessage.value = 'Your verification has expired. Please refresh the captcha and try again.'
   }
 })
 
@@ -559,14 +566,21 @@ onMounted(async () => {
   loadCaptchaState()
   await nextTick()
   handleResize()
-  window.addEventListener('resize', handleResize)
 
+  const timeInterval = setInterval(() => {
+    currentTime.value = Math.floor(Date.now() / 1000)
+  }, 1000)
+  
+  onUnmounted(() => {
+    clearInterval(timeInterval)
+  })
+  
+  window.addEventListener('resize', handleResize)
   if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
     await loadCaptcha()
   }
 })
 </script>
-
 
 <template>
   <div class="link-checker-breakout">
@@ -724,11 +738,10 @@ Example:
               <button
                 type="submit"
                 class="check-btn"
-                :disabled="isFormDisabled || extractedLinks.length === 0"
+                :disabled="isFormDisabled || (extractedLinks.length === 0)"
               >
                 <span v-if="loading" class="btn-loading">
                   <div class="loading-spinner"></div>
-                  Checking {{ extractedLinks.length }} Links...
                 </span>
                 <span v-else>Check {{ extractedLinks.length }} Links</span>
               </button>
@@ -947,7 +960,7 @@ Example:
                         :class="['detail-preview', previewMode]"
                         sandbox="allow-scripts allow-same-origin"
                         title="Page Content Preview"
-                        @load="onPreviewLoad"
+                        @load="loadingPreview.value = false"
                       ></iframe>
                       
                       <!-- No preview message -->
@@ -1091,6 +1104,7 @@ Example:
     </div>
   </div>
 </template>
+
 <style scoped>
 .link-checker-breakout {
   width: 100vw;
