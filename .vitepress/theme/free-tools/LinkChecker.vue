@@ -135,10 +135,6 @@ function extractLinksFromHTML(html) {
   }
 }
 
-function updateExtractedLinks() {
-  extractedLinks.value = extractLinksFromHTML(htmlTemplate.value)
-}
-
 function getStatusText(status) {
   const statusMap = {
     working: 'Working',
@@ -544,7 +540,9 @@ watch(
   { immediate: true }
 )
 
-watch(htmlTemplate, updateExtractedLinks, { immediate: true })
+watch(htmlTemplate, (newTemplate) => {
+  extractedLinks.value = extractLinksFromHTML(newTemplate)
+}, { immediate: true })
 
 watch(isProbeExpired, async(expired, prev) => {
   if (expired && !prev && result.value) {
@@ -567,7 +565,7 @@ onMounted(async () => {
   await nextTick()
   handleResize()
 
-  const timeInterval = setInterval(() => {
+   const timeInterval = setInterval(() => {
     currentTime.value = Math.floor(Date.now() / 1000)
   }, 1000)
   
