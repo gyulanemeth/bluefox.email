@@ -23,7 +23,7 @@
               <a href="/docs/">Documentation</a>
               <a href="/tutorials">Tutorials</a>
               <a href="/articles">Articles</a>
-              <a href="/comparision">Comparision</a>
+              <a href="/comparison">Comparison</a>
               <a href="/tools">Tools</a>
             </div>
             <div class="footer-column">
@@ -71,7 +71,7 @@ const show = computed(() => {
     '/tutorials',
     '/articles',
     '/tools',
-    '/comparision',
+    '/comparsion',
     // Removing '/about' and '/why' as requested
   ];
   // Show footer on all email-sending-concepts, aws-concepts, and free-tools pages including index pages
