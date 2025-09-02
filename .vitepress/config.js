@@ -1,6 +1,7 @@
-import { defineConfig, loadEnv} from 'vitepress'
+import { defineConfig, loadEnv } from 'vitepress'
 import tailwindcss from 'tailwindcss'
-import { addSchemaMarkup } from './theme/schemaMarkup'
+import { addSchemaMarkup } from './theme/SchemaMarkup/schemaMarkup'
+import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
 
 const headConf = []
 const env = loadEnv('', process.cwd())
@@ -45,6 +46,7 @@ export default defineConfig({
   description: "High deliverability & brand consistency.",
   head: headConf,
   transformPageData(pageData) {
+    addToolsSchemaMarkup(pageData)
     addSchemaMarkup(pageData)
   },
   vite: {
@@ -122,7 +124,10 @@ export default defineConfig({
             link: "/docs/projects/",
             collapsed: false,
             items: [
-              { text: "Project Dashboard", link: "/docs/projects/dashboard" },
+              {
+                text: "Project Dashboard",
+                link: "/docs/projects/dashboard"
+              },
               {
                 text: "Creating a new project",
                 link: "/docs/projects/new-project",
@@ -135,16 +140,38 @@ export default defineConfig({
                 text: "Triggered Emails",
                 link: "/docs/projects/triggered-emails",
               },
-              { text: "Campaigns", link: "/docs/projects/campaigns" },
-              { text: "Automations", link: "/docs/projects/automations" },
-              { text: "Contacts", link: "/docs/projects/contacts" },
-              { text: "Forms & Pages", link: "/docs/projects/forms-and-pages" },
               {
-                text: "Design System Settings",
-                link: "/docs/projects/design-system-settings",
+                text: "Campaigns",
+                link: "/docs/projects/campaigns"
               },
-              { text: "Suppression Lists", link: "/docs/projects/suppression-list" },
-              { text: "Settings", link: "/docs/projects/settings" },
+              {
+                text: "Automations",
+                link: "/docs/projects/automations"
+              },
+              {
+                text: "Contacts",
+                link: "/docs/projects/contacts"
+              },
+              {
+                text: "Forms & Pages",
+                link: "/docs/projects/forms-and-pages"
+              },
+              {
+                text: "Design System Variables",
+                link: "/docs/projects/design-system-variables",
+              },
+              {
+                text: "Design System Components",
+                link: "/docs/projects/design-system-components",
+              },
+              {
+                text: "Suppression Lists",
+                link: "/docs/projects/suppression-list"
+              },
+              {
+                text: "Settings",
+                link: "/docs/projects/settings"
+              },
             ],
           },
           {
@@ -192,12 +219,22 @@ export default defineConfig({
             link: "/docs/design-systems/",
             collapsed: false,
             items: [
-              { text: "Variables", link: "/docs/design-systems/variables" },
+              {
+                text: "Variables",
+                link: "/docs/design-systems/variables"
+              },
+              {
+                text: "Components",
+                link: "/docs/design-systems/components"
+              },
               {
                 text: "Blocks (or modules)",
                 link: "/docs/design-systems/blocks",
               },
-              { text: "Templates", link: "/docs/design-systems/templates" },
+              {
+                text: "Templates",
+                link: "/docs/design-systems/templates"
+              }
             ],
           },
           {
