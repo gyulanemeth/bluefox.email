@@ -1,8 +1,5 @@
-<!--
-  A custom footer component that will replace the default VitePress footer.
-  It will not be displayed on documentation pages.
--->
-<template>  <div v-if="show" class="custom-footer">
+<template>  
+<div v-if="show" class="custom-footer">
     <div class="footer-container">
       <div class="footer-top">
         <div class="footer-logo-wrapper">
@@ -26,6 +23,7 @@
               <a href="/docs/">Documentation</a>
               <a href="/tutorials">Tutorials</a>
               <a href="/articles">Articles</a>
+              <a href="/comparision">Comparision</a>
               <a href="/tools">Tools</a>
             </div>
             <div class="footer-column">
@@ -72,7 +70,8 @@ const show = computed(() => {
     '/pricing',
     '/tutorials',
     '/articles',
-    '/tools'
+    '/tools',
+    '/comparision',
     // Removing '/about' and '/why' as requested
   ];
   // Show footer on all email-sending-concepts, aws-concepts, and free-tools pages including index pages
