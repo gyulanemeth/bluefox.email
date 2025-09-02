@@ -48,6 +48,13 @@ The **percentage of emails** that failed to reach recipients' inboxes, serving a
 
 [Read more](/email-sending-concepts/bounce-rate)
 
+### Bulk Email Sending
+
+**Bulk email sending** is the practice of distributing a single message to many recipients at once, used for marketing campaigns, newsletters, and announcements.
+
+[Read more](/email-sending-concepts/bulk-email-sending)
+
+
 ### Bounces
 
 An email bounce occurs when an email is rejected by the **recipient's server** and returned to the sender, impacting deliverability and sender reputation.
@@ -94,6 +101,13 @@ A protocol that uses **SPF** and **DKIM** to protect domains from **unauthorized
 
 [Read more](/email-sending-concepts/dmarc)
 
+### Domain Reputation
+
+**Domain reputation** is the trust score mailbox providers assign to a sending domain, directly impacting inbox placement and deliverability.
+
+[Read more](/email-sending-concepts/domain-reputation)
+
+
 ## E
 
 ### Email Authentication
@@ -130,6 +144,13 @@ An email retrieval protocol that keeps messages on the server, allowing **synchr
 
 [Read more](/email-sending-concepts/imap)
 
+### IP Reputation
+
+**IP reputation** is the rating assigned to a sending IP address based on its historical email behavior, heavily influencing inbox delivery.
+
+[Read more](/email-sending-concepts/ip-reputation)
+
+
 ## M
 
 ### MX Record (Mail Exchange Record)
@@ -137,6 +158,15 @@ An email retrieval protocol that keeps messages on the server, allowing **synchr
 **DNS records** that specify which mail servers are responsible for accepting email on behalf of a domain.
 
 [Read more](/email-sending-concepts/mx-record)
+
+## O
+
+### One-Click Unsubscribe
+
+**One-Click Unsubscribe** allows recipients to instantly opt out of emails with a single click, improving compliance, list quality, and user experience.
+
+[Read more](/email-sending-concepts/one-click-unsubscribe)
+
 
 ## P
 
