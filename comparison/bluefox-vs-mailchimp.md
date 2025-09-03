@@ -75,7 +75,7 @@ BlueFox Email prioritizes professional email design with a focus on consistency,
 Every BlueFox Email plan, including the free tier, includes design systems, automation, personalization, and support. No feature gates; consistent tool access with transparent, usage-based billing.
 :::
 
-BlueFox Email’s emphasis on consistent rendering and easy advanced personalization gives agencies and SaaS teams confidence their emails look great everywhere with professional, brand-safe design elements.
+BlueFox Email emphasizes consistent rendering and flexible personalization, helping teams deliver professional, brand-safe emails across all major clients with confidence.
 
 ## Integration Ecosystem and Flexibility
 
@@ -135,12 +135,12 @@ Advanced personalization options require upgrading to higher tiers.
 
 ### BlueFox Email’s Advanced Personalization
 
-- API-driven personalized segments based on any attribute  
-- Real-time Handlebars templating for dynamic, data-driven emails  
-- All personalization features enabled on every plan  
-- Enables agencies and SaaS teams to craft highly customized messages  
+- Subscriber merge tags using Handlebars syntax (e.g., `{{firstName}}`) for straightforward personalization  
+- Conditional content blocks with `{{#if}}...{{else}}...{{/if}}` logic for dynamic messaging  
+- API-driven custom data fields for personalized, data-driven emails  
+- All personalization features included on every plan  
 
-BlueFox Email empowers users to implement highly flexible and granular personalization without locking features behind costly tiers.
+This approach enables both marketers and developers to create highly tailored campaigns without additional costs or plan restrictions.
 
 ## Analytics and Reporting
 
@@ -181,19 +181,19 @@ Our startup approach means personalized, proactive assistance from passionate em
 
 ### Mailchimp’s Contact-Based Pricing
 
-- Free: up to 500 contacts, 1,000 emails/month [1]  
-- Essentials: $13/month for 500 contacts [2]  
-- Standard: $20/month for 500 contacts [2]  
-- Premium: $350/month for 10,000 contacts [2]  
+- Free: up to 500 contacts, 1,000 emails/month  
+- Essentials: $13/month for 500 contacts  
+- Standard: $20/month for 500 contacts  
+- Premium: $350/month for 10,000 contacts  
 
 ### BlueFox Email’s Usage-Based Pricing
 
-- Free tier: 3,000 emails/month (with branding) [3]  
-- Start-up pack: 100,000 credits for $50/year [4]  
-- Scale-up pack: 1,000,000 credits for $300/year [4]  
-- Grown-up pack: 10,000,000 credits for $2,500/year [4]  
+- Free tier: 3,000 emails/month (with branding)  
+- Start-up pack: 100,000 credits for $50/year  
+- Scale-up pack: 1,000,000 credits for $300/year  
+- Grown-up pack: 10,000,000 credits for $2,500/year  
 
-Includes AWS SES fees (~$0.10 per 1,000 emails) [5], unlimited contacts, and consistent feature access.
+Includes AWS SES fees (~$0.10 per 1,000 emails), unlimited contacts, and consistent feature access.
 
 ### Scenario-Based Cost Comparison
 
