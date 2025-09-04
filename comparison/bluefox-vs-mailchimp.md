@@ -46,7 +46,7 @@ In this detailed comparison, we'll examine both platforms objectively, covering 
 
 **BlueFox Email** takes a more focused approach, designed for organizations that prioritize email design quality, delivery control, and infrastructure transparency. Built around [AWS SES integration](https://bluefox.email/docs/), it emphasizes professional email rendering, design system consistency, and predictable, usage-based billing for teams that treat email as a critical customer touchpoint.
 
-Both platforms have strong reputations but cater to different priorities—Mailchimp for broad marketing needs and BlueFox Email for consistent, high-volume, and technically controlled sending.
+Both platforms have strong reputations but cater to different priorities, Mailchimp for broad marketing needs and BlueFox Email for consistent, high-volume, and technically controlled sending.
 
 ## Email Design and Template Capabilities
 
@@ -62,7 +62,7 @@ BlueFox Email prioritizes professional email design with a focus on consistency,
 
 Cross-client optimization delivers pixel-precise rendering in Gmail, Outlook, Apple Mail, and mobile clients, while Handlebars templating provides advanced personalization and conditional logic for dynamic content creation. The emphasis on consistent rendering and flexible personalization helps teams deliver professional, brand-safe emails across all major clients with confidence.
 
-![bluefox dashboard collage](/public/assets/Comparison/bluefox-collage.webp)
+![bluefox dashboard collage](/assets/Comparison/bluefox-collage.webp)
 
 ## Integration Ecosystem and Flexibility
 
@@ -78,7 +78,7 @@ BlueFox Email takes a different approach with its API-first architecture, featur
 
 Programmatic list management and segmentation capabilities allow for sophisticated email operations. Agencies and technical teams working in SaaS environments particularly appreciate BlueFox Email's flexible API access, which enables them to build tailored email infrastructure aligned with specific client or product needs.
 
-![bluefox docs collage](/public/assets/Comparison/bluefox-docs-collage.webp)
+![bluefox docs collage](/assets/Comparison/bluefox-docs-collage.webp)
 
 ## Automation and Marketing Workflows
 
@@ -94,12 +94,12 @@ BlueFox Email delivers triggered emails that respond to specific user actions, a
 
 Importantly, all automation features remain available on every plan without restrictions. BlueFox Email focuses on reliable event-driven automation tailored for consistent customer communication, with no plan-based limitations that might restrict your workflow capabilities as your business grows.
 
-:::tip
+![bluefox automation collage](/assets/Comparison/email-automation-collage.webp)
+
+:::info
 **All Features on Every Plan**  
 Every BlueFox Email plan, including the free tier, includes design systems, automation, personalization, and support. No feature gates; consistent tool access with transparent, usage-based billing.
 :::
-
-![bluefox dashboard collage](/public/assets/Comparison/email-automation.webp)
 
 ## Personalization
 
@@ -111,7 +111,7 @@ The platform offers segmentation filters based on demographics and behavioral da
 
 ### BlueFox Email's Advanced Personalization
 
-BlueFox Email offers comprehensive personalization through subscriber merge tags using intuitive Handlebars syntax (such as `{{firstName}}`), making it straightforward for both technical and non-technical users to implement personalization. Conditional content blocks use `{{#if}}...{{else}}...{{/if}}` logic for dynamic messaging that adapts based on subscriber attributes or behaviors.
+BlueFox Email offers comprehensive personalization through subscriber merge tags using intuitive Handlebars syntax (such as `{``{firstName}``}`), making it straightforward for both technical and non-technical users to implement personalization. Conditional content blocks use `{``{#if}``}...{``{else}``}...{``{/if}``}` logic for dynamic messaging that adapts based on subscriber attributes or behaviors.
 
 API-driven custom data fields enable highly personalized, data-driven emails that can incorporate real-time information from your application or database. All personalization features are included on every plan, enabling both marketers and developers to create highly tailored campaigns without additional costs or plan restrictions.
 
@@ -127,7 +127,7 @@ BlueFox Email emphasizes core delivery and engagement metrics that matter most f
 
 The analytics approach focuses on providing clear, relevant insights that support continuous email program improvement without overwhelming users with excessive data points.
 
-![bluefox dashboard analytics](/public/assets/Comparison/bluefox-analytics.webp)
+![bluefox dashboard analytics](/assets/Comparison/bluefox-analytics.webp)
 
 ## Support and Learning Resources
 
@@ -196,6 +196,6 @@ Choose BlueFox Email if professional design consistency across both marketing ca
 
 ## Making the Right Decision
 
-When reliability, flexibility, and cost efficiency matter most—especially for agencies and technical teams—BlueFox Email stands apart. The usage-based pricing keeps expenses predictable and scalable, while the Chameleon Email Builder and Handlebars templating system speed up the creation of bespoke, professional email campaigns.
+When reliability, flexibility, and cost efficiency matter most, especially for agencies and technical teams, BlueFox Email stands apart. The usage-based pricing keeps expenses predictable and scalable, while the Chameleon Email Builder and Handlebars templating system speed up the creation of bespoke, professional email campaigns.
 
 Event-driven automation ensures every message arrives exactly when needed, integrated seamlessly with your existing applications and workflows. With all features available on every plan and transparent billing structure, BlueFox Email serves as the strategic email platform for organizations that demand more control, better value, and professional results from their email marketing infrastructure.
