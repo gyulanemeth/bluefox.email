@@ -77,6 +77,8 @@ Every BlueFox Email plan, including the free tier, includes design systems, auto
 
 BlueFox Email emphasizes consistent rendering and flexible personalization, helping teams deliver professional, brand-safe emails across all major clients with confidence.
 
+![bluefox dashboard collage](/public/assets/Comparison/bluefox-collage.webp)
+
 ## Integration Ecosystem and Flexibility
 
 ### Mailchimp’s Integration Advantages
@@ -98,6 +100,8 @@ Mailchimp’s ecosystem is attractive for teams seeking a plug-and-play approach
 - Programmatic list management and segmentation  
 
 Agencies and technical teams working in SaaS appreciate BlueFox Email’s flexible API access to build tailored email infrastructure aligned with client or product needs.
+
+![bluefox docs collage](/public/assets/Comparison/bluefox-docs-collage.webp)
 
 ## Automation and Marketing Workflows
 
@@ -122,6 +126,8 @@ While Mailchimp provides extensive marketing automation, feature access depends 
 - Full automation features available on every plan without restrictions  
 
 BlueFox Email delivers reliable event-driven automation tailored for consistent customer communication with no plan-based limitations.
+
+![bluefox dashboard collage](/public/assets/Comparison/email-automation.webp)
 
 ## Personalization
 
@@ -159,6 +165,8 @@ This approach enables both marketers and developers to create highly tailored ca
 - Unified, actionable reporting across all tiers  
 
 BlueFox Email’s analytics provide clear, relevant insights for continuous email program improvement.
+
+![bluefox dashboard analytics](/public/assets/Comparison/bluefox-analytics.webp)
 
 ## Support and Learning Resources
 
