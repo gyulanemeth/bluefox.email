@@ -38,7 +38,7 @@ head:
 
 1) Register at bluefox.email.
 2) Create your first project.
-3) Connect the project with your AWS SES.
+3) Connect the project with your [AWS SES](/aws-concepts/ses.md).
 4) Schedule campaigns or send transactional and triggered emails via our API.
 
 That's it! Really!
