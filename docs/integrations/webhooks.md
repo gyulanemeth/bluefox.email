@@ -36,7 +36,7 @@ head:
 
 # Webhooks
 
-Webhooks allow your application to receive real-time notifications about email events such as opens, clicks, bounces, complaints, and subscriptions. By setting up a webhook, you can integrate email event data directly into your application for better tracking and automation.
+Webhooks allow your application to receive real-time [notifications](/aws-concepts/ses-delivery-notifications.md) about email events such as opens, clicks, [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and subscriptions. By setting up a webhook, you can integrate email event data directly into your application for better tracking and automation.
 
 ## Features of Webhooks
 - **Real-Time Updates**: Receive immediate notifications about email events.

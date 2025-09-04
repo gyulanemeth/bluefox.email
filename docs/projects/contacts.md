@@ -200,8 +200,8 @@ Similar to email statistics, this section provides details about the emails sent
 - **Unique Opens**: Number of individual subscribers who opened emails (counts only one open per subscriber).  
 - **Clicks**: Total number of clicks on links within the emails sent to this list.  
 - **Unique Clicks**: Number of individual subscribers who clicked on links (counts only one click per subscriber).  
-- **Bounces**: Number of emails that failed to deliver.  
-- **Complaints**: Number of complaints (e.g., emails marked as spam).   
+- **[Bounces](/email-sending-concepts/bounces.md)**: Number of emails that failed to deliver.  
+- **[Complaints](/email-sending-concepts/complaints.md)**: Number of complaints (e.g., emails marked as spam).   
 - **Subscriptions**: Number of new subscribers added to the list during the selected time interval.  
 - **Resubscriptions**: Number of previous subscribers who re-subscribed.  
 - **Unsubscribes**: Number of subscribers who opted out during the selected period.  
