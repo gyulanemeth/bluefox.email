@@ -75,7 +75,7 @@ The platform features reusable components that ensure consistent branding elemen
 - A little learning curve for Handlebars syntax
 - Fewer pre-made industry-specific templates
 
-![bluefox dashboard collage](/assets/comparison/bluefox-collage.webp)
+![bluefox dashboard collage](/assets/Comparison/bluefox-collage.webp)
 
 ## Integration Ecosystem and Flexibility
 
@@ -103,7 +103,7 @@ The platform includes specialized integrations like [Supabase](https://bluefox.e
 - Limited pre-built e-commerce integrations
 - Fewer social media management features
 
-![bluefox docs collage](/assets/comparison/bluefox-docs-collage.webp)
+![bluefox docs collage](/assets/Comparison/bluefox-docs-collage.webp)
 
 ## Automation and Marketing Workflows
 
@@ -131,7 +131,7 @@ All automation features remain available on every plan without restrictions. Blu
 - A short learning curve for complex automation logic
 - Limited pre-built automation templates
 
-![bluefox automation collage](/assets/comparison/email-automation-collage.webp)
+![bluefox automation collage](/assets/Comparison/email-automation-collage.webp)
 
 :::info
 **All Features on Every Plan**  
@@ -234,7 +234,7 @@ Campaign analytics include comprehensive metrics like sent emails, opens, unique
 - No built-in ROI tracking
 - Limited comparative benchmarking data
 
-![bluefox dashboard analytics](/assets/comparison/bluefox-analytics.webp)
+![bluefox dashboard analytics](/assets/Comparison/bluefox-analytics.webp)
 
 ## Support and Learning Resources
 
