@@ -4,8 +4,8 @@ import { useRoute } from 'vitepress'
 
 // Configuration constants
 const FOOTER_CONFIG = {
-  allowedPaths: ['/', '/pricing', '/tutorials', '/articles', '/tools', '/comparison'],
-  allowedPrefixes: ['/for', '/email-sending-concepts', '/aws-concepts'],
+  allowedPaths: ['/', '/pricing', '/tutorials', '/articles', '/tools', '/comparisons',],
+  allowedPrefixes: ['/for', '/email-sending-concepts', '/aws-concepts', '/comparisons/'],
   currentYear: new Date().getFullYear(),
   
   links: {
@@ -18,7 +18,7 @@ const FOOTER_CONFIG = {
       { text: 'Documentation', href: '/docs/' },
       { text: 'Tutorials', href: '/tutorials' },
       { text: 'Articles', href: '/articles' },
-      { text: 'Comparison', href: '/comparison' },
+      { text: 'Comparisons', href: '/comparisons' },
       { text: 'Tools', href: '/tools' }
     ],
     connect: [
