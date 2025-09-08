@@ -1,7 +1,7 @@
 ---
 title: BlueFox Email vs Mailchimp | BlueFox Email
 description: Direct comparison of BlueFox Email and Mailchimp for email marketing, SaaS, and transactional messaging, covering design, integrations, automation, personalization, analytics, support, and pricing.
-thumbnail: /assets/comparison/bluefox-vs-mailchimp.png
+thumbnail: /assets/Comparison/bluefox-vs-mailchimp.png
 sidebar: false
 aside: true
 
@@ -21,10 +21,10 @@ head:
       content: Direct comparison of BlueFox Email and Mailchimp for email marketing, SaaS, and transactional messaging, covering design, integrations, automation, personalization, analytics, support, and pricing.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/comparison/bluefox-vs-mailchimp.png
+      content: https://bluefox.email/assets/Comparison/bluefox-vs-mailchimp.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/comparison/bluefox-vs-mailchimp
+      content: https://bluefox.email/Comparison/bluefox-vs-mailchimp
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -48,7 +48,7 @@ In this detailed comparison, we'll examine both platforms objectively, covering 
 
 Many users report growing frustration with Mailchimp's pricing increases and navigation complexity. The platform has shifted from its original focus on simplicity and affordability, with costs escalating rapidly as contact lists grow and essential features locked behind higher-tier plans.
 
-**BlueFox Email** takes a more focused approach, designed for organizations that prioritize email design quality, delivery control, and infrastructure transparency. Built on top of [AWS SES integration](https://bluefox.email/docs/projects/settings#aws-credentials), it emphasizes professional email rendering, design system consistency, and predictable, usage-based billing for teams that treat email as a critical customer touchpoint.
+**BlueFox Email** takes a more focused approach, designed for organizations that prioritize email design quality, delivery control, and infrastructure transparency. Built on top of [AWS SES](https://bluefox.email/docs/projects/settings#aws-credentials), it emphasizes professional email rendering, design system consistency, and predictable, usage-based billing for teams that treat email as a critical customer touchpoint.
 
 Both platforms have strong reputations but cater to different priorities, Mailchimp for broad marketing needs and BlueFox Email for consistent, high-volume, and technically controlled sending.
 
@@ -69,7 +69,7 @@ User feedback consistently highlights significant limitations. Many report incon
 
 ### BlueFox Email's Design Philosophy
 
-BlueFox Email prioritizes professional email design with a focus on consistency, flexibility, and speed. The **Chameleon Email Builder** is built on the industry-leading Chamaileon SDK, renowned for its design capabilities and consistent rendering across email clients. Chamaileon offers a no-code builder that's powerful yet simple, providing 90% faster time-to-market for email-driven campaigns with reusable assets, standardized modules, and bulletproof email HTML.
+BlueFox Email prioritizes professional email design with a focus on consistency, flexibility, and speed. The **Email Builder** in BlueFox Email is built on the industry-leading Chamaileon SDK, renowned for its design capabilities and consistent rendering across email clients. Chamaileon offers a no-code builder that's powerful yet simple, providing 90% faster time-to-market for email-driven campaigns with reusable assets, standardized modules, and bulletproof email HTML.
 
 The platform features reusable components that ensure consistent branding elements across both marketing campaigns and email workflows. Cross-client optimization delivers pixel-precise rendering in Gmail, Outlook, Apple Mail, and mobile clients, while Handlebars templating provides advanced personalization and conditional logic for dynamic content creation. The emphasis on consistent rendering and flexible personalization helps teams deliver professional, brand-safe emails across all major clients with confidence, addressing the design limitations that many Mailchimp users experience.
 
@@ -131,13 +131,12 @@ BlueFox Email provides a comprehensive visual automation builder that allows you
 All automation features remain available on every plan without restrictions. BlueFox Email focuses on reliable event-driven automation tailored for consistent customer communication, with no plan-based limitations that might restrict your workflow capabilities as your business grows.
 
 **BlueFox Email Automation Limitations:**
-- A short learning curve for complex automation logic
 - Limited pre-built automation templates
+- We cannot think of any other limitations, sorry 😊
 
 ![bluefox automation collage](/assets/Comparison/email-automation-collage.webp)
 
-:::info
-**All Features on Every Plan**  
+:::tip **All Features on Every Plan**  
 Every BlueFox Email plan, including the free tier, includes design systems, automation and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
 :::
 
@@ -163,9 +162,7 @@ BlueFox Email leverages AWS SES infrastructure, providing enterprise-grade deliv
 The platform includes comprehensive deliverability monitoring through AWS SES integration, real-time bounce and complaint handling, and direct access to delivery statistics. This infrastructure approach provides users with enhanced visibility and control compared to shared-IP models.
 
 **BlueFox Email Infrastructure Limitations:**
-- Requires AWS account setup and management
-- Additional AWS SES fees apply separately
-- More technical setup required initially
+- No support for dedicated IPs, available only through bring-your-own AWS SES version.
 - Smaller support community compared to established platforms
 
 ## Personalization
@@ -186,7 +183,9 @@ The platform offers segmentation filters based on demographics and behavioral da
 
 BlueFox Email offers comprehensive personalization through subscriber merge tags using intuitive Handlebars syntax (such as `firstName`), making it straightforward for both technical and non-technical users to implement personalization. Conditional content blocks use `#if`, `else` and `/if` logic for dynamic messaging that adapts based on subscriber attributes or behaviors.
 
-You can use merge tags like `subscriber.name`, `subscriber.email`, `unsubscribeLink`, and `pauseSubscriptionLink` in email content, subject lines, and preview text. API-driven custom data fields enable highly personalized, data-driven emails that can incorporate real-time information from your application or database. All personalization features are included on every plan.
+You can use merge tags like `subscriber.name`, `subscriber.email`, `unsubscribeLink`, and `pauseSubscriptionLink` in email content, subject lines, and preview text. The platform enables extensive customization through contact attributes and custom data fields. Each contact requires an email address, but you can store additional predefined attributes like name and phone number, or define custom attributes through Project Settings → Contact Attributes.
+
+These API-driven contact properties enable highly personalized, data-driven emails that can incorporate real-time information from your application or database. You can programmatically subscribe, unsubscribe, pause, activate, and update contact attributes, ensuring your personalization data stays current. All personalization features are included on every plan, enabling both marketers and developers to create highly tailored campaigns without additional costs or plan restrictions.
 
 **BlueFox Email Personalization Limitations:**
 - Limited pre-built personalization templates
@@ -291,7 +290,7 @@ The pricing includes unlimited contacts with consistent feature access across al
 
 ### Scenario-Based Cost Comparison
 
-| Monthly Volume   | Mailchimp Cost*  | BlueFox Email Credit Cost | AWS SES Fee | BlueFox Email Total** | Savings |
+| Monthly Volume   | Mailchimp Cost  | BlueFox Email Credit Cost | AWS SES Fee | BlueFox Email Total | Savings |
 |------------------|------------------|---------------------------|-------------|-----------------------|---------|
 | 2,000 emails     | $13 (Essentials) | $1.00                     | $0.20       | $1.20                 | 91%     |
 | 5,000 emails     | $13 (Essentials) | $2.50                     | $0.50       | $3.00                 | 77%     |
@@ -303,6 +302,10 @@ The pricing includes unlimited contacts with consistent feature access across al
 
 _*Mailchimp pricing assumes Essentials for ≤5k and Standard for >5k contacts._  
 _**BlueFox Email total includes both credit pack costs and AWS SES fees ($0.10 per 1,000 emails)._
+
+:::tip **All Features on Every Plan**  
+Every BlueFox Email plan, including the free tier, includes design systems, automation and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
+:::
 
 ## Choose Mailchimp If:
 
