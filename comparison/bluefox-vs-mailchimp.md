@@ -4,6 +4,9 @@ description: Direct comparison of BlueFox Email and Mailchimp for email marketin
 thumbnail: /assets/comparison/bluefox-vs-mailchimp.png
 sidebar: false
 aside: true
+
+prev: false
+next: false
 datePublished: "2025-09-02"
 dateModified: "2025-09-02"
 head:
