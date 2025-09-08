@@ -72,10 +72,10 @@ The platform features reusable components that ensure consistent branding elemen
 
 **BlueFox Email Design Limitations:**
 - Smaller template library compared to established platforms
-- Learning curve for Handlebars syntax
+- A little learning curve for Handlebars syntax
 - Fewer pre-made industry-specific templates
 
-![bluefox dashboard collage](/assets/Comparison/bluefox-collage.webp)
+![bluefox dashboard collage](/assets/comparison/bluefox-collage.webp)
 
 ## Integration Ecosystem and Flexibility
 
@@ -99,11 +99,11 @@ The platform includes specialized integrations like [Supabase](https://bluefox.e
 
 **BlueFox Email Integration Limitations:**
 - Smaller native integration marketplace
-- Requires technical knowledge for API implementation
+- Requires some technical knowledge for API implementation
 - Limited pre-built e-commerce integrations
 - Fewer social media management features
 
-![bluefox docs collage](/assets/Comparison/bluefox-docs-collage.webp)
+![bluefox docs collage](/assets/comparison/bluefox-docs-collage.webp)
 
 ## Automation and Marketing Workflows
 
@@ -128,12 +128,10 @@ BlueFox Email provides a comprehensive visual automation builder that allows you
 All automation features remain available on every plan without restrictions. BlueFox Email focuses on reliable event-driven automation tailored for consistent customer communication, with no plan-based limitations that might restrict your workflow capabilities as your business grows.
 
 **BlueFox Email Automation Limitations:**
-- Requires manual workflow construction
-- Learning curve for complex automation logic
+- A short learning curve for complex automation logic
 - Limited pre-built automation templates
-- No visual customer journey mapping interface
 
-![bluefox automation collage](/assets/Comparison/email-automation-collage.webp)
+![bluefox automation collage](/assets/comparison/email-automation-collage.webp)
 
 :::info
 **All Features on Every Plan**  
@@ -188,10 +186,7 @@ BlueFox Email offers comprehensive personalization through subscriber merge tags
 You can use merge tags like `subscriber.name`, `subscriber.email`, `unsubscribeLink`, and `pauseSubscriptionLink` in email content, subject lines, and preview text. API-driven custom data fields enable highly personalized, data-driven emails that can incorporate real-time information from your application or database. All personalization features are included on every plan.
 
 **BlueFox Email Personalization Limitations:**
-- Requires learning Handlebars syntax
-- No visual interface for conditional logic
 - Limited pre-built personalization templates
-- More technical approach than visual alternatives
 
 ## Segmentation and Targeting
 
@@ -200,7 +195,6 @@ You can use merge tags like `subscriber.name`, `subscriber.email`, `unsubscribeL
 Mailchimp offers comprehensive audience segmentation with pre-built segments for common use cases like recent subscribers, frequent buyers, and engagement levels. The platform provides demographic, behavioral, and purchase-based filtering options, along with predictive analytics for customer lifetime value and purchase likelihood on higher-tier plans.
 
 **Mailchimp Segmentation Limitations:**
-- Advanced segmentation features restricted to paid plans
 - Complex interface for creating custom segments
 - Limited real-time segmentation capabilities
 - Predictive analytics only on Premium plans
@@ -212,7 +206,6 @@ BlueFox Email enables flexible audience targeting through condition-based filter
 In automations, you can change trigger types to segment-based triggers, create audience filters for conditional branching, and build dynamic workflows that respond to segment membership. This approach allows for real-time audience targeting and personalized campaign delivery based on evolving contact attributes.
 
 **BlueFox Email Segmentation Limitations:**
-- No visual segment builder interface
 - Requires understanding of condition logic
 - Limited pre-built segment templates
 - Manual setup for most targeting criteria
@@ -238,12 +231,10 @@ BlueFox Email emphasizes core delivery and engagement metrics that matter most f
 Campaign analytics include comprehensive metrics like sent emails, opens, unique opens, clicks, unique clicks, bounces, complaints, unsubscribes, resubscriptions, and paused subscriptions, providing a complete view of campaign performance. The analytics approach focuses on providing clear, relevant insights that support continuous email program improvement without overwhelming users with excessive data points.
 
 **BlueFox Email Analytics Limitations:**
-- Fewer pre-built report templates
 - No built-in ROI tracking
-- Requires external tools for advanced analytics
 - Limited comparative benchmarking data
 
-![bluefox dashboard analytics](/assets/Comparison/bluefox-analytics.webp)
+![bluefox dashboard analytics](/assets/comparison/bluefox-analytics.webp)
 
 ## Support and Learning Resources
 
