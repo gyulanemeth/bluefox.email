@@ -19,15 +19,27 @@ We designed this course with busy SaaS founders in mind. The goal of the whole c
 
 The goal of this lesson is to get started with a simple newsletter, and build up a habit that email marketing will be part of your marketing activities, and even more importantly, email communication will be part of your product.
 
+(TODO: maybe this intro should go to the main page?)
+
 ## Why email marketing matters for SaaS Growth
 
-Awareness - they get to know about your brand
-Acquisition
-Activation
-Conversion
-Retention
-Expansion
-Reactivation/Advocacy
+Awareness - people first discover your brand or product exists
+Acquisition (@)
+  - they visit your site
+  - sign up for a lead magnet
+  - start a trial
+Activation (@)
+  - getting a new user to their first moment of real value
+Conversion (@)
+  - turning leads or free users into paying customers
+Retention (@)
+  - keeping existing customers engaged and coming back
+Expansion (@)
+  - growing revenue from existing customers (upsell)
+Reactivation (@)
+  - bringing back churned or inactive users
+Advocacy (@?)
+  - turning happy customers into promoters
 
 
 In this tutorial serises, we will talk about
