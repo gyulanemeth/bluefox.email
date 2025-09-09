@@ -19,7 +19,7 @@ We designed this course with busy SaaS founders in mind. The goal of the whole c
 
 The goal of this lesson is to get started with a simple newsletter, and build up a habit that email marketing will be part of your marketing activities, and even more importantly, email communication will be part of your product.
 
-(TODO: maybe this intro should go to the main page?)
+(TODO: maybe this intro should go to the main page? And maybe the next two sections as well?)
 
 ## Why email marketing matters for SaaS Growth
 
