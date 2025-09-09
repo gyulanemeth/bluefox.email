@@ -85,15 +85,25 @@ The One-Click Unsubscribe mechanism is primarily implemented through standardize
 
 Modern email clients like Gmail and Apple Mail scan these headers and display user-friendly unsubscribe options (e.g., buttons or links near the sender information). When users click these options, the client handles the technical process of sending the proper HTTP request or unsubscribe email automatically.
 
-> **Note:** When users unsubscribe via one-click, they are only unsubscribed from the specific list through which they received the email. To unsubscribe from all lists or categories, users should visit the subscription preferences page provided through the unsubscribe link, where they can opt out of all communications if desired.
+> **Note:** When users unsubscribe via the one-click unsubscribe method, they are only unsubscribed from the specific list from which they received the email. If the sender has implemented it, users can opt out of all communications by visiting the subscription preferences page linked in the email.
 
 ## Why is One-Click Unsubscribe Important?
 
 One-Click Unsubscribe has become a critical component of modern email marketing because it enhances [deliverability](/email-sending-concepts/deliverability), reduces [spam complaints](/email-sending-concepts/complaints), improves user experience, manages list quality, and simplifies **regulatory compliance**. These benefits collectively result in better **[sender reputation](/email-sending-concepts/deliverability)**, higher engagement metrics, and a more efficient email marketing program.
 
-### Regulatory & Inbox Provider Requirements
+## Regulatory Requirements
 
-Major inbox providers such as Gmail, Yahoo, and Outlook now require one-click unsubscribe for all commercial senders who send more than 5,000 emails per day. This is enforced through compliance with standards such as RFC 8058 and the correct use of the `List-Unsubscribe` headers:
+One-Click Unsubscribe functionality is mandated or recommended by multiple regulations globally:
+
+- **CAN-SPAM Act (US):** Requires a visible and functional unsubscribe mechanism in all commercial emails, with processing required within 10 business days.
+- **GDPR (EU):** Mandates that withdrawing consent must be as easy as giving it, practically requiring a simple unsubscribe method.
+- **CASL (Canada):** Requires an easily performed unsubscribe mechanism, processed within 10 business days.
+- **Australian Spam Act:** Requires a functional unsubscribe facility valid for at least 30 days after email receipt.
+
+## Inbox Provider Requirements
+
+Major inbox providers such as Gmail, Yahoo, and Outlook require one-click unsubscribe for commercial senders exceeding 5,000 emails per day, based on provider policy rather than law. This is enforced through standards such as RFC 8058 and the use of appropriate `List-Unsubscribe` headers:
+
 - [Google announcement](https://workspaceupdates.googleblog.com/2023/10/less-spam-in-gmail-safer-email.html)
 - [Yahoo sender requirements](https://blog.postmaster.yahooinc.com/post/739071159874887680/an-open-letter-to-email-senders-large-and-small)
 - [Microsoft guidelines](https://learn.microsoft.com/en-us/dynamics365/customer-insights/journeys/one-click-unsubscribe)
@@ -101,15 +111,6 @@ Major inbox providers such as Gmail, Yahoo, and Outlook now require one-click un
 :::tip Just a heads up
 **BlueFox automatically includes one-click unsubscribe for all non-transactional email sends, ensuring compliance out-of-the-box for our users.**
 :::
-
-## Regulatory Considerations
-
-One-Click Unsubscribe functionality is mandated by various international email and privacy regulations:
-
-- **CAN-SPAM Act (US):** Requires a visible and operable unsubscribe mechanism in all commercial emails with processing within **10 business days**.
-- **GDPR (EU):** Mandates that withdrawing consent must be as easy as giving it, effectively requiring simple unsubscribe methods.
-- **CASL (Canada):** Requires a readily performable unsubscribe mechanism that must be processed within 10 business days.
-- **Australian Spam Act:** Requires a functional unsubscribe facility that remains valid for at least 30 days after message receipt.
 
 ## Frequently Asked Questions
 

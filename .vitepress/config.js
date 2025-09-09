@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vitepress'
 import tailwindcss from 'tailwindcss'
 import { addSchemaMarkup } from './theme/SchemaMarkup/schemaMarkup'
 import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
+import { addComparisonSchemaMarkup } from './theme/SchemaMarkup/ComparisonSchemaMarkup'
 
 const headConf = []
 const env = loadEnv('', process.cwd())
@@ -48,6 +49,7 @@ export default defineConfig({
   transformPageData(pageData) {
     addToolsSchemaMarkup(pageData)
     addSchemaMarkup(pageData)
+    addComparisonSchemaMarkup(pageData)
   },
   vite: {
     ssr: {

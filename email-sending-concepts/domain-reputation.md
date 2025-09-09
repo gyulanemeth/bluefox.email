@@ -79,7 +79,7 @@ Email receivers calculate domain reputation by continuously monitoring key metri
 |--------|---------------------------|
 | **Authentication Success** | Properly authenticated emails using [SPF](/email-sending-concepts/spf), [DKIM](/email-sending-concepts/dkim), and [DMARC](/email-sending-concepts/dmarc) strengthen domain reputation |
 | **Spam Complaints** | High [complaint rates](/email-sending-concepts/complaints) significantly damage domain reputation. Addresses that submit spam complaints should be removed immediately. |
-| **Engagement Metrics** | Opens, clicks, and **replies** (not forwards) improve reputation |
+| **Engagement Metrics** | Opens, clicks, and replies improve reputation |
 | **Bounce Rates** | Excessive [hard bounces](/email-sending-concepts/hard-bounce) indicate poor list hygiene and harm reputation. Regularly remove hard bounces and inactive recipients. |
 | **Spam Trap Hits** | Sending to spam traps causes severe reputation damage |
 | **Content Quality** | Spammy content patterns can negatively affect reputation |
@@ -98,13 +98,13 @@ To build and maintain a strong domain reputation, consider these best practices:
 
 - **Focus on valuable content:** Create messages that your audience will find relevant and engaging.
 
-- **Encourage positive engagement:** Opens, clicks, and **replies** to emails have a direct positive impact on your domain reputation.
+- **Encourage positive engagement:** Opens, clicks, and replies to emails have a direct positive impact on your domain reputation.
 
 - **Maintain a consistent sending pattern:** Try to keep your sending volume steady and avoid large, sudden increases.
 
 - **Monitor your performance:** Keep an eye on your key metrics so you can quickly identify and address any issues.
 
-- **Make unsubscribing easy:** Always include a clear [one-click unsubscribe](/email-sending-concepts/one-click-unsubscribe) link. If recipients proceed to the unsubscribe page, present an option to "unsubscribe from all lists" so users can easily opt out from all communications if they wish.
+- **Make unsubscribing easy:** Add the required headers for [one-click unsubscribe](/email-sending-concepts/one-click-unsubscribe) so inbox providers can show the option, and always include a visible unsubscribe link in your email that leads to a subscription management page where recipients can opt out from all communications if they wish.
 
 By following these recommendations, you can steadily earn and keep a positive domain reputation.
 
