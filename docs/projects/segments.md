@@ -42,7 +42,7 @@ With bluefox.email's segment feature, you can build complex filtering logic usin
 
 You can find your project's segments under the **Segments** drop-down menu in [**Contacts**](./contacts.md) section:
 
-![Screenshot of the segments page](./project-segments.webp)
+![Screenshot of the segments tab](./project-segments.webp)
 
 ## Creating a Segment
 
