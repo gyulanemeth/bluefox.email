@@ -76,11 +76,18 @@ When conditions are joined with **OR** logic, contacts need to meet **at least o
 - **OR**
 - Condition 2: `SentACampaign` is true
 
-## Available Filter Operators
+## Available Filter Conditions and Operators
+
+### Contact Properties
+
+All contact properties will be listed in this drop-down menu, allowing you to choose the property that defines the condition for your segment.
+
+![Screenshot of contact properties](./project-segments-condition-properties.webp)
+
+### Operators
 
 Segments can filter contacts based on various operators applied to contact properties. Here are the available operator types:
 
-### Operators
 - **Equals**
 - **Does Not Equal**
 - **Contains**
