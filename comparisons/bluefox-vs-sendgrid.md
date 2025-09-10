@@ -184,9 +184,9 @@ Dynamic template functionality enables complex personalization scenarios through
 
 ### BlueFox Email's Advanced Personalization
 
-BlueFox Email provides comprehensive personalization through Handlebars syntax, making it accessible to both technical and non-technical users. The platform supports conditional content blocks using `{{#if}}...{{else}}...{{/if}}` logic for dynamic messaging that adapts based on subscriber attributes and behaviors.
+BlueFox Email provides comprehensive personalization through Handlebars syntax, making it accessible to both technical and non-technical users. The platform supports conditional content blocks using `#if...else.../if` logic for dynamic messaging that adapts based on subscriber attributes and behaviors.
 
-Users can leverage merge tags like `{{subscriber.name}}`, `{{subscriber.email}}`, `{{unsubscribeLink}}`, and `{{pauseSubscriptionLink}}` throughout email content, subject lines, and preview text. The platform enables extensive customization through contact attributes and custom data fields. Each contact requires an email address, but you can store additional predefined attributes like name and phone number, or define custom attributes through Project Settings → Contact Attributes.
+Users can leverage merge tags like `subscriber.name`, `subscriber.email`, `unsubscribeLink`, and `pauseSubscriptionLink` throughout email content, subject lines, and preview text. The platform enables extensive customization through contact attributes and custom data fields. Each contact requires an email address, but you can store additional predefined attributes like name and phone number, or define custom attributes through Project Settings → Contact Attributes.
 
 These API-driven contact properties enable highly personalized, data-driven emails that incorporate real-time information from your application or database. You can programmatically subscribe, unsubscribe, pause, activate, and update contact attributes, ensuring your personalization data stays current.
 
