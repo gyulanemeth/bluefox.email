@@ -64,7 +64,7 @@ Segments use a powerful condition-based filtering system that supports both **AN
 When conditions are joined with **AND** logic, contacts must meet **all** specified conditions to be included in the segment.
 
 **Example**: Premium users who signed up in the last 30 days
-- Condition 1: `projectCreated` is true
+- Condition 1: `hasAPIKey` is true
 - **AND**
 - Condition 2: `awsSetup` is true
 
@@ -74,19 +74,11 @@ When conditions are joined with **OR** logic, contacts need to meet **at least o
 **Example**: Contacts who are either premium users or have made a recent purchase
 - Condition 1: `name` equals `BlueFox Email`
 - **OR**
-- Condition 2: `projectCreated` is true
+- Condition 2: `SentACampaign` is true
 
-## Available Filter Conditions
+## Available Filter Operators
 
-Segments can filter contacts based on various operators applied to contact properties. Here are the available condition types:
-
-### Contact Properties
-- **name**
-- **userVersion**
-- **awsSetup**
-- **projectCreated**
-
-![Screenshot of segment condition properties](./project-segments-condition-properties.webp)
+Segments can filter contacts based on various operators applied to contact properties. Here are the available operator types:
 
 ### Operators
 - **Equals**
