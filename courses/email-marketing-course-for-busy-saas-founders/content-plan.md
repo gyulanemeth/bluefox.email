@@ -1,4 +1,5 @@
-# No BS Email Marketing Course for Busy Founders
+
+
 
 Lessons
  1) Intro + First Newsletter

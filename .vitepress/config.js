@@ -107,235 +107,267 @@ export default defineConfig({
       */
     ],
 
-    sidebar: [
-      {
-        text: "Docs",
-        link: "/docs/",
-        collapsed: false,
-        items: [
+    sidebar: {
+      "/": [
+        {
+          text: "Docs",
+          link: "/docs/",
+          collapsed: false,
+          items: [
+            {
+              text: "Getting Started",
+              link: "/docs/getting-started",
+            },
+            {
+              text: "Account Dashboard",
+              link: "/docs/dashboard",
+            },
+            {
+              text: "Projects",
+              link: "/docs/projects/",
+              collapsed: false,
+              items: [
+                {
+                  text: "Project Dashboard",
+                  link: "/docs/projects/dashboard"
+                },
+                {
+                  text: "Creating a new project",
+                  link: "/docs/projects/new-project",
+                },
+                {
+                  text: "Transactional Emails",
+                  link: "/docs/projects/transactional-emails",
+                },
+                {
+                  text: "Triggered Emails",
+                  link: "/docs/projects/triggered-emails",
+                },
+                {
+                  text: "Campaigns",
+                  link: "/docs/projects/campaigns"
+                },
+                {
+                  text: "Automations",
+                  link: "/docs/projects/automations"
+                },
+                {
+                  text: "Contacts",
+                  link: "/docs/projects/contacts"
+                },
+                {
+                  text: "Forms & Pages",
+                  link: "/docs/projects/forms-and-pages"
+                },
+                {
+                  text: "Design System Variables",
+                  link: "/docs/projects/design-system-variables",
+                },
+                {
+                  text: "Design System Components",
+                  link: "/docs/projects/design-system-components",
+                },
+                {
+                  text: "Suppression Lists",
+                  link: "/docs/projects/suppression-list"
+                },
+                {
+                  text: "Settings",
+                  link: "/docs/projects/settings"
+                },
+              ],
+            },
+            {
+              text: "API",
+              link: "/docs/api/",
+              collapsed: false,
+              items: [
+                {
+                  text: "Contacts & Subscriber List Management",
+                  link: "/docs/api/subscriber-list-management",
+                },
+                {
+                  text: "Send Transactional Email",
+                  link: "/docs/api/send-transactional-email",
+                },
+                {
+                  text: "Send Triggered Email",
+                  link: "/docs/api/send-triggered-email",
+                },
+                { text: "Send Attachments", link: "/docs/api/send-attachments" },
+              ],
+            },
+            {
+              text: "Integrations",
+              link: "/docs/integrations/",
+              collapsed: false,
+              items: [
+                {
+                  text: "Webhooks for Event Notifications",
+                  link: "/docs/integrations/webhooks",
+                },
+                { text: "Supabase", link: "/docs/integrations/supabase" },
+              ],
+            },
+            {
+              text: "Analytics",
+              link: "/docs/analytics",
+            },
+            {
+              text: "Email Personalization (Merge Tags)",
+              link: "/docs/email-personalization",
+            },
+            {
+              text: "Design Systems",
+              link: "/docs/design-systems/",
+              collapsed: false,
+              items: [
+                {
+                  text: "Variables",
+                  link: "/docs/design-systems/variables"
+                },
+                {
+                  text: "Components",
+                  link: "/docs/design-systems/components"
+                },
+                {
+                  text: "Blocks (or modules)",
+                  link: "/docs/design-systems/blocks",
+                },
+                {
+                  text: "Templates",
+                  link: "/docs/design-systems/templates"
+                }
+              ],
+            },
+            {
+              text: "Pricing/Credits",
+              link: "/docs/credits",
+            },
+          ],
+        },
+        {
+          text: "Best Practices",
+          link: "/email-best-practices-for-saas/",
+          collapsed: false,
+          items: [
+            {
+              text: "Double Opt-In",
+              link: "/email-best-practices-for-saas/double-opt-in",
+            },
+            {
+              text: "Unsubscribe and Pause Subscription",
+              link: "/email-best-practices-for-saas/unsubscribe-and-pause-subscription",
+            },
+            {
+              text: "DMARC",
+              link: "/email-best-practices-for-saas/dmarc",
+            },
+          ],
+        },
+        {
+          text: "Email Marketing Concepts",
+          link: "/email-marketing-concepts/",
+          collapsed: true,
+          items: [
+            {
+              text: "Copywriting",
+              link: "/email-marketing-concepts/copywriting/",
+            },
+            {
+              text: "Design",
+              link: "/email-marketing-concepts/design/",
+            },
+            {
+              text: "List management",
+              link: "/email-marketing-concepts/list-management/",
+            },
+            {
+              text: "Metrics and analytics",
+              link: "/email-marketing-concepts/metrics-and-analytics/",
+            },
+            {
+              text: "Deliverability",
+              link: "/email-marketing-concepts/deliverability/",
+            },
+            {
+              text: "Personalization",
+              link: "/email-marketing-concepts/personalization/",
+            },
+            {
+              text: "Automation",
+              link: "/email-marketing-concepts/automation/",
+            },
+            {
+              text: "Testing and optimization",
+              link: "/email-marketing-concepts/testing-and-optimization/",
+            },
+            {
+              text: "Strategy",
+              link: "/email-marketing-concepts/strategy/",
+            },
+            {
+              text: "Compliance and legal considerations",
+              link: "/email-marketing-concepts/compliance-and-legal-considerations/",
+            },
+          ],
+        },
+        {
+          text: "Why?",
+          link: "/why",
+        },
+        {
+          text: "About",
+          link: "/about",
+        },
+        {
+          text: "Terms of use",
+          link: "/terms-of-use",
+        },
+        {
+          text: "Privacy policy",
+          link: "/privacy-policy",
+        },
+        {
+          text: "Refund policy",
+          link: "/refund-policy",
+        },
+        {
+          text: "Partners",
+          link: "/partners",
+        },
+      ],
+      "/courses/email-marketing-course-for-busy-saas-founders": [
           {
-            text: "Getting Started",
-            link: "/docs/getting-started",
+            text: "Course Overview",
+            link: "/courses/email-marketing-course-for-busy-saas-founders",
           },
           {
-            text: "Account Dashboard",
-            link: "/docs/dashboard",
+            text: "Send Your First Newsletter",
+            link: "/courses/email-marketing-course-for-busy-saas-founders/lesson-01",
           },
           {
-            text: "Projects",
-            link: "/docs/projects/",
-            collapsed: false,
-            items: [
-              {
-                text: "Project Dashboard",
-                link: "/docs/projects/dashboard"
-              },
-              {
-                text: "Creating a new project",
-                link: "/docs/projects/new-project",
-              },
-              {
-                text: "Transactional Emails",
-                link: "/docs/projects/transactional-emails",
-              },
-              {
-                text: "Triggered Emails",
-                link: "/docs/projects/triggered-emails",
-              },
-              {
-                text: "Campaigns",
-                link: "/docs/projects/campaigns"
-              },
-              {
-                text: "Automations",
-                link: "/docs/projects/automations"
-              },
-              {
-                text: "Contacts",
-                link: "/docs/projects/contacts"
-              },
-              {
-                text: "Forms & Pages",
-                link: "/docs/projects/forms-and-pages"
-              },
-              {
-                text: "Design System Variables",
-                link: "/docs/projects/design-system-variables",
-              },
-              {
-                text: "Design System Components",
-                link: "/docs/projects/design-system-components",
-              },
-              {
-                text: "Suppression Lists",
-                link: "/docs/projects/suppression-list"
-              },
-              {
-                text: "Settings",
-                link: "/docs/projects/settings"
-              },
-            ],
+            text: "Welcome Email Series",
+            link: "/courses/email-marketing-for-busy-saas-founders",
           },
           {
-            text: "API",
-            link: "/docs/api/",
-            collapsed: false,
-            items: [
-              {
-                text: "Contacts & Subscriber List Management",
-                link: "/docs/api/subscriber-list-management",
-              },
-              {
-                text: "Send Transactional Email",
-                link: "/docs/api/send-transactional-email",
-              },
-              {
-                text: "Send Triggered Email",
-                link: "/docs/api/send-triggered-email",
-              },
-              { text: "Send Attachments", link: "/docs/api/send-attachments" },
-            ],
+            text: "Educational Email Series as a Lead Magnet",
+            link: "/courses/email-marketing-for-busy-saas-founders/educational-email-series-as-a-lead-magnet",
           },
           {
-            text: "Integrations",
-            link: "/docs/integrations/",
-            collapsed: false,
-            items: [
-              {
-                text: "Webhooks for Event Notifications",
-                link: "/docs/integrations/webhooks",
-              },
-              { text: "Supabase", link: "/docs/integrations/supabase" },
-            ],
-          },
-          {
-            text: "Analytics",
-            link: "/docs/analytics",
-          },
-          {
-            text: "Email Personalization (Merge Tags)",
-            link: "/docs/email-personalization",
-          },
-          {
-            text: "Design Systems",
-            link: "/docs/design-systems/",
-            collapsed: false,
-            items: [
-              {
-                text: "Variables",
-                link: "/docs/design-systems/variables"
-              },
-              {
-                text: "Components",
-                link: "/docs/design-systems/components"
-              },
-              {
-                text: "Blocks (or modules)",
-                link: "/docs/design-systems/blocks",
-              },
-              {
-                text: "Templates",
-                link: "/docs/design-systems/templates"
-              }
-            ],
-          },
-          {
-            text: "Pricing/Credits",
-            link: "/docs/credits",
-          },
-        ],
-      },
-      {
-        text: "Best Practices",
-        link: "/email-best-practices-for-saas/",
-        collapsed: false,
-        items: [
-          {
-            text: "Double Opt-In",
-            link: "/email-best-practices-for-saas/double-opt-in",
-          },
-          {
-            text: "Unsubscribe and Pause Subscription",
-            link: "/email-best-practices-for-saas/unsubscribe-and-pause-subscription",
-          },
-          {
-            text: "DMARC",
-            link: "/email-best-practices-for-saas/dmarc",
-          },
-        ],
-      },
-      {
-        text: "Email Marketing Concepts",
-        link: "/email-marketing-concepts/",
-        collapsed: true,
-        items: [
-          {
-            text: "Copywriting",
-            link: "/email-marketing-concepts/copywriting/",
-          },
-          {
-            text: "Design",
-            link: "/email-marketing-concepts/design/",
-          },
-          {
-            text: "List management",
-            link: "/email-marketing-concepts/list-management/",
-          },
-          {
-            text: "Metrics and analytics",
-            link: "/email-marketing-concepts/metrics-and-analytics/",
-          },
-          {
-            text: "Deliverability",
-            link: "/email-marketing-concepts/deliverability/",
+            text: "Segmentation",
+            link: "/courses/email-marketing-for-busy-saas-founders/segmentation",
           },
           {
             text: "Personalization",
-            link: "/email-marketing-concepts/personalization/",
+            link: "/courses/email-marketing-for-busy-saas-founders/personalization",
           },
           {
-            text: "Automation",
-            link: "/email-marketing-concepts/automation/",
-          },
-          {
-            text: "Testing and optimization",
-            link: "/email-marketing-concepts/testing-and-optimization/",
-          },
-          {
-            text: "Strategy",
-            link: "/email-marketing-concepts/strategy/",
-          },
-          {
-            text: "Compliance and legal considerations",
-            link: "/email-marketing-concepts/compliance-and-legal-considerations/",
+            text: "Other Lead Magnets",
+            link: "/courses/email-marketing-for-busy-saas-founders/other-lead-magnets",
           },
         ],
-      },
-      {
-        text: "Why?",
-        link: "/why",
-      },
-      {
-        text: "About",
-        link: "/about",
-      },
-      {
-        text: "Terms of use",
-        link: "/terms-of-use",
-      },
-      {
-        text: "Privacy policy",
-        link: "/privacy-policy",
-      },
-      {
-        text: "Refund policy",
-        link: "/refund-policy",
-      },
-      {
-        text: "Partners",
-        link: "/partners",
-      },
-    ],
+    },
     socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }],
     // Disabling the default footer as we're using a custom component
     footer: false,
