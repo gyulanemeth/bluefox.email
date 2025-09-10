@@ -79,7 +79,7 @@ The Chamaileon-based editor delivers reliable HTML that renders consistently in 
 - Learning curve for advanced Handlebars features
 - Fewer pre-built industry-specific templates
 
-![BlueFox Email design interface](/assets/Comparison/bluefox-design-editor.webp)
+![BlueFox Email design interface](/assets/Comparison/bluefox-collage.webp)
 
 ## Integration Ecosystem and Flexibility
 
@@ -107,7 +107,7 @@ The platform's API-first design allows for flexible integration with existing sy
 - Limited e-commerce platform integrations
 - Fewer marketing automation tool connections
 
-![BlueFox Email API documentation](/assets/Comparison/bluefox-api-docs.webp)
+![BlueFox Email API documentation](/assets/Comparison/bluefox-docs-collage.webp)
 
 ## Automation and Marketing Workflows
 
@@ -135,7 +135,7 @@ The automation system supports advanced conditions based on contact data, email 
 - Learning curve for complex automation logic
 - Limited pre-built automation templates
 
-![BlueFox Email automation workflow](/assets/Comparison/bluefox-automation.webp)
+![BlueFox Email automation workflow](/assets/Comparison/email-automation-collage.webp)
 
 :::tip **All Features on Every Plan**
 Every BlueFox Email plan, including the free tier, includes automation, personalization, and design systems. No feature restrictions based on plan level.

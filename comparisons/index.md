@@ -7,7 +7,7 @@ prev: false
 next: false
 
 datePublished: "2025-09-02"
-dateModified: "2025-09-02"
+dateModified: "2025-09-10"
 
 head:
   - - meta
@@ -21,10 +21,10 @@ head:
       content: Explore expert comparisons between BlueFox Email and leading email marketing platforms, covering design, infrastructure, pricing, and key features.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/comparison/bluefox-comparisons.png
+      content: https://bluefox.email/assets/Comparison/bluefox-comparisons.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/email-provider-comparisons/
+      content: https://bluefox.email/comparisons/
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -45,6 +45,12 @@ Welcome to the BlueFox Email comparison hub! Here you'll find expert analyses an
 Explore the key differences between BlueFox Email and Mailchimp, including features, pricing, and target audiences.
 
 [Read more](./bluefox-vs-mailchimp.md)
+
+## BlueFox Email vs SendGrid
+
+Explore the key differences between BlueFox Email and SendGrid, including features, pricing, and target audiences.
+
+[Read more](./bluefox-vs-sendgrid.md)
 
 <style>
 a[href^="/comparison/"] {
