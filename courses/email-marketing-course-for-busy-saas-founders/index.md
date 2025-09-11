@@ -120,24 +120,31 @@ This course is not about cold emails. For us, email marketing starts the moment 
 
 ## What You Will Learn from This Course
 
-(TODO: reepmhasize our focus on SaaS founders)
+This is a **practical, no-fluff course built for busy SaaS founders**.  
+In just 6 lessons, you’ll go from zero to having a simple, effective email marketing engine up and running:  
 
-Lesson 1: Send Your First Newsletter
+1. **Send Your First Newsletter**  
+   Get your first message out the door and learn the basics.  
 
-Lesson 2: Set up your first welcome flow
+2. **Set Up Your First Welcome Flow**  
+   Onboard new signups with a simple 3-email sequence.  
 
-Lesson 3: Educational email series as a lead magnet
+3. **Educational Email Series as a Lead Magnet**  
+   Attract new leads by teaching and building trust.  
 
-Lesson 4: Segmentation
+4. **Segmentation**  
+   Organize your subscribers into meaningful groups.  
 
-Lesson 5: Personalization
+5. **Personalization**  
+   Make your emails feel relevant without being creepy.  
 
-Lesson 6: Other Lead magnet types
+6. **Other Lead Magnet Types**  
+   Explore additional formats (checklists, ebooks, templates, etc.).  
 
-::: warning Course material in-progress
+---
 
-We are currently working on the course material. Feel free to sign up, and get the updates as soon as they are ready.
-
+::: warning Course material in progress
+We’re still working on the course content. Sign up now and you’ll get updates (and worksheets) as soon as each lesson is released.
 :::
 
 (TODO SIGNUP FORM HERE)
