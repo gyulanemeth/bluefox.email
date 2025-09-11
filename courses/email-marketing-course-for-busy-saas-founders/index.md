@@ -21,15 +21,12 @@ The point is: if someone signs up to your list, and you send relevant, valuable 
 
 **So, what can you expect from this course?**
 
-We designed this course with busy SaaS founders in mind. The goal of the whole course is to set up a good email marketing framework, that you can use as a good starting point, and fine-tune it later.
+In this course, we will show you how to actually set up an email marketing system as a SaaS founder that you will be able to fine-tune later. No fancy jargon or a 200-page "how to" guide, just 6 short lessons that cover everything you need to get started: sending your first newsletter, building onboarding flows, personalizing & segmenting your flows for better results and creating lead magnets that actually bring new signups.
 
-The course consists of the following things:
+You can read the articles here, watch our YouTube videos, and you can sign up to the newsletter version to get access to the worksheets as well.
 
-1) free articles on the site
-2) youtube videos (watch me explain + worksheets in use)
-3) worksheets via newsletter (weekly homework for 6 weeks)
+It only takes 6 weeks to get from zero to a functioning email marketing engine. Are you ready?
 
-If you complete all of the homeworks every week, you should be able to set up a well-functioning email marketing machine in 6 weeks.
 
 (TODO signup form here.)
 
