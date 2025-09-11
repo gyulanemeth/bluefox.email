@@ -11,10 +11,12 @@ And this is where email comes in handy. Everyone has an email address, and we ba
 
 Even though many people claim they don't read their email, most of the time that's not true. They're just overwhelmed by the sheer volume of emails they receive. To get their attention, you need to send the right message to the right person at the right time. (I know, it's not easy. But that's why you are reading this course, right?)
 
-::: tip My wife says she doesn't read email. But guess what's the truth!
-Here is a quick example I observed in my life. My wife said that she never reads emails, and she hates it. I was quite skeptical about it (not that she hates it, but that she doesn't read emails), so I started to observe if she really doesn't read email. It comes out not only she checks her email multiple times per day, she opens ALL of the marketing emails that are relevant to her, and provides value to her. (In our case, one example can be a coupon code on diapers, since we have two babies under two.)
+::: tip My wife says she doesn't read email. But guess what... She DOES!
+Here is a quick example from my own life. My wife often says she never reads emails and that she hates them. I was skeptical... not about the “hate” part, but about the “never reads” part. So I started to pay attention.
 
-Be assured that if someone signs up to your list, and you send relevant emails (you don't spam them), then most of them will read your emails.
+Turns out she checks her email multiple times a day. Not only that, but she also opens all the marketing emails that are relevant and provide real value. (In our case, one example is coupon codes on diapers, since we have two babies under two. Yeah! Those are quite relevant offers, right?)
+
+The point is: if someone signs up to your list, and you send relevant, valuable emails (not spam), most of them will read what you send.
 :::
 
 **So, what can you expect from this course?**
