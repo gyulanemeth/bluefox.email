@@ -198,14 +198,12 @@ The sign-up page in the subscription list allows users to create a form that sub
 [Go to sign-up page](/docs/projects/forms-and-pages#signup-page).  
 
 
-## Segments
+### Segments
 
-Segments allow you to create dynamic groups of contacts based on specific criteria. This feature helps you target your email campaigns more effectively by sending messages to the right audience.
-
-[Go to segments](/docs/projects/segments).
+Segments allow you to create dynamic groups of contacts based on specific criteria. This feature helps you target your email campaigns more effectively by sending emails to the right audience. Read more about segments in the [Segments documentation](./segments).
 
 You can see all the created segments by clicking here:
-![Screenshot of the segments button](./project-contacts-segments-btn.webp)
+![Screenshot of the segments button](./project-segments-selection-view.webp)
 
 ## List Statistics  
 
