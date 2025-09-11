@@ -148,3 +148,6 @@ We’re still working on the course content. Sign up now and you’ll get update
 :::
 
 (TODO SIGNUP FORM HERE)
+
+
+(Note for the signup form: “Sign up and get the free worksheets for each lesson so you can apply what you learn step by step.”)
