@@ -3,13 +3,13 @@
 
 # No BS Email Marketing Course for Busy SaaS Founders
 
-We live in crazy times, especially when it comes to marketing. Everything changes rapidly, algorighms change on a daily basis and people started using LLMs instead of search engines more and more.
+We live in crazy times, especially when it comes to marketing. Everything changes rapidly, algorithms shift daily, and more and more people are starting to use LLMs instead of search engines.
 
-Since we live in this highly unpredictable environment, we need to do our best to mitigate these risks, or even better, to use it to our advantage. We need to stay connected with our prospects.
+In this highly unpredictable environment, we need to do our best to mitigate risks, or even better: turn them to our advantage. We need to stay connected with our prospects and users.
 
-And here comes email handy. Everyone has an email address, we basically use email as our unique ID. If you manage people to sign up to your email list, then you will have a very direct way to communicate with them.
+And this is where email comes handy. Everyone has an email address, we basically use email as our unique ID. If you can get people to sign up to your list, you will have a very direct way to communicate with them.
 
-Eventhough many people say, that they don't read their email, in most of the cases it's not true. You just have to send the right messages to the right people at the right time. (I know, it's not easy. But that it why you are reading this course, right?)
+Even though many people claim they don't read their email, in most of the cases it's not true, they are just overwhelmed by the amount of emails they get. You have to send the right messages to the right people at the right time to get their attention. (I know, it's not easy. But that is why you are reading this course, right?)
 
 ::: tip My wife says she doesn't read email. But guess what's the truth!
 Here is a quick example I observed in my life. My wife said that she never reads emails, and she hates it. I was quite skeptical about it (not that she hates it, but that she doesn't read emails), so I started to observe if she really doesn't read email. It comes out not only she checks her email multiple times per day, she opens ALL of the marketing emails that are relevant to her, and provides value to her. (In our case, one example can be a coupon code on diapers, since we have two babies under two.)
