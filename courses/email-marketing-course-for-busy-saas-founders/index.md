@@ -40,63 +40,68 @@ It only takes 6 weeks to get from zero to a functioning email marketing engine. 
 
 ## Why email marketing matters for SaaS Growth
 
-Throughout the user lifecycle, email plays a very, very important role. You can use email in most of the steps as your primary or secondary tool.
+## Why Email Marketing Matters for SaaS Growth
 
-Let's see the lifecycle states of a user:
+Throughout the user lifecycle, email plays a very important role. You can use email in most stages as either your primary or secondary tool.  
+
+Let’s walk through the lifecycle stages of a user:  
 
 ### Awareness
+Awareness is when people first discover your brand or product.  
 
-Awareness is when people first discover your brand or product exists.
-
-Since we don't know these people's email addresses, we can't really use email in this stage (except for cold emails, but we don't cover that topic here), but we can use email as our primary channel of contact in ALL of the other user lifecycle stages!
+Since we don’t know these people’s email addresses, we can’t really use email here (except for cold emails, but we won’t cover that topic in this course). The important part is: email becomes your **primary channel of contact in nearly all of the other lifecycle stages**.  
 
 ### Acquisition
+Acquisition is when you get people to sign up.  
 
-Acquisition is when you make people to sign up.
+It can happen in different ways. For example, someone searches for a topic, finds your site, and then decides to sign up.
 
-It can happen in various ways. For example, people search for a specific topic, find your site and the decide to sign up.
-
-You can use **email indirectly** at this stage through **lead magnets**. A lead magnet is a free valuable resource that you offer to people in exchange for their contact info, usually their email address. The point is that you might be able to convert them into leads.
+At this stage, you can use **email indirectly** through **lead magnets**. A lead magnet is a free, valuable resource you offer in exchange for someone’s email address. The goal is to convert visitors into leads.  
 
 ### Activation
+Activation is when a new user reaches their first moment of real value.  
 
-Activation is getting a new user to their first moment of real value.
-
-You can help users with **onboarding email flows** at this stage.
+Here, you can guide users with **onboarding email flows** to help them succeed quickly.  
 
 ### Conversion
+Conversion is when you turn free users or leads into paying customers.  
 
-Conversion is when you turn leads or free users into paying customers.
+You can use email to nurture leads with educational content, build trust, and send timely upgrade offers.  
 
-You can use email for nurturing leads with educational content, trust building, and timely upgrade offers.
+### Retention
+Retention is about keeping existing customers engaged and coming back.  
 
-### Retention 
-
-Retention is keeping existing customers engaged and coming back.
-
-You can do a LOT with email to keep your users on board. For example, you can send feature updates, regular "how to get more value" emails, usage reminders & nudges, and many more.
+Email is one of the best tools here. For example, you can send:  
+- Feature updates  
+- “How to get more value” emails  
+- Usage reminders and nudges  
+- Tips, templates, or best practices
+- and many more... 
 
 ### Expansion
+Expansion is when you grow revenue from existing customers.  
 
-Expansion is growing revenue from existing customers.
-
-This can happen in two ways via email: you can send upgrade nudges (highlighting the extra benefits of the bigger plan) or upselling another product or service.
+With email, this usually happens through:  
+- **Upgrade nudges**: highlighting the benefits of a higher plan  
+- **Upsells**: promoting an additional product or service  
 
 ### Advocacy
+Advocacy is when you turn happy customers into promoters.  
 
-Advocacy is when you turn happy customers into promoters.
-
-Well, email does not have a lot of role here, but you can try to get testinonials in email.
+Email’s role here is more limited, but you can still:  
+- Ask for testimonials or case studies  
+- Run referral programs  
+- Invite users to share feedback or reviews  
 
 ### Reactivation
+Reactivation is bringing back churned or inactive customers.  
 
-Reactivation is when you are bringing back churned or inactive customers.
+Email works well here through **re-engagement sequences** like win-back campaigns or “we miss you” messages.  
 
-You can set up re-engagement email sequences for this.
-
+---
 
 ::: tip What we focus on in this course
-In this course, we will talk about **activation** (lesson 2), **retention** (lesson 1, lesson 4, lesson 5), and **acquisition** (lesson 3, lesson 6). 
+In this course, we’ll focus mainly on **activation** (lesson 2), **retention** (lessons 1, 4, and 5), and **acquisition** (lessons 3 and 6). These are the most impactful stages for busy SaaS founders to master early.
 :::
 
 
