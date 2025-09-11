@@ -3,7 +3,7 @@
 
 # No BS Email Marketing Course for Busy SaaS Founders
 
-(90 second video here.)
+(TODO 90 SEC VIDEO HERE)
 
 *Marketing changes every day, algorithms shift constantly, and new tools make it even harder to keep up.
 **Email is the one channel you control.** In this free 6-lesson No BS course, I’ll show you how to use it to grow your SaaS.*
@@ -35,14 +35,14 @@ You can read the articles here, watch our YouTube videos, and sign up for the ne
 It only takes 6 weeks to get from zero to a functioning email marketing engine. Are you ready?
 
 
-(TODO signup form here.)
+(TODO SIGNUP FORM HERE)
 
-
-## Why email marketing matters for SaaS Growth
 
 ## Why Email Marketing Matters for SaaS Growth
 
-Throughout the user lifecycle, email plays a very important role. You can use email in most stages as either your primary or secondary tool.  
+Throughout the user lifecycle, email plays a very important role. You can use email in most stages as either your primary or secondary tool.
+
+(TODO QUICK VIDEO HERE)
 
 Let’s walk through the lifecycle stages of a user:  
 
@@ -98,7 +98,7 @@ Reactivation is bringing back churned or inactive customers.
 
 Email works well here through **re-engagement sequences** like win-back campaigns or “we miss you” messages.  
 
----
+(TODO LIFECYCLE DIAGRAM HERE)
 
 ::: tip What we focus on in this course
 In this course, we’ll focus mainly on **activation** (lesson 2), **retention** (lessons 1, 4, and 5), and **acquisition** (lessons 3 and 6). These are the most impactful stages for busy SaaS founders to master early.
@@ -107,11 +107,16 @@ In this course, we’ll focus mainly on **activation** (lesson 2), **retention**
 
 ## How Email Fits Into the Bigger Marketing Mix
 
-If you think about content (SEO), social, and ads as getting attention, then you can think about email as **keeping attention**. It can also help you to move people through activation, conversion to retention phases and so on, as we saw in the previous section.
+Think of **content (SEO), social, and ads** as channels for *getting attention*.  
+Email, on the other hand, is about **keeping attention**, and moving people through activation, conversion, and retention, as we saw in the previous section.
 
-I can't emphasize enough how reliable channel email is. Social and search algos change so frequently and unpredictably that it's essential to have a reliable way of communicating with your prospects and customers. Email is a very direct way of communication. You just need to make sure that you send relevant content, and make it easy for them to unsubscribe. (Yes, you DON'T wanna spam people.)
+The big difference? You don’t own your reach on social or search. Algorithms decide who sees your posts or ads. With email, once someone subscribes, that connection is yours. You have a direct line to their inbox... No middlemen, no changing rules. The only thing you need to do is send relevant content and make it easy for people to unsubscribe. (Because spamming is the fastest way to lose trust.)
 
-Many people consider cold emails as part of email marketing, but we are not one of them. This course is not about cold emails. In our opinion, email marketing starts, when someone gives you their email address.
+One more thing: many people consider cold emails part of “email marketing.” We don’t.  
+This course is not about cold emails. For us, email marketing starts the moment someone gives you their email address.  
+
+(TODO IMAGE HERE)
+
 
 ## What You Will Learn from This Course
 
@@ -135,4 +140,4 @@ We are currently working on the course material. Feel free to sign up, and get t
 
 :::
 
-(TODO signup form)
+(TODO SIGNUP FORM HERE)
