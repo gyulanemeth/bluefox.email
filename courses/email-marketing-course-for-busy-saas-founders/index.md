@@ -3,6 +3,13 @@
 
 # No BS Email Marketing Course for Busy SaaS Founders
 
+(90 second video here.)
+
+*Marketing changes every day, algorithms shift constantly, and new tools make it even harder to keep up.
+**Email is the one channel you control.** In this free 6-lesson No BS course, I’ll show you how to use it to grow your SaaS.*
+
+---
+
 We live in crazy times, especially when it comes to marketing. Everything changes rapidly, algorithms shift daily, and more and more people are starting to use LLMs instead of search engines.
 
 In this highly unpredictable environment, we need to do our best to mitigate risks, or even better: turn them to our advantage. We need to stay connected with our prospects and users.
