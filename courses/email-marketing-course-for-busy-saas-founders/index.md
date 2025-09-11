@@ -7,7 +7,7 @@ We live in crazy times, especially when it comes to marketing. Everything change
 
 In this highly unpredictable environment, we need to do our best to mitigate risks, or even better: turn them to our advantage. We need to stay connected with our prospects and users.
 
-And this is where email comes in handy. Everyone has an email address, and we basically use it as our unique ID. If you can get people to sign up to your list, you'll have a direct way to communicate with them.
+And this is where email comes in handy. Everyone has an email address, and we basically use it as our unique ID. If you can get people to sign up for your list, you'll have a direct way to communicate with them.
 
 Even though many people claim they don't read their email, most of the time that's not true. They're just overwhelmed by the sheer volume of emails they receive. To get their attention, you need to send the right message to the right person at the right time. (I know, it's not easy. But that's why you are reading this course, right?)
 
@@ -21,9 +21,9 @@ The point is: if someone signs up to your list, and you send relevant, valuable 
 
 **So, what can you expect from this course?**
 
-In this course, we will show you how to actually set up an email marketing system as a SaaS founder that you will be able to fine-tune later. No fancy jargon or a 200-page "how to" guide, just 6 short lessons that cover everything you need to get started: sending your first newsletter, building onboarding flows, personalizing & segmenting your flows for better results and creating lead magnets that actually bring new signups.
+In this course, we will show you how to actually set up an email marketing system as a SaaS founder that you can fine-tune later. No fancy jargon or 200-page “how-to” guides... Just 6 short lessons that cover everything you need to get started: sending your first newsletter, building onboarding flows, personalizing & segmenting your flows for better results, and creating lead magnets that actually bring new signups.
 
-You can read the articles here, watch our YouTube videos, and you can sign up to the newsletter version to get access to the worksheets as well.
+You can read the articles here, watch our YouTube videos, and sign up for the newsletter version to get access to the worksheets as well.
 
 It only takes 6 weeks to get from zero to a functioning email marketing engine. Are you ready?
 
