@@ -68,6 +68,8 @@ The available node types are:
 - **Send Email**
 - **Timer**
 - **Audience Filter**
+- **Branching**
+- **Set Value**
 
 Let’s go through each one in detail.
 
@@ -96,7 +98,15 @@ To configure the trigger, click on the trigger card:
       - Operation: same options as above
       - Value: the new value the property changed to
 
-The automation will trigger **only if the contact's property changed and matches both the "from" and "to" conditions**.
+    The automation will trigger **only if the contact's property changed and matches both the "from" and "to" conditions**.
+    - **Enter Segment**: 
+        - If a contact is added with properties which falls into the segment, the automation will trigger.
+        - If a contact which was not in the segment before, is updated and now falls into the segment, the automation will trigger.
+    - **Leave Segment**: If a contact is removed from a segment, the automation will trigger.
+
+    In both segment cases, you’ll need to select the specific segment to monitor. You can also create a segment on the fly by clicking the **plus** icon besides the select segment drop-down menu.
+
+    ![Automation node trigger card Icon](./project-automation-node-trigger-segment-card.webp)
 
 These fields let you define exactly what kind of property change should activate your automation.
 
@@ -129,6 +139,15 @@ When configuring the filter:
 If the contact **passes** the filter, the automation continues to the next node. If it **fails**, the automation stops for that contact.
 
 ![Automation node filter card Icon](./project-automation-node-filter-property-based-card.webp)
+
+### Segments Tab
+
+- Select or create a **segment** to filter contacts.
+
+If the contact is in the selected segment, the automation continues to the next node. If not, the automation stops for that contact.
+
+![Automation node filter card Icon](./project-automation-node-filter-segment-based-card.webp)
+
 
 ### Email Activity Tab
 - Choose an **operator**: is-opened, is-clicked, is-not-opened, is-not-clicked.
@@ -180,9 +199,6 @@ The **Branch Node** allows you to create conditional flows based on contact data
 
 The **Condition Node** allows you to build dynamic decision paths in your automation. It checks if a contact meets a specific condition based on property values or email activity. If the condition is true, it follows that condition’s sequence, if false, it moves on to evaluate the next condition.
 
-
-
-
 When configuring the filter:
 #### Property Tab
 - Select a **property** (e.g., `premium`).
@@ -193,6 +209,14 @@ If the contact **passes** the filter, the automation continues to the next node.
 
 ![Automation node filter card Icon](./project-automation-node-condition-property-based-card.webp)
 
+#### Segments Tab
+
+- Select or create a **segment** to filter contacts.
+
+If the contact is in the selected segment, the automation continues to the next node. If not, the automation stops for that contact.
+
+![Automation node filter card Icon](./project-automation-node-condition-segment-based-card.webp)
+
 #### Email Activity Tab
 - Choose an **operator**: is-opened, is-clicked, is-not-opened, is-not-clicked.
 - Choose an earlier **Send Email** node from the automation to evaluate.
@@ -202,6 +226,50 @@ If the contact **passes** the filter, the automation continues to the next node.
   - f left blank, it checks whether **any link** in the email was clicked or not.
 
 ![Automation node filter card Icon](./project-automation-node-condition-email-based-card.webp)
+
+
+## Set Value Node
+
+The **Set Value Node** allows you to update a contact property within the automation flow.
+
+When configuring the Set Value node:
+- Select a **Contact Property** to update (from your [Contact Properties](/docs/projects/settings#contact-properties)).
+- Enter a **Value** (e.g., `true`, `5`, `new value`).
+
+![Automation node set value card Icon](./project-automation-node-set-value-card.webp)
+
+## Exit Critera
+
+The **Exit Criteria** allows you to define conditions under which a contact will exit the automation before reaching the end. This is useful for stopping contacts from continuing in the automation if they meet certain criteria. Check the **Exit Criteria** card to configure it.
+
+![Automation node exit criteria card Icon](./project-automation-node-exit-criteria-card.webp)
+
+Use the toggle button to enable or disable the exit criteria.
+
+![Automation node exit criteria card Icon toggle button](./project-automation-node-exit-criteria-card-toggle.webp)
+
+When configuring the exit criteria you have the following options:
+
+- **Property Tab**: Exit if a contact property meets a specific condition.
+    - Select a **property** (e.g., `premium`).
+    - Choose an **operator**: Any, Equals, Does Not Equal, Contains, Does Not Contain.
+    - Enter a **value** (e.g., `true`).
+
+  ![Automation node exit criteria card Icon property tab](./project-automation-node-exit-criteria-property-based-card.webp)
+
+- **Segment Tab**: Exit if a contact is added in a specific segment or updated and now falls into the segment.
+    - Select or create a **segment** to filter contacts.
+
+  ![Automation node exit criteria card Icon segment tab](./project-automation-node-exit-criteria-segment-based-card.webp)
+
+- **Email Activity Tab**: Exit based on email interactions.
+    - Choose an **operator**: is-opened, is-clicked, is-not-opened, is-not-clicked.
+    - Link (only shown if using `is-clicked` or `is-not-clicked`): 
+      - Optionally specify a link (URL) from the email.
+      - If set, the condition checks whether that **specific link** was clicked or not.
+      - If left blank, it checks whether **any link** in the email was clicked or not.
+
+  ![Automation node exit criteria card Icon email activity tab](./project-automation-node-exit-criteria-email-based-card.webp)
 
 
 ## Managing Automations
