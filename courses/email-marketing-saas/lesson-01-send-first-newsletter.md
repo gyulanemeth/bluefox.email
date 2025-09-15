@@ -76,6 +76,8 @@ Probably the easiest way to start is with a monthly feature update newsletter. T
 ### Simple Design
 ... most likely it's easiest to pick a template or email theme that's look and feel is ok. Just set your primary (brand) color, select your font(s) and set up your logo...
 
+(TODO SHOW HOW TO SELECT A THEME + SET UP PARAMS LIKE LOGO, COLOR, FONT)
+
 Make sure your email looks good on mobile and across clients — this can be trickier than it sounds. A simple on-brand template is enough. If you include screenshots, do not put them in columns, because that makes them harder to see. Instead, focus on the relevant parts, not the entire screen.  
 
 Always include your logo and brand name, and keep the style consistent with your website (colors, typography, button styles, etc.). Your transactional and marketing emails should also look consistent. Nothing feels more unprofessional than when a password reset email looks completely different from a product update.
@@ -87,7 +89,9 @@ When it comes to visuals, use them where they actually help explain something. S
 
 CTAs (calls to action) are what turn your email into something actionable. In a newsletter, it’s fine to have more than one CTA. For example, if you are releasing two major features, link to both documentation pages. The goal here is to keep users engaged, not to push one single action. Just make sure every CTA is clear, visible, and easy to tap on mobile (buttons work better than text links).  
 
-Don’t overthink the length. Your readers should not be scared by a wall of text, but they should be able to read it quickly and scan through easily.  
+Don’t overthink the length. Your readers should not be scared by a wall of text, but they should be able to read it quickly and scan through easily.
+
+(TODO SHOW AN EXAMPLE)
 
 ### Craft the Subject Line
 The subject line is the single most important part of your newsletter. It decides whether people open your email or ignore it.  
@@ -117,7 +121,7 @@ Decide how you want to appear: personal, mascot, or formal (for example, “XY A
 ### Test Send
 This step is critical. Always send a test email to yourself before sending to your full list.
 
-Rendering can go WRONG. (With BlueFox, it won't.)
+Rendering can go WRONG. (TALK SOME ABOUT LITMUS, EMAIL ON ACID, ETC.) (With BlueFox, it won't.)
 
 Also, you probably want to make sure that all of the links work in your email, and they lead to the URLs that they are intended to ... (TODO LINK CHECKER)
 
