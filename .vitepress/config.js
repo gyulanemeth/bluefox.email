@@ -337,34 +337,34 @@ export default defineConfig({
           link: "/partners",
         },
       ],
-      "/courses/email-marketing-course-for-busy-saas-founders": [
+      "/courses/email-marketing-saas": [
           {
             text: "Course Overview",
-            link: "/courses/email-marketing-course-for-busy-saas-founders",
+            link: "/courses/email-marketing-saas",
           },
           {
             text: "Send Your First Newsletter",
-            link: "/courses/email-marketing-course-for-busy-saas-founders/lesson-01",
+            link: "/courses/email-marketing-saas/lesson-01-send-first-newsletter",
           },
           {
             text: "Welcome Email Series",
-            link: "/courses/email-marketing-for-busy-saas-founders",
+            link: "/courses/email-marketing-saas/welcome-email-series",
           },
           {
             text: "Educational Email Series as a Lead Magnet",
-            link: "/courses/email-marketing-for-busy-saas-founders/educational-email-series-as-a-lead-magnet",
+            link: "/courses/email-marketing-saas/educational-email-series-as-a-lead-magnet",
           },
           {
             text: "Segmentation",
-            link: "/courses/email-marketing-for-busy-saas-founders/segmentation",
+            link: "/courses/email-marketing-saas/segmentation",
           },
           {
             text: "Personalization",
-            link: "/courses/email-marketing-for-busy-saas-founders/personalization",
+            link: "/courses/email-marketing-saas/personalization",
           },
           {
             text: "Other Lead Magnets",
-            link: "/courses/email-marketing-for-busy-saas-founders/other-lead-magnets",
+            link: "/courses/email-marketing-saas/other-lead-magnets",
           },
         ],
     },

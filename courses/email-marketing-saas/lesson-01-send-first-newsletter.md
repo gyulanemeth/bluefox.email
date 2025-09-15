@@ -34,14 +34,19 @@ Keep it simple for now, and expand later as your communication grows.
 
 ## Collecting Your First Contacts
 
-friends
-beta users
-early adopters
-waitlists
+Before you can send a newsletter, you need people to send it to. Start small: the goal is to build momentum, not a massive list overnight.  
 
-signups to your product -> sign up to lists... BUT mention it in the terms and conditions + make it easy to unsubscribe
+Here are a few easy places to get your first contacts:  
 
-post it on socials... into groups, etc.
+- **Friends and colleagues**: the people who want to see you succeed.  
+- **Beta users and early adopters**: they’re already invested in your product.  
+- **Waitlists**: if you already have a waitlist, that’s basically your first list. Don’t start from scratch, invite those people to keep hearing from you as you move forward.  
+- **Social channels**: share the signup link on your profiles or in relevant groups.  
+
+If you add people who signed up for your product directly to a list, make sure you **mention it in your Terms & Conditions** and always make it easy to unsubscribe. Transparency is key to building trust.  
+
+And don’t overcomplicate this step. You probably don’t need ads yet. Focus on the people who already know you or care about your product: that’s enough to get your first newsletter out the door.  
+
 
 ## Sending Your First Newsletter
 
