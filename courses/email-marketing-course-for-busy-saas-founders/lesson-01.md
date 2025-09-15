@@ -39,7 +39,9 @@ beta users
 early adopters
 waitlists
 
-social...
+signups to your product -> sign up to lists... BUT mention it in the terms and conditions + make it easy to unsubscribe
+
+post it on socials... into groups, etc.
 
 ## Sending Your First Newsletter
 
