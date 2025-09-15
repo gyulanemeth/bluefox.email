@@ -57,6 +57,8 @@ And don’t overcomplicate this step. You probably don’t need ads yet. Focus o
 
 (TODO YOU CAN USE A FORM BUILDER IN BLUEFOX...)
 
+(TODO talk about optional fields... maybe it's a good idea to ask a few things before signup, maybe it prevents conversion...)
+
 (TODO signup users through api... just mention, add a link)
 
 
