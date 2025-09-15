@@ -1,3 +1,7 @@
+---
+outline: [2,3]
+---
+
 
 # Send Your First SaaS Newsletter
 
@@ -62,10 +66,17 @@ Before we talk about the details, remember that every newsletter must include an
 
 Another thing: your first newsletter will not be perfect. And that is not a problem. The real goal here is to build a habit. Consistency is king.  
 
-### Choose a Topic / Clear Goal
+### Choose a Topic & Goal
 Every newsletter should have one purpose, not five. It could be a progress announcement (a new feature, milestone, or launch), sharing something useful like a tip or resource, or inviting users to take action such as trying a feature, replying with feedback, or reading the docs.  
 
 Probably the easiest way to start is with a monthly feature update newsletter. This not only gives you a clear structure, it also forces you to think through what happened every month. It will help you write documentation where needed and create materials you can reuse elsewhere.  
+
+### Simple Design
+... most likely it's easiest to pick a template or email theme that's look and feel is ok. Just set your primary (brand) color, select your font(s) and set up your logo...
+
+Make sure your email looks good on mobile and across clients — this can be trickier than it sounds. A simple on-brand template is enough. If you include screenshots, do not put them in columns, because that makes them harder to see. Instead, focus on the relevant parts, not the entire screen.  
+
+Always include your logo and brand name, and keep the style consistent with your website (colors, typography, button styles, etc.). Your transactional and marketing emails should also look consistent. Nothing feels more unprofessional than when a password reset email looks completely different from a product update.
 
 ### Keep the Content Simple
 Write like you are talking to a friend. Forget the corporate jargon and long-winded intros. People are busy, and they just want to know what’s new and why it matters. Stick to a single main topic, for example a feature or roadmap update, and make it easy to follow.  
@@ -96,16 +107,15 @@ If you are not sure which subject line works best, test it. Most email platforms
 The subject line is small, but it’s worth the extra thought. Even a single word can double your open rate.  
 
 
-### Sender Name + Email Address
+### Email Address & Sender Name
 Decide how you want to appear: personal, mascot, or formal (for example, “XY App”). Avoid “no-reply” addresses, because they tend to disappear in inboxes. If you can handle replies, consider using your personal address or at least a reply-to that goes to you, so you can ask users for feedback directly.  
 
-### Design
-Make sure your email looks good on mobile and across clients — this can be trickier than it sounds. A simple on-brand template is enough. If you include screenshots, do not put them in columns, because that makes them harder to see. Instead, focus on the relevant parts, not the entire screen.  
-
-Always include your logo and brand name, and keep the style consistent with your website (colors, typography, button styles, etc.). Your transactional and marketing emails should also look consistent. Nothing feels more unprofessional than when a password reset email looks completely different from a product update.  
+(TODO AN IMAGE OF AN INBOX WITH LOT OF NO-REPLY EMAIL ADDRESSES TO SHOWCASE HOW EASY IT IS TO DISAPPEAR IN THE INBOX.)
 
 ### Test Send
 This step is critical. Always send a test email to yourself before sending to your full list.
+
+Rendering can go WRONG. (With BlueFox, it won't.)
 
 Also, you probably want to make sure that all of the links work in your email, and they lead to the URLs that they are intended to ... (TODO LINK CHECKER)
 
@@ -116,14 +126,17 @@ Now, schedule that first newsletter.
 
 ## Homework
 
-Define your goal
-Work on your email lists
-Draft your first newsletter
+1) Define the goal & topic of your newsletter
+2) Figure out a simple set of email lists as a starting point
+3) Create a signup page
+4) Collect contacts for your newsletter
+5) Create your first newsletter
+   1) Select / Create a simple design
+   2) Write the content, create visuals, add CTAs (buttons are better than simple links)
+   3) Write a good subject line
+   4) Select a good sender name & sender email address
+6) Schedule your newsletter
 
-Worsheet
- - content
- - subject
- - sender name, email address
-
+Don't forget to send your newsletter on a regular basis. Again, it's very straightforward to start with a monthly (feature) updates newsletter. It shows your users that you are making steady progress, and that's what you want, right!?
 
 --- signup form here explaining that in the email version, they get worksheets (& in the premium version they get extra materials)
