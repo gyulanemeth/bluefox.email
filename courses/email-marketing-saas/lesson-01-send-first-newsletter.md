@@ -83,7 +83,7 @@ With BlueFox, you can generate signup forms that handle required/optional fields
 ![Example signup form builder showing required and optional fields, form customization options, and HTML export.](./lesson-01-02-form-builder.png)  
 
 **Best practices for collecting contacts:**  
-- Keep fields minimal — only ask for what you really need.  
+- Keep fields minimal. Only ask for what you really need.  
 - Use double opt-in to confirm addresses.  
 - Add captcha or bot protection.  
 - Always provide an easy way to unsubscribe.  
