@@ -73,10 +73,24 @@ And don’t overcomplicate this step. You probably don’t need ads yet. Focus o
 
 When creating signup forms, you can decide which fields are **required** and which are **optional**. Sometimes asking for extra details (like name, company size, or role) can help you personalize emails later, but keep in mind that more fields often reduce conversions. Find the right balance for your audience.  
 
+Two more things to always consider:  
+- **Double opt-in**: This means the user confirms their subscription by clicking a link in a confirmation email. It reduces fake signups, prevents typos from polluting your list, and keeps your sender reputation clean.  
+- **Captcha or bot protection**: Without it, bots or botnets can flood your list with random addresses. That leads to bounces, spam complaints, and hurts deliverability.  
+
 With BlueFox, you can generate signup forms that handle required/optional fields out of the box, and you can also create subscribers programmatically via the [API](/docs/api/subscriber-list-management).  
 
 **Here’s what a signup form builder looks like:**  
 ![Example signup form builder showing required and optional fields, form customization options, and HTML export.](./lesson-01-02-form-builder.png)  
+
+**Best practices for collecting contacts:**  
+- Keep fields minimal — only ask for what you really need.  
+- Use double opt-in to confirm addresses.  
+- Add captcha or bot protection.  
+- Always provide an easy way to unsubscribe.  
+
+As a SaaS founder, starting with even a handful of engaged contacts gives you a direct line to feedback and early traction. Make sure you also comply with regulations like GDPR or CCPA by collecting explicit consent and storing it properly.  
+
+And don’t wait until you have hundreds or thousands of signups. If you have 10 people, that’s already enough to send your first newsletter and start building the habit.  
 
 
 
