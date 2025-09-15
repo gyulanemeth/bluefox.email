@@ -74,7 +74,7 @@ Every newsletter should have one purpose, not five. It could be a progress annou
 Probably the easiest way to start is with a monthly feature update newsletter. This not only gives you a clear structure, it also forces you to think through what happened every month. It will help you write documentation where needed and create materials you can reuse elsewhere.  
 
 ### Simple Design
-... most likely it's easiest to pick a template or email theme that's look and feel is ok. Just set your primary (brand) color, select your font(s) and set up your logo...
+... most likely it's easiest to pick a template or email theme that's look and feel is ok. Just set your primary (brand) color, select your font(s) and set up your logo... mention that it should not look weird to put images in the email... so text only email might now work well.
 
 (TODO SHOW HOW TO SELECT A THEME + SET UP PARAMS LIKE LOGO, COLOR, FONT)
 
