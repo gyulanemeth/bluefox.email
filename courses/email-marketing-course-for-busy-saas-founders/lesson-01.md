@@ -16,8 +16,15 @@ The goal of this lesson is simple: send out your first newsletter, start buildin
 
 ## Defining Your Lists
 
+One list might not be enough... It's time to think about all of the different emails your users will receive. (Don't worry, you can apply changes later.)
+
 What topics you wanna cover... don't worry, you can add new lists later.
 
+Transactional emails are not tied to lists -> no problem here.
+
+You will need to give the opportunity for your users to opt-out from your emails... It's required to make it possible to unsubscribe from all, but if you show them that there are specific lists for specific topics, they might stay signed up for a topic or two.
+
+A quick example... You might have one list for "Notifications" (eg.: someone sent you a message while your app was not open), and one "Product Updates" (eg.: these newsletters).
 
 ## Collecting Your First Contacts
 
@@ -26,8 +33,6 @@ beta users
 early adopters
 
 social...
-
-We can talk about lists here.
 
 ## Sending Your First Newsletter
 
