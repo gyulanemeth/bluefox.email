@@ -50,10 +50,50 @@ And don’t overcomplicate this step. You probably don’t need ads yet. Focus o
 
 ## Sending Your First Newsletter
 
-Choose a topic
-Craft a clean subject line
-Keep it short, clean, valuable
+Before we talk about the details, keep in mind that you must include an unsubscribe link. It's not only a law at many places, but common sense... you rather want people to unsubscribe than hitting the spam button, right?
 
+Another thing... the first newsletter will not be perfect... but that's not a problem. The goal is to build a habit. Consistency is king!
+
+### Choose a topic/ clear goal
+ - progress announcements.... eg a monthly feature uptade is great (new feature, milesone, launch...)
+ - share something useful/valuable (tip, resouce, story)
+ - Invite to take action (try feature, reply with deedback, read docs.)
+ - the newsletter should have 1 purpose, not five
+ - probably the easiest is to start a monthly feature update newsletter.... it is also good for you, coz you think through what happened every month + it will make sure that you write docs properly (if needed) and you will work on some materials related to the new features that you can reuse elsewhere.
+
+### Keep the content simple
+ - write like you talk...
+ - stick to the main topic (eg. feature/roadmap updates)
+ - short paragraphs + headings
+ - Simple CTA. Use buttons. (easier to see, easier to click and more importantly tap.)
+
+### Craft the subject line
+ - based on the content.
+ - avoid spammy words (such as FREE, URGENT, !!!)
+ - shorter is better: 5-8 words
+
+### Sender name + email address
+ - decide... personal / mascot / formal "XY App"
+ - try not to use "no-reply" that will disappear in the inbox
+ - your personal email / personal reply to -> you can easily ask users to reply (if you have the capacity)
+
+### Design
+ - make it sure that it looks good on mobile (and generally accross email clients)... (many might not know it, but it can be incredibly hard)
+ - A simple on-brand template is fine.
+ - If you include screenshots, don't put those into columns -> they would harder to see what's on the screenshot. Also, don't just do full-screen screenshots, but focus on the relevant parts.
+ - include your logo & brand name + use consistent style with your other things, such as website (think about colors, typography, button stlyes, etc)
+ - make sure your transactional and marketing emails (such as your newsletter) looks alike. It's always a bad impression to see totally different transactional & marketing / product emails
+
+### Test send 
+Very important!!!! Make sure you test the newsletter before you send it to your list. Just send a test send to yourself...
+
+### Scheduling
+
+Since many people get to many emails, timing is cricial.
+Figure out a good time for your audience, and try to keep yourself to that time. (Timezones play and important role here.) Also, consider the day of the week.
+Frequency is also important. Try to keep yourself to your schedule... eg monthly.
+
+Now, schedule that newletter.
 
 ## Homework
 
