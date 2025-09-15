@@ -40,13 +40,20 @@ For marketing and product emails, you always need to offer a **global unsubscrib
 - A **Notifications** list: "Someone sent you a message while your app was closed."  
 - A **Product Updates** list: "Here’s what’s new in the product this month."  
 
-When you create your lists, always give them **clear titles and descriptions**. People should immediately understand what kind of emails they’ll receive and how often. A vague list name like *General Updates* won’t help anyone, but *Product Updates (monthly features and news)* sets expectations. Clear communication reduces unsubscribes and builds trust.  
+When you create your lists, always give them **clear titles and descriptions**. People should immediately understand what kind of emails they’ll receive. If you want, you can include frequency in the title (e.g. “Product Updates (Monthly)”), but it’s also fine to highlight it in the description instead. Clear communication reduces unsubscribes and builds trust.  
 
 **Here’s what a subscription preferences page can look like:**  
 ![Example subscription preferences page with multiple lists and pause/unsubscribe options.](./lesson-01-subscription-preferences.png)  
 
 In this example, users can see each list with a clear name and description. They can pause or unsubscribe from individual lists, or choose to stop all emails at once. This makes it easy for users to stay in control while still keeping the option to stay subscribed to the topics that matter most to them.  
 
+**Best practices for defining your lists:**  
+- Use clear, human-friendly list names.
+- Add short descriptions that explain content and frequency.
+- Always give both global and per-list unsubscribe options.
+- Offer a pause option if possible. It’s not a silver bullet, but it can save you a few unsubscribes.  
+
+As a SaaS founder, organizing your lists early helps you avoid headaches later when your product (and your communication) start to scale.  
 
 
 ## Collecting Your First Contacts
@@ -64,11 +71,13 @@ If you add people who signed up for your product directly to a list, make sure y
 
 And don’t overcomplicate this step. You probably don’t need ads yet. Focus on the people who already know you or care about your product: that’s enough to get your first newsletter out the door.  
 
-(TODO YOU CAN USE A FORM BUILDER IN BLUEFOX...)
+When creating signup forms, you can decide which fields are **required** and which are **optional**. Sometimes asking for extra details (like name, company size, or role) can help you personalize emails later, but keep in mind that more fields often reduce conversions. Find the right balance for your audience.  
 
-(TODO talk about optional fields... maybe it's a good idea to ask a few things before signup, maybe it prevents conversion...)
+With BlueFox, you can generate signup forms that handle required/optional fields out of the box, and you can also create subscribers programmatically via the [API](/docs/api/subscriber-list-management).  
 
-(TODO signup users through api... just mention, add a link)
+**Here’s what a signup form builder looks like:**  
+![Example signup form builder showing required and optional fields, form customization options, and HTML export.](./lesson-01-02-form-builder.png)  
+
 
 
 ## Sending Your First Newsletter
