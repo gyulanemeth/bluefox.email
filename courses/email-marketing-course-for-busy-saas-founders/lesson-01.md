@@ -1,11 +1,18 @@
 
 # Send Your First SaaS Newsletter
 
-Getting started with a newsletter is probably the easiest way of getting started with email marketing. It has some clear benefits, most importantly that you stay on the top of the minds of your early users, and you show progress to them. It is especially important, because you have to show that "yeah, we are still working on the product and not goin anywhere".
+(TODO 60-90 SEC VIDEO HERE)
 
-Later, these newsletters can lay the foundation of your automations, but more importantly, it can help you to build a habit. It helps to build consistency.
+Early users don’t just want features, they want proof you’re alive and moving.  
 
-The goal of this lesson is to get started with a simple newsletter, and build up a habit that email marketing will be part of your marketing activities, and even more importantly, email communication will be part of your product.
+---
+
+Getting started with a newsletter is probably the easiest way to begin with email marketing. It has some clear benefits: it keeps you on top of your early users’ minds and shows them that you’re making progress. That’s especially important in the early days! You want your users to feel confident that *yes, we’re still working on the product and we’re not going anywhere*.  
+
+Later, these newsletters can lay the foundation for automations, but their biggest value early on is building the habit. Email becomes part of your regular marketing activity, and more importantly, part of your product experience.  
+
+The goal of this lesson is simple: send out your first newsletter, start building consistency, and make email communication a natural part of your SaaS.  
+
 
 ## Defining Your Lists
 
