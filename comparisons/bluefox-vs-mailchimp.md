@@ -1,7 +1,7 @@
 ---
 title: BlueFox Email vs Mailchimp | BlueFox Email
 description: Direct comparison of BlueFox Email and Mailchimp for email marketing, SaaS, and transactional messaging, covering design, integrations, automation, personalization, analytics, support, and pricing.
-thumbnail: /assets/Comparison/bluefox-vs-mailchimp.png
+thumbnail: /assets/comparison/bluefox-vs-mailchimp.png
 sidebar: false
 aside: true
 
@@ -21,10 +21,10 @@ head:
       content: Direct comparison of BlueFox Email and Mailchimp for email marketing, SaaS, and transactional messaging, covering design, integrations, automation, personalization, analytics, support, and pricing.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/Comparison/bluefox-vs-mailchimp.png
+      content: https://bluefox.email/assets/comparison/bluefox-vs-mailchimp.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/Comparison/bluefox-vs-mailchimp
+      content: https://bluefox.email/comparison/bluefox-vs-mailchimp
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -79,7 +79,7 @@ The platform features reusable components that ensure consistent branding elemen
 - A little learning curve for Handlebars syntax
 - Fewer pre-made industry-specific templates
 
-![bluefox dashboard collage](/assets/Comparison/bluefox-collage.webp)
+![bluefox dashboard collage](/assets/comparison/bluefox-collage.webp)
 
 ## Integration Ecosystem and Flexibility
 
@@ -97,7 +97,7 @@ This comprehensive ecosystem makes Mailchimp particularly attractive for teams s
 
 ### BlueFox Email's Developer-Friendly Architecture
 
-BlueFox Email takes a developer-friendly approach featuring direct AWS SES integration for enterprise-grade delivery reliability. The platform provides a comprehensive [API](https://bluefox.email/docs/api/) for subscriber list management, sending emails, and managing attachments. Real-time webhooks provide notifications for email opens, clicks, bounces, complaints, and subscription changes, enabling seamless integration with your systems.
+BlueFox Email takes a developer-friendly approach featuring direct AWS SES integration for enterprise-grade delivery reliability. The platform provides a comprehensive [API](https://bluefox.email/docs/api/) for subscriber list management and sending emails. Real-time webhooks provide notifications for email opens, clicks, bounces, complaints, and subscription changes, enabling seamless integration with your systems.
 
 The platform includes specialized integrations like [Supabase](https://bluefox.email/docs/integrations/supabase) for authentication emails, allowing you to send signup confirmations, password resets, magic links, and user invitations with better deliverability and customization. Complete infrastructure control allows for sophisticated email operations aligned with specific client or product needs.
 
@@ -107,7 +107,7 @@ The platform includes specialized integrations like [Supabase](https://bluefox.e
 - Limited pre-built e-commerce integrations
 - Fewer social media management features
 
-![bluefox docs collage](/assets/Comparison/bluefox-docs-collage.webp)
+![bluefox docs collage](/assets/comparison/bluefox-docs-collage.webp)
 
 ## Automation and Marketing Workflows
 
@@ -135,7 +135,7 @@ All automation features remain available on every plan without restrictions. Blu
 - Limited pre-built automation templates
 - We cannot think of any other limitations, sorry 😊
 
-![bluefox automation collage](/assets/Comparison/email-automation-collage.webp)
+![bluefox automation collage](/assets/comparison/email-automation-collage.webp)
 
 :::tip **All Features on Every Plan**  
 Every BlueFox Email plan, including the free tier, includes design systems, automation and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
@@ -237,7 +237,7 @@ Campaign analytics include comprehensive metrics like sent emails, opens, unique
 - No built-in ROI tracking
 - Limited comparative benchmarking data
 
-![bluefox dashboard analytics](/assets/Comparison/bluefox-analytics.webp)
+![bluefox dashboard analytics](/assets/comparison/bluefox-analytics.webp)
 
 ## Support and Learning Resources
 
