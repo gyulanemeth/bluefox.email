@@ -314,18 +314,23 @@ Pricing includes unlimited contacts with consistent feature access across all pl
 
 ### Scenario-Based Cost Comparison
 
-| Monthly Volume   | SendGrid Email API | SendGrid Marketing Campaigns | SendGrid Total* | BlueFox Email Credit Cost | AWS SES Fee | BlueFox Email Total** | Savings |
-|------------------|--------------------|-----------------------------|-----------------|---------------------------|-------------|-----------------------|---------|
-| 2,000 emails     | $19.95             | $15.00                      | $34.95          | $1.00                     | $0.20       | $1.20                 | 97%     |
-| 5,000 emails     | $19.95             | $15.00                      | $34.95          | $2.50                     | $0.50       | $3.00                 | 91%     |
-| 10,000 emails    | $19.95             | $15.00                      | $34.95          | $5.00                     | $1.00       | $6.00                 | 83%     |
-| 50,000 emails    | $19.95             | $60.00                      | $79.95          | $25.00                    | $5.00       | $30.00                | 62%     |
-| 100,000 emails   | $19.95             | $60.00                      | $79.95          | $50.00                    | $10.00      | $60.00                | 25%     |
-| 500,000 emails   | $89.95             | $60.00                      | $149.95         | $150.00                   | $50.00      | $200.00               | -33%    |
-| 1,000,000 emails | $89.95             | $60.00                      | $149.95         | $300.00                   | $100.00     | $400.00               | -167%   |
+| Monthly Volume   | SendGrid Total* | BlueFox Email Credit Cost | AWS SES Fee | Savings |
+|------------------|-----------------|---------------------------|-------------|---------|
+| 2,000 emails     | $34.95          | $1.00                     | $0.20       | 97%     |
+| 5,000 emails     | $34.95          | $2.50                     | $0.50       | 91%     |
+| 10,000 emails    | $34.95          | $5.00                     | $1.00       | 83%     |
+| 50,000 emails    | $79.95          | $25.00                    | $5.00       | 62%     |
+| 100,000 emails   | $79.95          | $50.00                    | $10.00      | 25%     |
+| 500,000 emails   | $149.95         | $150.00                   | $50.00      | -33%    |
+| 1,000,000 emails | $149.95         | $300.00                   | $100.00     | -167%   |
 
-_*SendGrid requires both Email API and Marketing Campaigns plans for mixed usage._  
-_**BlueFox Email total includes both credit pack costs and AWS SES fees ($0.10 per 1,000 emails)._  
+_*Based on Email API ($19.95 Essentials or $89.95 Pro) plus Marketing Campaigns ($60 Advanced) for mixed usage (70% marketing emails)._  
+_**BlueFox Email total includes both credit pack cost and AWS SES fees ($0.10 per 1,000 emails)._  
+
+:::warning **Pricing Assumptions**
+This comparison assumes 70% of emails are marketing sends and 30% are transactional, with multiple emails potentially sent per contact.
+:::
+
 
 :::tip **All Features on Every Plan**
 Every BlueFox Email plan, including the free tier, includes design systems, automation, and personalization. No feature restrictions based on plan level.
