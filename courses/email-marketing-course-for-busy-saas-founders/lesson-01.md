@@ -16,21 +16,28 @@ The goal of this lesson is simple: send out your first newsletter, start buildin
 
 ## Defining Your Lists
 
-One list might not be enough... It's time to think about all of the different emails your users will receive. (Don't worry, you can apply changes later.)
+One email list is rarely enough. As your product grows, your users will receive different types of emails. It’s better to think about that early, but don’t worry, you can always adjust later.
 
-What topics you wanna cover... don't worry, you can add new lists later.
+First, let’s separate the two big email categories:
+- **Transactional emails**: password resets, confirmations, or receipts. These are required and do not depend on lists.
+- **Marketing or product emails**: updates, tips, onboarding emails, or newsletters. ***These do require lists.***
 
-Transactional emails are not tied to lists -> no problem here.
+For marketing and product emails, you always need to offer a **global unsubscribe** option. That is non-negotiable. But it is also recommended to let users manage their preferences by list. If someone does not want product updates, they might still want notifications or onboarding tips. Giving them these options can reduce churn from your lists. Besides that, it's always a good practice to offer a **one-click unubscribe** option for every list.
 
-You will need to give the opportunity for your users to opt-out from your emails... It's required to make it possible to unsubscribe from all, but if you show them that there are specific lists for specific topics, they might stay signed up for a topic or two.
+**Example**  
+- A **Notifications** list: "Someone sent you a message while your app was closed."
+- A **Product Updates** list: "Here’s what’s new in the product this month."
 
-A quick example... You might have one list for "Notifications" (eg.: someone sent you a message while your app was not open), and one "Product Updates" (eg.: these newsletters).
+Keep it simple for now, and expand later as your communication grows.
+
+(TODO: BlueFox Email example: screenshot?)
 
 ## Collecting Your First Contacts
 
 friends
 beta users
 early adopters
+waitlists
 
 social...
 
