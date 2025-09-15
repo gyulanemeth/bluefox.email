@@ -49,18 +49,20 @@ You can find the campaigns of a project under the `Campaigns` tab.
 In order to create a new campaign, press the `Create` button.
 ![A screenshot of a project's campaigns - new button highlighted.](./project-campaigns-create-button.webp)
 
-You can either paste a copied template or start from scratch.
+You can either paste a copied campaign or start from scratch. You can also choose a template to start from.
 ![A screenshot of a project's Campaign emails - Copy and Past or Create from Scratch options .](./project-campaign-emails-create-options.webp)
 
-After that (if starting of scratch), you will have to select a template to start from:
+After that (if starting from a template), you will have to select a template to start from:
 
 ![A screenshot of a project's campaigns - create: template selection.](./project-campaign-create-select-category.webp)
 
-Enter it's name, subject line, and preview text:
+Enter its name, subject line, and preview text:
 ![A screenshot of a project's campaigns - create: enter data.](./project-campaign-create-select-template.webp)
 
-Enter its name, subject line, preview text, and select a subscriber list:
+Enter its name, subject line, preview text, select a subscriber list, and select a segment:
 ![A screenshot of a project's campaigns - create: select subscriber list.](./project-campaign-create-subject.webp)
+
+You will see the same form if you choose to start from scratch.
 
 After that, you will see a summary page. Click "Launch Editor".
 
@@ -72,7 +74,7 @@ Finally, make changes in the drag 'n' drop email editor:
 When you are done, you can schedule your campaign, or you can send it immediately:
 ![A screenshot of a campaign - schedule and send button highlighted.](./project-campaign-schedule.webp)
 
-You can also check the subscriber list by clicking on this link, it will redirect you to the subscriber list:
+You can also check the subscriber list and segment by clicking on this link, it will redirect you to the subscriber list:
 ![A screenshot of a campaign - link to redirect to subscriber list.](./redirect-to-subscriber-list.webp)
 
 ## Personalization
