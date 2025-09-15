@@ -5,6 +5,8 @@
 
 (TODO 90 SEC VIDEO HERE)
 
+(TODO MAYBE A QUICK INTRO ABOUT WHO I AM?)
+
 *Marketing changes every day, algorithms shift constantly, and new tools make it even harder to keep up.
 **Email is the one channel you control.** In this free 6-lesson No BS course, I’ll show you how to use it to grow your SaaS.*
 
@@ -61,7 +63,7 @@ At this stage, you can use **email indirectly** through **lead magnets**. A lead
 ### Activation
 Activation is when a new user reaches their first moment of real value.  
 
-Here, you can guide users with **onboarding email flows** to help them succeed quickly.  
+Here, you can guide users with **onboarding email flows** to help them succeed quickly.
 
 ### Conversion
 Conversion is when you turn free users or leads into paying customers.  
