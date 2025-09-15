@@ -337,34 +337,36 @@ export default defineConfig({
           link: "/partners",
         },
       ],
-      "/courses/email-marketing-saas": [
+      "/courses/email-marketing-saas/": [
           {
             text: "Course Overview",
-            link: "/courses/email-marketing-saas",
-          },
-          {
-            text: "Send Your First Newsletter",
-            link: "/courses/email-marketing-saas/lesson-01-send-first-newsletter",
-          },
-          {
-            text: "Welcome Email Series",
-            link: "/courses/email-marketing-saas/welcome-email-series",
-          },
-          {
-            text: "Educational Email Series as a Lead Magnet",
-            link: "/courses/email-marketing-saas/educational-email-series-as-a-lead-magnet",
-          },
-          {
-            text: "Segmentation",
-            link: "/courses/email-marketing-saas/segmentation",
-          },
-          {
-            text: "Personalization",
-            link: "/courses/email-marketing-saas/personalization",
-          },
-          {
-            text: "Other Lead Magnets",
-            link: "/courses/email-marketing-saas/other-lead-magnets",
+            link: "/courses/email-marketing-saas/",
+            items: [
+              {
+                text: "Send Your First Newsletter",
+                link: "/courses/email-marketing-saas/lesson-01-send-first-newsletter",
+              },
+              {
+                text: "Welcome Email Flow",
+                link: "/courses/email-marketing-saas/lesson-02-welcome-email-flow",
+              },
+              {
+                text: "Educational Email Series as a Lead Magnet",
+                link: "/courses/email-marketing-saas/educational-email-series-as-a-lead-magnet",
+              },
+              {
+                text: "Segmentation",
+                link: "/courses/email-marketing-saas/segmentation",
+              },
+              {
+                text: "Personalization",
+                link: "/courses/email-marketing-saas/personalization",
+              },
+              {
+                text: "Other Lead Magnets",
+                link: "/courses/email-marketing-saas/other-lead-magnets",
+              },
+            ]
           },
         ],
     },

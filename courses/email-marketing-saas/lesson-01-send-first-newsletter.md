@@ -2,7 +2,6 @@
 outline: [2,3]
 ---
 
-
 # Send Your First SaaS Newsletter
 
 (TODO 60-90 SEC VIDEO HERE)
@@ -13,12 +12,19 @@ Early users don’t just want features, they want proof you’re alive and movin
 
 Getting started with a newsletter is probably the easiest way to begin with email marketing. It has some clear benefits: it keeps you on top of your early users’ minds and shows them that you’re making progress. That’s especially important in the early days! You want your users to feel confident that *yes, we’re still working on the product and we’re not going anywhere*.  
 
-Later, these newsletters can lay the foundation for automations, but their biggest value early on is building the habit. Email becomes part of your regular marketing activity, and more importantly, part of your product experience.  
+Later, newsletters can evolve into automations, but their biggest value early on is building the habit of consistent communication. Email becomes part of your regular marketing activity, and more importantly, part of your product experience.  
 
 The goal of this lesson is simple: send out your first newsletter, start building consistency, and make email communication a natural part of your SaaS.  
 
-(TODO maybe state that we are biased, we show everything in our platform, but the course, so we are biased... you can use any platfor, but by all means, we recommend BlueFox Email... Yeah. we are biased.)
-(TODO CAN WE LINK OUR FREE DELIVERABILITY TOOL SOMWEHERE?)
+::: tip A quick note before we start
+We’ll show examples inside BlueFox Email throughout this course. That’s the tool we know best since we built it (and yes, we’re biased).  
+
+But the principles we teach here are not tied to any one platform. You can apply them no matter what you use.  
+
+That said, if you want a tool that covers everything we talk about, BlueFox Email does it out of the box.  
+:::
+
+Before you can hit send, let’s step back and make sure you have the basics in place: your lists and your first contacts.  
 
 ## Defining Your Lists
 
@@ -28,17 +34,20 @@ First, let’s separate the two big email categories:
 - **Transactional emails**: password resets, confirmations, or receipts. These are required and do not depend on lists.
 - **Marketing or product emails**: updates, tips, onboarding emails, or newsletters. ***These do require lists.***
 
-For marketing and product emails, you always need to offer a **global unsubscribe** option. That is non-negotiable. But it is also recommended to let users manage their preferences by list. If someone does not want product updates, they might still want notifications or onboarding tips. Giving them these options can reduce churn from your lists. Besides that, it's always a good practice to offer a **one-click unubscribe** option for every list.
+For marketing and product emails, you always need to offer a **global unsubscribe** option (meaning: unsubscribing from ALL lists at once). That is non-negotiable. But it is also recommended to let users manage their preferences by list. If someone does not want product updates, they might still want notifications or onboarding tips. Giving them these options can reduce churn from your lists. Besides that, it's always a good practice to offer a [**one-click unsubscribe**](/email-sending-concepts/one-click-unsubscribe) option for every list.
 
-**Example**  
-- A **Notifications** list: "Someone sent you a message while your app was closed."
-- A **Product Updates** list: "Here’s what’s new in the product this month."
+**Example:**  
+- A **Notifications** list: "Someone sent you a message while your app was closed."  
+- A **Product Updates** list: "Here’s what’s new in the product this month."  
 
-Keep it simple for now, and expand later as your communication grows.
+When you create your lists, always give them **clear titles and descriptions**. People should immediately understand what kind of emails they’ll receive and how often. A vague list name like *General Updates* won’t help anyone, but *Product Updates (monthly features and news)* sets expectations. Clear communication reduces unsubscribes and builds trust.  
 
-(TODO: BlueFox Email example: screenshot?)
+**Here’s what a subscription preferences page can look like:**  
+![Example subscription preferences page with multiple lists and pause/unsubscribe options.](./lesson-01-subscription-preferences.png)  
 
-(TODO: Explain here, that having clear titles & descriptions for lists is essential.)
+In this example, users can see each list with a clear name and description. They can pause or unsubscribe from individual lists, or choose to stop all emails at once. This makes it easy for users to stay in control while still keeping the option to stay subscribed to the topics that matter most to them.  
+
+
 
 ## Collecting Your First Contacts
 
@@ -146,3 +155,6 @@ Now, schedule that first newsletter.
 Don't forget to send your newsletter on a regular basis. Again, it's very straightforward to start with a monthly (feature) updates newsletter. It shows your users that you are making steady progress, and that's what you want, right!?
 
 --- signup form here explaining that in the email version, they get worksheets (& in the premium version they get extra materials)
+
+
+(TODO CAN WE LINK OUR FREE DELIVERABILITY TOOL SOMWEHERE?)
