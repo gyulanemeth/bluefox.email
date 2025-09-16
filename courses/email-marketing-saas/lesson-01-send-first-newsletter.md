@@ -45,7 +45,7 @@ For marketing and product emails, you always need to offer a **global unsubscrib
 When you create your lists, always give them **clear titles and descriptions**. People should immediately understand what kind of emails they’ll receive. If you want, you can include frequency in the title (e.g. “Product Updates (Monthly)”), but it’s also fine to highlight it in the description instead. Clear communication reduces unsubscribes and builds trust.  
 
 **Here’s what a subscription preferences page can look like:**  
-![Example subscription preferences page with multiple lists and pause/unsubscribe options.](./lesson-01-subscription-preferences.png)  
+![Example subscription preferences page with multiple lists and pause/unsubscribe options.](./lesson-01-01-subscription-preferences.png)  
 
 In this example, users can see each list with a clear name and description. They can pause or unsubscribe from individual lists, or choose to stop all emails at once. This makes it easy for users to stay in control while still keeping the option to stay subscribed to the topics that matter most to them.  
 
