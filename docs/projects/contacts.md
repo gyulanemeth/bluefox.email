@@ -176,7 +176,7 @@ Click the `Code Guide` button to see code snippets in various programming langua
 ![Screenshot of the subscriber lists page - code guide dialog](./project-contacts-code-guide-dialog-copy-btn.webp)
 
 :::info Note
-For listing contacts, the API supports pagination. By default, it returns 10 contacts. If you wish to retrieve more contacts in a single request, you can adjust the `limit` query parameter in your API call.
+For listing contacts, the API supports pagination. By default, it returns 10 contacts. If you wish to retrieve more contacts in a single request, you can adjust the `limit` and `skip` query parameters in your API call.
 :::
 
 ### Contact Filtration
