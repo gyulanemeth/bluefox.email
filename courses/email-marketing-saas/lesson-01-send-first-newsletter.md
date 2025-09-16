@@ -241,17 +241,19 @@ For SaaS founders, a predictable newsletter rhythm does more than boost open rat
 
 ## Homework
 
-1) Define the goal & topic of your newsletter
-2) Figure out a simple set of email lists as a starting point
-3) Create a signup page
-4) Collect contacts for your newsletter
-5) Create your first newsletter
-   1) Select / Create a simple design
-   2) Write the content, create visuals, add CTAs (buttons are better than simple links)
-   3) Write a good subject line
-   4) Select a good sender name & sender email address
-6) Schedule your newsletter
+1. Define the goal and topic of your first newsletter.  
+2. Set up a simple set of email lists as a starting point.  
+3. Collect contacts for your newsletter (friends, beta users, waitlist, social).  
+4. Draft your first newsletter:  
+   - Pick or create a simple design.  
+   - Write the content, add visuals, and include clear CTAs (buttons work better than links).  
+   - Write a subject line that matches the content.  
+   - Choose a recognizable sender name and email address.  
+5. Create a signup page (optional at this stage, but highly recommended).  
+6. Send a test to yourself to check rendering and links.  
+7. Schedule your newsletter.  
 
-Don't forget to send your newsletter on a regular basis. Again, it's very straightforward to start with a monthly (feature) updates newsletter. It shows your users that you are making steady progress, and that's what you want, right!?
+Don’t forget to send your newsletter on a regular basis. A monthly product update is an easy and effective way to start: it shows your users steady progress and keeps your product top of mind.  
 
---- signup form here explaining that in the email version, they get worksheets (& in the premium version they get extra materials)
+(TODO signup form here explaining that in the email version, they get worksheets (& in the premium version they get extra materials)  
+
