@@ -62,7 +62,8 @@ Enter its name, subject line, and preview text:
 Enter its name, subject line, preview text, select a subscriber list, and select a segment:
 ![A screenshot of a project's campaigns - create: select subscriber list.](./project-campaign-create-subject.webp)
 
-You will see the same form if you choose to start from scratch.
+::: info This form will appear as first step if you choose to start from scratch.
+:::
 
 After that, you will see a summary page. Click "Launch Editor".
 
