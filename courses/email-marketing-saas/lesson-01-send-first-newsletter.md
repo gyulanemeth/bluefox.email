@@ -26,6 +26,8 @@ That said, if you want a tool that covers everything we talk about, BlueFox Emai
 
 Before you can hit send, let’s step back and make sure you have the basics in place: your lists and your first contacts.  
 
+(TODO signup form here explaining that in the email version, they get worksheets (& in the premium version they get extra materials)
+
 ## Defining Your Lists
 
 One email list is rarely enough. As your product grows, your users will receive different types of emails. It’s better to think about that early, but don’t worry, you can always adjust later.
