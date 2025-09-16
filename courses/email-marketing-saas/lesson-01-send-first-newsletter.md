@@ -111,22 +111,23 @@ Designing emails that look good in every inbox is notoriously painful. Different
 
 **Start simple:**  
 - Choose a base template or theme.  
-- Add your **logo**, set your **brand colors**, and select your **typography**, maybe customize the **button** style.
+- Add your **logo**, set your **brand colors**, and select your **typography**, maybe customize the **button** style.  
 - Reuse these same design elements across **marketing, product, and transactional emails**, so your brand feels consistent everywhere.  
 
 ![Customizing the email design system in BlueFox Email](./lesson-01-03-theme-customization.png)  
+*Customizing your brand styles in BlueFox (logo, colors, fonts, buttons).*  
 
-With BlueFox, you can set your brand styles once (logo, colors, fonts) in your email design system. Every campaign, product update, and even transactional message will stay consistent.  
+With BlueFox, you can set your brand styles once (logo, colors, fonts) in your email design system. Every campaign, product update, and even transactional message will stay consistent. To learn more about how modern design systems work and why they matter, check out our article on [the power of modern email design systems](/posts/the-power-of-modern-email-design-systems).  
 
 ![Email editor loaded with your customized design system in BlueFox Email](./lesson-01-04-theme-in-editor.png)  
+*The email editor with your design system applied, keeping everything consistent.*  
 
 **Keep in mind:**  
 - Always include your logo and brand name.  
 - Make sure your email looks good on **mobile as well as desktop** (most of your readers will be on their phones).  
-- If you add screenshots, don’t cram them into columns. Zoom into the relevant part of the screen so it’s clear at a glance. The goal is that the reader can see what's on the screenshot regardless if they read your email on desktop or mobile.
+- If you add screenshots, don’t cram them into columns. Zoom into the relevant part of the screen so it’s clear at a glance. The goal is that the reader can see what's on the screenshot regardless if they read your email on desktop or mobile.  
 
 Consistency is the goal. With a simple, on-brand template, you’ll save time, avoid technical headaches, and build a recognizable look that users trust.  
-
 
 ### Keep the Content Simple
 Write like you are talking to a friend. Forget the corporate jargon and long-winded intros — people are busy, and they just want to know what’s new and why it matters. Stick to a single main topic, for example a feature or roadmap update, and make it easy to follow.  
@@ -163,11 +164,13 @@ As you can see, even longer newsletters can work well as long as they are struct
 The subject line is the single most important part of your newsletter. It decides whether people open your email or ignore it.  
 
 Keep these principles in mind:  
-- **Base it on the content**: the subject line should clearly reflect what’s inside. Don’t try to be too clever — clarity beats mystery.  
+- **Base it on the content**: the subject line should clearly reflect what’s inside. Don’t try to be too clever, clarity beats mystery.  
 - **Avoid spam triggers**: words like “FREE,” “URGENT,” “!!!” or “100% Guaranteed” can land you in the spam folder.  
 - **Keep it short**: aim for 5–8 words or under 50 characters. Long subject lines get cut off, especially on mobile.  
 - **Make it personal**: if it fits your tone, mention the reader (“Your new feature is live”) or speak in the first person (“What we shipped this month”).  
 - **Use curiosity carefully**: it’s fine to spark interest, but don’t clickbait. If your subject line says one thing and your content delivers another, you’ll lose trust fast.  
+- **Pair it with a good preheader**: the preheader text shows up next to or under the subject in most inboxes, so think of it as a second subject line. Don’t waste it on “View in browser.” See our article on [preheader text — the secret weapon for boosting open rates](/posts/preheader-text-the-secret-weapon-for-boosting-open-rates) for more.  
+- **Emojis can help, but sparingly**: they can make your email stand out, but only use them when they fit your brand voice.  
 
 **Examples**  
 - *“What We Shipped in September”*: simple, progress-focused.  
@@ -176,20 +179,40 @@ Keep these principles in mind:
 
 If you are not sure which subject line works best, test it. Most email platforms let you A/B test subject lines by sending two versions to a small part of your list, then using the winner for everyone else.  
 
-The subject line is small, but it’s worth the extra thought. Even a single word can double your open rate.  
+As a SaaS founder, your subject lines should focus less on hype and more on clarity. Users want to know what changed and why it matters. The subject line is small, but it is worth the extra thought. Even a single word can double your open rate.  
+
+For more depth and examples, check out our [subject line master-class: how to get people to actually open your emails](/posts/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails).  
 
 
 ### Email Address & Sender Name
-Decide how you want to appear: personal, mascot, or formal (for example, “XY App”). Avoid “no-reply” addresses, because they tend to disappear in inboxes. If you can handle replies, consider using your personal address or at least a reply-to that goes to you, so you can ask users for feedback directly.  
+Decide how you want to appear when your email lands in the inbox. You generally have three options:  
 
-(TODO AN IMAGE OF AN INBOX WITH LOT OF NO-REPLY EMAIL ADDRESSES TO SHOWCASE HOW EASY IT IS TO DISAPPEAR IN THE INBOX.)
+- **Personal**: looks friendly and approachable, great for early-stage SaaS when you want direct feedback.  
+- **Mascot or brand character**: works well if your brand has a playful side (for example, BlueFox).  
+- **Formal brand**: “XY App” or “Company Support” feels professional, but can come across as distant if overused.  
+
+What you should avoid is a **“no-reply” address**. These tend to disappear in inboxes, and they send the wrong message: “we want to talk at you, not with you.” If you can handle replies, use your personal address or at least a reply-to that goes somewhere monitored. That way you can even ask users for direct feedback.  
+
+![Inbox example showing how no-reply addresses without a sender name get lost compared to recognizable senders.](./lesson-01-06-inbox-no-reply.jpg)  
+*Notice how the “no-reply” message looks anonymous and forgettable, while branded or personal sender names stand out.*  
+
+The **sender name** itself also plays a big role. Along with the subject line and preheader, it is one of the first elements people use to decide whether to open. If you want a deeper dive, see our article on [sender name and email address: build trust before the open](/posts/sender-name-and-email-address-build-trust-before-the-open).  
+
+Choosing the right sender name and address may sound minor, but it directly impacts whether your users notice and trust your emails.  
+
 
 ### Test Send
-This step is critical. Always send a test email to yourself before sending to your full list.
+This step is critical: always send a test email to yourself before sending to your full list.  
 
-Rendering can go WRONG. (TALK SOME ABOUT LITMUS, EMAIL ON ACID, ETC.) (With BlueFox, it won't.)
+Email rendering can be tricky. A design that looks perfect in Gmail might break in Outlook or Apple Mail. Tools like **Litmus** and **Email on Acid** can help you preview how your email looks across dozens of clients and devices, but they are expensive and probably overkill when you are just getting started.  
 
-Also, you probably want to make sure that all of the links work in your email, and they lead to the URLs that they are intended to ... (TODO LINK CHECKER)
+A simple alternative is to send yourself a test and check it quickly in your own inbox, both on desktop and on mobile. It is not as extensive as a full rendering test, but it will already help you catch most obvious layout or formatting issues.  
+
+With BlueFox Email, you do not have to worry much about rendering problems. Since it is powered by the **Chamaileon SDK**, the HTML is built to render correctly across major clients from the start.  
+
+And don’t forget your links. Nothing kills trust faster than a broken or misdirected link. Before you send, click through every CTA and link in your email to confirm they go where you expect. To make this faster, you can also run your draft through our [link checker tool](/tools/content/link-checker).  
+
+Taking two minutes to test your email can save you from embarrassing mistakes and lost credibility.  
 
 ### Scheduling
 People already receive too many emails, so timing matters. Figure out a good time for your audience and try to stick to it. Consider their time zones and the day of the week. Frequency is also important: once you choose your rhythm, for example monthly, keep it consistent.  
