@@ -99,10 +99,10 @@ To configure the trigger, click on the trigger card:
       - Value: the new value the property changed to
 
     The automation will trigger **only if the contact's property changed and matches both the "from" and "to" conditions**.
-    - **Enter Segment**: 
-        - If a contact is added with properties which falls into the segment, the automation will trigger.
-        - If a contact which was not in the segment before, is updated and now falls into the segment, the automation will trigger.
-    - **Leave Segment**: If a contact is removed from a segment, the automation will trigger.
+  - **Enter Segment**: 
+      - If a contact is added with properties which falls into the segment, the automation will trigger.        
+      - If a contact which was not in the segment before, is updated and now falls into the segment, the automation will trigger.
+  - **Leave Segment**: If a contact is removed from a segment, the automation will trigger.
 
     In both segment cases, you’ll need to select the specific segment to monitor. You can also create a segment on the fly by clicking the **plus** icon besides the select segment drop-down menu.
 
@@ -178,6 +178,14 @@ Under the email node, you’ll also see delivery stats:
 - **Complaints**
 
 ![Automation node send card Icon](./project-automation-node-send-card-stats.webp)
+
+You can also see detail stats by clicking on the arrow at the end.
+
+![Automation node send card Icon](./project-automation-node-send-card-stats-detail.webp)
+
+Here you can see a detailed statstics overview.
+
+![Automation node send card Icon](./project-automation-node-send-card-stats-detail-overview.webp)
 
 You can edit the email at any time **while the automation is in draft mode**.
 
@@ -279,6 +287,14 @@ When configuring the exit criteria you have the following options:
 - You **cannot edit** an automation while it’s active. Switch to **Draft Mode** to make changes, then re-activate when ready.
 
 ![Automation start btn Icon](./project-automation-start-btn.webp)
+
+While an automation is running, you can see exact number of contacts currently in the node by looking at the top right corner of each node.
+
+![Automation start btn Icon](./project-automation-node-contact-count.webp)
+
+When click in that circle, you can see the list of contacts currently running in that node. You can also remove contacts from that node by clicking the trash icon next to their name.
+
+![Automation start btn Icon](./project-automation-node-contact-list-delete-button.webp)
 
 ## Automation Stats
 On the automation card, you’ll see the following stats:
