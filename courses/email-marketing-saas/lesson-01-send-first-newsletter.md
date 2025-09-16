@@ -129,15 +129,35 @@ Consistency is the goal. With a simple, on-brand template, you’ll save time, a
 
 
 ### Keep the Content Simple
-Write like you are talking to a friend. Forget the corporate jargon and long-winded intros. People are busy, and they just want to know what’s new and why it matters. Stick to a single main topic, for example a feature or roadmap update, and make it easy to follow.  
+Write like you are talking to a friend. Forget the corporate jargon and long-winded intros — people are busy, and they just want to know what’s new and why it matters. Stick to a single main topic, for example a feature or roadmap update, and make it easy to follow.  
 
 When it comes to visuals, use them where they actually help explain something. Screenshots are especially powerful for feature updates, and gifs can be even better when you want to show how something works in just a few seconds. Occasionally, it also makes sense to add a partner’s logo, for example when you announce an integration with another tool. Outside of that, keep visuals light.  
 
 CTAs (calls to action) are what turn your email into something actionable. In a newsletter, it’s fine to have more than one CTA. For example, if you are releasing two major features, link to both documentation pages. The goal here is to keep users engaged, not to push one single action. Just make sure every CTA is clear, visible, and easy to tap on mobile (buttons work better than text links).  
 
-Don’t overthink the length. Your readers should not be scared by a wall of text, but they should be able to read it quickly and scan through easily.
+If you want a starting point, here’s a simple structure for a monthly feature update newsletter:  
+- A short friendly intro  
+- A summary of the new feature(s)  
+- Screenshots or gifs that make it clear  
+- Links to docs or resources  
+- A closing line or CTA button  
 
-![](./lesson-01-05-content-example.png)
+Don’t overthink the length. Your readers should not be scared by a wall of text, but they should be able to read it quickly and scan through easily.  
+
+Here’s an example of a relatively long newsletter that still works well because of its structure. Notice the clear sections, headings, and multiple CTAs that make it easy to scan:  
+
+![Example of a longer newsletter with clear structure, headings, visuals, and multiple CTAs, making it easy to scan.](./lesson-01-05-content-example.png)  
+
+A few things this example does well:  
+- Breaks content into **clear sections with headings**, making it easy to skim.  
+- Uses **visuals and screenshots** where they add clarity.  
+- Includes **multiple CTAs**, but each one is relevant and tied to its section.  
+- Adds a **partner highlight**, which brings a human touch and community feel.  
+
+As you can see, even longer newsletters can work well as long as they are structured for readability and scanability.  
+
+(We’ll give you a worksheet in the newsletter version of this course so you can plan your content step by step.)
+
 
 ### Craft the Subject Line
 The subject line is the single most important part of your newsletter. It decides whether people open your email or ignore it.  
