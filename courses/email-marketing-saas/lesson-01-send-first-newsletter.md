@@ -96,7 +96,7 @@ And don’t wait until you have hundreds or thousands of signups. If you have 10
 
 ## Sending Your First Newsletter
 
-Before we talk about the details, remember that every newsletter must include an unsubscribe link. This is not only the law in many places, it is also common sense. You would much rather have people unsubscribe than hit the spam button, right?  
+Before we talk about the details, remember that every newsletter must include an unsubscribe link. This is not only the law in many places, it is also common sense. You would much rather have people unsubscribe than hit the spam button, right? Optionally, you can also include a pause subscription link. That might save you a few people churning from your list. 
 
 Another thing: your first newsletter will not be perfect. And that is not a problem. The real goal here is to build a habit. Consistency is king.  
 
@@ -105,14 +105,28 @@ Every newsletter should have one purpose, not five. It could be a progress annou
 
 Probably the easiest way to start is with a monthly feature update newsletter. This not only gives you a clear structure, it also forces you to think through what happened every month. It will help you write documentation where needed and create materials you can reuse elsewhere.  
 
-### Simple Design
-... most likely it's easiest to pick a template or email theme that's look and feel is ok. Just set your primary (brand) color, select your font(s) and set up your logo... mention that it should not look weird to put images in the email... so text only email might now work well.
+### Simple Design  
 
-(TODO SHOW HOW TO SELECT A THEME + SET UP PARAMS LIKE LOGO, COLOR, FONT)
+Designing emails that look good in every inbox is notoriously painful. Different email clients (Gmail, Outlook, Apple Mail, etc.) all render things a little differently. That’s why, instead of starting from scratch, it’s usually best to **pick a template or theme** and then customize it.  
 
-Make sure your email looks good on mobile and across clients — this can be trickier than it sounds. A simple on-brand template is enough. If you include screenshots, do not put them in columns, because that makes them harder to see. Instead, focus on the relevant parts, not the entire screen.  
+**Start simple:**  
+- Choose a base template or theme.  
+- Add your **logo**, set your **brand colors**, and select your **typography**, maybe customize the **button** style.
+- Reuse these same design elements across **marketing, product, and transactional emails**, so your brand feels consistent everywhere.  
 
-Always include your logo and brand name, and keep the style consistent with your website (colors, typography, button styles, etc.). Your transactional and marketing emails should also look consistent. Nothing feels more unprofessional than when a password reset email looks completely different from a product update.
+![Customizing the email design system in BlueFox Email](./lesson-01-03-theme-customization.png)  
+
+With BlueFox, you can set your brand styles once (logo, colors, fonts) in your email design system. Every campaign, product update, and even transactional message will stay consistent.  
+
+![Email editor loaded with your customized design system in BlueFox Email](./lesson-01-04-theme-in-editor.png)  
+
+**Keep in mind:**  
+- Always include your logo and brand name.  
+- Make sure your email looks good on **mobile as well as desktop** (most of your readers will be on their phones).  
+- If you add screenshots, don’t cram them into columns. Zoom into the relevant part of the screen so it’s clear at a glance. The goal is that the reader can see what's on the screenshot regardless if they read your email on desktop or mobile.
+
+Consistency is the goal. With a simple, on-brand template, you’ll save time, avoid technical headaches, and build a recognizable look that users trust.  
+
 
 ### Keep the Content Simple
 Write like you are talking to a friend. Forget the corporate jargon and long-winded intros. People are busy, and they just want to know what’s new and why it matters. Stick to a single main topic, for example a feature or roadmap update, and make it easy to follow.  
@@ -123,7 +137,7 @@ CTAs (calls to action) are what turn your email into something actionable. In a 
 
 Don’t overthink the length. Your readers should not be scared by a wall of text, but they should be able to read it quickly and scan through easily.
 
-(TODO SHOW AN EXAMPLE)
+![](./lesson-01-05-content-example.png)
 
 ### Craft the Subject Line
 The subject line is the single most important part of your newsletter. It decides whether people open your email or ignore it.  
