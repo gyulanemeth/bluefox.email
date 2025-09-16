@@ -217,7 +217,27 @@ Taking two minutes to test your email can save you from embarrassing mistakes an
 ### Scheduling
 People already receive too many emails, so timing matters. Figure out a good time for your audience and try to stick to it. Consider their time zones and the day of the week. Frequency is also important: once you choose your rhythm, for example monthly, keep it consistent.  
 
-Now, schedule that first newsletter.   
+As a rule of thumb, mid-week and mid-morning often perform well, but the real key is to test with your own audience and adjust as you learn.  
+
+Most email platforms, including BlueFox, let you schedule campaigns ahead of time. This means you can batch work on your content and avoid the stress of last-minute sending.  
+
+For SaaS founders, a predictable newsletter rhythm does more than boost open rates. It reinforces to your users that the product is alive and progressing.  
+
+**Now, schedule that first newsletter.**
+
+---
+
+**Quick checklist before sending your first newsletter:**  
+- Define your lists and who will receive the email.  
+- Collect your first contacts (friends, beta users, waitlist, social).  
+- Choose one clear topic and keep the content simple.  
+- Write content that is friendly, easy to scan, and supported by visuals or CTAs.  
+- Craft a subject line that is clear and trustworthy.  
+- Use a recognizable sender name and avoid “no-reply.”  
+- Keep the design clean, mobile-friendly, and on-brand.  
+- Send a test to check rendering and links.  
+- Schedule it and stick to a consistent rhythm.  
+
 
 ## Homework
 
@@ -235,6 +255,3 @@ Now, schedule that first newsletter.
 Don't forget to send your newsletter on a regular basis. Again, it's very straightforward to start with a monthly (feature) updates newsletter. It shows your users that you are making steady progress, and that's what you want, right!?
 
 --- signup form here explaining that in the email version, they get worksheets (& in the premium version they get extra materials)
-
-
-(TODO CAN WE LINK OUR FREE DELIVERABILITY TOOL SOMWEHERE?)
