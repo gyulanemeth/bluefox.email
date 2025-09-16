@@ -85,16 +85,27 @@ Below is an example of the sign-up form interface:
 
 ### Customization Options
 
-The sign-up page offers several customization options across three main sections: Form, Button, and Success Message.
+The sign-up page offers several customization options across three main sections: Fields, Form, Button, and Success Message.
 
-#### 1. Form Customization
+#### 1. Field Customization
+
+- **Use Captcha:** Enable or disable CAPTCHA for spam prevention.
+- **Captcha Placeholder:** Text displayed in the CAPTCHA field (e.g., `Enter the text`).
+- **Show Fields:** Choose which fields to display
+  - Select the `Show` check box to display a field (e.g., Name, Email).
+  - Mark which field is important by checking the `required` check box.
+  - Set placeholder text for each field (e.g., `Your Name`, `Your Email`).
+
+#### 3. Form Customization
 
 - **Form Style:** Choose how form fields are arranged:
-  - `Column` – Fields are stacked vertically.  
-  - `Inline` – Fields are placed in a single line.  
-  - `Row` – Fields are placed horizontally.  
-- **Email Placeholder:** Text displayed in the email field (e.g., `Enter your email`).  
-- **Font Style:** Select the font family for the form fields.  
+  - **Column** - Fields are stacked vertically.
+  - **Inline** - Fields are placed in a single line.
+  - **Row** - Fields are placed horizontally.
+- **Email Placeholder:** Text displayed in the email field (e.g., Enter your email).
+- **Font Style:** Select the font family for the form fields.
+- **Font Color:** Set the color of the text in the form fields.
+- **Font Size:** Adjust the size of the text in the form fields.
 
 #### 2. Button Customization
 
@@ -149,10 +160,18 @@ Double Opt-In settings are configured individually for each List. To activate do
 - Go to **double opt-in** section 
 - Select the list you want to manage
 - Switch to Active.
-- Select the **double opt-In email** with the ``verifyLink`` merge tag.
-- Select what to do after confirmation show confiramtion message or redirect to custom page
-- Fill the needed data
-- Click **save** to apply the changes.
+
+When double opt-in is activated, you will see a wizard that will guide you through the configuration steps.
+
+- Select a transactional email to be used for the confirmation email. Make sure that it contains the `verifyLink` merge tag.
+
+![Screenshot of the subscriber lists manage active double opt-in page](./project-subscriber-lists-manage-active-double-opt-in-select-email.webp)
+
+- Select what to do after confirmation, show confirmation message or redirect to custom page.
+
+![Screenshot of the subscriber lists manage active double opt-in page](./project-subscriber-lists-manage-active-double-opt-in-choose-action.webp)
+
+After completing the steps, click **Save** to activate double opt-in for the selected List. You can always return to this section to modify the settings or deactivate double opt-in if needed.
 
 ![Screenshot of the subscriber lists manage active double opt-in page](./project-subscriber-lists-manage-active-double-opt-in.webp)
 
