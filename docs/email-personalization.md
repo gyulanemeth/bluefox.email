@@ -57,10 +57,10 @@ A straightforward way to personalize an email is by sending data with your API c
 ```
 
 Within your email, you can then use the **&#123;&#123;favoriteAnimal&#125;&#125;** merge tag:
-![Simple merge tag example in the editor.](./personalization-01.png)
+![Simple merge tag example in the editor.](./personalization-01.webp)
 
 As you might expect, the email sent will look like this:
-![Simple merge tag example in the inbox.](./personalization-02.png)
+![Simple merge tag example in the inbox.](./personalization-02.webp)
 
 You can also personalize emails using data stored in bluefox.email. This is explained in the next two sections: "Built-in Merge Tags" and "Contact Properties".
 
@@ -142,30 +142,30 @@ You can access contact properties via the `contact` object, just like before. So
 
 When it comes to personalization, probably the most important thing is to personalize text. Besides typing in the merge tags manually, while editing a text element you can also click the merge tag button highlighted in the screenshot below:
 
-![Editing a text element - merge tag icon highlighted.](./personalization-03.png)
+![Editing a text element - merge tag icon highlighted.](./personalization-03.webp)
 
 It will open a dialog that contains all the available built-in merge tags and any contact-related merge tags you've defined.
 
-![Editing a text element - merge tag dialog opened.](./personalization-04.png)
+![Editing a text element - merge tag dialog opened.](./personalization-04.webp)
 
 Here, you can also set a default value. This value will be used if the actual value is missing or empty.
 
-![Editing a text element - merge tag dialog with default value.](./personalization-04b.png)
+![Editing a text element - merge tag dialog with default value.](./personalization-04b.webp)
 
 ::: info You cannot set default values for mandatory fields (eg. `emails`) 
 :::
 
 You just need to click the one you want to insert.
 
-![Editing a text element - merge tag inserted.](./personalization-05.png)
+![Editing a text element - merge tag inserted.](./personalization-05.webp)
 
 You can also use merge tags in links within your text. Open the link dialog by clicking the highlighted icon:
 
-![Editing a text element - link button highlighted.](./personalization-06.png)
+![Editing a text element - link button highlighted.](./personalization-06.webp)
 
 You'll see the merge tag icon on the right-hand side. That opens the same dialog shown earlier. Keep in mind that if the link from your merge tag already includes a protocol (e.g., `https://`), you need to change the protocol option to **Other**.
 
-![Editing a text element - link dialog opened.](./personalization-07.png)
+![Editing a text element - link dialog opened.](./personalization-07.webp)
 
 If you want to refer to data passed in the request body when sending a triggered or transactional email, you’ll need to type the merge tag manually. Just follow the object structure from your request. For example, if you send:
 
@@ -191,21 +191,21 @@ For button elements, you can set the `src` (URL) using merge tags. Just like wit
 
 You can also personalize the `title` attribute of the link, which shows up as a tooltip when someone hovers over the button in the email.
 
-![Editing a button element - link settings shown.](./personalization-08.png)
+![Editing a button element - link settings shown.](./personalization-08.webp)
 
 ## Image Personalization
 
 Just like buttons, you can customize the link around an image using merge tags. You can also set the `alt` text of the image, which is useful for accessibility—screen readers can’t read images, but they can read alt text!
 
-![Editing an image element - possible merge tags shown.](./personalization-09.png)
+![Editing an image element - possible merge tags shown.](./personalization-09.webp)
 
 If you also need to personalize the image itself (for example, to show a user’s profile picture), use a **Dynamic Image**. Dynamic images in the editor are placeholders—their `src` is set at send time by replacing a merge tag with a real link.
 
-![Editing a dynamic image element - src merge tag.](./personalization-10.png)
+![Editing a dynamic image element - src merge tag.](./personalization-10.webp)
 
 You can drag and drop a new dynamic image onto the canvas from the left-hand side:
 
-![Editor - dynamic image drag icon highlighted.](./personalization-11.png)
+![Editor - dynamic image drag icon highlighted.](./personalization-11.webp)
 
 ## Conditionals
 
@@ -213,13 +213,13 @@ You can create optional content for your recipients using conditionals. For exam
 
 In the screenshot below, the expression button is highlighted. Clicking it opens the same dialog that merge tag buttons do. *(Note: in conditionals, you don't need to add curly braces!)*
 
-![Editing a conditional - expression button highlighted.](./personalization-12.png)
+![Editing a conditional - expression button highlighted.](./personalization-12.webp)
 
 Conditionals can contain complex layouts, not just simple elements.
 
 You can drag conditional blocks into your email from the left-hand side of the editor:
 
-![Editor - conditional drag icon highlighted.](./personalization-13.png)
+![Editor - conditional drag icon highlighted.](./personalization-13.webp)
 
 ## Loops
 
@@ -227,11 +227,11 @@ With loops, you can iterate over an array of elements. This allows a section of 
 
 The expression you provide in the loop must be the name of the array you want to iterate through. Loops in bluefox.email use the Handlebars `each` helper behind the scenes.
 
-![Editing a loop - expression highlighted.](./personalization-14.png)
+![Editing a loop - expression highlighted.](./personalization-14.webp)
 
 You can drag a loop element onto the canvas from the left-hand side:
 
-![Editor - loop drag icon highlighted.](./personalization-15.png)
+![Editor - loop drag icon highlighted.](./personalization-15.webp)
 
 ## Handlebars Extensions
 
@@ -251,7 +251,7 @@ The example below skips the first two articles and only iterates through the nex
 
 You can add the `skip` and `limit` values directly in the loop expression in bluefox.email:
 
-![Editing a loop - expression with skip and limit.](./personalization-16.png)
+![Editing a loop - expression with skip and limit.](./personalization-16.webp)
 
 ### Logical Operators
 
@@ -259,7 +259,7 @@ Handlebars conditionals are quite limited by default, so we added support for co
 
 You can write logical expressions in the expression input of any conditional element:
 
-![Editing a conditional - expression highlighted.](./personalization-17.png)
+![Editing a conditional - expression highlighted.](./personalization-17.webp)
 
 #### AND
 
@@ -327,7 +327,7 @@ We’ve also included a few string manipulation helpers, so you can handle forma
 
 You can use these anywhere text input is allowed:
 
-![Editing a text element - inserting a text manipulator operator.](./personalization-18.png)
+![Editing a text element - inserting a text manipulator operator.](./personalization-18.webp)
 
 #### CAPITALIZE
 
