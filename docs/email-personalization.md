@@ -148,6 +148,13 @@ It will open a dialog that contains all the available built-in merge tags and an
 
 ![Editing a text element - merge tag dialog opened.](./personalization-04.png)
 
+Here, you can also set a default value. This value will be used if the actual value is missing or empty.
+
+![Editing a text element - merge tag dialog with default value.](./personalization-04b.png)
+
+::: info You cannot set default values for mandatory fields (eg. `emails`) 
+:::
+
 You just need to click the one you want to insert.
 
 ![Editing a text element - merge tag inserted.](./personalization-05.png)
