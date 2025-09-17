@@ -159,6 +159,10 @@ You just need to click the one you want to insert.
 
 ![Editing a text element - merge tag inserted.](./personalization-05.webp)
 
+This is how it will look if there are no default values set:
+
+![Editing a text element - merge tag without default value.](./personalization-05b.webp)
+
 You can also use merge tags in links within your text. Open the link dialog by clicking the highlighted icon:
 
 ![Editing a text element - link button highlighted.](./personalization-06.webp)
