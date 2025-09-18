@@ -6,7 +6,7 @@ const COMPARISON_CONFIG = {
      'comparison': {
           imageFileName: 'comparison/bluefox-comparison.png',
           collectionName: 'BlueFox Email Provider Comparison',
-          collectionUrl: 'https://bluefox.email/comparison/',
+          collectionUrl: 'https://bluefox.email/comparisons/',
           isMainIndex: true
      }
 }
@@ -260,13 +260,13 @@ function createComparisonArticleSchema(pageData) {
           isPartOf: {
                '@type': 'Collection',
                name: 'BlueFox Email Provider Comparisons',
-               url: 'https://bluefox.email/comparison/'
+               url: 'https://bluefox.email/comparisons/'
           }
      })
 
      const breadcrumbs = createBreadcrumbs([
           { name: 'BlueFox Email', url: 'https://bluefox.email/' },
-          { name: 'Comparisons', url: 'https://bluefox.email/comparison/' },
+          { name: 'Comparisons', url: 'https://bluefox.email/comparisons/' },
           { name: articleTitle, url: `https://bluefox.email/${pageData.relativePath.replace(/\.md$/, '')}` }
      ])
 
