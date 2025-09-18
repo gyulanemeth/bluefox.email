@@ -352,19 +352,19 @@ export default defineConfig({
               },
               {
                 text: "Educational Email Series as a Lead Magnet",
-                link: "/courses/email-marketing-saas/educational-email-series-as-a-lead-magnet",
+                link: "/courses/email-marketing-saas/lesson-03",
               },
               {
                 text: "Segmentation",
-                link: "/courses/email-marketing-saas/segmentation",
+                link: "/courses/email-marketing-saas/lesson-04",
               },
               {
                 text: "Personalization",
-                link: "/courses/email-marketing-saas/personalization",
+                link: "/courses/email-marketing-saas/lesson-05",
               },
               {
                 text: "Other Lead Magnets",
-                link: "/courses/email-marketing-saas/other-lead-magnets",
+                link: "/courses/email-marketing-saas/lesson-06",
               },
             ]
           },
