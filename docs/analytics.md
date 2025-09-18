@@ -62,7 +62,7 @@ The Email Summary Banner provides key email performance metrics, such as **sent 
 
 ### Overall Subscription Statistics Banner
 
-The Subscription Overall Banner provides an overview of your total subscribers and their current status. It displays metrics such as **subscribers**, **active**, **paused**, and **unsubscribed**. This summary is key to understanding the distribution of your audience and tracking changes in subscriber engagement and retention.
+The Subscription Overall Banner provides an overview of your total subscribers and their current status. It displays metrics such as **contacts**, **subscriptions**, **active**, **paused**, and **unsubscribed**. This summary is key to understanding the distribution of your audience and tracking changes in subscriber engagement and retention.
 
 ![Subscription Summary Banner](./statistics-subscription-overall-banner.webp)
 
