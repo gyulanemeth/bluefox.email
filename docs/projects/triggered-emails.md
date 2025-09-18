@@ -52,10 +52,10 @@ To create a new triggered email, press the `Create` button.
 
 ![A screenshot of a project's triggered emails - new button highlighted.](./project-triggered-emails-create-button.webp)
 
-You can either paste a copied template or start from scratch.
+You can either paste a copied design, choose a template from your design system, or start from scratch.
 ![A screenshot of a project's triggered emails - Copy and Past or Create from Scratch options .](./project-triggered-emails-create-options.webp)
 
-Next (if starting from scratch), select a template category defined in your project's design system:
+Next (if starting from template), select a template category defined in your project's design system:
 
 ![A screenshot of a project's triggered emails - create: template category selection.](./project-triggered-emails-create-select-category.webp)
 
@@ -67,8 +67,12 @@ Enter its name, subject line, preview text, and select a subscriber list:
 
 ![A screenshot of a project's triggered emails - create: enter data.](./project-triggered-emails-create-subject.webp)
 
+::: info This form will appear as first step if you choose to start from scratch.
+:::
+
+
 ::: info 
-Triggered emails are only sent to active subscribers in the selected list. If you provide an array of emails when sending the triggered email, only those emails that are in the list (and active) will receive the email. 
+Triggered emails are only sent to active subscribers in the selected list. If you provide an array of emails when sending the triggered email, only those emails that are in the list (and active) will receive the email.
 :::
 
 After that, you will see a summary page. Click "Launch Editor".

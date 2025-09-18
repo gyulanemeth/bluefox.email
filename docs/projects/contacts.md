@@ -159,6 +159,26 @@ Your **bluefox.email** API key must be included in the `Authorization` header of
 
 For more details and guidance on integrating these endpoints, visit our [API documentation](/docs/api/).  
 
+### Managing Contacts via API
+
+You can manage contacts through API calls. Check the `Code Guide` button at the top to see exactly how to do it in your preferred programming language.
+![Screenshot of the subscriber lists page - code guide button highlighted](./project-contacts-code-guide.webp)
+
+Here is what you can do with contacts via API:
+
+- **Create Contact**: Add a new contact to your project.
+- **Update Contact**: Modify existing contact details.
+- **Get Contact**: Retrieve information about a specific contact.
+- **List Contacts**: Fetch a list of all contacts in your project.
+- **Delete Contact**: Remove a contact from your project.
+
+Click the `Code Guide` button to see code snippets in various programming languages. Just copy and modify the code to fit your needs.
+![Screenshot of the subscriber lists page - code guide dialog](./project-contacts-code-guide-dialog-copy-btn.webp)
+
+:::info Note
+For listing contacts, the API supports pagination. By default, it returns 10 contacts. If you wish to retrieve more contacts in a single request, you can adjust the `limit` and `skip` query parameters in your API call.
+:::
+
 ### Contact Filtration
 
 You can filter your contacts using the filter options available at the top of the contacts section.
@@ -176,6 +196,14 @@ When enabled, contacts will receive a verification email and must confirm their 
 The sign-up page in the subscription list allows users to create a form that subscribers can use to sign up directly from their website. This page provides an easy way to customize the form, generate the necessary HTML code, and integrate it into external sites without the need for backend code.
 
 [Go to sign-up page](/docs/projects/forms-and-pages#signup-page).  
+
+
+### Segments
+
+Segments allow you to create dynamic groups of contacts based on specific criteria. This feature helps you target your email campaigns more effectively by sending emails to the right audience. Read more about segments in the [Segments documentation](./segments).
+
+You can see all the created segments by clicking here:
+![Screenshot of the segments button](./project-segments-selection-view.webp)
 
 ## List Statistics  
 

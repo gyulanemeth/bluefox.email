@@ -347,8 +347,16 @@ export default defineConfig({
                 link: "/courses/email-marketing-saas/lesson-01-send-first-newsletter",
               },
               {
+                text: "Segments",
+                link: "/docs/projects/segments"
+              },
+              {
+                text: "Forms & Pages",
+                link: "/docs/projects/forms-and-pages"
+              },
+              {
                 text: "Welcome Email Flow",
-                link: "/courses/email-marketing-saas/lesson-02-welcome-email-flow",
+                link: "/courses/email-marketing-saas/lesson-02-welcome-email-flow"
               },
               {
                 text: "Educational Email Series as a Lead Magnet",
