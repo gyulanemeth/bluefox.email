@@ -2,6 +2,10 @@
 outline: [2,3]
 ---
 
+<script setup>
+  import SaaSEmailMarketingCourseSignup from '/components/SaaSEmailMarketingCourseSignup.vue'
+</script>
+
 # Send Your First SaaS Newsletter
 
 (TODO 60-90 SEC VIDEO HERE)
@@ -26,7 +30,7 @@ That said, if you want a tool that covers everything we talk about, BlueFox Emai
 
 Before you can hit send, let’s step back and make sure you have the basics in place: your lists and your first contacts.  
 
-(TODO signup form here explaining that in the email version, they get worksheets (& in the premium version they get extra materials)
+<SaaSEmailMarketingCourseSignup></SaaSEmailMarketingCourseSignup>
 
 ## Defining Your Lists
 
@@ -257,5 +261,5 @@ For SaaS founders, a predictable newsletter rhythm does more than boost open rat
 
 Don’t forget to send your newsletter on a regular basis. A monthly product update is an easy and effective way to start: it shows your users steady progress and keeps your product top of mind.  
 
-(TODO signup form here explaining that in the email version, they get worksheets (& in the premium version they get extra materials)  
+(TODO SIGNUP FORM HERE)
 
