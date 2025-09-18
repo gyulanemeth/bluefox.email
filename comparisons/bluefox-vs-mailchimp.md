@@ -24,7 +24,7 @@ head:
       content: https://bluefox.email/assets/comparisons/bluefox-vs-mailchimp.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/comparison/bluefox-vs-mailchimp
+      content: https://bluefox.email/comparisons/bluefox-vs-mailchimp
   - - meta
     - name: twitter:card
       content: summary_large_image

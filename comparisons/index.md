@@ -1,7 +1,7 @@
 ---
 title: BlueFox Email Provider Comparisons | BlueFox Email
 description: Explore expert comparisons between BlueFox Email and leading email marketing platforms, covering design, infrastructure, pricing, and key features.
-thumbnail: /assets/comparison/bluefox-comparisons.png
+thumbnail: /assets/comparisons/bluefox-comparisons.png
 sidebar: false
 prev: false
 next: false
@@ -21,7 +21,7 @@ head:
       content: Explore expert comparisons between BlueFox Email and leading email marketing platforms, covering design, infrastructure, pricing, and key features.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/comparison/bluefox-comparisons.png
+      content: https://bluefox.email/assets/comparisons/bluefox-comparisons.png
   - - meta
     - property: og:url
       content: https://bluefox.email/comparisons/
@@ -53,12 +53,12 @@ Explore the key differences between BlueFox Email and SendGrid, including featur
 [Read more](./bluefox-vs-sendgrid)
 
 <style>
-a[href^="/comparison/"] {
+a[href^="/comparisons/"] {
   color: #13B0EE;
   text-decoration: none;
 }
 
-a[href^="/comparison/"]:hover {
+a[href^="/comparisons/"]:hover {
   text-decoration: underline;
   opacity: 0.9;
 }
