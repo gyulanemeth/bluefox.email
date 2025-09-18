@@ -1,0 +1,2 @@
+# Other Lead Magnet Types
+
