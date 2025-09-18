@@ -1,11 +1,12 @@
 ---
 ---
+<script setup>
+  import SaaSEmailMarketingCourseSignup from '/components/SaaSEmailMarketingCourseSignup.vue'
+</script>
 
 # No BS Email Marketing Course for Busy SaaS Founders
 
-(TODO 90 SEC VIDEO HERE)
-
-(TODO MAYBE A QUICK INTRO ABOUT WHO I AM?)
+(TODO 90 SEC VIDEO HERE with a quick intro about myself as well)
 
 *Marketing changes every day, algorithms shift constantly, and new tools make it even harder to keep up.
 **Email is the one channel you control.** In this free 6-lesson No BS course, I’ll show you how to use it to grow your SaaS.*
@@ -37,7 +38,7 @@ You can read the articles here, watch our YouTube videos, and sign up for the ne
 It only takes 6 weeks to get from zero to a functioning email marketing engine. Are you ready?
 
 
-(TODO SIGNUP FORM HERE)
+<SaaSEmailMarketingCourseSignup></SaaSEmailMarketingCourseSignup>
 
 
 ## Why Email Marketing Matters for SaaS Growth
@@ -149,6 +150,3 @@ We’re still working on the course content. Sign up now and you’ll get update
 :::
 
 (TODO SIGNUP FORM HERE)
-<SignupSaaSEmailMarketing></SignupSaaSEmailMarketing>
-
-(Note for the signup form: “Sign up and get the free worksheets for each lesson so you can apply what you learn step by step.”)

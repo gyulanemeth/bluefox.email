@@ -1,47 +1,47 @@
 <script setup>
 import { onMounted } from 'vue'
-
-let captchaProbe
-function generateCaptcha() {
+  
+  let captchaProbe 
+  function generateCaptcha() {
     const captchaDiv = document.getElementById('captchaDiv')
     fetch("https://api.bluefox.email/v1/captcha")
-        .then(response => response.json())
-        .then(captchaData => {
-            captchaDiv.innerHTML = captchaData.result.data
-            captchaProbe = captchaData.result.probe
-        })
-        .catch(error => {
-            console.error("Error fetching CAPTCHA:", error)
-            captchaDiv.innerHTML = error.message
-        })
-}
+      .then(response => response.json()) 
+      .then(captchaData => {
+        captchaDiv.innerHTML = captchaData.result.data
+        captchaProbe = captchaData.result.probe
+      })
+      .catch(error => {
+        console.error("Error fetching CAPTCHA:", error)
+        captchaDiv.innerHTML = error.message
+      })
+  }
+  
 
-
-function checkClickOutLimit({ errorMessageText, inputs, submitButton, backButton }) {
+  function checkClickOutLimit ({ errorMessageText, inputs, submitButton, backButton }){
     const timestamp = Date.now();
     const previousTimestamp = localStorage.getItem("timestamp")
     if (previousTimestamp && Number(previousTimestamp) + 5000 > timestamp) {
-
+      
         const captchaContainer = document.getElementById("captchaContainer")
         captchaContainer.style.display = "none"
-        errorMessageText.innerText = "Too many signups, please try again in a little while"
-        inputs.forEach(input => {
-            if (input) {
-                input.style.display = "none"
-                const label = input.closest('label.formCheckboxInput')
-                if (label) {
-                    label.style.display = 'none'
-                }
-            }
-        })
-        submitButton.style.display = "none"
-        errorMessageText.style.display = "block"
-        backButton.style.display = "block"
-        return true
+      errorMessageText.innerText = "Too many signups, please try again in a little while"
+      inputs.forEach(input => {
+      if (input) {
+          input.style.display = "none"
+          const label = input.closest('label.formCheckboxInput')
+          if (label) {
+            label.style.display = 'none'
+          }
+        }
+      })
+      submitButton.style.display = "none"
+      errorMessageText.style.display = "block"
+      backButton.style.display = "block"
+      return true
     }
-}
+  }
 
-function submitHandler(event) {
+  function submitHandler(event) {
     event.preventDefault()
     const form = document.getElementById("signupForm")
     const inputs = document.querySelectorAll(".formInput")
@@ -50,9 +50,10 @@ function submitHandler(event) {
     const submitButton = document.getElementById("submitBtn")
     const loadingButton = document.getElementById("loadingBtn")
     const backButton = document.getElementById("backBtn")
-    const captchaInput = document.getElementById("captchaInput")
+    const captchaInput= document.getElementById("captchaInput")  
+    const description = document.getElementById("description")
     if (checkClickOutLimit({ errorMessageText, inputs, submitButton, backButton })) {
-        return
+      return
     }
 
     localStorage.setItem("timestamp", Date.now())
@@ -61,87 +62,88 @@ function submitHandler(event) {
     loadingButton.style.display = "block"
     let data = {}
     inputs.forEach(input => {
-        if (input.type === 'checkbox') {
-            data[input.name] = input.checked
-        } else {
-            data[input.name] = input.value
-        }
+      if (input.type === 'checkbox') {
+        data[input.name] = input.checked
+      } else {
+        data[input.name] = input.value
+      }
     })
-
-    data.captchaText = captchaInput.value
-    data.captchaProbe = captchaProbe
+    
+      data.captchaText = captchaInput.value
+      data.captchaProbe = captchaProbe
     fetch(event.target.action, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
     })
-        .then((res) => [res.ok, res.json(), res])
-        .then(([ok, dataPromise, res]) => {
-            if (ok) {
-                successMessageText.style.display = "block"
-                form.reset()
+      .then((res) => [res.ok, res.json(), res])
+      .then(([ok, dataPromise, res]) => {
+        if (ok) {
+          successMessageText.style.display = "block"
+          form.reset()
+        } else {
+          dataPromise.then(data => {
+            errorMessageText.style.display = "block"
+            if (data.status === 401) {
+              errorMessageText.innerText = 'Domain not whitelisted. Please contact support.'
             } else {
-                dataPromise.then(data => {
-                    errorMessageText.style.display = "block"
-                    if (data.status === 401) {
-                        errorMessageText.innerText = 'Domain not whitelisted. Please contact support.'
-                    } else {
-                        errorMessageText.innerText = data.error.message || res.statusText
-                    }
-                })
+              errorMessageText.innerText = data.error.message || res.statusText
             }
-        })
-        .catch(error => {
-            if (error.message === "Failed to fetch") {
-                checkClickOutLimit({ errorMessageText, inputs, submitButton, backButton })
-                return
+          })
+        }
+      })
+      .catch(error => {
+        if (error.message === "Failed to fetch") {
+          checkClickOutLimit({ errorMessageText, inputs, submitButton, backButton })
+          return
+        }
+        errorMessageText.style.display = "block";
+        errorMessageText.innerText = error.message || "An unexpected error occurred."
+        localStorage.removeItem("timestamp")
+      })
+      .finally(() => {
+        captchaContainer.style.display = "none"
+        inputs.forEach(input => {
+          if (input) {
+            input.style.display = "none"
+            const label = input.closest('label.formCheckboxInput')
+            if (label) {
+              label.style.display = 'none'
             }
-            errorMessageText.style.display = "block";
-            errorMessageText.innerText = error.message || "An unexpected error occurred."
-            localStorage.removeItem("timestamp")
+          }
         })
-        .finally(() => {
-            captchaContainer.style.display = "none"
-            inputs.forEach(input => {
-                if (input) {
-                    input.style.display = "none"
-                    const label = input.closest('label.formCheckboxInput')
-                    if (label) {
-                        label.style.display = 'none'
-                    }
-                }
-            })
-            loadingButton.style.display = "none"
-            backButton.style.display = "block"
-        })
-}
+        loadingButton.style.display = "none"
+        backButton.style.display = "block"
+        description.style.display = "none"
+      })
+  }
 
-function resetFormHandler() {
+  function resetFormHandler() {
     const inputs = document.querySelectorAll(".formInput")
     const successMessageText = document.getElementById("successMessageText")
     const errorMessageText = document.getElementById("errorMessageText")
     const submitButton = document.getElementById("submitBtn")
     const backButton = document.getElementById("backBtn")
-
-    const captchaContainer = document.getElementById("captchaContainer")
-    captchaContainer.style.display = "flex"
-    generateCaptcha()
-
+    
+      const captchaContainer = document.getElementById("captchaContainer")
+      captchaContainer.style.display = "flex"   
+      generateCaptcha()
+     
     successMessageText.style.display = "none"
     errorMessageText.style.display = "none"
     errorMessageText.innerText = "Oops! Something went wrong, please try again."
     backButton.style.display = "none"
     inputs.forEach(input => {
-        if (input) {
-            input.style.display = "block"
-            const label = input.closest('label.formCheckboxInput')
-            if (label) {
-                label.style.display = 'flex'
-            }
+      if (input) {
+        input.style.display = "block"
+        const label = input.closest('label.formCheckboxInput')
+        if (label) {
+          label.style.display = 'flex'
         }
+      }
     })
     submitButton.style.display = "block"
-}
+  }
 
 
 onMounted(() => { // please keep this onmount section and u can replace everything else
@@ -168,92 +170,85 @@ onMounted(() => { // please keep this onmount section and u can replace everythi
 
 <template>
     <div id="signupFormContainer" class="signupFormContainer">
-        <form id="signupForm" action="https://api.bluefox.email/v1/subscriber-lists/68cadf41d37dd8f2f3a027c0"
-            method="POST" class="signupForm">
-            <div class="signupFormDiv">
-                <div class="propertyFormDiv">
-                    <!---->
-                    <input class="formInput" type="string" name="name" placeholder="name" style="order: 0;">
-                </div>
-                <div class="propertyFormDiv">
-                    <!---->
-                    <!---->
-                </div>
-                <div class="propertyFormDiv">
-                    <!---->
-                    <!---->
-                </div>
-                <div class="propertyFormDiv">
-                    <!---->
-                    <!---->
-                </div>
-                <div class="propertyFormDiv">
-                    <input class="formInput" type="email" name="email" placeholder="your@email.com" required="">
-                    <!---->
-                </div>
-                <div id="captchaContainer" class="captchaContainer">
-                    <div class="captchaContainerDev">
-                        <div id="captchaDiv" class="captchaDiv">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="50" viewBox="0,0,150,50">
-                                <path fill="#444"
-                                    d="M94.58 40.45L94.45 40.32L94.57 40.44Q91.51 36.47 88.88 27.83L88.92 27.86L88.88 27.82Q88.30 25.76 87.50 23.63L87.39 23.52L84.50 32.27L84.54 32.32Q82.80 37.31 80.41 40.55L80.31 40.45L80.26 40.41Q79.56 40.62 77.93 40.78L77.88 40.73L77.81 40.66Q77.92 39.47 77.92 38.22L78.02 38.32L78.06 38.36Q77.89 32.18 75.15 26.05L75.29 26.18L75.28 26.18Q72.20 19.32 66.33 14.34L66.31 14.31L66.28 14.28Q68.30 14.86 70.66 15.39L70.69 15.42L70.67 15.40Q79.53 24.03 80.82 34.99L80.67 34.84L80.64 34.81Q82.44 31.66 83.89 26.29L83.89 26.30L83.82 26.23Q85.88 18.81 86.38 17.40L86.29 17.31L88.49 17.26L88.50 17.27Q89.21 19.32 89.86 21.65L89.86 21.64L91.12 26.10L91.18 26.16Q92.77 31.63 94.17 34.87L94.17 34.86L94.13 34.83Q95.74 23.15 103.66 15.80L103.75 15.89L103.69 15.83Q105.11 15.38 108.08 14.74L108.26 14.92L108.18 14.84Q102.91 19.20 99.87 25.33L99.81 25.28L99.79 25.25Q96.63 31.42 96.63 38.20L96.65 38.22L96.79 38.36Q96.81 39.48 96.89 40.62L96.85 40.59L95.60 40.36L95.60 40.36Q95.13 40.43 94.56 40.43ZM100.66 43.18L100.76 43.28L100.75 43.27Q99.48 39.68 99.60 35.80L99.57 35.77L99.69 35.89Q99.88 24.20 109.25 15.94L109.29 15.98L109.25 15.95Q108.43 16.30 106.49 16.84L106.37 16.72L106.38 16.73Q107.45 16.01 109.35 14.22L109.31 14.18L109.33 14.20Q106.52 14.82 103.59 15.31L103.75 15.47L103.72 15.44Q96.11 22.45 94.21 31.93L94.27 31.99L94.31 32.04Q93.68 30.34 90.83 18.88L90.84 18.89L90.80 18.85Q90.36 18.91 89.41 18.91L89.53 19.03L89.19 17.93L89.22 17.96Q89.02 17.34 88.79 16.84L88.75 16.80L85.94 16.88L85.99 16.93Q85.09 19.31 83.82 24.44L83.74 24.36L83.93 24.54Q82.64 29.65 81.65 32.12L81.64 32.11L81.47 31.95Q79.99 24.15 74.43 17.83L74.44 17.84L74.36 17.76Q74.02 17.84 73.07 17.65L72.98 17.55L73.03 17.61Q72.35 16.81 70.79 15.17L70.81 15.19L70.62 15.01Q67.33 14.31 65.16 13.51L65.26 13.60L65.22 13.57Q70.89 18.24 74.16 24.45L74.03 24.31L74.04 24.32Q77.51 30.95 77.51 37.96L77.51 37.96L77.53 37.98Q77.47 39.48 77.28 41.08L77.36 41.16L77.32 41.12Q77.61 41.18 78.06 41.08L78.08 41.10L78.04 41.06Q78.45 40.92 78.68 40.92L78.71 40.95L78.85 42.12L78.70 41.97Q78.76 42.48 78.83 43.01L78.82 43.00L78.78 42.96Q79.96 42.92 82.24 42.77L82.24 42.77L82.27 42.80Q85.95 37.45 88.69 28.05L88.55 27.91L88.64 28.00Q91.41 36.79 94.38 40.75L94.40 40.76L94.34 40.70Q94.77 40.68 95.60 40.79L95.76 40.94L95.70 40.89Q96.53 41.90 97.59 42.97L97.60 42.97L97.64 43.02Q98.33 42.98 100.72 43.24Z">
-                                </path>
-                                <path d="M6 46 C78 41,69 24,130 47" stroke="#111" fill="none">
-                                </path>
-                                <path fill="#222"
-                                    d="M57.58 28.90L57.43 28.75L57.52 28.84Q54.86 28.69 53.57 29.84L53.70 29.97L53.55 29.82Q52.22 31.15 52.41 33.67L52.37 33.63L52.35 33.61Q52.67 36.59 53.85 37.66L53.85 37.66L53.91 37.71Q55.23 38.85 57.33 38.70L57.34 38.71L57.46 38.83Q59.64 38.88 61.05 37.62L60.87 37.44L60.95 37.52Q62.29 36.39 62.48 33.84L62.52 33.87L62.47 33.83Q62.79 28.86 57.43 28.75ZM57.33 41.33L57.37 41.37L55.74 41.30L55.87 41.43Q52.87 41.28 51.38 39.87L51.34 39.83L51.45 39.94Q50.50 38.95 50.24 37.01L50.22 37.00L50.19 36.97Q50.00 35.82 49.85 33.62L49.85 33.62L49.92 33.69Q49.88 32.73 49.76 30.48L49.61 30.34L49.74 30.46Q49.70 28.64 50.65 27.49L50.60 27.44L50.56 27.40Q52.21 25.82 56.93 25.97L56.99 26.02L56.97 26.00Q61.86 26.13 63.68 27.66L63.76 27.74L63.69 27.67Q65.32 29.03 65.13 32.23L65.00 32.09L65.01 32.11Q64.86 35.73 64.79 36.15L64.74 36.10L64.77 36.12Q64.43 38.38 63.10 39.56L63.13 39.58L63.06 39.52Q61.19 41.38 57.38 41.38ZM62.04 43.75L62.11 43.83L61.96 43.67Q63.46 43.72 65.36 43.57L65.39 43.60L65.37 43.58Q65.87 43.50 65.87 43.35L65.84 43.33L65.95 43.44Q65.88 43.29 65.85 43.14L65.96 43.25L65.83 43.12Q65.80 42.99 65.80 42.87L65.88 42.95L65.91 42.98Q65.84 42.64 66.18 42.33L66.23 42.39L66.26 42.42Q67.14 41.28 67.14 39.37L66.94 39.18L67.10 39.34Q67.09 38.37 66.99 35.95L66.91 35.87L67.04 36.00Q66.90 33.54 66.75 32.43L66.71 32.40L66.60 32.29Q66.30 30.24 65.39 29.09L65.36 29.07L65.05 28.87L65.19 29.01Q65.02 28.35 64.22 27.43L64.10 27.31L64.19 27.40Q61.87 25.65 56.96 25.65L57.00 25.69L55.22 25.66L55.11 25.56Q51.90 25.66 50.19 27.03L50.10 26.95L50.20 27.04Q49.22 28.04 49.26 30.06L49.32 30.12L49.38 30.18Q49.39 30.61 49.53 31.87L49.41 31.76L49.53 31.88Q49.63 33.10 49.60 33.56L49.53 33.49L49.54 33.50Q49.74 36.52 49.82 36.97L49.91 37.07L49.97 37.13Q50.24 39.15 51.15 40.29L51.22 40.36L51.27 40.48L51.24 40.46Q52.06 42.91 55.79 43.33L55.99 43.52L55.96 43.50Q56.75 43.52 62.00 43.71ZM59.23 31.01L59.26 31.03L59.41 31.19Q60.14 31.08 61.81 31.61L61.94 31.74L61.91 31.71Q62.27 32.45 62.23 33.93L62.12 33.82L62.19 33.89Q61.97 37.25 59.08 38.01L59.24 38.17L59.16 38.09Q58.39 38.23 57.36 38.35L57.41 38.40L57.41 38.40Q56.36 38.46 54.65 37.85L54.72 37.91L54.61 37.81Q54.48 37.22 54.51 35.73L54.46 35.68L54.40 35.62Q54.49 33.31 55.86 32.28L55.84 32.26L55.86 32.28Q56.80 31.43 59.35 31.12Z">
-                                </path>
-                                <path fill="#222"
-                                    d="M26.70 29.20L26.71 29.21L26.53 29.03Q24.83 29.04 23.59 30.47L23.60 30.47L23.61 30.49Q22.36 31.90 22.17 33.81L22.15 33.79L22.21 33.85Q21.88 35.80 22.96 36.77L22.90 36.71L22.92 36.72Q24.10 37.79 26.19 37.68L26.09 37.57L26.21 37.70Q28.16 37.40 29.27 36.72L29.35 36.80L29.30 36.74Q30.52 35.72 30.52 34.16L30.53 34.17L30.55 34.19Q30.56 33.82 30.49 33.44L30.43 33.39L30.42 33.37Q30.48 31.68 29.37 30.33L29.44 30.40L29.46 30.42Q28.35 29.06 26.68 29.18ZM26.10 40.14L26.19 40.23L26.20 40.23Q21.91 40.32 20.50 39.56L20.31 39.37L20.36 39.42Q19.32 38.65 19.13 36.93L19.26 37.06L19.18 36.98Q19.16 36.31 19.19 35.59L19.27 35.67L19.20 35.60Q19.22 34.51 19.22 34.05L19.30 34.13L19.30 34.13Q19.67 31.20 19.83 30.51L19.94 30.62L19.93 30.61Q20.43 28.72 21.27 27.31L21.19 27.23L21.26 27.30Q23.78 22.78 29.72 16.42L29.85 16.55L29.87 16.57Q32.41 16.14 34.62 15.34L34.67 15.39L34.74 15.47Q27.76 22.80 24.56 27.02L24.69 27.15L24.64 27.10Q25.63 26.61 26.92 26.61L26.95 26.63L26.91 26.60Q30.19 26.57 31.72 28.51L31.69 28.47L31.71 28.50Q33.03 30.13 33.38 33.67L33.41 33.70L33.33 33.62Q33.42 34.36 33.42 34.97L33.40 34.95L33.50 35.05Q33.45 38.12 31.25 39.19L31.22 39.17L31.26 39.20Q29.98 39.75 26.09 40.13ZM28.43 42.58L28.45 42.60L28.49 42.64Q29.78 42.60 31.76 42.67L31.78 42.69L31.79 42.70Q33.47 42.83 35.03 42.10L34.98 42.05L35.03 42.09Q36.05 41.22 36.05 39.43L36.03 39.41L36.14 39.52Q36.08 38.97 35.91 37.98L35.82 37.88L35.91 37.97Q35.65 36.90 35.65 36.44L35.67 36.46L35.62 36.41Q34.88 31.83 33.29 29.92L33.31 29.95L33.19 29.83Q33.06 29.66 32.91 29.43L33.07 29.59L32.73 29.33L32.71 29.35L32.56 29.20Q32.29 28.77 31.68 27.82L31.72 27.87L31.72 27.86Q30.85 26.96 28.87 26.50L28.76 26.38L28.70 26.33Q29.91 24.72 32.88 21.03L32.94 21.09L37.24 15.87L37.12 15.75Q35.58 16.64 33.18 17.40L33.25 17.48L33.29 17.51Q34.08 16.40 35.87 14.43L36.04 14.59L35.94 14.50Q33.64 15.66 29.75 16.23L29.58 16.06L29.57 16.04Q23.91 21.99 20.94 26.94L21.02 27.02L20.97 26.97Q19.54 29.58 18.97 35.82L18.90 35.76L18.98 35.83Q18.90 36.40 18.98 37.35L18.90 37.27L18.94 37.31Q19.03 39.08 20.14 40.00L20.11 39.97L20.09 39.95Q20.41 40.04 20.37 40.08L20.36 40.06L20.43 40.14Q20.81 41.05 21.61 41.47L21.67 41.53L21.64 41.50Q23.12 42.22 25.06 42.41L25.00 42.34L24.91 42.26Q24.93 42.28 28.44 42.58ZM28.31 31.46L28.26 31.41L28.34 31.49Q28.73 31.19 29.68 31.69L29.84 31.84L29.80 31.81Q30.09 32.70 30.09 33.35L30.07 33.33L30.14 33.40Q30.35 35.28 29.39 36.27L29.38 36.25L29.28 36.15Q28.33 36.99 26.23 37.30L26.22 37.29L26.18 37.24Q24.77 37.28 24.23 37.01L24.14 36.92L24.19 36.96Q23.93 36.44 23.93 36.14L24.12 36.33L24.10 36.31Q23.81 32.97 26.74 31.68L26.70 31.64L26.66 31.60Q27.59 31.42 28.35 31.49Z">
-                                </path>
-                                <path fill="#333"
-                                    d="M122.13 28.71L122.04 28.63L116.19 28.75L116.12 28.68Q113.34 28.87 110.41 28.79L110.31 28.70L110.41 28.79Q110.47 35.43 108.41 40.95L108.48 41.03L108.41 40.96Q106.67 41.54 104.92 42.22L104.78 42.08L104.85 42.15Q107.59 36.40 107.59 29.74L107.61 29.76L107.59 29.74Q107.70 21.36 103.59 14.32L103.59 14.32L103.41 14.14Q104.96 14.97 107.44 15.77L107.43 15.76L107.54 15.88Q109.66 20.92 110.19 25.79L110.18 25.78L110.14 25.74Q113.38 26.20 116.23 26.17L116.31 26.24L116.27 26.20Q118.88 26.15 122.19 25.88L122.24 25.92L122.11 25.79Q122.73 21.54 124.48 16.44L124.40 16.36L124.44 16.40Q126.37 15.97 128.61 15.13L128.67 15.19L128.53 15.04Q125.01 21.89 125.01 29.84L125.06 29.89L124.96 29.79Q124.95 35.98 127.31 41.31L127.23 41.23L127.27 41.27Q125.70 40.70 123.65 40.39L123.66 40.41L123.71 40.45Q121.96 35.35 122.07 28.65ZM123.32 40.68L123.50 40.85L123.43 40.78Q124.47 40.95 125.57 41.21L125.63 41.27L125.61 41.25Q125.94 41.96 126.59 43.45L126.51 43.37L126.51 43.37Q129.89 44.35 131.68 45.26L131.72 45.30L131.62 45.21Q127.17 39.04 126.86 30.78L126.85 30.76L126.94 30.86Q126.59 22.78 130.25 15.97L130.18 15.90L129.21 16.46L129.11 16.35Q128.63 16.59 128.02 16.75L128.03 16.76L128.17 16.90Q128.48 15.99 129.32 14.43L129.37 14.48L129.25 14.36Q126.60 15.40 123.98 15.90L124.14 16.07L124.10 16.03Q122.32 20.76 121.86 25.44L121.83 25.40L121.97 25.54Q119.38 25.65 116.94 25.65L116.93 25.64L116.92 25.64Q114.63 25.74 112.12 25.59L112.16 25.63L112.12 25.60Q111.82 22.25 110.72 18.18L110.80 18.25L110.69 18.15Q110.00 18.03 108.56 17.65L108.56 17.65L108.56 17.65Q108.21 16.46 107.75 15.43L107.78 15.46L107.79 15.47Q104.99 14.66 102.71 13.40L102.69 13.38L102.73 13.42Q107.31 20.86 107.31 29.65L107.32 29.66L107.38 29.72Q107.25 36.56 104.13 42.69L104.15 42.71L104.17 42.73Q104.97 42.54 106.31 41.97L106.28 41.95L106.35 42.01Q105.83 42.68 105.03 44.20L105.19 44.36L105.04 44.21Q108.00 43.37 110.25 42.95L110.21 42.91L110.26 42.95Q112.10 37.38 112.29 31.21L112.20 31.12L112.17 31.09Q113.84 31.08 117.04 31.05L117.08 31.09L117.12 31.13Q119.82 30.93 121.73 31.01L121.77 31.05L121.82 31.10Q122.14 36.91 123.47 40.83Z">
-                                </path>
-                            </svg>
-                        </div>
-                        <button type="button" id="refreshCaptcha" class="refreshCaptchaBtn">
-                            <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg" stroke="#e4e2e2" transform="rotate(0)">
-                                <g id="SVGRepo_bgCarrier" stroke-width="0">
-                                </g>
-                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke="#CCCCCC" stroke-width="0.048">
-                                </g>
-                                <g id="SVGRepo_iconCarrier">
-                                    <path
-                                        d="M21 3V8M21 8H16M21 8L18 5.29168C16.4077 3.86656 14.3051 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.2832 21 19.8675 18.008 20.777 14"
-                                        stroke="#000000" stroke-width="2.208" stroke-linecap="round"
-                                        stroke-linejoin="round">
-                                    </path>
-                                </g>
-                            </svg>
-                        </button>
-                    </div>
-                    <input id="captchaInput" class="captchaInput" type="text" name="captchaText"
-                        placeholder="enter captcha text" required="">
-                </div>
-                <button id="submitBtn" type="submit" class="submitBtn">I Wanna Learn Email Marketing</button>
-                <button id="loadingBtn" type="button" class="loadingBtn">Please wait...</button>
-            </div>
-        </form>
-        <p id="successMessageText" class="successMessageText">Thank you for subscribing! You’re now on the list to
-            receive our latest updates straight to your inbox. We’re excited to have you with us!</p>
-        <p id="errorMessageText" class="errorMessageText">
-        </p>
-        <button id="backBtn" type="button" class="backBtn">Back</button>
-    </div>
+<form id="signupForm" action="https://api.bluefox.email/v1/subscriber-lists/68cadf41d37dd8f2f3a027c0" method="POST" class="signupForm">
+<div class="signupFormDiv">
+<h2 style="border: 0; margin-top: 10px; margin-bottom: 10px;">Get Free Worksheets + Bonus Videos</h2>
+<div class="propertyFormDiv">
+<!---->
+<!---->
+</div>
+<div class="propertyFormDiv">
+<!---->
+<!---->
+</div>
+<div class="propertyFormDiv">
+<!---->
+<!---->
+</div>
+<div class="propertyFormDiv">
+<!---->
+<!---->
+</div>
+<div class="propertyFormDiv">
+<input class="formInput" type="email" name="email" placeholder="your@email.com" required="">
+<!---->
+</div>
+<div id="captchaContainer" class="captchaContainer">
+<div class="captchaContainerDev">
+<div id="captchaDiv" class="captchaDiv">
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="50" viewBox="0,0,150,50">
+<path d="M21 11 C71 40,80 24,137 16" stroke="#777" fill="none">
+</path>
+<path fill="#444" d="M119.41 27.26L119.34 27.20L119.29 27.15Q120.07 27.12 121.47 26.97L121.57 27.07L121.55 27.05Q121.42 27.60 121.42 28.24L121.45 28.28L121.46 29.55L121.39 29.47Q120.59 29.51 119.75 29.58L119.80 29.63L119.77 29.61Q118.89 29.60 118.05 29.56L118.21 29.72L118.05 29.56Q115.37 35.91 111.95 40.51L111.80 40.37L111.89 40.46Q109.43 41.16 108.14 41.77L107.98 41.61L108.11 41.74Q112.16 35.96 115.20 29.68L115.16 29.64L112.63 29.74L112.57 29.68Q112.64 28.42 112.53 27.08L112.48 27.04L112.40 26.96Q114.32 27.12 116.37 27.12L116.52 27.27L118.31 23.47L118.25 23.40Q119.26 21.52 120.48 19.92L120.62 20.07L120.49 19.93Q118.95 20.10 117.35 20.10L117.39 20.15L117.32 20.08Q111.32 20.17 107.55 17.96L107.51 17.92L106.86 16.20L106.78 16.12Q106.60 15.45 106.22 14.57L106.15 14.50L106.13 14.48Q110.56 17.20 116.27 17.43L116.16 17.32L116.28 17.43Q121.30 17.54 126.44 15.56L126.49 15.62L126.45 15.58Q126.28 16.01 125.78 16.89L125.81 16.91L125.87 16.98Q122.09 21.57 119.23 27.09ZM127.31 18.18L127.38 18.26L128.34 16.21L128.46 16.33Q127.36 16.68 125.69 17.40L125.84 17.55L125.87 17.09L125.91 17.13Q126.00 16.96 126.12 16.84L126.25 16.98L126.19 16.91Q126.49 16.15 127.22 14.82L127.21 14.81L127.22 14.83Q121.87 17.09 116.12 16.86L116.21 16.95L116.13 16.87Q110.27 16.76 105.51 13.79L105.41 13.69L105.35 13.63Q106.50 15.61 107.33 18.27L107.21 18.15L107.34 18.28Q108.47 18.95 109.27 19.25L109.23 19.22L109.29 19.27Q109.34 19.52 109.80 21.39L109.79 21.37L109.78 21.37Q112.93 22.62 118.45 22.47L118.55 22.56L118.49 22.50Q118.11 23.00 116.13 26.76L116.26 26.90L116.26 26.90Q114.23 26.92 112.25 26.73L112.19 26.67L112.24 26.72Q112.23 27.47 112.23 28.35L112.30 28.42L112.18 30.01L113.97 30.12L113.86 31.42L113.87 31.43Q109.99 38.86 107.21 42.44L107.15 42.38L107.15 42.38Q108.88 41.75 110.51 41.25L110.47 41.20L110.37 41.10Q109.85 42.19 108.48 43.90L108.39 43.81L108.29 43.71Q111.46 42.61 113.90 42.39L113.96 42.45L113.98 42.47Q116.89 38.68 120.01 31.90L120.10 31.99L123.39 32.05L123.49 32.14Q123.47 31.29 123.47 30.38L123.44 30.34L123.35 28.47L123.31 28.42Q123.18 28.56 122.63 28.60L122.62 28.59L122.48 28.45Q122.03 28.59 121.76 28.59L121.78 28.61L121.67 28.50Q121.82 28.53 121.86 28.38L121.70 28.22L121.81 28.06L121.82 28.07Q124.37 22.97 127.45 18.33Z">
+</path>
+<path fill="#444" d="M19.99 41.11L20.05 41.16L20.02 41.14Q23.21 36.90 29.91 28.98L29.81 28.88L29.88 28.95Q23.96 29.16 20.19 27.79L20.17 27.78L20.09 27.69Q19.48 26.32 18.72 24.91L18.74 24.93L18.67 24.87Q22.93 26.53 27.38 26.57L27.22 26.41L27.20 26.39Q31.82 26.59 36.00 25.52L35.85 25.37L35.86 25.38Q35.46 26.05 35.19 26.58L35.22 26.60L35.20 26.58Q32.77 28.91 29.95 32.53L29.97 32.55L24.98 38.67L24.97 38.66Q27.23 38.49 29.48 38.56L29.50 38.59L29.58 38.66Q31.65 38.60 33.89 38.98L33.84 38.93L33.90 38.99Q34.00 39.54 34.72 41.56L34.78 41.62L34.75 41.59Q31.14 40.88 27.15 40.99L27.02 40.87L27.04 40.89Q23.09 41.01 19.43 42.19L19.48 42.24L19.44 42.19Q19.55 42.08 20.01 41.12ZM18.78 42.72L18.96 42.89L18.91 42.85Q19.63 42.46 21.23 42.04L21.23 42.04L21.32 42.13Q21.11 42.38 20.69 42.80L20.67 42.78L20.67 42.78Q20.30 43.21 19.69 44.35L19.85 44.51L19.67 44.32Q24.52 43.13 29.51 43.28L29.55 43.32L29.37 43.14Q34.44 43.41 39.01 45.28L38.96 45.23L38.89 45.16Q37.47 43.32 36.55 41.26L36.61 41.32L36.63 41.34Q35.79 40.96 34.72 40.73L34.72 40.72L34.73 40.73Q34.59 40.06 34.21 38.61L34.30 38.70L34.31 38.71Q32.72 38.34 29.14 38.22L29.21 38.29L29.20 38.29Q31.48 34.85 36.50 28.50L36.42 28.42L36.58 28.57Q36.87 27.88 37.56 26.54L37.46 26.45L35.16 27.19L35.19 27.22Q35.27 27.15 35.42 27.03L35.47 27.08L35.63 26.86L35.65 26.88Q35.99 25.70 36.56 24.75L36.67 24.86L36.68 24.87Q31.92 26.13 27.20 26.05L27.22 26.07L27.20 26.04Q22.48 26.05 17.99 24.22L18.02 24.25L17.97 24.20Q19.16 26.07 19.96 28.13L20.00 28.17L19.92 28.09Q20.71 28.35 21.78 28.62L21.88 28.72L21.92 28.76Q22.00 29.33 22.30 30.78L22.37 30.84L22.33 30.81Q23.95 31.10 27.26 31.25L27.29 31.28L27.35 31.34Q24.77 34.46 19.59 40.89L19.74 41.05L19.67 40.98Q19.38 41.53 18.81 42.74Z">
+</path>
+<path fill="#111" d="M85.63 40.23L85.70 40.30L85.57 40.17Q82.10 40.28 80.46 39.75L80.58 39.87L80.56 39.84Q78.44 39.06 78.14 35.67L78.22 35.76L79.62 34.64L79.69 34.72Q80.34 34.11 81.10 33.62L81.26 33.77L81.16 33.68Q80.87 35.55 82.46 36.77L82.51 36.82L82.49 36.79Q83.73 37.77 85.87 37.58L85.85 37.56L85.84 37.55Q90.26 37.18 90.07 33.64L90.04 33.61L90.17 33.73Q89.87 31.34 87.25 30.13L87.30 30.18L87.28 30.16Q84.46 29.13 82.10 27.91L82.11 27.92L82.19 28.00Q79.67 26.70 78.68 22.01L78.52 21.86L78.52 21.86Q78.41 21.40 78.29 20.64L78.44 20.79L78.27 20.62Q78.27 19.93 78.34 19.36L78.44 19.46L78.42 19.43Q78.41 17.67 79.67 17.22L79.77 17.32L79.84 17.39Q82.18 16.46 86.18 16.65L86.24 16.71L86.19 16.66Q87.94 16.70 88.74 16.78L88.82 16.86L88.85 16.89Q90.28 17.02 91.35 17.48L91.38 17.51L91.26 17.39Q93.49 17.98 93.72 20.46L93.61 20.35L93.64 20.38Q92.60 21.09 90.40 22.43L90.47 22.50L90.41 22.44Q89.93 19.37 85.55 19.37L85.63 19.45L85.65 19.47Q83.78 19.51 82.79 20.19L82.76 20.16L82.78 20.18Q81.50 20.57 81.73 22.36L81.86 22.50L81.80 22.44Q82.01 24.58 84.97 26.10L84.93 26.06L84.94 26.07Q85.63 26.45 90.12 28.09L90.08 28.05L90.11 28.08Q92.64 29.46 93.05 33.84L93.06 33.85L93.03 33.81Q92.99 33.93 93.07 35.19L93.26 35.38L93.21 35.33Q93.14 37.97 91.58 39.07L91.59 39.08L91.62 39.11Q89.81 40.11 85.62 40.23ZM87.88 42.56L87.86 42.54L87.95 42.64Q89.37 42.68 91.34 42.68L91.43 42.76L91.37 42.70Q93.36 42.60 94.62 42.18L94.68 42.25L94.79 42.35Q96.01 41.51 95.93 39.72L95.92 39.72L95.85 39.65Q95.88 38.73 95.50 36.67L95.45 36.62L95.50 36.66Q94.57 31.97 92.47 30.10L92.54 30.16L92.41 30.04Q91.60 28.43 90.27 27.71L90.32 27.76L84.92 25.59L85.08 25.75Q84.66 25.49 84.21 25.26L84.20 25.26L84.08 24.87L84.06 24.51L84.14 24.59Q83.91 23.09 85.05 22.49L85.17 22.61L85.10 22.53Q85.92 22.02 87.63 21.83L87.64 21.84L87.56 21.76Q88.69 21.64 89.84 22.10L89.90 22.16L89.79 22.05Q90.00 22.30 90.19 23.14L90.08 23.02L90.21 23.15Q90.32 22.92 90.82 22.69L90.71 22.59L90.77 22.65Q91.56 23.63 91.68 24.78L91.55 24.65L91.61 24.71Q91.68 24.66 95.33 22.07L95.32 22.06L95.46 22.20Q95.14 19.51 93.69 18.83L93.60 18.74L93.63 18.77Q93.08 17.53 91.63 17.00L91.57 16.94L91.60 16.97Q89.42 16.27 86.22 16.27L86.24 16.29L86.16 16.21Q81.19 16.16 79.33 16.84L79.36 16.87L79.35 16.86Q78.03 17.33 77.91 19.01L77.90 19.00L78.00 19.09Q77.85 19.52 78.27 21.72L78.27 21.72L78.29 21.74Q78.93 25.47 81.10 27.71L81.14 27.75L81.24 27.85Q81.94 29.46 83.44 30.15L83.46 30.17L83.50 30.21Q84.90 30.79 88.82 32.35L88.93 32.46L88.89 32.46L89.47 32.73L89.51 32.81L89.53 32.83Q89.73 33.30 89.77 33.64L89.74 33.61L89.75 33.62Q89.75 37.01 85.83 37.16L85.89 37.23L85.86 37.19Q84.77 37.28 83.47 36.90L83.44 36.86L83.39 36.82Q83.08 36.01 83.08 35.29L83.15 35.36L83.23 35.44Q83.13 35.07 83.17 34.81L83.17 34.81L83.19 34.83Q82.69 34.97 81.89 35.47L81.93 35.51L82.00 35.58Q81.46 34.43 81.61 33.06L81.59 33.04L81.59 33.03Q79.46 34.18 77.86 35.59L77.88 35.61L77.85 35.57Q78.02 36.50 78.09 37.53L77.98 37.42L78.06 37.50Q78.37 39.22 79.67 39.98L79.61 39.92L79.67 39.99Q81.00 41.93 83.55 42.31L83.51 42.27L83.54 42.30Q85.11 42.53 88.04 42.72Z">
+</path>
+<path fill="#333" d="M53.56 19.38L53.53 19.35L53.53 19.35Q54.35 23.56 54.50 27.14L54.52 27.15L54.60 27.24Q55.72 27.33 56.79 27.33L56.78 27.32L58.82 27.15L58.98 27.31Q59.88 27.14 60.75 25.73L60.86 25.84L60.82 25.81Q61.54 24.62 61.66 23.44L61.56 23.35L61.57 23.36Q62.09 20.49 57.87 19.99L57.79 19.91L57.75 19.88Q56.19 19.95 53.56 19.38ZM54.49 29.86L54.62 30.00L54.58 29.95Q54.51 36.17 53.37 40.58L53.38 40.59L53.29 40.51Q51.92 41.00 49.60 42.07L49.64 42.10L49.56 42.03Q51.98 35.42 51.71 28.15L51.76 28.20L51.73 28.17Q51.35 20.71 48.57 14.27L48.67 14.37L48.66 14.37Q52.74 17.08 58.99 17.08L58.98 17.07L59.06 17.15Q65.00 17.04 65.15 20.50L65.28 20.63L65.23 20.58Q65.19 22.90 64.20 25.57L64.27 25.63L64.32 25.68Q63.86 26.74 62.90 27.96L62.98 28.04L62.98 28.04Q61.55 29.54 59.00 29.80L59.15 29.95L59.00 29.81Q56.89 29.98 54.64 30.02ZM60.75 32.24L60.68 32.17L60.80 32.29Q64.94 32.51 66.19 27.71L66.02 27.54L66.19 27.71Q66.99 23.90 66.84 21.88L66.93 21.97L66.88 21.93Q66.82 20.46 66.06 19.47L66.02 19.42L66.03 19.44Q65.74 19.15 65.25 18.92L65.19 18.87L65.20 18.88Q65.20 18.72 64.59 17.96L64.50 17.88L64.65 18.02Q63.08 16.68 59.12 16.68L59.04 16.60L59.03 16.58Q52.12 16.57 47.89 13.41L47.92 13.43L48.03 13.55Q51.17 20.61 51.44 28.07L51.42 28.05L51.39 28.02Q51.61 35.62 48.94 42.70L48.93 42.69L49.07 42.83Q50.14 42.19 51.13 41.81L50.98 41.66L50.79 42.99L50.64 42.84Q50.53 43.50 50.27 44.07L50.33 44.13L50.20 44.00Q52.76 43.10 55.66 42.56L55.53 42.43L55.66 42.57Q56.42 36.98 56.50 32.25L56.53 32.28L56.50 32.26Q57.61 32.19 58.60 32.19L58.63 32.22L58.67 32.25Q59.85 32.10 60.65 32.14ZM59.65 22.16L59.66 22.17L59.78 22.29Q60.17 22.18 61.16 22.41L61.17 22.42L61.28 22.53Q61.41 22.77 61.45 23.08L61.41 23.04L61.42 23.05Q61.51 23.37 61.43 23.64L61.38 23.58L61.39 23.59Q61.14 24.67 60.41 25.55L60.51 25.65L60.43 25.56Q59.93 26.70 58.90 26.89L58.93 26.92L58.88 26.87Q58.12 26.83 56.48 26.83L56.48 26.83L56.42 26.77Q56.45 24.55 56.22 22.19L56.28 22.25L58.05 22.35L58.04 22.34Q58.85 22.31 59.73 22.24Z">
+</path>
+</svg>
+</div>
+<button type="button" id="refreshCaptcha" class="refreshCaptchaBtn">
+<svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#e4e2e2" transform="rotate(0)">
+<g id="SVGRepo_bgCarrier" stroke-width="0">
+</g>
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="0.048">
+</g>
+<g id="SVGRepo_iconCarrier">
+<path d="M21 3V8M21 8H16M21 8L18 5.29168C16.4077 3.86656 14.3051 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21C16.2832 21 19.8675 18.008 20.777 14" stroke="#000000" stroke-width="2.208" stroke-linecap="round" stroke-linejoin="round">
+</path>
+</g>
+</svg>
+</button>
+</div>
+<input id="captchaInput" class="captchaInput" type="text" name="captchaText" placeholder="enter captcha text" required="">
+</div>
+<button id="submitBtn" type="submit" class="submitBtn">I Wanna Learn Email Marketing</button>
+<button id="loadingBtn" type="button" class="loadingBtn">Please wait...</button>
+<p id="description" style="font-size: 14px; line-height: 16px;">Subscribe to receive worksheets with every lesson, plus exclusive deep-dive videos you won’t find anywhere else.</p>
+</div>
+</form>
+<p id="successMessageText" class="successMessageText">Thank you for subscribing! Please, verify your email address, and get access to our extra course materials. We’re excited to have you with us!</p>
+<p id="errorMessageText" class="errorMessageText">
+</p>
+<button id="backBtn" type="button" class="backBtn">Back</button>
+</div>
 </template>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Roboto&family=Open+Sans&family=Lato&family=Montserrat&family=Oswald&family=Source+Sans+Pro&family=Slabo+27px&family=Raleway&family=PT+Sans&family=Merriweather&display=swap');
-
 .signupFormCol {
     min-height: 400px;
     height: 400px;
     max-height: 400px;
-}
+  }
 
-.signupFormContainer {
+  .formTitle {
+    border-top: 0 !important;
+    margin: 0;
+  }
+
+  .signupFormContainer {
     display: flex;
     flex-direction: column;
     align-items: center !important;
@@ -262,35 +257,36 @@ onMounted(() => { // please keep this onmount section and u can replace everythi
     height: 100%;
     max-height: 400px;
     background-color: transparent
-}
+  }
 
-.signupForm {
+  .signupForm {
     margin: auto;
     padding: 20px;
     border-radius: 16px;
     box-shadow: none;
     width: 100%;
     display: block;
-    max-width: 400px
-}
+    max-width: 480px;
+  }
 
-.signupFormDiv {
+  .signupFormDiv {
     width: 100%;
     display: flex;
     padding: 20px;
     justify-content: center;
     align-items: center;
     flex-direction: column
-}
+    
+  }
 
-.propertyFormDiv {
+  .propertyFormDiv {
     display: flex;
     width: 100%;
     flex: 1 0 100%;
-}
-
-.formInput {
-    box-sizing: border-box;
+  }
+    
+  .formInput {
+    box-sizing:border-box;
     border: none;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -298,17 +294,17 @@ onMounted(() => { // please keep this onmount section and u can replace everythi
     display: block;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     outline: none;
-    font-family: Open Sans, sans-serif;
-    color: #CA1212;
+    font-family: Roboto, sans-serif;
+    color: #000000;
     margin-right: 0px;
-    font-size: 19px;
+    font-size: 16px;
     width: 100%
-}
+  }
 
-.formCheckboxInput {
+  .formCheckboxInput {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 8px;    
     box-sizing: border-box;
     border: none;
     border-radius: 4px;
@@ -316,30 +312,30 @@ onMounted(() => { // please keep this onmount section and u can replace everythi
     padding: 12px 16px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     outline: none;
-    font-family: Open Sans, sans-serif;
-    color: #CA1212;
+    font-family: Roboto, sans-serif;
+    color: #000000;
     margin-right: 0px;
-    font-size: 19px;
+    font-size: 16px;
     width: 100%;
-}
+  }
 
-.checkbox-label-text {
+  .checkbox-label-text {
     flex: 1;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     display: inline-block;
-}
+  }
 
-.captchaContainer {
+  .captchaContainer {
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
     margin-right: 0px
-}
+  }
 
-.captchaContainerDev {
+  .captchaContainerDev {
     max-height: 47px;
     border: 1px dashed #888;
     display: flex;
@@ -349,14 +345,14 @@ onMounted(() => { // please keep this onmount section and u can replace everythi
     justify-content: center;
     margin-bottom: 10px;
     margin-right: 5px;
-}
+  }
 
-.captchaDiv {
+  .captchaDiv {
     display: block;
     width: 100%
-}
+  }
 
-.refreshCaptchaBtn {
+  .refreshCaptchaBtn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -367,10 +363,10 @@ onMounted(() => { // please keep this onmount section and u can replace everythi
     background: transparent;
     border: none;
     font-family: Roboto, sans-serif;
-    font-size: 16px
-}
+    font-size: 16px                          
+  }
 
-.captchaInput {
+  .captchaInput {
     border: none;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -378,28 +374,28 @@ onMounted(() => { // please keep this onmount section and u can replace everythi
     display: block;
     box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px;
     outline: none;
-    font-family: Open Sans, sans-serif;
-    color: #CA1212;
+    font-family: Roboto, sans-serif;
+    color: #000000;
     margin-right: 0px;
-    font-size: 19px;
+    font-size: 16px; 
     width: 100%
-}
+  }
 
-.submitBtn {
+  .submitBtn {
     border-radius: 4px;
     margin-bottom: 10px;
     padding: 6px 16px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 100%;
+    width: 100%; 
     font-family: Roboto, sans-serif;
     font-size: 16px;
     background-color: #10B1EF;
     color: #FFFFFF
-}
+  }
 
-.loadingBtn {
+  .loadingBtn {
     display: none;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -407,31 +403,31 @@ onMounted(() => { // please keep this onmount section and u can replace everythi
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 100%;
+    width: 100%; 
     font-family: Roboto, sans-serif;
     font-size: 16px;
     background-color: #10B1EF;
     color: #FFFFFF
-}
+  }
 
 
-.successMessageText {
+  .successMessageText {
     text-align: center;
     display: none;
     font-family: Roboto, sans-serif;
     color: #000000;
     font-size: 16px
-}
+  }
 
-.errorMessageText {
+  .errorMessageText {
     display: none;
     text-align: center;
     font-family: Roboto, sans-serif;
     color: #000000;
     font-size: 16px
-}
+  }
 
-.backBtn {
+  .backBtn {
     display: none;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -444,9 +440,9 @@ onMounted(() => { // please keep this onmount section and u can replace everythi
     font-size: 16px;
     background-color: #10B1EF;
     color: #FFFFFF
-}
-
-.formInput[style*="display:none"]+.checkbox-label-text {
+  }
+    
+  .formInput[style*="display:none"] + .checkbox-label-text {
     display: none;
-}
+  }
 </style>
