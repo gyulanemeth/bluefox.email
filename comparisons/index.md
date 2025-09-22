@@ -52,6 +52,12 @@ Explore the key differences between BlueFox Email and SendGrid, including featur
 
 [Read more](./bluefox-vs-sendgrid)
 
+## BlueFox Email vs MailerSend
+
+Explore the key differences between BlueFox Email and MailerSend, including features, pricing, and target audiences.
+
+[Read more](./bluefox-vs-mailersend)
+
 <style>
 a[href^="/comparisons/"] {
   color: #13B0EE;
