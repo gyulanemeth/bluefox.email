@@ -354,15 +354,15 @@ Unlike MailerSend's tiered feature restrictions, BlueFox Email provides all func
 
 | Monthly Volume   | MailerSend Cost  | BlueFox Email Credit Cost | AWS SES Fee | BlueFox Email Total | Savings |
 |------------------|------------------|---------------------------|-------------|---------------------|---------|
-| 2,000 emails     | $0 (Free Plan)   | $1.00                     | $0.20       | $1.20               | N/A     |
+| 2,000 emails     | $28.00           | $1.00                     | $0.20       | $1.20               | 96%     |
 | 5,000 emails     | $28.00           | $2.50                     | $0.50       | $3.00               | 89%     |
 | 10,000 emails    | $28.00           | $5.00                     | $1.00       | $6.00               | 79%     |
-| 50,000 emails    | $58.00           | $25.00                    | $5.00       | $30.00              | 48%     |
-| 100,000 emails   | $86.00           | $50.00                    | $10.00      | $60.00              | 30%     |
-| 500,000 emails   | $225.00          | $150.00                   | $50.00      | $200.00             | 11%     |
-| 1,000,000 emails | $425.00          | $300.00                   | $100.00     | $400.00             | 6%      |
+| 50,000 emails    | $28.00           | $25.00                    | $5.00       | $30.00              | -7%     |
+| 100,000 emails   | $75.50           | $50.00                    | $10.00      | $60.00              | 21%     |
+| 500,000 emails   | $453.00          | $150.00                   | $50.00      | $200.00             | 56%     |
+| 1,000,000 emails | $928.00          | $300.00                   | $100.00     | $400.00             | 57%     |
 
-_*MailerSend pricing based on Starter plan ($28) plus overages ($0.95 per 1,000 emails beyond 50,000)_  
+_*MailerSend pricing based on Professional plan ($28 for 50k emails) plus overages ($0.95 per 1,000 emails beyond 50k)_  
 _**BlueFox Email total includes both credit pack costs and AWS SES fees ($0.10 per 1,000 emails)_  
 
 :::tip **All Features on Every Plan**  
