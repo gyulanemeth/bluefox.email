@@ -37,7 +37,7 @@ head:
       content: https://bluefox.email/assets/articles/how-to-send-an-email-in-nodejs-using-amazon-ses-with-nodemailer-share.png
 ---
 
-![AWS can be scary](./how-to-send-an-email-in-nodejs-using-amazon-ses-with-nodemailer/00.png)
+![AWS can be scary](./how-to-send-an-email-in-nodejs-using-amazon-ses-with-nodemailer/00.webp)
 
 # How to Send an Email in Node.js Using Amazon SES with Nodemailer
 
@@ -264,7 +264,7 @@ const response = await transportLayer.sendMail({
 Although you send an HTML email, you might have noticed that we also sent the text version of the email. It is advised to do so.
 
 You should see something like this in your inbox:
-![HTML in inbox](./how-to-send-an-email-in-nodejs-using-amazon-ses-with-nodemailer/01.png)
+![HTML in inbox](./how-to-send-an-email-in-nodejs-using-amazon-ses-with-nodemailer/01.webp)
 
 :::warning HTML emails are tough
 Many people are surprised how hard it is to code HTML emails. You need to support tons of email clients on tons of devices, all of them with their own quirks... (I'm looking at you, Outlook!)

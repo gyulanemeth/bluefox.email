@@ -47,7 +47,7 @@ Throughout the user lifecycle, email plays a very important role. You can use em
 
 (TODO QUICK VIDEO HERE? or is the image enough?)
 
-![Email's role in user lifecycle steps.](./user-lifecycle.png)
+![Email's role in user lifecycle steps.](./user-lifecycle.webp)
 
 Let’s walk through the lifecycle stages of a user:  
 
@@ -115,7 +115,7 @@ Email, on the other hand, is about **keeping attention**, and moving people thro
 
 The big difference? You don’t own your reach on social or search. Algorithms decide who sees your posts or ads. With email, once someone subscribes, that connection is yours. You have a direct line to their inbox... No middlemen, no changing rules. The only thing you need to do is send relevant content and make it easy for people to unsubscribe. (Because spamming is the fastest way to lose trust.)
 
-![Email, as part of the marketing mix](./marketing-mix.png)
+![Email, as part of the marketing mix](./marketing-mix.webp)
 
 One more thing: many people consider cold emails part of “email marketing.” We don’t.  
 This course is not about cold emails. For us, email marketing starts the moment someone gives you their email address.  

@@ -65,7 +65,7 @@ If you’d rather not deal with the complexities of managing SES directly—like
 
 By the end of this tutorial, you’ll have a fully automated system to handle bounces and complaints from AWS SES. Here’s how the process works:
 
-![Flowchart of SES bounce/complaint event -> SNS topics -> SNS subscription -> webhook](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/how-it-works.png)
+![Flowchart of SES bounce/complaint event -> SNS topics -> SNS subscription -> webhook](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/how-it-works.webp)
 
 1. **SES Generates Events**  
    Whenever a bounce or complaint occurs, AWS SES triggers an event and sends it to an SNS topic.
@@ -98,17 +98,17 @@ Let’s dive into the steps to get this working!
 
 To get started, navigate to **Amazon SNS** in your AWS console. Your SNS dashboard should look something like this:
 
-![Amazon SNS dashboard with available topics](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/00.png)
+![Amazon SNS dashboard with available topics](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/00.webp)
 
 Next, go to the **Topics** section and click the **"Create topic"** button.
 
-![Highlighted Create Topic button in the Amazon SNS dashboard](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/01.png)
+![Highlighted Create Topic button in the Amazon SNS dashboard](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/01.webp)
 
 ### Configure the Topic
 
 You’ll now see several configuration options. Let's go through the exact settings you need.
 
-![Amazon SNS topic creation page showing various settings](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/02.png)
+![Amazon SNS topic creation page showing various settings](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/02.webp)
 
 1. **Select "Standard" as the Topic Type**  
    You **don’t** need a `FIFO` topic; a **Standard** topic is sufficient for handling bounce and complaint notifications.
@@ -122,37 +122,37 @@ For example:
 ✅ `myapp-prod-bounces`  
 ✅ `myapp-staging-complaints`
 
-![Example of setting a clear topic name in SNS](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/03.png)
+![Example of setting a clear topic name in SNS](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/03.webp)
 
 ### Adjust the Delivery Policy
 
 Now, scroll down to the **Delivery policy** section.
 
-![Delivery policy settings in Amazon SNS](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/04.png)
+![Delivery policy settings in Amazon SNS](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/04.webp)
 
 Expand this section to see the default settings. By default, the **Content-Type** is set to `text/plain`, but it’s best to change it to `application/json`.
 
-![Default Content-Type setting in SNS delivery policy](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/05.png)
+![Default Content-Type setting in SNS delivery policy](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/05.webp)
 
 To modify it:
 
 1. **Uncheck** the **"Use default delivery policy"** option.
 
-![Unchecking default delivery policy in SNS settings](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/06.png)
+![Unchecking default delivery policy in SNS settings](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/06.webp)
 
 2. Scroll down to the **Content-Type** input and change `text/plain` to `application/json`.
 
-![Changing Content-Type to application/json](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/07.png)
+![Changing Content-Type to application/json](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/07.webp)
 
 ### Finalizing the Topic Creation
 
 Once everything is set up, scroll to the bottom and click **"Create topic"**.
 
-![Create topic button in Amazon SNS](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/08.png)
+![Create topic button in Amazon SNS](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/08.webp)
 
 After creating the topic, you should see a confirmation page like this:
 
-![Amazon SNS topic successfully created](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/09.png)
+![Amazon SNS topic successfully created](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/09.webp)
 
 With your SNS topic now set up, you’re ready to move on to the next step: creating a **subscription** that will send notifications to your webhook.
 
@@ -223,61 +223,61 @@ If you already use bluefox.email, just copy the webhook URL from the **Set up bo
 
 Now, go back to the previous screen and click the **"Create subscription"** button.
 
-![Amazon SNS topics page with Create Subscription button highlighted](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/09.png)
+![Amazon SNS topics page with Create Subscription button highlighted](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/09.webp)
 
 This will take you to the subscription creation page. The **Topic ARN** field should already be selected. If not, select your SNS topic manually.
 
-![Amazon SNS subscription creation page with Topic ARN selected](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/10.png)
+![Amazon SNS subscription creation page with Topic ARN selected](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/10.webp)
 
 ### Configure Subscription Settings
 
 1. **Set Protocol to HTTPS**  
    In the **Protocol** dropdown, select **HTTPS**.
 
-   ![Selecting HTTPS as protocol in SNS subscription settings](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/11.png)
+   ![Selecting HTTPS as protocol in SNS subscription settings](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/11.webp)
 
 2. **Enter Your Webhook URL**  
    - If you're using **ngrok**, paste the public URL generated earlier.  
    - If you're using **bluefox.email**, enter the webhook URL copied from your **project settings**.  
 
-   ![Entering webhook URL in SNS subscription settings](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/12.png)
+   ![Entering webhook URL in SNS subscription settings](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/12.webp)
 
 Note that there is an info box. If you click the link in the info box, a sidebar appears on the right-hand side, explaining how you can confirm your subscription. You can either open the link sent to your webhook or copy the link back to the AWS SNS UI. We will get back to this in a bit.
 
-![SNS subscription confirmation info box](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/13.png)
+![SNS subscription confirmation info box](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/13.webp)
 
 Scroll down to the **Delivery policy** section. Just like with the topic configuration, change the **Content-Type** from `text/plain` to `application/json`.
 
-![Changing Content-Type to application/json in SNS delivery policy](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/14.png)
+![Changing Content-Type to application/json in SNS delivery policy](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/14.webp)
 
 1. **Uncheck** the **"Use default delivery policy"** option.
 2. Change **Content-Type** to `application/json`.
 
-![Finalizing Content-Type update in SNS subscription settings](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/15.png)
+![Finalizing Content-Type update in SNS subscription settings](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/15.webp)
 
 Click **"Create subscription"** at the bottom of the page.
 
 After clicking **"Create subscription"**, your webhook will immediately receive an **HTTP POST request** from AWS SNS.
 
-![Example of SubscriptionConfirmation JSON payload](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/16.png)
+![Example of SubscriptionConfirmation JSON payload](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/16.webp)
 
 As mentioned previously, you must confirm your subscription by either opening the **"SubscribeURL"** you received or by entering it in the AWS SNS UI. Until then, your subscription status will be **Pending confirmation**, as shown below:
 
-![SNS subscription pending confirmation](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/17.png)
+![SNS subscription pending confirmation](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/17.webp)
 
 If you open the **SubscribeURL** directly, you will see a similar `xml` response:
 
-![SNS subscription confirmation XML response](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/18a.png)
+![SNS subscription confirmation XML response](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/18a.webp)
 
 Of course, you can do it programmatically, or you can use the AWS UI to confirm your subscription.
 
 If you decide to confirm via the UI, navigate to your **SNS Subscriptions** page, select the **pending subscription**, and click the **"Confirm subscription"** button:
 
-![Confirm subscription button in AWS SNS UI](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/18b1.png)
+![Confirm subscription button in AWS SNS UI](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/18b1.webp)
 
 A dialog will appear with a single input field. Paste your **"SubscribeURL"** into the input box:
 
-![Pasting SubscribeURL to confirm subscription](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/18b2.png)
+![Pasting SubscribeURL to confirm subscription](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/18b2.webp)
 
 :::tip We chose the UI-based approach  
 At bluefox.email, we opted for manual confirmation to ensure full transparency. This way, you have complete control over which subscriptions you confirm.
@@ -285,7 +285,7 @@ At bluefox.email, we opted for manual confirmation to ensure full transparency. 
 
 Once you confirm your subscription, its status should change to **Confirmed**.
 
-![SNS subscription successfully confirmed](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/19.png)
+![SNS subscription successfully confirmed](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/19.webp)
 
 ## Set Up Bounce and Complaint Notifications at Your Amazon SES Identity
 
@@ -293,45 +293,45 @@ Now that your **SNS topic** and **subscription** are ready, it's time to configu
 
 First, navigate to your **SES dashboard**.
 
-![Amazon SES dashboard](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/20.png)
+![Amazon SES dashboard](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/20.webp)
 
 ### Select Your Sending Identity
 
 From the **Configuration** section in the left-hand menu, click **Identities**.
 
-![Selecting identities in AWS SES](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/21.png)
+![Selecting identities in AWS SES](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/21.webp)
 
 Now, select the **sending identity** (domain or email) that you want to configure.  
 
 If you haven't set up a sending domain yet, follow our [How to Set Up AWS SES](./how-to-set-up-aws-ses) guide.
 
-![Selecting an SES sending identity](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/22.png)
+![Selecting an SES sending identity](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/22.webp)
 
 ### Configure Notifications
 
 Inside your **sending identity settings**, go to the **Notifications** tab.
 
-![Navigating to the Notifications tab in AWS SES](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/23.png)
+![Navigating to the Notifications tab in AWS SES](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/23.webp)
 
 Find the **"Feedback notifications"** section and click the **Edit** button.
 
-![Editing feedback notifications in AWS SES](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/24.png)
+![Editing feedback notifications in AWS SES](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/24.webp)
 
 ### Assign SNS Topics
 
 Now, you can assign **SNS topics** for **bounces** and **complaints**. (You can also configure one for **delivery feedback**, but it's optional.)
 
-![Assigning SNS topics for bounce and complaint notifications](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/25.png)
+![Assigning SNS topics for bounce and complaint notifications](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/25.webp)
 
 Select the **SNS topics** you previously created.
 
-![Selecting SNS topics in AWS SES](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/26.png)
+![Selecting SNS topics in AWS SES](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/26.webp)
 
 ### Disable Email Feedback Forwarding (Optional)
 
 Once your webhook is fully implemented, you may want to **disable email feedback forwarding** since notifications will already be sent to your webhook through SNS.
 
-![Disabling email feedback forwarding in AWS SES](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/27.png)
+![Disabling email feedback forwarding in AWS SES](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/27.webp)
 
 At this point, your SES identity is properly configured to send bounce and complaint notifications to your SNS topics, ensuring your webhook receives the necessary events in real time.
 
@@ -341,23 +341,23 @@ If you've followed all the steps so far, your notification system should be in p
 
 Scroll up and click the **"Send test email"** button.
 
-![AWS SES send test email button](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/28.png)
+![AWS SES send test email button](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/28.webp)
 
 In the [How to Set Up AWS SES tutorial](./how-to-set-up-aws-ses), we sent a custom email. Now, we'll test different scenarios. You can format the email and fill in any subject and body.
 
-![AWS SES test email form](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/29.png)
+![AWS SES test email form](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/29.webp)
 
 In the **Scenario** dropdown, select **"Bounce"** or **"Complaint"**, depending on what you want to test. In this case, we're testing **Bounce**.
 
-![Selecting bounce scenario in AWS SES test email](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/30.png)
+![Selecting bounce scenario in AWS SES test email](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/30.webp)
 
 Now, click the **"Send test email"** button in the bottom-right corner.
 
-![Clicking Send test email button](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/31.png)
+![Clicking Send test email button](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/31.webp)
 
 Once the test email is sent, your webhook should receive an **HTTP request**. In the request body, the `"Type"` field will be set to **`Notification`**. More details can be found in the `"Message"` property. Since the `"Message"` is a JSON string, you will need to parse it. In this example, the `"notificationType"` is **`Bounce`**.
 
-![AWS SNS notification JSON payload](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/32.png)
+![AWS SNS notification JSON payload](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/32.webp)
 
 As you can see, the notification system is working! You can now test different scenarios in your local development environment.
 
@@ -412,4 +412,4 @@ At **bluefox.email**, we take care of this for you:
 
 Here’s what this looks like in bluefox.email:
 
-![Managing multiple SES sending identities in bluefox.email](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/muiltiple-identities.png)
+![Managing multiple SES sending identities in bluefox.email](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns/muiltiple-identities.webp)
