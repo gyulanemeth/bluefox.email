@@ -49,7 +49,7 @@ For marketing and product emails, you always need to offer a **global unsubscrib
 When you create your lists, always give them **clear titles and descriptions**. People should immediately understand what kind of emails they’ll receive. If you want, you can include frequency in the title (e.g. “Product Updates (Monthly)”), but it’s also fine to highlight it in the description instead. Clear communication reduces unsubscribes and builds trust.  
 
 **Here’s what a subscription preferences page can look like:**  
-![Example subscription preferences page with multiple lists and pause/unsubscribe options.](./lesson-01-01-subscription-preferences.png)  
+![Example subscription preferences page with multiple lists and pause/unsubscribe options.](./lesson-01-01-subscription-preferences.webp)  
 
 In this example, users can see each list with a clear name and description. They can pause or unsubscribe from individual lists, or choose to stop all emails at once. This makes it easy for users to stay in control while still keeping the option to stay subscribed to the topics that matter most to them.  
 
@@ -86,7 +86,7 @@ Two more things to always consider:
 With BlueFox, you can generate signup forms that handle required/optional fields out of the box, and you can also create subscribers programmatically via the [API](/docs/api/subscriber-list-management).  
 
 **Here’s what a signup form builder looks like:**  
-![Example signup form builder showing required and optional fields, form customization options, and HTML export.](./lesson-01-02-form-builder.png)  
+![Example signup form builder showing required and optional fields, form customization options, and HTML export.](./lesson-01-02-form-builder.webp)  
 
 **Best practices for collecting contacts:**  
 - Keep fields minimal. Only ask for what you really need.  
@@ -120,12 +120,12 @@ Designing emails that look good in every inbox is notoriously painful. Different
 - Add your **logo**, set your **brand colors**, and select your **typography**, maybe customize the **button** style.  
 - Reuse these same design elements across **marketing, product, and transactional emails**, so your brand feels consistent everywhere.  
 
-![Customizing the email design system in BlueFox Email](./lesson-01-03-theme-customization.png)  
+![Customizing the email design system in BlueFox Email](./lesson-01-03-theme-customization.webp)  
 *Customizing your brand styles in BlueFox (logo, colors, fonts, buttons).*  
 
 With BlueFox, you can set your brand styles once (logo, colors, fonts) in your email design system. Every campaign, product update, and even transactional message will stay consistent. To learn more about how modern design systems work and why they matter, check out our article on [the power of modern email design systems](/posts/the-power-of-modern-email-design-systems).  
 
-![Email editor loaded with your customized design system in BlueFox Email](./lesson-01-04-theme-in-editor.png)  
+![Email editor loaded with your customized design system in BlueFox Email](./lesson-01-04-theme-in-editor.webp)  
 *The email editor with your design system applied, keeping everything consistent.*  
 
 **Keep in mind:**  
@@ -153,7 +153,7 @@ Don’t overthink the length. Your readers should not be scared by a wall of tex
 
 Here’s an example of a relatively long newsletter that still works well because of its structure. Notice the clear sections, headings, and multiple CTAs that make it easy to scan:  
 
-![Example of a longer newsletter with clear structure, headings, visuals, and multiple CTAs, making it easy to scan.](./lesson-01-05-content-example.png)  
+![Example of a longer newsletter with clear structure, headings, visuals, and multiple CTAs, making it easy to scan.](./lesson-01-05-content-example.webp)  
 
 A few things this example does well:  
 - Breaks content into **clear sections with headings**, making it easy to skim.  

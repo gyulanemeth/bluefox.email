@@ -36,7 +36,7 @@ lastUpdated: true
 published: 2024-10-02
 sidebar: false
 ---
-![Title Image](/assets/articles/mastering-subject-lines.png)
+![Title Image](/assets/articles/mastering-subject-lines.webp)
 # Mastering Subject Lines: How to Get People to Actually Open Your Emails
 
 Let’s dive into one of the most important parts of emails: the subject line. I mean, it’s literally the first thing people see when they get your email. If it doesn’t catch their attention, they’re just going to ignore it, or worse: **delete** it. So, let’s talk about how to nail it.
