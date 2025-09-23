@@ -33,6 +33,8 @@ const { isDark } = useData()
         :src="`/assets/mascot-bring-your-own-awsses${isDark ? '-dark' : ''}-450x270.webp`"
         alt="Bring your own AmazonSES"
         class="cornerImage"
+        fetchpriority="high"
+        loading="eager"
       />
   </div>
 </template>
