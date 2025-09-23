@@ -2,7 +2,9 @@ import { h } from 'vue'
 import Theme from 'vitepress/theme'
 import { createVuetify } from 'vuetify'
 import 'vuetify/styles'
-import '@mdi/font/css/materialdesignicons.css'
+// import '@mdi/font/css/materialdesignicons.css'
+
+import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
 
@@ -45,6 +47,13 @@ export default {
     const vuetify = createVuetify({
       components,
       directives,
+      icons: {
+        defaultSet: 'mdi',
+        aliases,
+        sets: {
+          mdi,
+        },
+      },
       theme: {
         themes: {
           light: {
