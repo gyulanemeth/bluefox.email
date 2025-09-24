@@ -33,7 +33,7 @@ const testimonials = [
     company: 'Founder of TrendFingers.com',
     testimonial: `I’ve been using Blue Fox to send out my newsletters, and I couldn’t be happier. The system integrates seamlessly with my own AWS SES, giving me full control and transparency without the hefty price tag of overpriced black-box solutions like Mailchimp. It’s an excellent choice for anyone seeking reliability and efficiency.`,
     profileImg: '/assets/testimonials/gabriel-varaljay.webp',
-    logo: '/assets/testimonials/trendfingers.webp',
+    logo: '/assets/testimonials/trendfingers-250w.webp',
     logoAlt: 'TrendFingers Logo',
     url: 'https://trendfingers.com'
   },
@@ -218,7 +218,8 @@ function selectTestimonialEmail (id) {
                           <img
                             :src="testimonials[selectedTestimonialId].logo"
                             :alt="testimonials[selectedTestimonialId].logoAlt"
-                            style="height: 50px"
+                            width="237" 
+                            height="50"
                           />
                         </a>
                       </div>

@@ -28,6 +28,7 @@ headConf.push([
   {
     rel: "preload",
     as: "image",
+    fetchpriority: "high",
     href: "/assets/mascot-bring-your-own-awsses-dark-450x270.webp",
   },
 ])
