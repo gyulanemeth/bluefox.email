@@ -377,7 +377,6 @@ onBeforeUnmount(() => {
       :loop="lgAndUp || md"
       :controls="sm || xs"
       muted
-      preload="none"
     >
       <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
       Your browser does not support the video tag.
