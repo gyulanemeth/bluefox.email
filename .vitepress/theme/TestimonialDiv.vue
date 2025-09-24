@@ -155,13 +155,17 @@ function selectTestimonialEmail (id) {
       <div>
         <v-row class="pa-3">
           <v-col cols="3" class="rightBorder" style="max-height: 600px; overflow-y: auto">
-            <v-list lines="two" color="secondary">
+            <v-list lines="two" color="secondary" role="region" aria-label="Customer Testimonials" :aria-owns="undefined" :aria-multiselectable="undefined">
               <v-list-item
                 v-for="item in testimonials"
                 :key="item.id"
                 :value="item.id"
                 :active="item.id === selectedTestimonialId"
                 @click="selectTestimonialEmail(item.id)"
+                role="article"
+                :aria-selected="undefined"
+                tabindex="0"
+                @keydown.enter.space="selectTestimonialEmail(item.id)"
               >
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
                 <v-list-item-subtitle class="mb-1 opacity-80">{{ item.company }}</v-list-item-subtitle>
@@ -272,7 +276,11 @@ function selectTestimonialEmail (id) {
       <div>
         <v-row class="pa-3">
           <v-col cols="3" class="rightBorder" style="max-height: 600px; overflow-y: auto">
-            <v-list lines="two" color="secondary">
+            <v-list lines="two"
+             color="secondary" 
+             role="region"
+              aria-label="Customer testimonials"
+              :aria-owns="undefined">
               <v-list-item
                 v-for="item in testimonials"
                 :key="item.id"
@@ -521,6 +529,10 @@ function selectTestimonialEmail (id) {
                   :value="item.id"
                   :active="item.id === selectedTestimonialId"
                   @click="selectTestimonialEmail(item.id)"
+                  role="article"
+                  :aria-selected="undefined"
+                  tabindex="0"
+                  @keydown.enter.space="selectTestimonialEmail(item.id)"
                 >
                   <v-list-item-title>{{ item.name }}</v-list-item-title>
                   <v-list-item-subtitle class="mb-1 opacity-80">{{ item.company }}</v-list-item-subtitle>

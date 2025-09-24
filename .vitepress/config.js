@@ -42,6 +42,20 @@ headConf.push([
   },
 ])
 
+headConf.push([
+  'style',
+  {},
+  `
+    @font-face {
+      font-family: "Material Design Icons";
+      src: url("/assets/fonts/materialdesignicons-webfont.woff2") format("woff2");
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+  `
+])
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   cleanUrls: true,
@@ -91,6 +105,8 @@ export default defineConfig({
     logo: {
       src: "/assets/bluefoxemail-logo-24x24.webp",
       alt: "bluefox.email logo",
+      width: "24",
+      height: "24"
     },
 
     // Enable next and previous links at the bottom of doc pages
