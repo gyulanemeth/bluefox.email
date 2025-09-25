@@ -103,3 +103,8 @@ html {
   --docsearch-primary-color: var(--vp-c-brand) !important;
 }
 
+.VPNavBar .logo {
+  width: 24px !important;
+  height: 24px !important;
+  object-fit: contain;
+}

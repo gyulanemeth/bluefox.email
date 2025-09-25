@@ -76,7 +76,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
                 src="/assets/logo-text_inline.png" 
                 alt="BlueFox Email logo" 
                 width="250" 
-                height="auto"
+                height="60"
                 loading="lazy"
               />
             </a>
