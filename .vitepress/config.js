@@ -62,13 +62,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          // Split Vue framework
           'vue-vendor': ['vue'],
-          // Split Vuetify into its own chunk
           'vuetify-vendor': ['vuetify'],
-          // Split your custom fonts
           'fonts': ['@fontsource/amatic-sc', '@fontsource/indie-flower'],
-          // Split tools components
           'tools': [
             './theme/free-tools/DkimChecker.vue',
             './theme/free-tools/DmarcChecker.vue',
