@@ -28,6 +28,7 @@ headConf.push([
   {
     rel: "preload",
     as: "image",
+    fetchpriority: "high",
     href: "/assets/mascot-bring-your-own-awsses-dark-450x270.webp",
   },
 ])
@@ -36,6 +37,7 @@ headConf.push([
   {
     rel: "preload",
     as: "image",
+    fetchpriority: "high",
     href: "/assets/mascot-bring-your-own-awsses-450x270.webp",
   },
 ])
@@ -56,6 +58,25 @@ export default defineConfig({
       noExternal: ["vuetify"],
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vue-vendor': ['vue'],
+          'vuetify-vendor': ['vuetify'],
+          'fonts': ['@fontsource/amatic-sc', '@fontsource/indie-flower'],
+          'tools': [
+            './theme/free-tools/DkimChecker.vue',
+            './theme/free-tools/DmarcChecker.vue',
+            './theme/free-tools/SpfChecker.vue',
+            './theme/free-tools/MxChecker.vue',
+            './theme/free-tools/DmarcReportAnalyzer.vue',
+            './theme/free-tools/LinkChecker.vue'
+          ]
+        }
+      }
+    }
+  },
   css: {
     postcss: {
       plugins: [tailwindcss()],
@@ -66,6 +87,8 @@ export default defineConfig({
     logo: {
       src: "/assets/bluefoxemail-logo-24x24.webp",
       alt: "bluefox.email logo",
+      width: "24",
+      height: "24"
     },
 
     // Enable next and previous links at the bottom of doc pages
@@ -338,37 +361,37 @@ export default defineConfig({
         },
       ],
       "/courses/email-marketing-saas/": [
-          {
-            text: "Course Overview",
-            link: "/courses/email-marketing-saas/",
-            items: [
-              {
-                text: "Send Your First Newsletter",
-                link: "/courses/email-marketing-saas/lesson-01-send-first-newsletter",
-              },
-              {
-                text: "Welcome Email Flow",
-                link: "/courses/email-marketing-saas/lesson-02-welcome-email-flow"
-              },
-              {
-                text: "Educational Email Series as a Lead Magnet",
-                link: "/courses/email-marketing-saas/lesson-03",
-              },
-              {
-                text: "Segmentation",
-                link: "/courses/email-marketing-saas/lesson-04",
-              },
-              {
-                text: "Personalization",
-                link: "/courses/email-marketing-saas/lesson-05",
-              },
-              {
-                text: "Other Lead Magnets",
-                link: "/courses/email-marketing-saas/lesson-06",
-              },
-            ]
-          },
-        ],
+        {
+          text: "Course Overview",
+          link: "/courses/email-marketing-saas/",
+          items: [
+            {
+              text: "Send Your First Newsletter",
+              link: "/courses/email-marketing-saas/lesson-01-send-first-newsletter",
+            },
+            {
+              text: "Welcome Email Flow",
+              link: "/courses/email-marketing-saas/lesson-02-welcome-email-flow"
+            },
+            {
+              text: "Educational Email Series as a Lead Magnet",
+              link: "/courses/email-marketing-saas/lesson-03",
+            },
+            {
+              text: "Segmentation",
+              link: "/courses/email-marketing-saas/lesson-04",
+            },
+            {
+              text: "Personalization",
+              link: "/courses/email-marketing-saas/lesson-05",
+            },
+            {
+              text: "Other Lead Magnets",
+              link: "/courses/email-marketing-saas/lesson-06",
+            },
+          ]
+        },
+      ],
     },
     socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }],
     // Disabling the default footer as we're using a custom component

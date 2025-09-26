@@ -716,7 +716,7 @@ Example:
                     :disabled="captchaLoading"
                     title="Refresh captcha"
                   >
-                    <img src="/assets/reload.webp?url" alt="reload" />
+                    <img src="/assets/reload.svg?url" alt="reload" />
                   </button>
                 </div>
                 <input
@@ -860,7 +860,7 @@ Example:
                     class="copy-redirect-btn"
                     :title="`Copy ${selectedResult.finalUrl} to clipboard`"
                   >
-                    <img src="/assets/copy.webp?url" alt="copy" />
+                    <img src="/assets/copy.svg?url" alt="copy" />
                   </button>
                 </div>
                 <span class="redirect-url" :title="selectedResult.finalUrl">{{ selectedResult.finalUrl }}</span>

@@ -54,8 +54,8 @@ const testimonials = [
     initials: 'GB',
     company: 'POS Solutions Australia',
     testimonial: 'We have recently started using Bluefox. The combination of the Bluefox design tools and the reliability of AWS is very impressive. The emails we create appear in our clients\' inboxes exactly how we have designed them. This is a big step forward for us, after having issues with other email platforms, where the design was definitely not uniform across all email clients.',
-    profileImg: '/assets/testimonials/garth-brennan.jpg',
-    logo: '/assets/testimonials/possolutions-logo.png',
+    profileImg: '/assets/testimonials/garth-brennan.webp',
+    logo: '/assets/testimonials/possolutions-logo.webp',
     logoAlt: 'POS Solutions Logo',
     url: 'https://possolutions.com.au'
   },
@@ -147,6 +147,7 @@ function selectTestimonialEmail (id) {
               variant="outlined"
               hide-details
               disabled
+              aria-hidden="true"
             />
           </v-col>
         </v-row>
@@ -155,13 +156,23 @@ function selectTestimonialEmail (id) {
       <div>
         <v-row class="pa-3">
           <v-col cols="3" class="rightBorder" style="max-height: 600px; overflow-y: auto">
-            <v-list lines="two" color="secondary">
+            <v-list 
+            lines="two" 
+            color="secondary"
+            role="region"
+            aria-label="Customer testimonials"
+            :aria-owns="undefined"
+            >
               <v-list-item
                 v-for="item in testimonials"
                 :key="item.id"
                 :value="item.id"
                 :active="item.id === selectedTestimonialId"
                 @click="selectTestimonialEmail(item.id)"
+                role="article"
+                :aria-selected="undefined"
+                tabindex="0"
+                @keydown.enter.space="selectTestimonialEmail(item.id)"
               >
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
                 <v-list-item-subtitle class="mb-1 opacity-80">{{ item.company }}</v-list-item-subtitle>
@@ -271,13 +282,23 @@ function selectTestimonialEmail (id) {
       <div>
         <v-row class="pa-3">
           <v-col cols="3" class="rightBorder" style="max-height: 600px; overflow-y: auto">
-            <v-list lines="two" color="secondary">
+            <v-list 
+            lines="two" 
+            color="secondary"
+            role="region"
+            aria-label="Customer testimonials"
+            :aria-owns="undefined"
+            >
               <v-list-item
                 v-for="item in testimonials"
                 :key="item.id"
                 :value="item.id"
                 :active="item.id === selectedTestimonialId"
                 @click="selectTestimonialEmail(item.id)"
+                role="article"
+                :aria-selected="undefined"
+                tabindex="0"
+                @keydown.enter.space="selectTestimonialEmail(item.id)"
               >
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
                 <v-list-item-subtitle class="mb-1 opacity-80">{{ item.company }}</v-list-item-subtitle>

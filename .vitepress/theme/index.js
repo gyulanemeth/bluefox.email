@@ -3,8 +3,36 @@ import Theme from 'vitepress/theme'
 import { createVuetify } from 'vuetify'
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
+
+// import * as components from 'vuetify/components'
+import {
+  VBtn,
+  VCard,
+  VCardText,
+  VCardTitle,
+  VCardActions,
+  VChip,
+  VCol,
+  VContainer,
+  VImg,
+  VRow,
+  VSheet,
+  VTabs,
+  VTab,
+  VTabsWindow,
+  VTabsWindowItem,
+  VIcon,
+  VDivider,
+  VList,
+  VListItem,
+  VListItemTitle,
+  VListItemSubtitle,
+  VAvatar,
+  VSpacer,
+  VTextField
+} from 'vuetify/components'
+
+import { Ripple } from 'vuetify/directives'
 
 import '@fontsource/amatic-sc/400.css'
 import '@fontsource/amatic-sc/700.css'
@@ -43,8 +71,35 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     const vuetify = createVuetify({
-      components,
-      directives,
+      components: {
+        VBtn,
+        VCard,
+        VCardText,
+        VCardTitle,
+        VCardActions,
+        VChip,
+        VCol,
+        VContainer,
+        VImg,
+        VRow,
+        VSheet,
+        VTabs,
+        VTab,
+        VTabsWindow,
+        VTabsWindowItem,
+        VIcon,
+        VDivider,
+        VList,
+        VListItem,
+        VListItemTitle,
+        VListItemSubtitle,
+        VAvatar,
+        VSpacer,
+        VTextField
+      },
+      directives: {
+        Ripple
+      },
       theme: {
         themes: {
           light: {
