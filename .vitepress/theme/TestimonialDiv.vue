@@ -147,7 +147,7 @@ function selectTestimonialEmail (id) {
               variant="outlined"
               hide-details
               disabled
-              aria-label="Search testimonials"
+              aria-hidden="true"
             />
           </v-col>
         </v-row>
