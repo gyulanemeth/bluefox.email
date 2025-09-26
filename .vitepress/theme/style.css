@@ -21,6 +21,14 @@ html {
  * Colors
  * -------------------------------------------------------------------------- */
 
+@font-face {
+  font-family: "Material Design Icons";
+  src: url("/fonts/materialdesignicons-webfont.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
  :root {
   --vp-c-brand:hsl(197, 87%, 50%);
   --vp-c-brand-light:	hsl(197, 87%, 60%);

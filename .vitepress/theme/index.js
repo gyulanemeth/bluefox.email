@@ -32,7 +32,7 @@ import {
   VTextField
 } from 'vuetify/components'
 
-import * as directives from 'vuetify/directives'
+import { Ripple } from 'vuetify/directives'
 
 import '@fontsource/amatic-sc/400.css'
 import '@fontsource/amatic-sc/700.css'
@@ -97,7 +97,9 @@ export default {
         VSpacer,
         VTextField
       },
-      directives,
+      directives: {
+        Ripple
+      },
       theme: {
         themes: {
           light: {

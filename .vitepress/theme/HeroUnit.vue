@@ -35,6 +35,8 @@ const { isDark } = useData()
         class="cornerImage"
         fetchpriority="high"
         loading="eager"
+        width="242"
+        height="145"
       />
   </div>
 </template>
