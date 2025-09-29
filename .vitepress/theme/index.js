@@ -1,4 +1,4 @@
-import { h } from 'vue'
+import { h, defineAsyncComponent } from 'vue'
 import Theme from 'vitepress/theme'
 import { createVuetify } from 'vuetify'
 import 'vuetify/styles'
@@ -43,23 +43,7 @@ import './style.css'
 import Posts from './Posts.vue'
 import Post from './Post.vue'
 import NavigationButton from './NavigationButton.vue'
-import TestimonialDiv from './TestimonialDiv.vue'
-import DesignSystem from './DesignSystem.vue'
-import RenderingIssues from './RenderingIssues.vue'
-import Deliverability from './Deliverability.vue'
-import Automation from './Automation.vue'
-import Integration from './Integration.vue'
-import GlossaryCTA from './GlossaryCTA.vue'
-import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
-
-import DkimChecker from './free-tools/DkimChecker.vue'
-import DmarcChecker from './free-tools/DmarcChecker.vue'
-import SpfChecker from './free-tools/SpfChecker.vue'
-import MxChecker from './free-tools/MxChecker.vue'
-import DmarcReportAnalyzer from './free-tools/DmarcReportAnalyzer.vue'
-import LinkChecker from './free-tools/LinkChecker.vue'
-
 
 export default {
   extends: Theme,
@@ -123,23 +107,29 @@ export default {
 
     app.use(vuetify)
 
+    // Register small, common components globally
     app.component('posts', Posts)
     app.component('post', Post)
     app.component('NavigationButton', NavigationButton)
-    app.component('TestimonialDiv', TestimonialDiv)
-    app.component('DesignSystem', DesignSystem)
-    app.component('RenderingIssues', RenderingIssues)
-    app.component('Deliverability', Deliverability)
-    app.component('Automation', Automation)
-    app.component('Integration', Integration)
-    app.component('GlossaryCTA', GlossaryCTA)
-    app.component('GlossaryNavigation', GlossaryNavigation)
     app.component('CustomFooter', CustomFooter)
-    app.component('DkimChecker', DkimChecker)
-    app.component('DmarcChecker', DmarcChecker)
-    app.component('SpfChecker', SpfChecker)
-    app.component('MxChecker', MxChecker)
-    app.component('DmarcReportAnalyzer', DmarcReportAnalyzer)
-    app.component('LinkChecker', LinkChecker)
+
+    // Register large, page-specific components ASYNCHRONOUSLY
+    // This is the key performance improvement
+    app.component('TestimonialDiv', defineAsyncComponent(() => import('./TestimonialDiv.vue')))
+    app.component('DesignSystem', defineAsyncComponent(() => import('./DesignSystem.vue')))
+    app.component('RenderingIssues', defineAsyncComponent(() => import('./RenderingIssues.vue')))
+    app.component('Deliverability', defineAsyncComponent(() => import('./Deliverability.vue')))
+    app.component('Automation', defineAsyncComponent(() => import('./Automation.vue')))
+    app.component('Integration', defineAsyncComponent(() => import('./Integration.vue')))
+    app.component('GlossaryCTA', defineAsyncComponent(() => import('./GlossaryCTA.vue')))
+    app.component('GlossaryNavigation', defineAsyncComponent(() => import('./GlossaryNavigation.vue')))
+
+    // Register all "tool" components asynchronously
+    app.component('DkimChecker', defineAsyncComponent(() => import('./free-tools/DkimChecker.vue')))
+    app.component('DmarcChecker', defineAsyncComponent(() => import('./free-tools/DmarcChecker.vue')))
+    app.component('SpfChecker', defineAsyncComponent(() => import('./free-tools/SpfChecker.vue')))
+    app.component('MxChecker', defineAsyncComponent(() => import('./free-tools/MxChecker.vue')))
+    app.component('DmarcReportAnalyzer', defineAsyncComponent(() => import('./free-tools/DmarcReportAnalyzer.vue')))
+    app.component('LinkChecker', defineAsyncComponent(() => import('./free-tools/LinkChecker.vue')))
   },
 }
