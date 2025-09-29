@@ -359,10 +359,12 @@ onBeforeUnmount(() => {
       width="100%"
       :autoplay="lgAndUp || md"
       :loop="lgAndUp || md"
-      :controls="sm || xs"
+      controls  
       muted
+      preload="none"
+      poster="/assets/bluefox-email-editor-intro.webp"
     >
-      <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
+      <source src="/assets/bluefox-email-editor-intro.webm" type="video/webm">
       Your browser does not support the video tag.
     </video>
   </v-card>
@@ -443,10 +445,12 @@ onBeforeUnmount(() => {
         width="100%"
         :autoplay="lgAndUp || md"
         :loop="lgAndUp || md"
-        :controls="sm || xs"
+        controls
         muted
+        preload="none"
+        poster="/assets/bluefox-email-content-editing.webp"
       >
-        <source src="/assets/bluefox-email-content-editing.mp4" type="video/mp4">
+        <source src="/assets/bluefox-email-content-editing.webm" type="video/webm">
         Your browser does not support the video tag.
       </video>
     </v-card>
