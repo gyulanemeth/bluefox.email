@@ -10,10 +10,10 @@ html {
   scroll-padding-top: 70px;
 }
 
- /**
+/**
  * Fonts
  * -------------------------------------------------------------------------- */
- /* we use a direct import instead from npm packages... that way, we don't have a rendering blocking request...
+/* we use a direct import instead from npm packages... that way, we don't have a rendering blocking request...
  @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Indie+Flower&display=swap');
  */
 
@@ -21,7 +21,7 @@ html {
  * Colors
  * -------------------------------------------------------------------------- */
 
- :root {
+:root {
   --vp-c-brand: hsl(197, 87%, 50%);
   --vp-c-brand-light: hsl(197, 87%, 60%);
   --vp-c-brand-lighter: hsl(197, 87%, 70%);
@@ -55,14 +55,14 @@ html {
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(
     120deg,
-    #392C91 5%,
-    #13B0EE
+    #392c91 5%,
+    #13b0ee
   );
 
   --vp-home-hero-image-background-image: linear-gradient(
     -45deg,
-    #392C91 10%,
-    #13B0EE 90%
+    #392c91 10%,
+    #13b0ee 90%
   );
   --vp-home-hero-image-filter: blur(40px);
 }
@@ -130,11 +130,7 @@ html {
 .vp-adaptive-theme {
   color: #1f2937 !important;
   background-color: #f3f4f6 !important;
-  border: 1px solid #d1d5db !important;
   padding: 0.5rem !important;
-  border-radius: 0.25rem !important;
-  font-family: var(--vp-font-family-mono) !important;
-  font-size: 0.875rem !important;
   line-height: 1.5 !important;
 }
 
@@ -143,140 +139,6 @@ html {
 .dark .vp-adaptive-theme {
   color: #f9fafb !important;
   background-color: #1f2937 !important;
-  border: 1px solid #374151 !important;
-}
-
-/* Ensure proper contrast for inline code */
-code {
-  color: #1f2937 !important;
-  background-color: #f3f4f6 !important;
-  padding: 0.25rem 0.5rem !important;
-  border-radius: 0.25rem !important;
-  font-family: var(--vp-font-family-mono) !important;
-  font-size: 0.875em !important;
-}
-
-.dark code {
-  color: #f9fafb !important;
-  background-color: #1f2937 !important;
-}
-
-/* Video accessibility improvements */
-video {
-  max-width: 100%;
-  height: auto;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Focus styles for video controls */
-video:focus,
-video:focus-visible {
-  outline: 2px solid var(--vp-c-brand);
-  outline-offset: 2px;
-}
-
-/* Ensure proper contrast for video containers */
-.v-card {
-  background-color: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-border);
-}
-
-/* Better focus management for interactive elements */
-.v-btn:focus,
-.v-btn:focus-visible {
-  outline: 2px solid var(--vp-c-brand);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 2px var(--vp-c-white), 0 0 0 4px var(--vp-c-brand);
-}
-
-/* Ensure proper heading hierarchy and contrast */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 600;
-  line-height: 1.25;
-  margin-bottom: 0.5rem;
-  color: var(--vp-c-text-1);
-}
-
-h2 {
-  font-size: 1.5rem;
-  margin-top: 2rem;
-}
-
-h3 {
-  font-size: 1.25rem;
-  margin-top: 1.5rem;
-}
-
-h4 {
-  font-size: 1.1rem;
-  margin-top: 1.25rem;
-}
-
-/* Ensure proper contrast for body text */
-p {
-  color: var(--vp-c-text-1);
-  line-height: 1.6;
-}
-
-/* Link contrast improvements */
-a {
-  color: var(--vp-c-brand);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-/* Table accessibility */
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-th, td {
-  border: 1px solid var(--vp-c-border);
-  padding: 0.5rem;
-  text-align: left;
-}
-
-th {
-  background-color: var(--vp-c-bg-soft);
-  font-weight: 600;
-}
-
-/* Form element accessibility */
-input, textarea, select {
-  padding: 0.5rem;
-  border: 1px solid var(--vp-c-border);
-  border-radius: 0.25rem;
-  background-color: var(--vp-c-bg);
-  color: var(--vp-c-text-1);
-}
-
-input:focus, textarea:focus, select:focus {
-  outline: 2px solid var(--vp-c-brand);
-  outline-offset: 2px;
-}
-
-/* Ensure proper contrast for buttons */
-button {
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-  padding: 0.5rem 1rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-button:focus {
-  outline: 2px solid var(--vp-c-brand);
-  outline-offset: 2px;
-}
-
-*:focus-visible {
-  outline: 2px solid var(--vp-c-brand);
-  outline-offset: 2px;
 }
 
 /**
