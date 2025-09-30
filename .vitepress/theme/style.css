@@ -1,6 +1,6 @@
 /**
  * Customize default theme styling by overriding CSS variables:
- * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css    
  */
 
 /* Add smooth scrolling behavior site-wide */
@@ -22,12 +22,12 @@ html {
  * -------------------------------------------------------------------------- */
 
  :root {
-  --vp-c-brand:hsl(197, 87%, 50%);
-  --vp-c-brand-light:	hsl(197, 87%, 60%);
-  --vp-c-brand-lighter:	hsl(197, 87%, 70%);
-  --vp-c-brand-lightest: 	hsl(197, 87%, 80%);
-  --vp-c-brand-dark: 	hsl(197, 87%, 40%);
-  --vp-c-brand-darker: 	hsl(197, 87%, 30%);
+  --vp-c-brand: hsl(197, 87%, 50%);
+  --vp-c-brand-light: hsl(197, 87%, 60%);
+  --vp-c-brand-lighter: hsl(197, 87%, 70%);
+  --vp-c-brand-lightest: hsl(197, 87%, 80%);
+  --vp-c-brand-dark: hsl(197, 87%, 40%);
+  --vp-c-brand-darker: hsl(197, 87%, 30%);
   --vp-c-brand-dimm: rgba(100, 108, 255, 0.08);
 }
 
@@ -95,30 +95,183 @@ html {
   --vp-custom-block-tip-bg: var(--vp-c-brand-dimm);
 }
 
+/**
+ * Accessibility: Improved Contrast
+ * -------------------------------------------------------------------------- */
 :root {
-  /* Code blocks – light mode */
-  --vp-code-block-color: #24292f;
-  --vp-code-block-bg: #f6f8fa;
-  --vp-code-comment-color: #6a737d;
-  --vp-code-keyword-color: #d73a49;
-  --vp-code-string-color: #032f62;
+  /* Code blocks – improved contrast */
+  --vp-code-block-color: #1f2937; /* Better contrast */
+  --vp-code-block-bg: #f9fafb; /* Better contrast */
+  --vp-code-comment-color: #4b5563; /* Better contrast */
+  --vp-code-keyword-color: #dc2626; /* Better contrast */
+  --vp-code-string-color: #1d4ed8; /* Better contrast */
 
-  /* Custom blocks – light mode */
-  --vp-custom-block-tip-text: #1a568c;
-  --vp-custom-block-tip-bg: #e6f4ff;
+  /* Custom blocks – improved contrast */
+  --vp-custom-block-tip-text: #164e63; /* Better contrast */
+  --vp-custom-block-tip-bg: #e0f2fe; /* Better contrast */
 }
 
 .dark {
-  /* Code blocks – dark mode */
-  --vp-code-block-color: #e6edf3;
-  --vp-code-block-bg: #0d1117;
-  --vp-code-comment-color: #8b949e;
-  --vp-code-keyword-color: #ff7b72;
-  --vp-code-string-color: #a5d6ff;
+  /* Code blocks – dark mode improved contrast */
+  --vp-code-block-color: #f3f4f6; /* Better contrast */
+  --vp-code-block-bg: #111827; /* Better contrast */
+  --vp-code-comment-color: #9ca3af; /* Better contrast */
+  --vp-code-keyword-color: #fca5a5; /* Better contrast */
+  --vp-code-string-color: #93c5fd; /* Better contrast */
 
-  /* Custom blocks – dark mode */
-  --vp-custom-block-tip-text: #67d8ff;
-  --vp-custom-block-tip-bg: rgba(25, 118, 210, 0.15);
+  /* Custom blocks – dark mode improved contrast */
+  --vp-custom-block-tip-text: #7dd3fc; /* Better contrast */
+  --vp-custom-block-tip-bg: rgba(56, 189, 248, 0.15); /* Better contrast */
+}
+
+/* Specific fixes for JSON code blocks */
+.lang,
+.language-json,
+.vp-adaptive-theme {
+  color: #1f2937 !important;
+  background-color: #f3f4f6 !important;
+  border: 1px solid #d1d5db !important;
+  padding: 0.5rem !important;
+  border-radius: 0.25rem !important;
+  font-family: var(--vp-font-family-mono) !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+}
+
+.dark .lang,
+.dark .language-json,
+.dark .vp-adaptive-theme {
+  color: #f9fafb !important;
+  background-color: #1f2937 !important;
+  border: 1px solid #374151 !important;
+}
+
+/* Ensure proper contrast for inline code */
+code {
+  color: #1f2937 !important;
+  background-color: #f3f4f6 !important;
+  padding: 0.25rem 0.5rem !important;
+  border-radius: 0.25rem !important;
+  font-family: var(--vp-font-family-mono) !important;
+  font-size: 0.875em !important;
+}
+
+.dark code {
+  color: #f9fafb !important;
+  background-color: #1f2937 !important;
+}
+
+/* Video accessibility improvements */
+video {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Focus styles for video controls */
+video:focus,
+video:focus-visible {
+  outline: 2px solid var(--vp-c-brand);
+  outline-offset: 2px;
+}
+
+/* Ensure proper contrast for video containers */
+.v-card {
+  background-color: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border);
+}
+
+/* Better focus management for interactive elements */
+.v-btn:focus,
+.v-btn:focus-visible {
+  outline: 2px solid var(--vp-c-brand);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 2px var(--vp-c-white), 0 0 0 4px var(--vp-c-brand);
+}
+
+/* Ensure proper heading hierarchy and contrast */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+  color: var(--vp-c-text-1);
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+  margin-top: 1.25rem;
+}
+
+/* Ensure proper contrast for body text */
+p {
+  color: var(--vp-c-text-1);
+  line-height: 1.6;
+}
+
+/* Link contrast improvements */
+a {
+  color: var(--vp-c-brand);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Table accessibility */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid var(--vp-c-border);
+  padding: 0.5rem;
+  text-align: left;
+}
+
+th {
+  background-color: var(--vp-c-bg-soft);
+  font-weight: 600;
+}
+
+/* Form element accessibility */
+input, textarea, select {
+  padding: 0.5rem;
+  border: 1px solid var(--vp-c-border);
+  border-radius: 0.25rem;
+  background-color: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: 2px solid var(--vp-c-brand);
+  outline-offset: 2px;
+}
+
+/* Ensure proper contrast for buttons */
+button {
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:focus {
+  outline: 2px solid var(--vp-c-brand);
+  outline-offset: 2px;
 }
 
 *:focus-visible {
@@ -133,4 +286,3 @@ html {
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand) !important;
 }
-
