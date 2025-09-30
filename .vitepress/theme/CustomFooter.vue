@@ -40,7 +40,12 @@ const FOOTER_CONFIG = {
 }
 
 // Utilities
-const normalizePath = (path) => path.rstrip ? path.rstrip('/') : path.replace(/\/+$/, '')
+const normalizePath = (path) => {
+  if (!path) return ''
+  // remove trailing slashes (but keep "/" for root)
+  const cleaned = path.replace(/\/+$/, '')
+  return cleaned === '' ? '/' : cleaned
+}
 
 // Main computed properties
 const route = useRoute()

@@ -34,12 +34,6 @@ import {
 
 import { Ripple } from 'vuetify/directives'
 
-import '@fontsource/amatic-sc/400.css'
-import '@fontsource/amatic-sc/700.css'
-import '@fontsource/indie-flower/400.css'
-
-import './style.css'
-
 import Posts from './Posts.vue'
 import Post from './Post.vue'
 import NavigationButton from './NavigationButton.vue'
@@ -70,6 +64,46 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
+    // Defer large site fonts & styles to client to reduce initial CSS payload and unused CSS.
+    if (typeof window !== 'undefined') {
+      // add preconnect hints for common font hosts (helps early connect)
+      try {
+        const preconnectHosts = [
+          'https://fonts.gstatic.com',
+          'https://fonts.googleapis.com'
+        ]
+        preconnectHosts.forEach(href => {
+          if (!document.querySelector(`link[rel="preconnect"][href="${href}"]`)) {
+            const l = document.createElement('link')
+            l.rel = 'preconnect'
+            l.href = href
+            l.crossOrigin = ''
+            document.head.appendChild(l)
+          }
+        })
+      } catch (e) {
+        // no-op on SSR or restrictive environments
+      }
+
+      // load optional fonts and local theme CSS after hydration
+      Promise.resolve().then(async () => {
+        try {
+          await import('@fontsource/amatic-sc/400.css')
+          await import('@fontsource/amatic-sc/700.css')
+          await import('@fontsource/indie-flower/400.css')
+        } catch (e) {
+          // ignore if fonts are not available in the environment
+        }
+
+        // load project style last (reduces render-blocking CSS)
+        try {
+          await import('./style.css')
+        } catch (e) {
+          // ignore
+        }
+      })
+    }
+
     const vuetify = createVuetify({
       components: {
         VBtn,

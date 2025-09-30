@@ -56,7 +56,7 @@ const selectedEmailType = ref('0');
 let intervalId
 
 onMounted(() => {
-  setInterval(() => {
+  intervalId = setInterval(() => {
     let actSelVal = parseInt(selectedEmailType.value)
     actSelVal += 1
     actSelVal %= 4
@@ -65,7 +65,10 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  clearInterval(intervalId);
+  if (intervalId) {
+    clearInterval(intervalId)
+    intervalId = null
+  }
 })
 
 </script>
