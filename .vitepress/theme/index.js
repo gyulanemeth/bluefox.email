@@ -53,12 +53,15 @@ import GlossaryCTA from './GlossaryCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
 
-import DkimChecker from './free-tools/DkimChecker.vue'
-import DmarcChecker from './free-tools/DmarcChecker.vue'
-import SpfChecker from './free-tools/SpfChecker.vue'
-import MxChecker from './free-tools/MxChecker.vue'
-import DmarcReportAnalyzer from './free-tools/DmarcReportAnalyzer.vue'
-import LinkChecker from './free-tools/LinkChecker.vue'
+import { defineAsyncComponent } from 'vue'
+
+
+const DkimChecker = defineAsyncComponent(() => import('./free-tools/DkimChecker.vue'))
+const DmarcChecker = defineAsyncComponent(() => import('./free-tools/DmarcChecker.vue'))
+const SpfChecker = defineAsyncComponent(() => import('./free-tools/SpfChecker.vue'))
+const MxChecker = defineAsyncComponent(() => import('./free-tools/MxChecker.vue'))
+const DmarcReportAnalyzer = defineAsyncComponent(() => import('./free-tools/DmarcReportAnalyzer.vue'))
+const LinkChecker = defineAsyncComponent(() => import('./free-tools/LinkChecker.vue'))
 
 
 export default {

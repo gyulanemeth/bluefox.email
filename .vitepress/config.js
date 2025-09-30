@@ -65,14 +65,6 @@ export default defineConfig({
           'vue-vendor': ['vue'],
           'vuetify-vendor': ['vuetify'],
           'fonts': ['@fontsource/amatic-sc', '@fontsource/indie-flower'],
-          'tools': [
-            './theme/free-tools/DkimChecker.vue',
-            './theme/free-tools/DmarcChecker.vue',
-            './theme/free-tools/SpfChecker.vue',
-            './theme/free-tools/MxChecker.vue',
-            './theme/free-tools/DmarcReportAnalyzer.vue',
-            './theme/free-tools/LinkChecker.vue'
-          ]
         }
       }
     }
