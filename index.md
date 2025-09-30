@@ -340,6 +340,84 @@ onBeforeUnmount(() => {
   />
 </section>
 
+<section id="marketers" class="section-index">
+  <div class="d-flex justify-center">
+    <v-chip color="primary">
+      <span class="text-overline">For marketers</span>
+    </v-chip>
+  </div>
+    <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+      Effortless content editing
+    </h2>
+    <div class="d-flex justify-center">
+      <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+        Quickly refine your email content with our intuitive, no-code editor.
+      </div>
+    </div>
+    <v-card class="d-flex justify-center mt-4" variant="elevated">
+      <video
+        width="100%"
+        :autoplay="lgAndUp || md"
+        :loop="lgAndUp || md"
+        :controls="sm || xs"
+        muted
+      >
+        <source src="/assets/bluefox-email-content-editing.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </v-card>
+  </section>
+
+<section class="value-prop">
+  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+    Craft thoughtful email journeys
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Create seamless, considerate email workflows that engage the right people at the right time.
+    </div>
+  </div>
+
+  <Automation
+    class="mt-6"
+    :is-dark="isDark"
+    :lg-and-up="lgAndUp"
+    :md="md"
+    :sm="sm"
+    :xs="xs"
+  />
+</section>
+
+
+  
+<section class="section-index value-prop">
+  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+    Easy Audience Management, from Segmentation to Complaints
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Manage and segment your audience with advanced filtering and list management features. Take advantage of features like double opt-in and easy subscription preferences.
+    </div>
+  </div>
+  <v-card class="d-flex justify-center mt-4" variant="elevated">
+    <img alt="List management screens" src="/assets/list-management.webp" loading="lazy" />
+  </v-card>
+</section>
+
+<section class="value-prop">
+  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+    Advanced Analytics Made Easy
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      You get intuitive, detailed analytics that highlight what really matters, helping you optimize your email performance effortlessly.
+    </div>
+  </div>
+  <v-card class="d-flex justify-center mt-4" variant="elevated">
+    <img alt="Analytics screenshot" src="/assets/analytics-alt.webp" loading="lazy" />
+  </v-card>
+</section>
+
 <section id="designers" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
@@ -403,72 +481,6 @@ onBeforeUnmount(() => {
     :xs="xs"
   />
 </section>
-
-<section id="marketers" class="section-index">
-  <div class="d-flex justify-center">
-    <v-chip color="primary">
-      <span class="text-overline">For marketers</span>
-    </v-chip>
-  </div>
-  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Craft thoughtful email journeys
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Create seamless, considerate email workflows that engage the right people at the right time.
-    </div>
-  </div>
-
-  <Automation
-    class="mt-6"
-    :is-dark="isDark"
-    :lg-and-up="lgAndUp"
-    :md="md"
-    :sm="sm"
-    :xs="xs"
-  />
-</section>
-
-<section class="value-prop">
-    <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-      Effortless content editing
-    </h2>
-    <div class="d-flex justify-center">
-      <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-        Quickly refine your email content with our intuitive, no-code editor.
-      </div>
-    </div>
-    <v-card class="d-flex justify-center mt-4" variant="elevated">
-      <video
-        width="100%"
-        :autoplay="lgAndUp || md"
-        :loop="lgAndUp || md"
-        :controls="sm || xs"
-        muted
-      >
-        <source src="/assets/bluefox-email-content-editing.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </v-card>
-  </section>
-  
-
-  <section class="value-prop">
-    <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-      Understand your audience
-    </h2>
-    <div class="d-flex justify-center">
-      <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-        Track engagement, segment smarter, and fine-tune your emails to drive more conversions.
-      </div>
-    </div>
-    <v-card class="d-flex justify-center mt-4" variant="elevated">
-      <img alt="Analytics screenshot" src="/assets/analytics.png" loading="lazy" />
-    </v-card>
-  </section>
-
-
-
 
 
 
@@ -547,10 +559,6 @@ onBeforeUnmount(() => {
   </template>
 
   </Integration>
-</section>
-
-<section id="deliverability" class="value-prop">
-  <Deliverability />
 </section>
 
 
