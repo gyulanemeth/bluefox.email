@@ -361,6 +361,7 @@ onBeforeUnmount(() => {
       :loop="lgAndUp || md"
       :controls="sm || xs"
       muted
+      aria-label="BlueFox Email editor interface demonstration showing no-code email design capabilities"
     >
       <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
       Your browser does not support the video tag.
@@ -445,6 +446,7 @@ onBeforeUnmount(() => {
         :loop="lgAndUp || md"
         :controls="sm || xs"
         muted
+        aria-label="BlueFox Email content editing demonstration showing how to easily refine email content"
       >
         <source src="/assets/bluefox-email-content-editing.mp4" type="video/mp4">
         Your browser does not support the video tag.
