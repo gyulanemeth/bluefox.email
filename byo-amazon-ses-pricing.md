@@ -190,7 +190,7 @@ html.dark .pricing-card .pricing-card-inner {
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    max-width: 500px;
+    max-width: 600px;
   }
 
   @media (max-width: 599px) {
