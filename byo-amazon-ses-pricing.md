@@ -211,7 +211,7 @@ html.dark .pricing-card .pricing-card-inner {
       <div class="pricing-card-inner">
         <h3>Start-up</h3>
         <div class="pricing-card-credits">100K credits</div>
-        <div class="pricing-card-sends">(50K sends)</div>
+        <div class="pricing-card-sends">(100K sends)</div>
         <div class="pricing-card-price">$50</div>
       </div>
     </div>
@@ -219,7 +219,7 @@ html.dark .pricing-card .pricing-card-inner {
       <div class="pricing-card-inner">
         <h3>Scale-up</h3>
         <div class="pricing-card-credits">1M credits</div>
-        <div class="pricing-card-sends">(500K sends)</div>
+        <div class="pricing-card-sends">(1M sends)</div>
         <div class="pricing-card-price">$300</div>
       </div>
     </div>
@@ -227,7 +227,7 @@ html.dark .pricing-card .pricing-card-inner {
       <div class="pricing-card-inner">
         <h3>Grown-up</h3>
         <div class="pricing-card-credits">10M credits</div>
-        <div class="pricing-card-sends">(5M sends)</div>
+        <div class="pricing-card-sends">(10M sends)</div>
         <div class="pricing-card-price">$2500</div>
       </div>
     </div>
@@ -235,7 +235,7 @@ html.dark .pricing-card .pricing-card-inner {
       <div class="pricing-card-inner">
         <h3>Enterprise</h3>
         <div class="pricing-card-credits">10M+ credits</div>
-        <div class="pricing-card-sends">(5M+ sends)</div>
+        <div class="pricing-card-sends">(10M+ sends)</div>
         <div class="pricing-card-price"><a href="mailto:hello@bluefox.email">Contact us</a></div>
       </div>
     </div>
@@ -243,10 +243,11 @@ html.dark .pricing-card .pricing-card-inner {
   
   <div class="credit-explanation">
     <div class="with-branding">
-      <div>1 email send = 2 credits</div>
+      <div>1 email send = 1 credit</div>
+      <div>You will also need to pay to AWS $0.1 / 1000 emails for your SES usage.</div>
     </div>
   </div>
-  <div>Wanna bring your own SES? <a href="/byo-amazon-ses-pricing">See our BYO SES pricing.</a></div>
+  <div>Wanna use our sending infrastructure? <a href="/pricing">See our regular pricing.</a></div>
   <p>All packages include all of our features without restrictions!</p>
   <div id="get-started-with-free-credits">Get started with 3000 free monthly credits in the first year</div>
 
