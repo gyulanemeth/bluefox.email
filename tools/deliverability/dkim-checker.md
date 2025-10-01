@@ -61,5 +61,9 @@ head:
 
 **Validate your DKIM signatures** and ensure your email authentication is working correctly with our comprehensive DKIM checker tool.
 
+<script setup>
+import DkimChecker from '../../.vitepress/theme/free-tools/DkimChecker.vue'
+</script>
+
 
 <DkimChecker />

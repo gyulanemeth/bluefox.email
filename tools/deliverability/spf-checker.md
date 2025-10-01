@@ -63,4 +63,8 @@ head:
 
 **Validate your SPF records** and ensure your domain's email authentication is properly configured with our comprehensive SPF checker tool.
 
+<script setup>
+import SpfChecker from '../../.vitepress/theme/free-tools/SpfChecker.vue'
+</script>
+
 <SpfChecker />

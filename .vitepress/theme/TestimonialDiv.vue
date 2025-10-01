@@ -225,11 +225,15 @@ function selectTestimonialEmail (id) {
                         <a
                           :href="testimonials[selectedTestimonialId].url"
                           target="_blank"
+                          rel="noopener"
                         >
                           <img
                             :src="testimonials[selectedTestimonialId].logo"
                             :alt="testimonials[selectedTestimonialId].logoAlt"
-                            style="height: 50px"
+                            width="150"
+                            height="50"
+                            style="height: 50px;"
+                            loading="lazy"
                           />
                         </a>
                       </div>
@@ -351,11 +355,15 @@ function selectTestimonialEmail (id) {
                           <a
                             :href="testimonials[selectedTestimonialId].url"
                             target="_blank"
+                            rel="noopener"
                           >
                             <img
                               :src="testimonials[selectedTestimonialId].logo"
                               :alt="testimonials[selectedTestimonialId].logoAlt"
-                              style="height: 50px"
+                              width="150"
+                              height="50"
+                              style="height: 50px;"
+                              loading="lazy"
                             />
                           </a>
                         </div>
@@ -463,11 +471,15 @@ function selectTestimonialEmail (id) {
                             <a
                               :href="testimonials[selectedTestimonialId].url"
                               target="_blank"
+                              rel="noopener"
                             >
                               <img
                                 :src="testimonials[selectedTestimonialId].logo"
                                 :alt="testimonials[selectedTestimonialId].logoAlt"
-                                style="height: 50px"
+                                width="150"
+                                height="50"
+                                style="height: 50px;"
+                                loading="lazy"
                               />
                             </a>
                           </div>
