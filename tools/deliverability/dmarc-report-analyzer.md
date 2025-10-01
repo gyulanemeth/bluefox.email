@@ -59,6 +59,10 @@ head:
 
 # Free DMARC Report Analyzer
 
+<script setup>
+import DmarcReportAnalyzer from '../../.vitepress/theme/free-tools/DmarcReportAnalyzer.vue'
+</script>
+
 **Parse and analyze DMARC aggregate reports** to gain deep insights into your email authentication performance and security posture.
 
 <DmarcReportAnalyzer />

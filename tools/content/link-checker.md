@@ -65,4 +65,9 @@ head:
 **Validate your email links** and ensure your email content is working correctly, before you hit the send!
 
 
+<script setup>
+import LinkChecker from '../../.vitepress/theme/free-tools/LinkChecker.vue'
+</script>
+
+
 <LinkChecker />

@@ -53,16 +53,6 @@ import GlossaryCTA from './GlossaryCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
 
-import { defineAsyncComponent } from 'vue'
-
-
-const DkimChecker = defineAsyncComponent(() => import('./free-tools/DkimChecker.vue'))
-const DmarcChecker = defineAsyncComponent(() => import('./free-tools/DmarcChecker.vue'))
-const SpfChecker = defineAsyncComponent(() => import('./free-tools/SpfChecker.vue'))
-const MxChecker = defineAsyncComponent(() => import('./free-tools/MxChecker.vue'))
-const DmarcReportAnalyzer = defineAsyncComponent(() => import('./free-tools/DmarcReportAnalyzer.vue'))
-const LinkChecker = defineAsyncComponent(() => import('./free-tools/LinkChecker.vue'))
-
 
 export default {
   extends: Theme,
@@ -138,11 +128,5 @@ export default {
     app.component('GlossaryCTA', GlossaryCTA)
     app.component('GlossaryNavigation', GlossaryNavigation)
     app.component('CustomFooter', CustomFooter)
-    app.component('DkimChecker', DkimChecker)
-    app.component('DmarcChecker', DmarcChecker)
-    app.component('SpfChecker', SpfChecker)
-    app.component('MxChecker', MxChecker)
-    app.component('DmarcReportAnalyzer', DmarcReportAnalyzer)
-    app.component('LinkChecker', LinkChecker)
   },
 }
