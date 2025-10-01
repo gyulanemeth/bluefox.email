@@ -13,7 +13,7 @@ if (env.VITE_APP_ENV === 'production') {
     "script",
     {
       src: "https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C",
-      async: true,
+      defer: true,
     },
   ])
   headConf.push([

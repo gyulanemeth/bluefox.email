@@ -43,12 +43,8 @@ import './style.css'
 import Posts from './Posts.vue'
 import Post from './Post.vue'
 import NavigationButton from './NavigationButton.vue'
-import TestimonialDiv from './TestimonialDiv.vue'
 import DesignSystem from './DesignSystem.vue'
-import RenderingIssues from './RenderingIssues.vue'
 import Deliverability from './Deliverability.vue'
-import Automation from './Automation.vue'
-import Integration from './Integration.vue'
 import GlossaryCTA from './GlossaryCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
@@ -119,12 +115,8 @@ export default {
     app.component('posts', Posts)
     app.component('post', Post)
     app.component('NavigationButton', NavigationButton)
-    app.component('TestimonialDiv', TestimonialDiv)
     app.component('DesignSystem', DesignSystem)
-    app.component('RenderingIssues', RenderingIssues)
     app.component('Deliverability', Deliverability)
-    app.component('Automation', Automation)
-    app.component('Integration', Integration)
     app.component('GlossaryCTA', GlossaryCTA)
     app.component('GlossaryNavigation', GlossaryNavigation)
     app.component('CustomFooter', CustomFooter)
