@@ -43,11 +43,8 @@ import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
 
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
-import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
 import DesignSystem from './.vitepress/theme/DesignSystem.vue'
 import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
-import Automation from './.vitepress/theme/Automation.vue'
-import Integration from './.vitepress/theme/Integration.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
