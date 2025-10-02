@@ -370,7 +370,7 @@ onBeforeUnmount(() => {
 
 <section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Craft thoughtful email journeys
+    Sophisticated Email Automations
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
