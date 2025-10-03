@@ -57,6 +57,11 @@ head:
 
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
 
+<script setup>
+import DmarcChecker from '../../.vitepress/theme/free-tools/DmarcChecker.vue'
+</script>
+
+
 # Free DMARC Checker
 
 **Validate your DMARC policy** and ensure your domain is protected against email spoofing with our comprehensive DMARC checker tool.

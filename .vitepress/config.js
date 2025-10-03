@@ -4,8 +4,9 @@ import { addSchemaMarkup } from './theme/SchemaMarkup/schemaMarkup'
 import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
 import { addComparisonSchemaMarkup } from './theme/SchemaMarkup/ComparisonSchemaMarkup'
 
-const headConf = []
 const env = loadEnv('', process.cwd())
+
+let headConf = [];
 
 if (env.VITE_APP_ENV === 'production') {
   // only add GA if in production
@@ -23,31 +24,33 @@ if (env.VITE_APP_ENV === 'production') {
   ])
 }
 
-headConf.push([
-  "link",
-  {
-    rel: "preload",
-    as: "image",
-    fetchpriority: "high",
-    href: "/assets/mascot-bring-your-own-awsses-dark-450x270.webp",
-  },
-])
-headConf.push([
-  "link",
-  {
-    rel: "preload",
-    as: "image",
-    fetchpriority: "high",
-    href: "/assets/mascot-bring-your-own-awsses-450x270.webp",
-  },
-])
-
-// https://vitepress.dev/reference/site-config
+//   https://vitepress.dev/reference/site-config
 export default defineConfig({
   cleanUrls: true,
   title: "bluefox.email",
   description: "High deliverability & brand consistency.",
   head: headConf,
+  transformHead({ assets, ...context }) {
+    const mdiFontFile = assets.find(asset =>
+      asset.includes('materialdesignicons') && asset.endsWith('.woff2')
+    );
+
+    if (mdiFontFile) {
+      return [
+        [
+          'link',
+          {
+            rel: 'preload',
+            href: `${mdiFontFile}`,
+            as: 'font',
+            type: 'font/woff2',
+            crossorigin: '',
+          }
+        ]
+      ];
+    }
+    return [];
+  },
   transformPageData(pageData) {
     addToolsSchemaMarkup(pageData)
     addSchemaMarkup(pageData)
@@ -64,15 +67,6 @@ export default defineConfig({
         manualChunks: {
           'vue-vendor': ['vue'],
           'vuetify-vendor': ['vuetify'],
-          'fonts': ['@fontsource/amatic-sc', '@fontsource/indie-flower'],
-          'tools': [
-            './theme/free-tools/DkimChecker.vue',
-            './theme/free-tools/DmarcChecker.vue',
-            './theme/free-tools/SpfChecker.vue',
-            './theme/free-tools/MxChecker.vue',
-            './theme/free-tools/DmarcReportAnalyzer.vue',
-            './theme/free-tools/LinkChecker.vue'
-          ]
         }
       }
     }
@@ -110,7 +104,7 @@ export default defineConfig({
         component: "NavigationButton",
         props: {
           text: "Login",
-          link: "https://app.bluefox.email",
+          link: "https://app.bluefox.email", // Removed trailing space
           variant: "outlined",
         },
       },
@@ -118,7 +112,7 @@ export default defineConfig({
         component: "NavigationButton",
         props: {
           text: "Get Started for Free",
-          link: "https://app.bluefox.email/accounts/create-account",
+          link: "https://app.bluefox.email/accounts/create-account", // Removed trailing space
           variant: "flat",
           color: "primary",
         },
@@ -393,12 +387,12 @@ export default defineConfig({
         },
       ],
     },
-    socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }],
+    socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }], // Removed trailing space
     // Disabling the default footer as we're using a custom component
     footer: false,
   },
   sitemap: {
-    hostname: "https://bluefox.email",
+    hostname: "https://bluefox.email", // Removed trailing space
   },
   markdown: {
     config(md) {

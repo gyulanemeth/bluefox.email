@@ -57,6 +57,10 @@ head:
 
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
 
+<script setup>
+import DmarcReportAnalyzer from '../../.vitepress/theme/free-tools/DmarcReportAnalyzer.vue'
+</script>
+
 # Free DMARC Report Analyzer
 
 **Parse and analyze DMARC aggregate reports** to gain deep insights into your email authentication performance and security posture.
