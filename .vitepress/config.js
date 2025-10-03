@@ -24,25 +24,6 @@ if (env.VITE_APP_ENV === 'production') {
   ])
 }
 
-headConf.push([
-  "link",
-  {
-    rel: "preload",
-    as: "image",
-    fetchpriority: "high",
-    href: "/assets/mascot-bring-your-own-awsses-dark-450x270.webp",
-  },
-])
-headConf.push([
-  "link",
-  {
-    rel: "preload",
-    as: "image",
-    fetchpriority: "high",
-    href: "/assets/mascot-bring-your-own-awsses-450x270.webp",
-  },
-])
-
 //   https://vitepress.dev/reference/site-config
 export default defineConfig({
   cleanUrls: true,
