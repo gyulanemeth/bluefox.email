@@ -58,6 +58,9 @@ head:
 
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
 
+<script setup>
+import SpfChecker from '../../.vitepress/theme/free-tools/SpfChecker.vue'
+</script>
 
 # Free SPF Checker
 

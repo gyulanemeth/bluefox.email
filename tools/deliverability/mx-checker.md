@@ -57,6 +57,9 @@ head:
 
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
 
+<script setup>
+import MxChecker from '../../.vitepress/theme/free-tools/MxChecker.vue'
+</script>
 
 # Free MX Record Checker
 
