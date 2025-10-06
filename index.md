@@ -560,6 +560,9 @@ onBeforeUnmount(() => {
   </Integration>
 </section>
 
+<section id="deliverability" class="value-prop">
+  <Deliverability />
+</section>
 
 <section id="second-cta">
   <h2 class="sectionTitle text-center mb-3">
@@ -584,5 +587,7 @@ onBeforeUnmount(() => {
     </v-btn>
   </v-row>
 </section>
+
+
 
 
