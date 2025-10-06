@@ -370,7 +370,7 @@ onBeforeUnmount(() => {
 
 <section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Sophisticated Email Automations
+    Sophisticated email automations
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
@@ -392,7 +392,7 @@ onBeforeUnmount(() => {
   
 <section class="section-index value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Easy Audience Management, from Segmentation to Complaints
+    Easy audience management, from segmentation to complaints
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
@@ -406,7 +406,7 @@ onBeforeUnmount(() => {
 
 <section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Advanced Analytics Made Easy
+    Advanced analytics made easy
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
