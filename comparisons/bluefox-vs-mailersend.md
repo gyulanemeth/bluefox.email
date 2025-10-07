@@ -49,9 +49,9 @@ In this comprehensive comparison, we'll evaluate both platforms, examining desig
 
 However, MailerSend's user reviews reveal several challenges. The platform operates on a shared IP infrastructure by default, which means your sender reputation can be affected by other users' sending practices. While dedicated IPs are available, they are an add-on for enterprise plans. A more significant issue highlighted by users is a strict and often opaque account approval and suspension process, which can lead to abrupt service interruptions without clear explanation.
 
-**BlueFox Email** takes a focused approach designed for SaaS companies and organizations that prioritize email design quality, delivery control, and infrastructure transparency. Built as a sophisticated control panel on top of the user's own AWS Simple Email Service (SES) account, it provides enterprise-grade deliverability with full, isolated control over sender reputation. BlueFox Email emphasizes predictable, usage-based billing, professional rendering across all email clients (including Outlook), and consistent feature access across all plans, making it ideal for teams that treat email as a critical customer touchpoint.
+**BlueFox Email** takes a focused approach designed for SaaS companies, marketing agencies, and organizations that prioritize email design quality, delivery control, and infrastructure transparency. Built as a sophisticated control panel on top of reliable enterprise-grade infrastructure, it provides exceptional deliverability with consistent feature access across all plans. For advanced users requiring maximum control, BlueFox Email offers an optional "bring-your-own-AWS-SES" mode that operates on top of the user's own AWS Simple Email Service (SES) account, providing full, isolated control over sender reputation. BlueFox Email emphasizes predictable, usage-based billing, professional rendering across all email clients (including Outlook), and consistent feature access across all plans, making it ideal for teams that treat email as a critical customer touchpoint.
 
-Both platforms serve growing businesses and technical teams, but they differ significantly in their underlying philosophy. MailerSend offers a self-contained, user-friendly solution, while BlueFox Email provides a transparent, AWS-powered infrastructure for maximum control and reliability.
+Both platforms serve growing businesses and technical teams, but they differ significantly in their underlying philosophy. MailerSend offers a self-contained, user-friendly solution, while BlueFox Email provides a transparent infrastructure with optional AWS-powered control for maximum reliability.
 
 ## Email Design and Template Capabilities
 
@@ -91,12 +91,12 @@ The platform features robust webhook capabilities for real-time event tracking a
 
 ### BlueFox Email's Developer-Friendly Architecture
 
-BlueFox Email is built with a developer-centric, API-first philosophy, offering a comprehensive([https://bluefox.email/docs/api/](https://bluefox.email/docs/api/)) for complete control over all email operations. Unlike platforms that obscure their infrastructure, BlueFox Email provides complete transparency by operating directly on the user's AWS SES account, giving developers full visibility into the email delivery pipeline.
+BlueFox Email is built with a developer-centric, API-first philosophy, offering a comprehensive API ([https://bluefox.email/docs/api/](https://bluefox.email/docs/api/)) for complete control over all email operations. The platform provides complete infrastructure transparency, and for teams requiring maximum control, offers an optional "bring-your-own-AWS-SES" mode that operates directly on the user's AWS SES account, giving developers full visibility into the email delivery pipeline.
 
-The platform features real-time webhooks for all critical email events, enabling seamless integration with backend systems for immediate response to subscriber behavior. BlueFox Email provides a dedicated TypeScript library (`bluefox-email`) for a typed interface and robust error handling. It also includes specialized integrations, such as a guide for using it with([https://bluefox.email/docs/integrations/supabase](https://bluefox.email/docs/integrations/supabase)).
+The platform features real-time webhooks for all critical email events, enabling seamless integration with backend systems for immediate response to subscriber behavior. It also includes specialized integrations, such as a guide for using it with Supabase ([https://bluefox.email/docs/integrations/supabase](https://bluefox.email/docs/integrations/supabase)).
 
 **BlueFox Email Integration Strengths & Weaknesses:**
-- **Strengths:** API-first design with a focus on developer control and infrastructure transparency via AWS SES. Robust webhooks and a modern TypeScript library enhance the developer experience.
+- **Strengths:** API-first design with a focus on developer control and infrastructure transparency. Robust webhooks and optional bring-your-own-AWS-SES mode for maximum control enhance the developer experience.
 - **Weaknesses:** As a more focused platform, it has a smaller native integration marketplace compared to larger, all-in-one services. Initial API implementation requires some technical knowledge.
 
 ![bluefox docs collage](/assets/comparisons/bluefox-docs-collage.webp)
@@ -131,7 +131,7 @@ The system supports advanced conditions using contact data and email engagement 
 
 ![bluefox automation collage](/assets/comparisons/email-automation-collage.webp)
 
-:::tip **All Features on Every Plan**  
+:::tip **All Features on Every Plan**  
 Every BlueFox Email plan, including the free tier, includes design systems, automation and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
 :::
 
@@ -141,7 +141,7 @@ Every BlueFox Email plan, including the free tier, includes design systems, auto
 
 MailerSend is built by a team with over a decade of deliverability experience from MailerLite and emphasizes its ability to reach the inbox. The platform manages its own sending infrastructure, which operates on shared IP pools by default. This means a user's sender reputation can be influenced by the practices of other customers on the platform. For high-volume senders, dedicated IP addresses are available as an add-on for Enterprise plans to help isolate their reputation.
 
-The platform provides essential authentication tools (SPF, DKIM) and suppression list management to maintain list hygiene.However, a recurring theme in negative user reviews is the strict account vetting process, which can lead to sudden suspensions, often with unclear reasons provided, creating a significant point of friction for legitimate businesses.
+The platform provides essential authentication tools (SPF, DKIM) and suppression list management to maintain list hygiene. However, a recurring theme in negative user reviews is the strict account vetting process, which can lead to sudden suspensions, often with unclear reasons provided, creating a significant point of friction for legitimate businesses.
 
 **MailerSend Deliverability Strengths & Weaknesses:**
 - **Strengths:** Backed by an experienced deliverability team. Offers standard authentication and list management tools.
@@ -149,13 +149,13 @@ The platform provides essential authentication tools (SPF, DKIM) and suppression
 
 ### BlueFox Email's Infrastructure Control
 
-BlueFox Email's architecture is fundamentally different, designed to give users maximum control and transparency. The platform operates as a sophisticated layer on top of the user's own AWS SES account. This "bring-your-own-SES" model means your sender reputation is completely isolated and is only affected by your own sending practices.
+BlueFox Email's architecture is fundamentally different, designed to give users maximum control and transparency. The platform operates on reliable, enterprise-grade infrastructure, and for advanced users, offers an optional "bring-your-own-SES" mode that operates as a sophisticated layer on top of the user's AWS SES account. This optional model means sender reputation is completely isolated and only affected by your own sending practices.
 
-Users benefit from the enterprise-grade reliability and scalability of Amazon's global delivery network while gaining access to BlueFox Email's advanced design, automation, and analytics tools. The platform provides comprehensive deliverability monitoring, real-time bounce and complaint handling, and automatic suppression list management to maintain sender health. This approach eliminates the "black box" problem of shared infrastructure and removes the risk of being penalized for another user's actions.
+Whether using BlueFox Email's managed infrastructure or the optional AWS SES integration, users benefit from enterprise-grade reliability and scalability while gaining access to BlueFox Email's advanced design, automation, and analytics tools. The platform provides comprehensive deliverability monitoring, real-time bounce and complaint handling, and automatic suppression list management to maintain sender health. This approach provides full transparency and, in the bring-your-own-SES mode, eliminates the risk of being penalized for another user's actions.
 
 **BlueFox Email Infrastructure Strengths & Weaknesses:**
-- **Strengths:** Full control over an isolated sender reputation via AWS SES. Enterprise-grade deliverability and transparency.
-- **Weaknesses:** Requires users to set up and manage their own AWS account, which involves a more technical initial setup. AWS SES fees apply separately from BlueFox Email credits.
+- **Strengths:** Enterprise-grade deliverability and full infrastructure transparency. Optional bring-your-own-AWS-SES mode provides complete control over isolated sender reputation for advanced users.
+- **Weaknesses:** The optional bring-your-own-SES mode requires users to set up and manage their own AWS account, which involves a more technical initial setup and separate AWS SES billing.
 
 
 ## Analytics and Reporting
@@ -172,12 +172,12 @@ However, some users have reported limitations. Data retention periods are tied t
 
 ### BlueFox Email's Analytics Focus
 
-BlueFox Email provides a unified analytics dashboard that consolidates critical delivery and engagement metrics in one place. The platform tracks sends, opens, clicks, bounce rates (with detailed classifications), complaint rates, and unsubscribes.
+BlueFox Email provides a unified analytics dashboard that consolidates critical delivery and engagement metrics in one place. The platform tracks sends, opens, clicks, bounce rates with detailed bounce type categorization (hard bounces, soft bounces, and specific failure reasons), complaint rates, and unsubscribes.
 
-A key advantage is the direct integration with AWS SES, which provides visibility into sender reputation metrics that are often hidden by other platforms. This allows technical teams to monitor their sender health directly. Real-time event tracking via webhooks enables immediate integration of performance data into other systems. The focus is on providing clear, actionable insights that support continuous program improvement, with consistent reporting available across all plan tiers.
+A key advantage is BlueFox Email's comprehensive tracking system, which provides visibility into sender reputation metrics that are often hidden by other platforms. This allows technical teams to monitor their sender health directly with actionable data. Real-time event tracking via webhooks enables immediate integration of performance data into other systems. The focus is on providing clear, actionable insights that support continuous program improvement, with consistent reporting available across all plan tiers.
 
 **BlueFox Email Analytics Strengths & Weaknesses:**
-- **Strengths:** Unified dashboard with core metrics and direct visibility into AWS SES sender reputation data.
+- **Strengths:** Unified dashboard with core metrics and direct visibility into comprehensive sender reputation data tracked by BlueFox Email's analytics system.
 - **Weaknesses:** Does not offer built-in e-commerce ROI or revenue tracking. Provides limited comparative industry benchmarking data.
 
 ![bluefox dashboard analytics](/assets/comparisons/bluefox-analytics.webp)
@@ -230,29 +230,30 @@ BlueFox Email uses a straightforward, transparent credit-based system where you 
 - **Scale-up pack**: 1,000,000 credits for $300
 - **Grown-up pack**: 10,000,000 credits for $2,500
 
-This model includes unlimited contacts and access to all features on every plan. AWS SES fees (approximately $0.10 per 1,000 emails) are charged separately by Amazon, providing complete cost transparency. This eliminates surprise charges and ensures you never pay for storing inactive contacts.
+This model includes unlimited contacts and access to all features on every plan. For users utilizing the optional bring-your-own-AWS-SES mode, AWS SES fees (approximately $0.10 per 1,000 emails) are charged separately by Amazon, providing complete cost transparency. This eliminates surprise charges and ensures you never pay for storing inactive contacts.
 
 **BlueFox Email Pricing Strengths & Weaknesses:**
 - **Strengths:** Highly cost-effective, transparent, and flexible pay-as-you-go model. All features are included on all plans. No charge for storing contacts.
-- **Weaknesses:** Credits expire after one year. Requires managing a separate bill for AWS SES fees.
+- **Weaknesses:** Credits expire after one year. The optional bring-your-own-AWS-SES mode requires managing a separate bill for AWS SES fees.
 
 ### Scenario-Based Cost Comparison
 
-| Monthly Volume   | MailerSend Cost* | BlueFox Email Credit Cost | AWS SES Fee | BlueFox Email Total | Savings |
-|------------------|------------------|---------------------------|-------------|---------------------|---------|
-| 2,000 emails     | $88.00           | $1.00                     | $0.20       | $1.20               | 99%     |
-| 5,000 emails     | $88.00           | $2.50                     | $0.50       | $3.00               | 97%     |
-| 10,000 emails    | $88.00           | $5.00                     | $1.00       | $6.00               | 93%     |
-| 50,000 emails    | $88.00           | $25.00                    | $5.00       | $30.00              | 66%     |
-| 100,000 emails   | $135.50          | $50.00                    | $10.00      | $60.00              | 56%     |
-| 500,000 emails   | $515.50          | $150.00                   | $50.00      | $200.00             | 61%     |
-| 1,000,000 emails | $990.50          | $300.00                   | $100.00     | $400.00             | 60%     |
+| Monthly Volume   | MailerSend Cost* | BlueFox Email Credit Cost | AWS SES Fee** | BlueFox Email Total | Savings |
+|------------------|------------------|---------------------------|---------------|---------------------|---------|
+| 2,000 emails     | $88.00           | $1.00                     | $0.20         | $1.20               | 99%     |
+| 5,000 emails     | $88.00           | $2.50                     | $0.50         | $3.00               | 97%     |
+| 10,000 emails    | $88.00           | $5.00                     | $1.00         | $6.00               | 93%     |
+| 50,000 emails    | $88.00           | $25.00                    | $5.00         | $30.00              | 66%     |
+| 100,000 emails   | $135.50          | $50.00                    | $10.00        | $60.00              | 56%     |
+| 500,000 emails   | $515.50          | $150.00                   | $50.00        | $200.00             | 61%     |
+| 1,000,000 emails | $990.50          | $300.00                   | $100.00       | $400.00             | 60%     |
 
-_**MailerSend pricing based on the Professional Plan ($88 for 50,000 emails) + $0.95 per 1,000 emails for overages. This is the only MailerSend plan that includes all core features (unlimited team seats, A/B testing, full analytics), making it the appropriate comparison for BlueFox Email, which includes all features on every plan._  
 
-_**BlueFox Email total includes credit costs (using the most cost-efficient pack for each volume) and AWS SES fees ($0.10 per 1,000 emails). All features, automation, design system, unlimited contacts are included at every tier_  
+_*MailerSend pricing based on the Professional Plan ($88 for 50,000 emails) + $0.95 per 1,000 emails for overages. This is the only MailerSend plan that includes all core features (unlimited team seats, A/B testing, full analytics), making it the appropriate comparison for BlueFox Email, which includes all features on every plan._  
 
-:::tip **All Features on Every Plan**  
+_**BlueFox Email total includes credit costs (using the most cost-efficient pack for each volume). AWS SES fees ($0.10 per 1,000 emails) only apply to users utilizing the optional bring-your-own-AWS-SES mode. All features, automation, design system, unlimited contacts are included at every tier._  
+
+:::tip **All Features on Every Plan**  
 Every BlueFox Email plan, including the free tier, includes design systems, automation and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
 :::
 
@@ -262,7 +263,7 @@ Consider MailerSend if you need a straightforward email solution with a user-fri
 
 ## Why We Recommend BlueFox Email
 
-When email infrastructure transparency, predictable costs, and unrestricted feature access matter most, BlueFox Email delivers a superior solution for technical teams and growing businesses. The usage-based pricing model eliminates the surprise costs of tiered plans, while the dedicated AWS SES infrastructure provides enterprise-grade reliability without the shared IP risks that can compromise deliverability.
+When email infrastructure transparency, predictable costs, and unrestricted feature access matter most, BlueFox Email delivers a superior solution for technical teams and growing businesses. The usage-based pricing model eliminates the surprise costs of tiered plans, while the enterprise-grade infrastructure provides exceptional reliability. For advanced users, the optional bring-your-own-AWS-SES mode provides complete control without the shared IP risks that can compromise deliverability.
 
 The Chamaileon-powered email builder creates professional, brand-consistent campaigns with bulletproof HTML that renders flawlessly across all email clients, solving a common pain point for design-conscious teams. The flexible visual automation system enables sophisticated workflows that can be edited live without disruption, a clear advantage over more rigid systems.
 
