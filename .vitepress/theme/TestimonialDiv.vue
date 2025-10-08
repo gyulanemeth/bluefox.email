@@ -229,7 +229,7 @@ function selectTestimonialEmail (id) {
                           <img
                             :src="testimonials[selectedTestimonialId].logo"
                             :alt="testimonials[selectedTestimonialId].logoAlt"
-                            style="height: 50px"
+                            style="height: 50px; width: 150px;"
                           />
                         </a>
                       </div>

@@ -39,8 +39,10 @@ const FOOTER_CONFIG = {
   ]
 }
 
+
 // Utilities
 const normalizePath = (path) => path.rstrip ? path.rstrip('/') : path.replace(/\/+$/, '')
+
 
 // Main computed properties
 const route = useRoute()
@@ -60,9 +62,11 @@ const shouldShowFooter = computed(() => {
   )
 })
 
+
 // Destructure for template
 const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
 </script>
+
 
 <template>  
   <footer v-if="shouldShowFooter" class="custom-footer">
@@ -73,10 +77,10 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
           <div class="footer-logo">
             <a href="/" class="logo-link" aria-label="BlueFox Email Home">
               <img 
-                src="/assets/logo-text_inline.png" 
+                src="/assets/logo-text_inline.webp" 
                 alt="BlueFox Email logo" 
-                width="250" 
-                height="auto"
+                width="250"
+                height="50"
                 loading="lazy"
               />
             </a>
@@ -94,7 +98,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
               :key="section"
               class="footer-column"
             >
-              <h4>{{ section.charAt(0).toUpperCase() + section.slice(1) }}</h4>
+              <h2>{{ section.charAt(0).toUpperCase() + section.slice(1) }}</h2>
               <a 
                 v-for="link in links"
                 :key="link.text"
@@ -132,6 +136,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   </footer>
 </template>
 
+
 <style scoped>
 /* Base Footer Styles */
 .custom-footer {
@@ -145,15 +150,18 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   font-size: 10px;
 }
 
+
 .vp-doc-aside-container .custom-footer {
   padding-right: calc(220px + 32px);
 }
+
 
 .footer-container {
   max-width: 1152px;
   margin: 0 auto;
   padding: 0 32px;
 }
+
 
 /* Layout Styles */
 .footer-top {
@@ -165,13 +173,16 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   margin-bottom: 6px;
 }
 
+
 .footer-logo-wrapper {
   flex: 0 0 220px;
 }
 
+
 .footer-links-wrapper {
   flex: 1;
 }
+
 
 /* Logo Section */
 .footer-logo {
@@ -182,17 +193,20 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   padding-left: 0;
 }
 
+
 .footer-logo img {
   max-width: 100%;
   height: auto;
   margin-bottom: 4px;
 }
 
+
 .logo-link {
   display: block;
   padding: 0;
   margin: 0;
 }
+
 
 .footer-tagline {
   font-size: 12px;
@@ -203,6 +217,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   padding-left: 0.8rem;
 }
 
+
 /* Links Section */
 .footer-links {
   display: flex;
@@ -210,6 +225,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   justify-content: flex-end;
   gap: 10px;
 }
+
 
 .footer-column {
   flex: 0 1 auto;
@@ -219,13 +235,15 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   padding: 4px 0 8px;
 }
 
-.footer-column h4 {
+
+.footer-column h2 {
   font-size: 14px;
   font-weight: 600;
   color: var(--vp-c-text-1);
   margin: 0 0 12px 0;
   min-height: 18px;
 }
+
 
 .footer-column a {
   font-size: 13px;
@@ -238,9 +256,11 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   padding: 3px 0;
 }
 
+
 .footer-column a:hover {
   color: #13B0EE;
 }
+
 
 /* Bottom Section */
 .footer-bottom {
@@ -250,6 +270,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   flex-direction: column;
   padding: 20px 0 5px;
 }
+
 
 .footer-policy-links {
   display: flex;
@@ -261,6 +282,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   padding: 3px 0;
 }
 
+
 .footer-policy-links a {
   color: var(--vp-c-text-2);
   text-decoration: none;
@@ -268,14 +290,17 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   padding: 3px;
 }
 
+
 .footer-policy-links a:hover {
   color: var(--vp-c-text-1);
 }
+
 
 .policy-separator {
   color: var(--vp-c-text-2);
   font-size: 12px;
 }
+
 
 .footer-copyright {
   font-size: 13px;
@@ -284,6 +309,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   margin: -12px 0 10px 0;
   padding: 5px 0 10px;
 }
+
 
 /* Responsive Design */
 @media (max-width: 919px) {
@@ -298,6 +324,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   }
   .footer-column { margin: 0; }
 }
+
 
 @media (max-width: 760px) {
   .custom-footer { padding-top: 30px; margin-top: 24px; }
@@ -320,14 +347,16 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
     align-items: center; 
     text-align: center; 
   }
-  .footer-column h4, .footer-column a { text-align: center; }
+  .footer-column h2, .footer-column a { text-align: center; }
 }
+
 
 @media (max-width: 640px) {
   .custom-footer { padding-top: 25px; }
   .footer-links { grid-gap: 12px 24px; }
   .footer-policy-links { margin-top: 12px; }
 }
+
 
 @media (max-width: 540px) {
   .custom-footer { padding-top: 25px; }
@@ -336,7 +365,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   .footer-logo { margin-bottom: 30px; }
   .footer-links { grid-gap: 10px; }
   .footer-column { margin-bottom: 10px; }
-  .footer-column h4 { margin-bottom: 8px; text-align: center; }
+  .footer-column h2 { margin-bottom: 8px; text-align: center; }
   .footer-column a { text-align: center; line-height: 24px; margin-bottom: 6px; }
   .footer-policy-links { 
     flex-direction: row; 
@@ -348,6 +377,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   .policy-separator { font-size: 13px; }
   .footer-copyright { margin-top: 15px; font-size: 13px; }
 }
+
 
 @media (max-width: 380px) {
   .custom-footer { padding-top: 20px; }
