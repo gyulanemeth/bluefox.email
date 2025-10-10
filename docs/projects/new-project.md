@@ -44,6 +44,10 @@ You can also click on the `Create` button in projects section to create new proj
 
 ![A screenshot of the projects view.](./project-create-2.webp)
 
+:::info
+A new project is always created in a Sandbox mode. You can send emails only to verified email addresses and domains. To lift this restriction, you need to [request production access](https://bluefox.email/docs/delivery-mode.md/).
+:::
+
 ## Select a Design System
 
 After entering your project's name, select a design system. We offer multiple built-in design systems, or you can [create your own](/docs/design-systems/).
