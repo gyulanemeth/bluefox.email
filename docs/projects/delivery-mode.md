@@ -56,6 +56,8 @@ When you're ready to send emails without restrictions, you can request to move y
 
 ![A screenshot of the project delivery mode settings with production mode selected.](./project-delivery-mode-production-form.webp)
 
+Answer the questions honestly, and we will review your request as soon as possible.
+
 Once your project is approved for production mode, you can confirm that with this badge here at the top of your project.
 
 ![A screenshot of the project delivery mode settings with production mode badge.](./project-delivery-mode-production-badge.webp)
