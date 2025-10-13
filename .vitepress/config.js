@@ -154,7 +154,7 @@ export default defineConfig({
                 },
                 {
                   text: "Delivery Modes",
-                  link: "/docs/projects/delivery-mode",
+                  link: "/docs/projects/delivery-modes",
                 },
                 {
                   text: "Transactional Emails",

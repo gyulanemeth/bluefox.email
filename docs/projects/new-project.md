@@ -45,7 +45,7 @@ You can also click on the `Create` button in projects section to create new proj
 ![A screenshot of the projects view.](./project-create-2.webp)
 
 :::info Note 
-A new project is always created in a [Sandbox mode](/docs/projects/delivery-mode.md#sandbox-mode). You can send emails only to verified email addresses and domains. To lift this restriction, you need to [request production access](/docs/projects/delivery-mode.md#production-mode).
+A new project is always created in a [Sandbox mode](/docs/projects/delivery-modes.md#sandbox-mode). You can send emails only to verified email addresses and domains. To lift this restriction, you need to [request production access](/docs/projects/delivery-modes.md#production-mode).
 :::
 
 ## Select a Design System
