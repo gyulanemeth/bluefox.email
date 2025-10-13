@@ -49,12 +49,13 @@ This mode is designed to help you get started quickly without needing to set up 
 - You can only send emails up to 5 verified email addresses. Here is where you can verify them in your project settings.
   ![A screenshot of the project delivery mode settings with the verify email button highlighted.](./project-delivery-mode-verify-email.webp)
 
-  - When you hit create and enter the email address, a verification email will be sent to that address. You need to click the link in that email to verify the address.
-  
-- These emails will be sent through `no-reply@bluefoxemailsandbox.com`. You can verify your domain within BlueFox Email project settings to send to your domain.
+  Also if you verify your domain within BlueFox Email project settings, you can send to that domain as well.
   
   ![A screenshot of the project sandbox settings.](./project-delivery-mode-verify-domain.webp)
 
+  - When you hit create and enter the email address, a verification email will be sent to that address. You need to click the link in that email to verify the address.
+  
+- These emails will be sent from `no-reply@bluefoxemailsandbox.com`.
 - You can send 100 emails per day.
 - Lower throughput (1 email/sec).
 
@@ -84,27 +85,8 @@ Here is what you can do in production mode:
 - No sending limits.
 - Higher throughput
 - Use your own domain.
-- Add identities (emails) directly in your project settings.
-
-### Maintaining Production Access
-
-But make sure that you maintain good sending practices. 
-
-You should maintain:
-- A low bounce rate (below 2.5%).
-- A low complaint rate (below 0.05%).
-
-If your bounce or complaint rates exceed these thresholds, BlueFox Email may suspend your project. Now of course, we will notify you in advance when you are about to reach these limits.
-
-You can always check your bounce and complaint rates here:
-
-![A screenshot of the project dashboard showing bounce and complaint rates.](./project-delivery-mode-bounce-complaint-rates.webp)
-
-:::info Note
-- So in the bounce rate, 100% that you see here in the screenshot is 100% of that 2.5% bounce rate limit and same for complaint rate. So if you see 50% here, that means you are at 1.25% bounce rate.
-- Similarly, In domain health section, 0/3 means you have 0 complaints out of 3 email limit and same with bounces. 
-:::
-
+- Add identities (emails) directly in your project settings. Make sure that the domain of these emails is verified.
+  
 ### Managing Identities in Production Mode
 
 In production mode, you can manage your sender identities directly within your project settings. This includes adding email addresses that you want to use as sender identities for your emails. Make sure that you verify the domain of these email addresses to ensure successful delivery.
@@ -129,6 +111,26 @@ To create an identity:
 
 - If you wish to delete an identity, you can do so by clicking the trash icon next to the identity.
   ![A screenshot of the project delivery mode settings with delete identity button highlighted.](./project-delivery-mode-delete-identity.webp)
+
+
+### Maintaining Production Access
+
+But make sure that you maintain good sending practices. 
+
+You should maintain:
+- A low bounce rate (below 2.5%).
+- A low complaint rate (below 0.05%).
+
+If your bounce or complaint rates exceed these thresholds, BlueFox Email may suspend your project. Now of course, we will notify you in advance when you are about to reach these limits.
+
+You can always check your bounce and complaint rates here:
+
+![A screenshot of the project dashboard showing bounce and complaint rates.](./project-delivery-mode-bounce-complaint-rates.webp)
+
+:::info Note
+- So in the project bounce rate, 100% that you see here in the screenshot is 100% of that 2.5% bounce rate limit and same for complaint rate. So if you see 50% here, that means you are at 1.25% bounce rate.
+- Similarly, In domain health section, 0/3 means you have 0 complaints out of 3 email sends and same with bounces. 
+:::
 
 ## Using AWS SES Directly
 
