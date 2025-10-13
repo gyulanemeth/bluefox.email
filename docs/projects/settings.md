@@ -49,30 +49,11 @@ To manage the project logo:
 
 ![A screenshot of a project settings logo section.](./project-settings-project-logo.webp)
 
+## Delivery Modes
 
-## AWS Credentials
+Delivery modes determine how emails are sent from your project. So my default for every new project is **sandbox mode**. In this mode, you can start sending emails immediately but with some limitations. When you're ready for unrestricted sending, you can request to move your project to **production mode**. If you prefer to bring your own AWS SES account, you can do that too. 
 
-Our platform sends emails using your AWS SES, ensuring high deliverability and preventing spammers from using our platform.
-
-:::info Note
-For AWS SES to work smoothly with **bluefox.email**, you’ll need at least these permissions: 
-
-`ses:SendEmail`, `ses:SendRawEmail`, `ses:ListIdentities`, `ses:GetSendQuota`
-
-This is the minimum set needed to send emails, verify identities, and keep an eye on your send limits.
-:::
-
-First, set up your AWS `Access Key ID`, `Secret Access Key`, `Sender Identities`, `AWS region`, and `sending limit`.
-
-![A screenshot of a project settings AWS credentials section.](./project-settings-aws.webp)
-
-The access key must be able to send emails via SES from the region and the sending email you set up. The sending limit should be lower or equal to the actual AWS SES sending limit. Keep in mind, that your sending limit in "sandbox" is only 1 per second!
-
-
-
-::: tip Your AWS Credentials Are Secure
-We store your credentials encrypted, so even in the very unlikely event of data leakage, attackers won't be able to use your credentials.
-:::
+For more details, see our [Delivery Modes documentation](/docs/projects/delivery-mode.md).
 
 ### Use STS ( Security Token Service )
 
