@@ -153,6 +153,10 @@ export default defineConfig({
                   link: "/docs/projects/new-project",
                 },
                 {
+                  text: "Delivery Modes",
+                  link: "/docs/projects/delivery-modes",
+                },
+                {
                   text: "Transactional Emails",
                   link: "/docs/projects/transactional-emails",
                 },

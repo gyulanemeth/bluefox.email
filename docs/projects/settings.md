@@ -49,74 +49,11 @@ To manage the project logo:
 
 ![A screenshot of a project settings logo section.](./project-settings-project-logo.webp)
 
+## Delivery Modes
 
-## AWS Credentials
+Delivery modes determine how emails are sent from your project. So the default for every new project is **sandbox mode**. In this mode, you can start sending emails immediately but with some limitations. When you're ready for unrestricted sending, you can request to move your project to **production mode**. If you prefer to bring your own AWS SES account, you can do that too. 
 
-Our platform sends emails using your AWS SES, ensuring high deliverability and preventing spammers from using our platform.
-
-:::info Note
-For AWS SES to work smoothly with **bluefox.email**, you’ll need at least these permissions: 
-
-`ses:SendEmail`, `ses:SendRawEmail`, `ses:ListIdentities`, `ses:GetSendQuota`
-
-This is the minimum set needed to send emails, verify identities, and keep an eye on your send limits.
-:::
-
-First, set up your AWS `Access Key ID`, `Secret Access Key`, `Sender Identities`, `AWS region`, and `sending limit`.
-
-![A screenshot of a project settings AWS credentials section.](./project-settings-aws.webp)
-
-The access key must be able to send emails via SES from the region and the sending email you set up. The sending limit should be lower or equal to the actual AWS SES sending limit. Keep in mind, that your sending limit in "sandbox" is only 1 per second!
-
-
-
-::: tip Your AWS Credentials Are Secure
-We store your credentials encrypted, so even in the very unlikely event of data leakage, attackers won't be able to use your credentials.
-:::
-
-### Use STS ( Security Token Service )
-
-STS (Security Token Service) is AWS's secure method for temporary, limited-privilege credentials. It's more secure than long-lived access keys because credentials automatically expire and don't need to be stored in your application.
-
-Here's how to set it up:
-
-1. Click the `Use STS` button and expand the instructions banner
-2. Follow the step-by-step guide to create and configure your AWS role
-3. Copy the generated `RoleArn`.
-4. Paste the `RoleArn` into the input field here:
-
-![A screenshot of a project settings AWS credentials section.](./project-settings-aws-sts.webp)
-
-5. Fill up rest of the input fields and once done hit `Save AWS Credentials`.
-
-Once configured, bluefox.email will use your Role ARN to securely generate temporary credentials on demand, eliminating the security risks of storing permanent access keys.
-
-:::warning Important Notes
-- You cannot use both STS and regular AWS credentials simultaneously. If you want to switch from STS to standard AWS credentials, you must first remove your STS configuration.
-- You cannot remove AWS credentials (either STS or standard) if you have scheduled campaigns or running automations that depend on them.
-:::
-
-### Managing Sender Identities
-
-In this section, you can manage the sender names and email addresses that will appear to your recipients. These identities define the sender details used for your emails. By default, emails will use the **default identity**. If you wish to use a specific identity for an email, you can configure it in the **advanced settings** of the email.
-
-- **Adding a new identity**  
-  To add a new identity, click the **"add identity"** button and provide the sender name and email address.
-
-  ![A screenshot of add Identity Button](./project-settings-aws-add-identity-btn.webp)
-
-- **Default identity**  
-  When adding identities, the first sender identity is automatically set as the **default identity**.  
-  - To change the default identity, click the **"set as default identity"** icon next to any other sender identity.  
-  - The default identity is used automatically when no specific sender identity is selected for an email.
-
-  ![A screenshot of a project settings AWS credentials make identity section.](./project-settings-aws-make-identity-default-btn.webp)
-
-- **Deleting an identity**  
-  If a sender identity is no longer needed, you can delete it by clicking the **trash icon** next to the sender identity.
-
-  ![A screenshot of a project settings AWS credentials delete Identity Icon](./project-settings-aws-make-identity-delete-btn.webp)
-
+For more details, see our [Delivery Modes documentation](/docs/projects/delivery-modes.md).
 
 ## Advanced Settings
 
@@ -138,24 +75,6 @@ The **sender identity** field lets you choose the identity used to send the emai
 The **reply-to email address** field allows you to specify where replies to your email should be sent.
 
 ![Reply-To Email Field](./project-settings-advanced-settings-reply-to.webp)
-
-
-
-## Bounce & Complaint Webhooks
-
-To know the [bounce and complaint numbers](/docs/projects/dashboard) of your emails, set up our webhooks in AWS SNS.
-
-To set up the hooks, expand the banner:
-
-![A screenshot of a project settings AWS bounce and complaints section. (Not set up.)](./project-settings-aws-bounce-complaints.webp)
-
-... and follow the instructions. After finishing, click on `Run Test` button and if everything is good you should see this:
-
-![A screenshot of a project settings AWS bounce and complaints section. (Already set up.)](./project-settings-aws-bounce-complaints-done.webp)
-
-The **Identity Name** column displays the identities configured in your project. The green tick marks in the **Bounce Hook** and **Complaint Hook** columns indicate that the webhooks have been successfully set up for each identity. If any webhook fails to configure correctly, you can revisit the setup and re-test.
-
-Additionally, the red **Reset Bounce Webhook** and **Reset Complaint Webhook** buttons allow you to reset and reconfigure the webhooks if needed. This ensures that your setup remains flexible and can be updated whenever required. Once all green ticks are visible, the webhooks are fully operational, confirming that bounce and complaint events will be tracked effectively.
 
 ## API Keys
 
