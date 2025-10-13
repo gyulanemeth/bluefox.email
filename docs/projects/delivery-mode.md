@@ -113,7 +113,7 @@ To create an identity:
   ![A screenshot of the project delivery mode settings with delete identity button highlighted.](./project-delivery-mode-delete-identity.webp)
 
   :::warning Important Notes
-  Before deleting an identity, ensure that it is not connected to any email campaigns, transactional emails, or automations. Deleting an identity that is in use may lead to email delivery issues.
+  Before deleting an identity, ensure that it is not connected to any email campaigns, transactional emails, triggered emails, or automations.
   :::
 
 
