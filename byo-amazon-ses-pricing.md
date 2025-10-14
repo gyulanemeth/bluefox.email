@@ -245,7 +245,7 @@ html.dark .pricing-card .pricing-card-inner {
   <div class="credit-explanation">
     <div class="with-branding">
       <div>1 email send = 1 credit</div>
-      <div>In the "bring your own Amazon SES" version, you can connect your own SES account to BlueFox Email. It means that you will also need to pay to AWS $0.1 / 1000 emails for your SES usage.</div>
+      <div>In the "bring your own Amazon SES" version, you can connect your own SES account to BlueFox Email. It means that you will also need to pay to AWS $1 / 10,000 emails for your SES usage.</div>
     </div>
   </div>
   <div>Wanna use our sending infrastructure? <a href="/pricing">See our regular pricing.</a></div>
