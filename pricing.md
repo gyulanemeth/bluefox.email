@@ -7,6 +7,7 @@ description: Don't overpay for contact-based subscriptions ever again. Only pay 
 
 <script setup>
   import { useData } from 'vitepress'
+  import PricingCalculator from './components/PricingCalculator.vue'
   const { isDark } = useData()
 </script>
 
@@ -246,6 +247,9 @@ html.dark .pricing-card .pricing-card-inner {
       <div>1 email send = 2 credits</div>
     </div>
   </div>
+
+  <PricingCalculator />
+
   <div>Wanna bring your own SES? <a href="/byo-amazon-ses-pricing">See our BYO SES pricing.</a></div>
   <p>All packages include all of our features without restrictions!</p>
   <div id="get-started-with-free-credits">Get started with 3000 free monthly credits in the first year</div>

@@ -7,6 +7,7 @@ description: Don't overpay for contact-based subscriptions ever again. Only pay 
 
 <script setup>
   import { useData } from 'vitepress'
+  import BYOPricingCalculator from './components/PricingCalculator.vue'
   const { isDark } = useData()
 </script>
 
@@ -241,13 +242,17 @@ html.dark .pricing-card .pricing-card-inner {
       </div>
     </div>
   </div>
-  
+
   <div class="credit-explanation">
     <div class="with-branding">
       <div>1 email send = 1 credit</div>
       <div>In the "bring your own Amazon SES" version, you can connect your own SES account to BlueFox Email. It means that you will also need to pay to AWS $1 / 10,000 emails for your SES usage.</div>
     </div>
   </div>
+
+
+  <BYOPricingCalculator />
+
   <div>Wanna use our sending infrastructure? <a href="/pricing">See our regular pricing.</a></div>
   <p>All packages include all of our features without restrictions!</p>
   <div id="get-started-with-free-credits">Get started with 3000 free monthly credits in the first year</div>
