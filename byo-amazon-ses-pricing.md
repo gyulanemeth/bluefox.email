@@ -19,7 +19,7 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 50px;
+  gap: 30px;
   padding-top: 50px;
 }
 
