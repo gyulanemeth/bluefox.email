@@ -1,101 +1,194 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const emails = ref(100_000)
+// User input
+const annualEmails = ref(100_000)
 
-const creditsNeeded = computed(() => Math.ceil(emails.value))
-
-const packs = [
+// Pricing configuration
+const CREDIT_RATIO = 1 // 1 email = 1 credit (BYO SES)
+const FREE_CREDITS_ANNUAL = 36_000 // 3,000/month × 12
+const AWS_SES_COST_PER_EMAIL = 0.0001 // $0.0001 per email
+const PACKS = [
   { name: 'Start-up', credits: 100_000, price: 50 },
   { name: 'Scale-up', credits: 1_000_000, price: 300 },
-  { name: 'Grown-up', credits: 10_000_000, price: 2500 },
-  { name: 'Enterprise', credits: Infinity, price: null }
+  { name: 'Grown-up', credits: 10_000_000, price: 2_500 }
 ]
 
-const selectedPack = computed(() => {
-  return packs.find(pack => creditsNeeded.value <= pack.credits) || packs[3]
+// Calculations
+const creditsNeeded = computed(() => annualEmails.value * CREDIT_RATIO)
+const netCreditsNeeded = computed(() => Math.max(0, creditsNeeded.value - FREE_CREDITS_ANNUAL))
+const isCoveredByFreeCredits = computed(() => creditsNeeded.value <= FREE_CREDITS_ANNUAL)
+
+// Only recommend a pack if they need to buy credits
+const recommendedPack = computed(() => {
+  if (netCreditsNeeded.value === 0) return null
+  return PACKS.find(pack => netCreditsNeeded.value <= pack.credits) || 'enterprise'
 })
 
-const awsCost = computed(() => emails.value * 0.0001)
-const bluefoxCost = computed(() => selectedPack.value.price || 0)
-const totalCost = computed(() => bluefoxCost.value + awsCost.value)
-const costPerEmail = computed(() => totalCost.value / emails.value)
+const awsCost = computed(() => annualEmails.value * AWS_SES_COST_PER_EMAIL)
 
+const totalCost = computed(() => {
+  if (!recommendedPack.value || recommendedPack.value === 'enterprise') {
+    // If covered by free credits, only AWS cost
+    if (netCreditsNeeded.value === 0) return awsCost.value
+    return null
+  }
+  return recommendedPack.value.price + awsCost.value
+})
+
+const costPerEmail = computed(() => {
+  if (totalCost.value === null) return null
+  if (annualEmails.value === 0) return 0
+  return totalCost.value / annualEmails.value
+})
+
+const creditsRemaining = computed(() => {
+  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
+  return recommendedPack.value.credits - netCreditsNeeded.value
+})
+
+// Formatting helpers
 const formatNumber = (num) => {
-  if (typeof num !== 'number') return num
-  return num.toLocaleString()
+  if (num === null || num === undefined) return '—'
+  return num.toLocaleString('en-US')
 }
 
 const formatPrice = (price) => {
   if (price === null) return '—'
   if (price < 0.01) return '< $0.01'
-  return `$${price.toFixed(4)}`
+  return `$${price.toFixed(2)}`
+}
+
+const formatPriceDetailed = (price) => {
+  if (price === null) return '—'
+  if (price < 0.0001) return '< $0.0001'
+  return `$${price.toFixed(6)}`
 }
 </script>
 
 <template>
   <div class="pricing-calculator">
+    <h3>Calculate your annual cost (BYO SES)</h3>
+    
     <div class="input-section">
-      <label for="email-count">How many emails do you plan to send?</label>
+      <label for="annual-emails-byo">Annual emails you plan to send</label>
       <input
-        id="email-count"
+        id="annual-emails-byo"
         type="number"
-        v-model.number="emails"
-        min="1"
-        :max="20_000_000"
-        placeholder="e.g. 100000"
+        v-model.number="annualEmails"
+        min="0"
+        max="20_000_000"
+        step="1000"
       />
     </div>
 
-    <div class="result">
+    <div class="results">
       <div class="metric">
         <span>Credits needed (1:1):</span>
         <strong>{{ formatNumber(creditsNeeded) }}</strong>
       </div>
 
-      <div class="metric">
-        <span>Recommended pack:</span>
-        <strong>{{ selectedPack.name }}</strong>
+      <div class="metric highlight">
+        <span>Free credits (first year):</span>
+        <strong class="success">{{ formatNumber(FREE_CREDITS_ANNUAL) }}</strong>
       </div>
 
       <div class="metric">
-        <span>Bluefox platform fee:</span>
-        <strong v-if="selectedPack.price !== null">
-          ${{ formatNumber(selectedPack.price) }}
-        </strong>
-        <a v-else href="mailto:hello@bluefox.email" class="contact-link">Contact us</a>
+        <span>Additional credits to purchase:</span>
+        <strong>{{ formatNumber(netCreditsNeeded) }}</strong>
       </div>
 
-      <div class="metric">
-        <span>AWS SES cost (est.):</span>
-        <strong>${{ formatPrice(awsCost) }}</strong>
-      </div>
+      <div class="divider"></div>
 
-      <div class="metric total-cost" v-if="selectedPack.price !== null">
-        <span>Total estimated cost:</span>
-        <strong class="price">${{ formatPrice(totalCost) }}</strong>
-      </div>
+      <!-- Covered by free credits -->
+      <template v-if="isCoveredByFreeCredits">
+        <div class="info-box success">
+          🎉 <strong>Great news!</strong> Your email volume ({{ formatNumber(annualEmails) }} emails/year) 
+          is covered by the <strong>free 36,000 credits</strong> included in your first year!
+        </div>
 
-      <div class="metric" v-if="selectedPack.price !== null">
-        <span>Effective cost per email:</span>
-        <strong>{{ formatPrice(costPerEmail) }}/email</strong>
-      </div>
+        <div class="cost-breakdown">
+          <div class="metric">
+            <span>BlueFox platform:</span>
+            <strong class="success">$0 (free credits)</strong>
+          </div>
 
-      <!-- Only show leftover credits for non-Enterprise -->
-      <div
-        v-if="selectedPack.price !== null && selectedPack.credits !== Infinity"
-        class="savings-note"
-      >
-        💡 You’ll have <strong>{{ formatNumber(selectedPack.credits - creditsNeeded) }}</strong> credits left.
-      </div>
+          <div class="metric">
+            <span>AWS SES (est.):</span>
+            <strong>{{ formatPrice(awsCost) }}</strong>
+          </div>
+        </div>
 
-      <!-- Enterprise note -->
-      <div v-else-if="selectedPack.price === null" class="savings-note">
-        💡 For high-volume needs, we’ll tailor a plan with dedicated support and custom credit limits.
-      </div>
+        <div class="metric total">
+          <span>Total annual cost:</span>
+          <strong class="price-free">{{ formatPrice(awsCost) }}</strong>
+        </div>
 
-      <div class="note">
-        ℹ️ AWS charges $1 per 10,000 emails separately. Bluefox only charges for platform access.
+        <div class="metric" v-if="annualEmails > 0">
+          <span>Cost per email:</span>
+          <strong>{{ formatPriceDetailed(costPerEmail) }}</strong>
+        </div>
+
+        <div class="metric">
+          <span>Free credits remaining:</span>
+          <strong>{{ formatNumber(FREE_CREDITS_ANNUAL - creditsNeeded) }}</strong>
+        </div>
+
+        <div class="note">
+          ℹ️ You only pay AWS for sending. BlueFox platform is free with your remaining {{ formatNumber(FREE_CREDITS_ANNUAL - creditsNeeded) }} credits!
+        </div>
+      </template>
+
+      <!-- Need to purchase credits -->
+      <template v-else-if="recommendedPack && recommendedPack !== 'enterprise'">
+        <div class="metric">
+          <span>Recommended pack:</span>
+          <strong class="brand">{{ recommendedPack.name }}</strong>
+        </div>
+
+        <div class="cost-breakdown">
+          <div class="metric">
+            <span>BlueFox platform:</span>
+            <strong>${{ formatNumber(recommendedPack.price) }}</strong>
+          </div>
+
+          <div class="metric">
+            <span>AWS SES (est.):</span>
+            <strong>{{ formatPrice(awsCost) }}</strong>
+          </div>
+        </div>
+
+        <div class="metric total">
+          <span>Total annual cost:</span>
+          <strong class="price">{{ formatPrice(totalCost) }}</strong>
+        </div>
+
+        <div class="metric">
+          <span>Cost per email:</span>
+          <strong>{{ formatPriceDetailed(costPerEmail) }}</strong>
+        </div>
+
+        <div class="info-box" v-if="creditsRemaining > 0">
+          💡 You'll have <strong>{{ formatNumber(creditsRemaining) }} credits</strong> 
+          ({{ formatNumber(creditsRemaining) }} emails) remaining for future use.
+        </div>
+      </template>
+
+      <!-- Enterprise -->
+      <template v-else-if="recommendedPack === 'enterprise'">
+        <div class="info-box enterprise">
+          🚀 <strong>Enterprise volume!</strong> 
+          <a href="mailto:hello@bluefox.email">Contact us</a> for custom pricing and dedicated support.
+        </div>
+        
+        <div class="metric">
+          <span>AWS SES cost (est.):</span>
+          <strong>{{ formatPrice(awsCost) }}</strong>
+        </div>
+      </template>
+
+      <div class="note" v-if="!isCoveredByFreeCredits">
+        ℹ️ AWS charges $1 per 10,000 emails separately. Credits valid for 12 months.
       </div>
     </div>
   </div>
@@ -105,43 +198,59 @@ const formatPrice = (price) => {
 .pricing-calculator {
   background: var(--vp-c-bg-soft);
   border-radius: 16px;
-  padding: 24px;
-  margin: 32px auto;
-  max-width: 560px;
+  padding: 32px;
+  margin: 40px auto;
+  max-width: 600px;
+}
+
+.pricing-calculator h3 {
+  margin: 0 0 24px 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
   color: var(--vp-c-text-1);
 }
 
 .input-section {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .input-section label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--vp-c-text-2);
 }
 
 .input-section input {
   width: 100%;
-  padding: 10px 14px;
+  padding: 12px 16px;
   font-size: 16px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   background: var(--vp-c-bg);
   color: var(--vp-c-text-1);
+  transition: border-color 0.2s;
 }
 
 .input-section input:focus {
-  outline: 2px solid var(--vp-c-brand);
-  border-color: transparent;
+  outline: none;
+  border-color: var(--vp-c-brand);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .metric {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
-  font-size: 16px;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 15px;
 }
 
 .metric span {
@@ -150,41 +259,122 @@ const formatPrice = (price) => {
 
 .metric strong {
   font-weight: 600;
+  color: var(--vp-c-text-1);
 }
 
-.total-cost .price {
-  font-size: 20px;
+.metric.highlight {
+  background: var(--vp-c-bg-alt);
+  padding: 10px 16px;
+  margin: 0 -16px;
+  border-radius: 8px;
+}
+
+.metric strong.success {
+  color: #4caf50;
+}
+
+.metric strong.brand {
+  background: linear-gradient(120deg, #392c91, #13b0ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 16px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--vp-c-divider);
+  margin: 12px 0;
+}
+
+.cost-breakdown {
+  background: var(--vp-c-bg-alt);
+  padding: 12px 16px;
+  margin: 8px -16px;
+  border-radius: 8px;
+}
+
+.cost-breakdown .metric {
+  padding: 6px 0;
+}
+
+.metric.total {
+  margin-top: 8px;
+  padding: 16px 0;
+  border-top: 2px solid var(--vp-c-divider);
+}
+
+.metric .price {
+  font-size: 24px;
   font-weight: 700;
-  background: linear-gradient(120deg, #392c91 5%, #13b0ee);
+  background: linear-gradient(120deg, #392c91, #13b0ee);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.contact-link {
-  color: var(--vp-c-brand);
-  font-weight: 600;
-  text-decoration: none;
+.metric .price-free {
+  font-size: 24px;
+  font-weight: 700;
+  color: #4caf50;
 }
 
-.contact-link:hover {
-  text-decoration: underline;
-}
-
-.savings-note {
+.info-box {
   margin-top: 16px;
-  padding-top: 12px;
-  border-top: 1px dashed var(--vp-c-divider);
+  padding: 12px 16px;
+  background: var(--vp-c-bg-alt);
+  border-left: 3px solid var(--vp-c-brand);
+  border-radius: 6px;
   font-size: 14px;
   color: var(--vp-c-text-2);
-  text-align: center;
+}
+
+.info-box.success {
+  border-left-color: #4caf50;
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.info-box.enterprise {
+  border-left-color: #13b0ee;
+}
+
+.info-box strong {
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+}
+
+.info-box a {
+  color: var(--vp-c-brand);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.info-box a:hover {
+  text-decoration: underline;
 }
 
 .note {
   margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--vp-c-divider);
   font-size: 13px;
-  color: var(--vp-c-text-2);
+  color: var(--vp-c-text-3);
   text-align: center;
   font-style: italic;
+}
+
+@media (max-width: 640px) {
+  .pricing-calculator {
+    padding: 24px 20px;
+  }
+
+  .metric {
+    font-size: 14px;
+  }
+
+  .metric .price,
+  .metric .price-free {
+    font-size: 20px;
+  }
 }
 </style>
