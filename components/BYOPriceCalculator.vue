@@ -6,7 +6,6 @@ const annualEmails = ref(100_000)
 
 // Pricing configuration
 const CREDIT_RATIO = 1 // 1 email = 1 credit (BYO SES)
-const FREE_CREDITS_ANNUAL = 36_000 // 3,000/month × 12
 const AWS_SES_COST_PER_EMAIL = 0.0001 // $0.0001 per email
 const PACKS = [
   { name: 'Start-up', credits: 100_000, price: 50 },
@@ -16,35 +15,27 @@ const PACKS = [
 
 // Calculations
 const creditsNeeded = computed(() => annualEmails.value * CREDIT_RATIO)
-const netCreditsNeeded = computed(() => Math.max(0, creditsNeeded.value - FREE_CREDITS_ANNUAL))
-const isCoveredByFreeCredits = computed(() => creditsNeeded.value <= FREE_CREDITS_ANNUAL)
 
-// Only recommend a pack if they need to buy credits
 const recommendedPack = computed(() => {
-  if (netCreditsNeeded.value === 0) return null
-  return PACKS.find(pack => netCreditsNeeded.value <= pack.credits) || 'enterprise'
+  if (annualEmails.value <= 0) return null
+  return PACKS.find(pack => creditsNeeded.value <= pack.credits) || 'enterprise'
 })
 
 const awsCost = computed(() => annualEmails.value * AWS_SES_COST_PER_EMAIL)
 
 const totalCost = computed(() => {
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') {
-    // If covered by free credits, only AWS cost
-    if (netCreditsNeeded.value === 0) return awsCost.value
-    return null
-  }
+  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
   return recommendedPack.value.price + awsCost.value
 })
 
 const costPerEmail = computed(() => {
-  if (totalCost.value === null) return null
-  if (annualEmails.value === 0) return 0
+  if (!totalCost.value || annualEmails.value <= 0) return null
   return totalCost.value / annualEmails.value
 })
 
 const creditsRemaining = computed(() => {
   if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  return recommendedPack.value.credits - netCreditsNeeded.value
+  return recommendedPack.value.credits - creditsNeeded.value
 })
 
 // Formatting helpers
@@ -76,120 +67,82 @@ const formatPriceDetailed = (price) => {
         id="annual-emails-byo"
         type="number"
         v-model.number="annualEmails"
-        min="0"
+        min="1"
         max="20_000_000"
         step="1000"
+        placeholder="e.g. 100000"
       />
     </div>
 
     <div class="results">
-      <div class="metric">
-        <span>Credits needed (1:1):</span>
-        <strong>{{ formatNumber(creditsNeeded) }}</strong>
-      </div>
-
-      <div class="metric highlight">
-        <span>Free credits (first year):</span>
-        <strong class="success">{{ formatNumber(FREE_CREDITS_ANNUAL) }}</strong>
-      </div>
-
-      <div class="metric">
-        <span>Additional credits to purchase:</span>
-        <strong>{{ formatNumber(netCreditsNeeded) }}</strong>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- Covered by free credits -->
-      <template v-if="isCoveredByFreeCredits">
-        <div class="info-box success">
-          🎉 <strong>Great news!</strong> Your email volume ({{ formatNumber(annualEmails) }} emails/year) 
-          is covered by the <strong>free 36,000 credits</strong> included in your first year!
+      <!-- Show results only for valid input -->
+      <template v-if="annualEmails > 0">
+        <div class="metric">
+          <span>Credits needed (1:1):</span>
+          <strong>{{ formatNumber(creditsNeeded) }}</strong>
         </div>
 
-        <div class="cost-breakdown">
+        <div class="divider"></div>
+
+        <!-- Paid pack recommendation -->
+        <template v-if="recommendedPack !== 'enterprise'">
           <div class="metric">
-            <span>BlueFox platform:</span>
-            <strong class="success">$0 (free credits)</strong>
+            <span>Recommended pack:</span>
+            <strong class="brand">{{ recommendedPack.name }}</strong>
+          </div>
+
+          <div class="cost-breakdown">
+            <div class="metric">
+              <span>BlueFox platform:</span>
+              <strong>${{ formatNumber(recommendedPack.price) }}</strong>
+            </div>
+
+            <div class="metric">
+              <span>AWS SES (est.):</span>
+              <strong>{{ formatPrice(awsCost) }}</strong>
+            </div>
+          </div>
+
+          <div class="metric total">
+            <span>Total annual cost:</span>
+            <strong class="price">{{ formatPrice(totalCost) }}</strong>
           </div>
 
           <div class="metric">
-            <span>AWS SES (est.):</span>
+            <span>Cost per email:</span>
+            <strong>{{ formatPriceDetailed(costPerEmail) }}</strong>
+          </div>
+
+          <div class="info-box" v-if="creditsRemaining > 0">
+            💡 You'll have <strong>{{ formatNumber(creditsRemaining) }} credits</strong> 
+            ({{ formatNumber(creditsRemaining) }} emails) remaining for future use.
+          </div>
+        </template>
+
+        <!-- Enterprise -->
+        <template v-else>
+          <div class="info-box enterprise">
+            🚀 <strong>Enterprise volume!</strong> 
+            <a href="mailto:hello@bluefox.email">Contact us</a> for custom pricing and dedicated support.
+          </div>
+          
+          <div class="metric">
+            <span>AWS SES cost (est.):</span>
             <strong>{{ formatPrice(awsCost) }}</strong>
           </div>
-        </div>
-
-        <div class="metric total">
-          <span>Total annual cost:</span>
-          <strong class="price-free">{{ formatPrice(awsCost) }}</strong>
-        </div>
-
-        <div class="metric" v-if="annualEmails > 0">
-          <span>Cost per email:</span>
-          <strong>{{ formatPriceDetailed(costPerEmail) }}</strong>
-        </div>
-
-        <div class="metric">
-          <span>Free credits remaining:</span>
-          <strong>{{ formatNumber(FREE_CREDITS_ANNUAL - creditsNeeded) }}</strong>
-        </div>
+        </template>
 
         <div class="note">
-          ℹ️ You only pay AWS for sending. BlueFox platform is free with your remaining {{ formatNumber(FREE_CREDITS_ANNUAL - creditsNeeded) }} credits!
+          ℹ️ AWS charges $1 per 10,000 emails separately. Credits valid for 12 months.
         </div>
       </template>
 
-      <!-- Need to purchase credits -->
-      <template v-else-if="recommendedPack && recommendedPack !== 'enterprise'">
-        <div class="metric">
-          <span>Recommended pack:</span>
-          <strong class="brand">{{ recommendedPack.name }}</strong>
-        </div>
-
-        <div class="cost-breakdown">
-          <div class="metric">
-            <span>BlueFox platform:</span>
-            <strong>${{ formatNumber(recommendedPack.price) }}</strong>
-          </div>
-
-          <div class="metric">
-            <span>AWS SES (est.):</span>
-            <strong>{{ formatPrice(awsCost) }}</strong>
-          </div>
-        </div>
-
-        <div class="metric total">
-          <span>Total annual cost:</span>
-          <strong class="price">{{ formatPrice(totalCost) }}</strong>
-        </div>
-
-        <div class="metric">
-          <span>Cost per email:</span>
-          <strong>{{ formatPriceDetailed(costPerEmail) }}</strong>
-        </div>
-
-        <div class="info-box" v-if="creditsRemaining > 0">
-          💡 You'll have <strong>{{ formatNumber(creditsRemaining) }} credits</strong> 
-          ({{ formatNumber(creditsRemaining) }} emails) remaining for future use.
+      <!-- Empty state -->
+      <template v-else>
+        <div class="empty-state">
+          📊 Enter your annual email volume above to see pricing recommendations.
         </div>
       </template>
-
-      <!-- Enterprise -->
-      <template v-else-if="recommendedPack === 'enterprise'">
-        <div class="info-box enterprise">
-          🚀 <strong>Enterprise volume!</strong> 
-          <a href="mailto:hello@bluefox.email">Contact us</a> for custom pricing and dedicated support.
-        </div>
-        
-        <div class="metric">
-          <span>AWS SES cost (est.):</span>
-          <strong>{{ formatPrice(awsCost) }}</strong>
-        </div>
-      </template>
-
-      <div class="note" v-if="!isCoveredByFreeCredits">
-        ℹ️ AWS charges $1 per 10,000 emails separately. Credits valid for 12 months.
-      </div>
     </div>
   </div>
 </template>
@@ -262,17 +215,6 @@ const formatPriceDetailed = (price) => {
   color: var(--vp-c-text-1);
 }
 
-.metric.highlight {
-  background: var(--vp-c-bg-alt);
-  padding: 10px 16px;
-  margin: 0 -16px;
-  border-radius: 8px;
-}
-
-.metric strong.success {
-  color: #4caf50;
-}
-
 .metric strong.brand {
   background: linear-gradient(120deg, #392c91, #13b0ee);
   -webkit-background-clip: text;
@@ -313,12 +255,6 @@ const formatPriceDetailed = (price) => {
   color: transparent;
 }
 
-.metric .price-free {
-  font-size: 24px;
-  font-weight: 700;
-  color: #4caf50;
-}
-
 .info-box {
   margin-top: 16px;
   padding: 12px 16px;
@@ -327,11 +263,6 @@ const formatPriceDetailed = (price) => {
   border-radius: 6px;
   font-size: 14px;
   color: var(--vp-c-text-2);
-}
-
-.info-box.success {
-  border-left-color: #4caf50;
-  background: rgba(76, 175, 80, 0.1);
 }
 
 .info-box.enterprise {
@@ -363,6 +294,13 @@ const formatPriceDetailed = (price) => {
   font-style: italic;
 }
 
+.empty-state {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--vp-c-text-2);
+  font-size: 15px;
+}
+
 @media (max-width: 640px) {
   .pricing-calculator {
     padding: 24px 20px;
@@ -372,8 +310,7 @@ const formatPriceDetailed = (price) => {
     font-size: 14px;
   }
 
-  .metric .price,
-  .metric .price-free {
+  .metric .price {
     font-size: 20px;
   }
 }

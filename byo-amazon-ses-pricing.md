@@ -7,7 +7,7 @@ description: Don't overpay for contact-based subscriptions ever again. Only pay 
 
 <script setup>
   import { useData } from 'vitepress'
-  import BYOPricingCalculator from './components/PricingCalculator.vue'
+  import BYOPricingCalculator from './components/BYOPriceCalculator.vue'
   const { isDark } = useData()
 </script>
 

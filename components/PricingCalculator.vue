@@ -1,89 +1,127 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const emails = ref(50_000)
+// User input
+const annualEmails = ref(50_000)
 
-const creditsNeeded = computed(() => Math.ceil(emails.value * 2))
-
-const packs = [
+// Pricing configuration
+const CREDIT_RATIO = 2 // 1 email = 2 credits
+const PACKS = [
   { name: 'Start-up', credits: 100_000, price: 50 },
   { name: 'Scale-up', credits: 1_000_000, price: 300 },
-  { name: 'Grown-up', credits: 10_000_000, price: 2500 },
-  { name: 'Enterprise', credits: Infinity, price: null }
+  { name: 'Grown-up', credits: 10_000_000, price: 2_500 }
 ]
 
-const selectedPack = computed(() => {
-  return packs.find(pack => creditsNeeded.value <= pack.credits) || packs[3]
+// Calculations
+const creditsNeeded = computed(() => annualEmails.value * CREDIT_RATIO)
+
+const recommendedPack = computed(() => {
+  if (annualEmails.value <= 0) return null
+  return PACKS.find(pack => creditsNeeded.value <= pack.credits) || 'enterprise'
 })
 
 const costPerEmail = computed(() => {
-  if (!selectedPack.value.price) return null
-  const maxEmailsInPack = selectedPack.value.credits / 2
-  return selectedPack.value.price / maxEmailsInPack
+  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
+  return recommendedPack.value.price / annualEmails.value
 })
 
+const creditsRemaining = computed(() => {
+  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
+  return recommendedPack.value.credits - creditsNeeded.value
+})
+
+const emailsSendable = computed(() => {
+  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
+  return recommendedPack.value.credits / CREDIT_RATIO
+})
+
+// Formatting helpers
 const formatNumber = (num) => {
-  if (typeof num !== 'number') return num
-  return num.toLocaleString()
+  if (num === null || num === undefined) return '—'
+  return num.toLocaleString('en-US')
 }
 
 const formatPrice = (price) => {
   if (price === null) return '—'
+  if (price < 0.01) return '< $0.01'
   return `$${price.toFixed(4)}`
 }
 </script>
 
 <template>
   <div class="pricing-calculator">
+    <h3>Calculate your annual cost</h3>
+    
     <div class="input-section">
-      <label for="email-count">How many emails do you plan to send?</label>
+      <label for="annual-emails">Annual emails you plan to send</label>
       <input
-        id="email-count"
+        id="annual-emails"
         type="number"
-        v-model.number="emails"
+        v-model.number="annualEmails"
         min="1"
-        :max="10_000_000"
-        placeholder="e.g. 50000"
+        max="20_000_000"
+        step="1000"
+        placeholder="e.g. 100000"
       />
     </div>
 
-    <div class="result">
-      <div class="metric">
-        <span>Credits needed:</span>
-        <strong>{{ formatNumber(creditsNeeded) }}</strong>
-      </div>
+    <div class="results">
+      <!-- Show results only for valid input -->
+      <template v-if="annualEmails > 0">
+        <div class="metric">
+          <span>Credits needed:</span>
+          <strong>{{ formatNumber(creditsNeeded) }}</strong>
+        </div>
 
-      <div class="metric">
-        <span>Recommended pack:</span>
-        <strong>{{ selectedPack.name }}</strong>
-      </div>
+        <div class="divider"></div>
 
-      <div class="metric total-cost">
-        <span>Total cost:</span>
-        <strong v-if="selectedPack.price !== null" class="price">
-          ${{ formatNumber(selectedPack.price) }}
-        </strong>
-        <a
-          v-else
-          href="mailto:hello@bluefox.email"
-          class="contact-link"
-        >
-          Contact us
-        </a>
-      </div>
+        <!-- Paid pack recommendation -->
+        <template v-if="recommendedPack !== 'enterprise'">
+          <div class="metric">
+            <span>Recommended pack:</span>
+            <strong class="brand">{{ recommendedPack.name }}</strong>
+          </div>
 
-      <div v-if="selectedPack.price !== null" class="metric">
-        <span>Effective cost per email:</span>
-        <strong>{{ formatPrice(costPerEmail) }}/email</strong>
-      </div>
+          <div class="metric">
+            <span>Pack includes:</span>
+            <strong>{{ formatNumber(emailsSendable) }} email sends</strong>
+          </div>
 
-      <!-- ✅ FIXED: Only show leftover credits for non-Enterprise packs -->
-      <div
-        v-if="selectedPack.price !== null && selectedPack.credits !== Infinity && selectedPack.credits > creditsNeeded"
-        class="savings-note"
-      >
-        💡 You’ll have <strong>{{ formatNumber(selectedPack.credits - creditsNeeded) }}</strong> credits left for future use.
-      </div>
+          <div class="metric total">
+            <span>Annual cost:</span>
+            <strong class="price">${{ formatNumber(recommendedPack.price) }}</strong>
+          </div>
+
+          <div class="metric">
+            <span>Cost per email:</span>
+            <strong>{{ formatPrice(costPerEmail) }}</strong>
+          </div>
+
+          <div class="info-box" v-if="creditsRemaining > 0">
+            💡 You'll have <strong>{{ formatNumber(creditsRemaining) }} credits</strong> 
+            ({{ formatNumber(Math.floor(creditsRemaining / CREDIT_RATIO)) }} emails) remaining for future use.
+          </div>
+        </template>
+
+        <!-- Enterprise -->
+        <template v-else>
+          <div class="info-box enterprise">
+            🚀 <strong>Enterprise volume!</strong> 
+            <a href="mailto:hello@bluefox.email">Contact us</a> for custom pricing and dedicated support.
+          </div>
+        </template>
+
+        <div class="note">
+          ℹ️ Credits valid for 12 months. All features included without restrictions.
+        </div>
+      </template>
+
+      <!-- Empty state -->
+      <template v-else>
+        <div class="empty-state">
+          📊 Enter your annual email volume above to see pricing recommendations.
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -92,43 +130,59 @@ const formatPrice = (price) => {
 .pricing-calculator {
   background: var(--vp-c-bg-soft);
   border-radius: 16px;
-  padding: 24px;
-  margin: 32px auto;
-  max-width: 560px;
+  padding: 32px;
+  margin: 40px auto;
+  max-width: 600px;
+}
+
+.pricing-calculator h3 {
+  margin: 0 0 24px 0;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
   color: var(--vp-c-text-1);
 }
 
 .input-section {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .input-section label {
   display: block;
   margin-bottom: 8px;
-  font-weight: 600;
-  font-size: 16px;
+  font-weight: 500;
+  font-size: 15px;
+  color: var(--vp-c-text-2);
 }
 
 .input-section input {
   width: 100%;
-  padding: 10px 14px;
+  padding: 12px 16px;
   font-size: 16px;
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   background: var(--vp-c-bg);
   color: var(--vp-c-text-1);
+  transition: border-color 0.2s;
 }
 
 .input-section input:focus {
-  outline: 2px solid var(--vp-c-brand);
-  border-color: transparent;
+  outline: none;
+  border-color: var(--vp-c-brand);
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .metric {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
-  font-size: 16px;
+  align-items: center;
+  padding: 10px 0;
+  font-size: 15px;
 }
 
 .metric span {
@@ -137,33 +191,95 @@ const formatPrice = (price) => {
 
 .metric strong {
   font-weight: 600;
+  color: var(--vp-c-text-1);
 }
 
-.total-cost .price {
-  font-size: 20px;
+.metric strong.brand {
+  background: linear-gradient(120deg, #392c91, #13b0ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 16px;
+}
+
+.divider {
+  height: 1px;
+  background: var(--vp-c-divider);
+  margin: 12px 0;
+}
+
+.metric.total {
+  margin-top: 8px;
+  padding: 16px 0;
+  border-top: 2px solid var(--vp-c-divider);
+}
+
+.metric .price {
+  font-size: 24px;
   font-weight: 700;
-  background: linear-gradient(120deg, #392c91 5%, #13b0ee);
+  background: linear-gradient(120deg, #392c91, #13b0ee);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.contact-link {
-  color: var(--vp-c-brand);
-  font-weight: 600;
-  text-decoration: none;
+.info-box {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: var(--vp-c-bg-alt);
+  border-left: 3px solid var(--vp-c-brand);
+  border-radius: 6px;
+  font-size: 14px;
+  color: var(--vp-c-text-2);
 }
 
-.contact-link:hover {
+.info-box.enterprise {
+  border-left-color: #13b0ee;
+}
+
+.info-box strong {
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+}
+
+.info-box a {
+  color: var(--vp-c-brand);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.info-box a:hover {
   text-decoration: underline;
 }
 
-.savings-note {
+.note {
   margin-top: 16px;
-  padding-top: 12px;
+  padding-top: 16px;
   border-top: 1px dashed var(--vp-c-divider);
-  font-size: 14px;
-  color: var(--vp-c-text-2);
+  font-size: 13px;
+  color: var(--vp-c-text-3);
   text-align: center;
+  font-style: italic;
+}
+
+.empty-state {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--vp-c-text-2);
+  font-size: 15px;
+}
+
+@media (max-width: 640px) {
+  .pricing-calculator {
+    padding: 24px 20px;
+  }
+
+  .metric {
+    font-size: 14px;
+  }
+
+  .metric .price {
+    font-size: 20px;
+  }
 }
 </style>
