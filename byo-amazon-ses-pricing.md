@@ -7,6 +7,7 @@ description: Don't overpay for contact-based subscriptions ever again. Only pay 
 
 <script setup>
   import { useData } from 'vitepress'
+  import BYOPricingCalculator from './components/BYOPriceCalculator.vue'
   const { isDark } = useData()
 </script>
 
@@ -41,6 +42,10 @@ html.dark .pricing-card .pricing-card-inner {
   background-color: rgb(27, 27, 31);
 }
 
+.pricing-card.free-tier {
+  background: linear-gradient(-5deg, #13B0EE 0%, #4CAF50 50%);
+}
+
 .pricing-card.start-up {
   background: linear-gradient(-5deg, #392C91 0%, #13B0EE 30%);
 }
@@ -51,10 +56,6 @@ html.dark .pricing-card .pricing-card-inner {
 
 .pricing-card.grown-up {
   background: linear-gradient(-5deg, #392C91 60%, #13B0EE 90%);
-}
-
-.pricing-card.enterprise {
-  background: #392C91;
 }
 
 .vp-doc .pricing-card h3 {
@@ -208,6 +209,14 @@ html.dark .pricing-card .pricing-card-inner {
     </div>
   </div>
   <div class="card-container">
+    <div class="pricing-card free-tier">
+      <div class="pricing-card-inner">
+        <h3>Free-tier</h3>
+        <div class="pricing-card-credits">3K credits/mo</div>
+        <div class="pricing-card-sends">(3K sends/mo)</div>
+        <div class="pricing-card-price">$0</div>
+      </div>
+    </div>
     <div class="pricing-card start-up">
       <div class="pricing-card-inner">
         <h3>Start-up</h3>
@@ -232,22 +241,20 @@ html.dark .pricing-card .pricing-card-inner {
         <div class="pricing-card-price">$2500</div>
       </div>
     </div>
-    <div class="pricing-card enterprise">
-      <div class="pricing-card-inner">
-        <h3>Enterprise</h3>
-        <div class="pricing-card-credits">10M+ credits</div>
-        <div class="pricing-card-sends">(10M+ sends)</div>
-        <div class="pricing-card-price"><a href="mailto:hello@bluefox.email">Contact us</a></div>
-      </div>
-    </div>
   </div>
-  
+  <div style="margin-top: 40px;">
+    <p>Need more? <a href="mailto:hello@bluefox.email">Contact us for enterprise pricing</a></p>
+  </div>
   <div class="credit-explanation">
     <div class="with-branding">
       <div>1 email send = 1 credit</div>
       <div>In the "bring your own Amazon SES" version, you can connect your own SES account to BlueFox Email. It means that you will also need to pay to AWS $1 / 10,000 emails for your SES usage.</div>
     </div>
   </div>
+
+
+  <BYOPricingCalculator />
+
   <div>Wanna use our sending infrastructure? <a href="/pricing">See our regular pricing.</a></div>
   <p>All packages include all of our features without restrictions!</p>
   <div id="get-started-with-free-credits">Get started with 3000 free monthly credits in the first year</div>
@@ -277,4 +284,3 @@ html.dark .pricing-card .pricing-card-inner {
     </v-btn>
   </div>
 </section>
-

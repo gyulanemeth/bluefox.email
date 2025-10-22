@@ -2,11 +2,10 @@
 import { ref, computed } from 'vue'
 
 // User input
-const annualEmails = ref(100_000)
+const annualEmails = ref(50_000)
 
 // Pricing configuration
 const CREDIT_RATIO = 2 // 1 email = 2 credits
-const FREE_CREDITS_ANNUAL = 36_000 // 3,000/month × 12
 const PACKS = [
   { name: 'Start-up', credits: 100_000, price: 50 },
   { name: 'Scale-up', credits: 1_000_000, price: 300 },
@@ -15,12 +14,10 @@ const PACKS = [
 
 // Calculations
 const creditsNeeded = computed(() => annualEmails.value * CREDIT_RATIO)
-const netCreditsNeeded = computed(() => Math.max(0, creditsNeeded.value - FREE_CREDITS_ANNUAL))
 
-// Only recommend a pack if they need to buy credits
 const recommendedPack = computed(() => {
-  if (netCreditsNeeded.value === 0) return null
-  return PACKS.find(pack => netCreditsNeeded.value <= pack.credits) || 'enterprise'
+  if (annualEmails.value <= 0) return null
+  return PACKS.find(pack => creditsNeeded.value <= pack.credits) || 'enterprise'
 })
 
 const costPerEmail = computed(() => {
@@ -30,17 +27,13 @@ const costPerEmail = computed(() => {
 
 const creditsRemaining = computed(() => {
   if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  return recommendedPack.value.credits - netCreditsNeeded.value
+  return recommendedPack.value.credits - creditsNeeded.value
 })
 
 const emailsSendable = computed(() => {
   if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
   return recommendedPack.value.credits / CREDIT_RATIO
 })
-
-const freeEmailsAvailable = computed(() => FREE_CREDITS_ANNUAL / CREDIT_RATIO)
-
-const isCoveredByFreeCredits = computed(() => creditsNeeded.value <= FREE_CREDITS_ANNUAL)
 
 // Formatting helpers
 const formatNumber = (num) => {
@@ -65,91 +58,70 @@ const formatPrice = (price) => {
         id="annual-emails"
         type="number"
         v-model.number="annualEmails"
-        min="0"
+        min="1"
         max="20_000_000"
         step="1000"
+        placeholder="e.g. 100000"
       />
     </div>
 
     <div class="results">
-      <div class="metric">
-        <span>Credits needed:</span>
-        <strong>{{ formatNumber(creditsNeeded) }}</strong>
-      </div>
-
-      <div class="metric highlight">
-        <span>Free credits (first year):</span>
-        <strong class="success">{{ formatNumber(FREE_CREDITS_ANNUAL) }}</strong>
-      </div>
-
-      <div class="metric">
-        <span>Additional credits to purchase:</span>
-        <strong>{{ formatNumber(netCreditsNeeded) }}</strong>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- Covered by free credits -->
-      <template v-if="isCoveredByFreeCredits">
-        <div class="info-box success">
-          🎉 <strong>Great news!</strong> Your email volume ({{ formatNumber(annualEmails) }} emails/year) 
-          is covered by the <strong>free 36,000 credits</strong> included in your first year!
-        </div>
-
-        <div class="metric total">
-          <span>Annual cost:</span>
-          <strong class="price-free">$0</strong>
-        </div>
-
+      <!-- Show results only for valid input -->
+      <template v-if="annualEmails > 0">
         <div class="metric">
-          <span>Free credits remaining:</span>
-          <strong>{{ formatNumber(FREE_CREDITS_ANNUAL - creditsNeeded) }}</strong>
+          <span>Credits needed:</span>
+          <strong>{{ formatNumber(creditsNeeded) }}</strong>
         </div>
+
+        <div class="divider"></div>
+
+        <!-- Paid pack recommendation -->
+        <template v-if="recommendedPack !== 'enterprise'">
+          <div class="metric">
+            <span>Recommended pack:</span>
+            <strong class="brand">{{ recommendedPack.name }}</strong>
+          </div>
+
+          <div class="metric">
+            <span>Pack includes:</span>
+            <strong>{{ formatNumber(emailsSendable) }} email sends</strong>
+          </div>
+
+          <div class="metric total">
+            <span>Annual cost:</span>
+            <strong class="price">${{ formatNumber(recommendedPack.price) }}</strong>
+          </div>
+
+          <div class="metric">
+            <span>Cost per email:</span>
+            <strong>{{ formatPrice(costPerEmail) }}</strong>
+          </div>
+
+          <div class="info-box" v-if="creditsRemaining > 0">
+            💡 You'll have <strong>{{ formatNumber(creditsRemaining) }} credits</strong> 
+            ({{ formatNumber(Math.floor(creditsRemaining / CREDIT_RATIO)) }} emails) remaining for future use.
+          </div>
+        </template>
+
+        <!-- Enterprise -->
+        <template v-else>
+          <div class="info-box enterprise">
+            🚀 <strong>Enterprise volume!</strong> 
+            <a href="mailto:hello@bluefox.email">Contact us</a> for custom pricing and dedicated support.
+          </div>
+        </template>
 
         <div class="note">
-          ℹ️ That's {{ formatNumber(Math.floor((FREE_CREDITS_ANNUAL - creditsNeeded) / CREDIT_RATIO)) }} additional emails you can send for free!
+          ℹ️ Credits valid for 12 months. All features included without restrictions.
         </div>
       </template>
 
-      <!-- Need to purchase credits -->
-      <template v-else-if="recommendedPack && recommendedPack !== 'enterprise'">
-        <div class="metric">
-          <span>Recommended pack:</span>
-          <strong class="brand">{{ recommendedPack.name }}</strong>
-        </div>
-
-        <div class="metric">
-          <span>Pack includes:</span>
-          <strong>{{ formatNumber(emailsSendable) }} email sends</strong>
-        </div>
-
-        <div class="metric total">
-          <span>Annual cost:</span>
-          <strong class="price">${{ formatNumber(recommendedPack.price) }}</strong>
-        </div>
-
-        <div class="metric">
-          <span>Cost per email:</span>
-          <strong>{{ formatPrice(costPerEmail) }}</strong>
-        </div>
-
-        <div class="info-box" v-if="creditsRemaining > 0">
-          💡 You'll have <strong>{{ formatNumber(creditsRemaining) }} credits</strong> 
-          ({{ formatNumber(Math.floor(creditsRemaining / CREDIT_RATIO)) }} emails) remaining for future use.
+      <!-- Empty state -->
+      <template v-else>
+        <div class="empty-state">
+          📊 Enter your annual email volume above to see pricing recommendations.
         </div>
       </template>
-
-      <!-- Enterprise -->
-      <template v-else-if="recommendedPack === 'enterprise'">
-        <div class="info-box enterprise">
-          🚀 <strong>Enterprise volume!</strong> 
-          <a href="mailto:hello@bluefox.email">Contact us</a> for custom pricing and dedicated support.
-        </div>
-      </template>
-
-      <div class="note" v-if="!isCoveredByFreeCredits">
-        ℹ️ Credits valid for 12 months. All features included without restrictions.
-      </div>
     </div>
   </div>
 </template>
@@ -222,17 +194,6 @@ const formatPrice = (price) => {
   color: var(--vp-c-text-1);
 }
 
-.metric.highlight {
-  background: var(--vp-c-bg-alt);
-  padding: 10px 16px;
-  margin: 0 -16px;
-  border-radius: 8px;
-}
-
-.metric strong.success {
-  color: #4caf50;
-}
-
 .metric strong.brand {
   background: linear-gradient(120deg, #392c91, #13b0ee);
   -webkit-background-clip: text;
@@ -262,12 +223,6 @@ const formatPrice = (price) => {
   color: transparent;
 }
 
-.metric .price-free {
-  font-size: 24px;
-  font-weight: 700;
-  color: #4caf50;
-}
-
 .info-box {
   margin-top: 16px;
   padding: 12px 16px;
@@ -276,11 +231,6 @@ const formatPrice = (price) => {
   border-radius: 6px;
   font-size: 14px;
   color: var(--vp-c-text-2);
-}
-
-.info-box.success {
-  border-left-color: #4caf50;
-  background: rgba(76, 175, 80, 0.1);
 }
 
 .info-box.enterprise {
@@ -312,6 +262,13 @@ const formatPrice = (price) => {
   font-style: italic;
 }
 
+.empty-state {
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--vp-c-text-2);
+  font-size: 15px;
+}
+
 @media (max-width: 640px) {
   .pricing-calculator {
     padding: 24px 20px;
@@ -321,8 +278,7 @@ const formatPrice = (price) => {
     font-size: 14px;
   }
 
-  .metric .price,
-  .metric .price-free {
+  .metric .price {
     font-size: 20px;
   }
 }
