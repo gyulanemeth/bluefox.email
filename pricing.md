@@ -41,6 +41,10 @@ html.dark .pricing-card .pricing-card-inner {
   background-color: rgb(27, 27, 31);
 }
 
+.pricing-card.free-tier {
+  background: linear-gradient(-5deg, #13B0EE 0%, #4CAF50 50%);
+}
+
 .pricing-card.start-up {
   background: linear-gradient(-5deg, #392C91 0%, #13B0EE 30%);
 }
@@ -51,10 +55,6 @@ html.dark .pricing-card .pricing-card-inner {
 
 .pricing-card.grown-up {
   background: linear-gradient(-5deg, #392C91 60%, #13B0EE 90%);
-}
-
-.pricing-card.enterprise {
-  background: #392C91;
 }
 
 .vp-doc .pricing-card h3 {
@@ -207,6 +207,14 @@ html.dark .pricing-card .pricing-card-inner {
     </div>
   </div>
   <div class="card-container">
+    <div class="pricing-card free-tier">
+      <div class="pricing-card-inner">
+        <h3>Free-tier</h3>
+        <div class="pricing-card-credits">3K credits/mo</div>
+        <div class="pricing-card-sends">(1.5K sends/mo)</div>
+        <div class="pricing-card-price">$0</div>
+      </div>
+    </div>
     <div class="pricing-card start-up">
       <div class="pricing-card-inner">
         <h3>Start-up</h3>
@@ -231,16 +239,10 @@ html.dark .pricing-card .pricing-card-inner {
         <div class="pricing-card-price">$2500</div>
       </div>
     </div>
-    <div class="pricing-card enterprise">
-      <div class="pricing-card-inner">
-        <h3>Enterprise</h3>
-        <div class="pricing-card-credits">10M+ credits</div>
-        <div class="pricing-card-sends">(5M+ sends)</div>
-        <div class="pricing-card-price"><a href="mailto:hello@bluefox.email">Contact us</a></div>
-      </div>
-    </div>
   </div>
-  
+  <div style="margin-top: 40px;">
+    <p>Need more? <a href="mailto:hello@bluefox.email">Contact us for enterprise pricing</a></p>
+  </div>
   <div class="credit-explanation">
     <div class="with-branding">
       <div>1 email send = 2 credits</div>
