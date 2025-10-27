@@ -2,126 +2,165 @@
 import { ref, computed } from 'vue'
 
 // User input
-const annualEmails = ref(50_000)
+const emails = ref(50_000)
 
-// Pricing configuration
-const CREDIT_RATIO = 2 // 1 email = 2 credits
+// BlueFox pricing configuration
+const CREDIT_RATIO = 2
 const PACKS = [
   { name: 'Start-up', credits: 100_000, price: 50 },
   { name: 'Scale-up', credits: 1_000_000, price: 300 },
   { name: 'Grown-up', credits: 10_000_000, price: 2_500 }
 ]
 
-// Calculations
-const creditsNeeded = computed(() => annualEmails.value * CREDIT_RATIO)
-
-const recommendedPack = computed(() => {
-  if (annualEmails.value <= 0) return null
-  return PACKS.find(pack => creditsNeeded.value <= pack.credits) || 'enterprise'
-})
-
-const costPerEmail = computed(() => {
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  return recommendedPack.value.price / annualEmails.value
-})
-
-const creditsRemaining = computed(() => {
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  return recommendedPack.value.credits - creditsNeeded.value
-})
-
-const emailsSendable = computed(() => {
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  return recommendedPack.value.credits / CREDIT_RATIO
-})
-
-// Formatting helpers
-const formatNumber = (num) => {
-  if (num === null || num === undefined) return '—'
-  return num.toLocaleString('en-US')
+// Competitor pricing data
+const COST_PER_EMAIL = {
+  bluefox: 0.0005,
+  sendgrid: 0.0046995,
+  mailchimp: 0.0023,
+  mailersend: 0.001355
 }
 
-const formatPrice = (price) => {
-  if (price === null) return '—'
+// BlueFox calculations
+const creditsNeeded = computed(() => emails.value * CREDIT_RATIO)
+const recommendedPack = computed(() =>
+  emails.value > 0 ? PACKS.find(pack => creditsNeeded.value <= pack.credits) || 'enterprise' : null
+)
+const totalCost = computed(() =>
+  !recommendedPack.value || recommendedPack.value === 'enterprise'
+    ? null
+    : recommendedPack.value.price
+)
+const costPerEmail = computed(() =>
+  totalCost.value && emails.value > 0 ? totalCost.value / emails.value : null
+)
+const creditsRemaining = computed(() =>
+  !recommendedPack.value || recommendedPack.value === 'enterprise'
+    ? null
+    : recommendedPack.value.credits - creditsNeeded.value
+)
+const competitorCosts = computed(() => ({
+  sendgrid: emails.value * COST_PER_EMAIL.sendgrid,
+  mailchimp: emails.value * COST_PER_EMAIL.mailchimp,
+  mailersend: emails.value * COST_PER_EMAIL.mailersend,
+  bluefox: emails.value * COST_PER_EMAIL.bluefox
+}))
+
+// Utility functions
+const formatNumber = num => (num == null ? '—' : num.toLocaleString('en-US'))
+const formatPrice = price => {
+  if (price == null) return '—'
   if (price < 0.01) return '< $0.01'
-  return `$${price.toFixed(4)}`
+  return `$${price.toFixed(2)}`
 }
 </script>
 
 <template>
   <div class="pricing-calculator">
-    <h3>Calculate your annual cost</h3>
-    
+    <h3>Estimate your sending cost</h3>
+
     <div class="input-section">
-      <label for="annual-emails">Annual emails you plan to send</label>
+      <label for="emails">Emails you plan to send</label>
       <input
-        id="annual-emails"
+        id="emails"
+        v-model.number="emails"
         type="number"
-        v-model.number="annualEmails"
         min="1"
         max="20_000_000"
         step="1000"
-        placeholder="e.g. 100000"
+        placeholder="e.g. 50,000"
       />
     </div>
 
-    <div class="results">
-      <!-- Show results only for valid input -->
-      <template v-if="annualEmails > 0">
+    <div class="results" v-if="emails > 0">
+      <div class="metric">
+        <span>Credits required (2 credits = 1 email):</span>
+        <strong>{{ formatNumber(creditsNeeded) }}</strong>
+      </div>
+
+      <div class="divider"></div>
+
+      <template v-if="recommendedPack !== 'enterprise'">
         <div class="metric">
-          <span>Credits needed:</span>
-          <strong>{{ formatNumber(creditsNeeded) }}</strong>
+          <span>Recommended pack:</span>
+          <strong class="brand">{{ recommendedPack.name }}</strong>
         </div>
 
-        <div class="divider"></div>
+        <div class="metric">
+          <span>Pack includes:</span>
+          <strong>{{ formatNumber(recommendedPack.credits / CREDIT_RATIO) }} emails</strong>
+        </div>
 
-        <!-- Paid pack recommendation -->
-        <template v-if="recommendedPack !== 'enterprise'">
-          <div class="metric">
-            <span>Recommended pack:</span>
-            <strong class="brand">{{ recommendedPack.name }}</strong>
-          </div>
+        <div class="metric total">
+          <span>Total pack cost (one-time):</span>
+          <strong class="price">{{ formatPrice(totalCost) }}</strong>
+        </div>
 
-          <div class="metric">
-            <span>Pack includes:</span>
-            <strong>{{ formatNumber(emailsSendable) }} email sends</strong>
-          </div>
+        <div class="metric">
+          <span>Effective cost per email:</span>
+          <strong>{{ formatPrice(costPerEmail) }}</strong>
+        </div>
 
-          <div class="metric total">
-            <span>Annual cost:</span>
-            <strong class="price">${{ formatNumber(recommendedPack.price) }}</strong>
-          </div>
-
-          <div class="metric">
-            <span>Cost per email:</span>
-            <strong>{{ formatPrice(costPerEmail) }}</strong>
-          </div>
-
-          <div class="info-box" v-if="creditsRemaining > 0">
-            💡 You'll have <strong>{{ formatNumber(creditsRemaining) }} credits</strong> 
-            ({{ formatNumber(Math.floor(creditsRemaining / CREDIT_RATIO)) }} emails) remaining for future use.
-          </div>
-        </template>
-
-        <!-- Enterprise -->
-        <template v-else>
-          <div class="info-box enterprise">
-            🚀 <strong>Enterprise volume!</strong> 
-            <a href="mailto:hello@bluefox.email">Contact us</a> for custom pricing and dedicated support.
-          </div>
-        </template>
-
-        <div class="note">
-          ℹ️ Credits valid for 12 months. All features included without restrictions.
+        <div v-if="creditsRemaining > 0" class="info-box">
+          You'll have <strong>{{ formatNumber(creditsRemaining) }}</strong> credits
+          (approximately {{ formatNumber(Math.floor(creditsRemaining / CREDIT_RATIO)) }} emails)
+          remaining for future use.
         </div>
       </template>
 
-      <!-- Empty state -->
       <template v-else>
-        <div class="empty-state">
-          📊 Enter your annual email volume above to see pricing recommendations.
+        <div class="info-box enterprise">
+          <strong>Enterprise volume!</strong>
+          <a href="mailto:hello@bluefox.email">Contact us</a> for custom pricing.
         </div>
       </template>
+      <div class="divider top-border"></div>
+      <!-- Competitor comparison table -->
+      <div class="comparison-section">
+        <div class="comparison-header">
+          <h4>Compare with Competitors</h4>
+        </div>
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Provider</th>
+                <th>Total Cost</th>
+                <th>Savings vs BlueFox</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SendGrid</td>
+                <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
+                <td>{{ Math.round(100 - (competitorCosts.bluefox / competitorCosts.sendgrid * 100)) }}%</td>
+              </tr>
+              <tr>
+                <td>Mailchimp</td>
+                <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
+                <td>{{ Math.round(100 - (competitorCosts.bluefox / competitorCosts.mailchimp * 100)) }}%</td>
+              </tr>
+              <tr>
+                <td>MailerSend</td>
+                <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
+                <td>{{ Math.round(100 - (competitorCosts.bluefox / competitorCosts.mailersend * 100)) }}%</td>
+              </tr>
+              <tr class="highlight">
+                <td>BlueFox Email</td>
+                <td>{{ formatPrice(competitorCosts.bluefox) }}</td>
+                <td>Baseline</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="note">
+        Credits valid 12 months or until used. All features included without restrictions.
+      </div>
+    </div>
+
+    <div v-else class="empty-state">
+      Enter your email volume above to see pricing recommendations and competitor savings.
     </div>
   </div>
 </template>
@@ -135,19 +174,19 @@ const formatPrice = (price) => {
   max-width: 600px;
 }
 
-.pricing-calculator h3 {
-  margin: 0 0 24px 0;
+h3 {
   font-size: 20px;
   font-weight: 600;
   text-align: center;
   color: var(--vp-c-text-1);
+  margin-bottom: 24px;
 }
 
 .input-section {
   margin-bottom: 24px;
 }
 
-.input-section label {
+label {
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
@@ -155,7 +194,7 @@ const formatPrice = (price) => {
   color: var(--vp-c-text-2);
 }
 
-.input-section input {
+input {
   width: 100%;
   padding: 12px 16px;
   font-size: 16px;
@@ -166,40 +205,37 @@ const formatPrice = (price) => {
   transition: border-color 0.2s;
 }
 
-.input-section input:focus {
+input:focus {
   outline: none;
   border-color: var(--vp-c-brand);
-}
-
-.results {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
 }
 
 .metric {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
   font-size: 15px;
+  padding: 10px 0;
 }
 
 .metric span {
   color: var(--vp-c-text-2);
 }
 
-.metric strong {
-  font-weight: 600;
-  color: var(--vp-c-text-1);
-}
-
-.metric strong.brand {
+strong.brand {
   background: linear-gradient(120deg, #392c91, #13b0ee);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-size: 16px;
+}
+
+.price {
+  font-size: 24px;
+  font-weight: 700;
+  background: linear-gradient(120deg, #392c91, #13b0ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .divider {
@@ -208,19 +244,54 @@ const formatPrice = (price) => {
   margin: 12px 0;
 }
 
-.metric.total {
-  margin-top: 8px;
-  padding: 16px 0;
-  border-top: 2px solid var(--vp-c-divider);
+/* Top border before comparison */
+.divider.top-border {
+  width: 100%;
+  height: 2px;
+  background: var(--vp-c-divider);
+  margin: 20px 0;
 }
 
-.metric .price {
-  font-size: 24px;
+/* Comparison table section */
+.comparison-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.comparison-section h4 {
+  font-size: 23px;
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  background: var(--vp-c-bg);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+
+.comparison-table th,
+.comparison-table td {
+  border: 1px solid var(--vp-c-divider);
+  text-align: center;
+  padding: 12px 26px;
+  color: var(--vp-c-text-1);
+}
+
+.comparison-table th {
+  background: var(--vp-c-bg-alt);
+  font-weight: 600;
+}
+
+.highlight td {
   font-weight: 700;
-  background: linear-gradient(120deg, #392c91, #13b0ee);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--vp-c-brand);
 }
 
 .info-box {
@@ -233,27 +304,8 @@ const formatPrice = (price) => {
   color: var(--vp-c-text-2);
 }
 
-.info-box.enterprise {
-  border-left-color: #13b0ee;
-}
-
-.info-box strong {
-  color: var(--vp-c-text-1);
-  font-weight: 600;
-}
-
-.info-box a {
-  color: var(--vp-c-brand);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.info-box a:hover {
-  text-decoration: underline;
-}
-
 .note {
-  margin-top: 16px;
+  margin-top: 20px;
   padding-top: 16px;
   border-top: 1px dashed var(--vp-c-divider);
   font-size: 13px;
@@ -278,7 +330,7 @@ const formatPrice = (price) => {
     font-size: 14px;
   }
 
-  .metric .price {
+  .price {
     font-size: 20px;
   }
 }

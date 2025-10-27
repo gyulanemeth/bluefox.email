@@ -21,7 +21,7 @@ a {
   flex-wrap: wrap;
   justify-content: center;
   gap: 30px;
-  padding-top: 50px;
+  padding-top: 30px;
 }
 
 .pricing-card {
@@ -88,8 +88,7 @@ html.dark .pricing-card .pricing-card-inner {
 
 #pricing-page-credit-packs {
   text-align: center;
-
-  padding-top: 100px;
+  padding-top: 50px;
 }
 
 
@@ -244,17 +243,6 @@ html.dark .pricing-card .pricing-card-inner {
   <div style="margin-top: 40px;">
     <p>Need more? <a href="mailto:hello@bluefox.email">Contact us for enterprise pricing</a></p>
   </div>
-  <div class="credit-explanation">
-    <div class="with-branding">
-      <div>1 email send = 2 credits</div>
-    </div>
-  </div>
-
-  <PricingCalculator />
-
-  <div>Wanna bring your own SES? <a href="/byo-amazon-ses-pricing">See our BYO SES pricing.</a></div>
-  <p>All packages include all of our features without restrictions!</p>
-  <div id="get-started-with-free-credits">Get started with 3000 free monthly credits in the first year</div>
 
   <div class="my-4">
     <v-btn
@@ -279,6 +267,30 @@ html.dark .pricing-card .pricing-card-inner {
     >
       How credits work
     </v-btn>
+    <v-btn
+      rounded
+      size="large"
+      color="buttonBackground"
+      variant="flat"
+      class="no-uppercase ml-4"
+      :theme="isDark? 'dark' : 'light'"
+      href="#calculator"
+    >
+      Calculate credits
+    </v-btn>
+
+  <div class="credit-explanation">
+    <div class="with-branding">
+      <div>1 email send = 2 credits</div>
+    </div>
+  </div>
+
+  <div>Wanna bring your own SES? <a href="/byo-amazon-ses-pricing">See our BYO SES pricing.</a></div>
+  <p>All packages include all of our features without restrictions!</p>
+  <div id="get-started-with-free-credits">Get started with 3000 free monthly credits in the first year</div>
+  <div id='calculator'>
+  <PricingCalculator />
+  </div>
   </div>
 </section>
 

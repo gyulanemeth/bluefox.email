@@ -1,13 +1,13 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
-title: Pricing
+title: BYO Amazon SES Pricing
 description: Don't overpay for contact-based subscriptions ever again. Only pay for the emails you send!
 ---
 
 <script setup>
   import { useData } from 'vitepress'
-  import BYOPricingCalculator from './components/BYOPriceCalculator.vue'
+  import BYOPriceCalculator from './components/BYOPriceCalculator.vue'
   const { isDark } = useData()
 </script>
 
@@ -20,8 +20,8 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 50px;
-  padding-top: 50px;
+  gap: 30px;
+  padding-top: 30px;
 }
 
 .pricing-card {
@@ -88,8 +88,7 @@ html.dark .pricing-card .pricing-card-inner {
 
 #pricing-page-credit-packs {
   text-align: center;
-
-  padding-top: 100px;
+  padding-top: 50px;
 }
 
 
@@ -191,7 +190,6 @@ html.dark .pricing-card .pricing-card-inner {
     flex-direction: column;
     align-content: center;
     justify-content: center;
-    max-width: 600px;
   }
 
   @media (max-width: 599px) {
@@ -245,19 +243,6 @@ html.dark .pricing-card .pricing-card-inner {
   <div style="margin-top: 40px;">
     <p>Need more? <a href="mailto:hello@bluefox.email">Contact us for enterprise pricing</a></p>
   </div>
-  <div class="credit-explanation">
-    <div class="with-branding">
-      <div>1 email send = 1 credit</div>
-      <div>In the "bring your own Amazon SES" version, you can connect your own SES account to BlueFox Email. It means that you will also need to pay to AWS $1 / 10,000 emails for your SES usage.</div>
-    </div>
-  </div>
-
-
-  <BYOPricingCalculator />
-
-  <div>Wanna use our sending infrastructure? <a href="/pricing">See our regular pricing.</a></div>
-  <p>All packages include all of our features without restrictions!</p>
-  <div id="get-started-with-free-credits">Get started with 3000 free monthly credits in the first year</div>
 
   <div class="my-4">
     <v-btn
@@ -282,5 +267,30 @@ html.dark .pricing-card .pricing-card-inner {
     >
       How credits work
     </v-btn>
+    <v-btn
+      rounded
+      size="large"
+      color="buttonBackground"
+      variant="flat"
+      class="no-uppercase ml-4"
+      :theme="isDark? 'dark' : 'light'"
+      href="#calculator"
+    >
+      Calculate credits
+    </v-btn>
+
+  <div class="credit-explanation">
+    <div class="with-branding">
+      <div>1 email send = 1 credit</div>
+      <div>In the "bring your own Amazon SES" version, you can connect your own SES account to BlueFox Email. It means that you will also need to pay to AWS $1 / 10,000 emails for your SES usage.</div>
+    </div>
+  </div>
+
+  <div>Wanna use our sending infrastructure? <a href="/pricing">See our regular pricing.</a></div>
+  <p>All packages include all of our features without restrictions!</p>
+  <div id="get-started-with-free-credits">Get started with 3000 free monthly credits in the first year</div>
+  <div id='calculator'>
+  <BYOPriceCalculator />
+  </div>
   </div>
 </section>
