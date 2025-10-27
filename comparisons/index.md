@@ -58,9 +58,10 @@ Explore the key differences between BlueFox Email and MailerSend, including feat
 
 [Read more](./bluefox-vs-mailersend)
 
-# BlueFox Email vs Brevo
+## BlueFox Email vs Brevo
 
 Explore the key differences between BlueFox Email and Brevo (formerly Sendinblue), including features, pricing, and target audiences.
+
 [Read more](./bluefox-vs-brevo)
 
 <style>
