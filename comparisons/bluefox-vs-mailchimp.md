@@ -291,15 +291,20 @@ The pricing includes unlimited contacts with consistent feature access across al
 
 ### Scenario-Based Cost Comparison
 
-| Monthly Volume   | Mailchimp Cost  | BlueFox Email Credit Cost | AWS SES Fee | BlueFox Email Total | Savings |
-|------------------|------------------|---------------------------|-------------|-----------------------|---------|
-| 2,000 emails     | $13 (Essentials) | $1.00                     | $0.20       | $1.20                 | 91%     |
-| 5,000 emails     | $13 (Essentials) | $2.50                     | $0.50       | $3.00                 | 77%     |
-| 10,000 emails    | $20 (Standard)   | $5.00                     | $1.00       | $6.00                 | 70%     |
-| 50,000 emails    | $75 (estimated)  | $25.00                    | $5.00       | $30.00                | 60%     |
-| 100,000 emails   | $230 (estimated) | $50.00                    | $10.00      | $60.00                | 74%     |
-| 500,000 emails   | $450 (estimated) | $150.00                   | $50.00      | $200.00               | 56%     |
-| 1,000,000 emails | $735 (estimated) | $300.00                   | $100.00     | $400.00               | 46%     |
+| Monthly Volume | Mailchimp Cost* | BlueFox Email Total | Savings | BlueFox Email (BYO) Total | Savings |
+| -------------- | --------------: | ------------------: | ------: | ------------------------: | ------: |
+| 2,000 emails   | $13             | $2.00               | 85%    | $1.20                     | 91%    |
+| 5,000 emails   | $13             | $5.00               | 62%    | $3.00                     | 77%    |
+| 10,000 emails  | $20             | $10.00              | 50%    | $6.00                     | 70%    |
+| 50,000 emails  | $75             | $50.00              | 33%    | $30.00                    | 60%    |
+| 100,000 emails | $230            | $100.00             | 57%    | $60.00                    | 74%    |
+| 500,000 emails | $450            | $300.00             | 33%    | $200.00                   | 56%    |
+| 1,000,000 emails | $735          | $600.00             | 18%    | $400.00                   | 46%    |
+
+
+_*Mailchimp pricing assumes Essentials plan for ≤5,000 emails and Standard plan for >5,000 emails, based on contact-based pricing tiers._
+
+_**BlueFox Email Total: Credit pack pricing at $0.50 per 1,000 emails (Start-up pack), $0.30 per 1,000 (Scale-up pack), or $0.25 per 1,000 (Grown-up pack). No additional infrastructure costs._
 
 _*Mailchimp pricing assumes Essentials for ≤5k and Standard for >5k contacts._  
 _**BlueFox Email total includes both credit pack costs and AWS SES fees ($0.10 per 1,000 emails)._
