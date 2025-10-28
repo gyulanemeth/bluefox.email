@@ -1,5 +1,5 @@
 ---
-title: BlueFox Email vs SendGrid | BlueFox Email
+title: BlueFox Email vs SendGrid
 description: Direct comparison of BlueFox Email and SendGrid for email delivery, transactional messaging, and marketing campaigns, covering design, integrations, automation, deliverability, analytics, support, and pricing.
 thumbnail: /assets/comparisons/bluefox-vs-sendgrid.png
 sidebar: false
@@ -7,7 +7,7 @@ aside: true
 prev: false
 next: false
 datePublished: "2025-09-10"
-dateModified: "2025-10-15"
+dateModified: "2025-10-28"
 head:
   - - meta
     - name: description
