@@ -1,5 +1,5 @@
 ---
-title: Amazon SNS Topics | BlueFox Email
+title: Amazon SNS Topics 
 description: AWS SNS Topics are communication channels that enable publishers to distribute messages to multiple subscribers through Amazon's Simple Notification Service, critical for email event processing.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

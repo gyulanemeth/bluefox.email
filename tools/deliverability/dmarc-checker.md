@@ -1,5 +1,5 @@
 ---
-title: Free DMARC Checker | Validate DMARC Policy | BlueFox Email
+title: Free DMARC Checker | Validate DMARC Policy 
 description: Free online DMARC checker tool to validate your domain's DMARC policy, check alignment, and analyze email authentication settings for improved deliverability.
 thumbnail: /assets/free-deliverability-tools.png
 sidebar: false

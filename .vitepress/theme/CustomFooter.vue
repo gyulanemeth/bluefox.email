@@ -73,7 +73,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
           <div class="footer-logo">
             <a href="/" class="logo-link" aria-label="BlueFox Email Home">
               <img 
-                src="/assets/logo-text_inline.png" 
+                src="/assets/logo-text_inline.webp" 
                 alt="BlueFox Email logo" 
                 width="250" 
                 height="auto"

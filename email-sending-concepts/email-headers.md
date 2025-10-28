@@ -1,5 +1,5 @@
 ---
-title: Email Headers | BlueFox Email
+title: Email Headers 
 description: "Learn how email headers work, their importance in email authentication, and how to interpret them for troubleshooting delivery issues and tracking message paths."
 thumbnail: /assets/glossary/email-sending-glossary.png
 

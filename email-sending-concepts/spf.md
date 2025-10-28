@@ -1,5 +1,5 @@
 ---
-title: SPF (Sender Policy Framework) | BlueFox Email
+title: SPF (Sender Policy Framework) 
 description: SPF is an email authentication method that specifies which mail servers are authorized to send emails on behalf of your domain, helping prevent email spoofing and improving deliverability.
 thumbnail: /assets/glossary/email-sending-glossary.png
 

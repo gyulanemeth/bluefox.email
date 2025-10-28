@@ -1,5 +1,5 @@
 ---
-title: BlueFox Email Provider Comparisons | BlueFox Email
+title: BlueFox Email Provider Comparisons
 description: Explore expert comparisons between BlueFox Email and leading email marketing platforms, covering design, infrastructure, pricing, and key features.
 thumbnail: /assets/comparisons/bluefox-comparisons.png
 sidebar: false
@@ -57,6 +57,12 @@ Explore the key differences between BlueFox Email and SendGrid, including featur
 Explore the key differences between BlueFox Email and MailerSend, including features, pricing, and target audiences.
 
 [Read more](./bluefox-vs-mailersend)
+
+## BlueFox Email vs Brevo
+
+Explore the key differences between BlueFox Email and Brevo (formerly Sendinblue), including features, pricing, and target audiences.
+
+[Read more](./bluefox-vs-brevo)
 
 <style>
 a[href^="/comparisons/"] {

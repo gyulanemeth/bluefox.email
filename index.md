@@ -1,7 +1,7 @@
 ---
 layout: home
 
-title: Design Better Emails. Send Smarter. Pay Less. | BlueFox Email
+title: Design Better Emails. Send Smarter. Pay Less.
 description: Send reliable, well-designed emails at a fair price. Automate flows and improve inbox placement with BlueFox Email.
 
 head:

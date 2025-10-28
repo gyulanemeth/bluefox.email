@@ -1,5 +1,5 @@
 ---
-title: Free Link Checker | Validate Links | BlueFox Email
+title: Free Link Checker | Validate Links 
 description: Free online link checker tool to validate email links, verify DNS records, and analyze email authentication for improved deliverability.
 thumbnail: /assets/free-content-tools.png
 sidebar: false
