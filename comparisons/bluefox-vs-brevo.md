@@ -1,5 +1,5 @@
 ---
-title: BlueFox Email vs Brevo | BlueFox Email
+title: BlueFox Email vs Brevo 
 description: Direct comparison of BlueFox Email and Brevo (formerly Sendinblue) for email delivery across marketing and transactional use cases, covering design, integrations, automation, deliverability, personalization, analytics, support, and pricing with scenario-based cost analysis.
 thumbnail: /assets/comparisons/bluefox-vs-brevo.png
 sidebar: false
