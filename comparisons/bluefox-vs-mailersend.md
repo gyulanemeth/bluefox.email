@@ -1,5 +1,5 @@
 ---
-title: BlueFox Email vs MailerSend | BlueFox Email
+title: BlueFox Email vs MailerSend
 description: Direct comparison of BlueFox Email and MailerSend for transactional email delivery, marketing campaigns, and email infrastructure, covering design, integrations, automation, deliverability, analytics, support, and pricing.
 thumbnail: /assets/comparisons/bluefox-vs-mailersend.png
 sidebar: false
