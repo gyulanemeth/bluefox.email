@@ -299,18 +299,22 @@ The pricing includes unlimited contacts with consistent feature access across al
 
 ### Scenario-Based Cost Comparison
 
-| Monthly Volume   | Mailchimp Cost  | BlueFox Email Cost* | Savings |
-|------------------|------------------|---------------------|---------|
-| 2,000 emails     | $13 (Essentials) | $1.00               | 92%     |
-| 5,000 emails     | $13 (Essentials) | $2.50               | 81%     |
-| 10,000 emails    | $20 (Standard)   | $5.00               | 75%     |
-| 50,000 emails    | $75 (estimated)  | $25.00              | 67%     |
-| 100,000 emails   | $230 (estimated) | $50.00              | 78%     |
-| 500,000 emails   | $450 (estimated) | $150.00             | 67%     |
-| 1,000,000 emails | $735 (estimated) | $300.00             | 59%     |
+| Monthly Volume | Mailchimp Cost* | BlueFox Email Total | BlueFox Email (BYO) Total | Savings |
+| -------------- | ---------------: | ------------------: | ------------------------: | -------: |
+| 2,000 emails   | $13              | $1.00               | $1.20                     | 92%     |
+| 5,000 emails   | $13              | $2.50               | $3.00                     | 81%     |
+| 10,000 emails  | $20              | $5.00               | $6.00                     | 75%     |
+| 50,000 emails  | $75              | $25.00              | $30.00                    | 67%     |
+| 100,000 emails | $230             | $50.00              | $60.00                    | 78%     |
+| 500,000 emails | $450             | $150.00             | $200.00                   | 67%     |
+| 1,000,000 emails | $735           | $300.00             | $400.00                   | 59%     |
 
-_*BlueFox Email cost based on credit pack pricing. Users on managed delivery mode have no additional fees. Users on AWS SES mode pay additional $0.10 per 1,000 emails to Amazon for infrastructure costs._  
-_**Mailchimp pricing assumes Essentials for ≤5k and Standard for >5k contacts._
+
+_*Mailchimp pricing assumes Essentials plan for ≤5,000 emails and Standard plan for >5,000 emails, based on contact-based pricing tiers._
+
+_**BlueFox Email Total: Credit pack pricing at $0.50 per 1,000 emails (Start-up pack), $0.30 per 1,000 (Scale-up pack), or $0.25 per 1,000 (Grown-up pack). No additional infrastructure costs._
+
+_***BlueFox Email (BYO) Total: Credit pack pricing (1 send = 1 credit when using your own Amazon SES) + $0.10 per 1,000 emails paid directly to Amazon for AWS SES infrastructure._
 
 :::tip **All Features on Every Plan**  
 Every BlueFox Email plan, including the free tier, includes design systems, automation and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
