@@ -238,15 +238,15 @@ This model includes unlimited contacts and access to all features on every plan.
 
 ### Scenario-Based Cost Comparison
 
-| Monthly Volume | MailerSend Cost* | BlueFox Email Total | BlueFox Email (BYO) Total | Savings |
-| -------------- | ---------------: | ------------------: | ------------------------: | -------: |
-| 2,000 emails   | $88.00           | $1.00               | $1.20                     | 99%     |
-| 5,000 emails   | $88.00           | $2.50               | $3.00                     | 97%     |
-| 10,000 emails  | $88.00           | $5.00               | $6.00                     | 93%     |
-| 50,000 emails  | $88.00           | $25.00              | $30.00                    | 72%     |
-| 100,000 emails | $135.50          | $50.00              | $60.00                    | 63%     |
-| 500,000 emails | $515.50          | $150.00             | $200.00                   | 61%     |
-| 1,000,000 emails | $990.50        | $300.00             | $400.00                   | 60%     |
+| Monthly Volume | MailerSend Cost* | BlueFox Email Total | Savings | BlueFox Email (BYO) Total | Savings |
+| -------------- | ---------------: | ------------------: | ------: | ------------------------: | ------: |
+| 2,000 emails   | $88.00           | $2.00               | 98%    | $1.20                     | 99%    |
+| 5,000 emails   | $88.00           | $5.00               | 94%    | $3.00                     | 97%    |
+| 10,000 emails  | $88.00           | $10.00              | 89%    | $6.00                     | 93%    |
+| 50,000 emails  | $88.00           | $50.00              | 43%    | $30.00                    | 66%    |
+| 100,000 emails | $135.50          | $100.00             | 26%    | $60.00                    | 56%    |
+| 500,000 emails | $515.50          | $300.00             | 42%    | $200.00                   | 61%    |
+| 1,000,000 emails | $990.50        | $600.00             | 39%    | $400.00                   | 60%    |
 
 
 _*MailerSend pricing based on the Professional Plan ($88/month for 50,000 emails) + $0.95 per 1,000 emails for overages. The Professional Plan is MailerSend's only tier that includes all core features (unlimited team seats, A/B testing, full analytics), making it the appropriate comparison for BlueFox Email._
