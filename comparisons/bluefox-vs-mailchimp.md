@@ -7,7 +7,7 @@ aside: true
 prev: false
 next: false
 datePublished: "2025-09-02"
-dateModified: "2025-10-15"
+dateModified: "2025-10-28"
 head:
   - - meta
     - name: description
@@ -299,15 +299,15 @@ The pricing includes unlimited contacts with consistent feature access across al
 
 ### Scenario-Based Cost Comparison
 
-| Monthly Volume | Mailchimp Cost* | BlueFox Email Total | BlueFox Email (BYO) Total | Savings |
-| -------------- | ---------------: | ------------------: | ------------------------: | -------: |
-| 2,000 emails   | $13              | $1.00               | $1.20                     | 92%     |
-| 5,000 emails   | $13              | $2.50               | $3.00                     | 81%     |
-| 10,000 emails  | $20              | $5.00               | $6.00                     | 75%     |
-| 50,000 emails  | $75              | $25.00              | $30.00                    | 67%     |
-| 100,000 emails | $230             | $50.00              | $60.00                    | 78%     |
-| 500,000 emails | $450             | $150.00             | $200.00                   | 67%     |
-| 1,000,000 emails | $735           | $300.00             | $400.00                   | 59%     |
+| Monthly Volume | Mailchimp Cost* | BlueFox Email Total | Savings | BlueFox Email (BYO) Total | Savings |
+| -------------- | --------------: | ------------------: | ------: | ------------------------: | ------: |
+| 2,000 emails   | $13             | $2.00               | 85%    | $1.20                     | 91%    |
+| 5,000 emails   | $13             | $5.00               | 62%    | $3.00                     | 77%    |
+| 10,000 emails  | $20             | $10.00              | 50%    | $6.00                     | 70%    |
+| 50,000 emails  | $75             | $50.00              | 33%    | $30.00                    | 60%    |
+| 100,000 emails | $230            | $100.00             | 57%    | $60.00                    | 74%    |
+| 500,000 emails | $450            | $300.00             | 33%    | $200.00                   | 56%    |
+| 1,000,000 emails | $735          | $600.00             | 18%    | $400.00                   | 46%    |
 
 
 _*Mailchimp pricing assumes Essentials plan for ≤5,000 emails and Standard plan for >5,000 emails, based on contact-based pricing tiers._
