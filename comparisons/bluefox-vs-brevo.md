@@ -7,7 +7,7 @@ aside: true
 prev: false
 next: false
 datePublished: "2025-10-20"
-dateModified: "2025-10-20"
+dateModified: "2025-10-28"
 head:
   - - meta
     - name: description
@@ -364,20 +364,23 @@ This model eliminates surprise charges, contact count fees, and feature gates th
 
 For fair comparison, Brevo costs use the Standard plan ($18/month for 5,000 emails base, scaling up) since it includes core features comparable to BlueFox Email (automation, A/B testing, advanced analytics). Lower Brevo tiers lack these essential capabilities.
 
-| Monthly Volume   | Brevo Standard Cost* | BlueFox Email Credit Cost | AWS SES Fee** | BlueFox Email Total | Savings |
-|------------------|---------------------:|--------------------------:|--------------:|--------------------:|--------:|
-| 2,000 emails     | $18.00              | $1.00                     | $0.20         | $1.20               | 93%     |
-| 5,000 emails     | $18.00              | $2.50                     | $0.50         | $3.00               | 83%     |
-| 10,000 emails    | $25.00              | $5.00                     | $1.00         | $6.00               | 76%     |
-| 20,000 emails    | $35.00              | $10.00                    | $2.00         | $12.00              | 66%     |
-| 50,000 emails    | $75.00              | $25.00                    | $5.00         | $30.00              | 60%     |
-| 100,000 emails   | $129.00             | $50.00                    | $10.00        | $60.00              | 53%     |
-| 250,000 emails   | $239.00             | $75.00                    | $25.00        | $100.00             | 58%     |
-| 500,000 emails   | $399.00             | $150.00                   | $50.00        | $200.00             | 50%     |
-| 1,000,000 emails | $669.00             | $300.00                   | $100.00       | $400.00             | 40%     |
+| Monthly Volume | Brevo Standard Cost* | BlueFox Email Total | Savings | BlueFox Email (BYO) Total | Savings |
+| -------------- | -------------------: | ------------------: | ------: | ------------------------: | ------: |
+| 2,000 emails   | $18.00               | $2.00               | 89%    | $1.20                     | 93%    |
+| 5,000 emails   | $18.00               | $5.00               | 72%    | $3.00                     | 83%    |
+| 10,000 emails  | $25.00               | $10.00              | 60%    | $6.00                     | 76%    |
+| 20,000 emails  | $35.00               | $20.00              | 43%    | $12.00                    | 66%    |
+| 50,000 emails  | $75.00               | $50.00              | 33%    | $30.00                    | 60%    |
+| 100,000 emails | $129.00              | $100.00             | 22%    | $60.00                    | 53%    |
+| 250,000 emails | $239.00              | $150.00             | 37%    | $100.00                   | 58%    |
+| 500,000 emails | $399.00              | $300.00             | 25%    | $200.00                   | 50%    |
+| 1,000,000 emails | $669.00            | $600.00             | 10%    | $400.00                   | 40%    |
 
-*Brevo costs use Standard tier pricing for comparable features (automation, A/B testing, advanced analytics).  
-**BlueFox Email total includes credit costs (using most cost-efficient pack) + AWS SES fees only when using optional bring-your-own-AWS-SES mode. All features available at every tier.
+_*Brevo costs use Standard tier pricing for comparable features (automation, A/B testing, advanced analytics)._
+
+_**BlueFox Email Total: Credit pack pricing at $0.50 per 1,000 emails (Start-up pack), $0.30 per 1,000 (Scale-up pack), or $0.25 per 1,000 (Grown-up pack). No additional infrastructure costs._
+
+_***BlueFox Email (BYO) Total: Credit pack pricing (1 send = 1 credit when using your own Amazon SES) + $0.10 per 1,000 emails paid directly to Amazon for AWS SES infrastructure._
 
 :::tip **All Features on Every Plan**
 Every BlueFox Email plan, including the free tier, includes design systems, automation, and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
