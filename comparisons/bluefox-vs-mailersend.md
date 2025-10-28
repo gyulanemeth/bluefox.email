@@ -7,7 +7,7 @@ aside: true
 prev: false
 next: false
 datePublished: "2025-10-01"
-dateModified: "2025-10-28"
+dateModified: "2025-10-05"
 head:
   - - meta
     - name: description
@@ -249,11 +249,9 @@ This model includes unlimited contacts and access to all features on every plan.
 | 1,000,000 emails | $990.50          | $300.00                   | $100.00       | $400.00             | 60%     |
 
 
-_*MailerSend pricing based on the Professional Plan ($88/month for 50,000 emails) + $0.95 per 1,000 emails for overages. The Professional Plan is MailerSend's only tier that includes all core features (unlimited team seats, A/B testing, full analytics), making it the appropriate comparison for BlueFox Email._
+_*MailerSend pricing based on the Professional Plan ($88 for 50,000 emails) + $0.95 per 1,000 emails for overages. This is the only MailerSend plan that includes all core features (unlimited team seats, A/B testing, full analytics), making it the appropriate comparison for BlueFox Email, which includes all features on every plan._  
 
-_**BlueFox Email Total: Our managed delivery mode pricing. No additional infrastructure costs—we handle everything for you. Rates: $0.50 per 1,000 emails (Start-up pack), $0.30 per 1,000 (Scale-up pack), or $0.25 per 1,000 (Grown-up pack)._
-
-_***BlueFox Email (BYO) Total: When you bring your own Amazon SES, you pay our reduced platform fee (1 credit per send instead of 2) PLUS AWS infrastructure costs ($0.10 per 1,000 emails paid directly to Amazon). Note: Our managed delivery is more cost-effective, but BYO gives you maximum infrastructure control._
+_**BlueFox Email total includes credit costs (using the most cost-efficient pack for each volume). AWS SES fees ($0.10 per 1,000 emails) only apply to users utilizing the optional bring-your-own-AWS-SES mode. All features, automation, design system, unlimited contacts are included at every tier._  
 
 :::tip **All Features on Every Plan**  
 Every BlueFox Email plan, including the free tier, includes design systems, automation and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
