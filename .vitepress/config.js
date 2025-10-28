@@ -27,7 +27,7 @@ if (env.VITE_APP_ENV === 'production') {
 //   https://vitepress.dev/reference/site-config
 export default defineConfig({
   cleanUrls: true,
-  title: "bluefox.email",
+  title: "BlueFox Email",
   description: "High deliverability & brand consistency.",
   head: headConf,
   transformHead({ assets, ...context }) {

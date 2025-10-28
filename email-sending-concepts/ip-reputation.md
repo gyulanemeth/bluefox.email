@@ -1,5 +1,5 @@
 ---
-title: IP Reputation | BlueFox Email
+title: IP Reputation 
 description: Learn about IP Reputation in email marketing, how it affects deliverability, and best practices for maintaining a positive sending reputation.
 thumbnail: /assets/glossary/email-sending-glossary.png
 layout: post

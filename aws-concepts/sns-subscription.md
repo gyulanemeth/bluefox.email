@@ -1,5 +1,5 @@
 ---
-title: Amazon SNS Subscription | BlueFox Email
+title: Amazon SNS Subscription
 description: AWS SNS Subscriptions connect notification topics to endpoint destinations, enabling automated processing of email events like bounces and complaints in messaging systems.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

@@ -1,5 +1,5 @@
 ---
-title: Amazon SES Sending Rates | BlueFox Email
+title: Amazon SES Sending Rates
 description: Learn about AWS SES sending rates, how they differ from quotas, factors that influence them, and best practices for optimal email delivery.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

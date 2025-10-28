@@ -1,5 +1,5 @@
 ---
-title: Amazon SES Production Access | BlueFox Email
+title: Amazon SES Production Access
 description: Learn about AWS SES production access, how it differs from sandbox mode, requirements for gaining production access, and best practices for maintaining production status.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

@@ -1,5 +1,5 @@
 ---
-title: BlueFox Email Provider Comparisons | BlueFox Email
+title: BlueFox Email Provider Comparisons
 description: Explore expert comparisons between BlueFox Email and leading email marketing platforms, covering design, infrastructure, pricing, and key features.
 thumbnail: /assets/comparisons/bluefox-comparisons.png
 sidebar: false
