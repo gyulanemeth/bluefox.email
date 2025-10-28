@@ -1,5 +1,5 @@
 ---
-title: Domain Reputation | BlueFox Email
+title: Domain Reputation 
 description: Learn about Domain Reputation in email marketing, how it's established, tracked, and why it's critical for email deliverability.
 thumbnail: /assets/glossary/email-sending-glossary.png
 

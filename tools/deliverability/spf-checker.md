@@ -1,5 +1,5 @@
 ---
-title: Free SPF Checker | Validate SPF Records | BlueFox Email
+title: Free SPF Checker | Validate SPF Records 
 description: Free online SPF checker tool to validate Sender Policy Framework records, check DNS syntax, and analyze email authentication for improved deliverability.
 thumbnail: /assets/free-deliverability-tools.png
 sidebar: false

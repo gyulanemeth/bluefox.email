@@ -1,5 +1,5 @@
 ---
-title: DMARC (Domain-based Message Authentication, Reporting, and Conformance) | BlueFox Email
+title: DMARC (Domain-based Message Authentication, Reporting, and Conformance) 
 description: DMARC is an email authentication protocol that unifies SPF and DKIM with policy enforcement and reporting. Learn what DMARC is, how it works, and why it matters for email security.
 thumbnail: /assets/glossary/email-sending-glossary.png
 

@@ -1,5 +1,5 @@
 ---
-title: Amazon SES Raw Email Sending | BlueFox Email
+title: Amazon SES Raw Email Sending
 description: Learn about AWS SES Raw Email Sending - a powerful method for sending customized emails with complete control over email format and content.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false
