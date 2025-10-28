@@ -320,17 +320,17 @@ Pricing includes unlimited contacts with consistent feature access across all pl
 
 Assumes 70% marketing and 30% transactional emails for each volume.
 
-| Monthly Volume        | SendGrid Total Cost | BlueFox Email Cost* | Savings |
-|-----------------------|---------------------:|--------------------:|--------:|
-| 2,000 emails          | $34.95              | $1.00               | 97%     |
-| 5,000 emails          | $34.95              | $2.50               | 93%     |
-| 10,000 emails         | $79.95              | $5.00               | 94%     |
-| 50,000 emails         | $319.95             | $25.00              | 92%     |
-| 100,000 emails        | $469.95             | $50.00              | 89%     |
-| 500,000 emails        | $989.95             | $150.00             | 85%     |
-| 1,000,000 emails      | $1,149.00           | $300.00             | 74%     |
+| Monthly Volume | SendGrid Total Cost* | BlueFox Email Total | BlueFox Email (BYO) Total | Savings |
+| -------------- | -------------------: | ----------------: | ------------------: | -----------------:|
+| 2,000 emails   | $34.95               | $1.00             | $1.20               | 97%               |
+| 5,000 emails   | $34.95               | $2.50             | $3.00               | 93%               |
+| 10,000 emails  | $44.95               | $5.00             | $6.00               | 89%               |
+| 50,000 emails  | $319.95              | $25.00            | $30.00              | 92%               |
+| 100,000 emails | $469.95              | $50.00            | $60.00              | 89%               |
+| 500,000 emails | $989.95              | $150.00           | $200.00             | 85%               |
+| 1,000,000 emails | $1,149.00          | $300.00           | $400.00             | 74%               |
 
-_*BlueFox Email cost based on credit pack pricing. Users on managed delivery mode have no additional fees. Users on AWS SES mode pay additional $0.10 per 1,000 emails to Amazon for infrastructure costs._
+_*BlueFox Email cost based on credit pack pricing. Users on managed delivery mode have no additional fees. Users on BYO SES mode pay additional $0.10 per 1,000 emails to Amazon for infrastructure costs._
 
 _**SendGrid totals combine the appropriate Marketing Campaigns tier + Email API plan per 70/30 split._
 
