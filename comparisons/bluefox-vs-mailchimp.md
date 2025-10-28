@@ -1,5 +1,5 @@
 ---
-title: BlueFox Email vs Mailchimp | BlueFox Email
+title: BlueFox Email vs Mailchimp
 description: Direct comparison of BlueFox Email and Mailchimp for email marketing, SaaS, and transactional messaging, covering design, integrations, automation, personalization, analytics, support, and pricing.
 thumbnail: /assets/comparisons/bluefox-vs-mailchimp.png
 sidebar: false
