@@ -1,5 +1,5 @@
 ---
-title: Free MX Record Checker | Lookup Mail Exchange Records | BlueFox Email
+title: Free MX Record Checker | Lookup Mail Exchange Records
 description: Free online MX record checker tool to lookup and validate mail exchange records, check email server configuration, and analyze email routing for domains.
 thumbnail: /assets/free-deliverability-tools.png
 sidebar: false

@@ -1,5 +1,5 @@
 ---
-title: Free Email Content Tools | BlueFox Email
+title: Free Email Content Tools 
 description: Comprehensive collection of free email content tools to verify your email content before you hit the send button.
 thumbnail: /assets/free-content-tools.png
 sidebar: false
