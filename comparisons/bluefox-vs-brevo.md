@@ -362,25 +362,21 @@ This model eliminates surprise charges, contact count fees, and feature gates th
 
 ### Scenario-Based Cost Comparison
 
-For fair comparison, Brevo costs use the Standard plan ($18/month for 5,000 emails base, scaling up) since it includes core features comparable to BlueFox Email (automation, A/B testing, advanced analytics). Lower Brevo tiers lack these essential capabilities.
+| Monthly Volume | Brevo Business Cost* | BlueFox Email Total** | Savings | BlueFox Email (BYO) Total*** | Savings |
+| -------------- | -------------------: | --------------------: | ------: | ---------------------------: | ------: |
+| 2,000 emails   | $2.60                | $2.00                 | 23%     | $1.20                        | 54%     |
+| 5,000 emails   | $6.50                | $5.00                 | 23%     | $3.00                        | 54%     |
+| 10,000 emails  | $13.00               | $10.00                | 23%     | $6.00                        | 54%     |
+| 50,000 emails  | $65.00               | $50.00                | 23%     | $30.00                       | 54%     |
+| 100,000 emails | $130.00              | $100.00               | 23%     | $60.00                       | 54%     |
+| 500,000 emails | $650.00              | $300.00               | 54%     | $200.00                      | 69%     |
+| 1,000,000 emails | $1,300.00          | $600.00               | 54%     | $400.00                      | 69%     |
 
-| Monthly Volume | Brevo Standard Cost* | BlueFox Email Total | Savings | BlueFox Email (BYO) Total | Savings |
-| -------------- | -------------------: | ------------------: | ------: | ------------------------: | ------: |
-| 2,000 emails   | $18.00               | $2.00               | 89%    | $1.20                     | 93%    |
-| 5,000 emails   | $18.00               | $5.00               | 72%    | $3.00                     | 83%    |
-| 10,000 emails  | $25.00               | $10.00              | 60%    | $6.00                     | 76%    |
-| 20,000 emails  | $35.00               | $20.00              | 43%    | $12.00                    | 66%    |
-| 50,000 emails  | $75.00               | $50.00              | 33%    | $30.00                    | 60%    |
-| 100,000 emails | $129.00              | $100.00             | 22%    | $60.00                    | 53%    |
-| 250,000 emails | $239.00              | $150.00             | 37%    | $100.00                   | 58%    |
-| 500,000 emails | $399.00              | $300.00             | 25%    | $200.00                   | 50%    |
-| 1,000,000 emails | $669.00            | $600.00             | 10%    | $400.00                   | 40%    |
+_*Brevo Business Plan pricing at $0.0013 per email (Business plan $129/month for 100k emails). Business Plan includes: unlimited automation contacts, A/B testing, landing pages, advanced analytics, multi-user access (up to 10 users), phone support, send-time optimization._
 
-_*Brevo costs use Standard tier pricing for comparable features (automation, A/B testing, advanced analytics)._
+_**BlueFox Email Total: Credit pack pricing - Start-up: $50 for 50k emails, Scale-up: $300 for 500k emails, Grown-up: $2,500 for 5M emails. No contact limits, all features included at every tier._
 
-_**BlueFox Email Total: Credit pack pricing at $0.50 per 1,000 emails (Start-up pack), $0.30 per 1,000 (Scale-up pack), or $0.25 per 1,000 (Grown-up pack). No additional infrastructure costs._
-
-_***BlueFox Email (BYO) Total: Credit pack pricing (1 send = 1 credit when using your own Amazon SES) + $0.10 per 1,000 emails paid directly to Amazon for AWS SES infrastructure._
+_***BlueFox Email (BYO) includes platform credit pack costs plus AWS SES fees at $0.0001 per email._
 
 :::tip **All Features on Every Plan**
 Every BlueFox Email plan, including the free tier, includes design systems, automation, and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
