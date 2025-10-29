@@ -4,7 +4,7 @@ import { ref, computed } from 'vue'
 // User input
 const emails = ref(100_000)
 
-// Pricing configuration
+// Pricing configuration (BYO SES mode)
 const CREDIT_RATIO = 1 // 1 email = 1 credit
 const AWS_SES_COST_PER_EMAIL = 0.0001 // $0.0001 per email
 const PACKS = [
@@ -13,15 +13,14 @@ const PACKS = [
   { name: 'Grown-up', credits: 10_000_000, price: 2_500 }
 ]
 
-// Competitor pricing data (cost per email)
-const COST_PER_EMAIL = {
-  bluefox: 0.0001, // AWS SES cost only (BlueFox platform cost amortized separately)
-  sendgrid: 0.0046995,
-  mailchimp: 0.0023,
-  mailersend: 0.001355
+// Competitor cost per email (premium tiers, all features)
+const COMPETITOR_COST_PER_EMAIL = {
+  sendgrid: 0.0106,     // SendGrid Premier
+  mailchimp: 0.0037,    // Mailchimp Premium
+  mailersend: 0.00145   // MailerSend Pro
 }
 
-// Calculations
+// BlueFox calculations
 const creditsNeeded = computed(() => emails.value * CREDIT_RATIO)
 const recommendedPack = computed(() =>
   emails.value > 0 ? PACKS.find(pack => creditsNeeded.value <= pack.credits) || 'enterprise' : null
@@ -32,22 +31,38 @@ const totalCost = computed(() =>
     ? null
     : recommendedPack.value.price + awsCost.value
 )
+
+// BlueFox BYO cost per email (platform + AWS)
+const bluefoxCostPerEmail = computed(() => {
+  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return AWS_SES_COST_PER_EMAIL
+  const emailsInPack = recommendedPack.value.credits / CREDIT_RATIO
+  return (recommendedPack.value.price / emailsInPack) + AWS_SES_COST_PER_EMAIL
+})
+
 const costPerEmail = computed(() =>
   totalCost.value && emails.value > 0 ? totalCost.value / emails.value : null
 )
+
 const creditsRemaining = computed(() =>
   !recommendedPack.value || recommendedPack.value === 'enterprise'
     ? null
     : recommendedPack.value.credits - creditsNeeded.value
 )
 
-// Competitor comparison calculations
+// Dynamic competitor costs based on ACTUAL email volume
 const competitorCosts = computed(() => ({
-  sendgrid: emails.value * COST_PER_EMAIL.sendgrid,
-  mailchimp: emails.value * COST_PER_EMAIL.mailchimp,
-  mailersend: emails.value * COST_PER_EMAIL.mailersend,
-  bluefox: totalCost.value || (emails.value * (COST_PER_EMAIL.bluefox + 0.00025)) // Fallback for enterprise
+  sendgrid: emails.value * COMPETITOR_COST_PER_EMAIL.sendgrid,
+  mailchimp: emails.value * COMPETITOR_COST_PER_EMAIL.mailchimp,
+  mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend,
+  bluefox: emails.value * bluefoxCostPerEmail.value // Proportional cost for emails sent
 }))
+
+// Calculate savings
+const calculateSavings = (competitorCost) => {
+  const bluefoxCost = competitorCosts.value.bluefox
+  if (!bluefoxCost || bluefoxCost === 0) return 0
+  return Math.round(((competitorCost - bluefoxCost) / competitorCost) * 100)
+}
 
 // Formatting helpers
 const formatNumber = num => (num == null ? '—' : num.toLocaleString('en-US'))
@@ -142,33 +157,31 @@ const formatPriceDetailed = price => {
 
       <!-- Competitor comparison table -->
       <div class="comparison-section">
-        <div class="comparison-header">
-          <h4>Compare with Competitors</h4>
-        </div>
+        <h4>Compare with Competitors</h4>
         <div class="comparison-table-wrapper">
           <table class="comparison-table">
             <thead>
               <tr>
                 <th>Provider</th>
-                <th>Total Cost</th>
+                <th>Cost for {{ formatNumber(emails) }} emails</th>
                 <th>Savings vs BlueFox</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td>SendGrid</td>
+                <td>SendGrid Premier</td>
                 <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
-                <td>{{ Math.round(100 - (competitorCosts.bluefox / competitorCosts.sendgrid * 100)) }}%</td>
+                <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
               </tr>
               <tr>
-                <td>Mailchimp</td>
+                <td>Mailchimp Premium</td>
                 <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
-                <td>{{ Math.round(100 - (competitorCosts.bluefox / competitorCosts.mailchimp * 100)) }}%</td>
+                <td>{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
               </tr>
               <tr>
-                <td>MailerSend</td>
+                <td>MailerSend Pro</td>
                 <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
-                <td>{{ Math.round(100 - (competitorCosts.bluefox / competitorCosts.mailersend * 100)) }}%</td>
+                <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
               </tr>
               <tr class="highlight">
                 <td>BlueFox Email (BYO SES)</td>
@@ -177,11 +190,16 @@ const formatPriceDetailed = price => {
               </tr>
             </tbody>
           </table>
+          <ul class="table-note">
+            <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
+            <li>Assumes 10,000 contacts with 70% marketing emails and 30% transactional emails</li>
+            <li>BlueFox BYO includes platform credits + your AWS SES costs, no contact limits</li>
+          </ul>
         </div>
       </div>
 
       <div class="note">
-        AWS charges $1 per 10,000 emails separately. Credits valid for 12 months.
+        AWS charges $1 per 10,000 emails separately. Credits valid 12 months or until used.
       </div>
     </div>
 
@@ -270,7 +288,6 @@ strong.brand {
   margin: 12px 0;
 }
 
-/* Top border before comparison */
 .divider.top-border {
   width: 100%;
   height: 2px;
@@ -287,7 +304,12 @@ strong.brand {
   padding: 6px 0;
 }
 
-/* Comparison table section */
+.metric.total {
+  margin-top: 8px;
+  padding: 16px 0;
+  border-top: 2px solid var(--vp-c-divider);
+}
+
 .comparison-section {
   display: flex;
   flex-direction: column;
@@ -299,6 +321,7 @@ strong.brand {
   font-size: 23px;
   font-weight: 600;
   color: var(--vp-c-text-1);
+  margin-bottom: 16px;
 }
 
 .comparison-table {
@@ -337,6 +360,21 @@ strong.brand {
   border-radius: 6px;
   font-size: 14px;
   color: var(--vp-c-text-2);
+}
+
+.table-note {
+  font-size: 13px;
+  color: var(--vp-c-text-3);
+  font-style: italic;
+  margin-top: 12px;
+  padding-left: 20px;
+  text-align: left;
+  line-height: 1.6;
+  list-style-type: disc;
+}
+
+.table-note li {
+  margin-bottom: 4px;
 }
 
 .note {
