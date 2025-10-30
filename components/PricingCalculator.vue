@@ -1,8 +1,12 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-// User input
-const emails = ref(50_000)
+// Predefined slider values
+const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 1000000]
+const currentSliderIndex = ref(2) // Default to 50K
+
+// User input based on slider
+const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
 
 // BlueFox pricing (all features included at every tier)
 const CREDIT_RATIO = 2
@@ -52,7 +56,7 @@ const competitorCosts = computed(() => ({
   mailchimp: emails.value * COMPETITOR_COST_PER_EMAIL.mailchimp,
   sendgrid: emails.value * COMPETITOR_COST_PER_EMAIL.sendgrid,
   mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend,
-  bluefox: emails.value * bluefoxCostPerEmail.value // Actual cost for emails sent, not pack price
+  bluefox: emails.value * bluefoxCostPerEmail.value
 }))
 
 // Calculate savings
@@ -69,210 +73,394 @@ const formatPrice = price => {
   if (price < 0.01) return '< $0.01'
   return `$${price.toFixed(2)}`
 }
+
+// Format number to abbreviated form
+const formatAbbreviated = num => {
+  if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`
+  if (num >= 1000) return `${(num / 1000).toFixed(0)}K`
+  return num.toString()
+}
 </script>
 
 <template>
   <div class="pricing-calculator">
-    <h3>Estimate your sending cost</h3>
-
-    <div class="input-section">
-      <label for="emails">Emails you plan to send</label>
-      <input
-        id="emails"
-        v-model.number="emails"
-        type="number"
-        min="1"
-        max="20_000_000"
-        step="1000"
-        placeholder="e.g. 50,000"
-      />
-    </div>
-
-    <div class="results" v-if="emails > 0">
-      <div class="metric">
-        <span>Credits required (2 credits = 1 email):</span>
-        <strong>{{ formatNumber(creditsNeeded) }}</strong>
-      </div>
-
-      <div class="divider"></div>
-
-      <template v-if="recommendedPack !== 'enterprise'">
-        <div class="metric">
-          <span>Recommended pack:</span>
-          <strong class="brand">{{ recommendedPack.name }}</strong>
-        </div>
-
-        <div class="metric">
-          <span>Pack includes:</span>
-          <strong>{{ formatNumber(recommendedPack.credits / CREDIT_RATIO) }} emails</strong>
-        </div>
-
-        <div class="metric total">
-          <span>Total pack cost (one-time):</span>
-          <strong class="price">{{ formatPrice(totalCost) }}</strong>
-        </div>
-
-        <div class="metric">
-          <span>Effective cost per email:</span>
-          <strong>{{ formatPrice(costPerEmail) }}</strong>
-        </div>
-
-        <div v-if="creditsRemaining > 0" class="info-box">
-          You'll have <strong>{{ formatNumber(creditsRemaining) }}</strong> credits
-          (approximately {{ formatNumber(Math.floor(creditsRemaining / CREDIT_RATIO)) }} emails)
-          remaining for future use.
-        </div>
-      </template>
-
-      <template v-else>
-        <div class="info-box enterprise">
-          <strong>Enterprise volume!</strong>
-          <a href="mailto:hello@bluefox.email">Contact us</a> for custom pricing.
-        </div>
-      </template>
-      
-      <div class="divider top-border"></div>
-      
-      <!-- Competitor comparison -->
-      <div class="comparison-section">
-        <h4>Compare with Competitors</h4>
-        <div class="comparison-table-wrapper">
-          <table class="comparison-table">
-            <thead>
-              <tr>
-                <th>Provider</th>
-                <th>Cost for {{ formatNumber(emails) }} emails</th>
-                <th>Savings vs BlueFox</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Mailchimp Premium</td>
-                <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
-                <td>{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
-              </tr>
-              <tr>
-                <td>SendGrid Premier</td>
-                <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
-                <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
-              </tr>
-              <tr>
-                <td>MailerSend Pro</td>
-                <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
-                <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
-              </tr>
-              <tr class="highlight">
-                <td>BlueFox Email</td>
-                <td>{{ formatPrice(competitorCosts.bluefox) }}</td>
-                <td>Baseline</td>
-              </tr>
-            </tbody>
-          </table>
-          <ul class="table-note">
-            <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
-            <li>Assumes 10,000 contacts with 70% marketing emails and 30% transactional emails</li>
-            <li>BlueFox has no contact limits and includes all features at every tier</li>
-          </ul>
+    <div class="calculator-container">
+      <!-- Slider Section -->
+      <div class="slider-section">
+        <h3 class="slider-title">How many emails do you send monthly?</h3>
+        
+        <div class="slider-wrapper">
+          <input
+            v-model.number="currentSliderIndex"
+            type="range"
+            min="0"
+            :max="SLIDER_VALUES.length - 1"
+            step="1"
+            class="email-slider"
+          />
+          <div class="slider-labels">
+            <span
+              v-for="(value, index) in SLIDER_VALUES"
+              :key="value"
+              class="slider-label"
+              :class="{ active: index === currentSliderIndex }"
+            >
+              {{ formatAbbreviated(value) }}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div class="note">
-        Credits valid 12 months or until used. All features included without restrictions.
-      </div>
-    </div>
+      <!-- Results Grid: BlueFox Pack + Comparison Table -->
+      <div class="results-grid">
+        <!-- BlueFox Pack Card -->
+        <div class="pack-card">
+          <h4 class="card-title">Your BlueFox Cost</h4>
+          
+          <template v-if="recommendedPack !== 'enterprise'">
+            <div class="pack-content">
+              <div class="pack-badge">{{ recommendedPack.name }}</div>
+              <div class="pack-price">{{ formatPrice(totalCost) }}</div>
+              
+              <div class="pack-info">
+                <div class="info-row">
+                  <span class="info-label">Pack includes:</span>
+                  <span class="info-value">{{ formatNumber(recommendedPack.credits / CREDIT_RATIO) }} emails</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Cost per email:</span>
+                  <span class="info-value">{{ formatPrice(costPerEmail) }}</span>
+                </div>
+                <div class="info-row">
+                  <span class="info-label">Credits needed:</span>
+                  <span class="info-value">{{ formatNumber(creditsNeeded) }} credits</span>
+                </div>
+              </div>
 
-    <div v-else class="empty-state">
-      Enter your email volume above to see pricing recommendations and competitor savings.
+              <div v-if="creditsRemaining > 0" class="remaining-note">
+                ✨ <strong>{{ formatNumber(creditsRemaining) }} credits</strong> remaining for future use
+              </div>
+
+              <!-- Features list -->
+              <ul class="pack-features">
+                <li>✓ Credits valid for 12 months</li>
+                <li>✓ All features included</li>
+                <li>✓ No contact-based pricing</li>
+              </ul>
+            </div>
+          </template>
+
+          <template v-else>
+            <div class="enterprise-content">
+              <div class="enterprise-icon">🚀</div>
+              <h5>Enterprise Volume</h5>
+              <p>For 5M+ emails, we offer custom pricing with volume discounts.</p>
+              <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact sales</a>
+            </div>
+          </template>
+        </div>
+
+        <!-- Comparison Table Card -->
+        <div class="comparison-section">
+          <h4>Compare with Competitors</h4>
+          <div class="comparison-table-wrapper">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>Provider</th>
+                  <th>Cost for {{ formatNumber(emails) }} emails</th>
+                  <th>Savings vs BlueFox</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Mailchimp Premium</td>
+                  <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
+                  <td>{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
+                </tr>
+                <tr>
+                  <td>SendGrid Premier</td>
+                  <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
+                  <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
+                </tr>
+                <tr>
+                  <td>MailerSend Pro</td>
+                  <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
+                  <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
+                </tr>
+                <tr class="highlight">
+                  <td>BlueFox Email</td>
+                  <td>{{ formatPrice(competitorCosts.bluefox) }}</td>
+                  <td>Baseline</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .pricing-calculator {
-  background: var(--vp-c-bg-soft);
-  border-radius: 16px;
-  padding: 32px;
-  margin: 40px auto;
-  max-width: 600px;
-}
-
-h3 {
-  font-size: 20px;
-  font-weight: 600;
-  text-align: center;
-  color: var(--vp-c-text-1);
-  margin-bottom: 24px;
-}
-
-.input-section {
-  margin-bottom: 24px;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-  font-size: 15px;
-  color: var(--vp-c-text-2);
-}
-
-input {
   width: 100%;
-  padding: 12px 16px;
-  font-size: 16px;
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.calculator-container {
+  background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  background: var(--vp-c-bg);
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* Slider Section */
+.slider-section {
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.slider-title {
+  font-size: 22px;
+  font-weight: 700;
   color: var(--vp-c-text-1);
-  transition: border-color 0.2s;
+  margin: 0 0 32px 0;
 }
 
-input:focus {
+.slider-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.email-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--vp-c-divider);
   outline: none;
-  border-color: var(--vp-c-brand);
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
 }
 
-.metric {
+.email-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--vp-c-brand);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(19, 176, 238, 0.4);
+  transition: all 0.2s ease;
+}
+
+.email-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.6);
+}
+
+.email-slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--vp-c-brand);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(19, 176, 238, 0.4);
+  transition: all 0.2s ease;
+}
+
+.email-slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.6);
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  padding: 0 4px;
+}
+
+.slider-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--vp-c-text-3);
+  transition: all 0.2s ease;
+}
+
+.slider-label.active {
+  color: var(--vp-c-brand);
+  font-weight: 700;
+  transform: scale(1.1);
+}
+
+/* Results Grid */
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.pack-card,
+.comparison-section {
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+  margin: 0 0 20px 0;
+  text-align: center;
+}
+
+/* Pack Content */
+.pack-content {
+  text-align: center;
+}
+
+.pack-badge {
+  display: inline-block;
+  padding: 6px 16px;
+  background: var(--vp-c-brand);
+  color: white;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 50px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pack-price {
+  font-size: 44px;
+  font-weight: 700;
+  background: linear-gradient(120deg, #392C91, #13B0EE);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 24px;
+  padding: 5px;
+}
+
+html.dark .pack-price {
+  background: linear-gradient(120deg, #8a7ed8, #13B0EE);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.pack-info {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 0;
+  border-top: 1px solid var(--vp-c-divider);
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.info-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 15px;
-  padding: 10px 0;
+  font-size: 14px;
 }
 
-.metric span {
+.info-label {
   color: var(--vp-c-text-2);
+  font-weight: 500;
 }
 
-strong.brand {
-  background: linear-gradient(120deg, #392c91, #13b0ee);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.price {
-  font-size: 24px;
+.info-value {
+  color: var(--vp-c-text-1);
   font-weight: 700;
-  background: linear-gradient(120deg, #392c91, #13b0ee);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
-.divider {
-  height: 1px;
-  background: var(--vp-c-divider);
-  margin: 12px 0;
+.remaining-note {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(19, 176, 238, 0.05);
+  border: 1px solid rgba(19, 176, 238, 0.2);
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--vp-c-text-2);
+  line-height: 1.5;
 }
 
-.divider.top-border {
-  width: 100%;
-  height: 2px;
-  background: var(--vp-c-divider);
-  margin: 20px 0;
+html.dark .remaining-note {
+  background: rgba(19, 176, 238, 0.1);
+  border-color: rgba(19, 176, 238, 0.3);
 }
 
+/* Pack features list */
+.pack-features {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 0 0;
+  text-align: left;
+}
+
+.pack-features li {
+  font-size: 13px;
+  color: var(--vp-c-text-2);
+  padding: 6px 0;
+  font-weight: 500;
+}
+
+/* Enterprise Content */
+.enterprise-content {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.enterprise-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.enterprise-content h5 {
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  color: var(--vp-c-text-1);
+}
+
+.enterprise-content p {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  margin: 0 0 20px 0;
+  line-height: 1.6;
+}
+
+.enterprise-link {
+  display: inline-block;
+  padding: 12px 28px;
+  background: var(--vp-c-brand);
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.enterprise-link:hover {
+  background: var(--vp-c-brand-light);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.3);
+}
+
+/* Comparison Section */
 .comparison-section {
   display: flex;
   flex-direction: column;
@@ -285,6 +473,10 @@ strong.brand {
   font-weight: 600;
   color: var(--vp-c-text-1);
   margin-bottom: 16px;
+}
+
+.comparison-table-wrapper {
+  width: 100%;
 }
 
 .comparison-table {
@@ -315,59 +507,38 @@ strong.brand {
   color: var(--vp-c-brand);
 }
 
-.info-box {
-  margin-top: 16px;
-  padding: 12px 16px;
-  background: var(--vp-c-bg-alt);
-  border-left: 3px solid var(--vp-c-brand);
-  border-radius: 6px;
-  font-size: 14px;
-  color: var(--vp-c-text-2);
-}
+/* Responsive */
+@media (max-width: 968px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
 
-.table-note {
-  font-size: 13px;
-  color: var(--vp-c-text-3);
-  font-style: italic;
-  margin-top: 12px;
-  padding-left: 20px;
-  text-align: left;
-  line-height: 1.6;
-  list-style-type: disc;
-}
-
-.table-note li {
-  margin-bottom: 4px;
-}
-
-.note {
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 1px dashed var(--vp-c-divider);
-  font-size: 13px;
-  color: var(--vp-c-text-3);
-  text-align: center;
-  font-style: italic;
-}
-
-.empty-state {
-  padding: 32px 16px;
-  text-align: center;
-  color: var(--vp-c-text-2);
-  font-size: 15px;
+  .calculator-container {
+    padding: 32px 24px;
+  }
 }
 
 @media (max-width: 640px) {
   .pricing-calculator {
+    padding: 0 12px;
+  }
+
+  .calculator-container {
     padding: 24px 20px;
   }
 
-  .metric {
-    font-size: 14px;
+  .pack-price {
+    font-size: 36px;
   }
 
-  .price {
-    font-size: 20px;
+  .slider-labels {
+    font-size: 11px;
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+    padding: 10px 12px;
+    font-size: 12px;
   }
 }
 </style>
