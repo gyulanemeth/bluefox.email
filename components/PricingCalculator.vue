@@ -51,17 +51,19 @@ const creditsRemaining = computed(() =>
     : recommendedPack.value.credits - creditsNeeded.value
 )
 
+// Actual BlueFox cost for the emails being sent
+const actualBluefoxCost = computed(() => emails.value * bluefoxCostPerEmail.value)
+
 // Dynamic competitor costs based on ACTUAL email volume entered
 const competitorCosts = computed(() => ({
   mailchimp: emails.value * COMPETITOR_COST_PER_EMAIL.mailchimp,
   sendgrid: emails.value * COMPETITOR_COST_PER_EMAIL.sendgrid,
-  mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend,
-  bluefox: emails.value * bluefoxCostPerEmail.value
+  mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend
 }))
 
 // Calculate savings
 const calculateSavings = (competitorCost) => {
-  const bluefoxCost = competitorCosts.value.bluefox
+  const bluefoxCost = actualBluefoxCost.value
   if (!bluefoxCost || bluefoxCost === 0) return 0
   return Math.round(((competitorCost - bluefoxCost) / competitorCost) * 100)
 }
@@ -115,12 +117,24 @@ const formatAbbreviated = num => {
       <div class="results-grid">
         <!-- BlueFox Pack Card -->
         <div class="pack-card">
-          <h4 class="card-title">Your BlueFox Cost</h4>
-          
           <template v-if="recommendedPack !== 'enterprise'">
             <div class="pack-content">
-              <div class="pack-badge">{{ recommendedPack.name }}</div>
-              <div class="pack-price">{{ formatPrice(totalCost) }}</div>
+              <!-- Header -->
+              <div class="pack-header">Your BlueFox Email Cost</div>
+              
+              <!-- Actual price for emails being sent -->
+              <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
+              
+              <!-- Recommended pack info -->
+              <div class="recommended-pack-info">
+                <span class="recommended-label">Recommended pack:</span>
+                <span class="recommended-pack-name">{{ recommendedPack.name }}</span>
+              </div>
+              
+              <div class="pack-price-section">
+                <span class="pack-price-label">Pack cost:</span>
+                <span class="pack-price-value">{{ formatPrice(totalCost) }}</span>
+              </div>
               
               <div class="pack-info">
                 <div class="info-row">
@@ -169,7 +183,7 @@ const formatAbbreviated = num => {
                 <tr>
                   <th>Provider</th>
                   <th>Cost for {{ formatNumber(emails) }} emails</th>
-                  <th>Savings vs BlueFox</th>
+                  <th>You Save</th>
                 </tr>
               </thead>
               <tbody>
@@ -188,13 +202,13 @@ const formatAbbreviated = num => {
                   <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
                   <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
                 </tr>
-                <tr class="highlight">
-                  <td>BlueFox Email</td>
-                  <td>{{ formatPrice(competitorCosts.bluefox) }}</td>
-                  <td>Baseline</td>
-                </tr>
               </tbody>
             </table>
+            <ul class="table-note">
+              <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
+              <li>Assumes 10,000 contacts with 70% marketing emails and 30% transactional emails</li>
+              <li>BlueFox has no contact limits and includes all features at every tier</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -317,44 +331,86 @@ const formatAbbreviated = num => {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
 }
 
-.card-title {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--vp-c-text-1);
-  margin: 0 0 20px 0;
-  text-align: center;
-}
-
 /* Pack Content */
 .pack-content {
   text-align: center;
 }
 
-.pack-badge {
-  display: inline-block;
-  padding: 6px 16px;
-  background: var(--vp-c-brand);
-  color: white;
-  font-size: 13px;
+.pack-header {
+  font-size: 16px;
   font-weight: 600;
-  border-radius: 50px;
+  color: var(--vp-c-text-2);
   margin-bottom: 16px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 0.5px;
 }
 
-.pack-price {
-  font-size: 44px;
+.actual-price {
+  font-size: 56px;
   font-weight: 700;
   background: linear-gradient(120deg, #392C91, #13B0EE);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 24px;
-  padding: 5px;
+  margin-bottom: 20px;
+  line-height: 1;
 }
 
-html.dark .pack-price {
+html.dark .actual-price {
+  background: linear-gradient(120deg, #8a7ed8, #13B0EE);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.recommended-pack-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.recommended-label {
+  font-size: 13px;
+  color: var(--vp-c-text-3);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.recommended-pack-name {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--vp-c-brand);
+}
+
+.pack-price-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--vp-c-bg-alt);
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.pack-price-label {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  font-weight: 500;
+}
+
+.pack-price-value {
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(120deg, #392C91, #13B0EE);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.dark .pack-price-value {
   background: linear-gradient(120deg, #8a7ed8, #13B0EE);
   background-clip: text;
   -webkit-background-clip: text;
@@ -502,9 +558,19 @@ html.dark .remaining-note {
   font-weight: 600;
 }
 
-.highlight td {
-  font-weight: 700;
-  color: var(--vp-c-brand);
+.table-note {
+  font-size: 13px;
+  color: var(--vp-c-text-3);
+  font-style: italic;
+  margin-top: 12px;
+  padding-left: 20px;
+  text-align: left;
+  line-height: 1.6;
+  list-style-type: disc;
+}
+
+.table-note li {
+  margin-bottom: 4px;
 }
 
 /* Responsive */
@@ -527,8 +593,12 @@ html.dark .remaining-note {
     padding: 24px 20px;
   }
 
-  .pack-price {
-    font-size: 36px;
+  .actual-price {
+    font-size: 44px;
+  }
+
+  .recommended-pack-name {
+    font-size: 24px;
   }
 
   .slider-labels {
