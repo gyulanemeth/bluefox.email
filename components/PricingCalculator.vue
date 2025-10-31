@@ -1,82 +1,66 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-// Predefined slider values
 const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 1000000]
-const currentSliderIndex = ref(2) // Default to 50K
+const currentSliderIndex = ref(2)
 
-// User input based on slider
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
 
-// BlueFox pricing (all features included at every tier)
-const CREDIT_RATIO = 2
 const PACKS = [
-  { name: 'Start-up', credits: 100_000, price: 50 },
-  { name: 'Scale-up', credits: 1_000_000, price: 300 },
-  { name: 'Grown-up', credits: 10_000_000, price: 2_500 }
+  { name: 'Start-up', sends: 50_000, price: 50 },
+  { name: 'Scale-up', sends: 500_000, price: 300 }
 ]
 
-// Competitor cost per email (premium tiers, all features)
 const COMPETITOR_COST_PER_EMAIL = {
   mailchimp: 0.0037,
   sendgrid: 0.0106,
   mailersend: 0.00145
 }
 
-// BlueFox calculations
-const creditsNeeded = computed(() => emails.value * CREDIT_RATIO)
 const recommendedPack = computed(() =>
-  emails.value > 0 ? PACKS.find(pack => creditsNeeded.value <= pack.credits) || 'enterprise' : null
-)
-const totalCost = computed(() =>
-  !recommendedPack.value || recommendedPack.value === 'enterprise'
-    ? null
-    : recommendedPack.value.price
+  emails.value > 0 ? PACKS.find(pack => emails.value <= pack.sends) || 'enterprise' : null
 )
 
-// BlueFox cost per email based on recommended pack
+const totalCost = computed(() =>
+  !recommendedPack.value || recommendedPack.value === 'enterprise' ? null : recommendedPack.value.price
+)
+
 const bluefoxCostPerEmail = computed(() => {
   if (!recommendedPack.value || recommendedPack.value === 'enterprise') return 0
-  const emailsInPack = recommendedPack.value.credits / CREDIT_RATIO
-  return recommendedPack.value.price / emailsInPack
+  return recommendedPack.value.price / recommendedPack.value.sends
 })
 
-const costPerEmail = computed(() =>
-  totalCost.value && emails.value > 0 ? totalCost.value / emails.value : null
-)
-
-const creditsRemaining = computed(() =>
-  !recommendedPack.value || recommendedPack.value === 'enterprise'
-    ? null
-    : recommendedPack.value.credits - creditsNeeded.value
-)
-
-// Actual BlueFox cost for the emails being sent
+// Calculate actual cost for the selected email volume
 const actualBluefoxCost = computed(() => emails.value * bluefoxCostPerEmail.value)
 
-// Dynamic competitor costs based on ACTUAL email volume entered
+const sendsRemaining = computed(() =>
+  !recommendedPack.value || recommendedPack.value === 'enterprise'
+    ? null
+    : recommendedPack.value.sends - emails.value
+)
+
+const estimatedContacts = computed(() => Math.round(emails.value / 5))
+
 const competitorCosts = computed(() => ({
   mailchimp: emails.value * COMPETITOR_COST_PER_EMAIL.mailchimp,
   sendgrid: emails.value * COMPETITOR_COST_PER_EMAIL.sendgrid,
   mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend
 }))
 
-// Calculate savings
 const calculateSavings = (competitorCost) => {
   const bluefoxCost = actualBluefoxCost.value
   if (!bluefoxCost || bluefoxCost === 0) return 0
   return Math.round(((competitorCost - bluefoxCost) / competitorCost) * 100)
 }
 
-// Formatting
 const formatNumber = num => (num == null ? '—' : num.toLocaleString('en-US'))
+
 const formatPrice = price => {
   if (price == null) return '—'
   if (price < 0.01) return '< $0.01'
   return `$${price.toFixed(2)}`
 }
 
-// Format number to abbreviated form
 const formatAbbreviated = num => {
   if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`
   if (num >= 1000) return `${(num / 1000).toFixed(0)}K`
@@ -87,7 +71,6 @@ const formatAbbreviated = num => {
 <template>
   <div class="pricing-calculator">
     <div class="calculator-container">
-      <!-- Slider Section -->
       <div class="slider-section">
         <h3 class="slider-title">How many emails do you send monthly?</h3>
         
@@ -113,19 +96,14 @@ const formatAbbreviated = num => {
         </div>
       </div>
 
-      <!-- Results Grid: BlueFox Pack + Comparison Table -->
       <div class="results-grid">
-        <!-- BlueFox Pack Card -->
         <div class="pack-card">
           <template v-if="recommendedPack !== 'enterprise'">
             <div class="pack-content">
-              <!-- Header -->
-              <div class="pack-header">Your BlueFox Email Cost</div>
+              <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email</div>
               
-              <!-- Actual price for emails being sent -->
               <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
               
-              <!-- Recommended pack info -->
               <div class="recommended-pack-info">
                 <span class="recommended-label">Recommended pack:</span>
                 <span class="recommended-pack-name">{{ recommendedPack.name }}</span>
@@ -139,27 +117,22 @@ const formatAbbreviated = num => {
               <div class="pack-info">
                 <div class="info-row">
                   <span class="info-label">Pack includes:</span>
-                  <span class="info-value">{{ formatNumber(recommendedPack.credits / CREDIT_RATIO) }} emails</span>
+                  <span class="info-value">{{ formatNumber(recommendedPack.sends) }} sends</span>
                 </div>
                 <div class="info-row">
-                  <span class="info-label">Cost per email:</span>
-                  <span class="info-value">{{ formatPrice(costPerEmail) }}</span>
-                </div>
-                <div class="info-row">
-                  <span class="info-label">Credits needed:</span>
-                  <span class="info-value">{{ formatNumber(creditsNeeded) }} credits</span>
+                  <span class="info-label">Cost per 1,000 sends:</span>
+                  <span class="info-value">{{ formatPrice(bluefoxCostPerEmail * 1000) }}</span>
                 </div>
               </div>
 
-              <div v-if="creditsRemaining > 0" class="remaining-note">
-                ✨ <strong>{{ formatNumber(creditsRemaining) }} credits</strong> remaining for future use
+              <div v-if="sendsRemaining > 0" class="remaining-note">
+                ✨ <strong>{{ formatNumber(sendsRemaining) }} sends</strong> remaining for future use
               </div>
 
-              <!-- Features list -->
               <ul class="pack-features">
-                <li>✓ Credits valid for 12 months</li>
-                <li>✓ All features included</li>
-                <li>✓ No contact-based pricing</li>
+                <li>Sends valid for 12 months</li>
+                <li>All features included</li>
+                <li>No contact-based pricing</li>
               </ul>
             </div>
           </template>
@@ -168,13 +141,12 @@ const formatAbbreviated = num => {
             <div class="enterprise-content">
               <div class="enterprise-icon">🚀</div>
               <h5>Enterprise Volume</h5>
-              <p>For 5M+ emails, we offer custom pricing with volume discounts.</p>
+              <p>For 1M+ emails, we offer custom pricing with volume discounts.</p>
               <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact sales</a>
             </div>
           </template>
         </div>
 
-        <!-- Comparison Table Card -->
         <div class="comparison-section">
           <h4>Compare with Competitors</h4>
           <div class="comparison-table-wrapper">
@@ -182,7 +154,7 @@ const formatAbbreviated = num => {
               <thead>
                 <tr>
                   <th>Provider</th>
-                  <th>Cost for {{ formatNumber(emails) }} emails</th>
+                  <th>Monthly Cost</th>
                   <th>You Save</th>
                 </tr>
               </thead>
@@ -206,7 +178,7 @@ const formatAbbreviated = num => {
             </table>
             <ul class="table-note">
               <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
-              <li>Assumes 10,000 contacts with 70% marketing emails and 30% transactional emails</li>
+              <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
               <li>BlueFox has no contact limits and includes all features at every tier</li>
             </ul>
           </div>
@@ -232,7 +204,6 @@ const formatAbbreviated = num => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-/* Slider Section */
 .slider-section {
   margin-bottom: 40px;
   text-align: center;
@@ -314,7 +285,6 @@ const formatAbbreviated = num => {
   transform: scale(1.1);
 }
 
-/* Results Grid */
 .results-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -331,7 +301,6 @@ const formatAbbreviated = num => {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
 }
 
-/* Pack Content */
 .pack-content {
   text-align: center;
 }
@@ -341,7 +310,6 @@ const formatAbbreviated = num => {
   font-weight: 600;
   color: var(--vp-c-text-2);
   margin-bottom: 16px;
-  /* text-transform: uppercase; */
   letter-spacing: 0.5px;
 }
 
@@ -458,7 +426,6 @@ html.dark .remaining-note {
   border-color: rgba(19, 176, 238, 0.3);
 }
 
-/* Pack features list */
 .pack-features {
   list-style: none;
   padding: 0;
@@ -473,7 +440,13 @@ html.dark .remaining-note {
   font-weight: 500;
 }
 
-/* Enterprise Content */
+.pack-features li::before {
+  content: "✓ ";
+  color: var(--vp-c-brand);
+  font-weight: bold;
+  margin-right: 8px;
+}
+
 .enterprise-content {
   text-align: center;
   padding: 20px 0;
@@ -516,7 +489,6 @@ html.dark .remaining-note {
   box-shadow: 0 4px 12px rgba(19, 176, 238, 0.3);
 }
 
-/* Comparison Section */
 .comparison-section {
   display: flex;
   flex-direction: column;
@@ -525,10 +497,10 @@ html.dark .remaining-note {
 }
 
 .comparison-section h4 {
-  font-size: 23px;
+  font-size: 20px;
   font-weight: 600;
   color: var(--vp-c-text-1);
-  margin-bottom: 16px;
+  margin: 0 0 20px 0;
 }
 
 .comparison-table-wrapper {
@@ -543,25 +515,41 @@ html.dark .remaining-note {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  table-layout: fixed;
+}
+
+.comparison-table th:nth-child(1),
+.comparison-table td:nth-child(1) {
+  width: 40%;
+}
+
+.comparison-table th:nth-child(2),
+.comparison-table td:nth-child(2) {
+  width: 35%;
+}
+
+.comparison-table th:nth-child(3),
+.comparison-table td:nth-child(3) {
+  width: 25%;
 }
 
 .comparison-table th,
 .comparison-table td {
   border: 1px solid var(--vp-c-divider);
   text-align: center;
-  padding: 12px 26px;
+  padding: 12px 16px;
   color: var(--vp-c-text-1);
 }
 
 .comparison-table th {
   background: var(--vp-c-bg-alt);
   font-weight: 600;
+  font-size: 13px;
 }
 
 .table-note {
-  font-size: 13px;
+  font-size: 12px;
   color: var(--vp-c-text-3);
-  font-style: italic;
   margin-top: 12px;
   padding-left: 20px;
   text-align: left;
@@ -573,7 +561,6 @@ html.dark .remaining-note {
   margin-bottom: 4px;
 }
 
-/* Responsive */
 @media (max-width: 968px) {
   .results-grid {
     grid-template-columns: 1fr;
@@ -581,6 +568,18 @@ html.dark .remaining-note {
 
   .calculator-container {
     padding: 32px 24px;
+  }
+
+  .pack-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pack-content,
+  .enterprise-content {
+    width: 100%;
+    max-width: 500px;
   }
 }
 
@@ -607,8 +606,12 @@ html.dark .remaining-note {
 
   .comparison-table th,
   .comparison-table td {
-    padding: 10px 12px;
+    padding: 10px 8px;
     font-size: 12px;
+  }
+
+  .comparison-section h4 {
+    font-size: 18px;
   }
 }
 </style>

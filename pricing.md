@@ -12,33 +12,37 @@ const { isDark } = useData()
 </script>
 
 
-<style scoped>
-/* Reset and base */
-a {
+<style>
+/* Force remove link underlines */
+.pricing-hero a,
+.pricing-cards-section a,
+.value-props a,
+.calculator-section a,
+.faq-section a,
+.pricing-footer-note a {
   text-decoration: none !important;
 }
 
 
-/* Hero section */
 .pricing-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   max-width: 1200px;
   margin: 0 auto;
   padding: 60px 24px;
-  text-align: center;
 }
 
 
 .pricing-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 26px;
+  padding: 6px 16px;
   border-radius: 50px;
   background: linear-gradient(120deg, rgba(57, 44, 145, 0.1), rgba(19, 176, 238, 0.1));
   color: var(--vp-c-brand);
   font-size: 14px;
   font-weight: 500;
   margin-bottom: 16px;
+  white-space: nowrap;
 }
 
 
@@ -48,13 +52,15 @@ html.dark .pricing-badge {
 
 
 .pricing-hero h1 {
-  font-size: clamp(36px, 5vw, 56px);
+  font-size: clamp(36px, 5vw, 56px) !important;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  margin: 0 0 16px 0;
-  border: none;
-  padding: 0;
+  margin: 0 0 16px 0 !important;
+  border: none !important;
+  padding: 0 !important;
+  text-align: center;
+  max-width: 900px;
 }
 
 
@@ -62,8 +68,9 @@ html.dark .pricing-badge {
   font-size: 18px;
   line-height: 1.6;
   color: #64748b;
-  max-width: 800px;
-  margin: 0 auto 32px;
+  max-width: 700px;
+  margin: 0 0 32px 0;
+  text-align: center;
 }
 
 
@@ -78,13 +85,16 @@ html.dark .pricing-hero-subtitle {
   justify-content: center;
   flex-wrap: wrap;
   margin-bottom: 24px;
+  max-width: 500px;
+  width: 100%;
 }
 
 
 .pricing-hero-note {
   font-size: 14px;
   color: #64748b;
-  margin-top: 16px;
+  text-align: center;
+  max-width: 600px;
 }
 
 
@@ -104,7 +114,6 @@ html.dark .pricing-hero-note strong {
 }
 
 
-/* Pricing cards section */
 .pricing-cards-section {
   max-width: 1200px;
   margin: 0 auto;
@@ -114,15 +123,24 @@ html.dark .pricing-hero-note strong {
 
 .pricing-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   margin-bottom: 32px;
+  width: 100%;
+  min-width: 0;
 }
 
 
-@media (min-width: 768px) {
+@media (max-width: 959px) and (min-width: 640px) {
   .pricing-cards-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+
+@media (max-width: 639px) {
+  .pricing-cards-grid {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -135,6 +153,10 @@ html.dark .pricing-hero-note strong {
   padding: 32px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
   transition: all 0.3s ease;
+  min-width: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 
@@ -171,7 +193,7 @@ html.dark .pricing-card.featured {
   top: -12px;
   left: 24px;
   background: var(--vp-c-brand);
-  color: white;
+  color: white !important;
   padding: 6px 16px;
   border-radius: 50px;
   font-size: 12px;
@@ -180,12 +202,13 @@ html.dark .pricing-card.featured {
 }
 
 
-.pricing-card h3 {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-  border: none;
-  padding: 0;
+.pricing-card h3,
+.pricing-cards-section h3 {
+  font-size: 24px !important;
+  font-weight: 600 !important;
+  margin: 0 0 8px 0 !important;
+  border: none !important;
+  padding: 0 !important;
 }
 
 
@@ -228,9 +251,10 @@ html.dark .pricing-card-period {
 
 
 .pricing-card-features {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 24px 0;
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 24px 0 !important;
+  flex-grow: 1;
 }
 
 
@@ -239,6 +263,7 @@ html.dark .pricing-card-period {
   font-size: 14px;
   line-height: 1.5;
   color: #334155;
+  list-style: none !important;
 }
 
 
@@ -248,7 +273,7 @@ html.dark .pricing-card-features li {
 
 
 .pricing-card-features li::before {
-  content: "• ";
+  content: "✓ ";
   color: var(--vp-c-brand);
   font-weight: bold;
   margin-right: 8px;
@@ -266,24 +291,31 @@ html.dark .pricing-card-features li {
   border: none;
   cursor: pointer;
   font-size: 16px;
+  text-decoration: none !important;
 }
 
 
 .pricing-card-cta.primary {
-  background: var(--vp-c-brand);
-  color: white;
+  background: var(--vp-c-brand) !important;
+  color: white !important;
 }
 
 
 .pricing-card-cta.primary:hover {
-  background: var(--vp-c-brand-light);
+  background: var(--vp-c-brand-light) !important;
   transform: translateY(-1px);
+  color: white !important;
+}
+
+
+.pricing-card-cta.primary:visited {
+  color: white !important;
 }
 
 
 .pricing-card-cta.secondary {
   background: transparent;
-  color: var(--vp-c-brand);
+  color: var(--vp-c-brand) !important;
   border: 2px solid var(--vp-c-brand);
 }
 
@@ -294,23 +326,26 @@ html.dark .pricing-card-features li {
 
 
 .pricing-card-cta.dark {
-  background: #1e293b;
-  color: white;
+  background: #1e293b !important;
+  color: white !important;
 }
 
 
 html.dark .pricing-card-cta.dark {
-  background: #334155;
+  background: #334155 !important;
+  color: white !important;
 }
 
 
 .pricing-card-cta.dark:hover {
-  background: #0f172a;
+  background: #0f172a !important;
+  color: white !important;
 }
 
 
 html.dark .pricing-card-cta.dark:hover {
-  background: #475569;
+  background: #475569 !important;
+  color: white !important;
 }
 
 
@@ -333,8 +368,8 @@ html.dark .pricing-card.contact-sales {
 
 
 .pricing-card.contact-sales h3 {
-  font-size: 28px;
-  margin-bottom: 16px;
+  font-size: 28px !important;
+  margin-bottom: 16px !important;
 }
 
 
@@ -363,7 +398,6 @@ html.dark .pricing-card-note {
 }
 
 
-/* Value props */
 .value-props {
   max-width: 1200px;
   margin: 0 auto;
@@ -423,7 +457,6 @@ html.dark .value-prop-content p {
 }
 
 
-/* Calculator section */
 .calculator-section {
   max-width: 1200px;
   margin: 48px auto;
@@ -481,7 +514,6 @@ html.dark .calculator-note {
 }
 
 
-/* FAQ section */
 .faq-section {
   max-width: 900px;
   margin: 48px auto;
@@ -541,7 +573,6 @@ html.dark .faq-item p {
 }
 
 
-/* Footer note */
 .pricing-footer-note {
   text-align: center;
   margin: 48px auto;
@@ -583,7 +614,6 @@ html.dark .free-sends-banner {
 }
 
 
-/* Responsive */
 @media (max-width: 768px) {
   .pricing-hero {
     padding: 40px 16px;
@@ -595,7 +625,7 @@ html.dark .free-sends-banner {
   
   .pricing-hero-actions {
     flex-direction: column;
-    width: 100%;
+    max-width: 100%;
   }
   
   .calculator-header {
@@ -604,7 +634,6 @@ html.dark .free-sends-banner {
 }
 
 
-/* VitePress button overrides */
 .vp-doc .VPButton.medium {
   border-radius: 12px;
   padding: 12px 24px;
@@ -652,17 +681,16 @@ html.dark .free-sends-banner {
   </div>
   
   <p class="pricing-hero-note">
-    Every new workspace starts with <strong>1,500 free sends monthly</strong> — no credit card required.
+    Every new workspace starts with <strong>3000 free sends</strong> no credit card required.
   </p>
   <p class="pricing-hero-note">
-    <strong>Use your sends anytime within a year.</strong> Buy more whenever you need — they stack automatically.
+   <strong>Use your sends anytime within a year.</strong> Buy more whenever you need, they stack automatically.
   </p>
 </section>
 
 
 <section class="pricing-cards-section">
   <div class="pricing-cards-grid">
-    <!-- Start-up Pack -->
     <div class="pricing-card featured">
       <span class="pricing-badge-popular">Most popular</span>
       <h3>Start-up</h3>
@@ -673,14 +701,12 @@ html.dark .free-sends-banner {
       <ul class="pricing-card-features">
         <li><strong>50,000 sends</strong> included</li>
         <li><strong>$1 per 1,000 sends</strong></li>
-        <li>Automations & segmentation</li>
-        <li>Client workspaces & analytics</li>
+        <li>Free email authentication audit</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta primary">
         Buy 50K sends
       </a>
     </div>
-    <!-- Scale-up Pack -->
     <div class="pricing-card">
       <h3>Scale-up</h3>
       <div class="pricing-card-price">
@@ -690,14 +716,12 @@ html.dark .free-sends-banner {
       <ul class="pricing-card-features">
         <li><strong>500,000 sends</strong> included</li>
         <li><strong>$0.60 per 1,000 sends</strong></li>
-        <li>Automations & segmentation</li>
-        <li>Priority support available</li>
+        <li>1:1 DMARC audit</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
         Buy 500K sends
       </a>
     </div>
-    <!-- Contact Sales Card -->
     <div class="pricing-card contact-sales">
       <h3>Need more sends?</h3>
       <p class="pricing-card-subtitle">Custom volume & enterprise setup with dedicated onboarding and volume discounts</p>
