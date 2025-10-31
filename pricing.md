@@ -4,31 +4,35 @@ title: Pricing
 description: Don't overpay for contact-based subscriptions ever again. Only pay for the emails you send!
 ---
 
+
 <script setup>
 import { useData } from 'vitepress'
 import PricingCalculator from './components/PricingCalculator.vue'
 const { isDark } = useData()
 </script>
 
-<style>
-/* Remove scoped attribute and use :where() for low specificity */
-:where(.vp-doc) a {
+
+<style scoped>
+/* Reset and base */
+a {
   text-decoration: none !important;
 }
 
+
 /* Hero section */
-:where(.vp-doc) .pricing-hero {
+.pricing-hero {
   max-width: 1200px;
   margin: 0 auto;
   padding: 60px 24px;
   text-align: center;
 }
 
-:where(.vp-doc) .pricing-badge {
+
+.pricing-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 16px;
+  padding: 12px 26px;
   border-radius: 50px;
   background: linear-gradient(120deg, rgba(57, 44, 145, 0.1), rgba(19, 176, 238, 0.1));
   color: var(--vp-c-brand);
@@ -37,11 +41,13 @@ const { isDark } = useData()
   margin-bottom: 16px;
 }
 
-:where(.vp-doc) html.dark .pricing-badge {
+
+html.dark .pricing-badge {
   background: linear-gradient(120deg, rgba(138, 126, 216, 0.15), rgba(19, 176, 238, 0.15));
 }
 
-:where(.vp-doc) .pricing-hero h1 {
+
+.pricing-hero h1 {
   font-size: clamp(36px, 5vw, 56px);
   font-weight: 700;
   line-height: 1.2;
@@ -51,7 +57,8 @@ const { isDark } = useData()
   padding: 0;
 }
 
-:where(.vp-doc) .pricing-hero-subtitle {
+
+.pricing-hero-subtitle {
   font-size: 18px;
   line-height: 1.6;
   color: #64748b;
@@ -59,11 +66,13 @@ const { isDark } = useData()
   margin: 0 auto 32px;
 }
 
-:where(.vp-doc) html.dark .pricing-hero-subtitle {
+
+html.dark .pricing-hero-subtitle {
   color: #94a3b8;
 }
 
-:where(.vp-doc) .pricing-hero-actions {
+
+.pricing-hero-actions {
   display: flex;
   gap: 12px;
   justify-content: center;
@@ -71,46 +80,54 @@ const { isDark } = useData()
   margin-bottom: 24px;
 }
 
-:where(.vp-doc) .pricing-hero-note {
+
+.pricing-hero-note {
   font-size: 14px;
   color: #64748b;
   margin-top: 16px;
 }
 
-:where(.vp-doc) html.dark .pricing-hero-note {
+
+html.dark .pricing-hero-note {
   color: #94a3b8;
 }
 
-:where(.vp-doc) .pricing-hero-note strong {
+
+.pricing-hero-note strong {
   color: #1e293b;
   font-weight: 600;
 }
 
-:where(.vp-doc) html.dark .pricing-hero-note strong {
+
+html.dark .pricing-hero-note strong {
   color: #e2e8f0;
 }
 
+
 /* Pricing cards section */
-:where(.vp-doc) .pricing-cards-section {
+.pricing-cards-section {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px 48px;
 }
 
-:where(.vp-doc) .pricing-cards-grid {
+
+.pricing-cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
   margin-bottom: 32px;
 }
 
+
 @media (min-width: 768px) {
-  :where(.vp-doc) .pricing-cards-grid {
+  .pricing-cards-grid {
     grid-template-columns: repeat(3, 1fr);
   }
 }
 
-:where(.vp-doc) .pricing-card {
+
+.pricing-card {
   position: relative;
   background: white;
   border: 1px solid #e2e8f0;
@@ -120,30 +137,36 @@ const { isDark } = useData()
   transition: all 0.3s ease;
 }
 
-:where(.vp-doc) html.dark .pricing-card {
+
+html.dark .pricing-card {
   background: rgb(27, 27, 31);
   border-color: #334155;
 }
 
-:where(.vp-doc) .pricing-card:hover {
+
+.pricing-card:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
 
-:where(.vp-doc) html.dark .pricing-card:hover {
+
+html.dark .pricing-card:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-:where(.vp-doc) .pricing-card.featured {
+
+.pricing-card.featured {
   border-color: var(--vp-c-brand);
   box-shadow: 0 4px 12px rgba(19, 176, 238, 0.15);
 }
 
-:where(.vp-doc) html.dark .pricing-card.featured {
+
+html.dark .pricing-card.featured {
   box-shadow: 0 4px 12px rgba(19, 176, 238, 0.25);
 }
 
-:where(.vp-doc) .pricing-badge-popular {
+
+.pricing-badge-popular {
   position: absolute;
   top: -12px;
   left: 24px;
@@ -156,7 +179,8 @@ const { isDark } = useData()
   box-shadow: 0 2px 8px rgba(19, 176, 238, 0.3);
 }
 
-:where(.vp-doc) .pricing-card h3 {
+
+.pricing-card h3 {
   font-size: 24px;
   font-weight: 600;
   margin: 0 0 8px 0;
@@ -164,63 +188,74 @@ const { isDark } = useData()
   padding: 0;
 }
 
-:where(.vp-doc) .pricing-card-subtitle {
+
+.pricing-card-subtitle {
   color: #64748b;
   font-size: 14px;
   margin-bottom: 24px;
 }
 
-:where(.vp-doc) html.dark .pricing-card-subtitle {
+
+html.dark .pricing-card-subtitle {
   color: #94a3b8;
 }
 
-:where(.vp-doc) .pricing-card-price {
+
+.pricing-card-price {
   display: flex;
   align-items: baseline;
   gap: 8px;
   margin-bottom: 24px;
 }
 
-:where(.vp-doc) .pricing-card-amount {
+
+.pricing-card-amount {
   font-size: 48px;
   font-weight: 700;
   line-height: 1;
 }
 
-:where(.vp-doc) .pricing-card-period {
+
+.pricing-card-period {
   font-size: 16px;
   color: #64748b;
 }
 
-:where(.vp-doc) html.dark .pricing-card-period {
+
+html.dark .pricing-card-period {
   color: #94a3b8;
 }
 
-:where(.vp-doc) .pricing-card-features {
+
+.pricing-card-features {
   list-style: none;
   padding: 0;
   margin: 0 0 24px 0;
 }
 
-:where(.vp-doc) .pricing-card-features li {
+
+.pricing-card-features li {
   padding: 8px 0;
   font-size: 14px;
   line-height: 1.5;
   color: #334155;
 }
 
-:where(.vp-doc) html.dark .pricing-card-features li {
+
+html.dark .pricing-card-features li {
   color: #cbd5e1;
 }
 
-:where(.vp-doc) .pricing-card-features li::before {
+
+.pricing-card-features li::before {
   content: "• ";
   color: var(--vp-c-brand);
   font-weight: bold;
   margin-right: 8px;
 }
 
-:where(.vp-doc) .pricing-card-cta {
+
+.pricing-card-cta {
   display: block;
   width: 100%;
   padding: 12px 24px;
@@ -231,47 +266,55 @@ const { isDark } = useData()
   border: none;
   cursor: pointer;
   font-size: 16px;
-  text-decoration: none;
 }
 
-:where(.vp-doc) .pricing-card-cta.primary {
+
+.pricing-card-cta.primary {
   background: var(--vp-c-brand);
   color: white;
 }
 
-:where(.vp-doc) .pricing-card-cta.primary:hover {
+
+.pricing-card-cta.primary:hover {
   background: var(--vp-c-brand-light);
   transform: translateY(-1px);
 }
 
-:where(.vp-doc) .pricing-card-cta.secondary {
+
+.pricing-card-cta.secondary {
   background: transparent;
   color: var(--vp-c-brand);
   border: 2px solid var(--vp-c-brand);
 }
 
-:where(.vp-doc) .pricing-card-cta.secondary:hover {
+
+.pricing-card-cta.secondary:hover {
   background: rgba(19, 176, 238, 0.05);
 }
 
-:where(.vp-doc) .pricing-card-cta.dark {
+
+.pricing-card-cta.dark {
   background: #1e293b;
   color: white;
 }
 
-:where(.vp-doc) html.dark .pricing-card-cta.dark {
+
+html.dark .pricing-card-cta.dark {
   background: #334155;
 }
 
-:where(.vp-doc) .pricing-card-cta.dark:hover {
+
+.pricing-card-cta.dark:hover {
   background: #0f172a;
 }
 
-:where(.vp-doc) html.dark .pricing-card-cta.dark:hover {
+
+html.dark .pricing-card-cta.dark:hover {
   background: #475569;
 }
 
-:where(.vp-doc) .pricing-card.contact-sales {
+
+.pricing-card.contact-sales {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
   border: 2px dashed #cbd5e1;
   display: flex;
@@ -282,51 +325,60 @@ const { isDark } = useData()
   min-height: 400px;
 }
 
-:where(.vp-doc) html.dark .pricing-card.contact-sales {
+
+html.dark .pricing-card.contact-sales {
   background: linear-gradient(135deg, rgb(30, 30, 34) 0%, rgb(24, 24, 27) 100%);
   border-color: #475569;
 }
 
-:where(.vp-doc) .pricing-card.contact-sales h3 {
+
+.pricing-card.contact-sales h3 {
   font-size: 28px;
   margin-bottom: 16px;
 }
 
-:where(.vp-doc) .pricing-card.contact-sales .pricing-card-subtitle {
+
+.pricing-card.contact-sales .pricing-card-subtitle {
   font-size: 16px;
   margin-bottom: 32px;
 }
 
-:where(.vp-doc) .pricing-card-note {
+
+.pricing-card-note {
   margin-top: 16px;
   font-size: 12px;
   color: #64748b;
   text-align: center;
 }
 
-:where(.vp-doc) html.dark .pricing-card-note {
+
+html.dark .pricing-card-note {
   color: #94a3b8;
 }
 
-:where(.vp-doc) .pricing-card-note a {
+
+.pricing-card-note a {
   text-decoration: underline;
   color: var(--vp-c-brand);
 }
 
+
 /* Value props */
-:where(.vp-doc) .value-props {
+.value-props {
   max-width: 1200px;
   margin: 0 auto;
   padding: 32px 24px;
 }
 
-:where(.vp-doc) .value-props-grid {
+
+.value-props-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 16px;
 }
 
-:where(.vp-doc) .value-prop-card {
+
+.value-prop-card {
   display: flex;
   align-items: flex-start;
   gap: 16px;
@@ -337,36 +389,42 @@ const { isDark } = useData()
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-:where(.vp-doc) html.dark .value-prop-card {
+
+html.dark .value-prop-card {
   background: rgb(27, 27, 31);
   border-color: #334155;
 }
 
-:where(.vp-doc) .value-prop-icon {
+
+.value-prop-icon {
   font-size: 28px;
   line-height: 1;
   flex-shrink: 0;
 }
 
-:where(.vp-doc) .value-prop-content h4 {
+
+.value-prop-content h4 {
   font-size: 16px;
   font-weight: 600;
   margin: 0 0 8px 0;
 }
 
-:where(.vp-doc) .value-prop-content p {
+
+.value-prop-content p {
   font-size: 14px;
   color: #64748b;
   margin: 0;
   line-height: 1.5;
 }
 
-:where(.vp-doc) html.dark .value-prop-content p {
+
+html.dark .value-prop-content p {
   color: #94a3b8;
 }
 
+
 /* Calculator section */
-:where(.vp-doc) .calculator-section {
+.calculator-section {
   max-width: 1200px;
   margin: 48px auto;
   padding: 48px 24px;
@@ -374,11 +432,13 @@ const { isDark } = useData()
   border-radius: 16px;
 }
 
-:where(.vp-doc) html.dark .calculator-section {
+
+html.dark .calculator-section {
   background: rgb(27, 27, 31);
 }
 
-:where(.vp-doc) .calculator-header {
+
+.calculator-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -387,7 +447,8 @@ const { isDark } = useData()
   margin-bottom: 32px;
 }
 
-:where(.vp-doc) .calculator-title h2 {
+
+.calculator-title h2 {
   font-size: clamp(28px, 4vw, 36px);
   font-weight: 700;
   margin: 0 0 12px 0;
@@ -395,34 +456,40 @@ const { isDark } = useData()
   padding: 0;
 }
 
-:where(.vp-doc) .calculator-subtitle {
+
+.calculator-subtitle {
   font-size: 16px;
   color: #64748b;
   max-width: 600px;
   margin: 0;
 }
 
-:where(.vp-doc) html.dark .calculator-subtitle {
+
+html.dark .calculator-subtitle {
   color: #94a3b8;
 }
 
-:where(.vp-doc) .calculator-note {
+
+.calculator-note {
   font-size: 14px;
   color: #64748b;
 }
 
-:where(.vp-doc) html.dark .calculator-note {
+
+html.dark .calculator-note {
   color: #94a3b8;
 }
 
+
 /* FAQ section */
-:where(.vp-doc) .faq-section {
+.faq-section {
   max-width: 900px;
   margin: 48px auto;
   padding: 0 24px;
 }
 
-:where(.vp-doc) .faq-section h2 {
+
+.faq-section h2 {
   font-size: clamp(28px, 4vw, 36px);
   font-weight: 700;
   margin: 0 0 32px 0;
@@ -430,7 +497,8 @@ const { isDark } = useData()
   padding: 0;
 }
 
-:where(.vp-doc) .faq-item {
+
+.faq-item {
   background: white;
   border: 1px solid #e2e8f0;
   border-radius: 12px;
@@ -439,12 +507,14 @@ const { isDark } = useData()
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-:where(.vp-doc) html.dark .faq-item {
+
+html.dark .faq-item {
   background: rgb(27, 27, 31);
   border-color: #334155;
 }
 
-:where(.vp-doc) .faq-item summary {
+
+.faq-item summary {
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
@@ -452,40 +522,47 @@ const { isDark } = useData()
   user-select: none;
 }
 
-:where(.vp-doc) .faq-item summary::-webkit-details-marker {
+
+.faq-item summary::-webkit-details-marker {
   display: none;
 }
 
-:where(.vp-doc) .faq-item p {
+
+.faq-item p {
   margin: 16px 0 0 0;
   font-size: 14px;
   color: #334155;
   line-height: 1.6;
 }
 
-:where(.vp-doc) html.dark .faq-item p {
+
+html.dark .faq-item p {
   color: #cbd5e1;
 }
 
+
 /* Footer note */
-:where(.vp-doc) .pricing-footer-note {
+.pricing-footer-note {
   text-align: center;
   margin: 48px auto;
   padding: 0 24px;
   max-width: 900px;
 }
 
-:where(.vp-doc) .pricing-footer-note p {
+
+.pricing-footer-note p {
   font-size: 16px;
   margin: 16px 0;
   color: #334155;
 }
 
-:where(.vp-doc) html.dark .pricing-footer-note p {
+
+html.dark .pricing-footer-note p {
   color: #cbd5e1;
 }
 
-:where(.vp-doc) .free-sends-banner {
+
+.free-sends-banner {
   background: linear-gradient(120deg, #392C91 5%, #13B0EE);
   background-clip: text;
   -webkit-background-clip: text;
@@ -498,36 +575,48 @@ const { isDark } = useData()
   text-align: center;
 }
 
-:where(.vp-doc) html.dark .free-sends-banner {
+
+html.dark .free-sends-banner {
   background: linear-gradient(120deg, #8a7ed8 5%, #13B0EE);
   background-clip: text;
   -webkit-background-clip: text;
 }
 
+
 /* Responsive */
 @media (max-width: 768px) {
-  :where(.vp-doc) .pricing-hero {
+  .pricing-hero {
     padding: 40px 16px;
   }
   
-  :where(.vp-doc) .pricing-cards-section {
+  .pricing-cards-section {
     padding: 0 16px 32px;
   }
   
-  :where(.vp-doc) .pricing-hero-actions {
+  .pricing-hero-actions {
     flex-direction: column;
     width: 100%;
   }
   
-  :where(.vp-doc) .calculator-header {
+  .calculator-header {
     flex-direction: column;
   }
 }
+
+
+/* VitePress button overrides */
+.vp-doc .VPButton.medium {
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+}
 </style>
+
 
 <section class="pricing-hero">
   <div class="pricing-badge">
-    <span>🦊 Built for marketing agencies</span>
+    <span>Built for marketing agencies</span>
   </div>
   
   <h1>Pay only for what you send</h1>
@@ -566,9 +655,10 @@ const { isDark } = useData()
     Every new workspace starts with <strong>1,500 free sends monthly</strong> — no credit card required.
   </p>
   <p class="pricing-hero-note">
-    ⏱️ <strong>Use your sends anytime within a year.</strong> Buy more whenever you need — they stack automatically.
+    <strong>Use your sends anytime within a year.</strong> Buy more whenever you need — they stack automatically.
   </p>
 </section>
+
 
 <section class="pricing-cards-section">
   <div class="pricing-cards-grid">
@@ -621,24 +711,22 @@ const { isDark } = useData()
   </div>
 </section>
 
+
 <section class="value-props">
   <div class="value-props-grid">
     <div class="value-prop-card">
-      <span class="value-prop-icon">🦊</span>
       <div class="value-prop-content">
         <h4>Agency-first</h4>
         <p>Manage multiple client workspaces with isolated domains, contacts, and reports.</p>
       </div>
     </div>
     <div class="value-prop-card">
-      <span class="value-prop-icon">📈</span>
       <div class="value-prop-content">
         <h4>Automations, segmentation & analytics</h4>
         <p>Build flows, segment audiences, and track performance. Bounce handling and reputation tools included in every pack.</p>
       </div>
     </div>
     <div class="value-prop-card">
-      <span class="value-prop-icon">💳</span>
       <div class="value-prop-content">
         <h4>No subscriptions</h4>
         <p>Buy packs when you need them. Sends remain available for 12 months.</p>
@@ -646,6 +734,7 @@ const { isDark } = useData()
     </div>
   </div>
 </section>
+
 
 <section class="calculator-section">
   <div class="calculator-header">
@@ -660,6 +749,7 @@ const { isDark } = useData()
     <PricingCalculator />
   </div>
 </section>
+
 
 <section class="faq-section">
   <h2>Pricing FAQs</h2>
@@ -684,6 +774,7 @@ const { isDark } = useData()
     <p>Simple pay-as-you-go pricing. You buy a pack of sends that you can use anytime within 12 months. No monthly subscriptions or contact limits.</p>
   </details>
 </section>
+
 
 <div class="pricing-footer-note">
   <p class="free-sends-banner">Get started with 1,500 free monthly sends in the first year</p>
