@@ -1,329 +1,276 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-// User input
-const annualEmails = ref(100_000)
+const emailsPerMonth = ref(5000)
+const bluefoxAnnual = 100
+const bluefoxMonthly = bluefoxAnnual / 12
 
-// Pricing configuration
-const CREDIT_RATIO = 2 // 1 email = 2 credits
-const FREE_CREDITS_ANNUAL = 36_000 // 3,000/month × 12
-const PACKS = [
-  { name: 'Start-up', credits: 100_000, price: 50 },
-  { name: 'Scale-up', credits: 1_000_000, price: 300 },
-  { name: 'Grown-up', credits: 10_000_000, price: 2_500 }
-]
-
-// Calculations
-const creditsNeeded = computed(() => annualEmails.value * CREDIT_RATIO)
-const netCreditsNeeded = computed(() => Math.max(0, creditsNeeded.value - FREE_CREDITS_ANNUAL))
-
-// Only recommend a pack if they need to buy credits
-const recommendedPack = computed(() => {
-  if (netCreditsNeeded.value === 0) return null
-  return PACKS.find(pack => netCreditsNeeded.value <= pack.credits) || 'enterprise'
-})
-
-const costPerEmail = computed(() => {
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  return recommendedPack.value.price / annualEmails.value
-})
-
-const creditsRemaining = computed(() => {
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  return recommendedPack.value.credits - netCreditsNeeded.value
-})
-
-const emailsSendable = computed(() => {
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  return recommendedPack.value.credits / CREDIT_RATIO
-})
-
-const freeEmailsAvailable = computed(() => FREE_CREDITS_ANNUAL / CREDIT_RATIO)
-
-const isCoveredByFreeCredits = computed(() => creditsNeeded.value <= FREE_CREDITS_ANNUAL)
-
-// Formatting helpers
-const formatNumber = (num) => {
-  if (num === null || num === undefined) return '—'
-  return num.toLocaleString('en-US')
+function formatNum(num) {
+  return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 }
 
-const formatPrice = (price) => {
-  if (price === null) return '—'
-  if (price < 0.01) return '< $0.01'
-  return `$${price.toFixed(4)}`
-}
+const sesPerEmail = 0.0001
+const sesDelivery = 0
+const sesMonthly = computed(() => sesDelivery + emailsPerMonth.value * sesPerEmail)
+const sesAnnual = computed(() => sesMonthly.value * 12)
+
+const cmPerEmail = 0.01
+const cmDelivery = 5
+const cmMonthly = computed(() => cmDelivery + emailsPerMonth.value * cmPerEmail)
+const cmAnnual = computed(() => cmMonthly.value * 12)
+
+const mcDelivery = 0
+const mcMonthly = computed(() => {
+  let mcPerEmail = 0.01
+  if(emailsPerMonth.value <= 5000) {
+    mcPerEmail = 0.03
+  } else if (emailsPerMonth.value <= 25000) {
+    mcPerEmail = 0.02
+  }
+
+  return mcDelivery + emailsPerMonth.value * mcPerEmail
+})
+const mcAnnual = computed(() => mcMonthly.value * 12)
+
+const bluefoxPlusSesMonthly = computed(() => bluefoxMonthly + sesMonthly.value)
+const bluefoxPlusSesAnnual = computed(() => bluefoxPlusSesMonthly.value * 12)
 </script>
 
 <template>
-  <div class="pricing-calculator">
-    <h3>Calculate your annual cost</h3>
-    
-    <div class="input-section">
-      <label for="annual-emails">Annual emails you plan to send</label>
-      <input
-        id="annual-emails"
-        type="number"
-        v-model.number="annualEmails"
-        min="0"
-        max="20_000_000"
-        step="1000"
-      />
-    </div>
-
-    <div class="results">
-      <div class="metric">
-        <span>Credits needed:</span>
-        <strong>{{ formatNumber(creditsNeeded) }}</strong>
+  <section class="pricing">
+    <div class="content">
+      <div class="current-bluefox-price">
+        <div class="bg"></div>
+        <div class="annual-price-wrapper">
+          <div class="current-price-label">Current price:</div>
+          <div class="annual-price">${{bluefoxAnnual}}</div>
+          <div class="annual-access-label">1-year access</div>
+        </div>
       </div>
+      <div class="calculator">
+        <div class="calculator-inner">
+          <h2>Cost comparision</h2>
+          <div>
+            How many emails do you send per month? Use the slider below.
+          </div>
+          <div>
+            <input class="num" type="number" min="100" max="500000" v-model="emailsPerMonth" :style="{
+              'marginLeft': `calc(${emailsPerMonth / 5000}% - ${emailsPerMonth / 10000}px)`
+            }" />
+          </div>
+          <div>
+            <input class="slider" type="range" min="100" max="500000" v-model="emailsPerMonth" />
+          </div>
 
-      <div class="metric highlight">
-        <span>Free credits (first year):</span>
-        <strong class="success">{{ formatNumber(FREE_CREDITS_ANNUAL) }}</strong>
-      </div>
-
-      <div class="metric">
-        <span>Additional credits to purchase:</span>
-        <strong>{{ formatNumber(netCreditsNeeded) }}</strong>
-      </div>
-
-      <div class="divider"></div>
-
-      <!-- Covered by free credits -->
-      <template v-if="isCoveredByFreeCredits">
-        <div class="info-box success">
-          🎉 <strong>Great news!</strong> Your email volume ({{ formatNumber(annualEmails) }} emails/year) 
-          is covered by the <strong>free 36,000 credits</strong> included in your first year!
+          <table>
+            <tr>
+              <th>Cost calculator</th>
+              <th>Monthly</th>
+              <th>Yearly</th>
+            </tr>
+            <tr>
+              <td>MailChimp</td>
+              <td>{{formatNum(mcMonthly)}}</td>
+              <td>{{formatNum(mcAnnual)}}</td>
+            </tr>
+            <!--
+            <tr>
+              <td>Campaign Monitor</td>
+              <td>{{formatNum(cmMonthly)}}</td>
+              <td>{{formatNum(cmAnnual)}}</td>
+            </tr>
+            -->
+            <tr>
+              <td><strong>AWS SES</strong></td>
+              <td><strong>{{formatNum(sesMonthly)}}</strong></td>
+              <td><strong>{{formatNum(sesAnnual)}}</strong></td>
+            </tr>
+            <tr>
+              <td><strong>bluefox.email</strong></td>
+              <td><strong>{{formatNum(bluefoxMonthly)}}</strong></td>
+              <td><strong>{{formatNum(bluefoxAnnual)}}</strong></td>
+            </tr>
+            <tr>
+              <td><strong>bluefox.email + AWS SES</strong></td>
+              <td><strong>{{formatNum(bluefoxPlusSesMonthly)}}</strong></td>
+              <td><strong>{{formatNum(bluefoxPlusSesAnnual)}}</strong></td>
+            </tr>
+          </table>
         </div>
-
-        <div class="metric total">
-          <span>Annual cost:</span>
-          <strong class="price-free">$0</strong>
-        </div>
-
-        <div class="metric">
-          <span>Free credits remaining:</span>
-          <strong>{{ formatNumber(FREE_CREDITS_ANNUAL - creditsNeeded) }}</strong>
-        </div>
-
-        <div class="note">
-          ℹ️ That's {{ formatNumber(Math.floor((FREE_CREDITS_ANNUAL - creditsNeeded) / CREDIT_RATIO)) }} additional emails you can send for free!
-        </div>
-      </template>
-
-      <!-- Need to purchase credits -->
-      <template v-else-if="recommendedPack && recommendedPack !== 'enterprise'">
-        <div class="metric">
-          <span>Recommended pack:</span>
-          <strong class="brand">{{ recommendedPack.name }}</strong>
-        </div>
-
-        <div class="metric">
-          <span>Pack includes:</span>
-          <strong>{{ formatNumber(emailsSendable) }} email sends</strong>
-        </div>
-
-        <div class="metric total">
-          <span>Annual cost:</span>
-          <strong class="price">${{ formatNumber(recommendedPack.price) }}</strong>
-        </div>
-
-        <div class="metric">
-          <span>Cost per email:</span>
-          <strong>{{ formatPrice(costPerEmail) }}</strong>
-        </div>
-
-        <div class="info-box" v-if="creditsRemaining > 0">
-          💡 You'll have <strong>{{ formatNumber(creditsRemaining) }} credits</strong> 
-          ({{ formatNumber(Math.floor(creditsRemaining / CREDIT_RATIO)) }} emails) remaining for future use.
-        </div>
-      </template>
-
-      <!-- Enterprise -->
-      <template v-else-if="recommendedPack === 'enterprise'">
-        <div class="info-box enterprise">
-          🚀 <strong>Enterprise volume!</strong> 
-          <a href="mailto:hello@bluefox.email">Contact us</a> for custom pricing and dedicated support.
-        </div>
-      </template>
-
-      <div class="note" v-if="!isCoveredByFreeCredits">
-        ℹ️ Credits valid for 12 months. All features included without restrictions.
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <style scoped>
-.pricing-calculator {
-  background: var(--vp-c-bg-soft);
-  border-radius: 16px;
-  padding: 32px;
-  margin: 40px auto;
-  max-width: 600px;
+
+.pricing {
+  margin-top: 150px;
 }
 
-.pricing-calculator h3 {
-  margin: 0 0 24px 0;
-  font-size: 20px;
+.pricing h2 {
+  font-size: 32px;
+  line-height: 40px;
   font-weight: 600;
-  text-align: center;
-  color: var(--vp-c-text-1);
 }
-
-.input-section {
-  margin-bottom: 24px;
-}
-
-.input-section label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 500;
-  font-size: 15px;
-  color: var(--vp-c-text-2);
-}
-
-.input-section input {
-  width: 100%;
-  padding: 12px 16px;
-  font-size: 16px;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  background: var(--vp-c-bg);
-  color: var(--vp-c-text-1);
-  transition: border-color 0.2s;
-}
-
-.input-section input:focus {
-  outline: none;
-  border-color: var(--vp-c-brand);
-}
-
-.results {
+.pricing .current-bluefox-price {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.metric {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
-  font-size: 15px;
+  justify-content: center;
 }
 
-.metric span {
-  color: var(--vp-c-text-2);
+.pricing .calculator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.metric strong {
-  font-weight: 600;
-  color: var(--vp-c-text-1);
+.pricing .calculator .calculator-inner {
+  padding: 20px;
 }
 
-.metric.highlight {
-  background: var(--vp-c-bg-alt);
-  padding: 10px 16px;
-  margin: 0 -16px;
-  border-radius: 8px;
+.pricing .calculator .num {
+  width: 50px;
+}
+.pricing .calculator .slider {
+  width: 100%;
+}
+.pricing .current-bluefox-price .bg {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  background-image: var(--vp-home-hero-image-background-image);
+  filter: var(--vp-home-hero-image-filter);
+  border-radius: 50%;
 }
 
-.metric strong.success {
-  color: #4caf50;
+.pricing .current-bluefox-price .annual-price-wrapper {
+  z-index: 1;
+  position: relative;
 }
 
-.metric strong.brand {
-  background: linear-gradient(120deg, #392c91, #13b0ee);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  font-size: 16px;
-}
-
-.divider {
-  height: 1px;
-  background: var(--vp-c-divider);
-  margin: 12px 0;
-}
-
-.metric.total {
-  margin-top: 8px;
-  padding: 16px 0;
-  border-top: 2px solid var(--vp-c-divider);
-}
-
-.metric .price {
-  font-size: 24px;
-  font-weight: 700;
-  background: linear-gradient(120deg, #392c91, #13b0ee);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.metric .price-free {
-  font-size: 24px;
-  font-weight: 700;
-  color: #4caf50;
-}
-
-.info-box {
-  margin-top: 16px;
-  padding: 12px 16px;
-  background: var(--vp-c-bg-alt);
-  border-left: 3px solid var(--vp-c-brand);
-  border-radius: 6px;
-  font-size: 14px;
-  color: var(--vp-c-text-2);
-}
-
-.info-box.success {
-  border-left-color: #4caf50;
-  background: rgba(76, 175, 80, 0.1);
-}
-
-.info-box.enterprise {
-  border-left-color: #13b0ee;
-}
-
-.info-box strong {
-  color: var(--vp-c-text-1);
+.pricing .current-bluefox-price .annual-price-wrapper .current-price-label {
+  position: absolute;
+  font-size: 20px;
+  top: -30px;
+  left: -40px;
   font-weight: 600;
 }
 
-.info-box a {
+.pricing .current-bluefox-price .annual-price-wrapper .annual-access-label {
+  position: absolute;
+  font-size: 20px;
+  bottom: -30px;
+  right: -40px;
+  font-weight: 600;
+}
+
+.pricing .current-bluefox-price .annual-price {
+  font-size: 72px;
+  line-height: 72px;
+  font-weight: 600;
+
   color: var(--vp-c-brand);
-  text-decoration: none;
-  font-weight: 600;
+
+  background: -webkit-linear-gradient(
+    90deg,
+    #392C91 -30%,
+    #13B0EE 30%,
+    #13B0EE 70%,
+    #392C91 130%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: var(--vp-home-hero-name-color);
+}
+.pricing .content {
+  display: flex;
+  width: 1152px;
+  max-width: 100%;
+
+  margin: 0 auto;
 }
 
-.info-box a:hover {
-  text-decoration: underline;
+.pricing .content .current-bluefox-price {
+  width: 50%;
 }
 
-.note {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px dashed var(--vp-c-divider);
-  font-size: 13px;
-  color: var(--vp-c-text-3);
-  text-align: center;
-  font-style: italic;
+.pricing .content .calculator {
+  width: 50%;
 }
 
-@media (max-width: 640px) {
-  .pricing-calculator {
-    padding: 24px 20px;
+.pricing .calculator table {
+  width: 100%;
+  margin-top: 20px;
+}
+.pricing .calculator table td {
+  border: 1px dotted #ccc;
+  text-align: right;
+  padding: 5px;
+}
+
+.pricing .calculator table td:first-child {
+  text-align: left;
+}
+
+.pricing .calculator table tr:last-child {
+  background: var(--vp-c-brand);
+}
+
+@media only screen and (max-width: 959px) {
+  .pricing .content {
+    display: block;
+  }
+  .pricing .content .current-bluefox-price {
+    width: 100%;
   }
 
-  .metric {
-    font-size: 14px;
+  .pricing .content .calculator {
+    margin-top: 150px;
+    width: 100%;
   }
 
-  .metric .price,
-  .metric .price-free {
-    font-size: 20px;
+  .pricing .current-bluefox-price .bg {
+    width: 256px;
+    height: 256px;
+  }
+
+  .pricing .current-bluefox-price .annual-price {
+    font-size: 64px;
+    line-height: 64px;
+  }
+
+  .pricing .current-bluefox-price .annual-price-wrapper .current-price-label {
+    font-size: 18px;
+  }
+
+  .pricing .current-bluefox-price .annual-price-wrapper .annual-access-label {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 639px) {
+  .pricing .content .calculator {
+    margin-top: 120px;
+  }
+  .pricing .current-bluefox-price .bg {
+    width: 192px;
+    height: 192px;
+  }
+
+  .pricing .current-bluefox-price .annual-price {
+    font-size: 52px;
+    line-height: 52px;
+  }
+
+  .pricing .current-bluefox-price .annual-price-wrapper .current-price-label {
+    font-size: 16px;
+  }
+
+  .pricing .current-bluefox-price .annual-price-wrapper .annual-access-label {
+    font-size: 16px;
   }
 }
 </style>
