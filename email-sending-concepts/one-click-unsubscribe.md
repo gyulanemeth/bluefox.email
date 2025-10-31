@@ -1,5 +1,5 @@
 ---
-title: One-Click Unsubscribe | BlueFox Email
+title: One-Click Unsubscribe 
 description: Learn about One-Click Unsubscribe mechanism in email marketing, how it works, implementation methods, and regulatory requirements.
 thumbnail: /assets/glossary/email-sending-glossary.png
 layout: post

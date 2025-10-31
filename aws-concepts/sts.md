@@ -1,5 +1,5 @@
 ---
-title: Amazon STS (Security Token Service) | BlueFox Email
+title: Amazon STS (Security Token Service) 
 description: AWS STS is a web service that enables you to request temporary, limited-privilege credentials for AWS Identity and Access Management (IAM) users or federated users.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

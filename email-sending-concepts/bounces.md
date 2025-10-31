@@ -1,5 +1,5 @@
 ---
-title: Bounces | BlueFox Email
+title: Bounces 
 description: An email bounce occurs when an email is rejected by the recipient's server and returned to the sender, impacting deliverability and sender reputation.
 thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false

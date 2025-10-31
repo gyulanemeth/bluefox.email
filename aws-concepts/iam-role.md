@@ -1,5 +1,5 @@
 ---
-title: AWS IAM Role | BlueFox Email
+title: AWS IAM Role
 description: AWS IAM Roles are identity entities that define permissions for AWS services or users to access resources in a secure, temporary way without sharing long-term credentials.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

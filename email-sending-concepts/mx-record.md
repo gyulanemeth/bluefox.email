@@ -1,5 +1,5 @@
 ---
-title: MX Records | BlueFox Email
+title: MX Records 
 description: "Learn how MX (Mail Exchange) records work, their role in email delivery, and how they direct incoming messages to the correct mail servers."
 thumbnail: /assets/glossary/email-sending-glossary.png
 
