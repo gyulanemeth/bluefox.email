@@ -530,6 +530,71 @@ html.dark .free-sends-banner {
   -webkit-background-clip: text;
 }
 
+.pricing-footer-cta {
+  max-width: 900px;
+  margin: 48px auto;
+  padding: 0 24px;
+}
+
+.footer-cta-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 40px 32px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+html.dark .footer-cta-card {
+  background: rgb(27, 27, 31);
+  border-color: #334155;
+}
+
+.footer-cta-banner {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--vp-c-brand);
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+
+.footer-cta-description {
+  font-size: 16px;
+  color: #334155;
+  margin: 0 0 12px 0;
+  line-height: 1.6;
+}
+
+html.dark .footer-cta-description {
+  color: #cbd5e1;
+}
+
+.footer-cta-subtext {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+}
+
+html.dark .footer-cta-subtext {
+  color: #94a3b8;
+}
+
+.footer-cta-subtext a {
+  color: var(--vp-c-brand);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .footer-cta-card {
+    padding: 32px 24px;
+  }
+  
+  .footer-cta-banner {
+    font-size: 24px;
+  }
+}
+
+
 @media (max-width: 768px) {
   .pricing-hero {
     padding: 40px 16px;
@@ -689,44 +754,47 @@ html.dark .free-sends-banner {
   
   <div class="faq-item">
     <h3>Is there a free plan or trial?</h3>
-    <p>Yes. Every new workspace starts with 3,000 free sends, no credit card required. You can explore all features, send real campaigns, and build automations before deciding to upgrade.</p>
+    <p>Yes. Every new workspace starts with <strong> 3,000 free sends, no credit card required</strong>. You can explore all features, send real campaigns, and build automations before deciding to upgrade.</p>
   </div>
   
   <div class="faq-item">
     <h3>How does the pricing work?</h3>
-    <p>You only pay for email sends, not contacts or features. Each pack includes a fixed number of sends that stay valid for 12 months. No subscriptions, no hidden limits, just buy more when you need them.</p>
+    <p>You only pay for <strong>email sends</strong>, not for contacts or feature. Each pack includes a fixed number of sends that stay <strong>valid for 12 months. No subscriptions, no hidden limits,</strong> just buy more when you need them.</p>
   </div>
   
   <div class="faq-item">
     <h3>What's included in every pack?</h3>
-    <p>Everything. All features are included in every plan: automations, segmentation, analytics, templates, and API access.</p>
+    <p><strong>Everything.</strong> All features are included in every plan: <strong>automations, segmentation, analytics, templates, and API access.</strong></p>
   </div>
   
   <div class="faq-item">
     <h3>What's the difference between the packs?</h3>
-    <p>Both packs include the same features. The only difference is how many emails you can send, so choose the one that fits your volume.</p>
+    <p>Both packs include the same features. The only difference is <strong>how many emails you can send</strong>, so choose the one that fits your volume.</p>
   </div>
   
   <div class="faq-item">
     <h3>Do sends (packs) expire?</h3>
-    <p>Yes. Sends stay valid for 12 months from the date of purchase. You can top up anytime, your balance simply adds up, and older sends are always used first, so the newest ones last the longest.</p>
+    <p>Yes. Sends stay valid for <strong>12 months</strong> from the date of purchase. You can <strong>top up anytime</strong>, your balance simply adds up, and <strong>older sends are always used first</strong>, so the newest ones last the longest.</p>
   </div>
   
   <div class="faq-item">
     <h3>Can I upgrade from one credit pack to a bigger one?</h3>
-    <p>Absolutely. When you upgrade, your remaining sends carry over, nothing is lost. You just get a larger send balance.</p>
+    <p><strong>Absolutely</strong>. When you upgrade, your remaining sends carry over, nothing is lost. You just get a <strong> larger send balance</strong>.</p>
   </div>
   
  <div class="faq-item">
   <h3>Can I use my own SMTP?</h3>
-  <p>Yes! BlueFox Email connects directly to Amazon SES using secure STS credentials. You simply link your SES account, and everything just works.</p>
+  <p>Yes! BlueFox Email connects directly to <strong>Amazon SES</strong> using <strong>secure STS credentials</strong>. You simply link your SES account, and everything just works.</p>
   <p style="margin-top: 12px;">Want to bring your own SES and get better email prices? <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a></p>
 </div>
 
 </section>
 
-<div class="pricing-footer-note">
-  <p class="free-sends-banner">Get started with 3,000 free sends in the first year</p>
-  <p>All packages include all of our features without restrictions!</p>
-  <p>Need enterprise pricing? <a href="mailto:hello@bluefox.email">Contact us</a></p>
-</div>
+<section class="pricing-footer-cta">
+  <div class="footer-cta-card">
+    <p class="footer-cta-banner">Get started with 3,000 free sends in the first year</p>
+    <p class="footer-cta-description">All packages include all of our features without restrictions!</p>
+    <p class="footer-cta-subtext">Need enterprise pricing? <a href="mailto:hello@bluefox.email">Contact us</a></p>
+  </div>
+</section>
+
