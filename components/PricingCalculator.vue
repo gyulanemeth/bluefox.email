@@ -508,7 +508,7 @@ html.dark .remaining-note {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
-  align-items: center; /* Ensures content is centered */
+  align-items: center;
 }
 
 .comparison-title {
