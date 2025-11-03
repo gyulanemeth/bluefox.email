@@ -617,12 +617,12 @@ html.dark .free-sends-banner {
         <span class="pricing-card-period">/ pack</span>
       </div>
       <ul class="pricing-card-features">
-        <li><strong>50,000 sends</strong> included</li>
+        <li><strong>100,000 sends</strong> included</li>
         <li><strong>$1 per 1,000 sends</strong> + AWS SES Fee</li>
         <li>Free email authentication audit</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta primary">
-        Buy 50K sends
+        Buy 100K sends
       </a>
     </div>
     <div class="pricing-card">
@@ -632,12 +632,12 @@ html.dark .free-sends-banner {
         <span class="pricing-card-period">/ pack</span>
       </div>
       <ul class="pricing-card-features">
-        <li><strong>500,000 sends</strong> included</li>
+        <li><strong>1,00,000 sends</strong> included</li>
         <li><strong>$0.60 per 1,000 sends</strong> + AWS SES Fee</li>
         <li>1:1 DMARC audit</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
-        Buy 500K sends
+        Buy 1M sends
       </a>
     </div>
     <div class="pricing-card contact-sales">
