@@ -41,7 +41,7 @@ Welcome to the official documentation for **bluefox.email**! This guide is your 
 
 ## What is Bluefox.email and How it Works
 
-Bluefox.email makes it easy to handle all your email communications, from transactional emails and triggered notifications to marketing campaigns, in one place. With our design systems, your emails will look great and function properly across all email clients, including challenging ones like Outlook. You can also rely on bluefox.email to manage your sending queues, ensuring your emails are sent smoothly and efficiently. Plus, with [AWS SES](/aws-concepts/ses.md) integration using your account, you get a reliable and scalable infrastructure for all your email needs.
+Bluefox.email makes it easy to handle all your email communications, from transactional emails and triggered notifications to marketing campaigns, in one place. With our design systems, your emails will look great and function properly across all email clients, including challenging ones like Outlook. You can also rely on bluefox.email to manage your sending queues, ensuring your emails are sent smoothly and efficiently. Plus, with [AWS SES](/aws-concepts/ses) integration using your account, you get a reliable and scalable infrastructure for all your email needs.
 
 ## Projects
 
@@ -63,7 +63,7 @@ Our [design systems](./design-systems/) feature enables you to create beautiful,
 
 ## Works with AWS SES
 
-Our platform, bluefox.email, uses your AWS SES (Amazon Simple Email Service) for reliable and scalable [email delivery](/email-sending-concepts/deliverability.md). You’ll need to [configure your AWS credentials](/docs/projects/settings.html#aws-credentials) within each project, allowing you to leverage Amazon’s infrastructure while using bluefox.email’s advanced features to manage and customize your email communications.
+Our platform, bluefox.email, uses your AWS SES (Amazon Simple Email Service) for reliable and scalable [email delivery](/email-sending-concepts/deliverability). You’ll need to [configure your AWS credentials](/docs/projects/settings.html#aws-credentials) within each project, allowing you to leverage Amazon’s infrastructure while using bluefox.email’s advanced features to manage and customize your email communications.
 
 ::: tip Note:
 We plan to release a detailed article on how to optimize your setup with AWS SES soon.
@@ -80,4 +80,4 @@ For example, you can use loops to list multiple items, such as recent purchases 
 
 ## Analytics and Reporting
 
-Understanding the performance of your emails is crucial, and bluefox.email provides comprehensive [analytics](/docs/analytics) to help you do just that. Track key metrics such as open rates, click rates, [bounce rates](/email-sending-concepts/bounce-rate.md), and [complaints](/email-sending-concepts/complaints.md). We also handle bounces and complaints automatically, ensuring that your email list remains healthy and that your emails reach the intended recipients.
+Understanding the performance of your emails is crucial, and bluefox.email provides comprehensive [analytics](/docs/analytics) to help you do just that. Track key metrics such as open rates, click rates, [bounce rates](/email-sending-concepts/bounce-rate), and [complaints](/email-sending-concepts/complaints). We also handle bounces and complaints automatically, ensuring that your email list remains healthy and that your emails reach the intended recipients.

@@ -144,8 +144,8 @@ The campaign email statistics section includes the following key metrics:
 - **Unique Opens**: Number of individual recipients who opened your campaign emails (counts only one open per recipient).
 - **Clicks**: Total number of clicks on links within your campaign emails.
 - **Unique Clicks**: Number of individual recipients who clicked on links within your campaign emails (counts only one click per recipient).
-- **[Bounces](/email-sending-concepts/bounces.md)**: Number of campaign emails that failed to be delivered.
-- **[Complaints](/email-sending-concepts/complaints.md)**: Number of complaints (e.g., emails marked as spam).
+- **[Bounces](/email-sending-concepts/bounces)**: Number of campaign emails that failed to be delivered.
+- **[Complaints](/email-sending-concepts/complaints)**: Number of complaints (e.g., emails marked as spam).
 - **Unsubscribes**: Number of recipients who unsubscribed after receiving the campaign email.
 - **Resubscriptions**: Number of recipients who resubscribed after previously unsubscribing.
 - **Paused Subscriptions**: Number of recipients who have paused their subscriptions to your campaign emails.

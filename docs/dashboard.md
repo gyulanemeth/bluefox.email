@@ -45,7 +45,7 @@ The **Account Dashboard** helps you:
 - **Monitor All Projects at Once**: Track the performance of your emails and subscribers across all your projects in one place.
 - **Get a 360° View of Email Effectiveness**: Measure the performance of different types of emails (transactional, triggered, and campaign emails) across your entire account.
 - **Track Subscriber Trends**: See how subscribers are engaging with your emails, including their subscription, pause, unpause, and unsubscribe behaviors.
-- **Identify Performance Issues**: Quickly detect trends like [high bounce rates](/email-sending-concepts/bounce-rate.md) or low open rates across all projects, helping you to address potential issues before they escalate.
+- **Identify Performance Issues**: Quickly detect trends like [high bounce rates](/email-sending-concepts/bounce-rate) or low open rates across all projects, helping you to address potential issues before they escalate.
 - **Enhance Subscriber Engagement**: Use data from multiple projects to optimize future emails and improve subscriber retention and conversions.
 
 ## Key Metrics in the Account Dashboard
@@ -58,8 +58,8 @@ The **Account Dashboard** provides both **email performance** and **subscriber a
 - **Unique Opens**: The number of unique recipients who opened emails across all your projects.
 - **Clicks**: The total number of clicks on links inside your emails, reflecting how engaging your content is.
 - **Unique Clicks**: The number of unique recipients who clicked on links, highlighting how effective your emails are at driving action.
-- **Bounces**: The total number of emails that failed to be delivered, indicating any [deliverability](/email-sending-concepts/deliverability.md) issues.
-- **Complaints**: The total number of [complaints](/email-sending-concepts/complaints.md) (e.g., emails marked as spam), which can indicate issues with your content quality.
+- **Bounces**: The total number of emails that failed to be delivered, indicating any [deliverability](/email-sending-concepts/deliverability) issues.
+- **Complaints**: The total number of [complaints](/email-sending-concepts/complaints) (e.g., emails marked as spam), which can indicate issues with your content quality.
 
 The chart below displays the performance of transactional, triggered, and campaign emails across the account, highlighting opens, clicks, and complaints.
 ![Email statistics](./dashboard-statistics-email-chart.webp)
