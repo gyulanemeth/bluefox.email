@@ -114,7 +114,7 @@ DKIM (DomainKeys Identified Mail) enhances the authenticity of your emails, fost
 
 :::tip Free DKIM Audit
 Use our free dkim checker tool to audit your domain for dkim. Check it out 
-[here](/tools/deliverability/dkim-checker)
+[here](/tools/deliverability/dkim-checker).
 :::
 
 ## Frequently Asked Questions About DKIM
