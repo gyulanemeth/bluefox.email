@@ -63,7 +63,7 @@ import DkimChecker from '../../.vitepress/theme/free-tools/DkimChecker.vue'
 
 # Free DKIM Checker
 
-**Validate your DKIM signatures** and ensure your email authentication is working correctly with our comprehensive DKIM checker tool.
+**Validate your [DKIM](/email-sending-concepts/dkim) signatures** and ensure your email authentication is working correctly with our comprehensive DKIM checker tool.
 
 
 <DkimChecker />

@@ -111,6 +111,9 @@ Several common issues frequently disrupt email deliverability:
 
 Enhancing deliverability requires building a **robust technical foundation** that includes complete email authentication using SPF, DKIM, and DMARC records, alongside proper DNS configuration such as [MX records](/email-sending-concepts/mx-record) and reverse DNS lookups. When leveraging cloud email services like AWS SES, it's important to configure appropriate sending rates and implement proper retry mechanisms when throttling occurs. Equally critical is **strategic list management**, which involves confirmed opt-in processes, engagement-based segmentation, and sunset policies to remove inactive subscribers, helping maintain low **bounce rates** (below 2%) and **complaint rates** (below 0.1%). To sustain high engagement, create **engagement-focused content** that uses personalization, mobile optimization, and A/B testing to appeal to different audience segments. Finally, implement **progressive sending practices** like IP warming, volume ramping, and cohort-based sending strategies, supported by effective feedback loops and bounce handling systems that allow you to respond quickly to reputation signals.
 
+:::tip Always check for broken links!
+In your email templates always check for broken or unresponsive links as they cause majority of deliverbility issues. You can use our free email link checker tool to make sure that every link is funcitonal in you HTML email template. Check that out [here](/tools/content/link-checker)
+
 
 ## Frequently Asked Questions About Email Deliverability
 

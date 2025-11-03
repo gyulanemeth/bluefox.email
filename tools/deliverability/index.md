@@ -46,25 +46,25 @@ head:
 Boost your email deliverability with our comprehensive collection of **free [email authentication](/email-sending-concepts/email-authentication.md) tools**. These professional-grade utilities help you validate, analyze, and optimize your email infrastructure for maximum inbox placement and security.
 
 ### DMARC Checker
-**Validate your DMARC policy and prevent email spoofing**. Check if your domain has proper DMARC records configured and analyze policy effectiveness for email authentication. Our DMARC checker helps ensure your domain is protected against phishing attacks and improves email deliverability.
+**Validate your DMARC policy and prevent email spoofing**. Check if your domain has proper [DMARC](/email-sending-concepts/dmarc) records configured and analyze policy effectiveness for email authentication. Our DMARC checker helps ensure your domain is protected against phishing attacks and improves email deliverability.
 
 [Read More →](/tools/deliverability/dmarc-checker.md)
 
 
 ### SPF Checker  
-**Verify your SPF records and authorize legitimate senders**. Ensure your Sender Policy Framework is correctly configured to prevent email spoofing and improve inbox placement. Check DNS syntax, validate authorized servers, and optimize your SPF configuration.
+**Verify your [SPF](/email-sending-concepts/spf) records and authorize legitimate senders**. Ensure your Sender Policy Framework is correctly configured to prevent email spoofing and improve inbox placement. Check DNS syntax, validate authorized servers, and optimize your SPF configuration.
 
 [Read More →](/tools/deliverability/spf-checker)
 
 
 ### DKIM Checker
-**Test DKIM signatures and email authentication**. Verify that your DomainKeys Identified Mail signatures are properly configured and discoverable by receiving email servers. Ensure email integrity and build sender reputation with proper DKIM validation.
+**Test [DKIM](/email-sending-concepts/dkim) signatures and email authentication**. Verify that your DomainKeys Identified Mail signatures are properly configured and discoverable by receiving email servers. Ensure email integrity and build sender reputation with proper DKIM validation.
 
 [Read More →](/tools/deliverability/dkim-checker)
 
 
 ### MX Record Checker
-**Lookup and analyze mail exchange records**. Check your domain's MX records to ensure proper email routing and identify potential delivery issues. Verify mail server configuration and test SMTP connectivity for reliable email delivery.
+**Lookup and analyze [mail exchange](/email-sending-concepts/mx-record) records**. Check your domain's MX records to ensure proper email routing and identify potential delivery issues. Verify mail server configuration and test [SMTP](/email-sending-concepts/smtp) connectivity for reliable email delivery.
 
 [Read More →](/tools/deliverability/mx-checker)
 

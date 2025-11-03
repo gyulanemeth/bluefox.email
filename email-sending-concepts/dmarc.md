@@ -120,6 +120,9 @@ DMARC is essential for **protecting your domain from impersonation, phishing, an
 
 In addition to security, DMARC offers operational benefits. It fosters **trust with email providers** and recipients, enhancing deliverability and reducing the chances of emails being marked as spam. DMARC reports provide valuable insights into how your domain is utilized, showing who sends emails on your behalf and their authentication success. Given that phishing is a primary attack vector, DMARC is essential. It is a **critical component of any email security and brand protection strategy**, and many inbox providers now require it for high-volume senders or those wishing to display brand logos via BIMI.
 
+:::tip Free Dmarc Audit
+Use our free dmarc checker tool to audit your domain for dmarc, check it out [here](/tools/deliverability/dmarc-checker). We also have a free dmarc report analyzer check that [here](/tools/deliverability/dmarc-report-analyzer)
+
 ## Frequently Asked Questions About DMARC
 
 ### Do I need DMARC if I already have SPF and DKIM?

@@ -63,7 +63,7 @@ import DmarcReportAnalyzer from '../../.vitepress/theme/free-tools/DmarcReportAn
 
 # Free DMARC Report Analyzer
 
-**Parse and analyze DMARC aggregate reports** to gain deep insights into your email authentication performance and security posture.
+**Parse and analyze [DMARC](/email-sending-concepts/dmarc) aggregate reports** to gain deep insights into your email authentication performance and security posture.
 
 <DmarcReportAnalyzer />
 
