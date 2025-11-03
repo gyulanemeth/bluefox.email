@@ -40,7 +40,7 @@ The Analytics section in your application provides a comprehensive analysis of e
 
 ## Email Card Analytics
 
-We provide the following analytics for all of our email types (transactional emails, triggered emails, and campaigns): sends, opens, clicks, bounces, and complaints.
+We provide the following analytics for all of our email types (transactional emails, triggered emails, and campaigns): sends, opens, clicks, [bounces](/email-sending-concepts/bounces), and [complaints](/email-sending-concepts/complaints).
 
 You can view these analytics on the email cards, located right above the action buttons for each email type:
 
@@ -56,7 +56,7 @@ At the top of every statistics page, an overall banner displays key metrics in s
 
 ### Overall Email Statistics Banner
 
-The Email Summary Banner provides key email performance metrics, such as **sent emails**, **failed**, **opens**, **unique opens**, **clicks**, **unique clicks**, **bounced**, and **complaints**. This banner is essential for tracking email performance at a glance, enabling users to monitor engagement and delivery quality effectively.
+The Email Summary Banner provides key email performance metrics, such as **sent emails**, **failed**, **opens**, **unique opens**, **clicks**, **unique clicks**, **bounced**, and **complaints**. This banner is essential for tracking email performance at a glance, enabling users to monitor engagement and [delivery quality](/email-sending-concepts/deliverability) effectively.
 
 ![Email Summary Banner](./statistics-email-overall-banner.webp)
 
