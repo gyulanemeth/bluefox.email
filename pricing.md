@@ -801,7 +801,7 @@ html.dark .free-sends-banner {
 
 
 <div class="pricing-footer-note">
-  <p class="free-sends-banner">Get started with 3,000 free monthly sends in the first year</p>
+  <p class="free-sends-banner">Get started with 3,000 free sends in the first year</p>
   <p>All packages include all of our features without restrictions!</p>
   <p>Need enterprise pricing? <a href="mailto:hello@bluefox.email">Contact us</a></p>
 </div>
