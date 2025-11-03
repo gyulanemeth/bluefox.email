@@ -8,6 +8,9 @@ const currentSliderIndex = ref(3) // Default to 100K
 // User input based on slider
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
 
+// Add enterprise flag
+const isEnterpriseVolume = computed(() => emails.value >= 1000000)
+
 // Pricing configuration (BYO SES mode)
 const AWS_SES_COST_PER_EMAIL = 0.0001 // $0.0001 per email
 const PACKS = [
@@ -191,39 +194,39 @@ const formatAbbreviated = num => {
         <!-- Comparison Table Card -->
         <div class="comparison-section">
           <h4>Compare with Competitors</h4>
-          <div class="comparison-table-wrapper">
-            <table class="comparison-table">
+          <div class="table-container">
+            <table class="comparison-table" :class="{ 'enterprise-mode': isEnterpriseVolume }">
               <thead>
                 <tr>
-                  <th>Provider</th>
-                  <th>Monthly Cost</th>
-                  <th>You Save</th>
+                  <th scope="col">Provider</th>
+                  <th scope="col">Monthly Cost</th>
+                  <th v-if="!isEnterpriseVolume" scope="col">You Save</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>SendGrid Premier</td>
                   <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
-                  <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
+                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
                 </tr>
                 <tr>
                   <td>Mailchimp Premium</td>
                   <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
-                  <td>{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
+                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
                 </tr>
                 <tr>
-                  <td>MailerSend Pro</td>
+                  <td>MailerSend <br> Pro</td>
                   <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
-                  <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
+                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.mailersend) }}%</td>
                 </tr>
               </tbody>
             </table>
-            <ul class="table-note">
-              <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
-              <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
-              <li>BlueFox BYO includes platform credits + your AWS SES costs, no contact limits</li>
-            </ul>
           </div>
+          <ul class="table-note">
+            <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
+            <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
+            <li>BlueFox BYO includes platform credits + your AWS SES costs, no contact limits</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -586,62 +589,87 @@ html.dark .remaining-note {
   margin: 0 0 20px 0;
 }
 
-.comparison-table-wrapper {
+.table-container {
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 0 0 16px 0;
 }
 
 .comparison-table {
   width: 100%;
-  border-collapse: collapse;
+  table-layout: fixed;
+  border-spacing: 0;
   font-size: 14px;
   background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
-  overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  table-layout: fixed;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.comparison-table th:nth-child(1),
-.comparison-table td:nth-child(1) {
-  width: 40%;
+/* Column width distribution */
+.comparison-table:not(.enterprise-mode) th,
+.comparison-table:not(.enterprise-mode) td {
+  width: 33.3333%;
 }
 
-.comparison-table th:nth-child(2),
-.comparison-table td:nth-child(2) {
-  width: 35%;
-}
-
-.comparison-table th:nth-child(3),
-.comparison-table td:nth-child(3) {
-  width: 25%;
+.comparison-table.enterprise-mode th,
+.comparison-table.enterprise-mode td {
+  width: 50%;
 }
 
 .comparison-table th,
 .comparison-table td {
-  border: 1px solid var(--vp-c-divider);
+  padding: 12px 18px; /* Match your fix */
   text-align: center;
-  padding: 12px 16px;
   color: var(--vp-c-text-1);
+  border-bottom: 1px solid var(--vp-c-divider);
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .comparison-table th {
   background: var(--vp-c-bg-alt);
   font-weight: 600;
   font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.comparison-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table tbody tr:hover {
+  background: var(--vp-c-bg-soft);
 }
 
 .table-note {
   font-size: 12px;
   color: var(--vp-c-text-3);
-  margin-top: 12px;
-  padding-left: 20px;
-  text-align: left;
+  margin: 0;
+  padding: 0; /* No left padding! */
+  text-align: center;
   line-height: 1.6;
-  list-style-type: disc;
+  list-style: none;
 }
 
 .table-note li {
   margin-bottom: 4px;
+  text-align: left;
+  padding: 0 16px;
+  position: relative;
+}
+
+.table-note li::before {
+  content: "•";
+  color: var(--vp-c-brand);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  transform: translateX(-100%);
 }
 
 /* Responsive */
@@ -696,6 +724,10 @@ html.dark .remaining-note {
 
   .comparison-section h4 {
     font-size: 18px;
+  }
+
+  .table-note li {
+    padding: 0 12px;
   }
 }
 </style>

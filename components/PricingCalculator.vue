@@ -30,7 +30,6 @@ const bluefoxCostPerEmail = computed(() => {
   return recommendedPack.value.price / recommendedPack.value.sends
 })
 
-// Calculate actual cost for the selected email volume
 const actualBluefoxCost = computed(() => emails.value * bluefoxCostPerEmail.value)
 
 const sendsRemaining = computed(() =>
@@ -40,6 +39,8 @@ const sendsRemaining = computed(() =>
 )
 
 const estimatedContacts = computed(() => Math.round(emails.value / 5))
+
+const isEnterpriseVolume = computed(() => emails.value >= 1000000)
 
 const competitorCosts = computed(() => ({
   mailchimp: emails.value * COMPETITOR_COST_PER_EMAIL.mailchimp,
@@ -62,6 +63,7 @@ const formatPrice = price => {
 }
 
 const formatAbbreviated = num => {
+  if (num === 1000000) return '1M+'
   if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`
   if (num >= 1000) return `${(num / 1000).toFixed(0)}K`
   return num.toString()
@@ -71,6 +73,7 @@ const formatAbbreviated = num => {
 <template>
   <div class="pricing-calculator">
     <div class="calculator-container">
+      <!-- Slider Section -->
       <div class="slider-section">
         <h3 class="slider-title">How many emails do you send monthly?</h3>
         
@@ -96,92 +99,95 @@ const formatAbbreviated = num => {
         </div>
       </div>
 
+      <!-- Results Grid -->
       <div class="results-grid">
+        <!-- Pack Card (Left) -->
         <div class="pack-card">
-          <template v-if="recommendedPack !== 'enterprise'">
-            <div class="pack-content">
-              <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email</div>
-              
-              <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
-              
-              <div class="recommended-pack-info">
-                <span class="recommended-label">Recommended pack:</span>
-                <span class="recommended-pack-name">{{ recommendedPack.name }}</span>
-              </div>
-              
-              <div class="pack-price-section">
-                <span class="pack-price-label">Pack cost:</span>
-                <span class="pack-price-value">{{ formatPrice(totalCost) }}</span>
-              </div>
-              
-              <div class="pack-info">
-                <div class="info-row">
-                  <span class="info-label">Pack includes:</span>
-                  <span class="info-value">{{ formatNumber(recommendedPack.sends) }} sends</span>
-                </div>
-                <div class="info-row">
-                  <span class="info-label">Cost per 1,000 sends:</span>
-                  <span class="info-value">{{ formatPrice(bluefoxCostPerEmail * 1000) }}</span>
-                </div>
-              </div>
-
-              <div v-if="sendsRemaining > 0" class="remaining-note">
-                ✨ <strong>{{ formatNumber(sendsRemaining) }} sends</strong> remaining for future use
-              </div>
-
-              <ul class="pack-features">
-                <li>Sends valid for 12 months</li>
-                <li>All features included</li>
-                <li>No contact-based pricing</li>
-              </ul>
+          <!-- Regular Pack Display -->
+          <div v-if="recommendedPack !== 'enterprise'" class="pack-content">
+            <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email</div>
+            
+            <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
+            
+            <div class="recommended-pack-info">
+              <span class="recommended-label">Recommended pack:</span>
+              <span class="recommended-pack-name">{{ recommendedPack.name }}</span>
             </div>
-          </template>
-
-          <template v-else>
-            <div class="enterprise-content">
-              <div class="enterprise-icon">🚀</div>
-              <h5>Enterprise Volume</h5>
-              <p>For 1M+ emails, we offer custom pricing with volume discounts.</p>
-              <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact sales</a>
+            
+            <div class="pack-price-section">
+              <span class="pack-price-label">Pack cost:</span>
+              <span class="pack-price-value">{{ formatPrice(totalCost) }}</span>
             </div>
-          </template>
+            
+            <div class="pack-info">
+              <div class="info-row">
+                <span class="info-label">Pack includes:</span>
+                <span class="info-value">{{ formatNumber(recommendedPack.sends) }} sends</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Cost per 1,000 sends:</span>
+                <span class="info-value">{{ formatPrice(bluefoxCostPerEmail * 1000) }}</span>
+              </div>
+            </div>
+
+            <div v-if="sendsRemaining > 0" class="remaining-note">
+              ✨ <strong>{{ formatNumber(sendsRemaining) }} sends</strong> remaining for future use
+            </div>
+
+            <ul class="pack-features">
+              <li>Sends valid for 12 months</li>
+              <li>All features included</li>
+              <li>No contact-based pricing</li>
+            </ul>
+          </div>
+
+          <!-- Enterprise Display -->
+          <div v-else class="enterprise-content">
+            <div class="enterprise-icon">🚀</div>
+            <h5>Enterprise Volume</h5>
+            <p>For 1M+ emails, we offer custom pricing with volume discounts.</p>
+            <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact sales</a>
+          </div>
         </div>
 
-        <div class="comparison-section">
-          <h4>Compare with Competitors</h4>
-          <div class="comparison-table-wrapper">
+        <!-- Comparison Section (Right) -->
+        <div class="comparison-card">
+          <h4 class="comparison-title">Compare with Competitors</h4>
+
+          <div class="table-container">
             <table class="comparison-table">
               <thead>
                 <tr>
-                  <th>Provider</th>
-                  <th>Monthly Cost</th>
-                  <th>You Save</th>
+                  <th scope="col">Provider</th>
+                  <th scope="col">Monthly Cost</th>
+                  <th v-if="!isEnterpriseVolume" scope="col">You Save</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Mailchimp Premium</td>
                   <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
-                  <td>{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
+                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
                 </tr>
                 <tr>
                   <td>SendGrid Premier</td>
                   <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
-                  <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
+                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
                 </tr>
                 <tr>
-                  <td>MailerSend Pro</td>
+                  <td>MailerSend <br> Pro</td>
                   <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
-                  <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
+                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.mailersend) }}%</td>
                 </tr>
               </tbody>
             </table>
-            <ul class="table-note">
-              <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
-              <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
-              <li>BlueFox has no contact limits and includes all features at every tier</li>
-            </ul>
           </div>
+
+          <ul class="table-note">
+            <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
+            <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
+            <li>BlueFox has no contact limits and includes all features at every tier</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -189,6 +195,7 @@ const formatAbbreviated = num => {
 </template>
 
 <style scoped>
+/* === Calculator Container === */
 .pricing-calculator {
   width: 100%;
   max-width: 1100px;
@@ -204,6 +211,7 @@ const formatAbbreviated = num => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
+/* === Slider Section === */
 .slider-section {
   margin-bottom: 40px;
   text-align: center;
@@ -285,15 +293,15 @@ const formatAbbreviated = num => {
   transform: scale(1.1);
 }
 
+/* === Results Grid === */
 .results-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
-  margin-bottom: 32px;
 }
 
-.pack-card,
-.comparison-section {
+/* === Pack Card === */
+.pack-card {
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
   border-radius: 16px;
@@ -447,6 +455,7 @@ html.dark .remaining-note {
   margin-right: 8px;
 }
 
+/* === Enterprise Content === */
 .enterprise-content {
   text-align: center;
   padding: 20px 0;
@@ -485,82 +494,114 @@ html.dark .remaining-note {
 
 .enterprise-link:hover {
   background: var(--vp-c-brand-light);
-  transform: translateY(-2px);
+  /* transform: translateY(-2px); */
   box-shadow: 0 4px 12px rgba(19, 176, 238, 0.3);
+  color:white
 }
 
-.comparison-section {
+/* === Comparison Card === */
+.comparison-card {
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: center; /* Ensures content is centered */
 }
 
-.comparison-section h4 {
+.comparison-title {
   font-size: 20px;
   font-weight: 600;
   color: var(--vp-c-text-1);
   margin: 0 0 20px 0;
+  text-align: center;
 }
 
-.comparison-table-wrapper {
+.table-container {
   width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 0 0 16px 0;
 }
 
+/* Default: 3 columns */
 .comparison-table {
   width: 100%;
-  border-collapse: collapse;
+  table-layout: fixed;
+  border-spacing: 0;
   font-size: 14px;
   background: var(--vp-c-bg);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  table-layout: fixed;
-}
-
-.comparison-table th:nth-child(1),
-.comparison-table td:nth-child(1) {
-  width: 40%;
-}
-
-.comparison-table th:nth-child(2),
-.comparison-table td:nth-child(2) {
-  width: 35%;
-}
-
-.comparison-table th:nth-child(3),
-.comparison-table td:nth-child(3) {
-  width: 25%;
-}
-
-.comparison-table th,
-.comparison-table td {
   border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  margin-top:10px;
+  box-sizing: border-box;
   text-align: center;
-  padding: 12px 16px;
-  color: var(--vp-c-text-1);
+}
+
+/* Enterprise mode: 2 columns, full fill */
+.comparison-table.enterprise-mode {
+  table-layout: fixed; /* still fixed, but now only 2 cols */
+}
+
+/* Column widths: auto-distribute based on column count */
+.comparison-table:not(.enterprise-mode) th,
+.comparison-table:not(.enterprise-mode) td {
+  width: 33.33%;
+}
+
+.comparison-table.enterprise-mode th,
+.comparison-table.enterprise-mode td {
+  width: 50%;
+  
 }
 
 .comparison-table th {
   background: var(--vp-c-bg-alt);
   font-weight: 600;
-  font-size: 13px;
+  font-size: 15px;
+  /* text-transform: uppercase; */
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.comparison-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.comparison-table tbody tr:hover {
+  background: var(--vp-c-bg-soft);
 }
 
 .table-note {
   font-size: 12px;
   color: var(--vp-c-text-3);
-  margin-top: 12px;
-  padding-left: 20px;
-  text-align: left;
+  margin: 0;
+  padding: 0;
+  text-align: center;
   line-height: 1.6;
-  list-style-type: disc;
+  list-style: none;
 }
 
 .table-note li {
   margin-bottom: 4px;
+  text-align: left;
+  padding: 0 16px;
+  position: relative;
 }
 
+.table-note li::before {
+  content: "•";
+  color: var(--vp-c-brand);
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+/* === Responsive Design === */
 @media (max-width: 968px) {
   .results-grid {
     grid-template-columns: 1fr;
@@ -610,8 +651,12 @@ html.dark .remaining-note {
     font-size: 12px;
   }
 
-  .comparison-section h4 {
+  .comparison-title {
     font-size: 18px;
+  }
+
+  .table-note li {
+    padding: 0 12px;
   }
 }
 </style>

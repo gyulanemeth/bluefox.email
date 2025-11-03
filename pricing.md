@@ -41,7 +41,7 @@ const { isDark } = useData()
   color: var(--vp-c-brand);
   font-size: 14px;
   font-weight: 500;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
   white-space: nowrap;
 }
 
@@ -56,7 +56,7 @@ html.dark .pricing-badge {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  margin: 0 0 16px 0 !important;
+  /* margin: 0 0 16px 0 !important; */
   border: none !important;
   padding: 0 !important;
   text-align: center;
@@ -65,11 +65,11 @@ html.dark .pricing-badge {
 
 
 .pricing-hero-subtitle {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.6;
   color: #64748b;
   max-width: 700px;
-  margin: 0 0 32px 0;
+  margin: 0 0 28px 0;
   text-align: center;
 }
 
@@ -84,7 +84,7 @@ html.dark .pricing-hero-subtitle {
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
   max-width: 500px;
   width: 100%;
 }
@@ -95,6 +95,7 @@ html.dark .pricing-hero-subtitle {
   color: #64748b;
   text-align: center;
   max-width: 600px;
+  margin: 4px 0 !important;
 }
 
 
@@ -117,7 +118,7 @@ html.dark .pricing-hero-note strong {
 .pricing-cards-section {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px 48px;
+  padding: 0 24px 15px;
 }
 
 
@@ -284,7 +285,7 @@ html.dark .pricing-card-features li {
   display: block;
   width: 100%;
   padding: 12px 24px;
-  border-radius: 12px;
+  border-radius: 5px;
   font-weight: 600;
   text-align: center;
   transition: all 0.2s ease;
@@ -380,7 +381,7 @@ html.dark .pricing-card.contact-sales {
 
 
 .pricing-card-note {
-  margin-top: 16px;
+  /* margin-top: 16px; */
   font-size: 12px;
   color: #64748b;
   text-align: center;
@@ -401,7 +402,7 @@ html.dark .pricing-card-note {
 .value-props {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 13px 24px;
 }
 
 
@@ -459,7 +460,7 @@ html.dark .value-prop-content p {
 
 .calculator-section {
   max-width: 1200px;
-  margin: 48px auto;
+  margin: 18px auto;
   padding: 48px 24px;
   background: white;
   border-radius: 16px;
@@ -657,7 +658,7 @@ html.dark .free-sends-banner {
   
   <div class="pricing-hero-actions">
     <v-btn
-      rounded
+      rounded="x1"
       size="large"
       color="primary"
       variant="flat"
@@ -668,7 +669,7 @@ html.dark .free-sends-banner {
       Get started free
     </v-btn>
     <v-btn
-      rounded
+      rounded="x1"
       size="large"
       color="buttonBackground"
       variant="flat"
@@ -681,10 +682,7 @@ html.dark .free-sends-banner {
   </div>
   
   <p class="pricing-hero-note">
-    Every new workspace starts with <strong>3000 free sends</strong> no credit card required.
-  </p>
-  <p class="pricing-hero-note">
-   <strong>Use your sends anytime within a year.</strong> Buy more whenever you need, they stack automatically.
+    Every new workspace starts with <strong>3000 free sends</strong> no credit card required.<br><strong>Use your sends anytime within a year.</strong> Buy more whenever you need, they stack automatically.
   </p>
 </section>
 
@@ -701,7 +699,8 @@ html.dark .free-sends-banner {
       <ul class="pricing-card-features">
         <li><strong>50,000 sends</strong> included</li>
         <li><strong>$1 per 1,000 sends</strong></li>
-        <li>Free email authentication audit</li>
+        <!-- <li>Free email authentication audit</li> -->
+        <li><strong>Access to full platform!</strong> No Restrictions</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta primary">
         Buy 50K sends
@@ -716,7 +715,8 @@ html.dark .free-sends-banner {
       <ul class="pricing-card-features">
         <li><strong>500,000 sends</strong> included</li>
         <li><strong>$0.60 per 1,000 sends</strong></li>
-        <li>1:1 DMARC audit</li>
+        <!-- <li>1:1 DMARC audit</li> -->
+        <li><strong>Access to full platform!</strong> No restrictions</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
         Buy 500K sends
@@ -763,7 +763,7 @@ html.dark .free-sends-banner {
 <section class="calculator-section">
   <div class="calculator-header">
     <div class="calculator-title">
-      <h2>Compare your savings with BlueFox</h2>
+      <h2>Compare your savings with BlueFox Email</h2>
       <p class="calculator-subtitle">Enter your monthly send volume to estimate costs across platforms.</p>
     </div>
     <div class="calculator-note">Estimates only</div>

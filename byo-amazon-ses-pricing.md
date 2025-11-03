@@ -4,13 +4,11 @@ title: BYO Amazon SES Pricing
 description: Connect your own Amazon SES account and pay only for platform credits plus AWS costs.
 ---
 
-
 <script setup>
 import { useData } from 'vitepress'
 import BYOPriceCalculator from './components/BYOPriceCalculator.vue'
 const { isDark } = useData()
 </script>
-
 
 <style>
 /* Force remove link underlines */
@@ -39,7 +37,7 @@ const { isDark } = useData()
   color: var(--vp-c-brand);
   font-size: 14px;
   font-weight: 500;
-  margin-bottom: 16px;
+  /* margin-bottom: 16px; */
   white-space: nowrap;
 }
 
@@ -52,7 +50,7 @@ html.dark .pricing-badge {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  margin: 0 0 16px 0 !important;
+  /* margin: 0 0 16px 0 !important; */
   border: none !important;
   padding: 0 !important;
   text-align: center;
@@ -60,11 +58,11 @@ html.dark .pricing-badge {
 }
 
 .pricing-hero-subtitle {
-  font-size: 18px;
+  font-size: 17px;
   line-height: 1.6;
   color: #64748b;
   max-width: 700px;
-  margin: 0 0 32px 0;
+  margin: 0 0 28px 0;
   text-align: center;
 }
 
@@ -77,7 +75,7 @@ html.dark .pricing-hero-subtitle {
   gap: 12px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 24px;
+  margin-bottom: 14px;
   max-width: 500px;
   width: 100%;
 }
@@ -87,6 +85,7 @@ html.dark .pricing-hero-subtitle {
   color: #64748b;
   text-align: center;
   max-width: 600px;
+  margin: 4px 0 !important;
 }
 
 html.dark .pricing-hero-note {
@@ -105,7 +104,7 @@ html.dark .pricing-hero-note strong {
 .pricing-cards-section {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px 48px;
+  padding: 0 24px 15px;
 }
 
 .pricing-cards-grid {
@@ -250,7 +249,7 @@ html.dark .pricing-card-features li {
   display: block;
   width: 100%;
   padding: 12px 24px;
-  border-radius: 12px;
+  border-radius: 5px;
   font-weight: 600;
   text-align: center;
   transition: all 0.2s ease;
@@ -332,7 +331,7 @@ html.dark .pricing-card.contact-sales {
 }
 
 .pricing-card-note {
-  margin-top: 16px;
+  /* margin-top: 16px; */
   font-size: 12px;
   color: #64748b;
   text-align: center;
@@ -350,7 +349,7 @@ html.dark .pricing-card-note {
 .value-props {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 32px 24px;
+  padding: 13px 24px;
 }
 
 .value-props-grid {
@@ -400,7 +399,7 @@ html.dark .value-prop-content p {
 
 .calculator-section {
   max-width: 1200px;
-  margin: 48px auto;
+  margin: 18px auto;
   padding: 48px 24px;
   background: white;
   border-radius: 16px;
@@ -561,7 +560,6 @@ html.dark .free-sends-banner {
 }
 </style>
 
-
 <section class="pricing-hero">
   <div class="pricing-badge">
     <span>Bring Your Own Amazon SES</span>
@@ -575,7 +573,7 @@ html.dark .free-sends-banner {
   
   <div class="pricing-hero-actions">
     <v-btn
-      rounded
+      rounded="xl"
       size="large"
       color="primary"
       variant="flat"
@@ -586,7 +584,7 @@ html.dark .free-sends-banner {
       Get started free
     </v-btn>
     <v-btn
-      rounded
+      rounded="xl"
       size="large"
       color="buttonBackground"
       variant="flat"
@@ -599,13 +597,9 @@ html.dark .free-sends-banner {
   </div>
   
   <p class="pricing-hero-note">
-    Every new workspace starts with <strong>3000 free sends</strong> no credit card required.
-  </p>
-  <p class="pricing-hero-note">
-    <strong>Use your sends anytime within a year.</strong> Buy more whenever you need, they stack automatically.
+    Every new workspace starts with <strong>3000 free sends</strong> no credit card required.<br><strong>Use your sends anytime within a year.</strong> Buy more whenever you need, they stack automatically.
   </p>
 </section>
-
 
 <section class="pricing-cards-section">
   <div class="pricing-cards-grid">
@@ -619,7 +613,7 @@ html.dark .free-sends-banner {
       <ul class="pricing-card-features">
         <li><strong>100,000 sends</strong> included</li>
         <li><strong>$1 per 1,000 sends</strong> + AWS SES Fee</li>
-        <li>Free email authentication audit</li>
+        <li><strong>Access to full platform!</strong> No Restrictions</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta primary">
         Buy 100K sends
@@ -632,9 +626,9 @@ html.dark .free-sends-banner {
         <span class="pricing-card-period">/ pack</span>
       </div>
       <ul class="pricing-card-features">
-        <li><strong>1,00,000 sends</strong> included</li>
+        <li><strong>10,00,000 sends</strong> included</li>
         <li><strong>$0.60 per 1,000 sends</strong> + AWS SES Fee</li>
-        <li>1:1 DMARC audit</li>
+        <li><strong>Access to full platform!</strong> No Restrictions</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
         Buy 1M sends
@@ -652,7 +646,6 @@ html.dark .free-sends-banner {
     </div>
   </div>
 </section>
-
 
 <section class="value-props">
   <div class="value-props-grid">
@@ -677,11 +670,10 @@ html.dark .free-sends-banner {
   </div>
 </section>
 
-
 <section class="calculator-section">
   <div class="calculator-header">
     <div class="calculator-title">
-      <h2>Calculate your BYO SES cost</h2>
+      <h2>Compare your savings with BlueFox Email</h2>
       <p class="calculator-subtitle">See total costs including platform fees and AWS SES charges.</p>
     </div>
     <div class="calculator-note">Estimates only</div>
@@ -691,7 +683,6 @@ html.dark .free-sends-banner {
     <BYOPriceCalculator />
   </div>
 </section>
-
 
 <section class="faq-section">
   <h2>BYO SES FAQs</h2>
@@ -721,7 +712,6 @@ html.dark .free-sends-banner {
     <p>Yes! You can switch at any time. Your remaining sends will carry over to whichever plan you choose.</p>
   </details>
 </section>
-
 
 <div class="pricing-footer-note">
   <p class="free-sends-banner">Get started with 3,000 free sends in the first year</p>
