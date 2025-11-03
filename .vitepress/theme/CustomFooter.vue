@@ -94,7 +94,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
               :key="section"
               class="footer-column"
             >
-              <h4>{{ section.charAt(0).toUpperCase() + section.slice(1) }}</h4>
+              <p class="footer-column-heading">{{ section.charAt(0).toUpperCase() + section.slice(1) }}</p>
               <a 
                 v-for="link in links"
                 :key="link.text"
@@ -219,7 +219,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   padding: 4px 0 8px;
 }
 
-.footer-column h4 {
+.footer-column-heading {
   font-size: 14px;
   font-weight: 600;
   color: var(--vp-c-text-1);
@@ -320,7 +320,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
     align-items: center; 
     text-align: center; 
   }
-  .footer-column h4, .footer-column a { text-align: center; }
+  .footer-column-heading, .footer-column a { text-align: center; }
 }
 
 @media (max-width: 640px) {
@@ -336,7 +336,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   .footer-logo { margin-bottom: 30px; }
   .footer-links { grid-gap: 10px; }
   .footer-column { margin-bottom: 10px; }
-  .footer-column h4 { margin-bottom: 8px; text-align: center; }
+  .footer-column-heading { margin-bottom: 8px; text-align: center; }
   .footer-column a { text-align: center; line-height: 24px; margin-bottom: 6px; }
   .footer-policy-links { 
     flex-direction: row; 
