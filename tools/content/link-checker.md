@@ -1,7 +1,7 @@
 ---
-title: Free Link Checker | Validate Links | BlueFox Email
+title: Free Link Checker | Validate Links 
 description: Free online link checker tool to validate email links, verify DNS records, and analyze email authentication for improved deliverability.
-thumbnail: /assets/free-deliverability-tools.png
+thumbnail: /assets/free-content-tools.png
 sidebar: false
 aside: false
 layout: post
@@ -40,7 +40,7 @@ head:
       content: Free online link checker tool to validate email links, verify DNS records, and analyze email authentication for improved deliverability.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/free-deliverability-tools.png
+      content: https://bluefox.email/assets/free-content-tools.png
   - - meta
     - property: og:url
       content: https://bluefox.email/tools/content/link-checker
@@ -55,10 +55,14 @@ head:
       content: Free online link checker tool to validate email links, verify DNS records, and analyze email authentication for improved deliverability.
   - - meta
     - name: twitter:image
-      content: https://bluefox.email/assets/free-deliverability-tools.png
+      content: https://bluefox.email/assets/free-content-tools.png
 ---
 
 <GlossaryNavigation link="/tools/content" label="Back to content Tools" />
+
+<script setup>
+import LinkChecker from '../../.vitepress/theme/free-tools/LinkChecker.vue'
+</script>
 
 # Free Link Checker
 

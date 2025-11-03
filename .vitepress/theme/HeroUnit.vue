@@ -10,7 +10,7 @@ const { isDark } = useData()
       <div>
         <h1 class="title">
           <div style="font-size: 1.3em; font-weight: 800;">Email that lands.</div>
-          <div style="font-size: 1.125em; font-weight: 700;">Design that works.</div>
+          <div style="font-size: 1.125em; font-weight: 700;">Design that converts.</div>
           <div style="font-size: 1em; font-weight: 600;">Pricing that won’t burn your budget.</div>
         </h1>
         <p class="tagline">Design beautiful emails, automate your flows, and deliver reliably.</p>
@@ -24,16 +24,11 @@ const { isDark } = useData()
             href="https://app.bluefox.email/accounts/create-account"
             target="_blank"
           >
-            <strong>Make Your Emails Shine</strong>
+            <strong>Get Started for Free</strong>
           </v-btn>
         </div>
       </div>
     </div>
-      <img
-        :src="`/assets/mascot-bring-your-own-awsses${isDark ? '-dark' : ''}-450x270.webp`"
-        alt="Bring your own AmazonSES"
-        class="cornerImage"
-      />
   </div>
 </template>
 

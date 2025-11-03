@@ -1,5 +1,5 @@
 ---
-title: DKIM (DomainKeys Identified Mail) | BlueFox Email
+title: DKIM (DomainKeys Identified Mail) 
 description: DKIM is an email authentication method that allows senders to digitally sign emails using a private key. Learn how it works, see examples, and understand its importance for email security.
 thumbnail: /assets/glossary/email-sending-glossary.png
 

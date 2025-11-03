@@ -1,5 +1,5 @@
 ---
-title: Free DMARC Report Analyzer | Parse DMARC Aggregate Reports | BlueFox Email
+title: Free DMARC Report Analyzer | Parse DMARC Aggregate Reports 
 description: Free online DMARC report analyzer tool to parse and analyze DMARC aggregate reports, identify authentication failures, and improve email security posture.
 thumbnail: /assets/free-deliverability-tools.png
 sidebar: false
@@ -56,6 +56,10 @@ head:
 ---
 
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
+
+<script setup>
+import DmarcReportAnalyzer from '../../.vitepress/theme/free-tools/DmarcReportAnalyzer.vue'
+</script>
 
 # Free DMARC Report Analyzer
 

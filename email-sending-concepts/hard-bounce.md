@@ -1,5 +1,5 @@
 ---
-title: Hard Bounce | BlueFox Email
+title: Hard Bounce
 description: A hard bounce is a permanent email delivery failure that indicates the email address is invalid or no longer exists, requiring immediate removal from mailing lists.
 thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false

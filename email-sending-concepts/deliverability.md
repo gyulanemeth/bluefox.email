@@ -1,5 +1,5 @@
 ---
-title: Deliverability | BlueFox Email
+title: Deliverability 
 description: Email deliverability refers to the ability to successfully deliver emails to recipients' inboxes rather than spam folders or being blocked entirely.
 thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false

@@ -40,7 +40,7 @@ published: 2025-03-14
 sidebar: false
 ---
 
-![AWS can be scary!](./how-to-get-and-maintain-production-access-to-amazon-ses/00.png)
+![AWS can be scary!](./how-to-get-and-maintain-production-access-to-amazon-ses/00.webp)
 
 # How to Get and Maintain Production Access to Amazon SES
 

@@ -29,7 +29,7 @@ const { isDark } = useData()
 
       <v-row class="mt-4">
         <v-col class="pb-0 d-flex align-end" cols="12" sm="6">
-          <v-img src="/assets/testimonials/guillermo.png"></v-img>
+          <v-img src="/assets/testimonials/guillermo.webp"></v-img>
         </v-col>
 
         <v-col class="d-flex align-center justify-center mb-0" cols="12" sm="6">

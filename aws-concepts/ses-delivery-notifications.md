@@ -1,5 +1,5 @@
 ---
-title: SES Delivery Notifications | BlueFox Email
+title: SES Delivery Notifications
 description: Delivery Notifications provide real-time feedback on the status of emails sent through Amazon SES, allowing senders to track successful deliveries and adjust sending strategies accordingly.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

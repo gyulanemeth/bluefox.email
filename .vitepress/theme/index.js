@@ -3,8 +3,36 @@ import Theme from 'vitepress/theme'
 import { createVuetify } from 'vuetify'
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
+
+// import * as components from 'vuetify/components'
+import {
+  VBtn,
+  VCard,
+  VCardText,
+  VCardTitle,
+  VCardActions,
+  VChip,
+  VCol,
+  VContainer,
+  VImg,
+  VRow,
+  VSheet,
+  VTabs,
+  VTab,
+  VTabsWindow,
+  VTabsWindowItem,
+  VIcon,
+  VDivider,
+  VList,
+  VListItem,
+  VListItemTitle,
+  VListItemSubtitle,
+  VAvatar,
+  VSpacer,
+  VTextField
+} from 'vuetify/components'
+
+import { Ripple } from 'vuetify/directives'
 
 import '@fontsource/amatic-sc/400.css'
 import '@fontsource/amatic-sc/700.css'
@@ -25,13 +53,6 @@ import GlossaryCTA from './GlossaryCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
 
-import DkimChecker from './free-tools/DkimChecker.vue'
-import DmarcChecker from './free-tools/DmarcChecker.vue'
-import SpfChecker from './free-tools/SpfChecker.vue'
-import MxChecker from './free-tools/MxChecker.vue'
-import DmarcReportAnalyzer from './free-tools/DmarcReportAnalyzer.vue'
-import LinkChecker from './free-tools/LinkChecker.vue'
-
 
 export default {
   extends: Theme,
@@ -43,8 +64,35 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     const vuetify = createVuetify({
-      components,
-      directives,
+      components: {
+        VBtn,
+        VCard,
+        VCardText,
+        VCardTitle,
+        VCardActions,
+        VChip,
+        VCol,
+        VContainer,
+        VImg,
+        VRow,
+        VSheet,
+        VTabs,
+        VTab,
+        VTabsWindow,
+        VTabsWindowItem,
+        VIcon,
+        VDivider,
+        VList,
+        VListItem,
+        VListItemTitle,
+        VListItemSubtitle,
+        VAvatar,
+        VSpacer,
+        VTextField
+      },
+      directives: {
+        Ripple
+      },
       theme: {
         themes: {
           light: {
@@ -80,11 +128,5 @@ export default {
     app.component('GlossaryCTA', GlossaryCTA)
     app.component('GlossaryNavigation', GlossaryNavigation)
     app.component('CustomFooter', CustomFooter)
-    app.component('DkimChecker', DkimChecker)
-    app.component('DmarcChecker', DmarcChecker)
-    app.component('SpfChecker', SpfChecker)
-    app.component('MxChecker', MxChecker)
-    app.component('DmarcReportAnalyzer', DmarcReportAnalyzer)
-    app.component('LinkChecker', LinkChecker)
   },
 }

@@ -69,11 +69,11 @@ We'll use `dig` to inspect [DNS](/email-sending-concepts/dns.md) records, highli
 
 If you want to follow this article step by step, you'll need to check some email headers. In Gmail, just click on the "Show original" menu item highlighted below:
 
-![Screenshot of an email in Gmail with show original highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/01-show-original.png)
+![Screenshot of an email in Gmail with show original highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/01-show-original.webp)
 
 This is how emails look under the hood. It not only contains the text and HTML versions of the email, but it also starts with quite a few email headers:
 
-![Screenshot of email headers in Gmail](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/02-email-headers.png)
+![Screenshot of email headers in Gmail](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/02-email-headers.webp)
 
 `From`, `To`, `Subject`, and `Reply-To` are email headers that most people are familiar with, and their meanings are straightforward.
 
@@ -160,7 +160,7 @@ It means we use the first version of SPF (`v=spf1`), every server defined at `_s
 It looks simple, but there's one tricky part: the SMTP receiving server does not check the SPF entry based on the domain name in the `From` header. Instead, it uses the `Return-Path` header. The Return-Path defines where bounce reports should go.
 
 Let's look at a real-life example:
-![SPF-related headers highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/03-email-headers-spf-highlighted.png)
+![SPF-related headers highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/03-email-headers-spf-highlighted.webp)
 
 In the image above, the email is sent from `no-reply@bluefox.email`, and you might notice it was actually sent by Amazon SES.
 
@@ -208,7 +208,7 @@ Where:
 
 Let's see it in action:
 
-![DKIM-Signature highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/04-email-headers-dkim-highlighted.png)
+![DKIM-Signature highlighted](./how-spf-dkim-and-dmarc-actually-work-with-real-examples/04-email-headers-dkim-highlighted.webp)
 
 In the `DKIM-Signature`, the `d` parameter is the domain name and the `s` parameter is the selector. In this example:
 

@@ -1,5 +1,5 @@
 ---
-title: AWS IAM Permissions | BlueFox Email
+title: AWS IAM Permissions
 description: AWS IAM Permissions define the specific actions entities can perform on AWS resources, controlling access to services and resources through policy documents.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

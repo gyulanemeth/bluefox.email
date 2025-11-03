@@ -1,5 +1,5 @@
 ---
-title: AWS Concepts | BlueFox Email
+title: AWS Concepts
 description: Learn about AWS concepts (A-Z) focusing on technologies related to email sending.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 
@@ -69,6 +69,19 @@ enabling secure access management.
 **Amazon SES** is a cloud-based email sending service designed to help digital marketers and application developers send marketing, notification, and transactional emails.
 
 [Read more](/aws-concepts/ses)
+
+### SES Raw Email Sending
+
+**Amazon SES Raw Email Sending** is an advanced method that lets you send fully customized emails, including complex MIME content, attachments, and custom headers, giving you complete control over the email format.
+
+[Read more](/aws-concepts/ses-raw-email-sending)
+
+### SES Verified Identities
+
+**AWS SES Verified Identities** are domains or email addresses that you've proven ownership of and are authorized to send emails from using Amazon SES. Verification is essential for sender authenticity and preventing spoofing or abuse.
+
+[Read more](/aws-concepts/ses-verified-identity.md)
+
 
 ### SES Production Access
 

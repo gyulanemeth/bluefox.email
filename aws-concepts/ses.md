@@ -1,5 +1,5 @@
 ---
-title: Amazon SES (Simple Email Service) | BlueFox Email
+title: Amazon SES (Simple Email Service)
 description: AWS SES is a cloud email service that helps digital marketers and application developers send marketing, notification, and transactional emails.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

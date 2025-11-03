@@ -1,6 +1,6 @@
 /**
  * Customize default theme styling by overriding CSS variables:
- * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css
+ * https://github.com/vuejs/vitepress/blob/main/src/client/theme-default/styles/vars.css    
  */
 
 /* Add smooth scrolling behavior site-wide */
@@ -10,10 +10,10 @@ html {
   scroll-padding-top: 70px;
 }
 
- /**
+/**
  * Fonts
  * -------------------------------------------------------------------------- */
- /* we use a direct import instead from npm packages... that way, we don't have a rendering blocking request...
+/* we use a direct import instead from npm packages... that way, we don't have a rendering blocking request...
  @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Indie+Flower&display=swap');
  */
 
@@ -21,13 +21,13 @@ html {
  * Colors
  * -------------------------------------------------------------------------- */
 
- :root {
-  --vp-c-brand:hsl(197, 87%, 50%);
-  --vp-c-brand-light:	hsl(197, 87%, 60%);
-  --vp-c-brand-lighter:	hsl(197, 87%, 70%);
-  --vp-c-brand-lightest: 	hsl(197, 87%, 80%);
-  --vp-c-brand-dark: 	hsl(197, 87%, 40%);
-  --vp-c-brand-darker: 	hsl(197, 87%, 30%);
+:root {
+  --vp-c-brand: hsl(197, 87%, 50%);
+  --vp-c-brand-light: hsl(197, 87%, 60%);
+  --vp-c-brand-lighter: hsl(197, 87%, 70%);
+  --vp-c-brand-lightest: hsl(197, 87%, 80%);
+  --vp-c-brand-dark: hsl(197, 87%, 40%);
+  --vp-c-brand-darker: hsl(197, 87%, 30%);
   --vp-c-brand-dimm: rgba(100, 108, 255, 0.08);
 }
 
@@ -55,14 +55,14 @@ html {
   --vp-home-hero-name-color: transparent;
   --vp-home-hero-name-background: -webkit-linear-gradient(
     120deg,
-    #392C91 5%,
-    #13B0EE
+    #392c91 5%,
+    #13b0ee
   );
 
   --vp-home-hero-image-background-image: linear-gradient(
     -45deg,
-    #392C91 10%,
-    #13B0EE 90%
+    #392c91 10%,
+    #13b0ee 90%
   );
   --vp-home-hero-image-filter: blur(40px);
 }
@@ -96,10 +96,55 @@ html {
 }
 
 /**
+ * Accessibility: Improved Contrast
+ * -------------------------------------------------------------------------- */
+:root {
+  /* Code blocks – improved contrast */
+  --vp-code-block-color: #1f2937; /* Better contrast */
+  --vp-code-block-bg: #f9fafb; /* Better contrast */
+  --vp-code-comment-color: #4b5563; /* Better contrast */
+  --vp-code-keyword-color: #dc2626; /* Better contrast */
+  --vp-code-string-color: #1d4ed8; /* Better contrast */
+
+  /* Custom blocks – improved contrast */
+  --vp-custom-block-tip-text: #164e63; /* Better contrast */
+  --vp-custom-block-tip-bg: #e0f2fe; /* Better contrast */
+}
+
+.dark {
+  /* Code blocks – dark mode improved contrast */
+  --vp-code-block-color: #f3f4f6; /* Better contrast */
+  --vp-code-block-bg: #111827; /* Better contrast */
+  --vp-code-comment-color: #9ca3af; /* Better contrast */
+  --vp-code-keyword-color: #fca5a5; /* Better contrast */
+  --vp-code-string-color: #93c5fd; /* Better contrast */
+
+  /* Custom blocks – dark mode improved contrast */
+  --vp-custom-block-tip-text: #7dd3fc; /* Better contrast */
+  --vp-custom-block-tip-bg: rgba(56, 189, 248, 0.15); /* Better contrast */
+}
+
+/* Specific fixes for JSON code blocks */
+.lang,
+.language-json,
+.vp-adaptive-theme {
+  color: #1f2937 !important;
+  background-color: #f3f4f6 !important;
+  padding: 0.5rem !important;
+  line-height: 1.5 !important;
+}
+
+.dark .lang,
+.dark .language-json,
+.dark .vp-adaptive-theme {
+  color: #f9fafb !important;
+  background-color: #1f2937 !important;
+}
+
+/**
  * Component: Algolia
  * -------------------------------------------------------------------------- */
 
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand) !important;
 }
-
