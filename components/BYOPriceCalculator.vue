@@ -633,8 +633,8 @@ html.dark .remaining-note {
 .comparison-table th {
   background: var(--vp-c-bg-alt);
   font-weight: 600;
-  font-size: 13px;
-  text-transform: uppercase;
+  font-size: 15px;
+  /* text-transform: uppercase; */
   letter-spacing: 0.5px;
 }
 
