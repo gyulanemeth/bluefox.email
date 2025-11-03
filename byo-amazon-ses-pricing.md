@@ -474,20 +474,17 @@ html.dark .faq-item {
   border-color: #334155;
 }
 
-.faq-item summary {
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  list-style: none;
-  user-select: none;
-}
-
-.faq-item summary::-webkit-details-marker {
-  display: none;
+.faq-item h3 {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  margin: 0 0 12px 0 !important;
+  border: none !important;
+  padding: 0 !important;
+  color: var(--vp-c-text-1);
 }
 
 .faq-item p {
-  margin: 16px 0 0 0;
+  margin: 0;
   font-size: 14px;
   color: #334155;
   line-height: 1.6;
@@ -597,7 +594,7 @@ html.dark .free-sends-banner {
   </div>
   
   <p class="pricing-hero-note">
-    Every new workspace starts with <strong>3000 free sends</strong> no credit card required.<br><strong>Use your sends anytime within a year.</strong> Buy more whenever you need, they stack automatically.
+    Every new workspace starts with <strong>6000 free sends</strong> no credit card required.<br><strong>Use your sends anytime within a year.</strong> Buy more whenever you need, they stack automatically.
   </p>
 </section>
 
@@ -612,7 +609,7 @@ html.dark .free-sends-banner {
       </div>
       <ul class="pricing-card-features">
         <li><strong>100,000 sends</strong> included</li>
-        <li><strong>$1 per 1,000 sends</strong> + AWS SES Fee</li>
+        <li><strong>$0.50 per 1,000 sends</strong> + AWS SES Fee</li>
         <li><strong>Access to full platform!</strong> No Restrictions</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta primary">
@@ -626,8 +623,8 @@ html.dark .free-sends-banner {
         <span class="pricing-card-period">/ pack</span>
       </div>
       <ul class="pricing-card-features">
-        <li><strong>10,00,000 sends</strong> included</li>
-        <li><strong>$0.60 per 1,000 sends</strong> + AWS SES Fee</li>
+        <li><strong>1,000,000 sends</strong> included</li>
+        <li><strong>$0.30 per 1,000 sends</strong> + AWS SES Fee</li>
         <li><strong>Access to full platform!</strong> No Restrictions</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
@@ -685,36 +682,47 @@ html.dark .free-sends-banner {
 </section>
 
 <section class="faq-section">
-  <h2>BYO SES FAQs</h2>
+  <h2>Pricing FAQs</h2>
   
-  <details class="faq-item" open>
-    <summary>How does BYO SES pricing work?</summary>
-    <p>You pay two fees: (1) Our platform fee for sends (credits), and (2) AWS SES costs directly to Amazon ($0.10 per 1,000 emails). Total cost per 1,000 emails on Start-up pack: $1.10 ($1 platform + $0.10 AWS).</p>
-  </details>
+  <div class="faq-item">
+    <h3>Is there a free plan or trial?</h3>
+    <p>Yes. Every new workspace starts with 6,000 free sends, no credit card required. You can explore all features, send real campaigns, and build automations before deciding to upgrade.</p>
+  </div>
   
-  <details class="faq-item">
-    <summary>Do I need my own AWS account?</summary>
-    <p>Yes. BYO SES requires you to have an active Amazon Web Services account with SES enabled. We'll guide you through the setup process.</p>
-  </details>
+  <div class="faq-item">
+    <h3>How does the pricing work?</h3>
+    <p>You pay two fees: our platform fee for sends (credits), and AWS SES costs directly to Amazon ($0.10 per 1,000 emails). Each pack includes a fixed number of sends that stay valid for 12 months. No subscriptions, no hidden limits, just buy more when you need them.</p>
+  </div>
   
-  <details class="faq-item">
-    <summary>What's included in the platform fee?</summary>
-    <p>Everything: automations, segmentation, client workspaces, analytics, tracking, bounce handling, and deliverability tools. No feature restrictions.</p>
-  </details>
+  <div class="faq-item">
+    <h3>What's included in every pack?</h3>
+    <p>Everything. All features are included in every plan: automations, segmentation, analytics, templates, and API access.</p>
+  </div>
   
-  <details class="faq-item">
-    <summary>How long do my sends last?</summary>
-    <p>Use your sends anytime within a year. Buy more whenever you need — they stack automatically.</p>
-  </details>
+  <div class="faq-item">
+    <h3>What's the difference between the packs?</h3>
+    <p>Both packs include the same features. The only difference is how many emails you can send, so choose the one that fits your volume.</p>
+  </div>
   
-  <details class="faq-item">
-    <summary>Can I switch between BYO SES and regular pricing?</summary>
-    <p>Yes! You can switch at any time. Your remaining sends will carry over to whichever plan you choose.</p>
-  </details>
+  <div class="faq-item">
+    <h3>Do sends (packs) expire?</h3>
+    <p>Yes. Sends stay valid for 12 months from the date of purchase. You can top up anytime, your balance simply adds up, and older sends are always used first, so the newest ones last the longest.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Can I upgrade from one credit pack to a bigger one?</h3>
+    <p>Absolutely. When you upgrade, your remaining sends carry over, nothing is lost. You just get a larger send balance.</p>
+  </div>
+  
+ <div class="faq-item">
+  <h3>Do I need to bring my own Amazon SES account?</h3>
+  <p>Not necessarily. You can use BlueFox's managed sending infrastructure right away, no setup required. </p>
+<p style="margin-top: 12px;"><a href="/pricing">See our regular pricing</a> for our fully managed option.</p>
+</div>
 </section>
 
 <div class="pricing-footer-note">
-  <p class="free-sends-banner">Get started with 3,000 free sends in the first year</p>
+  <p class="free-sends-banner">Get started with 6,000 free sends in the first year</p>
   <p>All packages include all of our features without restrictions!</p>
-  <p>Questions about BYO SES? <a href="mailto:hello@bluefox.email">Contact us</a></p>
+  <p>Need enterprise pricing? <a href="mailto:hello@bluefox.email">Contact us</a></p>
 </div>

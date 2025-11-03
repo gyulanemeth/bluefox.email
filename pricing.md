@@ -4,13 +4,11 @@ title: Pricing
 description: Don't overpay for contact-based subscriptions ever again. Only pay for the emails you send!
 ---
 
-
 <script setup>
 import { useData } from 'vitepress'
 import PricingCalculator from './components/PricingCalculator.vue'
 const { isDark } = useData()
 </script>
-
 
 <style>
 /* Force remove link underlines */
@@ -23,7 +21,6 @@ const { isDark } = useData()
   text-decoration: none !important;
 }
 
-
 .pricing-hero {
   display: flex;
   flex-direction: column;
@@ -32,7 +29,6 @@ const { isDark } = useData()
   margin: 0 auto;
   padding: 60px 24px;
 }
-
 
 .pricing-badge {
   padding: 6px 16px;
@@ -45,11 +41,9 @@ const { isDark } = useData()
   white-space: nowrap;
 }
 
-
 html.dark .pricing-badge {
   background: linear-gradient(120deg, rgba(138, 126, 216, 0.15), rgba(19, 176, 238, 0.15));
 }
-
 
 .pricing-hero h1 {
   font-size: clamp(36px, 5vw, 56px) !important;
@@ -63,7 +57,6 @@ html.dark .pricing-badge {
   max-width: 900px;
 }
 
-
 .pricing-hero-subtitle {
   font-size: 17px;
   line-height: 1.6;
@@ -73,11 +66,9 @@ html.dark .pricing-badge {
   text-align: center;
 }
 
-
 html.dark .pricing-hero-subtitle {
   color: #94a3b8;
 }
-
 
 .pricing-hero-actions {
   display: flex;
@@ -89,7 +80,6 @@ html.dark .pricing-hero-subtitle {
   width: 100%;
 }
 
-
 .pricing-hero-note {
   font-size: 14px;
   color: #64748b;
@@ -98,29 +88,24 @@ html.dark .pricing-hero-subtitle {
   margin: 4px 0 !important;
 }
 
-
 html.dark .pricing-hero-note {
   color: #94a3b8;
 }
-
 
 .pricing-hero-note strong {
   color: #1e293b;
   font-weight: 600;
 }
 
-
 html.dark .pricing-hero-note strong {
   color: #e2e8f0;
 }
-
 
 .pricing-cards-section {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px 15px;
 }
-
 
 .pricing-cards-grid {
   display: grid;
@@ -131,20 +116,17 @@ html.dark .pricing-hero-note strong {
   min-width: 0;
 }
 
-
 @media (max-width: 959px) and (min-width: 640px) {
   .pricing-cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-
 @media (max-width: 639px) {
   .pricing-cards-grid {
     grid-template-columns: 1fr;
   }
 }
-
 
 .pricing-card {
   position: relative;
@@ -160,34 +142,28 @@ html.dark .pricing-hero-note strong {
   flex-direction: column;
 }
 
-
 html.dark .pricing-card {
   background: rgb(27, 27, 31);
   border-color: #334155;
 }
-
 
 .pricing-card:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
 
-
 html.dark .pricing-card:hover {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
-
 
 .pricing-card.featured {
   border-color: var(--vp-c-brand);
   box-shadow: 0 4px 12px rgba(19, 176, 238, 0.15);
 }
 
-
 html.dark .pricing-card.featured {
   box-shadow: 0 4px 12px rgba(19, 176, 238, 0.25);
 }
-
 
 .pricing-badge-popular {
   position: absolute;
@@ -202,7 +178,6 @@ html.dark .pricing-card.featured {
   box-shadow: 0 2px 8px rgba(19, 176, 238, 0.3);
 }
 
-
 .pricing-card h3,
 .pricing-cards-section h3 {
   font-size: 24px !important;
@@ -212,18 +187,15 @@ html.dark .pricing-card.featured {
   padding: 0 !important;
 }
 
-
 .pricing-card-subtitle {
   color: #64748b;
   font-size: 14px;
   margin-bottom: 24px;
 }
 
-
 html.dark .pricing-card-subtitle {
   color: #94a3b8;
 }
-
 
 .pricing-card-price {
   display: flex;
@@ -232,24 +204,20 @@ html.dark .pricing-card-subtitle {
   margin-bottom: 24px;
 }
 
-
 .pricing-card-amount {
   font-size: 48px;
   font-weight: 700;
   line-height: 1;
 }
 
-
 .pricing-card-period {
   font-size: 16px;
   color: #64748b;
 }
 
-
 html.dark .pricing-card-period {
   color: #94a3b8;
 }
-
 
 .pricing-card-features {
   list-style: none !important;
@@ -257,7 +225,6 @@ html.dark .pricing-card-period {
   margin: 0 0 24px 0 !important;
   flex-grow: 1;
 }
-
 
 .pricing-card-features li {
   padding: 8px 0;
@@ -267,11 +234,9 @@ html.dark .pricing-card-period {
   list-style: none !important;
 }
 
-
 html.dark .pricing-card-features li {
   color: #cbd5e1;
 }
-
 
 .pricing-card-features li::before {
   content: "✓ ";
@@ -279,7 +244,6 @@ html.dark .pricing-card-features li {
   font-weight: bold;
   margin-right: 8px;
 }
-
 
 .pricing-card-cta {
   display: block;
@@ -295,12 +259,10 @@ html.dark .pricing-card-features li {
   text-decoration: none !important;
 }
 
-
 .pricing-card-cta.primary {
   background: var(--vp-c-brand) !important;
   color: white !important;
 }
-
 
 .pricing-card-cta.primary:hover {
   background: var(--vp-c-brand-light) !important;
@@ -308,11 +270,9 @@ html.dark .pricing-card-features li {
   color: white !important;
 }
 
-
 .pricing-card-cta.primary:visited {
   color: white !important;
 }
-
 
 .pricing-card-cta.secondary {
   background: transparent;
@@ -320,35 +280,29 @@ html.dark .pricing-card-features li {
   border: 2px solid var(--vp-c-brand);
 }
 
-
 .pricing-card-cta.secondary:hover {
   background: rgba(19, 176, 238, 0.05);
 }
-
 
 .pricing-card-cta.dark {
   background: #1e293b !important;
   color: white !important;
 }
 
-
 html.dark .pricing-card-cta.dark {
   background: #334155 !important;
   color: white !important;
 }
-
 
 .pricing-card-cta.dark:hover {
   background: #0f172a !important;
   color: white !important;
 }
 
-
 html.dark .pricing-card-cta.dark:hover {
   background: #475569 !important;
   color: white !important;
 }
-
 
 .pricing-card.contact-sales {
   background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
@@ -361,24 +315,20 @@ html.dark .pricing-card-cta.dark:hover {
   min-height: 400px;
 }
 
-
 html.dark .pricing-card.contact-sales {
   background: linear-gradient(135deg, rgb(30, 30, 34) 0%, rgb(24, 24, 27) 100%);
   border-color: #475569;
 }
-
 
 .pricing-card.contact-sales h3 {
   font-size: 28px !important;
   margin-bottom: 16px !important;
 }
 
-
 .pricing-card.contact-sales .pricing-card-subtitle {
   font-size: 16px;
   margin-bottom: 32px;
 }
-
 
 .pricing-card-note {
   /* margin-top: 16px; */
@@ -387,17 +337,14 @@ html.dark .pricing-card.contact-sales {
   text-align: center;
 }
 
-
 html.dark .pricing-card-note {
   color: #94a3b8;
 }
-
 
 .pricing-card-note a {
   text-decoration: underline;
   color: var(--vp-c-brand);
 }
-
 
 .value-props {
   max-width: 1200px;
@@ -405,13 +352,11 @@ html.dark .pricing-card-note {
   padding: 13px 24px;
 }
 
-
 .value-props-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 16px;
 }
-
 
 .value-prop-card {
   display: flex;
@@ -424,12 +369,10 @@ html.dark .pricing-card-note {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-
 html.dark .value-prop-card {
   background: rgb(27, 27, 31);
   border-color: #334155;
 }
-
 
 .value-prop-icon {
   font-size: 28px;
@@ -437,13 +380,11 @@ html.dark .value-prop-card {
   flex-shrink: 0;
 }
 
-
 .value-prop-content h4 {
   font-size: 16px;
   font-weight: 600;
   margin: 0 0 8px 0;
 }
-
 
 .value-prop-content p {
   font-size: 14px;
@@ -452,11 +393,9 @@ html.dark .value-prop-card {
   line-height: 1.5;
 }
 
-
 html.dark .value-prop-content p {
   color: #94a3b8;
 }
-
 
 .calculator-section {
   max-width: 1200px;
@@ -466,11 +405,9 @@ html.dark .value-prop-content p {
   border-radius: 16px;
 }
 
-
 html.dark .calculator-section {
   background: rgb(27, 27, 31);
 }
-
 
 .calculator-header {
   display: flex;
@@ -481,7 +418,6 @@ html.dark .calculator-section {
   margin-bottom: 32px;
 }
 
-
 .calculator-title h2 {
   font-size: clamp(28px, 4vw, 36px);
   font-weight: 700;
@@ -490,7 +426,6 @@ html.dark .calculator-section {
   padding: 0;
 }
 
-
 .calculator-subtitle {
   font-size: 16px;
   color: #64748b;
@@ -498,29 +433,24 @@ html.dark .calculator-section {
   margin: 0;
 }
 
-
 html.dark .calculator-subtitle {
   color: #94a3b8;
 }
-
 
 .calculator-note {
   font-size: 14px;
   color: #64748b;
 }
 
-
 html.dark .calculator-note {
   color: #94a3b8;
 }
-
 
 .faq-section {
   max-width: 900px;
   margin: 48px auto;
   padding: 0 24px;
 }
-
 
 .faq-section h2 {
   font-size: clamp(28px, 4vw, 36px);
@@ -529,7 +459,6 @@ html.dark .calculator-note {
   border: none;
   padding: 0;
 }
-
 
 .faq-item {
   background: white;
@@ -540,39 +469,30 @@ html.dark .calculator-note {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-
 html.dark .faq-item {
   background: rgb(27, 27, 31);
   border-color: #334155;
 }
 
-
-.faq-item summary {
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  list-style: none;
-  user-select: none;
+.faq-item h3 {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  margin: 0 0 12px 0 !important;
+  border: none !important;
+  padding: 0 !important;
+  color: var(--vp-c-text-1);
 }
-
-
-.faq-item summary::-webkit-details-marker {
-  display: none;
-}
-
 
 .faq-item p {
-  margin: 16px 0 0 0;
+  margin: 0;
   font-size: 14px;
   color: #334155;
   line-height: 1.6;
 }
 
-
 html.dark .faq-item p {
   color: #cbd5e1;
 }
-
 
 .pricing-footer-note {
   text-align: center;
@@ -581,18 +501,15 @@ html.dark .faq-item p {
   max-width: 900px;
 }
 
-
 .pricing-footer-note p {
   font-size: 16px;
   margin: 16px 0;
   color: #334155;
 }
 
-
 html.dark .pricing-footer-note p {
   color: #cbd5e1;
 }
-
 
 .free-sends-banner {
   background: linear-gradient(120deg, #392C91 5%, #13B0EE);
@@ -607,13 +524,11 @@ html.dark .pricing-footer-note p {
   text-align: center;
 }
 
-
 html.dark .free-sends-banner {
   background: linear-gradient(120deg, #8a7ed8 5%, #13B0EE);
   background-clip: text;
   -webkit-background-clip: text;
 }
-
 
 @media (max-width: 768px) {
   .pricing-hero {
@@ -634,7 +549,6 @@ html.dark .free-sends-banner {
   }
 }
 
-
 .vp-doc .VPButton.medium {
   border-radius: 12px;
   padding: 12px 24px;
@@ -642,7 +556,6 @@ html.dark .free-sends-banner {
   font-weight: 600;
 }
 </style>
-
 
 <section class="pricing-hero">
   <div class="pricing-badge">
@@ -686,7 +599,6 @@ html.dark .free-sends-banner {
   </p>
 </section>
 
-
 <section class="pricing-cards-section">
   <div class="pricing-cards-grid">
     <div class="pricing-card featured">
@@ -729,12 +641,11 @@ html.dark .free-sends-banner {
         Talk to sales
       </a>
       <p class="pricing-card-note">
-        Prefer using your own Amazon SES? <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a>
+        When you bring your own SES, you also get better email prices. <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a>
       </p>
     </div>
   </div>
 </section>
-
 
 <section class="value-props">
   <div class="value-props-grid">
@@ -759,7 +670,6 @@ html.dark .free-sends-banner {
   </div>
 </section>
 
-
 <section class="calculator-section">
   <div class="calculator-header">
     <div class="calculator-title">
@@ -774,31 +684,46 @@ html.dark .free-sends-banner {
   </div>
 </section>
 
-
 <section class="faq-section">
   <h2>Pricing FAQs</h2>
   
-  <details class="faq-item" open>
-    <summary>How long do my sends last?</summary>
-    <p>Use your sends anytime within a year. Buy more whenever you need — they stack automatically.</p>
-  </details>
+  <div class="faq-item">
+    <h3>Is there a free plan or trial?</h3>
+    <p>Yes. Every new workspace starts with 3,000 free sends, no credit card required. You can explore all features, send real campaigns, and build automations before deciding to upgrade.</p>
+  </div>
   
-  <details class="faq-item">
-    <summary>What's included in every pack?</summary>
-    <p>All features: automations, segmentation, client workspaces, analytics, tracking, bounce handling, and deliverability tools. No feature gating.</p>
-  </details>
+  <div class="faq-item">
+    <h3>How does the pricing work?</h3>
+    <p>You only pay for email sends, not contacts or features. Each pack includes a fixed number of sends that stay valid for 12 months. No subscriptions, no hidden limits, just buy more when you need them.</p>
+  </div>
   
-  <details class="faq-item">
-    <summary>Do you offer BYO SES?</summary>
-    <p>Yes, but it's optional and not required. If you prefer to connect your own Amazon SES, you can — see <a href="/byo-amazon-ses-pricing">BYO SES pricing</a> for details.</p>
-  </details>
+  <div class="faq-item">
+    <h3>What's included in every pack?</h3>
+    <p>Everything. All features are included in every plan: automations, segmentation, analytics, templates, and API access.</p>
+  </div>
   
-  <details class="faq-item">
-    <summary>How does pricing work?</summary>
-    <p>Simple pay-as-you-go pricing. You buy a pack of sends that you can use anytime within 12 months. No monthly subscriptions or contact limits.</p>
-  </details>
-</section>
+  <div class="faq-item">
+    <h3>What's the difference between the packs?</h3>
+    <p>Both packs include the same features. The only difference is how many emails you can send, so choose the one that fits your volume.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Do sends (packs) expire?</h3>
+    <p>Yes. Sends stay valid for 12 months from the date of purchase. You can top up anytime, your balance simply adds up, and older sends are always used first, so the newest ones last the longest.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Can I upgrade from one credit pack to a bigger one?</h3>
+    <p>Absolutely. When you upgrade, your remaining sends carry over, nothing is lost. You just get a larger send balance.</p>
+  </div>
+  
+ <div class="faq-item">
+  <h3>Can I use my own SMTP?</h3>
+  <p>Yes! BlueFox Email connects directly to Amazon SES using secure STS credentials. You simply link your SES account, and everything just works.</p>
+  <p style="margin-top: 12px;">Want to bring your own SES and get better email prices? <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a></p>
+</div>
 
+</section>
 
 <div class="pricing-footer-note">
   <p class="free-sends-banner">Get started with 3,000 free sends in the first year</p>
