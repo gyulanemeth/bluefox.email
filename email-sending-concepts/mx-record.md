@@ -89,6 +89,9 @@ MX records are **absolutely essential** for receiving email. Without them, your 
 
 Beyond basic delivery, MX records play a role in your **domain's reputation and [deliverability](/email-sending-concepts/deliverability)**. Spam filters often check that your MX records **align with your other DNS settings**, such as [SPF](/email-sending-concepts/spf) and [DKIM](/email-sending-concepts/dkim), to confirm your domain's legitimacy. If your MX records are missing or misconfigured, you risk having emails **bounce or be marked as spam**. When switching email providers, updating your MX records is what **actually moves your email flow**. A single typo can cause **lost messages or downtime**, so accuracy is critical.
 
+:::tip Free MX Records Checker
+Use our free mx record checker tool to audit your domain for proper mx records. Check it out [here](/tools/deliverability/mx-checker)
+
 ## Frequently Asked Questions About MX Records
 
 ### What happens if my domain has no MX records?

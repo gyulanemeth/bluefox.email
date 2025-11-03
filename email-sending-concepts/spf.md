@@ -106,6 +106,9 @@ It is essential for two primary reasons:
 
 In summary, SPF fosters trust with email providers, protects your audience from fraudulent activities, and ensures that your legitimate emails are delivered to the appropriate destination.
 
+:::tip Free SPF Audit
+Use our free spf checker tool to audit your domain for spf. Check it out [here](/tools/deliverability/spf-checker)
+
 ## Frequently Asked Questions About SPF
 
 ### What is the main purpose of SPF?

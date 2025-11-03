@@ -64,6 +64,6 @@ import DmarcChecker from '../../.vitepress/theme/free-tools/DmarcChecker.vue'
 
 # Free DMARC Checker
 
-**Validate your DMARC policy** and ensure your domain is protected against email spoofing with our comprehensive DMARC checker tool.
+**Validate your [DMARC](/email-sending-concepts/dmarc) policy** and ensure your domain is protected against email spoofing with our comprehensive DMARC checker tool.
 
 <DmarcChecker />
