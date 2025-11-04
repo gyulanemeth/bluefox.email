@@ -1,7 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 1000000]
+const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 1000000, 1500000]
 const currentSliderIndex = ref(2)
 
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
@@ -17,30 +17,58 @@ const COMPETITOR_COST_PER_EMAIL = {
   mailersend: 0.00145
 }
 
-const recommendedPack = computed(() =>
-  emails.value > 0 ? PACKS.find(pack => emails.value <= pack.sends) || 'enterprise' : null
-)
-
-const totalCost = computed(() =>
-  !recommendedPack.value || recommendedPack.value === 'enterprise' ? null : recommendedPack.value.price
-)
-
+// Calculate BlueFox cost for any volume (including 1M)
 const bluefoxCostPerEmail = computed(() => {
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return 0
-  return recommendedPack.value.price / recommendedPack.value.sends
+  if (emails.value === 0) return 0
+  
+  // For 1M sends, calculate based on Scale-up pack pricing
+  if (emails.value === 1000000) {
+    // 1M sends = 2 Scale-up packs (500K each at $300)
+    // Total: $600 for 1M sends = $0.0006 per email
+    return 600 / 1000000
+  }
+  
+  // For volumes over 1M (enterprise)
+  if (emails.value > 1000000) return 0
+  
+  // For regular packs
+  const pack = PACKS.find(pack => emails.value <= pack.sends)
+  if (!pack) return 0
+  
+  return pack.price / pack.sends
 })
 
 const actualBluefoxCost = computed(() => emails.value * bluefoxCostPerEmail.value)
 
-const sendsRemaining = computed(() =>
-  !recommendedPack.value || recommendedPack.value === 'enterprise'
-    ? null
-    : recommendedPack.value.sends - emails.value
-)
+// Updated: recommendedPack now shows 'contact-enterprise' at 1M for display purposes
+const recommendedPack = computed(() => {
+  if (emails.value <= 0) return null
+  if (emails.value === 1000000) return 'contact-enterprise'
+  if (emails.value > 1000000) return 'enterprise'
+  return PACKS.find(pack => emails.value <= pack.sends) || 'contact-enterprise'
+})
+
+const totalCost = computed(() => {
+  // At 1M, show the calculated cost
+  if (emails.value === 1000000) return 600
+  
+  if (!recommendedPack.value || 
+      recommendedPack.value === 'enterprise' || 
+      recommendedPack.value === 'contact-enterprise') return null
+  return recommendedPack.value.price
+})
+
+const sendsRemaining = computed(() => {
+  if (!recommendedPack.value || 
+      recommendedPack.value === 'enterprise' || 
+      recommendedPack.value === 'contact-enterprise') return null
+  return recommendedPack.value.sends - emails.value
+})
 
 const estimatedContacts = computed(() => Math.round(emails.value / 5))
 
-const isEnterpriseVolume = computed(() => emails.value >= 1000000)
+// Show comparison table at 1M, hide at 1M+
+const isEnterpriseVolume = computed(() => emails.value > 1000000)
 
 const competitorCosts = computed(() => ({
   mailchimp: emails.value * COMPETITOR_COST_PER_EMAIL.mailchimp,
@@ -63,7 +91,8 @@ const formatPrice = price => {
 }
 
 const formatAbbreviated = num => {
-  if (num === 1000000) return '1M+'
+  if (num >= 1500000) return '1M+'
+  if (num === 1000000) return '1M'
   if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`
   if (num >= 1000) return `${(num / 1000).toFixed(0)}K`
   return num.toString()
@@ -100,11 +129,11 @@ const formatAbbreviated = num => {
       </div>
 
       <!-- Results Grid -->
-      <div class="results-grid">
+      <div class="results-grid" :class="{ 'full-width': isEnterpriseVolume || recommendedPack === 'contact-enterprise' }">
         <!-- Pack Card (Left) -->
         <div class="pack-card">
           <!-- Regular Pack Display -->
-          <div v-if="recommendedPack !== 'enterprise'" class="pack-content">
+          <div v-if="recommendedPack !== 'enterprise' && recommendedPack !== 'contact-enterprise'" class="pack-content">
             <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email</div>
             
             <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
@@ -141,17 +170,38 @@ const formatAbbreviated = num => {
             </ul>
           </div>
 
-          <!-- Enterprise Display -->
-          <div v-else class="enterprise-content">
-            <div class="enterprise-icon">🚀</div>
+          <!-- Contact Enterprise Display (for 1M exactly) -->
+          <div v-else-if="recommendedPack === 'contact-enterprise'" class="enterprise-content">
+            <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email</div>
+            
+            <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
+            
+            <div class="enterprise-note">
+              <p>For this volume, we recommend contacting our enterprise team for custom pricing and volume discounts.</p>
+            </div>
+            
+            <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact Sales</a>
+            
+            <ul class="pack-features">
+              <li>Sends valid for 12 months</li>
+              <li>All features included</li>
+              <li>No contact-based pricing</li>
+            </ul>
+          </div>
+
+          <!-- Full Enterprise Display (for 1M+) -->
+          <div v-else class="enterprise-content enterprise-full">
+            <div class="enterprise-icon">
+              <img src="/assets/bluefoxemail-packs.webp" alt="BlueFox Email Packs">
+            </div>
             <h5>Enterprise Volume</h5>
             <p>For 1M+ emails, we offer custom pricing with volume discounts.</p>
             <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact sales</a>
           </div>
         </div>
 
-        <!-- Comparison Section (Right) -->
-        <div class="comparison-card">
+        <!-- Comparison Section (Right) - Hidden at 1M and 1M+ -->
+        <div v-if="!isEnterpriseVolume && recommendedPack !== 'contact-enterprise'" class="comparison-card">
           <h4 class="comparison-title">Compare with Competitors</h4>
 
           <div class="table-container">
@@ -160,24 +210,24 @@ const formatAbbreviated = num => {
                 <tr>
                   <th scope="col">Provider</th>
                   <th scope="col">Monthly Cost</th>
-                  <th v-if="!isEnterpriseVolume" scope="col">You Save</th>
+                  <th scope="col">You Save</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Mailchimp Premium</td>
                   <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
-                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
+                  <td>{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
                 </tr>
                 <tr>
                   <td>SendGrid Premier</td>
                   <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
-                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
+                  <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
                 </tr>
                 <tr>
-                  <td>MailerSend <br> Pro</td>
+                  <td>MailerSend Pro</td>
                   <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
-                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.mailersend) }}%</td>
+                  <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
                 </tr>
               </tbody>
             </table>
@@ -298,6 +348,16 @@ const formatAbbreviated = num => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+}
+
+/* === Full Width Grid for Enterprise === */
+.results-grid.full-width {
+  grid-template-columns: 1fr;
+}
+
+.results-grid.full-width .pack-card {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* === Pack Card === */
@@ -461,9 +521,22 @@ html.dark .remaining-note {
   padding: 20px 0;
 }
 
+.enterprise-content.enterprise-full {
+  padding: 40px 0;
+}
+
 .enterprise-icon {
   font-size: 48px;
   margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.enterprise-icon img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
 }
 
 .enterprise-content h5 {
@@ -494,9 +567,29 @@ html.dark .remaining-note {
 
 .enterprise-link:hover {
   background: var(--vp-c-brand-light);
-  /* transform: translateY(-2px); */
   box-shadow: 0 4px 12px rgba(19, 176, 238, 0.3);
-  color:white
+  color: white;
+}
+
+.enterprise-note {
+  margin: 20px auto;
+  padding: 16px;
+  background: rgba(19, 176, 238, 0.05);
+  border: 1px solid rgba(19, 176, 238, 0.2);
+  border-radius: 8px;
+  max-width: 600px;
+}
+
+html.dark .enterprise-note {
+  background: rgba(19, 176, 238, 0.1);
+  border-color: rgba(19, 176, 238, 0.3);
+}
+
+.enterprise-note p {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  margin: 0;
+  line-height: 1.6;
 }
 
 /* === Comparison Card === */
@@ -526,7 +619,6 @@ html.dark .remaining-note {
   margin: 0 0 16px 0;
 }
 
-/* Default: 3 columns */
 .comparison-table {
   width: 100%;
   table-layout: fixed;
@@ -536,33 +628,23 @@ html.dark .remaining-note {
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  margin-top:10px;
+  margin-top: 10px;
   box-sizing: border-box;
   text-align: center;
 }
 
-/* Enterprise mode: 2 columns, full fill */
-.comparison-table.enterprise-mode {
-  table-layout: fixed; /* still fixed, but now only 2 cols */
-}
-
-/* Column widths: auto-distribute based on column count */
-.comparison-table:not(.enterprise-mode) th,
-.comparison-table:not(.enterprise-mode) td {
+.comparison-table th,
+.comparison-table td {
   width: 33.33%;
-}
-
-.comparison-table.enterprise-mode th,
-.comparison-table.enterprise-mode td {
-  width: 50%;
-  
+  padding: 12px 16px;
+  border: 1px solid var(--vp-c-divider);
+  vertical-align: middle;
 }
 
 .comparison-table th {
   background: var(--vp-c-bg-alt);
   font-weight: 600;
   font-size: 15px;
-  /* text-transform: uppercase; */
   letter-spacing: 0.5px;
   text-align: center;
 }

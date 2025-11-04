@@ -1,15 +1,19 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 1000000]
+const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 1000000, 1500000]
 const currentSliderIndex = ref(2)
 
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
 
+// BYO SES Packs - MORE sends for same price
 const PACKS = [
-  { name: 'Start-up', sends: 50_000, price: 50 },
-  { name: 'Scale-up', sends: 500_000, price: 300 }
+  { name: 'Start-up', sends: 100_000, price: 50 },  // 100K for $50
+  { name: 'Scale-up', sends: 1_000_000, price: 300 } // 1M for $300
 ]
+
+// AWS SES cost per email
+const AWS_SES_COST_PER_EMAIL = 0.0001 // $0.10 per 1,000 emails
 
 const COMPETITOR_COST_PER_EMAIL = {
   mailchimp: 0.0037,
@@ -17,30 +21,60 @@ const COMPETITOR_COST_PER_EMAIL = {
   mailersend: 0.00145
 }
 
-const recommendedPack = computed(() =>
-  emails.value > 0 ? PACKS.find(pack => emails.value <= pack.sends) || 'enterprise' : null
-)
-
-const totalCost = computed(() =>
-  !recommendedPack.value || recommendedPack.value === 'enterprise' ? null : recommendedPack.value.price
-)
-
-const bluefoxCostPerEmail = computed(() => {
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return 0
-  return recommendedPack.value.price / recommendedPack.value.sends
+// Recommended pack logic
+const recommendedPack = computed(() => {
+  if (emails.value <= 0) return null
+  if (emails.value === 1000000) return 'contact-enterprise' // At 1M show contact
+  if (emails.value > 1000000) return 'enterprise' // At 1M+ show enterprise
+  return PACKS.find(pack => emails.value <= pack.sends) || 'contact-enterprise'
 })
 
-const actualBluefoxCost = computed(() => emails.value * bluefoxCostPerEmail.value)
+// Calculate BlueFox platform cost per email
+const bluefoxPlatformCostPerEmail = computed(() => {
+  if (emails.value === 0) return 0
+  
+  // At exactly 1M
+  if (emails.value === 1000000) {
+    return 300 / 1000000 // Scale-up pack: $300 for 1M sends
+  }
+  
+  // Over 1M (enterprise)
+  if (emails.value > 1000000) return 0
+  
+  // Regular packs
+  const pack = PACKS.find(pack => emails.value <= pack.sends)
+  if (!pack) return 0
+  
+  return pack.price / pack.sends
+})
 
-const sendsRemaining = computed(() =>
-  !recommendedPack.value || recommendedPack.value === 'enterprise'
-    ? null
-    : recommendedPack.value.sends - emails.value
-)
+// Total BlueFox cost = Platform fee + AWS SES fee
+const totalBluefoxCostPerEmail = computed(() => {
+  return bluefoxPlatformCostPerEmail.value + AWS_SES_COST_PER_EMAIL
+})
+
+const actualBluefoxCost = computed(() => emails.value * totalBluefoxCostPerEmail.value)
+
+const platformCost = computed(() => {
+  if (emails.value === 1000000) return 300 // At 1M
+  if (!recommendedPack.value || 
+      recommendedPack.value === 'enterprise' || 
+      recommendedPack.value === 'contact-enterprise') return null
+  return recommendedPack.value.price
+})
+
+const awsSESCost = computed(() => emails.value * AWS_SES_COST_PER_EMAIL)
+
+const sendsRemaining = computed(() => {
+  if (!recommendedPack.value || 
+      recommendedPack.value === 'enterprise' || 
+      recommendedPack.value === 'contact-enterprise') return null
+  return recommendedPack.value.sends - emails.value
+})
 
 const estimatedContacts = computed(() => Math.round(emails.value / 5))
 
-const isEnterpriseVolume = computed(() => emails.value >= 1000000)
+const isEnterpriseVolume = computed(() => emails.value > 1000000)
 
 const competitorCosts = computed(() => ({
   mailchimp: emails.value * COMPETITOR_COST_PER_EMAIL.mailchimp,
@@ -63,7 +97,8 @@ const formatPrice = price => {
 }
 
 const formatAbbreviated = num => {
-  if (num === 1000000) return '1M+'
+  if (num >= 1500000) return '1M+'
+  if (num === 1000000) return '1M'
   if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`
   if (num >= 1000) return `${(num / 1000).toFixed(0)}K`
   return num.toString()
@@ -100,14 +135,25 @@ const formatAbbreviated = num => {
       </div>
 
       <!-- Results Grid -->
-      <div class="results-grid">
+      <div class="results-grid" :class="{ 'full-width': isEnterpriseVolume || recommendedPack === 'contact-enterprise' }">
         <!-- Pack Card (Left) -->
         <div class="pack-card">
           <!-- Regular Pack Display -->
-          <div v-if="recommendedPack !== 'enterprise'" class="pack-content">
-            <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email</div>
+          <div v-if="recommendedPack !== 'enterprise' && recommendedPack !== 'contact-enterprise'" class="pack-content">
+            <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email (BYO SES)</div>
             
             <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
+            
+            <div class="cost-breakdown">
+              <div class="breakdown-row">
+                <span class="breakdown-label">Platform fee:</span>
+                <span class="breakdown-value">{{ formatPrice(emails * bluefoxPlatformCostPerEmail) }}</span>
+              </div>
+              <div class="breakdown-row">
+                <span class="breakdown-label">AWS SES fee:</span>
+                <span class="breakdown-value">{{ formatPrice(awsSESCost) }}</span>
+              </div>
+            </div>
             
             <div class="recommended-pack-info">
               <span class="recommended-label">Recommended pack:</span>
@@ -115,8 +161,8 @@ const formatAbbreviated = num => {
             </div>
             
             <div class="pack-price-section">
-              <span class="pack-price-label">Pack cost:</span>
-              <span class="pack-price-value">{{ formatPrice(totalCost) }}</span>
+              <span class="pack-price-label">Platform pack cost:</span>
+              <span class="pack-price-value">{{ formatPrice(platformCost) }}</span>
             </div>
             
             <div class="pack-info">
@@ -125,8 +171,8 @@ const formatAbbreviated = num => {
                 <span class="info-value">{{ formatNumber(recommendedPack.sends) }} sends</span>
               </div>
               <div class="info-row">
-                <span class="info-label">Cost per 1,000 sends:</span>
-                <span class="info-value">{{ formatPrice(bluefoxCostPerEmail * 1000) }}</span>
+                <span class="info-label">Total cost per 1,000:</span>
+                <span class="info-value">{{ formatPrice(totalBluefoxCostPerEmail * 1000) }}</span>
               </div>
             </div>
 
@@ -137,21 +183,53 @@ const formatAbbreviated = num => {
             <ul class="pack-features">
               <li>Sends valid for 12 months</li>
               <li>All features included</li>
-              <li>No contact-based pricing</li>
+              <li>Your AWS account, your control</li>
             </ul>
           </div>
 
-          <!-- Enterprise Display -->
-          <div v-else class="enterprise-content">
-            <div class="enterprise-icon">🚀</div>
+          <!-- Contact Enterprise Display (for 1M exactly) -->
+          <div v-else-if="recommendedPack === 'contact-enterprise'" class="enterprise-content">
+            <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email (BYO SES)</div>
+            
+            <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
+            
+            <div class="cost-breakdown">
+              <div class="breakdown-row">
+                <span class="breakdown-label">Platform fee:</span>
+                <span class="breakdown-value">{{ formatPrice(300) }}</span>
+              </div>
+              <div class="breakdown-row">
+                <span class="breakdown-label">AWS SES fee:</span>
+                <span class="breakdown-value">{{ formatPrice(awsSESCost) }}</span>
+              </div>
+            </div>
+            
+            <div class="enterprise-note">
+              <p>For this volume, we recommend contacting our enterprise team for custom pricing and volume discounts.</p>
+            </div>
+            
+            <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact Enterprise</a>
+            
+            <ul class="pack-features">
+              <li>Sends valid for 12 months</li>
+              <li>All features included</li>
+              <li>Your AWS account, your control</li>
+            </ul>
+          </div>
+
+          <!-- Full Enterprise Display (for 1M+) -->
+          <div v-else class="enterprise-content enterprise-full">
+            <div class="enterprise-icon">
+              <img src="/assets/bluefoxemail-packs.webp" alt="BlueFox Email Packs">
+            </div>
             <h5>Enterprise Volume</h5>
             <p>For 1M+ emails, we offer custom pricing with volume discounts.</p>
             <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact sales</a>
           </div>
         </div>
 
-        <!-- Comparison Section (Right) -->
-        <div class="comparison-card">
+        <!-- Comparison Section (Right) - Hidden at 1M and 1M+ -->
+        <div v-if="!isEnterpriseVolume && recommendedPack !== 'contact-enterprise'" class="comparison-card">
           <h4 class="comparison-title">Compare with Competitors</h4>
 
           <div class="table-container">
@@ -160,24 +238,24 @@ const formatAbbreviated = num => {
                 <tr>
                   <th scope="col">Provider</th>
                   <th scope="col">Monthly Cost</th>
-                  <th v-if="!isEnterpriseVolume" scope="col">You Save</th>
+                  <th scope="col">You Save</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>Mailchimp Premium</td>
                   <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
-                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
+                  <td>{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
                 </tr>
                 <tr>
                   <td>SendGrid Premier</td>
                   <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
-                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
+                  <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
                 </tr>
                 <tr>
                   <td>MailerSend <br> Pro</td>
                   <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
-                  <td v-if="!isEnterpriseVolume">{{ calculateSavings(competitorCosts.mailersend) }}%</td>
+                  <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
                 </tr>
               </tbody>
             </table>
@@ -187,6 +265,7 @@ const formatAbbreviated = num => {
             <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
             <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
             <li>BlueFox has no contact limits and includes all features at every tier</li>
+            <li>BlueFox BYO SES includes platform fee + AWS SES costs ($0.10 per 1,000 emails)</li>
           </ul>
         </div>
       </div>
@@ -293,11 +372,72 @@ const formatAbbreviated = num => {
   transform: scale(1.1);
 }
 
+.cost-breakdown {
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: var(--vp-c-bg-alt);
+  border-radius: 8px;
+  border: 1px solid var(--vp-c-divider);
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-size: 13px;
+}
+
+.breakdown-row:not(:last-child) {
+  border-bottom: 1px dashed var(--vp-c-divider);
+}
+
+.breakdown-label {
+  color: var(--vp-c-text-2);
+  font-weight: 500;
+}
+
+.breakdown-value {
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+}
+
+.enterprise-note {
+  margin: 20px auto;
+  padding: 16px;
+  background: rgba(19, 176, 238, 0.05);
+  border: 1px solid rgba(19, 176, 238, 0.2);
+  border-radius: 8px;
+  max-width: 600px;
+}
+
+html.dark .enterprise-note {
+  background: rgba(19, 176, 238, 0.1);
+  border-color: rgba(19, 176, 238, 0.3);
+}
+
+.enterprise-note p {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  margin: 0;
+  line-height: 1.6;
+}
+
 /* === Results Grid === */
 .results-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 24px;
+}
+
+/* === Full Width Grid for Enterprise === */
+.results-grid.full-width {
+  grid-template-columns: 1fr;
+}
+
+.results-grid.full-width .pack-card {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* === Pack Card === */
@@ -461,9 +601,22 @@ html.dark .remaining-note {
   padding: 20px 0;
 }
 
+.enterprise-content.enterprise-full {
+  padding: 40px 0;
+}
+
 .enterprise-icon {
   font-size: 48px;
   margin-bottom: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.enterprise-icon img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
 }
 
 .enterprise-content h5 {
@@ -494,9 +647,8 @@ html.dark .remaining-note {
 
 .enterprise-link:hover {
   background: var(--vp-c-brand-light);
-  /* transform: translateY(-2px); */
   box-shadow: 0 4px 12px rgba(19, 176, 238, 0.3);
-  color:white
+  color: white;
 }
 
 /* === Comparison Card === */
@@ -526,7 +678,6 @@ html.dark .remaining-note {
   margin: 0 0 16px 0;
 }
 
-/* Default: 3 columns */
 .comparison-table {
   width: 100%;
   table-layout: fixed;
@@ -536,25 +687,14 @@ html.dark .remaining-note {
   border: 1px solid var(--vp-c-divider);
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  margin-top:10px;
+  margin-top: 10px;
   box-sizing: border-box;
   text-align: center;
 }
 
-/* Column widths: auto-distribute based on column count */
-.comparison-table:not(.enterprise-mode) th,
-.comparison-table:not(.enterprise-mode) td {
-  width: 33.33%;
-}
-
-/* Enterprise mode: 2 columns, full fill */
-.comparison-table.enterprise-mode th,
-.comparison-table.enterprise-mode td {
-  width: 50%;
-}
-
 .comparison-table th,
 .comparison-table td {
+  width: 33.33%;
   padding: 12px 16px;
   border: 1px solid var(--vp-c-divider);
   vertical-align: middle;
@@ -564,7 +704,6 @@ html.dark .remaining-note {
   background: var(--vp-c-bg-alt);
   font-weight: 600;
   font-size: 15px;
-  /* text-transform: uppercase; */
   letter-spacing: 0.5px;
   text-align: center;
 }

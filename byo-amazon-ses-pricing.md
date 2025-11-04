@@ -784,11 +784,3 @@ html.dark .footer-cta-subtext {
 <p style="margin-top: 12px;"><a href="/pricing">See our regular pricing</a> for our fully managed option.</p>
 </div>
 </section>
-
-<section class="pricing-footer-cta">
-  <div class="footer-cta-card">
-    <p class="footer-cta-banner">Get started with 6,000 free sends in the first year</p>
-    <p class="footer-cta-description">All packages include all of our features without restrictions!</p>
-    <p class="footer-cta-subtext">Need enterprise pricing? <a href="mailto:hello@bluefox.email">Contact us</a></p>
-  </div>
-</section>
