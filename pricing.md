@@ -668,7 +668,7 @@ html.dark .footer-cta-subtext {
   <div class="pricing-cards-grid">
     <div class="pricing-card featured">
       <span class="pricing-badge-popular">Most popular</span>
-      <h3>Start-up</h3>
+      <h3>Essential</h3>
       <div class="pricing-card-price">
         <span class="pricing-card-amount">$50</span>
         <span class="pricing-card-period">/ pack</span>
@@ -684,7 +684,7 @@ html.dark .footer-cta-subtext {
       </a>
     </div>
     <div class="pricing-card">
-      <h3>Scale-up</h3>
+      <h3>Premium</h3>
       <div class="pricing-card-price">
         <span class="pricing-card-amount">$300</span>
         <span class="pricing-card-period">/ pack</span>
