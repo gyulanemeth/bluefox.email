@@ -94,7 +94,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
               :key="section"
               class="footer-column"
             >
-              <p class="footer-column-heading">{{ section.charAt(0).toUpperCase() + section.slice(1) }}</p>
+              <h2 class="footer-column-heading">{{ section.charAt(0).toUpperCase() + section.slice(1) }}</h2>
               <a 
                 v-for="link in links"
                 :key="link.text"
