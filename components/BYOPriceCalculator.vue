@@ -8,8 +8,8 @@ const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
 
 // BYO SES Packs - MORE sends for same price
 const PACKS = [
-  { name: 'Start-up', sends: 100_000, price: 50 },  // 100K for $50
-  { name: 'Scale-up', sends: 1_000_000, price: 300 } // 1M for $300
+  { name: 'Essential', sends: 100_000, price: 50 },  // 100K for $50
+  { name: 'Premium', sends: 1_000_000, price: 300 } // 1M for $300
 ]
 
 // AWS SES cost per email
@@ -24,9 +24,9 @@ const COMPETITOR_COST_PER_EMAIL = {
 // Recommended pack logic
 const recommendedPack = computed(() => {
   if (emails.value <= 0) return null
-  if (emails.value === 1000000) return 'contact-enterprise' // At 1M show contact
-  if (emails.value > 1000000) return 'enterprise' // At 1M+ show enterprise
-  return PACKS.find(pack => emails.value <= pack.sends) || 'contact-enterprise'
+  if (emails.value === 1000000) return { name: '2× Premium', sends: 1000000, price: 300 } // Show 2x Premium at 1M
+  if (emails.value > 1000000) return 'enterprise'
+  return PACKS.find(pack => emails.value <= pack.sends) || 'enterprise'
 })
 
 // Calculate BlueFox platform cost per email
@@ -35,7 +35,7 @@ const bluefoxPlatformCostPerEmail = computed(() => {
   
   // At exactly 1M
   if (emails.value === 1000000) {
-    return 300 / 1000000 // Scale-up pack: $300 for 1M sends
+    return 300 / 1000000 // Premium pack: $300 for 1M sends
   }
   
   // Over 1M (enterprise)
@@ -56,19 +56,16 @@ const totalBluefoxCostPerEmail = computed(() => {
 const actualBluefoxCost = computed(() => emails.value * totalBluefoxCostPerEmail.value)
 
 const platformCost = computed(() => {
-  if (emails.value === 1000000) return 300 // At 1M
-  if (!recommendedPack.value || 
-      recommendedPack.value === 'enterprise' || 
-      recommendedPack.value === 'contact-enterprise') return null
+  if (emails.value === 1000000) return 300 // At 1M (shows 2x $300)
+  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
   return recommendedPack.value.price
 })
 
 const awsSESCost = computed(() => emails.value * AWS_SES_COST_PER_EMAIL)
 
 const sendsRemaining = computed(() => {
-  if (!recommendedPack.value || 
-      recommendedPack.value === 'enterprise' || 
-      recommendedPack.value === 'contact-enterprise') return null
+  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
+  if (emails.value === 1000000) return 0 // No remaining at exactly 1M
   return recommendedPack.value.sends - emails.value
 })
 
@@ -135,11 +132,11 @@ const formatAbbreviated = num => {
       </div>
 
       <!-- Results Grid -->
-      <div class="results-grid" :class="{ 'full-width': isEnterpriseVolume || recommendedPack === 'contact-enterprise' }">
+      <div class="results-grid" :class="{ 'full-width': isEnterpriseVolume }">
         <!-- Pack Card (Left) -->
         <div class="pack-card">
-          <!-- Regular Pack Display -->
-          <div v-if="recommendedPack !== 'enterprise' && recommendedPack !== 'contact-enterprise'" class="pack-content">
+          <!-- Regular Pack Display (includes 1M now) -->
+          <div v-if="recommendedPack !== 'enterprise'" class="pack-content">
             <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email (BYO SES)</div>
             
             <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
@@ -162,7 +159,7 @@ const formatAbbreviated = num => {
             
             <div class="pack-price-section">
               <span class="pack-price-label">Platform pack cost:</span>
-              <span class="pack-price-value">{{ formatPrice(platformCost) }}</span>
+              <span class="pack-price-value">{{ emails === 1000000 ? '2× $300.00' : formatPrice(platformCost) }}</span>
             </div>
             
             <div class="pack-info">
@@ -187,49 +184,29 @@ const formatAbbreviated = num => {
             </ul>
           </div>
 
-          <!-- Contact Enterprise Display (for 1M exactly) -->
-          <div v-else-if="recommendedPack === 'contact-enterprise'" class="enterprise-content">
-            <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email (BYO SES)</div>
-            
-            <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
-            
-            <div class="cost-breakdown">
-              <div class="breakdown-row">
-                <span class="breakdown-label">Platform fee:</span>
-                <span class="breakdown-value">{{ formatPrice(300) }}</span>
-              </div>
-              <div class="breakdown-row">
-                <span class="breakdown-label">AWS SES fee:</span>
-                <span class="breakdown-value">{{ formatPrice(awsSESCost) }}</span>
-              </div>
-            </div>
-            
-            <div class="enterprise-note">
-              <p>For this volume, we recommend contacting our enterprise team for custom pricing and volume discounts.</p>
-            </div>
-            
-            <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact Enterprise</a>
-            
-            <ul class="pack-features">
-              <li>Sends valid for 12 months</li>
-              <li>All features included</li>
-              <li>Your AWS account, your control</li>
-            </ul>
-          </div>
-
           <!-- Full Enterprise Display (for 1M+) -->
           <div v-else class="enterprise-content enterprise-full">
             <div class="enterprise-icon">
-              <img src="/assets/bluefoxemail-packs.webp" alt="BlueFox Email Packs">
+              <!-- Light theme image -->
+              <img 
+                src="/assets/mascot-fox-bluefoxemail.png" 
+                alt="BlueFox Email Mascot"
+                class="mascot-light"
+              >
+              <!-- Dark theme image -->
+              <img 
+                src="/assets/mascot-fox-bluefoxemail-dark.png" 
+                alt="BlueFox Email Mascot"
+                class="mascot-dark"
+              >
             </div>
-            <h5>Enterprise Volume</h5>
             <p>For 1M+ emails, we offer custom pricing with volume discounts.</p>
             <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact sales</a>
           </div>
         </div>
 
-        <!-- Comparison Section (Right) - Hidden at 1M and 1M+ -->
-        <div v-if="!isEnterpriseVolume && recommendedPack !== 'contact-enterprise'" class="comparison-card">
+        <!-- Comparison Section (Right) - Shows at 1M, Hidden at 1M+ -->
+        <div v-if="!isEnterpriseVolume" class="comparison-card">
           <h4 class="comparison-title">Compare with Competitors</h4>
 
           <div class="table-container">
@@ -400,27 +377,6 @@ const formatAbbreviated = num => {
 .breakdown-value {
   color: var(--vp-c-text-1);
   font-weight: 600;
-}
-
-.enterprise-note {
-  margin: 20px auto;
-  padding: 16px;
-  background: rgba(19, 176, 238, 0.05);
-  border: 1px solid rgba(19, 176, 238, 0.2);
-  border-radius: 8px;
-  max-width: 600px;
-}
-
-html.dark .enterprise-note {
-  background: rgba(19, 176, 238, 0.1);
-  border-color: rgba(19, 176, 238, 0.3);
-}
-
-.enterprise-note p {
-  font-size: 14px;
-  color: var(--vp-c-text-2);
-  margin: 0;
-  line-height: 1.6;
 }
 
 /* === Results Grid === */
@@ -606,17 +562,38 @@ html.dark .remaining-note {
 }
 
 .enterprise-icon {
-  font-size: 48px;
-  margin-bottom: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 24px;
+  min-height: 300px; /* Prevents layout shift */
 }
 
+/* Base image styles */
 .enterprise-icon img {
-  width: 150px;
-  height: 150px;
+  width: 100%;
+  max-width: 370px;
+  height: auto;
   object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+/* Light theme: show light image, hide dark image */
+.mascot-light {
+  display: block;
+}
+
+.mascot-dark {
+  display: none;
+}
+
+/* Dark theme: hide light image, show dark image */
+html.dark .mascot-light {
+  display: none;
+}
+
+html.dark .mascot-dark {
+  display: block;
 }
 
 .enterprise-content h5 {
@@ -763,6 +740,14 @@ html.dark .remaining-note {
     width: 100%;
     max-width: 500px;
   }
+  
+  .enterprise-icon {
+    min-height: 200px; /* Smaller min-height on tablets */
+  }
+  
+  .enterprise-icon img {
+    max-width: 280px; /* Smaller on tablets */
+  }
 }
 
 @media (max-width: 640px) {
@@ -798,6 +783,14 @@ html.dark .remaining-note {
 
   .table-note li {
     padding: 0 12px;
+  }
+  
+  .enterprise-icon {
+    min-height: 150px; /* Even smaller on mobile */
+  }
+  
+  .enterprise-icon img {
+    max-width: 200px; /* Smaller on mobile */
   }
 }
 </style>
