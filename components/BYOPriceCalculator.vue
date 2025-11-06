@@ -24,7 +24,7 @@ const COMPETITOR_COST_PER_EMAIL = {
 // Recommended pack logic
 const recommendedPack = computed(() => {
   if (emails.value <= 0) return null
-  if (emails.value === 1000000) return { name: '2× Premium', sends: 1000000, price: 300 } // Show 2x Premium at 1M
+  if (emails.value === 1000000) return { name: 'Premium', sends: 1000000, price: 300 }
   if (emails.value > 1000000) return 'enterprise'
   return PACKS.find(pack => emails.value <= pack.sends) || 'enterprise'
 })
@@ -159,7 +159,7 @@ const formatAbbreviated = num => {
             
             <div class="pack-price-section">
               <span class="pack-price-label">Platform pack cost:</span>
-              <span class="pack-price-value">{{ emails === 1000000 ? '2× $300.00' : formatPrice(platformCost) }}</span>
+              <span class="pack-price-value">{{ emails === 1000000 ? '$300.00' : formatPrice(platformCost) }}</span>
             </div>
             
             <div class="pack-info">
