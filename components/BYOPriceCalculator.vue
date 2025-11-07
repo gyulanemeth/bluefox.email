@@ -7,14 +7,14 @@ const currentSliderIndex = ref(3)
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
 
 // === BASE PRICING ===
-// BlueFox Platform pricing curve (only platform fee)
+// BYO SES platform pricing (used for interpolation)
 const PLATFORM_PRICE_POINTS = [
-  { emails: 100000, price: 50 },   // 100K for $50
-  { emails: 1000000, price: 300 }  // 1M for $300
+  { emails: 100000, price: 50 },   // Essential
+  { emails: 1000000, price: 300 }  // Premium
 ]
 
 // AWS SES sending cost (fixed)
-const AWS_SES_COST_PER_EMAIL = 0.0001 // $0.10 per 1,000
+const AWS_SES_COST_PER_EMAIL = 0.0001 // $0.10 per 1,000 emails
 
 // Competitor cost per email (fixed)
 const COMPETITOR_COST_PER_EMAIL = {
@@ -23,46 +23,51 @@ const COMPETITOR_COST_PER_EMAIL = {
   mailersend: 0.00145
 }
 
-// === RECOMMENDED PACK ===
-const recommendedPack = computed(() => {
-  if (emails.value <= 0) return null
-  if (emails.value > 1000000) return 'enterprise'
-  return { name: 'BYO SES Dynamic Plan', sends: emails.value }
-})
-
-// === BLUEFOX PLATFORM COST (INTERPOLATED) ===
+// === BLUEFOX PLATFORM COST PER EMAIL (INTERPOLATED, used for backend math only) ===
 const bluefoxPlatformCostPerEmail = computed(() => {
   const v = emails.value
   if (v <= 0) return 0
-  if (v < 100000) {
-    // Below 100K — proportional to $50/100K
-    return (50 / 100000)
-  }
+  if (v < 100000) return 50 / 100000 // Below 100K — linear extrapolation
   if (v > 1000000) return 0 // Enterprise handled separately
 
-  // Between 100K and 1M → interpolate
+  // Interpolate between 100K ($50) and 1M ($300)
   const lower = PLATFORM_PRICE_POINTS[0]
   const upper = PLATFORM_PRICE_POINTS[1]
-
   const fraction = (v - lower.emails) / (upper.emails - lower.emails)
   const estimatedPrice = lower.price + fraction * (upper.price - lower.price)
   return estimatedPrice / v
 })
 
-// === COMBINED COST (PLATFORM + AWS SES) ===
-const totalBluefoxCostPerEmail = computed(() => {
-  return bluefoxPlatformCostPerEmail.value + AWS_SES_COST_PER_EMAIL
-})
-
-// === TOTAL COSTS ===
+// === TOTAL COSTS (actual, used for savings + total display) ===
+const totalBluefoxCostPerEmail = computed(() => bluefoxPlatformCostPerEmail.value + AWS_SES_COST_PER_EMAIL)
 const actualBluefoxCost = computed(() => emails.value * totalBluefoxCostPerEmail.value)
 const awsSESCost = computed(() => emails.value * AWS_SES_COST_PER_EMAIL)
 const platformCost = computed(() => emails.value * bluefoxPlatformCostPerEmail.value)
 
-// === ENTERPRISE FLAG ===
-const isEnterpriseVolume = computed(() => emails.value > 1000000)
+// === STATIC PACKS (display only) ===
+const PACKS = [
+  { name: 'Essential', sends: 100000, price: 50 },
+  { name: 'Premium', sends: 1000000, price: 300 }
+]
 
-// === ESTIMATED CONTACTS ===
+// === RECOMMENDED PACK (STATIC DISPLAY) ===
+const recommendedPack = computed(() => {
+  const v = emails.value
+  if (v <= 0) return null
+  if (v > 1000000) return 'enterprise'
+  if (v <= 100000) return PACKS[0] // Essential
+  return PACKS[1] // Premium
+})
+
+// === STATIC DISPLAYED PACK COST ===
+const displayedPackCost = computed(() => {
+  const pack = recommendedPack.value
+  if (!pack || pack === 'enterprise') return null
+  return pack.price
+})
+
+// === FLAGS ===
+const isEnterpriseVolume = computed(() => emails.value > 1000000)
 const estimatedContacts = computed(() => Math.round(emails.value / 5))
 
 // === COMPETITOR COSTS ===
@@ -72,7 +77,7 @@ const competitorCosts = computed(() => ({
   mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend
 }))
 
-// === SAVINGS CALCULATION ===
+// === SAVINGS CALCULATION (uses interpolated total) ===
 const calculateSavings = (competitorCost) => {
   const bluefoxCost = actualBluefoxCost.value
   if (!bluefoxCost || bluefoxCost === 0) return 0
@@ -96,7 +101,6 @@ const formatAbbreviated = num => {
   return num.toString()
 }
 </script>
-
 
 <template>
   <div class="pricing-calculator">

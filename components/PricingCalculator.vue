@@ -6,12 +6,14 @@ const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 1000000, 150
 const currentSliderIndex = ref(2)
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
 
+// === COMPETITOR COSTS ===
 const COMPETITOR_COST_PER_EMAIL = {
   mailchimp: 0.0037,
   sendgrid: 0.0106,
   mailersend: 0.00145
 }
 
+// === INTERPOLATED BLUEFOX PRICING POINTS ===
 const PRICE_POINTS = [
   { emails: 10000, price: 10 },
   { emails: 50000, price: 50 },
@@ -21,6 +23,7 @@ const PRICE_POINTS = [
   { emails: 1000000, price: 600 }
 ]
 
+// === INTERPOLATED COST PER EMAIL ===
 const bluefoxCostPerEmail = computed(() => {
   const v = emails.value
   if (v <= 0) return 0
@@ -43,23 +46,39 @@ const bluefoxCostPerEmail = computed(() => {
   return estimatedPrice / v
 })
 
+// === TOTAL COST BASED ON INTERPOLATION ===
 const actualBluefoxCost = computed(() => emails.value * bluefoxCostPerEmail.value)
 
+// === STATIC PACKS (for display only) ===
+const PACKS = [
+  { name: 'Essential', sends: 50000, price: 50 },
+  { name: 'Premium', sends: 500000, price: 300 }
+]
+
+// === DISPLAYED RECOMMENDED PACK (Static, not interpolated) ===
 const recommendedPack = computed(() => {
-  if (emails.value <= 0) return null
-  if (emails.value > 1000000) return 'enterprise'
-  return { name: 'Dynamic Plan', sends: emails.value, price: actualBluefoxCost.value }
+  const v = emails.value
+  if (v <= 0) return null
+  if (v > 1000000) return 'enterprise'
+
+  if (v <= 50000) return PACKS[0] // Essential
+  if (v <= 500000) return PACKS[1] // Premium
+  if (v === 1000000) return { name: '2× Premium', sends: 1000000, price: 600 }
+
+  return PACKS[1] // fallback
 })
 
+// === DISPLAYED PACK COST (Static for UI) ===
 const totalCost = computed(() => {
-  if (emails.value > 1000000) return null
-  return actualBluefoxCost.value
+  const pack = recommendedPack.value
+  if (!pack || pack === 'enterprise') return null
+  if (pack.name === '2× Premium') return 600
+  return pack.price
 })
 
+// === OTHER COMPUTED ===
 const sendsRemaining = computed(() => null)
-
 const estimatedContacts = computed(() => Math.round(emails.value / 5))
-
 const isEnterpriseVolume = computed(() => emails.value > 1000000)
 
 const competitorCosts = computed(() => ({
@@ -68,7 +87,7 @@ const competitorCosts = computed(() => ({
   mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend
 }))
 
-// === SAVINGS CALCULATION ===
+// === SAVINGS CALCULATION (uses interpolated total cost) ===
 const calculateSavings = (competitorCost) => {
   const bluefoxCost = actualBluefoxCost.value
   if (!bluefoxCost || bluefoxCost === 0) return 0
