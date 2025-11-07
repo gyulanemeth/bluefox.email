@@ -67,7 +67,7 @@ To help you get started, we provide **free send credits** when you create a new 
 - **Standard Pricing:** 3,000 free sends
 - **BYO SES Pricing:** 6,000 free sends
 
-These credits are added to your account upon registration and can be used anytime within the year. They work alongside the AWS SES free tier if you use BYO SES (which grants 1,500 free sends per month for 12 months).
+These sends are added to your account upon registration and can be used anytime within the year.
 
 ## Send Packs
 
@@ -81,9 +81,11 @@ Our send packs follow a straightforward principle: the more sends you purchase, 
 - **Price:** $50
 - **Cost per send:** $0.001 ($1 per 1,000 sends)
 
-With this pack, you can send **50,000 emails per month** if needed. For example, if you send **10,000 emails monthly**, the pack will last you about 5 months. Alternatively, if you send **5,000 emails monthly**, you'll have sends remaining for the full year.
+With this pack, you can send **50,000 emails per month** if needed. For example:
+- If you send **10,000 emails monthly**, the pack will last you about 5 months
+- If you send **5,000 emails monthly**, the pack will last you 10 months
 
-**Example:** At 5,000 emails/month = 60,000 annual sends needed, but this pack gives you 50,000 sends. You'd want the Premium pack for consistent monthly sending at that volume.
+For consistent monthly sending at higher volumes, the Premium pack offers better value.
 
 #### Premium Pack
 
