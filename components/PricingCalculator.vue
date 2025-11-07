@@ -1,15 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue'
 
+// === SLIDER ===
 const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 1000000, 1500000]
 const currentSliderIndex = ref(2)
-
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
-
-const PACKS = [
-  { name: 'Essential', sends: 50_000, price: 50 },
-  { name: 'Premium', sends: 500_000, price: 300 }
-]
 
 const COMPETITOR_COST_PER_EMAIL = {
   mailchimp: 0.0037,
@@ -17,54 +12,54 @@ const COMPETITOR_COST_PER_EMAIL = {
   mailersend: 0.00145
 }
 
-// Calculate BlueFox cost for any volume (including 1M)
+const PRICE_POINTS = [
+  { emails: 10000, price: 10 },
+  { emails: 50000, price: 50 },
+  { emails: 100000, price: 80 },
+  { emails: 250000, price: 180 },
+  { emails: 500000, price: 300 },
+  { emails: 1000000, price: 600 }
+]
+
 const bluefoxCostPerEmail = computed(() => {
-  if (emails.value === 0) return 0
-  
-  // For 1M sends, calculate based on Premium pack pricing
-  if (emails.value === 1000000) {
-    // 1M sends = 2 Premium packs (500K each at $300)
-    // Total: $600 for 1M sends = $0.0006 per email
-    return 600 / 1000000
+  const v = emails.value
+  if (v <= 0) return 0
+  if (v > 1000000) return 0
+
+  let lower = PRICE_POINTS[0]
+  let upper = PRICE_POINTS[PRICE_POINTS.length - 1]
+
+  for (let i = 0; i < PRICE_POINTS.length - 1; i++) {
+    if (v >= PRICE_POINTS[i].emails && v <= PRICE_POINTS[i + 1].emails) {
+      lower = PRICE_POINTS[i]
+      upper = PRICE_POINTS[i + 1]
+      break
+    }
   }
-  
-  // For volumes over 1M (enterprise)
-  if (emails.value > 1000000) return 0
-  
-  // For regular packs
-  const pack = PACKS.find(pack => emails.value <= pack.sends)
-  if (!pack) return 0
-  
-  return pack.price / pack.sends
+
+  const fraction = (v - lower.emails) / (upper.emails - lower.emails)
+  const estimatedPrice = lower.price + fraction * (upper.price - lower.price)
+
+  return estimatedPrice / v
 })
 
 const actualBluefoxCost = computed(() => emails.value * bluefoxCostPerEmail.value)
 
-// Updated: recommendedPack logic
 const recommendedPack = computed(() => {
   if (emails.value <= 0) return null
-  if (emails.value === 1000000) return { name: '2× Premium', sends: 1000000, price: 300 } // Show 2x Premium at 1M
   if (emails.value > 1000000) return 'enterprise'
-  return PACKS.find(pack => emails.value <= pack.sends) || 'enterprise'
+  return { name: 'Dynamic Plan', sends: emails.value, price: actualBluefoxCost.value }
 })
 
 const totalCost = computed(() => {
-  // At 1M, show the calculated cost
-  if (emails.value === 1000000) return 600
-  
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  return recommendedPack.value.price
+  if (emails.value > 1000000) return null
+  return actualBluefoxCost.value
 })
 
-const sendsRemaining = computed(() => {
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  if (emails.value === 1000000) return 0 // No remaining at exactly 1M
-  return recommendedPack.value.sends - emails.value
-})
+const sendsRemaining = computed(() => null)
 
 const estimatedContacts = computed(() => Math.round(emails.value / 5))
 
-// Show comparison table at 1M, hide at 1M+
 const isEnterpriseVolume = computed(() => emails.value > 1000000)
 
 const competitorCosts = computed(() => ({
@@ -73,12 +68,14 @@ const competitorCosts = computed(() => ({
   mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend
 }))
 
+// === SAVINGS CALCULATION ===
 const calculateSavings = (competitorCost) => {
   const bluefoxCost = actualBluefoxCost.value
   if (!bluefoxCost || bluefoxCost === 0) return 0
   return Math.round(((competitorCost - bluefoxCost) / competitorCost) * 100)
 }
 
+// === FORMATTERS ===
 const formatNumber = num => (num == null ? '—' : num.toLocaleString('en-US'))
 
 const formatPrice = price => {
@@ -95,6 +92,7 @@ const formatAbbreviated = num => {
   return num.toString()
 }
 </script>
+
 
 <template>
   <div class="pricing-calculator">

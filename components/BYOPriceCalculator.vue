@@ -1,90 +1,85 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 1000000, 1500000]
-const currentSliderIndex = ref(2)
-
+// === SLIDER ===
+const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 750000, 1000000, 1500000]
+const currentSliderIndex = ref(3)
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
 
-// BYO SES Packs - MORE sends for same price
-const PACKS = [
-  { name: 'Essential', sends: 100_000, price: 50 },  // 100K for $50
-  { name: 'Premium', sends: 1_000_000, price: 300 } // 1M for $300
+// === BASE PRICING ===
+// BlueFox Platform pricing curve (only platform fee)
+const PLATFORM_PRICE_POINTS = [
+  { emails: 100000, price: 50 },   // 100K for $50
+  { emails: 1000000, price: 300 }  // 1M for $300
 ]
 
-// AWS SES cost per email
-const AWS_SES_COST_PER_EMAIL = 0.0001 // $0.10 per 1,000 emails
+// AWS SES sending cost (fixed)
+const AWS_SES_COST_PER_EMAIL = 0.0001 // $0.10 per 1,000
 
+// Competitor cost per email (fixed)
 const COMPETITOR_COST_PER_EMAIL = {
   mailchimp: 0.0037,
   sendgrid: 0.0106,
   mailersend: 0.00145
 }
 
-// Recommended pack logic
+// === RECOMMENDED PACK ===
 const recommendedPack = computed(() => {
   if (emails.value <= 0) return null
-  if (emails.value === 1000000) return { name: 'Premium', sends: 1000000, price: 300 }
   if (emails.value > 1000000) return 'enterprise'
-  return PACKS.find(pack => emails.value <= pack.sends) || 'enterprise'
+  return { name: 'BYO SES Dynamic Plan', sends: emails.value }
 })
 
-// Calculate BlueFox platform cost per email
+// === BLUEFOX PLATFORM COST (INTERPOLATED) ===
 const bluefoxPlatformCostPerEmail = computed(() => {
-  if (emails.value === 0) return 0
-  
-  // At exactly 1M
-  if (emails.value === 1000000) {
-    return 300 / 1000000 // Premium pack: $300 for 1M sends
+  const v = emails.value
+  if (v <= 0) return 0
+  if (v < 100000) {
+    // Below 100K — proportional to $50/100K
+    return (50 / 100000)
   }
-  
-  // Over 1M (enterprise)
-  if (emails.value > 1000000) return 0
-  
-  // Regular packs
-  const pack = PACKS.find(pack => emails.value <= pack.sends)
-  if (!pack) return 0
-  
-  return pack.price / pack.sends
+  if (v > 1000000) return 0 // Enterprise handled separately
+
+  // Between 100K and 1M → interpolate
+  const lower = PLATFORM_PRICE_POINTS[0]
+  const upper = PLATFORM_PRICE_POINTS[1]
+
+  const fraction = (v - lower.emails) / (upper.emails - lower.emails)
+  const estimatedPrice = lower.price + fraction * (upper.price - lower.price)
+  return estimatedPrice / v
 })
 
-// Total BlueFox cost = Platform fee + AWS SES fee
+// === COMBINED COST (PLATFORM + AWS SES) ===
 const totalBluefoxCostPerEmail = computed(() => {
   return bluefoxPlatformCostPerEmail.value + AWS_SES_COST_PER_EMAIL
 })
 
+// === TOTAL COSTS ===
 const actualBluefoxCost = computed(() => emails.value * totalBluefoxCostPerEmail.value)
-
-const platformCost = computed(() => {
-  if (emails.value === 1000000) return 300 // At 1M (shows 2x $300)
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  return recommendedPack.value.price
-})
-
 const awsSESCost = computed(() => emails.value * AWS_SES_COST_PER_EMAIL)
+const platformCost = computed(() => emails.value * bluefoxPlatformCostPerEmail.value)
 
-const sendsRemaining = computed(() => {
-  if (!recommendedPack.value || recommendedPack.value === 'enterprise') return null
-  if (emails.value === 1000000) return 0 // No remaining at exactly 1M
-  return recommendedPack.value.sends - emails.value
-})
-
-const estimatedContacts = computed(() => Math.round(emails.value / 5))
-
+// === ENTERPRISE FLAG ===
 const isEnterpriseVolume = computed(() => emails.value > 1000000)
 
+// === ESTIMATED CONTACTS ===
+const estimatedContacts = computed(() => Math.round(emails.value / 5))
+
+// === COMPETITOR COSTS ===
 const competitorCosts = computed(() => ({
   mailchimp: emails.value * COMPETITOR_COST_PER_EMAIL.mailchimp,
   sendgrid: emails.value * COMPETITOR_COST_PER_EMAIL.sendgrid,
   mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend
 }))
 
+// === SAVINGS CALCULATION ===
 const calculateSavings = (competitorCost) => {
   const bluefoxCost = actualBluefoxCost.value
   if (!bluefoxCost || bluefoxCost === 0) return 0
   return Math.round(((competitorCost - bluefoxCost) / competitorCost) * 100)
 }
 
+// === FORMATTERS ===
 const formatNumber = num => (num == null ? '—' : num.toLocaleString('en-US'))
 
 const formatPrice = price => {
@@ -101,6 +96,7 @@ const formatAbbreviated = num => {
   return num.toString()
 }
 </script>
+
 
 <template>
   <div class="pricing-calculator">
