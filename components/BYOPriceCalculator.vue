@@ -1,35 +1,27 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-// === SLIDER ===
 const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 750000, 1000000, 1500000]
 const currentSliderIndex = ref(3)
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
-
-// === BASE PRICING ===
-// Static packs (for UI display)
 const PACKS = [
   { name: 'Essential', sends: 100000, price: 50 },
   { name: 'Premium', sends: 1000000, price: 300 }
 ]
 
-// Interpolation points (for backend math)
-const PLATFORM_PRICE_POINTS = [
-  { emails: 100000, price: 50 },
-  { emails: 1000000, price: 300 }
-]
+const AWS_SES_COST_PER_EMAIL = 0.0001
 
-// AWS SES sending cost (fixed)
-const AWS_SES_COST_PER_EMAIL = 0.0001 // $0.10 per 1,000 emails
-
-// Competitor cost per email (fixed)
 const COMPETITOR_COST_PER_EMAIL = {
   mailchimp: 0.0037,
   sendgrid: 0.0106,
   mailersend: 0.00145
 }
 
-// === RECOMMENDED PACK (STATIC) ===
+const PLATFORM_PRICE_POINTS = [
+  { emails: 100000, price: 50 },
+  { emails: 1000000, price: 300 }
+]
+
 const recommendedPack = computed(() => {
   const v = emails.value
   if (v <= 0) return null
@@ -38,53 +30,75 @@ const recommendedPack = computed(() => {
   return PACKS[1] // Premium
 })
 
-// === STATIC DISPLAYED PACK COST ===
+const packBasedPlatformCost = computed(() => {
+  const v = emails.value
+  if (v === 0) return 0
+  if (v > 1000000) return 0
+
+  const pack = PACKS.find(p => v <= p.sends)
+  if (!pack) return 0
+
+  return v * (pack.price / pack.sends)
+})
+
+const interpolatedPlatformCost = computed(() => {
+  const v = emails.value
+  if (v <= 0) return 0
+  if (v > 1000000) return 0
+
+  // Below Essential pack
+  if (v < 100000) {
+    return v * (50 / 100000)
+  }
+
+  // Interpolate between 100K and 1M
+  const lower = PLATFORM_PRICE_POINTS[0]
+  const upper = PLATFORM_PRICE_POINTS[1]
+  const fraction = (v - lower.emails) / (upper.emails - lower.emails)
+  const estimatedPrice = lower.price + fraction * (upper.price - lower.price)
+  
+  return estimatedPrice
+})
+
+const awsSESCost = computed(() => emails.value * AWS_SES_COST_PER_EMAIL)
+
+const displayPlatformCost = computed(() => packBasedPlatformCost.value)
+const displayTotalCost = computed(() => packBasedPlatformCost.value + awsSESCost.value)
+
+const comparisonTotalCost = computed(() => interpolatedPlatformCost.value + awsSESCost.value)
+
 const displayedPackCost = computed(() => {
   const pack = recommendedPack.value
   if (!pack || pack === 'enterprise') return null
   return pack.price
 })
 
-// === PLATFORM COST PER EMAIL (INTERPOLATED for backend math only) ===
-const bluefoxPlatformCostPerEmail = computed(() => {
-  const v = emails.value
-  if (v <= 0) return 0
-  if (v < 100000) return 50 / 100000 // Below Essential
-  if (v > 1000000) return 0 // Enterprise handled separately
-
-  // Interpolate smoothly between 100K and 1M
-  const lower = PLATFORM_PRICE_POINTS[0]
-  const upper = PLATFORM_PRICE_POINTS[1]
-  const fraction = (v - lower.emails) / (upper.emails - lower.emails)
-  const estimatedPrice = lower.price + fraction * (upper.price - lower.price)
-  return estimatedPrice / v
+const sendsRemaining = computed(() => {
+  const pack = recommendedPack.value
+  if (!pack || pack === 'enterprise') return null
+  return pack.sends - emails.value
 })
 
-// === TOTAL COST (INTERPOLATED BACKEND MATH) ===
-const totalBluefoxCostPerEmail = computed(() => bluefoxPlatformCostPerEmail.value + AWS_SES_COST_PER_EMAIL)
-const actualBluefoxCost = computed(() => emails.value * totalBluefoxCostPerEmail.value)
-const awsSESCost = computed(() => emails.value * AWS_SES_COST_PER_EMAIL)
-const platformCost = computed(() => emails.value * bluefoxPlatformCostPerEmail.value)
+const packBasedCostPerEmail = computed(() => {
+  if (emails.value === 0) return 0
+  return displayTotalCost.value / emails.value
+})
 
-// === FLAGS ===
-const isEnterpriseVolume = computed(() => emails.value > 1000000)
 const estimatedContacts = computed(() => Math.round(emails.value / 5))
+const isEnterpriseVolume = computed(() => emails.value > 1000000)
 
-// === COMPETITOR COSTS ===
 const competitorCosts = computed(() => ({
   mailchimp: emails.value * COMPETITOR_COST_PER_EMAIL.mailchimp,
   sendgrid: emails.value * COMPETITOR_COST_PER_EMAIL.sendgrid,
   mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend
 }))
 
-// === SAVINGS CALCULATION (uses interpolated math) ===
 const calculateSavings = (competitorCost) => {
-  const bluefoxCost = actualBluefoxCost.value
-  if (!bluefoxCost || bluefoxCost === 0) return 0
+  const bluefoxCost = comparisonTotalCost.value
+  if (!bluefoxCost || bluefoxCost === 0 || !competitorCost) return 0
   return Math.round(((competitorCost - bluefoxCost) / competitorCost) * 100)
 }
 
-// === FORMATTERS ===
 const formatNumber = num => (num == null ? '—' : num.toLocaleString('en-US'))
 const formatPrice = price => {
   if (price == null) return '—'
@@ -106,7 +120,6 @@ const formatAbbreviated = num => {
       <!-- Slider Section -->
       <div class="slider-section">
         <h3 class="slider-title">How many emails do you send monthly?</h3>
-        
         <div class="slider-wrapper">
           <input
             v-model.number="currentSliderIndex"
@@ -115,6 +128,7 @@ const formatAbbreviated = num => {
             :max="SLIDER_VALUES.length - 1"
             step="1"
             class="email-slider"
+            aria-label="Monthly email volume"
           />
           <div class="slider-labels">
             <span
@@ -133,16 +147,16 @@ const formatAbbreviated = num => {
       <div class="results-grid" :class="{ 'full-width': isEnterpriseVolume }">
         <!-- Pack Card (Left) -->
         <div class="pack-card">
-          <!-- Regular Pack Display (includes 1M now) -->
           <div v-if="recommendedPack !== 'enterprise'" class="pack-content">
             <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email (BYO SES)</div>
             
-            <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
+            <!-- Display pack-based total cost -->
+            <div class="actual-price">{{ formatPrice(displayTotalCost) }}</div>
             
             <div class="cost-breakdown">
               <div class="breakdown-row">
                 <span class="breakdown-label">Platform fee:</span>
-                <span class="breakdown-value">{{ formatPrice(emails * bluefoxPlatformCostPerEmail) }}</span>
+                <span class="breakdown-value">{{ formatPrice(displayPlatformCost) }}</span>
               </div>
               <div class="breakdown-row">
                 <span class="breakdown-label">AWS SES fee:</span>
@@ -167,7 +181,7 @@ const formatAbbreviated = num => {
               </div>
               <div class="info-row">
                 <span class="info-label">Total cost per 1,000:</span>
-                <span class="info-value">{{ formatPrice(totalBluefoxCostPerEmail * 1000) }}</span>
+                <span class="info-value">{{ formatPrice(packBasedCostPerEmail * 1000) }}</span>
               </div>
             </div>
 
@@ -182,16 +196,14 @@ const formatAbbreviated = num => {
             </ul>
           </div>
 
-          <!-- Full Enterprise Display (for 1M+) -->
+          <!-- Enterprise Display -->
           <div v-else class="enterprise-content enterprise-full">
             <div class="enterprise-icon">
-              <!-- Light theme image -->
               <img 
                 src="/assets/mascot-fox-bluefoxemail.png" 
                 alt="BlueFox Email Mascot"
                 class="mascot-light"
               >
-              <!-- Dark theme image -->
               <img 
                 src="/assets/mascot-fox-bluefoxemail-dark.png" 
                 alt="BlueFox Email Mascot"
@@ -203,10 +215,9 @@ const formatAbbreviated = num => {
           </div>
         </div>
 
-        <!-- Comparison Section (Right) - Shows at 1M, Hidden at 1M+ -->
+        <!-- Comparison Card -->
         <div v-if="!isEnterpriseVolume" class="comparison-card">
           <h4 class="comparison-title">Compare with Competitors</h4>
-
           <div class="table-container">
             <table class="comparison-table">
               <thead>
@@ -228,14 +239,13 @@ const formatAbbreviated = num => {
                   <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
                 </tr>
                 <tr>
-                  <td>MailerSend <br> Pro</td>
+                  <td>MailerSend Pro</td>
                   <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
                   <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
                 </tr>
               </tbody>
             </table>
           </div>
-
           <ul class="table-note">
             <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
             <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
@@ -384,7 +394,6 @@ const formatAbbreviated = num => {
   gap: 24px;
 }
 
-/* === Full Width Grid for Enterprise === */
 .results-grid.full-width {
   grid-template-columns: 1fr;
 }
@@ -564,10 +573,9 @@ html.dark .remaining-note {
   justify-content: center;
   align-items: center;
   margin-bottom: 24px;
-  min-height: 300px; /* Prevents layout shift */
+  min-height: 300px;
 }
 
-/* Base image styles */
 .enterprise-icon img {
   width: 100%;
   max-width: 370px;
@@ -576,7 +584,6 @@ html.dark .remaining-note {
   transition: opacity 0.3s ease;
 }
 
-/* Light theme: show light image, hide dark image */
 .mascot-light {
   display: block;
 }
@@ -585,7 +592,6 @@ html.dark .remaining-note {
   display: none;
 }
 
-/* Dark theme: hide light image, show dark image */
 html.dark .mascot-light {
   display: none;
 }
@@ -740,11 +746,11 @@ html.dark .mascot-dark {
   }
   
   .enterprise-icon {
-    min-height: 200px; /* Smaller min-height on tablets */
+    min-height: 200px;
   }
   
   .enterprise-icon img {
-    max-width: 280px; /* Smaller on tablets */
+    max-width: 280px;
   }
 }
 
@@ -784,11 +790,11 @@ html.dark .mascot-dark {
   }
   
   .enterprise-icon {
-    min-height: 150px; /* Even smaller on mobile */
+    min-height: 150px;
   }
   
   .enterprise-icon img {
-    max-width: 200px; /* Smaller on mobile */
+    max-width: 200px;
   }
 }
 </style>

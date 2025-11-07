@@ -1,19 +1,21 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-// === SLIDER ===
 const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 1000000, 1500000]
 const currentSliderIndex = ref(2)
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
 
-// === COMPETITOR COSTS ===
 const COMPETITOR_COST_PER_EMAIL = {
   mailchimp: 0.0037,
   sendgrid: 0.0106,
   mailersend: 0.00145
 }
 
-// === INTERPOLATED BLUEFOX PRICING POINTS ===
+const PACKS = [
+  { name: 'Essential', sends: 50000, price: 50 },
+  { name: 'Premium', sends: 500000, price: 300 }
+]
+
 const PRICE_POINTS = [
   { emails: 10000, price: 10 },
   { emails: 50000, price: 50 },
@@ -23,15 +25,36 @@ const PRICE_POINTS = [
   { emails: 1000000, price: 600 }
 ]
 
-// === INTERPOLATED COST PER EMAIL ===
-const bluefoxCostPerEmail = computed(() => {
+/**
+ * PACK-BASED COST — What the customer actually pays per usage
+ * This is shown as the main display price
+ */
+const packBasedCost = computed(() => {
+  const v = emails.value
+  if (v === 0) return 0
+  if (v === 1000000) return 600 // 2× Premium packs
+  if (v > 1000000) return 0
+
+  // Find the pack that covers this volume
+  const pack = PACKS.find(p => v <= p.sends)
+  if (!pack) return 0
+
+  // Calculate actual cost based on usage within the pack
+  return v * (pack.price / pack.sends)
+})
+
+/**
+ * INTERPOLATED COST — For savings calculation only
+ * This creates a smooth curve for competitor comparisons
+ */
+const interpolatedCost = computed(() => {
   const v = emails.value
   if (v <= 0) return 0
   if (v > 1000000) return 0
 
   let lower = PRICE_POINTS[0]
-  let upper = PRICE_POINTS[PRICE_POINTS.length - 1]
-
+  let upper = PRICE_POINTS.at(-1)
+  
   for (let i = 0; i < PRICE_POINTS.length - 1; i++) {
     if (v >= PRICE_POINTS[i].emails && v <= PRICE_POINTS[i + 1].emails) {
       lower = PRICE_POINTS[i]
@@ -39,45 +62,39 @@ const bluefoxCostPerEmail = computed(() => {
       break
     }
   }
-
+  
   const fraction = (v - lower.emails) / (upper.emails - lower.emails)
-  const estimatedPrice = lower.price + fraction * (upper.price - lower.price)
-
-  return estimatedPrice / v
+  return lower.price + fraction * (upper.price - lower.price)
 })
 
-// === TOTAL COST BASED ON INTERPOLATION ===
-const actualBluefoxCost = computed(() => emails.value * bluefoxCostPerEmail.value)
+const packBasedCostPerEmail = computed(() => {
+  if (emails.value === 0) return 0
+  return packBasedCost.value / emails.value
+})
 
-// === STATIC PACKS (for display only) ===
-const PACKS = [
-  { name: 'Essential', sends: 50000, price: 50 },
-  { name: 'Premium', sends: 500000, price: 300 }
-]
-
-// === DISPLAYED RECOMMENDED PACK (Static, not interpolated) ===
 const recommendedPack = computed(() => {
   const v = emails.value
   if (v <= 0) return null
   if (v > 1000000) return 'enterprise'
-
-  if (v <= 50000) return PACKS[0] // Essential
-  if (v <= 500000) return PACKS[1] // Premium
   if (v === 1000000) return { name: '2× Premium', sends: 1000000, price: 600 }
-
-  return PACKS[1] // fallback
+  
+  const pack = PACKS.find(p => v <= p.sends)
+  return pack || 'enterprise'
 })
 
-// === DISPLAYED PACK COST (Static for UI) ===
-const totalCost = computed(() => {
+const packTotalCost = computed(() => {
   const pack = recommendedPack.value
   if (!pack || pack === 'enterprise') return null
-  if (pack.name === '2× Premium') return 600
   return pack.price
 })
 
-// === OTHER COMPUTED ===
-const sendsRemaining = computed(() => null)
+const sendsRemaining = computed(() => {
+  const pack = recommendedPack.value
+  if (!pack || pack === 'enterprise') return null
+  if (pack.name === '2× Premium') return 0
+  return pack.sends - emails.value
+})
+
 const estimatedContacts = computed(() => Math.round(emails.value / 5))
 const isEnterpriseVolume = computed(() => emails.value > 1000000)
 
@@ -87,22 +104,21 @@ const competitorCosts = computed(() => ({
   mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend
 }))
 
-// === SAVINGS CALCULATION (uses interpolated total cost) ===
+/**
+ * Use interpolated cost for savings to get smooth percentage curve
+ */
 const calculateSavings = (competitorCost) => {
-  const bluefoxCost = actualBluefoxCost.value
-  if (!bluefoxCost || bluefoxCost === 0) return 0
+  const bluefoxCost = interpolatedCost.value
+  if (!bluefoxCost || bluefoxCost === 0 || !competitorCost) return 0
   return Math.round(((competitorCost - bluefoxCost) / competitorCost) * 100)
 }
 
-// === FORMATTERS ===
 const formatNumber = num => (num == null ? '—' : num.toLocaleString('en-US'))
-
 const formatPrice = price => {
   if (price == null) return '—'
   if (price < 0.01) return '< $0.01'
   return `$${price.toFixed(2)}`
 }
-
 const formatAbbreviated = num => {
   if (num >= 1500000) return '1M+'
   if (num === 1000000) return '1M'
@@ -112,14 +128,12 @@ const formatAbbreviated = num => {
 }
 </script>
 
-
 <template>
   <div class="pricing-calculator">
     <div class="calculator-container">
       <!-- Slider Section -->
       <div class="slider-section">
         <h3 class="slider-title">How many emails do you send monthly?</h3>
-        
         <div class="slider-wrapper">
           <input
             v-model.number="currentSliderIndex"
@@ -128,6 +142,7 @@ const formatAbbreviated = num => {
             :max="SLIDER_VALUES.length - 1"
             step="1"
             class="email-slider"
+            aria-label="Monthly email volume"
           />
           <div class="slider-labels">
             <span
@@ -146,11 +161,11 @@ const formatAbbreviated = num => {
       <div class="results-grid" :class="{ 'full-width': isEnterpriseVolume }">
         <!-- Pack Card (Left) -->
         <div class="pack-card">
-          <!-- Regular Pack Display (includes 1M now) -->
           <div v-if="recommendedPack !== 'enterprise'" class="pack-content">
             <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email</div>
             
-            <div class="actual-price">{{ formatPrice(actualBluefoxCost) }}</div>
+            <!-- Display pack-based cost (no tooltip) -->
+            <div class="actual-price">{{ formatPrice(packBasedCost) }}</div>
             
             <div class="recommended-pack-info">
               <span class="recommended-label">Recommended pack:</span>
@@ -159,7 +174,9 @@ const formatAbbreviated = num => {
             
             <div class="pack-price-section">
               <span class="pack-price-label">Pack cost:</span>
-              <span class="pack-price-value">{{ emails === 1000000 ? '2× $300.00' : formatPrice(totalCost) }}</span>
+              <span class="pack-price-value">
+                {{ emails === 1000000 ? '2× $300.00' : formatPrice(packTotalCost) }}
+              </span>
             </div>
             
             <div class="pack-info">
@@ -169,7 +186,7 @@ const formatAbbreviated = num => {
               </div>
               <div class="info-row">
                 <span class="info-label">Cost per 1,000 sends:</span>
-                <span class="info-value">{{ formatPrice(bluefoxCostPerEmail * 1000) }}</span>
+                <span class="info-value">{{ formatPrice(packBasedCostPerEmail * 1000) }}</span>
               </div>
             </div>
 
@@ -184,16 +201,14 @@ const formatAbbreviated = num => {
             </ul>
           </div>
 
-          <!-- Full Enterprise Display (for 1M+) -->
+          <!-- Enterprise Display -->
           <div v-else class="enterprise-content enterprise-full">
             <div class="enterprise-icon">
-              <!-- Light theme image -->
               <img 
                 src="/assets/mascot-fox-bluefoxemail.png" 
                 alt="BlueFox Email Mascot"
                 class="mascot-light"
               >
-              <!-- Dark theme image -->
               <img 
                 src="/assets/mascot-fox-bluefoxemail-dark.png" 
                 alt="BlueFox Email Mascot"
@@ -205,10 +220,9 @@ const formatAbbreviated = num => {
           </div>
         </div>
 
-        <!-- Comparison Section (Right) - Shows at 1M, Hidden at 1M+ -->
+        <!-- Comparison Card -->
         <div v-if="!isEnterpriseVolume" class="comparison-card">
           <h4 class="comparison-title">Compare with Competitors</h4>
-
           <div class="table-container">
             <table class="comparison-table">
               <thead>
@@ -237,7 +251,6 @@ const formatAbbreviated = num => {
               </tbody>
             </table>
           </div>
-
           <ul class="table-note">
             <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
             <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
@@ -355,7 +368,6 @@ const formatAbbreviated = num => {
   gap: 24px;
 }
 
-/* === Full Width Grid for Enterprise === */
 .results-grid.full-width {
   grid-template-columns: 1fr;
 }
@@ -535,10 +547,9 @@ html.dark .remaining-note {
   justify-content: center;
   align-items: center;
   margin-bottom: 24px;
-  min-height: 300px; /* Prevents layout shift */
+  min-height: 300px;
 }
 
-/* Base image styles */
 .enterprise-icon img {
   width: 100%;
   max-width: 370px;
@@ -547,7 +558,6 @@ html.dark .remaining-note {
   transition: opacity 0.3s ease;
 }
 
-/* Light theme: show light image, hide dark image */
 .mascot-light {
   display: block;
 }
@@ -556,7 +566,6 @@ html.dark .remaining-note {
   display: none;
 }
 
-/* Dark theme: hide light image, show dark image */
 html.dark .mascot-light {
   display: none;
 }
@@ -711,11 +720,11 @@ html.dark .mascot-dark {
   }
   
   .enterprise-icon {
-    min-height: 200px; /* Smaller min-height on tablets */
+    min-height: 200px;
   }
   
   .enterprise-icon img {
-    max-width: 280px; /* Smaller on tablets */
+    max-width: 280px;
   }
 }
 
@@ -755,11 +764,11 @@ html.dark .mascot-dark {
   }
   
   .enterprise-icon {
-    min-height: 150px; /* Even smaller on mobile */
+    min-height: 150px;
   }
   
   .enterprise-icon img {
-    max-width: 200px; /* Smaller on mobile */
+    max-width: 200px;
   }
 }
 </style>
