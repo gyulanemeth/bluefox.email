@@ -37,7 +37,6 @@ const { isDark } = useData()
   color: var(--vp-c-brand);
   font-size: 14px;
   font-weight: 500;
-  /* margin-bottom: 16px; */
   white-space: nowrap;
 }
 
@@ -50,7 +49,6 @@ html.dark .pricing-badge {
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
-  /* margin: 0 0 16px 0 !important; */
   border: none !important;
   padding: 0 !important;
   text-align: center;
@@ -202,6 +200,7 @@ html.dark .pricing-card-subtitle {
   align-items: baseline;
   gap: 8px;
   margin-bottom: 24px;
+  flex-wrap: wrap;
 }
 
 .pricing-card-amount {
@@ -331,7 +330,6 @@ html.dark .pricing-card.contact-sales {
 }
 
 .pricing-card-note {
-  /* margin-top: 16px; */
   font-size: 12px;
   color: #64748b;
   text-align: center;
@@ -584,17 +582,7 @@ html.dark .footer-cta-subtext {
   text-decoration: none;
 }
 
-@media (max-width: 768px) {
-  .footer-cta-card {
-    padding: 32px 24px;
-  }
-  
-  .footer-cta-banner {
-    font-size: 24px;
-  }
-}
-
-
+/* === Responsive Styles === */
 @media (max-width: 768px) {
   .pricing-hero {
     padding: 40px 16px;
@@ -611,6 +599,62 @@ html.dark .footer-cta-subtext {
   
   .calculator-header {
     flex-direction: column;
+  }
+  
+  .calculator-section {
+    padding: 32px 24px;
+    margin: 18px auto;
+  }
+  
+  .footer-cta-card {
+    padding: 32px 24px;
+  }
+  
+  .footer-cta-banner {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pricing-cards-section {
+    padding: 0 12px 24px;
+  }
+  
+  .calculator-section {
+    padding: 24px 16px;
+    margin: 16px auto;
+    border-radius: 12px;
+  }
+  
+  .footer-cta-card {
+    padding: 24px 16px;
+    border-radius: 12px;
+  }
+  
+  .footer-cta-banner {
+    font-size: 20px;
+  }
+  
+  .faq-section {
+    padding: 0 12px;
+  }
+  
+  .faq-item {
+    padding: 16px;
+    border-radius: 8px;
+  }
+  
+  .pricing-card {
+    padding: 24px 16px;
+  }
+  
+  .pricing-card-amount {
+    font-size: 40px;
+  }
+  
+  .pricing-card-cta {
+    padding: 10px 16px;
+    font-size: 14px;
   }
 }
 
@@ -676,13 +720,12 @@ html.dark .footer-cta-subtext {
       <ul class="pricing-card-features">
         <li><strong>50,000 sends</strong> included</li>
         <li><strong>$1 per 1,000 sends</strong></li>
-        <!-- <li>Free email authentication audit</li> -->
         <li><strong>Access to full platform!</strong> No Restrictions</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta primary">
         Buy 50K sends
       </a>
-      <p class="text-grey-lighten-1 mt-2" style="font-size: 0.65rem; font-weight: 400;line-height: 1.667;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
+      <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667; color: #64748b;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
     </div>
     <div class="pricing-card">
       <h3>Premium</h3>
@@ -693,13 +736,12 @@ html.dark .footer-cta-subtext {
       <ul class="pricing-card-features">
         <li><strong>500,000 sends</strong> included</li>
         <li><strong>$0.60 per 1,000 sends</strong></li>
-        <!-- <li>1:1 DMARC audit</li> -->
         <li><strong>Access to full platform!</strong> No restrictions</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
         Buy 500K sends
       </a>
-       <p class="text-grey-lighten-1 mt-2" style="font-size: 0.65rem; font-weight: 400;line-height: 1.667;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
+      <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667;color: #64748b;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
     </div>
     <div class="pricing-card contact-sales">
       <h3>Need more sends?</h3>
@@ -756,12 +798,12 @@ html.dark .footer-cta-subtext {
   
   <div class="faq-item">
     <h3>Is there a free plan or trial?</h3>
-    <p>Yes. Every new workspace starts with <strong> 3,000 free sends, no credit card required</strong>. You can explore all features, send real campaigns, and build automations before deciding to upgrade.</p>
+    <p>Yes. Every new workspace starts with <strong>3,000 free sends, no credit card required</strong>. You can explore all features, send real campaigns, and build automations before deciding to upgrade.</p>
   </div>
   
   <div class="faq-item">
     <h3>How does the pricing work?</h3>
-    <p>You only pay for <strong>email sends</strong>, not for contacts or feature. Each pack includes a fixed number of sends that stay <strong>valid for 12 months. No subscriptions, no hidden limits,</strong> just buy more when you need them.</p>
+    <p>You only pay for <strong>email sends</strong>, not for contacts or features. Each pack includes a fixed number of sends that stay <strong>valid for 12 months. No subscriptions, no hidden limits,</strong> just buy more when you need them.</p>
   </div>
   
   <div class="faq-item">
@@ -781,13 +823,13 @@ html.dark .footer-cta-subtext {
   
   <div class="faq-item">
     <h3>Can I upgrade from one credit pack to a bigger one?</h3>
-    <p><strong>Absolutely</strong>. When you upgrade, your remaining sends carry over, nothing is lost. You just get a <strong> larger send balance</strong>.</p>
+    <p><strong>Absolutely</strong>. When you upgrade, your remaining sends carry over, nothing is lost. You just get a <strong>larger send balance</strong>.</p>
   </div>
   
- <div class="faq-item">
-  <h3>Can I use my own SMTP?</h3>
-  <p>Yes! BlueFox Email connects directly to <strong>Amazon SES</strong> using <strong>secure STS credentials</strong>. You simply link your SES account, and everything just works.</p>
-  <p style="margin-top: 12px;">Want to bring your own SES and get better email prices? <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a></p>
-</div>
+  <div class="faq-item">
+    <h3>Can I use my own SMTP?</h3>
+    <p>Yes! BlueFox Email connects directly to <strong>Amazon SES</strong> using <strong>secure STS credentials</strong>. You simply link your SES account, and everything just works.</p>
+    <p style="margin-top: 12px;">Want to bring your own SES and get better email prices? <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a></p>
+  </div>
 
 </section>
