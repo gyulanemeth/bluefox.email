@@ -682,6 +682,7 @@ html.dark .footer-cta-subtext {
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta primary">
         Buy 50K sends
       </a>
+      <p class="text-grey-lighten-1 mt-2" style="font-size: 0.65rem; font-weight: 400;line-height: 1.667;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
     </div>
     <div class="pricing-card">
       <h3>Premium</h3>
@@ -698,6 +699,7 @@ html.dark .footer-cta-subtext {
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
         Buy 500K sends
       </a>
+       <p class="text-grey-lighten-1 mt-2" style="font-size: 0.65rem; font-weight: 400;line-height: 1.667;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
     </div>
     <div class="pricing-card contact-sales">
       <h3>Need more sends?</h3>

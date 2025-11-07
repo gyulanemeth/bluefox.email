@@ -10,6 +10,172 @@ import BYOPriceCalculator from './components/BYOPriceCalculator.vue'
 const { isDark } = useData()
 </script>
 
+<section class="pricing-hero">
+  <div class="pricing-badge">
+    <span>Bring Your Own Amazon SES</span>
+  </div>
+  
+  <h1>Connect your SES, pay less</h1>
+  
+  <p class="pricing-hero-subtitle">
+    Use your own Amazon SES account with BlueFox Email's platform. You pay AWS directly for sending ($0.10 per 1,000 emails), plus our platform fee for unlimited features.
+  </p>
+  
+  <div class="pricing-hero-actions">
+    <v-btn
+      rounded="x1"
+      size="large"
+      color="primary"
+      variant="flat"
+      class="no-uppercase"
+      href="https://app.bluefox.email/accounts/create-account"
+      target="_blank"
+    >
+      Get started free
+    </v-btn>
+    <v-btn
+      rounded="x1"
+      size="large"
+      color="buttonBackground"
+      variant="flat"
+      class="no-uppercase"
+      :theme="isDark ? 'dark' : 'light'"
+      href="mailto:hello@bluefox.email"
+    >
+      Contact sales
+    </v-btn>
+  </div>
+  
+  <p class="pricing-hero-note">
+    Every new workspace starts with <strong>6000 free sends</strong> no credit card required.<br><strong>Use your sends anytime within a year.</strong> Buy more whenever you need, they stack automatically.
+  </p>
+</section>
+
+<section class="pricing-cards-section">
+  <div class="pricing-cards-grid">
+    <div class="pricing-card featured">
+      <span class="pricing-badge-popular">Most popular</span>
+      <h3>Essential</h3>
+      <div class="pricing-card-price">
+        <span class="pricing-card-amount">$50</span>
+        <span class="pricing-card-period">/ pack</span>
+      </div>
+      <ul class="pricing-card-features">
+        <li><strong>100,000 sends</strong> included</li>
+        <li><strong>$0.50 per 1,000 sends</strong> + AWS SES Fee</li>
+        <li><strong>Access to full platform!</strong> No Restrictions</li>
+      </ul>
+      <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta primary">
+        Buy 100K sends
+      </a>
+      <p class="text-grey-lighten-1 mt-2" style="font-size: 0.65rem; font-weight: 400;line-height: 1.667;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
+    </div>
+    <div class="pricing-card">
+      <h3>Premium</h3>
+      <div class="pricing-card-price">
+        <span class="pricing-card-amount">$300</span>
+        <span class="pricing-card-period">/ pack</span>
+      </div>
+      <ul class="pricing-card-features">
+        <li><strong>1,000,000 sends</strong> included</li>
+        <li><strong>$0.30 per 1,000 sends</strong> + AWS SES Fee</li>
+        <li><strong>Access to full platform!</strong> No Restrictions</li>
+      </ul>
+      <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
+        Buy 1M sends
+      </a>
+      <p class="text-grey-lighten-1 mt-2" style="font-size: 0.65rem; font-weight: 400;line-height: 1.667;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
+    </div>
+    <div class="pricing-card contact-sales">
+      <h3>Need more sends?</h3>
+      <p class="pricing-card-subtitle">Custom volume & enterprise setup with dedicated onboarding and volume discounts</p>
+      <a href="mailto:hello@bluefox.email" class="pricing-card-cta dark">
+        Talk to sales
+      </a>
+      <p class="pricing-card-note">
+        Want us to handle sending? <a href="/pricing">See our regular pricing</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="value-props">
+  <div class="value-props-grid">
+    <div class="value-prop-card">
+      <div class="value-prop-content">
+        <h4>Your AWS account, your control</h4>
+        <p>Keep your sending reputation and AWS credits. We never touch your AWS credentials.</p>
+      </div>
+    </div>
+    <div class="value-prop-card">
+      <div class="value-prop-content">
+        <h4>All features included</h4>
+        <p>Automations, segmentation, analytics, client workspaces, and deliverability tools in every pack.</p>
+      </div>
+    </div>
+    <div class="value-prop-card">
+      <div class="value-prop-content">
+        <h4>Lower total cost at scale</h4>
+        <p>AWS SES costs just $0.10 per 1,000 emails. Combined with our platform fee, you save at high volumes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="calculator-section">
+  <div class="calculator-header">
+    <div class="calculator-title">
+      <h2>Compare your savings with BlueFox Email</h2>
+      <p class="calculator-subtitle">See total costs including platform fees and AWS SES charges.</p>
+    </div>
+    <div class="calculator-note">Estimates only</div>
+  </div>
+  
+  <div id="calculator">
+    <BYOPriceCalculator />
+  </div>
+</section>
+
+<section class="faq-section">
+  <h2>Pricing FAQs</h2>
+  
+  <div class="faq-item">
+    <h3>Is there a free plan or trial?</h3>
+    <p>Yes. Every new workspace starts with <strong> 6,000 free sends, no credit card required</strong>. You can explore all features, send real campaigns, and build automations before deciding to upgrade.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>How does the pricing work?</h3>
+    <p>You pay <strong>two fees</strong>: our platform fee for sends, and <strong>AWS SES costs</strong> directly to Amazon ($0.10 per 1,000 emails). Each pack includes a fixed number of sends that stay <strong>valid for 12 months. No subscriptions, no hidden limits,</strong> just buy more when you need them.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>What's included in every pack?</h3>
+    <p><strong>Everything.</strong> All features are included in every plan: <strong>automations, segmentation, analytics, templates, and API access.</strong></p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>What's the difference between the packs?</h3>
+    <p>Both packs include the same features. The only difference is <strong>how many emails you can send</strong>, so choose the one that fits your volume.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Do sends (packs) expire?</h3>
+    <p>Yes. Sends stay valid for <strong>12 months</strong> from the date of purchase. You can <strong>top up anytime</strong>, your balance simply adds up, and <strong>older sends are always used first</strong>, so the newest ones last the longest.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Can I upgrade from one credit pack to a bigger one?</h3>
+    <p><strong>Absolutely</strong>. When you upgrade, your remaining sends carry over, nothing is lost. You just get a <strong> larger send balance</strong>.</p>
+  </div>
+  
+  <div class="faq-item">
+    <h3>Do I need to bring my own Amazon SES account?</h3>
+    <p>Not necessarily. You can use <strong>BlueFox Email's managed sending infrastructure</strong> right away, <strong>no setup required</strong>. </p>
+    <p style="margin-top: 12px;"><a href="/pricing">See our regular pricing</a> for our fully managed option.</p>
+  </div>
+</section>
+
 <style>
 /* Force remove link underlines */
 .pricing-hero a,
@@ -620,167 +786,3 @@ html.dark .footer-cta-subtext {
   font-weight: 600;
 }
 </style>
-
-<section class="pricing-hero">
-  <div class="pricing-badge">
-    <span>Bring Your Own Amazon SES</span>
-  </div>
-  
-  <h1>Connect your SES, pay less</h1>
-  
-  <p class="pricing-hero-subtitle">
-    Use your own Amazon SES account with BlueFox Email's platform. You pay AWS directly for sending ($0.10 per 1,000 emails), plus our platform fee for unlimited features.
-  </p>
-  
-  <div class="pricing-hero-actions">
-    <v-btn
-      rounded="x1"
-      size="large"
-      color="primary"
-      variant="flat"
-      class="no-uppercase"
-      href="https://app.bluefox.email/accounts/create-account"
-      target="_blank"
-    >
-      Get started free
-    </v-btn>
-    <v-btn
-      rounded="x1"
-      size="large"
-      color="buttonBackground"
-      variant="flat"
-      class="no-uppercase"
-      :theme="isDark ? 'dark' : 'light'"
-      href="mailto:hello@bluefox.email"
-    >
-      Contact sales
-    </v-btn>
-  </div>
-  
-  <p class="pricing-hero-note">
-    Every new workspace starts with <strong>6000 free sends</strong> no credit card required.<br><strong>Use your sends anytime within a year.</strong> Buy more whenever you need, they stack automatically.
-  </p>
-</section>
-
-<section class="pricing-cards-section">
-  <div class="pricing-cards-grid">
-    <div class="pricing-card featured">
-      <span class="pricing-badge-popular">Most popular</span>
-      <h3>Essential</h3>
-      <div class="pricing-card-price">
-        <span class="pricing-card-amount">$50</span>
-        <span class="pricing-card-period">/ pack</span>
-      </div>
-      <ul class="pricing-card-features">
-        <li><strong>100,000 sends</strong> included</li>
-        <li><strong>$0.50 per 1,000 sends</strong> + AWS SES Fee</li>
-        <li><strong>Access to full platform!</strong> No Restrictions</li>
-      </ul>
-      <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta primary">
-        Buy 100K sends
-      </a>
-    </div>
-    <div class="pricing-card">
-      <h3>Premium</h3>
-      <div class="pricing-card-price">
-        <span class="pricing-card-amount">$300</span>
-        <span class="pricing-card-period">/ pack</span>
-      </div>
-      <ul class="pricing-card-features">
-        <li><strong>1,000,000 sends</strong> included</li>
-        <li><strong>$0.30 per 1,000 sends</strong> + AWS SES Fee</li>
-        <li><strong>Access to full platform!</strong> No Restrictions</li>
-      </ul>
-      <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
-        Buy 1M sends
-      </a>
-    </div>
-    <div class="pricing-card contact-sales">
-      <h3>Need more sends?</h3>
-      <p class="pricing-card-subtitle">Custom volume & enterprise setup with dedicated onboarding and volume discounts</p>
-      <a href="mailto:hello@bluefox.email" class="pricing-card-cta dark">
-        Talk to sales
-      </a>
-      <p class="pricing-card-note">
-        Want us to handle sending? <a href="/pricing">See our regular pricing</a>
-      </p>
-    </div>
-  </div>
-</section>
-
-<section class="value-props">
-  <div class="value-props-grid">
-    <div class="value-prop-card">
-      <div class="value-prop-content">
-        <h4>Your AWS account, your control</h4>
-        <p>Keep your sending reputation and AWS credits. We never touch your AWS credentials.</p>
-      </div>
-    </div>
-    <div class="value-prop-card">
-      <div class="value-prop-content">
-        <h4>All features included</h4>
-        <p>Automations, segmentation, analytics, client workspaces, and deliverability tools in every pack.</p>
-      </div>
-    </div>
-    <div class="value-prop-card">
-      <div class="value-prop-content">
-        <h4>Lower total cost at scale</h4>
-        <p>AWS SES costs just $0.10 per 1,000 emails. Combined with our platform fee, you save at high volumes.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="calculator-section">
-  <div class="calculator-header">
-    <div class="calculator-title">
-      <h2>Compare your savings with BlueFox Email</h2>
-      <p class="calculator-subtitle">See total costs including platform fees and AWS SES charges.</p>
-    </div>
-    <div class="calculator-note">Estimates only</div>
-  </div>
-  
-  <div id="calculator">
-    <BYOPriceCalculator />
-  </div>
-</section>
-
-<section class="faq-section">
-  <h2>Pricing FAQs</h2>
-  
-  <div class="faq-item">
-    <h3>Is there a free plan or trial?</h3>
-    <p>Yes. Every new workspace starts with <strong> 6,000 free sends, no credit card required</strong>. You can explore all features, send real campaigns, and build automations before deciding to upgrade.</p>
-  </div>
-  
-  <div class="faq-item">
-    <h3>How does the pricing work?</h3>
-    <p>You pay <strong>two fees</strong>: our platform fee for sends, and <strong>AWS SES costs</strong> directly to Amazon ($0.10 per 1,000 emails). Each pack includes a fixed number of sends that stay <strong>valid for 12 months. No subscriptions, no hidden limits,</strong> just buy more when you need them.</p>
-  </div>
-  
-  <div class="faq-item">
-    <h3>What's included in every pack?</h3>
-    <p><strong>Everything.</strong> All features are included in every plan: <strong>automations, segmentation, analytics, templates, and API access.</strong></p>
-  </div>
-  
-  <div class="faq-item">
-    <h3>What's the difference between the packs?</h3>
-    <p>Both packs include the same features. The only difference is <strong>how many emails you can send</strong>, so choose the one that fits your volume.</p>
-  </div>
-  
-  <div class="faq-item">
-    <h3>Do sends (packs) expire?</h3>
-    <p>Yes. Sends stay valid for <strong>12 months</strong> from the date of purchase. You can <strong>top up anytime</strong>, your balance simply adds up, and <strong>older sends are always used first</strong>, so the newest ones last the longest.</p>
-  </div>
-  
-  <div class="faq-item">
-    <h3>Can I upgrade from one credit pack to a bigger one?</h3>
-    <p><strong>Absolutely</strong>. When you upgrade, your remaining sends carry over, nothing is lost. You just get a <strong> larger send balance</strong>.</p>
-  </div>
-  
- <div class="faq-item">
-  <h3>Do I need to bring my own Amazon SES account?</h3>
-  <p>Not necessarily. You can use <strong>BlueFox Email's managed sending infrastructure</strong> right away, <strong>no setup required</strong>. </p>
-<p style="margin-top: 12px;"><a href="/pricing">See our regular pricing</a> for our fully managed option.</p>
-</div>
-</section>
