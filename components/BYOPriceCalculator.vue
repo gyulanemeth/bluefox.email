@@ -7,10 +7,16 @@ const currentSliderIndex = ref(3)
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
 
 // === BASE PRICING ===
-// BYO SES platform pricing (used for interpolation)
+// Static packs (for UI display)
+const PACKS = [
+  { name: 'Essential', sends: 100000, price: 50 },
+  { name: 'Premium', sends: 1000000, price: 300 }
+]
+
+// Interpolation points (for backend math)
 const PLATFORM_PRICE_POINTS = [
-  { emails: 100000, price: 50 },   // Essential
-  { emails: 1000000, price: 300 }  // Premium
+  { emails: 100000, price: 50 },
+  { emails: 1000000, price: 300 }
 ]
 
 // AWS SES sending cost (fixed)
@@ -23,34 +29,7 @@ const COMPETITOR_COST_PER_EMAIL = {
   mailersend: 0.00145
 }
 
-// === BLUEFOX PLATFORM COST PER EMAIL (INTERPOLATED, used for backend math only) ===
-const bluefoxPlatformCostPerEmail = computed(() => {
-  const v = emails.value
-  if (v <= 0) return 0
-  if (v < 100000) return 50 / 100000 // Below 100K — linear extrapolation
-  if (v > 1000000) return 0 // Enterprise handled separately
-
-  // Interpolate between 100K ($50) and 1M ($300)
-  const lower = PLATFORM_PRICE_POINTS[0]
-  const upper = PLATFORM_PRICE_POINTS[1]
-  const fraction = (v - lower.emails) / (upper.emails - lower.emails)
-  const estimatedPrice = lower.price + fraction * (upper.price - lower.price)
-  return estimatedPrice / v
-})
-
-// === TOTAL COSTS (actual, used for savings + total display) ===
-const totalBluefoxCostPerEmail = computed(() => bluefoxPlatformCostPerEmail.value + AWS_SES_COST_PER_EMAIL)
-const actualBluefoxCost = computed(() => emails.value * totalBluefoxCostPerEmail.value)
-const awsSESCost = computed(() => emails.value * AWS_SES_COST_PER_EMAIL)
-const platformCost = computed(() => emails.value * bluefoxPlatformCostPerEmail.value)
-
-// === STATIC PACKS (display only) ===
-const PACKS = [
-  { name: 'Essential', sends: 100000, price: 50 },
-  { name: 'Premium', sends: 1000000, price: 300 }
-]
-
-// === RECOMMENDED PACK (STATIC DISPLAY) ===
+// === RECOMMENDED PACK (STATIC) ===
 const recommendedPack = computed(() => {
   const v = emails.value
   if (v <= 0) return null
@@ -66,6 +45,27 @@ const displayedPackCost = computed(() => {
   return pack.price
 })
 
+// === PLATFORM COST PER EMAIL (INTERPOLATED for backend math only) ===
+const bluefoxPlatformCostPerEmail = computed(() => {
+  const v = emails.value
+  if (v <= 0) return 0
+  if (v < 100000) return 50 / 100000 // Below Essential
+  if (v > 1000000) return 0 // Enterprise handled separately
+
+  // Interpolate smoothly between 100K and 1M
+  const lower = PLATFORM_PRICE_POINTS[0]
+  const upper = PLATFORM_PRICE_POINTS[1]
+  const fraction = (v - lower.emails) / (upper.emails - lower.emails)
+  const estimatedPrice = lower.price + fraction * (upper.price - lower.price)
+  return estimatedPrice / v
+})
+
+// === TOTAL COST (INTERPOLATED BACKEND MATH) ===
+const totalBluefoxCostPerEmail = computed(() => bluefoxPlatformCostPerEmail.value + AWS_SES_COST_PER_EMAIL)
+const actualBluefoxCost = computed(() => emails.value * totalBluefoxCostPerEmail.value)
+const awsSESCost = computed(() => emails.value * AWS_SES_COST_PER_EMAIL)
+const platformCost = computed(() => emails.value * bluefoxPlatformCostPerEmail.value)
+
 // === FLAGS ===
 const isEnterpriseVolume = computed(() => emails.value > 1000000)
 const estimatedContacts = computed(() => Math.round(emails.value / 5))
@@ -77,7 +77,7 @@ const competitorCosts = computed(() => ({
   mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend
 }))
 
-// === SAVINGS CALCULATION (uses interpolated total) ===
+// === SAVINGS CALCULATION (uses interpolated math) ===
 const calculateSavings = (competitorCost) => {
   const bluefoxCost = actualBluefoxCost.value
   if (!bluefoxCost || bluefoxCost === 0) return 0
@@ -86,13 +86,11 @@ const calculateSavings = (competitorCost) => {
 
 // === FORMATTERS ===
 const formatNumber = num => (num == null ? '—' : num.toLocaleString('en-US'))
-
 const formatPrice = price => {
   if (price == null) return '—'
   if (price < 0.01) return '< $0.01'
   return `$${price.toFixed(2)}`
 }
-
 const formatAbbreviated = num => {
   if (num >= 1500000) return '1M+'
   if (num === 1000000) return '1M'
@@ -159,7 +157,7 @@ const formatAbbreviated = num => {
             
             <div class="pack-price-section">
               <span class="pack-price-label">Platform pack cost:</span>
-              <span class="pack-price-value">{{ emails === 1000000 ? '$300.00' : formatPrice(platformCost) }}</span>
+              <span class="pack-price-value">{{ formatPrice(displayedPackCost) }}</span>
             </div>
             
             <div class="pack-info">
