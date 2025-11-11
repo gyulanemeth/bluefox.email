@@ -356,14 +356,6 @@ In the code guide dialog, these values are automatically filled in. If you copy 
 
 ![Screenshot of the code guide dialog for deleting a contact.](./contacts-delete-code-guide-dialog.webp)
 
-**Request body:**
-```json
-{
-  "name": "Updated Name",
-  "email": "updated_email@gmail.com"
-}
-```
-
 **cUrl**:
 ```bash
 curl -X DELETE "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/##CONTACT_EMAIL_ADDRESS##" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY"
