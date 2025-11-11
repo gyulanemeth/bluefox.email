@@ -204,7 +204,11 @@ export default defineConfig({
               collapsed: false,
               items: [
                 {
-                  text: "Contacts & Subscriber List Management",
+                  text: "Contacts Management",
+                  link: "/docs/api/contacts-management",
+                },
+                {
+                  text: "Subscriber List Management",
                   link: "/docs/api/subscriber-list-management",
                 },
                 {
