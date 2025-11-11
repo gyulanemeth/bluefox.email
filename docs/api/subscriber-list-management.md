@@ -156,8 +156,8 @@ In the code guide dialog, these values are automatically filled in. If you copy 
 }
 ```
 :::info
-You can pass values for [merge tags](/docs/email-personalization) and [contact custom properties](/docs/projects/settings#contact-properties) inside the `data` field in the request body.
-Just make sure the keys match the merge tags or custom property names defined in your project settings.
+You can pass values for [contact custom properties](/docs/projects/settings#contact-properties) inside the `data` field in the request body.
+Just make sure the keys match the custom property API names defined in your project settings.
 :::
 
 

@@ -192,7 +192,7 @@ Since an API key is very sensitive information, never store it in your frontend 
 To retrieve a specific contact from your project, use the following URL pattern:
 
 ```
-https://api.bluefox.email/v1/contacts/667d6a2efcee0043087f29b5/##CONTACT_EMAIL_ADDRESS##
+https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/##CONTACT_EMAIL_ADDRESS##
 ```
 
 Replace the placeholders with your specific information:
@@ -210,12 +210,12 @@ In the code guide dialog, these values are automatically filled in. If you copy 
 
 **cUrl**:
 ```bash
-curl -X GET "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY"
+curl -X GET "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/##CONTACT_EMAIL_ADDRESS##" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
 **Javascript**:
 ```javascript
-const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email`;
+const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/##CONTACT_EMAIL_ADDRESS##`;
   const response = await fetch(url, {
     method: 'GET',
     headers: {
@@ -229,7 +229,7 @@ const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email`;
 ```php
 $apiKey = 'YOUR_API_KEY'; // TODO: Replace YOUR_APIKEY
 
-$url = "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email";
+$url = "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/##CONTACT_EMAIL_ADDRESS##";
 
 $options = array(
     'http' => array(
@@ -280,19 +280,19 @@ In the code guide dialog, these values are automatically filled in. If you copy 
 ```
 
 :::info
-You can pass values for [merge tags](/docs/email-personalization) and [contact custom properties](/docs/projects/settings#contact-properties) inside the `data` field in the request body.
-Just make sure the keys match the merge tags or custom property names defined in your project settings.
+You can pass values for [contact custom properties](/docs/projects/settings#contact-properties) inside the `data` field in the request body.
+Just make sure the keys match the custom property API names defined in your project settings.
 :::
 
 **cUrl**:
 ```bash
-curl -X PATCH "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY" -d '{"name": "updatedName"}'
+curl -X PATCH "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/##CONTACT_EMAIL_ADDRESS##" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY" -d '{"name": "updatedName"}'
 ```
 
 **Javascript**:
 ```javascript
 //TODO replace subscriber email
-  const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email`;
+  const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/##CONTACT_EMAIL_ADDRESS##`;
   const response = await fetch(url, {
     method: 'PATCH',
     headers: {
@@ -310,7 +310,7 @@ curl -X PATCH "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email"
 // TODO: Replace YOUR_APIKEY and subscriber email
 $apiKey = 'YOUR_API_KEY';
 
-$url = "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email";
+$url = "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/##CONTACT_EMAIL_ADDRESS##";
 
 $data = array(
     'name' => 'updatedName'
@@ -366,12 +366,12 @@ In the code guide dialog, these values are automatically filled in. If you copy 
 
 **cUrl**:
 ```bash
-curl -X DELETE "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY"
+curl -X DELETE "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/##CONTACT_EMAIL_ADDRESS##" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
 **Javascript**:
 ```javascript
-const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email`;
+const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/##CONTACT_EMAIL_ADDRESS##`;
   const response = await fetch(url, {
     method: 'DELETE',
     headers: {
@@ -385,7 +385,7 @@ const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email`;
 ```php
 $apiKey = 'YOUR_API_KEY'; // TODO: Replace YOUR_APIKEY
 
-$url = "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email";
+$url = "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/##CONTACT_EMAIL_ADDRESS##";
 
 $options = array(
     'http' => array(
