@@ -75,12 +75,12 @@ You can pass values for [contact custom properties](/docs/projects/settings#cont
 
 **cUrl**:
 ```bash
-curl -X POST "https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY" -d '{"name": "userName", "email": "example@gmail.com"}'
+curl -X POST "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY" -d '{"name": "userName", "email": "example@gmail.com"}'
 ```
 
 **Javascript**:
 ```javascript
-const url = `https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##`;
+const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##`;
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -99,7 +99,7 @@ const url = `https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##`;
 ```php
 $apiKey = 'YOUR_API_KEY'; // TODO: Replace YOUR_APIKEY
 
-$url = "https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##";
+$url = "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##";
 
 $data = array(
   'email' => 'example@gmail.com',
@@ -148,12 +148,12 @@ In the code guide dialog, these values are automatically filled in. If you copy 
 
 **cUrl**:
 ```bash
-curl -X GET "https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY"
+curl -X GET "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
 **Javascript**:
 ```javascript
-const url = `https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##`;
+const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##`;
   const response = await fetch(url, {
     method: 'GET',
     headers: {
@@ -167,7 +167,7 @@ const url = `https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##`;
 ```php
 $apiKey = 'YOUR_API_KEY'; // TODO: Replace YOUR_APIKEY
 
-$url = "https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##";
+$url = "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##";
 
 $options = array(
     'http' => array(
@@ -210,12 +210,12 @@ In the code guide dialog, these values are automatically filled in. If you copy 
 
 **cUrl**:
 ```bash
-curl -X GET "https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##/:email" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY"
+curl -X GET "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
 **Javascript**:
 ```javascript
-const url = `https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##/:email`;
+const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email`;
   const response = await fetch(url, {
     method: 'GET',
     headers: {
@@ -229,7 +229,7 @@ const url = `https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##/:
 ```php
 $apiKey = 'YOUR_API_KEY'; // TODO: Replace YOUR_APIKEY
 
-$url = "https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##/:email";
+$url = "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email";
 
 $options = array(
     'http' => array(
@@ -286,13 +286,13 @@ Just make sure the keys match the merge tags or custom property names defined in
 
 **cUrl**:
 ```bash
-curl -X PATCH "https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##/:email" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY" -d '{"name": "updatedName"}'
+curl -X PATCH "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY" -d '{"name": "updatedName"}'
 ```
 
 **Javascript**:
 ```javascript
 //TODO replace subscriber email
-  const url = `https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##/:email`;
+  const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email`;
   const response = await fetch(url, {
     method: 'PATCH',
     headers: {
@@ -310,7 +310,7 @@ curl -X PATCH "https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##
 // TODO: Replace YOUR_APIKEY and subscriber email
 $apiKey = 'YOUR_API_KEY';
 
-$url = "https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##/:email";
+$url = "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email";
 
 $data = array(
     'name' => 'updatedName'
@@ -366,12 +366,12 @@ In the code guide dialog, these values are automatically filled in. If you copy 
 
 **cUrl**:
 ```bash
-curl -X DELETE "https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##/:email" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY"
+curl -X DELETE "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email" -H "Content-Type: application/json" -H "Authorization: Bearer YOUR_API_KEY"
 ```
 
 **Javascript**:
 ```javascript
-const url = `https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##/:email`;
+const url = `https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email`;
   const response = await fetch(url, {
     method: 'DELETE',
     headers: {
@@ -385,7 +385,7 @@ const url = `https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##/:
 ```php
 $apiKey = 'YOUR_API_KEY'; // TODO: Replace YOUR_APIKEY
 
-$url = "https://api.bluefox.email/v1/contacts/##YOUR_SUBSCRIBER_LIST_ID##/:email";
+$url = "https://api.bluefox.email/v1/contacts/##YOUR_PROJECT_ID##/:email";
 
 $options = array(
     'http' => array(
