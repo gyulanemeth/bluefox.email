@@ -305,7 +305,6 @@ BlueFox Email uses a straightforward credit-based system that charges only for a
 - Free tier: 3,000 emails/month for the first year (with subtle branding)
 - Start-up pack: 100,000 credits for $50
 - Scale-up pack: 1,000,000 credits for $300
-- Grown-up pack: 10,000,000 credits for $2,500
 
 Pricing includes unlimited contacts with consistent feature access across all plans. AWS SES fees (~$0.10 per 1,000 emails) are charged separately by Amazon, providing complete transparency in delivery costs.
 
@@ -319,22 +318,24 @@ Pricing includes unlimited contacts with consistent feature access across all pl
 
 Assumes 70% marketing and 30% transactional emails for each volume.
 
-| Monthly Volume        | SendGrid Total Cost | BlueFox Email Credit Cost | AWS SES Fee | BlueFox Email Total | Savings |
-|-----------------------|---------------------:|---------------------------:|------------:|--------------------:|--------:|
-| 2,000 emails          | $34.95              | $1.00                      | $0.20       | $1.20               | 97%     |
-| 5,000 emails          | $34.95              | $2.50                      | $0.50       | $3.00               | 91%     |
-| 10,000 emails         | $79.95              | $5.00                      | $1.00       | $6.00               | 92%     |
-| 50,000 emails         | $319.95             | $25.00                     | $5.00       | $30.00              | 91%     |
-| 100,000 emails        | $469.95             | $50.00                     | $10.00      | $60.00              | 87%     |
-| 500,000 emails        | $989.95             | $150.00                    | $50.00      | $200.00             | 80%     |
-| 1,000,000 emails      | $1,149.00           | $300.00                    | $100.00     | $400.00             | 65%     |
+| Monthly Volume        | SendGrid Premier Cost* | BlueFox Email Total** | Savings | BlueFox Email (BYO) Total*** | Savings |
+|-----------------------|-----------------------:|----------------------:|--------:|-----------------------------:|--------:|
+| 2,000 emails          | $21.20                 | $2.00                 | 91%     | $1.20                        | 94%     |
+| 5,000 emails          | $53.00                 | $5.00                 | 91%     | $3.00                        | 94%     |
+| 10,000 emails         | $106.00                | $10.00                | 91%     | $6.00                        | 94%     |
+| 50,000 emails         | $530.00                | $50.00                | 91%     | $30.00                       | 94%     |
+| 100,000 emails        | $1,060.00              | $100.00               | 91%     | $60.00                       | 94%     |
+| 500,000 emails        | $5,300.00              | $300.00               | 94%     | $200.00                      | 96%     |
+| 1,000,000 emails      | $10,600.00             | $600.00               | 94%     | $400.00                      | 96%     |
 
->*SendGrid totals combine the appropriate Marketing Campaigns tier + Email API plan per 70/30 split.*
+_*SendGrid Premier pricing at $0.0106 per email (includes Advanced Marketing $60/month + Premier API tier ~$1,000/month). Premier tier includes all features: dedicated IPs, advanced automation, A/B testing, priority support, SLA guarantees._
 
->*BlueFox Email totals include credit pack costs + AWS SES fees.*
+_**BlueFox Email Total: Credit pack pricing - Start-up: $50 for 50k emails, Scale-up: $300 for 500k emails. No contact limits, all features included at every tier._
 
-:::tip **All Features on Every Plan**
-Every BlueFox Email plan, including the free tier, includes design systems, automation, and personalization. No feature restrictions based on plan level.
+_***BlueFox Email (BYO) includes platform credit pack costs plus AWS SES fees at $0.0001 per email. Provides maximum infrastructure control while maintaining massive cost savings._
+
+:::tip **All Features on Every Plan**  
+Every BlueFox Email plan, including the free tier, includes design systems, automation and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
 :::
 
 ## Choose SendGrid If:
