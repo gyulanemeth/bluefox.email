@@ -305,7 +305,6 @@ BlueFox Email uses a straightforward credit-based system that charges only for a
 - Free tier: 3,000 emails/month for the first year (with subtle branding)
 - Start-up pack: 100,000 credits for $50
 - Scale-up pack: 1,000,000 credits for $300
-- Grown-up pack: 10,000,000 credits for $2,500
 
 Pricing includes unlimited contacts with consistent feature access across all plans. AWS SES fees (~$0.10 per 1,000 emails) are charged separately by Amazon, providing complete transparency in delivery costs.
 
@@ -331,7 +330,7 @@ Assumes 70% marketing and 30% transactional emails for each volume.
 
 _*SendGrid Premier pricing at $0.0106 per email (includes Advanced Marketing $60/month + Premier API tier ~$1,000/month). Premier tier includes all features: dedicated IPs, advanced automation, A/B testing, priority support, SLA guarantees._
 
-_**BlueFox Email Total: Credit pack pricing - Start-up: $50 for 50k emails, Scale-up: $300 for 500k emails, Grown-up: $2,500 for 5M emails. No contact limits, all features included at every tier._
+_**BlueFox Email Total: Credit pack pricing - Start-up: $50 for 50k emails, Scale-up: $300 for 500k emails. No contact limits, all features included at every tier._
 
 _***BlueFox Email (BYO) includes platform credit pack costs plus AWS SES fees at $0.0001 per email. Provides maximum infrastructure control while maintaining massive cost savings._
 

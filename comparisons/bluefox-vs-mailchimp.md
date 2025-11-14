@@ -284,8 +284,7 @@ BlueFox Email uses a credit-based system that charges only for actual email send
 
 - Free tier: 3,000 emails/month (with subtle branding)  
 - Start-up pack: 100,000 credits for $50  
-- Scale-up pack: 1,000,000 credits for $300  
-- Grown-up pack: 10,000,000 credits for $2,500  
+- Scale-up pack: 1,000,000 credits for $300
 
 The pricing includes unlimited contacts with consistent feature access across all plans. AWS SES fees (~$0.10 per 1,000 emails) are charged separately by Amazon, providing transparency in delivery costs. This model eliminates the surprise charges and contact count frustrations that plague Mailchimp users.
 
@@ -303,7 +302,7 @@ The pricing includes unlimited contacts with consistent feature access across al
 
 _*Mailchimp Premium pricing at $0.0037 per email (includes Premium plan $350/month for 10k contacts + Transactional add-on $20/month). Based on premium tier with all features (automation, A/B testing, advanced segmentation)._
 
-_**BlueFox Email Total: Credit pack pricing - Start-up: $50 for 50k emails, Scale-up: $300 for 500k emails, Grown-up: $2,500 for 5M emails. No contact limits, all features included at every tier._
+_**BlueFox Email Total: Credit pack pricing - Start-up: $50 for 50k emails, Scale-up: $300 for 500k emails. No contact limits, all features included at every tier._
 
 _***BlueFox Email (BYO) includes platform credit pack costs plus AWS SES fees at $0.0001 per email._ 
 

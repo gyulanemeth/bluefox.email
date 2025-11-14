@@ -228,7 +228,6 @@ BlueFox Email uses a straightforward, transparent credit-based system where you 
 - **Free tier**: 3,000 free credits/month for the first year (with subtle branding).
 - **Start-up pack**: 100,000 credits for $50
 - **Scale-up pack**: 1,000,000 credits for $300
-- **Grown-up pack**: 10,000,000 credits for $2,500
 
 This model includes unlimited contacts and access to all features on every plan. For users utilizing the optional bring-your-own-AWS-SES mode, AWS SES fees (approximately $0.10 per 1,000 emails) are charged separately by Amazon, providing complete cost transparency. This eliminates surprise charges and ensures you never pay for storing inactive contacts.
 
@@ -250,7 +249,7 @@ This model includes unlimited contacts and access to all features on every plan.
 
 _*MailerSend Professional Plan pricing at $0.00145 per email (includes $88/month base for 50k emails + $0.80 per additional 1,000 emails with annual billing). Professional Plan includes all core features (unlimited team seats, A/B testing, full analytics, 1,000 domains, custom headers)._
 
-_**BlueFox Email Total: Credit pack pricing - Start-up: $50 for 50k emails, Scale-up: $300 for 500k emails, Grown-up: $2,500 for 5M emails. No contact limits, all features included at every tier. No additional infrastructure costs._
+_**BlueFox Email Total: Credit pack pricing - Start-up: $50 for 50k emails, Scale-up: $300 for 500k emails. No contact limits, all features included at every tier. No additional infrastructure costs._
 
 _***BlueFox Email (BYO) includes platform credit pack costs plus AWS SES fees at $0.0001 per email. Provides maximum infrastructure control while maintaining significant cost savings._
 
