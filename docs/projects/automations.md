@@ -174,8 +174,8 @@ Under the email node, you’ll also see delivery stats:
 - **Sent**
 - **Opened**
 - **Clicked**
-- **Bounced**
-- **Complaints**
+- **[Bounced](/email-sending-concepts/bounces)**
+- **[Complaints](/email-sending-concepts/complaints)**
 
 ![Automation node send card Icon](./project-automation-node-send-card-stats.webp)
 

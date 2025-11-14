@@ -262,8 +262,8 @@ export default defineConfig({
               ],
             },
             {
-              text: "Pricing/Credits",
-              link: "/docs/credits",
+              text: "Pricing",
+              link: "/docs/pricing",
             },
           ],
         },
