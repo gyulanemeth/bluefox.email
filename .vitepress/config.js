@@ -272,7 +272,7 @@ export default defineConfig({
           ],
         },
         {
-          text: "Best Practices",
+          text: "Best Practices for SAAS",
           link: "/email-best-practices-for-saas/",
           collapsed: false,
           items: [
