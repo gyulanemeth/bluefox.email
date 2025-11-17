@@ -1,16 +1,16 @@
 ---
-title: Projects | bluefox.email documentation
-description: Discover how bluefox.email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
+title: Projects | BlueFox Email documentation
+description: Discover how BlueFox Email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
 head:
   - - meta
     - name: description
       content: Discover how bluefox.email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
   - - meta
     - property: og:title
-      content: Projects | bluefox.email documentation
+      content: Projects | BlueFox Email documentation
   - - meta
     - property: og:description
-      content: Discover how bluefox.email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
+      content: Discover how BlueFox Email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,10 +25,10 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Projects | bluefox.email documentation
+      content: Projects | BlueFox Email documentation
   - - meta
     - name: twitter:description
-      content: Discover how bluefox.email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
+      content: Discover how BlueFox Email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,7 +36,7 @@ head:
 
 # Projects
 
-In bluefox.email, you can create projects for your SaaS. Projects can represent different environments like development, staging, and production. This way, you can manage emails for each environment separately.
+In BlueFox Email, you can create projects for your Marketing agency. Projects can represent different environments like development, staging, and production. This way, you can manage emails for each environment separately.
 
 For each project, you need to set up a sending email address and your AWS credentials. This allows bluefox.email to send emails using AWS SES.
 

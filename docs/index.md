@@ -1,16 +1,16 @@
 ---
 title: Welcome to the bluefox.email documentation
-description: Learn how to manage transactional emails, triggered emails, and marketing campaigns for your SaaS application using AWS SES and bluefox.email's advanced tools.
+description: Learn how to manage marketing campaings, transactional emails amd triggered emails for your marketing agency using BlueFox Email's advanced tools.
 head:
   - - meta
     - name: description
-      content: Learn how to manage transactional emails, triggered emails, and marketing campaigns for your SaaS application using AWS SES and bluefox.email's advanced tools.
+      content: Learn how to manage marketing campaings, transactional emails amd triggered emails for your marketing agency using BlueFox Email's advanced tools.
   - - meta
     - property: og:title
       content: Welcome to the bluefox.email documentation
   - - meta
     - property: og:description
-      content: Learn how to manage transactional emails, triggered emails, and marketing campaigns for your SaaS application using AWS SES and bluefox.email's advanced tools.
+      content: Learn how to manage marketing campaings, transactional emails amd triggered emails for your marketing agency using BlueFox Email's advanced tools.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: Welcome to the bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Learn how to manage transactional emails, triggered emails, and marketing campaigns for your SaaS application using AWS SES and bluefox.email's advanced tools.
+      content: Learn how to manage marketing campaings, transactional emails amd triggered emails for your marketing agency using BlueFox Email's advanced tools.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -37,7 +37,7 @@ head:
 
 # Welcome to the bluefox.email documentation
 
-Welcome to the official documentation for **bluefox.email**! This guide is your go-to resource for understanding and using bluefox.email to manage all types of email communications for your SaaS application, from transactional emails, through automations via triggered emails to marketing campaigns.
+Welcome to the official documentation for **bluefox.email**! This guide is your go-to resource for understanding and using bluefox.email to manage all types of email communications for your Marketing agency, from transactional emails, through automations via triggered emails to marketing campaigns.
 
 ## What is Bluefox.email and How it Works
 
@@ -45,7 +45,7 @@ Bluefox.email makes it easy to handle all your email communications, from transa
 
 ## Projects
 
-In bluefox.email, [projects](./projects/) enable you to manage transactional emails, triggered emails, and campaigns (such as newsletters and promotions) of your SaaS application. Each project requires setting up a sending email address and AWS credentials to send emails via AWS SES. Projects are linked to a design system and include features like a subscription preferences page and subscriber lists, helping you organize and customize your email strategies effectively.
+In BlueFox Email, [projects](./projects/) enable you to manage transactional emails, triggered emails, and campaigns (such as newsletters and promotions) of your Marketing agency. Each project requires setting up a sending email address and AWS credentials to send emails via AWS SES. Projects are linked to a design system and include features like a subscription preferences page and subscriber lists, helping you organize and customize your email strategies effectively.
 
 ## Transactional vs. Triggered vs. Campaign Emails
 
