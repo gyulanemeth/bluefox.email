@@ -1,19 +1,19 @@
 ---
 layout: home
 
-title: Design Better Emails. Send Smarter. Pay Less.
-description: Send reliable, well-designed emails at a fair price. Automate flows and improve inbox placement with BlueFox Email.
+title: Design Breathtaking Brand Emails. Send Smarter. Pay Lean.
+description: Email campaigns that look perfect, land in the inbox, and scale with your agency. Automate flows, unify design, and only pay per send.
 
 head:
   - - meta
     - name: description
-      content: "Send reliable, well-designed emails at a fair price. Automate flows and improve inbox placement with BlueFox Email."
+      content: "Email campaigns that look perfect, land in the inbox, and scale with your agency. Automate flows, unify design, and only pay per send."
   - - meta
     - property: og:title
-      content: Design Better Emails. Send Smarter. Pay Less. | BlueFox Email
+      content: Design Breathtaking Brand Emails. Send Smarter. Pay Lean. | BlueFox Email
   - - meta
     - property: og:description
-      content: "Send reliable, well-designed emails at a fair price. Automate flows and improve inbox placement with BlueFox Email."
+      content: "Email campaigns that look perfect, land in the inbox, and scale with your agency. Automate flows, unify design, and only pay per send."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share.png
@@ -28,16 +28,15 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Design Better Emails. Send Smarter. Pay Less. | BlueFox Email
+      content: Design Breathtaking Brand Emails. Send Smarter. Pay Lean. | BlueFox Email
   - - meta
     - name: twitter:description
-      content: "Send reliable, well-designed emails at a fair price. Automate flows and improve inbox placement with BlueFox Email."
+      content: "Email campaigns that look perfect, land in the inbox, and scale with your agency. Automate flows, unify design, and only pay per send."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share.png
 ---
 <script setup>
-
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
@@ -53,7 +52,7 @@ const selectedEmailType = ref('0');
 let intervalId
 
 onMounted(() => {
-  setInterval(() => {
+  intervalId = setInterval(() => {
     let actSelVal = parseInt(selectedEmailType.value)
     actSelVal += 1
     actSelVal %= 4
@@ -64,8 +63,8 @@ onMounted(() => {
 onBeforeUnmount(() => {
   clearInterval(intervalId);
 })
-
 </script>
+
 <style scoped>
   a {
     text-decoration: none !important;
@@ -105,15 +104,9 @@ onBeforeUnmount(() => {
     font-size: 22px;
   }
 
-
   .VPHome {
     margin-bottom: 0 !important;
   }
-
-  
-
-  
-
 
   .vp-doc .actions {
     display: flex;
@@ -159,7 +152,6 @@ onBeforeUnmount(() => {
     background-color: var(--vp-button-alt-hover-bg);
   }
 
-
   .VPFeatures .title {
     font-size: 20px !important;
   }
@@ -167,14 +159,10 @@ onBeforeUnmount(() => {
     font-size: 16px !important;
   }
 
-
   .VPImage {
     max-width: 100% !important;
     max-height: 100% !important;
   }
-
-  
-  
 
   #email-editor video {
     border: 1px solid #eeeeee;
@@ -192,7 +180,7 @@ onBeforeUnmount(() => {
 
   .image-container {
     position: relative;
-    width: 600px; /* Adjust as necessary */
+    width: 600px;
     max-width: 80vw;
     height: 800px;
     max-height: 120vw;
@@ -212,19 +200,16 @@ onBeforeUnmount(() => {
     transition: all 0.5s ease;
   }
 
-  /* Default state: show Image 1 */
   #image1:checked ~ .image-container .img1 {
     opacity: 1;
     transform: translateX(-100%);
   }
 
-  /* Show Image 2 when radio button 2 is checked */
   #image2:checked ~ .image-container .img2 {
     opacity: 1;
     transform: translateX(-100%);
   }
 
-  /* Show Image 3 when radio button 3 is checked */
   #image3:checked ~ .image-container .img3 {
     opacity: 1;
     transform: translateX(-100%);
@@ -235,7 +220,6 @@ onBeforeUnmount(() => {
     transform: translateX(-100%);
   }
 
-  /* Animation for slide-in effect */
   .image-container img {
     transition: opacity 0.5s ease, transform 0.5s ease;
   }
@@ -248,10 +232,9 @@ onBeforeUnmount(() => {
     width: 0;
     height: 3px;
     background: linear-gradient(90deg, hsl(196.99, 86.56%, 50.39%) 10%, hsl(247.72, 53.44%, 37.06%) 90%);
-    transition: width 0.3s ease; /* Add animation to the underline */
+    transition: width 0.3s ease;
   }
 
-  /* When the corresponding radio button is checked, extend the underline */
   #image1:checked ~ div #image1-label::after {
     width: 100%;
   }
@@ -286,8 +269,6 @@ onBeforeUnmount(() => {
     padding-top: 0 !important;
   }
 
-
-
   @media (max-width: 599px) {
     .VPHero .main {
       padding: 0;
@@ -302,7 +283,7 @@ onBeforeUnmount(() => {
 
     .value-prop h2 {
       font-size: 20px !important;
-      line-height: 20 px !important;
+      line-height: 20px !important;
     }
 
     .section-index {
@@ -326,7 +307,7 @@ onBeforeUnmount(() => {
 
 <section class="section-index">
   <h2 class="sectionTitle text-center mt-4 mb-6">
-    Feedback from our inbox
+    What agencies are saying
   </h2>
   <TestimonialDiv
     :is-dark="isDark"
@@ -340,38 +321,38 @@ onBeforeUnmount(() => {
 <section id="marketers" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
-      <span class="text-overline">For marketers</span>
+      <span class="text-overline">For marketing agencies</span>
     </v-chip>
   </div>
-    <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-      Effortless content editing
-    </h2>
-    <div class="d-flex justify-center">
-      <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-        Quickly refine your email content with our intuitive, no-code editor.
-      </div>
-    </div>
-    <v-card class="d-flex justify-center mt-4" variant="elevated">
-      <video
-        width="100%"
-        :autoplay="lgAndUp || md"
-        :loop="lgAndUp || md"
-        :controls="sm || xs"
-        muted
-      >
-        <source src="/assets/bluefox-email-content-editing.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-    </v-card>
-  </section>
-
-<section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Sophisticated email automations
+    Effortless content creation for every client
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Create seamless, considerate email workflows that engage the right people at the right time.
+      No design team? No problem. Our drag-and-drop editor gives your creatives pixel-perfect layouts that render across Gmail, Outlook and mobile. Spend less time on code and more on strategy.
+    </div>
+  </div>
+  <v-card class="d-flex justify-center mt-4" variant="elevated">
+    <video
+      width="100%"
+      :autoplay="lgAndUp || md"
+      :loop="lgAndUp || md"
+      :controls="sm || xs"
+      muted
+    >
+      <source src="/assets/bluefox-email-content-editing.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </v-card>
+</section>
+
+<section class="value-prop">
+  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+    Automate pipelines that keep clients engaged
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Create drip sequences, triggered emails, & re-engagement funnels with just a few clicks. Offer your clients data-driven nurture flows without a developer’s hand.
     </div>
   </div>
 
@@ -385,15 +366,13 @@ onBeforeUnmount(() => {
   />
 </section>
 
-
-  
 <section class="section-index value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Easy audience management, from segmentation to complaints
+    Manage client lists, guard brand reputation, and stay compliant
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Manage and segment your audience with advanced filtering and list management features. Take advantage of features like double opt-in and easy subscription preferences.
+      Double-opt-in, unsubscribe-one-click, opt-out flows, all built-in. Give your clients peace of mind, and proof-prove that you care about inbox health.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -403,11 +382,11 @@ onBeforeUnmount(() => {
 
 <section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Advanced analytics made easy
+    Turn email data into client KPIs
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      You get intuitive, detailed analytics that highlight what really matters, helping you optimize your email performance effortlessly.
+      Open, click, conversion, bounce → all in one dashboard. Export reports for your brief-in-brief calls. Show clients why their investment is paying off.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -418,15 +397,15 @@ onBeforeUnmount(() => {
 <section id="designers" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
-      <span class="text-overline">For designers</span>
+      <span class="text-overline">For creative teams</span>
     </v-chip>
   </div>
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Create pixel-perfect designs without coding
+    Create pixel-perfect brand emails in minutes
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Build flawless emails with the most powerful no-code editor. If it’s possible in email, you can create it here!
+      Leverage brand-ready components, real-time preview, and a shared design system that editors and developers share. No code, no QA loop.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -445,12 +424,12 @@ onBeforeUnmount(() => {
 </section>
 
 <section id="design-system" class="value-prop">
-<h2 class="sectionTitle text-center mb-3 pt-0">
-    Maintain coherent design for all of your emails
+  <h2 class="sectionTitle text-center mb-3 pt-0">
+    A unified design system that every client can adopt
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Keep every email on-brand with a unified design system: set global styles, save reusable blocks, and ensure consistency across transactional, product, and marketing emails.
+      Your agency can ship consistent email templates to multiple clients. One brand-palette = one source of truth, so updates propagate instantly.
     </div>
   </div>
 
@@ -462,7 +441,7 @@ onBeforeUnmount(() => {
 
 <section id="no-rendering-issues" class="value-prop">
   <h2 class="sectionTitle text-center mb-3">
-    No more email rendering issues
+    Mapped inboxes, identical look & feel
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
@@ -483,15 +462,15 @@ onBeforeUnmount(() => {
 <section id="developers" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
-      <span class="text-overline">For developers</span>
+      <span class="text-overline">For agency tech teams</span>
     </v-chip>
   </div>
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Easy integration
+    API integration that scales with your agency
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Simple, technology-agnostic API
+      Programmatic access, webhooks, SMTP relay, all you need to send client emails from your own stack without giving up deliverability.
     </div>
   </div>
 
@@ -500,60 +479,55 @@ onBeforeUnmount(() => {
     :is-dark="isDark"
     :xs="xs"
   >
-  <template #tab-1>
-
-  ```json
-  {
-    "name": "Jon Doe",
-    "email": "jon@doe.com"
-  }
-  ```
-  </template>
-  <template #tab-2>
-
-  ```json
-  {
-    "status": "unsubscribed"
-  }
-  ```
-  </template>
-  <template #tab-3>
-
-  ```json
-  {
-    "email": "jon@doe.com",
-    "transactionalId": "##EMAIL_ID##",
-    "data": {
-      "example": "example merge tag value"
-    },
-    "attachments": [ // optional
+    <template #tab-1>
+      ```json
       {
-        "fileName": "example.txt",
-        "content": "Ymx1ZWZveC5lbWFpbCBhdHRhY2htZW50IGV4YW1wbGUh"
+        "name": "Jon Doe",
+        "email": "jon@doe.com"
       }
-    ]
-  }
-  ```
-  </template>
-  <template #tab-4>
-
-  ```json
-  {
-    "emails": ["jon@doe.com"],
-    "triggeredId": "##EMAIL_ID##",
-    "data": {
-      "example": "example merge tag value"
-    },
-    "attachments": [ // optional
+      ```
+    </template>
+    <template #tab-2>
+      ```json
       {
-        "fileName": "example.txt",
-        "content": "Ymx1ZWZveC5lbWFpbCBhdHRhY2htZW50IGV4YW1wbGUh"
+        "status": "unsubscribed"
       }
-    ]
-  }
-  ```
-  </template>
-
+      ```
+    </template>
+    <template #tab-3>
+      ```json
+      {
+        "email": "jon@doe.com",
+        "transactionalId": "##EMAIL_ID##",
+        "data": {
+          "example": "example merge tag value"
+        },
+        "attachments": [
+          {
+            "fileName": "example.txt",
+            "content": "Ymx1ZWZveC5lbWFpbCBhdHRhY2htZW50IGV4YW1wbGUh"
+          }
+        ]
+      }
+      ```
+    </template>
+    <template #tab-4>
+      ```json
+      {
+        "emails": ["jon@doe.com"],
+        "triggeredId": "##EMAIL_ID##",
+        "data": {
+          "example": "example merge tag value"
+        },
+        "attachments": [
+          {
+            "fileName": "example.txt",
+            "content": "Ymx1ZWZveC5lbWFpbCBhdHRhY2htZW50IGV4YW1wbGUh"
+          }
+        ]
+      }
+      ```
+    </template>
   </Integration>
 </section>
 
@@ -563,11 +537,11 @@ onBeforeUnmount(() => {
 
 <section id="second-cta">
   <h2 class="sectionTitle text-center mb-3">
-    Send consistent-looking & beautiful emails today!
+    Send amazing emails for your clients today
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Email communication is part of your product! Don't let it ruin your users' experience with your brand!
+      Your agency’s clients deserve great design, great ROI, and great inbox placement. Try BlueFox for free.
     </div>
   </div>
 
@@ -580,11 +554,7 @@ onBeforeUnmount(() => {
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
-      Let's Land Some Emails!
+      Create a free agency workspace
     </v-btn>
   </v-row>
 </section>
-
-
-
-
