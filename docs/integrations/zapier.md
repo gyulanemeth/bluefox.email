@@ -80,11 +80,23 @@ To authenticate your BlueFox Email account in Zapier, you will need your BlueFox
 
 2. Here select connect a new account.
 
-3. A pop-up will appear asking for your BlueFox Email API key and project ID. You can find your API key in your [BlueFox Email project settings](https://bluefox.email/dashboard/settings) and your project ID in the [BlueFox Email Contacts](https://bluefox.email/contacts).
+3. A pop-up window will appear asking for your BlueFox Email API key and project ID. You can find your API key in your [BlueFox Email project settings](https://bluefox.email/dashboard/settings) and your project ID in the [BlueFox Email Contacts](https://bluefox.email/contacts).
 
 ![screenshot of bluefox email api key and project id in zapier](./zapier-api-key-project-id.webp)
 
-4. Enter the API key and project ID, then click "Yes, Continue" to authorize Zapier to access your BlueFox Email account.
+4. In your BlueFox Email Project Settings, navigate to the "API Keys" section. If you don't have an API key yet, create a new one by clicking on "Create API Key". Copy the generated API key.
+
+![screenshot of bluefox email api key in project settings](./zapier-api-key-in-project-settings.webp)
+
+5. Next navigate to contacts section in the BlueFox Email. Here you will find your project ID by clicking on the code guide icon at top right corner.
+
+![screenshot of bluefox email project id in contacts](./zapier-project-id-in-contacts.webp)
+
+6. Then from the code guide pop-up window, copy the project ID.
+
+![screenshot of bluefox email project id in code guide](./zapier-project-id-in-code-guide.webp)
+
+7. Enter the API key and project ID, then click "Yes, Continue" to authorize Zapier to access your BlueFox Email account.
 
 ## Available Triggers and Actions
 
@@ -137,6 +149,9 @@ In these actions, you will be asked to provide contact details like email and na
 
 In these actions, you will be asked to provide the contact email and select the subscription list.
 ![screenshot of bluefox email subscribe contact to list action in zapier](./zapier-subscribe-contact-to-list-action.webp)
+
+After setting up the action, click "Continue" to test it. If the test is successful, you can turn on your Zap to start automating your workflows.
+
 
 ### Additional Resources
 
