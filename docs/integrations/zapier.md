@@ -36,9 +36,7 @@ head:
 
 # Zapier Integration with BlueFox Email
 
-The **Zapier integration** allows you to automate your email workflows by connecting BlueFox Email with thousands of apps available on the Zapier platform. This integration enables you to streamline processes such as managing contacts, sending emails, and handling subscriptions without any coding.
-
-Before you begin, ensure you have a Zapier account and access to your BlueFox Email API key from your [BlueFox Email project settings](https://bluefox.email/dashboard/settings) and project ID from the [BlueFox Email dashboard](https://bluefox.email/dashboard).
+The **Zapier integration** allows you to automate your email workflows by connecting BlueFox Email with thousands of apps available on the Zapier platform. This integration enables you to streamline processes such as managing contacts, sending emails, and handling subscriptions without any coding knowledge just create your Zapier accounts and start automating.
 
 :::info Quick Note
 For Zapier related documents and support, please refer to the official Zapier documentation and support channels. This document focuses on the integration aspects specific to BlueFox Email.
@@ -47,28 +45,6 @@ For Zapier related documents and support, please refer to the official Zapier do
 ## A short overview of Zapier
 
 Zapier is a powerful automation platform that connects your favorite apps and services to automate repetitive tasks. With Zapier, you can create "Zaps" that consist of a trigger and one or more actions. When the trigger event occurs in one app, Zapier automatically performs the specified actions in other connected apps. This allows you to streamline workflows, save time, and reduce manual effort across various applications.
-
-## Setting up the BlueFox Email Zapier Integration
-
-To set up the BlueFox Email integration with Zapier, follow these steps:
-
-1. **Log in to Zapier**: Go to [Zapier](https://zapier.com/) and log in to your account. If you don't have an account, sign up for a free one.
-
-2. **Create a New Zap**: Click on the "Make a Zap" button to start creating a new Zap.
-
-3. **Choose a BlueFox Email Trigger**: In the "Trigger" section, search for "BlueFox Email" and select it as the trigger app. Choose the desired trigger event (e.g., "Contact Created", "Contact Updated") and click "Continue".
-
-4. **Connect Your BlueFox Email Account**: Click on "Sign in to BlueFox Email" and enter your BlueFox Email API key and project ID when prompted. Follow the instructions to authorize Zapier to access your BlueFox Email account.
-
-5. **Set Up the Trigger**: Configure any additional settings required for the trigger event and click "Continue". Test the trigger to ensure it's working correctly.
-
-6. **Choose an Action App**: In the "Action" section, search for BlueFox Email and select it as the action app. Choose the desired action event (e.g., "Send Transactional Email", "Unsubscribe contact") and click "Continue".
-
-7. **Set Up the Action**: Configure the action by mapping the necessary fields using data from the trigger event. Click "Continue" when done.
-
-8. **Test the Action**: Test the action to ensure it works as expected. If the test is successful, click "Turn on Zap" to activate your Zap.
-
-And that's it! Your BlueFox Email integration with Zapier is now set up and ready to automate your email workflows. You can create additional Zaps to further enhance your email management processes.
 
 ## Authentication
 
@@ -80,23 +56,17 @@ To authenticate your BlueFox Email account in Zapier, you will need your BlueFox
 
 2. Here select connect a new account.
 
-3. A pop-up window will appear asking for your BlueFox Email API key and project ID. You can find your API key in your [BlueFox Email project settings](https://bluefox.email/dashboard/settings) and your project ID in the [BlueFox Email Contacts](https://bluefox.email/contacts).
+3. A pop-up window will appear asking for your BlueFox Email API key and project ID. You can find your API key in your [BlueFox Email project settings](/docs/projects/settings) and your project ID in the [BlueFox Email Contacts](/docs/projects/contacts).
 
 ![screenshot of bluefox email api key and project id in zapier](./zapier-api-key-project-id.webp)
 
-4. In your BlueFox Email Project Settings, navigate to the "API Keys" section. If you don't have an API key yet, create a new one by clicking on "Create API Key". Copy the generated API key.
+4. In your BlueFox Email Project Settings, navigate to the bottom of the page to find Zapier Integration section where you can copy your API key and project ID.
 
 ![screenshot of bluefox email api key in project settings](./zapier-api-key-in-project-settings.webp)
 
-5. Next navigate to contacts section in the BlueFox Email. Here you will find your project ID by clicking on the code guide icon at top right corner.
+7. Enter the API key and project ID in that Zapier pop-up window from earlier, then click "Yes, Continue to BlueFox Email" to authorize Zapier to access your BlueFox Email project.
 
-![screenshot of bluefox email project id in contacts](./zapier-project-id-in-contacts.webp)
-
-6. Then from the code guide pop-up window, copy the project ID.
-
-![screenshot of bluefox email project id in code guide](./zapier-project-id-in-code-guide.webp)
-
-7. Enter the API key and project ID, then click "Yes, Continue" to authorize Zapier to access your BlueFox Email account.
+And thats it! Your BlueFox Email account is now connected to Zapier, and you can start creating Zaps using BlueFox Email triggers and actions. Lets explore the available triggers and actions.
 
 ## Available Triggers and Actions
 
@@ -105,16 +75,16 @@ To authenticate your BlueFox Email account in Zapier, you will need your BlueFox
 Click on triggers to see the available options.
 ![screenshot of bluefox email triggers in zapier](./zapier-triggers.webp)
 
-- **Contact Created**: Triggered when a new contact is added to your BlueFox Email account.
-- **Contact Updated**: Triggered when an existing contact is updated in your BlueFox Email account.
-- **Contact Deleted**: Triggered when a contact is removed from your BlueFox Email account.
+- **New Contact**: Triggered when a new contact is added to your BlueFox Email project.
+- **Contact Updated**: Triggered when an existing contact is updated in your BlueFox Email project.
+- **Contact Deleted**: Triggered when a contact is removed from your BlueFox Email project.
 
 Once you select a trigger, click "Continue" to set up and test the trigger.
 
 ![screenshot of bluefox email actions in zapier](./zapier-trigger-test.webp)
 
-- **New Subscription**: Triggered when a contact subscribes to a mailing list.
-- **Unsubscription**: Triggered when a contact unsubscribes from a mailing list.
+- **New Subscription**: Triggered when a new contact subscribes to a subscription list.
+- **Unsubscription**: Triggered when a contact unsubscribes from a subscription list.
 - **Subscription Paused**: Triggered when a contact's subscription is paused.
 
 Here once you select subscription based trigger and click continue you will be asked to select the subscription list for which you want to set up the trigger.
@@ -136,16 +106,16 @@ While working with these actions, you will be asked to map various fields.
 These fields will change for triggered email action.
 ![screenshot of bluefox email send triggered email action in zapier](./zapier-send-triggered-email-action.webp)
 
-- **Add**: Add a new contact in your BlueFox Email account.
-- **Update Contact**: Update an existing contact's details in your BlueFox Email account.
-- **Delete Contact**: Remove a contact from your BlueFox Email account
+- **Create Contact**: Add a new contact in your BlueFox Email project.
+- **Update Contact**: Update an existing contact's details in your BlueFox Email project.
+- **Delete Contact**: Remove a contact from your BlueFox Email project
 
 In these actions, you will be asked to provide contact details like email and name.
 ![screenshot of bluefox email add contact action in zapier](./zapier-add-contact-action.webp)
 
-- **Subscribe Contact to List**: Subscribe a contact to a specific mailing list.
-- **Unsubscribe Contact from List**: Unsubscribe a contact from a specific mailing list.
-- **Pause Contact Subscription**: Pause a contact's subscription to a mailing list.
+- **Subscribe Email**: Subscribe a contact to a specific subscription list.
+- **Unsubscribe Contact**: Unsubscribe a contact from a specific subscription list.
+- **Pause Subscription**: Pause a contact's subscription to a subscription list.
 
 In these actions, you will be asked to provide the contact email and select the subscription list.
 ![screenshot of bluefox email subscribe contact to list action in zapier](./zapier-subscribe-contact-to-list-action.webp)
