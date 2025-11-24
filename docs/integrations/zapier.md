@@ -42,13 +42,9 @@ The **Zapier integration** allows you to automate your email workflows by connec
 For Zapier related documents and support, please refer to the official Zapier documentation and support channels. This document focuses on the integration aspects specific to BlueFox Email.
 :::
 
-## A short overview of Zapier
-
-Zapier is a powerful automation platform that connects your favorite apps and services to automate repetitive tasks. With Zapier, you can create "Zaps" that consist of a trigger and one or more actions. When the trigger event occurs in one app, Zapier automatically performs the specified actions in other connected apps. This allows you to streamline workflows, save time, and reduce manual effort across various applications.
-
 ## Authentication
 
-To authenticate your BlueFox Email account in Zapier, you will need your BlueFox Email API key and project ID. Follow these steps:
+To authenticate your BlueFox Email account in Zapier, you will need your BlueFox Email project API key and project ID. Follow these steps:
 
 1. In the Zaps setup, when prompted for account connection either for triggers or actions, click on "Accounts".
 
@@ -56,15 +52,15 @@ To authenticate your BlueFox Email account in Zapier, you will need your BlueFox
 
 2. Here select connect a new account.
 
-3. A pop-up window will appear asking for your BlueFox Email API key and project ID. You can find your API key in your [BlueFox Email project settings](/docs/projects/settings) and your project ID in the [BlueFox Email Contacts](/docs/projects/contacts).
+3. A pop-up window will appear asking for your BlueFox Email project API key and project ID.
 
 ![screenshot of bluefox email api key and project id in zapier](./zapier-api-key-project-id.webp)
 
-4. In your BlueFox Email Project Settings, navigate to the bottom of the page to find Zapier Integration section where you can copy your API key and project ID.
+4. In your BlueFox Email Project Settings, navigate to the bottom of the page to find Zapier Integration section where you can copy your project API key and project ID.
 
 ![screenshot of bluefox email api key in project settings](./zapier-api-key-in-project-settings.webp)
 
-7. Enter the API key and project ID in that Zapier pop-up window from earlier, then click "Yes, Continue to BlueFox Email" to authorize Zapier to access your BlueFox Email project.
+7. Enter the project API key and project ID in that Zapier pop-up window from earlier, then click "Yes, Continue to BlueFox Email" to authorize Zapier to access your BlueFox Email project.
 
 And thats it! Your BlueFox Email account is now connected to Zapier, and you can start creating Zaps using BlueFox Email triggers and actions. Lets explore the available triggers and actions.
 
@@ -75,9 +71,9 @@ And thats it! Your BlueFox Email account is now connected to Zapier, and you can
 Click on triggers to see the available options.
 ![screenshot of bluefox email triggers in zapier](./zapier-triggers.webp)
 
-- **New Contact**: Triggered when a new contact is added to your BlueFox Email project.
-- **Contact Updated**: Triggered when an existing contact is updated in your BlueFox Email project.
-- **Contact Deleted**: Triggered when a contact is removed from your BlueFox Email project.
+- **New Contact**: Triggered when a new contact is added to your project.
+- **Contact Updated**: Triggered when an existing contact is updated in your project.
+- **Contact Deleted**: Triggered when a contact is removed from your project.
 
 Once you select a trigger, click "Continue" to set up and test the trigger.
 
@@ -106,9 +102,9 @@ While working with these actions, you will be asked to map various fields.
 These fields will change for triggered email action.
 ![screenshot of bluefox email send triggered email action in zapier](./zapier-send-triggered-email-action.webp)
 
-- **Create Contact**: Add a new contact in your BlueFox Email project.
-- **Update Contact**: Update an existing contact's details in your BlueFox Email project.
-- **Delete Contact**: Remove a contact from your BlueFox Email project
+- **Create Contact**: Add a new contact in your project.
+- **Update Contact**: Update an existing contact's details in your project.
+- **Delete Contact**: Remove a contact from your project.
 
 In these actions, you will be asked to provide contact details like email and name.
 ![screenshot of bluefox email add contact action in zapier](./zapier-add-contact-action.webp)
