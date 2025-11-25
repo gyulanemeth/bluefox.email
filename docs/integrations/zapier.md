@@ -74,14 +74,11 @@ Click on triggers to see the available options.
 - **New Contact**: Triggered when a new contact is added to your project.
 - **Contact Updated**: Triggered when an existing contact is updated in your project.
 - **Contact Deleted**: Triggered when a contact is removed from your project.
-
-Once you select a trigger, click "Continue" to set up and test the trigger.
-
-![screenshot of bluefox email actions in zapier](./zapier-trigger-test.webp)
-
 - **New Subscription**: Triggered when a new contact subscribes to a subscription list.
 - **Unsubscription**: Triggered when a contact unsubscribes from a subscription list.
 - **Subscription Paused**: Triggered when a contact's subscription is paused.
+
+Once you select a trigger, click "Continue" to set up and test the trigger.
 
 Here once you select subscription based trigger and click continue you will be asked to select the subscription list for which you want to set up the trigger.
 
@@ -95,26 +92,43 @@ Click on actions to see the available options.
 
 - **Send Transactional Email**: Send a transactional email to a specified contact.
 - **Send Triggered Email**: Send a triggered email based on specific events.
-
-While working with these actions, you will be asked to map various fields.
-![screenshot of bluefox email send transactional email action in zapier](./zapier-send-transactional-email-action.webp)
-
-These fields will change for triggered email action.
-![screenshot of bluefox email send triggered email action in zapier](./zapier-send-triggered-email-action.webp)
-
 - **Create Contact**: Add a new contact in your project.
 - **Update Contact**: Update an existing contact's details in your project.
 - **Delete Contact**: Remove a contact from your project.
-
-In these actions, you will be asked to provide contact details like email and name.
-![screenshot of bluefox email add contact action in zapier](./zapier-add-contact-action.webp)
-
 - **Subscribe Email**: Subscribe a contact to a specific subscription list.
 - **Unsubscribe Contact**: Unsubscribe a contact from a specific subscription list.
 - **Pause Subscription**: Pause a contact's subscription to a subscription list.
 
+
+### Send Transactional Email
+Click on "Send Transactional Email" action to set it up. Here you can send a transactional email to a specified contact. You will need to provide email as mandatory and custom properties that you have in your project these are optional though.
+
+![screenshot of bluefox email send transactional email action in zapier](./zapier-send-transactional-email-action.webp)
+
+### Send Triggered Email
+Click on "Send Triggered Email" action to set it up. Here you can send a triggered email based on specific events. You will need to provide email as mandatory and custom properties that you have in your project.
+
+![screenshot of bluefox email send triggered email action in zapier](./zapier-send-triggered-email-action.webp)
+
+### Create Contact and Update Contact
+
+In these actions, you will be asked to provide contact details email being mandatory and other custom properties that you have in your project.
+![screenshot of bluefox email add contact action in zapier](./zapier-add-contact-action.webp)
+
+### Delete Contact
+In this action, you will be asked to provide the contact email to delete the contact from your project.
+
+![screenshot of bluefox email delete contact action in zapier](./zapier-delete-contact-action.webp)
+
+### Subscribe Contact to List and Unsubscribe Contact from List
+
 In these actions, you will be asked to provide the contact email and select the subscription list.
 ![screenshot of bluefox email subscribe contact to list action in zapier](./zapier-subscribe-contact-to-list-action.webp)
+
+### Pause Subscription
+In this action, you will be asked to provide the contact email and select the subscription list to pause the subscription and also date until when to pause the subscription.
+
+![screenshot of bluefox email pause subscription action in zapier](./zapier-pause-subscription-action.webp)
 
 After setting up the action, click "Continue" to test it. If the test is successful, you can turn on your Zap to start automating your workflows.
 
