@@ -80,7 +80,7 @@ Click on triggers to see the available options.
 
 Once you select a trigger, click "Continue" to set up and test the trigger.
 
-Here once you select subscription based trigger and click continue you will be asked to select the subscription list for which you want to set up the trigger.
+Here once you select subscription based trigger (eg,"New Subscription", "Unsubscribed", "Subscription Paused") and click continue you will be asked to select the subscription list for which you want to set up the trigger.
 
 ![screenshot of bluefox email subscription list selection in zapier](./zapier-subscription-list-selection.webp)
 
@@ -90,12 +90,12 @@ Hit continue and test the trigger.
 Click on actions to see the available options.
 ![screenshot of bluefox email actions in zapier](./zapier-actions.webp)
 
-- **Send Transactional Email**: Send a transactional email to a specified contact.
+- **Send Transactional Email**: Send a transactional email to a specified email.
 - **Send Triggered Email**: Send a triggered email based on specific events.
 - **Create Contact**: Add a new contact in your project.
 - **Update Contact**: Update an existing contact's details in your project.
 - **Delete Contact**: Remove a contact from your project.
-- **Subscribe Email**: Subscribe a contact to a specific subscription list.
+- **Subscribe Email**: Subscribe a user to a specific subscription list.
 - **Unsubscribe Contact**: Unsubscribe a contact from a specific subscription list.
 - **Pause Subscription**: Pause a contact's subscription to a subscription list.
 
@@ -106,7 +106,7 @@ Click on "Send Transactional Email" action to set it up. Here you can send a tra
 ![screenshot of bluefox email send transactional email action in zapier](./zapier-send-transactional-email-action.webp)
 
 ### Send Triggered Email
-Click on "Send Triggered Email" action to set it up. Here you can send a triggered email based on specific events. You will need to provide emails and if needed custom properties in data field that you have in your project.
+Click on "Send Triggered Email" action to set it up. Here you can send a triggered email based on specific events.
 
 ![screenshot of bluefox email send triggered email action in zapier](./zapier-send-triggered-email-action.webp)
 
@@ -122,7 +122,7 @@ In this action, you will be asked to provide the contact email to delete the con
 
 ### Subscribe Contact to List and Unsubscribe Contact from List
 
-In these actions, you will be asked to provide the contact email and select the subscription list. You can also pass your contact properties here.
+In these actions, you will be asked to provide the contact email and select the subscription list. In case of subscription, you can also pass your contact properties here.
 ![screenshot of bluefox email subscribe contact to list action in zapier](./zapier-subscribe-contact-to-list-action.webp)
 
 ### Pause Subscription
