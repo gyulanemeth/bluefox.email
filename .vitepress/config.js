@@ -395,7 +395,6 @@ export default defineConfig({
         },
       ],
     },
-    socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }], // Removed trailing space
     // Disabling the default footer as we're using a custom component
     footer: false,
   },
