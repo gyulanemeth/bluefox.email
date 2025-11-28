@@ -8,6 +8,24 @@ const FOOTER_CONFIG = {
   allowedPrefixes: ['/for', '/email-sending-concepts', '/aws-concepts', '/comparisons/'],
   currentYear: new Date().getFullYear(),
   
+  socialLinks: [
+    { 
+      name: 'Twitter', 
+      url: 'https://x.com/bluefoxemail', 
+      icon: '/assets/x-twitter-brands-solid-full.svg' 
+    },
+    { 
+      name: 'LinkedIn', 
+      url: 'https://www.linkedin.com/company/104663633/', 
+      icon: '/assets/linkedin-brands-solid-full.svg' 
+    },
+    { 
+      name: 'YouTube', 
+      url: 'https://www.youtube.com/@bluefox-email-official/shorts', 
+      icon: '/assets/youtube-brands-solid-full.svg' 
+    }
+  ],
+  
   links: {
     company: [
       { text: 'About', href: '/about' },
@@ -61,7 +79,7 @@ const shouldShowFooter = computed(() => {
 })
 
 // Destructure for template
-const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
+const { links: footerLinks, policies: policyLinks, currentYear, socialLinks } = FOOTER_CONFIG
 </script>
 
 <template>  
@@ -83,6 +101,26 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
             <p class="footer-tagline">
               BlueFox Email helps SaaS companies create and send beautiful transactional and marketing emails with high deliverability across all devices.
             </p>
+            
+            <!-- Social Links Section -->
+            <div class="footer-social-links">
+              <a 
+                v-for="social in socialLinks"
+                :key="social.name"
+                :href="social.url"
+                target="_blank"
+                rel="noopener noreferrer"
+                :aria-label="social.name"
+                class="social-link"
+              >
+                <img 
+                  :src="social.icon" 
+                  :alt="`${social.name} icon`"
+                  class="social-icon"
+                  loading="lazy"
+                />
+              </a>
+            </div>
           </div>
         </div>
         
@@ -203,6 +241,55 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   padding-left: 0.8rem;
 }
 
+/* Social Links Styles */
+.footer-social-links {
+  display: flex;
+  gap: 14px;
+  margin-top: 16px;
+  padding-left: 0.8rem;
+  align-items: center;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background-color: var(--vp-c-bg-soft);
+  transition: all 0.25s ease;
+  text-decoration: none;
+  padding: 8px;
+}
+
+.social-link:hover {
+  background-color: var(--vp-c-brand-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.social-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  filter: invert(0.5);
+  transition: filter 0.25s ease;
+}
+
+.social-link:hover .social-icon {
+  filter: invert(0.3);
+}
+
+/* Dark mode support */
+.dark .social-icon {
+  filter: invert(0.7);
+}
+
+.dark .social-link:hover .social-icon {
+  filter: invert(1);
+}
+
 /* Links Section */
 .footer-links {
   display: flex;
@@ -310,6 +397,11 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
     text-align: center; 
   }
   .footer-tagline { text-align: center; width: 100%; max-width: 280px; padding-left: 0; }
+  .footer-social-links {
+    justify-content: center;
+    padding-left: 0;
+    margin-top: 14px;
+  }
   .footer-links-wrapper { width: 100%; }
   .footer-links { width: 100%; justify-content: center; grid-gap: 10px 20px; }
   .footer-bottom { flex-wrap: wrap; padding-top: 12px; }
@@ -338,6 +430,19 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
   .footer-column { margin-bottom: 10px; }
   .footer-column-heading { margin-bottom: 8px; text-align: center; }
   .footer-column a { text-align: center; line-height: 24px; margin-bottom: 6px; }
+  .footer-social-links {
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .social-link {
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+  }
+  .social-icon {
+    width: 18px;
+    height: 18px;
+  }
   .footer-policy-links { 
     flex-direction: row; 
     align-items: center; 
