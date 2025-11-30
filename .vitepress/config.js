@@ -232,6 +232,10 @@ export default defineConfig({
                   link: "/docs/integrations/webhooks",
                 },
                 { text: "Supabase", link: "/docs/integrations/supabase" },
+                {
+                  text: "Zapier", 
+                  link: "/docs/integrations/zapier",
+                }
               ],
             },
             {
