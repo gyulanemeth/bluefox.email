@@ -42,8 +42,12 @@ import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
 
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
+import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
 import DesignSystem from './.vitepress/theme/DesignSystem.vue'
 import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
+import Automation from './.vitepress/theme/Automation.vue'
+import Integration from './.vitepress/theme/Integration.vue'
+import Deliverability from './.vitepress/theme/Deliverability.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -301,29 +305,35 @@ onBeforeUnmount(() => {
   }
 </style>
 
+<!-- 1. HERO - First impression with value proposition -->
 <section id="hero">
   <HeroUnit />
 </section>
 
-<section class="section-index">
-  <h2 class="sectionTitle text-center mt-4 mb-6">
-    What agencies are saying
-  </h2>
-  <TestimonialDiv
-    :is-dark="isDark"
-    :lg-and-up="lgAndUp"
-    :md="md"
-    :sm="sm"
-    :xs="xs"
-  />
-</section>
-
-<section id="marketers" class="section-index">
+<!-- 2. CORE AGENCY FEATURE: Multi-client Management via Design System -->
+<section id="design-system" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
       <span class="text-overline">For marketing agencies</span>
     </v-chip>
   </div>
+  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+    A unified design system that every client can adopt
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Your agency can ship consistent email templates to multiple clients. One brand-palette = one source of truth, so updates propagate instantly.
+    </div>
+  </div>
+
+  <DesignSystem
+    class="mt-6"
+    :is-dark="isDark"
+  />
+</section>
+
+<!-- 3. AGENCY CONTENT CREATION - No-code editor for speed -->
+<section id="marketers" class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
     Effortless content creation for every client
   </h2>
@@ -346,13 +356,14 @@ onBeforeUnmount(() => {
   </v-card>
 </section>
 
+<!-- 4. AUTOMATION - Scale agency operations -->
 <section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
     Automate pipelines that keep clients engaged
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Create drip sequences, triggered emails, & re-engagement funnels with just a few clicks. Offer your clients data-driven nurture flows without a developer’s hand.
+      Create drip sequences, triggered emails, & re-engagement funnels with just a few clicks. Offer your clients data-driven nurture flows without a developer's hand.
     </div>
   </div>
 
@@ -366,6 +377,28 @@ onBeforeUnmount(() => {
   />
 </section>
 
+<!-- 5. RENDERING - Quality assurance for agencies -->
+<section id="no-rendering-issues" class="value-prop">
+  <h2 class="sectionTitle text-center mb-3">
+    Mapped inboxes, identical look & feel
+  </h2>
+  <div class="d-flex justify-center">
+    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
+      Your emails will look perfect everywhere. Our battle-tested email HTML ensures flawless rendering across all major email clients, including Outlook.
+    </div>
+  </div>
+
+  <RenderingIssues
+    class="mt-6"
+    :is-dark="isDark"
+    :lg-and-up="lgAndUp"
+    :md="md"
+    :sm="sm"
+    :xs="xs"
+  />
+</section>
+
+<!-- 6. LIST MANAGEMENT - Compliance & reputation -->
 <section class="section-index value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
     Manage client lists, guard brand reputation, and stay compliant
@@ -380,6 +413,7 @@ onBeforeUnmount(() => {
   </v-card>
 </section>
 
+<!-- 7. ANALYTICS - Prove ROI to clients -->
 <section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
     Turn email data into client KPIs
@@ -394,6 +428,26 @@ onBeforeUnmount(() => {
   </v-card>
 </section>
 
+<!-- 8. DELIVERABILITY - Critical for agency reputation -->
+<section id="deliverability" class="value-prop">
+  <Deliverability />
+</section>
+
+<!-- 9. TESTIMONIALS - Social proof after showing value -->
+<section class="section-index">
+  <h2 class="sectionTitle text-center mt-4 mb-6">
+    What agencies are saying
+  </h2>
+  <TestimonialDiv
+    :is-dark="isDark"
+    :lg-and-up="lgAndUp"
+    :md="md"
+    :sm="sm"
+    :xs="xs"
+  />
+</section>
+
+<!-- 10. FOR CREATIVE TEAMS - Secondary audience segment -->
 <section id="designers" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
@@ -423,42 +477,7 @@ onBeforeUnmount(() => {
   </v-card>
 </section>
 
-<section id="design-system" class="value-prop">
-  <h2 class="sectionTitle text-center mb-3 pt-0">
-    A unified design system that every client can adopt
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your agency can ship consistent email templates to multiple clients. One brand-palette = one source of truth, so updates propagate instantly.
-    </div>
-  </div>
-
-  <DesignSystem
-    class="mt-6"
-    :is-dark="isDark"
-  />
-</section>
-
-<section id="no-rendering-issues" class="value-prop">
-  <h2 class="sectionTitle text-center mb-3">
-    Mapped inboxes, identical look & feel
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your emails will look perfect everywhere. Our battle-tested email HTML ensures flawless rendering across all major email clients, including Outlook.
-    </div>
-  </div>
-
-  <RenderingIssues
-    class="mt-6"
-    :is-dark="isDark"
-    :lg-and-up="lgAndUp"
-    :md="md"
-    :sm="sm"
-    :xs="xs"
-  />
-</section>
-
+<!-- 11. FOR DEVELOPERS - Technical audience segment -->
 <section id="developers" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
@@ -480,7 +499,7 @@ onBeforeUnmount(() => {
     :xs="xs"
   >
     <template #tab-1>
-      ```json
+      ```
       {
         "name": "Jon Doe",
         "email": "jon@doe.com"
@@ -488,14 +507,14 @@ onBeforeUnmount(() => {
       ```
     </template>
     <template #tab-2>
-      ```json
+      ```
       {
         "status": "unsubscribed"
       }
       ```
     </template>
     <template #tab-3>
-      ```json
+      ```
       {
         "email": "jon@doe.com",
         "transactionalId": "##EMAIL_ID##",
@@ -512,7 +531,7 @@ onBeforeUnmount(() => {
       ```
     </template>
     <template #tab-4>
-      ```json
+      ```
       {
         "emails": ["jon@doe.com"],
         "triggeredId": "##EMAIL_ID##",
@@ -531,17 +550,14 @@ onBeforeUnmount(() => {
   </Integration>
 </section>
 
-<section id="deliverability" class="value-prop">
-  <Deliverability />
-</section>
-
+<!-- 12. FINAL CTA - Convert after all value demonstrated -->
 <section id="second-cta">
   <h2 class="sectionTitle text-center mb-3">
     Send amazing emails for your clients today
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your agency’s clients deserve great design, great ROI, and great inbox placement. Try BlueFox for free.
+      Your agency's clients deserve great design, great ROI, and great inbox placement. Try BlueFox for free.
     </div>
   </div>
 
