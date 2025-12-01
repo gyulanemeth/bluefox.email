@@ -232,6 +232,10 @@ export default defineConfig({
                   link: "/docs/integrations/webhooks",
                 },
                 { text: "Supabase", link: "/docs/integrations/supabase" },
+                {
+                  text: "Zapier", 
+                  link: "/docs/integrations/zapier",
+                }
               ],
             },
             {
@@ -395,7 +399,6 @@ export default defineConfig({
         },
       ],
     },
-    socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }], // Removed trailing space
     // Disabling the default footer as we're using a custom component
     footer: false,
   },
