@@ -1,16 +1,35 @@
 <script setup>
 import { useData } from 'vitepress'
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 
 const { isDark } = useData()
 
 // Mouse position for subtle parallax
 const mouseX = ref(0)
 const mouseY = ref(0)
+const isMobile = ref(false)
 
 const handleMouseMove = (e) => {
+  // Disable parallax on mobile/tablet
+  if (isMobile.value) return
+  
   mouseX.value = (e.clientX / window.innerWidth - 0.5) * 15
   mouseY.value = (e.clientY / window.innerHeight - 0.5) * 15
+  
+  // Update CSS variables for parallax
+  document.documentElement.style.setProperty('--parallax-main-x', `${mouseX.value * 0.5}px`)
+  document.documentElement.style.setProperty('--parallax-main-y', `${mouseY.value * 0.5}px`)
+  document.documentElement.style.setProperty('--parallax-topleft-x', `${mouseX.value * -0.8}px`)
+  document.documentElement.style.setProperty('--parallax-topleft-y', `${mouseY.value * -0.8}px`)
+  document.documentElement.style.setProperty('--parallax-topright-x', `${mouseX.value * 0.6}px`)
+  document.documentElement.style.setProperty('--parallax-topright-y', `${mouseY.value * -0.6}px`)
+  document.documentElement.style.setProperty('--parallax-bottomright-x', `${mouseX.value * 0.8}px`)
+  document.documentElement.style.setProperty('--parallax-bottomright-y', `${mouseY.value * 0.8}px`)
+}
+
+// Check if mobile
+const checkMobile = () => {
+  isMobile.value = window.innerWidth <= 1024
 }
 
 // Smooth scroll to section
@@ -22,11 +41,24 @@ const scrollToSection = (sectionId) => {
 }
 
 onMounted(() => {
+  // Initialize CSS variables
+  document.documentElement.style.setProperty('--parallax-main-x', '0px')
+  document.documentElement.style.setProperty('--parallax-main-y', '0px')
+  document.documentElement.style.setProperty('--parallax-topleft-x', '0px')
+  document.documentElement.style.setProperty('--parallax-topleft-y', '0px')
+  document.documentElement.style.setProperty('--parallax-topright-x', '0px')
+  document.documentElement.style.setProperty('--parallax-topright-y', '0px')
+  document.documentElement.style.setProperty('--parallax-bottomright-x', '0px')
+  document.documentElement.style.setProperty('--parallax-bottomright-y', '0px')
+  
+  checkMobile()
   window.addEventListener('mousemove', handleMouseMove)
+  window.addEventListener('resize', checkMobile)
 })
 
 onUnmounted(() => {
   window.removeEventListener('mousemove', handleMouseMove)
+  window.removeEventListener('resize', checkMobile)
 })
 </script>
 
@@ -80,7 +112,7 @@ onUnmounted(() => {
         </div>
 
         <!-- Right Side: Interactive Visualization -->
-        <div class="heroVisual" :style="{ transform: `translate(${mouseX * 0.5}px, ${mouseY * 0.5}px)` }">
+        <div class="heroVisual">
           <!-- Main Email Card -->
           <div class="email-card main-card">
             <div class="card-header">
@@ -105,11 +137,10 @@ onUnmounted(() => {
               </div>
               <div class="cta-block"></div>
             </div>
-            <!-- <div class="card-footer"></div> -->
           </div>
 
           <!-- Floating Feature Cards -->
-          <div class="feature-float top-left" :style="{ transform: `translate(${mouseX * -0.8}px, ${mouseY * -0.8}px)` }" @click="scrollToSection('marketers')">
+          <div class="feature-float top-left" @click="scrollToSection('marketers')">
             <div class="float-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
@@ -121,7 +152,7 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <div class="feature-float bottom-right" :style="{ transform: `translate(${mouseX * 0.8}px, ${mouseY * 0.8}px)` }" @click="scrollToSection('developers')">
+          <div class="feature-float bottom-right" @click="scrollToSection('developers')">
             <div class="float-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <path d="M3 3v18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -134,7 +165,7 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <div class="feature-float top-right" :style="{ transform: `translate(${mouseX * 0.6}px, ${mouseY * -0.6}px)` }" @click="scrollToSection('no-rendering-issues')">
+          <div class="feature-float top-right" @click="scrollToSection('no-rendering-issues')">
             <div class="float-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
@@ -168,8 +199,9 @@ onUnmounted(() => {
 <style scoped>
 .heroDiv {
   margin-top: calc((var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) * -1);
-  height: 100vh;
-  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 80px) 64px 64px;
+  min-height: 100vh;
+  height: auto;
+  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 80px) 64px 80px;
   position: relative;
   left: calc(-50vw + 50%);
   width: 100vw;
@@ -222,7 +254,7 @@ html.dark .grid-overlay {
 
 /* Main Layout */
 .heroMain {
-  height: 100%;
+  min-height: calc(100vh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px) - 160px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -258,7 +290,7 @@ html.dark .grid-overlay {
 }
 
 .title {
-  font-size: 56px;
+  font-size: clamp(32px, 5vw, 56px);
   line-height: 1.2;
   margin-bottom: 24px;
 }
@@ -285,7 +317,7 @@ html.dark .grid-overlay {
 }
 
 .tagline {
-  font-size: 20px;
+  font-size: clamp(16px, 2vw, 20px);
   line-height: 1.6;
   color: #4b5563;
   margin-bottom: 16px;
@@ -322,6 +354,7 @@ html.dark .tagline {
   margin-top: 48px;
   opacity: 0;
   animation: fadeIn 0.6s ease-out 1.4s forwards;
+  flex-wrap: wrap;
 }
 
 .trust-item {
@@ -329,14 +362,14 @@ html.dark .tagline {
 }
 
 .trust-number {
-  font-size: 28px;
+  font-size: clamp(24px, 3vw, 28px);
   font-weight: 800;
   color: #13B0EE;
   margin-bottom: 4px;
 }
 
 .trust-label {
-  font-size: 13px;
+  font-size: clamp(11px, 1.5vw, 13px);
   color: #6b7280;
   font-weight: 600;
   text-transform: uppercase;
@@ -361,7 +394,8 @@ html.dark .trust-divider {
 .heroVisual {
   position: relative;
   height: 500px;
-  transition: transform 0.3s ease-out;
+  transform: translate(var(--parallax-main-x, 0), var(--parallax-main-y, 0));
+  transition: transform 0.1s ease-out;
   opacity: 0;
   animation: fadeInRight 1s ease-out 0.4s forwards;
 }
@@ -554,7 +588,7 @@ html.dark .card-footer {
   background: #4b5563;
 }
 
-/* Floating Feature Cards - Smoother Hover */
+/* Floating Feature Cards - Smooth Hover with CSS Variables */
 .feature-float {
   position: absolute;
   display: flex;
@@ -574,31 +608,46 @@ html.dark .card-footer {
 
 html.dark .feature-float {
   background: rgba(31, 41, 55, 0.95);
-  outline: 1px solid rgba(19, 176, 238, 0.3);
-}
-
-.feature-float:hover {
-  transform: translateY(-8px) scale(1.03) !important;
-  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.2);
-  border-color: rgba(19, 176, 238, 0.5);
+  border: 1px solid rgba(19, 176, 238, 0.3);
 }
 
 .feature-float.top-left {
   top: 20px;
   left: 20px;
   animation-delay: 0.8s;
+  transform: translate(var(--parallax-topleft-x, 0), var(--parallax-topleft-y, 0));
+}
+
+.feature-float.top-left:hover {
+  transform: translate(var(--parallax-topleft-x, 0), var(--parallax-topleft-y, 0)) translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.2);
+  border-color: rgba(19, 176, 238, 0.5);
 }
 
 .feature-float.top-right {
   top: 20px;
   right: 20px;
   animation-delay: 1s;
+  transform: translate(var(--parallax-topright-x, 0), var(--parallax-topright-y, 0));
+}
+
+.feature-float.top-right:hover {
+  transform: translate(var(--parallax-topright-x, 0), var(--parallax-topright-y, 0)) translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.2);
+  border-color: rgba(19, 176, 238, 0.5);
 }
 
 .feature-float.bottom-right {
   bottom: 20px;
   right: 20px;
   animation-delay: 1.2s;
+  transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0));
+}
+
+.feature-float.bottom-right:hover {
+  transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0)) translateY(-8px) scale(1.03);
+  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.2);
+  border-color: rgba(19, 176, 238, 0.5);
 }
 
 @keyframes floatIn {
@@ -683,8 +732,17 @@ a {
   text-decoration: none;
 }
 
-/* Responsive */
+/* Responsive - Tablet */
 @media (max-width: 1024px) {
+  .heroDiv {
+    min-height: auto;
+    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 40px) 40px 60px;
+  }
+  
+  .heroMain {
+    min-height: auto;
+  }
+  
   .heroGrid {
     grid-template-columns: 1fr;
     gap: 60px;
@@ -702,51 +760,107 @@ a {
 
   .heroVisual {
     height: 400px;
+    margin: 0 auto;
+    max-width: 500px;
   }
 
   .email-card {
     width: 280px;
   }
+  
+  /* Make feature cards smaller on tablet */
+  .feature-float {
+    padding: 12px 16px;
+  }
+  
+  .float-icon {
+    width: 36px;
+    height: 36px;
+  }
 }
 
+/* Responsive - Mobile */
 @media (max-width: 640px) {
   .heroDiv {
-    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 60px) 32px 64px;
+    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 24px) 20px 40px;
+    min-height: auto;
+  }
+  
+  .heroMain {
+    min-height: auto;
+  }
+  
+  .heroGrid {
+    gap: 40px;
   }
 
   .title {
-    font-size: 40px;
+    font-size: 32px;
+    margin-bottom: 16px;
   }
 
   .tagline {
-    font-size: 18px;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .tagline:last-of-type {
+    margin-bottom: 20px;
   }
 
   .trust-bar {
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: row;
+    gap: 16px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .trust-divider {
-    width: 60px;
-    height: 1px;
+    display: none;
+  }
+  
+  .trust-item {
+    flex: 0 0 auto;
+    min-width: 80px;
   }
 
   .heroVisual {
-    height: 350px;
+    height: 320px;
+    max-width: 100%;
   }
 
   .email-card {
-    width: 260px;
+    width: 240px;
+  }
+  
+  .card-header,
+  .card-body {
+    padding: 16px;
+  }
+  
+  .brand-circle {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .brand-line {
+    height: 6px;
   }
 
   .feature-float {
-    padding: 12px 16px;
+    padding: 10px 14px;
+    gap: 10px;
   }
 
   .float-icon {
     width: 32px;
     height: 32px;
+  }
+  
+  .float-icon svg {
+    width: 18px;
+    height: 18px;
   }
 
   .float-title {
@@ -754,43 +868,104 @@ a {
   }
 
   .float-desc {
-    font-size: 11px;
+    font-size: 10px;
   }
-}
-
-@media (max-width: 480px) {
-  .heroDiv {
-    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) 24px 48px;
+  
+  /* Adjust positions for mobile */
+  .feature-float.top-left {
+    top: 10px;
+    left: 10px;
   }
-
-  .title {
-    font-size: 32px;
+  
+  .feature-float.top-right {
+    top: 10px;
+    right: 10px;
   }
-
-  .tagline {
-    font-size: 16px;
+  
+  .feature-float.bottom-right {
+    bottom: 10px;
+    right: 10px;
   }
-
-  .background-gradient {
+  
+  /* Hide connection lines on mobile for cleaner look */
+  .connection-lines {
     display: none;
   }
 }
 
+/* Extra small mobile devices */
+@media (max-width: 380px) {
+  .heroDiv {
+    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 20px) 16px 32px;
+  }
+  
+  .title {
+    font-size: 28px;
+  }
+  
+  .tagline {
+    font-size: 14px;
+  }
+  
+  .heroVisual {
+    height: 280px;
+  }
+  
+  .email-card {
+    width: 200px;
+  }
+  
+  .trust-item {
+    min-width: 70px;
+  }
+  
+  .trust-number {
+    font-size: 20px;
+  }
+  
+  .trust-label {
+    font-size: 10px;
+  }
+}
+
+/* Landscape mobile fix */
 @media (orientation: landscape) and (max-height: 640px) {
   .heroDiv {
-    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 40px) 24px 40px;
+    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 20px) 24px 32px;
+    min-height: auto;
+    height: auto;
+  }
+  
+  .heroMain {
+    min-height: auto;
+  }
+  
+  .heroGrid {
+    gap: 40px;
   }
 
   .title {
-    font-size: 32px;
+    font-size: 28px;
+    margin-bottom: 12px;
   }
 
   .tagline {
-    font-size: 16px;
+    font-size: 14px;
+    margin-bottom: 8px;
   }
 
   .trust-bar {
-    margin-top: 24px;
+    margin-top: 20px;
+    gap: 12px;
+  }
+  
+  .heroVisual {
+    height: 280px;
+  }
+  
+  .background-gradient {
+    width: 600px;
+    height: 600px;
   }
 }
 </style>

@@ -36,6 +36,7 @@ head:
     - name: twitter:image
       content: https://bluefox.email/assets/share.png
 ---
+
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useDisplay } from 'vuetify'
@@ -274,28 +275,75 @@ onBeforeUnmount(() => {
     padding-top: 0 !important;
   }
 
-  /* Problem Agitation Section Styles - Professional Version */
+  /* Enhanced Problem Section - More Professional & Engaging */
   .problem-section {
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.03) 0%, rgba(57, 44, 145, 0.03) 100%);
-    padding: 100px 24px;
-    margin: 80px 0;
+    background: linear-gradient(135deg, rgba(19, 176, 238, 0.02) 0%, rgba(57, 44, 145, 0.02) 100%);
+    padding: 120px 24px;
+    margin: 100px 0;
+    position: relative;
+    overflow: hidden;
   }
 
   html.dark .problem-section {
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.08) 0%, rgba(57, 44, 145, 0.08) 100%);
+    background: linear-gradient(135deg, rgba(19, 176, 238, 0.05) 0%, rgba(57, 44, 145, 0.05) 100%);
+  }
+
+  /* Subtle background pattern */
+  .problem-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      linear-gradient(rgba(19, 176, 238, 0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(19, 176, 238, 0.02) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  html.dark .problem-section::before {
+    background-image: 
+      linear-gradient(rgba(19, 176, 238, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(19, 176, 238, 0.04) 1px, transparent 1px);
   }
 
   .problem-intro {
-    max-width: 800px;
-    margin: 0 auto 60px;
+    max-width: 900px;
+    margin: 0 auto 80px;
     text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .problem-main-title {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    color: #1f2937;
+    background: linear-gradient(135deg, #1f2937 0%, #392C91 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  html.dark .problem-main-title {
+    background: linear-gradient(135deg, #f3f4f6 0%, #13B0EE 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .problem-subtitle {
-    font-size: 20px;
-    color: #6b7280;
-    line-height: 1.6;
-    margin-top: 16px;
+    font-size: clamp(17px, 2vw, 20px);
+    color: #4b5563;
+    line-height: 1.7;
+    max-width: 750px;
+    margin: 0 auto;
+    font-weight: 400;
   }
 
   html.dark .problem-subtitle {
@@ -304,69 +352,114 @@ onBeforeUnmount(() => {
 
   .problem-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px;
-    max-width: 1100px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: 1200px;
     margin: 0 auto;
+    position: relative;
+    z-index: 1;
+    align-items: start;
   }
 
   .problem-card {
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(229, 231, 235, 0.8);
-    border-radius: 16px;
-    padding: 32px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(229, 231, 235, 0.6);
+    border-radius: 20px;
+    padding: 36px 28px;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 340px;
+    height: 100%;
   }
 
   html.dark .problem-card {
-    background: rgba(31, 41, 55, 0.6);
-    border: 1px solid rgba(75, 85, 99, 0.8);
+    background: rgba(31, 41, 55, 0.8);
+    border: 1px solid rgba(75, 85, 99, 0.6);
+  }
+
+  /* Gradient accent on hover */
+  .problem-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #13B0EE, #392C91);
+    transform: scaleX(0);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .problem-card:hover::before {
+    transform: scaleX(1);
   }
 
   .problem-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px rgba(19, 176, 238, 0.08);
-    border-color: rgba(19, 176, 238, 0.3);
-    background: rgba(255, 255, 255, 0.9);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 60px rgba(19, 176, 238, 0.12);
+    border-color: rgba(19, 176, 238, 0.4);
+    background: rgba(255, 255, 255, 0.95);
   }
 
   html.dark .problem-card:hover {
-    background: rgba(31, 41, 55, 0.9);
-    border-color: rgba(19, 176, 238, 0.4);
+    background: rgba(31, 41, 55, 0.95);
+    border-color: rgba(19, 176, 238, 0.5);
+    box-shadow: 0 20px 60px rgba(19, 176, 238, 0.2);
   }
 
   .problem-icon-wrapper {
-    width: 56px;
-    height: 56px;
-    border-radius: 12px;
+    width: 64px;
+    height: 64px;
+    border-radius: 16px;
     background: linear-gradient(135deg, rgba(19, 176, 238, 0.1), rgba(57, 44, 145, 0.1));
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
+    margin-bottom: 24px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    flex-shrink: 0;
   }
 
   .problem-card:hover .problem-icon-wrapper {
     background: linear-gradient(135deg, rgba(19, 176, 238, 0.15), rgba(57, 44, 145, 0.15));
-    transform: scale(1.05);
+    transform: scale(1.05) rotate(-3deg);
   }
 
   .problem-icon-wrapper svg {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
     stroke: #13B0EE;
     fill: none;
+    stroke-width: 2;
+    transition: all 0.3s ease;
+  }
+
+  .problem-card:hover .problem-icon-wrapper svg {
+    stroke: #392C91;
+    transform: scale(1.1);
+  }
+
+  html.dark .problem-card:hover .problem-icon-wrapper svg {
+    stroke: #13B0EE;
+  }
+
+  .problem-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .problem-title {
-    font-size: 20px;
+    font-size: 19px;
     font-weight: 700;
     color: #1f2937;
     margin-bottom: 12px;
-    line-height: 1.3;
+    line-height: 1.4;
   }
 
   html.dark .problem-title {
@@ -374,53 +467,110 @@ onBeforeUnmount(() => {
   }
 
   .problem-description {
-    font-size: 16px;
+    font-size: 15px;
     color: #6b7280;
     line-height: 1.7;
+    flex: 1;
   }
 
   html.dark .problem-description {
     color: #9ca3af;
   }
 
-  .problem-stat {
+  .problem-impact {
     display: inline-flex;
     align-items: center;
-    gap: 16px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(19, 176, 238, 0.2);
-    border-radius: 12px;
-    padding: 20px 32px;
-    margin-top: 60px;
+    gap: 8px;
+    margin-top: 16px;
+    padding: 8px 14px;
+    background: rgba(19, 176, 238, 0.08);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #13B0EE;
+    align-self: flex-start;
+    flex-shrink: 0;
   }
 
-  html.dark .problem-stat {
-    background: rgba(31, 41, 55, 0.8);
+  html.dark .problem-impact {
+    background: rgba(19, 176, 238, 0.15);
+    color: #13B0EE;
+  }
+
+  .problem-impact svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .problem-stats-section {
+    max-width: 1200px;
+    margin: 80px auto 0;
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .problem-stat-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(19, 176, 238, 0.2);
+    border-radius: 16px;
+    padding: 28px 36px;
+    transition: all 0.3s ease;
+    min-width: 320px;
+  }
+
+  html.dark .problem-stat-card {
+    background: rgba(31, 41, 55, 0.9);
     border: 1px solid rgba(19, 176, 238, 0.3);
   }
 
+  .problem-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(19, 176, 238, 0.15);
+    border-color: rgba(19, 176, 238, 0.5);
+  }
+
+  html.dark .problem-stat-card:hover {
+    box-shadow: 0 12px 32px rgba(19, 176, 238, 0.25);
+  }
+
   .problem-stat-number {
-    font-size: 48px;
-    font-weight: 800;
+    font-size: 56px;
+    font-weight: 900;
     background: linear-gradient(135deg, #13B0EE, #392C91);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     line-height: 1;
+    letter-spacing: -2px;
+  }
+
+  .problem-stat-divider {
+    width: 2px;
+    height: 60px;
+    background: linear-gradient(180deg, transparent, rgba(19, 176, 238, 0.3), transparent);
   }
 
   .problem-stat-content {
     text-align: left;
+    flex: 1;
   }
 
   .problem-stat-label {
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 800;
     color: #1f2937;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   html.dark .problem-stat-label {
@@ -430,21 +580,100 @@ onBeforeUnmount(() => {
   .problem-stat-description {
     font-size: 14px;
     color: #6b7280;
-    line-height: 1.4;
+    line-height: 1.5;
   }
 
   html.dark .problem-stat-description {
     color: #9ca3af;
   }
 
-  @media (max-width: 960px) {
+  /* Responsive Design */
+  @media (max-width: 1200px) {
     .problem-grid {
-      grid-template-columns: 1fr;
-      gap: 24px;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 960px) {
+    .problem-section {
+      padding: 80px 24px;
+      margin: 60px 0;
     }
 
-    .problem-section {
-      padding: 60px 24px;
+    .problem-intro {
+      margin-bottom: 60px;
+    }
+
+    .problem-grid {
+      gap: 20px;
+    }
+
+    .problem-card {
+      padding: 28px 24px;
+      min-height: 300px;
+    }
+
+    .problem-stats-section {
+      margin-top: 60px;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .problem-stat-card {
+      width: 100%;
+      max-width: 500px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .problem-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .problem-card {
+      padding: 24px 20px;
+      min-height: auto;
+    }
+
+    .problem-icon-wrapper {
+      width: 56px;
+      height: 56px;
+      margin-bottom: 20px;
+    }
+
+    .problem-icon-wrapper svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .problem-title {
+      font-size: 18px;
+    }
+
+    .problem-description {
+      font-size: 14px;
+    }
+
+    .problem-stat-card {
+      flex-direction: column;
+      text-align: center;
+      padding: 24px;
+      min-width: auto;
+    }
+
+    .problem-stat-number {
+      font-size: 48px;
+    }
+
+    .problem-stat-divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(19, 176, 238, 0.3), transparent);
+    }
+
+    .problem-stat-content {
+      text-align: center;
     }
   }
 
@@ -475,17 +704,21 @@ onBeforeUnmount(() => {
     }
 
     .problem-section {
-      padding: 40px 16px;
+      padding: 60px 16px;
       margin: 40px 0;
     }
 
+    .problem-intro {
+      margin-bottom: 40px;
+    }
+
     .problem-card {
-      padding: 24px;
+      padding: 20px 18px;
     }
 
     .problem-icon-wrapper {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
     }
 
     .problem-icon-wrapper svg {
@@ -493,26 +726,29 @@ onBeforeUnmount(() => {
       height: 24px;
     }
 
-    .problem-title {
-      font-size: 18px;
+    .problem-impact {
+      font-size: 12px;
+      padding: 6px 12px;
     }
 
-    .problem-description {
-      font-size: 15px;
+    .problem-stats-section {
+      margin-top: 48px;
     }
 
-    .problem-stat {
-      flex-direction: column;
-      text-align: center;
-      padding: 20px 24px;
+    .problem-stat-card {
+      padding: 20px;
     }
 
     .problem-stat-number {
-      font-size: 36px;
+      font-size: 42px;
     }
 
-    .problem-stat-content {
-      text-align: center;
+    .problem-stat-label {
+      font-size: 13px;
+    }
+
+    .problem-stat-description {
+      font-size: 13px;
     }
   }
 
@@ -531,19 +767,19 @@ onBeforeUnmount(() => {
   <BrandLogos />
 </section>
 
-<!-- 3. PROBLEM AGITATION - Professional Version -->
+<!-- 3. PROBLEM AGITATION - Enhanced Professional Version -->
 <section class="problem-section">
   <div class="problem-intro">
     <div class="d-flex justify-center mb-4">
       <v-chip color="primary" size="large" variant="flat">
-        <span class="text-overline font-weight-bold">For Marketing Agencies</span>
+        <span class="text-overline">The Agency Challenge</span>
       </v-chip>
     </div>
-    <h2 class="sectionTitle mb-0">
-      Managing Multiple Client Email Programs Shouldn't Feel Like This
+    <h2 class="problem-main-title">
+      Managing Multiple Client Email Programs Shouldn't Be This Hard
     </h2>
     <p class="problem-subtitle">
-      You're juggling multiple clients, each with their own brand, deadlines, and expectations. Your team is stretched thin, and every email campaign feels like starting from scratch.
+      You're juggling multiple clients, each with their own brand guidelines, deadlines, and expectations. Your team is stretched thin, and every email campaign feels like reinventing the wheel.
     </p>
   </div>
 
@@ -552,78 +788,140 @@ onBeforeUnmount(() => {
     <div class="problem-card">
       <div class="problem-icon-wrapper">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 7h16M4 12h16M4 17h10" stroke-width="2" stroke-linecap="round"/>
-          <path d="M20 17l-3-3 3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4 7h16M4 12h16M4 17h10" stroke-linecap="round"/>
+          <path d="M20 17l-3-3 3-3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <div class="problem-title">Rebuilding templates from scratch</div>
-      <div class="problem-description">Every new client means recreating email templates, testing across devices, and fixing rendering bugs. Your design team spends 60% of their time on repetitive setup work.</div>
+      <div class="problem-content">
+        <div class="problem-title">Rebuilding Templates from Scratch</div>
+        <div class="problem-description">Every new client means recreating email templates, testing across devices, and fixing rendering bugs. Your design team spends hours on repetitive setup work instead of creative strategy.</div>
+        <div class="problem-impact">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          60% time wasted on setup
+        </div>
+      </div>
     </div>
     <!-- Problem 2 -->
     <div class="problem-card">
       <div class="problem-icon-wrapper">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="12" cy="12" r="10" stroke-width="2"/>
-          <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/>
+          ircle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2" stroke-linecap="round"/>
         </svg>
       </div>
-      <div class="problem-title">Designer bottlenecks slow everything</div>
-      <div class="problem-description">Campaign launches get delayed because your designers are overbooked. Simple text updates require a ticket, approval, and a 3-day turnaround.</div>
+      <div class="problem-content">
+        <div class="problem-title">Designer Bottlenecks Kill Momentum</div>
+        <div class="problem-description">Campaign launches get delayed because your designers are overbooked. Simple text updates require a ticket, approval, and a 3-day turnaround while clients wait.</div>
+        <div class="problem-impact">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          3-5 day delays per campaign
+        </div>
+      </div>
     </div>
     <!-- Problem 3 -->
     <div class="problem-card">
       <div class="problem-icon-wrapper">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round"/>
         </svg>
       </div>
-      <div class="problem-title">Per-contact pricing eating margins</div>
-      <div class="problem-description">Your clients have growing lists, but platforms like Mailchimp charge per contact—not per email sent. Your costs scale faster than your revenue.</div>
+      <div class="problem-content">
+        <div class="problem-title">Per-Contact Pricing Kills Margins</div>
+        <div class="problem-description">Your clients have growing lists, but platforms charge per contact. As their lists grow, your costs explode while your retainer stays flat. Your margins shrink with every new subscriber.</div>
+        <div class="problem-impact">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          40% higher costs yearly
+        </div>
+      </div>
     </div>
     <!-- Problem 4 -->
     <div class="problem-card">
       <div class="problem-icon-wrapper">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <rect x="3" y="5" width="18" height="14" rx="2" stroke-width="2"/>
-          <path d="M3 7l9 6 9-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M9 15l-2 2m8-2l2 2" stroke-width="2" stroke-linecap="round"/>
+          <rect x="3" y="5" width="18" height="14" rx="2"/>
+          <path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 15l-2 2m8-2l2 2" stroke-linecap="round"/>
         </svg>
       </div>
-      <div class="problem-title">Rendering issues embarrass your agency</div>
-      <div class="problem-description">Emails look perfect in Gmail but break in Outlook. Mobile layouts are crushed. Clients screenshot the disasters and CC your boss.</div>
+      <div class="problem-content">
+        <div class="problem-title">Rendering Issues Embarrass Your Agency</div>
+        <div class="problem-description">Emails look perfect in Gmail but break in Outlook. Mobile layouts are crushed. Clients screenshot the disasters and CC your boss. One rendering bug can cost you a renewal.</div>
+        <div class="problem-impact">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          Brand reputation at risk
+        </div>
+      </div>
     </div>
     <!-- Problem 5 -->
     <div class="problem-card">
       <div class="problem-icon-wrapper">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 3v18h18" stroke-width="2" stroke-linecap="round"/>
-          <path d="M18 17V9l-5 5-3-3-4 4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="18" cy="6" r="2" stroke-width="2"/>
+          <path d="M3 3v18h18" stroke-linecap="round"/>
+          <path d="M18 17V9l-5 5-3-3-4 4" stroke-linecap="round" stroke-linejoin="round"/>
+          ircle cx="18" cy="6" r="2"/>
         </svg>
       </div>
-      <div class="problem-title">Can't prove ROI with existing tools</div>
-      <div class="problem-description">Clients ask "What's our email ROI?" and you're stuck exporting spreadsheets, combining data sources, and building reports manually for hours.</div>
+      <div class="problem-content">
+        <div class="problem-title">Can't Prove ROI to Clients</div>
+        <div class="problem-description">Clients ask "What's our email ROI?" and you're stuck exporting spreadsheets, combining data sources, and building reports manually for hours instead of focusing on strategy.</div>
+        <div class="problem-impact">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          5+ hours per report
+        </div>
+      </div>
     </div>
     <!-- Problem 6 -->
     <div class="problem-card">
       <div class="problem-icon-wrapper">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L2 7v7c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 2L2 7v7c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <div class="problem-title">Compliance nightmares keep you up</div>
-      <div class="problem-description">GDPR, CAN-SPAM, unsubscribe regulations—one mistake could cost your client (and your reputation) dearly. But manual compliance checks aren't scalable.</div>
+      <div class="problem-content">
+        <div class="problem-title">Compliance Nightmares Keep You Up</div>
+        <div class="problem-description">GDPR, CAN-SPAM, unsubscribe regulations. One mistake could cost your client thousands and damage your reputation. Manual compliance checks don't scale across 10+ clients.</div>
+        <div class="problem-impact">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          Legal exposure risk
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="d-flex justify-center">
-    <div class="problem-stat">
+  <div class="problem-stats-section">
+    <div class="problem-stat-card">
       <div class="problem-stat-number">70%</div>
-      <div style="border-left: 2px solid rgba(19, 176, 238, 0.3); height: 50px; margin: 0 8px;"></div>
+      <div class="problem-stat-divider"></div>
       <div class="problem-stat-content">
         <div class="problem-stat-label">Time Wasted</div>
-        <div class="problem-stat-description">Average time agencies waste on<br/>email production inefficiencies</div>
+        <div class="problem-stat-description">Average time agencies waste on email production inefficiencies</div>
+      </div>
+    </div>
+    <div class="problem-stat-card">
+      <div class="problem-stat-number">3-5</div>
+      <div class="problem-stat-divider"></div>
+      <div class="problem-stat-content">
+        <div class="problem-stat-label">Days Delayed</div>
+        <div class="problem-stat-description">Typical campaign launch delay due to design bottlenecks</div>
       </div>
     </div>
   </div>
@@ -632,7 +930,7 @@ onBeforeUnmount(() => {
 <!-- 4. SOCIAL PROOF - Build trust early -->
 <section class="section-index" style="padding-top: 5vh;">
   <h2 class="sectionTitle text-center mt-4 mb-6">
-    Agencies Choose BlueFox. Their Clients Stay.
+    Agencies Choose BlueFox Email. Their Clients Stay.
   </h2>
   <TestimonialDiv
     :is-dark="isDark"
@@ -672,7 +970,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your team doesn't need to be Adobe experts. Our visual editor produces pixel-perfect emails that render flawlessly across Gmail, Outlook, and mobile—so you can deliver premium quality even with a lean creative team.
+      Your team doesn't need to be Adobe experts. Our visual editor produces pixel-perfect emails that render flawlessly across Gmail, Outlook, and mobile so you can deliver premium quality even with a lean creative team.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -689,9 +987,9 @@ onBeforeUnmount(() => {
   </v-card>
 
   <div class="d-flex justify-center mt-6">
-    <div class="problem-stat">
+    <div class="problem-stat-card">
       <div class="problem-stat-number">10x</div>
-      <div style="border-left: 2px solid rgba(19, 176, 238, 0.3); height: 50px; margin: 0 8px;"></div>
+      <div class="problem-stat-divider"></div>
       <div class="problem-stat-content">
         <div class="problem-stat-label">Faster</div>
         <div class="problem-stat-description">Average speed improvement for<br/>email production</div>
@@ -707,7 +1005,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Create sophisticated drip campaigns, triggered sequences, and re-engagement flows in minutes—not days. Your clients get enterprise-level nurturing without you staffing up for every campaign.
+      Create sophisticated drip campaigns, triggered sequences, and re-engagement flows in minutes, not days. Your clients get enterprise-level nurturing without you staffing up for every campaign.
     </div>
   </div>
 
@@ -728,7 +1026,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your reputation depends on flawless execution. Our battle-tested HTML guarantees your emails look perfect everywhere—from Gmail on mobile to Outlook 2016 on desktop. <strong>No more embarrassing rendering bugs.</strong>
+      Your reputation depends on flawless execution. Our battle-tested HTML guarantees your emails look perfect everywhere from Gmail on mobile to Outlook 2016 on desktop. <strong>No more embarrassing rendering bugs.</strong>
     </div>
   </div>
 
@@ -749,7 +1047,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Double opt-in, one-click unsubscribe, automated suppression lists—all built-in. Show clients you're not just creative, you're responsible stewards of their brand reputation.
+      Double opt-in, one-click unsubscribe, automated suppression lists, all built-in. Show clients you're not just creative, you're responsible stewards of their brand reputation.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -764,7 +1062,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Stop spending hours in spreadsheets. Export beautiful, client-ready reports that prove ROI. Open rates, click rates, conversion attribution, revenue impact—<strong>everything your client needs to see why they should increase your retainer.</strong>
+      Stop spending hours in spreadsheets. Export beautiful, client-ready reports that prove ROI. Open rates, click rates, conversion attribution, revenue impact <strong>everything your client needs to see why they should increase your retainer.</strong>
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">

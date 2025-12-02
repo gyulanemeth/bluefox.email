@@ -91,12 +91,12 @@ const logos = [
   padding: 60px 24px;
   background: transparent;
   border-top: 1px solid rgba(229, 231, 235, 0.3);
-  border-bottom: 1px solid rgba(229, 231, 235, 0.3);
+  /* border-bottom: 1px solid rgba(229, 231, 235, 0.3); */
 }
 
 html.dark .brand-logos-section {
   border-top: 1px solid rgba(75, 85, 99, 0.3);
-  border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+  /* border-bottom: 1px solid rgba(75, 85, 99, 0.3); */
 }
 
 .brand-logos-intro {
