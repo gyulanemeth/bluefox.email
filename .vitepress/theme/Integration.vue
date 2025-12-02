@@ -761,7 +761,7 @@ html.dark .code-header {
   }
 
   .docs-cta {
-    padding: 24px 20px;
+    padding: 13px 9px;
   }
 
   .integration-card {
