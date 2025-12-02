@@ -1,19 +1,19 @@
 ---
 layout: home
 
-title: Design Breathtaking Brand Emails. Send Smarter. Pay Lean.
-description: Email campaigns that look perfect, land in the inbox, and scale with your agency. Automate flows, unify design, and only pay per send.
+title: Scale Your Agency's Email Campaigns Without Scaling Your Headaches
+description: The email platform built for agencies managing multiple brands. Deliver enterprise-level campaigns without enterprise prices or complexity.
 
 head:
   - - meta
     - name: description
-      content: "Email campaigns that look perfect, land in the inbox, and scale with your agency. Automate flows, unify design, and only pay per send."
+      content: "The email platform built for agencies managing multiple brands. Deliver enterprise-level campaigns without enterprise prices or complexity."
   - - meta
     - property: og:title
-      content: Design Breathtaking Brand Emails. Send Smarter. Pay Lean. | BlueFox Email
+      content: Scale Your Agency's Email Campaigns Without Scaling Your Headaches | BlueFox Email
   - - meta
     - property: og:description
-      content: "Email campaigns that look perfect, land in the inbox, and scale with your agency. Automate flows, unify design, and only pay per send."
+      content: "The email platform built for agencies managing multiple brands. Deliver enterprise-level campaigns without enterprise prices or complexity."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share.png
@@ -28,10 +28,10 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Design Breathtaking Brand Emails. Send Smarter. Pay Lean. | BlueFox Email
+      content: Scale Your Agency's Email Campaigns Without Scaling Your Headaches | BlueFox Email
   - - meta
     - name: twitter:description
-      content: "Email campaigns that look perfect, land in the inbox, and scale with your agency. Automate flows, unify design, and only pay per send."
+      content: "The email platform built for agencies managing multiple brands. Deliver enterprise-level campaigns without enterprise prices or complexity."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share.png
@@ -42,6 +42,7 @@ import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
 
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
+import BrandLogos from './.vitepress/theme/BrandLogos.vue'
 import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
 import DesignSystem from './.vitepress/theme/DesignSystem.vue'
 import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
@@ -273,6 +274,180 @@ onBeforeUnmount(() => {
     padding-top: 0 !important;
   }
 
+  /* Problem Agitation Section Styles - Professional Version */
+  .problem-section {
+    background: linear-gradient(135deg, rgba(19, 176, 238, 0.03) 0%, rgba(57, 44, 145, 0.03) 100%);
+    padding: 100px 24px;
+    margin: 80px 0;
+  }
+
+  html.dark .problem-section {
+    background: linear-gradient(135deg, rgba(19, 176, 238, 0.08) 0%, rgba(57, 44, 145, 0.08) 100%);
+  }
+
+  .problem-intro {
+    max-width: 800px;
+    margin: 0 auto 60px;
+    text-align: center;
+  }
+
+  .problem-subtitle {
+    font-size: 20px;
+    color: #6b7280;
+    line-height: 1.6;
+    margin-top: 16px;
+  }
+
+  html.dark .problem-subtitle {
+    color: #9ca3af;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .problem-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(229, 231, 235, 0.8);
+    border-radius: 16px;
+    padding: 32px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  html.dark .problem-card {
+    background: rgba(31, 41, 55, 0.6);
+    border: 1px solid rgba(75, 85, 99, 0.8);
+  }
+
+  .problem-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(19, 176, 238, 0.08);
+    border-color: rgba(19, 176, 238, 0.3);
+    background: rgba(255, 255, 255, 0.9);
+  }
+
+  html.dark .problem-card:hover {
+    background: rgba(31, 41, 55, 0.9);
+    border-color: rgba(19, 176, 238, 0.4);
+  }
+
+  .problem-icon-wrapper {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(19, 176, 238, 0.1), rgba(57, 44, 145, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+  }
+
+  .problem-card:hover .problem-icon-wrapper {
+    background: linear-gradient(135deg, rgba(19, 176, 238, 0.15), rgba(57, 44, 145, 0.15));
+    transform: scale(1.05);
+  }
+
+  .problem-icon-wrapper svg {
+    width: 28px;
+    height: 28px;
+    stroke: #13B0EE;
+    fill: none;
+  }
+
+  .problem-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  html.dark .problem-title {
+    color: #f3f4f6;
+  }
+
+  .problem-description {
+    font-size: 16px;
+    color: #6b7280;
+    line-height: 1.7;
+  }
+
+  html.dark .problem-description {
+    color: #9ca3af;
+  }
+
+  .problem-stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(19, 176, 238, 0.2);
+    border-radius: 12px;
+    padding: 20px 32px;
+    margin-top: 60px;
+  }
+
+  html.dark .problem-stat {
+    background: rgba(31, 41, 55, 0.8);
+    border: 1px solid rgba(19, 176, 238, 0.3);
+  }
+
+  .problem-stat-number {
+    font-size: 48px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #13B0EE, #392C91);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+
+  .problem-stat-content {
+    text-align: left;
+  }
+
+  .problem-stat-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1f2937;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  html.dark .problem-stat-label {
+    color: #f3f4f6;
+  }
+
+  .problem-stat-description {
+    font-size: 14px;
+    color: #6b7280;
+    line-height: 1.4;
+  }
+
+  html.dark .problem-stat-description {
+    color: #9ca3af;
+  }
+
+  @media (max-width: 960px) {
+    .problem-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .problem-section {
+      padding: 60px 24px;
+    }
+  }
+
   @media (max-width: 599px) {
     .VPHero .main {
       padding: 0;
@@ -298,6 +473,47 @@ onBeforeUnmount(() => {
     #great-deliverability {
       padding: 25px;
     }
+
+    .problem-section {
+      padding: 40px 16px;
+      margin: 40px 0;
+    }
+
+    .problem-card {
+      padding: 24px;
+    }
+
+    .problem-icon-wrapper {
+      width: 48px;
+      height: 48px;
+    }
+
+    .problem-icon-wrapper svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .problem-title {
+      font-size: 18px;
+    }
+
+    .problem-description {
+      font-size: 15px;
+    }
+
+    .problem-stat {
+      flex-direction: column;
+      text-align: center;
+      padding: 20px 24px;
+    }
+
+    .problem-stat-number {
+      font-size: 36px;
+    }
+
+    .problem-stat-content {
+      text-align: center;
+    }
   }
 
   .mt-150 {
@@ -310,19 +526,136 @@ onBeforeUnmount(() => {
   <HeroUnit />
 </section>
 
-<!-- 2. CORE AGENCY FEATURE: Multi-client Management via Design System -->
+<!-- 2. BRAND LOGOS - Trust indicators -->
+<section>
+  <BrandLogos />
+</section>
+
+<!-- 3. PROBLEM AGITATION - Professional Version -->
+<section class="problem-section">
+  <div class="problem-intro">
+    <div class="d-flex justify-center mb-4">
+      <v-chip color="primary" size="large" variant="flat">
+        <span class="text-overline font-weight-bold">For Marketing Agencies</span>
+      </v-chip>
+    </div>
+    <h2 class="sectionTitle mb-0">
+      Managing Multiple Client Email Programs Shouldn't Feel Like This
+    </h2>
+    <p class="problem-subtitle">
+      You're juggling multiple clients, each with their own brand, deadlines, and expectations. Your team is stretched thin, and every email campaign feels like starting from scratch.
+    </p>
+  </div>
+
+  <div class="problem-grid">
+    <!-- Problem 1 -->
+    <div class="problem-card">
+      <div class="problem-icon-wrapper">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 7h16M4 12h16M4 17h10" stroke-width="2" stroke-linecap="round"/>
+          <path d="M20 17l-3-3 3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="problem-title">Rebuilding templates from scratch</div>
+      <div class="problem-description">Every new client means recreating email templates, testing across devices, and fixing rendering bugs. Your design team spends 60% of their time on repetitive setup work.</div>
+    </div>
+    <!-- Problem 2 -->
+    <div class="problem-card">
+      <div class="problem-icon-wrapper">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" stroke-width="2"/>
+          <path d="M12 6v6l4 2" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="problem-title">Designer bottlenecks slow everything</div>
+      <div class="problem-description">Campaign launches get delayed because your designers are overbooked. Simple text updates require a ticket, approval, and a 3-day turnaround.</div>
+    </div>
+    <!-- Problem 3 -->
+    <div class="problem-card">
+      <div class="problem-icon-wrapper">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="problem-title">Per-contact pricing eating margins</div>
+      <div class="problem-description">Your clients have growing lists, but platforms like Mailchimp charge per contact—not per email sent. Your costs scale faster than your revenue.</div>
+    </div>
+    <!-- Problem 4 -->
+    <div class="problem-card">
+      <div class="problem-icon-wrapper">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="5" width="18" height="14" rx="2" stroke-width="2"/>
+          <path d="M3 7l9 6 9-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 15l-2 2m8-2l2 2" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="problem-title">Rendering issues embarrass your agency</div>
+      <div class="problem-description">Emails look perfect in Gmail but break in Outlook. Mobile layouts are crushed. Clients screenshot the disasters and CC your boss.</div>
+    </div>
+    <!-- Problem 5 -->
+    <div class="problem-card">
+      <div class="problem-icon-wrapper">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 3v18h18" stroke-width="2" stroke-linecap="round"/>
+          <path d="M18 17V9l-5 5-3-3-4 4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="18" cy="6" r="2" stroke-width="2"/>
+        </svg>
+      </div>
+      <div class="problem-title">Can't prove ROI with existing tools</div>
+      <div class="problem-description">Clients ask "What's our email ROI?" and you're stuck exporting spreadsheets, combining data sources, and building reports manually for hours.</div>
+    </div>
+    <!-- Problem 6 -->
+    <div class="problem-card">
+      <div class="problem-icon-wrapper">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7v7c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="problem-title">Compliance nightmares keep you up</div>
+      <div class="problem-description">GDPR, CAN-SPAM, unsubscribe regulations—one mistake could cost your client (and your reputation) dearly. But manual compliance checks aren't scalable.</div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-center">
+    <div class="problem-stat">
+      <div class="problem-stat-number">70%</div>
+      <div style="border-left: 2px solid rgba(19, 176, 238, 0.3); height: 50px; margin: 0 8px;"></div>
+      <div class="problem-stat-content">
+        <div class="problem-stat-label">Time Wasted</div>
+        <div class="problem-stat-description">Average time agencies waste on<br/>email production inefficiencies</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. SOCIAL PROOF - Build trust early -->
+<section class="section-index" style="padding-top: 5vh;">
+  <h2 class="sectionTitle text-center mt-4 mb-6">
+    Agencies Choose BlueFox. Their Clients Stay.
+  </h2>
+  <TestimonialDiv
+    :is-dark="isDark"
+    :lg-and-up="lgAndUp"
+    :md="md"
+    :sm="sm"
+    :xs="xs"
+  />
+</section>
+
+<!-- 5. SOLUTION: Multi-client Management via Design System -->
 <section id="design-system" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
-      <span class="text-overline">For marketing agencies</span>
+      <span class="text-overline">Core Solution</span>
     </v-chip>
   </div>
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    A unified design system that every client can adopt
+    Manage 10 Clients as Easily as 1
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your agency can ship consistent email templates to multiple clients. One brand-palette = one source of truth, so updates propagate instantly.
+      Stop rebuilding email templates from scratch for every client. Our unified design system lets you create brand-specific components once, then replicate and customize instantly. <strong>Update 50 campaigns with one click.</strong>
     </div>
   </div>
 
@@ -332,14 +665,14 @@ onBeforeUnmount(() => {
   />
 </section>
 
-<!-- 3. AGENCY CONTENT CREATION - No-code editor for speed -->
+<!-- 6. SOLUTION: No-code Content Creation -->
 <section id="marketers" class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Effortless content creation for every client
+    Your Junior Designer Just Got 10x Faster
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      No design team? No problem. Our drag-and-drop editor gives your creatives pixel-perfect layouts that render across Gmail, Outlook and mobile. Spend less time on code and more on strategy.
+      Your team doesn't need to be Adobe experts. Our visual editor produces pixel-perfect emails that render flawlessly across Gmail, Outlook, and mobile—so you can deliver premium quality even with a lean creative team.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -354,16 +687,27 @@ onBeforeUnmount(() => {
       Your browser does not support the video tag.
     </video>
   </v-card>
+
+  <div class="d-flex justify-center mt-6">
+    <div class="problem-stat">
+      <div class="problem-stat-number">10x</div>
+      <div style="border-left: 2px solid rgba(19, 176, 238, 0.3); height: 50px; margin: 0 8px;"></div>
+      <div class="problem-stat-content">
+        <div class="problem-stat-label">Faster</div>
+        <div class="problem-stat-description">Average speed improvement for<br/>email production</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- 4. AUTOMATION - Scale agency operations -->
+<!-- 7. SOLUTION: Automation -->
 <section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Automate pipelines that keep clients engaged
+    Set It, Send It, Invoice It
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Create drip sequences, triggered emails, & re-engagement funnels with just a few clicks. Offer your clients data-driven nurture flows without a developer's hand.
+      Create sophisticated drip campaigns, triggered sequences, and re-engagement flows in minutes—not days. Your clients get enterprise-level nurturing without you staffing up for every campaign.
     </div>
   </div>
 
@@ -377,14 +721,14 @@ onBeforeUnmount(() => {
   />
 </section>
 
-<!-- 5. RENDERING - Quality assurance for agencies -->
+<!-- 8. SOLUTION: Perfect Rendering -->
 <section id="no-rendering-issues" class="value-prop">
   <h2 class="sectionTitle text-center mb-3">
-    Mapped inboxes, identical look & feel
+    Never Apologize for Broken Emails Again
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your emails will look perfect everywhere. Our battle-tested email HTML ensures flawless rendering across all major email clients, including Outlook.
+      Your reputation depends on flawless execution. Our battle-tested HTML guarantees your emails look perfect everywhere—from Gmail on mobile to Outlook 2016 on desktop. <strong>No more embarrassing rendering bugs.</strong>
     </div>
   </div>
 
@@ -398,56 +742,42 @@ onBeforeUnmount(() => {
   />
 </section>
 
-<!-- 6. LIST MANAGEMENT - Compliance & reputation -->
+<!-- 9. SOLUTION: List Management & Compliance -->
 <section class="section-index value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Manage client lists, guard brand reputation, and stay compliant
+    Protect Your Clients (and Your Agency) from Compliance Nightmares
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Double-opt-in, unsubscribe-one-click, opt-out flows, all built-in. Give your clients peace of mind, and proof-prove that you care about inbox health.
+      Double opt-in, one-click unsubscribe, automated suppression lists—all built-in. Show clients you're not just creative, you're responsible stewards of their brand reputation.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
-    <img alt="List management screens" src="/assets/list-management.webp" loading="lazy" />
+    <img alt="List management screens showing compliance features" src="/assets/list-management.webp" loading="lazy" />
   </v-card>
 </section>
 
-<!-- 7. ANALYTICS - Prove ROI to clients -->
+<!-- 10. SOLUTION: Analytics & ROI Proof -->
 <section class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Turn email data into client KPIs
+    The Reports That Win Renewals
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Open, click, conversion, bounce → all in one dashboard. Export reports for your brief-in-brief calls. Show clients why their investment is paying off.
+      Stop spending hours in spreadsheets. Export beautiful, client-ready reports that prove ROI. Open rates, click rates, conversion attribution, revenue impact—<strong>everything your client needs to see why they should increase your retainer.</strong>
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
-    <img alt="Analytics screenshot" src="/assets/analytics-alt.webp" loading="lazy" />
+    <img alt="Analytics dashboard showing ROI metrics" src="/assets/analytics-alt.webp" loading="lazy" />
   </v-card>
 </section>
 
-<!-- 8. DELIVERABILITY - Critical for agency reputation -->
+<!-- 11. DELIVERABILITY - Critical for agency reputation -->
 <section id="deliverability" class="value-prop">
   <Deliverability />
 </section>
 
-<!-- 9. TESTIMONIALS - Social proof after showing value -->
-<section class="section-index">
-  <h2 class="sectionTitle text-center mt-4 mb-6">
-    What agencies are saying
-  </h2>
-  <TestimonialDiv
-    :is-dark="isDark"
-    :lg-and-up="lgAndUp"
-    :md="md"
-    :sm="sm"
-    :xs="xs"
-  />
-</section>
-
-<!-- 10. FOR CREATIVE TEAMS - Secondary audience segment -->
+<!-- 12. FOR CREATIVE TEAMS - Secondary audience segment -->
 <section id="designers" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
@@ -455,11 +785,11 @@ onBeforeUnmount(() => {
     </v-chip>
   </div>
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Create pixel-perfect brand emails in minutes
+    Create Pixel-Perfect Brand Emails in Minutes
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Leverage brand-ready components, real-time preview, and a shared design system that editors and developers share. No code, no QA loop.
+      Leverage brand-ready components, real-time preview, and a shared design system that editors and developers both use. No code required. No QA loop delays.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
@@ -477,7 +807,7 @@ onBeforeUnmount(() => {
   </v-card>
 </section>
 
-<!-- 11. FOR DEVELOPERS - Technical audience segment -->
+<!-- 13. FOR DEVELOPERS - Technical audience segment -->
 <section id="developers" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
@@ -485,11 +815,11 @@ onBeforeUnmount(() => {
     </v-chip>
   </div>
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    API integration that scales with your agency
+    Connect Your Entire Tech Stack Without Bothering Developers
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Programmatic access, webhooks, SMTP relay, all you need to send client emails from your own stack without giving up deliverability.
+      Programmatic access, webhooks, SMTP relay everything you need to send client emails from your own stack without giving up deliverability or control.
     </div>
   </div>
 
@@ -550,27 +880,27 @@ onBeforeUnmount(() => {
   </Integration>
 </section>
 
-<!-- 12. FINAL CTA - Convert after all value demonstrated -->
+<!-- 14. FINAL CTA - Convert after all value demonstrated -->
 <section id="second-cta">
   <h2 class="sectionTitle text-center mb-3">
-    Send amazing emails for your clients today
+    Ready to Scale Without the Growing Pains?
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your agency's clients deserve great design, great ROI, and great inbox placement. Try BlueFox for free.
+      Start free. No credit card required. Import your first client in 5 minutes and see why agencies choose BlueFox to manage their email campaigns.
     </div>
   </div>
 
   <v-row class="mt-4 justify-center">
     <v-btn
-      size="large"
+      size="x-large"
       color="primary"
       variant="flat"
       class="no-uppercase mr-3"
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
-      Create a free agency workspace
+      <strong>Start Your Free Agency Account</strong>
     </v-btn>
   </v-row>
 </section>
