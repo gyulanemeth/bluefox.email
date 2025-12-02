@@ -3,7 +3,7 @@
     <div class="cta-container">
       <div class="cta-text">
         <h3>Send Consistent-looking & beautiful emails today!</h3>
-        <p>Email communication is part of your product! Don't let it ruin your user's experience with your brand</p>
+        <p>Email communication is part of your product! Don't let it ruin your user's experience with your brand.</p>
       </div>
       <div class="cta-action">
         <a href="https://app.bluefox.email/" class="cta-button">Get started</a>

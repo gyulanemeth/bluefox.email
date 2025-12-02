@@ -1,23 +1,25 @@
 # About
 
-Hello! I'm Gyula Németh (GYN), the founder of bluefox.email.
+Hello! I'm Gyula Németh, the founder of BlueFox Email.
 
 ![Me](/assets/me.webp)
 
-I've been working in the unique and challenging world of HTML emails since 2013, when I co-founded a company focused on email design products.
+I’ve been working in the unusually difficult world of HTML email design and rendering since 2013, when I co-founded a company focused on email design products. For more than a decade, I’ve helped teams create **pixel-perfect email HTML that renders properly everywhere, including Outlook.**
 
-The core strength of all these products is that you can create pixel-perfect designs, and the emails created will look good in every email client.
+As CTO, I led the creation of multiple SaaS products built around serious email production. Over the years, I noticed the same problems coming up again and again — especially for agencies managing email for multiple clients. BlueFox Email exists to solve those problems.
 
-As a CTO, while leading the creation of three SaaS products with a primary focus on emails, I noticed many issues that still needed to be resolved. That's why I decided to build bluefox.email, a platform dedicated to solving SaaS companies' email challenges.
+**Products I’ve built (and still actively develop):**
 
-## [edmdesigner.com](https://edmdesigner.com)
-The first email editor plugin on the market that you could integrate into your own SaaS. Our email HTML has been the best quality on the market. And it still is today.
+ - ***[edmdesigner.com](https://edmdesigner.com)*** The first embeddable email editor plugin you could integrate into your own SaaS. Our email HTML became known as **some of the best in the market, and it still is today.**
 
-## [chamaileon.io](https://chamaileon.io)
-This app focuses on marketing teams that take emails seriously. The feature I'm most proud of is the real-time collaborative email editor.
+ - ***[chamaileon.io](https://chamaileon.io)*** A full email editor and collaboration platform used by marketing teams. I’m especially proud of building the **real-time collaborative email editor**, something very rare in the email space.
 
-## [emailhero.io](https://emailhero.io)
-Designed for the world's biggest digital news publishers. It makes managing even hundreds of brands and thousands of different newsletters very, very easy.
+ - ***[emailhero.io](https://emailhero.io)***  A platform designed for major digital publishers. It helps teams manage **hundreds of brands and thousands of newsletters** with ease.
+
+---
+
+After working with rendering issues, design systems, Outlook quirks, dark mode challenges, and deliverability constraints for so many years, I decided to build BlueFox Email specifically for **marketing agencies**, the people who deal with these problems every single day.
+
 
 
 
