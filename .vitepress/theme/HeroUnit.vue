@@ -105,7 +105,7 @@ onUnmounted(() => {
               </div>
               <div class="cta-block"></div>
             </div>
-            <div class="card-footer"></div>
+            <!-- <div class="card-footer"></div> -->
           </div>
 
           <!-- Floating Feature Cards -->
@@ -574,7 +574,7 @@ html.dark .card-footer {
 
 html.dark .feature-float {
   background: rgba(31, 41, 55, 0.95);
-  border: 1px solid rgba(19, 176, 238, 0.3);
+  outline: 1px solid rgba(19, 176, 238, 0.3);
 }
 
 .feature-float:hover {
