@@ -6,7 +6,7 @@ Hello! I'm Gyula Németh, the founder of BlueFox Email.
 
 I’ve been working in the unusually difficult world of HTML email design and rendering since 2013, when I co-founded a company focused on email design products. For more than a decade, I’ve helped teams create **pixel-perfect email HTML that renders properly everywhere, including Outlook.**
 
-As CTO, I led the creation of multiple SaaS products built around serious email production. Over the years, I noticed the same problems coming up again and again — especially for agencies managing email for multiple clients. BlueFox Email exists to solve those problems.
+As CTO, I led the creation of multiple SaaS products built around serious email production. Over the years, I noticed the same problems coming up again and again, especially for agencies managing email for multiple clients. BlueFox Email exists to solve those problems.
 
 **Products I’ve built (and still actively develop):**
 
