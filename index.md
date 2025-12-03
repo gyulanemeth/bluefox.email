@@ -1194,7 +1194,7 @@ onBeforeUnmount(() => {
       size="x-large"
       color="primary"
       variant="flat"
-      class="no-uppercase mr-3"
+      class="no-uppercase"
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
