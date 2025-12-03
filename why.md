@@ -49,9 +49,4 @@ Contact-based subscriptions are always overpriced. You pay more just because you
 
 ---
 
-Ready to send emails that look great, land in the inbox, and scale with multiple clients?
-
-Send your first test email in minutes, then verify domains and get production access in under a day.
-
-[Get started with 3000 free sends!](https://app.bluefox.email/accounts/create-account)  
-Full access. No credit card required.
+<GlossaryCTA />

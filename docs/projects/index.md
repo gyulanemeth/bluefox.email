@@ -36,9 +36,9 @@ head:
 
 # Projects
 
-In bluefox.email, you can create projects for your SaaS. Projects can represent different environments like development, staging, and production. This way, you can manage emails for each environment separately.
+In bluefox.email, you can create projects for each client or brand. Projects can also represent different environments like development, staging, and production. This lets you manage emails for each environment separately.
 
-For each project, you need to set up a sending email address and your AWS credentials. This allows bluefox.email to send emails using AWS SES.
+For each project, you need to set up at least one sending email address. You can also connect external sending providers if needed.
 
 ## What Each Project Includes
 

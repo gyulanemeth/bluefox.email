@@ -113,7 +113,7 @@ Every non-transactional email must include an unsubscribe link. Use the followin
 This variable is not available in transactional emails.
 
 ### Pause Subscription Link
-Similarly, you can insert a [pause subscription](/email-best-practices-for-saas/unsubscribe-and-pause-subscription) link into your email. When users click this link, the unsubscribe option will be hidden on the subscription preferences page.
+Similarly, you can insert a [pause subscription](/email-best-practices/unsubscribe-and-pause-subscription) link into your email. When users click this link, the unsubscribe option will be hidden on the subscription preferences page.
 
 ```
 {{pauseSubscriptionLink}}
