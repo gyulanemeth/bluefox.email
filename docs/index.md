@@ -34,17 +34,17 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Welcome to the bluefox.email documentation
+# Welcome to the BlueFox Email documentation
 
-Welcome to the official documentation for **bluefox.email**! This guide is your go-to resource for understanding and using bluefox.email to manage all types of email communications for your marketing agency, from transactional emails, through automations via triggered emails to marketing campaigns.
+Welcome to the official documentation for **BlueFox Email**! This guide is your go-to resource for understanding and using BlueFox Email to manage all types of email communications for your marketing agency, from transactional emails, through automations via triggered emails to marketing campaigns.
 
-## What is Bluefox.email and How it Works
+## What is Bluefox Email and How it Works
 
-Bluefox.email makes it easy to handle all your email communications, from transactional emails and triggered notifications to marketing campaigns, in one place. With our design systems, your emails will look great and function properly across all email clients, including challenging ones like Outlook. You can also rely on bluefox.email to manage your sending queues, ensuring your emails are sent smoothly and efficiently.
+BlueFox Email makes it easy to handle all your email communications, from transactional emails and triggered notifications to marketing campaigns, in one place. With our design systems, your emails will look great and function properly across all email clients, including challenging ones like Outlook. You can also rely on BlueFox Email to manage your sending queues, ensuring your emails are sent smoothly and efficiently.
 
 ## Projects
 
-In bluefox.email, [projects](./projects/) enable you to manage transactional emails, triggered emails, and campaigns (such as newsletters and promotions) for each client your agency supports.  
+In BlueFox Email, [projects](./projects/) enable you to manage transactional emails, triggered emails, and campaigns (such as newsletters and promotions) for each client your agency supports.  
 Each project requires setting up a sending email address. Projects are linked to a design system and include features like a subscription preferences page and subscriber lists, helping you organize and customize your email strategies effectively.
 
 ## Transactional vs. Triggered vs. Campaign Emails
@@ -61,7 +61,7 @@ Our [design systems](./design-systems/) feature enables you to create beautiful,
 
 ## Sending Infrastructure
 
-Bluefox.email works with multiple sending options. You can use the platform’s built-in delivery or connect external providers when needed. If you choose to use your own external system, you’ll need to configure the relevant credentials within each project.
+BlueFox Email works with multiple sending options. You can use the platform’s built-in delivery or connect external providers when needed. If you choose to use your own external system, you’ll need to configure the relevant credentials within each project.
 
 ::: tip Note:
 We plan to release a detailed article on how to optimize different sending setups soon.
@@ -69,7 +69,7 @@ We plan to release a detailed article on how to optimize different sending setup
 
 ## Sending Emails via API
 
-With bluefox.email, you can send transactional or triggered emails directly via our [API](./api/). Our well-documented API endpoints make it simple to automate your email workflows, whether you're sending a password reset email, a notification, or a tailored onboarding sequence. Integration is straightforward, allowing you to quickly implement email functionality into any client platform, website, or service your agency manages.
+With BlueFox Email, you can send transactional or triggered emails directly via our [API](./api/). Our well-documented API endpoints make it simple to automate your email workflows, whether you're sending a password reset email, a notification, or a tailored onboarding sequence. Integration is straightforward, allowing you to quickly implement email functionality into any client platform, website, or service your agency manages.
 
 ## Personalization with Handlebars
 
@@ -79,4 +79,4 @@ For example, you can use loops to list multiple items, such as recent purchases 
 
 ## Analytics and Reporting
 
-Understanding the performance of your emails is crucial, and bluefox.email provides comprehensive [analytics](/docs/analytics) to help you do just that. Track key metrics such as open rates, click rates, [bounce rates](/email-sending-concepts/bounce-rate), and [complaints](/email-sending-concepts/complaints). We also handle bounces and complaints automatically, ensuring that your email list remains healthy and that your emails reach the intended recipients.
+Understanding the performance of your emails is crucial, and BlueFox Email provides comprehensive [analytics](/docs/analytics) to help you do just that. Track key metrics such as open rates, click rates, [bounce rates](/email-sending-concepts/bounce-rate), and [complaints](/email-sending-concepts/complaints). We also handle bounces and complaints automatically, ensuring that your email list remains healthy and that your emails reach the intended recipients.

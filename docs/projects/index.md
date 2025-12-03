@@ -36,13 +36,11 @@ head:
 
 # Projects
 
-In bluefox.email, you can create projects for each client or brand. Projects can also represent different environments like development, staging, and production. This lets you manage emails for each environment separately.
-
-For each project, you need to set up at least one sending email address. You can also connect external sending providers if needed.
+In BlueFox Email, you can create projects for each client or brand. For each project, you need to set up at least one sending email address. You can also connect external sending providers if needed.
 
 ## What Each Project Includes
 
-Every project in bluefox.email includes:
+Every project in BlueFox Email includes:
 - [Transactional emails](./transactional-emails)
 - [Triggered emails](./triggered-emails)
 - [Campaigns](./campaigns)
@@ -64,7 +62,7 @@ You can find the projects section by clicking the drop down icon on the left-han
 
 ## Free vs. Premium Projects
 
-Projects are free by default, but they include bluefox.email's logo and a link to our website in the email footers.
+Projects are free by default, but they include BlueFox Email's logo and a link to our website in the email footers.
 
 ::: tip Upgrade for Whitelabel
 Upgrade your project to premium to remove our logo and link from your email footers.

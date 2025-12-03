@@ -81,7 +81,7 @@ const { links: footerLinks, policies: policyLinks, currentYear } = FOOTER_CONFIG
               />
             </a>
             <p class="footer-tagline">
-              BlueFox Email helps marketing agnecies create and send beautiful marketing and transactional emails with high deliverability across all devices.
+              BlueFox Email helps marketing agnecies create and send beautiful marketing emails with high deliverability across all devices.
             </p>
           </div>
         </div>
