@@ -28,6 +28,32 @@ const selectedTestimonialId = ref(0)
 const testimonials = [
   {
     id: 0,
+    name: 'Niccolo Ossude',
+    initials: 'NO',
+    company: 'Mailsmiths',
+    role: 'Agency Owner',
+    testimonial: 'As an email marketing agency owner, I had an awesome experience with BlueFox Email. No where else will you be able to get this level of service directly from the founder who made sure my onboarding was smooth, took the time to understand exactly what my requirements were and actually implemented feedback (which is rare these days). Apart from the service, the deliverability is great, automations are solid and email editor is smooth. I\'m really grateful to have found these guys and would strongly recommend them.',
+    profileImg: '/assets/testimonials/NiccoloOssude.webp',
+    logo: '/assets/testimonials/mailsmiths.webp',
+    logoAlt: 'Mailsmiths Logo',
+    url: 'https://mailsmiths.com/',
+    highlight: 'Great Support, Awesome Platform'
+  },
+  {
+    id: 1,
+    name: 'Nicole Darechuk',
+    initials: 'ND',
+    company: 'Founder @Ndconsulting',
+    role: 'Agency Owner',
+    testimonial: `One of the best I've had in a long time working with an email marketing platform. I love how easy it is to configure branding elements for repurposing. I also love the campaign configuration and setup of new campaigns is so simple. Add to that, the support to get setup was above and beyond. I would highly recommend!`,
+    profileImg: '/assets/testimonials/ND.webp',
+    logo: '/assets/testimonials/NDcompany.webp',
+    logoAlt: 'ND Logo',
+    url: 'https://ndcon.ca/',
+    highlight: 'Easy Setup & Configuration'
+  },
+  {
+    id: 2,
     name: 'Gabriel Varaljay',
     initials: 'GV',
     company: 'Founder of TrendFingers.com',
@@ -40,18 +66,7 @@ const testimonials = [
     highlight: 'Full control & transparency'
   },
   {
-    id: 1,
-    name: 'Nicole Darechuk',
-    initials: 'ND',
-    company: 'Founder @Ndconsulting',
-    testimonial: `One of the best I've had in a long time working with an email marketing platform. I love how easy it is to configure branding elements for repurposing. I also love the campaign configuration and setup of new campaigns is so simple. Add to that, the support to get setup was above and beyond. I would highly recommend!`,
-    profileImg: '/assets/testimonials/ND.webp',
-    logo: '/assets/testimonials/NDcompany.webp',
-    logoAlt: 'ND Logo',
-    url: 'https://ndcon.ca/'
-  },
-  {
-    id: 2,
+    id: 3,
     name: 'Garth Brennan',
     initials: 'GB',
     company: 'POS Solutions Australia',
@@ -64,7 +79,7 @@ const testimonials = [
     highlight: 'Perfect email rendering'
   },
   {
-    id: 3,
+    id: 4,
     name: 'Matt Luo',
     initials: 'ML',
     company: 'Founder of ClarityText.com',
@@ -77,7 +92,7 @@ const testimonials = [
     highlight: 'Simple, transparent pricing'
   },
   {
-    id: 4,
+    id: 5,
     name: 'Gergely Csaba Nagy',
     initials: 'GN',
     company: 'Head of Marketing @chamaileon.io',

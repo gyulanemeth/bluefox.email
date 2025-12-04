@@ -3,6 +3,11 @@ import { ref } from 'vue'
 
 const logos = [
   {
+    src: '/assets/testimonials/mailsmiths.webp',
+    alt: 'Mailsmiths',
+    url: 'https://mailsmiths.com/audit'
+  },    
+  {
     src: '/assets/testimonials/trendfingers.webp',
     alt: 'TrendFingers',
     url: 'https://trendfingers.com'
@@ -27,6 +32,7 @@ const logos = [
     alt: 'Chamaileon',
     url: 'https://chamaileon.io/'
   }
+
 ]
 </script>
 

@@ -280,7 +280,7 @@ onBeforeUnmount(() => {
   .problem-section {
     background: linear-gradient(135deg, rgba(19, 176, 238, 0.02) 0%, rgba(57, 44, 145, 0.02) 100%);
     padding: 120px 24px;
-    margin: 100px 0;
+    /* margin: 60px 0; */
     position: relative;
     overflow: hidden;
   }
