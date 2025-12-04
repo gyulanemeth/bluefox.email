@@ -32,7 +32,7 @@ const checkMobile = () => {
   isMobile.value = window.innerWidth <= 1024
 }
 
-// Smooth scroll to section
+// Smooth scroll to solution sections
 const scrollToSection = (sectionId) => {
   const section = document.getElementById(sectionId)
   if (section) {
@@ -139,42 +139,42 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <!-- Floating Feature Cards -->
-          <div class="feature-float top-left" @click="scrollToSection('marketers')">
+          <!-- Floating Question Cards - Link to Solution Sections -->
+          <div class="feature-float top-left" @click="scrollToSection('design-system')">
             <div class="float-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div class="float-text">
-              <div class="float-title">Automation</div>
-              <div class="float-desc">Smart workflows</div>
-            </div>
-          </div>
-
-          <div class="feature-float bottom-right" @click="scrollToSection('developers')">
-            <div class="float-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M3 3v18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M7 16l4-4 3 3 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="float-text">
-              <div class="float-title">Analytics</div>
-              <div class="float-desc">Real-time insights</div>
+              <div class="float-title">Multiple clients?</div>
+              <div class="float-desc">Manage them easily</div>
             </div>
           </div>
 
           <div class="feature-float top-right" @click="scrollToSection('no-rendering-issues')">
             <div class="float-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
-                <path d="M9 9h6M9 13h6M9 17h3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 15l-2 2m8-2l2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
               </svg>
             </div>
             <div class="float-text">
-              <div class="float-title">Rendering</div>
-              <div class="float-desc">Consistent design</div>
+              <div class="float-title">Rendering issues?</div>
+              <div class="float-desc">Pixel-perfect emails</div>
+            </div>
+          </div>
+
+          <div class="feature-float bottom-right" @click="scrollToSection('marketers')">
+            <div class="float-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+              </svg>
+            </div>
+            <div class="float-text">
+              <div class="float-title">Design bottleneck?</div>
+              <div class="float-desc">10x faster production</div>
             </div>
           </div>
 
@@ -588,7 +588,7 @@ html.dark .card-footer {
   background: #4b5563;
 }
 
-/* Floating Feature Cards - Smooth Hover with CSS Variables */
+/* Floating Question Cards - Link to Solution Sections */
 .feature-float {
   position: absolute;
   display: flex;

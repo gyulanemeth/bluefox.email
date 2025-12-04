@@ -50,6 +50,7 @@ import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
 import Automation from './.vitepress/theme/Automation.vue'
 import Integration from './.vitepress/theme/Integration.vue'
 import Deliverability from './.vitepress/theme/Deliverability.vue'
+import AppleMailTestimonials from './.vitepress/theme/AppleMailTestimonials.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -381,34 +382,18 @@ onBeforeUnmount(() => {
     border: 1px solid rgba(75, 85, 99, 0.6);
   }
 
-  /* Gradient accent on hover */
-  .problem-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #13B0EE, #392C91);
-    transform: scaleX(0);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .problem-card:hover::before {
-    transform: scaleX(1);
-  }
-
+  /* Red hover effect with glow */
   .problem-card:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 60px rgba(19, 176, 238, 0.12);
-    border-color: rgba(19, 176, 238, 0.4);
+    box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3);
+    border-color: rgba(239, 68, 68, 0.6);
     background: rgba(255, 255, 255, 0.95);
   }
 
   html.dark .problem-card:hover {
     background: rgba(31, 41, 55, 0.95);
-    border-color: rgba(19, 176, 238, 0.5);
-    box-shadow: 0 20px 60px rgba(19, 176, 238, 0.2);
+    border-color: rgba(239, 68, 68, 0.7);
+    box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
   }
 
   .problem-icon-wrapper {
@@ -426,7 +411,7 @@ onBeforeUnmount(() => {
   }
 
   .problem-card:hover .problem-icon-wrapper {
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.15), rgba(57, 44, 145, 0.15));
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.15));
     transform: scale(1.05) rotate(-3deg);
   }
 
@@ -440,12 +425,12 @@ onBeforeUnmount(() => {
   }
 
   .problem-card:hover .problem-icon-wrapper svg {
-    stroke: #392C91;
+    stroke: #ef4444;
     transform: scale(1.1);
   }
 
   html.dark .problem-card:hover .problem-icon-wrapper svg {
-    stroke: #13B0EE;
+    stroke: #ef4444;
   }
 
   .problem-content {
@@ -460,10 +445,19 @@ onBeforeUnmount(() => {
     color: #1f2937;
     margin-bottom: 12px;
     line-height: 1.4;
+    transition: color 0.3s ease;
   }
 
   html.dark .problem-title {
     color: #f3f4f6;
+  }
+
+  .problem-card:hover .problem-title {
+    color: #dc2626;
+  }
+
+  html.dark .problem-card:hover .problem-title {
+    color: #ef4444;
   }
 
   .problem-description {
@@ -490,11 +484,22 @@ onBeforeUnmount(() => {
     color: #13B0EE;
     align-self: flex-start;
     flex-shrink: 0;
+    transition: all 0.3s ease;
   }
 
   html.dark .problem-impact {
     background: rgba(19, 176, 238, 0.15);
     color: #13B0EE;
+  }
+
+  .problem-card:hover .problem-impact {
+    background: rgba(239, 68, 68, 0.12);
+    color: #dc2626;
+  }
+
+  html.dark .problem-card:hover .problem-impact {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
   }
 
   .problem-impact svg {
@@ -767,11 +772,11 @@ onBeforeUnmount(() => {
   <BrandLogos />
 </section>
 
-<!-- 3. PROBLEM AGITATION - Enhanced Professional Version -->
+<!-- 3. PROBLEM AGITATION - Synced with Why page -->
 <section class="problem-section">
   <div class="problem-intro">
     <div class="d-flex justify-center mb-4">
-      <v-chip color="primary" size="large" variant="flat">
+      <v-chip color="primary">
         <span class="text-overline">The Agency Challenge</span>
       </v-chip>
     </div>
@@ -779,71 +784,50 @@ onBeforeUnmount(() => {
       Managing Multiple Client Email Programs Shouldn't Be This Hard
     </h2>
     <p class="problem-subtitle">
-      You're juggling multiple clients, each with their own brand guidelines, deadlines, and expectations. Your team is stretched thin, and every email campaign feels like reinventing the wheel.
+      If you run email for multiple clients, you've seen these problems. Stop us when one sounds familiar.
     </p>
   </div>
 
   <div class="problem-grid">
-    <!-- Problem 1 -->
+    <!-- Problem 1: Multiple Client Chaos -->
     <div class="problem-card">
       <div class="problem-icon-wrapper">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 7h16M4 12h16M4 17h10" stroke-linecap="round"/>
-          <path d="M20 17l-3-3 3-3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       <div class="problem-content">
-        <div class="problem-title">Rebuilding Templates from Scratch</div>
-        <div class="problem-description">Every new client means recreating email templates, testing across devices, and fixing rendering bugs. Your design team spends hours on repetitive setup work instead of creative strategy.</div>
+        <div class="problem-title">Managing Multiple Clients Is Chaos</div>
+        <div class="problem-description">Constant juggling with logins, late client requests, and endless approval cycles. Each client feels like a full-time job.</div>
         <div class="problem-impact">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
-          60% time wasted on setup
+          Endless context switching
         </div>
       </div>
     </div>
-    <!-- Problem 2 -->
+    <!-- Problem 2: Rebuilding from Scratch -->
     <div class="problem-card">
       <div class="problem-icon-wrapper">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          ircle cx="12" cy="12" r="10"/>
-          <path d="M12 6v6l4 2" stroke-linecap="round"/>
+          <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       <div class="problem-content">
-        <div class="problem-title">Designer Bottlenecks Kill Momentum</div>
-        <div class="problem-description">Campaign launches get delayed because your designers are overbooked. Simple text updates require a ticket, approval, and a 3-day turnaround while clients wait.</div>
+        <div class="problem-title">You Rebuild Everything for Every Client</div>
+        <div class="problem-description">Same templates, same automations, same segments recreated from scratch. New client equals the exact same work, every single time.</div>
         <div class="problem-impact">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
-          3-5 day delays per campaign
+          Massive time waste
         </div>
       </div>
     </div>
-    <!-- Problem 3 -->
-    <div class="problem-card">
-      <div class="problem-icon-wrapper">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="problem-content">
-        <div class="problem-title">Per-Contact Pricing Kills Margins</div>
-        <div class="problem-description">Your clients have growing lists, but platforms charge per contact. As their lists grow, your costs explode while your retainer stays flat. Your margins shrink with every new subscriber.</div>
-        <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          40% higher costs yearly
-        </div>
-      </div>
-    </div>
-    <!-- Problem 4 -->
+    <!-- Problem 3: Design & Rendering Issues -->
     <div class="problem-card">
       <div class="problem-icon-wrapper">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -853,55 +837,74 @@ onBeforeUnmount(() => {
         </svg>
       </div>
       <div class="problem-content">
-        <div class="problem-title">Rendering Issues Embarrass Your Agency</div>
-        <div class="problem-description">Emails look perfect in Gmail but break in Outlook. Mobile layouts are crushed. Clients screenshot the disasters and CC your boss. One rendering bug can cost you a renewal.</div>
+        <div class="problem-title">Design & Rendering Issues Waste Hours</div>
+        <div class="problem-description">Looks perfect in the editor, then breaks in Outlook for absolutely no reason. Mobile layouts crushed. Endless QA cycles.</div>
         <div class="problem-impact">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
-          Brand reputation at risk
+          Hours of debugging
         </div>
       </div>
     </div>
-    <!-- Problem 5 -->
+    <!-- Problem 4: Reporting Drains Time -->
     <div class="problem-card">
       <div class="problem-icon-wrapper">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
           <path d="M3 3v18h18" stroke-linecap="round"/>
           <path d="M18 17V9l-5 5-3-3-4 4" stroke-linecap="round" stroke-linejoin="round"/>
-          ircle cx="18" cy="6" r="2"/>
+          <circle cx="18" cy="6" r="2"/>
         </svg>
       </div>
       <div class="problem-content">
-        <div class="problem-title">Can't Prove ROI to Clients</div>
-        <div class="problem-description">Clients ask "What's our email ROI?" and you're stuck exporting spreadsheets, combining data sources, and building reports manually for hours instead of focusing on strategy.</div>
+        <div class="problem-title">Reporting Drains Hours Every Month</div>
+        <div class="problem-description">You spend more time building reports than actually sending campaigns. Exporting data, combining spreadsheets, making it client-ready.</div>
         <div class="problem-impact">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
-          5+ hours per report
+          5+ hours per client
         </div>
       </div>
     </div>
-    <!-- Problem 6 -->
+    <!-- Problem 5: Deliverability Issues -->
     <div class="problem-card">
       <div class="problem-icon-wrapper">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L2 7v7c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 9v4M12 17h.01" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       <div class="problem-content">
-        <div class="problem-title">Compliance Nightmares Keep You Up</div>
-        <div class="problem-description">GDPR, CAN-SPAM, unsubscribe regulations. One mistake could cost your client thousands and damage your reputation. Manual compliance checks don't scale across 10+ clients.</div>
+        <div class="problem-title">Great Emails Land in Spam</div>
+        <div class="problem-description">And clients blame you, even though you don't know what went wrong this time. Deliverability is a black box you can't control.</div>
         <div class="problem-impact">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            ircle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
-          Legal exposure risk
+          Lost campaign ROI
+        </div>
+      </div>
+    </div>
+    <!-- Problem 6: Pricing Squeezes Margins -->
+    <div class="problem-card">
+      <div class="problem-icon-wrapper">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="problem-content">
+        <div class="problem-title">Pricing Squeezes Your Margins</div>
+        <div class="problem-description">Contact-based billing gets expensive fast. Client lists grow, costs explode, but your retainer stays flat. Hidden cost jumps kill profitability.</div>
+        <div class="problem-impact">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          Shrinking profit margins
         </div>
       </div>
     </div>
@@ -932,7 +935,7 @@ onBeforeUnmount(() => {
   <h2 class="sectionTitle text-center mt-4 mb-6">
     Agencies Choose BlueFox Email. Their Clients Stay.
   </h2>
-  <TestimonialDiv
+  <AppleMailTestimonials
     :is-dark="isDark"
     :lg-and-up="lgAndUp"
     :md="md"
@@ -1070,12 +1073,7 @@ onBeforeUnmount(() => {
   </v-card>
 </section>
 
-<!-- 11. DELIVERABILITY - Critical for agency reputation -->
-<section id="deliverability" class="value-prop">
-  <Deliverability />
-</section>
-
-<!-- 12. FOR CREATIVE TEAMS - Secondary audience segment -->
+<!-- 13. FOR CREATIVE TEAMS - Secondary audience segment -->
 <section id="designers" class="section-index">
   <div class="d-flex justify-center">
     <v-chip color="primary">
@@ -1105,77 +1103,9 @@ onBeforeUnmount(() => {
   </v-card>
 </section>
 
-<!-- 13. FOR DEVELOPERS - Technical audience segment -->
-<section id="developers" class="section-index">
-  <div class="d-flex justify-center">
-    <v-chip color="primary">
-      <span class="text-overline">For agency tech teams</span>
-    </v-chip>
-  </div>
-  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Connect Your Entire Tech Stack Without Bothering Developers
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Programmatic access, webhooks, SMTP relay everything you need to send client emails from your own stack without giving up deliverability or control.
-    </div>
-  </div>
-
-  <Integration
-    class="mt-6"
-    :is-dark="isDark"
-    :xs="xs"
-  >
-    <template #tab-1>
-      ```
-      {
-        "name": "Jon Doe",
-        "email": "jon@doe.com"
-      }
-      ```
-    </template>
-    <template #tab-2>
-      ```
-      {
-        "status": "unsubscribed"
-      }
-      ```
-    </template>
-    <template #tab-3>
-      ```
-      {
-        "email": "jon@doe.com",
-        "transactionalId": "##EMAIL_ID##",
-        "data": {
-          "example": "example merge tag value"
-        },
-        "attachments": [
-          {
-            "fileName": "example.txt",
-            "content": "Ymx1ZWZveC5lbWFpbCBhdHRhY2htZW50IGV4YW1wbGUh"
-          }
-        ]
-      }
-      ```
-    </template>
-    <template #tab-4>
-      ```
-      {
-        "emails": ["jon@doe.com"],
-        "triggeredId": "##EMAIL_ID##",
-        "data": {
-          "example": "example merge tag value"
-        },
-        "attachments": [
-          {
-            "fileName": "example.txt",
-            "content": "Ymx1ZWZveC5lbWFpbCBhdHRhY2htZW50IGV4YW1wbGUh"
-          }
-        ]
-      }
-      ```
-    </template>
-  </Integration>
+<!-- 12. INTEGRATIONS - Connect with your stack -->
+<section class="value-prop">
+  <Integration :is-dark="isDark" />
 </section>
 
 <!-- 14. FINAL CTA - Convert after all value demonstrated -->
