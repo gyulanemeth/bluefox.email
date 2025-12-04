@@ -43,14 +43,12 @@ const testimonials = [
     id: 1,
     name: 'Nicole Darechuk',
     initials: 'ND',
-    company: 'Consultant @Ndconsulting',
-    role: 'Email Marketing Consultant',
+    company: 'Founder @Ndconsulting',
     testimonial: `One of the best I've had in a long time working with an email marketing platform. I love how easy it is to configure branding elements for repurposing. I also love the campaign configuration and setup of new campaigns is so simple. Add to that, the support to get setup was above and beyond. I would highly recommend!`,
     profileImg: '/assets/testimonials/ND.webp',
     logo: '/assets/testimonials/NDcompany.webp',
     logoAlt: 'ND Logo',
-    url: 'https://www.nicoledarechuk.com',
-    highlight: 'Above and beyond support'
+    url: 'https://ndcon.ca/'
   },
   {
     id: 2,

@@ -99,7 +99,7 @@ const { links: footerLinks, policies: policyLinks, currentYear, socialLinks } = 
               />
             </a>
             <p class="footer-tagline">
-              BlueFox Email helps SaaS companies create and send beautiful transactional and marketing emails with high deliverability across all devices.
+              BlueFox Email helps marketing agnecies create and send beautiful marketing emails with high deliverability across all devices.
             </p>
             
             <!-- Social Links Section -->

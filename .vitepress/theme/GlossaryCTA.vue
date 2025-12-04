@@ -2,11 +2,11 @@
   <div class="glossary-cta">
     <div class="cta-container">
       <div class="cta-text">
-        <h3>Send Consistent-looking & beautiful emails today!</h3>
-        <p>Email communication is part of your product! Don't let it ruin your user's experience with your brand</p>
+        <h3>Scale Your Agency with Professional Email Solutions</h3>
+        <p>Deliver pixel-perfect, on-brand emails for every client. Maintain consistency across campaigns and elevate your agency's reputation with reliable email infrastructure.</p>
       </div>
       <div class="cta-action">
-        <a href="https://app.bluefox.email/" class="cta-button">Get started</a>
+        <a href="https://app.bluefox.email/" class="cta-button">Start Free - 3000 Sends Included</a>
       </div>
     </div>
   </div>
