@@ -556,6 +556,7 @@ onBeforeUnmount(() => {
     -webkit-text-fill-color: transparent;
     line-height: 1;
     letter-spacing: -2px;
+    padding:2px;
   }
 
   .problem-stat-divider {
@@ -844,7 +845,7 @@ onBeforeUnmount(() => {
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
-          Hours of debugging
+          Hours of troubleshooting
         </div>
       </div>
     </div>
@@ -920,7 +921,7 @@ onBeforeUnmount(() => {
       </div>
     </div>
     <div class="problem-stat-card">
-      <div class="problem-stat-number">3-5</div>
+      <div class="problem-stat-number">3-5 </div>
       <div class="problem-stat-divider"></div>
       <div class="problem-stat-content">
         <div class="problem-stat-label">Days Delayed</div>
@@ -956,7 +957,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Stop rebuilding email templates from scratch for every client. Our unified design system lets you create brand-specific components once, then replicate and customize instantly. <strong>Update 50 campaigns with one click.</strong>
+      Stop rebuilding email templates from scratch for every client. Our unified design system lets you create brand-specific components once, then replicate and customize instantly. <strong>Update 50 templates with one click.</strong>
     </div>
   </div>
 

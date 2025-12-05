@@ -95,8 +95,8 @@ onUnmounted(() => {
           <!-- Trust Indicators -->
           <div class="trust-bar">
             <div class="trust-item">
-              <div class="trust-number">99.9%</div>
-              <div class="trust-label">Deliverability</div>
+              <div class="trust-number">100+</div>
+              <div class="trust-label">Agencies</div>
             </div>
             <div class="trust-divider"></div>
             <div class="trust-item">
@@ -604,6 +604,8 @@ html.dark .card-footer {
   cursor: pointer;
   animation: floatIn 1s ease-out forwards;
   opacity: 0;
+  min-height: 48px;
+  touch-action: manipulation;
 }
 
 html.dark .feature-float {
@@ -677,6 +679,11 @@ html.dark .feature-float {
 .feature-float:hover .float-icon {
   background: rgba(19, 176, 238, 0.2);
   transform: scale(1.1) rotate(5deg);
+}
+
+.feature-float:active .float-icon {
+  transform: scale(0.95);
+  background: rgba(19, 176, 238, 0.25);
 }
 
 .float-title {
@@ -768,9 +775,22 @@ a {
     width: 280px;
   }
   
-  /* Make feature cards smaller on tablet */
+  /* Scale down feature cards on tablet */
   .feature-float {
     padding: 12px 16px;
+    transform: scale(0.9);
+  }
+  
+  .feature-float.top-left {
+    transform: translate(var(--parallax-topleft-x, 0), var(--parallax-topleft-y, 0)) scale(0.9);
+  }
+  
+  .feature-float.top-right {
+    transform: translate(var(--parallax-topright-x, 0), var(--parallax-topright-y, 0)) scale(0.9);
+  }
+  
+  .feature-float.bottom-right {
+    transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0)) scale(0.9);
   }
   
   .float-icon {
@@ -848,9 +868,46 @@ a {
     height: 6px;
   }
 
+  /* Shrink feature cards significantly on mobile */
   .feature-float {
-    padding: 10px 14px;
-    gap: 10px;
+    padding: 8px 12px;
+    gap: 8px;
+    transform: scale(0.75);
+    transform-origin: top left;
+    width: 167px;
+  }
+
+  .feature-float.top-left {
+    top: 5px;
+    left: 5px;
+    transform: scale(0.75);
+    transform-origin: top left;
+  }
+  
+  .feature-float.top-left:active {
+    transform: scale(0.72) translateY(-2px);
+  }
+
+  .feature-float.top-right {
+    top: 5px;
+    right: 5px;
+    transform: scale(0.75);
+    transform-origin: top right;
+  }
+  
+  .feature-float.top-right:active {
+    transform: scale(0.72) translateY(-2px);
+  }
+
+  .feature-float.bottom-right {
+    bottom: 5px;
+    right: 5px;
+    transform: scale(0.75);
+    transform-origin: bottom right;
+  }
+  
+  .feature-float.bottom-right:active {
+    transform: scale(0.72) translateY(-2px);
   }
 
   .float-icon {
@@ -869,22 +926,6 @@ a {
 
   .float-desc {
     font-size: 10px;
-  }
-  
-  /* Adjust positions for mobile */
-  .feature-float.top-left {
-    top: 10px;
-    left: 10px;
-  }
-  
-  .feature-float.top-right {
-    top: 10px;
-    right: 10px;
-  }
-  
-  .feature-float.bottom-right {
-    bottom: 10px;
-    right: 10px;
   }
   
   /* Hide connection lines on mobile for cleaner look */
@@ -926,6 +967,23 @@ a {
   .trust-label {
     font-size: 10px;
   }
+  
+  /* Further shrink on extra small screens */
+  .feature-float {
+    transform: scale(0.65);
+  }
+  
+  .feature-float.top-left {
+    transform: scale(0.65);
+  }
+  
+  .feature-float.top-right {
+    transform: scale(0.65);
+  }
+  
+  .feature-float.bottom-right {
+    transform: scale(0.65);
+  }
 }
 
 /* Landscape mobile fix */
@@ -966,6 +1024,23 @@ a {
   .background-gradient {
     width: 600px;
     height: 600px;
+  }
+  
+  /* Scale down in landscape mode */
+  .feature-float {
+    transform: scale(0.7);
+  }
+  
+  .feature-float.top-left {
+    transform: scale(0.7);
+  }
+  
+  .feature-float.top-right {
+    transform: scale(0.7);
+  }
+  
+  .feature-float.bottom-right {
+    transform: scale(0.7);
   }
 }
 </style>

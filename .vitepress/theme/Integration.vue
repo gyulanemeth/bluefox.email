@@ -15,7 +15,7 @@ const integrations = [
     description: 'Connect with thousands of apps. No code required, automate workflows in minutes.',
     icon: 'mdi-lightning-bolt',
     iconColor: '#FF4A00',
-    url: 'https://zapier.com/apps/bluefox/integrations',
+    url: 'https://bluefox.email/docs/integrations/zapier',
     tags: ['No-Code', 'Automation'],
     badge: 'New',
     gradient: 'rgba(255, 74, 0, 0.12), rgba(255, 74, 0, 0.06)'
