@@ -11,7 +11,9 @@ const isMobile = ref(false)
 
 const handleMouseMove = (e) => {
   // Disable parallax on mobile/tablet
-  if (isMobile.value) return
+  if (isMobile.value){ 
+    return
+  }
   
   mouseX.value = (e.clientX / window.innerWidth - 0.5) * 15
   mouseY.value = (e.clientY / window.innerHeight - 0.5) * 15
@@ -73,9 +75,9 @@ onUnmounted(() => {
         <!-- Left Side: Content -->
         <div class="heroContent">
           <h1 class="title">
-            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Beautiful emails,</div>
+            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Beautiful emails</div>
             <div class="title-line" style="font-size: 1.125em; font-weight: 700;">Faster workflows</div>
-            <div class="title-line" style="font-size: 1em; font-weight: 600;">Happier clients.</div>
+            <div class="title-line" style="font-size: 1em; font-weight: 600;">Happier clients</div>
           </h1>
           <p class="tagline">Pay for sends, not contacts.</p>
 
