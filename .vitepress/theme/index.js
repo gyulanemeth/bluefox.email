@@ -105,7 +105,7 @@ export default {
           },
           dark: {
             colors: {
-              primary: "#392C91",
+              primary: "#13B0EE",
               secondary: "#13B0EE",
               buttonBackground: "#161618",
             },

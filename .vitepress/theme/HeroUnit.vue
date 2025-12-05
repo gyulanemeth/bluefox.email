@@ -333,17 +333,63 @@ html.dark .tagline {
   to { opacity: 1; }
 }
 
+/* CTA Button with Shine Animation - FIXED TEXT CENTERING */
 .cta-button {
   opacity: 0;
   transform: translateY(10px);
   animation: slideUp 0.6s ease-out 1.2s forwards;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-  box-shadow: 0 8px 24px rgba(19, 176, 238, 0.25);
+  box-shadow: 0 8px 24px rgba(19, 176, 238, 0.25) !important;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px !important;
+  padding: 20px 40px !important;
+  font-size: 16px !important;
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+  /* Perfect text centering */
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+  height: auto !important;
+  min-height: 48px !important;
+}
+
+/* Shine effect */
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.cta-button strong {
+  position: relative;
+  z-index: 2;
 }
 
 .cta-button:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px) !important;
   box-shadow: 0 12px 32px rgba(19, 176, 238, 0.35) !important;
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+html.dark .cta-button {
+  box-shadow: 0 8px 24px rgba(19, 176, 238, 0.3) !important;
+}
+
+html.dark .cta-button:hover {
+  box-shadow: 0 12px 32px rgba(19, 176, 238, 0.45) !important;
 }
 
 /* Trust Bar */
@@ -588,7 +634,7 @@ html.dark .card-footer {
   background: #4b5563;
 }
 
-/* Floating Question Cards - Link to Solution Sections */
+/* Floating Question Cards */
 .feature-float {
   position: absolute;
   display: flex;
@@ -775,7 +821,6 @@ a {
     width: 280px;
   }
   
-  /* Scale down feature cards on tablet */
   .feature-float {
     padding: 12px 16px;
     transform: scale(0.9);
@@ -868,7 +913,6 @@ a {
     height: 6px;
   }
 
-  /* Shrink feature cards significantly on mobile */
   .feature-float {
     padding: 8px 12px;
     gap: 8px;
@@ -928,7 +972,6 @@ a {
     font-size: 10px;
   }
   
-  /* Hide connection lines on mobile for cleaner look */
   .connection-lines {
     display: none;
   }
@@ -968,7 +1011,6 @@ a {
     font-size: 10px;
   }
   
-  /* Further shrink on extra small screens */
   .feature-float {
     transform: scale(0.65);
   }
@@ -1026,7 +1068,6 @@ a {
     height: 600px;
   }
   
-  /* Scale down in landscape mode */
   .feature-float {
     transform: scale(0.7);
   }
