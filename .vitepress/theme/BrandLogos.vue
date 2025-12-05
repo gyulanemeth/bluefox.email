@@ -15,7 +15,7 @@ const logos = [
   {
     src: '/assets/testimonials/NDcompany.webp',
     alt: 'ND Consulting',
-    url: 'https://www.nicoledarechuk.com'
+    url: 'https://ndcon.ca/'
   },
   {
     src: '/assets/testimonials/possolutions-logo.webp',
