@@ -322,12 +322,13 @@ const integrations = [
 
 .integration-link:not(.disabled):hover .integration-card {
   transform: translateY(-8px);
-  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.2);
+  box-shadow: 0 10px 30px rgba(19, 176, 238, 0.2);
   border-color: rgba(19, 176, 238, 0.5);
+  overflow: none;
 }
 
 html.dark .integration-link:not(.disabled):hover .integration-card {
-  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.3);
+  box-shadow: 0 10px 20px rgba(19, 176, 238, 0.3);
 }
 
 .integration-link.disabled .integration-card {

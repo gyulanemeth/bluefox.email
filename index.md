@@ -782,10 +782,10 @@ onBeforeUnmount(() => {
       </v-chip>
     </div>
     <h2 class="problem-main-title">
-      Managing Multiple Client Email Programs Shouldn't Be This Hard
+      Managing Multiple Clients, Shouldn’t Be This Hard
     </h2>
     <p class="problem-subtitle">
-      If you run email for multiple clients, you've seen these problems. Stop us when one sounds familiar.
+      If you run email for multiple clients, you've seen these problems.
     </p>
   </div>
 
@@ -970,7 +970,7 @@ onBeforeUnmount(() => {
 <!-- 6. SOLUTION: No-code Content Creation -->
 <section id="marketers" class="value-prop">
   <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Your Junior Designer Just Got 10x Faster
+    Create Pixel-Perfect Brand Emails in Minutes
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
@@ -985,7 +985,7 @@ onBeforeUnmount(() => {
       :controls="sm || xs"
       muted
     >
-      <source src="/assets/bluefox-email-content-editing.mp4" type="video/mp4">
+      <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </v-card>
@@ -1071,36 +1071,6 @@ onBeforeUnmount(() => {
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated">
     <img alt="Analytics dashboard showing ROI metrics" src="/assets/analytics-alt.webp" loading="lazy" />
-  </v-card>
-</section>
-
-<!-- 13. FOR CREATIVE TEAMS - Secondary audience segment -->
-<section id="designers" class="section-index">
-  <div class="d-flex justify-center">
-    <v-chip color="primary">
-      <span class="text-overline">For creative teams</span>
-    </v-chip>
-  </div>
-  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Create Pixel-Perfect Brand Emails in Minutes
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Leverage brand-ready components, real-time preview, and a shared design system that editors and developers both use. No code required. No QA loop delays.
-    </div>
-  </div>
-  <v-card class="d-flex justify-center mt-4" variant="elevated">
-    <video
-      width="100%"
-      :autoplay="lgAndUp || md"
-      :loop="lgAndUp || md"
-      :controls="sm || xs"
-      muted
-      aria-label="BlueFox Email editor interface demonstration showing no-code email design capabilities"
-    >
-      <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
   </v-card>
 </section>
 

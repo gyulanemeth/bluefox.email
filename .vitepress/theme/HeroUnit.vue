@@ -73,12 +73,12 @@ onUnmounted(() => {
         <!-- Left Side: Content -->
         <div class="heroContent">
           <h1 class="title">
-            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Email that lands.</div>
-            <div class="title-line" style="font-size: 1.125em; font-weight: 700;">Design that converts.</div>
-            <div class="title-line" style="font-size: 1em; font-weight: 600;">Pricing that won't burn your budget.</div>
+            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Beautiful emails,</div>
+            <div class="title-line" style="font-size: 1.125em; font-weight: 700;">Faster workflows</div>
+            <div class="title-line" style="font-size: 1em; font-weight: 600;">Happier clients.</div>
           </h1>
-          <p class="tagline">Design beautiful emails, automate your flows, and deliver reliably.</p>
-          <p class="tagline">You only pay for the emails you send. No overpriced contact-based subscriptions.</p>
+          <p class="tagline">Pay for sends, not contacts.</p>
+
           <div>
             <v-btn
               size="x-large"
