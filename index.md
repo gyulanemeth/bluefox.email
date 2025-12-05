@@ -2,18 +2,18 @@
 layout: home
 
 title: Scale Your Agency's Email Campaigns Without Scaling Your Headaches
-description: The email platform built for agencies managing multiple brands. Deliver enterprise-level campaigns without enterprise prices or complexity.
+description: The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity.
 
 head:
   - - meta
     - name: description
-      content: "The email platform built for agencies managing multiple brands. Deliver enterprise-level campaigns without enterprise prices or complexity."
+      content: "The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity."
   - - meta
     - property: og:title
       content: Scale Your Agency's Email Campaigns Without Scaling Your Headaches | BlueFox Email
   - - meta
     - property: og:description
-      content: "The email platform built for agencies managing multiple brands. Deliver enterprise-level campaigns without enterprise prices or complexity."
+      content: "The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share.png
@@ -31,7 +31,7 @@ head:
       content: Scale Your Agency's Email Campaigns Without Scaling Your Headaches | BlueFox Email
   - - meta
     - name: twitter:description
-      content: "The email platform built for agencies managing multiple brands. Deliver enterprise-level campaigns without enterprise prices or complexity."
+      content: "The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share.png
@@ -258,11 +258,6 @@ onBeforeUnmount(() => {
     width: 100%;
   }
 
-  #second-cta {
-    text-align: center;
-    padding-bottom: 10vh;
-  }
-
   #great-deliverability {
     background: #392C91;
     color: white;
@@ -276,11 +271,10 @@ onBeforeUnmount(() => {
     padding-top: 0 !important;
   }
 
-  /* Enhanced Problem Section - More Professional & Engaging */
+  /* Enhanced Problem Section */
   .problem-section {
     background: linear-gradient(135deg, rgba(19, 176, 238, 0.02) 0%, rgba(57, 44, 145, 0.02) 100%);
     padding: 120px 24px;
-    /* margin: 60px 0; */
     position: relative;
     overflow: hidden;
   }
@@ -289,7 +283,6 @@ onBeforeUnmount(() => {
     background: linear-gradient(135deg, rgba(19, 176, 238, 0.05) 0%, rgba(57, 44, 145, 0.05) 100%);
   }
 
-  /* Subtle background pattern */
   .problem-section::before {
     content: '';
     position: absolute;
@@ -382,7 +375,6 @@ onBeforeUnmount(() => {
     border: 1px solid rgba(75, 85, 99, 0.6);
   }
 
-  /* Red hover effect with glow */
   .problem-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3);
@@ -593,6 +585,189 @@ onBeforeUnmount(() => {
     color: #9ca3af;
   }
 
+  /* Final CTA Section - Premium Design */
+  .final-cta-section {
+    background: linear-gradient(135deg, rgba(19, 176, 238, 0.03) 0%, rgba(57, 44, 145, 0.03) 100%);
+    padding: 120px 24px;
+    margin: 80px 0 0 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  html.dark .final-cta-section {
+    background: linear-gradient(135deg, rgba(19, 176, 238, 0.08) 0%, rgba(57, 44, 145, 0.08) 100%);
+  }
+
+  .final-cta-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(19, 176, 238, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(57, 44, 145, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  html.dark .final-cta-section::before {
+    background-image: 
+      radial-gradient(circle at 20% 50%, rgba(19, 176, 238, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(57, 44, 145, 0.12) 0%, transparent 50%);
+  }
+
+  .cta-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-badge-wrapper {
+    margin-bottom: 24px;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  .cta-badge {
+    padding: 8px 20px !important;
+    height: auto !important;
+  }
+
+  .cta-title {
+    font-size: clamp(32px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    color: #1f2937;
+    background: linear-gradient(135deg, #1f2937 0%, #392C91 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeInUp 0.6s ease 0.1s both;
+    border-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  html.dark .cta-title {
+    background: linear-gradient(135deg, #f3f4f6 0%, #13B0EE 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .cta-description {
+    font-size: clamp(16px, 2vw, 19px);
+    color: #4b5563;
+    line-height: 1.7;
+    margin: 0 auto 48px;
+    max-width: 680px;
+    font-weight: 400;
+    animation: fadeInUp 0.6s ease 0.2s both;
+  }
+
+  html.dark .cta-description {
+    color: #9ca3af;
+  }
+
+  .cta-button-wrapper {
+    animation: fadeInUp 0.6s ease 0.3s both;
+    margin-bottom: 32px;
+  }
+
+  .cta-primary-button {
+    font-size: 18px !important;
+    padding: 28px 48px !important;
+    height: auto !important;
+    border-radius: 12px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    box-shadow: 0 10px 40px rgba(19, 176, 238, 0.25) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-primary-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .cta-primary-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 50px rgba(19, 176, 238, 0.35) !important;
+  }
+
+  .cta-primary-button:hover::before {
+    left: 100%;
+  }
+
+  html.dark .cta-primary-button {
+    box-shadow: 0 10px 40px rgba(19, 176, 238, 0.3) !important;
+  }
+
+  html.dark .cta-primary-button:hover {
+    box-shadow: 0 15px 50px rgba(19, 176, 238, 0.45) !important;
+  }
+
+  .cta-subtext {
+    margin-top: 16px;
+    font-size: 14px;
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  html.dark .cta-subtext {
+    color: #9ca3af;
+  }
+
+  .cta-trust-indicators {
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    animation: fadeInUp 0.6s ease 0.4s both;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  html.dark .cta-trust-indicators {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #4b5563;
+    font-weight: 500;
+  }
+
+  html.dark .trust-item {
+    color: #9ca3af;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   /* Responsive Design */
   @media (max-width: 1200px) {
     .problem-grid {
@@ -681,6 +856,23 @@ onBeforeUnmount(() => {
     .problem-stat-content {
       text-align: center;
     }
+
+    .final-cta-section {
+      padding: 80px 20px;
+    }
+
+    .cta-primary-button {
+      font-size: 16px !important;
+      padding: 20px 36px !important;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .cta-trust-indicators {
+      gap: 20px;
+      flex-direction: column;
+      align-items: center;
+    }
   }
 
   @media (max-width: 599px) {
@@ -756,6 +948,23 @@ onBeforeUnmount(() => {
     .problem-stat-description {
       font-size: 13px;
     }
+
+    .final-cta-section {
+      padding: 60px 16px;
+    }
+
+    .cta-description {
+      margin-bottom: 36px;
+    }
+
+    .cta-button-wrapper {
+      margin-bottom: 24px;
+    }
+
+    .cta-primary-button {
+      font-size: 15px !important;
+      padding: 18px 32px !important;
+    }
   }
 
   .mt-150 {
@@ -782,7 +991,7 @@ onBeforeUnmount(() => {
       </v-chip>
     </div>
     <h2 class="problem-main-title">
-      Managing Multiple Clients, Shouldn’t Be This Hard
+      Managing Multiple Clients, Shouldn't Be This Hard
     </h2>
     <p class="problem-subtitle">
       If you run email for multiple clients, you've seen these problems.
@@ -1079,27 +1288,34 @@ onBeforeUnmount(() => {
   <Integration :is-dark="isDark" />
 </section>
 
-<!-- 14. FINAL CTA - Convert after all value demonstrated -->
-<section id="second-cta">
-  <h2 class="sectionTitle text-center mb-3">
-    Ready to Scale Without the Growing Pains?
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Start free. No credit card required. Import your first client in 5 minutes and see why agencies choose BlueFox to manage their email campaigns.
+<!-- 14. FINAL CTA - Beautified Premium Design -->
+<section id="second-cta" class="final-cta-section">
+  <div class="cta-container">
+    <div class="cta-badge-wrapper">
+      <v-chip color="primary" size="large" class="cta-badge">
+        <span class="text-overline font-weight-bold">Get Started Today</span>
+      </v-chip>
+    </div>
+    <h2 class="cta-title">
+      Ready to Scale Without the Growing Pains?
+    </h2>
+    <p class="cta-description">
+      Send your first client campaign in minutes. BlueFox Email handles design, rendering, and deliverability so your agency can focus on strategy, retainers, and results, not wrestling with email tools.
+    </p>
+    <div class="cta-button-wrapper">
+      <v-btn
+        size="x-large"
+        color="primary"
+        variant="flat"
+        class="cta-primary-button"
+        href="https://app.bluefox.email/accounts/create-account"
+        target="_blank"
+      >
+        <strong>Start Your Free Agency Account</strong>
+      </v-btn>
+      <p class="cta-subtext">
+        No credit card required • Cancel anytime
+      </p>
     </div>
   </div>
-
-  <v-row class="mt-4 justify-center">
-    <v-btn
-      size="x-large"
-      color="primary"
-      variant="flat"
-      class="no-uppercase"
-      href="https://app.bluefox.email/accounts/create-account"
-      target="_blank"
-    >
-      <strong>Start Your Free Agency Account</strong>
-    </v-btn>
-  </v-row>
 </section>
