@@ -4,7 +4,7 @@ import { createVuetify } from 'vuetify'
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
 
-// import * as components from 'vuetify/components'
+// import * from 'vuetify/components'
 import {
   VBtn,
   VCard,
@@ -29,7 +29,8 @@ import {
   VListItemSubtitle,
   VAvatar,
   VSpacer,
-  VTextField
+  VTextField,
+  VSelect  // Add this line
 } from 'vuetify/components'
 
 import { Ripple } from 'vuetify/directives'
@@ -52,7 +53,6 @@ import Integration from './Integration.vue'
 import GlossaryCTA from './GlossaryCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
-
 
 export default {
   extends: Theme,
@@ -88,7 +88,8 @@ export default {
         VListItemSubtitle,
         VAvatar,
         VSpacer,
-        VTextField
+        VTextField,
+        VSelect  // Add this line
       },
       directives: {
         Ripple
@@ -104,7 +105,7 @@ export default {
           },
           dark: {
             colors: {
-              primary: "#392C91",
+              primary: "#13B0EE",
               secondary: "#13B0EE",
               buttonBackground: "#161618",
             },
@@ -115,7 +116,6 @@ export default {
     })
 
     app.use(vuetify)
-
     app.component('posts', Posts)
     app.component('post', Post)
     app.component('NavigationButton', NavigationButton)
