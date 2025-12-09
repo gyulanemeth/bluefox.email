@@ -38,12 +38,11 @@ const logos = [
 <template>
   <div class="brand-logos-section">
     <div class="brand-logos-intro">
-      <h3 class="brand-logos-title">Trusted by Marketing Agencies &amp; Teams Worldwide</h3>
-
+      <h2 class="brand-logos-title" id="brand-logos-heading">Trusted by Marketing Agencies &amp; Teams Worldwide</h2>
       <p class="brand-logos-subtitle">Join companies that deliver exceptional email campaigns with BlueFox Email</p>
     </div>
 
-    <div class="logos-carousel" aria-hidden="false" aria-label="Trusted partner logos">
+    <div class="logos-carousel" aria-label="Trusted partner logos">
       <div
         class="logos-track"
         role="list"

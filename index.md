@@ -978,14 +978,12 @@ onBeforeUnmount(() => {
 </style>
 
 <!-- 1. HERO - First impression with value proposition -->
-<section id="hero" aria-labelledby="hero-heading" role="region">
-  <h1 id="hero-heading" class="visually-hidden">Scale Your Agency's Email Campaigns Without Scaling Your Headaches</h1>
+<section id="hero" role="region">
   <HeroUnit />
 </section>
 
 <!-- 2. BRAND LOGOS - Trust indicators -->
 <section role="region" aria-labelledby="brand-logos-heading">
-  <h2 id="brand-logos-heading" class="visually-hidden">Trusted by leading brands</h2>
   <BrandLogos />
 </section>
 
