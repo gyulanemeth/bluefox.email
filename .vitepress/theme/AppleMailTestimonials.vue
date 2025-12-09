@@ -883,9 +883,9 @@ html.dark .message-item.selected {
   background: rgba(0, 122, 255, 0.05);
 }
 
-html.dark .message-item.unread {
+/* html.dark .message-item.unread {
   background: rgba(10, 132, 255, 0.08);
-}
+} */
 
 .message-header {
   display: flex;
