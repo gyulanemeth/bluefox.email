@@ -69,7 +69,7 @@ const testimonials = [
     subject: 'Re: BlueFox Email - Perfect for My Newsletter',
     testimonial: `I first used BlueFox Email for my own professional newsletter, and it worked so well that I soon started offering newsletter campaigns to my agency clients too. Email is clearly having a comeback as more people feel worn out by social media noise and want something more direct. What keeps me loyal to BlueFox Email is the team mindset. When I have an idea, it goes on their roadmap and often gets built. The platform keeps getting better, with features that matter in real agency work. I can now see all my clients in one place, top up credits for their campaigns, and give them access to their own accounts where they only see their own statistics. That setup makes client management simple and clean. BlueFox Email is a perfect fit for marketing agencies, while costing a fraction of what Mailchimp charges, and for that reason alone, I can confidently recommend it.`,
     profileImg: '/assets/testimonials/gabriel-varaljay.webp',
-    logo: '/assets/testimonials/trendfingers.webp',
+    logo: '/assets/testimonials/Trendfingers-logo.webp',
     logoAlt: 'TrendFingers Logo',
     url: 'https://trendfingers.com',
     highlight: 'Full control & transparency',
