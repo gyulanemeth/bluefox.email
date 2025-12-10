@@ -65,157 +65,173 @@ const integrations = [
 </script>
 
 <template>
-<div class="integrations-section">
-  <div class="section-header">
-    <div class="d-flex justify-center mb-4">
-      <v-chip color="primary">
-        <span class="text-overline">
-          <v-icon size="small" class="mr-1">mdi-puzzle</v-icon>
-          Integrations
-        </span>
-      </v-chip>
-    </div>
-    <h2 class="section-title">Works With the Tools You Already Use</h2>
-    <p class="section-subtitle">
-      Plug into your favorite apps and automate your workflows, no technical setup required
-    </p>
-  </div>
-
-  <!-- Infinite Scrolling Carousel -->
-  <div class="carousel-container">
-    <div class="carousel-track">
-      <!-- First set of cards -->
-      <div
-        v-for="(integration, index) in integrations"
-        :key="`first-${index}`"
-        class="carousel-slide"
-      >
-        <a 
-          :href="integration.url"
-          :target="integration.comingSoon ? '_self' : '_blank'"
-          class="integration-link"
-          :class="{ 'disabled': integration.comingSoon }"
-        >
-          <div class="integration-card">
-            <!-- Badge -->
-            <div v-if="integration.badge" class="integration-badge new">
-              <v-icon size="x-small">mdi-star-four-points</v-icon>
-              <span>{{ integration.badge }}</span>
-            </div>
-            
-            <div v-if="integration.comingSoon" class="integration-badge coming-soon">
-              <v-icon size="x-small">mdi-clock-outline</v-icon>
-              <span>Coming Soon</span>
-            </div>
-            
-            <!-- Icon -->
-            <div 
-              class="integration-icon"
-              :style="integration.gradient ? `background: linear-gradient(135deg, ${integration.gradient})` : ''"
-            >
-              <v-icon 
-                v-if="integration.icon.startsWith('mdi-')"
-                :color="integration.iconColor"
-                size="40"
-              >
-                {{ integration.icon }}
-              </v-icon>
-              <v-img
-                v-else
-                :width="40"
-                :src="isDark ? `/assets/integrations/${integration.icon}-dark.svg` : `/assets/integrations/${integration.icon}-light.svg`"
-                :alt="`${integration.name} logo`"
-              />
-            </div>
-            
-            <h4 class="integration-name">{{ integration.name }}</h4>
-            <p class="integration-desc">{{ integration.description }}</p>
-            
-            <div class="integration-tags">
-              <v-chip 
-                v-for="tag in integration.tags" 
-                :key="tag"
-                size="x-small" 
-                variant="tonal"
-              >
-                {{ tag }}
-              </v-chip>
-            </div>
-
-            <div class="integration-arrow">
-              <v-icon size="small">mdi-arrow-right</v-icon>
-            </div>
-          </div>
-        </a>
+  <div class="integrations-section" role="region" aria-labelledby="integrations-heading">
+    <div class="section-header">
+      <div class="d-flex justify-center mb-4">
+        <v-chip color="primary" aria-hidden="true">
+          <span class="text-overline">
+            <v-icon size="small" class="mr-1" aria-hidden="true">mdi-puzzle</v-icon>
+            Integrations
+          </span>
+        </v-chip>
       </div>
 
-      <!-- Duplicate set for seamless loop -->
-      <div
-        v-for="(integration, index) in integrations"
-        :key="`second-${index}`"
-        class="carousel-slide"
-      >
-        <a 
-          :href="integration.url"
-          :target="integration.comingSoon ? '_self' : '_blank'"
-          class="integration-link"
-          :class="{ 'disabled': integration.comingSoon }"
-        >
-          <div class="integration-card">
-            <!-- Badge -->
-            <div v-if="integration.badge" class="integration-badge new">
-              <v-icon size="x-small">mdi-star-four-points</v-icon>
-              <span>{{ integration.badge }}</span>
-            </div>
-            
-            <div v-if="integration.comingSoon" class="integration-badge coming-soon">
-              <v-icon size="x-small">mdi-clock-outline</v-icon>
-              <span>Coming Soon</span>
-            </div>
-            
-            <!-- Icon -->
-            <div 
-              class="integration-icon"
-              :style="integration.gradient ? `background: linear-gradient(135deg, ${integration.gradient})` : ''"
-            >
-              <v-icon 
-                v-if="integration.icon.startsWith('mdi-')"
-                :color="integration.iconColor"
-                size="40"
-              >
-                {{ integration.icon }}
-              </v-icon>
-              <v-img
-                v-else
-                :width="40"
-                :src="isDark ? `/assets/integrations/${integration.icon}-dark.svg` : `/assets/integrations/${integration.icon}-light.svg`"
-                :alt="`${integration.name} logo`"
-              />
-            </div>
-            
-            <h4 class="integration-name">{{ integration.name }}</h4>
-            <p class="integration-desc">{{ integration.description }}</p>
-            
-            <div class="integration-tags">
-              <v-chip 
-                v-for="tag in integration.tags" 
-                :key="tag"
-                size="x-small" 
-                variant="tonal"
-              >
-                {{ tag }}
-              </v-chip>
-            </div>
+      <h2 id="integrations-heading" class="section-title">Works With the Tools You Already Use</h2>
+      <p class="section-subtitle">
+        Plug into your favorite apps and automate your workflows, no technical setup required
+      </p>
+    </div>
 
-            <div class="integration-arrow">
-              <v-icon size="small">mdi-arrow-right</v-icon>
-            </div>
-          </div>
-        </a>
+    <!-- Infinite Scrolling Carousel -->
+    <div class="carousel-container" aria-hidden="false">
+      <div class="carousel-track" role="list" aria-label="Integrations carousel">
+        <!-- First set of cards -->
+        <div
+          v-for="(integration, index) in integrations"
+          :key="`first-${index}`"
+          class="carousel-slide"
+          role="listitem"
+        >
+          <a
+            :href="integration.url"
+            :target="integration.comingSoon ? '_self' : '_blank'"
+            class="integration-link"
+            :class="{ 'disabled': integration.comingSoon }"
+            :aria-disabled="integration.comingSoon ? 'true' : 'false'"
+            :aria-label="`${integration.name} — ${integration.comingSoon ? 'Coming soon' : 'Open in new tab'}`"
+            rel="noopener noreferrer"
+          >
+            <article class="integration-card" role="article" :aria-labelledby="`int-${index}-title`" tabindex="0">
+              <!-- Badge -->
+              <div v-if="integration.badge" class="integration-badge new" aria-hidden="true">
+                <v-icon size="x-small" aria-hidden="true">mdi-star-four-points</v-icon>
+                <span>{{ integration.badge }}</span>
+              </div>
+
+              <div v-if="integration.comingSoon" class="integration-badge coming-soon" aria-hidden="true">
+                <v-icon size="x-small" aria-hidden="true">mdi-clock-outline</v-icon>
+                <span>Coming Soon</span>
+              </div>
+
+              <!-- Icon -->
+              <div
+                class="integration-icon"
+                :style="integration.gradient ? `background: linear-gradient(135deg, ${integration.gradient})` : ''"
+                aria-hidden="true"
+              >
+                <v-icon
+                  v-if="integration.icon.startsWith('mdi-')"
+                  :color="integration.iconColor"
+                  size="40"
+                  aria-hidden="true"
+                >
+                  {{ integration.icon }}
+                </v-icon>
+                <v-img
+                  v-else
+                  :width="40"
+                  :src="isDark ? `/assets/integrations/${integration.icon}-dark.svg` : `/assets/integrations/${integration.icon}-light.svg`"
+                  :alt="`${integration.name} logo`"
+                />
+              </div>
+
+              <!-- changed to h3 for correct nesting under page h2 -->
+              <h3 :id="`int-${index}-title`" class="integration-name">{{ integration.name }}</h3>
+
+              <p class="integration-desc">{{ integration.description }}</p>
+
+              <div class="integration-tags" aria-hidden="false">
+                <v-chip
+                  v-for="tag in integration.tags"
+                  :key="tag"
+                  size="x-small"
+                  variant="tonal"
+                  aria-hidden="true"
+                >
+                  {{ tag }}
+                </v-chip>
+              </div>
+
+              <div class="integration-arrow" aria-hidden="true">
+                <v-icon size="small">mdi-arrow-right</v-icon>
+              </div>
+            </article>
+          </a>
+        </div>
+
+        <!-- Duplicate set for seamless loop -->
+        <div
+          v-for="(integration, index) in integrations"
+          :key="`second-${index}`"
+          class="carousel-slide"
+          role="listitem"
+        >
+          <a
+            :href="integration.url"
+            :target="integration.comingSoon ? '_self' : '_blank'"
+            class="integration-link"
+            :class="{ 'disabled': integration.comingSoon }"
+            :aria-disabled="integration.comingSoon ? 'true' : 'false'"
+            :aria-label="`${integration.name} — ${integration.comingSoon ? 'Coming soon' : 'Open in new tab'}`"
+            rel="noopener noreferrer"
+          >
+            <article class="integration-card" role="article" :aria-labelledby="`int-dup-${index}-title`" tabindex="0">
+              <div v-if="integration.badge" class="integration-badge new" aria-hidden="true">
+                <v-icon size="x-small" aria-hidden="true">mdi-star-four-points</v-icon>
+                <span>{{ integration.badge }}</span>
+              </div>
+
+              <div v-if="integration.comingSoon" class="integration-badge coming-soon" aria-hidden="true">
+                <v-icon size="x-small" aria-hidden="true">mdi-clock-outline</v-icon>
+                <span>Coming Soon</span>
+              </div>
+
+              <div
+                class="integration-icon"
+                :style="integration.gradient ? `background: linear-gradient(135deg, ${integration.gradient})` : ''"
+                aria-hidden="true"
+              >
+                <v-icon
+                  v-if="integration.icon.startsWith('mdi-')"
+                  :color="integration.iconColor"
+                  size="40"
+                  aria-hidden="true"
+                >
+                  {{ integration.icon }}
+                </v-icon>
+                <v-img
+                  v-else
+                  :width="40"
+                  :src="isDark ? `/assets/integrations/${integration.icon}-dark.svg` : `/assets/integrations/${integration.icon}-light.svg`"
+                  :alt="`${integration.name} logo`"
+                />
+              </div>
+
+              <h3 :id="`int-dup-${index}-title`" class="integration-name">{{ integration.name }}</h3>
+
+              <p class="integration-desc">{{ integration.description }}</p>
+
+              <div class="integration-tags" aria-hidden="false">
+                <v-chip
+                  v-for="tag in integration.tags"
+                  :key="tag"
+                  size="x-small"
+                  variant="tonal"
+                  aria-hidden="true"
+                >
+                  {{ tag }}
+                </v-chip>
+              </div>
+
+              <div class="integration-arrow" aria-hidden="true">
+                <v-icon size="small">mdi-arrow-right</v-icon>
+              </div>
+            </article>
+          </a>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </template>
 
 <style scoped>
@@ -252,7 +268,7 @@ const integrations = [
   position: relative;
   overflow: hidden;
   padding: 20px 0;
-  
+
   /* Gradient masks for fade effect */
   mask-image: linear-gradient(
     to right,
@@ -277,8 +293,9 @@ const integrations = [
   width: fit-content;
 }
 
-/* Pause animation on hover */
-.carousel-container:hover .carousel-track {
+/* Pause animation on hover and on focus within (keyboard users) */
+.carousel-container:hover .carousel-track,
+.carousel-container:focus-within .carousel-track {
   animation-play-state: paused;
 }
 
@@ -300,11 +317,20 @@ const integrations = [
   text-decoration: none;
   display: block;
   height: 100%;
+  color: inherit;
+  outline: none;
+}
+
+.integration-link:focus-visible .integration-card {
+  box-shadow: 0 8px 30px rgba(3, 102, 214, 0.18);
+  transform: translateY(-6px);
+  border-color: rgba(3, 102, 214, 0.5);
 }
 
 .integration-link.disabled {
   pointer-events: none;
   cursor: default;
+  opacity: 0.8;
 }
 
 .integration-card {
@@ -318,6 +344,7 @@ const integrations = [
   position: relative;
   display: flex;
   flex-direction: column;
+  color: var(--vp-c-text-1);
 }
 
 .integration-link:not(.disabled):hover .integration-card {
@@ -427,7 +454,7 @@ html.dark .integration-badge.coming-soon {
     flex: 0 0 320px;
     width: 320px;
   }
-  
+
   @keyframes scroll {
     0% {
       transform: translateX(0);
@@ -443,25 +470,25 @@ html.dark .integration-badge.coming-soon {
     flex: 0 0 280px;
     width: 280px;
   }
-  
+
   .integration-card {
     padding: 24px;
     min-height: 300px;
   }
-  
+
   .integration-icon {
     width: 64px;
     height: 64px;
   }
-  
+
   .integration-name {
     font-size: 20px;
   }
-  
+
   .integration-desc {
     font-size: 14px;
   }
-  
+
   @keyframes scroll {
     0% {
       transform: translateX(0);
@@ -476,42 +503,42 @@ html.dark .integration-badge.coming-soon {
   .section-header {
     margin-bottom: 48px;
   }
-  
+
   .carousel-container {
     padding: 16px 0;
   }
-  
+
   .carousel-slide {
     flex: 0 0 260px;
     width: 260px;
   }
-  
+
   .integration-card {
     padding: 20px;
     min-height: 280px;
   }
-  
+
   .integration-icon {
     width: 56px;
     height: 56px;
     margin-bottom: 20px;
   }
-  
+
   .integration-name {
     font-size: 18px;
   }
-  
+
   .integration-desc {
     font-size: 13px;
   }
-  
+
   .integration-badge {
     top: 16px;
     right: 16px;
     padding: 4px 10px;
     font-size: 9px;
   }
-  
+
   @keyframes scroll {
     0% {
       transform: translateX(0);

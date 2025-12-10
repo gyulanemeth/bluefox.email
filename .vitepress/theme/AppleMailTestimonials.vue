@@ -24,6 +24,9 @@ const props = defineProps({
   }
 })
 
+// --- NOOP helper used in template keyboard handlers to avoid parser errors ---
+function noop() {}
+
 const selectedTestimonialId = ref(0)
 const testimonials = [
   {
@@ -142,36 +145,72 @@ function selectTestimonial(id) {
     <!-- Desktop View -->
     <div v-if="lgAndUp || md" class="apple-mail-desktop">
       <!-- Window Chrome -->
-      <div class="mail-window">
-        <div class="window-titlebar">
-          <div class="traffic-lights">
-            <span class="traffic-light close"></span>
-            <span class="traffic-light minimize"></span>
-            <span class="traffic-light maximize"></span>
+      <div class="mail-window" aria-label="Customer testimonials mail window">
+        <div class="window-titlebar" role="toolbar" aria-hidden="false">
+          <div class="traffic-lights" aria-hidden="true">
+            <span class="traffic-light close" aria-hidden="true"></span>
+            <span class="traffic-light minimize" aria-hidden="true"></span>
+            <span class="traffic-light maximize" aria-hidden="true"></span>
           </div>
-          <div class="window-title">Customer Testimonials</div>
+          <div class="window-title" aria-hidden="true">Customer Testimonials</div>
           <div class="window-controls">
-            <v-icon size="16" class="control-icon">mdi-cog-outline</v-icon>
+            <v-icon size="16" class="control-icon" aria-hidden="true">mdi-cog-outline</v-icon>
           </div>
         </div>
 
         <!-- Toolbar -->
-        <div class="mail-toolbar">
+        <div class="mail-toolbar" role="region" aria-label="Toolbar">
           <div class="toolbar-left">
-            <v-btn icon variant="text" size="small" class="toolbar-btn">
-              <v-icon size="20">mdi-email-edit-outline</v-icon>
+            <v-btn
+              icon
+              variant="text"
+              size="small"
+              class="toolbar-btn"
+              aria-label="Compose testimonial email"
+              type="button"
+            >
+              <v-icon size="20" aria-hidden="true">mdi-email-edit-outline</v-icon>
             </v-btn>
-            <v-divider vertical class="mx-2" style="height: 20px;" />
-            <v-btn icon variant="text" size="small" class="toolbar-btn" disabled>
-              <v-icon size="20">mdi-delete-outline</v-icon>
+
+            <v-divider vertical class="mx-2" style="height: 20px;" aria-hidden="true" />
+
+            <v-btn
+              icon
+              variant="text"
+              size="small"
+              class="toolbar-btn"
+              disabled
+              aria-label="Delete testimonial (disabled)"
+              type="button"
+            >
+              <v-icon size="20" aria-hidden="true">mdi-delete-outline</v-icon>
             </v-btn>
-            <v-btn icon variant="text" size="small" class="toolbar-btn" disabled>
-              <v-icon size="20">mdi-archive-outline</v-icon>
+
+            <v-btn
+              icon
+              variant="text"
+              size="small"
+              class="toolbar-btn"
+              disabled
+              aria-label="Archive testimonial (disabled)"
+              type="button"
+            >
+              <v-icon size="20" aria-hidden="true">mdi-archive-outline</v-icon>
             </v-btn>
-            <v-btn icon variant="text" size="small" class="toolbar-btn" disabled>
-              <v-icon size="20">mdi-reply</v-icon>
+
+            <v-btn
+              icon
+              variant="text"
+              size="small"
+              class="toolbar-btn"
+              disabled
+              aria-label="Reply to testimonial (disabled)"
+              type="button"
+            >
+              <v-icon size="20" aria-hidden="true">mdi-reply</v-icon>
             </v-btn>
           </div>
+
           <div class="toolbar-right">
             <v-text-field
               prepend-inner-icon="mdi-magnify"
@@ -181,6 +220,7 @@ function selectTestimonial(id) {
               hide-details
               disabled
               class="search-input"
+              aria-label="Search testimonials (disabled)"
             />
           </div>
         </div>
@@ -188,36 +228,72 @@ function selectTestimonial(id) {
         <!-- Main Content Area -->
         <div class="mail-content">
           <!-- Sidebar -->
-          <div class="mail-sidebar">
+          <div class="mail-sidebar" role="navigation" aria-label="Mailbox folders">
             <div class="sidebar-section">
-              <div class="sidebar-title">MAILBOXES</div>
-              <div class="sidebar-item active">
-                <v-icon size="18" class="mr-2">mdi-inbox</v-icon>
+              <div class="sidebar-title" aria-hidden="true">MAILBOXES</div>
+              <div
+                class="sidebar-item active"
+                role="button"
+                tabindex="0"
+                aria-current="page"
+                :aria-label="`Inbox — ${testimonials.length} messages`"
+                @keydown.enter.prevent="selectTestimonial(0)"
+                @keydown.space.prevent="selectTestimonial(0)"
+                @click="selectTestimonial(0)"
+              >
+                <v-icon size="18" class="mr-2" aria-hidden="true">mdi-inbox</v-icon>
                 <span class="sidebar-label">Inbox</span>
-                <span class="sidebar-count">{{ testimonials.length }}</span>
+                <span class="sidebar-count" aria-hidden="true">{{ testimonials.length }}</span>
+                <span class="visually-hidden">{{ testimonials.length }} unread messages</span>
               </div>
-              <div class="sidebar-item">
-                <v-icon size="18" class="mr-2">mdi-star-outline</v-icon>
+
+              <div
+                class="sidebar-item"
+                role="button"
+                tabindex="0"
+                :aria-label="`Starred — ${testimonials.filter(t => t.starred).length} messages`"
+                @keydown.enter.prevent="noop"
+                @keydown.space.prevent="noop"
+              >
+                <v-icon size="18" class="mr-2" aria-hidden="true">mdi-star-outline</v-icon>
                 <span class="sidebar-label">Starred</span>
-                <span class="sidebar-count">{{ testimonials.filter(t => t.starred).length }}</span>
+                <span class="sidebar-count" aria-hidden="true">{{ testimonials.filter(t => t.starred).length }}</span>
+                <span class="visually-hidden">{{ testimonials.filter(t => t.starred).length }} starred messages</span>
               </div>
-              <div class="sidebar-item">
-                <v-icon size="18" class="mr-2">mdi-send</v-icon>
+
+              <div
+                class="sidebar-item"
+                role="button"
+                tabindex="0"
+                aria-label="Sent"
+                @keydown.enter.prevent="noop"
+                @keydown.space.prevent="noop"
+              >
+                <v-icon size="18" class="mr-2" aria-hidden="true">mdi-send</v-icon>
                 <span class="sidebar-label">Sent</span>
               </div>
-              <div class="sidebar-item">
-                <v-icon size="18" class="mr-2">mdi-file-outline</v-icon>
+
+              <div
+                class="sidebar-item"
+                role="button"
+                tabindex="0"
+                aria-label="Drafts"
+                @keydown.enter.prevent="noop"
+                @keydown.space.prevent="noop"
+              >
+                <v-icon size="18" class="mr-2" aria-hidden="true">mdi-file-outline</v-icon>
                 <span class="sidebar-label">Drafts</span>
               </div>
             </div>
           </div>
 
           <!-- Message List -->
-          <div class="message-list">
-            <div class="list-header">
+          <div class="message-list" role="list" aria-label="Message list">
+            <div class="list-header" aria-hidden="true">
               <span class="list-title">Inbox</span>
               <span class="list-count">{{ testimonials.length }} messages</span>
             </div>
+
             <div
               v-for="item in testimonials"
               :key="item.id"
@@ -226,7 +302,12 @@ function selectTestimonial(id) {
                 'selected': item.id === selectedTestimonialId,
                 'unread': item.unread
               }"
+              role="listitem"
+              tabindex="0"
               @click="selectTestimonial(item.id)"
+              @keydown.enter.prevent="selectTestimonial(item.id)"
+              @keydown.space.prevent="selectTestimonial(item.id)"
+              :aria-label="`${item.name}: ${item.subject}. ${item.unread ? 'Unread.' : ''} ${item.date}`"
             >
               <div class="message-header">
                 <v-avatar
@@ -240,7 +321,7 @@ function selectTestimonial(id) {
                     <span class="message-date">{{ item.date }}</span>
                   </div>
                   <div class="message-subject">
-                    <v-icon v-if="item.starred" size="14" class="star-icon" color="#FFB800">mdi-star</v-icon>
+                    <v-icon v-if="item.starred" size="14" class="star-icon" color="#FFB800" aria-hidden="true">mdi-star</v-icon>
                     {{ item.subject }}
                   </div>
                   <div class="message-preview">
@@ -252,7 +333,7 @@ function selectTestimonial(id) {
           </div>
 
           <!-- Message View -->
-          <div class="message-view">
+          <div class="message-view" role="region" :aria-label="`Message from ${testimonials[selectedTestimonialId].name}`">
             <div class="message-header-bar">
               <div class="header-from">
                 <v-avatar
@@ -265,16 +346,43 @@ function selectTestimonial(id) {
                   <div class="header-email">{{ testimonials[selectedTestimonialId].company }}</div>
                 </div>
               </div>
-              <div class="header-meta">
-                <span class="header-date">{{ testimonials[selectedTestimonialId].date }}</span>
-                <v-btn icon variant="text" size="small" class="header-btn">
-                  <v-icon size="18">mdi-star{{ testimonials[selectedTestimonialId].starred ? '' : '-outline' }}</v-icon>
+              <div class="header-meta" role="group" aria-label="Message actions">
+                <span class="header-date" aria-hidden="true">{{ testimonials[selectedTestimonialId].date }}</span>
+
+                <v-btn
+                  icon
+                  variant="text"
+                  size="small"
+                  class="header-btn"
+                  :aria-pressed="testimonials[selectedTestimonialId].starred ? 'true' : 'false'"
+                  aria-label="Toggle star"
+                  type="button"
+                >
+                  <v-icon size="18" aria-hidden="true">mdi-star{{ testimonials[selectedTestimonialId].starred ? '' : '-outline' }}</v-icon>
                 </v-btn>
-                <v-btn icon variant="text" size="small" class="header-btn">
-                  <v-icon size="18">mdi-reply</v-icon>
+
+                <v-btn
+                  icon
+                  variant="text"
+                  size="small"
+                  class="header-btn"
+                  aria-label="Reply to message"
+                  type="button"
+                >
+                  <v-icon size="18" aria-hidden="true">mdi-reply</v-icon>
                 </v-btn>
-                <v-btn icon variant="text" size="small" class="header-btn">
-                  <v-icon size="18">mdi-dots-horizontal</v-icon>
+
+                <v-btn
+                  icon
+                  variant="text"
+                  size="small"
+                  class="header-btn"
+                  aria-label="More message actions"
+                  aria-haspopup="true"
+                  :aria-expanded="false"
+                  type="button"
+                >
+                  <v-icon size="18" aria-hidden="true">mdi-dots-horizontal</v-icon>
                 </v-btn>
               </div>
             </div>
@@ -286,8 +394,8 @@ function selectTestimonial(id) {
             <div class="message-body">
               <p class="body-text">{{ testimonials[selectedTestimonialId].testimonial }}</p>
 
-              <div class="message-signature">
-                <div class="signature-divider"></div>
+              <div class="message-signature" aria-label="Sender information">
+                <div class="signature-divider" aria-hidden="true"></div>
                 <div class="signature-content">
                   <div class="signature-role">{{ testimonials[selectedTestimonialId].role }}</div>
                   <a
@@ -295,6 +403,7 @@ function selectTestimonial(id) {
                     target="_blank"
                     rel="noopener noreferrer"
                     class="signature-company"
+                    :aria-label="`Visit ${testimonials[selectedTestimonialId].company}`"
                   >
                     <img
                       :src="testimonials[selectedTestimonialId].logo"
@@ -311,24 +420,48 @@ function selectTestimonial(id) {
     </div>
 
     <!-- Mobile View -->
-    <div v-else-if="xs" class="apple-mail-mobile">
+    <div v-else-if="xs" class="apple-mail-mobile" aria-label="Mobile testimonial view">
       <div v-if="mobileEmailView" class="mobile-message-view">
         <div class="mobile-header">
-          <v-btn icon variant="text" size="small" @click="mobileEmailView = false">
-            <v-icon>mdi-chevron-left</v-icon>
+          <v-btn
+            icon
+            variant="text"
+            size="small"
+            @click="mobileEmailView = false"
+            aria-label="Back to inbox"
+            type="button"
+          >
+            <v-icon aria-hidden="true">mdi-chevron-left</v-icon>
           </v-btn>
-          <span class="mobile-header-title">Message</span>
+
+          <span class="mobile-header-title" aria-hidden="true">Message</span>
+
           <div class="mobile-header-actions">
-            <v-btn icon variant="text" size="small" @click="selectedTestimonialId = Math.max(0, selectedTestimonialId - 1)">
-              <v-icon>mdi-chevron-up</v-icon>
+            <v-btn
+              icon
+              variant="text"
+              size="small"
+              @click="selectedTestimonialId = Math.max(0, selectedTestimonialId - 1)"
+              aria-label="Previous message"
+              type="button"
+            >
+              <v-icon aria-hidden="true">mdi-chevron-up</v-icon>
             </v-btn>
-            <v-btn icon variant="text" size="small" @click="selectedTestimonialId = Math.min(testimonials.length - 1, selectedTestimonialId + 1)">
-              <v-icon>mdi-chevron-down</v-icon>
+
+            <v-btn
+              icon
+              variant="text"
+              size="small"
+              @click="selectedTestimonialId = Math.min(testimonials.length - 1, selectedTestimonialId + 1)"
+              aria-label="Next message"
+              type="button"
+            >
+              <v-icon aria-hidden="true">mdi-chevron-down</v-icon>
             </v-btn>
           </div>
         </div>
 
-        <div class="mobile-message-content">
+        <div class="mobile-message-content" role="region" :aria-label="`Message from ${testimonials[selectedTestimonialId].name}`">
           <div class="mobile-message-header">
             <div class="mobile-from-row">
               <v-avatar :image="testimonials[selectedTestimonialId].profileImg" size="48" class="mr-3" />
@@ -345,7 +478,7 @@ function selectTestimonial(id) {
             <p>{{ testimonials[selectedTestimonialId].testimonial }}</p>
             <div class="mobile-signature">
               <div class="mobile-signature-role">{{ testimonials[selectedTestimonialId].role }}</div>
-              <a :href="testimonials[selectedTestimonialId].url" target="_blank">
+              <a :href="testimonials[selectedTestimonialId].url" target="_blank" :aria-label="`Visit ${testimonials[selectedTestimonialId].company}`">
                 <img :src="testimonials[selectedTestimonialId].logo" :alt="testimonials[selectedTestimonialId].logoAlt" class="mobile-signature-logo" />
               </a>
             </div>
@@ -353,7 +486,7 @@ function selectTestimonial(id) {
         </div>
       </div>
 
-      <div v-else class="mobile-inbox">
+      <div v-else class="mobile-inbox" role="list" aria-label="Inbox messages">
         <div class="mobile-inbox-header">
           <h2 class="mobile-inbox-title">Inbox</h2>
           <span class="mobile-inbox-count">{{ testimonials.length }}</span>
@@ -362,7 +495,12 @@ function selectTestimonial(id) {
           v-for="item in testimonials"
           :key="item.id"
           class="mobile-message-item"
+          role="listitem"
+          tabindex="0"
           @click="selectTestimonial(item.id)"
+          @keydown.enter.prevent="selectTestimonial(item.id)"
+          @keydown.space.prevent="selectTestimonial(item.id)"
+          :aria-label="`${item.name}: ${item.subject}. ${item.date}`"
         >
           <div class="mobile-item-header">
             <v-avatar :image="item.profileImg" size="40" class="mr-3" />
@@ -380,39 +518,63 @@ function selectTestimonial(id) {
     </div>
 
     <!-- Tablet View -->
-    <div v-else-if="sm" class="apple-mail-tablet">
+    <div v-else-if="sm" class="apple-mail-tablet" aria-label="Tablet testimonial view">
       <div class="tablet-window">
-        <div class="window-titlebar">
-          <div class="traffic-lights">
-            <span class="traffic-light close"></span>
-            <span class="traffic-light minimize"></span>
-            <span class="traffic-light maximize"></span>
+        <div class="window-titlebar" aria-hidden="true">
+          <div class="traffic-lights" aria-hidden="true">
+            <span class="traffic-light close" aria-hidden="true"></span>
+            <span class="traffic-light minimize" aria-hidden="true"></span>
+            <span class="traffic-light maximize" aria-hidden="true"></span>
           </div>
           <div class="window-title">Customer Testimonials</div>
         </div>
 
-        <div class="mail-toolbar">
-          <v-btn icon variant="text" size="small" class="toolbar-btn">
-            <v-icon size="20">mdi-email-edit-outline</v-icon>
+        <div class="mail-toolbar" role="region" aria-label="Toolbar">
+          <v-btn
+            icon
+            variant="text"
+            size="small"
+            class="toolbar-btn"
+            aria-label="Compose testimonial email"
+            type="button"
+          >
+            <v-icon size="20" aria-hidden="true">mdi-email-edit-outline</v-icon>
           </v-btn>
-          <v-btn icon variant="text" size="small" class="toolbar-btn" disabled>
-            <v-icon size="20">mdi-delete-outline</v-icon>
+
+          <v-btn
+            icon
+            variant="text"
+            size="small"
+            class="toolbar-btn"
+            disabled
+            aria-label="Delete testimonial (disabled)"
+            type="button"
+          >
+            <v-icon size="20" aria-hidden="true">mdi-delete-outline</v-icon>
           </v-btn>
+
           <v-spacer />
-          <v-icon size="20">mdi-magnify</v-icon>
+
+          <v-icon size="20" aria-hidden="true">mdi-magnify</v-icon>
         </div>
 
         <div class="tablet-content">
-          <div class="tablet-list">
-            <div class="list-header-tablet">
+          <div class="tablet-list" role="list" aria-label="Message list">
+            <div class="list-header-tablet" aria-hidden="true">
               <span class="list-title">Inbox</span>
             </div>
+
             <div
               v-for="item in testimonials"
               :key="item.id"
               class="tablet-message-item"
               :class="{ 'selected': item.id === selectedTestimonialId }"
+              role="listitem"
+              tabindex="0"
               @click="selectTestimonial(item.id)"
+              @keydown.enter.prevent="selectTestimonial(item.id)"
+              @keydown.space.prevent="selectTestimonial(item.id)"
+              :aria-label="`${item.name}: ${item.subject}. ${item.date}`"
             >
               <v-avatar :image="item.profileImg" size="32" class="mr-2" />
               <div class="tablet-item-info">
@@ -422,7 +584,7 @@ function selectTestimonial(id) {
             </div>
           </div>
 
-          <div class="tablet-message-view">
+          <div class="tablet-message-view" role="region" :aria-label="`Message from ${testimonials[selectedTestimonialId].name}`">
             <div class="tablet-message-header">
               <v-avatar :image="testimonials[selectedTestimonialId].profileImg" size="36" class="mr-3" />
               <div>
@@ -433,7 +595,7 @@ function selectTestimonial(id) {
             <div class="tablet-subject">{{ testimonials[selectedTestimonialId].subject }}</div>
             <div class="tablet-body">
               <p>{{ testimonials[selectedTestimonialId].testimonial }}</p>
-              <a :href="testimonials[selectedTestimonialId].url" target="_blank" class="tablet-logo-link">
+              <a :href="testimonials[selectedTestimonialId].url" target="_blank" :aria-label="`Visit ${testimonials[selectedTestimonialId].company}`" class="tablet-logo-link">
                 <img :src="testimonials[selectedTestimonialId].logo" :alt="testimonials[selectedTestimonialId].logoAlt" class="tablet-logo" />
               </a>
             </div>
@@ -445,6 +607,19 @@ function selectTestimonial(id) {
 </template>
 
 <style scoped>
+/* Visually hidden helper for screen readers */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+}
+
 /* Apple Mail Container */
 .apple-mail-container {
   width: 100%;
@@ -524,16 +699,6 @@ html.dark .window-titlebar {
   gap: 8px;
 }
 
-.control-icon {
-  opacity: 0.5;
-  cursor: pointer;
-  transition: opacity 0.2s;
-}
-
-.control-icon:hover {
-  opacity: 1;
-}
-
 /* Toolbar */
 .mail-toolbar {
   display: flex;
@@ -578,7 +743,7 @@ html.dark .window-titlebar {
   background: var(--vp-c-bg);
 }
 
-/* Sidebar */
+/* Sidebar - improved contrast for active state */
 .mail-sidebar {
   width: 200px;
   background: var(--vp-c-bg-soft);
@@ -599,6 +764,7 @@ html.dark .window-titlebar {
   letter-spacing: 0.5px;
 }
 
+/* base sidebar item */
 .sidebar-item {
   display: flex;
   align-items: center;
@@ -620,22 +786,47 @@ html.dark .sidebar-item:hover {
 }
 
 .sidebar-item.active {
-  background: #007AFF;
-  color: white;
+  background: #0b61d6;
+  color: #ffffff;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.05) inset;
 }
 
 html.dark .sidebar-item.active {
-  background: #0A84FF;
+  background: #0a57c2;
 }
 
+/* ensure label takes remaining space */
 .sidebar-label {
   flex: 1;
+  color: var(--vp-c-text-1);
 }
 
+/* Accessibility: ensure high contrast for active sidebar item */
+.sidebar-item.active .sidebar-label {
+  color: #ffffff; /* explicit white to guarantee contrast */
+  text-shadow: 0 0 0 rgba(0,0,0,0); /* prevent inherited text effects from altering contrast checks */
+}
+
+/* make counts visible & distinct on active */
+.sidebar-item.active .sidebar-count {
+  color: #e6f4ff;
+  opacity: 1;
+}
+
+/* for focus (keyboard) ensure outline + focus-visible so keyboard users can see it */
+.sidebar-item:focus,
+.sidebar-item:focus-visible {
+  outline: 3px solid rgba(3, 102, 214, 0.35);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* counts visually subdued but exposed via visually-hidden text */
 .sidebar-count {
   font-size: 12px;
-  opacity: 0.7;
-  font-weight: 600;
+  opacity: 0.9;
+  font-weight: 700;
+  margin-left: 8px;
 }
 
 /* Message List */
@@ -692,9 +883,9 @@ html.dark .message-item.selected {
   background: rgba(0, 122, 255, 0.05);
 }
 
-html.dark .message-item.unread {
+/* html.dark .message-item.unread {
   background: rgba(10, 132, 255, 0.08);
-}
+} */
 
 .message-header {
   display: flex;
