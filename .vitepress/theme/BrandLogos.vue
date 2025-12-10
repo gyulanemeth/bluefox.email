@@ -8,7 +8,7 @@ const logos = [
     url: 'https://mailsmiths.com/audit'
   },
   {
-    src: '/assets/testimonials/trendfingers.webp',
+    src: '/assets/testimonials/Trendfingers-logo.webp',
     alt: 'TrendFingers',
     url: 'https://trendfingers.com'
   },
