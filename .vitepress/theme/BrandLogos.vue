@@ -264,13 +264,18 @@ html.dark .brand-logos-subtitle {
   filter: grayscale(0%) opacity(1);
 }
 
-/* Dark mode adjustments */
+/* Dark mode: brighter, higher opacity, more contrast so they pop */
 html.dark .logo-image {
   filter: grayscale(100%) opacity(0.5) brightness(1.15);
 }
 
 html.dark .logo-item a:hover .logo-image {
-  filter: grayscale(0%) opacity(1) brightness(1);
+  filter: grayscale(0%) opacity(1) brightness(1.2) contrast(1.05);
+}
+
+/* Dark mode fine-tuning */
+html.dark .logo-image {
+  image-rendering: auto;
 }
 
 /* Responsive adjustments */
