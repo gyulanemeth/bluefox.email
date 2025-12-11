@@ -58,7 +58,7 @@ const testimonials = [
     initials: 'GV',
     company: 'Founder of TrendFingers.com',
     role: 'Marketing Agency Owner',
-    testimonial: `I've been using Blue Fox to send out my newsletters, and I couldn't be happier. The system integrates seamlessly with my own AWS SES, giving me full control and transparency without the hefty price tag of overpriced black-box solutions like Mailchimp. It's an excellent choice for anyone seeking reliability and efficiency.`,
+    testimonial: `I first used BlueFox Email for my own professional newsletter, and it worked so well that I soon started offering newsletter campaigns to my agency clients too. Email is clearly having a comeback as more people feel worn out by social media noise and want something more direct. What keeps me loyal to BlueFox Email is the team mindset. When I have an idea, it goes on their roadmap and often gets built. The platform keeps getting better, with features that matter in real agency work. I can now see all my clients in one place, top up credits for their campaigns, and give them access to their own accounts where they only see their own statistics. That setup makes client management simple and clean. BlueFox Email is a perfect fit for marketing agencies, while costing a fraction of what Mailchimp charges, and for that reason alone, I can confidently recommend it.`,
     profileImg: '/assets/testimonials/gabriel-varaljay.webp',
     logo: '/assets/testimonials/trendfingers.webp',
     logoAlt: 'TrendFingers Logo',

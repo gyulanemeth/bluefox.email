@@ -171,6 +171,11 @@ onBeforeUnmount(() => {
     max-height: 100% !important;
   }
 
+  /* This rule ensures the video player's captions are not tiny on mobile */
+  video::cue {
+    font-size: 14px;
+  }
+
   #email-editor video {
     border: 1px solid #eeeeee;
     border-radius: 5px;
@@ -973,24 +978,25 @@ onBeforeUnmount(() => {
 </style>
 
 <!-- 1. HERO - First impression with value proposition -->
-<section id="hero">
+<section id="hero" role="region">
   <HeroUnit />
 </section>
 
 <!-- 2. BRAND LOGOS - Trust indicators -->
-<section>
+<section role="region" aria-labelledby="brand-logos-heading">
   <BrandLogos />
 </section>
 
 <!-- 3. PROBLEM AGITATION - Synced with Why page -->
-<section class="problem-section">
+<section class="problem-section" role="region" aria-labelledby="problems-heading">
   <div class="problem-intro">
     <div class="d-flex justify-center mb-4">
-      <v-chip color="primary">
+      <!-- Give chip an accessible name -->
+      <v-chip color="primary" aria-label="Agency challenge badge">
         <span class="text-overline">The Agency Challenge</span>
       </v-chip>
     </div>
-    <h2 class="problem-main-title">
+    <h2 id="problems-heading" class="problem-main-title">
       Managing Multiple Clients, Shouldn't Be This Hard
     </h2>
     <p class="problem-subtitle">
@@ -998,19 +1004,19 @@ onBeforeUnmount(() => {
     </p>
   </div>
 
-  <div class="problem-grid">
+  <div class="problem-grid" role="list">
     <!-- Problem 1: Multiple Client Chaos -->
-    <div class="problem-card">
-      <div class="problem-icon-wrapper">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <div class="problem-card" role="listitem" aria-labelledby="p1-title">
+      <div class="problem-icon-wrapper" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
           <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       <div class="problem-content">
-        <div class="problem-title">Managing Multiple Clients Is Chaos</div>
+        <div id="p1-title" class="problem-title">Managing Multiple Clients Is Chaos</div>
         <div class="problem-description">Constant juggling with logins, late client requests, and endless approval cycles. Each client feels like a full-time job.</div>
-        <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="problem-impact" aria-hidden="false">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
@@ -1018,18 +1024,18 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </div>
-    <!-- Problem 2: Rebuilding from Scratch -->
-    <div class="problem-card">
-      <div class="problem-icon-wrapper">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <!-- Problem 2 -->
+    <div class="problem-card" role="listitem" aria-labelledby="p2-title">
+      <div class="problem-icon-wrapper" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
           <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       <div class="problem-content">
-        <div class="problem-title">You Rebuild Everything for Every Client</div>
+        <div id="p2-title" class="problem-title">You Rebuild Everything for Every Client</div>
         <div class="problem-description">Same templates, same automations, same segments recreated from scratch. New client equals the exact same work, every single time.</div>
         <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
@@ -1037,20 +1043,20 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </div>
-    <!-- Problem 3: Design & Rendering Issues -->
-    <div class="problem-card">
-      <div class="problem-icon-wrapper">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <!-- Problem 3 -->
+    <div class="problem-card" role="listitem" aria-labelledby="p3-title">
+      <div class="problem-icon-wrapper" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
           <rect x="3" y="5" width="18" height="14" rx="2"/>
           <path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M9 15l-2 2m8-2l2 2" stroke-linecap="round"/>
         </svg>
       </div>
       <div class="problem-content">
-        <div class="problem-title">Design & Rendering Issues Waste Hours</div>
+        <div id="p3-title" class="problem-title">Design & Rendering Issues Waste Hours</div>
         <div class="problem-description">Looks perfect in the editor, then breaks in Outlook for absolutely no reason. Mobile layouts crushed. Endless QA cycles.</div>
         <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
@@ -1058,20 +1064,20 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </div>
-    <!-- Problem 4: Reporting Drains Time -->
-    <div class="problem-card">
-      <div class="problem-icon-wrapper">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <!-- Problem 4 -->
+    <div class="problem-card" role="listitem" aria-labelledby="p4-title">
+      <div class="problem-icon-wrapper" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
           <path d="M3 3v18h18" stroke-linecap="round"/>
           <path d="M18 17V9l-5 5-3-3-4 4" stroke-linecap="round" stroke-linejoin="round"/>
           <circle cx="18" cy="6" r="2"/>
         </svg>
       </div>
       <div class="problem-content">
-        <div class="problem-title">Reporting Drains Hours Every Month</div>
+        <div id="p4-title" class="problem-title">Reporting Drains Hours Every Month</div>
         <div class="problem-description">You spend more time building reports than actually sending campaigns. Exporting data, combining spreadsheets, making it client-ready.</div>
         <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
@@ -1079,19 +1085,19 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </div>
-    <!-- Problem 5: Deliverability Issues -->
-    <div class="problem-card">
-      <div class="problem-icon-wrapper">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <!-- Problem 5 -->
+    <div class="problem-card" role="listitem" aria-labelledby="p5-title">
+      <div class="problem-icon-wrapper" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
           <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M12 9v4M12 17h.01" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
       <div class="problem-content">
-        <div class="problem-title">Great Emails Land in Spam</div>
+        <div id="p5-title" class="problem-title">Great Emails Land in Spam</div>
         <div class="problem-description">And clients blame you, even though you don't know what went wrong this time. Deliverability is a black box you can't control.</div>
         <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
@@ -1099,18 +1105,18 @@ onBeforeUnmount(() => {
         </div>
       </div>
     </div>
-    <!-- Problem 6: Pricing Squeezes Margins -->
-    <div class="problem-card">
-      <div class="problem-icon-wrapper">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <!-- Problem 6 -->
+    <div class="problem-card" role="listitem" aria-labelledby="p6-title">
+      <div class="problem-icon-wrapper" aria-hidden="true">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
           <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round"/>
         </svg>
       </div>
       <div class="problem-content">
-        <div class="problem-title">Pricing Squeezes Your Margins</div>
+        <div id="p6-title" class="problem-title">Pricing Squeezes Your Margins</div>
         <div class="problem-description">Contact-based billing gets expensive fast. Client lists grow, costs explode, but your retainer stays flat. Hidden cost jumps kill profitability.</div>
         <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
           </svg>
@@ -1119,21 +1125,20 @@ onBeforeUnmount(() => {
       </div>
     </div>
   </div>
-
-  <div class="problem-stats-section">
-    <div class="problem-stat-card">
-      <div class="problem-stat-number">70%</div>
-      <div class="problem-stat-divider"></div>
+  <div class="problem-stats-section" aria-hidden="false">
+    <div class="problem-stat-card" role="group" aria-labelledby="stat1-label">
+      <div class="problem-stat-number" id="stat1-value">70%</div>
+      <div class="problem-stat-divider" aria-hidden="true"></div>
       <div class="problem-stat-content">
-        <div class="problem-stat-label">Time Wasted</div>
+        <div id="stat1-label" class="problem-stat-label">Time Wasted</div>
         <div class="problem-stat-description">Average time agencies waste on email production inefficiencies</div>
       </div>
     </div>
-    <div class="problem-stat-card">
-      <div class="problem-stat-number">3-5 </div>
-      <div class="problem-stat-divider"></div>
+    <div class="problem-stat-card" role="group" aria-labelledby="stat2-label">
+      <div class="problem-stat-number" id="stat2-value">3-5</div>
+      <div class="problem-stat-divider" aria-hidden="true"></div>
       <div class="problem-stat-content">
-        <div class="problem-stat-label">Days Delayed</div>
+        <div id="stat2-label" class="problem-stat-label">Days Delayed</div>
         <div class="problem-stat-description">Typical campaign launch delay due to design bottlenecks</div>
       </div>
     </div>
@@ -1141,8 +1146,8 @@ onBeforeUnmount(() => {
 </section>
 
 <!-- 4. SOCIAL PROOF - Build trust early -->
-<section class="section-index" style="padding-top: 5vh;">
-  <h2 class="sectionTitle text-center mt-4 mb-6">
+<section class="section-index" style="padding-top: 5vh;" role="region" aria-labelledby="testimonials-heading">
+  <h2 id="testimonials-heading" class="sectionTitle text-center mt-4 mb-6">
     Agencies Choose BlueFox Email. Their Clients Stay.
   </h2>
   <AppleMailTestimonials
@@ -1155,13 +1160,13 @@ onBeforeUnmount(() => {
 </section>
 
 <!-- 5. SOLUTION: Multi-client Management via Design System -->
-<section id="design-system" class="section-index">
+<section id="design-system" class="section-index" role="region" aria-labelledby="design-system-heading">
   <div class="d-flex justify-center">
-    <v-chip color="primary">
+    <v-chip color="primary" aria-label="Core solution badge">
       <span class="text-overline">Core Solution</span>
     </v-chip>
   </div>
-  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+  <h2 id="design-system-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
     Manage 10 Clients as Easily as 1
   </h2>
   <div class="d-flex justify-center">
@@ -1177,8 +1182,8 @@ onBeforeUnmount(() => {
 </section>
 
 <!-- 6. SOLUTION: No-code Content Creation -->
-<section id="marketers" class="value-prop">
-  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+<section id="marketers" class="value-prop" role="region" aria-labelledby="email-editor-heading">
+  <h2 id="email-editor-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
     Create Pixel-Perfect Brand Emails in Minutes
   </h2>
   <div class="d-flex justify-center">
@@ -1186,25 +1191,28 @@ onBeforeUnmount(() => {
       Your team doesn't need to be Adobe experts. Our visual editor produces pixel-perfect emails that render flawlessly across Gmail, Outlook, and mobile so you can deliver premium quality even with a lean creative team.
     </div>
   </div>
-  <v-card class="d-flex justify-center mt-4" variant="elevated">
+  <v-card class="d-flex justify-center mt-4" variant="elevated" role="region" aria-label="Editor demo video">
     <video
       width="100%"
       :autoplay="lgAndUp || md"
       :loop="lgAndUp || md"
       :controls="sm || xs"
       muted
+      preload="metadata"
     >
       <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
+      <!-- Captions track so accessibility audit picks up subtitles -->
+      <track kind="captions" src="/assets/captions/email-editor-intro-en.vtt" srclang="en" label="English captions" default>
       Your browser does not support the video tag.
     </video>
   </v-card>
 
   <div class="d-flex justify-center mt-6">
-    <div class="problem-stat-card">
-      <div class="problem-stat-number">10x</div>
-      <div class="problem-stat-divider"></div>
+    <div class="problem-stat-card" role="group" aria-labelledby="stat3-label">
+      <div class="problem-stat-number" id="stat3-value">10x</div>
+      <div class="problem-stat-divider" aria-hidden="true"></div>
       <div class="problem-stat-content">
-        <div class="problem-stat-label">Faster</div>
+        <div id="stat3-label" class="problem-stat-label">Faster</div>
         <div class="problem-stat-description">Average speed improvement for<br/>email production</div>
       </div>
     </div>
@@ -1212,8 +1220,8 @@ onBeforeUnmount(() => {
 </section>
 
 <!-- 7. SOLUTION: Automation -->
-<section class="value-prop">
-  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+<section class="value-prop" role="region" aria-labelledby="automation-heading">
+  <h2 id="automation-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
     Set It, Send It, Invoice It
   </h2>
   <div class="d-flex justify-center">
@@ -1233,8 +1241,8 @@ onBeforeUnmount(() => {
 </section>
 
 <!-- 8. SOLUTION: Perfect Rendering -->
-<section id="no-rendering-issues" class="value-prop">
-  <h2 class="sectionTitle text-center mb-3">
+<section id="no-rendering-issues" class="value-prop" role="region" aria-labelledby="rendering-heading">
+  <h2 id="rendering-heading" class="sectionTitle text-center mb-3">
     Never Apologize for Broken Emails Again
   </h2>
   <div class="d-flex justify-center">
@@ -1254,8 +1262,8 @@ onBeforeUnmount(() => {
 </section>
 
 <!-- 9. SOLUTION: List Management & Compliance -->
-<section class="section-index value-prop">
-  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+<section class="section-index value-prop" role="region" aria-labelledby="list-management-heading">
+  <h2 id="list-management-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
     Protect Your Clients (and Your Agency) from Compliance Nightmares
   </h2>
   <div class="d-flex justify-center">
@@ -1263,14 +1271,14 @@ onBeforeUnmount(() => {
       Double opt-in, one-click unsubscribe, automated suppression lists, all built-in. Show clients you're not just creative, you're responsible stewards of their brand reputation.
     </div>
   </div>
-  <v-card class="d-flex justify-center mt-4" variant="elevated">
-    <img alt="List management screens showing compliance features" src="/assets/list-management.webp" loading="lazy" />
+  <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="List management dashboard screenshot">
+    <img alt="List management dashboard showing compliance features including double opt-in, unsubscribe management, and automated suppression lists" src="/assets/list-management.webp" loading="lazy" />
   </v-card>
 </section>
 
 <!-- 10. SOLUTION: Analytics & ROI Proof -->
-<section class="value-prop">
-  <h2 class="sectionTitle text-center mt-4 mb-3 pt-0">
+<section class="value-prop" role="region" aria-labelledby="analytics-heading">
+  <h2 id="analytics-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
     The Reports That Win Renewals
   </h2>
   <div class="d-flex justify-center">
@@ -1278,25 +1286,26 @@ onBeforeUnmount(() => {
       Stop spending hours in spreadsheets. Export beautiful, client-ready reports that prove ROI. Open rates, click rates, conversion attribution, revenue impact <strong>everything your client needs to see why they should increase your retainer.</strong>
     </div>
   </div>
-  <v-card class="d-flex justify-center mt-4" variant="elevated">
-    <img alt="Analytics dashboard showing ROI metrics" src="/assets/analytics-alt.webp" loading="lazy" />
+  <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="Analytics dashboard screenshot">
+    <img alt="Analytics dashboard displaying email campaign metrics including open rates, click-through rates, conversion attribution, and revenue impact data" src="/assets/analytics-alt.webp" loading="lazy" />
   </v-card>
 </section>
 
 <!-- 12. INTEGRATIONS - Connect with your stack -->
-<section class="value-prop">
+<section class="value-prop" role="region" aria-labelledby="integrations-heading">
+  <h2 id="integrations-heading" class="visually-hidden">Platform integrations</h2>
   <Integration :is-dark="isDark" />
 </section>
 
 <!-- 14. FINAL CTA - Beautified Premium Design -->
-<section id="second-cta" class="final-cta-section">
+<section id="second-cta" class="final-cta-section" role="region" aria-labelledby="final-cta-heading">
   <div class="cta-container">
     <div class="cta-badge-wrapper">
-      <v-chip color="primary" size="large" class="cta-badge">
+      <v-chip color="primary" size="large" class="cta-badge" aria-label="Get started today badge">
         <span class="text-overline font-weight-bold">Get Started Today</span>
       </v-chip>
     </div>
-    <h2 class="cta-title">
+    <h2 id="final-cta-heading" class="cta-title">
       Ready to Scale Without the Growing Pains?
     </h2>
     <p class="cta-description">
@@ -1310,6 +1319,7 @@ onBeforeUnmount(() => {
         class="cta-primary-button"
         href="https://app.bluefox.email/accounts/create-account"
         target="_blank"
+        aria-label="Start your free BlueFox Email agency account"
       >
         <strong>Start Your Free Agency Account</strong>
       </v-btn>
