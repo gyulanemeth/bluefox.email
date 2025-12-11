@@ -36,7 +36,7 @@ head:
 
 # Send Test Email
 
-Before sending a [campaign](./campaigns.md), [triggered email](./triggered-emails.md), or [transactional email](./transactional-emails.md) to your entire audience, it's important to test it first. The send test email feature allows you to preview how your email will appear and verify that all personalization, links, and formatting are working correctly. You can send test emails to individual contacts or to an entire subscriber list, ensuring everything is perfect before hitting send.
+Before sending a [campaign](./campaigns.md), [triggered email](./triggered-emails.md), or [transactional email](./transactional-emails.md) to your entire audience, it's important to test it first. The send test email feature allows you to preview how your email will appear and verify that all personalization, links, and formatting are working correctly. You can send test emails to individual email addresses or to an entire private subscriber list, ensuring everything is perfect before hitting send.
 
 ## Why Test Emails Matter
 
@@ -50,7 +50,7 @@ Testing your emails before sending them to your full audience helps you:
 
 ## Accessing Send Test Email
 
-You can access the send test email feature from your campaign, triggered email, or transactional email card. Look for the send test button or option in your email details.
+You can access the send test email feature from your campaign, triggered email, or transactional email card. Look for the **Send Test** button in your email card.
 
 ![A screenshot of an email card with the send test button highlighted.](./project-send-test-email-button.webp)
 
@@ -60,10 +60,14 @@ To send a test email to a specific contact:
 
 1. Click the **Send Test** button on your email card.
 2. Select **Email** as the recipient type.
-3. Enter the email address of the contact you want to test with.
+3. Enter the email address to whom you want to send the test email.
 4. Click **Send**.
 
 The test email will be sent immediately to the specified email address.
+
+:::Note 
+The test emails will not be in the analytics or reports of your campaigns or emails. They are solely for testing purposes.
+:::
 
 ![A screenshot of the send test email dialog for individual contact.](./project-send-test-email-individual.webp)
 
@@ -77,6 +81,13 @@ To send a test email to an entire subscriber list:
 4. Click **Send**.
 
 The test email will be sent to all active subscribers in the selected list.
+
+:::info 
+When sending a test email to a subscriber list, make sure that the list is private list. Only the private lists will appear in the dropdown options.
+
+:::Note 
+The test emails will not be in the analytics or reports of your campaigns or emails. They are solely for testing purposes.
+:::
 
 ![A screenshot of the send test email dialog for subscriber list.](./project-send-test-email-list.webp)
 
