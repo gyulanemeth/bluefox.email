@@ -36,7 +36,7 @@ head:
 
 # Send Test Email
 
-Before sending a campaign, triggered email, or transactional email to your entire audience, it's important to test it first. The send test email feature allows you to preview how your email will appear and verify that all personalization, links, and formatting are working correctly. You can send test emails to individual contacts or to an entire subscriber list, ensuring everything is perfect before hitting send.
+Before sending a [campaign](./campaigns.md), [triggered email](./triggered-emails.md), or [transactional email](./transactional-emails.md) to your entire audience, it's important to test it first. The send test email feature allows you to preview how your email will appear and verify that all personalization, links, and formatting are working correctly. You can send test emails to individual contacts or to an entire subscriber list, ensuring everything is perfect before hitting send.
 
 ## Why Test Emails Matter
 
