@@ -88,7 +88,7 @@ Admins have the ability to manage basically everything, user roles, client acces
 
 ### User Role 
 
-User role is designed for standard members of your BlueFox Email account. Users have access to projects, email themes and view only access to account user section, they can perform tasks in projects based on their permissions.
+User role is designed for standard members of your BlueFox Email account. Users have access to projects, email themes and view only access to account settings.
 
 You can identify a user by the **User** label below there avatar and also in **Account Users** tab.
 
@@ -117,7 +117,7 @@ and the access level is indicated next to the **Client** label.
 
 | Role | Permissions |
 |------|-------------|
-| **User** | Access to projects only, restricted to any account related settings|
 | **Admin** | Full account access, manage projects, and control team member permissions |
+| **User** | Access to projects only, restricted to any account related settings|
 | **Editor** (Client Access) | Full project control: create, edit, delete, and send |
 | **Viewer** (Client Access) | Read-only project access: view and analyze only |
