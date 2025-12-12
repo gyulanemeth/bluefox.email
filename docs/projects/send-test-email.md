@@ -1,16 +1,16 @@
 ---
 title: Send Test Email | bluefox.email documentation
-description: Learn how to send test emails in bluefox.email. Test your campaigns with individual contacts or subscriber lists before sending to your entire audience.
+description: Learn how to send test emails in bluefox.email. Test your emails with individual contacts or subscriber lists before sending to your entire audience.
 head:
   - - meta
     - name: description
-      content: Learn how to send test emails in bluefox.email. Test your campaigns with individual contacts or subscriber lists before sending to your entire audience.
+      content: Learn how to send test emails in bluefox.email. Test your emails with individual contacts or subscriber lists before sending to your entire audience.
   - - meta
     - property: og:title
       content: Send Test Email | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Learn how to send test emails in bluefox.email. Test your campaigns with individual contacts or subscriber lists before sending to your entire audience.
+      content: Learn how to send test emails in bluefox.email. Test your emails with individual contacts or subscriber lists before sending to your entire audience.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: Send Test Email | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Learn how to send test emails in bluefox.email. Test your campaigns with individual contacts or subscriber lists before sending to your entire audience.
+      content: Learn how to send test emails in bluefox.email. Test your emails with individual contacts or subscriber lists before sending to your entire audience.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
