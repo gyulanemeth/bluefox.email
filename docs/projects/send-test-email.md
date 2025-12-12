@@ -65,10 +65,9 @@ To send a test email to a specific contact:
 
 The test email will be sent immediately to the specified email address.
 
-:::Note 
-The test emails will not be in the analytics or reports of your campaigns or emails. They are solely for testing purposes.
+:::warning Keep in mind 
+Test emails are for preview purposes only. They are not counted as real sends and will not show up in your reports, open rates, click rates, or any other stats. When sending to a subscriber list, only private test lists will appear in the selector and can be used for test sends. Also, remember that the unsubscribe link works only when sending to subscriber lists. It will not function in single email sends
 :::
-
 ![A screenshot of the send test email dialog for individual contact.](./project-send-test-email-individual.webp)
 
 ## Sending a Test to a Subscriber List
@@ -82,11 +81,8 @@ To send a test email to an entire subscriber list:
 
 The test email will be sent to all active subscribers in the selected list.
 
-:::info 
-When sending a test email to a subscriber list, make sure that the list is private list. Only the private lists will appear in the dropdown options.
-
-:::Note 
-The test emails will not be in the analytics or reports of your campaigns or emails. They are solely for testing purposes.
+:::warning Keep in mind 
+Test emails are for preview purposes only. They are not counted as real sends and will not show up in your reports, open rates, click rates, or any other stats. When sending to a subscriber list, only private test lists will appear in the selector and can be used for test sends. Also, remember that the unsubscribe link works only when sending to subscriber lists. It will not function in single email sends
 :::
 
 ![A screenshot of the send test email dialog for subscriber list.](./project-send-test-email-list.webp)
