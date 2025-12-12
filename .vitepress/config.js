@@ -169,6 +169,10 @@ export default defineConfig({
                   link: "/docs/projects/campaigns"
                 },
                 {
+                  text:"Send Test Emails",
+                  link: "/docs/projects/send-test-email"
+                },
+                {
                   text: "Automations",
                   link: "/docs/projects/automations"
                 },
