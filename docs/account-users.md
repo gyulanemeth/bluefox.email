@@ -42,20 +42,20 @@ BlueFox Email uses a role-based access control system to manage permissions with
 
 There are three account roles in bluefox.email:
 
-- **Admin**: Account administrator with full control over projects, user and client access management.
-- **User**: Standard account member with access to projects and email themes and they can also view other account users and clients but with no administrative privileges.
+- **Admin**: Account administrator with full control over account settings, projects, users and client access management.
+- **User**: Standard account member with access to projects and email themes and view only access to other account users and clients.
 - **Client**: A special role assigned to users who need access to specific projects with defined permissions. It can be either a editor access or just view only access.
 
 You can find your account roles settings in **Account Users** tab. 
 
 ![bluefox email account users](./account-users-side-menu.webp)
 
-Here you can easily manager your user roles and client access levels.
+Here you can easily manage your user roles and client access levels.
 ![bluefox email account user roles](./account-user-roles.webp)
 
 ## Member Invitations and role creation
 
-To invite a member to your BlueFox Email account, first make sure that you are a **admin**. Only admins are allowed to invite new members. 
+To invite a member to your BlueFox Email account, first make sure that you are a **Admin**. Only Admins are allowed to invite new members. 
 
 Check the **Invite New Member** button in top left corner of the **Account Users** tab.
 
@@ -64,7 +64,7 @@ Check the **Invite New Member** button in top left corner of the **Account Users
 After that you will be presented with a form. You can see the account for which you are inviting the member and you will need to enter :
 - **Email Address**: The email address of the member you want to invite.
 - **Confirm Email Address**: Re-enter the email address to confirm.
-- **Role**: Select the role for the member. You can choose between **User**, **Client**, and **Admin** roles.
+- **Role**: Select the role for the member. You can choose between **Admin**, **User**, and **Client** roles.
 
 ![bluefox email invite member form](./account-invite-member-form.webp)
 
@@ -88,7 +88,7 @@ Admins have the ability to manage basically everything, user roles, client acces
 
 ### User Role 
 
-User role is designed for standard members of your BlueFox Email account. Users have access to projects, email themes and view only access to account user section, they can create projects and can perform tasks based on their permissions.
+User role is designed for standard members of your BlueFox Email account. Users have access to projects, email themes and view only access to account user section, they can perform tasks in projects based on their permissions.
 
 You can identify a user by the **User** label below there avatar and also in **Account Users** tab.
 
@@ -100,9 +100,9 @@ Users are managed by Admins and don't have access to any of the account-wide set
 
 Client access levels determine what a client can do within a specific project. There are two levels of client access:
 
-- **Editor Access**: Clients with editor access have full control over the assigned project. They can create, edit, and delete campaigns, automations. They can also manage subscriber lists and contacts, view analytics, and send emails.
+- **Editor Access**: Clients with editor access have full control over the assigned projects. They are able to manage every aspect of the project they are assigned to, but cannot access the **project settings**.
 
-- **Viewer Access**: Clients with viewer access have read-only access to the assigned project. They can view campaigns, automations, templates, analytics, and subscriber lists, but cannot make any changes or send emails.
+- **Viewer Access**: Clients with viewer access have read-only access to the assigned project. They can view all aspects of the project but are not allowed to make any changes or send emails.
 
 You can identify a client by the **Client** label below there avatar and also in **Account Users** tab.
 ![bluefox email client role](./account-client-role-label.webp)
