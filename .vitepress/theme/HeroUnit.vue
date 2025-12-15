@@ -75,16 +75,7 @@ onUnmounted(() => {
         <!-- Left Side: Content -->
         <div class="heroContent">
           <h1 class="title">
-            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">
-            <span class="hat-letter">
-              B
-              <img
-                src="/assets/christmas-hat.png"
-                alt="Christmas hat"
-                class="christmas-hat"
-              />
-            </span>eautiful emails
-          </div>
+            <div class="title-line title-with-hat" style="font-size: 1.3em; font-weight: 800;">Beautiful emails</div>
             <div class="title-line" style="font-size: 1.125em; font-weight: 700;">Faster workflows</div>
             <div class="title-line" style="font-size: 1em; font-weight: 600;">Happier clients</div>
           </h1>
@@ -239,18 +230,25 @@ html.dark .heroDiv {
   pointer-events: none;
 }
 
-.hat-letter {
-  display: inline-block;
+.title-with-hat {
+  position: relative;
+  line-height: 1.1;
 }
 
-.christmas-hat {
+.title-with-hat::before {
+  content: '';
   position: absolute;
-  top: -20px;
-  left: -25px;
-  width: 74px;
+  width: 0.8em;
+  height: 0.8em;
+  left: -0.08em;
+  top: -0.21em;
+  background-image: url('/assets/christmas-hat.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  transform: rotate(-29deg);
+  transform-origin: bottom center;
   pointer-events: none;
   z-index: 3;
-  transform: rotate(-19deg);
 }
 
 @keyframes pulse {
@@ -836,12 +834,6 @@ a {
     justify-content: center;
   }
 
-  .christmas-hat {
-    width: 56px;
-    top: -36px;
-    left: -14px;
-  }
-
   .heroVisual {
     height: 400px;
     margin: 0 auto;
@@ -885,12 +877,7 @@ a {
   .heroMain {
     min-height: auto;
   }
-  .christmas-hat {
-    width: 48px;
-    top: -30px;
-    left: -12px;
-  }
-  
+
   .heroGrid {
     gap: 40px;
   }
