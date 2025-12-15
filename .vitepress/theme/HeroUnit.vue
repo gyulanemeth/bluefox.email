@@ -75,7 +75,16 @@ onUnmounted(() => {
         <!-- Left Side: Content -->
         <div class="heroContent">
           <h1 class="title">
-            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Beautiful emails</div>
+            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">
+            <span class="hat-letter">
+              B
+              <img
+                src="/assets/christmas-hat.png"
+                alt="Christmas hat"
+                class="christmas-hat"
+              />
+            </span>eautiful emails
+          </div>
             <div class="title-line" style="font-size: 1.125em; font-weight: 700;">Faster workflows</div>
             <div class="title-line" style="font-size: 1em; font-weight: 600;">Happier clients</div>
           </h1>
@@ -228,6 +237,20 @@ html.dark .heroDiv {
   filter: blur(60px);
   animation: pulse 8s ease-in-out infinite;
   pointer-events: none;
+}
+
+.hat-letter {
+  display: inline-block;
+}
+
+.christmas-hat {
+  position: absolute;
+  top: -20px;
+  left: -25px;
+  width: 74px;
+  pointer-events: none;
+  z-index: 3;
+  transform: rotate(-19deg);
 }
 
 @keyframes pulse {
@@ -813,6 +836,12 @@ a {
     justify-content: center;
   }
 
+  .christmas-hat {
+    width: 56px;
+    top: -36px;
+    left: -14px;
+  }
+
   .heroVisual {
     height: 400px;
     margin: 0 auto;
@@ -855,6 +884,11 @@ a {
   
   .heroMain {
     min-height: auto;
+  }
+  .christmas-hat {
+    width: 48px;
+    top: -30px;
+    left: -12px;
   }
   
   .heroGrid {
