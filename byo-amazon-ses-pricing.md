@@ -582,6 +582,25 @@ html.dark .footer-cta-subtext {
   text-decoration: none;
 }
 
+.pricing-card-amount {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.pricing-vat-label {
+  font-size: 14px;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-left: 4px;
+  vertical-align: super;
+  line-height: 1;
+}
+
+html.dark .pricing-vat-label {
+  color: #64748b;
+}
+
 /* === Responsive Styles === */
 @media (max-width: 768px) {
   .pricing-hero {
@@ -656,6 +675,14 @@ html.dark .footer-cta-subtext {
     padding: 10px 16px;
     font-size: 14px;
   }
+
+  .pricing-card-amount {
+    font-size: 40px;
+  }
+  
+  .pricing-vat-label {
+    font-size: 12px;
+  }
 }
 
 .vp-doc .VPButton.medium {
@@ -713,7 +740,7 @@ html.dark .footer-cta-subtext {
       <span class="pricing-badge-popular">Most popular</span>
       <h3>Essential</h3>
       <div class="pricing-card-price">
-        <span class="pricing-card-amount">$50</span>
+        <span class="pricing-card-amount">$50<span class="pricing-vat-label">+VAT</span></span>
         <span class="pricing-card-period">/ pack</span>
       </div>
       <ul class="pricing-card-features">
@@ -729,7 +756,7 @@ html.dark .footer-cta-subtext {
     <div class="pricing-card">
       <h3>Premium</h3>
       <div class="pricing-card-price">
-        <span class="pricing-card-amount">$300</span>
+        <span class="pricing-card-amount">$300<span class="pricing-vat-label">+VAT</span></span>
         <span class="pricing-card-period">/ pack</span>
       </div>
       <ul class="pricing-card-features">
