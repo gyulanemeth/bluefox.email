@@ -20,14 +20,14 @@ const logos = [
     src: '/assets/testimonials/NDcompany.webp',
     alt: 'ND Consulting',
     url: 'https://ndcon.ca/',
-    width: 150,
+    width: 50,
     height: 50
   },
   {
     src: '/assets/testimonials/possolutions-logo.webp',
     alt: 'POS Solutions Australia',
     url: 'https://possolutions.com.au',
-    width: 150,
+    width: 50,
     height: 50
   },
   {

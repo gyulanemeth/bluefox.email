@@ -6,13 +6,12 @@ import { addComparisonSchemaMarkup } from './theme/SchemaMarkup/ComparisonSchema
 
 const env = loadEnv('', process.cwd())
 
-let headConf = [
-  // Preconnect to external domains for better performance
-  ['link', { rel: 'preconnect', href: 'https://www.googletagmanager.com' }],
-  ['link', { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }],
-];
+let headConf = [];
 
 if (env.VITE_APP_ENV === 'production') {
+  // Preconnect to external domains for better performance (only in production)
+  headConf.push(['link', { rel: 'preconnect', href: 'https://www.googletagmanager.com' }]);
+  headConf.push(['link', { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }]);
   // only add GA if in production
   headConf.push([
     "script",
