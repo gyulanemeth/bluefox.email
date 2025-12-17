@@ -409,6 +409,8 @@ function selectTestimonial(id) {
                       :src="testimonials[selectedTestimonialId].logo"
                       :alt="testimonials[selectedTestimonialId].logoAlt"
                       class="signature-logo"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </a>
                 </div>
@@ -479,7 +481,7 @@ function selectTestimonial(id) {
             <div class="mobile-signature">
               <div class="mobile-signature-role">{{ testimonials[selectedTestimonialId].role }}</div>
               <a :href="testimonials[selectedTestimonialId].url" target="_blank" :aria-label="`Visit ${testimonials[selectedTestimonialId].company}`">
-                <img :src="testimonials[selectedTestimonialId].logo" :alt="testimonials[selectedTestimonialId].logoAlt" class="mobile-signature-logo" />
+                <img :src="testimonials[selectedTestimonialId].logo" :alt="testimonials[selectedTestimonialId].logoAlt" class="mobile-signature-logo" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>
@@ -596,7 +598,7 @@ function selectTestimonial(id) {
             <div class="tablet-body">
               <p>{{ testimonials[selectedTestimonialId].testimonial }}</p>
               <a :href="testimonials[selectedTestimonialId].url" target="_blank" :aria-label="`Visit ${testimonials[selectedTestimonialId].company}`" class="tablet-logo-link">
-                <img :src="testimonials[selectedTestimonialId].logo" :alt="testimonials[selectedTestimonialId].logoAlt" class="tablet-logo" />
+                <img :src="testimonials[selectedTestimonialId].logo" :alt="testimonials[selectedTestimonialId].logoAlt" class="tablet-logo" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>

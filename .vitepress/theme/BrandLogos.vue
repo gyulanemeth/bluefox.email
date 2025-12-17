@@ -266,7 +266,7 @@ html.dark .brand-logos-subtitle {
 
 /* Dark mode: brighter, higher opacity, more contrast so they pop */
 html.dark .logo-image {
-  filter: grayscale(100%) opacity(0.5) brightness(1.15);
+  filter: grayscale(100%) opacity(0.9) brightness(2.35);
 }
 
 html.dark .logo-item a:hover .logo-image {

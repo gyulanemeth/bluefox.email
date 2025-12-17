@@ -5,7 +5,7 @@
   </div>
   <div class="card-list">
     <div v-for="item in items.filter(post => post.frontmatter.category === frontmatter.category)" :key="item.slug" class="card">
-      <a :href="item.url"><img :src="item.frontmatter.thumbnail" alt="Post thumbnail" /></a>
+      <a :href="item.url"><img :src="item.frontmatter.thumbnail" alt="Post thumbnail" loading="lazy" decoding="async" /></a>
       <h2><a :href="item.url">{{ item.frontmatter.title }}</a></h2>
       <p>{{ item.frontmatter.description }}</p>
       <a :href="item.url">Read more</a>

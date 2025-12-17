@@ -17,6 +17,17 @@ html {
  @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Indie+Flower&display=swap');
  */
 
+/* Optimize font loading with font-display: swap for better performance */
+@font-face {
+  font-family: 'Amatic SC';
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Indie Flower';
+  font-display: swap;
+}
+
 /**
  * Colors
  * -------------------------------------------------------------------------- */

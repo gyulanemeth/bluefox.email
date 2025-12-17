@@ -2,6 +2,7 @@ import { h } from 'vue'
 import Theme from 'vitepress/theme'
 import { createVuetify } from 'vuetify'
 import 'vuetify/styles'
+// Material Design Icons loaded via preload in config.js for better performance
 import '@mdi/font/css/materialdesignicons.css'
 
 // import * from 'vuetify/components'
@@ -35,6 +36,7 @@ import {
 
 import { Ripple } from 'vuetify/directives'
 
+// Custom fonts - subset loaded, see config for preload hints
 import '@fontsource/amatic-sc/400.css'
 import '@fontsource/amatic-sc/700.css'
 import '@fontsource/indie-flower/400.css'

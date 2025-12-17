@@ -132,6 +132,7 @@ const integrations = [
                   :width="40"
                   :src="isDark ? `/assets/integrations/${integration.icon}-dark.svg` : `/assets/integrations/${integration.icon}-light.svg`"
                   :alt="`${integration.name} logo`"
+                  eager
                 />
               </div>
 
@@ -204,6 +205,7 @@ const integrations = [
                   :width="40"
                   :src="isDark ? `/assets/integrations/${integration.icon}-dark.svg` : `/assets/integrations/${integration.icon}-light.svg`"
                   :alt="`${integration.name} logo`"
+                  eager
                 />
               </div>
 

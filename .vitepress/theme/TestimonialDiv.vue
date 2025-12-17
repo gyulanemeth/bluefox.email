@@ -262,6 +262,8 @@ function selectTestimonialEmail (id) {
                   :src="testimonials[selectedTestimonialId].logo"
                   :alt="testimonials[selectedTestimonialId].logoAlt"
                   class="company-logo"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div class="visit-text">
                   <v-icon size="small">mdi-open-in-new</v-icon>
@@ -352,6 +354,8 @@ function selectTestimonialEmail (id) {
                 :src="testimonials[selectedTestimonialId].logo"
                 :alt="testimonials[selectedTestimonialId].logoAlt"
                 class="mobile-logo"
+                loading="lazy"
+                decoding="async"
               />
             </a>
           </div>
@@ -462,6 +466,8 @@ function selectTestimonialEmail (id) {
                 :src="testimonials[selectedTestimonialId].logo"
                 :alt="testimonials[selectedTestimonialId].logoAlt"
                 style="height: 40px;"
+                loading="lazy"
+                decoding="async"
               />
             </a>
           </div>
