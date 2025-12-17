@@ -77,6 +77,14 @@ export default defineConfig({
       }
     },
     chunkSizeWarningLimit: 600, // Warn for chunks larger than 600KB
+    cssCodeSplit: true, // Split CSS for better caching
+    minify: 'terser', // Better minification
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console.logs in production
+        drop_debugger: true,
+      },
+    },
   },
   css: {
     postcss: {

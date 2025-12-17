@@ -3,34 +3,46 @@ import { ref } from 'vue'
 
 const logos = [
   {
-    src: '/assets/testimonials/mailsmiths.webp',
+    src: '/assets/testimonials/mailsmiths-optimized.webp',
     alt: 'Mailsmiths',
-    url: 'https://mailsmiths.com/audit'
+    url: 'https://mailsmiths.com/audit',
+    width: 150,
+    height: 50
   },
   {
-    src: '/assets/testimonials/Trendfingers-logo.webp',
+    src: '/assets/testimonials/Trendfingers-logo-optimized.webp',
     alt: 'TrendFingers',
-    url: 'https://trendfingers.com'
+    url: 'https://trendfingers.com',
+    width: 150,
+    height: 50
   },
   {
-    src: '/assets/testimonials/NDcompany.webp',
+    src: '/assets/testimonials/NDcompany-optimized.webp',
     alt: 'ND Consulting',
-    url: 'https://ndcon.ca/'
+    url: 'https://ndcon.ca/',
+    width: 150,
+    height: 50
   },
   {
-    src: '/assets/testimonials/possolutions-logo.webp',
+    src: '/assets/testimonials/possolutions-logo-optimized.webp',
     alt: 'POS Solutions Australia',
-    url: 'https://possolutions.com.au'
+    url: 'https://possolutions.com.au',
+    width: 150,
+    height: 50
   },
   {
-    src: '/assets/testimonials/clarity-text.webp',
+    src: '/assets/testimonials/clarity-text-optimized.webp',
     alt: 'ClarityText',
-    url: 'https://www.claritytext.com'
+    url: 'https://www.claritytext.com',
+    width: 150,
+    height: 50
   },
   {
-    src: '/assets/testimonials/chamaileon.webp',
+    src: '/assets/testimonials/chamaileon-optimized.webp',
     alt: 'Chamaileon',
-    url: 'https://chamaileon.io/'
+    url: 'https://chamaileon.io/',
+    width: 150,
+    height: 50
   }
 ]
 </script>
@@ -64,8 +76,11 @@ const logos = [
             <img
               :src="logo.src"
               :alt="logo.alt"
+              :width="logo.width"
+              :height="logo.height"
               class="logo-image"
               loading="lazy"
+              decoding="async"
               aria-hidden="false"
               draggable="false"
             />
@@ -91,8 +106,11 @@ const logos = [
             <img
               :src="logo.src"
               :alt="logo.alt"
+              :width="logo.width"
+              :height="logo.height"
               class="logo-image"
               loading="lazy"
+              decoding="async"
               draggable="false"
             />
           </a>

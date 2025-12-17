@@ -18,6 +18,15 @@ html {
  */
 
 /* Optimize font loading with font-display: swap for better performance */
+/* Override Material Design Icons font to use font-display: swap */
+@font-face {
+  font-family: "Material Design Icons";
+  src: url("~@mdi/font/fonts/materialdesignicons-webfont.woff2?v=7.4.47") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @font-face {
   font-family: 'Amatic SC';
   font-display: swap;
