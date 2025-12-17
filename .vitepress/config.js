@@ -9,22 +9,17 @@ const env = loadEnv('', process.cwd())
 let headConf = [];
 
 if (env.VITE_APP_ENV === 'production') {
-  // Preconnect to Google Analytics for faster loading
-  headConf.push(['link', { rel: 'preconnect', href: 'https://www.googletagmanager.com' }])
-  headConf.push(['link', { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }])
-  
-  // Load GA with defer for better performance
+  // only add GA if in production
   headConf.push([
     "script",
     {
       src: "https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C",
       async: true,
-      defer: true,
     },
   ])
   headConf.push([
     "script",
-    { defer: true },
+    {},
     `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');\ngtag('config', 'AW-16693655873');`,
   ])
 }
@@ -72,19 +67,9 @@ export default defineConfig({
         manualChunks: {
           'vue-vendor': ['vue'],
           'vuetify-vendor': ['vuetify'],
-          'vuetify-components': ['vuetify/components'],
         }
       }
-    },
-    chunkSizeWarningLimit: 600, // Warn for chunks larger than 600KB
-    cssCodeSplit: true, // Split CSS for better caching
-    minify: 'terser', // Better minification
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console.logs in production
-        drop_debugger: true,
-      },
-    },
+    }
   },
   css: {
     postcss: {
@@ -444,11 +429,6 @@ export default defineConfig({
         // Add loading="lazy" if not already present
         if (!existingAttr.includes("loading")) {
           token.attrPush(["loading", "lazy"]);
-        }
-
-        // Add decoding="async" for better performance
-        if (!existingAttr.includes("decoding")) {
-          token.attrPush(["decoding", "async"]);
         }
 
         return defaultRender(tokens, idx, options, env, self);
