@@ -3,42 +3,42 @@ import { ref } from 'vue'
 
 const logos = [
   {
-    src: '/assets/testimonials/mailsmiths-optimized.webp',
+    src: '/assets/testimonials/mailsmiths.webp',
     alt: 'Mailsmiths',
     url: 'https://mailsmiths.com/audit',
     width: 150,
     height: 50
   },
   {
-    src: '/assets/testimonials/Trendfingers-logo-optimized.webp',
+    src: '/assets/testimonials/Trendfingers-logo.webp',
     alt: 'TrendFingers',
     url: 'https://trendfingers.com',
     width: 50,
     height: 50
   },
   {
-    src: '/assets/testimonials/NDcompany-optimized.webp',
+    src: '/assets/testimonials/NDcompany.webp',
     alt: 'ND Consulting',
     url: 'https://ndcon.ca/',
     width: 150,
     height: 50
   },
   {
-    src: '/assets/testimonials/possolutions-logo-optimized.webp',
+    src: '/assets/testimonials/possolutions-logo.webp',
     alt: 'POS Solutions Australia',
     url: 'https://possolutions.com.au',
     width: 150,
     height: 50
   },
   {
-    src: '/assets/testimonials/clarity-text-optimized.webp',
+    src: '/assets/testimonials/clarity-text.webp',
     alt: 'ClarityText',
     url: 'https://www.claritytext.com',
     width: 50,
     height: 50
   },
   {
-    src: '/assets/testimonials/chamaileon-optimized.webp',
+    src: '/assets/testimonials/chamaileon.webp',
     alt: 'Chamaileon',
     url: 'https://chamaileon.io/',
     width: 49,
