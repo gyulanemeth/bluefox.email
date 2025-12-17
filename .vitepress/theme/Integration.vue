@@ -13,11 +13,10 @@ const integrations = [
   {
     name: 'Zapier',
     description: 'Connect with thousands of apps. No code required, automate workflows in minutes.',
-    icon: 'mdi-lightning-bolt',
-    iconColor: '#FF4A00',
+    icon: 'zapier',
     url: 'https://bluefox.email/docs/integrations/zapier',
     tags: ['No-Code', 'Automation'],
-    badge: 'New',
+    // badge: 'New',
     gradient: 'rgba(255, 74, 0, 0.12), rgba(255, 74, 0, 0.06)'
   },
   {
@@ -30,8 +29,7 @@ const integrations = [
   {
     name: 'API',
     description: 'Full programmatic access with API endpoints. Complete docs with authentication and rate limits.',
-    icon: 'mdi-api',
-    iconColor: '#13B0EE',
+    icon: 'api',
     url: 'https://bluefox.email/docs/api/',
     tags: ['Developer', 'Integration'],
     gradient: 'rgba(19, 176, 238, 0.12), rgba(57, 44, 145, 0.12)'
