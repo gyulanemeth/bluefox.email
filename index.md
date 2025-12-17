@@ -45,7 +45,6 @@ import { useData } from 'vitepress'
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
 import BrandLogos from './.vitepress/theme/BrandLogos.vue'
 import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
-// Lazy-load heavy SVG animation components for better initial load performance
 import DesignSystem from './.vitepress/theme/DesignSystem.vue'
 import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
 import Automation from './.vitepress/theme/Automation.vue'

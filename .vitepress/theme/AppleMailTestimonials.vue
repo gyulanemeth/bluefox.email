@@ -409,6 +409,8 @@ function selectTestimonial(id) {
                       :src="testimonials[selectedTestimonialId].logo"
                       :alt="testimonials[selectedTestimonialId].logoAlt"
                       class="signature-logo"
+                      width="100"
+                      height="32"
                       loading="lazy"
                       decoding="async"
                     />
@@ -481,7 +483,7 @@ function selectTestimonial(id) {
             <div class="mobile-signature">
               <div class="mobile-signature-role">{{ testimonials[selectedTestimonialId].role }}</div>
               <a :href="testimonials[selectedTestimonialId].url" target="_blank" :aria-label="`Visit ${testimonials[selectedTestimonialId].company}`">
-                <img :src="testimonials[selectedTestimonialId].logo" :alt="testimonials[selectedTestimonialId].logoAlt" class="mobile-signature-logo" loading="lazy" decoding="async" />
+                <img :src="testimonials[selectedTestimonialId].logo" :alt="testimonials[selectedTestimonialId].logoAlt" class="mobile-signature-logo" width="88" height="28" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>

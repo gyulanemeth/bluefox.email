@@ -17,7 +17,6 @@ html {
  @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Indie+Flower&display=swap');
  */
 
-
 /**
  * Colors
  * -------------------------------------------------------------------------- */
@@ -140,6 +139,39 @@ html {
 .dark .vp-adaptive-theme {
   color: #f9fafb !important;
   background-color: #1f2937 !important;
+}
+
+/**
+ * Performance: GPU-Accelerated Animations
+ * -------------------------------------------------------------------------- */
+
+/* Force GPU acceleration for common animated elements */
+.v-btn,
+.v-progress-linear,
+.cta-button,
+.animated-btn {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: subpixel-antialiased;
+}
+
+/* Optimize animations to use only transform and opacity */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Remove will-change after animation completes */
+.v-btn:not(:hover):not(:focus):not(:active),
+.v-progress-linear:not(.v-progress-linear--indeterminate) {
+  will-change: auto;
 }
 
 /**

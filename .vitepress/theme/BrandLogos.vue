@@ -13,7 +13,7 @@ const logos = [
     src: '/assets/testimonials/Trendfingers-logo-optimized.webp',
     alt: 'TrendFingers',
     url: 'https://trendfingers.com',
-    width: 150,
+    width: 50,
     height: 50
   },
   {
@@ -34,14 +34,14 @@ const logos = [
     src: '/assets/testimonials/clarity-text-optimized.webp',
     alt: 'ClarityText',
     url: 'https://www.claritytext.com',
-    width: 150,
+    width: 50,
     height: 50
   },
   {
     src: '/assets/testimonials/chamaileon-optimized.webp',
     alt: 'Chamaileon',
     url: 'https://chamaileon.io/',
-    width: 150,
+    width: 49,
     height: 50
   }
 ]

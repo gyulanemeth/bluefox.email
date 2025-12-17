@@ -6,7 +6,11 @@ import { addComparisonSchemaMarkup } from './theme/SchemaMarkup/ComparisonSchema
 
 const env = loadEnv('', process.cwd())
 
-let headConf = [];
+let headConf = [
+  // Preconnect to external domains for better performance
+  ['link', { rel: 'preconnect', href: 'https://www.googletagmanager.com' }],
+  ['link', { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }],
+];
 
 if (env.VITE_APP_ENV === 'production') {
   // only add GA if in production
@@ -64,9 +68,20 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vue-vendor': ['vue'],
-          'vuetify-vendor': ['vuetify'],
+        manualChunks(id) {
+          // Split vendor chunks more granularly for better performance
+          if (id.includes('node_modules')) {
+            if (id.includes('vuetify')) {
+              return 'vuetify-vendor';
+            }
+            if (id.includes('vue')) {
+              return 'vue-vendor';
+            }
+            if (id.includes('@mdi')) {
+              return 'mdi-vendor';
+            }
+            return 'vendor';
+          }
         }
       }
     }
