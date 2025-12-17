@@ -110,7 +110,7 @@ const { links: footerLinks, policies: policyLinks, currentYear, socialLinks } = 
                 :href="social.url"
                 target="_blank"
                 rel="noopener noreferrer"
-                :aria-label="social.name"
+                :aria-label="`Visit BlueFox Email on ${social.name}`"
                 class="social-link"
               >
                 <img 
@@ -118,6 +118,9 @@ const { links: footerLinks, policies: policyLinks, currentYear, socialLinks } = 
                   :alt="`${social.name} icon`"
                   class="social-icon"
                   loading="lazy"
+                  decoding="async"
+                  width="24"
+                  height="24"
                 />
               </a>
             </div>

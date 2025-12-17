@@ -979,12 +979,12 @@ onBeforeUnmount(() => {
 </style>
 
 <!-- 1. HERO - First impression with value proposition -->
-<section id="hero" role="region">
+<main id="hero">
   <HeroUnit />
-</section>
+</main>
 
 <!-- 2. BRAND LOGOS - Trust indicators -->
-<section role="region" aria-labelledby="brand-logos-heading">
+<section aria-labelledby="brand-logos-heading">
   <BrandLogos />
 </section>
 

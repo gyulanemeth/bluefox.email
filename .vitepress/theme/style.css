@@ -17,25 +17,6 @@ html {
  @import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Indie+Flower&display=swap');
  */
 
-/* Optimize font loading with font-display: swap for better performance */
-/* Override Material Design Icons font to use font-display: swap */
-@font-face {
-  font-family: "Material Design Icons";
-  src: url("~@mdi/font/fonts/materialdesignicons-webfont.woff2?v=7.4.47") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Amatic SC';
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Indie Flower';
-  font-display: swap;
-}
 
 /**
  * Colors
