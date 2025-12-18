@@ -67,6 +67,7 @@ onBeforeUnmount(() => {
               <v-img
                 alt="Bluefox logo"
                 src="/assets/bluefoxemail-logo.webp"
+                lazy-src="/assets/bluefoxemail-logo-24x24.webp"
               />
             </v-avatar>
           </template>

@@ -170,6 +170,7 @@ function getTabItem () {
         <v-img
           :width="50"
           :src="isDark ? '/assets/integrations/webhooks-dark.svg' : '/assets/integrations/webhooks-light.svg'"
+          eager
         />
         <h3 class="mt-3 integrationCardTitle">Webhooks</h3>
         <v-card-text class="mt-3 text-center" style="color: var(--vp-code-block-color)">

@@ -9,6 +9,9 @@ const env = loadEnv('', process.cwd())
 let headConf = [];
 
 if (env.VITE_APP_ENV === 'production') {
+  // Preconnect to external domains for better performance (only in production)
+  headConf.push(['link', { rel: 'preconnect', href: 'https://www.googletagmanager.com' }]);
+  headConf.push(['link', { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }]);
   // only add GA if in production
   headConf.push([
     "script",
@@ -64,9 +67,20 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vue-vendor': ['vue'],
-          'vuetify-vendor': ['vuetify'],
+        manualChunks(id) {
+          // Split vendor chunks more granularly for better performance
+          if (id.includes('node_modules')) {
+            if (id.includes('vuetify')) {
+              return 'vuetify-vendor';
+            }
+            if (id.includes('vue')) {
+              return 'vue-vendor';
+            }
+            if (id.includes('@mdi')) {
+              return 'mdi-vendor';
+            }
+            return 'vendor';
+          }
         }
       }
     }

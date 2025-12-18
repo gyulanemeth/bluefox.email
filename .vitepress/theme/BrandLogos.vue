@@ -5,32 +5,44 @@ const logos = [
   {
     src: '/assets/testimonials/mailsmiths.webp',
     alt: 'Mailsmiths',
-    url: 'https://mailsmiths.com/audit'
+    url: 'https://mailsmiths.com/audit',
+    width: 150,
+    height: 50
   },
   {
     src: '/assets/testimonials/Trendfingers-logo.webp',
     alt: 'TrendFingers',
-    url: 'https://trendfingers.com'
+    url: 'https://trendfingers.com',
+    width: 50,
+    height: 50
   },
   {
     src: '/assets/testimonials/NDcompany.webp',
     alt: 'ND Consulting',
-    url: 'https://ndcon.ca/'
+    url: 'https://ndcon.ca/',
+    width: 50,
+    height: 50
   },
   {
     src: '/assets/testimonials/possolutions-logo.webp',
     alt: 'POS Solutions Australia',
-    url: 'https://possolutions.com.au'
+    url: 'https://possolutions.com.au',
+    width: 50,
+    height: 50
   },
   {
     src: '/assets/testimonials/clarity-text.webp',
     alt: 'ClarityText',
-    url: 'https://www.claritytext.com'
+    url: 'https://www.claritytext.com',
+    width: 50,
+    height: 50
   },
   {
     src: '/assets/testimonials/chamaileon.webp',
     alt: 'Chamaileon',
-    url: 'https://chamaileon.io/'
+    url: 'https://chamaileon.io/',
+    width: 49,
+    height: 50
   }
 ]
 </script>
@@ -64,8 +76,11 @@ const logos = [
             <img
               :src="logo.src"
               :alt="logo.alt"
+              :width="logo.width"
+              :height="logo.height"
               class="logo-image"
               loading="lazy"
+              decoding="async"
               aria-hidden="false"
               draggable="false"
             />
@@ -91,8 +106,11 @@ const logos = [
             <img
               :src="logo.src"
               :alt="logo.alt"
+              :width="logo.width"
+              :height="logo.height"
               class="logo-image"
               loading="lazy"
+              decoding="async"
               draggable="false"
             />
           </a>
@@ -266,7 +284,7 @@ html.dark .brand-logos-subtitle {
 
 /* Dark mode: brighter, higher opacity, more contrast so they pop */
 html.dark .logo-image {
-  filter: grayscale(100%) opacity(0.5) brightness(1.15);
+  filter: grayscale(100%) opacity(0.9) brightness(2.35);
 }
 
 html.dark .logo-item a:hover .logo-image {

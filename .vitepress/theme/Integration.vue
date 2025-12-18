@@ -13,8 +13,7 @@ const integrations = [
   {
     name: 'Zapier',
     description: 'Connect with thousands of apps. No code required, automate workflows in minutes.',
-    icon: 'mdi-lightning-bolt',
-    iconColor: '#FF4A00',
+    icon: 'zapier',
     url: 'https://bluefox.email/docs/integrations/zapier',
     tags: ['No-Code', 'Automation'],
     badge: 'New',
@@ -30,8 +29,7 @@ const integrations = [
   {
     name: 'API',
     description: 'Full programmatic access with API endpoints. Complete docs with authentication and rate limits.',
-    icon: 'mdi-api',
-    iconColor: '#13B0EE',
+    icon: 'api',
     url: 'https://bluefox.email/docs/api/',
     tags: ['Developer', 'Integration'],
     gradient: 'rgba(19, 176, 238, 0.12), rgba(57, 44, 145, 0.12)'
@@ -132,6 +130,7 @@ const integrations = [
                   :width="40"
                   :src="isDark ? `/assets/integrations/${integration.icon}-dark.svg` : `/assets/integrations/${integration.icon}-light.svg`"
                   :alt="`${integration.name} logo`"
+                  eager
                 />
               </div>
 
@@ -177,7 +176,6 @@ const integrations = [
           >
             <article class="integration-card" role="article" :aria-labelledby="`int-dup-${index}-title`" tabindex="0">
               <div v-if="integration.badge" class="integration-badge new" aria-hidden="true">
-                <v-icon size="x-small" aria-hidden="true">mdi-star-four-points</v-icon>
                 <span>{{ integration.badge }}</span>
               </div>
 
@@ -204,6 +202,7 @@ const integrations = [
                   :width="40"
                   :src="isDark ? `/assets/integrations/${integration.icon}-dark.svg` : `/assets/integrations/${integration.icon}-light.svg`"
                   :alt="`${integration.name} logo`"
+                  eager
                 />
               </div>
 
