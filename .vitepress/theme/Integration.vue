@@ -16,7 +16,7 @@ const integrations = [
     icon: 'zapier',
     url: 'https://bluefox.email/docs/integrations/zapier',
     tags: ['No-Code', 'Automation'],
-    // badge: 'New',
+    badge: 'New',
     gradient: 'rgba(255, 74, 0, 0.12), rgba(255, 74, 0, 0.06)'
   },
   {
@@ -176,7 +176,6 @@ const integrations = [
           >
             <article class="integration-card" role="article" :aria-labelledby="`int-dup-${index}-title`" tabindex="0">
               <div v-if="integration.badge" class="integration-badge new" aria-hidden="true">
-                <v-icon size="x-small" aria-hidden="true">mdi-star-four-points</v-icon>
                 <span>{{ integration.badge }}</span>
               </div>
 
