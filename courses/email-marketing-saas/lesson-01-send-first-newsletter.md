@@ -4,6 +4,36 @@ outline: [2,3]
 
 <script setup>
   import SaaSEmailMarketingCourseSignup from '/components/SaaSEmailMarketingCourseSignup.vue'
+  import LessonQuickNav from '/components/LessonQuickNav.vue'
+
+  const lessonFaqs = [
+    {
+      question: "How do I organize my email lists?",
+      answer: "Separate transactional emails from marketing emails. Create clear lists like Notifications and Product Updates, each with descriptive titles and frequency information.",
+      sectionId: "#defining-your-lists"
+    },
+    {
+      question: "Where can I find my first subscribers?",
+      answer: "Start with friends, colleagues, beta users, early adopters, and waitlist signups. You don't need ads yet, focus on people who already know your product.",
+      sectionId: "#collecting-your-first-contacts"
+    },
+    {
+      question: "What should I include in my first newsletter?",
+      answer: "Choose one clear topic (like a feature update), use simple design, write conversationally, add screenshots or GIFs, and include clear CTAs.",
+      sectionId: "#sending-your-first-newsletter"
+    },
+    {
+      question: "How do I write an effective subject line?",
+      answer: "Keep it short (5-8 words), base it on your content, avoid spam triggers, and be clear over clever. Pair it with a good preheader text.",
+      sectionId: "#craft-the-subject-line"
+    },
+    {
+      question: "Should I use a personal or brand email address?",
+      answer: "For early-stage SaaS, personal addresses feel approachable and encourage replies. Avoid 'no-reply' addresses as they look impersonal and get ignored.",
+      sectionId: "#email-address-sender-name"
+    }
+  ]
+
 </script>
 
 # Send Your First SaaS Newsletter
@@ -13,6 +43,8 @@ outline: [2,3]
 Early users don’t just want features, they want proof you’re alive and moving.  
 
 ---
+
+<LessonQuickNav :faqs="lessonFaqs" />
 
 Getting started with a newsletter is probably the easiest way to begin with email marketing. It has some clear benefits: it keeps you on top of your early users’ minds and shows them that you’re making progress. That’s especially important in the early days! You want your users to feel confident that *yes, we’re still working on the product and we’re not going anywhere*.  
 
@@ -136,7 +168,7 @@ With BlueFox, you can set your brand styles once (logo, colors, fonts) in your e
 Consistency is the goal. With a simple, on-brand template, you’ll save time, avoid technical headaches, and build a recognizable look that users trust.  
 
 ### Keep the Content Simple
-Write like you are talking to a friend. Forget the corporate jargon and long-winded intros — people are busy, and they just want to know what’s new and why it matters. Stick to a single main topic, for example a feature or roadmap update, and make it easy to follow.  
+Write like you are talking to a friend. Forget the corporate jargon and long-winded intros, people are busy, and they just want to know what’s new and why it matters. Stick to a single main topic, for example a feature or roadmap update, and make it easy to follow.  
 
 When it comes to visuals, use them where they actually help explain something. Screenshots are especially powerful for feature updates, and gifs can be even better when you want to show how something works in just a few seconds. Occasionally, it also makes sense to add a partner’s logo, for example when you announce an integration with another tool. Outside of that, keep visuals light.  
 
@@ -175,7 +207,7 @@ Keep these principles in mind:
 - **Keep it short**: aim for 5–8 words or under 50 characters. Long subject lines get cut off, especially on mobile.  
 - **Make it personal**: if it fits your tone, mention the reader (“Your new feature is live”) or speak in the first person (“What we shipped this month”).  
 - **Use curiosity carefully**: it’s fine to spark interest, but don’t clickbait. If your subject line says one thing and your content delivers another, you’ll lose trust fast.  
-- **Pair it with a good preheader**: the preheader text shows up next to or under the subject in most inboxes, so think of it as a second subject line. Don’t waste it on “View in browser.” See our article on [preheader text — the secret weapon for boosting open rates](/posts/preheader-text-the-secret-weapon-for-boosting-open-rates) for more.  
+- **Pair it with a good preheader**: the preheader text shows up next to or under the subject in most inboxes, so think of it as a second subject line. Don’t waste it on “View in browser.” See our article on [preheader text - the secret weapon for boosting open rates](/posts/preheader-text-the-secret-weapon-for-boosting-open-rates) for more.  
 - **Emojis can help, but sparingly**: they can make your email stand out, but only use them when they fit your brand voice.  
 
 **Examples**  
