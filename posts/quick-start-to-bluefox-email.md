@@ -4,7 +4,7 @@ description: Get started quickly with BlueFox Email by following this step-by-st
 thumbnail: /assets/articles/how-spf-dkim-and-dmarc-actually-work-with-real-examples-share.webp
 
 layout: post
-category: articles
+category: tutorials
 
 head:
   - - meta
