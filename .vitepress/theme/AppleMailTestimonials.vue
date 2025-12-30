@@ -1268,7 +1268,7 @@ html.dark .tablet-window {
   width: 280px;
   border-right: 1px solid var(--vp-c-divider);
   overflow-y: auto;
-  background: var(--vp-c-bg-soft);
+  background: var(--vp-c-bg);
 }
 
 .list-header-tablet {
@@ -1294,7 +1294,11 @@ html.dark .tablet-message-item:hover {
 }
 
 .tablet-message-item.selected {
-  background: rgba(0, 122, 255, 0.12);
+  background: rgba(0, 122, 255, 0.25);
+}
+
+html.dark .tablet-message-item.selected {
+  background: rgba(10, 132, 255, 0.30);
 }
 
 .tablet-item-info {
@@ -1313,10 +1317,14 @@ html.dark .tablet-message-item:hover {
 
 .tablet-item-subject {
   font-size: 13px;
-  color: var(--vp-c-text-2);
+  color: #5a5a5a;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+html.dark .tablet-item-subject {
+  color: #b3b3b3;
 }
 
 .tablet-message-view {
