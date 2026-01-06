@@ -36,7 +36,7 @@ head:
 
 # Project Settings
 
-To enable all the functionality provided by bluefox.email, you need to fill in all the project settings. If you want to use different domains or sending emails for different [delivery modes](./delivery-modes.md) (e.g., staging or production), create separate projects for each environment.
+To enable all the functionality provided by BlueFox Email, you need to fill in all the project settings. If you want to use different domains or sending emails for different [delivery modes](./delivery-modes.md) (e.g., staging or production), create separate projects for each environment.
 
 To access the project settings, click on the **Settings** tab. Here, you can use the sub-menu to navigate to different sections of the project settings.
 
@@ -65,6 +65,8 @@ For more details, see our [Delivery Modes documentation](/docs/projects/delivery
 
 
 ## Bounces and Complaints Webhooks
+
+This feature is only available for projects using **Bring Your Own (BYO) AWS SES**. For other project types, BlueFox Email automatically handles bounces and complaints.
 
 To effectively manage email bounces and complaints, BlueFox Email provides webhook integration. This allows you to receive real-time notifications about these events, enabling you to take appropriate actions such as updating contact statuses or triggering follow-up processes.
 
@@ -104,9 +106,13 @@ Each contact property includes:
 
 - **Property Name**: The user-defined name.
 
-- **API Name**: The system-generated name used when sending or retrieving data via API.
+- **API Name**: The system-generated name used when sending or retrieving data via API. 
 
 - **Type**: The data type of the property, which can be **string, boolean, date, or number**.
+
+:::warning CSV Upload Note
+ When uploading contacts via CSV, you must use the API Name as the column header.
+:::
 
 ![A screenshot of a project settings contact properties section create property.](./project-settings-contact-properties-create.webp)
 
@@ -167,8 +173,8 @@ The domain whitelist ensures that sign-up requests are only processed from autho
 
 Here you can manage third-party integrations that enhance your project's capabilities. Right now we support the following integrations:
 
-- **Zapier**: Connect your bluefox.email project with thousands of apps to automate workflows without coding. Set up triggers and actions to streamline your email marketing processes.
-- **Webhooks**: Configure webhooks to receive real-time notifications about specific events in your project, such as email deliveries, bounces, or complaints. This allows you to integrate bluefox.email with your existing systems and automate responses to these events.
+- **Zapier**: Connect your BlueFox Email project with thousands of apps to automate workflows without coding. Set up triggers and actions to streamline your email marketing processes.
+- **Webhooks**: Configure webhooks to receive real-time notifications about specific events in your project, such as email deliveries, bounces, or complaints. This allows you to integrate BlueFox Email with your existing systems and automate responses to these events.
 
 ### Zapier Integration
 
