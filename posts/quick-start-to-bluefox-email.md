@@ -101,9 +101,9 @@ Before doing all that, it’s recommended to personalize a few project settings 
 
 ## Step 3: Subscription Preferences Page
 
-<video width="800" height="450" loops muted autoplay controls playsinline>
+<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./quick-start-to-bluefox-email/Subscription Preferences Page.mp4" type="video/mp4" />
-</video>
+</video> -->
 
 BlueFox Email provides a subscription preferences page where subscribers can manage their email subscriptions, such as opting out of specific lists.
 
@@ -121,9 +121,9 @@ That’s it your subscription preferences page is now personalized.
 
 ## Step 4: Email Theme Settings
 
-<video width="800" height="450" loops muted autoplay controls playsinline>
+<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./quick-start-to-bluefox-email/Email Theme Settings.mp4" type="video/mp4" />
-</video>
+</video> -->
 
 Next, let’s personalize your email themes. Navigate to the **Email Themes** section of your project.
 
@@ -134,9 +134,9 @@ Click **Edit** to modify the theme. You can update colors, fonts, logos, and mor
 
 ## Step 5: Configure Your Domain
 
-<video width="800" height="450" loops muted autoplay controls playsinline>
+<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./quick-start-to-bluefox-email/Domain Configuration.mp4" type="video/mp4" />
-</video>
+</video> -->
 
 Configuring your domain is essential for good email deliverability. Emails sent from a verified domain are more likely to reach inboxes and less likely to be marked as spam.
 
@@ -146,9 +146,9 @@ BlueFox Email will generate authentication records such as **DKIM**, **SPF**, an
 
 ## Step 6: Request Production Access
 
-<video width="800" height="450" loops muted autoplay controls playsinline>
+<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./quick-start-to-bluefox-email/Request Production Access.mp4" type="video/mp4" />
-</video>
+</video> -->
 
 While in Sandbox Mode, you can only send emails to verified addresses. To remove this limitation, you must request production access.
 
@@ -160,9 +160,9 @@ Learn more about delivery modes here: [Delivery Modes](/docs/projects/delivery-m
 
 ## Step 7: Add Your Contacts
 
-<video width="800" height="450" loops muted autoplay controls playsinline>
+<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./quick-start-to-bluefox-email/Add Contacts.mp4" type="video/mp4" />
-</video>
+</video> -->
 
 Before sending emails to your audience, you need to add contacts to your project.
 
@@ -178,9 +178,9 @@ The larger and more detailed your contact database, the more effectively you can
 
 ## Step 8: Start Sending Emails
 
-<video width="800" height="450" loops muted autoplay controls playsinline>
+<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./quick-start-to-bluefox-email/Sending Emails.mp4" type="video/mp4" />
-</video>
+</video> -->
 
 That’s it! You’re now ready to start sending emails using BlueFox Email.
 
