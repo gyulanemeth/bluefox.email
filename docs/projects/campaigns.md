@@ -76,7 +76,7 @@ When you are done, you can schedule your campaign, or you can send it immediatel
 ![A screenshot of a campaign - schedule and send button highlighted.](./project-campaign-schedule.webp)
 
 :::tip Send test email
-Its generally a good idea to send a test email before scheduling or sending the campaign. You can do that by clicking the "Send Test Email" button in the top right corner of the editor. More on that in here [Sending Test Emails](/docs/projects/send-test-email.md).
+Its generally a good idea to send a test email before scheduling or sending the campaign. You can do that by clicking the "Send Test Email" button in your campaign email card. More on that in here [Sending Test Emails](/docs/projects/send-test-email.md).
 :::
 
 You can also check and edit the subscriber list and segment by clicking on this link, it will redirect you to the subscriber list:
