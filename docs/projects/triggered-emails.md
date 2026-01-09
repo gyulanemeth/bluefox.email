@@ -222,16 +222,16 @@ You can access the **Triggered Email Statistics** by clicking the arrow icon:
 
 For more information on using the **Triggered Email Statistics**, refer to the [Analytics Documentation](/docs/analytics).
 
+## Editing Details of a Transactional Email
 
-## Advanced Settings
+You can edit every key detail of the triggered email like subject, preview text, from identity, etc. by clicking the edit icon on the email card:
 
-The **Advanced Settings** feature allows you to customize key email-sending options, such as configuring sender identities and reply-to addresses. 
+![A screenshot of a transactional email card, edit button highlighted.](./project-transactionals-edit-details-button.webp)
 
-You can access the **Advanced Settings** by clicking the gear icon:
+After you finish editing just click the save icon and your changes will be saved or if you want to discard them just click the close icon respectively.
 
-![Advanced Settings Icon](./project-triggered-advanced-settings-btn.webp)
+![A screenshot of a transactional email being edited, save button highlighted.](./project-transactionals-edit-details-save-button.webp)
 
-For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings.html#advanced-settings).
 
 
 
