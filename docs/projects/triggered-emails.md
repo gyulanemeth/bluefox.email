@@ -222,16 +222,15 @@ You can access the **Triggered Email Statistics** by clicking the arrow icon:
 
 For more information on using the **Triggered Email Statistics**, refer to the [Analytics Documentation](/docs/analytics).
 
-## Editing Details of a Transactional Email
+## Editing Details of a Triggered Email
 
 You can edit every key detail of the triggered email like subject, preview text, from identity, etc. by clicking the edit icon on the email card:
 
-![A screenshot of a transactional email card, edit button highlighted.](./project-transactionals-edit-details-button.webp)
+![A screenshot of a triggered email card, edit button highlighted.](./project-triggereds-edit-details-button.webp)
 
 After you finish editing just click the save icon and your changes will be saved or if you want to discard them just click the close icon respectively.
 
-![A screenshot of a transactional email being edited, save button highlighted.](./project-transactionals-edit-details-save-button.webp)
-
+![A screenshot of a triggered email being edited, save button highlighted.](./project-triggereds-edit-details-save-button.webp)
 
 
 
