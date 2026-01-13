@@ -86,7 +86,7 @@ You can learn how to verify email addresses in this [documentation page](/docs/p
 :::
 
 
-And voilà! You’ve successfully created and sent your first email using BlueFox Email.
+And voilà! You’ve successfully created and sent your first email using BlueFox Email. Now here you might be wondering why the emails are being sent from a `bluefoxemailsandbox.com` domain. That’s because your project is still missing a verified sending domain. We will fix that later in this guide.
 
 This guide covers only the essentials to help you get started quickly. There’s much more you can explore to enhance your email marketing efforts.
 
@@ -112,7 +112,9 @@ For this page to be meaningful, subscribers need to clearly understand:
 - Which lists they’re subscribed to  
 - What each list represents  
 
-Start by navigating to **Project Settings**. In the main tab, set a proper project name and upload your brand logo. This information appears on the subscription preferences page.
+Start by navigating to **Project Settings**. In the main tab, set a proper project name and upload your brand logo. This information appears on the subscription preferences page. For this tutorial we have a dummy brand with us called "SparksPro Cleaning" and we will set the project name and logo accordingly.
+
+![Project Settings](./quick-start-to-bluefox-email/project-settings.webp)
 
 Next, go to the **Contacts** section and create or edit your subscriber lists. Make sure each list has a clear name and description, as this information is also shown to subscribers.
 
@@ -129,10 +131,17 @@ Next, let’s personalize your email themes. Navigate to the your project's **Em
 
 You’ll see a default theme that includes colors, fonts, images, links, etc . We recommend customizing this theme to match your brand identity.
 
-Click **Edit** to modify the theme. You can update colors, fonts, logos, and more. Once saved, this theme will be applied to all email campaigns by default.
+Click **Edit** to modify the theme. You can update colors, fonts, logos, and more. Once saved, this theme will be applied to all email campaigns by default. 
 
-For this tutorial, we will also change 
+For this tutorial, we will also change email theme settings for our "SparksPro Cleaning" brand, we will modify the theme and add our logo and brand primary colors here.
 
+Here is a quick before and after of our email theme customization:
+
+**Before Customization**
+![Default Email Theme](./quick-start-to-bluefox-email/default-email-theme.webp)
+
+**After Customization**
+![Customized Email Theme](./quick-start-to-bluefox-email/customized-email-theme.webp)
 
 ## Step 5: Configure Your Domain
 
@@ -140,11 +149,21 @@ For this tutorial, we will also change
   <source src="./quick-start-to-bluefox-email/Domain Configuration.mp4" type="video/mp4" />
 </video> -->
 
-Configuring your domain is essential for good email deliverability. Emails sent from a verified domain are more likely to reach inboxes and less likely to be marked as spam.
+Configuring your domain allows you to send emails from your own domain, instead of the default `bluefoxemailsandbox.com` domain.
 
-To configure your domain, go to **Project Settings** then **Verified Domains** tab and click **Create**. Enter your domain name and select the appropriate region.
+By default, projects in Sandbox Mode can only send emails to verified email addresses. To send emails to real recipients using your own domain, domain configuration is required.
 
-BlueFox Email will generate authentication records such as **DKIM**, **SPF**, and **DMARC**, it is highly recommended to set up all of them. Add these records to your domain’s DNS settings.
+To configure your domain, go to **Project Settings** then **Verified Domains** and click Create.
+Enter your domain name and select the appropriate region. The selected region determines where your emails will be sent from.
+
+BlueFox Email will generate authentication records such as DKIM, SPF, and DMARC:
+
+- DKIM and SPF are mandatory to send emails
+- DMARC is optional, but recommended for additional protection
+
+Add the provided records to your domain’s DNS settings to complete the setup.
+
+Once configured, your emails will be sent from your own domain instead of the BlueFox sandbox domain—making them ready for real-world sending.
 
 ## Step 6: Request Production Access
 
@@ -184,6 +203,13 @@ The larger and more detailed your contact database, the more effectively you can
   <source src="./quick-start-to-bluefox-email/Sending Emails.mp4" type="video/mp4" />
 </video> -->
 
-That’s it! You’re now ready to start sending emails using BlueFox Email.
+At this point, everything is in place:
 
-Create engaging campaigns, track performance, and continuously optimize your email strategy for better deliverability and engagement. Always follow email marketing best practices to ensure long-term success.
+- Your project is personalized
+- Your domain is configured
+- Your contacts are added
+- Your project is in Production Mode
+- You can now send your first real email campaign.
+  
+From the campaign editor, click Send to send immediately, or Schedule to deliver your campaign at a later time.
+That’s it, you’re officially ready to **start sending email** campaigns with BlueFox Email.
