@@ -136,13 +136,8 @@ Click **Edit** to modify the theme. You can update colors, fonts, logos, and mor
 For this tutorial, we will also change email theme settings for our "SparksPro Cleaning" brand, we will modify the theme and add our logo and brand primary colors here.
 
 Here is a quick before and after of our email theme customization:
-
-**Before Customization**
-![Default Email Theme](./quick-start-to-bluefox-email/default-email-theme.webp)
-
-**After Customization**
-![Customized Email Theme](./quick-start-to-bluefox-email/customized-email-theme.webp)
-
+**Before/After Email Theme Customization**
+![Before After Email Theme Customization](./quick-start-to-bluefox-email/comparision-email-themes.webp)
 ## Step 5: Configure Your Domain
 
 <!-- <video width="800" height="450" loops muted autoplay controls playsinline>
