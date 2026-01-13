@@ -206,5 +206,5 @@ At this point, everything is in place:
 - Your project is in Production Mode
 - You can now send your first real email campaign.
   
-From the campaign editor, click Send to send immediately, or Schedule to deliver your campaign at a later time.
+From the campaigns, click **Send** to send immediately, or Schedule to deliver your campaign at a later time.
 That’s it, you’re officially ready to **start sending email** campaigns with BlueFox Email.
