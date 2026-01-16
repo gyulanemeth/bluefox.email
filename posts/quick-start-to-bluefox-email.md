@@ -48,9 +48,11 @@ Welcome to BlueFox Email! This guide walks you through everything you need to ge
   <source src="./quick-start-to-bluefox-email/Signup-process.mp4" type="video/mp4" />
 </video>
 
-Head over to [BlueFox Email](https://app.bluefox.email/accounts/create-account) and sign up for a new account. Fill in the required information and verify your email address to complete the registration process. Once your account is created, log in to access the BlueFox Email dashboard.
+Head over to [app.bluefox.email](https://app.bluefox.email/accounts/create-account) and sign up for a new account. Fill in the required information and verify your email address to complete the registration process. Once your account is created, log in to access the BlueFox Email dashboard.
 
 When you log in for the first time, you’ll be greeted with a welcome screen that outlines a set of recommended setup tasks. You can either follow these steps or skip them and explore the platform on your own.
+
+![Welcome Screen](./quick-start-to-bluefox-email/welcome-screen.webp)
 
 You’ll also notice that a project named **“Sample project”** is created automatically. You can use this project to explore BlueFox Email’s features or create a new project if you prefer.
 
@@ -118,7 +120,7 @@ Start by navigating to **Project Settings**. In the main tab, set a proper proje
 
 Next, go to the **Contacts** section and create or edit your subscriber lists. Make sure each list has a clear name and description, as this information is also shown to subscribers.
 
-That’s it your subscription preferences page is now personalized.
+That’s it your subscription preferences page is now personalized. You can check this out by sending a test email to yourself and clicking the **unsubscribe** link at the bottom of the email. This will take you to the subscription preferences page where you can see your project logo and subscriber lists.
 
 
 ## Step 4: Email Theme Settings
@@ -127,17 +129,20 @@ That’s it your subscription preferences page is now personalized.
   <source src="./quick-start-to-bluefox-email/Email Theme Settings.mp4" type="video/mp4" />
 </video> -->
 
-Next, let’s personalize your email themes. Navigate to the your project's **Email Themes** section of your project.
+Next, let’s personalize your email themes. Navigate to the your project's **Email Theme** section of your project.
 
 You’ll see a default theme that includes colors, fonts, images, links, etc . We recommend customizing this theme to match your brand identity.
 
 Click **Edit** to modify the theme. You can update colors, fonts, logos, and more. Once saved, this theme will be applied to all email campaigns by default. 
+
+![Email Theme Settings](./quick-start-to-bluefox-email/email-theme-setting.webp)
 
 For this tutorial, we will also change email theme settings for our "SparksPro Cleaning" brand, we will modify the theme and add our logo and brand primary colors here.
 
 Here is a quick before and after of our email theme customization:
 **Before/After Email Theme Customization**
 ![Before After Email Theme Customization](./quick-start-to-bluefox-email/comparision-email-themes.webp)
+
 ## Step 5: Configure Your Domain
 
 <!-- <video width="800" height="450" loops muted autoplay controls playsinline>
@@ -148,7 +153,10 @@ Configuring your domain allows you to send emails from your own domain, instead 
 
 By default, projects in Sandbox Mode can only send emails to verified email addresses. To send emails to real recipients using your own domain, domain configuration is required.
 
-To configure your domain, go to **Project Settings** then **Verified Domains** and click Create.
+To configure your domain, go to **Project Settings** then **Verified Domains** and click **Add Domain**.
+
+![Add Domain](./quick-start-to-bluefox-email/add-domain.webp)
+
 Enter your domain name and select the appropriate region. The selected region determines where your emails will be sent from.
 
 BlueFox Email will generate authentication records such as DKIM, SPF, and DMARC:
@@ -158,7 +166,7 @@ BlueFox Email will generate authentication records such as DKIM, SPF, and DMARC:
 
 Add the provided records to your domain’s DNS settings to complete the setup.
 
-Once configured, your emails will be sent from your own domain instead of the BlueFox sandbox domain—making them ready for real-world sending.
+Once configured, your emails will be sent from your own domain instead of the bluefoxemailsandbox.com domain, making them ready for real-world sending.
 
 ## Step 6: Request Production Access
 
@@ -169,6 +177,8 @@ Once configured, your emails will be sent from your own domain instead of the Bl
 While in Sandbox Mode, you can only send emails to verified addresses. To remove this limitation, you must request production access.
 
 Go to **Project Settings** then **Delivery Mode** tab and click **Apply for Production Access**. Provide details about your email-sending use case and practices.
+
+![Request Production Access](./quick-start-to-bluefox-email/request-production-access.webp)
 
 The BlueFox Email team will review your request. Once approved, your project will move to **Production Mode**, allowing you to send emails to any address without restrictions.
 
@@ -184,12 +194,18 @@ Before sending emails to your audience, you need to add contacts to your project
 
 Navigate to the **Contacts** section and click **Add Contacts**. You can:
 - Add contacts manually, or  
-- Import them from a CSV file  
+- Import them from a CSV file
+
+When importing contacts, ensure that you email column because it is required. You can also include additional fields like first name, last name, etc., to personalize your contacts but make sure that you have add those in your **custom contact properties** in your project settings before importing.
+
+![Add Contacts](./quick-start-to-bluefox-email/add-contacts.webp)
+
+Here just look at the API name and edit that as your CSV header while importing contacts.
 
 To keep your audience organized and improve targeting, group contacts into subscriber lists. You can also segment contacts based on various criteria to send more personalized and relevant emails.
 
 :::tip 
-The larger and more detailed your contact database, the more effectively you can segment your audience—and the better results you’ll achieve from your email campaigns.
+The larger and more detailed your contact database, the more effectively you can segment your audience and the better results you’ll achieve from your email campaigns.
 :::
 
 ## Step 8: Start Sending Emails
