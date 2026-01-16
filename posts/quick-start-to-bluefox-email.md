@@ -5,7 +5,7 @@ thumbnail: /assets/articles/quick-start-guide.webp
 category: tutorials
 tags: ['Getting Started', 'Tutorial']
 sidebar: false
-published: 2025-03-16
+published: 2026-01-16
 lastUpdated: true
 head:
   - - meta
@@ -19,7 +19,7 @@ head:
       content: "A complete step-by-step guide to get started with BlueFox Email - from account creation to sending your first emails."
   - - meta
     - property: og:image
-      content: "https://bluefox.email/assets/articles/articles/quick-start-guide.png"
+      content: "https://bluefox.email/assets/articles/quick-start-guide.png"
   - - meta
     - property: og:url
       content: "https://bluefox.email/posts/quick-start-to-bluefox-email"
@@ -34,7 +34,7 @@ head:
       content: "A complete step-by-step guide to get started with BlueFox Email - from account creation to sending your first emails."
   - - meta
     - name: twitter:image
-      content: "https://bluefox.email/assets/articles/articles/quick-start-guide.png"
+      content: "https://bluefox.email/assets/articles/quick-start-guide.png"
 layout: post
 ---
 
@@ -118,9 +118,17 @@ Start by navigating to **Project Settings**. In the main tab, set a proper proje
 
 ![Project Settings](./quick-start-to-bluefox-email/project-settings.webp)
 
-Next, go to the **Contacts** section and create or edit your subscriber lists. Make sure each list has a clear name and description, as this information is also shown to subscribers.
+Next, go to the **Contacts** section and create or edit your subscriber lists. 
+
+![Subscriber Lists](./quick-start-to-bluefox-email/subscriber-lists.webp)
+
+Make sure each list has a clear name and description, as this information is also shown to subscribers.
+
+![List Details](./quick-start-to-bluefox-email/list-details.webp)
 
 That’s it your subscription preferences page is now personalized. You can check this out by sending a test email to yourself and clicking the **unsubscribe** link at the bottom of the email. This will take you to the subscription preferences page where you can see your project logo and subscriber lists.
+
+![Subscription Preferences Page](./quick-start-to-bluefox-email/subscription-preferences-page.webp)
 
 
 ## Step 4: Email Theme Settings
@@ -223,4 +231,7 @@ At this point, everything is in place:
 - You can now send your first real email campaign.
   
 From the campaigns, click **Send** to send immediately, or Schedule to deliver your campaign at a later time.
+
+![Send Campaign](./quick-start-to-bluefox-email/send-campaign.webp)
+
 That’s it, you’re officially ready to **start sending email** campaigns with BlueFox Email.
