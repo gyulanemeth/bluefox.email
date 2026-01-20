@@ -70,7 +70,7 @@ At this point, you already have everything you need to send your first test emai
 ## Step 2: Sending Your First Test Email
 
 <video width="800" height="450" loops muted autoplay controls playsinline>
-  <source src="./quick-start-to-bluefox-email/Send test email.mp4" type="video/mp4" />
+  <source src="./quick-start-to-bluefox-email/send-test-email.mp4" type="video/mp4" />
 </video>
 
 Before sending an email to your entire audience, it’s recommended to send a test email first. This allows you to preview how the email looks in your inbox and make any necessary adjustments.
@@ -103,9 +103,9 @@ Before doing all that, it’s recommended to personalize a few project settings 
 
 ## Step 3: Subscription Preferences Page
 
-<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
-  <source src="./quick-start-to-bluefox-email/Subscription Preferences Page.mp4" type="video/mp4" />
-</video> -->
+<video width="800" height="450" loops muted autoplay controls playsinline>
+  <source src="./quick-start-to-bluefox-email/subscripiton-preference-page.mp4" type="video/mp4" />
+</video>
 
 BlueFox Email provides a subscription preferences page where subscribers can manage their email subscriptions, such as opting out of specific lists.
 
@@ -133,9 +133,9 @@ That’s it your subscription preferences page is now personalized. You can chec
 
 ## Step 4: Email Theme Settings
 
-<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
-  <source src="./quick-start-to-bluefox-email/Email Theme Settings.mp4" type="video/mp4" />
-</video> -->
+<video width="800" height="450" loops muted autoplay controls playsinline>
+  <source src="./quick-start-to-bluefox-email/email-theme-settings.mp4" type="video/mp4" />
+</video>
 
 Next, let’s personalize your email themes. Navigate to the your project's **Email Theme** section of your project.
 
@@ -153,9 +153,9 @@ Here is a quick before and after of our email theme customization:
 
 ## Step 5: Configure Your Domain
 
-<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
-  <source src="./quick-start-to-bluefox-email/Domain Configuration.mp4" type="video/mp4" />
-</video> -->
+<video width="800" height="450" loops muted autoplay controls playsinline>
+  <source src="./quick-start-to-bluefox-email/domain-configuration.mp4" type="video/mp4" />
+</video>
 
 Configuring your domain allows you to send emails from your own domain, instead of the default `bluefoxemailsandbox.com` domain.
 
@@ -178,9 +178,9 @@ Once configured, your emails will be sent from your own domain instead of the bl
 
 ## Step 6: Request Production Access
 
-<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
-  <source src="./quick-start-to-bluefox-email/Request Production Access.mp4" type="video/mp4" />
-</video> -->
+<video width="800" height="450" loops muted autoplay controls playsinline>
+  <source src="./quick-start-to-bluefox-email/production-access.mp4" type="video/mp4" />
+</video>
 
 While in Sandbox Mode, you can only send emails to verified addresses. To remove this limitation, you must request production access.
 
@@ -194,9 +194,9 @@ Learn more about delivery modes here: [Delivery Modes](/docs/projects/delivery-m
 
 ## Step 7: Add Your Contacts
 
-<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
-  <source src="./quick-start-to-bluefox-email/Add Contacts.mp4" type="video/mp4" />
-</video> -->
+<video width="800" height="450" loops muted autoplay controls playsinline>
+  <source src="./quick-start-to-bluefox-email/contact-imports.mp4" type="video/mp4" />
+</video>
 
 Before sending emails to your audience, you need to add contacts to your project.
 
@@ -218,9 +218,9 @@ The larger and more detailed your contact database, the more effectively you can
 
 ## Step 8: Start Sending Emails
 
-<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
-  <source src="./quick-start-to-bluefox-email/Sending Emails.mp4" type="video/mp4" />
-</video> -->
+<video width="800" height="450" loops muted autoplay controls playsinline>
+  <source src="./quick-start-to-bluefox-email/sending-emails.mp4" type="video/mp4" />
+</video>
 
 At this point, everything is in place:
 
