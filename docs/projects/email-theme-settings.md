@@ -42,16 +42,16 @@ You can customize the settings for the email theme you selected when creating yo
 
 These settings are used throughout blocks and templates defined in the email theme. When you change a setting here, it updates everywhere in your project except for campaigns that have already been sent.
 
-How a setting is used depends on the chosen email theme. For example, one email theme might use a `primary-color` setting for headings and button backgrounds, while another uses it solely for button borders.
+There are two main sections in the email theme settings:
+- **Basics** : These are general settings that apply to the entire email theme, such as colors, font family, logos , links,etc.
 
-If you override any setting, the changes apply only to this project. Other projects remain unaffected.
+- **Components** : These are specific blocks that you can use in your emails like buttons, dividers, texts, images,etc.
 
-## Managing Settings
+![A screenshot of a project's email theme settings section - basics and components highlighted.](./project-design-variables-sections.webp)
 
-There are two areas to focus on when managing email theme settings: 
+## Managing Theme settings
 
-- The email theme settings list 
-- The components blocks 
+Everything you see in the email theme settings is customizable. You can change colors, fonts, images, texts, and links to match your brand. There two main sections in this page, One where you manage settings and another where you preview the changes.
 
 **To manage settings:**
 - **Edit:** Click the pencil icon next to a setting to update its value.
