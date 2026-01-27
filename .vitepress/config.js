@@ -203,12 +203,8 @@ export default defineConfig({
                   link: "/docs/projects/forms-and-pages"
                 },
                 {
-                  text: "Design System Variables",
-                  link: "/docs/projects/design-system-variables",
-                },
-                {
-                  text: "Design System Components",
-                  link: "/docs/projects/design-system-components",
+                  text: "Email Theme Settings",
+                  link: "/docs/projects/email-theme-settings",
                 },
                 {
                   text: "Suppression Lists",
