@@ -1,16 +1,16 @@
 ---
-title: Design System | bluefox.email documentation
-description: Discover how the bluefox.email design system helps you build consistent, reusable email components with variables, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
+title: Email Theme Settings | bluefox.email documentation
+description: Discover how the bluefox.email email theme settings help you build consistent, reusable email theme components with email theme basics, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
 head:
   - - meta
     - name: description
-      content: Discover how the bluefox.email design system helps you build consistent, reusable email components with variables, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
+      content: Discover how the bluefox.email email theme settings help you build consistent, reusable email theme components with email theme basics, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
   - - meta
     - property: og:title
-      content: Design System | bluefox.email documentation
+      content: Email Theme Settings | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Discover how the bluefox.email design system helps you build consistent, reusable email components with variables, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
+      content: Discover how the bluefox.email email theme settings help you build consistent, reusable email theme components with email theme basics, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,10 +25,10 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Design System | bluefox.email documentation
+      content: Email Theme Settings | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Discover how the bluefox.email design system helps you build consistent, reusable email components with variables, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
+      content: Discover how the bluefox.email email theme settings help you build consistent, reusable email theme components with email theme basics, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,12 +36,12 @@ head:
 
 # Email Theme Settings
 
-The Email Themes in our email product is a comprehensive framework that helps users build, customize, and manage email designs efficiently. It allows for the creation of reusable components, ensuring consistency across all email communications. With this system, you can design emails from start to finish without needing to write any code, using our drag-and-drop editor.
+The Email Themes in our email product is a comprehensive framework that helps users build, customize, and manage email designs efficiently. It allows for the creation of reusable email theme components, ensuring consistency across all email communications. With this system, you can design emails from start to finish without needing to write any code, using our drag-and-drop editor.
 
-It provides a streamlined approach to email design. Users can create reusable blocks and templates, define variables for global customization, and associate design systems with specific projects. This makes the process of managing email styles and content consistent and efficient across all campaigns.
+It provides a streamlined approach to email design. Users can create reusable blocks and templates, define email theme basics for global customization, and associate email theme settings with specific projects. This makes the process of managing email styles and content consistent and efficient across all campaigns.
 
 ## Email Theme Principles
-The email theme follows [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design), breaking emails into reusable components for consistency and scalability.
+The email theme follows [Atomic Design](https://bradfrost.com/blog/post/atomic-web-design), breaking emails into reusable email theme components for consistency and scalability.
 
 - Atoms – Basic elements like colors and text styles.
 - Molecules – Functional groups, such as buttons with icons.
@@ -50,10 +50,10 @@ The email theme follows [Atomic Design](https://bradfrost.com/blog/post/atomic-w
 
 This modular approach keeps email designs structured, flexible, and easy to manage.
 
-## Components of the Email Theme
+## Email Theme Components
 Every email theme in bluefox.email includes:
 
-- [Variables](./variables)
+- [Email theme basics](./email-theme-basics)
 - [Blocks](./blocks)
 - [Templates](./templates)
 
@@ -69,20 +69,20 @@ To create a new email theme, navigate to the email theme section and click on "C
 
 ![A screenshot of the email theme create dialog.](./design-system-create-button.webp)
 
-You can choose to start from scratch or use a default email theme as your base. Once created, you can add variables, blocks, and templates to build your system.
+You can choose to start from scratch or use a default email theme as your base. Once created, you can add email theme basics, blocks, and templates to build your system.
 
 ![A screenshot of the email theme create dialog.](./design-system-create-dialog.webp)
 
 ## Associating an Email Theme with a Project
-Every project must be linked to an email theme to ensure consistency in design and functionality. When you create a new project, you will have the option to associate it with an existing email theme. This association allows the project to inherit templates, blocks, and variables from the email theme, making the design process more efficient.
+Every project must be linked to an email theme to ensure consistency in design and functionality. When you create a new project, you will have the option to associate it with an existing email theme. This association allows the project to inherit templates, blocks, and email theme basics from the email theme, making the design process more efficient.
 
 ::: info Note
-A project can only be associated with one email theme at a time. If you need to switch email themes, you can do so in the project settings, but this may affect existing templates and variables.
+A project can only be associated with one email theme at a time. If you need to switch email themes, you can do so in the project settings, but this may affect existing templates and email theme basics.
 :::
 
 
 ### Overriding Theme Basics at the Project Level
-While the email theme provides a consistent foundation, you might need to customize certain elements for specific projects. You can override theme basics values at the project level without affecting the main email theme. For instance, if the default color variable "primary" is set to red in the email theme, you can override it to blue in a specific project. Similarly, if the email theme includes a default logo, you can replace it with a project-specific logo without altering the original. These changes will only apply to the project, leaving the original email theme unchanged.
+While the email theme provides a consistent foundation, you might need to customize certain elements for specific projects. You can override theme basics values at the project level without affecting the main email theme. For instance, if the default color email theme basic "primary" is set to red in the email theme, you can override it to blue in a specific project. Similarly, if the email theme includes a default logo, you can replace it with a project-specific logo without altering the original. These changes will only apply to the project, leaving the original email theme unchanged.
 
 ::: info Note
  Overriding **Email Theme Basics** at the project level allows for customization without altering the global email theme, ensuring that other projects remain unaffected.

@@ -1,16 +1,16 @@
 ---
-title: Design System Templates | bluefox.email documentation
-description: Discover how templates in the bluefox.email design system help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+title: Email Theme Settings Templates | bluefox.email documentation
+description: Discover how templates in the bluefox.email email theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
 head:
   - - meta
     - name: description
-      content: Discover how templates in the bluefox.email design system help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+      content: Discover how templates in the bluefox.email email theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
   - - meta
     - property: og:title
-      content: Design System Templates | bluefox.email documentation
+      content: Email Theme Settings Templates | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Discover how templates in the bluefox.email design system help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+      content: Discover how templates in the bluefox.email email theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,23 +25,23 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Design System Templates | bluefox.email documentation
+      content: Email Theme Settings Templates | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Discover how templates in the bluefox.email design system help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+      content: Discover how templates in the bluefox.email email theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
 
-# Design system templates
+# Email Theme Settings Templates
 
-Templates are structured email designs that serve as a foundation for email campaigns, transactional messages, or triggered emails. Unlike blocks, which represent smaller reusable components, templates provide a complete email structure by combining multiple blocks along with additional elements such as buttons and variables.
+Templates are structured email designs that serve as a foundation for email campaigns, transactional messages, or triggered emails. Unlike blocks, which represent smaller reusable components, templates provide a complete email structure by combining multiple blocks along with additional elements such as buttons and email theme basics.
 
 ### **The importance of templates**:
 
-Templates play a crucial role in maintaining brand consistency, reducing design time, and ensuring email content aligns with predefined styles. They allow for efficient email creation by reusing blocks and applying custom variables, making them adaptable to different marketing or transactional needs.
+Templates play a crucial role in maintaining brand consistency, reducing design time, and ensuring email content aligns with predefined styles. They allow for efficient email creation by reusing blocks and applying custom email theme basics, making them adaptable to different marketing or transactional needs.
 
 ## Template categories
 
@@ -56,7 +56,7 @@ Users can:
 
 Inside each template category, users will find a list of templates displayed as cards. Each template card includes:
 
-![A screenshot of the design system template card.](./design-system-template-card.webp)
+![A screenshot of the email theme settings template card.](./design-system-template-card.webp)
 
 - **Template preview** – A quick look at the template's design.
 - **Template name** – The assigned name of the template.
@@ -90,7 +90,7 @@ Inside each template category, users will find a list of templates displayed as 
 
 Users can create a new template in two ways:
 
-![A screenshot of the design system create dialog card.](./design-system-template-create-dialog.webp)
+![A screenshot of the email theme settings create dialog card.](./design-system-template-create-dialog.webp)
 
 **1. From scratch**: Clicking the "Create" button opens a dialog where users can:
 - Enter a template name, subject, preview text and on project creation.
@@ -104,9 +104,9 @@ Users can create a new template in two ways:
 Templates can be fully customized in the editor using:
 
 - **Drag and drop blocks and additional elements** to assemble the email layout.
-- **Variables** – Use predefined design variables for consistency.
+- **Email theme basics** – Use predefined email theme basics for consistency.
 - **Content customization** – Adjust text, images, buttons, and more.
 
 ## Conclusion
 
-Templates provide a structured way to build and manage email designs efficiently. By utilizing blocks, additional elements, and variables, templates enable users to create highly customizable emails tailored to different use cases. The ability to categorize templates and assign them predefined roles within projects ensures seamless email automation and campaign execution.
+Templates provide a structured way to build and manage email designs efficiently. By utilizing blocks, additional elements, and email theme basics, templates enable users to create highly customizable emails tailored to different use cases. The ability to categorize templates and assign them predefined roles within projects ensures seamless email automation and campaign execution.
