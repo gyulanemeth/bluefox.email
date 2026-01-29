@@ -1,16 +1,16 @@
 ---
-title: Design System Variables | bluefox.email documentation
-description: Discover how variables in the bluefox.email design system enable dynamic customization of email components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+title: Email Theme Basics | bluefox.email documentation
+description: Discover how email theme basics in the bluefox.email email theme settings enable dynamic customization of email theme components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
 head:
   - - meta
     - name: description
-      content: Discover how variables in the bluefox.email design system enable dynamic customization of email components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+      content: Discover how email theme basics in the bluefox.email email theme settings enable dynamic customization of email theme components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
   - - meta
     - property: og:title
-      content: Design System Variables | bluefox.email documentation
+      content: Email Theme Basics | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Discover how variables in the bluefox.email design system enable dynamic customization of email components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+      content: Discover how email theme basics in the bluefox.email email theme settings enable dynamic customization of email theme components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,40 +25,40 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Design System Variables | bluefox.email documentation
+      content: Email Theme Basics | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Discover how variables in the bluefox.email design system enable dynamic customization of email components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+      content: Discover how email theme basics in the bluefox.email email theme settings enable dynamic customization of email theme components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Design system variables
+# Email Theme Basics
 
-Variables in the design system allow you to define reusable values that can be applied across templates and blocks. They ensure consistency and make it easy to update design elements across multiple emails without manually modifying each template or block.
+Email theme basics in the email theme settings allow you to define reusable values that can be applied across templates and blocks. They ensure consistency and make it easy to update design elements across multiple emails without manually modifying each template or block.
 
-When a variable is updated, all templates and blocks using that variable will automatically reflect the changes. This allows for efficient design management and helps maintain a unified brand identity across projects.
+When an email theme basic is updated, all templates and blocks using that email theme basic will automatically reflect the changes. This allows for efficient design management and helps maintain a unified brand identity across projects.
 
-## Variables Page
-The **variables page** is divided into two main sections:
+## Email Theme Basics Page
+The **email theme basics page** is divided into two main sections:
 
-- **Left panel (variable list)**: Displays different types of variables (colors, fonts, images, text, links). Users can create, edit, delete, and manage variables.
-- **Right panel (preview section)**: Shows how the selected variable is applied in templates or blocks by displaying a live example, providing immediate feedback on its effect on designs.
+- **Left panel (email theme basics list)**: Displays different types of email theme basics (colors, fonts, images, text, links). Users can create, edit, delete, and manage email theme basics.
+- **Right panel (preview section)**: Shows how the selected email theme basic is applied in templates or blocks by displaying a live example, providing immediate feedback on its effect on designs.
 
 ![A screenshot of the design system variables section.](./design-system-variables.webp)
 
 
-## Types of Variables
+## Types of Email Theme Basics
 
-### 1. Color Variables
-Color variables store reusable colors, such as primary colors, neutrals, and accent colors. Each variable includes:
+### 1. Color Email Theme Basics
+Color email theme basics store reusable colors, such as primary colors, neutrals, and accent colors. Each email theme basic includes:
 
 - **Color name** (e.g., `color-primary`)
 - **Hex value** (e.g., `#1B1E1F`)
-- **Main variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
+- **Main email theme basic** (true/false) determines if it appears in the project creation dialog. Non-main email theme basics can be changed later in project settings
 
-**Managing color variables**
+**Managing color email theme basics**
 - **Create**: Click "Create" to add a new color. Select either "From Scratch" or "Copy & Paste". 
 - **Edit**: Click the pencil icon to change the color name or value.
 - **Delete**: Click the trash icon to remove a color.
@@ -66,14 +66,14 @@ Color variables store reusable colors, such as primary colors, neutrals, and acc
 
 ---
 
-### 2. Font Variables
-Font variables define typography styles applied across templates. Each variable includes:
+### 2. Font Email Theme Basics
+Font email theme basics define typography styles applied across templates. Each email theme basic includes:
 
 - **Font name** (e.g., `font-primary`)
 - **Font stack** (e.g., `Arial, Helvetica, sans-serif`)
-- **Main variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
+- **Main email theme basic** (true/false) determines if it appears in the project creation dialog. Non-main email theme basics can be changed later in project settings
 
-**Managing font variables**
+**Managing font email theme basics**
 - **Create**: Click "Create" to add a new font. Select either "From Scratch" or "Copy & Paste".
 - **Edit**: Modify font styles by clicking the pencil icon.
 - **Delete**: Remove fonts by clicking the trash icon.
@@ -81,14 +81,14 @@ Font variables define typography styles applied across templates. Each variable 
 
 ---
 
-### 3. Image Variables
-Image variables store reusable images (e.g., brand logos, background images).
+### 3. Image Email Theme Basics
+Image email theme basics store reusable images (e.g., brand logos, background images).
 
 - **Image**
 - **Variable Name** (e.g., `image-logo`)
-- **Main Variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
+- **Main Email Theme Basic** (true/false) determines if it appears in the project creation dialog. Non-main email theme basics can be changed later in project settings
 
-**Managing image variables**
+**Managing image email theme basics**
 - **Copy**: Copy the image link by clicking the link icon.
 - **Create**: Click "Create" to add a new image. Select either "From Scratch" or "Copy & Paste".
 - **Edit**: Modify the image by clicking the pencil icon.
@@ -97,14 +97,14 @@ Image variables store reusable images (e.g., brand logos, background images).
 
 ---
 
-### 4. Text Variables
-Text variables store reusable text elements, such as company slogans, default headings, dynamic text values, or legal copy in the footer. For example, a legal disclaimer or copyright notice in the footer can be managed as a text variable, ensuring consistency across all emails while allowing easy updates.
+### 4. Text Email Theme Basics
+Text email theme basics store reusable text elements, such as company slogans, default headings, dynamic text values, or legal copy in the footer. For example, a legal disclaimer or copyright notice in the footer can be managed as a text email theme basic, ensuring consistency across all emails while allowing easy updates.
 
 - **Variable name** (e.g., `alt-text-website`)
 - **Variable text** (e.g., `Visit our website at https://bluefox.email`)
-- **Main variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
+- **Main email theme basic** (true/false) determines if it appears in the project creation dialog. Non-main email theme basics can be changed later in project settings
 
-**Managing text variables**
+**Managing text email theme basics**
 - **Create**: Click "Create" to add a new text. Select either "From Scratch" or "Copy & Paste".
 - **Edit**: Modify text by clicking the pencil icon.
 - **Delete**: Remove text by clicking the trash icon.
@@ -112,14 +112,14 @@ Text variables store reusable text elements, such as company slogans, default he
 
 ---
 
-### 5. Links Variables
-Link variables store reusable URLs, such as website links, social media profiles, or call-to-action buttons.
+### 5. Links Email Theme Basics
+Link email theme basics store reusable URLs, such as website links, social media profiles, or call-to-action buttons.
 
 - **Variable Name** (e.g., `link-website`)
 - **Variable URL** (e.g., `https://bluefox.email`)
-- **Main Variable** (true/false) determines if it appears in the project creation dialog. Non-main variables can be changed later in project settings
+- **Main Email Theme Basic** (true/false) determines if it appears in the project creation dialog. Non-main email theme basics can be changed later in project settings
 
-**Managing text variables**
+**Managing link email theme basics**
 - **Create**: Click "Create" to add a new link. Select either "From Scratch" or "Copy & Paste".
 - **Edit**: Modify link by clicking the pencil icon.
 - **Delete**: Remove link by clicking the trash icon.
@@ -127,4 +127,4 @@ Link variables store reusable URLs, such as website links, social media profiles
 
 ## Conclusion
 
-Variables make it easy to manage design consistency across blocks and templates. The **eye icon** provides a quick preview of where each variable is used, ensuring smooth editing. **main variables** appear in the design system Preview, while **non-main variables** remain available inside projects for flexible use.
+Email theme basics make it easy to manage design consistency across blocks and templates. The **eye icon** provides a quick preview of where each email theme basic is used, ensuring smooth editing. **Main email theme basics** appear in the email theme settings preview, while **non-main email theme basics** remain available inside projects for flexible use.

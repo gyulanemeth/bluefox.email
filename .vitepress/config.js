@@ -271,19 +271,19 @@ export default defineConfig({
               items: [
                 {
                   text: "Email Theme Basics",
-                  link: "/docs/design-systems/variables"
+                  link: "/docs/email-theme-settings/email-theme-basics"
                 },
                 {
                   text: "Email Theme Components",
-                  link: "/docs/design-systems/components"
+                  link: "/docs/email-theme-settings/components"
                 },
                 {
                   text: "Blocks (or modules)",
-                  link: "/docs/design-systems/blocks",
+                  link: "/docs/email-theme-settings/blocks",
                 },
                 {
                   text: "Templates",
-                  link: "/docs/design-systems/templates"
+                  link: "/docs/email-theme-settings/templates"
                 }
               ],
             },
