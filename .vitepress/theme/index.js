@@ -56,6 +56,37 @@ import GlossaryCTA from './GlossaryCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
 
+
+function saveUtm() {
+  if (typeof window === 'undefined') {
+    return false
+  }
+
+  const params = new URLSearchParams(window.location.search)
+  let utmFromLocalStorage = localStorage.getItem('utmTags')
+  utmFromLocalStorage = JSON.parse(utmFromLocalStorage)
+  const utm = {}
+  const tags = ['utm_source', 'utm_medium', 'utm_campaign']
+  tags.forEach((tag) => {
+    const tagData = params.get(tag)
+    if (tagData) {
+      utm[tag] = tagData
+    }
+  })
+
+  if (Object.keys(utm).length) {
+    if (Array.isArray(utmFromLocalStorage)) {
+      if (utmFromLocalStorage.some((ele) => JSON.stringify(ele) === JSON.stringify(utm))) {
+        return
+      }
+      utmFromLocalStorage.push(utm)
+    } else {
+      utmFromLocalStorage = [utm]
+    }
+    localStorage.setItem('utmTags', JSON.stringify(utmFromLocalStorage))
+  }
+}
+
 export default {
   extends: Theme,
   Layout: () => {
@@ -65,6 +96,10 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
+    if (typeof window !== 'undefined') {
+      saveUtm()
+    }
+    router.onAfterRouteChanged = () => saveUtm()
     const vuetify = createVuetify({
       components: {
         VBtn,
