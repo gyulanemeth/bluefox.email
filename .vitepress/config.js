@@ -265,16 +265,16 @@ export default defineConfig({
               link: "/docs/email-personalization",
             },
             {
-              text: "Design Systems",
-              link: "/docs/design-systems/",
+              text: "Email Theme Settings",
+              link: "/docs/email-theme-settings/",
               collapsed: false,
               items: [
                 {
-                  text: "Variables",
+                  text: "Email Theme Basics",
                   link: "/docs/design-systems/variables"
                 },
                 {
-                  text: "Components",
+                  text: "Email Theme Components",
                   link: "/docs/design-systems/components"
                 },
                 {
