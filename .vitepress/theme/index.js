@@ -67,6 +67,15 @@ function getCookie(name) {
   return match ? decodeURIComponent(match[2]) : null
 }
 
+function cleanUrl() {
+  const url = new URL(window.location.href)
+  url.searchParams.delete('utm_source')
+  url.searchParams.delete('utm_medium')
+  url.searchParams.delete('utm_campaign')
+  const newUrl = url.pathname + (url.search ? url.search : '') + (url.hash ? url.hash : '')
+  window.history.replaceState(null, document.title, newUrl)
+}
+
 function saveUtmToCookie() {
   if (typeof window === 'undefined') {
     return false
@@ -81,24 +90,19 @@ function saveUtmToCookie() {
       utm[tag.replace(/^utm_/, '')] = value
     }
   })
-  if (!Object.keys(utm).length) {
-    return false
-  }
-  if (Array.isArray(utmFromCookie)) {
-    if (utmFromCookie.some((ele) => JSON.stringify(ele) === JSON.stringify(utm))) {
-      return
-    }
-    utmFromCookie.push(utm)
-  } else {
-    utmFromCookie = [utm]
-  }
+   if (!Object.keys(utm).length) {
+     return false
+   }
+   if (Array.isArray(utmFromCookie)) {
+     if (utmFromCookie.some((ele) => JSON.stringify(ele) === JSON.stringify(utm))) {
+       return cleanUrl()
+     }
+     utmFromCookie.push(utm)
+   } else {
+     utmFromCookie = [utm]
+   }
   setCookie('utmTags', JSON.stringify(utmFromCookie), 100)
-  const url = new URL(window.location.href)
-  url.searchParams.delete('utm_source')
-  url.searchParams.delete('utm_medium')
-  url.searchParams.delete('utm_campaign')
-  const newUrl = url.pathname + (url.search ? url.search : '') + (url.hash ? url.hash : '')
-  window.history.replaceState(null, document.title, newUrl)
+  cleanUrl()
 }
 
 export default {
