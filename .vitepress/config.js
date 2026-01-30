@@ -265,25 +265,25 @@ export default defineConfig({
               link: "/docs/email-personalization",
             },
             {
-              text: "Email Theme Settings",
-              link: "/docs/email-theme-settings/",
+              text: "Email Theme",
+              link: "/docs/email-theme/",
               collapsed: false,
               items: [
                 {
                   text: "Email Theme Basics",
-                  link: "/docs/email-theme-settings/email-theme-basics"
+                  link: "/docs/email-theme/email-theme-basics"
                 },
                 {
                   text: "Email Theme Components",
-                  link: "/docs/email-theme-settings/components"
+                  link: "/docs/email-theme/components"
                 },
                 {
                   text: "Blocks (or modules)",
-                  link: "/docs/email-theme-settings/blocks",
+                  link: "/docs/email-theme/blocks",
                 },
                 {
                   text: "Templates",
-                  link: "/docs/email-theme-settings/templates"
+                  link: "/docs/email-theme/templates"
                 }
               ],
             },
