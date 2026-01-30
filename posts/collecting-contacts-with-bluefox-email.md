@@ -73,26 +73,25 @@ category: internal-docs
 
 ## Initial Contact Import & Migration (CSV)
 
-- Acknowledges that many users migrate from another ESP.
+- Acknowledges that many users migrate from another email platform.
 - Introduces CSV import as the primary method for:
   - Initial database setup
-  - Migrating existing contacts
+  - One-time migration of existing contacts
 - Emphasizes that imported contacts should:
-  - Have prior consent
-  - Align with explicit subscription intent
-- Positions CSV import as a starting step, not ongoing collection.
-- Leaves detailed migration guides (e.g. Mailchimp → BlueFox Email) for separate articles.
+  - Already have valid consent
+  - Match clear subscription intent
+- Positions CSV import as a starting step, not an ongoing collection method.
+- Leaves detailed migration walkthroughs for separate, dedicated articles.
 
-
-## Collecting Contacts via API
+## Synchronizing Contacts via API
 
 - Introduces APIs as an advanced option for technical users.
-- Positions APIs for applications, CRMs, and backend systems.
-- Acknowledges multi-source integrations, such as:
-  - Webshop
-  - CRM (e.g. HubSpot)
-  - Popup providers (e.g. OptinMonster)
-- Reinforces that permission requirements still apply.
+- Positions APIs for synchronizing contacts across multiple systems.
+- Covers common integration scenarios:
+  - Web applications
+  - CRMs
+  - Other customer data sources
+- Emphasizes that APIs are primarily for **synchronization**, not blind collection.
 - Explicitly refers back to:
   - Clear subscription intent
   - Consent per list or via terms and conditions
@@ -102,17 +101,18 @@ category: internal-docs
   - List Management API documentation
 
 
-## Advanced API Use Cases & Synchronization
+## Advanced Synchronization Scenarios
 
-- Covers bulk contact creation and updates.
-- Mentions CRM and internal system synchronization.
-- Emphasizes two-way sync scenarios:
-  - If a user unsubscribes in a CRM, it must be reflected in BlueFox Email
-  - If a user unsubscribes in BlueFox Email, it should sync back to external systems
-- Explains custom double opt-in confirmation and redirect flows.
+- Covers bulk contact updates and field synchronization.
+- Explains multi-system consistency requirements.
+- Emphasizes bidirectional synchronization:
+  - Unsubscribes in external systems must reflect in BlueFox Email.
+  - Unsubscribes in BlueFox Email should sync back to external systems.
+- Mentions advanced flows such as:
+  - Custom double opt-in confirmation handling
+  - Custom redirect behavior
 - Mentions custom subscription preferences pages.
-- Clearly positions these as advanced topics with separate, dedicated articles.
-- Demonstrates how APIs enable scalable, compliant automation.
+- Clearly positions these as advanced topics with separate, focused articles.
 
 
 ## Choosing the Right Method
@@ -120,12 +120,12 @@ category: internal-docs
 - Signup forms for websites and landing pages.
 - Forms with explicit consent, double opt-in, and captcha for public traffic.
 - CSV import for initial database migration.
-- APIs for applications, CRMs, and multi-system integrations.
-- Helps users self-select the appropriate approach based on maturity and scale.
+- API-based synchronization for applications and multi-system setups.
+- Helps users choose based on maturity, scale, and technical needs.
 
 ## Closing Message
 
 - Reinforces that contact quality matters more than quantity.
 - Reiterates the importance of explicit consent and list clarity.
-- Aligns all collection methods with permission-based marketing.
+- Aligns all methods with permission-based marketing.
 - Positions BlueFox Email as flexible, scalable, and responsible.
