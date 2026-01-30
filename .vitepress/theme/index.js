@@ -76,9 +76,9 @@ function saveUtmToCookie() {
   const utm = {}
   const tags = ['utm_source', 'utm_medium', 'utm_campaign']
   tags.forEach((tag) => {
-    const tagData = params.get(tag)
-    if (tagData) {
-      utm[tag] = tagData
+    const value = params.get(tag)
+    if (value) {
+      utm[tag.replace(/^utm_/, '')] = value
     }
   })
   if (!Object.keys(utm).length) {
