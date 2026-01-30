@@ -93,6 +93,8 @@ function saveUtmToCookie() {
     utmFromCookie = [utm]
   }
   setCookie('utmTags', JSON.stringify(utmFromCookie), 100)
+  const url = new URL(window.location.href)
+  window.history.replaceState({}, document.title, url.pathname + (url.searchParams.toString() ? `?${url.searchParams}` : ''))
 }
 
 export default {
