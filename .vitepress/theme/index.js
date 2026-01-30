@@ -94,7 +94,11 @@ function saveUtmToCookie() {
   }
   setCookie('utmTags', JSON.stringify(utmFromCookie), 100)
   const url = new URL(window.location.href)
-  window.history.replaceState({}, document.title, url.pathname + (url.searchParams.toString() ? `?${url.searchParams}` : ''))
+  url.searchParams.delete('utm_source')
+  url.searchParams.delete('utm_medium')
+  url.searchParams.delete('utm_campaign')
+  const newUrl = url.pathname + (url.search ? url.search : '') + (url.hash ? url.hash : '')
+  window.history.replaceState(null, document.title, newUrl)
 }
 
 export default {
