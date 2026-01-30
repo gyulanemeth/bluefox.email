@@ -53,7 +53,7 @@ A new project is always created in a [Sandbox mode](/docs/projects/delivery-mode
 After entering your project's name, select an email theme. We offer multiple built-in email themes, or you can [create your own](/docs/email-themes/).
 
 
-![A screenshot of the project creation wizard's email theme selection step.](./project-create-select-design-system.webp)
+![A screenshot of the project creation wizard's email theme selection step.](./project-create-select-email-theme.webp)
 
 ::: warning
 If you don't like the email theme you selected, you can come back to this step later.
@@ -70,7 +70,7 @@ Each email theme has variables that you can customize, like colors, images, font
 
 You can override the default values for these variables in each project.
 
-![A screenshot of the project creation wizard's email theme variables settings step.](./project-create-edit-design-system-variable.webp)
+![A screenshot of the project creation wizard's email theme variables settings step.](./project-create-edit-email-theme-variable.webp)
 
 ### Required and Optional Variables
 
@@ -79,7 +79,7 @@ You can override the default values for these variables in each project.
 
 To see examples of how a variable is used, click the eye icon:
 
-![A screenshot of the project creation wizard's email theme basics settings step - preview variable icon.](./project-create-preview-design-system-variables.webp)
+![A screenshot of the project creation wizard's email theme basics settings step - preview variable icon.](./project-create-preview-email-theme-variables.webp)
 You will see where the selected variables appear in blocks and templates on the right-hand side:
 
 ![A screenshot of the project creation wizard's email theme basics settings step - preview blocks and templates.](./project-create-block-template-preview.webp)

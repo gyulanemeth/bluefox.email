@@ -62,16 +62,16 @@ Everything in an email theme is built to be reusable and scalable, ensuring that
 ## Navigating to Email Themes
 
 You can find the email theme section in sidebar on left-hand side.
-![A screenshot of the email theme section.](./design-system-icon.webp)
+![A screenshot of the email theme section.](./email-theme-icon.webp)
 
 ## Creating a New Email Theme
 To create a new email theme, navigate to the email theme section and click on "Create", you can find this button in drop-down menu.
 
-![A screenshot of the email theme create dialog.](./design-system-create-button.webp)
+![A screenshot of the email theme create dialog.](./email-theme-create-button.webp)
 
 You can choose to start from scratch or use a default email theme as your base. Once created, you can add email theme basics, blocks, and templates to build your system.
 
-![A screenshot of the email theme create dialog.](./design-system-create-dialog.webp)
+![A screenshot of the email theme create dialog.](./email-theme-create-dialog.webp)
 
 ## Associating an Email Theme with a Project
 Every project must be linked to an email theme to ensure consistency in design and functionality. When you create a new project, you will have the option to associate it with an existing email theme. This association allows the project to inherit templates, blocks, and email theme basics from the email theme, making the design process more efficient.

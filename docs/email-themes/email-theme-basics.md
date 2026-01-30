@@ -46,7 +46,7 @@ The **email theme basics page** is divided into two main sections:
 - **Left panel (email theme basics list)**: Displays different types of email theme basics (colors, fonts, images, text, links). Users can create, edit, delete, and manage email theme basics.
 - **Right panel (preview section)**: Shows how the selected email theme basic is applied in templates or blocks by displaying a live example, providing immediate feedback on its effect on designs.
 
-![A screenshot of the design system variables section.](./design-system-variables.webp)
+![A screenshot of the design system variables section.](./email-theme-variables.webp)
 
 
 ## Types of Email Theme Basics

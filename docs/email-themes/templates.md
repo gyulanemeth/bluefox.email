@@ -56,7 +56,7 @@ Users can:
 
 Inside each template category, users will find a list of templates displayed as cards. Each template card includes:
 
-![A screenshot of the email theme settings template card.](./design-system-template-card.webp)
+![A screenshot of the email theme settings template card.](./email-theme-template-card.webp)
 
 - **Template preview** – A quick look at the template's design.
 - **Template name** – The assigned name of the template.
@@ -90,7 +90,7 @@ Inside each template category, users will find a list of templates displayed as 
 
 Users can create a new template in two ways:
 
-![A screenshot of the email theme settings create dialog card.](./design-system-template-create-dialog.webp)
+![A screenshot of the email theme settings create dialog card.](./email-theme-template-create-dialog.webp)
 
 **1. From scratch**: Clicking the "Create" button opens a dialog where users can:
 - Enter a template name, subject, preview text and on project creation.
