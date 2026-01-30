@@ -57,14 +57,22 @@ import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
 
 
-function saveUtm() {
+function setCookie(name, value, days = 30) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString()
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=None; Secure`
+}
+
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
+  return match ? decodeURIComponent(match[2]) : null
+}
+
+function saveUtmToCookie() {
   if (typeof window === 'undefined') {
     return false
   }
-
   const params = new URLSearchParams(window.location.search)
-  let utmFromLocalStorage = localStorage.getItem('utmTags')
-  utmFromLocalStorage = JSON.parse(utmFromLocalStorage)
+  let utmFromCookie = JSON.parse(getCookie('utmTags') || '[]')
   const utm = {}
   const tags = ['utm_source', 'utm_medium', 'utm_campaign']
   tags.forEach((tag) => {
@@ -73,18 +81,18 @@ function saveUtm() {
       utm[tag] = tagData
     }
   })
-
-  if (Object.keys(utm).length) {
-    if (Array.isArray(utmFromLocalStorage)) {
-      if (utmFromLocalStorage.some((ele) => JSON.stringify(ele) === JSON.stringify(utm))) {
-        return
-      }
-      utmFromLocalStorage.push(utm)
-    } else {
-      utmFromLocalStorage = [utm]
-    }
-    localStorage.setItem('utmTags', JSON.stringify(utmFromLocalStorage))
+  if (!Object.keys(utm).length) {
+    return false
   }
+  if (Array.isArray(utmFromCookie)) {
+    if (utmFromCookie.some((ele) => JSON.stringify(ele) === JSON.stringify(utm))) {
+      return
+    }
+    utmFromCookie.push(utm)
+  } else {
+    utmFromCookie = [utm]
+  }
+  setCookie('utmTags', JSON.stringify(utmFromCookie), 100)
 }
 
 export default {
@@ -97,9 +105,9 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     if (typeof window !== 'undefined') {
-      saveUtm()
+      saveUtmToCookie()
     }
-    router.onAfterRouteChanged = () => saveUtm()
+    router.onAfterRouteChanged = () => saveUtmToCookie()
     const vuetify = createVuetify({
       components: {
         VBtn,
