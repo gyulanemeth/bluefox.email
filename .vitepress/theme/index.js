@@ -56,6 +56,55 @@ import GlossaryCTA from './GlossaryCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
 
+
+function setCookie(name, value, days = 30) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString()
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; Domain=.bluefox.email; path=/; SameSite=Lax; Secure`
+}
+
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
+  return match ? decodeURIComponent(match[2]) : null
+}
+
+function cleanUrl() {
+  const url = new URL(window.location.href)
+  url.searchParams.delete('utm_source')
+  url.searchParams.delete('utm_medium')
+  url.searchParams.delete('utm_campaign')
+  const newUrl = url.pathname + (url.search ? url.search : '') + (url.hash ? url.hash : '')
+  window.history.replaceState(null, document.title, newUrl)
+}
+
+function saveUtmToCookie() {
+  if (typeof window === 'undefined') {
+    return false
+  }
+  const params = new URLSearchParams(window.location.search)
+  let utmFromCookie = JSON.parse(getCookie('utmTags') || '[]')
+  const utm = {}
+  const tags = ['utm_source', 'utm_medium', 'utm_campaign']
+  tags.forEach((tag) => {
+    const value = params.get(tag)
+    if (value) {
+      utm[tag.replace(/^utm_/, '')] = value
+    }
+  })
+   if (!Object.keys(utm).length) {
+     return false
+   }
+   if (Array.isArray(utmFromCookie)) {
+     if (utmFromCookie.some((ele) => JSON.stringify(ele) === JSON.stringify(utm))) {
+       return cleanUrl()
+     }
+     utmFromCookie.push(utm)
+   } else {
+     utmFromCookie = [utm]
+   }
+  setCookie('utmTags', JSON.stringify(utmFromCookie), 100)
+  cleanUrl()
+}
+
 export default {
   extends: Theme,
   Layout: () => {
@@ -65,6 +114,10 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
+    if (typeof window !== 'undefined') {
+      saveUtmToCookie()
+    }
+    router.onAfterRouteChanged = () => saveUtmToCookie()
     const vuetify = createVuetify({
       components: {
         VBtn,
