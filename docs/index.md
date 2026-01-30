@@ -57,7 +57,7 @@ Each project requires setting up a sending email address. Projects are linked to
 
 ## Email Themes
 
-Our [Email themes settings](./email-theme-settings/) feature enables you to create beautiful, responsive emails that are consistent with your brand. With pre-built templates and customizable components, you can easily craft emails that look professional across all devices and email clients. Whether you're designing transactional emails or marketing campaigns, our design tools provide the flexibility and ease of use you need.
+Our [Email themes](./email-themes/) feature enables you to create beautiful, responsive emails that are consistent with your brand. With pre-built templates and customizable components, you can easily craft emails that look professional across all devices and email clients. Whether you're designing transactional emails or marketing campaigns, our design tools provide the flexibility and ease of use you need.
 
 ## Sending Infrastructure
 

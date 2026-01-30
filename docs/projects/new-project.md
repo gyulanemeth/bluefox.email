@@ -50,7 +50,7 @@ A new project is always created in a [Sandbox mode](/docs/projects/delivery-mode
 
 ## Select a Email Theme
 
-After entering your project's name, select an email theme. We offer multiple built-in email themes, or you can [create your own](/docs/email-theme-settings/).
+After entering your project's name, select an email theme. We offer multiple built-in email themes, or you can [create your own](/docs/email-themes/).
 
 
 ![A screenshot of the project creation wizard's email theme selection step.](./project-create-select-design-system.webp)
