@@ -49,7 +49,7 @@ The **components page** is divided into two main sections:
 - **Left panel (components list)**: Displays different types of components, buttons, images, text, dividers. Users can create, edit, delete, and manage components.
 - **Right panel (preview section)**: Shows a live example of how the selected component is used in templates, providing immediate feedback on changes.
 
-![A screenshot of the email theme components section.](./design-system-components.webp)
+![A screenshot of the email theme components section.](./email-theme-components.webp)
 
 ## Types of Components
 
@@ -107,15 +107,15 @@ Once created, components can be used in any email template. Click a component an
 
 For example, check the button component in the right panel to see how it can be added to your email.
 
-![A screenshot of the email theme components button insertion.](design-system-component-button.webp)
+![A screenshot of the email theme components button insertion.](email-theme-component-button.webp)
 
 You can also drag and drop component styles. Click the `Components` icon in the left panel to see all available components.
 
-![A screenshot of the email theme components list.](design-system-component-list.webp)
+![A screenshot of the email theme components list.](email-theme-component-list.webp)
 
 If you want to detach the component and edit the styles independently, you can do so by selecting the component and choosing the `Detach` option from the right side panel.
 
-![A screenshot of the email theme components detach option.](design-system-component-detach.webp)
+![A screenshot of the email theme components detach option.](email-theme-component-detach.webp)
 
 ## Conclusion
 

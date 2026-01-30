@@ -61,17 +61,17 @@ Block categories appear in the editor whenever someone is editing a template in 
 
 Block categories in the email theme:
 
-![A screenshot of the email theme block categories lists.](./design-system-block-categories-list.webp)
+![A screenshot of the email theme block categories lists.](./email-theme-block-categories-list.webp)
 
 Block categories in the editor (organized alphabetically for easy navigation):
 
-![A screenshot of the email theme block categories lists editor.](./design-system-block-categories-list-editor.webp)
+![A screenshot of the email theme block categories lists editor.](./email-theme-block-categories-list-editor.webp)
 
 ## Viewing blocks
 
 Inside each block category, users will find a list of blocks displayed as cards. Each block card includes:
 
-![A screenshot of the email theme block card.](./design-system-block-card.webp)
+![A screenshot of the email theme block card.](./email-theme-block-card.webp)
 
 - **Block preview** – A quick look at the block's design.
 - **Block name** – The assigned name of the block.
@@ -85,7 +85,7 @@ Inside each block category, users will find a list of blocks displayed as cards.
 
 Users can create a new block in two ways:
 
-![A screenshot of the email theme create dialog card.](./design-system-block-create-dialog.webp)
+![A screenshot of the email theme create dialog card.](./email-theme-block-create-dialog.webp)
 
 **1. From scratch**: Clicking the "Create" button opens a dialog where users can:
 - Enter a block name.
