@@ -59,7 +59,7 @@ import CustomFooter from './CustomFooter.vue'
 
 function setCookie(name, value, days = 30) {
   const expires = new Date(Date.now() + days * 864e5).toUTCString()
-  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; Domain=.bluefox.email; path=/; SameSite=None; Secure`
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; Domain=.bluefox.email; path=/; SameSite=Lax; Secure`
 }
 
 function getCookie(name) {
