@@ -1,16 +1,16 @@
 ---
-title: Email Theme Settings Blocks | bluefox.email documentation
-description: Discover how blocks in the bluefox.email email theme settings allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+title: Email Theme Blocks | bluefox.email documentation
+description: Discover how blocks in the bluefox.email email theme allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
 head:
   - - meta
     - name: description
-      content: Discover how blocks in the bluefox.email email theme settings allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+      content: Discover how blocks in the bluefox.email email theme allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
   - - meta
     - property: og:title
-      content: Email Theme Settings Blocks | bluefox.email documentation
+      content: Email Theme Blocks | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Discover how blocks in the bluefox.email email theme settings allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+      content: Discover how blocks in the bluefox.email email theme allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,16 +25,16 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Email Theme Settings Blocks | bluefox.email documentation
+      content: Email Theme Blocks | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Discover how blocks in the bluefox.email email theme settings allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+      content: Discover how blocks in the bluefox.email email theme allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Email Theme Settings Blocks (modules)
+# Email Theme Blocks (modules)
 
 Blocks are reusable design components that serve as building elements for email templates. Each block represents a specific section of a design, such as a header, footer, button, or content section. By organizing content into blocks, users can efficiently build, customize, and maintain email designs with ease.
 
@@ -56,22 +56,22 @@ Users can:
 - **Add blocks** within a category.
 
 ::: info 
-Block categories appear in the editor whenever someone is editing a template in the email theme settings or a template within a project connected to this email theme settings.
+Block categories appear in the editor whenever someone is editing a template in the email theme or a template within a project connected to this email theme.
 :::
 
-Block categories in the email theme settings:
+Block categories in the email theme:
 
-![A screenshot of the email theme settings block categories lists.](./design-system-block-categories-list.webp)
+![A screenshot of the email theme block categories lists.](./design-system-block-categories-list.webp)
 
 Block categories in the editor (organized alphabetically for easy navigation):
 
-![A screenshot of the email theme settings block categories lists editor.](./design-system-block-categories-list-editor.webp)
+![A screenshot of the email theme block categories lists editor.](./design-system-block-categories-list-editor.webp)
 
 ## Viewing blocks
 
 Inside each block category, users will find a list of blocks displayed as cards. Each block card includes:
 
-![A screenshot of the email theme settings block card.](./design-system-block-card.webp)
+![A screenshot of the email theme block card.](./design-system-block-card.webp)
 
 - **Block preview** – A quick look at the block's design.
 - **Block name** – The assigned name of the block.
@@ -85,7 +85,7 @@ Inside each block category, users will find a list of blocks displayed as cards.
 
 Users can create a new block in two ways:
 
-![A screenshot of the email theme settings create dialog card.](./design-system-block-create-dialog.webp)
+![A screenshot of the email theme create dialog card.](./design-system-block-create-dialog.webp)
 
 **1. From scratch**: Clicking the "Create" button opens a dialog where users can:
 - Enter a block name.
