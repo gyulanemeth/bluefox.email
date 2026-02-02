@@ -26,6 +26,11 @@ if (env.VITE_APP_ENV === 'production') {
     `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');\ngtag('config', 'AW-16693655873');`,
   ])
 }
+headConf.push([
+  "script",
+  {},
+  `!function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_h6ujcgcgbt9u');rdt('track', 'PageVisit');`,
+])
 
 //   https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -155,7 +160,7 @@ export default defineConfig({
             },
             {
               text: "Account Users",
-              link:"/docs/account-users.md"
+              link: "/docs/account-users.md"
             },
             {
               text: "Projects",
@@ -187,7 +192,7 @@ export default defineConfig({
                   link: "/docs/projects/campaigns"
                 },
                 {
-                  text:"Send Test Emails",
+                  text: "Send Test Emails",
                   link: "/docs/projects/send-test-email"
                 },
                 {
@@ -251,7 +256,7 @@ export default defineConfig({
                 },
                 { text: "Supabase", link: "/docs/integrations/supabase" },
                 {
-                  text: "Zapier", 
+                  text: "Zapier",
                   link: "/docs/integrations/zapier",
                 }
               ],

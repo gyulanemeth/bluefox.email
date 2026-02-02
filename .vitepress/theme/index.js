@@ -90,17 +90,17 @@ function saveUtmToCookie() {
       utm[tag.replace(/^utm_/, '')] = value
     }
   })
-   if (!Object.keys(utm).length) {
-     return false
-   }
-   if (Array.isArray(utmFromCookie)) {
-     if (utmFromCookie.some((ele) => JSON.stringify(ele) === JSON.stringify(utm))) {
-       return cleanUrl()
-     }
-     utmFromCookie.push(utm)
-   } else {
-     utmFromCookie = [utm]
-   }
+  if (!Object.keys(utm).length) {
+    return false
+  }
+  if (Array.isArray(utmFromCookie)) {
+    if (utmFromCookie.some((ele) => JSON.stringify(ele) === JSON.stringify(utm))) {
+      return cleanUrl()
+    }
+    utmFromCookie.push(utm)
+  } else {
+    utmFromCookie = [utm]
+  }
   setCookie('utmTags', JSON.stringify(utmFromCookie), 100)
   cleanUrl()
 }
@@ -117,7 +117,14 @@ export default {
     if (typeof window !== 'undefined') {
       saveUtmToCookie()
     }
-    router.onAfterRouteChanged = () => saveUtmToCookie()
+    router.onAfterRouteChanged = () => {
+      saveUtmToCookie()
+      if (typeof window !== 'undefined' && window.rdt) {
+        console.log('heree');
+        
+        window.rdt('track', 'PageVisit')
+      }
+    }
     const vuetify = createVuetify({
       components: {
         VBtn,
