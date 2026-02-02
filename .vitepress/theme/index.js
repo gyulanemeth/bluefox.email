@@ -120,8 +120,6 @@ export default {
     router.onAfterRouteChanged = () => {
       saveUtmToCookie()
       if (typeof window !== 'undefined' && window.rdt) {
-        console.log('heree');
-        
         window.rdt('track', 'PageVisit')
       }
     }
