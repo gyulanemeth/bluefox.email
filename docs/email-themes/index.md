@@ -50,7 +50,7 @@ Our email themes follow the [Atomic Design](https://bradfrost.com/blog/post/atom
 
 This modular approach keeps email designs structured, flexible, and easy to manage.
 
-## Email Theme Components
+## Email Theme Components ---- TODO: components are actually stuff like buttons, text elements (text style), images (eg. with fixed dimenstions.)
 Every email theme in BlueFox Email includes:
 
 - [Email theme basics](./email-theme-basics)
