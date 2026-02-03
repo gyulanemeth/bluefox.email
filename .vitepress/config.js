@@ -26,6 +26,7 @@ if (env.VITE_APP_ENV === 'production') {
     `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');\ngtag('config', 'AW-16693655873');`,
   ])
 }
+// add under the if condition before going to prod
 headConf.push([
   "script",
   {},
