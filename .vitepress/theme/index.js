@@ -67,13 +67,36 @@ function getCookie(name) {
   return match ? decodeURIComponent(match[2]) : null
 }
 
-function cleanUrl() {
+function cleanUrl(clickKey) {
   const url = new URL(window.location.href)
   url.searchParams.delete('utm_source')
   url.searchParams.delete('utm_medium')
   url.searchParams.delete('utm_campaign')
+  if (clickKey) {
+    url.searchParams.delete(clickKey)
+  }
   const newUrl = url.pathname + (url.search ? url.search : '') + (url.hash ? url.hash : '')
   window.history.replaceState(null, document.title, newUrl)
+}
+
+function getClickId(url) {
+  const params = new URL(url).searchParams
+  const clickIdParams = [
+    "gclid",
+    "fbclid",
+    "rdclid",
+    "ttclid",
+    "li_fat_id",
+    "msclkid",
+    "scclid",
+    "epik",
+  ]
+  for (const key of clickIdParams) {
+    const value = params.get(key)
+    if (value){ 
+      return {key, value}
+    }
+  }
 }
 
 function saveUtmToCookie() {
@@ -90,19 +113,21 @@ function saveUtmToCookie() {
       utm[tag.replace(/^utm_/, '')] = value
     }
   })
-   if (!Object.keys(utm).length) {
-     return false
-   }
-   if (Array.isArray(utmFromCookie)) {
-     if (utmFromCookie.some((ele) => JSON.stringify(ele) === JSON.stringify(utm))) {
-       return cleanUrl()
-     }
-     utmFromCookie.push(utm)
-   } else {
-     utmFromCookie = [utm]
-   }
+  if (!Object.keys(utm).length) {
+    return false
+  }
+  const clickData = getClickId(window.location.href)
+  utm.clickId = clickData?.value
+  if (Array.isArray(utmFromCookie)) {
+    if (utmFromCookie.some((ele) => JSON.stringify(ele) === JSON.stringify(utm))) {
+      return cleanUrl(clickData?.key)
+    }
+    utmFromCookie.push(utm)
+  } else {
+    utmFromCookie = [utm]
+  }
   setCookie('utmTags', JSON.stringify(utmFromCookie), 100)
-  cleanUrl()
+  cleanUrl(clickData?.key)
 }
 
 export default {
@@ -117,7 +142,12 @@ export default {
     if (typeof window !== 'undefined') {
       saveUtmToCookie()
     }
-    router.onAfterRouteChanged = () => saveUtmToCookie()
+    router.onAfterRouteChanged = () => {
+      saveUtmToCookie()
+      if (typeof window !== 'undefined' && window.rdt) {
+        window.rdt('track', 'PageVisit')
+      }
+    }
     const vuetify = createVuetify({
       components: {
         VBtn,
