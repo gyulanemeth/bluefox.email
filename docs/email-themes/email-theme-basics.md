@@ -124,7 +124,3 @@ Link email theme basics store reusable URLs, such as website links, social media
 - **Edit**: Modify link by clicking the pencil icon.
 - **Delete**: Remove link by clicking the trash icon.
 - **Preview**: See where the link is used by clicking the eye icon.
-
-## Conclusion
-
-Email theme basics make it easy to manage design consistency across blocks and templates. The **eye icon** provides a quick preview of where each email theme basic is used, ensuring smooth editing. **Main email theme basics** appear in the email theme settings preview, while **non-main email theme basics** remain available inside projects for flexible use.

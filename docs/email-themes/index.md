@@ -50,10 +50,11 @@ The email theme follows [Atomic Design](https://bradfrost.com/blog/post/atomic-w
 
 This modular approach keeps email designs structured, flexible, and easy to manage.
 
-## Email Theme Components
+## Email Theme Sections
 Every email theme in bluefox.email includes:
 
-- [Email theme basics](./email-theme-basics)
+- [basics](./email-theme-basics)
+- [Components](./components)
 - [Blocks](./blocks)
 - [Templates](./templates)
 
