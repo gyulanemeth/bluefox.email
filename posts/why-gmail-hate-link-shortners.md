@@ -1,31 +1,33 @@
 ---
 title: Why Gmail Flags Shortened Links in Emails
 description: Learn why Gmail treats shortened URLs like youtu.be and bit.ly as higher-risk in emails, and how using full, canonical links can improve deliverability.
+category: articles
+
 head:
   - - meta
     - name: keywords
       content: gmail spam shortened links, youtu.be email deliverability, email link shorteners spam, gmail deliverability tips
 ---
 
-Shortened URLs are common in everyday sharing, but in email they often create deliverability issues. Gmail treats shortened links as a higher-risk signal because they obscure the final destination and are frequently abused in spam and phishing campaigns.
+
+**Our emails are landing in spam**. So something very interesting happened recently. One of the team member was writing a montly newsletter email and now since we publish content regularly, we decided to share it in our newsletter. So he copied the link from the youtube and pasted into the email and sent the draft. Guess what happend, email went to spam.
+
+![Email in Spam Folder](./why-gmail-hate-link-shortners/spam.webp)
+
+This was surprising because we definately have a good sender reputation and we have been sending emails for a while now (if you are user of BlueFox Email you would know, signup for interesting content). So we started investigating and since that was the only link in the email, we were more shocked. After some digging, we found out that the link was in the format of `youtu.be` instead of `youtube.com`. This is interesting after this we got to know very suprising reason why Gmail treats shortened links like `youtu.be` and `bit.ly` as higher-risk in emails. In this article, we will explore why Gmail flags shortened links and how using full, canonical URLs can improve email deliverability.
 
 ## Why Shortened Links Look Suspicious to Gmail
 
-Shortened links hide the real destination behind one or more redirects. This behavior is commonly used to disguise malicious or misleading URLs, so Gmail treats it as a trust-reducing signal.
+Link shorteners allows users to create compact URLs that redirect to longer, original links. While convenient for sharing, they can be abused by spammers and phishers to hide malicious destinations. Gmail's spam filters are designed to identify and flag potentially risky content, and shortened links often raise red flags because they obscure the final destination, making it harder for Gmail to assess the trustworthiness of the link. 
 
-Even when a shortened link points to a legitimate website, Gmail cannot immediately evaluate the final destination without following the redirect chain, which increases uncertainty during filtering.
+This is especially true for lesser-known or frequently abused shortener domains, which may have a history of being used in spam campaigns. Even reputable shorteners can be flagged if they are associated with a high volume of spammy activity.
+
 
 ## Why `youtu.be` Links Are Riskier Than `youtube.com`
 
 Although owned by YouTube, `youtu.be` functions as a URL shortener. When included in emails, Gmail evaluates it similarly to other shortened URLs.
 
-Using the full `youtube.com` URL provides more transparency and allows Gmail to clearly identify the destination, resulting in a stronger trust signal compared to shortened variants.
-
-## How Shortened Links Affect Email Deliverability
-
-Shortened links do not automatically send emails to spam, but they often contribute to poor inbox placement when combined with other factors such as new sending domains, low engagement, or link-heavy emails.
-
-Because shortened links rely on shared redirect infrastructure, their reputation can fluctuate based on how the domain is used across the wider email ecosystem.
+Using the full `youtube.com` URL provides more transparency and allows Gmail to clearly identify the destination, resulting in a stronger trust signal compared to shortened variants. This is why emails containing `youtu.be` links are more likely to be flagged as spam, while those with `youtube.com` links have a better chance of reaching the inbox.
 
 ## Best Practice: Use Full, Canonical URLs in Emails
 
