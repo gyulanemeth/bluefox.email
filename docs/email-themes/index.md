@@ -1,16 +1,16 @@
 ---
 title: Email Themes | bluefox.email documentation
-description: Discover how the bluefox.email email themes help you build consistent, reusable email theme components with email theme parameters, components, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
+description: Discover how the BlueFox Email's themes help you build consistent, reusable email theme components with email theme parameters, components, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
 head:
   - - meta
     - name: description
-      content: Discover how the bluefox.email email themes help you build consistent, reusable email theme components with email theme parameters, components, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
+      content: Discover how the BlueFox Email's themes help you build consistent, reusable email theme components with email theme parameters, components, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
   - - meta
     - property: og:title
       content: Email Themes | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Discover how the bluefox.email email themes help you build consistent, reusable email theme components with email theme parameters, components, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
+      content: Discover how the BlueFox Email's themes help you build consistent, reusable email theme components with email theme parameters, components, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: Email Themes | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Discover how the bluefox.email email themes help you build consistent, reusable email theme components with email theme parameters, components, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
+      content: Discover how the BlueFox Email's themes help you build consistent, reusable email theme components with email theme parameters, components, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png

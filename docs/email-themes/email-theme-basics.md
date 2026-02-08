@@ -1,16 +1,16 @@
 ---
 title: Email Theme Basics | bluefox.email documentation
-description: Discover how email theme basics in the bluefox.email email theme settings enable dynamic customization of email theme components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+description: Discover how theme basics in the BlueFox Email enable dynamic customization of email themes. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
 head:
   - - meta
     - name: description
-      content: Discover how email theme basics in the bluefox.email email theme settings enable dynamic customization of email theme components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+      content: Discover how theme basics in the BlueFox Email enable dynamic customization of email themes. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
   - - meta
     - property: og:title
       content: Email Theme Basics | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Discover how email theme basics in the bluefox.email email theme settings enable dynamic customization of email theme components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+      content: Discover how theme basics in the BlueFox Email enable dynamic customization of email themes. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: Email Theme Basics | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Discover how email theme basics in the bluefox.email email theme settings enable dynamic customization of email theme components. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+      content: Discover how theme basics in the BlueFox Email enable dynamic customization of email themes. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -46,7 +46,7 @@ The **email theme basics page** is divided into two main sections:
 - **Left panel (email theme basics list)**: Displays different types of email theme basics (colors, fonts, images, text, links). Users can create, edit, delete, and manage email theme basics.
 - **Right panel (preview section)**: Shows how the selected email theme basic is applied in templates or blocks by displaying a live example, providing immediate feedback on its effect on designs.
 
-![A screenshot of the design system variables section.](./email-theme-variables.webp)
+![A screenshot of the design system variables section.](./email-theme-basics.webp)
 
 
 ## Types of Email Theme Basics
