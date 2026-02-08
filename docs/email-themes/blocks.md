@@ -1,16 +1,16 @@
 ---
 title: Email Theme Blocks | bluefox.email documentation
-description: Discover how blocks in the bluefox.email email theme allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+description: Discover how blocks in the BlueFox Email's themes allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
 head:
   - - meta
     - name: description
-      content: Discover how blocks in the bluefox.email email theme allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+      content: Discover how blocks in the BlueFox Email's themes allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
   - - meta
     - property: og:title
       content: Email Theme Blocks | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Discover how blocks in the bluefox.email email theme allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+      content: Discover how blocks in the BlueFox Email's themes allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: Email Theme Blocks | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Discover how blocks in the bluefox.email email theme allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+      content: Discover how blocks in the BlueFox Email's themes allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png

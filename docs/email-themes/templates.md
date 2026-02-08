@@ -1,16 +1,16 @@
 ---
 title: Email Theme Settings Templates | bluefox.email documentation
-description: Discover how templates in the bluefox.email email theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+description: Discover how templates in the BlueFox Email's theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
 head:
   - - meta
     - name: description
-      content: Discover how templates in the bluefox.email email theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+      content: Discover how templates in the BlueFox Email's theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
   - - meta
     - property: og:title
       content: Email Theme Settings Templates | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Discover how templates in the bluefox.email email theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+      content: Discover how templates in the BlueFox Email's theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: Email Theme Settings Templates | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Discover how templates in the bluefox.email email theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+      content: Discover how templates in the BlueFox Email's theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png

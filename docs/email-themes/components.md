@@ -1,16 +1,16 @@
 ---
 title: Email Theme Components | bluefox.email documentation
-description: Learn how to use email theme components in the bluefox.email email theme settings to create reusable buttons, images, text blocks, and dividers. Save time, maintain consistency, and update designs universally with ease.
+description: Learn how to use email theme components in the BlueFox Email theme settings to create reusable buttons, images, text blocks, and dividers. Save time, maintain consistency, and update designs universally with ease.
 head:
   - - meta
     - name: description
-      content: Learn how to use email theme components in the bluefox.email email theme settings to create reusable buttons, images, text blocks, and dividers. Save time, maintain consistency, and update designs universally with ease.
+      content: Learn how to use email theme components in the BlueFox Email theme settings to create reusable buttons, images, text blocks, and dividers. Save time, maintain consistency, and update designs universally with ease.
   - - meta
     - property: og:title
       content: Email Theme Components | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Learn how to use email theme components in the bluefox.email email theme settings to create reusable buttons, images, text blocks, and dividers. Save time, maintain consistency, and update designs universally with ease.
+      content: Learn how to use email theme components in the BlueFox Email theme settings to create reusable buttons, images, text blocks, and dividers. Save time, maintain consistency, and update designs universally with ease.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: Email Theme Components | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Learn how to use email theme components in the bluefox.email email theme settings to create reusable buttons, images, text blocks, and dividers. Save time, maintain consistency, and update designs universally with ease.
+      content: Learn how to use email theme components in the BlueFox Email theme settings to create reusable buttons, images, text blocks, and dividers. Save time, maintain consistency, and update designs universally with ease.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png

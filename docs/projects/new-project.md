@@ -70,7 +70,7 @@ Each email theme has variables that you can customize, like colors, images, font
 
 You can override the default values for these variables in each project.
 
-![A screenshot of the project creation wizard's email theme variables settings step.](./project-create-edit-email-theme-variable.webp)
+![A screenshot of the project creation wizard's email theme variables settings step.](./project-create-edit-email-theme-basics.webp)
 
 ### Required and Optional Variables
 
