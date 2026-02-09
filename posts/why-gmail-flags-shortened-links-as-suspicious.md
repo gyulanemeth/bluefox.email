@@ -1,7 +1,7 @@
 ---
-title: Why Shortened Links Look Suspicious to Gmail
+title: Why Gmail Flags Shortened Links as Suspicious
 description: Learn why Gmail treats shortened URLs like youtu.be and bit.ly as higher-risk in emails, and how using full, canonical links can improve deliverability.
-thumbnail: /assets/articles/why-gmail-hate-link-shortners-share.webp
+thumbnail: /assets/articles/why-gmail-flags-shortened-links-share.webp
 
 layout: post
 category: articles
@@ -12,22 +12,22 @@ head:
       content: Learn why Gmail treats shortened URLs like youtu.be and bit.ly as higher-risk in emails, and how using full, canonical links can improve deliverability.
   - - meta
     - property: og:title
-      content: Why Shortened Links Look Suspicious to Gmail
+      content: Why Gmail Flags Shortened Links as Suspicious
   - - meta
     - property: og:description
       content: Understand why Gmail treats URL shorteners as spam risks and how to improve email deliverability with full, canonical links.
   - - meta
     - property: og:image
-      # content: https://bluefox.email/assets/articles/why-gmail-hate-link-shortners-share.png
+      content: https://bluefox.email/assets/articles/why-gmail-flags-shortened-links-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/posts/why-gmail-hate-link-shortners
+      content: https://bluefox.email/posts/why-gmail-flags-shortened-links-as-suspicious
   - - meta
     - name: twitter:card
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Why Shortened Links Look Suspicious to Gmail
+      content: Why Gmail Flags Shortened Links as Suspicious
   - - meta
     - name: twitter:description
       content: Learn why youtu.be and bit.ly links hurt email deliverability and how to use full URLs for better inbox placement.
@@ -39,6 +39,7 @@ lastUpdated: true
 published: 2026-02-09
 sidebar: false
 ---
+# Why Gmail Flags Shortened Links as Suspicious
 
 **Our emails are landing in spam**. So, something very interesting happened recently. One of our team members was writing a monthly newsletter email, and now, since we are publishing content to YouTube regularly, he decided to share it in our newsletter. So he copied the link from YouTube and pasted it into the email and sent the draft. Guess what happened? The email went to spam.
 
