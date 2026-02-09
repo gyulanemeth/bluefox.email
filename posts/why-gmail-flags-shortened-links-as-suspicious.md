@@ -1,7 +1,7 @@
 ---
-title: Why Gmail Flags Shortened Links as Suspicious
+title: Why Shortened Links Send Your Emails to Spam
 description: Learn why Gmail treats shortened URLs like youtu.be and bit.ly as higher-risk in emails, and how using full, canonical links can improve deliverability.
-thumbnail: /assets/articles/why-gmail-flags-shortened-links-share.webp
+thumbnail: /assets/articles/why-shortened-links-send-your-emails-to-spam.webp
 
 layout: post
 category: articles
@@ -12,13 +12,13 @@ head:
       content: Learn why Gmail treats shortened URLs like youtu.be and bit.ly as higher-risk in emails, and how using full, canonical links can improve deliverability.
   - - meta
     - property: og:title
-      content: Why Gmail Flags Shortened Links as Suspicious
+      content: Why Shortened Links Send Your Emails to Spam
   - - meta
     - property: og:description
       content: Understand why Gmail treats URL shorteners as spam risks and how to improve email deliverability with full, canonical links.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/articles/why-gmail-flags-shortened-links-share.png
+      content: https://bluefox.email/assets/articles/why-shortened-links-send-your-emails-to-spam.png
   - - meta
     - property: og:url
       content: https://bluefox.email/posts/why-gmail-flags-shortened-links-as-suspicious
@@ -27,7 +27,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Why Gmail Flags Shortened Links as Suspicious
+      content: Why Shortened Links Send Your Emails to Spam
   - - meta
     - name: twitter:description
       content: Learn why youtu.be and bit.ly links hurt email deliverability and how to use full URLs for better inbox placement.
@@ -39,9 +39,11 @@ lastUpdated: true
 published: 2026-02-09
 sidebar: false
 ---
-# Why Gmail Flags Shortened Links as Suspicious
+# Why Shortened Links Send Your Emails to Spam
 
-**Our emails are landing in spam**. So, something very interesting happened recently. One of our team members was writing a monthly newsletter email, and now, since we are publishing content to YouTube regularly, he decided to share it in our newsletter. So he copied the link from YouTube and pasted it into the email and sent the draft. Guess what happened? The email went to spam.
+**Our emails are landing in spam, why?**
+
+So, something very interesting happened recently. One of our team members was writing a monthly newsletter email, and now, since we are publishing content to YouTube regularly, he decided to share it in our newsletter. So he copied the link from YouTube and pasted it into the email and sent the draft. Guess what happened? The email went to spam.
 
 ![Email in Spam Folder](./why-gmail-hate-link-shortners/spam.webp)
 
@@ -69,13 +71,6 @@ Shortened links are generally suspicious for another critical reason, what would
 This means recipients could click on what appeared to be a safe link during scanning, but actually get redirected to a phishing site or malware. This is a real security concern, and it's one of the main reasons why Gmail and other email providers treat shortened links with extra scrutiny.
 
 This is especially true for lesser-known or frequently abused shortener domains, which may have a history of being used in spam campaigns. Even reputable shorteners can be flagged if they are associated with a high volume of spammy activity.
-
-
-## Why `youtu.be` Links Are Riskier Than `youtube.com`
-
-Although owned by YouTube, `youtu.be` functions as a URL shortener. When included in emails, Gmail evaluates it similarly to other shortened URLs.
-
-Using the full `youtube.com` URL provides more transparency and allows Gmail to clearly identify the destination, resulting in a stronger trust signal compared to shortened variants. This is why emails containing `youtu.be` links are more likely to be flagged as spam, while those with `youtube.com` links have a better chance of reaching the inbox.
 
 ## What Should You Do Instead?
 
