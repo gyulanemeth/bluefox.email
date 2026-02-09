@@ -79,7 +79,7 @@ You can override the default values for these variables in each project.
 
 To see examples of how a variable is used, click the eye icon:
 
-![A screenshot of the project creation wizard's email theme basics settings step - preview variable icon.](./project-create-preview-email-theme-variables.webp)
+![A screenshot of the project creation wizard's email theme basics settings step - preview variable icon.](./project-create-preview-email-theme-basics.webp)
 You will see where the selected variables appear in blocks and templates on the right-hand side:
 
 ![A screenshot of the project creation wizard's email theme basics settings step - preview blocks and templates.](./project-create-block-template-preview.webp)
