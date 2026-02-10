@@ -47,8 +47,7 @@ Every project in BlueFox Email includes:
 - [Automations](./automations)
 - [Contacts](./contacts)
 - [Forms & Pages](./forms-and-pages)
-- [Design system variables](./design-system-variables)
-- [Design system components](./design-system-components)
+- [Email Themes](./email-theme-settings)
 - [Suppression Lists](./suppression-list)
 - [Project settings](./settings)
 
@@ -91,8 +90,7 @@ These tabs include:
 - [Automations](./automations)
 - [Contacts](./contacts)
 - [Forms & Pages](./forms-and-pages)
-- [Design system variables](./design-system-variables)
-- [Design system components](./design-system-components)
+- [Email Themes](./email-theme-settings)
 - [Suppression Lists](./suppression-list)
 - [Project settings](./settings)
 

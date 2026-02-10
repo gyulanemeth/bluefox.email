@@ -40,12 +40,12 @@ Welcome to the official documentation for **BlueFox Email**! This guide is your 
 
 ## What is Bluefox Email and How it Works
 
-BlueFox Email makes it easy to handle all your email communications, from transactional emails and triggered notifications to marketing campaigns, in one place. With our design systems, your emails will look great and function properly across all email clients, including challenging ones like Outlook. You can also rely on BlueFox Email to manage your sending queues, ensuring your emails are sent smoothly and efficiently.
+BlueFox Email makes it easy to handle all your email communications, from transactional emails and triggered notifications to marketing campaigns, in one place. With our Email Themes, your emails will look great and function properly across all email clients, including challenging ones like Outlook. You can also rely on BlueFox Email to manage your sending queues, ensuring your emails are sent smoothly and efficiently.
 
 ## Projects
 
 In BlueFox Email, [projects](./projects/) enable you to manage transactional emails, triggered emails, and campaigns (such as newsletters and promotions) for each client your agency supports.  
-Each project requires setting up a sending email address. Projects are linked to a design system and include features like a subscription preferences page and subscriber lists, helping you organize and customize your email strategies effectively.
+Each project requires setting up a sending email address. Projects are linked to an email theme and include features like a subscription preferences page and subscriber lists, helping you organize and customize your email strategies effectively.
 
 ## Transactional vs. Triggered vs. Campaign Emails
 
@@ -55,9 +55,9 @@ Each project requires setting up a sending email address. Projects are linked to
 
 - **[Campaign Emails](./projects/campaigns)**: These are typically marketing emails sent to a broader audience at scheduled intervals. Campaigns can include newsletters, promotional offers, and product announcements.
 
-## Design Systems
+## Email Themes
 
-Our [design systems](./design-systems/) feature enables you to create beautiful, responsive emails that are consistent with your brand. With pre-built templates and customizable components, you can easily craft emails that look professional across all devices and email clients. Whether you're designing transactional emails or marketing campaigns, our design tools provide the flexibility and ease of use you need.
+Our [Email themes](./email-themes/) feature enables you to create beautiful, responsive emails that are consistent with your brand. With pre-built templates and customizable components, you can easily craft emails that look professional across all devices and email clients. Whether you're designing transactional emails or marketing campaigns, our design tools provide the flexibility and ease of use you need.
 
 ## Sending Infrastructure
 

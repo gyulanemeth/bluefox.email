@@ -270,25 +270,25 @@ export default defineConfig({
               link: "/docs/email-personalization",
             },
             {
-              text: "Design Systems",
-              link: "/docs/design-systems/",
+              text: "Email Themes",
+              link: "/docs/email-themes/",
               collapsed: false,
               items: [
                 {
-                  text: "Variables",
-                  link: "/docs/design-systems/variables"
+                  text: "Email Theme Basics",
+                  link: "/docs/email-themes/email-theme-basics"
                 },
                 {
-                  text: "Components",
-                  link: "/docs/design-systems/components"
+                  text: "Email Theme Components",
+                  link: "/docs/email-themes/components"
                 },
                 {
                   text: "Blocks (or modules)",
-                  link: "/docs/design-systems/blocks",
+                  link: "/docs/email-themes/blocks",
                 },
                 {
                   text: "Templates",
-                  link: "/docs/design-systems/templates"
+                  link: "/docs/email-themes/templates"
                 }
               ],
             },
