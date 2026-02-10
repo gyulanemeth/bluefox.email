@@ -45,7 +45,7 @@ sidebar: false
 
 So, something very interesting happened recently. One of our team members was writing a monthly newsletter email, and now, since we are publishing content to YouTube regularly, he decided to share it in our newsletter. So he copied the link from YouTube and pasted it into the email and sent the draft. Guess what happened? The email went to spam.
 
-![Email in Spam Folder](./why-gmail-hate-link-shortners/spam.webp)
+![Email in Spam Folder](./why-shortened-links-send-your-emails-to-spam/email-in-spam-folder.webp)
 
 This was surprising because we definitely have a good sender reputation and we have been sending emails for a while now (if you are a user of BlueFox Email you would know, signup for interesting content). So we started investigating, and since that was the only link in the email, we were even more shocked. After some digging, we found out that the link was in the format of `youtu.be` instead of `youtube.com`. Turns out, that team member who wrote the email wasn't aware that link shorteners are a no-go for Gmail. We immediately realized the issue, shortened links are treated as high-risk by Gmail's spam filters. In this article, we'll explore why Gmail flags shortened links and how using full, canonical URLs can improve email deliverability.
 
