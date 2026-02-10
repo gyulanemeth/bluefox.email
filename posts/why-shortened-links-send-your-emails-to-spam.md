@@ -18,10 +18,10 @@ head:
       content: Understand why Gmail treats URL shorteners as spam risks and how to improve email deliverability with full, canonical links.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/articles/why-shortened-links-send-your-emails-to-spam.png
+      content: https://bluefox.email/assets/articles/why-shortened-links-send-your-emails-to-spam.webp
   - - meta
     - property: og:url
-      content: https://bluefox.email/posts/why-gmail-flags-shortened-links-as-suspicious
+      content: https://bluefox.email/posts/why-shortened-links-send-your-emails-to-spam
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -33,7 +33,7 @@ head:
       content: Learn why youtu.be and bit.ly links hurt email deliverability and how to use full URLs for better inbox placement.
   - - meta
     - name: twitter:image
-      content: https://bluefox.email/assets/articles/why-gmail-hate-link-shortners-share.png
+      content: https://bluefox.email/assets/articles/why-shortened-links-send-your-emails-to-spam.webp
 
 lastUpdated: true
 published: 2026-02-09
