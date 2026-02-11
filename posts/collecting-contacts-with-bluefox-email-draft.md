@@ -46,7 +46,7 @@ Building a quality email list is the foundation of successful email marketing. T
 
 Before diving into the mechanics of collecting contacts, let's establish one fundamental principle: **quality always beats quantity** when it comes to email lists.
 
-Every contact in your database should have explicitly consented to receive emails from you. This isn't just about following the law—it's about protecting your sender reputation and ensuring your emails actually reach inboxes.
+Every contact in your database should have explicitly consented to receive emails from you. This isn't just about following the law, it's about protecting your sender reputation and ensuring your emails actually reach inboxes.
 
 Email service providers like Gmail, Outlook, and Yahoo closely monitor engagement signals. Sending emails to people who didn't ask for them leads to:
 - High bounce rates
@@ -102,7 +102,7 @@ Signup forms work great for:
 
 To create a signup form, navigate to your project's **Forms & Pages** section and click **Create Form**.
 
-![Create Signup Form](./collecting-contacts-with-bluefox-email/create-form.webp)
+<!-- ![Create Signup Form](./collecting-contacts-with-bluefox-email/create-form.webp) -->
 
 You can customize your form to match your brand:
 - Add your logo and brand colors
@@ -112,13 +112,13 @@ You can customize your form to match your brand:
 
 For SparksPro Cleaning, we'll create a form for their "Cleaning Tips Newsletter" that collects email addresses and first names from visitors interested in home cleaning advice.
 
-![SparksPro Signup Form](./collecting-contacts-with-bluefox-email/sparkspro-form.webp)
+<!-- ![SparksPro Signup Form](./collecting-contacts-with-bluefox-email/sparkspro-form.webp) -->
 
 ### Adding Custom Fields
 
 If you want to collect additional information beyond email addresses, you can add custom fields to your forms. First, define these fields in **Project Settings** → **Custom Contact Properties**, then add them to your signup form.
 
-![Custom Fields](./collecting-contacts-with-bluefox-email/custom-fields.webp)
+<!-- ![Custom Fields](./collecting-contacts-with-bluefox-email/custom-fields.webp) -->
 
 :::warning Important
 Always clearly communicate what users are subscribing to. Your form should make it obvious:
@@ -146,7 +146,7 @@ Once your form is ready, you can embed it on your website in several ways:
 - **Direct link** – Share a standalone page hosted by BlueFox Email
 - **Popup or slide-in** – Use third-party popup providers that integrate with BlueFox Email
 
-For detailed setup instructions, check out our [Forms & Pages documentation](/docs/integrations/forms-and-pages.md).
+For detailed setup instructions, check out our [Forms & Pages documentation](/docs/projects/forms-and-pages.md).
 
 
 ## Step 2: Setting Up Domain Whitelisting
@@ -165,7 +165,7 @@ Navigate to **Project Settings** then **Domain Whitelist**. Here you can add a d
 
 For SparksPro Cleaning, we'll whitelist `sparksprocleaning.com` so forms on website can collect contacts.
 
-![Domain Whitelist Settings](./collecting-contacts-with-bluefox-email/domain-whitelist.webp)
+<!-- ![Domain Whitelist Settings](./collecting-contacts-with-bluefox-email/domain-whitelist.webp) -->
 
 :::tip
 Domain whitelisting applies to embedded forms and public API usage. It's not required to create forms, but it is required for those forms to accept submissions from your website.
@@ -203,7 +203,7 @@ Double opt-in provides the strongest possible proof that someone wants to receiv
 
 To enable double opt-in, go to your form settings and toggle the **Double Opt-In** option in **Forms & Pages**.
 
-![Enable Double Opt-In](./collecting-contacts-with-bluefox-email/enable-double-optin.webp)
+<!-- ![Enable Double Opt-In](./collecting-contacts-with-bluefox-email/enable-double-optin.webp) -->
 
 :::tip
 Double opt-in slightly reduces signup conversion rates but dramatically improves list quality and engagement. For most businesses, this tradeoff is absolutely worth it.
@@ -232,7 +232,7 @@ Captcha is especially important for public-facing signup forms that are accessib
 
 In your form settings, enable the **Captcha Protection** option in **Forms & Pages**, Signup Form.
 
-![Captcha Settings](./collecting-contacts-with-bluefox-email/captcha-settings.webp)
+<!-- ![Captcha Settings](./collecting-contacts-with-bluefox-email/captcha-settings.webp) -->
 
 
 
@@ -273,13 +273,13 @@ Your CSV file must include an email column, but you can also include additional 
 
 Before importing, make sure you've added any custom contact properties in **Project Settings** then **Contact Properties**.
 
-![Custom Contact Properties](./collecting-contacts-with-bluefox-email/contact-properties.webp)
+<!-- ![Custom Contact Properties](./collecting-contacts-with-bluefox-email/contact-properties.webp) -->
 
 ### Importing Your Contacts
 
 Navigate to the **Contacts** section and click **Import Contacts**. Upload your CSV file and map the columns to your contact fields.
 
-![CSV Import Mapping](./collecting-contacts-with-bluefox-email/csv-mapping.webp)
+<!-- ![CSV Import Mapping](./collecting-contacts-with-bluefox-email/csv-mapping.webp) -->
 
 Here's what to watch for:
 - Match your CSV headers to the API names shown in BlueFox Email
@@ -352,7 +352,7 @@ BlueFox Email provides comprehensive API documentation for:
 - Handling unsubscribes
 - Custom field synchronization
 
-Check out our [Contacts Management API](/docs/api/contacts.md) and [List Management API](/docs/api/lists.md) documentation for detailed technical guides. We avoid duplicating technical API documentation here—use those resources for implementation details.
+Check out our [Contacts Management API](/docs/api/contacts-management.md) and [List Management API](/docs/api/subscriber-list-management.md) documentation for detailed technical guides. We avoid duplicating technical API documentation here—use those resources for implementation details.
 
 ### Advanced Synchronization Scenarios
 
