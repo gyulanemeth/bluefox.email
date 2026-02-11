@@ -100,15 +100,15 @@ Signup forms work great for:
 
 ### Creating Your First Signup Form
 
-To create a signup form, navigate to your project's **Forms & Pages** section and click **Create Form**.
+To create a signup form, navigate to your project's **Forms & Pages** scroll down to the **Signup Form** section and fromt the dropdown, select the subscriber list you want contacts to be added to.
 
 <!-- ![Create Signup Form](./collecting-contacts-with-bluefox-email/create-form.webp) -->
 
 You can customize your form to match your brand:
-- Add your logo and brand colors
-- Include custom fields (name, phone number, company, etc.)
-- Choose which subscriber list contacts should be added to
-- Customize the success message or redirect URL
+- Include custom fields (name, phone number, company, etc.) that you have in your contact properties
+- Manage form styles like form style (rows or columns), colors, fonts, and more
+- Button's text, font and colour
+- Customize the success message
 
 For SparksPro Cleaning, we'll create a form for their "Cleaning Tips Newsletter" that collects email addresses and first names from visitors interested in home cleaning advice.
 
@@ -119,15 +119,6 @@ For SparksPro Cleaning, we'll create a form for their "Cleaning Tips Newsletter"
 If you want to collect additional information beyond email addresses, you can add custom fields to your forms. First, define these fields in **Project Settings** → **Custom Contact Properties**, then add them to your signup form.
 
 <!-- ![Custom Fields](./collecting-contacts-with-bluefox-email/custom-fields.webp) -->
-
-:::warning Important
-Always clearly communicate what users are subscribing to. Your form should make it obvious:
-- What content they'll receive
-- Which lists they're joining
-- How often they'll hear from you
-
-This transparency builds trust and improves engagement, while also satisfying the explicit consent requirement.
-:::
 
 ### Multi-List Signup (Coming Soon)
 
@@ -141,10 +132,7 @@ For example, SparksPro Cleaning could let subscribers choose between "Weekly Cle
 
 ### Embedding Forms on Your Website
 
-Once your form is ready, you can embed it on your website in several ways:
-- **Embed code** – Copy and paste HTML code into your website
-- **Direct link** – Share a standalone page hosted by BlueFox Email
-- **Popup or slide-in** – Use third-party popup providers that integrate with BlueFox Email
+Once your form is ready, you can embed it on your website by just copying the provided HTML code snippet and pasting it into your site's code. This allows you to collect contacts directly from your website without needing any third-party tools.
 
 For detailed setup instructions, check out our [Forms & Pages documentation](/docs/projects/forms-and-pages.md).
 
@@ -155,11 +143,11 @@ For detailed setup instructions, check out our [Forms & Pages documentation](/do
   <source src="./collecting-contacts-with-bluefox-email/domain-whitelisting.mp4" type="video/mp4" />
 </video> -->
 
-Before your forms or APIs can accept submissions from your website, it's important to configure domain whitelisting. This security feature ensures that only authorized websites can add contacts to your project.
+Before your forms can accept submissions from your website, it's important to configure domain whitelisting. This security feature ensures that only authorized domains can add contacts to your project.
 
 ### Configuring Domain Whitelist
 
-Navigate to **Project Settings** then **Domain Whitelist**. Here you can add a domain that is allowed to:
+Navigate to **Project Settings** then **API Keys & Domain Whitelist**. Here you can add a domain that is allowed to:
 - Use embedded signup forms
 - Call your public API endpoints
 
@@ -192,11 +180,11 @@ While double opt-in adds an extra step to the signup process, it provides signif
 **Ensures Valid Email Addresses**  
 Only real, working email addresses make it to your list. No typos, no fake addresses.
 
-**Confirms Intentional Signups**  
+**Confirms Intentional Signups**
 People who complete double opt-in genuinely want to hear from you, leading to much higher engagement rates.
 
 **Reduces Bounces and Complaints**  
-Since you're only emailing people who actively confirmed, you'll see fewer bounces and spam complaints—which directly improves your deliverability.
+Since you're only emailing people who actively confirmed, you'll see fewer bounces and spam complaints, which directly improves your deliverability.
 
 **Strengthens Consent**  
 Double opt-in provides the strongest possible proof that someone wants to receive your emails, which is valuable for compliance and deliverability.
@@ -220,7 +208,7 @@ Captcha protection helps prevent bots and automated scripts from flooding your s
 
 ### How Captcha Protects Your Lists
 
-When captcha is enabled, users must complete a simple verification (like selecting images or checking a box) before submitting the form. This:
+When captcha is enabled, users must complete a simple verification (entering the visible code) before submitting the form. This:
 - Blocks automated bot submissions
 - Prevents spam attacks
 - Protects your list quality
@@ -315,8 +303,6 @@ For technical users and businesses with custom applications, BlueFox Email provi
 
 APIs are ideal for:
 - **Web applications** that need to automatically add users to email lists
-- **CRM integrations** that keep contact data in sync
-- **E-commerce platforms** that trigger emails based on customer actions
 - **Multi-system environments** where contact data lives in multiple places
 
 :::warning API is for Synchronization, Not Blind Collection
@@ -352,7 +338,7 @@ BlueFox Email provides comprehensive API documentation for:
 - Handling unsubscribes
 - Custom field synchronization
 
-Check out our [Contacts Management API](/docs/api/contacts-management.md) and [List Management API](/docs/api/subscriber-list-management.md) documentation for detailed technical guides. We avoid duplicating technical API documentation here—use those resources for implementation details.
+Check out our [Contacts Management API](/docs/api/contacts-management.md) and [List Management API](/docs/api/subscriber-list-management.md) documentation for detailed technical guides. We avoid duplicating technical API documentation here, use those resources for implementation details.
 
 ### Advanced Synchronization Scenarios
 
@@ -404,7 +390,7 @@ For public forms, combine multiple safeguards:
 - Domain whitelisting
 
 **Respect Unsubscribes**  
-When someone unsubscribes, honor it immediately and across all your systems. It's not just good practice—it's the law.
+When someone unsubscribes, honor it immediately and across all your systems. It's not just good practice, it's the law.
 
 BlueFox Email is designed to be flexible, scalable, and responsible. Our tools help you collect high-quality contacts while protecting your sender reputation and ensuring your emails actually reach inboxes.
 
