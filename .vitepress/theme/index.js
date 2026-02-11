@@ -85,6 +85,7 @@ function getClickId(url) {
     "gclid",
     "fbclid",
     "rdclid",
+    "rdt_cid",
     "ttclid",
     "li_fat_id",
     "msclkid",
