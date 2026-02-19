@@ -65,13 +65,13 @@ Here is the same page after clicking the `pauseSubscriptionLink`:
 To manage the logo, click the **update logo** button on the subscription preferences page. This will redirect you to [project logo](/docs/projects/settings#project-logo) in project settings, where you can add, update, or remove the logo.
 
 
-## Signup page
+## Sign-Up Forms
 
-The sign-up page for each list allows users to create a form that subscribers can use to sign up directly from their website. Each List has its own unique sign-up form, ensuring that subscribers are added to the correct audience. This page provides an easy way to customize the form, generate the necessary HTML code, and integrate it into external sites without the need for backend code.
+Sign-up forms are now separate entities that you can create, customize, and assign to one or multiple subscriber lists. This flexible approach allows you to design forms once and reuse them across different lists, or create specialized forms for specific audiences. Each form provides an easy way to customize the appearance, generate the necessary HTML code, and integrate it into external sites without the need for backend code.
 
 ### How It Works
 
-Users can customize the sign-up form through the interface, then copy the generated HTML code and paste it into their website. Once implemented, visitors can enter their details and subscribe directly to the subscriber list in Bluefox.email.
+Users can create multiple forms, customize each form through the interface, and assign them to one or more subscriber lists. Once configured, you can copy the generated HTML code and paste it into your website. When visitors enter their details and submit the form, they will be added to all the subscriber lists assigned to that form.
 
 ::: info Important Note:
 To ensure the form functions correctly on your website, you must [whitelist](/docs/projects/settings#domain-whitelist) your website domain. Navigate to Project Settings → Whitelist and add your domain to the whitelist.
@@ -83,9 +83,25 @@ Below is an example of the sign-up form interface:
 ![Screenshot of the subscriber lists sign-up page](./project-subscriber-lists-sign-up.webp)
 
 
+### Managing Forms
+
+From the Forms & Pages tab, you can:
+- **Create** new forms from scratch
+- **Edit** existing forms
+- **Delete** forms you no longer need
+- **Assign** forms to one or multiple subscriber lists
+
+### Form Configuration Tabs
+
+Each form has several tabs for configuration:
+
+#### Assigned to Lists
+
+This tab allows you to assign the form to one or multiple subscriber lists. When a user submits the form, they will be added to all selected lists.
+
 ### Customization Options
 
-The sign-up page offers several customization options across three main sections: Fields, Form Style, Button, and Success Message.
+The sign-up form offers several customization options across the following sections: Fields, Form Style, Button, and Success Message.
 
 #### 1. Field Customization
 
@@ -132,24 +148,54 @@ After a user subscribes successfully, a success message is displayed. You can cu
 - **Success Message Font Color:** Set the color of the success message text.  
 - **Success Message Font Size:** Adjust the text size of the success message.  
 
+### Form-Level Double Opt-In
+
+You can configure double opt-in directly at the form level. When enabled, subscribers who submit the form will receive a verification email before being added as active subscribers to the assigned lists.
+
+::: info
+When a form with double opt-in is assigned to multiple lists, the same transactional email and confirmation settings will apply to all assigned lists.
+:::
+
+To configure form-level double opt-in:
+1. Go to the **Double Opt-In** tab within your form
+2. Activate double opt-in
+3. Select a transactional email containing the `verifyLink` merge tag
+4. Choose what happens after confirmation (show message or redirect)
+5. Save your settings
+
+### Terms and Conditions
+
+The Terms and Conditions tab allows you to add and customize terms that subscribers must agree to before submitting the form.
+
+### Deleting a Form
+
+To delete a form, navigate to the **Delete Form** tab within the form editor and confirm the deletion.
 
 ### Using the Form
 
-1. Customize the form using the available options.
-2. Click Copy HTML to copy the generated code.
-3. Paste the code into your website’s HTML.
-4. Make sure your website domain is whitelisted.
+1. Create a new form or edit an existing one.
+2. Assign the form to one or more subscriber lists.
+3. Customize the form using the available options.
+4. Configure double opt-in if needed.
+5. Click Copy HTML to copy the generated code.
+6. Paste the code into your website's HTML.
+7. Make sure your website domain is whitelisted.
+
+The form will now capture subscriber information and automatically add them to the assigned subscriber lists in Bluefox.email.
 
 
-The form will now capture subscriber's information and automatically add them to your Bluefox.email subscriber list.
 
 
 
-
-
-## Double Opt-in
+## List-Level Double Opt-In
 
 Keep in mind that you should always implement [double opt-in](/email-best-practices-for-saas/double-opt-in), meaning that you only add your users to subscriber lists as active subscribers when they verify their email address!
+
+::: tip
+Double opt-in can be configured at two levels:
+- **Form Level**: Configure within the form settings (see Sign-Up Forms section above)
+- **List Level**: Configure directly on the subscriber list (explained below)
+:::
 
 If you add your users to multiple lists when they sign up for your service:
 - Send them a verification email (transactional email) with a unique link.
@@ -160,9 +206,9 @@ If you just create a newsletter sign-up:
 - Send them a verification email (transactional email) with a unique link.
 - When they click on it, you can change their status to `active`.
 
-### Activating Double Opt-In
+### Activating List-Level Double Opt-In
 
-Double Opt-In settings are configured individually for each List. To activate double opt-in for a specific List:
+List-level double opt-in settings are configured individually for each subscriber list. To activate double opt-in for a specific list:
 
 - Go to the **Forms & Pages tab**
 - Go to **double opt-in** section 
