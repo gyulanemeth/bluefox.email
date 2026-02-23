@@ -68,7 +68,7 @@ Your website's terms and conditions mention that users who sign up may receive m
 During signup, users check a box explicitly agreeing to receive emails. This is clearer than buried terms and conditions and shows more intentional consent.
 
 **Best: Multi-List Selection**  
-Users can select exactly which types of emails they want to receive by choosing specific subscriber lists. This provides the strongest consent and typically yields the highest engagement rates. BlueFox Email will soon support multi-list signup, allowing subscribers to choose their preferences upfront.
+Users can select exactly which types of emails they want to receive by choosing specific subscriber lists. This provides the strongest consent and typically yields the highest engagement rates. BlueFox Email supports multi-list signup, subscribers can choose which lists to join during signup using checkboxes.
 
 :::tip
 The clearer you are about what users are signing up for, the better your engagement rates will be. Always communicate:
@@ -281,7 +281,7 @@ For SparksPro Cleaning, we're importing their existing customer database from a 
 Many businesses collect contacts across multiple platforms. Common sources include:
 - **Webshops and e-commerce platforms** (Shopify, WooCommerce)
 - **CRMs** (HubSpot, Salesforce, Pipedrive)
-- **Popup providers** (OptinMonster, Optin Monk, Sumo)
+- **Popup providers** (OptinMonster, OptiMonk, Sumo)
 - **Event platforms** (Eventbrite, Meetup)
 
 You can export contacts from these platforms and import them into BlueFox Email via CSV. For detailed migration guides (such as Mailchimp → BlueFox Email or other platform-specific walkthroughs), check our dedicated migration articles.
@@ -338,7 +338,7 @@ BlueFox Email provides comprehensive API documentation for:
 - Handling unsubscribes
 - Custom field synchronization
 
-Check out our [Contacts Management API](/docs/api/contacts-management.md) and [List Management API](/docs/api/subscriber-list-management.md) documentation for detailed technical guides. We avoid duplicating technical API documentation here, use those resources for implementation details.
+Check out our [Contacts Management API](/docs/api/contacts-management.md), [List Management API](/docs/api/subscriber-list-management.md), and [Webhooks](/docs/integrations/webhooks.md) documentation for detailed technical guides. We avoid duplicating technical API documentation here, use those resources for implementation details.
 
 ### Advanced Synchronization Scenarios
 
@@ -359,11 +359,11 @@ Efficiently update thousands of contacts at once when you need to:
 
 **Custom Workflows**  
 Build advanced flows such as:
-- Custom double opt-in confirmation handling
+- Custom double opt-in confirmation handling 
 - Custom redirect behavior after form submission
 - Custom subscription preferences pages with your own branding
 
-These advanced topics are clearly positioned as separate subjects with dedicated, focused articles. If you need help with complex integrations, our support team and documentation are here to help.
+ These advanced topics are clearly positioned as separate subjects with dedicated, focused articles. If you need help with complex integrations, our support team and documentation are here to help.
 
 
 ## Key Takeaways: Building a Quality List
