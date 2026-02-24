@@ -1,0 +1,99 @@
+# BlueFox Email
+
+> BlueFox Email is an email marketing platform built specifically for marketing agencies that manage email campaigns for multiple clients. It uses AWS SES as its sending backbone, offering a send-based pricing model (no per-contact fees) and agency-focused features like separated client projects, design systems, and cross-client template reuse.
+
+BlueFox Email was founded by Gyula Németh, a 10+ year veteran of HTML email design and rendering, who also built edmdesigner.com, chamaileon.io, and emailhero.io. The platform is built to solve the specific pain points agencies face: managing multiple clients, ensuring pixel-perfect rendering (including Outlook), maintaining deliverability, and producing client-ready reports without manual effort.
+
+## Core Features
+
+- **Multi-client project management** — Separate projects per client with team roles and permissions, no shared logins
+- **Design Systems** — Reusable variables, components, blocks, and templates with client-specific overrides; build once, deploy everywhere
+- **Email Editor** — Drag-and-drop no-code editor producing battle-tested HTML that renders correctly in Gmail, Apple Mail, Outlook, and mobile
+- **Transactional Emails** — API-triggered emails for product events (welcome, password reset, billing, etc.)
+- **Triggered Emails** — Automated emails based on user behavior and lifecycle events
+- **Campaigns** — Broadcast newsletters and promotional email campaigns
+- **Automations** — Multi-step automated flows (welcome series, onboarding, re-engagement)
+- **Contacts & List Management** — Double opt-in, unsubscribe management, pause subscriptions, suppression lists
+- **Analytics** — Open rates, click-through rates, bounce and complaint tracking, campaign dashboards
+- **Deliverability Tools** — Domain authentication monitoring, bounce/complaint rate alerts, inbox placement guidance
+- **Forms & Pages** — Subscription forms and landing pages
+- **Integrations** — Webhooks, Supabase, Zapier; REST API for contacts, subscriber lists, transactional/triggered sending, and attachments
+- **AWS SES Integration** — Bring your own Amazon SES account; BlueFox Email manages the sending infrastructure on top
+
+## Pricing Model
+
+BlueFox Email uses a **send-based pricing model** — you pay only for the emails you send, not for the number of contacts stored. This is in contrast to Mailchimp, Brevo, and other contact-based ESPs where pricing escalates as your list grows. One annual flat fee covers platform access; AWS SES costs are separate and extremely low (~$0.10 per 1,000 emails).
+
+Current pricing: $100/year for platform access + AWS SES sending costs.
+
+See full pricing details and calculator: https://bluefox.email/pricing
+
+## Who It's For
+
+- **Marketing agencies** managing email campaigns for multiple clients
+- **SaaS companies** needing both transactional and marketing email from one platform
+- **Developers and technical teams** comfortable using AWS SES who want a polished front-end
+- **Teams scaling from one to dozens of client brands** without wanting enterprise-tier pricing
+
+## Documentation
+
+- [Getting Started](https://bluefox.email/docs/getting-started)
+- [Projects Overview](https://bluefox.email/docs/projects/)
+- [Design Systems](https://bluefox.email/docs/design-systems/)
+- [API Reference](https://bluefox.email/docs/api/)
+- [Analytics](https://bluefox.email/docs/analytics)
+- [Integrations](https://bluefox.email/docs/integrations/)
+- [Email Personalization (Merge Tags)](https://bluefox.email/docs/email-personalization)
+- [Pricing](https://bluefox.email/docs/pricing)
+
+## Free Deliverability & Email Tools
+
+BlueFox Email offers free tools for email senders and developers:
+
+- [SPF Record Checker](https://bluefox.email/tools/deliverability/spf-checker) — Validate your SPF DNS record
+- [DKIM Record Checker](https://bluefox.email/tools/deliverability/dkim-checker) — Verify DKIM selector and public key
+- [DMARC Record Checker](https://bluefox.email/tools/deliverability/dmarc-checker) — Analyze your DMARC policy
+- [DMARC Report Analyzer](https://bluefox.email/tools/deliverability/dmarc-report-analyzer) — Parse and interpret DMARC XML aggregate reports
+- [MX Record Checker](https://bluefox.email/tools/deliverability/mx-checker) — Check mail exchange records for any domain
+- [Email Link Checker](https://bluefox.email/tools/content/link-checker) — Test all links in an email for redirects, broken URLs, and open tracker patterns
+
+## Comparisons
+
+- [BlueFox Email vs Mailchimp](https://bluefox.email/comparisons/bluefox-vs-mailchimp)
+- [BlueFox Email vs Brevo](https://bluefox.email/comparisons/bluefox-vs-brevo)
+- [BlueFox Email vs MailerSend](https://bluefox.email/comparisons/bluefox-vs-mailersend)
+- [BlueFox Email vs SendGrid](https://bluefox.email/comparisons/bluefox-vs-sendgrid)
+
+## Learning Resources
+
+- [Tutorials](https://bluefox.email/tutorials)
+- [Articles & Blog](https://bluefox.email/articles)
+- [Email Marketing for SaaS Course](https://bluefox.email/courses/email-marketing-saas/)
+- [Email Sending Concepts Glossary](https://bluefox.email/email-sending-concepts/)
+- [AWS Concepts Glossary](https://bluefox.email/aws-concepts/)
+- [Email Best Practices for SaaS](https://bluefox.email/email-best-practices-for-saas/)
+- [Email Marketing Concepts](https://bluefox.email/email-marketing-concepts/)
+
+## Key Blog Posts
+
+- [How SPF, DKIM, and DMARC Actually Work (With Real Examples)](https://bluefox.email/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples)
+- [How to Set Up AWS SES](https://bluefox.email/posts/how-to-set-up-aws-ses)
+- [How to Get and Maintain Production Access to Amazon SES](https://bluefox.email/posts/how-to-get-and-maintain-production-access-to-amazon-ses)
+- [How to Handle Bounces and Complaints with AWS SES and SNS](https://bluefox.email/posts/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns)
+- [How to Send an Email in Node.js Using Amazon SES with Nodemailer](https://bluefox.email/posts/how-to-send-an-email-in-nodejs-using-amazon-ses-with-nodemailer)
+- [Why Shortened Links Send Your Emails to Spam](https://bluefox.email/posts/why-shortened-links-send-your-emails-to-spam)
+- [Why Open Rate Is a Misleading Metric in Email Analytics](https://bluefox.email/posts/why-open-rate-is-a-misleading-metric-in-email-analytics)
+- [The Power of Modern Email Design Systems](https://bluefox.email/posts/the-power-of-modern-email-design-systems)
+
+## Company & Contact
+
+- **Founded by:** Gyula Németh (10+ years in HTML email design; built edmdesigner.com, chamaileon.io, emailhero.io)
+- **Company:** Innovaris Group LLC
+- **Website:** https://bluefox.email
+- **Email:** hello@bluefox.email
+- **Twitter/X:** https://x.com/bluefoxemail
+- **LinkedIn:** https://www.linkedin.com/company/104663633/
+- **YouTube:** https://www.youtube.com/@bluefox-email-official/shorts
+- [About](https://bluefox.email/about)
+- [Why BlueFox Email?](https://bluefox.email/why)
+- [Partners](https://bluefox.email/partners)

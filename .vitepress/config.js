@@ -3,6 +3,7 @@ import tailwindcss from 'tailwindcss'
 import { addSchemaMarkup } from './theme/SchemaMarkup/schemaMarkup'
 import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
 import { addComparisonSchemaMarkup } from './theme/SchemaMarkup/ComparisonSchemaMarkup'
+import { addHomeSchemaMarkup } from './theme/SchemaMarkup/homeSchemaMarkup'
 
 const env = loadEnv('', process.cwd())
 
@@ -60,6 +61,7 @@ export default defineConfig({
     return [];
   },
   transformPageData(pageData) {
+    addHomeSchemaMarkup(pageData)
     addToolsSchemaMarkup(pageData)
     addSchemaMarkup(pageData)
     addComparisonSchemaMarkup(pageData)
