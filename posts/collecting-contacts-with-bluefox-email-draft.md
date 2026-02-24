@@ -120,15 +120,15 @@ If you want to collect additional information beyond email addresses, you can ad
 
 <!-- ![Custom Fields](./collecting-contacts-with-bluefox-email/custom-fields.webp) -->
 
-### Multi-List Signup (Coming Soon)
+### Multi-List Signup
 
-BlueFox Email will soon support multi-list signup forms, allowing subscribers to select which specific lists they want to join during signup. This feature will provide:
+BlueFox Email supports multi-list signup forms, allowing subscribers to select which specific lists they want to join during signup. This gives you:
 - Explicit consent for each list
 - Better segmentation from the start
 - Higher engagement rates (people get only what they want)
 - Clearer subscription preferences
 
-For example, SparksPro Cleaning could let subscribers choose between "Weekly Cleaning Tips," "Monthly Promotions," or "New Service Announcements."
+For example, SparksPro Cleaning can let subscribers choose between "Weekly Cleaning Tips," "Monthly Promotions," or "New Service Announcements."
 
 ### Embedding Forms on Your Website
 
