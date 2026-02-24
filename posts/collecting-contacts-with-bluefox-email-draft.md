@@ -340,31 +340,7 @@ BlueFox Email provides comprehensive API documentation for:
 
 Check out our [Contacts Management API](/docs/api/contacts-management.md), [List Management API](/docs/api/subscriber-list-management.md), and [Webhooks](/docs/integrations/webhooks.md) documentation for detailed technical guides. We avoid duplicating technical API documentation here, use those resources for implementation details.
 
-### Advanced Synchronization Scenarios
-
-For more complex setups, you might need advanced synchronization capabilities:
-
-**Bidirectional Synchronization**  
-Ensure changes in either system reflect in the other:
-- When someone unsubscribes in BlueFox Email, update their preferences in your CRM or application
-- When someone opts out in your application, make sure they're unsubscribed in BlueFox Email
-
-This ensures multi-system consistency and respects user preferences everywhere.
-
-**Bulk Contact Updates**  
-Efficiently update thousands of contacts at once when you need to:
-- Sync custom field values across your entire database
-- Update subscriber list memberships in bulk
-- Maintain field synchronization across systems
-
-**Custom Workflows**  
-Build advanced flows such as:
-- Custom double opt-in confirmation handling 
-- Custom redirect behavior after form submission
-- Custom subscription preferences pages with your own branding
-
- These advanced topics are clearly positioned as separate subjects with dedicated, focused articles. If you need help with complex integrations, our support team and documentation are here to help.
-
+Keep in mind that synchronization can go both ways, for example, when someone unsubscribes in BlueFox Email, you may want your CRM or application to be aware of that change so their preferences stay consistent across systems. You can also build custom workflows, like subscription preference pages with your own branding or custom redirect behavior after form submission. All of this is possible with the API, but its out of scope for this article, so refer to the API documentation for implementation details.
 
 ## Key Takeaways: Building a Quality List
 
