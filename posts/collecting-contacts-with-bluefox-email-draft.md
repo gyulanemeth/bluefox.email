@@ -81,10 +81,10 @@ Now let's explore the different methods for collecting contacts in BlueFox Email
 
 
 ## Step 1: Collecting Contacts Using Signup Forms
-<!-- 
+
 <video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./collecting-contacts-with-bluefox-email/signup-forms.mp4" type="video/mp4" />
-</video> -->
+</video>
 
 Signup forms are the primary method for collecting contacts, especially if you're running a website or landing page. They're perfect for non-technical users and don't require any coding knowledge.
 
@@ -100,9 +100,13 @@ Signup forms work great for:
 
 ### Creating Your First Signup Form
 
-To create a signup form, navigate to your project's **Forms & Pages** scroll down to the **Signup Form** section and fromt the dropdown, select the subscriber list you want contacts to be added to.
+To create a signup form, navigate to your project's **Forms & Pages** scroll down to the **Signup Form** section and from the dropdown, select **Create**.
 
-<!-- ![Create Signup Form](./collecting-contacts-with-bluefox-email/create-form.webp) -->
+![Create Signup Form](./collecting-contacts-with-bluefox-email/create-form.png)
+
+This will open the form builder where you can customize your form's fields, styles, and settings.
+
+![Form Builder](./collecting-contacts-with-bluefox-email/form-builder.webp)
 
 You can customize your form to match your brand:
 - Include custom fields (name, phone number, company, etc.) that you have in your contact properties
@@ -112,13 +116,13 @@ You can customize your form to match your brand:
 
 For SparksPro Cleaning, we'll create a form for their "Cleaning Tips Newsletter" that collects email addresses and first names from visitors interested in home cleaning advice.
 
-<!-- ![SparksPro Signup Form](./collecting-contacts-with-bluefox-email/sparkspro-form.webp) -->
+![SparksPro Signup Form](./collecting-contacts-with-bluefox-email/sparkspro-form.webp)
 
 ### Adding Custom Fields
 
 If you want to collect additional information beyond email addresses, you can add custom fields to your forms. First, define these fields in **Project Settings** → **Custom Contact Properties**, then add them to your signup form.
 
-<!-- ![Custom Fields](./collecting-contacts-with-bluefox-email/custom-fields.webp) -->
+![Custom Fields](./collecting-contacts-with-bluefox-email/custom-fields.webp)
 
 ### Multi-List Signup
 
@@ -139,9 +143,9 @@ For detailed setup instructions, check out our [Forms & Pages documentation](/do
 
 ## Step 2: Setting Up Domain Whitelisting
 
-<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
+<video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./collecting-contacts-with-bluefox-email/domain-whitelisting.mp4" type="video/mp4" />
-</video> -->
+</video>
 
 Before your forms can accept submissions from your website, it's important to configure domain whitelisting. This security feature ensures that only authorized domains can add contacts to your project.
 
@@ -153,7 +157,7 @@ Navigate to **Project Settings** then **API Keys & Domain Whitelist**. Here you 
 
 For SparksPro Cleaning, we'll whitelist `sparksprocleaning.com` so forms on website can collect contacts.
 
-<!-- ![Domain Whitelist Settings](./collecting-contacts-with-bluefox-email/domain-whitelist.webp) -->
+![Domain Whitelist Settings](./collecting-contacts-with-bluefox-email/domain-whitelist.webp)
 
 :::tip
 Domain whitelisting applies to embedded forms and public API usage. It's not required to create forms, but it is required for those forms to accept submissions from your website.
@@ -162,9 +166,9 @@ Domain whitelisting applies to embedded forms and public API usage. It's not req
 
 ## Step 3: Enabling Double Opt-In
 
-<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
+<video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./collecting-contacts-with-bluefox-email/double-opt-in.mp4" type="video/mp4" />
-</video> -->
+</video>
 
 Double opt-in is a confirmation-based signup flow that requires subscribers to verify their email address before being added to your list. Here's how it works:
 
@@ -189,9 +193,11 @@ Since you're only emailing people who actively confirmed, you'll see fewer bounc
 **Strengthens Consent**  
 Double opt-in provides the strongest possible proof that someone wants to receive your emails, which is valuable for compliance and deliverability.
 
-To enable double opt-in, go to your form settings and toggle the **Double Opt-In** option in **Forms & Pages**.
+To enable double opt-in, go to your form, scroll and toggle the **Double Opt-In** option.
 
-<!-- ![Enable Double Opt-In](./collecting-contacts-with-bluefox-email/enable-double-optin.webp) -->
+![Enable Double Opt-In](./collecting-contacts-with-bluefox-email/enable-double-optin.webp)
+
+Follow the video above for walkthrough of the double opt-in setup process.
 
 :::tip
 Double opt-in slightly reduces signup conversion rates but dramatically improves list quality and engagement. For most businesses, this tradeoff is absolutely worth it.
@@ -200,9 +206,9 @@ Double opt-in slightly reduces signup conversion rates but dramatically improves
 
 ## Step 4: Adding Captcha Protection
 
-<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
+<video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./collecting-contacts-with-bluefox-email/captcha-protection.mp4" type="video/mp4" />
-</video> -->
+</video>
 
 Captcha protection helps prevent bots and automated scripts from flooding your signup forms with fake or malicious email addresses.
 
@@ -220,15 +226,15 @@ Captcha is especially important for public-facing signup forms that are accessib
 
 In your form settings, enable the **Captcha Protection** option in **Forms & Pages**, Signup Form.
 
-<!-- ![Captcha Settings](./collecting-contacts-with-bluefox-email/captcha-settings.webp) -->
+![Captcha Settings](./collecting-contacts-with-bluefox-email/captcha-settings.webp)
 
 
 
 ## Step 5: Importing Contacts via CSV
 
-<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
+<video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./collecting-contacts-with-bluefox-email/csv-import.mp4" type="video/mp4" />
-</video> -->
+</video>
 
 If you're migrating from another email platform or have an existing database of contacts, CSV import is the quickest way to add them to BlueFox Email.
 
@@ -261,13 +267,17 @@ Your CSV file must include an email column, but you can also include additional 
 
 Before importing, make sure you've added any custom contact properties in **Project Settings** then **Contact Properties**.
 
-<!-- ![Custom Contact Properties](./collecting-contacts-with-bluefox-email/contact-properties.webp) -->
+![Custom Contact Properties](./collecting-contacts-with-bluefox-email/custom-fields.webp)
 
 ### Importing Your Contacts
 
-Navigate to the **Contacts** section and click **Import Contacts**. Upload your CSV file and map the columns to your contact fields.
+Navigate to the **Contacts** section and click **Import Contacts**. 
 
-<!-- ![CSV Import Mapping](./collecting-contacts-with-bluefox-email/csv-mapping.webp) -->
+![CSV Import Mapping](./collecting-contacts-with-bluefox-email/csv-mapping.webp)
+
+Upload your CSV file and map the columns to your contact fields.
+
+![CSV Import Mapping](./collecting-contacts-with-bluefox-email/csv-mapping-form.webp)
 
 Here's what to watch for:
 - Match your CSV headers to the API names shown in BlueFox Email
@@ -293,9 +303,9 @@ CSV import is great for getting started, but it's not ideal for ongoing synchron
 
 ## Step 6: Synchronizing Contacts via API
 
-<!-- <video width="800" height="450" loops muted autoplay controls playsinline>
+<video width="800" height="450" loops muted autoplay controls playsinline>
   <source src="./collecting-contacts-with-bluefox-email/api-sync.mp4" type="video/mp4" />
-</video> -->
+</video>
 
 For technical users and businesses with custom applications, BlueFox Email provides a powerful API for synchronizing contacts across multiple systems.
 
