@@ -19,10 +19,10 @@ head:
       content: "A complete guide to collecting and managing contacts in BlueFox Email - from signup forms to API integrations, with best practices for consent and deliverability."
   - - meta
     - property: og:image
-      content: "https://bluefox.email/assets/articles/how-to-build-a-high-quality-email-list-in-blueFox-email.png"
+      content: "https://bluefox.email/assets/articles/how-to-build-a-high-quality-email-list-in-bluefox-email.png"
   - - meta
     - property: og:url
-      content: "https://bluefox.email/posts/how-to-build-a-high-quality-email-list-in-blueFox-email.md"
+      content: "https://bluefox.email/posts/how-to-build-a-high-quality-email-list-in-bluefox-email.md"
   - - meta
     - name: twitter:card
       content: "summary_large_image"
@@ -34,9 +34,11 @@ head:
       content: "A complete guide to collecting and managing contacts in BlueFox Email - from signup forms to API integrations, with best practices for consent and deliverability."
   - - meta
     - name: twitter:image
-      content: "https://bluefox.email/assets/articles/how-to-build-a-high-quality-email-list-in-blueFox-email.png"
+      content: "https://bluefox.email/assets/articles/how-to-build-a-high-quality-email-list-in-bluefox-email.png"
 layout: post
 ---
+
+![High-Quality Email List](/assets/articles/how-to-build-a-high-quality-email-list-in-bluefox-email.png)
 
 # How to Build a High-Quality Email List in BlueFox Email (Forms, Imports and API Sync)
 
