@@ -66,6 +66,7 @@ When collecting contacts, there are different levels of consent you can implemen
 **Good Enough: Terms and Conditions**  
 Your website's terms and conditions mention that users who sign up may receive marketing emails. While this provides legal coverage, it's the weakest form of consent and often leads to lower engagement.
 
+<!-- explicit agreeing to terms and condition. -->
 **Better: Checkbox Confirmation**  
 During signup, users check a box explicitly agreeing to receive emails. This is clearer than buried terms and conditions and shows more intentional consent.
 
@@ -126,6 +127,7 @@ If you want to collect additional information beyond email addresses, you can ad
 
 ![Custom Fields](./how-to-build-a-high-quality-email-list-in-bluefox-email/custom-fields.webp)
 
+<!-- Its optional to go thorugh this. -->
 ### Multi-List Signup
 
 BlueFox Email supports multi-list signup forms, allowing subscribers to select which specific lists they want to join during signup. This gives you:
@@ -325,6 +327,8 @@ The API should be used to **synchronize** contacts that have already provided co
 
 Explicitly refer back to the explicit consent principles covered earlier.
 :::
+
+<!-- Unsubscribe? via webhook we can remove them form list or update there contact status like out of communication. -->
 
 ### Common API Scenarios
 
