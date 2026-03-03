@@ -48,29 +48,29 @@ You can also click on the `Create` button in projects section to create new proj
 A new project is always created in a [Sandbox mode](/docs/projects/delivery-modes.md#sandbox-mode). You can send emails only to verified email addresses and domains. To lift this restriction, you need to [request production access](/docs/projects/delivery-modes.md#production-mode).
 :::
 
-## Select a Design System
+## Select a Email Theme
 
-After entering your project's name, select a design system. We offer multiple built-in design systems, or you can [create your own](/docs/design-systems/).
+After entering your project's name, select an email theme. We offer multiple built-in email themes, or you can [create your own](/docs/email-themes/).
 
-![A screenshot of the project creation wizard's design system selection step.](./project-create-select-design-system.webp)
+
+![A screenshot of the project creation wizard's email theme selection step.](./project-create-select-email-theme.webp)
 
 ::: warning
-If you don't like the design system you selected, you can come back to this step later.
-
-However, once a project is created with a design system, it will remain as it is **forever**. If you need a different design system, create a new project with the desired design system.
+If you don't like the email theme you selected, you can come back to this step later.
+However, once a project is created with an email theme, it will remain as it is **forever**. If you need a different email theme, create a new project with the desired email theme.
 :::
 
-## Set the Design System Variables
+## Set the Email Theme Basics
 
 ::: tip Optional Step
 You can skip this step and do it later if you prefer.
 :::
 
-Each design system has variables that you can customize, like colors, images, fonts, links, and texts.
+Each email theme has variables that you can customize, like colors, images, fonts, links, and texts.
 
 You can override the default values for these variables in each project.
 
-![A screenshot of the project creation wizard's design system variables settings step.](./project-create-edit-design-system-variable.webp)
+![A screenshot of the project creation wizard's email theme variables settings step.](./project-create-edit-email-theme-basics.webp)
 
 ### Required and Optional Variables
 
@@ -79,15 +79,14 @@ You can override the default values for these variables in each project.
 
 To see examples of how a variable is used, click the eye icon:
 
-![A screenshot of the project creation wizard's design system variables settings step - preview variable icon.](./project-create-preview-design-system-variables.webp)
-
+![A screenshot of the project creation wizard's email theme basics settings step - preview variable icon.](./project-create-preview-email-theme-basics.webp)
 You will see where the selected variables appear in blocks and templates on the right-hand side:
 
-![A screenshot of the project creation wizard's design system variables settings step - preview blocks and templates.](./project-create-block-template-preview.webp)
+![A screenshot of the project creation wizard's email theme basics settings step - preview blocks and templates.](./project-create-block-template-preview.webp)
 
 ## Finalizing Your Project
 
-After clicking the create button, your project will be populated with templates from the design system, so you don't have to start from scratch. You can add or remove templates anytime.
+After clicking the create button, your project will be populated with templates from the email theme, so you don't have to start from scratch. You can add or remove templates anytime.
 
 After you created your project, you need to go to the project's settings page and do the following steps:
 - [connect with your AWS account](/docs/projects/settings.html#aws-credentials) (always required)
