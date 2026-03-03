@@ -37,6 +37,15 @@ head:
       content: https://bluefox.email/assets/articles/how-to-build-a-high-quality-email-list-in-bluefox-email.png
 layout: post
 ---
+<script setup>
+import AutoplayVideo from '../components/AutoplayVideo.vue'
+import signupFormsVideo from './how-to-build-a-high-quality-email-list-in-bluefox-email/signup-forms.mp4'
+import domainWhitelistingVideo from './how-to-build-a-high-quality-email-list-in-bluefox-email/domain-whitelisting.mp4'
+import doubleOptInVideo from './how-to-build-a-high-quality-email-list-in-bluefox-email/double-opt-in.mp4'
+import captchaProtectionVideo from './how-to-build-a-high-quality-email-list-in-bluefox-email/captcha-protection.mp4'
+import csvImportVideo from './how-to-build-a-high-quality-email-list-in-bluefox-email/csv-import.mp4'
+import apiSyncVideo from './how-to-build-a-high-quality-email-list-in-bluefox-email/api-sync.mp4'
+</script>
 
 ![High-Quality Email List](/assets/articles/how-to-build-a-high-quality-email-list-in-bluefox-email.png)
 
@@ -85,11 +94,7 @@ Now let's explore the different methods for collecting contacts in BlueFox Email
 
 ## Step 1: Collecting Contacts Using Signup Forms
 
-<script setup>
-import AutoplayVideo from '../components/AutoplayVideo.vue'
-</script>
-
-<AutoplayVideo src="./how-to-build-a-high-quality-email-list-in-blueFox-email/signup-forms.mp4" />
+<AutoplayVideo :src="signupFormsVideo" />
 
 Signup forms are the primary method for collecting contacts, especially if you're running a website or landing page. They're perfect for non-technical users and don't require any coding knowledge.
 
@@ -144,7 +149,7 @@ For detailed setup instructions, check out our [Forms & Pages documentation](/do
 
 ## Step 2: Setting Up Domain Whitelisting
 
-<AutoplayVideo src="./how-to-build-a-high-quality-email-list-in-bluefox-email/domain-whitelisting.mp4" />
+<AutoplayVideo :src="domainWhitelistingVideo" />
 
 Before your forms can accept submissions from your website, it's important to configure domain whitelisting. This security feature ensures that only authorized domains can add contacts to your project.
 
@@ -165,7 +170,7 @@ Domain whitelisting applies to embedded forms and public API usage. It's not req
 
 ## Step 3: Enabling Double Opt-In
 
-<AutoplayVideo src="./how-to-build-a-high-quality-email-list-in-bluefox-email/double-opt-in.mp4" />
+<AutoplayVideo :src="doubleOptInVideo" />
 
 Double opt-in is a confirmation-based signup flow that requires subscribers to verify their email address before being added to your list. Here's how it works:
 
@@ -203,7 +208,7 @@ Double opt-in slightly reduces signup conversion rates but dramatically improves
 
 ## Step 4: Adding Captcha Protection
 
-<AutoplayVideo src="./how-to-build-a-high-quality-email-list-in-bluefox-email/captcha-protection.mp4" />
+<AutoplayVideo :src="captchaProtectionVideo" />
 
 Captcha protection helps prevent bots and automated scripts from flooding your signup forms with fake or malicious email addresses.
 
@@ -227,7 +232,7 @@ In your form settings, enable the **Captcha Protection** option in **Forms & Pag
 
 ## Step 5: Importing Contacts via CSV
 
-<AutoplayVideo src="./how-to-build-a-high-quality-email-list-in-bluefox-email/csv-import.mp4" />
+<AutoplayVideo :src="csvImportVideo" />
 
 If you're migrating from another email platform or have an existing database of contacts, CSV import is the quickest way to add them to BlueFox Email.
 
@@ -296,7 +301,7 @@ CSV import is great for getting started, but it's not ideal for ongoing synchron
 
 ## Step 6: Synchronizing Contacts via API
 
-<AutoplayVideo src="./how-to-build-a-high-quality-email-list-in-bluefox-email/api-sync.mp4" />
+<AutoplayVideo :src="apiSyncVideo" />
 
 For technical users and businesses with custom applications, BlueFox Email provides a powerful API for synchronizing contacts across multiple systems.
 
