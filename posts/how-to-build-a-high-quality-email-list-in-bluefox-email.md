@@ -1,6 +1,6 @@
 ---
 title: How to build a high-quality email list in BlueFox Email (Forms, Imports and API Sync)
-description: "Learn how to build a high-quality email list using signup forms, CSV imports, and API integrations while maintaining permission-based marketing standards."
+description: Learn how to build a high-quality email list using signup forms, CSV imports, and API integrations while maintaining permission-based marketing standards.
 thumbnail: /assets/articles/how-to-build-a-high-quality-email-list-in-bluefox-email.png
 category: tutorials
 tags: ['Contacts', 'Getting Started', 'Best Practices']
@@ -10,31 +10,31 @@ lastUpdated: true
 head:
   - - meta
     - name: description
-      content: "Learn how to build a high-quality email list using signup forms, CSV imports, and API integrations while maintaining permission-based marketing standards."
+      content: Learn how to build a high-quality email list using signup forms, CSV imports, and API integrations while maintaining permission-based marketing standards.
   - - meta
     - property: og:title
-      content: "How to build a high-quality email list in BlueFox Email (Forms, Imports and API Sync)"
+      content: How to build a high-quality email list in BlueFox Email (Forms, Imports and API Sync)
   - - meta
     - property: og:description
-      content: "A complete guide to collecting and managing contacts in BlueFox Email - from signup forms to API integrations, with best practices for consent and deliverability."
+      content: A complete guide to collecting and managing contacts in BlueFox Email from signup forms to API integrations, with best practices for consent and deliverability.
   - - meta
     - property: og:image
-      content: "https://bluefox.email/assets/articles/how-to-build-a-high-quality-email-list-in-bluefox-email.png"
+      content: https://bluefox.email/assets/articles/how-to-build-a-high-quality-email-list-in-bluefox-email.png
   - - meta
     - property: og:url
-      content: "https://bluefox.email/posts/how-to-build-a-high-quality-email-list-in-bluefox-email.md"
+      content: https://bluefox.email/posts/how-to-build-a-high-quality-email-list-in-bluefox-email.md
   - - meta
     - name: twitter:card
-      content: "summary_large_image"
+      content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "How to build a high-quality email list in BlueFox Email (Forms, Imports and API Sync)"
+      content: How to build a high-quality email list in BlueFox Email (Forms, Imports and API Sync)
   - - meta
     - name: twitter:description
-      content: "A complete guide to collecting and managing contacts in BlueFox Email - from signup forms to API integrations, with best practices for consent and deliverability."
+      content: A complete guide to collecting and managing contacts in BlueFox Email from signup forms to API integrations, with best practices for consent and deliverability.
   - - meta
     - name: twitter:image
-      content: "https://bluefox.email/assets/articles/how-to-build-a-high-quality-email-list-in-bluefox-email.png"
+      content: https://bluefox.email/assets/articles/how-to-build-a-high-quality-email-list-in-bluefox-email.png
 layout: post
 ---
 
