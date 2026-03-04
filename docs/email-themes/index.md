@@ -50,8 +50,8 @@ Our email themes follow the [Atomic Design](https://bradfrost.com/blog/post/atom
 
 This modular approach keeps email designs structured, flexible, and easy to manage.
 
-## Email Theme Components ---- TODO: components are actually stuff like buttons, text elements (text style), images (eg. with fixed dimenstions.)
-Every email theme in BlueFox Email includes:
+## Email Theme Sections
+Every email theme in bluefox.email includes:
 
 - [basics](./email-theme-basics)
 - [Components](./components)
@@ -75,7 +75,7 @@ You can choose to start from scratch or use a default email theme as your base. 
 ![A screenshot of the email theme create dialog.](./email-theme-create-dialog.webp)
 
 ## Associating an Email Theme with a Project
-Every project must be linked to an email theme to ensure consistency in design and functionality. When you create a new project, you will have the option to associate it with an existing email theme. This association allows the project to inherit templates, blocks, and email theme basics from the email theme, making the design process more efficient.
+Every project must be linked to an email theme to ensure consistency in design and functionality. When you create a new project, you will have the option to associate it with an existing email theme. This association allows the project to inherit templates, blocks,components and email theme basics from the email theme, making the design process more efficient.
 
 ::: info Note
 A project can only be associated with one email theme at a time. You currently can't change that.

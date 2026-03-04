@@ -99,7 +99,7 @@ Users can create a new block in two ways:
 Blocks can be fully customized in the editor using:
 
 - **Drag-and-drop elements** – Add or rearrange design elements.
-- **Email theme basics** – Use predefined email theme basics for consistency.
+- **Email theme basics** – Use predefined parameters for consistency.
 - **Content customization** – Adjust text, images, buttons, and more.
 
 ## Using blocks in templates

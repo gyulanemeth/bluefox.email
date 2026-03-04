@@ -37,7 +37,7 @@ head:
 
 # Email Theme Settings Templates
 
-Templates are structured email designs that serve as a foundation for email campaigns, transactional messages, or triggered emails. Unlike blocks, which represent smaller reusable components, templates provide a complete email structure by combining multiple blocks along with additional elements such as buttons and email theme basics.
+Templates are structured email designs that serve as a foundation for email campaigns, transactional messages, or triggered emails. Unlike blocks, which represent smaller reusable components, templates provide a complete email structure by combining multiple blocks along with additional elements such as buttons, links, texts, etc.
 
 ### **The importance of templates**:
 
@@ -104,9 +104,9 @@ Users can create a new template in two ways:
 Templates can be fully customized in the editor using:
 
 - **Drag and drop blocks and additional elements** to assemble the email layout.
-- **Email theme basics** – Use predefined email theme basics for consistency.
+- **Email theme basics** – Use predefined parameters for consistency.
 - **Content customization** – Adjust text, images, buttons, and more.
 
 ## Conclusion
 
-Templates provide a structured way to build and manage email designs efficiently. By utilizing blocks, additional elements, and email theme basics, templates enable users to create highly customizable emails tailored to different use cases. The ability to categorize templates and assign them predefined roles within projects ensures seamless email automation and campaign execution.
+Templates provide a structured way to build and manage email designs efficiently. By utilizing blocks, additional elements, and theme parameters enable users to create highly customizable emails tailored to different use cases. The ability to categorize templates and assign them predefined roles within projects ensures seamless email automation and campaign execution.
