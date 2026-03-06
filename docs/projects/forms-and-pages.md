@@ -36,7 +36,7 @@ head:
 
 # Forms & Pages
 
-In bluefox.email, forms & pages are essential tools for managing how users interact with your subscription lists and engage with your content. This section covers how to configure and customize key pages, such as the Subscription Preferences Page and Sign-Up Forms, as well as how to implement Double Opt-In to ensure your subscribers are verified.
+In BlueFox Email, forms & pages are essential tools for managing how users interact with your subscription lists and engage with your content. This section covers how to configure and customize key pages, such as the Subscription Preferences Page and Sign-Up Forms, as well as how to implement Double Opt-In to ensure your subscribers are verified.
 
 ## Subscription Preferences Page
 
@@ -46,7 +46,10 @@ We provide a subscription preferences page where users can manage their subscrip
 The "pause subscription" feature is an effective way to reduce churn.
 :::
 
-You can configure the **subscription preferences page** from the **forms & pages tab**. Each project has a single subscription preferences page where users can manage their subscriptions. This page displays all public subscriber lists, showing their names and descriptions to provide users with context about each list.
+You can configure the **subscription preferences page** from the **Manage Contacts page**, just head over to **Lists** tab and there you'll find the opiton to manage lists and preview **Subscription Preferences Page**. 
+![Subscription preferences page - manage subscription preferences button.](./forms-and-pages-manage-subscription-preferences-button.webp)
+
+Each project has a single subscription preferences page where users can manage their subscriptions. This page displays all public subscriber lists, showing their names and descriptions to provide users with context about each list. Hit the **subscription preferences page** toggle to preview the page and see how it looks with your lists.
 
 ![Subscriber lists - subscription preferences button.](./forms-and-pages-subscription-preferences-page-preview.webp)
 
@@ -65,13 +68,13 @@ Here is the same page after clicking the `pauseSubscriptionLink`:
 To manage the logo, click the **update logo** button on the subscription preferences page. This will redirect you to [project logo](/docs/projects/settings#project-logo) in project settings, where you can add, update, or remove the logo.
 
 
-## Signup page
+## Sign-Up Forms
 
-The sign-up page for each list allows users to create a form that subscribers can use to sign up directly from their website. Each List has its own unique sign-up form, ensuring that subscribers are added to the correct audience. This page provides an easy way to customize the form, generate the necessary HTML code, and integrate it into external sites without the need for backend code.
+Sign-up forms are now separate entities that you can create, customize, and assign to one or multiple subscriber lists. This flexible approach allows you to design forms once and reuse them across different lists, or create specialized forms for specific audiences. Each form provides an easy way to customize the appearance, generate the necessary HTML code, and integrate it into external sites without the need for backend code.
 
 ### How It Works
 
-Users can customize the sign-up form through the interface, then copy the generated HTML code and paste it into their website. Once implemented, visitors can enter their details and subscribe directly to the subscriber list in Bluefox.email.
+Users can create multiple forms, customize each form through the interface, and assign them to one or more subscriber lists. Once configured, you can copy the generated HTML code and paste it into your website. When visitors enter their details and submit the form, they will be added to all the subscriber lists assigned to that form.
 
 ::: info Important Note:
 To ensure the form functions correctly on your website, you must [whitelist](/docs/projects/settings#domain-whitelist) your website domain. Navigate to Project Settings → Whitelist and add your domain to the whitelist.
@@ -82,10 +85,28 @@ Below is an example of the sign-up form interface:
 
 ![Screenshot of the subscriber lists sign-up page](./project-subscriber-lists-sign-up.webp)
 
+### Managing Forms
+
+From the Forms & Pages tab, you can:
+- **Create** new forms from scratch
+- **Edit** existing forms
+- **Delete** forms you no longer need
+
+In each form you can: 
+
+- **Fields**: Customize the fields shown on the form, set placeholders, and mark fields as required.
+- **Assigned Lists**: Assign the form to one or more subscriber lists.
+- **Captcha**: Enable or disable CAPTCHA for spam prevention.
+- **Terms and Conditions**: Add and customize terms that subscribers must agree to before submitting the form.
+- **Button Customization**: Customize the submit button's text, font, color, and size.
+- **Success Message Customization**: Customize the message shown to subscribers after they successfully submit the form.
+- **Double Opt-In**: Configure double opt-in settings directly at the form level.
+- **Form Style Customization**: Choose how form fields are arranged (column or row) and customize font styles and colors.
+- **Settings**: Manage Form Name or Delete the form.
 
 ### Customization Options
 
-The sign-up page offers several customization options across three main sections: Fields, Form Style, Button, and Success Message.
+The sign-up form offers several customization options across the following sections: Fields, Form Style, Button, and Success Message.
 
 #### 1. Field Customization
 
@@ -97,7 +118,7 @@ The sign-up page offers several customization options across three main sections
   - Mark which field is important by checking the `required` check box.
   - Set placeholder text for each field (e.g., `Your Name`, `Your Email`).
 
-  ::: info Here email is a mandatory field which will always be shown and cannot be **disabled**. 
+  ::: warning Here email is a mandatory field which will always be shown and cannot be **disabled**. 
   :::
   
   ![Screenshot of the subscriber lists sign-up page fields section](./project-subscriber-lists-sign-up-fields.webp)
@@ -106,7 +127,72 @@ The sign-up page offers several customization options across three main sections
 
   ![Screenshot of the subscriber lists sign-up page fields section drag and drop](./project-subscriber-lists-sign-up-fields-drag-and-drop.webp)
 
-#### 3. Form Customization
+#### 2. Assigned Lists
+
+**Assign to Lists:** Select one or more subscriber lists to which the form will add subscribers upon submission. You can assign the form to multiple lists, allowing you to capture subscribers for different segments or campaigns with a single form.
+
+![Screenshot of the subscriber lists sign-up page assigned lists section](./project-subscriber-lists-sign-up-assigned-lists.webp)
+
+#### 3. Captcha Customization
+
+- **Use Captcha:** Enable or disable CAPTCHA for spam prevention.
+- **Captcha Placeholder:** Text displayed in the CAPTCHA field (e.g., `Enter the text`).
+
+![Screenshot of the subscriber lists sign-up page captcha section](./project-subscriber-lists-sign-up-captcha.webp)
+
+#### 4. Terms and Conditions Customization
+
+- **Show Terms and Conditions:** Enable or disable the display of terms and conditions on the form.
+- **Terms and Conditions Text:** Define the text that subscribers must agree to before submitting the form (e.g., `I agree to the terms and conditions`).
+- **Terms and Conditions Link Text:** Customize the text for the link to your terms and conditions page (e.g., `Read Terms and Conditions`).
+- **Terms and Conditions Link:** Provide a URL to your terms and conditions page (e.g., `https://bluefox.email/terms-of-use`).
+
+![Screenshot of the subscriber lists sign-up page terms and conditions section](./project-subscriber-lists-sign-up-terms-and-conditions.webp)
+
+#### 5. Button Customization
+
+- **Button Text:** Customize the text displayed on the submit button (e.g., `Subscribe`).
+- **Button Font:** Choose the font family for the button text.
+- **Button Font Color:** Set the color of the text on the button.
+- **Button Color:** Set the background color of the button.
+- **Button Font Size:** Adjust the size of the text on the button.
+
+![Screenshot of the subscriber lists sign-up page button section](./project-subscriber-lists-sign-up-button.webp)
+
+#### 6. Success Message Customization
+
+After a user subscribes successfully, a success message is displayed. You can customize:
+
+- **Success Message Text:** Define the text that appears after successful submission.  
+- **Success Message Font:** Choose the font family for the message text.  
+- **Success Message Font Color:** Set the color of the success message text.  
+- **Success Message Font Size:** Adjust the text size of the success message.  
+  
+![Screenshot of the subscriber lists sign-up page success message section](./project-subscriber-lists-sign-up-success-message.webp)
+
+#### 7. Double-opt-in Customization
+
+You can configure double opt-in directly at the form level. When enabled, subscribers who submit the form will receive a verification email before being added as active subscribers to the assigned lists.
+
+- **Activate Double Opt-In:** You will first need to select a proper transactional email mentioned in below steps and then enable double opt-in for the form.
+
+- **Transactional Email:** Select a transactional email containing the `verifyLink` merge tag to be sent to subscribers for verification.
+  
+- - **Change Email:** Click on this button to open all transactional emails in your project.
+    ![Screenshot of the subscriber lists sign-up page double opt-in transactional email section](./project-subscriber-lists-sign-up-double-opt-in-transactional-email.webp)
+
+- - **Transactional Email Merge Tag:** Ensure that the selected transactional email includes the `verifyLink` merge tag, if not just click on edit email and add the merge tag to the email body. 
+    ![Screenshot of the transactional email editor with verify link merge tag](./project-subscriber-lists-sign-up-double-opt-in-transactional-email-verify-link.webp)
+    
+    ![Screenshot of the subscriber lists sign-up page double opt-in transactional email with verify link section](./project-subscriber-lists-sign-up-double-opt-in-transactional-email-verify-link-merge-tag.webp)
+
+- **Post-Confirmation Action:** Choose what happens after confirmation, either showing a confirmation message or redirecting to a custom page.
+- **Confirmation Message Customization:** If you choose to show a confirmation message, you can customize the title and message text that subscribers see after confirming their email.
+- **Redirect URL Customization:** If you choose to redirect after confirmation, you can specify the URL to which subscribers will be redirected (e.g., `https://bluefox.email/`).
+
+![Screenshot of the subscriber lists sign-up page double opt-in section](./project-subscriber-lists-sign-up-double-opt-in.webp)
+
+#### 8. Form Customization
 
 - **Form Style:** Choose how form fields are arranged:
   - **Column** - Fields are stacked vertically.
@@ -115,92 +201,11 @@ The sign-up page offers several customization options across three main sections
 - **Font Color:** Set the color of the text in the form fields.
 - **Font Size:** Adjust the size of the text in the form fields.
 
-#### 2. Button Customization
+![Screenshot of the subscriber lists sign-up page form style section](./project-subscriber-lists-sign-up-form-style.webp) 
 
-- **Button Text:** Customize the text displayed on the submit button (e.g., `Subscribe`).  
-- **Button Font:** Choose the font family for the button text.  
-- **Button Font Color:** Set the color of the text on the button.  
-- **Button Color:** Set the background color of the button.  
-- **Button Font Size:** Adjust the size of the text on the button.  
+#### 9. Settings
 
-#### 3. Success Message Customization
+- **Form Name:** Set or update the name of the form for easy identification.
+- **Delete Form:** Permanently delete the form from your project.
 
-After a user subscribes successfully, a success message is displayed. You can customize:
-
-- **Success Message Text:** Define the text that appears after successful submission.  
-- **Success Message Font:** Choose the font family for the message text.  
-- **Success Message Font Color:** Set the color of the success message text.  
-- **Success Message Font Size:** Adjust the text size of the success message.  
-
-
-### Using the Form
-
-1. Customize the form using the available options.
-2. Click Copy HTML to copy the generated code.
-3. Paste the code into your website’s HTML.
-4. Make sure your website domain is whitelisted.
-
-
-The form will now capture subscriber's information and automatically add them to your Bluefox.email subscriber list.
-
-
-
-
-
-## Double Opt-in
-
-Keep in mind that you should always implement [double opt-in](/email-best-practices-for-saas/double-opt-in), meaning that you only add your users to subscriber lists as active subscribers when they verify their email address!
-
-If you add your users to multiple lists when they sign up for your service:
-- Send them a verification email (transactional email) with a unique link.
-- If they click on the link (and accept your terms and conditions), you can add them to the subscriber lists as `active` subscribers.
-
-If you just create a newsletter sign-up:
-- You can add them to your list as an `unverified` subscriber.
-- Send them a verification email (transactional email) with a unique link.
-- When they click on it, you can change their status to `active`.
-
-### Activating Double Opt-In
-
-Double Opt-In settings are configured individually for each List. To activate double opt-in for a specific List:
-
-- Go to the **Forms & Pages tab**
-- Go to **double opt-in** section 
-- Select the list you want to manage
-- Switch to Active.
-
-When double opt-in is activated, you will see a wizard that will guide you through the configuration steps.
-
-- Select a transactional email to be used for the confirmation email. Make sure that it contains the `verifyLink` merge tag.
-
-![Screenshot of the subscriber lists manage active double opt-in page](./project-subscriber-lists-manage-active-double-opt-in-select-email.webp)
-
-- Select what to do after confirmation, show confirmation message or redirect to custom page.
-
-![Screenshot of the subscriber lists manage active double opt-in page](./project-subscriber-lists-manage-active-double-opt-in-choose-action.webp)
-
-After completing the steps, click **Save** to activate double opt-in for the selected List. You can always return to this section to modify the settings or deactivate double opt-in if needed.
-
-![Screenshot of the subscriber lists manage active double opt-in page](./project-subscriber-lists-manage-active-double-opt-in.webp)
-
----
-
-### Customizing the Confirmation Message
-
-Once double opt-in is activated, you can customize the message shown to subscribers after they confirm their email:
-
-- Enter the **Confirmation Title** (e.g., "Thank You for Confirming!").
-- Enter the **Confirmation Message** to greet your subscribers.
-- Click **Save**.
-
-![Screenshot of the subscriber lists customizing confirmation message page](./project-subscriber-lists-manage-active-double-opt-in.webp)
-
-### Customizing the Redirect URL
-
-Once double opt-in is activated, you can customize the message shown to subscribers after they confirm their email:
-
-- Enter the **Link** (e.g., "https://bluefox.email/").
-- Click **Save**.
-
-![Screenshot of the subscriber lists customizing confirmation message page](./project-subscriber-lists-manage-active-double-opt-in-redirect.webp)
-
+![Screenshot of the subscriber lists sign-up page settings section](./project-subscriber-lists-sign-up-settings.webp)
