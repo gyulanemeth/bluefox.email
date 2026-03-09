@@ -38,7 +38,7 @@ head:
 
 In BlueFox Email, Contacts help you manage and organize email recipients. Each contact represents an individual user, storing their email and any additional data. Every project has its own set of contact subscription lists, and you can create as many as needed. Contacts can subscribe to multiple lists, and any updates, such as an email address change, will automatically apply across all subscription lists the contact is subscribed to.
 
-You can find your project's contacts under the Contacts tab:
+You can find your project's contacts under the **Manage Contacts** tab:
 ![Screenshot of the subscriber lists page](./project-contacts.webp)
 
 Each contact can be linked to one or more lists. Instead of storing subscriber details directly within a list, lists now reference contacts, creating a flexible and centralized system.
