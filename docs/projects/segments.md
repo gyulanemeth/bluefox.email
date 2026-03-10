@@ -126,14 +126,9 @@ Apply the segment only to contacts within a particular subscriber list. This is 
 ## Managing Segments
 
 ### Editing Segments
-You can modify segment conditions at any time by clicking on the segment name and then the pencil icon beside it. Changes will automatically update which contacts are included in the segment.
+You can modify segment conditions at any time by clicking on the segment name and then editing properties. Changes will automatically update which contacts are included in the segment.
 
 ![Screenshot of segment edit view](./project-segments-edit-view.webp)
-
-### Segment Preview
-After saving a segment, you can preview condition logic. This helps you validate your filtering logic.
-
-![Screenshot of segment preview](./project-segments-preview.webp)
 
 ### Deleting Segments
 To delete a segment, click the trash icon next to the segment name. Confirm the deletion when prompted.

@@ -42,7 +42,7 @@ Users **can't unsubscribe** from transactional emails because they are necessary
 
 You can find the transactional emails of a project under the `Transactional Emails` tab.
 
-![A screenshot of a project's transactional emails.](./project-transactionals.webp)
+![A screenshot of a project's transactional emails.](./project-transactionals-location.webp)
 
 ## Creating a Transactional Email
 
