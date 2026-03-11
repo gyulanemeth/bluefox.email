@@ -52,7 +52,7 @@ Replace the placeholders with your specific information:
 - `##YOUR_SUBSCRIBER_LIST_ID##`
 - `##YOUR_API_KEY##`
 
-You can find the IDs to replace by clicking on the code guide button in a subscriber list:
+You can find the IDs to replace by clicking on the code guide button in **Manage List** dropdown in a subscriber list:
 
 ![Screenshot of the highlighted code guide button in a subscriber list.](./subscriber-list-code-guide-button.webp)
 
