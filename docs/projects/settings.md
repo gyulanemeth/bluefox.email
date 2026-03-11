@@ -76,7 +76,7 @@ To effectively manage email bounces and complaints, BlueFox Email provides webho
 
 ## Advanced Settings
 
-The **Advanced Settings** feature, available in email cards for **Campaign**, **Transactional**, and **Triggered Emails**, allows you to customize key email-sending options, providing flexibility in managing sender identities and reply-to addresses.
+The **Advanced Settings** available in email cards for **Campaign**, **Transactional**, and **Triggered Emails**, allows you to customize key email-sending options, providing flexibility in managing sender identities and reply-to addresses.
 
 ![Advanced Settings](./project-settings-advanced-settings.webp)
 

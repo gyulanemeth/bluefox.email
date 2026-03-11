@@ -40,7 +40,7 @@ Unlike transactional and triggered emails, campaigns are not sent by your backen
 
 Campaigns are sent to the `active` subscribers on a list. Since campaigns are tied to a subscriber list, they must contain an unsubscribe link and optionally a pause subscription link.
 
-You can find the campaigns of a project under the `Campaigns` tab.
+You can find the campaigns of a project under the `Emails` tab.
 
 ![A screenshot of a project's campaigns.](./project-campaigns.webp)
 

@@ -81,7 +81,7 @@ If your project configuration isn't complete, you'll see warnings. Hover over th
 
 When you enter a project, you'll see a tabbed view with all the project-related sections:
 
-![A screenshot of the project view.](./project-transactionals.webp)
+![A screenshot of the project view.](./project-dashboard.webp)
 
 These tabs include:
 - [Transactional emails](./transactional-emails)
