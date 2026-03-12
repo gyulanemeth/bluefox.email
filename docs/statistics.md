@@ -1,5 +1,5 @@
 ---
-title: Analytics | bluefox.email documentation
+title: Statistics | bluefox.email documentation
 description: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
   - - meta
     - property: og:title
-      content: Analytics | bluefox.email documentation
+      content: Statistics | bluefox.email documentation
   - - meta
     - property: og:description
       content: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Analytics | bluefox.email documentation
+      content: Statistics | bluefox.email documentation
   - - meta
     - name: twitter:description
       content: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
@@ -34,11 +34,11 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Analytics
+# Statistics
 
-The Analytics section in your application provides a comprehensive analysis of email performance, subscription trends, and user engagement metrics. It is designed to cater to multiple scopes, such as [**account**](/docs/dashboard#key-metrics-in-the-account-dashboard), [**project**](/docs/projects/dashboard), [**transactional emails**](/docs/projects/transactional-emails#transactional-email-statistics), [**triggered emails**](/docs/projects/triggered-emails#triggered-email-statistics), [**campaigns**](/docs/projects/campaigns#campaign-email-statistics) and [**subscriber lists**](/docs/projects/contacts#list-statistics). Each type of statistic is presented with clear visuals, detailed filters, and actionable insights.
+The Statistics page in your application provides a comprehensive analysis of email performance, subscription trends, and user engagement metrics. It is designed to cater to multiple scopes, such as [**account**](/docs/dashboard#key-metrics-in-the-account-dashboard), [**project**](/docs/projects/dashboard), [**transactional emails**](/docs/projects/transactional-emails#transactional-email-statistics), [**triggered emails**](/docs/projects/triggered-emails#triggered-email-statistics), [**campaigns**](/docs/projects/campaigns#campaign-email-statistics) and [**subscriber lists**](/docs/projects/contacts#list-statistics). Each type of statistic is presented with clear visuals, detailed filters, and actionable insights.
 
-## Email Card Analytics
+## Email Card Statistics
 
 We provide the following analytics for all of our email types (transactional emails, triggered emails, and campaigns): sends, opens, clicks, [bounces](/email-sending-concepts/bounces), and [complaints](/email-sending-concepts/complaints).
 
@@ -52,13 +52,27 @@ By default, these numbers reflect stats from the current week. If you want to ch
 
 ## Overall Banners
 
-At the top of every statistics page, an overall banner displays key metrics in separate boxes. Each box has a title and a numeric value that provides a quick overview of email performance or subscriber activity.
+At the top of statistics page, you will see two sections, **Email Sending Trends** and **Subscription Trends**, which display key metrics, by default you see **sends** metric for Email Sending Trends and **unsubscribed** metric for Subscription Trends.
 
-### Overall Email Statistics Banner
+Here at the top of the statistics page, you can choose which particular email actions you want to see statistics for, by clicking on the dropdown menu.
 
-The Email Summary Banner provides key email performance metrics, such as **sent emails**, **failed**, **opens**, **unique opens**, **clicks**, **unique clicks**, **bounced**, and **complaints**. This banner is essential for tracking email performance at a glance, enabling users to monitor engagement and [delivery quality](/email-sending-concepts/deliverability) effectively.
+![Email Sending Trends Dropdown](./statistics-email-sending-trends-dropdown.webp)
 
-![Email Summary Banner](./statistics-email-overall-banner.webp)
+Now, whichever property you select here like Subscriber list,  Campaign, Automation, etc. you can select the particular email or subscriber list you want to see statistics for, by clicking on the dropdown menu next to it. For example, if you select Campaigns in the first dropdown, you can select a particular campaign in the second dropdown.
+
+![Campaign Dropdown](./statistics-campaign-dropdown.webp)
+
+
+
+**Email Sending Trends** has some overview stats such as **sent**, **failed**, **opens**, **unique opens**, **clicks**, **unique clicks**, **bounced**, and **complaints**.
+
+![Email Sending Trends Metrics](./statistics-email-sending-trends.webp)
+
+**Subscription Trends** has some overview stats such as **new contacts**, **subscriptions**, **paused**, and **unsubscribed**.
+
+![Subscription Trends Metrics](./statistics-subscription-trends.webp)
+
+
 
 ### Overall Subscription Statistics Banner
 
