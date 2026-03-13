@@ -62,11 +62,94 @@ Now, whichever property you select here like Subscriber list,  Campaign, Automat
 
 ![Campaign Dropdown](./statistics-campaign-dropdown.webp)
 
+Also, you can choose exact date filters from this drop-down. 
 
+![Date Filter Dropdown](./statistics-date-filter-dropdown.webp)
+
+## Email Sending Trends
 
 **Email Sending Trends** has some overview stats such as **sent**, **failed**, **opens**, **unique opens**, **clicks**, **unique clicks**, **bounced**, and **complaints**.
 
 ![Email Sending Trends Metrics](./statistics-email-sending-trends.webp)
+
+Here, you can see that there are different metrics based on which you can see different stats like:
+- **sends**: The total number of emails sent.
+- **send rate**: The percentage of emails sent successfully.
+- **failure**: The number of emails that failed to send.
+- **failure rate**: The percentage of emails that failed to send.
+- **opens**: The number of times emails were opened.
+- **open rate**: The percentage of emails that were opened.
+- **unique open**: The number of unique recipients who opened the email.
+- **unique open rates**: The percentage of unique recipients who opened the email.
+- **clicks**: The number of times links within the email were clicked.
+- **click rate**: The percentage of emails that had links clicked.
+- **unique clicks**: The number of unique recipients who clicked links within the email.
+- **unique click rates**: The percentage of unique recipients who clicked links within the email.
+- **clicks per unique open**: The average number of link clicks per unique email open.
+- **unique clicks per unique open**: The average number of unique link clicks per unique email open.
+- **unsubscribe per unique opens**: The average number of unsubscribes per unique email open.
+- **bounces**: The number of emails that were returned as undeliverable.
+- **bounce rate**: The percentage of emails that were returned as undeliverable.
+- **complaints**: The number of complaints received about the email.
+- **complaint rate**: The percentage of complaints received about the email.
+
+![Email Sending Trends Metrics Explained](./statistics-email-sending-trends-metrics.webp)
+
+Keep in mind that all of these metrics are calculated by recording the number of sends and other email events during each time interval within your selected time period.
+
+**Example:** If you view your statistics for the current month with daily intervals, you'll see a bar chart showing the number of sends recorded each day. For instance, Monday might show 1,500 sends, Tuesday 2,300 sends, and Wednesday 1,800 sends. The system aggregates all sends that occurred during each 24-hour period, allowing you to identify patterns and trends in your sending activity.
+
+### Graphical Representation of Email Sending Trends
+
+Here, you can see the graphical representation of email sending trends. You can choose to view this data as either a bar chart or a line chart, depending on your preference for visualizing comparative data points or continuous trends. To switch between these chart types, simply click on the chart type toggle button located above the graph.
+
+![Email Sending Trends Graphical Representation](./statistics-email-sending-trends-graphical.webp)
+
+Here you can also see the time interval switcher, which allows you to select different time intervals (hourly, daily, weekly, monthly) to view your email sending trends with varying levels of granularity.
+
+![Email Sending Trends Time Interval Switcher](./statistics-email-sending-trends-time-interval.webp)
+
+## Subscription Trends
+
+**Subscription Trends** has some overview stats such as **subscriptions**, **unsubscriptions**, **paused**, **unpaused**, and **resubscriptions**.
+
+![Subscription Trends Metrics](./statistics-subscription-trends.webp)
+
+Here, you can see that there are different metrics based on which you can see different stats like:
+- **subscribe**: The number of new subscriptions added during the selected time period.
+- **unsubscribe**: The number of subscribers who unsubscribed during the selected time period.
+- **pause subscription**: The number of subscribers who paused their subscription during the selected time period.
+- **unpause subscription**: The number of subscribers who resumed their paused subscription during the selected time period.
+- **resubscribe**: The number of previously unsubscribed contacts who resubscribed during the selected time period.
+
+![Subscription Trends Metrics Explained](./statistics-subscription-trends-metrics.webp)
+
+Keep in mind that all of these metrics are calculated by recording the number of subscription events during each time interval within your selected time period.
+
+**Example:** If you view your subscription statistics for the current month with daily intervals, you'll see a bar chart showing subscription changes recorded each day. For instance, Monday might show 250 new subscriptions and 10 unsubscribes, Tuesday 320 new subscriptions and 15 unsubscribes, and Wednesday 180 new subscriptions and 8 unsubscribes. The system aggregates all subscription events that occurred during each 24-hour period, allowing you to identify patterns and trends in your subscriber base.
+
+### Graphical Representation of Subscription Trends
+
+Here, you can see the graphical representation of subscription trends. You can choose to view this data as either a bar chart or a line chart, depending on your preference for visualizing comparative data points or continuous trends. To switch between these chart types, simply click on the chart type toggle button located above the graph.
+
+![Subscription Trends Graphical Representation](./statistics-subscription-trends-graphical.webp)
+
+Here you can also see the time interval switcher, which allows you to select different time intervals (hourly, daily, weekly, monthly) to view your subscription trends with varying levels of granularity.
+
+![Subscription Trends Time Interval Switcher](./statistics-subscription-trends-time-interval.webp)
+
+### Email and Subscription based statistics
+
+If you are looking for statistics based on a particular email or subscription, for example, a particular campaign, you can select that email from the dropdown menu and view the statistics for that email in the same way as described above. Similarly, you can select a particular subscriber list to view statistics related to that list.
+
+![Campaign Dropdown](./statistics-campaign-dropdown.webp)
+
+You will see that just below the graphical represntation of trends, there will be a data table with all of the contacts that were sent that particular email. 
+
+![Email Data Table](./statistics-email-data-table.webp)
+
+Here
+
 
 **Subscription Trends** has some overview stats such as **new contacts**, **subscriptions**, **paused**, and **unsubscribed**.
 
