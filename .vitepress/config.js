@@ -30,6 +30,8 @@ if (env.VITE_APP_ENV === 'production') {
     {},
     `!function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_h6ujcgcgbt9u');`,
   ])
+}
+
   // Microsoft Clarity
   headConf.push(['link', { rel: 'preconnect', href: 'https://www.clarity.ms' }]);
   headConf.push([
@@ -37,7 +39,6 @@ if (env.VITE_APP_ENV === 'production') {
     {},
     `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "vv2staubvv");`,
   ])
-}
 
 //   https://vitepress.dev/reference/site-config
 export default defineConfig({
