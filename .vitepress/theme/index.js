@@ -30,8 +30,7 @@ import {
   VListItemSubtitle,
   VAvatar,
   VSpacer,
-  VTextField,
-  VSelect  // Add this line
+  VTextField
 } from 'vuetify/components'
 
 import { Ripple } from 'vuetify/directives'
@@ -174,8 +173,7 @@ export default {
         VListItemSubtitle,
         VAvatar,
         VSpacer,
-        VTextField,
-        VSelect  // Add this line
+        VTextField
       },
       directives: {
         Ripple

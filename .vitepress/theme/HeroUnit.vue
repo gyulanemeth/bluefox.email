@@ -613,16 +613,26 @@ html.dark .grid-item {
 }
 
 .cta-block {
+  position: relative;
   height: 40px;
   background: linear-gradient(135deg, #13B0EE, #392C91);
   border-radius: 8px;
   margin-bottom: 20px;
+}
+
+.cta-block::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 0 20px rgba(19, 176, 238, 0.4);
+  opacity: 0;
   animation: ctaGlow 3s ease-in-out infinite;
 }
 
 @keyframes ctaGlow {
-  0%, 100% { box-shadow: 0 0 0 rgba(19, 176, 238, 0); }
-  50% { box-shadow: 0 0 20px rgba(19, 176, 238, 0.4); }
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
 .card-footer {

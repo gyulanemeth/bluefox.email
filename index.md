@@ -38,19 +38,18 @@ head:
 ---
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, defineAsyncComponent } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
 
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
 import BrandLogos from './.vitepress/theme/BrandLogos.vue'
-import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
-import DesignSystem from './.vitepress/theme/DesignSystem.vue'
-import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
-import Automation from './.vitepress/theme/Automation.vue'
-import Integration from './.vitepress/theme/Integration.vue'
-import Deliverability from './.vitepress/theme/Deliverability.vue'
-import AppleMailTestimonials from './.vitepress/theme/AppleMailTestimonials.vue'
+
+const DesignSystem = defineAsyncComponent(() => import('./.vitepress/theme/DesignSystem.vue'))
+const RenderingIssues = defineAsyncComponent(() => import('./.vitepress/theme/RenderingIssues.vue'))
+const Automation = defineAsyncComponent(() => import('./.vitepress/theme/Automation.vue'))
+const Integration = defineAsyncComponent(() => import('./.vitepress/theme/Integration.vue'))
+const AppleMailTestimonials = defineAsyncComponent(() => import('./.vitepress/theme/AppleMailTestimonials.vue'))
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
