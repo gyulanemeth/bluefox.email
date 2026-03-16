@@ -770,7 +770,7 @@ html.dark .pricing-vat-label {
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
-      Get started free
+      Get Started for Free
     </v-btn>
     <v-btn
       rounded="x1"
@@ -800,7 +800,7 @@ html.dark .pricing-vat-label {
         <li><strong>Valid for 12 months</strong></li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
-        Get started free
+        Get Started for Free
       </a>
        <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667; color: #64748b;visibility: hidden">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
     </div>
