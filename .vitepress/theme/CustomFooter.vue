@@ -94,8 +94,9 @@ const { links: footerLinks, policies: policyLinks, currentYear, socialLinks } = 
                 src="/assets/logo-text_inline.webp" 
                 alt="BlueFox Email logo" 
                 width="250" 
-                height="auto"
+                height="53"
                 loading="lazy"
+                decoding="async"
               />
             </a>
             <p class="footer-tagline">

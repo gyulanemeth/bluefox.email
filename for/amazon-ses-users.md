@@ -45,7 +45,6 @@ import { useData } from 'vitepress'
 import HeroUnit from '../.vitepress/theme/HeroUnitAWS.vue'
 import TestimonialDiv from '../.vitepress/theme/TestimonialDiv.vue'
 import DesignSystem from '../.vitepress/theme/DesignSystem.vue'
-import RenderingIssues from '../.vitepress/theme/RenderingIssues.vue'
 import Automation from '../.vitepress/theme/Automation.vue'
 import ConnectAWS from '../.vitepress/theme/ConnectAWS.vue'
 import Integration from '../.vitepress/theme/IntegrationAWS.vue'
@@ -55,19 +54,57 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
 
 const selectedEmailType = ref('0');
+const shouldLoadEditorVideo = ref(false)
+const editorVideoContainer = ref(null)
 let intervalId
+let editorVideoObserver
+
+function getObserverTarget(target) {
+  if (!target || typeof window === 'undefined') {
+    return null
+  }
+  const resolvedTarget = target.$el || target
+  return resolvedTarget instanceof window.Element ? resolvedTarget : null
+}
 
 onMounted(() => {
-  setInterval(() => {
+  intervalId = setInterval(() => {
     let actSelVal = parseInt(selectedEmailType.value)
     actSelVal += 1
     actSelVal %= 4
     selectedEmailType.value = actSelVal
   }, 3000)
+
+  if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+    shouldLoadEditorVideo.value = true
+    return
+  }
+
+  const observerTarget = getObserverTarget(editorVideoContainer.value)
+
+  if (!observerTarget) {
+    shouldLoadEditorVideo.value = true
+    return
+  }
+
+  editorVideoObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        shouldLoadEditorVideo.value = true
+        editorVideoObserver.disconnect()
+      }
+    },
+    { rootMargin: '200px 0px' }
+  )
+
+  editorVideoObserver.observe(observerTarget)
 })
 
 onBeforeUnmount(() => {
   clearInterval(intervalId);
+  if (editorVideoObserver) {
+    editorVideoObserver.disconnect()
+  }
 })
 
 </script>
@@ -370,15 +407,16 @@ onBeforeUnmount(() => {
       With Amazon SES, you're stuck hand-coding HTML and fixing rendering bugs. Maintaining changes is a nightmare. BlueFox Email lets you skip the code and design stunning emails with drag & drop, that will work on all major email clients, including Outlook.
     </div>
   </div>
-  <v-card class="d-flex justify-center mt-4" variant="elevated">
+  <v-card ref="editorVideoContainer" class="d-flex justify-center mt-4" variant="elevated">
     <video
       width="100%"
-      :autoplay="lgAndUp || md"
-      :loop="lgAndUp || md"
+      :autoplay="(lgAndUp || md) && shouldLoadEditorVideo"
+      :loop="(lgAndUp || md) && shouldLoadEditorVideo"
       :controls="sm || xs"
       muted
+      preload="none"
     >
-      <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
+      <source v-if="shouldLoadEditorVideo" src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </v-card>

@@ -44,19 +44,28 @@ import { useData } from 'vitepress'
 
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
 import BrandLogos from './.vitepress/theme/BrandLogos.vue'
-import TestimonialDiv from './.vitepress/theme/TestimonialDiv.vue'
 import DesignSystem from './.vitepress/theme/DesignSystem.vue'
 import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
 import Automation from './.vitepress/theme/Automation.vue'
 import Integration from './.vitepress/theme/Integration.vue'
-import Deliverability from './.vitepress/theme/Deliverability.vue'
 import AppleMailTestimonials from './.vitepress/theme/AppleMailTestimonials.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
 
 const selectedEmailType = ref('0');
+const shouldLoadEditorVideo = ref(false)
+const editorVideoContainer = ref(null)
 let intervalId
+let editorVideoObserver
+
+function getObserverTarget(target) {
+  if (!target || typeof window === 'undefined') {
+    return null
+  }
+  const resolvedTarget = target.$el || target
+  return resolvedTarget instanceof window.Element ? resolvedTarget : null
+}
 
 onMounted(() => {
   intervalId = setInterval(() => {
@@ -65,10 +74,37 @@ onMounted(() => {
     actSelVal %= 4
     selectedEmailType.value = actSelVal
   }, 3000)
+
+  if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+    shouldLoadEditorVideo.value = true
+    return
+  }
+
+  const observerTarget = getObserverTarget(editorVideoContainer.value)
+
+  if (!observerTarget) {
+    shouldLoadEditorVideo.value = true
+    return
+  }
+
+  editorVideoObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        shouldLoadEditorVideo.value = true
+        editorVideoObserver.disconnect()
+      }
+    },
+    { rootMargin: '200px 0px' }
+  )
+
+  editorVideoObserver.observe(observerTarget)
 })
 
 onBeforeUnmount(() => {
   clearInterval(intervalId);
+  if (editorVideoObserver) {
+    editorVideoObserver.disconnect()
+  }
 })
 </script>
 
@@ -1191,16 +1227,16 @@ onBeforeUnmount(() => {
       Your team doesn't need to be Adobe experts. Our visual editor produces pixel-perfect emails that render flawlessly across Gmail, Outlook, and mobile so you can deliver premium quality even with a lean creative team.
     </div>
   </div>
-  <v-card class="d-flex justify-center mt-4" variant="elevated" role="region" aria-label="Editor demo video">
+  <v-card ref="editorVideoContainer" class="d-flex justify-center mt-4" variant="elevated" role="region" aria-label="Editor demo video">
     <video
       width="100%"
-      :autoplay="lgAndUp || md"
-      :loop="lgAndUp || md"
+      :autoplay="(lgAndUp || md) && shouldLoadEditorVideo"
+      :loop="(lgAndUp || md) && shouldLoadEditorVideo"
       :controls="sm || xs"
       muted
-      preload="metadata"
+      preload="none"
     >
-      <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
+      <source v-if="shouldLoadEditorVideo" src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
       <!-- Captions track so accessibility audit picks up subtitles -->
       <track kind="captions" src="/assets/captions/email-editor-intro-en.vtt" srclang="en" label="English captions" default>
       Your browser does not support the video tag.
