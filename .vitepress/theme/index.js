@@ -36,7 +36,9 @@ import {
 
 import { Ripple } from 'vuetify/directives'
 
-// Amatic SC and Indie Flower fonts are lazy-loaded in DesignSystem.vue (below the fold)
+import '@fontsource/amatic-sc/400.css'
+import '@fontsource/amatic-sc/700.css'
+import '@fontsource/indie-flower/400.css'
 
 import './style.css'
 

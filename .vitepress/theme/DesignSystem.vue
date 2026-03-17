@@ -33,11 +33,6 @@ function selectDesignSystem (idx) {
 let intervalId
 
 onMounted(() => {
-  // Lazy-load decorative fonts (below the fold, not needed for initial paint)
-  import('@fontsource/amatic-sc/400.css')
-  import('@fontsource/amatic-sc/700.css')
-  import('@fontsource/indie-flower/400.css')
-
   setInterval(() => {
     let actSelVal = selectedDesignSystem.value
     actSelVal += 1

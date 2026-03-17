@@ -1,6 +1,5 @@
 import { defineConfig, loadEnv } from 'vitepress'
 import tailwindcss from 'tailwindcss'
-import vuetify from 'vite-plugin-vuetify'
 import { addSchemaMarkup } from './theme/SchemaMarkup/schemaMarkup'
 import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
 import { addComparisonSchemaMarkup } from './theme/SchemaMarkup/ComparisonSchemaMarkup'
@@ -54,9 +53,6 @@ export default defineConfig({
     addComparisonSchemaMarkup(pageData)
   },
   vite: {
-    plugins: [
-      vuetify({ autoImport: false, styles: 'none' }),
-    ],
     server: {
       headers: securityHeaders,
     },
