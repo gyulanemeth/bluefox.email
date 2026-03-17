@@ -57,6 +57,26 @@ export default defineConfig({
     ssr: {
       noExternal: ["vuetify"],
     },
+    css: {
+      postcss: {
+        plugins: [
+          tailwindcss(),
+          {
+            postcssPlugin: 'font-display-swap',
+            AtRule: {
+              'font-face'(atRule) {
+                const hasFontDisplay = atRule.nodes?.some(
+                  node => node.type === 'decl' && node.prop === 'font-display'
+                )
+                if (!hasFontDisplay) {
+                  atRule.append({ prop: 'font-display', value: 'swap' })
+                }
+              }
+            }
+          }
+        ],
+      },
+    },
   },
   build: {
     rollupOptions: {
@@ -76,11 +96,6 @@ export default defineConfig({
         }
       }
     }
-  },
-  css: {
-    postcss: {
-      plugins: [tailwindcss()],
-    },
   },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config

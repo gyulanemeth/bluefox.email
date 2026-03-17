@@ -4,8 +4,16 @@ import { createVuetify } from 'vuetify'
 import 'vuetify/styles'
 import '@mdi/font/css/materialdesignicons.css'
 
-import * as components from 'vuetify/components'
-import * as directives from 'vuetify/directives'
+import {
+  VCard, VCardTitle, VCardText, VCardActions,
+  VBtn, VIcon, VImg, VAvatar, VChip, VDivider, VSpacer,
+  VContainer, VRow, VCol,
+  VTabs, VTab, VTabsWindow, VTabsWindowItem,
+  VList, VListItem, VListItemTitle, VListItemSubtitle,
+  VTextField
+} from 'vuetify/components'
+
+import { Ripple } from 'vuetify/directives'
 
 import '@fontsource/amatic-sc/400.css'
 import '@fontsource/amatic-sc/700.css'
@@ -44,8 +52,15 @@ export default {
   },
   enhanceApp({ app, router, siteData }) {
     const vuetify = createVuetify({
-      components,
-      directives,
+      components: {
+        VCard, VCardTitle, VCardText, VCardActions,
+        VBtn, VIcon, VImg, VAvatar, VChip, VDivider, VSpacer,
+        VContainer, VRow, VCol,
+        VTabs, VTab, VTabsWindow, VTabsWindowItem,
+        VList, VListItem, VListItemTitle, VListItemSubtitle,
+        VTextField
+      },
+      directives: { Ripple },
       theme: {
         themes: {
           light: {

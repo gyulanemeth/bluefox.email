@@ -35,6 +35,8 @@ const testimonials = [
     profileImg: '/assets/testimonials/gabriel-varaljay.webp',
     logo: '/assets/testimonials/trendfingers.webp',
     logoAlt: 'TrendFingers Logo',
+    logoWidth: 236,
+    logoHeight: 50,
     url: 'https://trendfingers.com'
   },
   {
@@ -46,6 +48,8 @@ const testimonials = [
     profileImg: '/assets/testimonials/ND.webp',
     logo: '/assets/testimonials/NDcompany.webp',
     logoAlt: 'ND Logo',
+    logoWidth: 171,
+    logoHeight: 50,
     url: 'https://www.nicoledarechuk.com'
   },
   {
@@ -57,6 +61,8 @@ const testimonials = [
     profileImg: '/assets/testimonials/garth-brennan.webp',
     logo: '/assets/testimonials/possolutions-logo.webp',
     logoAlt: 'POS Solutions Logo',
+    logoWidth: 144,
+    logoHeight: 50,
     url: 'https://possolutions.com.au'
   },
   {
@@ -68,6 +74,8 @@ const testimonials = [
     profileImg: '/assets/testimonials/matt-luo.webp',
     logo: '/assets/testimonials/clarity-text.svg',
     logoAlt: 'ClarityText Logo',
+    logoWidth: 50,
+    logoHeight: 50,
     url: 'https://www.claritytext.com'
   },
   {
@@ -79,6 +87,8 @@ const testimonials = [
     profileImg: '/assets/testimonials/gergely-nagy.webp',
     logo: '/assets/testimonials/chamaileon.svg',
     logoAlt: 'Chamaileon Logo',
+    logoWidth: 49,
+    logoHeight: 50,
     url: 'https://chamaileon.io/'
   }
 ]
@@ -229,7 +239,9 @@ function selectTestimonialEmail (id) {
                           <img
                             :src="testimonials[selectedTestimonialId].logo"
                             :alt="testimonials[selectedTestimonialId].logoAlt"
-                            style="height: 50px"
+                            :width="testimonials[selectedTestimonialId].logoWidth"
+                            :height="testimonials[selectedTestimonialId].logoHeight"
+                            style="height: 50px; width: auto"
                           />
                         </a>
                       </div>
@@ -355,7 +367,9 @@ function selectTestimonialEmail (id) {
                             <img
                               :src="testimonials[selectedTestimonialId].logo"
                               :alt="testimonials[selectedTestimonialId].logoAlt"
-                              style="height: 50px"
+                              :width="testimonials[selectedTestimonialId].logoWidth"
+                              :height="testimonials[selectedTestimonialId].logoHeight"
+                              style="height: 50px; width: auto"
                             />
                           </a>
                         </div>
@@ -467,7 +481,9 @@ function selectTestimonialEmail (id) {
                               <img
                                 :src="testimonials[selectedTestimonialId].logo"
                                 :alt="testimonials[selectedTestimonialId].logoAlt"
-                                style="height: 50px"
+                                :width="testimonials[selectedTestimonialId].logoWidth"
+                                :height="testimonials[selectedTestimonialId].logoHeight"
+                                style="height: 50px; width: auto"
                               />
                             </a>
                           </div>

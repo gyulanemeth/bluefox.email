@@ -29,6 +29,13 @@ html {
   --vp-c-brand-dark: 	hsl(197, 87%, 40%);
   --vp-c-brand-darker: 	hsl(197, 87%, 30%);
   --vp-c-brand-dimm: rgba(100, 108, 255, 0.08);
+
+  /* Improve contrast for code block language labels (WCAG AA 4.5:1) */
+  --vp-code-lang-color: #666668;
+}
+
+.dark {
+  --vp-code-lang-color: #85858e;
 }
 
 /**

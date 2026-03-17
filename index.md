@@ -323,6 +323,7 @@ onBeforeUnmount(() => {
   }
 </style>
 
+<main>
 <section id="hero">
   <HeroUnit />
 </section>
@@ -363,6 +364,7 @@ onBeforeUnmount(() => {
       muted
     >
       <source src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
+      <track kind="captions" label="English" srclang="en" default>
       Your browser does not support the video tag.
     </video>
   </v-card>
@@ -447,6 +449,7 @@ onBeforeUnmount(() => {
         muted
       >
         <source src="/assets/bluefox-email-content-editing.mp4" type="video/mp4">
+        <track kind="captions" label="English" srclang="en" default>
         Your browser does not support the video tag.
       </video>
     </v-card>
@@ -577,5 +580,6 @@ onBeforeUnmount(() => {
     </v-btn>
   </v-row>
 </section>
+</main>
 
 
