@@ -1,5 +1,5 @@
 ---
-title: SNS Delivery Policy | BlueFox Email
+title: SNS Delivery Policy
 description: SNS Delivery Policies allow you to define how Amazon SNS retries message delivery when server-side errors occur or when messages cannot be delivered to specific endpoints.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

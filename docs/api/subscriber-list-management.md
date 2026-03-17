@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Contacts and Subscriber List Management via the API
+# Subscriber List Management via the API
 
 This guide explains how to manage subscribers using the **bluefox.email** API. You can subscribe, unsubscribe, pause, activate, and list subscribers from your email lists. Follow the examples and code snippets to integrate these functionalities into your system.
 
@@ -52,7 +52,7 @@ Replace the placeholders with your specific information:
 - `##YOUR_SUBSCRIBER_LIST_ID##`
 - `##YOUR_API_KEY##`
 
-You can find the IDs to replace by clicking on the code guide button in a subscriber list:
+You can find the IDs to replace by clicking on the code guide button in **Manage List** dropdown in a subscriber list:
 
 ![Screenshot of the highlighted code guide button in a subscriber list.](./subscriber-list-code-guide-button.webp)
 
@@ -69,8 +69,7 @@ In the code guide dialog, these values are automatically filled in. If you copy 
 ```
 
 :::info
-You can pass values for [merge tags](/docs/email-personalization) and [contact custom properties](/docs/projects/settings#contact-properties) inside the `data` field in the request body.
-Just make sure the keys match the merge tags or custom property names defined in your project settings.
+You can pass values for [contact custom properties](/docs/projects/settings#contact-properties) inside the `data` field in the request body. Just make sure the keys match with the custom property API names defined in your project settings.
 :::
 
 :::info NOTE
@@ -157,8 +156,8 @@ In the code guide dialog, these values are automatically filled in. If you copy 
 }
 ```
 :::info
-You can pass values for [merge tags](/docs/email-personalization) and [contact custom properties](/docs/projects/settings#contact-properties) inside the `data` field in the request body.
-Just make sure the keys match the merge tags or custom property names defined in your project settings.
+You can pass values for [contact custom properties](/docs/projects/settings#contact-properties) inside the `data` field in the request body.
+Just make sure the keys match the custom property API names defined in your project settings.
 :::
 
 

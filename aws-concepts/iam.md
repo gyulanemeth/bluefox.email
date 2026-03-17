@@ -1,5 +1,5 @@
 ---
-title: AWS IAM (Identity and Access Management) | BlueFox Email
+title: AWS IAM (Identity and Access Management)
 description: AWS Identity and Access Management (IAM) is a web service that provides centralized control over authentication and authorization for AWS resources.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

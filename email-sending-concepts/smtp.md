@@ -1,5 +1,5 @@
 ---
-title: SMTP (Simple Mail Transfer Protocol) | BlueFox Email
+title: SMTP (Simple Mail Transfer Protocol) 
 description: "Learn how the Simple Mail Transfer Protocol (SMTP) works, its role in email delivery, common ports, and how modern security extensions protect email in transit."
 thumbnail: /assets/glossary/email-sending-glossary.png
 

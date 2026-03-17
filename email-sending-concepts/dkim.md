@@ -1,5 +1,5 @@
 ---
-title: DKIM (DomainKeys Identified Mail) | BlueFox Email
+title: DKIM (DomainKeys Identified Mail) 
 description: DKIM is an email authentication method that allows senders to digitally sign emails using a private key. Learn how it works, see examples, and understand its importance for email security.
 thumbnail: /assets/glossary/email-sending-glossary.png
 
@@ -111,6 +111,11 @@ The selector in DKIM serves as a pointer to the appropriate key. This functional
 ## Why Does DKIM Matter?
 
 DKIM (DomainKeys Identified Mail) enhances the authenticity of your emails, fostering trust with email providers and your audience. It verifies that messages remain unaltered during transit, **preventing tampering** and **blocking scammers** from impersonating your domain without your private key. Leading email services, such as Gmail and Yahoo, utilize DKIM results to determine inbox [deliverability](/email-sending-concepts/deliverability). Additionally, **DKIM is vital for supporting [DMARC](/email-sending-concepts/dmarc.md)** policies, making it a critical component of email security and brand protection.
+
+:::tip Free DKIM Audit
+Use our free dkim checker tool to audit your domain for dkim. Check it out 
+[here](/tools/deliverability/dkim-checker).
+:::
 
 ## Frequently Asked Questions About DKIM
 

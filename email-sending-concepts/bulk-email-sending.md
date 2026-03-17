@@ -1,5 +1,5 @@
 ---
-title: Bulk Email Sending | BlueFox Email
+title: Bulk Email Sending 
 description: Learn about bulk email sending, the practice of sending large volumes of emails to multiple recipients simultaneously, used for marketing campaigns, newsletters, and announcements.
 thumbnail: /assets/glossary/email-sending-concepts-glossary.png
 sidebar: false

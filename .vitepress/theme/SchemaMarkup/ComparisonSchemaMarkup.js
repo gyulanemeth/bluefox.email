@@ -226,7 +226,6 @@ function createComparisonArticleSchema(pageData) {
                'email marketing comparison',
                'email platform comparison',
                'email service provider',
-               'SaaS comparison',
                'email automation',
                'email deliverability'
           ],

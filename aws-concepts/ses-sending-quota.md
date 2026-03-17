@@ -1,5 +1,5 @@
 ---
-title: Amazon SES Sending Quotas | BlueFox Email
+title: Amazon SES Sending Quotas
 description: Learn about AWS SES sending quotas, how they work, how to increase them, and best practices for managing your email sending limits.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

@@ -1,5 +1,5 @@
 ---
-title: Soft Bounce | BlueFox Email
+title: Soft Bounce 
 description: A soft bounce is a temporary email delivery failure that may resolve with time, often due to full mailboxes, server issues, or message size limits.
 thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false

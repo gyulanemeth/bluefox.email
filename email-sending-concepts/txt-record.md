@@ -1,5 +1,5 @@
 ---
-title: TXT Records | BlueFox Email
+title: TXT Records 
 description: "Learn how TXT records work in DNS, their crucial role in email authentication, and how they help secure email communications."
 thumbnail: /assets/glossary/email-sending-glossary.png
 

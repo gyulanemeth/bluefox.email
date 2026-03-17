@@ -40,6 +40,8 @@ head:
   
 - **[Webhooks](/docs/integrations/webhooks)** – Receive real-time event notifications for email opens, clicks, bounces, complaints, and more, allowing seamless integration with your system.  
 
-- **[Supabase](/docs/integrations/supabase)** – Send supabase authentication emails like signup confirmations, magic links, password resets, and user invitations using bluefox.email. Set up SMTP for reliable email delivery and customize transactional email templates with ease.  
+- **[Supabase](/docs/integrations/supabase)** – Send supabase authentication emails like signup confirmations, magic links, password resets, and user invitations using bluefox.email. Set up SMTP for reliable email delivery and customize transactional email templates with ease.
+
+- **[Zapier](/docs/integrations/zapier)** – Automate workflows by connecting BlueFox Email with thousands of apps through Zapier. Trigger actions based on email events and streamline your processes without coding.
 
 Explore the integrations documentation to seamlessly integrate BlueFox Email into your workflows. 🚀

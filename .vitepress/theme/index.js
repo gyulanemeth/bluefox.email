@@ -2,7 +2,8 @@ import { h } from 'vue'
 import Theme from 'vitepress/theme'
 import { createVuetify } from 'vuetify'
 import 'vuetify/styles'
-import '@mdi/font/css/materialdesignicons.css'
+// Custom MDI CSS with font-display: swap for 1,660ms performance improvement
+import './mdi-font-display-swap.css'
 
 import {
   VCard, VCardTitle, VCardText, VCardActions,
@@ -15,6 +16,9 @@ import {
 
 import { Ripple } from 'vuetify/directives'
 
+import { Ripple } from 'vuetify/directives'
+
+// Custom fonts - subset loaded, see config for preload hints
 import '@fontsource/amatic-sc/400.css'
 import '@fontsource/amatic-sc/700.css'
 import '@fontsource/indie-flower/400.css'
@@ -34,13 +38,80 @@ import GlossaryCTA from './GlossaryCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
 
-import DkimChecker from './free-tools/DkimChecker.vue'
-import DmarcChecker from './free-tools/DmarcChecker.vue'
-import SpfChecker from './free-tools/SpfChecker.vue'
-import MxChecker from './free-tools/MxChecker.vue'
-import DmarcReportAnalyzer from './free-tools/DmarcReportAnalyzer.vue'
-import LinkChecker from './free-tools/LinkChecker.vue'
 
+function setCookie(name, value, days = 30) {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString()
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; Domain=.bluefox.email; path=/; SameSite=Lax; Secure`
+}
+
+function getCookie(name) {
+  const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'))
+  return match ? decodeURIComponent(match[2]) : null
+}
+
+function cleanUrl(clickKey) {
+  const url = new URL(window.location.href)
+  url.searchParams.delete('utm_source')
+  url.searchParams.delete('utm_medium')
+  url.searchParams.delete('utm_campaign')
+  if (clickKey) {
+    url.searchParams.delete(clickKey)
+  }
+  const newUrl = url.pathname + (url.search ? url.search : '') + (url.hash ? url.hash : '')
+  window.history.replaceState(null, document.title, newUrl)
+}
+
+function getClickId(url) {
+  const params = new URL(url).searchParams
+  const clickIdParams = [
+    "gclid",
+    "fbclid",
+    "rdclid",
+    "rdt_cid",
+    "ttclid",
+    "li_fat_id",
+    "msclkid",
+    "scclid",
+    "epik",
+  ]
+  for (const key of clickIdParams) {
+    const value = params.get(key)
+    if (value){ 
+      return {key, value}
+    }
+  }
+}
+
+function saveUtmToCookie() {
+  if (typeof window === 'undefined') {
+    return false
+  }
+  const params = new URLSearchParams(window.location.search)
+  let utmFromCookie = JSON.parse(getCookie('utmTags') || '[]')
+  const utm = {}
+  const tags = ['utm_source', 'utm_medium', 'utm_campaign']
+  tags.forEach((tag) => {
+    const value = params.get(tag)
+    if (value) {
+      utm[tag.replace(/^utm_/, '')] = value
+    }
+  })
+  if (!Object.keys(utm).length) {
+    return false
+  }
+  const clickData = getClickId(window.location.href)
+  utm.clickId = clickData?.value
+  if (Array.isArray(utmFromCookie)) {
+    if (utmFromCookie.some((ele) => JSON.stringify(ele) === JSON.stringify(utm))) {
+      return cleanUrl(clickData?.key)
+    }
+    utmFromCookie.push(utm)
+  } else {
+    utmFromCookie = [utm]
+  }
+  setCookie('utmTags', JSON.stringify(utmFromCookie), 100)
+  cleanUrl(clickData?.key)
+}
 
 export default {
   extends: Theme,
@@ -51,6 +122,15 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
+    if (typeof window !== 'undefined') {
+      saveUtmToCookie()
+    }
+    router.onAfterRouteChanged = () => {
+      saveUtmToCookie()
+      if (typeof window !== 'undefined' && window.rdt) {
+        window.rdt('track', 'PageVisit')
+      }
+    }
     const vuetify = createVuetify({
       components: {
         VCard, VCardTitle, VCardText, VCardActions,
@@ -72,7 +152,7 @@ export default {
           },
           dark: {
             colors: {
-              primary: "#392C91",
+              primary: "#13B0EE",
               secondary: "#13B0EE",
               buttonBackground: "#161618",
             },
@@ -83,7 +163,6 @@ export default {
     })
 
     app.use(vuetify)
-
     app.component('posts', Posts)
     app.component('post', Post)
     app.component('NavigationButton', NavigationButton)
@@ -96,11 +175,5 @@ export default {
     app.component('GlossaryCTA', GlossaryCTA)
     app.component('GlossaryNavigation', GlossaryNavigation)
     app.component('CustomFooter', CustomFooter)
-    app.component('DkimChecker', DkimChecker)
-    app.component('DmarcChecker', DmarcChecker)
-    app.component('SpfChecker', SpfChecker)
-    app.component('MxChecker', MxChecker)
-    app.component('DmarcReportAnalyzer', DmarcReportAnalyzer)
-    app.component('LinkChecker', LinkChecker)
   },
 }

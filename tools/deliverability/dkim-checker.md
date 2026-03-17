@@ -1,5 +1,5 @@
 ---
-title: Free DKIM Checker | Validate DKIM Signatures | BlueFox Email
+title: Free DKIM Checker | Validate DKIM Signatures 
 description: Free online DKIM checker tool to validate DomainKeys Identified Mail signatures, verify DNS records, and analyze email authentication for improved deliverability.
 thumbnail: /assets/free-deliverability-tools.png
 sidebar: false
@@ -57,9 +57,13 @@ head:
 
 <GlossaryNavigation link="/tools/deliverability" label="Back to deliverability Tools" />
 
+<script setup>
+import DkimChecker from '../../.vitepress/theme/free-tools/DkimChecker.vue'   
+</script>
+
 # Free DKIM Checker
 
-**Validate your DKIM signatures** and ensure your email authentication is working correctly with our comprehensive DKIM checker tool.
+**Validate your [DKIM](/email-sending-concepts/dkim) signatures** and ensure your email authentication is working correctly with our comprehensive DKIM checker tool.
 
 
 <DkimChecker />

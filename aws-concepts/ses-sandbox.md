@@ -1,5 +1,5 @@
 ---
-title: Amazon SES Sandbox | BlueFox Email
+title: Amazon SES Sandbox
 description: Learn about the AWS SES sandbox environment, its purpose, limitations, and how to request production access for your email sending needs.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

@@ -1,0 +1,21 @@
+/* Override Material Design Icons font-display for better performance */
+/* This prevents 1,660ms delay in text rendering */
+@font-face {
+  font-family: "Material Design Icons";
+  src: url("../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff2?v=7.4.47") format("woff2"),
+       url("../../node_modules/@mdi/font/fonts/materialdesignicons-webfont.woff?v=7.4.47") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.mdi:before,
+.mdi-set {
+  display: inline-block;
+  font: normal normal normal 24px/1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

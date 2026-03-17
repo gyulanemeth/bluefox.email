@@ -1,5 +1,5 @@
 ---
-title: MX Records | BlueFox Email
+title: MX Records 
 description: "Learn how MX (Mail Exchange) records work, their role in email delivery, and how they direct incoming messages to the correct mail servers."
 thumbnail: /assets/glossary/email-sending-glossary.png
 
@@ -88,6 +88,9 @@ Most businesses today use **third-party email providers**, which require specifi
 MX records are **absolutely essential** for receiving email. Without them, your domain is essentially **unreachable**. Most mail servers will refuse to deliver messages to a domain that lacks MX records. Even though the [SMTP](/email-sending-concepts/smtp) standard allows fallback to the domain's A record, modern servers rarely do this for security reasons.
 
 Beyond basic delivery, MX records play a role in your **domain's reputation and [deliverability](/email-sending-concepts/deliverability)**. Spam filters often check that your MX records **align with your other DNS settings**, such as [SPF](/email-sending-concepts/spf) and [DKIM](/email-sending-concepts/dkim), to confirm your domain's legitimacy. If your MX records are missing or misconfigured, you risk having emails **bounce or be marked as spam**. When switching email providers, updating your MX records is what **actually moves your email flow**. A single typo can cause **lost messages or downtime**, so accuracy is critical.
+
+:::tip Free MX Records Checker
+Use our free mx record checker tool to audit your domain for proper mx records. Check it out [here](/tools/deliverability/mx-checker).
 
 ## Frequently Asked Questions About MX Records
 

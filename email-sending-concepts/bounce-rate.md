@@ -1,5 +1,5 @@
 ---
-title: Bounce Rate | BlueFox Email
+title: Bounce Rate 
 description: Bounce rate measures the percentage of emails that couldn't be delivered to recipients, serving as a critical metric for email deliverability and sender reputation.
 thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false

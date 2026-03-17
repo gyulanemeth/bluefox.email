@@ -4,16 +4,20 @@ import { addSchemaMarkup } from './theme/SchemaMarkup/schemaMarkup'
 import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
 import { addComparisonSchemaMarkup } from './theme/SchemaMarkup/ComparisonSchemaMarkup'
 
-const headConf = []
 const env = loadEnv('', process.cwd())
 
+let headConf = [];
+
 if (env.VITE_APP_ENV === 'production') {
+  // Preconnect to external domains for better performance (only in production)
+  headConf.push(['link', { rel: 'preconnect', href: 'https://www.googletagmanager.com' }]);
+  headConf.push(['link', { rel: 'dns-prefetch', href: 'https://www.googletagmanager.com' }]);
   // only add GA if in production
   headConf.push([
     "script",
     {
       src: "https://www.googletagmanager.com/gtag/js?id=G-RFX7RXXS7C",
-      defer: true,
+      async: true,
     },
   ])
   headConf.push([
@@ -21,33 +25,40 @@ if (env.VITE_APP_ENV === 'production') {
     {},
     `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', 'G-RFX7RXXS7C');\ngtag('config', 'AW-16693655873');`,
   ])
+  headConf.push([
+    "script",
+    {},
+    `!function(w,d){if(!w.rdt){var p=w.rdt=function(){p.sendEvent?p.sendEvent.apply(p,arguments):p.callQueue.push(arguments)};p.callQueue=[];var t=d.createElement("script");t.src="https://www.redditstatic.com/ads/pixel.js",t.async=!0;var s=d.getElementsByTagName("script")[0];s.parentNode.insertBefore(t,s)}}(window,document);rdt('init','a2_h6ujcgcgbt9u');`,
+  ])
 }
 
-headConf.push([
-  "link",
-  {
-    rel: "preload",
-    as: "image",
-    fetchpriority: "high",
-    href: "/assets/mascot-bring-your-own-awsses-dark-450x270.webp",
-  },
-])
-headConf.push([
-  "link",
-  {
-    rel: "preload",
-    as: "image",
-    fetchpriority: "high",
-    href: "/assets/mascot-bring-your-own-awsses-450x270.webp",
-  },
-])
-
-// https://vitepress.dev/reference/site-config
+//   https://vitepress.dev/reference/site-config
 export default defineConfig({
   cleanUrls: true,
-  title: "bluefox.email",
+  title: "BlueFox Email",
   description: "High deliverability & brand consistency.",
   head: headConf,
+  transformHead({ assets, ...context }) {
+    const mdiFontFile = assets.find(asset =>
+      asset.includes('materialdesignicons') && asset.endsWith('.woff2')
+    );
+
+    if (mdiFontFile) {
+      return [
+        [
+          'link',
+          {
+            rel: 'preload',
+            href: `${mdiFontFile}`,
+            as: 'font',
+            type: 'font/woff2',
+            crossorigin: '',
+          }
+        ]
+      ];
+    }
+    return [];
+  },
   transformPageData(pageData) {
     addToolsSchemaMarkup(pageData)
     addSchemaMarkup(pageData)
@@ -81,18 +92,20 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vue-vendor': ['vue'],
-          'vuetify-vendor': ['vuetify'],
-          'fonts': ['@fontsource/amatic-sc', '@fontsource/indie-flower'],
-          'tools': [
-            './theme/free-tools/DkimChecker.vue',
-            './theme/free-tools/DmarcChecker.vue',
-            './theme/free-tools/SpfChecker.vue',
-            './theme/free-tools/MxChecker.vue',
-            './theme/free-tools/DmarcReportAnalyzer.vue',
-            './theme/free-tools/LinkChecker.vue'
-          ]
+        manualChunks(id) {
+          // Split vendor chunks more granularly for better performance
+          if (id.includes('node_modules')) {
+            if (id.includes('vuetify')) {
+              return 'vuetify-vendor';
+            }
+            if (id.includes('vue')) {
+              return 'vue-vendor';
+            }
+            if (id.includes('@mdi')) {
+              return 'mdi-vendor';
+            }
+            return 'vendor';
+          }
         }
       }
     }
@@ -100,7 +113,7 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: {
-      src: "/assets/bluefoxemail-logo-24x24.webp",
+      src: "/assets/bluefoxemail-logo-48x48.webp",
       alt: "bluefox.email logo",
       width: "24",
       height: "24"
@@ -125,7 +138,7 @@ export default defineConfig({
         component: "NavigationButton",
         props: {
           text: "Login",
-          link: "https://app.bluefox.email",
+          link: "https://app.bluefox.email", // Removed trailing space
           variant: "outlined",
         },
       },
@@ -133,7 +146,7 @@ export default defineConfig({
         component: "NavigationButton",
         props: {
           text: "Get Started for Free",
-          link: "https://app.bluefox.email/accounts/create-account",
+          link: "https://app.bluefox.email/accounts/create-account", // Removed trailing space
           variant: "flat",
           color: "primary",
         },
@@ -161,6 +174,10 @@ export default defineConfig({
               link: "/docs/dashboard",
             },
             {
+              text: "Account Users",
+              link: "/docs/account-users.md"
+            },
+            {
               text: "Projects",
               link: "/docs/projects/",
               collapsed: false,
@@ -172,6 +189,10 @@ export default defineConfig({
                 {
                   text: "Creating a new project",
                   link: "/docs/projects/new-project",
+                },
+                {
+                  text: "Delivery Modes",
+                  link: "/docs/projects/delivery-modes",
                 },
                 {
                   text: "Transactional Emails",
@@ -186,6 +207,10 @@ export default defineConfig({
                   link: "/docs/projects/campaigns"
                 },
                 {
+                  text: "Send Test Emails",
+                  link: "/docs/projects/send-test-email"
+                },
+                {
                   text: "Automations",
                   link: "/docs/projects/automations"
                 },
@@ -198,12 +223,8 @@ export default defineConfig({
                   link: "/docs/projects/forms-and-pages"
                 },
                 {
-                  text: "Design System Variables",
-                  link: "/docs/projects/design-system-variables",
-                },
-                {
-                  text: "Design System Components",
-                  link: "/docs/projects/design-system-components",
+                  text: "Email Theme Settings",
+                  link: "/docs/projects/email-theme-settings",
                 },
                 {
                   text: "Suppression Lists",
@@ -221,7 +242,11 @@ export default defineConfig({
               collapsed: false,
               items: [
                 {
-                  text: "Contacts & Subscriber List Management",
+                  text: "Contacts Management",
+                  link: "/docs/api/contacts-management",
+                },
+                {
+                  text: "Subscriber List Management",
                   link: "/docs/api/subscriber-list-management",
                 },
                 {
@@ -245,6 +270,10 @@ export default defineConfig({
                   link: "/docs/integrations/webhooks",
                 },
                 { text: "Supabase", link: "/docs/integrations/supabase" },
+                {
+                  text: "Zapier",
+                  link: "/docs/integrations/zapier",
+                }
               ],
             },
             {
@@ -256,31 +285,31 @@ export default defineConfig({
               link: "/docs/email-personalization",
             },
             {
-              text: "Design Systems",
-              link: "/docs/design-systems/",
+              text: "Email Themes",
+              link: "/docs/email-themes/",
               collapsed: false,
               items: [
                 {
-                  text: "Variables",
-                  link: "/docs/design-systems/variables"
+                  text: "Email Theme Basics",
+                  link: "/docs/email-themes/email-theme-basics"
                 },
                 {
-                  text: "Components",
-                  link: "/docs/design-systems/components"
+                  text: "Email Theme Components",
+                  link: "/docs/email-themes/components"
                 },
                 {
                   text: "Blocks (or modules)",
-                  link: "/docs/design-systems/blocks",
+                  link: "/docs/email-themes/blocks",
                 },
                 {
                   text: "Templates",
-                  link: "/docs/design-systems/templates"
+                  link: "/docs/email-themes/templates"
                 }
               ],
             },
             {
-              text: "Pricing/Credits",
-              link: "/docs/credits",
+              text: "Pricing",
+              link: "/docs/pricing",
             },
           ],
         },
@@ -408,12 +437,11 @@ export default defineConfig({
         },
       ],
     },
-    socialLinks: [{ icon: "x", link: "https://x.com/bluefoxemail" }],
     // Disabling the default footer as we're using a custom component
     footer: false,
   },
   sitemap: {
-    hostname: "https://bluefox.email",
+    hostname: "https://bluefox.email", // Removed trailing space
   },
   markdown: {
     config(md) {

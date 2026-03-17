@@ -40,7 +40,7 @@ Unlike transactional and triggered emails, campaigns are not sent by your backen
 
 Campaigns are sent to the `active` subscribers on a list. Since campaigns are tied to a subscriber list, they must contain an unsubscribe link and optionally a pause subscription link.
 
-You can find the campaigns of a project under the `Campaigns` tab.
+You can find the campaigns of a project under the `Emails` tab.
 
 ![A screenshot of a project's campaigns.](./project-campaigns.webp)
 
@@ -75,7 +75,11 @@ Finally, make changes in the drag 'n' drop email editor:
 When you are done, you can schedule your campaign, or you can send it immediately:
 ![A screenshot of a campaign - schedule and send button highlighted.](./project-campaign-schedule.webp)
 
-You can also check the subscriber list and segment by clicking on this link, it will redirect you to the subscriber list:
+:::tip Send test email
+Its generally a good idea to send a test email before scheduling or sending the campaign. You can do that by clicking the "Send Test Email" button in your campaign email card. More on that in here [Sending Test Emails](/docs/projects/send-test-email.md).
+:::
+
+You can also check and edit the subscriber list and segment by clicking on this link, it will redirect you to the subscriber list:
 ![A screenshot of a campaign - link to redirect to subscriber list.](./redirect-to-subscriber-list.webp)
 
 ## Personalization
@@ -144,8 +148,8 @@ The campaign email statistics section includes the following key metrics:
 - **Unique Opens**: Number of individual recipients who opened your campaign emails (counts only one open per recipient).
 - **Clicks**: Total number of clicks on links within your campaign emails.
 - **Unique Clicks**: Number of individual recipients who clicked on links within your campaign emails (counts only one click per recipient).
-- **Bounces**: Number of campaign emails that failed to be delivered.
-- **Complaints**: Number of complaints (e.g., emails marked as spam).
+- **[Bounces](/email-sending-concepts/bounces)**: Number of campaign emails that failed to be delivered.
+- **[Complaints](/email-sending-concepts/complaints)**: Number of complaints (e.g., emails marked as spam).
 - **Unsubscribes**: Number of recipients who unsubscribed after receiving the campaign email.
 - **Resubscriptions**: Number of recipients who resubscribed after previously unsubscribing.
 - **Paused Subscriptions**: Number of recipients who have paused their subscriptions to your campaign emails.
@@ -156,19 +160,15 @@ These metrics provide a comprehensive view of your campaign's performance and he
 
 You can access the **Campaign Email Statistics** by clicking the arrow icon:
 
-![Advanced Settings Icon](./project-campaigns-stats-btn.webp)
+![Campaign Stats](./project-campaigns-stats-btn.webp)
 
 For more information on how to use the **Campaign Email Statistics**, refer to the [Analytics Documentation](/docs/analytics).
 
 
-## Advanced Settings
+## Other Details
 
-The **Advanced Settings** feature allows you to customize key email-sending options, such as configuring sender identities and reply-to addresses. 
+You can customize every key email-sending options, such as preview text, subject, reply-to addresses, etc for your campaign directly within the campaign card, just click the edit icon on the card for the field you want to edit:
 
-You can access the **Advanced Settings** by clicking the gear icon:
-
-![Advanced Settings Icon](./project-campaign-advanced-settings-btn.webp)
-
-For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings.html#advanced-settings).
+![Edit fields](./project-campaign-advanced-settings-btn.webp)
 
 

@@ -1,5 +1,5 @@
 ---
-title: Amazon SNS (Simple Notification Service) | BlueFox Email
+title: Amazon SNS (Simple Notification Service) 
 description: AWS SNS is a fully managed messaging service that enables publishers to send messages to subscribers, serving as a key component in email notification systems.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

@@ -1,5 +1,5 @@
 ---
-title: SPF (Sender Policy Framework) | BlueFox Email
+title: SPF (Sender Policy Framework) 
 description: SPF is an email authentication method that specifies which mail servers are authorized to send emails on behalf of your domain, helping prevent email spoofing and improving deliverability.
 thumbnail: /assets/glossary/email-sending-glossary.png
 
@@ -105,6 +105,9 @@ It is essential for two primary reasons:
 **Second**, it **enhances your email deliverability**. Email platforms such as Gmail, Outlook, and Yahoo evaluate SPF records to decide whether an email should be directed to the inbox or the spam folder. Emails that successfully pass SPF checks have a significantly higher chance of reaching the inbox.
 
 In summary, SPF fosters trust with email providers, protects your audience from fraudulent activities, and ensures that your legitimate emails are delivered to the appropriate destination.
+
+:::tip Free SPF Audit
+Use our free spf checker tool to audit your domain for spf. Check it out [here](/tools/deliverability/spf-checker).
 
 ## Frequently Asked Questions About SPF
 

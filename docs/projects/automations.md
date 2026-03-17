@@ -66,6 +66,7 @@ Each automation starts with a **Trigger Node**, which determines how and when th
 
 The available node types are:
 - **Send Email**
+- **Notify** 
 - **Timer**
 - **Audience Filter**
 - **Branching**
@@ -174,8 +175,8 @@ Under the email node, you’ll also see delivery stats:
 - **Sent**
 - **Opened**
 - **Clicked**
-- **Bounced**
-- **Complaints**
+- **[Bounced](/email-sending-concepts/bounces)**
+- **[Complaints](/email-sending-concepts/complaints)**
 
 ![Automation node send card Icon](./project-automation-node-send-card-stats.webp)
 
@@ -195,6 +196,24 @@ You can access the **Advanced Settings** feature that allows you to customize ke
 For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings.html#advanced-settings).
 :::
 
+
+## Notify Node
+
+The **Notify Node** allows you to send a notification email to a specific set of audience as a subscriber list or to specific email addresses from the list when a particular action occurs in the automation. This is useful for alerting your team, admins, or any designated group about key events such as when a contact signs up, reaches a specific step, or meets certain criteria.
+
+Inside the notify node, you can:
+- Click **Create Email** to start from scratch or reuse an existing design.
+- Add:
+  - **Subject**
+  - **Preview Text**
+  - **From Address**
+  - **Reply-To Address**
+
+![Automation node notify card Icon](./project-automation-node-notify-card.webp)
+
+::: info Note
+Unlike the Send Email node, which sends to the contact flowing through the automation, the Notify Node sends to a subscriber list of your choice. You can also specify individual email addresses from the list, so you don't necessarily need to send to the entire list. This makes it ideal for internal notifications or alerting a separate audience about automation activity.
+:::
 
 
 ## Branching Node

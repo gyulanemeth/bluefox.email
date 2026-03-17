@@ -36,21 +36,18 @@ head:
 
 # Projects
 
-In bluefox.email, you can create projects for your SaaS. Projects can represent different environments like development, staging, and production. This way, you can manage emails for each environment separately.
-
-For each project, you need to set up a sending email address and your AWS credentials. This allows bluefox.email to send emails using AWS SES.
+In BlueFox Email, you can create projects for each client or brand. For each project, you need to set up at least one sending email address. You can also connect external sending providers if needed.
 
 ## What Each Project Includes
 
-Every project in bluefox.email includes:
+Every project in BlueFox Email includes:
 - [Transactional emails](./transactional-emails)
 - [Triggered emails](./triggered-emails)
 - [Campaigns](./campaigns)
 - [Automations](./automations)
 - [Contacts](./contacts)
 - [Forms & Pages](./forms-and-pages)
-- [Design system variables](./design-system-variables)
-- [Design system components](./design-system-components)
+- [Email Themes](./email-theme-settings)
 - [Suppression Lists](./suppression-list)
 - [Project settings](./settings)
 
@@ -64,7 +61,7 @@ You can find the projects section by clicking the drop down icon on the left-han
 
 ## Free vs. Premium Projects
 
-Projects are free by default, but they include bluefox.email's logo and a link to our website in the email footers.
+Projects are free by default, but they include BlueFox Email's logo and a link to our website in the email footers.
 
 ::: tip Upgrade for Whitelabel
 Upgrade your project to premium to remove our logo and link from your email footers.
@@ -84,7 +81,7 @@ If your project configuration isn't complete, you'll see warnings. Hover over th
 
 When you enter a project, you'll see a tabbed view with all the project-related sections:
 
-![A screenshot of the project view.](./project-transactionals.webp)
+![A screenshot of the project view.](./project-dashboard.webp)
 
 These tabs include:
 - [Transactional emails](./transactional-emails)
@@ -93,8 +90,7 @@ These tabs include:
 - [Automations](./automations)
 - [Contacts](./contacts)
 - [Forms & Pages](./forms-and-pages)
-- [Design system variables](./design-system-variables)
-- [Design system components](./design-system-components)
+- [Email Themes](./email-theme-settings)
 - [Suppression Lists](./suppression-list)
 - [Project settings](./settings)
 

@@ -1,5 +1,5 @@
 ---
-title: AWS Concepts | BlueFox Email
+title: AWS Concepts
 description: Learn about AWS concepts (A-Z) focusing on technologies related to email sending.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 

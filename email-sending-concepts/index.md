@@ -1,5 +1,5 @@
 ---
-title: Email Sending Concepts | BlueFox Email
+title: Email Sending Concepts 
 description: Understand the core concepts behind email sending, from marketing techniques to technical protocols.
 thumbnail: /assets/glossary/email-sending-glossary.png
 sidebar: false

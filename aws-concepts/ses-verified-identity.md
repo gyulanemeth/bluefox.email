@@ -1,5 +1,5 @@
 ---
-title: AWS SES Verified Identities | BlueFox Email
+title: AWS SES Verified Identities
 description: Learn about AWS SES Verified Identities - domains or email addresses that you've proven ownership of and can use for sending emails through Amazon SES.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 sidebar: false

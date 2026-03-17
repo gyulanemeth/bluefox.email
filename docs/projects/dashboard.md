@@ -59,8 +59,8 @@ Project dashboard cover both **email performance** and **subscriber activity**, 
 - **Unique Opens**: The number of unique recipients who opened the emails, indicating how widely your emails are being engaged with.
 - **Clicks**: The total number of clicks on links inside your emails, helping gauge how many recipients take action.
 - **Unique Clicks**: The number of unique recipients who clicked on links in your emails, highlighting the overall engagement level.
-- **Bounces**: The number of emails that failed to be delivered, helping to track deliverability issues.
-- **Complaints**: The number of recipients who marked your emails as spam or filed complaints, an important indicator of email content quality.
+- **[Bounces](/email-sending-concepts/bounces)**: The number of emails that failed to be delivered, helping to track deliverability issues.
+- **[Complaints](/email-sending-concepts/complaints)**: The number of recipients who marked your emails as spam or filed complaints, an important indicator of email content quality.
 
 The chart below displays the performance of transactional, triggered, and campaign emails across the project, highlighting opens, clicks, and complaints.
 ![Project Emails Analytics](./project-analytics-email-stats.webp)

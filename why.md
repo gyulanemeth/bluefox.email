@@ -1,48 +1,52 @@
-# Why SaaS companies should use bluefox.email?
+# Why Marketing Agencies use BlueFox Email
 
-Wait a second... What is bluefox.email?
+Wait a second... What is BlueFox Email?
 
-It's a platform that makes it effortless for SaaS companies to **send and track beautiful transactional, triggered and marketing emails**.
+It’s an email platform built for **marketing agencies** that send for **multiple clients**. Manage separate client projects, invite clients to collaborate, and reuse your best emails and automations across every account with client-specific overrides.
 
-A good impression is invaluable. We believe that email communication should be consistent with your brand and an integral part of your product.
+### A good impression is invaluable.
 
-If your email does not look good, or even worse, it does not reach your customers' inbox, it can ruin the good impression you worked hard to build.
+We believe that email communication should be consistent with clients' brand and should look great on all email devices.
 
-::: danger Typical SaaS email problems (and you might have all of these.):
+If an email does not look good, or worse, doesn’t reach the inbox, it can ruin the impression you worked hard to build.
 
-1) **Inconsistent design.** Transactional and marketing emails look totally different.
-2) **A lot of rendering issues.** Emails fall apart on different clients, especially on **Outlook**.
-3) **Emails don't reach the inbox.** And oftentimes, you don't understand why.
+---
+
+::: danger If you run email for multiple clients, you’ve seen these problems:
+
+1) **Managing multiple clients is chaos.** Constant juggling with logins, late requests and approvals.
+2) **You rebuild the same templates, automations & segments from scratch.** New client = same work every single time.
+3) **Design & rendering issues waste hours.** Looks good in the editor, breaks in Outlook for no reason.
+4) **Reporting drains hours.** You spend more time creating reports than sending campaigns every month.
+5) **Great emails land in spam.** And clients blame you, even though you don’t know what went wrong this time.
+6) **Pricing squeezes margins.** Contact-based billing gets expensive fast, especially when growth triggers hidden cost jumps.
+
 :::
 
-## Beautiful Emails in a Single Place
+The good news? BlueFox Email was built to eliminate every one of these problems.
 
-Let's make sure that your transactional and marketing emails always look consistent and beautiful. Design systems in bluefox.email ensure this. You can create pixel-perfect designs that apply to all your email communications.
+## Manage Multiple Clients Without Chaos  
+BlueFox Email gives you **clean, separated client projects** with proper team roles and permissions. No shared logins, no scattered assets, just a structured way to run email at agency scale.
 
-## No more Email-rendering Issues
+## Build Once. Reuse Everywhere.  
+Save templates, automations, segments, and contact properties as reusable assets. When a new client comes in, **deploy entire email systems in minutes**, not days. Stop starting from zero every single time.
 
-The email HTML we provide is battle-tested. [Our founder's 10+-year experience in the field](./about) ensures that your emails will render properly on mobile, web, and desktop, even on Outlook.
+## Emails That Don’t Break (Even on Outlook)  
+Our HTML is battle-tested and built for **real-world inboxes**: Gmail, Apple Mail, mobile, and yes, even **Outlook**. It comes from [our founder’s 10+ years of email design experience](./about), so layouts hold up where other builders fall apart.
 
-## Reach the Inbox, Avoid Spam
+## Client-Ready Reporting in Minutes  
+BlueFox Email tracks opens, clicks, bounces, complaints and engagement automatically, then presents it in **simple, visual dashboards**. Export reports or share performance without digging through spreadsheets.
 
-AWS SES has famously good deliverability, and its price is unbeatable. They have very strict processes to filter out spammers. For example, if your bounce rate slightly goes up, you have to fix it within a certain amount of time.
-
-That's why we decided that our customers must connect their own AWS SES to our system.
-
-Don't worry if you don't have experience with AWS. We can help you!
+## Deliverability You Can Trust  
+Stop guessing. BlueFox Email helps you **authenticate domains, monitor bounce & complaint rates**, and understand inbox placement risks at a glance. Get alerts when anything threatens inbox placement. Better sending habits become automatic, not a mystery.
 
 ::: warning
-If you are thinking about sending spammy emails, this platform is not for you. If you happen to spam people, AWS will simply revoke your access to SES.
+You must keep bounce rates below 2.5% and complaint rates below 0.05%.
 :::
 
-## Simple and Fair Pricing
+## Pricing That Protects Your Margins  
+Contact-based subscriptions are always overpriced. You pay more just because your clients grow. BlueFox Email flips the model: **only pay for sends**. No per-contact fees, no seat charges, no surprise jumps. Keep revenue in your agency, not in your ESP’s pocket. Check our [simple send-based pricing](./pricing).
 
-Most providers charge you based on the number of contacts you have combined with the number of emails you send. This cryptic pricing **always** ends up costing more than you think. Our [pricing](/pricing) is credit-based, so you only pay for the number of emails you sent, and you can use your credits for a whole year!
+---
 
-### Free Version
-
-When you create a workspace, you get 36000 credits for free. You can use it for branded sends, which means that we put our logo and a link to our website in your emails.
-
-Keep in mind that AWS offers a free tier for 12 months, including 3000 email sends per month.
-
-The two combined should be enough to kick off your project!
+<GlossaryCTA />

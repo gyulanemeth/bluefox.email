@@ -36,9 +36,9 @@ head:
 
 # Contacts
 
-In bluefox.email, Contacts help you manage and organize email recipients. Each contact represents an individual user, storing their email and any additional data. Every project has its own set of contact subscription lists, and you can create as many as needed. Contacts can subscribe to multiple lists, and any updates—such as an email address change—will automatically apply across all subscription lists the contact is subscribed to.
+In BlueFox Email, Contacts help you manage and organize email recipients. Each contact represents an individual user, storing their email and any additional data. Every project has its own set of contact subscription lists, and you can create as many as needed. Contacts can subscribe to multiple lists, and any updates, such as an email address change, will automatically apply across all subscription lists the contact is subscribed to.
 
-You can find your project's contacts under the Contacts tab:
+You can find your project's contacts under the **Manage Contacts** tab:
 ![Screenshot of the subscriber lists page](./project-contacts.webp)
 
 Each contact can be linked to one or more lists. Instead of storing subscriber details directly within a list, lists now reference contacts, creating a flexible and centralized system.
@@ -52,7 +52,11 @@ When setting up a list, you can choose between **public** and **private** visibi
 
 - **Private lists** do not appear on the [subscription preferences](./forms-and-pages#subscription-preferences-page) page. Users will only see them if they are already subscribed. These lists are ideal for internal use, testing, or exclusive communications.
 
-You can toggle between **public** and **private** when creating or editing a list using this switch:
+You can toggle between **public** and **private** when creating or editing a list using this **edit list button** in **Manage Lists** options:
+
+![Screenshot of the subscriber lists page - edit list button highlighted](./project-contacts-edit-list-btn.webp)
+
+Here you can switch the list visibility:
 
 ![Screenshot of the subscriber lists page - public switch highlighted](./project-contacts-lists-private.webp)
 
@@ -65,7 +69,7 @@ Private lists are subscription lists that are not visible to users on the subscr
 To create a contact or list, click the Create button in the Contacts tab.
 ![Screenshot of the subscriber lists page - create button highlighted](./project-contacts-create.webp)
 
-When creating a Contact, you must enter an email. This is the only required field, but you can add additional attributes like name, phone number, or custom data. Contacts can also be subscribed to one or multiple lists during creation.
+When creating a Contact, you must enter an email. This is the only required field, but you can add additional attributes like name, User Version, or custom data. Contacts can also be subscribed to one or multiple lists during creation.
 
 ![Screenshot of the subscriber lists page - create dialog](./project-contacts-create-contact.webp)
 
@@ -104,7 +108,7 @@ Each category (Bounces or Complaints) provides the same set of actions. If you'r
 
 ![Screenshot of the subscriber lists page - clean list options remove or delete](./project-contacts-clean-list-remove-delete.webp)
 
-These options are designed to give you flexibility depending on how you want to manage problematic addresses. The [suppression list](./suppression-list.md) can be accessed from the sidebar if you need to review or update it.
+These options are designed to give you flexibility depending on how you want to manage problematic addresses. The [suppression list](./suppression-list) can be accessed from the sidebar if you need to review or update it.
 
 
 ## Import/Export CSV
@@ -121,7 +125,8 @@ The **Import/Export** button allows you to efficiently manage contacts.
 
   - Export only the Contacts that belong to the selected list.
 
-When importing contacts, the CSV file must contain an `email` column. Additional attributes can be included as needed.
+When importing contacts, the CSV file must contain an `email` column. Additional attributes can be included as needed. You can also trigger matching automation workflows for imported contacts by checking the **Trigger Automation Box** during the import process.
+
 ![Screenshot of the subscriber lists page - import or export CSV](./project-contacts-import.webp)
 
 ## Subscription Statuses
@@ -146,7 +151,8 @@ When you use the `unsubscribeLink` and the `pauseSubscriptionLink` in your email
 
 ## Contacts and Lists Integration
 
-Managing your subscription list in bluefox.email is simple using our [subscription API](/docs/api/subscriber-list-management). This API allows you to subscribe new users, unsubscribe them, activate or pause their subscriptions, list all subscribers, and fetch details about a specific subscriber. We provide code snippets in various programming languages that you can use. Click on the list's "Code guide" button:
+Managing your subscription list in BlueFox Email is simple using our [subscription API](/docs/api/subscriber-list-management). This API allows you to subscribe new users, unsubscribe them, activate or pause their subscriptions, list all subscribers, and fetch details about a specific subscriber. We provide code snippets in various programming languages that you can use. Click on the list's "Code guide" button in **Manage Lists** options:
+
 ![Screenshot of the subscriber lists page - code guide button highlighted](./project-contacts-lists-code-guide.webp)
 
 Just copy and modify the code in your preferred programming language:
@@ -154,10 +160,26 @@ Just copy and modify the code in your preferred programming language:
 ![Screenshot of the subscriber lists page - code guide dialog](./project-contacts-lists-code-guide-dialog-copy-btn.webp)
 
 ::: danger Security Warning  
-Your **bluefox.email** API key must be included in the `Authorization` header of each request. Avoid sending these requests from your frontend to prevent exposing your API key!  
+Your **BlueFox Email** API key must be included in the `Authorization` header of each request. Avoid sending these requests from your frontend to prevent exposing your API key!  
 :::  
 
 For more details and guidance on integrating these endpoints, visit our [API documentation](/docs/api/).  
+
+### Managing Contacts 
+
+You can manage your contacts directly from the Contacts tab. Here, you can view all contacts in your project, along with their subscription statuses across different lists.
+
+![Screenshot of the subscriber lists page - contact management](./project-contacts-manage-contacts.webp)
+
+If you want to manage multiple contacts at once, you can select them using the checkboxes next to each contact. Once selected, you can perform bulk actions such as:
+
+- **Assgin to List**: Add the selected contacts to one or more subscription lists.
+- **Remove from List**: Remove the selected contacts from one or more subscription lists.
+- **Add to Suppression List**: Add the selected contacts to the suppression list to prevent future emails.
+- **Export**: Export the selected contacts to a CSV file for offline management or analysis.
+- **Delete**: Permanently delete the selected contacts from your project.
+
+![Screenshot of the subscriber lists page - bulk actions](./project-contacts-bulk-actions.webp)
 
 ### Managing Contacts via API
 
@@ -228,8 +250,8 @@ Similar to email statistics, this section provides details about the emails sent
 - **Unique Opens**: Number of individual subscribers who opened emails (counts only one open per subscriber).  
 - **Clicks**: Total number of clicks on links within the emails sent to this list.  
 - **Unique Clicks**: Number of individual subscribers who clicked on links (counts only one click per subscriber).  
-- **Bounces**: Number of emails that failed to deliver.  
-- **Complaints**: Number of complaints (e.g., emails marked as spam).   
+- **[Bounces](/email-sending-concepts/bounces)**: Number of emails that failed to deliver.  
+- **[Complaints](/email-sending-concepts/complaints)**: Number of complaints (e.g., emails marked as spam).   
 - **Subscriptions**: Number of new subscribers added to the list during the selected time interval.  
 - **Resubscriptions**: Number of previous subscribers who re-subscribed.  
 - **Unsubscribes**: Number of subscribers who opted out during the selected period.  
@@ -239,7 +261,7 @@ These metrics provide a comprehensive view of your subscription list's performan
 
 ### How to Access Subscription List Statistics
 
-You can access the **Subscription List Statistics** by clicking the arrow icon:
+You can access the **Subscription List Statistics** by clicking the **More Stats** button in the **Manage Lists** options for any subscription list:
 
 ![stats Icon](./project-subscriber-lists-stats-btn.webp)
 

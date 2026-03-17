@@ -1,5 +1,5 @@
 ---
-title: DMARC (Domain-based Message Authentication, Reporting, and Conformance) | BlueFox Email
+title: DMARC (Domain-based Message Authentication, Reporting, and Conformance) 
 description: DMARC is an email authentication protocol that unifies SPF and DKIM with policy enforcement and reporting. Learn what DMARC is, how it works, and why it matters for email security.
 thumbnail: /assets/glossary/email-sending-glossary.png
 
@@ -119,6 +119,9 @@ For instance, if an attempt is made to spoof `invoice@example.com` without the s
 DMARC is essential for **protecting your domain from impersonation, phishing, and [email spoofing](/email-sending-concepts/email-spoofing.md)**. Without it, malicious actors can forge your domain in the "From" address, sending fraudulent emails that seem legitimate. While SPF and DKIM validate specific technical aspects, they do not ensure alignment with the domain visible to users, creating a vulnerability. DMARC addresses this by **enforcing domain alignment**, ensuring the visible sender matches authenticated sources and allowing domain owners to control actions for messages that fail this check.
 
 In addition to security, DMARC offers operational benefits. It fosters **trust with email providers** and recipients, enhancing deliverability and reducing the chances of emails being marked as spam. DMARC reports provide valuable insights into how your domain is utilized, showing who sends emails on your behalf and their authentication success. Given that phishing is a primary attack vector, DMARC is essential. It is a **critical component of any email security and brand protection strategy**, and many inbox providers now require it for high-volume senders or those wishing to display brand logos via BIMI.
+
+:::tip Free Dmarc Audit
+Use our free dmarc checker tool to audit your domain for dmarc, check it out [here](/tools/deliverability/dmarc-checker). We also have a free dmarc report analyzer check that [here](/tools/deliverability/dmarc-report-analyzer)
 
 ## Frequently Asked Questions About DMARC
 
