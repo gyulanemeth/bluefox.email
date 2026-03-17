@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from 'vitepress'
 import tailwindcss from 'tailwindcss'
+import vuetify from 'vite-plugin-vuetify'
 import { addSchemaMarkup } from './theme/SchemaMarkup/schemaMarkup'
 import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
 import { addComparisonSchemaMarkup } from './theme/SchemaMarkup/ComparisonSchemaMarkup'
@@ -12,7 +13,10 @@ const securityHeaders = {
   'X-Frame-Options': 'DENY',
 }
 
-let headConf = [];
+let headConf = [
+  // Preload the subset MDI icon font for faster icon rendering
+  ['link', { rel: 'preload', href: '/assets/mdi-subset.woff2', as: 'font', type: 'font/woff2', crossorigin: '' }],
+];
 
 if (env.VITE_APP_ENV === 'production') {
   // Preconnect to external domains for better performance (only in production)
@@ -50,6 +54,9 @@ export default defineConfig({
     addComparisonSchemaMarkup(pageData)
   },
   vite: {
+    plugins: [
+      vuetify({ autoImport: false, styles: 'none' }),
+    ],
     server: {
       headers: securityHeaders,
     },
@@ -71,9 +78,6 @@ export default defineConfig({
             }
             if (id.includes('vue')) {
               return 'vue-vendor';
-            }
-            if (id.includes('@mdi')) {
-              return 'mdi-vendor';
             }
             return 'vendor';
           }

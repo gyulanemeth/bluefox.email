@@ -1308,7 +1308,7 @@ onBeforeUnmount(() => {
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="List management dashboard screenshot">
-    <img alt="List management dashboard showing compliance features including double opt-in, unsubscribe management, and automated suppression lists" src="/assets/list-management.webp" loading="lazy" />
+    <img alt="List management dashboard showing compliance features including double opt-in, unsubscribe management, and automated suppression lists" src="/assets/list-management.webp" loading="lazy" width="1920" height="1080" />
   </v-card>
 </section>
 
@@ -1323,7 +1323,7 @@ onBeforeUnmount(() => {
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="Analytics dashboard screenshot">
-    <img alt="Analytics dashboard displaying email campaign metrics including open rates, click-through rates, conversion attribution, and revenue impact data" src="/assets/analytics-alt.webp" loading="lazy" />
+    <img alt="Analytics dashboard displaying email campaign metrics including open rates, click-through rates, conversion attribution, and revenue impact data" src="/assets/analytics-alt.webp" loading="lazy" width="1920" height="1080" />
   </v-card>
 </section>
 
