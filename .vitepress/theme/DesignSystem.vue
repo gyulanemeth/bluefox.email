@@ -33,7 +33,7 @@ function selectDesignSystem (idx) {
 let intervalId
 
 onMounted(() => {
-  setInterval(() => {
+  intervalId = setInterval(() => {
     let actSelVal = selectedDesignSystem.value
     actSelVal += 1
     actSelVal %= 3
@@ -52,8 +52,9 @@ onBeforeUnmount(() => {
     <v-row>
       <v-col cols="12" md="4" class="d-flex flex-column justify-center">
         <v-card
-          :elevation="selectedDesignSystem === 0 ? '16' : '1'"
-          class="mx-auto"
+          :elevation="selectedDesignSystem === 0 ? 16 : 1"
+          class="mx-auto design-system-card"
+          :class="{ 'design-system-card--active': selectedDesignSystem === 0 }"
           width="100%"
           max-width="500px"
           :theme="isDark ? 'dark' : 'light'"
@@ -106,8 +107,9 @@ onBeforeUnmount(() => {
         </v-card>
 
         <v-card
-          :elevation="selectedDesignSystem === 1 ? '20' : '1'"
-          class="mx-auto mt-6"
+          :elevation="selectedDesignSystem === 1 ? 16 : 1"
+          class="mx-auto mt-6 design-system-card"
+          :class="{ 'design-system-card--active': selectedDesignSystem === 1 }"
           width="100%"
           max-width="500px"
           :theme="isDark ? 'dark' : 'light'"
@@ -159,8 +161,9 @@ onBeforeUnmount(() => {
         </v-card>
 
         <v-card
-          :elevation="selectedDesignSystem === 2 ? '20' : '1'"
-          class="mx-auto mt-6"
+          :elevation="selectedDesignSystem === 2 ? 16 : 1"
+          class="mx-auto mt-6 design-system-card"
+          :class="{ 'design-system-card--active': selectedDesignSystem === 2 }"
           width="100%"
           max-width="500px"
           :theme="isDark ? 'dark' : 'light'"
@@ -280,6 +283,16 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+  .design-system-card {
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+    /* border: 1px solid transparent; */
+  }
+
+  .design-system-card--active {
+    transform: translateY(-2px) scale(1.01);
+    border-color: var(--vp-c-brand-1);
+  }
+
   .design-system-2-font {
     font-family: "Amatic SC", serif;
     font-weight: 700;

@@ -44,6 +44,7 @@ const result = await new PurgeCSS().purge({
       /^theme--/,    // Vuetify theme classes
       /^VPDoc/,      // VitePress doc classes
       /^vp-/,        // VitePress classes
+      /^svg-design-system-/, // Dynamic SVG theme classes (1/2/3)
       'dark',
       /^fade-/,      // Vue transition classes
       /^slide-/,
