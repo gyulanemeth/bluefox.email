@@ -59,7 +59,7 @@ const result = await new PurgeCSS().purge({
       /v-move/,
     ],
   },
-  fontFace: true,
+  fontFace: false,
   keyframes: true,
   variables: true,
 })
