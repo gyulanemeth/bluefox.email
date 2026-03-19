@@ -1,4 +1,6 @@
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
   logoSrc: {
     type: String,
@@ -14,10 +16,27 @@ const props = defineProps({
   }
 })
 
+const selectedDesignSystemSafe = computed(() => {
+  const value = Number(props.selectedDesignSystem)
+  if (!Number.isFinite(value)) {
+    return 0
+  }
+  return Math.min(2, Math.max(0, Math.floor(value)))
+})
+
 </script>
 
 <template>
-  <svg role="presentation" viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg" :class="`svg-design-system-${selectedDesignSystem + 1}`">
+  <svg
+    role="presentation"
+    viewBox="0 0 210 297"
+    xmlns="http://www.w3.org/2000/svg"
+    :class="{
+      'svg-design-system-1': selectedDesignSystemSafe === 0,
+      'svg-design-system-2': selectedDesignSystemSafe === 1,
+      'svg-design-system-3': selectedDesignSystemSafe === 2
+    }"
+  >
     <!-- Background -->
     <rect class="svgBackground" width="210" height="297" />
 
@@ -26,7 +45,7 @@ const props = defineProps({
 
     <!-- Placeholder image -->
     <transition name="fade">
-      <g v-if="selectedDesignSystem === 0">
+      <g v-if="selectedDesignSystemSafe === 0">
         <rect x="20" y="30" width="170" height="80" fill="#f3f4f6" stroke="#e0e0e0" />
         <!-- Mountains -->
         <polygon points="40,100 80,60 120,100" fill="#d1d5db" />
@@ -34,7 +53,7 @@ const props = defineProps({
         <!-- Sun -->
         <circle cx="50" cy="50" r="7" fill="#bcbcbc" />
       </g>
-      <g v-else-if="selectedDesignSystem === 1">
+      <g v-else-if="selectedDesignSystemSafe === 1">
         <rect x="20" y="30" width="170" height="80" fill="#f3f4f6" stroke="#e0e0e0" />
         <!-- House -->
         <rect x="40" y="80" width="40" height="20" fill="#d1d5db"/>

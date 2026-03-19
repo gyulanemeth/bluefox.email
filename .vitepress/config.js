@@ -5,8 +5,17 @@ import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
 import { addComparisonSchemaMarkup } from './theme/SchemaMarkup/ComparisonSchemaMarkup'
 
 const env = loadEnv('', process.cwd())
+const securityHeaders = {
+  'Content-Security-Policy': "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data: https:; font-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.redditstatic.com; connect-src 'self' https:; frame-src 'self' https:; worker-src 'self' blob:; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types default",
+  'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+  'Cross-Origin-Opener-Policy': 'same-origin',
+  'X-Frame-Options': 'DENY',
+}
 
-let headConf = [];
+let headConf = [
+  // Preload the subset MDI icon font for faster icon rendering
+  ['link', { rel: 'preload', href: '/assets/mdi-subset.woff2', as: 'font', type: 'font/woff2', crossorigin: '' }],
+];
 
 if (env.VITE_APP_ENV === 'production') {
   // Preconnect to external domains for better performance (only in production)
@@ -38,33 +47,18 @@ export default defineConfig({
   title: "BlueFox Email",
   description: "High deliverability & brand consistency.",
   head: headConf,
-  transformHead({ assets, ...context }) {
-    const mdiFontFile = assets.find(asset =>
-      asset.includes('materialdesignicons') && asset.endsWith('.woff2')
-    );
-
-    if (mdiFontFile) {
-      return [
-        [
-          'link',
-          {
-            rel: 'preload',
-            href: `${mdiFontFile}`,
-            as: 'font',
-            type: 'font/woff2',
-            crossorigin: '',
-          }
-        ]
-      ];
-    }
-    return [];
-  },
   transformPageData(pageData) {
     addToolsSchemaMarkup(pageData)
     addSchemaMarkup(pageData)
     addComparisonSchemaMarkup(pageData)
   },
   vite: {
+    server: {
+      headers: securityHeaders,
+    },
+    preview: {
+      headers: securityHeaders,
+    },
     ssr: {
       noExternal: ["vuetify"],
     },
@@ -80,9 +74,6 @@ export default defineConfig({
             }
             if (id.includes('vue')) {
               return 'vue-vendor';
-            }
-            if (id.includes('@mdi')) {
-              return 'mdi-vendor';
             }
             return 'vendor';
           }
@@ -123,7 +114,7 @@ export default defineConfig({
         component: "NavigationButton",
         props: {
           text: "Login",
-          link: "https://app.bluefox.email", // Removed trailing space
+          link: "https://app.bluefox.email",
           variant: "outlined",
         },
       },
@@ -131,7 +122,7 @@ export default defineConfig({
         component: "NavigationButton",
         props: {
           text: "Get Started for Free",
-          link: "https://app.bluefox.email/accounts/create-account", // Removed trailing space
+          link: "https://app.bluefox.email/accounts/create-account",
           variant: "flat",
           color: "primary",
         },

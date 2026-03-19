@@ -1,4 +1,6 @@
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
   logoSrc: {
     type: String,
@@ -14,10 +16,27 @@ const props = defineProps({
   }
 })
 
+const selectedDesignSystemSafe = computed(() => {
+  const value = Number(props.selectedDesignSystem)
+  if (!Number.isFinite(value)) {
+    return 0
+  }
+  return Math.min(2, Math.max(0, Math.floor(value)))
+})
+
 </script>
 
 <template>
-  <svg role="presentation" viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg" :class="`svg-design-system-${selectedDesignSystem + 1}`">
+  <svg
+    role="presentation"
+    viewBox="0 0 210 297"
+    xmlns="http://www.w3.org/2000/svg"
+    :class="{
+      'svg-design-system-1': selectedDesignSystemSafe === 0,
+      'svg-design-system-2': selectedDesignSystemSafe === 1,
+      'svg-design-system-3': selectedDesignSystemSafe === 2
+    }"
+  >
     <!-- Header -->
     <rect x="6" width="198" height="30" class="svgHeader" />
     <image x="45%" y="5"  :href="logoSrc" width="20" height="20" />
@@ -30,7 +49,7 @@ const props = defineProps({
 
     <!-- Placeholder image -->
     <transition name="fade">
-      <g v-if="selectedDesignSystem === 0" class="svgPlaceholderImg">
+      <g v-if="selectedDesignSystemSafe === 0" class="svgPlaceholderImg">
         <rect x="20" y="70" width="170" height="80" fill="#f3f4f6" stroke="#e0e0e0" />
         <!-- Mountains -->
         <polygon class="placeholderShape" points="40,140 80,100 120,140" fill="#d1d5db" />
@@ -38,7 +57,7 @@ const props = defineProps({
         <!-- Sun -->
         <circle cx="50" cy="90" r="7" fill="#bcbcbc" />
       </g>
-      <g v-else-if="selectedDesignSystem === 1">
+      <g v-else-if="selectedDesignSystemSafe === 1">
         <rect x="20" y="70" width="170" height="80" fill="#f3f4f6" stroke="#e0e0e0" />
         <!-- House -->
         <rect x="40" y="120" width="40" height="20" fill="#d1d5db"/>
