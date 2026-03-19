@@ -222,7 +222,6 @@ html.dark .pricing-card-period {
   list-style: none !important;
   padding: 0 !important;
   margin: 0 0 24px 0 !important;
-  flex-grow: 1;
 }
 
 .pricing-card-features li {
@@ -256,6 +255,7 @@ html.dark .pricing-card-features li {
   cursor: pointer;
   font-size: 16px;
   text-decoration: none !important;
+  margin-top: auto;
 }
 
 .pricing-card-cta.primary {
@@ -327,6 +327,62 @@ html.dark .pricing-card.contact-sales {
 .pricing-card.contact-sales .pricing-card-subtitle {
   font-size: 16px;
   margin-bottom: 32px;
+}
+
+.pricing-card.free-card {
+  border-color: #e2e8f0;
+}
+
+.pricing-card.free-card .pricing-card-amount {
+  font-size: 48px;
+  background: linear-gradient(120deg, #392C91 5%, #13B0EE);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html.dark .pricing-card.free-card .pricing-card-amount {
+  background: linear-gradient(120deg, #8a7ed8 5%, #13B0EE);
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.need-more-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  text-align: center;
+}
+
+html.dark .need-more-banner {
+  background: linear-gradient(135deg, rgb(30, 30, 34) 0%, rgb(24, 24, 27) 100%);
+  border-color: #334155;
+}
+
+.need-more-banner p {
+  margin: 0;
+  font-size: 15px;
+  color: #334155;
+}
+
+html.dark .need-more-banner p {
+  color: #cbd5e1;
+}
+
+.need-more-banner a {
+  color: var(--vp-c-brand);
+  font-weight: 600;
+  text-decoration: none !important;
+}
+
+.need-more-banner a:hover {
+  text-decoration: underline !important;
 }
 
 .pricing-card-note {
@@ -715,7 +771,7 @@ html.dark .pricing-vat-label {
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
     >
-      Get started free
+      Get Started for Free
     </v-btn>
     <v-btn
       rounded="x1"
@@ -729,14 +785,26 @@ html.dark .pricing-vat-label {
       Contact sales
     </v-btn>
   </div>
-  
-  <p class="pricing-hero-note">
-    Every new workspace starts with <strong>3000 free sends</strong> no credit card required.<br><strong>Use your sends anytime within a year.</strong> Buy more whenever you need, they stack automatically.
-  </p>
 </section>
 
 <section class="pricing-cards-section">
   <div class="pricing-cards-grid">
+    <div class="pricing-card free-card">
+      <h3>Free</h3>
+      <div class="pricing-card-price">
+        <span class="pricing-card-amount">$0</span>
+      </div>
+      <ul class="pricing-card-features">
+        <li><strong>3,000 free sends</strong> included</li>
+        <li><strong>No credit card</strong> required</li>
+        <li><strong>Access to full platform!</strong> No restrictions</li>
+        <li><strong>Valid for 12 months</strong></li>
+      </ul>
+      <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
+        Get Started for Free
+      </a>
+      <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667; color: #64748b; visibility: hidden">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
+    </div>
     <div class="pricing-card featured">
       <span class="pricing-badge-popular">Most popular</span>
       <h3>Essential</h3>
@@ -768,18 +836,12 @@ html.dark .pricing-vat-label {
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
         Buy 500K sends
       </a>
-      <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667;color: #64748b;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
+      <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667; color: #64748b;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
     </div>
-    <div class="pricing-card contact-sales">
-      <h3>Need more sends?</h3>
-      <p class="pricing-card-subtitle">Custom volume & enterprise setup with dedicated onboarding and volume discounts</p>
-      <a href="mailto:hello@bluefox.email" class="pricing-card-cta dark">
-        Talk to sales
-      </a>
-      <p class="pricing-card-note">
-        When you bring your own SES, you also get better email prices. <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a>
-      </p>
-    </div>
+  </div>
+  <div class="need-more-banner">
+    <p><strong>Need more sends?</strong> Custom volume & enterprise setup with dedicated onboarding. <a href="mailto:hello@bluefox.email">Talk to sales</a></p>
+    <p>Bring your own SES for better email prices. <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a></p>
   </div>
 </section>
 
