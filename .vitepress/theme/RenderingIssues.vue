@@ -52,7 +52,7 @@ const props = defineProps({
           class="no-uppercase animated-btn"
           @click="isFixed = false"
         >
-          Other templates
+          Other Templates
         </v-btn>
       </v-col>
       <v-col cols="12" sm="auto" class="py-0">
@@ -63,7 +63,7 @@ const props = defineProps({
           class="no-uppercase animated-btn"
           @click="isFixed = true"
         >
-          bluefox.email templates
+          BlueFox Email Templates
         </v-btn>
       </v-col>
     </v-row>

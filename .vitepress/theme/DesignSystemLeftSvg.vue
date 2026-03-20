@@ -1,4 +1,6 @@
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({
   logoSrc: {
     type: String,
@@ -14,10 +16,27 @@ const props = defineProps({
   }
 })
 
+const selectedDesignSystemSafe = computed(() => {
+  const value = Number(props.selectedDesignSystem)
+  if (!Number.isFinite(value)) {
+    return 0
+  }
+  return Math.min(2, Math.max(0, Math.floor(value)))
+})
+
 </script>
 
 <template>
-  <svg role="presentation" viewBox="0 0 210 297" xmlns="http://www.w3.org/2000/svg" :class="`svg-design-system-${selectedDesignSystem + 1}`">
+  <svg
+    role="presentation"
+    viewBox="0 0 210 297"
+    xmlns="http://www.w3.org/2000/svg"
+    :class="{
+      'svg-design-system-1': selectedDesignSystemSafe === 0,
+      'svg-design-system-2': selectedDesignSystemSafe === 1,
+      'svg-design-system-3': selectedDesignSystemSafe === 2
+    }"
+  >
     <!-- Background -->
     <rect width="210" height="297" class="svgBackground" />
 
