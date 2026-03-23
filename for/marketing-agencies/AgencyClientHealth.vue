@@ -123,7 +123,7 @@ const clients = [
       </button>
       <div v-if="showExplainer" class="explainer-body">
         <ul class="explainer-list">
-          <li>Each client project can connect its own AWS SES account — sending infrastructure is fully separated.</li>
+          <li>Each client project can connect its own AWS SES account, so sending infrastructure is fully separated.</li>
           <li>DKIM, SPF, and DMARC are configured per project, preventing cross-client authentication conflicts.</li>
           <li>A bounce spike on one client's campaign has zero effect on any other client's inbox placement.</li>
         </ul>
@@ -132,7 +132,7 @@ const clients = [
 
     <div class="health-callout" role="note">
       <strong>Evidence-based retainer conversations.</strong>
-      <span> Share per-client health reports to demonstrate deliverability management as a value-add — not just a checkbox.</span>
+      <span> Share per-client health reports to demonstrate deliverability management as a value-add, not just a checkbox.</span>
     </div>
   </section>
 </template>

@@ -55,7 +55,7 @@ const activeEmailType = () => emailTypes.find(t => t.id === activeType.value)
         <span class="text-overline">Cross-Client Rendering</span>
       </v-chip>
       <h2 id="rendering-matrix-title">Every Lifecycle Email, Pixel-Perfect Across Every Inbox</h2>
-      <p>Your welcome sequence, invoices, usage alerts, and password resets all render flawlessly — from Gmail on mobile to Outlook 2016 on desktop.</p>
+      <p>Your welcome sequence, invoices, usage alerts, and password resets all render flawlessly, from Gmail on mobile to Outlook 2016 on desktop.</p>
     </div>
 
     <div class="type-tabs" role="tablist" aria-label="Email types">
@@ -106,7 +106,7 @@ const activeEmailType = () => emailTypes.find(t => t.id === activeType.value)
 
     <div class="matrix-callout" role="note">
       <strong>Battle-tested transactional markup.</strong>
-      <span> BlueFox generates HTML specifically engineered for email client quirks — your lifecycle emails arrive looking exactly as designed, every time.</span>
+      <span> BlueFox generates HTML specifically engineered for email client quirks, so your lifecycle emails arrive looking exactly as designed, every time.</span>
     </div>
   </section>
 </template>

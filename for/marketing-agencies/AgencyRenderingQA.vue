@@ -37,7 +37,7 @@ const steps = [
   {
     number: '03',
     title: 'Ship',
-    detail: 'Send with confidence — no manual cross-client testing needed.'
+    detail: 'Send with confidence, no manual cross-client testing needed.'
   }
 ]
 </script>

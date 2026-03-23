@@ -13,7 +13,7 @@ const steps = [
   {
     number: '3',
     title: 'Start sending',
-    detail: 'Your emails are authenticated and inbox-ready. Send with confidence — deliverability is handled.'
+    detail: 'Your emails are authenticated and inbox-ready. Send with confidence, deliverability is handled.'
   }
 ]
 
@@ -75,7 +75,7 @@ const healthChecks = [
 
     <div class="setup-callout" role="note">
       <strong>Plain-English alerts if anything needs attention.</strong>
-      <span> If a DNS record expires or your bounce rate creeps up, BlueFox tells you exactly what to do — no deliverability expertise required.</span>
+      <span> If a DNS record expires or your bounce rate creeps up, BlueFox tells you exactly what to do, no deliverability expertise required.</span>
     </div>
   </section>
 </template>
