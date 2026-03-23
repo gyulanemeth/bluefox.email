@@ -2,6 +2,8 @@
 import PersonaLanding from '../components/PersonaLanding.vue'
 import AgencyWorkflowPanel from './AgencyWorkflowPanel.vue'
 import ClientProjectGrid from './ClientProjectGrid.vue'
+import AgencyRenderingQA from './AgencyRenderingQA.vue'
+import AgencyClientHealth from './AgencyClientHealth.vue'
 
 const painPoints = [
   {
@@ -73,8 +75,6 @@ const heroFeatureItems = [
     design-description="Build component libraries once, apply brand-specific overrides per client, and launch polished campaigns across accounts without starting from zero every time."
     automation-title="Deploy Automations Faster Across Multiple Clients"
     automation-description="Ship onboarding, retention, and promotional flows quickly — cloning proven automations between projects while preserving each client's brand voice and segmentation logic."
-    rendering-title="Protect Every Client's Reputation with Reliable Rendering"
-    rendering-description="Send campaigns confidently with battle-tested markup designed for real-world inbox behavior across all major clients, including notoriously difficult Outlook edge cases."
     analytics-title="Deliver Client-Ready Reporting in Minutes"
     analytics-description="Export clean, visual analytics that help clients understand performance clearly — making retainer renewals, upsells, and strategy conversations much easier."
     final-title="Build a Higher-Margin Agency Email Operation"
@@ -82,6 +82,12 @@ const heroFeatureItems = [
   >
     <template #afterPain>
       <ClientProjectGrid />
+    </template>
+    <template #renderingContent>
+      <AgencyRenderingQA />
+    </template>
+    <template #deliverabilityContent>
+      <AgencyClientHealth />
     </template>
     <template #bottom>
       <AgencyWorkflowPanel />

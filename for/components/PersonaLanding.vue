@@ -4,7 +4,6 @@ import { useData } from 'vitepress'
 
 import DesignSystem from '../../.vitepress/theme/DesignSystem.vue'
 import Automation from '../../.vitepress/theme/Automation.vue'
-import RenderingIssues from '../../.vitepress/theme/RenderingIssues.vue'
 import Integration from '../../.vitepress/theme/Integration.vue'
 import AppleMailTestimonials from '../../.vitepress/theme/AppleMailTestimonials.vue'
 import PersonaHero from './PersonaHero.vue'
@@ -33,8 +32,11 @@ defineProps({
   designDescription: { type: String, required: true },
   automationTitle: { type: String, required: true },
   automationDescription: { type: String, required: true },
-  renderingTitle: { type: String, required: true },
-  renderingDescription: { type: String, required: true },
+  renderingTitle: { type: String, default: '' },
+  renderingDescription: { type: String, default: '' },
+  deliverabilityTitle: { type: String, default: '' },
+  deliverabilityDescription: { type: String, default: '' },
+  deliverabilityFeatures: { type: Array, default: () => [] },
   analyticsTitle: { type: String, required: true },
   analyticsDescription: { type: String, required: true },
   finalTitle: { type: String, required: true },
@@ -134,17 +136,20 @@ const { isDark } = useData()
     />
   </section>
 
-  <section id="rendering-reliability" class="section-block" aria-labelledby="rendering-title">
+  <section v-if="$slots.renderingContent" class="persona-slot" aria-label="Rendering content">
+    <slot name="renderingContent" />
+  </section>
+  <section v-else-if="renderingTitle" id="rendering-reliability" class="section-block" aria-labelledby="rendering-title">
     <h2 id="rendering-title" class="section-title">{{ renderingTitle }}</h2>
     <p class="section-subtitle constrained">{{ renderingDescription }}</p>
-    <RenderingIssues
-      class="mt-6"
-      :is-dark="isDark"
-      :lg-and-up="lgAndUp"
-      :md="md"
-      :sm="sm"
-      :xs="xs"
-    />
+  </section>
+
+  <section v-if="$slots.deliverabilityContent" class="persona-slot" aria-label="Deliverability content">
+    <slot name="deliverabilityContent" />
+  </section>
+  <section v-else-if="deliverabilityTitle" id="deliverability" class="section-block" aria-labelledby="deliverability-title">
+    <h2 id="deliverability-title" class="section-title">{{ deliverabilityTitle }}</h2>
+    <p class="section-subtitle constrained">{{ deliverabilityDescription }}</p>
   </section>
 
   <section class="section-block" aria-labelledby="analytics-title">

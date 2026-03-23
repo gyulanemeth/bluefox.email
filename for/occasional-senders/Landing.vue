@@ -2,6 +2,8 @@
 import PersonaLanding from '../components/PersonaLanding.vue'
 import PreSendChecklist from './PreSendChecklist.vue'
 import PricingSnapshot from './PricingSnapshot.vue'
+import SimpleRenderingPreview from './SimpleRenderingPreview.vue'
+import GuidedDeliverySetup from './GuidedDeliverySetup.vue'
 
 const painPoints = [
   {
@@ -73,8 +75,6 @@ const heroFeatureItems = [
     design-description="Use reusable templates and blocks so every new send starts from a proven baseline — not a rushed rebuild that introduces drift and inconsistency."
     automation-title="Automate the Essentials and Stay Lean"
     automation-description="Set up practical flows like welcome messages and follow-ups without committing to a heavy operational overhead your team doesn't have time for."
-    rendering-title="No Last-Minute Rendering Surprises Before Launch"
-    rendering-description="Preview and send messages built to hold up across all major inboxes, so you can be confident before you hit send — not panicking after."
     analytics-title="Understand What Worked After Each Send"
     analytics-description="Review clean open rates, clicks, and subscriber data after each campaign so you can make one or two smart improvements next time — without getting buried."
     final-title="Run Occasional Email with Confidence"
@@ -82,6 +82,12 @@ const heroFeatureItems = [
   >
     <template #afterPain>
       <PricingSnapshot />
+    </template>
+    <template #renderingContent>
+      <SimpleRenderingPreview />
+    </template>
+    <template #deliverabilityContent>
+      <GuidedDeliverySetup />
     </template>
     <template #bottom>
       <PreSendChecklist />

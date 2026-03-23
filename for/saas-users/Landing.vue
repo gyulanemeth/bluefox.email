@@ -2,6 +2,8 @@
 import PersonaLanding from '../components/PersonaLanding.vue'
 import SaaSApiTasksTable from './SaaSApiTasksTable.vue'
 import LifecycleStageCards from './LifecycleStageCards.vue'
+import SaaSRenderingMatrix from './SaaSRenderingMatrix.vue'
+import SaaSDeliveryStreams from './SaaSDeliveryStreams.vue'
 
 const painPoints = [
   {
@@ -73,8 +75,6 @@ const heroFeatureItems = [
     design-description="Build a modular design system for onboarding, activation, retention, and transactional messaging — then reuse it safely across every product stream without rebuilding from scratch."
     automation-title="Automate Lifecycle Messaging Without Engineering Overhead"
     automation-description="Set up onboarding flows, usage nudges, trial-to-paid conversion campaigns, and churn-risk plays in a visual workflow builder your growth team can own and iterate on independently."
-    rendering-title="Deliver Reliable UX Across Every Inbox"
-    rendering-description="From desktop Outlook to mobile Gmail, your lifecycle messages stay visually consistent so product communication feels as polished as your app."
     analytics-title="Measure Email as a Product Growth Channel"
     analytics-description="Track engagement, delivery health, and subscription trends in one place so product and growth teams can optimize journeys based on outcomes — not guesswork."
     final-title="Turn Email Into a Compounding SaaS Growth Advantage"
@@ -82,6 +82,12 @@ const heroFeatureItems = [
   >
     <template #afterPain>
       <LifecycleStageCards />
+    </template>
+    <template #renderingContent>
+      <SaaSRenderingMatrix />
+    </template>
+    <template #deliverabilityContent>
+      <SaaSDeliveryStreams />
     </template>
     <template #bottom>
       <SaaSApiTasksTable />
