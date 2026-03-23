@@ -19,7 +19,7 @@ head:
       content: https://bluefox.email/assets/share-amazon-ses.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/for/aws-ses-users
+      content: https://bluefox.email/for/amazon-ses-users
   - - meta
     - property: og:type
       content: website
@@ -368,7 +368,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Combine the power of Amazon SES for both transactional and marketing emails, keep your brand consistent, and manage all your communications from one easy-to-use plaftorm.
+      Combine the power of Amazon SES for both transactional and marketing emails, keep your brand consistent, and manage all your communications from one easy-to-use platform.
     </div>
   </div>
 
@@ -472,7 +472,7 @@ onBeforeUnmount(() => {
   />
 </section>
 
-<section id="developers" class="value-prop" style="padding-top: 0;">
+<section id="developers-api" class="value-prop" style="padding-top: 0;">
   <h2 class="sectionTitle text-center mb-3">
     Simple, Technology-Agnostic API
   </h2>

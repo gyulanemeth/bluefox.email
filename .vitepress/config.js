@@ -116,6 +116,15 @@ export default defineConfig({
     nav: [
       { text: "Home", link: "/" },
       { text: "Pricing", link: "/pricing" },
+      {
+        text: "For",
+        items: [
+          { text: "Amazon SES Users", link: "/for/amazon-ses-users" },
+          { text: "SaaS Users", link: "/for/saas-users" },
+          { text: "Marketing Agencies", link: "/for/marketing-agencies" },
+          { text: "Occasional Senders", link: "/for/occasional-senders" },
+        ],
+      },
       { text: "Tutorials", link: "/tutorials" },
       { text: "Articles", link: "/articles" },
       { text: "Docs", link: "/docs/" },
@@ -314,6 +323,29 @@ export default defineConfig({
             {
               text: "DMARC",
               link: "/email-best-practices-for-saas/dmarc",
+            },
+          ],
+        },
+        {
+          text: "For",
+          link: "/for/amazon-ses-users",
+          collapsed: false,
+          items: [
+            {
+              text: "Amazon SES Users",
+              link: "/for/amazon-ses-users",
+            },
+            {
+              text: "SaaS Users",
+              link: "/for/saas-users",
+            },
+            {
+              text: "Marketing Agencies",
+              link: "/for/marketing-agencies",
+            },
+            {
+              text: "Occasional Senders",
+              link: "/for/occasional-senders",
             },
           ],
         },
