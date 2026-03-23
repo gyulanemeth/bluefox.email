@@ -2,7 +2,6 @@
 import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
 
-import BrandLogos from '../../.vitepress/theme/BrandLogos.vue'
 import DesignSystem from '../../.vitepress/theme/DesignSystem.vue'
 import Automation from '../../.vitepress/theme/Automation.vue'
 import RenderingIssues from '../../.vitepress/theme/RenderingIssues.vue'
@@ -28,6 +27,8 @@ defineProps({
     validator: (value) => value.length >= 3
   },
   testimonialTitle: { type: String, required: true },
+  midCtaTitle: { type: String, default: '' },
+  midCtaDescription: { type: String, default: '' },
   designTitle: { type: String, required: true },
   designDescription: { type: String, required: true },
   automationTitle: { type: String, required: true },
@@ -57,11 +58,6 @@ const { isDark } = useData()
     :cta-href="ctaHref"
   />
 
-  <section class="brand-strip" aria-labelledby="brand-strip-title">
-    <h2 id="brand-strip-title" class="visually-hidden">Brand trust strip</h2>
-    <BrandLogos />
-  </section>
-
   <section class="problem-section" role="region" aria-labelledby="problem-heading">
     <div class="problem-intro">
       <div class="problem-badge-wrap">
@@ -87,6 +83,10 @@ const { isDark } = useData()
     </div>
   </section>
 
+  <section v-if="$slots.afterPain" class="persona-slot" aria-label="Persona-specific feature section">
+    <slot name="afterPain" />
+  </section>
+
   <section class="section-block" aria-labelledby="testimonials-heading">
     <h2 id="testimonials-heading" class="section-title">{{ testimonialTitle }}</h2>
     <AppleMailTestimonials
@@ -96,6 +96,23 @@ const { isDark } = useData()
       :sm="sm"
       :xs="xs"
     />
+  </section>
+
+  <section v-if="midCtaTitle" class="mid-cta" aria-labelledby="mid-cta-heading">
+    <div class="mid-cta-inner">
+      <h2 id="mid-cta-heading">{{ midCtaTitle }}</h2>
+      <p v-if="midCtaDescription">{{ midCtaDescription }}</p>
+      <v-btn
+        size="large"
+        color="primary"
+        variant="flat"
+        class="mid-cta-btn"
+        :href="ctaHref"
+        target="_blank"
+      >
+        <strong>{{ ctaText }}</strong>
+      </v-btn>
+    </div>
   </section>
 
   <section id="design-system" class="section-block" aria-labelledby="design-title">
@@ -157,6 +174,10 @@ const { isDark } = useData()
       <strong>{{ ctaText }}</strong>
     </v-btn>
   </section>
+
+  <section v-if="$slots.bottom" class="bottom-extension" aria-label="Audience-specific section">
+    <slot name="bottom" />
+  </section>
 </template>
 
 <style scoped>
@@ -180,10 +201,6 @@ const { isDark } = useData()
   line-height: 1.2;
 }
 
-.brand-strip {
-  padding: 0 24px 18px;
-}
-
 .problem-section,
 .section-block,
 .final-cta {
@@ -192,7 +209,9 @@ const { isDark } = useData()
   padding: 72px 24px;
 }
 
+/* Spacing fix: create breathing room between full-bleed hero and first section */
 .problem-section {
+  margin-top: 56px;
   background: linear-gradient(135deg, rgba(19, 176, 238, 0.03), rgba(57, 44, 145, 0.03));
   border-radius: 16px;
   position: relative;
@@ -365,10 +384,80 @@ html.dark .problem-card:hover .problem-impact {
   }
 }
 
+/* Persona-specific slot between pain points and testimonials */
+.persona-slot {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 72px 24px;
+}
+
+/* Mid-page CTA strip */
+.mid-cta {
+  position: relative;
+  left: calc(-50vw + 50%);
+  width: 100vw;
+  background: linear-gradient(135deg, rgba(57, 44, 145, 0.06) 0%, rgba(19, 176, 238, 0.06) 100%);
+  border-top: 1px solid rgba(19, 176, 238, 0.12);
+  border-bottom: 1px solid rgba(19, 176, 238, 0.12);
+  padding: 56px 24px;
+}
+
+html.dark .mid-cta {
+  background: linear-gradient(135deg, rgba(57, 44, 145, 0.12) 0%, rgba(19, 176, 238, 0.12) 100%);
+  border-color: rgba(19, 176, 238, 0.2);
+}
+
+.mid-cta-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.mid-cta-inner h2 {
+  font-size: clamp(24px, 3.5vw, 38px);
+  line-height: 1.2;
+  margin-bottom: 12px;
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.mid-cta-inner p {
+  margin: 0 0 24px;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #4b5563;
+}
+
+html.dark .mid-cta-inner p {
+  color: #9ca3af;
+}
+
+.mid-cta-btn {
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  border-radius: 10px !important;
+  min-height: 50px !important;
+  padding: 0 28px !important;
+}
+
+.mid-cta-btn :deep(.v-btn__content) {
+  line-height: 1.2;
+}
+
+.mid-cta-btn strong {
+  line-height: 1.2;
+}
+
 .final-cta {
   text-align: center;
   padding-top: 34px;
   padding-bottom: 96px;
+}
+
+.bottom-extension {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
 }
 
 .final-cta h2 {
@@ -410,6 +499,10 @@ html.dark .final-cta p {
 }
 
 @media (max-width: 760px) {
+  .problem-section {
+    margin-top: 40px;
+  }
+
   .problem-grid {
     grid-template-columns: 1fr;
   }
@@ -420,6 +513,14 @@ html.dark .final-cta p {
   .final-cta {
     padding-left: 16px;
     padding-right: 16px;
+  }
+
+  .persona-slot {
+    padding: 56px 16px;
+  }
+
+  .bottom-extension {
+    padding: 24px 16px 56px;
   }
 
   .problem-section,

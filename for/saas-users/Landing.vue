@@ -1,35 +1,37 @@
 <script setup>
 import PersonaLanding from '../components/PersonaLanding.vue'
+import SaaSApiTasksTable from './SaaSApiTasksTable.vue'
+import LifecycleStageCards from './LifecycleStageCards.vue'
 
 const painPoints = [
   {
-    title: 'Lifecycle emails break across tools',
-    description: 'Product, marketing, and support messages live in different systems, so your customer journey feels disconnected.',
+    title: 'Lifecycle emails live in too many places',
+    description: 'Product, marketing, and transactional messages run in separate tools, so your customer journey feels disjointed and ownership is unclear.',
     impact: 'Fragmented customer experience'
   },
   {
-    title: 'Engineering bottlenecks delay launches',
-    description: 'Simple onboarding updates wait in sprint queues because teams depend on developers for every email change.',
+    title: 'Engineering bottlenecks slow every launch',
+    description: 'Simple onboarding sequence changes sit in sprint queues because growth teams depend on developers for every email update.',
     impact: 'Slower feature adoption'
   },
   {
-    title: 'Template quality drifts over time',
-    description: 'Without a reusable design system, every campaign introduces layout drift, inconsistent branding, and QA overhead.',
+    title: 'Templates drift without a design system',
+    description: 'Without shared components, each new campaign introduces layout inconsistencies, branding drift, and avoidable QA overhead.',
     impact: 'Inconsistent brand execution'
   },
   {
-    title: 'Deliverability issues are discovered too late',
-    description: 'Bounces and complaints surface after performance drops, making recovery expensive and reactive.',
+    title: 'Deliverability problems surface too late',
+    description: 'Bounce spikes and complaint rates are discovered after inbox placement drops, making recovery slow and expensive.',
     impact: 'Lower inbox placement'
   },
   {
-    title: 'Reporting lacks business context',
-    description: 'Raw open and click metrics do not clearly show how email supports activation, retention, and expansion.',
+    title: 'Metrics don\'t connect to product outcomes',
+    description: 'Raw open and click numbers tell you nothing about whether email is actually driving activation, retention, or expansion.',
     impact: 'Harder prioritization'
   },
   {
-    title: 'Pricing penalizes growth',
-    description: 'Contact-based billing rises with your user base even when your team sends strategically.',
+    title: 'Contact-based pricing punishes growth',
+    description: 'Your bill grows with your user base even when your send volume stays flat — turning a healthy list into a budget problem.',
     impact: 'Unpredictable spend'
   }
 ]
@@ -37,15 +39,15 @@ const painPoints = [
 const heroFeatureItems = [
   {
     title: 'Unified lifecycle stack',
-    description: 'Run product and marketing messaging in one system.'
+    description: 'Product, marketing, and transactional messaging in one system — one design system, one analytics view.'
   },
   {
     title: 'Growth-team velocity',
-    description: 'Ship and iterate without developer bottlenecks.'
+    description: 'Launch and iterate lifecycle flows without waiting on engineering sprints.'
   },
   {
-    title: 'Deliverability visibility',
-    description: 'Track delivery health and engagement in one view.'
+    title: 'Send-based pricing',
+    description: 'Pay per email sent — not per contact stored. Your costs scale with activity, not list size.'
   }
 ]
 </script>
@@ -54,26 +56,35 @@ const heroFeatureItems = [
   <PersonaLanding
     hero-badge="For SaaS Teams"
     hero-title="Lifecycle Email, Without Tool Sprawl"
-    hero-description="Unify product, marketing, and transactional messaging in one clean workflow."
+    hero-description="Unify product, marketing, and transactional messaging in one clean workflow your whole team can own."
     :hero-highlights="['Faster launches', 'Consistent templates', 'Built for growth']"
     hero-feature-title="Purpose-built for SaaS lifecycle execution"
-    hero-feature-subtitle="A clean lifecycle setup for product-led growth teams."
+    hero-feature-subtitle="One platform covering every stage from onboarding to win-back."
     :hero-feature-items="heroFeatureItems"
     cta-text="Start Your SaaS Workspace"
     cta-href="https://app.bluefox.email/accounts/create-account"
     pain-title="SaaS Email Gets Messy as You Scale"
-    pain-subtitle="When lifecycle communication grows, disconnected tools and workflows start slowing both product velocity and customer outcomes."
+    pain-subtitle="When lifecycle communication grows, disconnected tools and unclear ownership slow both product velocity and customer outcomes."
     :pain-points="painPoints"
     testimonial-title="Teams Trust BlueFox for Production-Grade Email"
-    design-title="Create Once, Reuse Across Product Journeys"
-    design-description="Build a modular design system for onboarding, activation, retention, and transactional messaging, then reuse it safely across every product stream."
+    mid-cta-title="Ready to unify your lifecycle stack?"
+    mid-cta-description="3,000 free sends when you sign up. No credit card. No subscription. Start building your first lifecycle flow today."
+    design-title="Create Once, Reuse Across Every Product Journey"
+    design-description="Build a modular design system for onboarding, activation, retention, and transactional messaging — then reuse it safely across every product stream without rebuilding from scratch."
     automation-title="Automate Lifecycle Messaging Without Engineering Overhead"
-    automation-description="Set up onboarding flows, usage nudges, trial-to-paid conversion campaigns, and churn-risk plays in a visual workflow your growth team can own."
+    automation-description="Set up onboarding flows, usage nudges, trial-to-paid conversion campaigns, and churn-risk plays in a visual workflow builder your growth team can own and iterate on independently."
     rendering-title="Deliver Reliable UX Across Every Inbox"
-    rendering-description="From desktop Outlook to mobile Gmail, your messages stay consistent so product communication feels as polished as your app."
+    rendering-description="From desktop Outlook to mobile Gmail, your lifecycle messages stay visually consistent so product communication feels as polished as your app."
     analytics-title="Measure Email as a Product Growth Channel"
-    analytics-description="Track engagement and delivery quality in one place so product and growth teams can optimize journeys based on outcomes, not guesswork."
-    final-title="Turn Email Into a Compounding SaaS Advantage"
-    final-description="Launch faster, maintain quality, and scale communication confidently with a system built for modern SaaS execution."
-  />
+    analytics-description="Track engagement, delivery health, and subscription trends in one place so product and growth teams can optimize journeys based on outcomes — not guesswork."
+    final-title="Turn Email Into a Compounding SaaS Growth Advantage"
+    final-description="Launch faster, maintain quality, and scale communication confidently with a lifecycle system built for modern product-led growth."
+  >
+    <template #afterPain>
+      <LifecycleStageCards />
+    </template>
+    <template #bottom>
+      <SaaSApiTasksTable />
+    </template>
+  </PersonaLanding>
 </template>
