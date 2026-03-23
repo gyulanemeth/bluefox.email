@@ -33,7 +33,7 @@ const painPoints = [
   },
   {
     title: 'Contact-based pricing punishes growth',
-    description: 'Your bill grows with your user base even when your send volume stays flat — turning a healthy list into a budget problem.',
+    description: 'Your bill grows with your user base even when your send volume stays flat, turning a healthy list into a budget problem.',
     impact: 'Unpredictable spend'
   }
 ]
@@ -41,7 +41,7 @@ const painPoints = [
 const heroFeatureItems = [
   {
     title: 'Unified lifecycle stack',
-    description: 'Product, marketing, and transactional messaging in one system — one design system, one analytics view.'
+    description: 'Product, marketing, and transactional messaging in one system: one design system, one analytics view.'
   },
   {
     title: 'Growth-team velocity',
@@ -49,7 +49,7 @@ const heroFeatureItems = [
   },
   {
     title: 'Send-based pricing',
-    description: 'Pay per email sent — not per contact stored. Your costs scale with activity, not list size.'
+    description: 'Pay per email sent, not per contact stored. Your costs scale with activity, not list size.'
   }
 ]
 </script>
@@ -72,11 +72,11 @@ const heroFeatureItems = [
     mid-cta-title="Ready to unify your lifecycle stack?"
     mid-cta-description="3,000 free sends when you sign up. No credit card. No subscription. Start building your first lifecycle flow today."
     design-title="Create Once, Reuse Across Every Product Journey"
-    design-description="Build a modular design system for onboarding, activation, retention, and transactional messaging — then reuse it safely across every product stream without rebuilding from scratch."
+    design-description="Build a modular design system for onboarding, activation, retention, and transactional messaging, then reuse it safely across every product stream without rebuilding from scratch."
     automation-title="Automate Lifecycle Messaging Without Engineering Overhead"
     automation-description="Set up onboarding flows, usage nudges, trial-to-paid conversion campaigns, and churn-risk plays in a visual workflow builder your growth team can own and iterate on independently."
     analytics-title="Measure Email as a Product Growth Channel"
-    analytics-description="Track engagement, delivery health, and subscription trends in one place so product and growth teams can optimize journeys based on outcomes — not guesswork."
+    analytics-description="Track engagement, delivery health, and subscription trends in one place so product and growth teams can optimize journeys based on outcomes, not guesswork."
     final-title="Turn Email Into a Compounding SaaS Growth Advantage"
     final-description="Launch faster, maintain quality, and scale communication confidently with a lifecycle system built for modern product-led growth."
   >

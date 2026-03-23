@@ -8,7 +8,7 @@ import AgencyClientHealth from './AgencyClientHealth.vue'
 const painPoints = [
   {
     title: 'Juggling client workflows at scale breaks focus',
-    description: 'Each client has unique approvals, lists, assets, and deadlines — but most tools are built for single-brand teams, not multi-client operations.',
+    description: 'Each client has unique approvals, lists, assets, and deadlines, but most tools are built for single-brand teams, not multi-client operations.',
     impact: 'Operational overload'
   },
   {
@@ -28,7 +28,7 @@ const painPoints = [
   },
   {
     title: 'Deliverability failures damage client relationships',
-    description: 'When campaigns land in spam, agencies take the blame first — even when the root cause takes time to diagnose and fix.',
+    description: 'When campaigns land in spam, agencies take the blame first, even when the root cause takes time to diagnose and fix.',
     impact: 'Client retention risk'
   },
   {
@@ -41,7 +41,7 @@ const painPoints = [
 const heroFeatureItems = [
   {
     title: 'Isolated client workspaces',
-    description: 'Every client gets its own project — contacts, templates, automations, and analytics fully separated.'
+    description: 'Every client gets its own project with contacts, templates, automations, and analytics fully separated.'
   },
   {
     title: 'Reusable production kits',
@@ -49,7 +49,7 @@ const heroFeatureItems = [
   },
   {
     title: 'Margin-first pricing',
-    description: 'Pay for emails sent — not for growing contact lists. Margins hold as client databases scale.'
+    description: 'Pay for emails sent, not for growing contact lists. Margins hold as client databases scale.'
   }
 ]
 </script>
@@ -70,13 +70,13 @@ const heroFeatureItems = [
     :pain-points="painPoints"
     testimonial-title="Agency Teams Choose BlueFox for Operational Clarity"
     mid-cta-title="Ready to run every client from one clean system?"
-    mid-cta-description="Start free and bring your first client project live in under 30 minutes. No subscription — pay only for the emails you send."
+    mid-cta-description="Start free and bring your first client project live in under 30 minutes. No subscription, pay only for the emails you send."
     design-title="Standardize Production with a Reusable Client Design System"
     design-description="Build component libraries once, apply brand-specific overrides per client, and launch polished campaigns across accounts without starting from zero every time."
     automation-title="Deploy Automations Faster Across Multiple Clients"
-    automation-description="Ship onboarding, retention, and promotional flows quickly — cloning proven automations between projects while preserving each client's brand voice and segmentation logic."
+    automation-description="Ship onboarding, retention, and promotional flows quickly by cloning proven automations between projects while preserving each client's brand voice and segmentation logic."
     analytics-title="Deliver Client-Ready Reporting in Minutes"
-    analytics-description="Export clean, visual analytics that help clients understand performance clearly — making retainer renewals, upsells, and strategy conversations much easier."
+    analytics-description="Export clean, visual analytics that help clients understand performance clearly, making retainer renewals, upsells, and strategy conversations much easier."
     final-title="Build a Higher-Margin Agency Email Operation"
     final-description="Use one platform to reduce rework, improve quality, and prove performance at scale across your entire client portfolio."
   >
