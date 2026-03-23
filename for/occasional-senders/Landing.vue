@@ -33,6 +33,21 @@ const painPoints = [
     impact: 'Budget friction'
   }
 ]
+
+const heroFeatureItems = [
+  {
+    title: 'Launch-ready templates',
+    description: 'Start from polished layouts every time you send.'
+  },
+  {
+    title: 'Lightweight workflow',
+    description: 'Simple setup keeps periodic campaigns low stress.'
+  },
+  {
+    title: 'Spend stays practical',
+    description: 'Avoid high fixed costs between send windows.'
+  }
+]
 </script>
 
 <template>
@@ -41,6 +56,9 @@ const painPoints = [
     hero-title="Send Great Campaigns, Only When You Need To"
     hero-description="A simple workflow for occasional sends that still looks fully professional."
     :hero-highlights="['Quick setup', 'Reliable templates', 'Predictable spend']"
+    hero-feature-title="Optimized for periodic campaign teams"
+    hero-feature-subtitle="Everything needed for smooth monthly or quarterly sends."
+    :hero-feature-items="heroFeatureItems"
     cta-text="Create Your Free Account"
     cta-href="https://app.bluefox.email/accounts/create-account"
     pain-title="Occasional Sending Should Be Simple, Not Stressful"

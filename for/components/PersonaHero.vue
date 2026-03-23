@@ -1,11 +1,16 @@
 <script setup>
+import PersonaFeaturePanel from './PersonaFeaturePanel.vue'
+
 defineProps({
   badge: { type: String, required: true },
   title: { type: String, required: true },
   description: { type: String, default: '' },
   highlights: { type: Array, default: () => [] },
   ctaText: { type: String, required: true },
-  ctaHref: { type: String, required: true }
+  ctaHref: { type: String, required: true },
+  featureTitle: { type: String, required: true },
+  featureSubtitle: { type: String, default: '' },
+  featureItems: { type: Array, default: () => [] }
 })
 </script>
 
@@ -15,30 +20,38 @@ defineProps({
     <div class="grid-overlay"></div>
 
     <div class="heroMain">
-      <div class="heroContent">
-        <v-chip color="primary" class="hero-badge" aria-label="Audience badge">
-          <span class="text-overline">{{ badge }}</span>
-        </v-chip>
+      <div class="heroGrid">
+        <div class="heroContent">
+          <v-chip color="primary" class="hero-badge" aria-label="Audience badge">
+            <span class="text-overline">{{ badge }}</span>
+          </v-chip>
 
-        <h1 class="hero-title">{{ title }}</h1>
-        <p v-if="description" class="hero-description">{{ description }}</p>
+          <h1 class="hero-title">{{ title }}</h1>
+          <p v-if="description" class="hero-description">{{ description }}</p>
 
-        <div v-if="highlights.length" class="hero-highlights" role="list" aria-label="Hero highlights">
-          <span v-for="(item, index) in highlights" :key="`${item}-${index}`" class="highlight-item" role="listitem">
-            {{ item }}
-          </span>
+          <div v-if="highlights.length" class="hero-highlights" role="list" aria-label="Hero highlights">
+            <span v-for="(item, index) in highlights" :key="`${item}-${index}`" class="highlight-item" role="listitem">
+              {{ item }}
+            </span>
+          </div>
+
+          <v-btn
+            size="x-large"
+            color="primary"
+            variant="flat"
+            class="hero-button"
+            :href="ctaHref"
+            target="_blank"
+          >
+            <strong>{{ ctaText }}</strong>
+          </v-btn>
         </div>
 
-        <v-btn
-          size="x-large"
-          color="primary"
-          variant="flat"
-          class="hero-button"
-          :href="ctaHref"
-          target="_blank"
-        >
-          <strong>{{ ctaText }}</strong>
-        </v-btn>
+        <PersonaFeaturePanel
+          :title="featureTitle"
+          :subtitle="featureSubtitle"
+          :items="featureItems"
+        />
       </div>
     </div>
   </div>
@@ -92,12 +105,19 @@ html.dark .grid-overlay {
 .heroMain {
   position: relative;
   z-index: 1;
-  max-width: 980px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 34px;
+}
+
 .heroContent {
-  text-align: center;
+  text-align: left;
 }
 
 .hero-title {
@@ -125,16 +145,14 @@ html.dark .hero-title {
   line-height: 1.5;
   margin: 0;
   color: var(--vp-c-text-2);
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 560px;
 }
 
 .hero-highlights {
   margin-top: 16px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 10px;
 }
 
@@ -173,6 +191,26 @@ html.dark .highlight-item {
 
 .hero-badge {
   margin-bottom: 6px;
+}
+
+@media (max-width: 980px) {
+  .heroGrid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .heroContent {
+    text-align: center;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-highlights {
+    justify-content: center;
+  }
 }
 
 @media (max-width: 768px) {

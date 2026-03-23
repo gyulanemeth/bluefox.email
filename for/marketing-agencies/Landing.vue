@@ -33,6 +33,21 @@ const painPoints = [
     impact: 'Profit pressure'
   }
 ]
+
+const heroFeatureItems = [
+  {
+    title: 'Reusable client kits',
+    description: 'Clone templates and automations across accounts.'
+  },
+  {
+    title: 'Client-ready proof',
+    description: 'Share clean exports that explain performance fast.'
+  },
+  {
+    title: 'Margin-first pricing',
+    description: 'Pay for sends, not growing contact lists.'
+  }
+]
 </script>
 
 <template>
@@ -41,6 +56,9 @@ const painPoints = [
     hero-title="Scale Client Email Without Agency Chaos"
     hero-description="Run multi-client programs with repeatable systems your team can execute fast."
     :hero-highlights="['Reusable production', 'Client-ready reporting', 'Margin-friendly model']"
+    hero-feature-title="Built for multi-client agency operations"
+    hero-feature-subtitle="Run every client from one clear operating system."
+    :hero-feature-items="heroFeatureItems"
     cta-text="Start Your Agency Account"
     cta-href="https://app.bluefox.email/accounts/create-account"
     pain-title="Agency Growth Should Not Break Your Email Ops"

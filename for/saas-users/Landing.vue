@@ -33,6 +33,21 @@ const painPoints = [
     impact: 'Unpredictable spend'
   }
 ]
+
+const heroFeatureItems = [
+  {
+    title: 'Unified lifecycle stack',
+    description: 'Run product and marketing messaging in one system.'
+  },
+  {
+    title: 'Growth-team velocity',
+    description: 'Ship and iterate without developer bottlenecks.'
+  },
+  {
+    title: 'Deliverability visibility',
+    description: 'Track delivery health and engagement in one view.'
+  }
+]
 </script>
 
 <template>
@@ -41,6 +56,9 @@ const painPoints = [
     hero-title="Lifecycle Email, Without Tool Sprawl"
     hero-description="Unify product, marketing, and transactional messaging in one clean workflow."
     :hero-highlights="['Faster launches', 'Consistent templates', 'Built for growth']"
+    hero-feature-title="Purpose-built for SaaS lifecycle execution"
+    hero-feature-subtitle="A clean lifecycle setup for product-led growth teams."
+    :hero-feature-items="heroFeatureItems"
     cta-text="Start Your SaaS Workspace"
     cta-href="https://app.bluefox.email/accounts/create-account"
     pain-title="SaaS Email Gets Messy as You Scale"

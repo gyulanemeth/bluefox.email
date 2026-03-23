@@ -15,6 +15,9 @@ defineProps({
   heroTitle: { type: String, required: true },
   heroDescription: { type: String, required: true },
   heroHighlights: { type: Array, default: () => [] },
+  heroFeatureTitle: { type: String, required: true },
+  heroFeatureSubtitle: { type: String, default: '' },
+  heroFeatureItems: { type: Array, default: () => [] },
   ctaText: { type: String, required: true },
   ctaHref: { type: String, required: true },
   painTitle: { type: String, required: true },
@@ -47,6 +50,9 @@ const { isDark } = useData()
     :title="heroTitle"
     :description="heroDescription"
     :highlights="heroHighlights"
+    :feature-title="heroFeatureTitle"
+    :feature-subtitle="heroFeatureSubtitle"
+    :feature-items="heroFeatureItems"
     :cta-text="ctaText"
     :cta-href="ctaHref"
   />
@@ -58,6 +64,11 @@ const { isDark } = useData()
 
   <section class="problem-section" role="region" aria-labelledby="problem-heading">
     <div class="problem-intro">
+      <div class="problem-badge-wrap">
+        <v-chip color="primary" class="problem-badge" aria-label="Audience challenge badge">
+          <span class="text-overline">The Challenge</span>
+        </v-chip>
+      </div>
       <h2 id="problem-heading" class="section-title">{{ painTitle }}</h2>
       <p class="section-subtitle">{{ painSubtitle }}</p>
     </div>
@@ -184,16 +195,50 @@ const { isDark } = useData()
 .problem-section {
   background: linear-gradient(135deg, rgba(19, 176, 238, 0.03), rgba(57, 44, 145, 0.03));
   border-radius: 16px;
+  position: relative;
+  overflow: hidden;
 }
 
 html.dark .problem-section {
   background: linear-gradient(135deg, rgba(19, 176, 238, 0.08), rgba(57, 44, 145, 0.08));
 }
 
+.problem-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(19, 176, 238, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19, 176, 238, 0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.55;
+}
+
+html.dark .problem-section::before {
+  background-image:
+    linear-gradient(rgba(19, 176, 238, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(19, 176, 238, 0.05) 1px, transparent 1px);
+}
+
 .problem-intro,
 .section-title,
 .section-subtitle {
   text-align: center;
+}
+
+.problem-intro {
+  position: relative;
+  z-index: 1;
+}
+
+.problem-badge-wrap {
+  margin-bottom: 10px;
+}
+
+.problem-badge {
+  height: auto !important;
+  padding: 6px 12px !important;
 }
 
 .section-title {
@@ -224,6 +269,8 @@ html.dark .section-subtitle {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 18px;
+  position: relative;
+  z-index: 1;
 }
 
 .problem-card {
@@ -234,6 +281,8 @@ html.dark .section-subtitle {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  min-height: 230px;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html.dark .problem-card {
@@ -241,15 +290,39 @@ html.dark .problem-card {
   border-color: #374151;
 }
 
+.problem-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3);
+  border-color: rgba(239, 68, 68, 0.6);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+html.dark .problem-card:hover {
+  background: rgba(31, 41, 55, 0.98);
+  border-color: rgba(239, 68, 68, 0.7);
+  box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
+}
+
 .problem-card h3 {
   font-size: 18px;
   margin: 0;
+  line-height: 1.35;
+  transition: color 0.25s ease;
+}
+
+.problem-card:hover h3 {
+  color: #dc2626;
+}
+
+html.dark .problem-card:hover h3 {
+  color: #ef4444;
 }
 
 .problem-card p {
   margin: 0;
   color: #4b5563;
   line-height: 1.6;
+  transition: color 0.25s ease;
 }
 
 html.dark .problem-card p {
@@ -265,11 +338,31 @@ html.dark .problem-card p {
   font-size: 13px;
   font-weight: 700;
   padding: 6px 12px;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 html.dark .problem-impact {
   background: rgba(19, 176, 238, 0.2);
   color: #67e8f9;
+}
+
+.problem-card:hover .problem-impact {
+  background: rgba(239, 68, 68, 0.12);
+  color: #dc2626;
+}
+
+html.dark .problem-card:hover .problem-impact {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .problem-card,
+  .problem-card h3,
+  .problem-card p,
+  .problem-impact {
+    transition: none;
+  }
 }
 
 .final-cta {
