@@ -15,7 +15,7 @@ const stages = [
     trigger: 'Contact added to onboarding list or account created event',
     emailTypes: ['Welcome email', 'Setup checklist', 'Day 3 check-in', 'First milestone congrats'],
     bluefoxFeature: 'Triggered emails + Automations',
-    featureDesc: 'Fire a multi-step welcome sequence automatically when a new contact is added — no engineering sprint needed to update the flow.'
+    featureDesc: 'Fire a multi-step welcome sequence automatically when a new contact is added, with no engineering sprint needed to update the flow.'
   },
   {
     number: '02',
@@ -24,7 +24,7 @@ const stages = [
     colorLight: 'rgba(99, 102, 241, 0.1)',
     colorDark: 'rgba(99, 102, 241, 0.18)',
     goal: 'User reaches the activation milestone',
-    goalDesc: 'Push users toward the key action that predicts long-term retention — whether that\'s connecting an integration, inviting a teammate, or running a first workflow.',
+    goalDesc: 'Push users toward the key action that predicts long-term retention, whether that\'s connecting an integration, inviting a teammate, or running a first workflow.',
     trigger: 'Key action not taken after X days; enter/leave segment',
     emailTypes: ['Feature spotlight', 'Aha-moment nudge', 'Progress reminder', 'Peer social proof'],
     bluefoxFeature: 'Automations with branching + Segments',
@@ -63,7 +63,7 @@ const stages = [
     colorLight: 'rgba(239, 68, 68, 0.1)',
     colorDark: 'rgba(239, 68, 68, 0.18)',
     goal: 'Prevent churn or learn from it',
-    goalDesc: 'Catch at-risk accounts before they cancel and give them a reason to stay — or collect feedback from those who leave to improve your product.',
+    goalDesc: 'Catch at-risk accounts before they cancel and give them a reason to stay, or collect feedback from those who leave to improve your product.',
     trigger: 'Inactivity threshold exceeded; cancellation signal; downgrade event',
     emailTypes: ['Churn-risk alert', 'Save offer email', 'Personalized check-in', 'Exit feedback request'],
     bluefoxFeature: 'Automations with exit criteria + Branching',
@@ -79,7 +79,7 @@ const stages = [
         <span class="text-overline">Full Lifecycle Coverage</span>
       </v-chip>
       <h2 id="lifecycle-title">One Platform. Every Stage of the User Journey.</h2>
-      <p>Map your entire SaaS lifecycle to BlueFox Email automations and triggered emails — from the first welcome message to the last win-back attempt.</p>
+      <p>Map your entire SaaS lifecycle to BlueFox Email automations and triggered emails, from the first welcome message to the last win-back attempt.</p>
     </div>
 
     <div class="stage-nav" role="tablist" aria-label="Lifecycle stages">
@@ -110,7 +110,7 @@ const stages = [
               class="stage-label-pill"
               :style="{ background: stages[activeStage].colorLight, color: stages[activeStage].color }"
             >
-              Stage {{ stages[activeStage].number }} — {{ stages[activeStage].label }}
+              Stage {{ stages[activeStage].number }}: {{ stages[activeStage].label }}
             </span>
           </div>
           <h3 class="panel-goal-title">{{ stages[activeStage].goal }}</h3>
@@ -150,15 +150,7 @@ const stages = [
 
 <style scoped>
 .lifecycle-section {
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
   padding: 36px 24px;
-  background: #ffffff;
-}
-
-html.dark .lifecycle-section {
-  background: rgba(15, 23, 42, 0.72);
-  border-color: #334155;
 }
 
 .lifecycle-head {

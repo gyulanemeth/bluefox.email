@@ -12,7 +12,7 @@ const tabs = [
 const workflows = {
   setup: {
     title: 'Onboard a New Client in Under 30 Minutes',
-    description: 'Each client gets a fully isolated workspace — their own contacts, templates, automations, and brand settings — without any cross-client bleed.',
+    description: 'Each client gets a fully isolated workspace, with their own contacts, templates, automations, and brand settings, without any cross-client bleed.',
     steps: [
       {
         number: '01',
@@ -69,7 +69,7 @@ const workflows = {
       {
         number: '01',
         title: 'Review engagement metrics',
-        detail: 'Open rates, click-through rates, bounces, and unsubscribes are presented cleanly — no data wrangling required before the client call.'
+        detail: 'Open rates, click-through rates, bounces, and unsubscribes are presented cleanly. No data wrangling required before the client call.'
       },
       {
         number: '02',
@@ -84,7 +84,7 @@ const workflows = {
       {
         number: '04',
         title: 'Plan the next campaign from real data',
-        detail: 'Turn engagement signals into actionable strategy — better subject lines, refined segments, and stronger content for the next send window.'
+        detail: 'Turn engagement signals into actionable strategy: better subject lines, refined segments, and stronger content for the next send window.'
       }
     ]
   }
@@ -250,7 +250,7 @@ html.dark .panel-intro p {
   gap: 12px;
 }
 
-/* Ghost-number tile — no visible border, decoration via large number */
+/* Ghost-number tile: no visible border, decoration via large number */
 .step-card {
   position: relative;
   overflow: hidden;
@@ -339,6 +339,16 @@ html.dark .step-detail {
 
   .steps-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .workflow-panel {
+    padding: 16px;
+  }
+
+  .step-ghost {
+    font-size: 56px;
   }
 }
 </style>

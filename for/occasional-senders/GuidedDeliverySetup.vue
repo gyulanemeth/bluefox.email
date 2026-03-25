@@ -82,15 +82,7 @@ const healthChecks = [
 
 <style scoped>
 .guided-setup {
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
   padding: 36px 24px;
-  background: #ffffff;
-}
-
-html.dark .guided-setup {
-  background: rgba(15, 23, 42, 0.72);
-  border-color: #334155;
 }
 
 .setup-head { margin-bottom: 24px; }

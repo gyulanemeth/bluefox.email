@@ -215,7 +215,8 @@ html.dark .highlight-item {
 
 @media (max-width: 768px) {
   .heroDiv {
-    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 52px) 18px 54px;
+    min-height: auto;
+    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 40px) 18px 48px;
   }
 
   .hero-description {
@@ -224,6 +225,21 @@ html.dark .highlight-item {
 
   .hero-highlights {
     gap: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroDiv {
+    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 28px) 14px 36px;
+  }
+
+  .hero-description {
+    font-size: 15px;
+  }
+
+  .hero-button {
+    width: 100%;
+    justify-content: center;
   }
 }
 </style>

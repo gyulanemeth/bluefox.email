@@ -155,7 +155,7 @@ html.dark .grid-head p {
   margin-bottom: 20px;
 }
 
-/* Card — elevation-only, zero visible border */
+/* Card: elevation-only, zero visible border */
 .client-card {
   background: #ffffff;
   border-radius: 20px;
@@ -233,7 +233,7 @@ html.dark .client-name {
   margin-top: 1px;
 }
 
-/* Status tag — readable text, no dot */
+/* Status tag: readable text, no dot */
 .status-tag {
   flex-shrink: 0;
   font-size: 11px;

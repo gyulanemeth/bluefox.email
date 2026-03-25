@@ -7,7 +7,7 @@ const scenarios = [
     audienceSize: '2,500 contacts',
     totalEmails: '10,000 emails/year',
     bluefoxCost: '$50',
-    bluefoxNote: '50K send pack — covers 5× this volume',
+    bluefoxNote: '50K send pack, covers 5× this volume',
     typicalCost: '$240–$480',
     typicalNote: '$20–$40/month subscription × 12'
   },
@@ -18,7 +18,7 @@ const scenarios = [
     audienceSize: '1,800 contacts',
     totalEmails: '21,600 emails/year',
     bluefoxCost: '$50',
-    bluefoxNote: '50K send pack — still has sends left over',
+    bluefoxNote: '50K send pack, still has sends left over',
     typicalCost: '$240–$600',
     typicalNote: '$20–$50/month subscription × 12'
   },
@@ -29,7 +29,7 @@ const scenarios = [
     audienceSize: '5,000 contacts',
     totalEmails: '30,000 emails/year',
     bluefoxCost: '$50',
-    bluefoxNote: '50K send pack — 20K sends still available',
+    bluefoxNote: '50K send pack, 20K sends still available',
     typicalCost: '$300–$720',
     typicalNote: '$25–$60/month subscription × 12'
   }
@@ -43,7 +43,7 @@ const scenarios = [
         <span class="text-overline">Honest Pricing</span>
       </v-chip>
       <h2 id="pricing-snapshot-title">Pay Only When You Send. Not Every Month.</h2>
-      <p>Most email tools bill you monthly — whether you send or not. BlueFox Email uses send packs: buy once, valid for 12 months, and use them whenever you need to.</p>
+      <p>Most email tools bill you monthly, whether you send or not. BlueFox Email uses send packs: buy once, valid for 12 months, and use them whenever you need to.</p>
     </div>
 
     <div class="comparison-grid">
@@ -93,15 +93,7 @@ const scenarios = [
 
 <style scoped>
 .pricing-snapshot {
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
   padding: 36px 24px;
-  background: #ffffff;
-}
-
-html.dark .pricing-snapshot {
-  background: rgba(15, 23, 42, 0.72);
-  border-color: #334155;
 }
 
 .snapshot-head {

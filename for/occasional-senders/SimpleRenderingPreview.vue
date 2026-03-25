@@ -106,15 +106,7 @@ const fixes = [
 
 <style scoped>
 .rendering-preview {
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
   padding: 36px 24px;
-  background: #ffffff;
-}
-
-html.dark .rendering-preview {
-  background: rgba(15, 23, 42, 0.72);
-  border-color: #334155;
 }
 
 .preview-head { margin-bottom: 24px; }

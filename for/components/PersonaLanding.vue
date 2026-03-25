@@ -19,27 +19,27 @@ defineProps({
   heroFeatureItems: { type: Array, default: () => [] },
   ctaText: { type: String, required: true },
   ctaHref: { type: String, required: true },
-  painTitle: { type: String, required: true },
-  painSubtitle: { type: String, required: true },
-  painPoints: {
-    type: Array,
-    required: true,
-    validator: (value) => value.length >= 3
-  },
-  testimonialTitle: { type: String, required: true },
+  painTitle: { type: String, default: '' },
+  painSubtitle: { type: String, default: '' },
+  painPoints: { type: Array, default: () => [] },
+  showTestimonials: { type: Boolean, default: true },
+  testimonialTitle: { type: String, default: '' },
   midCtaTitle: { type: String, default: '' },
   midCtaDescription: { type: String, default: '' },
-  designTitle: { type: String, required: true },
-  designDescription: { type: String, required: true },
-  automationTitle: { type: String, required: true },
-  automationDescription: { type: String, required: true },
+  showDesign: { type: Boolean, default: true },
+  designTitle: { type: String, default: '' },
+  designDescription: { type: String, default: '' },
+  showAutomation: { type: Boolean, default: true },
+  automationTitle: { type: String, default: '' },
+  automationDescription: { type: String, default: '' },
   renderingTitle: { type: String, default: '' },
   renderingDescription: { type: String, default: '' },
   deliverabilityTitle: { type: String, default: '' },
   deliverabilityDescription: { type: String, default: '' },
   deliverabilityFeatures: { type: Array, default: () => [] },
-  analyticsTitle: { type: String, required: true },
-  analyticsDescription: { type: String, required: true },
+  analyticsTitle: { type: String, default: '' },
+  analyticsDescription: { type: String, default: '' },
+  showIntegrations: { type: Boolean, default: true },
   finalTitle: { type: String, required: true },
   finalDescription: { type: String, required: true },
   testimonialIds: { type: Array, default: null }
@@ -64,8 +64,8 @@ const openSolution = ref(null)
     :cta-href="ctaHref"
   />
 
-  <!-- 1. Pain points — white -->
-  <div class="stripe stripe--white">
+  <!-- 1. Pain points (white) -->
+  <div v-if="painPoints.length" class="stripe stripe--white">
     <section class="stripe-inner problem-section" role="region" aria-labelledby="problem-heading">
       <div class="problem-intro">
         <div class="problem-badge-wrap">
@@ -111,15 +111,15 @@ const openSolution = ref(null)
     </section>
   </div>
 
-  <!-- 2. After-pain slot — blue -->
+  <!-- 2. After-pain slot (blue) -->
   <div v-if="$slots.afterPain" class="stripe stripe--blue">
     <div id="after-pain" class="stripe-inner persona-slot" aria-label="Persona-specific feature section">
       <slot name="afterPain" />
     </div>
   </div>
 
-  <!-- 3. Testimonials — white -->
-  <div class="stripe stripe--white">
+  <!-- 3. Testimonials (white) -->
+  <div v-if="showTestimonials" class="stripe stripe--white">
     <section class="stripe-inner section-block" aria-labelledby="testimonials-heading">
       <h2 id="testimonials-heading" class="section-title">{{ testimonialTitle }}</h2>
       <AppleMailTestimonials
@@ -133,7 +133,7 @@ const openSolution = ref(null)
     </section>
   </div>
 
-  <!-- 4. Mid CTA — blue -->
+  <!-- 4. Mid CTA (blue) -->
   <div v-if="midCtaTitle" class="stripe stripe--blue">
     <section class="stripe-inner mid-cta" aria-labelledby="mid-cta-heading">
       <div class="mid-cta-inner">
@@ -153,8 +153,8 @@ const openSolution = ref(null)
     </section>
   </div>
 
-  <!-- 5. Design — white -->
-  <div class="stripe stripe--white">
+  <!-- 5. Design (white) -->
+  <div v-if="showDesign" class="stripe stripe--white">
     <section id="design-system" class="stripe-inner section-block" aria-labelledby="design-title">
       <h2 id="design-title" class="section-title">{{ designTitle }}</h2>
       <p class="section-subtitle constrained">{{ designDescription }}</p>
@@ -162,8 +162,8 @@ const openSolution = ref(null)
     </section>
   </div>
 
-  <!-- 6. Automation — blue -->
-  <div class="stripe stripe--blue">
+  <!-- 6. Automation (blue) -->
+  <div v-if="showAutomation" class="stripe stripe--blue">
     <section id="automation" class="stripe-inner section-block" aria-labelledby="automation-title">
       <h2 id="automation-title" class="section-title">{{ automationTitle }}</h2>
       <p class="section-subtitle constrained">{{ automationDescription }}</p>
@@ -178,7 +178,7 @@ const openSolution = ref(null)
     </section>
   </div>
 
-  <!-- 7. Rendering — white -->
+  <!-- 7. Rendering (white) -->
   <div v-if="$slots.renderingContent" class="stripe stripe--white">
     <div id="rendering" class="stripe-inner persona-slot" aria-label="Rendering content">
       <slot name="renderingContent" />
@@ -191,7 +191,7 @@ const openSolution = ref(null)
     </section>
   </div>
 
-  <!-- 8. Deliverability — blue -->
+  <!-- 8. Deliverability (blue) -->
   <div v-if="$slots.deliverabilityContent" class="stripe stripe--blue">
     <div id="deliverability" class="stripe-inner persona-slot" aria-label="Deliverability content">
       <slot name="deliverabilityContent" />
@@ -204,7 +204,7 @@ const openSolution = ref(null)
     </section>
   </div>
 
-  <!-- 9. Analytics — white -->
+  <!-- 9. Analytics (white) -->
   <div class="stripe stripe--white">
     <div v-if="$slots.analyticsContent" id="analytics-title" class="stripe-inner persona-slot" aria-label="Analytics content">
       <slot name="analyticsContent" />
@@ -218,22 +218,22 @@ const openSolution = ref(null)
     </section>
   </div>
 
-  <!-- 10. Integrations — blue -->
-  <div class="stripe stripe--blue">
+  <!-- 10. Integrations (blue) -->
+  <div v-if="showIntegrations" class="stripe stripe--blue">
     <section class="stripe-inner section-block" aria-labelledby="integrations-title">
       <h2 id="integrations-title" class="visually-hidden">Integrations</h2>
       <Integration :is-dark="isDark" />
     </section>
   </div>
 
-  <!-- 11. Bottom slot — white -->
+  <!-- 11. Bottom slot (white) -->
   <div v-if="$slots.bottom" class="stripe stripe--white">
     <div id="workflow" class="stripe-inner persona-slot" aria-label="Audience-specific section">
       <slot name="bottom" />
     </div>
   </div>
 
-  <!-- 12. Final CTA — blue -->
+  <!-- 12. Final CTA (blue) -->
   <div class="stripe stripe--blue">
     <section class="stripe-inner final-cta" aria-labelledby="final-cta-title">
       <h2 id="final-cta-title">{{ finalTitle }}</h2>
@@ -604,6 +604,22 @@ html.dark .final-cta p {
   .mid-cta,
   .final-cta {
     padding: 56px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .problem-section,
+  .section-block,
+  .persona-slot,
+  .mid-cta,
+  .final-cta {
+    padding: 40px 14px;
+  }
+
+  .hero-cta,
+  .mid-cta-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
 </style>

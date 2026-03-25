@@ -10,7 +10,7 @@ const categories = [
       { id: 'list-1', text: 'Contacts imported or synced to the correct subscriber list' },
       { id: 'list-2', text: 'Previous bounces and unsubscribes are already suppressed' },
       { id: 'list-3', text: 'Suppression list reviewed for this specific send' },
-      { id: 'list-4', text: 'Audience segment or filter confirmed — right people, right send' }
+      { id: 'list-4', text: 'Audience segment or filter confirmed: right people, right send' }
     ]
   },
   {
@@ -65,7 +65,7 @@ const isComplete = computed(() => checkedCount.value === totalItems)
 
 const progressStatus = computed(() => {
   if (checkedCount.value === 0) return { label: 'Start reviewing before your next send', color: '#94a3b8' }
-  if (progress.value < 50) return { label: 'Good start — keep going', color: '#f59e0b' }
+  if (progress.value < 50) return { label: 'Good start, keep going', color: '#f59e0b' }
   if (progress.value < 100) return { label: 'Almost ready to send', color: '#13b0ee' }
   return { label: 'Ready to send!', color: '#10b981' }
 })

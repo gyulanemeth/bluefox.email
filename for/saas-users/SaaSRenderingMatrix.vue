@@ -45,7 +45,7 @@ const clients = [
   { name: 'Outlook 2016', platform: 'Desktop', color: '#0078D4' }
 ]
 
-const activeEmailType = () => emailTypes.find(t => t.id === activeType.value)
+const activeEmailType = () => emailTypes.find(t => t.id === activeType.value) || emailTypes[0]
 </script>
 
 <template>
@@ -54,8 +54,8 @@ const activeEmailType = () => emailTypes.find(t => t.id === activeType.value)
       <v-chip color="primary" class="matrix-badge">
         <span class="text-overline">Cross-Client Rendering</span>
       </v-chip>
-      <h2 id="rendering-matrix-title">Every Lifecycle Email, Pixel-Perfect Across Every Inbox</h2>
-      <p>Your welcome sequence, invoices, usage alerts, and password resets all render flawlessly, from Gmail on mobile to Outlook 2016 on desktop.</p>
+      <h2 id="rendering-matrix-title">Lifecycle Emails That Render Consistently Across Clients</h2>
+      <p>Welcome sequences, invoices, usage alerts, and password resets, all generated with markup engineered to render as consistently as possible across Gmail, Outlook, Apple Mail, and mobile clients.</p>
     </div>
 
     <div class="type-tabs" role="tablist" aria-label="Email types">
@@ -70,58 +70,32 @@ const activeEmailType = () => emailTypes.find(t => t.id === activeType.value)
       >{{ et.label }}</button>
     </div>
 
-    <div class="matrix-grid" role="tabpanel">
-      <div class="type-detail">
-        <h3 class="type-detail-title">{{ activeEmailType().label }} Email</h3>
-        <p class="type-detail-desc">{{ activeEmailType().description }}</p>
-        <div class="challenges">
-          <span class="challenges-label">Key rendering challenges</span>
-          <ul class="challenge-list">
-            <li v-for="ch in activeEmailType().challenges" :key="ch" class="challenge-item">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4M12 17h.01" /><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /></svg>
-              <span>{{ ch }}</span>
-            </li>
-          </ul>
-        </div>
-        <div class="handled-note">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
-          <span>All handled automatically by BlueFox Email's rendering engine</span>
-        </div>
-      </div>
+    <p class="type-desc" role="tabpanel">{{ activeEmailType().description }}</p>
 
-      <div class="client-list">
-        <div v-for="client in clients" :key="client.name" class="client-row">
-          <div class="client-info">
-            <div class="client-dot" :style="{ background: client.color }" />
-            <span class="client-name">{{ client.name }}</span>
-          </div>
-          <span class="platform-pill" :class="`platform--${client.platform.toLowerCase()}`">{{ client.platform }}</span>
-          <div class="status-pass">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-            <span>Renders correctly</span>
-          </div>
+    <div class="client-grid">
+      <div v-for="client in clients" :key="client.name" class="client-row">
+        <div class="client-info">
+          <div class="client-dot" :style="{ background: client.color }" />
+          <span class="client-name">{{ client.name }}</span>
+        </div>
+        <span class="platform-pill" :class="`platform--${client.platform.toLowerCase()}`">{{ client.platform }}</span>
+        <div class="status-pass">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+          <span>Renders consistently</span>
         </div>
       </div>
     </div>
 
     <div class="matrix-callout" role="note">
-      <strong>Battle-tested transactional markup.</strong>
-      <span> BlueFox Email generates HTML specifically engineered for email client quirks, so your lifecycle emails arrive looking exactly as designed, every time.</span>
+      <strong>Engineered for email client quirks.</strong>
+      <span> BlueFox Email generates HTML that accounts for Outlook's Word engine, web font fallbacks, and mobile layout differences, so your lifecycle emails look as intended across the clients your users actually open.</span>
     </div>
   </section>
 </template>
 
 <style scoped>
 .rendering-matrix {
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
   padding: 36px 24px;
-  background: #ffffff;
-}
-
-html.dark .rendering-matrix {
-  background: rgba(15, 23, 42, 0.72);
-  border-color: #334155;
 }
 
 .matrix-head {
@@ -188,89 +162,19 @@ html.dark .type-tab.active {
   color: #67e8f9;
 }
 
-.matrix-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  align-items: start;
-}
-
-.type-detail {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 22px;
-}
-
-html.dark .type-detail {
-  background: rgba(30, 41, 59, 0.6);
-}
-
-.type-detail-title {
-  margin: 0 0 8px;
-  font-size: 17px;
-  font-weight: 700;
-  line-height: 1.3;
-  border-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-.type-detail-desc {
-  margin: 0 0 18px;
+.type-desc {
+  margin: 0 0 20px;
   font-size: 14px;
   line-height: 1.6;
   color: #475569;
+  max-width: 640px;
 }
 
-html.dark .type-detail-desc { color: #94a3b8; }
+html.dark .type-desc { color: #94a3b8; }
 
-.challenges-label {
-  display: block;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #64748b;
-  margin-bottom: 8px;
-}
-
-html.dark .challenges-label { color: #94a3b8; }
-
-.challenge-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.challenge-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: #b45309;
-}
-
-html.dark .challenge-item { color: #fcd34d; }
-
-.challenge-item svg { flex-shrink: 0; }
-
-.handled-note {
-  margin-top: 16px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #047857;
-}
-
-html.dark .handled-note { color: #34d399; }
-
-.client-list {
-  display: flex;
-  flex-direction: column;
+.client-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
 }
 
@@ -364,7 +268,7 @@ html.dark .matrix-callout {
 html.dark .matrix-callout strong { color: #f1f5f9; }
 
 @media (max-width: 860px) {
-  .rendering-matrix { padding: 24px 16px; }
-  .matrix-grid { grid-template-columns: 1fr; }
+  .rendering-matrix { padding: 24px 0; }
+  .client-grid { grid-template-columns: 1fr; }
 }
 </style>

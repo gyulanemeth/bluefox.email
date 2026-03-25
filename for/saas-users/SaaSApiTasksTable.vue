@@ -5,7 +5,7 @@ const endpoints = [
     method: 'POST',
     path: '/v1/send-triggered',
     label: 'Send Triggered Email',
-    description: 'Fire personalized sequences from any product event — user signup, feature usage, or custom webhook. Pass dynamic data and BlueFox Email handles the rest.',
+    description: 'Fire personalized sequences from any product event: user signup, feature usage, or custom webhook. Pass dynamic data and BlueFox Email handles the rest.',
     useCases: ['Welcome journeys', 'Feature adoption nudges', 'Milestone emails'],
     docLink: '/docs/api/send-triggered-email',
     snippet: `fetch('/v1/send-triggered', {
@@ -22,7 +22,7 @@ const endpoints = [
     method: 'POST',
     path: '/v1/send-transactional',
     label: 'Send Transactional Email',
-    description: 'Deliver one-to-one account emails instantly — invoices, password resets, receipts. Supports attachments inline.',
+    description: 'Deliver one-to-one account emails instantly: invoices, password resets, receipts. Supports attachments inline.',
     useCases: ['Payment confirmations', 'Invoice delivery', 'Account alerts'],
     docLink: '/docs/api/send-transactional-email',
     snippet: `fetch('/v1/send-transactional', {
@@ -84,7 +84,7 @@ const methodColor = {
       <h2 id="api-showcase-title">Four Endpoints. Every SaaS Email Use Case Covered.</h2>
       <p>
         BlueFox Email's API is minimal by design. Trigger emails from product events, sync contacts from your backend,
-        and manage subscriptions — all from a single REST interface.
+        and manage subscriptions, all from a single REST interface.
       </p>
     </div>
 
@@ -134,15 +134,7 @@ const methodColor = {
 
 <style scoped>
 .api-showcase {
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
   padding: 36px 24px;
-  background: #ffffff;
-}
-
-html.dark .api-showcase {
-  background: rgba(15, 23, 42, 0.72);
-  border-color: #334155;
 }
 
 .showcase-head {
