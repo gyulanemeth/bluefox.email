@@ -38,7 +38,7 @@ const workflows = {
   },
   produce: {
     title: 'Go From Brief to Send Without Starting From Scratch',
-    description: 'Clone proven layouts, apply brand overrides, and ship campaigns without rebuilding work your team has already perfected.',
+    description: 'Clone proven layouts, apply brand overrides, and ship campaigns without rebuilding work your team has already proven.',
     steps: [
       {
         number: '01',
@@ -52,8 +52,8 @@ const workflows = {
       },
       {
         number: '03',
-        title: 'Preview across major inboxes',
-        detail: 'Confirm rendering on desktop and mobile before client review. Catch Outlook edge cases and layout issues before they become fire drills.'
+        title: 'Review before sending',
+        detail: 'Check how the campaign looks before client review. BlueFox Email generates templates that aim for visual consistency across desktop and mobile clients, including Outlook.'
       },
       {
         number: '04',
@@ -97,8 +97,8 @@ const workflows = {
       <v-chip color="primary" class="workflow-badge" aria-label="Agency workflow badge">
         <span class="text-overline">How It Works</span>
       </v-chip>
-      <h2 id="agency-workflow-title">How Agencies Run Client Programs on BlueFox</h2>
-      <p>From client onboarding to campaign delivery to reporting — every stage of the agency workflow in one place.</p>
+      <h2 id="agency-workflow-title">The Agency Workflow on BlueFox Email</h2>
+      <p>From onboarding to delivery to reporting, every stage of your client workflow in one place.</p>
     </div>
 
     <div class="workflow-tabs" role="tablist" aria-label="Agency workflow stages">
@@ -138,15 +138,7 @@ const workflows = {
 
 <style scoped>
 .agency-workflow {
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
   padding: 36px 24px;
-  background: #ffffff;
-}
-
-html.dark .agency-workflow {
-  background: rgba(15, 23, 42, 0.72);
-  border-color: #334155;
 }
 
 .workflow-head {

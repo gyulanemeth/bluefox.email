@@ -53,8 +53,8 @@ const clients = [
       <v-chip color="primary" class="grid-badge" aria-label="Multi-client badge">
         <span class="text-overline">Multi-Client Management</span>
       </v-chip>
-      <h2 id="client-grid-title">Every Client in Its Own Isolated Workspace</h2>
-      <p>Run multiple brands from a single BlueFox account. Each client project has completely separate contacts, templates, automations, and analytics — nothing bleeds across.</p>
+      <h2 id="client-grid-title">Every Client, Fully Isolated</h2>
+      <p>One account, every client separated. Contacts, templates, automations, and analytics stay fully contained per project.</p>
     </div>
 
     <div class="client-cards" role="list">
@@ -115,15 +115,7 @@ const clients = [
 
 <style scoped>
 .client-grid-section {
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
   padding: 36px 24px;
-  background: #ffffff;
-}
-
-html.dark .client-grid-section {
-  background: rgba(15, 23, 42, 0.72);
-  border-color: #334155;
 }
 
 .grid-head {

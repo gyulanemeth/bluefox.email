@@ -5,7 +5,7 @@ const endpoints = [
     method: 'POST',
     path: '/v1/send-triggered',
     label: 'Send Triggered Email',
-    description: 'Fire personalized sequences from any product event — user signup, feature usage, or custom webhook. Pass dynamic data and BlueFox handles the rest.',
+    description: 'Fire personalized sequences from any product event — user signup, feature usage, or custom webhook. Pass dynamic data and BlueFox Email handles the rest.',
     useCases: ['Welcome journeys', 'Feature adoption nudges', 'Milestone emails'],
     docLink: '/docs/api/send-triggered-email',
     snippet: `fetch('/v1/send-triggered', {
@@ -83,7 +83,7 @@ const methodColor = {
       </v-chip>
       <h2 id="api-showcase-title">Four Endpoints. Every SaaS Email Use Case Covered.</h2>
       <p>
-        BlueFox's API is minimal by design. Trigger emails from product events, sync contacts from your backend,
+        BlueFox Email's API is minimal by design. Trigger emails from product events, sync contacts from your backend,
         and manage subscriptions — all from a single REST interface.
       </p>
     </div>

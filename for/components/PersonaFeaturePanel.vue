@@ -7,6 +7,12 @@ defineProps({
     default: () => []
   }
 })
+
+function scrollTo(anchor) {
+  if (!anchor) return
+  const el = document.getElementById(anchor)
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
 </script>
 
 <template>
@@ -16,13 +22,31 @@ defineProps({
     <p v-if="subtitle" class="panel-subtitle">{{ subtitle }}</p>
 
     <ul v-if="items.length" class="feature-list" role="list">
-      <li v-for="(item, index) in items" :key="`${item.title}-${index}`" class="feature-card" role="listitem">
+      <li
+        v-for="(item, index) in items"
+        :key="`${item.title}-${index}`"
+        class="feature-card"
+        :class="{ 'feature-card--link': item.anchor }"
+        role="listitem"
+        :tabindex="item.anchor ? 0 : undefined"
+        :aria-label="item.anchor ? `Scroll to ${item.title}` : undefined"
+        @click="item.anchor && scrollTo(item.anchor)"
+        @keydown.enter.prevent="item.anchor && scrollTo(item.anchor)"
+        @keydown.space.prevent="item.anchor && scrollTo(item.anchor)"
+      >
         <div class="feature-dot" aria-hidden="true"></div>
         <div class="feature-body">
           <p class="feature-title">{{ item.title }}</p>
           <p v-if="item.description" class="feature-description">{{ item.description }}</p>
           <p v-if="item.metric" class="feature-metric">{{ item.metric }}</p>
         </div>
+        <svg
+          v-if="item.anchor"
+          class="feature-arrow"
+          width="14" height="14" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          aria-hidden="true"
+        ><line x1="12" y1="5" x2="12" y2="19" /><polyline points="19 12 12 19 5 12" /></svg>
       </li>
     </ul>
   </aside>
@@ -175,6 +199,25 @@ html.dark .feature-card:hover .feature-title {
 
 .feature-card:active {
   transform: translateY(-1px) scale(0.997);
+}
+
+.feature-card--link {
+  cursor: pointer;
+}
+
+.feature-arrow {
+  flex-shrink: 0;
+  align-self: center;
+  color: #94a3b8;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity 0.22s ease, transform 0.22s ease, color 0.22s ease;
+}
+
+.feature-card--link:hover .feature-arrow {
+  opacity: 1;
+  transform: translateY(0);
+  color: #13b0ee;
 }
 
 @media (prefers-reduced-motion: reduce) {

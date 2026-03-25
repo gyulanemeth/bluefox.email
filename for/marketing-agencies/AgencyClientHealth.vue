@@ -69,8 +69,8 @@ const clients = [
       <v-chip color="primary" class="health-badge">
         <span class="text-overline">Client Deliverability</span>
       </v-chip>
-      <h2 id="client-health-title">Monitor Every Client's Inbox Health from One Dashboard</h2>
-      <p>Per-client reputation isolation means one client's list hygiene issue never damages another's deliverability. Track every project from a single view.</p>
+      <h2 id="client-health-title">Client Inbox Health at a Glance</h2>
+      <p>One client's list issues stay contained. Track every project's inbox health from a single view.</p>
     </div>
 
     <div class="scorecard-grid" role="list">
@@ -123,7 +123,6 @@ const clients = [
       </button>
       <div v-if="showExplainer" class="explainer-body">
         <ul class="explainer-list">
-          <li>Each client project can connect its own AWS SES account, so sending infrastructure is fully separated.</li>
           <li>DKIM, SPF, and DMARC are configured per project, preventing cross-client authentication conflicts.</li>
           <li>A bounce spike on one client's campaign has zero effect on any other client's inbox placement.</li>
         </ul>
@@ -139,15 +138,7 @@ const clients = [
 
 <style scoped>
 .client-health {
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
   padding: 36px 24px;
-  background: #ffffff;
-}
-
-html.dark .client-health {
-  background: rgba(15, 23, 42, 0.72);
-  border-color: #334155;
 }
 
 .health-head { margin-bottom: 24px; }

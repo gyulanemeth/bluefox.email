@@ -19,7 +19,7 @@ const fixes = [
         <span class="text-overline">Reliable Rendering</span>
       </v-chip>
       <h2 id="rendering-preview-title">Preview Your Email. Know It Looks Right. Send It.</h2>
-      <p>You should not need email rendering expertise. BlueFox generates markup that handles every inbox quirk automatically, including Outlook and Gmail.</p>
+      <p>You should not need email rendering expertise. BlueFox Email generates markup that handles every inbox quirk automatically, including Outlook and Gmail.</p>
     </div>
 
     <div class="comparison-grid">
@@ -56,7 +56,7 @@ const fixes = [
 
       <!-- Fixed side -->
       <div class="comparison-card card--fixed">
-        <span class="card-label card-label--fixed">With BlueFox</span>
+        <span class="card-label card-label--fixed">With BlueFox Email</span>
         <div class="mock-email mock-email--fixed">
           <div class="mock-header mock-header--fixed">
             <div class="mock-logo-fixed" aria-hidden="true">
@@ -99,7 +99,7 @@ const fixes = [
 
     <div class="preview-callout" role="note">
       <strong>No rendering expertise needed.</strong>
-      <span> BlueFox's markup handles email client quirks automatically, including Outlook's Word rendering engine, Gmail's CSS stripping, and mobile viewport handling.</span>
+      <span> BlueFox Email's markup handles email client quirks automatically, including Outlook's Word rendering engine, Gmail's CSS stripping, and mobile viewport handling.</span>
     </div>
   </section>
 </template>

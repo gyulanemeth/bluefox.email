@@ -43,7 +43,7 @@ const scenarios = [
         <span class="text-overline">Honest Pricing</span>
       </v-chip>
       <h2 id="pricing-snapshot-title">Pay Only When You Send. Not Every Month.</h2>
-      <p>Most email tools bill you monthly — whether you send or not. BlueFox uses send packs: buy once, valid for 12 months, and use them whenever you need to.</p>
+      <p>Most email tools bill you monthly — whether you send or not. BlueFox Email uses send packs: buy once, valid for 12 months, and use them whenever you need to.</p>
     </div>
 
     <div class="comparison-grid">
@@ -71,7 +71,7 @@ const scenarios = [
           <div class="cost-vs" aria-hidden="true">vs</div>
 
           <div class="cost-block cost-block--bluefox">
-            <span class="cost-type">BlueFox send pack</span>
+            <span class="cost-type">BlueFox Email send pack</span>
             <span class="cost-amount">{{ scenario.bluefoxCost }}</span>
             <span class="cost-note">{{ scenario.bluefoxNote }}</span>
           </div>

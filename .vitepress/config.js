@@ -119,10 +119,10 @@ export default defineConfig({
       {
         text: "For",
         items: [
-          { text: "Amazon SES Users", link: "/for/amazon-ses-users" },
-          { text: "SaaS Users", link: "/for/saas-users" },
           { text: "Marketing Agencies", link: "/for/marketing-agencies" },
           { text: "Occasional Senders", link: "/for/occasional-senders" },
+          { text: "SaaS Companies", link: "/for/saas-users" },
+          { text: "Amazon SES Users", link: "/for/amazon-ses-users" },
         ],
       },
       { text: "Tutorials", link: "/tutorials" },
@@ -328,17 +328,9 @@ export default defineConfig({
         },
         {
           text: "For",
-          link: "/for/amazon-ses-users",
+          link: "/for/marketing-agencies",
           collapsed: false,
           items: [
-            {
-              text: "Amazon SES Users",
-              link: "/for/amazon-ses-users",
-            },
-            {
-              text: "SaaS Users",
-              link: "/for/saas-users",
-            },
             {
               text: "Marketing Agencies",
               link: "/for/marketing-agencies",
@@ -346,6 +338,14 @@ export default defineConfig({
             {
               text: "Occasional Senders",
               link: "/for/occasional-senders",
+            },
+            {
+              text: "SaaS Companies",
+              link: "/for/saas-users",
+            },
+            {
+              text: "Amazon SES Users",
+              link: "/for/amazon-ses-users",
             },
           ],
         },

@@ -85,7 +85,7 @@ const activeEmailType = () => emailTypes.find(t => t.id === activeType.value)
         </div>
         <div class="handled-note">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
-          <span>All handled automatically by BlueFox's rendering engine</span>
+          <span>All handled automatically by BlueFox Email's rendering engine</span>
         </div>
       </div>
 
@@ -106,7 +106,7 @@ const activeEmailType = () => emailTypes.find(t => t.id === activeType.value)
 
     <div class="matrix-callout" role="note">
       <strong>Battle-tested transactional markup.</strong>
-      <span> BlueFox generates HTML specifically engineered for email client quirks, so your lifecycle emails arrive looking exactly as designed, every time.</span>
+      <span> BlueFox Email generates HTML specifically engineered for email client quirks, so your lifecycle emails arrive looking exactly as designed, every time.</span>
     </div>
   </section>
 </template>

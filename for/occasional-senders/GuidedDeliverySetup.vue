@@ -3,7 +3,7 @@ const steps = [
   {
     number: '1',
     title: 'Verify your domain',
-    detail: 'Add a single DNS record to prove you own the domain you send from. BlueFox walks you through it.'
+    detail: 'Add a single DNS record to prove you own the domain you send from. BlueFox Email walks you through it.'
   },
   {
     number: '2',
@@ -31,7 +31,7 @@ const healthChecks = [
         <span class="text-overline">Inbox Delivery</span>
       </v-chip>
       <h2 id="guided-setup-title">Land in the Inbox Without Becoming a Deliverability Expert</h2>
-      <p>Three steps. No jargon. BlueFox handles the technical details so your emails actually reach people.</p>
+      <p>Three steps. No jargon. BlueFox Email handles the technical details so your emails actually reach people.</p>
     </div>
 
     <div class="setup-grid">
@@ -68,14 +68,14 @@ const healthChecks = [
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" />
           </svg>
-          <span>Infrastructure managed by BlueFox</span>
+          <span>Infrastructure managed by BlueFox Email</span>
         </div>
       </div>
     </div>
 
     <div class="setup-callout" role="note">
       <strong>Plain-English alerts if anything needs attention.</strong>
-      <span> If a DNS record expires or your bounce rate creeps up, BlueFox tells you exactly what to do, no deliverability expertise required.</span>
+      <span> If a DNS record expires or your bounce rate creeps up, BlueFox Email tells you exactly what to do, no deliverability expertise required.</span>
     </div>
   </section>
 </template>

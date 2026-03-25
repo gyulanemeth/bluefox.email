@@ -19,7 +19,7 @@ const categories = [
     description: 'Verify your domain is set up to pass inbox filters.',
     items: [
       { id: 'auth-1', text: 'SPF record is configured for your sending domain' },
-      { id: 'auth-2', text: 'DKIM is enabled and verified in BlueFox settings' },
+      { id: 'auth-2', text: 'DKIM is enabled and verified in BlueFox Email settings' },
       { id: 'auth-3', text: 'DMARC policy is in place (at minimum p=none to start)' }
     ]
   },

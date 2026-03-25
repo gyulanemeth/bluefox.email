@@ -32,7 +32,7 @@ const steps = [
   {
     number: '02',
     title: 'Preview',
-    detail: 'Automatic rendering verification across 8+ major email clients.'
+    detail: 'Review how the campaign looks before it leaves your hands. BlueFox Email generates markup engineered to render consistently across major clients.'
   },
   {
     number: '03',
@@ -48,8 +48,8 @@ const steps = [
       <v-chip color="primary" class="qa-badge">
         <span class="text-overline">Rendering QA</span>
       </v-chip>
-      <h2 id="rendering-qa-title">Ship Client Campaigns Without Rendering Fire Drills</h2>
-      <p>Every client's email renders perfectly across all major inboxes. No more billable hours lost to cross-client QA and last-minute Outlook fixes.</p>
+      <h2 id="rendering-qa-title">Ship Campaigns With Fewer Rendering Issues</h2>
+      <p>BlueFox Email generates HTML templates engineered to render as consistently as possible across major email clients. Less time on layout fixes, more time on strategy.</p>
     </div>
 
     <div class="brand-cards" role="list">
@@ -88,22 +88,14 @@ const steps = [
 
     <div class="qa-callout" role="note">
       <strong>Hours saved per campaign.</strong>
-      <span> Agencies typically spend 2-4 hours per campaign on rendering QA. BlueFox's battle-tested markup eliminates that work entirely across every client account.</span>
+      <span> Agencies typically spend 2-4 hours per campaign on rendering QA. BlueFox Email's battle-tested markup eliminates that work entirely across every client account.</span>
     </div>
   </section>
 </template>
 
 <style scoped>
 .rendering-qa {
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
   padding: 36px 24px;
-  background: #ffffff;
-}
-
-html.dark .rendering-qa {
-  background: rgba(15, 23, 42, 0.72);
-  border-color: #334155;
 }
 
 .qa-head { margin-bottom: 24px; }

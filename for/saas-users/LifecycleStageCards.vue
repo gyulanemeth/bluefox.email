@@ -79,7 +79,7 @@ const stages = [
         <span class="text-overline">Full Lifecycle Coverage</span>
       </v-chip>
       <h2 id="lifecycle-title">One Platform. Every Stage of the User Journey.</h2>
-      <p>Map your entire SaaS lifecycle to BlueFox automations and triggered emails — from the first welcome message to the last win-back attempt.</p>
+      <p>Map your entire SaaS lifecycle to BlueFox Email automations and triggered emails — from the first welcome message to the last win-back attempt.</p>
     </div>
 
     <div class="stage-nav" role="tablist" aria-label="Lifecycle stages">
@@ -137,7 +137,7 @@ const stages = [
 
           <div class="feature-block">
             <p class="block-heading feature-kicker">
-              BlueFox feature
+              BlueFox Email feature
             </p>
             <strong class="feature-name">{{ stages[activeStage].bluefoxFeature }}</strong>
             <p class="feature-desc">{{ stages[activeStage].featureDesc }}</p>

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 const props = defineProps({
   isDark: {
@@ -21,6 +21,10 @@ const props = defineProps({
   xs: {
     type: Boolean,
     default: false
+  },
+  testimonialIds: {
+    type: Array,
+    default: null
   }
 })
 
@@ -132,6 +136,10 @@ const testimonials = [
   }
 ]
 
+const visibleTestimonials = computed(() =>
+  props.testimonialIds ? testimonials.filter(t => props.testimonialIds.includes(t.id)) : testimonials
+)
+
 const mobileEmailView = ref(true)
 
 function selectTestimonial(id) {
@@ -236,29 +244,29 @@ function selectTestimonial(id) {
                 role="button"
                 tabindex="0"
                 aria-current="page"
-                :aria-label="`Inbox — ${testimonials.length} messages`"
+                :aria-label="`Inbox — ${visibleTestimonials.length} messages`"
                 @keydown.enter.prevent="selectTestimonial(0)"
                 @keydown.space.prevent="selectTestimonial(0)"
                 @click="selectTestimonial(0)"
               >
                 <v-icon size="18" class="mr-2" aria-hidden="true">mdi-inbox</v-icon>
                 <span class="sidebar-label">Inbox</span>
-                <span class="sidebar-count" aria-hidden="true">{{ testimonials.length }}</span>
-                <span class="visually-hidden">{{ testimonials.length }} unread messages</span>
+                <span class="sidebar-count" aria-hidden="true">{{ visibleTestimonials.length }}</span>
+                <span class="visually-hidden">{{ visibleTestimonials.length }} unread messages</span>
               </div>
 
               <div
                 class="sidebar-item"
                 role="button"
                 tabindex="0"
-                :aria-label="`Starred — ${testimonials.filter(t => t.starred).length} messages`"
+                :aria-label="`Starred — ${visibleTestimonials.filter(t => t.starred).length} messages`"
                 @keydown.enter.prevent="noop"
                 @keydown.space.prevent="noop"
               >
                 <v-icon size="18" class="mr-2" aria-hidden="true">mdi-star-outline</v-icon>
                 <span class="sidebar-label">Starred</span>
-                <span class="sidebar-count" aria-hidden="true">{{ testimonials.filter(t => t.starred).length }}</span>
-                <span class="visually-hidden">{{ testimonials.filter(t => t.starred).length }} starred messages</span>
+                <span class="sidebar-count" aria-hidden="true">{{ visibleTestimonials.filter(t => t.starred).length }}</span>
+                <span class="visually-hidden">{{ visibleTestimonials.filter(t => t.starred).length }} starred messages</span>
               </div>
 
               <div
@@ -291,22 +299,22 @@ function selectTestimonial(id) {
           <div class="message-list" role="list" aria-label="Message list">
             <div class="list-header" aria-hidden="true">
               <span class="list-title">Inbox</span>
-              <span class="list-count">{{ testimonials.length }} messages</span>
+              <span class="list-count">{{ visibleTestimonials.length }} messages</span>
             </div>
 
             <div
-              v-for="item in testimonials"
+              v-for="(item, idx) in visibleTestimonials"
               :key="item.id"
               class="message-item"
-              :class="{ 
-                'selected': item.id === selectedTestimonialId,
+              :class="{
+                'selected': idx === selectedTestimonialId,
                 'unread': item.unread
               }"
               role="listitem"
               tabindex="0"
-              @click="selectTestimonial(item.id)"
-              @keydown.enter.prevent="selectTestimonial(item.id)"
-              @keydown.space.prevent="selectTestimonial(item.id)"
+              @click="selectTestimonial(idx)"
+              @keydown.enter.prevent="selectTestimonial(idx)"
+              @keydown.space.prevent="selectTestimonial(idx)"
               :aria-label="`${item.name}: ${item.subject}. ${item.unread ? 'Unread.' : ''} ${item.date}`"
             >
               <div class="message-header">
@@ -333,32 +341,32 @@ function selectTestimonial(id) {
           </div>
 
           <!-- Message View -->
-          <div class="message-view" role="region" :aria-label="`Message from ${testimonials[selectedTestimonialId].name}`">
+          <div class="message-view" role="region" :aria-label="`Message from ${visibleTestimonials[selectedTestimonialId].name}`">
             <div class="message-header-bar">
               <div class="header-from">
                 <v-avatar
-                  :image="testimonials[selectedTestimonialId].profileImg"
+                  :image="visibleTestimonials[selectedTestimonialId].profileImg"
                   size="40"
                   class="mr-3"
                 />
                 <div class="header-info">
-                  <div class="header-name">{{ testimonials[selectedTestimonialId].name }}</div>
-                  <div class="header-email">{{ testimonials[selectedTestimonialId].company }}</div>
+                  <div class="header-name">{{ visibleTestimonials[selectedTestimonialId].name }}</div>
+                  <div class="header-email">{{ visibleTestimonials[selectedTestimonialId].company }}</div>
                 </div>
               </div>
               <div class="header-meta" role="group" aria-label="Message actions">
-                <span class="header-date" aria-hidden="true">{{ testimonials[selectedTestimonialId].date }}</span>
+                <span class="header-date" aria-hidden="true">{{ visibleTestimonials[selectedTestimonialId].date }}</span>
 
                 <v-btn
                   icon
                   variant="text"
                   size="small"
                   class="header-btn"
-                  :aria-pressed="testimonials[selectedTestimonialId].starred ? 'true' : 'false'"
+                  :aria-pressed="visibleTestimonials[selectedTestimonialId].starred ? 'true' : 'false'"
                   aria-label="Toggle star"
                   type="button"
                 >
-                  <v-icon size="18" aria-hidden="true">mdi-star{{ testimonials[selectedTestimonialId].starred ? '' : '-outline' }}</v-icon>
+                  <v-icon size="18" aria-hidden="true">mdi-star{{ visibleTestimonials[selectedTestimonialId].starred ? '' : '-outline' }}</v-icon>
                 </v-btn>
 
                 <v-btn
@@ -388,26 +396,26 @@ function selectTestimonial(id) {
             </div>
 
             <div class="message-subject-line">
-              <h2 class="subject-text">{{ testimonials[selectedTestimonialId].subject }}</h2>
+              <h2 class="subject-text">{{ visibleTestimonials[selectedTestimonialId].subject }}</h2>
             </div>
 
             <div class="message-body">
-              <p class="body-text">{{ testimonials[selectedTestimonialId].testimonial }}</p>
+              <p class="body-text">{{ visibleTestimonials[selectedTestimonialId].testimonial }}</p>
 
               <div class="message-signature" aria-label="Sender information">
                 <div class="signature-divider" aria-hidden="true"></div>
                 <div class="signature-content">
-                  <div class="signature-role">{{ testimonials[selectedTestimonialId].role }}</div>
+                  <div class="signature-role">{{ visibleTestimonials[selectedTestimonialId].role }}</div>
                   <a
-                    :href="testimonials[selectedTestimonialId].url"
+                    :href="visibleTestimonials[selectedTestimonialId].url"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="signature-company"
-                    :aria-label="`Visit ${testimonials[selectedTestimonialId].company}`"
+                    :aria-label="`Visit ${visibleTestimonials[selectedTestimonialId].company}`"
                   >
                     <img
-                      :src="testimonials[selectedTestimonialId].logo"
-                      :alt="testimonials[selectedTestimonialId].logoAlt"
+                      :src="visibleTestimonials[selectedTestimonialId].logo"
+                      :alt="visibleTestimonials[selectedTestimonialId].logoAlt"
                       class="signature-logo"
                       width="100"
                       height="32"
@@ -456,7 +464,7 @@ function selectTestimonial(id) {
               icon
               variant="text"
               size="small"
-              @click="selectedTestimonialId = Math.min(testimonials.length - 1, selectedTestimonialId + 1)"
+              @click="selectedTestimonialId = Math.min(visibleTestimonials.length - 1, selectedTestimonialId + 1)"
               aria-label="Next message"
               type="button"
             >
@@ -465,25 +473,25 @@ function selectTestimonial(id) {
           </div>
         </div>
 
-        <div class="mobile-message-content" role="region" :aria-label="`Message from ${testimonials[selectedTestimonialId].name}`">
+        <div class="mobile-message-content" role="region" :aria-label="`Message from ${visibleTestimonials[selectedTestimonialId].name}`">
           <div class="mobile-message-header">
             <div class="mobile-from-row">
-              <v-avatar :image="testimonials[selectedTestimonialId].profileImg" size="48" class="mr-3" />
+              <v-avatar :image="visibleTestimonials[selectedTestimonialId].profileImg" size="48" class="mr-3" />
               <div class="mobile-from-info">
-                <div class="mobile-from-name">{{ testimonials[selectedTestimonialId].name }}</div>
-                <div class="mobile-from-email">{{ testimonials[selectedTestimonialId].company }}</div>
+                <div class="mobile-from-name">{{ visibleTestimonials[selectedTestimonialId].name }}</div>
+                <div class="mobile-from-email">{{ visibleTestimonials[selectedTestimonialId].company }}</div>
               </div>
             </div>
-            <div class="mobile-subject">{{ testimonials[selectedTestimonialId].subject }}</div>
-            <div class="mobile-date">{{ testimonials[selectedTestimonialId].date }}</div>
+            <div class="mobile-subject">{{ visibleTestimonials[selectedTestimonialId].subject }}</div>
+            <div class="mobile-date">{{ visibleTestimonials[selectedTestimonialId].date }}</div>
           </div>
 
           <div class="mobile-message-body">
-            <p>{{ testimonials[selectedTestimonialId].testimonial }}</p>
+            <p>{{ visibleTestimonials[selectedTestimonialId].testimonial }}</p>
             <div class="mobile-signature">
-              <div class="mobile-signature-role">{{ testimonials[selectedTestimonialId].role }}</div>
-              <a :href="testimonials[selectedTestimonialId].url" target="_blank" :aria-label="`Visit ${testimonials[selectedTestimonialId].company}`">
-                <img :src="testimonials[selectedTestimonialId].logo" :alt="testimonials[selectedTestimonialId].logoAlt" class="mobile-signature-logo" width="88" height="28" loading="lazy" decoding="async" />
+              <div class="mobile-signature-role">{{ visibleTestimonials[selectedTestimonialId].role }}</div>
+              <a :href="visibleTestimonials[selectedTestimonialId].url" target="_blank" :aria-label="`Visit ${visibleTestimonials[selectedTestimonialId].company}`">
+                <img :src="visibleTestimonials[selectedTestimonialId].logo" :alt="visibleTestimonials[selectedTestimonialId].logoAlt" class="mobile-signature-logo" width="88" height="28" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>
@@ -493,17 +501,17 @@ function selectTestimonial(id) {
       <div v-else class="mobile-inbox" role="list" aria-label="Inbox messages">
         <div class="mobile-inbox-header">
           <h2 class="mobile-inbox-title">Inbox</h2>
-          <span class="mobile-inbox-count">{{ testimonials.length }}</span>
+          <span class="mobile-inbox-count">{{ visibleTestimonials.length }}</span>
         </div>
         <div
-          v-for="item in testimonials"
+          v-for="(item, idx) in visibleTestimonials"
           :key="item.id"
           class="mobile-message-item"
           role="listitem"
           tabindex="0"
-          @click="selectTestimonial(item.id)"
-          @keydown.enter.prevent="selectTestimonial(item.id)"
-          @keydown.space.prevent="selectTestimonial(item.id)"
+          @click="selectTestimonial(idx)"
+          @keydown.enter.prevent="selectTestimonial(idx)"
+          @keydown.space.prevent="selectTestimonial(idx)"
           :aria-label="`${item.name}: ${item.subject}. ${item.date}`"
         >
           <div class="mobile-item-header">
@@ -569,15 +577,15 @@ function selectTestimonial(id) {
             </div>
 
             <div
-              v-for="item in testimonials"
+              v-for="(item, idx) in visibleTestimonials"
               :key="item.id"
               class="tablet-message-item"
-              :class="{ 'selected': item.id === selectedTestimonialId }"
+              :class="{ 'selected': idx === selectedTestimonialId }"
               role="listitem"
               tabindex="0"
-              @click="selectTestimonial(item.id)"
-              @keydown.enter.prevent="selectTestimonial(item.id)"
-              @keydown.space.prevent="selectTestimonial(item.id)"
+              @click="selectTestimonial(idx)"
+              @keydown.enter.prevent="selectTestimonial(idx)"
+              @keydown.space.prevent="selectTestimonial(idx)"
               :aria-label="`${item.name}: ${item.subject}. ${item.date}`"
             >
               <v-avatar :image="item.profileImg" size="32" class="mr-2" />
@@ -588,19 +596,19 @@ function selectTestimonial(id) {
             </div>
           </div>
 
-          <div class="tablet-message-view" role="region" :aria-label="`Message from ${testimonials[selectedTestimonialId].name}`">
+          <div class="tablet-message-view" role="region" :aria-label="`Message from ${visibleTestimonials[selectedTestimonialId].name}`">
             <div class="tablet-message-header">
-              <v-avatar :image="testimonials[selectedTestimonialId].profileImg" size="36" class="mr-3" />
+              <v-avatar :image="visibleTestimonials[selectedTestimonialId].profileImg" size="36" class="mr-3" />
               <div>
-                <div class="tablet-header-name">{{ testimonials[selectedTestimonialId].name }}</div>
-                <div class="tablet-header-email">{{ testimonials[selectedTestimonialId].company }}</div>
+                <div class="tablet-header-name">{{ visibleTestimonials[selectedTestimonialId].name }}</div>
+                <div class="tablet-header-email">{{ visibleTestimonials[selectedTestimonialId].company }}</div>
               </div>
             </div>
-            <div class="tablet-subject">{{ testimonials[selectedTestimonialId].subject }}</div>
+            <div class="tablet-subject">{{ visibleTestimonials[selectedTestimonialId].subject }}</div>
             <div class="tablet-body">
-              <p>{{ testimonials[selectedTestimonialId].testimonial }}</p>
-              <a :href="testimonials[selectedTestimonialId].url" target="_blank" :aria-label="`Visit ${testimonials[selectedTestimonialId].company}`" class="tablet-logo-link">
-                <img :src="testimonials[selectedTestimonialId].logo" :alt="testimonials[selectedTestimonialId].logoAlt" class="tablet-logo" loading="lazy" decoding="async" />
+              <p>{{ visibleTestimonials[selectedTestimonialId].testimonial }}</p>
+              <a :href="visibleTestimonials[selectedTestimonialId].url" target="_blank" :aria-label="`Visit ${visibleTestimonials[selectedTestimonialId].company}`" class="tablet-logo-link">
+                <img :src="visibleTestimonials[selectedTestimonialId].logo" :alt="visibleTestimonials[selectedTestimonialId].logoAlt" class="tablet-logo" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>

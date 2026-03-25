@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
 
@@ -40,11 +41,14 @@ defineProps({
   analyticsTitle: { type: String, required: true },
   analyticsDescription: { type: String, required: true },
   finalTitle: { type: String, required: true },
-  finalDescription: { type: String, required: true }
+  finalDescription: { type: String, required: true },
+  testimonialIds: { type: Array, default: null }
 })
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
+
+const openSolution = ref(null)
 </script>
 
 <template>
@@ -60,129 +64,192 @@ const { isDark } = useData()
     :cta-href="ctaHref"
   />
 
-  <section class="problem-section" role="region" aria-labelledby="problem-heading">
-    <div class="problem-intro">
-      <div class="problem-badge-wrap">
-        <v-chip color="primary" class="problem-badge" aria-label="Audience challenge badge">
-          <span class="text-overline">The Challenge</span>
-        </v-chip>
+  <!-- 1. Pain points — white -->
+  <div class="stripe stripe--white">
+    <section class="stripe-inner problem-section" role="region" aria-labelledby="problem-heading">
+      <div class="problem-intro">
+        <div class="problem-badge-wrap">
+          <v-chip color="primary" class="problem-badge" aria-label="Audience challenge badge">
+            <span class="text-overline">The Challenge</span>
+          </v-chip>
+        </div>
+        <h2 id="problem-heading" class="section-title">{{ painTitle }}</h2>
+        <p class="section-subtitle">{{ painSubtitle }}</p>
       </div>
-      <h2 id="problem-heading" class="section-title">{{ painTitle }}</h2>
-      <p class="section-subtitle">{{ painSubtitle }}</p>
+      <div class="problem-grid" role="list">
+        <article
+          v-for="(item, index) in painPoints"
+          :key="`${item.title}-${index}`"
+          class="problem-card"
+          role="listitem"
+        >
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.description }}</p>
+          <div class="problem-card-footer">
+            <span class="problem-impact">{{ item.impact }}</span>
+            <button
+              v-if="item.solution"
+              class="solution-toggle"
+              :aria-expanded="openSolution === index"
+              @click="openSolution = openSolution === index ? null : index"
+            >
+              Solution
+              <svg
+                width="12" height="12" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round"
+                :style="{ transform: openSolution === index ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }"
+                aria-hidden="true"
+              ><polyline points="6 9 12 15 18 9" /></svg>
+            </button>
+          </div>
+          <div v-if="item.solution && openSolution === index" class="solution-reveal">
+            {{ item.solution }}
+          </div>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <!-- 2. After-pain slot — blue -->
+  <div v-if="$slots.afterPain" class="stripe stripe--blue">
+    <div id="after-pain" class="stripe-inner persona-slot" aria-label="Persona-specific feature section">
+      <slot name="afterPain" />
     </div>
+  </div>
 
-    <div class="problem-grid" role="list">
-      <article
-        v-for="(item, index) in painPoints"
-        :key="`${item.title}-${index}`"
-        class="problem-card"
-        role="listitem"
-      >
-        <h3>{{ item.title }}</h3>
-        <p>{{ item.description }}</p>
-        <span class="problem-impact">{{ item.impact }}</span>
-      </article>
+  <!-- 3. Testimonials — white -->
+  <div class="stripe stripe--white">
+    <section class="stripe-inner section-block" aria-labelledby="testimonials-heading">
+      <h2 id="testimonials-heading" class="section-title">{{ testimonialTitle }}</h2>
+      <AppleMailTestimonials
+        :is-dark="isDark"
+        :lg-and-up="lgAndUp"
+        :md="md"
+        :sm="sm"
+        :xs="xs"
+        :testimonial-ids="testimonialIds"
+      />
+    </section>
+  </div>
+
+  <!-- 4. Mid CTA — blue -->
+  <div v-if="midCtaTitle" class="stripe stripe--blue">
+    <section class="stripe-inner mid-cta" aria-labelledby="mid-cta-heading">
+      <div class="mid-cta-inner">
+        <h2 id="mid-cta-heading">{{ midCtaTitle }}</h2>
+        <p v-if="midCtaDescription">{{ midCtaDescription }}</p>
+        <v-btn
+          size="large"
+          color="primary"
+          variant="flat"
+          class="mid-cta-btn"
+          :href="ctaHref"
+          target="_blank"
+        >
+          <strong>{{ ctaText }}</strong>
+        </v-btn>
+      </div>
+    </section>
+  </div>
+
+  <!-- 5. Design — white -->
+  <div class="stripe stripe--white">
+    <section id="design-system" class="stripe-inner section-block" aria-labelledby="design-title">
+      <h2 id="design-title" class="section-title">{{ designTitle }}</h2>
+      <p class="section-subtitle constrained">{{ designDescription }}</p>
+      <DesignSystem :is-dark="isDark" class="mt-6" />
+    </section>
+  </div>
+
+  <!-- 6. Automation — blue -->
+  <div class="stripe stripe--blue">
+    <section id="automation" class="stripe-inner section-block" aria-labelledby="automation-title">
+      <h2 id="automation-title" class="section-title">{{ automationTitle }}</h2>
+      <p class="section-subtitle constrained">{{ automationDescription }}</p>
+      <Automation
+        class="mt-6"
+        :is-dark="isDark"
+        :lg-and-up="lgAndUp"
+        :md="md"
+        :sm="sm"
+        :xs="xs"
+      />
+    </section>
+  </div>
+
+  <!-- 7. Rendering — white -->
+  <div v-if="$slots.renderingContent" class="stripe stripe--white">
+    <div id="rendering" class="stripe-inner persona-slot" aria-label="Rendering content">
+      <slot name="renderingContent" />
     </div>
-  </section>
+  </div>
+  <div v-else-if="renderingTitle" class="stripe stripe--white">
+    <section id="rendering-reliability" class="stripe-inner section-block" aria-labelledby="rendering-title">
+      <h2 id="rendering-title" class="section-title">{{ renderingTitle }}</h2>
+      <p class="section-subtitle constrained">{{ renderingDescription }}</p>
+    </section>
+  </div>
 
-  <section v-if="$slots.afterPain" class="persona-slot" aria-label="Persona-specific feature section">
-    <slot name="afterPain" />
-  </section>
+  <!-- 8. Deliverability — blue -->
+  <div v-if="$slots.deliverabilityContent" class="stripe stripe--blue">
+    <div id="deliverability" class="stripe-inner persona-slot" aria-label="Deliverability content">
+      <slot name="deliverabilityContent" />
+    </div>
+  </div>
+  <div v-else-if="deliverabilityTitle" class="stripe stripe--blue">
+    <section id="deliverability" class="stripe-inner section-block" aria-labelledby="deliverability-title">
+      <h2 id="deliverability-title" class="section-title">{{ deliverabilityTitle }}</h2>
+      <p class="section-subtitle constrained">{{ deliverabilityDescription }}</p>
+    </section>
+  </div>
 
-  <section class="section-block" aria-labelledby="testimonials-heading">
-    <h2 id="testimonials-heading" class="section-title">{{ testimonialTitle }}</h2>
-    <AppleMailTestimonials
-      :is-dark="isDark"
-      :lg-and-up="lgAndUp"
-      :md="md"
-      :sm="sm"
-      :xs="xs"
-    />
-  </section>
+  <!-- 9. Analytics — white -->
+  <div class="stripe stripe--white">
+    <div v-if="$slots.analyticsContent" id="analytics-title" class="stripe-inner persona-slot" aria-label="Analytics content">
+      <slot name="analyticsContent" />
+    </div>
+    <section v-else class="stripe-inner section-block" aria-labelledby="analytics-title">
+      <h2 id="analytics-title" class="section-title">{{ analyticsTitle }}</h2>
+      <p class="section-subtitle constrained">{{ analyticsDescription }}</p>
+      <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="Analytics dashboard screenshot">
+        <img alt="Analytics dashboard screenshot" src="/assets/analytics-alt.webp" loading="lazy" width="1920" height="1080" />
+      </v-card>
+    </section>
+  </div>
 
-  <section v-if="midCtaTitle" class="mid-cta" aria-labelledby="mid-cta-heading">
-    <div class="mid-cta-inner">
-      <h2 id="mid-cta-heading">{{ midCtaTitle }}</h2>
-      <p v-if="midCtaDescription">{{ midCtaDescription }}</p>
+  <!-- 10. Integrations — blue -->
+  <div class="stripe stripe--blue">
+    <section class="stripe-inner section-block" aria-labelledby="integrations-title">
+      <h2 id="integrations-title" class="visually-hidden">Integrations</h2>
+      <Integration :is-dark="isDark" />
+    </section>
+  </div>
+
+  <!-- 11. Bottom slot — white -->
+  <div v-if="$slots.bottom" class="stripe stripe--white">
+    <div id="workflow" class="stripe-inner persona-slot" aria-label="Audience-specific section">
+      <slot name="bottom" />
+    </div>
+  </div>
+
+  <!-- 12. Final CTA — blue -->
+  <div class="stripe stripe--blue">
+    <section class="stripe-inner final-cta" aria-labelledby="final-cta-title">
+      <h2 id="final-cta-title">{{ finalTitle }}</h2>
+      <p>{{ finalDescription }}</p>
       <v-btn
-        size="large"
+        size="x-large"
         color="primary"
         variant="flat"
-        class="mid-cta-btn"
+        class="hero-cta"
         :href="ctaHref"
         target="_blank"
       >
         <strong>{{ ctaText }}</strong>
       </v-btn>
-    </div>
-  </section>
-
-  <section id="design-system" class="section-block" aria-labelledby="design-title">
-    <h2 id="design-title" class="section-title">{{ designTitle }}</h2>
-    <p class="section-subtitle constrained">{{ designDescription }}</p>
-    <DesignSystem :is-dark="isDark" class="mt-6" />
-  </section>
-
-  <section id="automation" class="section-block" aria-labelledby="automation-title">
-    <h2 id="automation-title" class="section-title">{{ automationTitle }}</h2>
-    <p class="section-subtitle constrained">{{ automationDescription }}</p>
-    <Automation
-      class="mt-6"
-      :is-dark="isDark"
-      :lg-and-up="lgAndUp"
-      :md="md"
-      :sm="sm"
-      :xs="xs"
-    />
-  </section>
-
-  <section v-if="$slots.renderingContent" class="persona-slot" aria-label="Rendering content">
-    <slot name="renderingContent" />
-  </section>
-  <section v-else-if="renderingTitle" id="rendering-reliability" class="section-block" aria-labelledby="rendering-title">
-    <h2 id="rendering-title" class="section-title">{{ renderingTitle }}</h2>
-    <p class="section-subtitle constrained">{{ renderingDescription }}</p>
-  </section>
-
-  <section v-if="$slots.deliverabilityContent" class="persona-slot" aria-label="Deliverability content">
-    <slot name="deliverabilityContent" />
-  </section>
-  <section v-else-if="deliverabilityTitle" id="deliverability" class="section-block" aria-labelledby="deliverability-title">
-    <h2 id="deliverability-title" class="section-title">{{ deliverabilityTitle }}</h2>
-    <p class="section-subtitle constrained">{{ deliverabilityDescription }}</p>
-  </section>
-
-  <section class="section-block" aria-labelledby="analytics-title">
-    <h2 id="analytics-title" class="section-title">{{ analyticsTitle }}</h2>
-    <p class="section-subtitle constrained">{{ analyticsDescription }}</p>
-    <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="Analytics dashboard screenshot">
-      <img alt="Analytics dashboard screenshot" src="/assets/analytics-alt.webp" loading="lazy" width="1920" height="1080" />
-    </v-card>
-  </section>
-
-  <section class="section-block" aria-labelledby="integrations-title">
-    <h2 id="integrations-title" class="visually-hidden">Integrations</h2>
-    <Integration :is-dark="isDark" />
-  </section>
-
-  <section class="final-cta" aria-labelledby="final-cta-title">
-    <h2 id="final-cta-title">{{ finalTitle }}</h2>
-    <p>{{ finalDescription }}</p>
-    <v-btn
-      size="x-large"
-      color="primary"
-      variant="flat"
-      class="hero-cta"
-      :href="ctaHref"
-      target="_blank"
-    >
-      <strong>{{ ctaText }}</strong>
-    </v-btn>
-  </section>
-
-  <section v-if="$slots.bottom" class="bottom-extension" aria-label="Audience-specific section">
-    <slot name="bottom" />
-  </section>
+    </section>
+  </div>
 </template>
 
 <style scoped>
@@ -206,43 +273,44 @@ const { isDark } = useData()
   line-height: 1.2;
 }
 
-.problem-section,
-.section-block,
-.final-cta {
+/* Full-bleed alternating stripes */
+.stripe {
+  position: relative;
+  left: calc(-50vw + 50%);
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+.stripe--white {
+  background: #ffffff;
+}
+
+.stripe--blue {
+  background: #eef8fd;
+}
+
+html.dark .stripe--white {
+  background: #0f172a;
+}
+
+html.dark .stripe--blue {
+  background: #0c1e2d;
+}
+
+.stripe-inner {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.problem-section,
+.section-block,
+.persona-slot,
+.final-cta {
   padding: 72px 24px;
 }
 
-/* Spacing fix: create breathing room between full-bleed hero and first section */
-.problem-section {
-  margin-top: 56px;
-  background: linear-gradient(135deg, rgba(19, 176, 238, 0.03), rgba(57, 44, 145, 0.03));
-  border-radius: 16px;
-  position: relative;
-  overflow: hidden;
-}
-
-html.dark .problem-section {
-  background: linear-gradient(135deg, rgba(19, 176, 238, 0.08), rgba(57, 44, 145, 0.08));
-}
-
-.problem-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(19, 176, 238, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 176, 238, 0.03) 1px, transparent 1px);
-  background-size: 44px 44px;
-  opacity: 0.55;
-}
-
-html.dark .problem-section::before {
-  background-image:
-    linear-gradient(rgba(19, 176, 238, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(19, 176, 238, 0.05) 1px, transparent 1px);
+.mid-cta {
+  padding: 56px 24px;
 }
 
 .problem-intro,
@@ -298,7 +366,7 @@ html.dark .section-subtitle {
 }
 
 .problem-card {
-  background: rgba(255, 255, 255, 0.9);
+  background: #f8fafc;
   border: 1px solid #e5e7eb;
   border-radius: 14px;
   padding: 22px;
@@ -353,8 +421,59 @@ html.dark .problem-card p {
   color: #9ca3af;
 }
 
-.problem-impact {
+.problem-card-footer {
   margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.solution-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(16, 185, 129, 0.1);
+  color: #047857;
+  border: none;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.solution-toggle:hover {
+  background: rgba(16, 185, 129, 0.18);
+}
+
+html.dark .solution-toggle {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+}
+
+html.dark .solution-toggle:hover {
+  background: rgba(16, 185, 129, 0.25);
+}
+
+.solution-reveal {
+  background: rgba(16, 185, 129, 0.07);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #064e3b;
+}
+
+html.dark .solution-reveal {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: rgba(16, 185, 129, 0.2);
+  color: #6ee7b7;
+}
+
+.problem-impact {
   align-self: flex-start;
   background: rgba(19, 176, 238, 0.12);
   color: #0e7490;
@@ -389,28 +508,7 @@ html.dark .problem-card:hover .problem-impact {
   }
 }
 
-/* Persona-specific slot between pain points and testimonials */
-.persona-slot {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 72px 24px;
-}
-
-/* Mid-page CTA strip */
-.mid-cta {
-  position: relative;
-  left: calc(-50vw + 50%);
-  width: 100vw;
-  background: linear-gradient(135deg, rgba(57, 44, 145, 0.06) 0%, rgba(19, 176, 238, 0.06) 100%);
-  border-top: 1px solid rgba(19, 176, 238, 0.12);
-  border-bottom: 1px solid rgba(19, 176, 238, 0.12);
-  padding: 56px 24px;
-}
-
-html.dark .mid-cta {
-  background: linear-gradient(135deg, rgba(57, 44, 145, 0.12) 0%, rgba(19, 176, 238, 0.12) 100%);
-  border-color: rgba(19, 176, 238, 0.2);
-}
+/* Mid-page CTA content */
 
 .mid-cta-inner {
   max-width: 720px;
@@ -455,14 +553,6 @@ html.dark .mid-cta-inner p {
 
 .final-cta {
   text-align: center;
-  padding-top: 34px;
-  padding-bottom: 96px;
-}
-
-.bottom-extension {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 32px 24px 80px;
 }
 
 .final-cta h2 {
@@ -504,35 +594,16 @@ html.dark .final-cta p {
 }
 
 @media (max-width: 760px) {
-  .problem-section {
-    margin-top: 40px;
-  }
-
   .problem-grid {
     grid-template-columns: 1fr;
   }
 
-  .persona-hero,
   .problem-section,
   .section-block,
+  .persona-slot,
+  .mid-cta,
   .final-cta {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
-  .persona-slot {
     padding: 56px 16px;
-  }
-
-  .bottom-extension {
-    padding: 24px 16px 56px;
-  }
-
-  .problem-section,
-  .section-block,
-  .final-cta {
-    padding-top: 56px;
-    padding-bottom: 56px;
   }
 }
 </style>
