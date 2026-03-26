@@ -29,6 +29,7 @@ const FOOTER_CONFIG = {
   links: {
     company: [
       { text: 'About', href: '/about' },
+      { text: 'Meet the Team', href: '/meet-the-team' },
       { text: 'Why?', href: '/why' },
       { text: 'Partners', href: '/partners' }
     ],
