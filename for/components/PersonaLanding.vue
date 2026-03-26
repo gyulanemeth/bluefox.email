@@ -259,6 +259,7 @@ const openSolution = ref(null)
   border-radius: 10px !important;
   min-height: 56px !important;
   padding: 0 30px !important;
+  text-decoration: none !important;
 }
 
 .hero-cta :deep(.v-btn__content) {
@@ -541,6 +542,7 @@ html.dark .mid-cta-inner p {
   border-radius: 10px !important;
   min-height: 50px !important;
   padding: 0 28px !important;
+  text-decoration: none !important;
 }
 
 .mid-cta-btn :deep(.v-btn__content) {

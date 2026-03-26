@@ -178,6 +178,7 @@ html.dark .highlight-item {
   border-radius: 10px !important;
   min-height: 56px !important;
   padding: 0 30px !important;
+  text-decoration: none !important;
 }
 
 .hero-button :deep(.v-btn__content) {
