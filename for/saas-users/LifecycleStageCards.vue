@@ -15,7 +15,7 @@ const stages = [
     trigger: 'Contact added to onboarding list or account created event',
     emailTypes: ['Welcome email', 'Setup checklist', 'Day 3 check-in', 'First milestone congrats'],
     bluefoxFeature: 'Triggered emails + Automations',
-    featureDesc: 'Fire a multi-step welcome sequence automatically when a new contact is added, with no engineering sprint needed to update the flow.'
+    featureDesc: 'Fire a multi-step welcome sequence automatically when a new contact is added. No engineering sprint needed to update the flow.'
   },
   {
     number: '02',
@@ -28,7 +28,7 @@ const stages = [
     trigger: 'Key action not taken after X days; enter/leave segment',
     emailTypes: ['Feature spotlight', 'Aha-moment nudge', 'Progress reminder', 'Peer social proof'],
     bluefoxFeature: 'Automations with branching + Segments',
-    featureDesc: 'Branch your activation flow based on which features the user has tried. Segments let you target users who have not hit the milestone yet.'
+    featureDesc: 'Branch your activation flow based on which features the user has tried. Segments with AND/OR conditions let you precisely target users who have not hit the milestone yet.'
   },
   {
     number: '03',
@@ -41,7 +41,7 @@ const stages = [
     trigger: 'Session frequency drop; weekly digest schedule; inactivity threshold reached',
     emailTypes: ['Weekly activity digest', 'Tip & trick series', 'Re-engagement nudge', 'Usage milestone alert'],
     bluefoxFeature: 'Campaigns + Audience filter nodes',
-    featureDesc: 'Use scheduled campaigns for weekly digests and automation audience filters to detect inactivity before it becomes churn.'
+    featureDesc: 'Use scheduled campaigns for weekly digests and segment-based audience filters to detect inactivity before it becomes churn.'
   },
   {
     number: '04',

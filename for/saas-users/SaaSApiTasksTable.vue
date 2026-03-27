@@ -22,7 +22,7 @@ const endpoints = [
     method: 'POST',
     path: '/v1/send-transactional',
     label: 'Send Transactional Email',
-    description: 'Deliver one-to-one account emails instantly: invoices, password resets, receipts. Supports attachments inline.',
+    description: 'Deliver one-to-one account emails instantly. Invoices, password resets, receipts. Supports attachments inline.',
     useCases: ['Payment confirmations', 'Invoice delivery', 'Account alerts'],
     docLink: '/docs/api/send-transactional-email',
     snippet: `fetch('/v1/send-transactional', {

@@ -12,7 +12,7 @@ const tabs = [
 const workflows = {
   setup: {
     title: 'Onboard a New Client in Under 30 Minutes',
-    description: 'Each client gets a fully isolated workspace, with their own contacts, templates, automations, and brand settings, without any cross-client bleed.',
+    description: 'Each client gets a fully isolated workspace with their own contacts, templates, automations, and brand settings. No cross-client bleed.',
     steps: [
       {
         number: '01',

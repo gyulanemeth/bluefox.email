@@ -96,7 +96,7 @@ const modes = [
     </div>
 
     <div class="modes-note" role="note">
-      Every project starts in sandbox mode. To send without restrictions, request production access after verifying your domain, or connect your own AWS SES account if you already have one set up.
+      Every project starts in sandbox mode. To send without restrictions, request production access after verifying your domain. You can also connect your own AWS SES account if you already have one set up.
     </div>
   </section>
 </template>

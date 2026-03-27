@@ -1,104 +1,79 @@
 <script setup>
-const clients = [
-  {
-    name: 'Apex Digital',
-    industry: 'E-commerce',
-    accentColor: '#13b0ee',
-    initial: 'A',
-    lastCampaign: '2 days ago',
-    templates: 14,
-    lists: 3,
-    status: 'active',
-    statusLabel: 'Campaign live'
-  },
-  {
-    name: 'Greenway Co.',
-    industry: 'SaaS',
-    accentColor: '#10b981',
-    initial: 'G',
-    lastCampaign: '6 days ago',
-    templates: 9,
-    lists: 2,
-    status: 'scheduled',
-    statusLabel: 'Send scheduled'
-  },
-  {
-    name: 'Nova Commerce',
-    industry: 'Retail',
-    accentColor: '#f59e0b',
-    initial: 'N',
-    lastCampaign: 'Yesterday',
-    templates: 17,
-    lists: 5,
-    status: 'active',
-    statusLabel: 'Automation running'
-  },
-  {
-    name: 'Drift Studio',
-    industry: 'Agency',
-    accentColor: '#8b5cf6',
-    initial: 'D',
-    lastCampaign: null,
-    templates: 4,
-    lists: 1,
-    status: 'setup',
-    statusLabel: 'Onboarding'
-  }
+const agencyMembers = [
+  { name: 'Sarah', initial: 'S', color: '#13b0ee', role: 'Admin', projects: ['Apex Digital', 'Greenway Co.', 'Nova Commerce'] },
+  { name: 'Tom', initial: 'T', color: '#6366f1', role: 'Editor', projects: ['Apex Digital', 'Nova Commerce'] }
+]
+
+const clientMembers = [
+  { name: 'Lisa (Apex)', initial: 'L', color: '#f59e0b', role: 'Viewer', projects: ['Apex Digital'] },
+  { name: 'Mark (Greenway)', initial: 'M', color: '#10b981', role: 'Viewer', projects: ['Greenway Co.'] }
+]
+
+const projects = [
+  { name: 'Apex Digital', initial: 'A', color: '#13b0ee' },
+  { name: 'Greenway Co.', initial: 'G', color: '#10b981' },
+  { name: 'Nova Commerce', initial: 'N', color: '#f59e0b' }
 ]
 </script>
 
 <template>
-  <section class="client-grid-section" aria-labelledby="client-grid-title">
-    <div class="grid-head">
-      <v-chip color="primary" class="grid-badge" aria-label="Multi-client badge">
-        <span class="text-overline">Multi-Client Management</span>
+  <section class="access-section" aria-labelledby="access-title">
+    <div class="access-head">
+      <v-chip color="primary" class="access-badge" aria-label="Multi-client badge">
+        <span class="text-overline">Multi-Client Access</span>
       </v-chip>
-      <h2 id="client-grid-title">Every Client, Fully Isolated</h2>
-      <p>One account, every client separated. Contacts, templates, automations, and analytics stay fully contained per project.</p>
+      <h2 id="access-title">Your Team Across Every Client. Each Client in Their Own Space.</h2>
+      <p>Agency team members work across multiple client projects. Clients only see their own. Roles keep permissions clean.</p>
     </div>
 
-    <div class="client-cards" role="list">
-      <article
-        v-for="client in clients"
-        :key="client.name"
-        class="client-card"
-        role="listitem"
-      >
-        <div class="card-header">
-          <div class="client-avatar" :style="{ background: client.accentColor }">
-            {{ client.initial }}
-          </div>
-          <div class="client-info">
-            <strong class="client-name">{{ client.name }}</strong>
-            <span class="client-industry">{{ client.industry }}</span>
-          </div>
-          <span class="status-tag" :class="`status-tag--${client.status}`">
-            {{ client.statusLabel }}
-          </span>
-        </div>
-
-        <div class="card-divider" />
-
-        <div class="card-stats">
-          <div class="stat">
-            <span class="stat-value">{{ client.templates }}</span>
-            <span class="stat-label">Templates</span>
-          </div>
-          <div class="stat-sep" aria-hidden="true" />
-          <div class="stat">
-            <span class="stat-value">{{ client.lists }}</span>
-            <span class="stat-label">{{ client.lists === 1 ? 'List' : 'Lists' }}</span>
-          </div>
-          <div class="stat-sep" aria-hidden="true" />
-          <div class="stat">
-            <span class="stat-value">{{ client.lastCampaign ?? '—' }}</span>
-            <span class="stat-label">Last send</span>
+    <div class="access-diagram">
+      <!-- Agency side -->
+      <div class="diagram-col">
+        <p class="col-label">Agency Team</p>
+        <div class="member-list">
+          <div v-for="member in agencyMembers" :key="member.name" class="member-row">
+            <div class="member-avatar" :style="{ background: member.color }">{{ member.initial }}</div>
+            <div class="member-info">
+              <strong>{{ member.name }}</strong>
+              <span class="member-role" :class="`role--${member.role.toLowerCase()}`">{{ member.role }}</span>
+            </div>
           </div>
         </div>
-      </article>
+      </div>
+
+      <!-- Projects center -->
+      <div class="diagram-col diagram-col--projects">
+        <p class="col-label">Client Projects</p>
+        <div class="project-list">
+          <div v-for="project in projects" :key="project.name" class="project-node">
+            <div class="project-avatar" :style="{ background: project.color }">{{ project.initial }}</div>
+            <span class="project-name">{{ project.name }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Client side -->
+      <div class="diagram-col">
+        <p class="col-label">Client Access</p>
+        <div class="member-list">
+          <div v-for="member in clientMembers" :key="member.name" class="member-row">
+            <div class="member-avatar" :style="{ background: member.color }">{{ member.initial }}</div>
+            <div class="member-info">
+              <strong>{{ member.name }}</strong>
+              <span class="member-role role--viewer">{{ member.role }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="isolation-callout" role="note">
+    <div class="access-legend">
+      <span class="legend-item"><span class="legend-dot" style="background: #13b0ee" /> Admin: full access to all projects</span>
+      <span class="legend-item"><span class="legend-dot" style="background: #6366f1" /> Editor: create and send campaigns</span>
+      <span class="legend-item"><span class="legend-dot" style="background: #f59e0b" /> Viewer: read-only, own project only</span>
+    </div>
+
+    <div class="access-callout" role="note">
       <div class="callout-icon" aria-hidden="true">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
@@ -114,21 +89,21 @@ const clients = [
 </template>
 
 <style scoped>
-.client-grid-section {
+.access-section {
   padding: 36px 24px;
 }
 
-.grid-head {
+.access-head {
   margin-bottom: 28px;
 }
 
-.grid-badge {
+.access-badge {
   height: auto !important;
   padding: 6px 12px !important;
   margin-bottom: 14px;
 }
 
-.grid-head h2 {
+.access-head h2 {
   margin: 0 0 10px;
   font-size: clamp(22px, 3vw, 32px);
   line-height: 1.2;
@@ -136,7 +111,7 @@ const clients = [
   padding-top: 0 !important;
 }
 
-.grid-head p {
+.access-head p {
   margin: 0;
   font-size: 16px;
   line-height: 1.65;
@@ -144,191 +119,152 @@ const clients = [
   max-width: 680px;
 }
 
-html.dark .grid-head p {
-  color: #94a3b8;
-}
+html.dark .access-head p { color: #94a3b8; }
 
-.client-cards {
+/* Diagram */
+.access-diagram {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 16px;
   margin-bottom: 20px;
 }
 
-/* Card: elevation-only, zero visible border */
-.client-card {
+.diagram-col {
+  background: #f8fafc;
+  border-radius: 14px;
+  padding: 20px;
+}
+
+html.dark .diagram-col { background: rgba(30, 41, 59, 0.5); }
+
+.diagram-col--projects {
   background: #ffffff;
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.04),
-    0 4px 16px rgba(0, 0, 0, 0.07);
-  transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06);
 }
 
-.client-card:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.06),
-    0 16px 48px rgba(0, 0, 0, 0.11);
+html.dark .diagram-col--projects {
+  background: rgba(30, 41, 59, 0.9);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.2);
 }
 
-html.dark .client-card {
-  background: rgba(30, 41, 59, 0.95);
-  box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.2),
-    0 4px 16px rgba(0, 0, 0, 0.25);
+.col-label {
+  margin: 0 0 14px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
 }
 
-html.dark .client-card:hover {
-  box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.25),
-    0 16px 48px rgba(0, 0, 0, 0.35);
-}
+html.dark .col-label { color: #94a3b8; }
 
-/* Header */
-.card-header {
+.member-list, .project-list {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 12px;
 }
 
-.client-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+.member-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.member-avatar, .project-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   color: #ffffff;
-  font-size: 18px;
+  font-size: 13px;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  letter-spacing: -0.02em;
 }
 
-.client-info {
-  flex: 1;
+.member-info {
   min-width: 0;
 }
 
-.client-name {
+.member-info strong {
   display: block;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: #0f172a;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.3;
 }
 
-html.dark .client-name {
-  color: #f1f5f9;
-}
+html.dark .member-info strong { color: #f1f5f9; }
 
-.client-industry {
-  display: block;
-  font-size: 12px;
-  color: #94a3b8;
-  margin-top: 1px;
-}
-
-/* Status tag: readable text, no dot */
-.status-tag {
-  flex-shrink: 0;
+.member-role {
   font-size: 11px;
   font-weight: 600;
-  border-radius: 6px;
-  padding: 3px 8px;
-  white-space: nowrap;
+  border-radius: 999px;
+  padding: 1px 8px;
 }
 
-.status-tag--active {
-  background: rgba(16, 185, 129, 0.1);
-  color: #047857;
-}
-
-.status-tag--scheduled {
+.role--admin {
   background: rgba(19, 176, 238, 0.1);
   color: #0369a1;
 }
 
-.status-tag--setup {
+.role--editor {
+  background: rgba(99, 102, 241, 0.1);
+  color: #4338ca;
+}
+
+.role--viewer {
   background: rgba(245, 158, 11, 0.1);
   color: #b45309;
 }
 
-html.dark .status-tag--active {
-  background: rgba(16, 185, 129, 0.15);
-  color: #34d399;
-}
+html.dark .role--admin { background: rgba(19, 176, 238, 0.15); color: #67e8f9; }
+html.dark .role--editor { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; }
+html.dark .role--viewer { background: rgba(245, 158, 11, 0.15); color: #fcd34d; }
 
-html.dark .status-tag--scheduled {
-  background: rgba(19, 176, 238, 0.15);
-  color: #67e8f9;
-}
-
-html.dark .status-tag--setup {
-  background: rgba(245, 158, 11, 0.15);
-  color: #fcd34d;
-}
-
-/* Divider */
-.card-divider {
-  height: 1px;
-  background: #f1f5f9;
-  margin: 18px 0;
-}
-
-html.dark .card-divider {
-  background: #1e293b;
-}
-
-/* Stats */
-.card-stats {
+.project-node {
   display: flex;
   align-items: center;
+  gap: 10px;
 }
 
-.stat {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.stat-value {
-  font-size: 15px;
+.project-name {
+  font-size: 14px;
   font-weight: 700;
   color: #0f172a;
-  line-height: 1.2;
 }
 
-html.dark .stat-value {
-  color: #f1f5f9;
+html.dark .project-name { color: #f1f5f9; }
+
+/* Legend */
+.access-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 0 4px;
 }
 
-.stat-label {
-  font-size: 11px;
-  color: #94a3b8;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 600;
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #475569;
 }
 
-.stat-sep {
-  width: 1px;
-  height: 26px;
-  background: #f1f5f9;
-  margin: 0 14px;
-}
+html.dark .legend-item { color: #94a3b8; }
 
-html.dark .stat-sep {
-  background: #1e293b;
+.legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
 /* Callout */
-.isolation-callout {
+.access-callout {
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -337,9 +273,7 @@ html.dark .stat-sep {
   padding: 14px 18px;
 }
 
-html.dark .isolation-callout {
-  background: rgba(30, 41, 59, 0.6);
-}
+html.dark .access-callout { background: rgba(30, 41, 59, 0.6); }
 
 .callout-icon {
   flex-shrink: 0;
@@ -347,9 +281,7 @@ html.dark .isolation-callout {
   color: #64748b;
 }
 
-html.dark .callout-icon {
-  color: #94a3b8;
-}
+html.dark .callout-icon { color: #94a3b8; }
 
 .callout-text {
   font-size: 14px;
@@ -357,24 +289,13 @@ html.dark .callout-icon {
   color: #475569;
 }
 
-html.dark .callout-text {
-  color: #94a3b8;
-}
+html.dark .callout-text { color: #94a3b8; }
 
-.callout-text strong {
-  color: #0f172a;
-}
-
-html.dark .callout-text strong {
-  color: #f1f5f9;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .client-card { transition: none; }
-}
+.callout-text strong { color: #0f172a; }
+html.dark .callout-text strong { color: #f1f5f9; }
 
 @media (max-width: 860px) {
-  .client-grid-section { padding: 24px 16px; }
-  .client-cards { grid-template-columns: 1fr; }
+  .access-section { padding: 24px 16px; }
+  .access-diagram { grid-template-columns: 1fr; }
 }
 </style>

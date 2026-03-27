@@ -15,8 +15,8 @@ const heroFeatureItems = [
     anchor: 'design-system'
   },
   {
-    title: 'Clear results after every send',
-    description: 'Open rates, clicks, and trends in one clean view after each campaign.',
+    title: 'Target the right people',
+    description: 'Build simple segments to send to the right contacts. Filter by any property with AND/OR conditions.',
     anchor: 'analytics-title'
   }
 ]
@@ -27,7 +27,7 @@ const heroFeatureItems = [
     hero-badge="For Occasional Senders"
     hero-title="Professional Campaigns, Only When You Need Them"
     hero-description="Send when you have something to say. Buy credits once, valid for 12 months. No subscription, no recurring bill."
-    :hero-highlights="['12-month credits', 'No subscription', 'Ready in minutes']"
+    :hero-highlights="['12-month credits', 'No subscription', 'Simple segmentation']"
     hero-feature-title="Built for teams that send a few times a year"
     hero-feature-subtitle="Pick it up whenever you need it. Put it down when you don't."
     :hero-feature-items="heroFeatureItems"
@@ -44,8 +44,8 @@ const heroFeatureItems = [
     design-description="Start from polished, reusable layouts every time. Brand stays consistent between campaigns without manual cleanup each send."
     :show-automation="false"
     :show-integrations="false"
-    analytics-title="See What Worked"
-    analytics-description="Clean open rates, clicks, and subscriber data after every send. Know what to improve without digging through dashboards."
+    analytics-title="Segment, Send, and See What Worked"
+    analytics-description="Filter contacts into segments so each campaign reaches the right audience. Then track open rates, clicks, and subscriber data. Know what to improve without digging through dashboards."
     final-title="Professional Campaigns When You Need Them"
     final-description="No subscription. No complexity. Just credits you use when you have something worth sending."
   >

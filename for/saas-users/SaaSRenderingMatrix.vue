@@ -88,7 +88,7 @@ const activeEmailType = () => emailTypes.find(t => t.id === activeType.value) ||
 
     <div class="matrix-callout" role="note">
       <strong>Engineered for email client quirks.</strong>
-      <span> BlueFox Email generates HTML that accounts for Outlook's Word engine, web font fallbacks, and mobile layout differences, so your lifecycle emails look as intended across the clients your users actually open.</span>
+      <span> BlueFox Email generates HTML that accounts for Outlook's Word engine, web font fallbacks, and mobile layout differences so your lifecycle emails look as intended across the clients your users actually open.</span>
     </div>
   </section>
 </template>

@@ -1,28 +1,4 @@
 <script setup>
-const clients = [
-  {
-    name: 'Apex Digital',
-    industry: 'E-commerce',
-    initial: 'A',
-    color: '#13b0ee',
-    checks: ['Gmail', 'Outlook', 'Apple Mail']
-  },
-  {
-    name: 'Greenway Co.',
-    industry: 'SaaS',
-    initial: 'G',
-    color: '#10b981',
-    checks: ['Gmail', 'Outlook', 'Yahoo']
-  },
-  {
-    name: 'Nova Commerce',
-    industry: 'Retail',
-    initial: 'N',
-    color: '#f59e0b',
-    checks: ['Gmail', 'Apple Mail', 'Samsung']
-  }
-]
-
 const steps = [
   {
     number: '01',
@@ -37,9 +13,11 @@ const steps = [
   {
     number: '03',
     title: 'Ship',
-    detail: 'Send with confidence, no manual cross-client testing needed.'
+    detail: 'Send with confidence. No manual cross-client testing needed.'
   }
 ]
+
+const emailClients = ['Gmail', 'Outlook', 'Apple Mail', 'Yahoo', 'Samsung Mail']
 </script>
 
 <template>
@@ -48,30 +26,15 @@ const steps = [
       <v-chip color="primary" class="qa-badge">
         <span class="text-overline">Rendering QA</span>
       </v-chip>
-      <h2 id="rendering-qa-title">Ship Campaigns With Fewer Rendering Issues</h2>
+      <h2 id="rendering-qa-title">Ship Campaigns Without Rendering Headaches</h2>
       <p>BlueFox Email generates HTML templates engineered to render as consistently as possible across major email clients. Less time on layout fixes, more time on strategy.</p>
     </div>
 
-    <div class="brand-cards" role="list">
-      <article v-for="client in clients" :key="client.name" class="brand-card" role="listitem">
-        <div class="brand-header">
-          <div class="brand-avatar" :style="{ background: client.color }">{{ client.initial }}</div>
-          <div class="brand-info">
-            <strong class="brand-name">{{ client.name }}</strong>
-            <span class="brand-industry">{{ client.industry }}</span>
-          </div>
-        </div>
-        <div class="brand-status">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-          <span>All clients pass</span>
-        </div>
-        <div class="brand-checks">
-          <span v-for="c in client.checks" :key="c" class="inbox-check">
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12" /></svg>
-            {{ c }}
-          </span>
-        </div>
-      </article>
+    <div class="client-pills" aria-label="Supported email clients">
+      <span v-for="client in emailClients" :key="client" class="client-pill">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12" /></svg>
+        {{ client }}
+      </span>
     </div>
 
     <div class="workflow-timeline">
@@ -88,7 +51,7 @@ const steps = [
 
     <div class="qa-callout" role="note">
       <strong>Hours saved per campaign.</strong>
-      <span> Agencies typically spend 2-4 hours per campaign on rendering QA. BlueFox Email's battle-tested markup eliminates that work entirely across every client account.</span>
+      <span> Agencies typically spend 2–4 hours per campaign on rendering QA. BlueFox Email's battle-tested markup eliminates that work entirely across every client account.</span>
     </div>
   </section>
 </template>
@@ -124,109 +87,31 @@ const steps = [
 
 html.dark .qa-head p { color: #94a3b8; }
 
-/* Brand cards */
-.brand-cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+/* Client pills */
+.client-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-bottom: 24px;
 }
 
-.brand-card {
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 20px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 4px 14px rgba(0,0,0,0.06);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.brand-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.06), 0 14px 36px rgba(0,0,0,0.1);
-}
-
-html.dark .brand-card {
-  background: rgba(30, 41, 59, 0.95);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.2), 0 4px 14px rgba(0,0,0,0.25);
-}
-
-html.dark .brand-card:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.25), 0 14px 36px rgba(0,0,0,0.3);
-}
-
-.brand-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.brand-avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.brand-info { min-width: 0; }
-
-.brand-name {
-  display: block;
-  font-size: 14px;
-  font-weight: 700;
-  color: #0f172a;
-  line-height: 1.3;
-}
-
-html.dark .brand-name { color: #f1f5f9; }
-
-.brand-industry {
-  font-size: 11px;
-  color: #94a3b8;
-}
-
-.brand-status {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  color: #047857;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-html.dark .brand-status { color: #34d399; }
-
-.brand-checks {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.inbox-check {
+.client-pill {
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  font-size: 11px;
+  gap: 5px;
+  font-size: 13px;
   font-weight: 600;
-  color: #475569;
-  background: rgba(15, 23, 42, 0.04);
+  color: #334155;
+  background: rgba(16, 185, 129, 0.08);
   border-radius: 999px;
-  padding: 3px 8px;
+  padding: 6px 14px;
 }
 
-.inbox-check svg { color: #10b981; }
+.client-pill svg { color: #10b981; }
 
-html.dark .inbox-check {
+html.dark .client-pill {
   color: #cbd5e1;
-  background: rgba(248, 250, 252, 0.06);
+  background: rgba(16, 185, 129, 0.12);
 }
 
 /* Timeline */
@@ -326,13 +211,8 @@ html.dark .qa-callout {
 .qa-callout strong { color: #0f172a; }
 html.dark .qa-callout strong { color: #f1f5f9; }
 
-@media (prefers-reduced-motion: reduce) {
-  .brand-card { transition: none; }
-}
-
 @media (max-width: 860px) {
   .rendering-qa { padding: 24px 16px; }
-  .brand-cards { grid-template-columns: 1fr; }
   .timeline-steps { grid-template-columns: 1fr; gap: 16px; }
   .node-connector { display: none; }
 }
