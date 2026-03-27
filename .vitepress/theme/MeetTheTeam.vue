@@ -3,7 +3,7 @@ const team = [
   {
     name: 'Gyula Németh',
     role: 'Founder & CEO',
-    photo: '/assets/me.webp',
+    photo: '/assets/gyula.png',
     bio: 'Gyula has been in the world of HTML email since 2013. He co-founded edmdesigner.com, chamaileon.io, and emailhero.io before building BlueFox Email to solve the exact problems marketing agencies deal with every day.',
   },
   {

@@ -798,6 +798,112 @@ onBeforeUnmount(() => {
     color: #9ca3af;
   }
 
+  /* Meet Founder Section */
+  .founder-section {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 88px 24px 64px;
+    position: relative;
+    background: linear-gradient(180deg, rgba(19, 176, 238, 0.04) 0%, rgba(19, 176, 238, 0.01) 100%);
+  }
+
+  .founder-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(19, 176, 238, 0.3), transparent);
+  }
+
+  html.dark .founder-section {
+    background: linear-gradient(180deg, rgba(19, 176, 238, 0.08) 0%, rgba(19, 176, 238, 0.02) 100%);
+  }
+
+  .founder-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .founder-photo-wrap {
+    margin: 0 auto 22px;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    padding: 4px;
+    background: linear-gradient(135deg, #13B0EE 0%, #392C91 100%);
+    box-shadow: 0 14px 36px rgba(19, 176, 238, 0.22);
+  }
+
+  .founder-photo {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+  }
+
+  .founder-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #13B0EE;
+    margin-bottom: 16px;
+  }
+
+  .founder-title {
+    border-top: 0 !important;
+    padding-top: 0 !important;
+    margin: 0 0 20px;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    background: linear-gradient(135deg, #1f2937 0%, #392C91 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  html.dark .founder-title {
+    background: linear-gradient(135deg, #f3f4f6 0%, #13B0EE 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .founder-description {
+    max-width: 720px;
+    margin: 0 auto;
+    color: #6b7280;
+    font-size: clamp(16px, 1.8vw, 18px);
+    line-height: 1.7;
+  }
+
+  html.dark .founder-description {
+    color: #9ca3af;
+  }
+
+  .founder-actions {
+    margin-top: 30px;
+  }
+
+  .founder-team-button {
+    min-height: 54px !important;
+    padding: 0 30px !important;
+    border-radius: 12px !important;
+    font-size: 16px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    font-weight: 700 !important;
+  }
+
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -914,6 +1020,26 @@ onBeforeUnmount(() => {
       flex-direction: column;
       align-items: center;
     }
+
+    .founder-section {
+      padding: 72px 20px 40px;
+    }
+
+    .founder-description {
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .founder-photo-wrap {
+      width: 140px;
+      height: 140px;
+      margin-bottom: 18px;
+    }
+
+    .founder-team-button {
+      width: 100%;
+      max-width: 360px;
+    }
   }
 
   @media (max-width: 599px) {
@@ -1005,6 +1131,19 @@ onBeforeUnmount(() => {
     .cta-primary-button {
       font-size: 15px !important;
       padding: 18px 32px !important;
+    }
+
+    .founder-section {
+      padding: 56px 16px 28px;
+    }
+
+    .founder-actions {
+      margin-top: 24px;
+    }
+
+    .founder-photo-wrap {
+      width: 124px;
+      height: 124px;
     }
   }
 
@@ -1331,6 +1470,34 @@ onBeforeUnmount(() => {
 <section class="value-prop" role="region" aria-labelledby="integrations-heading">
   <h2 id="integrations-heading" class="visually-hidden">Platform integrations</h2>
   <Integration :is-dark="isDark" />
+</section>
+
+<!-- 13. FOUNDER EXPERIENCE -->
+<section class="founder-section" role="region" aria-labelledby="founder-heading">
+  <div class="founder-inner">
+    <div class="founder-photo-wrap">
+      <img src="/assets/gyula.png" alt="Gyula Németh, founder of BlueFox Email" class="founder-photo" loading="lazy" />
+    </div>
+    <span class="founder-eyebrow">Meet the Founder</span>
+    <h2 id="founder-heading" class="founder-title">
+      Gyula Németh: 10+ Years Building for Real-World Email
+    </h2>
+    <p class="founder-description">
+      Gyula has worked in HTML email since 2013 and has over 10 years of email design experience. Before BlueFox Email, he co-founded edmdesigner.com, chamaileon.io, and emailhero.io. His focus has always been the same: emails should render consistently across real inboxes including Gmail, Apple Mail, mobile clients, and Outlook.
+    </p>
+    <div class="founder-actions">
+      <v-btn
+        color="primary"
+        size="large"
+        variant="flat"
+        class="founder-team-button"
+        href="/meet-the-team"
+        aria-label="Team Behind BlueFox Email"
+      >
+        Team Behind BlueFox Email
+      </v-btn>
+    </div>
+  </div>
 </section>
 
 <!-- 14. FINAL CTA - Beautified Premium Design -->
