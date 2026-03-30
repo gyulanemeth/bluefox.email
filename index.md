@@ -54,6 +54,40 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
 
 const selectedEmailType = ref('0');
+const templateShowcaseItems = [
+  {
+    src: '/assets/templates/saas-business-newsletter-gray-blue.png',
+    alt: 'SaaS business newsletter email template in gray and blue'
+  },
+  {
+    src: '/assets/templates/marketing-agency-modern-responsive-newsletter.png',
+    alt: 'Marketing agency modern responsive newsletter template'
+  },
+  {
+    src: '/assets/templates/simple-product-promo-email-template.png',
+    alt: 'Simple ecommerce product promotion email template'
+  },
+  {
+    src: '/assets/templates/modern-colored-ecommerce-transactional-template-pack-order-confirmation.png',
+    alt: 'Ecommerce transactional order confirmation email template'
+  },
+  {
+    src: '/assets/templates/luxury-hotel-and-spa-travel-promotional-email.png',
+    alt: 'Luxury hotel and spa travel promotional email template'
+  },
+  {
+    src: '/assets/templates/technology-style-mobile-app-promoting-fully-responsive-email.png',
+    alt: 'Technology style mobile app promotional responsive email template'
+  },
+  {
+    src: '/assets/templates/red-fashion-cart-abandoned.png',
+    alt: 'Fashion cart abandonment recovery email template'
+  },
+  {
+    src: '/assets/templates/clean-b2b-newsletter-responsive-email.png',
+    alt: 'Clean B2B responsive newsletter email template'
+  }
+]
 const shouldLoadEditorVideo = ref(false)
 const editorVideoContainer = ref(null)
 let intervalId
@@ -626,6 +660,66 @@ onBeforeUnmount(() => {
     color: #9ca3af;
   }
 
+  .template-showcase {
+    padding-top: 5vh;
+    padding-bottom: 8vh;
+  }
+
+  .template-showcase-intro {
+    max-width: 760px;
+    margin: 20px auto 36px;
+    text-align: center;
+    color: #4b5563;
+    line-height: 1.7;
+    font-size: 17px;
+  }
+
+  html.dark .template-showcase-intro {
+    color: #9ca3af;
+  }
+
+  .template-showcase-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .template-card {
+    display: block;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(19, 176, 238, 0.18);
+    background: linear-gradient(135deg, rgba(19, 176, 238, 0.03), rgba(57, 44, 145, 0.03));
+    box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  html.dark .template-card {
+    border-color: rgba(19, 176, 238, 0.28);
+    background: linear-gradient(135deg, rgba(19, 176, 238, 0.08), rgba(57, 44, 145, 0.08));
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .template-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(19, 176, 238, 0.5);
+    box-shadow: 0 18px 40px rgba(19, 176, 238, 0.2);
+  }
+
+  .template-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+
+  .template-card:hover img {
+    transform: scale(1.03);
+  }
+
   /* Final CTA Section - Premium Design */
   .final-cta-section {
     background: linear-gradient(135deg, rgba(19, 176, 238, 0.03) 0%, rgba(57, 44, 145, 0.03) 100%);
@@ -814,6 +908,10 @@ onBeforeUnmount(() => {
     .problem-grid {
       grid-template-columns: repeat(2, 1fr);
     }
+
+    .template-showcase-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
   }
 
   @media (max-width: 960px) {
@@ -844,6 +942,11 @@ onBeforeUnmount(() => {
     .problem-stat-card {
       width: 100%;
       max-width: 500px;
+    }
+
+    .template-showcase-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
     }
   }
 
@@ -913,6 +1016,11 @@ onBeforeUnmount(() => {
       gap: 20px;
       flex-direction: column;
       align-items: center;
+    }
+
+    .template-showcase-intro {
+      font-size: 15px;
+      margin: 16px auto 26px;
     }
   }
 
@@ -1005,6 +1113,12 @@ onBeforeUnmount(() => {
     .cta-primary-button {
       font-size: 15px !important;
       padding: 18px 32px !important;
+    }
+
+    .template-showcase-grid {
+      grid-template-columns: 1fr;
+      max-width: 360px;
+      gap: 12px;
     }
   }
 
@@ -1181,7 +1295,29 @@ onBeforeUnmount(() => {
   </div>
 </section>
 
-<!-- 4. SOCIAL PROOF - Build trust early -->
+<!-- 4. TEMPLATE SHOWCASE -->
+<section class="section-index template-showcase" role="region" aria-labelledby="templates-heading">
+  <h2 id="templates-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
+    Launch Faster with Ready-to-Use Email Templates
+  </h2>
+  <p class="template-showcase-intro">
+    Start campaigns with professionally designed templates for SaaS, ecommerce, travel, agencies, and transactional emails. Use them as-is or customize each one to match every client brand in minutes.
+  </p>
+  <div class="template-showcase-grid">
+    <v-card
+      v-for="template in templateShowcaseItems"
+      :key="template.src"
+      class="template-card"
+      variant="flat"
+      role="img"
+      :aria-label="template.alt"
+    >
+      <img :src="template.src" :alt="template.alt" loading="lazy" />
+    </v-card>
+  </div>
+</section>
+
+<!-- 5. SOCIAL PROOF - Build trust early -->
 <section class="section-index" style="padding-top: 5vh;" role="region" aria-labelledby="testimonials-heading">
   <h2 id="testimonials-heading" class="sectionTitle text-center mt-4 mb-6">
     Agencies Choose BlueFox Email. Their Clients Stay.
