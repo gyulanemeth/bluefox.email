@@ -125,7 +125,6 @@ When you click on the timer node:
 - Choose the **unit**: Minutes, Hours, Days.
 - Optionally, set it to continue **immediately** if you want the next node to run without delay.
 
-
 ![Automation node timer card Icon](./project-automation-node-timer-card.webp)
 
 
@@ -266,6 +265,14 @@ When configuring the Set Value node:
 - Enter a **Value** (e.g., `true`, `5`, `new value`).
 
 ![Automation node set value card Icon](./project-automation-node-set-value-card.webp)
+
+## Complete Node
+
+The **Complete Node** defines where contacts exit the automation. Contacts reaching this node leave the flow. Automations without a Complete Node will keep contacts queued at their final step.
+
+Without a Complete Node, contacts will be queued indefinitely at the last node, which can lead to unintended consequences. For example, if you have a Timer Node at the end of your automation and no Complete Node, contacts will keep accumulating there and never exit the automation.
+
+![Automation node complete card Icon](./project-automation-node-complete-card.webp)
 
 ## Exit Critera
 
