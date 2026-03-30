@@ -809,9 +809,12 @@ onBeforeUnmount(() => {
     }
 
     .template-showcase-grid {
-      grid-template-columns: 1fr;
-      max-width: 360px;
-      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .template-card:nth-child(n+5) {
+      display: none;
     }
   }
 
