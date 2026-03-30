@@ -346,235 +346,6 @@ onBeforeUnmount(() => {
     padding-top: 0 !important;
   }
 
-  /* Enhanced Problem Section */
-  .problem-section {
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.02) 0%, rgba(57, 44, 145, 0.02) 100%);
-    padding: 120px 24px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  html.dark .problem-section {
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.05) 0%, rgba(57, 44, 145, 0.05) 100%);
-  }
-
-  .problem-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      linear-gradient(rgba(19, 176, 238, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(19, 176, 238, 0.02) 1px, transparent 1px);
-    background-size: 50px 50px;
-    pointer-events: none;
-    opacity: 0.5;
-  }
-
-  html.dark .problem-section::before {
-    background-image: 
-      linear-gradient(rgba(19, 176, 238, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(19, 176, 238, 0.04) 1px, transparent 1px);
-  }
-
-  .problem-intro {
-    max-width: 900px;
-    margin: 0 auto 80px;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-  }
-
-  .problem-main-title {
-    font-size: clamp(32px, 5vw, 48px);
-    font-weight: 800;
-    line-height: 1.2;
-    margin-bottom: 24px;
-    color: #1f2937;
-    background: linear-gradient(135deg, #1f2937 0%, #392C91 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  html.dark .problem-main-title {
-    background: linear-gradient(135deg, #f3f4f6 0%, #13B0EE 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .problem-subtitle {
-    font-size: clamp(17px, 2vw, 20px);
-    color: #4b5563;
-    line-height: 1.7;
-    max-width: 750px;
-    margin: 0 auto;
-    font-weight: 400;
-  }
-
-  html.dark .problem-subtitle {
-    color: #9ca3af;
-  }
-
-  .problem-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1200px;
-    margin: 0 auto;
-    position: relative;
-    z-index: 1;
-    align-items: start;
-  }
-
-  .problem-card {
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(229, 231, 235, 0.6);
-    border-radius: 20px;
-    padding: 36px 28px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    min-height: 340px;
-    height: 100%;
-  }
-
-  html.dark .problem-card {
-    background: rgba(31, 41, 55, 0.8);
-    border: 1px solid rgba(75, 85, 99, 0.6);
-  }
-
-  .problem-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 60px rgba(239, 68, 68, 0.3);
-    border-color: rgba(239, 68, 68, 0.6);
-    background: rgba(255, 255, 255, 0.95);
-  }
-
-  html.dark .problem-card:hover {
-    background: rgba(31, 41, 55, 0.95);
-    border-color: rgba(239, 68, 68, 0.7);
-    box-shadow: 0 20px 60px rgba(239, 68, 68, 0.4);
-  }
-
-  .problem-icon-wrapper {
-    width: 64px;
-    height: 64px;
-    border-radius: 16px;
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.1), rgba(57, 44, 145, 0.1));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    flex-shrink: 0;
-  }
-
-  .problem-card:hover .problem-icon-wrapper {
-    background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(220, 38, 38, 0.15));
-    transform: scale(1.05) rotate(-3deg);
-  }
-
-  .problem-icon-wrapper svg {
-    width: 30px;
-    height: 30px;
-    stroke: #13B0EE;
-    fill: none;
-    stroke-width: 2;
-    transition: all 0.3s ease;
-  }
-
-  .problem-card:hover .problem-icon-wrapper svg {
-    stroke: #ef4444;
-    transform: scale(1.1);
-  }
-
-  html.dark .problem-card:hover .problem-icon-wrapper svg {
-    stroke: #ef4444;
-  }
-
-  .problem-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .problem-title {
-    font-size: 19px;
-    font-weight: 700;
-    color: #1f2937;
-    margin-bottom: 12px;
-    line-height: 1.4;
-    transition: color 0.3s ease;
-  }
-
-  html.dark .problem-title {
-    color: #f3f4f6;
-  }
-
-  .problem-card:hover .problem-title {
-    color: #dc2626;
-  }
-
-  html.dark .problem-card:hover .problem-title {
-    color: #ef4444;
-  }
-
-  .problem-description {
-    font-size: 15px;
-    color: #6b7280;
-    line-height: 1.7;
-    flex: 1;
-  }
-
-  html.dark .problem-description {
-    color: #9ca3af;
-  }
-
-  .problem-impact {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 16px;
-    padding: 8px 14px;
-    background: rgba(19, 176, 238, 0.08);
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #13B0EE;
-    align-self: flex-start;
-    flex-shrink: 0;
-    transition: all 0.3s ease;
-  }
-
-  html.dark .problem-impact {
-    background: rgba(19, 176, 238, 0.15);
-    color: #13B0EE;
-  }
-
-  .problem-card:hover .problem-impact {
-    background: rgba(239, 68, 68, 0.12);
-    color: #dc2626;
-  }
-
-  html.dark .problem-card:hover .problem-impact {
-    background: rgba(239, 68, 68, 0.2);
-    color: #ef4444;
-  }
-
-  .problem-impact svg {
-    width: 16px;
-    height: 16px;
-    flex-shrink: 0;
-  }
-
   .problem-stats-section {
     max-width: 1200px;
     margin: 80px auto 0;
@@ -905,34 +676,12 @@ onBeforeUnmount(() => {
 
   /* Responsive Design */
   @media (max-width: 1200px) {
-    .problem-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
     .template-showcase-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
   @media (max-width: 960px) {
-    .problem-section {
-      padding: 80px 24px;
-      margin: 60px 0;
-    }
-
-    .problem-intro {
-      margin-bottom: 60px;
-    }
-
-    .problem-grid {
-      gap: 20px;
-    }
-
-    .problem-card {
-      padding: 28px 24px;
-      min-height: 300px;
-    }
-
     .problem-stats-section {
       margin-top: 60px;
       flex-direction: column;
@@ -951,35 +700,6 @@ onBeforeUnmount(() => {
   }
 
   @media (max-width: 768px) {
-    .problem-grid {
-      grid-template-columns: 1fr;
-      gap: 16px;
-    }
-
-    .problem-card {
-      padding: 24px 20px;
-      min-height: auto;
-    }
-
-    .problem-icon-wrapper {
-      width: 56px;
-      height: 56px;
-      margin-bottom: 20px;
-    }
-
-    .problem-icon-wrapper svg {
-      width: 26px;
-      height: 26px;
-    }
-
-    .problem-title {
-      font-size: 18px;
-    }
-
-    .problem-description {
-      font-size: 14px;
-    }
-
     .problem-stat-card {
       flex-direction: column;
       text-align: center;
@@ -1050,34 +770,6 @@ onBeforeUnmount(() => {
       padding: 25px;
     }
 
-    .problem-section {
-      padding: 60px 16px;
-      margin: 40px 0;
-    }
-
-    .problem-intro {
-      margin-bottom: 40px;
-    }
-
-    .problem-card {
-      padding: 20px 18px;
-    }
-
-    .problem-icon-wrapper {
-      width: 52px;
-      height: 52px;
-    }
-
-    .problem-icon-wrapper svg {
-      width: 24px;
-      height: 24px;
-    }
-
-    .problem-impact {
-      font-size: 12px;
-      padding: 6px 12px;
-    }
-
     .problem-stats-section {
       margin-top: 48px;
     }
@@ -1132,176 +824,13 @@ onBeforeUnmount(() => {
   <HeroUnit />
 </main>
 
-<!-- 2. BRAND LOGOS - Trust indicators -->
-<section aria-labelledby="brand-logos-heading">
-  <BrandLogos />
-</section>
-
-<!-- 3. PROBLEM AGITATION - Synced with Why page -->
-<section class="problem-section" role="region" aria-labelledby="problems-heading">
-  <div class="problem-intro">
-    <div class="d-flex justify-center mb-4">
-      <!-- Give chip an accessible name -->
-      <v-chip color="primary" aria-label="Agency challenge badge">
-        <span class="text-overline">The Agency Challenge</span>
-      </v-chip>
-    </div>
-    <h2 id="problems-heading" class="problem-main-title">
-      Managing Multiple Clients, Shouldn't Be This Hard
-    </h2>
-    <p class="problem-subtitle">
-      If you run email for multiple clients, you've seen these problems.
-    </p>
-  </div>
-
-  <div class="problem-grid" role="list">
-    <!-- Problem 1: Multiple Client Chaos -->
-    <div class="problem-card" role="listitem" aria-labelledby="p1-title">
-      <div class="problem-icon-wrapper" aria-hidden="true">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="problem-content">
-        <div id="p1-title" class="problem-title">Managing Multiple Clients Is Chaos</div>
-        <div class="problem-description">Constant juggling with logins, late client requests, and endless approval cycles. Each client feels like a full-time job.</div>
-        <div class="problem-impact" aria-hidden="false">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Endless context switching
-        </div>
-      </div>
-    </div>
-    <!-- Problem 2 -->
-    <div class="problem-card" role="listitem" aria-labelledby="p2-title">
-      <div class="problem-icon-wrapper" aria-hidden="true">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
-          <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="problem-content">
-        <div id="p2-title" class="problem-title">You Rebuild Everything for Every Client</div>
-        <div class="problem-description">Same templates, same automations, same segments recreated from scratch. New client equals the exact same work, every single time.</div>
-        <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Massive time waste
-        </div>
-      </div>
-    </div>
-    <!-- Problem 3 -->
-    <div class="problem-card" role="listitem" aria-labelledby="p3-title">
-      <div class="problem-icon-wrapper" aria-hidden="true">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
-          <rect x="3" y="5" width="18" height="14" rx="2"/>
-          <path d="M3 7l9 6 9-6" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M9 15l-2 2m8-2l2 2" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="problem-content">
-        <div id="p3-title" class="problem-title">Design & Rendering Issues Waste Hours</div>
-        <div class="problem-description">Looks perfect in the editor, then breaks in Outlook for absolutely no reason. Mobile layouts crushed. Endless QA cycles.</div>
-        <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Hours of troubleshooting
-        </div>
-      </div>
-    </div>
-    <!-- Problem 4 -->
-    <div class="problem-card" role="listitem" aria-labelledby="p4-title">
-      <div class="problem-icon-wrapper" aria-hidden="true">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
-          <path d="M3 3v18h18" stroke-linecap="round"/>
-          <path d="M18 17V9l-5 5-3-3-4 4" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="18" cy="6" r="2"/>
-        </svg>
-      </div>
-      <div class="problem-content">
-        <div id="p4-title" class="problem-title">Reporting Drains Hours Every Month</div>
-        <div class="problem-description">You spend more time building reports than actually sending campaigns. Exporting data, combining spreadsheets, making it client-ready.</div>
-        <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          5+ hours per client
-        </div>
-      </div>
-    </div>
-    <!-- Problem 5 -->
-    <div class="problem-card" role="listitem" aria-labelledby="p5-title">
-      <div class="problem-icon-wrapper" aria-hidden="true">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
-          <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 9v4M12 17h.01" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-      <div class="problem-content">
-        <div id="p5-title" class="problem-title">Great Emails Land in Spam</div>
-        <div class="problem-description">And clients blame you, even though you don't know what went wrong this time. Deliverability is a black box you can't control.</div>
-        <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Lost campaign ROI
-        </div>
-      </div>
-    </div>
-    <!-- Problem 6 -->
-    <div class="problem-card" role="listitem" aria-labelledby="p6-title">
-      <div class="problem-icon-wrapper" aria-hidden="true">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" focusable="false" aria-hidden="true">
-          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="problem-content">
-        <div id="p6-title" class="problem-title">Pricing Squeezes Your Margins</div>
-        <div class="problem-description">Contact-based billing gets expensive fast. Client lists grow, costs explode, but your retainer stays flat. Hidden cost jumps kill profitability.</div>
-        <div class="problem-impact">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M12 8v4l3 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          Shrinking profit margins
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="problem-stats-section" aria-hidden="false">
-    <div class="problem-stat-card" role="group" aria-labelledby="stat1-label">
-      <div class="problem-stat-number" id="stat1-value">70%</div>
-      <div class="problem-stat-divider" aria-hidden="true"></div>
-      <div class="problem-stat-content">
-        <div id="stat1-label" class="problem-stat-label">Time Wasted</div>
-        <div class="problem-stat-description">Average time agencies waste on email production inefficiencies</div>
-      </div>
-    </div>
-    <div class="problem-stat-card" role="group" aria-labelledby="stat2-label">
-      <div class="problem-stat-number" id="stat2-value">3-5</div>
-      <div class="problem-stat-divider" aria-hidden="true"></div>
-      <div class="problem-stat-content">
-        <div id="stat2-label" class="problem-stat-label">Days Delayed</div>
-        <div class="problem-stat-description">Typical campaign launch delay due to design bottlenecks</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 4. TEMPLATE SHOWCASE -->
+<!-- 2. TEMPLATE SHOWCASE -->
 <section class="section-index template-showcase" role="region" aria-labelledby="templates-heading">
   <h2 id="templates-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
     Launch Faster with Ready-to-Use Email Templates
   </h2>
   <p class="template-showcase-intro">
-    Start campaigns with professionally designed templates for SaaS, ecommerce, travel, agencies, and transactional emails. Use them as-is or customize each one to match every client brand in minutes.
+    Start campaigns with professionally designed templates for Marketing Agencies, SaaS, travel, agencies, and transactional emails. Swap in your theme settings, update the copy, adjust brand colors, and launch in minutes.
   </p>
   <div class="template-showcase-grid">
     <v-card
@@ -1317,7 +846,7 @@ onBeforeUnmount(() => {
   </div>
 </section>
 
-<!-- 5. SOCIAL PROOF - Build trust early -->
+<!-- 3. SOCIAL PROOF - Build trust early -->
 <section class="section-index" style="padding-top: 5vh;" role="region" aria-labelledby="testimonials-heading">
   <h2 id="testimonials-heading" class="sectionTitle text-center mt-4 mb-6">
     Agencies Choose BlueFox Email. Their Clients Stay.
@@ -1329,6 +858,11 @@ onBeforeUnmount(() => {
     :sm="sm"
     :xs="xs"
   />
+</section>
+
+<!-- 4. BRAND LOGOS - Trust indicators -->
+<section aria-labelledby="brand-logos-heading">
+  <BrandLogos />
 </section>
 
 <!-- 5. SOLUTION: Multi-client Management via Design System -->
