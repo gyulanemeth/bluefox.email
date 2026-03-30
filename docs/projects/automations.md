@@ -71,6 +71,8 @@ The available node types are:
 - **Audience Filter**
 - **Branching**
 - **Set Value**
+- **Manage Tags**
+- **Complete Node**
 
 Let’s go through each one in detail.
 
