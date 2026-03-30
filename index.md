@@ -80,8 +80,8 @@ const templateShowcaseItems = [
     alt: 'Black Friday webshop sale promotional email template'
   },
   {
-    src: '/assets/templates/spring-newsletter-ecommerce-seasonal-promotional-newsletter-template.webp',
-    alt: 'Spring ecommerce seasonal promotional newsletter template'
+    src: '/assets/templates/happy-easter-travel-template.webp',
+    alt: 'Travel promotional email template with holiday deals'
   },
   {
     src: '/assets/templates/modern-business-portfolio-welcome-email.webp',
