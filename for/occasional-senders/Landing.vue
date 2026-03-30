@@ -42,10 +42,12 @@ const heroFeatureItems = [
     :show-design="true"
     design-title="Templates That Stay Consistent"
     design-description="Start from polished, reusable layouts every time. Brand stays consistent between campaigns without manual cleanup each send."
+    design-pain="Picking up email design after months away means starting from a blank canvas again."
     :show-automation="false"
     :show-integrations="false"
     analytics-title="Segment, Send, and See What Worked"
     analytics-description="Filter contacts into segments so each campaign reaches the right audience. Then track open rates, clicks, and subscriber data. Know what to improve without digging through dashboards."
+    analytics-pain="You sent the campaign but have no idea who opened it, what worked, or who to target next time."
     final-title="Professional Campaigns When You Need Them"
     final-description="No subscription. No complexity. Just credits you use when you have something worth sending."
   >

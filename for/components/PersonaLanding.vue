@@ -29,16 +29,21 @@ defineProps({
   showDesign: { type: Boolean, default: true },
   designTitle: { type: String, default: '' },
   designDescription: { type: String, default: '' },
+  designPain: { type: String, default: '' },
   showAutomation: { type: Boolean, default: true },
   automationTitle: { type: String, default: '' },
   automationDescription: { type: String, default: '' },
+  automationPain: { type: String, default: '' },
   renderingTitle: { type: String, default: '' },
   renderingDescription: { type: String, default: '' },
+  renderingPain: { type: String, default: '' },
   deliverabilityTitle: { type: String, default: '' },
   deliverabilityDescription: { type: String, default: '' },
   deliverabilityFeatures: { type: Array, default: () => [] },
+  deliverabilityPain: { type: String, default: '' },
   analyticsTitle: { type: String, default: '' },
   analyticsDescription: { type: String, default: '' },
+  analyticsPain: { type: String, default: '' },
   showIntegrations: { type: Boolean, default: true },
   finalTitle: { type: String, required: true },
   finalDescription: { type: String, required: true },
@@ -157,6 +162,7 @@ const openSolution = ref(null)
   <div v-if="showDesign" class="stripe stripe--white">
     <section id="design-system" class="stripe-inner section-block" aria-labelledby="design-title">
       <h2 id="design-title" class="section-title">{{ designTitle }}</h2>
+      <p v-if="designPain" class="pain-callout">{{ designPain }}</p>
       <p class="section-subtitle constrained">{{ designDescription }}</p>
       <DesignSystem :is-dark="isDark" class="mt-6" />
     </section>
@@ -166,6 +172,7 @@ const openSolution = ref(null)
   <div v-if="showAutomation" class="stripe stripe--blue">
     <section id="automation" class="stripe-inner section-block" aria-labelledby="automation-title">
       <h2 id="automation-title" class="section-title">{{ automationTitle }}</h2>
+      <p v-if="automationPain" class="pain-callout">{{ automationPain }}</p>
       <p class="section-subtitle constrained">{{ automationDescription }}</p>
       <Automation
         class="mt-6"
@@ -181,12 +188,14 @@ const openSolution = ref(null)
   <!-- 7. Rendering (white) -->
   <div v-if="$slots.renderingContent" class="stripe stripe--white">
     <div id="rendering" class="stripe-inner persona-slot" aria-label="Rendering content">
+      <p v-if="renderingPain" class="pain-callout">{{ renderingPain }}</p>
       <slot name="renderingContent" />
     </div>
   </div>
   <div v-else-if="renderingTitle" class="stripe stripe--white">
     <section id="rendering-reliability" class="stripe-inner section-block" aria-labelledby="rendering-title">
       <h2 id="rendering-title" class="section-title">{{ renderingTitle }}</h2>
+      <p v-if="renderingPain" class="pain-callout">{{ renderingPain }}</p>
       <p class="section-subtitle constrained">{{ renderingDescription }}</p>
     </section>
   </div>
@@ -194,12 +203,14 @@ const openSolution = ref(null)
   <!-- 8. Deliverability (blue) -->
   <div v-if="$slots.deliverabilityContent" class="stripe stripe--blue">
     <div id="deliverability" class="stripe-inner persona-slot" aria-label="Deliverability content">
+      <p v-if="deliverabilityPain" class="pain-callout">{{ deliverabilityPain }}</p>
       <slot name="deliverabilityContent" />
     </div>
   </div>
   <div v-else-if="deliverabilityTitle" class="stripe stripe--blue">
     <section id="deliverability" class="stripe-inner section-block" aria-labelledby="deliverability-title">
       <h2 id="deliverability-title" class="section-title">{{ deliverabilityTitle }}</h2>
+      <p v-if="deliverabilityPain" class="pain-callout">{{ deliverabilityPain }}</p>
       <p class="section-subtitle constrained">{{ deliverabilityDescription }}</p>
     </section>
   </div>
@@ -207,10 +218,12 @@ const openSolution = ref(null)
   <!-- 9. Analytics (white) -->
   <div class="stripe stripe--white">
     <div v-if="$slots.analyticsContent" id="analytics-title" class="stripe-inner persona-slot" aria-label="Analytics content">
+      <p v-if="analyticsPain" class="pain-callout">{{ analyticsPain }}</p>
       <slot name="analyticsContent" />
     </div>
     <section v-else class="stripe-inner section-block" aria-labelledby="analytics-title">
       <h2 id="analytics-title" class="section-title">{{ analyticsTitle }}</h2>
+      <p v-if="analyticsPain" class="pain-callout">{{ analyticsPain }}</p>
       <p class="section-subtitle constrained">{{ analyticsDescription }}</p>
       <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="Analytics dashboard screenshot">
         <img alt="Analytics dashboard screenshot" src="/assets/analytics-alt.webp" loading="lazy" width="1920" height="1080" />
@@ -355,6 +368,24 @@ html.dark .section-subtitle {
 .constrained {
   max-width: 760px;
   margin: 0 auto;
+}
+
+.pain-callout {
+  display: table;
+  margin: 0 auto 20px;
+  padding: 6px 16px;
+  background: rgba(239, 68, 68, 0.08);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: #b91c1c;
+  text-align: center;
+}
+
+html.dark .pain-callout {
+  background: rgba(239, 68, 68, 0.14);
+  color: #fca5a5;
 }
 
 .problem-grid {
