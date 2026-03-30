@@ -56,36 +56,36 @@ const { isDark } = useData()
 const selectedEmailType = ref('0');
 const templateShowcaseItems = [
   {
-    src: '/assets/templates/saas-business-newsletter-gray-blue.png',
-    alt: 'SaaS business newsletter email template in gray and blue'
-  },
-  {
-    src: '/assets/templates/marketing-agency-modern-responsive-newsletter.png',
+    src: '/assets/templates/marketing-agency-modern-responsive-newsletter.webp',
     alt: 'Marketing agency modern responsive newsletter template'
   },
   {
-    src: '/assets/templates/simple-product-promo-email-template.png',
-    alt: 'Simple ecommerce product promotion email template'
+    src: '/assets/templates/shoes-ecommerce-email-template-marketo.webp',
+    alt: 'Ecommerce shoes product promotional email template'
   },
   {
-    src: '/assets/templates/modern-colored-ecommerce-transactional-template-pack-order-confirmation.png',
-    alt: 'Ecommerce transactional order confirmation email template'
+    src: '/assets/templates/saas-cart-abandoned.webp',
+    alt: 'SaaS cart abandonment recovery email template'
   },
   {
-    src: '/assets/templates/luxury-hotel-and-spa-travel-promotional-email.png',
-    alt: 'Luxury hotel and spa travel promotional email template'
-  },
-  {
-    src: '/assets/templates/technology-style-mobile-app-promoting-fully-responsive-email.png',
-    alt: 'Technology style mobile app promotional responsive email template'
-  },
-  {
-    src: '/assets/templates/red-fashion-cart-abandoned.png',
-    alt: 'Fashion cart abandonment recovery email template'
-  },
-  {
-    src: '/assets/templates/clean-b2b-newsletter-responsive-email.png',
+    src: '/assets/templates/clean-b2b-newsletter-responsive-email.webp',
     alt: 'Clean B2B responsive newsletter email template'
+  },
+  {
+    src: '/assets/templates/summer-newsletter-fully-responsive-html-email.webp',
+    alt: 'Summer fashion fully responsive newsletter email template'
+  },
+  {
+    src: '/assets/templates/black-friday-webshop-sale-promo.webp',
+    alt: 'Black Friday webshop sale promotional email template'
+  },
+  {
+    src: '/assets/templates/spring-newsletter-ecommerce-seasonal-promotional-newsletter-template.webp',
+    alt: 'Spring ecommerce seasonal promotional newsletter template'
+  },
+  {
+    src: '/assets/templates/modern-business-portfolio-welcome-email.webp',
+    alt: 'Modern business portfolio welcome email template'
   }
 ]
 const shouldLoadEditorVideo = ref(false)
@@ -484,6 +484,7 @@ onBeforeUnmount(() => {
     width: 100%;
     aspect-ratio: 3 / 4;
     object-fit: cover;
+    object-position: top;
     transition: transform 0.35s ease;
   }
 
@@ -843,6 +844,18 @@ onBeforeUnmount(() => {
     >
       <img :src="template.src" :alt="template.alt" loading="lazy" />
     </v-card>
+  </div>
+  <div class="d-flex justify-center mt-6">
+    <v-btn
+      size="large"
+      color="primary"
+      variant="flat"
+      href="https://app.bluefox.email/accounts/create-account"
+      target="_blank"
+      aria-label="Explore all email templates"
+    >
+      Explore All Templates
+    </v-btn>
   </div>
 </section>
 
