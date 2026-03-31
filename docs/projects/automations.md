@@ -266,6 +266,15 @@ When configuring the Set Value node:
 
 ![Automation node set value card Icon](./project-automation-node-set-value-card.webp)
 
+## Manage Tags Node
+The **Manage Tags Node** allows you to add or remove tags from a contact within the automation flow.
+
+When configuring the Manage Tags node:
+- Choose **Add** to add tags 
+- Choose **Remove** to remove tags
+
+![Automation node manage tags card Icon](./project-automation-node-manage-tags-card.webp)
+
 ## Complete Node
 
 The **Complete Node** defines where contacts exit the automation. Contacts reaching this node leave the flow. Automations without a Complete Node will keep contacts queued at their final step.
