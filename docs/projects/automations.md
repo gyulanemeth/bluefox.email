@@ -270,8 +270,8 @@ When configuring the Set Value node:
 The **Manage Tags Node** allows you to add or remove tags from a contact within the automation flow.
 
 When configuring the Manage Tags node:
-- Choose **Add** to add tags 
-- Choose **Remove** to remove tags
+- In the **Add** field, select the tags you want to add to the contact.
+- In the **Remove** field, select the tags you want to remove from the contact.
 
 ![Automation node manage tags card Icon](./project-automation-node-manage-tags-card.webp)
 
