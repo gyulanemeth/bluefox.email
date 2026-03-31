@@ -1480,10 +1480,10 @@ onBeforeUnmount(() => {
     </div>
     <span class="founder-eyebrow">Meet the Founder</span>
     <h2 id="founder-heading" class="founder-title">
-      Gyula Németh: 10+ Years Building for Real-World Email
+      10+ Years Building for Real-World Email
     </h2>
     <p class="founder-description">
-      Gyula has worked in HTML email since 2013 and has over 10 years of email design experience. Before BlueFox Email, he co-founded edmdesigner.com, chamaileon.io, and emailhero.io. His focus has always been the same: emails should render consistently across real inboxes including Gmail, Apple Mail, mobile clients, and Outlook.
+      Gyula Németh has worked in HTML email since 2013. Before BlueFox Email, he co-founded edmdesigner.com, chamaileon.io, and emailhero.io, including enterprise-grade platforms, where he served as CTO. His focus has always been the same: emails should render consistently across real inboxes including Gmail, Apple Mail, mobile clients, and Outlook.
     </p>
     <div class="founder-actions">
       <v-btn
