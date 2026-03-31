@@ -49,48 +49,13 @@ import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
 import Automation from './.vitepress/theme/Automation.vue'
 import Integration from './.vitepress/theme/Integration.vue'
 import AppleMailTestimonials from './.vitepress/theme/AppleMailTestimonials.vue'
+import TemplateShowcase from './.vitepress/theme/TemplateShowcase.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
 
-const selectedEmailType = ref('0');
-const templateShowcaseItems = [
-  {
-    src: '/assets/templates/marketing-agency-modern-responsive-newsletter.webp',
-    alt: 'Marketing agency modern responsive newsletter template'
-  },
-  {
-    src: '/assets/templates/shoes-ecommerce-email-template-marketo.webp',
-    alt: 'Ecommerce shoes product promotional email template'
-  },
-  {
-    src: '/assets/templates/saas-cart-abandoned.webp',
-    alt: 'SaaS cart abandonment recovery email template'
-  },
-  {
-    src: '/assets/templates/clean-b2b-newsletter-responsive-email.webp',
-    alt: 'Clean B2B responsive newsletter email template'
-  },
-  {
-    src: '/assets/templates/summer-newsletter-fully-responsive-html-email.webp',
-    alt: 'Summer fashion fully responsive newsletter email template'
-  },
-  {
-    src: '/assets/templates/black-friday-webshop-sale-promo.webp',
-    alt: 'Black Friday webshop sale promotional email template'
-  },
-  {
-    src: '/assets/templates/happy-easter-travel-template.webp',
-    alt: 'Travel promotional email template with holiday deals'
-  },
-  {
-    src: '/assets/templates/modern-business-portfolio-welcome-email.webp',
-    alt: 'Modern business portfolio welcome email template'
-  }
-]
 const shouldLoadEditorVideo = ref(false)
 const editorVideoContainer = ref(null)
-let intervalId
 let editorVideoObserver
 
 function getObserverTarget(target) {
@@ -102,13 +67,6 @@ function getObserverTarget(target) {
 }
 
 onMounted(() => {
-  intervalId = setInterval(() => {
-    let actSelVal = parseInt(selectedEmailType.value)
-    actSelVal += 1
-    actSelVal %= 4
-    selectedEmailType.value = actSelVal
-  }, 3000)
-
   if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
     shouldLoadEditorVideo.value = true
     return
@@ -135,7 +93,6 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-  clearInterval(intervalId);
   if (editorVideoObserver) {
     editorVideoObserver.disconnect()
   }
@@ -449,49 +406,6 @@ onBeforeUnmount(() => {
     color: #9ca3af;
   }
 
-  .template-showcase-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 18px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .template-card {
-    display: block;
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(19, 176, 238, 0.18);
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.03), rgba(57, 44, 145, 0.03));
-    box-shadow: 0 10px 30px rgba(17, 24, 39, 0.08);
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  }
-
-  html.dark .template-card {
-    border-color: rgba(19, 176, 238, 0.28);
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.08), rgba(57, 44, 145, 0.08));
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-  }
-
-  .template-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(19, 176, 238, 0.5);
-    box-shadow: 0 18px 40px rgba(19, 176, 238, 0.2);
-  }
-
-  .template-card img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    object-position: top;
-    transition: transform 0.35s ease;
-  }
-
-  .template-card:hover img {
-    transform: scale(1.03);
-  }
-
   /* Final CTA Section - Premium Design */
   .final-cta-section {
     background: linear-gradient(135deg, rgba(19, 176, 238, 0.03) 0%, rgba(57, 44, 145, 0.03) 100%);
@@ -676,12 +590,6 @@ onBeforeUnmount(() => {
   }
 
   /* Responsive Design */
-  @media (max-width: 1200px) {
-    .template-showcase-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
-
   @media (max-width: 960px) {
     .problem-stats-section {
       margin-top: 60px;
@@ -694,10 +602,6 @@ onBeforeUnmount(() => {
       max-width: 500px;
     }
 
-    .template-showcase-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
   }
 
   @media (max-width: 768px) {
@@ -808,14 +712,6 @@ onBeforeUnmount(() => {
       padding: 18px 32px !important;
     }
 
-    .template-showcase-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-    }
-
-    .template-card:nth-child(n+5) {
-      display: none;
-    }
   }
 
   .mt-150 {
@@ -836,18 +732,13 @@ onBeforeUnmount(() => {
   <p class="template-showcase-intro">
     Start campaigns with professionally designed templates for Marketing Agencies, SaaS, travel, agencies, and transactional emails. Swap in your theme settings, update the copy, adjust brand colors, and launch in minutes.
   </p>
-  <div class="template-showcase-grid">
-    <v-card
-      v-for="template in templateShowcaseItems"
-      :key="template.src"
-      class="template-card"
-      variant="flat"
-      role="img"
-      :aria-label="template.alt"
-    >
-      <img :src="template.src" :alt="template.alt" loading="lazy" />
-    </v-card>
-  </div>
+  <TemplateShowcase
+    :is-dark="isDark"
+    :lg-and-up="lgAndUp"
+    :md="md"
+    :sm="sm"
+    :xs="xs"
+  />
   <div class="d-flex justify-center mt-6">
     <v-btn
       size="large"
