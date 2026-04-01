@@ -71,6 +71,8 @@ The available node types are:
 - **Audience Filter**
 - **Branching**
 - **Set Value**
+- **Manage Tags**
+- **Complete Node**
 
 Let’s go through each one in detail.
 
@@ -122,7 +124,6 @@ When you click on the timer node:
 - Set the **duration** (e.g., 1 day, 4 hours).
 - Choose the **unit**: Minutes, Hours, Days.
 - Optionally, set it to continue **immediately** if you want the next node to run without delay.
-
 
 ![Automation node timer card Icon](./project-automation-node-timer-card.webp)
 
@@ -264,6 +265,23 @@ When configuring the Set Value node:
 - Enter a **Value** (e.g., `true`, `5`, `new value`).
 
 ![Automation node set value card Icon](./project-automation-node-set-value-card.webp)
+
+## Manage Tags Node
+The **Manage Tags Node** allows you to add or remove tags from a contact within the automation flow.
+
+When configuring the Manage Tags node:
+- In the **Add** field, select the tags you want to add to the contact.
+- In the **Remove** field, select the tags you want to remove from the contact.
+
+![Automation node manage tags card Icon](./project-automation-node-manage-tags-card.webp)
+
+## Complete Node
+
+The **Complete Node** defines where contacts exit the automation. Contacts reaching this node leave the flow. Automations without a Complete Node will keep contacts queued at their final step.
+
+Without a Complete Node, contacts will be queued indefinitely at the last node, which can lead to unintended consequences. For example, if you have a Timer Node at the end of your automation and no Complete Node, contacts will keep accumulating there and never exit the automation.
+
+![Automation node complete card Icon](./project-automation-node-complete-card.webp)
 
 ## Exit Critera
 
