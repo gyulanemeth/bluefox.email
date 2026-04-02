@@ -4,7 +4,7 @@ import { useRoute } from 'vitepress'
 
 // Configuration constants
 const FOOTER_CONFIG = {
-  allowedPaths: ['/', '/pricing', '/tutorials', '/articles', '/tools', '/comparisons','/posts'],
+  allowedPaths: ['/', '/pricing', '/tutorials', '/articles', '/tools', '/comparisons','/posts', '/meet-the-team'],
   allowedPrefixes: ['/for', '/email-sending-concepts', '/aws-concepts', '/comparisons/', '/posts'],
   currentYear: new Date().getFullYear(),
   
@@ -30,7 +30,8 @@ const FOOTER_CONFIG = {
     company: [
       { text: 'About', href: '/about' },
       { text: 'Why?', href: '/why' },
-      { text: 'Partners', href: '/partners' }
+      { text: 'Partners', href: '/partners' },
+      { text: 'Meet the Team', href: '/meet-the-team' }
     ],
     resources: [
       { text: 'Documentation', href: '/docs/' },
