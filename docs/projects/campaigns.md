@@ -56,16 +56,16 @@ After that (if starting from a template), you will have to select a template to 
 
 ![A screenshot of a project's campaigns - create: template selection.](./project-campaign-create-select-category.webp)
 
-Enter its name, subject line, and preview text:
-![A screenshot of a project's campaigns - create: enter data.](./project-campaign-create-select-template.webp)
+Here select a template from your project or from the pre-designed templates:
+![A screenshot of a project's campaigns - create: template selection.](./project-campaign-create-select-template-2.webp)
 
-Enter its name, subject line, preview text, select a subscriber list, and select a segment:
-![A screenshot of a project's campaigns - create: select subscriber list.](./project-campaign-create-subject.webp)
+Select a template and click "Next". Enter its name, subject line, preview text, select a subscriber list, and select a segment:
+![A screenshot of a project's campaigns - create: enter data.](./project-campaign-create-select-template.webp)
 
 ::: info This form will appear as first step if you choose to start from scratch.
 :::
 
-After that, you will see a summary page. Click "Launch Editor".
+After confirming everything (you can edit these later as well). Click "Launch Editor".
 
 ![A screenshot of a project's triggered emails - create: summary.](./project-campaign-create-summary.webp)
 
