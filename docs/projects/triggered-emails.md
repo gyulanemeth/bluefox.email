@@ -59,7 +59,10 @@ Next (if starting from template), select a template category defined in your pro
 
 ![A screenshot of a project's triggered emails - create: template category selection.](./project-triggered-emails-create-select-category.webp)
 
-Then, choose a template to start with (also defined in your project's design system):
+You can also choose a pre-designed template:
+![A screenshot of a project's triggered emails - create: template selection.](./project-triggered-emails-create-select-predesigned.webp)
+
+Then, choose a template to start with (also defined in your project's design system) and click Next:
 
 ![A screenshot of a project's triggered emails - create: template selection.](./project-triggered-emails-create-select-template.webp)
 
