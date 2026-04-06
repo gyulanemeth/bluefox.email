@@ -42,7 +42,7 @@ The **Account Dashboard** gives you an overview of your entire account’s email
 
 The **Account Dashboard** provides both **overall account-level** statistics and **project-specific** insights. Below are the key metrics you can track in the dashboard:
 
-### 1. Overall Account-Level Email Performance
+## Overall Account-Level Email Performance
 
 - **Total Emails Sent**: The total number of emails sent across all projects in your account.
 - **Total Contacts**: The total number of unique contacts across all projects in your account.
@@ -53,7 +53,7 @@ You can directly go to the [statistics page](/docs/analytics) for a more detaile
 
 ![Email statistics](./dashboard-statistics-email-chart.webp)
 
-### 2. Project-Specific Email Performance
+## Project-Specific Email Performance
 
 For each project in your account, you can view the following email performance metrics:
 - **Contacts**: The total number of unique contacts in the project.
