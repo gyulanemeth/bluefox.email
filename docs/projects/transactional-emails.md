@@ -177,3 +177,21 @@ You can edit every key detail of the transactional email like subject, preview t
 After you finish editing just click the save icon and your changes will be saved or if you want to discard them just click the close icon respectively.
 
 ![A screenshot of a transactional email being edited, save button highlighted.](./project-transactionals-edit-details-save-button.webp)
+
+## Advanced Settings
+
+The **Advanced Settings** in transactional email cards allows you to customize key email-sending options, providing flexibility in managing sender identities and reply-to addresses.
+
+![Advanced Settings](./project-settings-advanced-settings.webp)
+
+### Sender Identity Selection
+
+The **sender identity** field lets you choose the identity used to send the email. By default, the system automatically selects the **default identity**, but you can select another identity from the list of available options.
+
+![Sender Identity Selection](./project-settings-advanced-settings-sender-identity.webp)
+
+### Reply-To Email Address
+
+The **reply-to email address** field allows you to specify where replies to your email should be sent.
+
+![Reply-To Email Field](./project-settings-advanced-settings-reply-to.webp)
