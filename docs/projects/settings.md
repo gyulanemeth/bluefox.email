@@ -43,7 +43,7 @@ To access the project settings, click on the **Settings** tab. Here, you can use
 ![A screenshot of a project settings main page.](./project-settings-main-page.webp)
 
 ## Main Settings
-Users can **add**, **update**, or **remove** a custom logo for their project. This logo will be displayed on the **subscription preferences page** and **double opt-in confirmation page success message** to provide branding consistency.
+Users can **add**, **update**, or **remove** a custom logo for their project. This logo will be displayed on the [**subscription preferences page**](./forms-and-pages.md#subscription-preferences-page) and [**double opt-in confirmation page**](./forms-and-pages.md####double-opt-in) success message to provide branding consistency.
 
 To manage the project logo:
 
@@ -51,9 +51,17 @@ To manage the project logo:
 
 - **Remove**: Click remove logo and confirm.
   
+![A screenshot of a project settings logo section.](./project-settings-project-logo.webp)
+
+You can also change your email theme of the project in this section. Changing the email theme will update the design of all your emails. Your saved templates and blocks will remain available after switching themes. However, any overridden theme variables (such as colors or images) will be permanently lost, if you switch back to a previous theme, your templates and blocks will still be there, but those overriding values will not be restored.
+
+![A screenshot of a project settings email theme section.](./project-settings-email-theme.webp)
+
 Users can also manage the project name in this section or delete the project entirely by clicking the **Delete project** button.
 
-![A screenshot of a project settings logo section.](./project-settings-project-logo.webp)
+![A screenshot of a project settings main settings section - project name and delete project button highlighted.](./project-settings-main-settings-project-name-delete.webp)
+
+
 
 ## Delivery Modes
 
@@ -71,29 +79,6 @@ This feature is only available for projects using **Bring Your Own (BYO) AWS SES
 To effectively manage email bounces and complaints, BlueFox Email provides webhook integration. This allows you to receive real-time notifications about these events, enabling you to take appropriate actions such as updating contact statuses or triggering follow-up processes.
 
 ![A screenshot of a project settings bounces and complaints webhooks section.](./project-settings-bounces-complaints-webhooks.webp)
-
-
-
-## Advanced Settings
-
-The **Advanced Settings** available in email cards for **Campaign**, **Transactional**, and **Triggered Emails**, allows you to customize key email-sending options, providing flexibility in managing sender identities and reply-to addresses.
-
-![Advanced Settings](./project-settings-advanced-settings.webp)
-
-
-### Sender Identity Selection
-
-The **sender identity** field lets you choose the identity used to send the email. By default, the system automatically selects the **default identity**, but you can select another identity from the list of available options.
-
-
-![Sender Identity Selection](./project-settings-advanced-settings-sender-identity.webp)
-
-
-## Reply-To Email Address
-
-The **reply-to email address** field allows you to specify where replies to your email should be sent.
-
-![Reply-To Email Field](./project-settings-advanced-settings-reply-to.webp)
 
 ## Contact Properties
 
@@ -124,6 +109,22 @@ To delete a property, go to **project settings → contact properties**, locate 
 
 ![A screenshot of a project settings contact properties section delete property.](./project-settings-contact-properties-delete.webp)
 
+## Contact Tags
+
+Contact tags are labels that you can assign to contacts to help organize them based on specific criteria or characteristics. Tags can be used for various purposes, such as categorizing contacts by interests, behaviors, or demographics, which can then be leveraged for targeted email campaigns and personalized communication.
+
+To manage contact tags, navigate to **project settings → contact tags**. Here you can see a list of all existing tags in the project and you can create new tags or delete existing ones.
+
+To create a new tag, click the **Create** button :
+![A screenshot of a project settings contact tags section create tag.](./project-settings-contact-tags-create.webp)
+
+Enter the name of the tag and save it. The new tag will be available for assignment to contacts.
+![A screenshot of a project settings contact tags section create tag form.](./project-settings-contact-tags-create-form.webp)
+
+If you want to delete a tag, find it in the list of tags, click the delete icon, and confirm the deletion. The tag will be removed from the project and unassigned from any contacts that had it.
+
+![A screenshot of a project settings contact tags section delete tag.](./project-settings-contact-tags-delete.webp)
+
 ## API Keys and Domain Whitelist
 
 To work with our [API](/docs/api/) from the server side, create at least one API key.
@@ -133,7 +134,6 @@ Include our API keys in the `Authorization` header of your HTTP requests as a be
 ```
 Authorization: Bearer <API_KEY>
 ```
-
 
 For bounces and complaints, it is added as a query string.
 

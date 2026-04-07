@@ -171,4 +171,21 @@ You can customize every key email-sending options, such as preview text, subject
 
 ![Edit fields](./project-campaign-advanced-settings-btn.webp)
 
+## Advanced Settings
+
+The **Advanced Settings** in campaign email cards allows you to customize key email-sending options, providing flexibility in managing sender identities and reply-to addresses.
+
+![Advanced Settings](./project-settings-advanced-settings.webp)
+
+### Sender Identity Selection
+
+The **sender identity** field lets you choose the identity used to send the email. By default, the system automatically selects the **default identity**, but you can select another identity from the list of available options.
+
+![Sender Identity Selection](./project-settings-advanced-settings-sender-identity.webp)
+
+### Reply-To Email Address
+
+The **reply-to email address** field allows you to specify where replies to your email should be sent.
+
+![Reply-To Email Field](./project-settings-advanced-settings-reply-to.webp)
 
