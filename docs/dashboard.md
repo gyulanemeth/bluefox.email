@@ -36,7 +36,7 @@ head:
 
 # Account Dashboard
 
-The **Account Dashboard** gives you an overview of your entire account’s email and subscription performance across multiple projects. It allows you to track key metrics like number of email sents, total contacts, bounces, complaints accross every project. The dashboard also provides insights into other project specific statistics, such as contacts, sends, cost, bounces and complaints, helping you to monitor the overall health of your email campaigns and subscriber engagement across all your projects.
+The **Account Dashboard** gives you an overview of your entire account’s email and subscription performance across multiple projects. It allows you to track key metrics like number of email sents, total contacts, bounces, complaints accross every project. The dashboard also provides insights into other project specific statistics, such as contacts, sends, cost, bounces and complaints.
 
 ## Key Metrics in the Account Dashboard
 
@@ -67,9 +67,7 @@ For each project in your account, you can view the following email performance m
 There is pagination at the bottom of the project list, allowing you to navigate through multiple pages of projects.
 ![Pagination](./dashboard-pagination.webp)
 
-You can also filter projects by package type (e.g., Essential, Premium) to quickly find specific projects and analyze their performance. 
-
-Click on the **Package** dropdown to select the desired package type and view only the projects that belong to that package. 
+The **Package** dropdown allows you to see how much each project costs based on its package type (e.g., Essential, Premium). Click on the **Package** dropdown to select a package type and view the associated cost for projects under that package.
 
 ![Package filter](./dashboard-package-filter.webp)
 
