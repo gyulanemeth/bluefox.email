@@ -53,7 +53,7 @@ To manage the project logo:
   
 ![A screenshot of a project settings logo section.](./project-settings-project-logo.webp)
 
-You can also change your email theme of the project in this section. Changing the email theme will update the design of all your emails. Your saved templates and blocks will remain available after switching themes. However, any overridden theme variables (such as colors or images) will be permanently lost, if you switch back to a previous theme, your templates and blocks will still be there, but those overriding values will not be restored.
+You can also change your email theme of the project in this section. Changing the email theme will update the design of all your emails. Your saved templates and blocks are tied to their original theme, they won't be accessible while on a different theme, but if you switch back, they will be available again. However, any overridden theme variables (such as colors or images) will be permanently lost, even if you switch back, those overriding values will not be restored.
 
 ![A screenshot of a project settings email theme section.](./project-settings-email-theme.webp)
 
