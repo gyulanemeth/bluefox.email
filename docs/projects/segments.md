@@ -80,7 +80,7 @@ When conditions are joined with **OR** logic, contacts need to meet **at least o
 
 ### Contact Properties
 
-All contact properties will be listed in this drop-down menu, allowing you to choose the property that defines the condition for your segment.
+All contact properties and tags will be listed in this drop-down menu, allowing you to choose the property that defines the condition for your segment.
 
 ![Screenshot of contact properties](./project-segments-condition-properties.webp)
 
@@ -101,11 +101,32 @@ Segments can filter contacts based on various operators applied to contact prope
 
 ![Screenshot of segment condition operators](./project-segments-condition-operators.webp)
 
-To see your contacts that match the segment conditions, click the **Segments** tab and then choose your segment by its name. This will show you how many contacts currently fit the criteria you've set.
+To see your contacts that match the segment conditions, click the **Segments** tab and then choose your segment by its name. 
 
 ![Screenshot of segment selection view](./project-segments-selection-view.webp)
 
+This will show you how many contacts currently fit the criteria you've set.
+
 ![Screenshot of segment contacts view](./project-segments-contacts-view.webp)
+
+## Engagment based Segments
+
+You can also create segments based on contact engagement with your campaigns. This allows you to target contacts who have interacted with your emails in specific ways, such as:
+
+- recevied
+- not received
+- opened
+- not opened
+- clicked
+- not clicked
+
+To create an engagement-based segment, click on the **engagement** tab in the segment creation section. 
+
+![Screenshot of engagement-based segment tab](./project-segments-engagement-tab.webp)
+
+Then, choose the engagement condition you want to apply to your segment.
+
+![Screenshot of engagement-based segment conditions](./project-segments-engagement-conditions.webp)
 
 ## Segment Application Scope
 
