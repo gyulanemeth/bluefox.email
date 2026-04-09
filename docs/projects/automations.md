@@ -333,6 +333,21 @@ When you click on that circle, you can see the list of contacts currently runnin
 
 ![Automation start btn Icon](./project-automation-node-contact-list-delete-button.webp)
 
+## Updating running automations
+
+If you need to make changes to an automation that's currently active, you can do it by following these steps:
+
+1. Make your updates in the automation builder. You can edit any node or add new nodes as needed.
+2. Whenever you make a change you will see few options at the top of the builder:
+
+    - **Apply to upcoming events only**: Will only apply the changes to contacts that are newly entering the automation. Contacts that are already running the automation will not be affected and will continue with the old version.
+
+    - **Apply to upcoming and in-progress contacts**: Will apply the changes to both new contacts entering the automation and contacts that are currently running it. This means that in-progress contacts will be updated to reflect the changes you made.
+
+    - **Discard changes**: Will discard any changes you made and keep the old version of the automation for both new and in-progress contacts.
+
+![Automation update options Icon](./project-automation-update-options.webp)
+
 ## Automation Stats
 On the automation card, you’ll see the following stats:
 
