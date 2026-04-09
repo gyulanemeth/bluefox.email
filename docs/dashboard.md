@@ -36,59 +36,41 @@ head:
 
 # Account Dashboard
 
-The **Account Dashboard** gives you an overview of your entire account’s email and subscription performance across multiple projects. It allows you to track key metrics for [**transactional emails**](/docs/projects/transactional-emails#transactional-email-statistics), [**triggered emails**](/docs/projects/triggered-emails#triggered-email-statistics), [**campaign Emails**](/docs/projects/campaigns#campaign-email-statistics), and [**subscriber lists**](/docs/projects/contacts#list-statistics). The dashboard also provides insights into subscriber behaviors, such as subscriptions, pauses, unsubscribes, and re-subscriptions, giving you a holistic view of your account’s health.
-
-## How the Account Dashboard Enhances Your Strategy
-
-The **Account Dashboard** helps you:
-
-- **Monitor All Projects at Once**: Track the performance of your emails and subscribers across all your projects in one place.
-- **Get a 360° View of Email Effectiveness**: Measure the performance of different types of emails (transactional, triggered, and campaign emails) across your entire account.
-- **Track Subscriber Trends**: See how subscribers are engaging with your emails, including their subscription, pause, unpause, and unsubscribe behaviors.
-- **Identify Performance Issues**: Quickly detect trends like [high bounce rates](/email-sending-concepts/bounce-rate) or low open rates across all projects, helping you to address potential issues before they escalate.
-- **Enhance Subscriber Engagement**: Use data from multiple projects to optimize future emails and improve subscriber retention and conversions.
+The **Account Dashboard** gives you an overview of your entire account’s email and subscription performance across multiple projects. It allows you to track key metrics like number of email sents, total contacts, bounces, complaints accross every project. The dashboard also provides insights into other project specific statistics, such as contacts, sends, cost, bounces and complaints.
 
 ## Key Metrics in the Account Dashboard
 
-The **Account Dashboard** provides both **email performance** and **subscriber activity** metrics across all your projects, giving you a comprehensive view of your account's performance.
+The **Account Dashboard** provides both **overall account-level** statistics and **project-specific** insights. Below are the key metrics you can track in the dashboard:
 
-### 1. Email Performance Metrics Across All Projects
-- **Sent Emails**: The total number of emails sent across all projects, including transactional, triggered, and campaign emails.
-- **Opens**: The total number of email opens across all projects.
-- **Unique Opens**: The number of unique recipients who opened emails across all your projects.
-- **Clicks**: The total number of clicks on links inside your emails, reflecting how engaging your content is.
-- **Unique Clicks**: The number of unique recipients who clicked on links, highlighting how effective your emails are at driving action.
-- **Bounces**: The total number of emails that failed to be delivered, indicating any [deliverability](/email-sending-concepts/deliverability) issues.
-- **Complaints**: The total number of [complaints](/email-sending-concepts/complaints) (e.g., emails marked as spam), which can indicate issues with your content quality.
+## Overall Account-Level Email Performance
 
-The chart below displays the performance of transactional, triggered, and campaign emails across the account, highlighting opens, clicks, and complaints.
+- **Total Emails Sent**: The total number of emails sent across all projects in your account.
+- **Total Contacts**: The total number of unique contacts across all projects in your account.
+- **Total Bounces**: The total number of bounced emails across all projects in your account
+- **Total Complaints**: The total number of complaints received across all projects in your account.
+
+You can directly go to the [statistics page](/docs/analytics) for a more detailed breakdown of these metrics and to analyze the performance of your email campaigns across all projects.
+
 ![Email statistics](./dashboard-statistics-email-chart.webp)
 
-### 2. Subscriber Metrics Across All Projects
-- **Total Subscribers**: The total number of subscribers across all projects in your account.
-- **Active Subscribers**: The number of subscribers who are actively receiving emails across all your projects.
-- **Paused Subscribers**: The number of subscribers who have paused their subscriptions across all projects.
-- **Unsubscribed Subscribers**: The number of subscribers who have unsubscribed from receiving emails across all projects.
-- **New Subscriptions**: The number of new subscribers added across all your projects in a given time period.
-- **Unsubscribed**: The number of subscribers who unsubscribed during a specific time period.
-- **Paused Subscriptions**: The number of subscriptions that were paused during a specific period.
-- **Unpaused Subscriptions**: The number of subscriptions that were unpaused during a specific period.
-- **Resubscribed**: The number of subscribers who have resubscribed after previously unsubscribing.
+## Project-Specific Email Performance
 
-The chart above visualizes the subscriber metrics across the account, including active, paused, unsubscribed, and resubscribed users, providing insights into user engagement and retention.
+For each project in your account, you can view the following email performance metrics:
+- **Contacts**: The total number of unique contacts in the project.
+- **Sends**: The total number of emails sent from the project.  
+- **Cost**: The total cost incurred for sending emails from the project.
+- **Bounces**: The total number of bounced emails from the project.
+- **Complaints**: The total number of complaints received from the project.
 
 ![Subscription statistics](./dashboard-statistics-subscription-chart.webp)
 
-## Jump Back to Latest Updated Emails
+There is pagination at the bottom of the project list, allowing you to navigate through multiple pages of projects.
+![Pagination](./dashboard-pagination.webp)
 
-The **Jump Back** section allows you to quickly access the latest emails you were working on across different types ([**campaign emails**](/docs/projects/campaigns), [**transactional emails**](/docs/projects/transactional-emails), [**triggered emails**](/docs/projects/triggered-emails)). This section contains cards showing recent email updates, including the email type and the project it belongs to. By clicking on these cards, you can quickly jump back to the email in the project and continue editing or review its performance.
+The **Package** dropdown allows you to see how much each project costs based on its package type (e.g., Essential, Premium). Click on the **Package** dropdown to select a package type and view the associated cost for projects under that package.
 
-![Jump back](./dashboard-jump-back.webp)
+![Package filter](./dashboard-package-filter.webp)
 
-## Last Sent Campaigns
+There is also a filter for dates, allowing you to select a specific date range to view the performance of your projects during that period. Click on the **Date** dropdown to choose a date range or enter custom dates and view the performance of your projects during that period.
 
-The **Last Sent Campaigns** section showcases the most recent campaigns sent across all projects, providing you with important details such as email previews, project names, and performance metrics. This section allows you to see the effectiveness of your most recent campaigns and quickly review their performance.
-
-![Last sent campaigns](./dashboard-last-sent.webp)
-
-For more information on how to use the **Account Dashboard Statistics**, refer to the [Analytics Documentation](/docs/analytics).
+![Date filter](./dashboard-date-filter.webp)
