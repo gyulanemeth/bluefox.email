@@ -213,6 +213,10 @@ export default defineConfig({
                   link: "/docs/projects/contacts"
                 },
                 {
+                  text: "Segments",
+                  link:"/docs/projects/segments"
+                },
+                {
                   text: "Forms & Pages",
                   link: "/docs/projects/forms-and-pages"
                 },

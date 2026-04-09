@@ -82,7 +82,25 @@ You have the option to upload a CSV file. Read more about it in the import/expor
 ## Contact Attributes & Custom Data
 Each contact requires an email, but you can store additional data as well. The system provides some predefined attributes, but you can also define custom attributes from Project Settings → Contact Attributes.
 
-For more information on managing custom attributes, visit the [Contact Attributes documentation](/docs/projects/settings#contact-properties)
+For more information on managing custom attributes, visit the [project settings documentation](/docs/projects/settings#contact-properties)
+
+## Contact Tags
+
+Tags are a powerful way to organize and filter your contacts based on specific criteria you might have in your email list.
+
+You can create and manage tags in your project settings. See [project settings documentation](/docs/projects/settings#contact-tags) for more details. Once you have your tags set up, you can assign them to contacts directly from the Contacts page.
+
+To do that just select the contacts you want to tag using the checkboxes, then click on the **Assign Tag** button in the bulk actions menu.
+
+![Screenshot of the subscriber lists page - assign tag button highlighted](./project-contacts-assign-tag.webp)
+
+If you want to remove a tag from contacts, select the contacts and click on the **Remove Tag** button.
+
+![Screenshot of the subscriber lists page - remove tag button highlighted](./project-contacts-remove-tag.webp)
+
+After setting up tags in your list, your list should look something like this:
+
+![Screenshot of contact tags](./project-contacts-tags.webp)
 
 ## Mass Removal for Bounced or Complained Contacts
 
@@ -165,7 +183,7 @@ Your **BlueFox Email** API key must be included in the `Authorization` header of
 
 For more details and guidance on integrating these endpoints, visit our [API documentation](/docs/api/).  
 
-### Managing Contacts 
+## Managing Contacts 
 
 You can manage your contacts directly from the Contacts tab. Here, you can view all contacts in your project, along with their subscription statuses across different lists.
 
@@ -176,6 +194,10 @@ If you want to manage multiple contacts at once, you can select them using the c
 - **Assgin to List**: Add the selected contacts to one or more subscription lists.
 - **Remove from List**: Remove the selected contacts from one or more subscription lists.
 - **Add to Suppression List**: Add the selected contacts to the suppression list to prevent future emails.
+- **Edit Contact**: Modify the details of the selected contacts, such as their email or custom attributes.
+- **Assign Tag**: Add a specific tag to the selected contacts for better organization and segmentation.
+- **Remove Tag**: Remove a specific tag from the selected contacts.
+- **Add to automation**: Enroll the selected contacts in an automation workflow to trigger specific actions.
 - **Export**: Export the selected contacts to a CSV file for offline management or analysis.
 - **Delete**: Permanently delete the selected contacts from your project.
 
