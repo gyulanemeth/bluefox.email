@@ -128,7 +128,7 @@ Then, choose the engagement condition you want to apply to your segment.
 
 ![Screenshot of engagement-based segment conditions](./project-segments-engagement-conditions.webp)
 
-After that you will need to specify the number of days for the engagement condition. For example, if you choose "opened" and set it to 30 days, the segment will include contacts who have opened any of your campaigns in the last 30 days.
+After that you will need to specify the number of days for the engagement condition. For example, if you choose "opened" and set it to 30 days, the segment will include contacts who have opened any of your emails in the last 30 days.
 
 ![Screenshot of engagement-based segment days condition](./project-segments-engagement-days.webp)
 
