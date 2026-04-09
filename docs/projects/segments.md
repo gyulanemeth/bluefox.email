@@ -113,12 +113,12 @@ This will show you how many contacts currently fit the criteria you've set.
 
 You can also create segments based on contact engagement with your campaigns. This allows you to target contacts who have interacted with your emails in specific ways, such as:
 
-- recevied
-- not received
-- opened
-- not opened
-- clicked
-- not clicked
+- **received**
+- **not received**
+- **opened**
+- **not opened**
+- **clicked**
+- **not clicked**
 
 To create an engagement-based segment, click on the **engagement** tab in the segment creation section. 
 
@@ -127,6 +127,10 @@ To create an engagement-based segment, click on the **engagement** tab in the se
 Then, choose the engagement condition you want to apply to your segment.
 
 ![Screenshot of engagement-based segment conditions](./project-segments-engagement-conditions.webp)
+
+After that you will need to specify the number of days for the engagement condition. For example, if you choose "opened" and set it to 30 days, the segment will include contacts who have opened any of your campaigns in the last 30 days.
+
+![Screenshot of engagement-based segment days condition](./project-segments-engagement-days.webp)
 
 ## Segment Application Scope
 

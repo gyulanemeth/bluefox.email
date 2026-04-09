@@ -194,7 +194,7 @@ If you want to manage multiple contacts at once, you can select them using the c
 - **Assgin to List**: Add the selected contacts to one or more subscription lists.
 - **Remove from List**: Remove the selected contacts from one or more subscription lists.
 - **Add to Suppression List**: Add the selected contacts to the suppression list to prevent future emails.
-- **Edit Contact**: Modify the details of the selected contacts, such as their email or custom attributes.
+- **Edit Contact**: Modify the details of the selected contacts, such as their name and custom attributes.
 - **Assign Tag**: Add a specific tag to the selected contacts for better organization and segmentation.
 - **Remove Tag**: Remove a specific tag from the selected contacts.
 - **Add to automation**: Enroll the selected contacts in an automation workflow to trigger specific actions.
