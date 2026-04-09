@@ -348,6 +348,11 @@ If you need to make changes to an automation that's currently active, you can do
 
 ![Automation update options Icon](./project-automation-update-options.webp)
 
+:::warning Be cautious when applying changes to in-progress contacts. 
+
+If you remove a node, it will terminate the automation for all contacts currently in that node. Always double-check the changes you make before applying them to in-progress contacts.
+::: 
+
 ## Automation Stats
 On the automation card, you’ll see the following stats:
 
