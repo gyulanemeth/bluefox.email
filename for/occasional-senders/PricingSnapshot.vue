@@ -1,38 +1,8 @@
 <script setup>
-const scenarios = [
-  {
-    id: 'quarterly',
-    label: 'Quarterly newsletter',
-    sends: '4 campaigns/year',
-    audienceSize: '2,500 contacts',
-    totalEmails: '10,000 emails/year',
-    bluefoxCost: '$50',
-    bluefoxNote: '50K send pack, covers 5× this volume',
-    typicalCost: '$240–$480',
-    typicalNote: '$20–$40/month subscription × 12'
-  },
-  {
-    id: 'monthly',
-    label: 'Monthly announcement',
-    sends: '12 campaigns/year',
-    audienceSize: '1,800 contacts',
-    totalEmails: '21,600 emails/year',
-    bluefoxCost: '$50',
-    bluefoxNote: '50K send pack, still has sends left over',
-    typicalCost: '$240–$600',
-    typicalNote: '$20–$50/month subscription × 12'
-  },
-  {
-    id: 'launch',
-    label: 'Product launch blasts',
-    sends: '6 campaigns/year',
-    audienceSize: '5,000 contacts',
-    totalEmails: '30,000 emails/year',
-    bluefoxCost: '$50',
-    bluefoxNote: '50K send pack, 20K sends still available',
-    typicalCost: '$300–$720',
-    typicalNote: '$25–$60/month subscription × 12'
-  }
+const coverage = [
+  { use: 'Quarterly newsletter', detail: '4 sends a year to ~2,500 contacts' },
+  { use: 'Monthly update', detail: '12 sends a year to ~1,800 contacts' },
+  { use: 'Product launches', detail: '6 sends a year to ~5,000 contacts' }
 ]
 </script>
 
@@ -42,51 +12,45 @@ const scenarios = [
       <v-chip color="primary" class="snapshot-badge" aria-label="Pricing badge">
         <span class="text-overline">Honest Pricing</span>
       </v-chip>
-      <h2 id="pricing-snapshot-title">Pay Only When You Send. Not Every Month.</h2>
-      <p>Most email tools bill you monthly, whether you send or not. BlueFox Email uses send packs. Buy once, valid for 12 months, and use them whenever you need to.</p>
+      <h2 id="pricing-snapshot-title">Pay when you send. Not every month.</h2>
+      <p>Most email tools charge a monthly subscription whether you send or not. We sell send packs. Buy once, use whenever, valid for 12 months.</p>
     </div>
 
-    <div class="comparison-grid">
-      <div
-        v-for="scenario in scenarios"
-        :key="scenario.id"
-        class="comparison-card"
-      >
-        <p class="scenario-label">{{ scenario.label }}</p>
-        <div class="scenario-meta">
-          <span class="meta-item">{{ scenario.sends }}</span>
-          <span class="meta-dot" aria-hidden="true" />
-          <span class="meta-item">{{ scenario.audienceSize }}</span>
-          <span class="meta-dot" aria-hidden="true" />
-          <span class="meta-item">{{ scenario.totalEmails }}</span>
-        </div>
+    <div class="compare">
+      <div class="compare-col compare-col--typical">
+        <span class="col-label">Subscription tools</span>
+        <span class="col-price">
+          <span class="amount">$240 – $720</span>
+          <span class="period">per year</span>
+        </span>
+        <span class="col-sub">Paid monthly whether you send or not.</span>
+      </div>
 
-        <div class="cost-row">
-          <div class="cost-block cost-block--typical">
-            <span class="cost-type">Typical monthly platform</span>
-            <span class="cost-amount">{{ scenario.typicalCost }}</span>
-            <span class="cost-note">{{ scenario.typicalNote }}</span>
-          </div>
+      <div class="compare-rule" aria-hidden="true"></div>
 
-          <div class="cost-vs" aria-hidden="true">vs</div>
-
-          <div class="cost-block cost-block--bluefox">
-            <span class="cost-type">BlueFox Email send pack</span>
-            <span class="cost-amount">{{ scenario.bluefoxCost }}</span>
-            <span class="cost-note">{{ scenario.bluefoxNote }}</span>
-          </div>
-        </div>
+      <div class="compare-col compare-col--ours">
+        <span class="col-label">BlueFox send pack</span>
+        <span class="col-price">
+          <span class="amount">$50</span>
+          <span class="period">once</span>
+        </span>
+        <span class="col-sub">50,000 sends. Valid for 12 months.</span>
       </div>
     </div>
 
-    <div class="free-sends-callout" role="note">
-      <div class="callout-main">
-        <strong>Start with 3,000 free sends.</strong>
-        <span> No credit card. No subscription. Enough to run a small campaign or test everything before you buy.</span>
-      </div>
-      <a href="https://bluefox.email/pricing" class="pricing-link">
-        See full pricing →
-      </a>
+    <div class="coverage">
+      <p class="coverage-title">One $50 pack typically covers a full year of:</p>
+      <ul class="coverage-list">
+        <li v-for="item in coverage" :key="item.use">
+          <span class="tick" aria-hidden="true">✓</span>
+          <span><strong>{{ item.use }}</strong> — {{ item.detail }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-row">
+      <span class="footer-lead">Start with 3,000 free sends. No card, no subscription.</span>
+      <a href="https://bluefox.email/pricing" class="pricing-link">See full pricing →</a>
     </div>
   </section>
 </template>
@@ -97,7 +61,8 @@ const scenarios = [
 }
 
 .snapshot-head {
-  margin-bottom: 28px;
+  margin-bottom: 32px;
+  max-width: 680px;
 }
 
 .snapshot-badge {
@@ -108,7 +73,7 @@ const scenarios = [
 
 .snapshot-head h2 {
   margin: 0 0 10px;
-  font-size: clamp(22px, 3vw, 32px);
+  font-size: clamp(24px, 3vw, 34px);
   line-height: 1.2;
   border-top: 0 !important;
   padding-top: 0 !important;
@@ -119,190 +84,182 @@ const scenarios = [
   font-size: 16px;
   line-height: 1.65;
   color: #475569;
-  max-width: 680px;
 }
 
 html.dark .snapshot-head p {
   color: #94a3b8;
 }
 
-.comparison-grid {
+.compare {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin-bottom: 20px;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: 32px;
+  padding: 24px 8px;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.comparison-card {
-  border-radius: 18px;
-  padding: 22px;
-  background: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 0, 0, 0.06);
+html.dark .compare {
+  border-top-color: #1e293b;
+  border-bottom-color: #1e293b;
 }
 
-html.dark .comparison-card {
-  background: rgba(30, 41, 59, 0.9);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.2);
+.compare-rule {
+  width: 1px;
+  background: #e2e8f0;
 }
 
-.scenario-label {
-  margin: 0 0 6px;
-  font-size: 14px;
+html.dark .compare-rule {
+  background: #1e293b;
+}
+
+.compare-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.col-label {
+  font-size: 12px;
   font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #64748b;
+}
+
+html.dark .col-label {
+  color: #94a3b8;
+}
+
+.col-price {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 2px 0 4px;
+}
+
+.amount {
+  font-size: clamp(26px, 3.4vw, 36px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+.period {
+  font-size: 14px;
+  color: #64748b;
+}
+
+html.dark .period {
+  color: #94a3b8;
+}
+
+.compare-col--typical .amount {
+  color: #94a3b8;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgba(185, 28, 28, 0.55);
+}
+
+html.dark .compare-col--typical .amount {
+  color: #64748b;
+  text-decoration-color: rgba(248, 113, 113, 0.55);
+}
+
+.compare-col--ours .amount {
   color: #0f172a;
 }
 
-html.dark .scenario-label {
+html.dark .compare-col--ours .amount {
   color: #f1f5f9;
 }
 
-.scenario-meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 16px;
-}
-
-.meta-item {
-  font-size: 12px;
-  color: #64748b;
-}
-
-html.dark .meta-item {
-  color: #94a3b8;
-}
-
-.meta-dot {
-  width: 3px;
-  height: 3px;
-  border-radius: 50%;
-  background: #cbd5e1;
-}
-
-.cost-row {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.cost-block {
-  border-radius: 8px;
-  padding: 12px 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.cost-block--typical {
-  background: #f8fafc;
-  border-radius: 10px;
-}
-
-html.dark .cost-block--typical {
-  background: rgba(15, 23, 42, 0.4);
-}
-
-.cost-block--bluefox {
-  background: #f0fdf4;
-  border-radius: 10px;
-}
-
-html.dark .cost-block--bluefox {
-  background: rgba(16, 185, 129, 0.08);
-}
-
-.cost-type {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #64748b;
-}
-
-html.dark .cost-type {
-  color: #94a3b8;
-}
-
-.cost-amount {
-  font-size: 22px;
-  font-weight: 800;
-  line-height: 1.2;
-  color: #0f172a;
-}
-
-.cost-block--typical .cost-amount {
-  color: #b91c1c;
-}
-
-html.dark .cost-block--typical .cost-amount {
-  color: #f87171;
-}
-
-.cost-block--bluefox .cost-amount {
-  color: #047857;
-}
-
-html.dark .cost-block--bluefox .cost-amount {
-  color: #34d399;
-}
-
-.cost-note {
-  font-size: 12px;
-  line-height: 1.4;
+.col-sub {
+  font-size: 14px;
+  line-height: 1.55;
   color: #475569;
 }
 
-html.dark .cost-note {
+html.dark .col-sub {
   color: #94a3b8;
 }
 
-.cost-vs {
-  text-align: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: #94a3b8;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+.coverage {
+  margin: 28px 0 24px;
 }
 
-.free-sends-callout {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  background: rgba(19, 176, 238, 0.06);
-  border: 1px solid rgba(19, 176, 238, 0.2);
-  border-radius: 10px;
-  padding: 14px 18px;
-  flex-wrap: wrap;
-}
-
-html.dark .free-sends-callout {
-  background: rgba(19, 176, 238, 0.08);
-  border-color: rgba(19, 176, 238, 0.25);
-}
-
-.callout-main {
+.coverage-title {
+  margin: 0 0 12px;
   font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+html.dark .coverage-title {
+  color: #f1f5f9;
+}
+
+.coverage-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.coverage-list li {
+  display: flex;
+  gap: 10px;
+  font-size: 15px;
   line-height: 1.55;
   color: #334155;
 }
 
-html.dark .callout-main {
+html.dark .coverage-list li {
   color: #cbd5e1;
 }
 
-.callout-main strong {
+.coverage-list strong {
   color: #0f172a;
+  font-weight: 700;
 }
 
-html.dark .callout-main strong {
+html.dark .coverage-list strong {
   color: #f1f5f9;
 }
 
-.pricing-link {
+.tick {
   flex-shrink: 0;
+  color: #10b981;
+  font-weight: 700;
+}
+
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+  flex-wrap: wrap;
+}
+
+html.dark .footer-row {
+  border-top-color: #1e293b;
+}
+
+.footer-lead {
+  font-size: 14px;
+  color: #475569;
+}
+
+html.dark .footer-lead {
+  color: #94a3b8;
+}
+
+.pricing-link {
   font-size: 14px;
   font-weight: 700;
   color: #0369a1;
@@ -312,16 +269,22 @@ html.dark .callout-main strong {
 
 .pricing-link:hover {
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
 }
 
 html.dark .pricing-link {
   color: #67e8f9;
 }
 
-@media (max-width: 900px) {
-  .comparison-grid {
+@media (max-width: 720px) {
+  .compare {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .compare-rule {
+    width: 100%;
+    height: 1px;
   }
 }
 
@@ -330,7 +293,7 @@ html.dark .pricing-link {
     padding: 24px 16px;
   }
 
-  .free-sends-callout {
+  .footer-row {
     flex-direction: column;
     align-items: flex-start;
   }

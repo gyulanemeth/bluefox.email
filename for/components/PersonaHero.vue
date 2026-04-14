@@ -8,7 +8,7 @@ defineProps({
   highlights: { type: Array, default: () => [] },
   ctaText: { type: String, required: true },
   ctaHref: { type: String, required: true },
-  featureTitle: { type: String, required: true },
+  featureTitle: { type: String, default: '' },
   featureSubtitle: { type: String, default: '' },
   featureItems: { type: Array, default: () => [] }
 })
@@ -20,7 +20,7 @@ defineProps({
     <div class="grid-overlay"></div>
 
     <div class="heroMain">
-      <div class="heroGrid">
+      <div class="heroGrid" :class="{ 'heroGrid--solo': !featureItems.length && !$slots.heroVisual }">
         <div class="heroContent">
           <v-chip color="primary" class="hero-badge" aria-label="Audience badge">
             <span class="text-overline">{{ badge }}</span>
@@ -48,10 +48,14 @@ defineProps({
         </div>
 
         <PersonaFeaturePanel
+          v-if="featureItems.length"
           :title="featureTitle"
           :subtitle="featureSubtitle"
           :items="featureItems"
         />
+        <div v-else-if="$slots.heroVisual" class="heroVisualSlot">
+          <slot name="heroVisual" />
+        </div>
       </div>
     </div>
   </div>
@@ -60,7 +64,8 @@ defineProps({
 <style scoped>
 .heroDiv {
   margin-top: calc((var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) * -1);
-  min-height: 90vh;
+  min-height: 100vh;
+  height: auto;
   padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 64px) 56px 72px;
   position: relative;
   left: calc(-50vw + 50%);
@@ -106,7 +111,12 @@ html.dark .grid-overlay {
   position: relative;
   z-index: 1;
   max-width: 1240px;
+  width: 100%;
   margin: 0 auto;
+  min-height: calc(100vh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px) - 136px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .heroGrid {
@@ -114,6 +124,22 @@ html.dark .grid-overlay {
   grid-template-columns: 1fr 1fr;
   align-items: center;
   gap: 34px;
+}
+
+.heroGrid--solo {
+  grid-template-columns: 1fr;
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.heroGrid--solo .hero-description {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.heroGrid--solo .hero-highlights {
+  justify-content: center;
 }
 
 .heroContent {
@@ -195,6 +221,14 @@ html.dark .highlight-item {
 }
 
 @media (max-width: 980px) {
+  .heroDiv {
+    min-height: auto;
+  }
+
+  .heroMain {
+    min-height: auto;
+  }
+
   .heroGrid {
     grid-template-columns: 1fr;
     gap: 24px;

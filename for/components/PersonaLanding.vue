@@ -14,7 +14,7 @@ defineProps({
   heroTitle: { type: String, required: true },
   heroDescription: { type: String, required: true },
   heroHighlights: { type: Array, default: () => [] },
-  heroFeatureTitle: { type: String, required: true },
+  heroFeatureTitle: { type: String, default: '' },
   heroFeatureSubtitle: { type: String, default: '' },
   heroFeatureItems: { type: Array, default: () => [] },
   ctaText: { type: String, required: true },
@@ -47,7 +47,10 @@ defineProps({
   showIntegrations: { type: Boolean, default: true },
   finalTitle: { type: String, required: true },
   finalDescription: { type: String, required: true },
-  testimonialIds: { type: Array, default: null }
+  testimonialIds: { type: Array, default: null },
+  afterPainStripe: { type: String, default: 'blue' },
+  analyticsStripe: { type: String, default: 'white' },
+  finalCtaStripe: { type: String, default: 'blue' }
 })
 
 const { lgAndUp, md, sm, xs } = useDisplay()
@@ -67,7 +70,11 @@ const openSolution = ref(null)
     :feature-items="heroFeatureItems"
     :cta-text="ctaText"
     :cta-href="ctaHref"
-  />
+  >
+    <template v-if="$slots.heroVisual" #heroVisual>
+      <slot name="heroVisual" />
+    </template>
+  </PersonaHero>
 
   <!-- 1. Pain points (white) -->
   <div v-if="painPoints.length" class="stripe stripe--white">
@@ -116,8 +123,8 @@ const openSolution = ref(null)
     </section>
   </div>
 
-  <!-- 2. After-pain slot (blue) -->
-  <div v-if="$slots.afterPain" class="stripe stripe--blue">
+  <!-- 2. After-pain slot -->
+  <div v-if="$slots.afterPain" class="stripe" :class="`stripe--${afterPainStripe}`">
     <div id="after-pain" class="stripe-inner persona-slot" aria-label="Persona-specific feature section">
       <slot name="afterPain" />
     </div>
@@ -215,8 +222,8 @@ const openSolution = ref(null)
     </section>
   </div>
 
-  <!-- 9. Analytics (white) -->
-  <div class="stripe stripe--white">
+  <!-- 9. Analytics -->
+  <div class="stripe" :class="`stripe--${analyticsStripe}`">
     <div v-if="$slots.analyticsContent" id="analytics-title" class="stripe-inner persona-slot" aria-label="Analytics content">
       <p v-if="analyticsPain" class="pain-callout">{{ analyticsPain }}</p>
       <slot name="analyticsContent" />
@@ -246,8 +253,8 @@ const openSolution = ref(null)
     </div>
   </div>
 
-  <!-- 12. Final CTA (blue) -->
-  <div class="stripe stripe--blue">
+  <!-- 12. Final CTA -->
+  <div class="stripe" :class="`stripe--${finalCtaStripe}`">
     <section class="stripe-inner final-cta" aria-labelledby="final-cta-title">
       <h2 id="final-cta-title">{{ finalTitle }}</h2>
       <p>{{ finalDescription }}</p>

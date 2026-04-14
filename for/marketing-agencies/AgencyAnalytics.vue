@@ -1,8 +1,17 @@
 <script setup>
 import { ref, computed } from 'vue'
 
+const props = defineProps({
+  title: { type: String, default: 'Clear Reports, Fast' },
+  description: {
+    type: String,
+    default: 'Per-project analytics are clean and visual. Client performance reviews become straightforward, and retainer conversations get easier.'
+  },
+  defaultTab: { type: String, default: 'daily' }
+})
+
 const activeView = ref('sending')
-const activeTab  = ref('daily')
+const activeTab  = ref(props.defaultTab)
 
 const tabs = ['Hourly', 'Daily', 'Weekly', 'Monthly']
 
@@ -305,8 +314,8 @@ const yGridLines = computed(() => {
       <v-chip color="primary" class="analytics-badge">
         <span class="text-overline">Analytics</span>
       </v-chip>
-      <h2 id="agency-analytics-title">Clear Reports, Fast</h2>
-      <p>Per-project analytics are clean and visual. Client performance reviews become straightforward, and retainer conversations get easier.</p>
+      <h2 id="agency-analytics-title">{{ title }}</h2>
+      <p>{{ description }}</p>
     </div>
 
     <div class="dashboard-shell" role="region" aria-label="Analytics dashboard preview">
