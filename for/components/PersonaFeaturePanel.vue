@@ -140,6 +140,7 @@ html.dark .feature-card {
 }
 
 .feature-body {
+  flex: 1;
   min-width: 0;
 }
 
