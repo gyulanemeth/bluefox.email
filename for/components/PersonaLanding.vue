@@ -166,7 +166,12 @@ const openSolution = ref(null)
   </div>
 
   <!-- 5. Design (white) -->
-  <div v-if="showDesign" class="stripe stripe--white">
+  <div v-if="$slots.designContent" class="stripe stripe--white">
+    <div id="design-system" class="stripe-inner persona-slot" aria-label="Design section">
+      <slot name="designContent" />
+    </div>
+  </div>
+  <div v-else-if="showDesign" class="stripe stripe--white">
     <section id="design-system" class="stripe-inner section-block" aria-labelledby="design-title">
       <h2 id="design-title" class="section-title">{{ designTitle }}</h2>
       <p v-if="designPain" class="pain-callout">{{ designPain }}</p>
