@@ -13,8 +13,8 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 
 <template>
   <PersonaLanding
-    hero-badge="For email marketing agencies"
-    hero-title="Growing client lists shouldn't shrink your margins"
+    hero-badge="For marketing agencies"
+    hero-title="One email platform for every client"
     hero-description="Pay per email sent, not per contact stored. Clone proven flows to new clients in minutes. Keep every account fully isolated. 3,000 free sends to start."
     :hero-highlights="['Pay per send', 'Clone flows across clients', 'Full client isolation']"
     :hero-feature-items="[]"
