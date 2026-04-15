@@ -275,6 +275,7 @@ html.dark .stripe--blue {
 .persona-slot,
 .final-cta {
   padding: 72px 24px;
+  margin-bottom: -3rem;
 }
 
 .mid-cta {
@@ -283,7 +284,7 @@ html.dark .stripe--blue {
 
 .section-title,
 .section-subtitle {
-  text-align: center;
+  text-align: left;
 }
 
 .section-title {
@@ -306,7 +307,6 @@ html.dark .section-subtitle {
 
 .constrained {
   max-width: 760px;
-  margin: 0 auto;
 }
 
 /* Mid-page CTA content */
@@ -355,6 +355,7 @@ html.dark .mid-cta-inner p {
 
 .final-cta {
   text-align: center;
+  padding-bottom: 40px;
 }
 
 .final-cta h2 {

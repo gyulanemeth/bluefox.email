@@ -228,6 +228,19 @@ html.dark .highlight-item {
   margin-bottom: 6px;
 }
 
+.heroVisualSlot {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+@media (max-width: 980px) {
+  .heroVisualSlot {
+    max-width: 520px;
+    margin: 0 auto;
+  }
+}
+
 @media (max-width: 980px) {
   .heroDiv {
     min-height: auto;

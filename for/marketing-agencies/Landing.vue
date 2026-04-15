@@ -1,8 +1,14 @@
 <script setup>
+import { useData } from 'vitepress'
+import { useDisplay } from 'vuetify'
 import PersonaLanding from '../components/PersonaLanding.vue'
 import ClientProjectGrid from './ClientProjectGrid.vue'
 import AgencyAnalytics from './AgencyAnalytics.vue'
 import AgencyPricing from './AgencyPricing.vue'
+import TemplateShowcase from '../../.vitepress/theme/TemplateShowcase.vue'
+
+const { isDark } = useData()
+const { lgAndUp, md, sm, xs } = useDisplay()
 </script>
 
 <template>
@@ -35,6 +41,15 @@ import AgencyPricing from './AgencyPricing.vue'
     final-title="Run a tighter email agency operation"
     final-description="Less rebuilding, better margins, and clean per-client reporting. All from one account."
   >
+    <template #heroVisual>
+      <TemplateShowcase
+        :is-dark="isDark"
+        :lg-and-up="lgAndUp"
+        :md="md"
+        :sm="sm"
+        :xs="xs"
+      />
+    </template>
     <template #afterPain>
       <ClientProjectGrid />
     </template>
