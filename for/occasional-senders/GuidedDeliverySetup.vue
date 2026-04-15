@@ -30,7 +30,7 @@ const healthChecks = [
       <v-chip color="primary" class="setup-badge">
         <span class="text-overline">Inbox Delivery</span>
       </v-chip>
-      <h2 id="guided-setup-title">Land in the Inbox Without Becoming a Deliverability Expert</h2>
+      <h2 id="guided-setup-title">Land in the inbox without becoming a deliverability expert</h2>
       <p>Three steps. No jargon. BlueFox Email handles the technical details so your emails actually reach people.</p>
     </div>
 

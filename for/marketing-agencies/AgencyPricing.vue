@@ -29,7 +29,7 @@ const tiers = [
       <v-chip color="primary" class="pricing-badge">
         <span class="text-overline">Pricing</span>
       </v-chip>
-      <h2 id="agency-pricing-title">One Credit Pool. Every Client Covered.</h2>
+      <h2 id="agency-pricing-title">One credit pool. Every client covered.</h2>
       <p>Contact-based pricing punishes agencies that grow client lists. BlueFox Email charges per email sent. Buy credits for your account and use them across all your clients.</p>
     </div>
 

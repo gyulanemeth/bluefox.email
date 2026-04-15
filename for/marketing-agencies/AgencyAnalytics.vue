@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 
 const props = defineProps({
-  title: { type: String, default: 'Clear Reports, Fast' },
+  title: { type: String, default: 'Clear reports, fast' },
   description: {
     type: String,
     default: 'Per-project analytics are clean and visual. Client performance reviews become straightforward, and retainer conversations get easier.'

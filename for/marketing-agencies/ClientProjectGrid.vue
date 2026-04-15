@@ -1,109 +1,100 @@
 <script setup>
-const agencyMembers = [
-  { name: 'Sarah', initial: 'S', color: '#13b0ee', role: 'Admin', projects: ['Apex Digital', 'Greenway Co.', 'Nova Commerce'] },
-  { name: 'Tom', initial: 'T', color: '#6366f1', role: 'Editor', projects: ['Apex Digital', 'Nova Commerce'] }
+import alexPhoto from './alex-suprun-ZHvM3XIOHoE-unsplash.jpg'
+import chrisPhoto from './christopher-campbell-rDEOVtE7vOs-unsplash.jpg'
+import michaelPhoto from './michael-dam-mEZ3PoFGs_k-unsplash.jpg'
+import vickyPhoto from './vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg'
+import jakePhoto from './jake-nackos-IF9TK5Uy-KI-unsplash.jpg'
+
+const admin = {
+  name: 'Vicky',
+  role: 'Admin',
+  photo: vickyPhoto
+}
+
+const members = [
+  { name: 'Alex', role: 'User', photo: alexPhoto },
+  { name: 'Jake', role: 'User', photo: jakePhoto }
 ]
 
-const clientMembers = [
-  { name: 'Lisa (Apex)', initial: 'L', color: '#f59e0b', role: 'Viewer', projects: ['Apex Digital'] },
-  { name: 'Mark (Greenway)', initial: 'M', color: '#10b981', role: 'Viewer', projects: ['Greenway Co.'] }
-]
-
-const projects = [
-  { name: 'Apex Digital', initial: 'A', color: '#13b0ee' },
-  { name: 'Greenway Co.', initial: 'G', color: '#10b981' },
-  { name: 'Nova Commerce', initial: 'N', color: '#f59e0b' }
+const clientAccess = [
+  { project: 'Apex Digital', name: 'Chris', level: 'Editor', photo: chrisPhoto },
+  { project: 'Greenway Co.', name: 'Michael', level: 'Viewer', photo: michaelPhoto }
 ]
 </script>
 
 <template>
-  <section class="access-section" aria-labelledby="access-title">
-    <div class="access-head">
-      <v-chip color="primary" class="access-badge" aria-label="Multi-client badge">
-        <span class="text-overline">Multi-Client Access</span>
+  <section class="role-demo" aria-labelledby="role-demo-title">
+    <div class="role-demo__head">
+      <v-chip color="primary" class="role-demo__badge" aria-label="Account role model">
+        <span class="text-overline">Account users</span>
       </v-chip>
-      <h2 id="access-title">Your Team Across Every Client. Each Client in Their Own Space.</h2>
-      <p>Agency team members work across multiple client projects. Clients only see their own. Roles keep permissions clean.</p>
+      <h2 id="role-demo-title">How admin, user, and client access works</h2>
+      <p>Admin manages account settings and permissions. Users work across projects. Clients access only their assigned project as editor or viewer.</p>
     </div>
 
-    <div class="access-diagram">
-      <!-- Agency side -->
-      <div class="diagram-col">
-        <p class="col-label">Agency Team</p>
-        <div class="member-list">
-          <div v-for="member in agencyMembers" :key="member.name" class="member-row">
-            <div class="member-avatar" :style="{ background: member.color }">{{ member.initial }}</div>
-            <div class="member-info">
+    <div class="role-demo__grid">
+      <article class="role-card" aria-label="Admin role">
+        <h3>Admin</h3>
+        <div class="person-row">
+          <img :src="admin.photo" :alt="admin.name" class="avatar" />
+          <div class="person-meta">
+            <strong>{{ admin.name }}</strong>
+            <span class="pill pill--admin">{{ admin.role }}</span>
+          </div>
+        </div>
+        <p>Full control over account settings, users, projects, and client access.</p>
+      </article>
+
+      <article class="role-card" aria-label="User role">
+        <h3>User</h3>
+        <div class="list-stack">
+          <div v-for="member in members" :key="member.name" class="person-row">
+            <img :src="member.photo" :alt="member.name" class="avatar" />
+            <div class="person-meta">
               <strong>{{ member.name }}</strong>
-              <span class="member-role" :class="`role--${member.role.toLowerCase()}`">{{ member.role }}</span>
+              <span class="pill pill--user">{{ member.role }}</span>
             </div>
           </div>
         </div>
-      </div>
+        <p>Works in projects and themes with limited account-level permissions.</p>
+      </article>
 
-      <!-- Projects center -->
-      <div class="diagram-col diagram-col--projects">
-        <p class="col-label">Client Projects</p>
-        <div class="project-list">
-          <div v-for="project in projects" :key="project.name" class="project-node">
-            <div class="project-avatar" :style="{ background: project.color }">{{ project.initial }}</div>
-            <span class="project-name">{{ project.name }}</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Client side -->
-      <div class="diagram-col">
-        <p class="col-label">Client Access</p>
-        <div class="member-list">
-          <div v-for="member in clientMembers" :key="member.name" class="member-row">
-            <div class="member-avatar" :style="{ background: member.color }">{{ member.initial }}</div>
-            <div class="member-info">
-              <strong>{{ member.name }}</strong>
-              <span class="member-role role--viewer">{{ member.role }}</span>
+      <article class="role-card" aria-label="Client access role">
+        <h3>Client access</h3>
+        <div class="list-stack">
+          <div v-for="client in clientAccess" :key="`${client.project}-${client.name}`" class="client-row">
+            <img :src="client.photo" :alt="client.name" class="avatar" />
+            <div class="person-meta">
+              <strong>{{ client.name }}</strong>
+              <span class="pill" :class="client.level === 'Editor' ? 'pill--editor' : 'pill--viewer'">
+                Client · {{ client.level }}
+              </span>
+              <span class="project-tag">{{ client.project }}</span>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div class="access-legend">
-      <span class="legend-item"><span class="legend-dot" style="background: #13b0ee" /> Admin: full access to all projects</span>
-      <span class="legend-item"><span class="legend-dot" style="background: #6366f1" /> Editor: create and send campaigns</span>
-      <span class="legend-item"><span class="legend-dot" style="background: #f59e0b" /> Viewer: read-only, own project only</span>
-    </div>
-
-    <div class="access-callout" role="note">
-      <div class="callout-icon" aria-hidden="true">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-        </svg>
-      </div>
-      <div class="callout-text">
-        <strong>Complete workspace isolation.</strong>
-        <span> Contacts, lists, automations, templates, and analytics are all scoped per project. One account, zero cross-client data bleed.</span>
-      </div>
+        <p>Client sees only assigned project. Editor can manage, viewer is read-only.</p>
+      </article>
     </div>
   </section>
 </template>
 
-<style scoped>
-.access-section {
+<style>
+.role-demo {
   padding: 36px 24px;
 }
 
-.access-head {
-  margin-bottom: 28px;
+.role-demo__head {
+  margin-bottom: 20px;
 }
 
-.access-badge {
+.role-demo__badge {
   height: auto !important;
   padding: 6px 12px !important;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
-.access-head h2 {
+.role-demo__head h2 {
   margin: 0 0 10px;
   font-size: clamp(22px, 3vw, 32px);
   line-height: 1.2;
@@ -111,191 +102,141 @@ const projects = [
   padding-top: 0 !important;
 }
 
-.access-head p {
+.role-demo__head p {
   margin: 0;
   font-size: 16px;
-  line-height: 1.65;
+  line-height: 1.6;
   color: #475569;
-  max-width: 680px;
+  max-width: 780px;
 }
 
-html.dark .access-head p { color: #94a3b8; }
+html.dark .role-demo__head p {
+  color: #94a3b8;
+}
 
-/* Diagram */
-.access-diagram {
+.role-demo__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
+  grid-template-columns: repeat(3, minmax(220px, 1fr));
+  gap: 12px;
 }
 
-.diagram-col {
-  background: #f8fafc;
-  border-radius: 14px;
-  padding: 20px;
-}
-
-html.dark .diagram-col { background: rgba(30, 41, 59, 0.5); }
-
-.diagram-col--projects {
+.role-card {
   background: #ffffff;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 4px 16px rgba(0,0,0,0.06);
-}
-
-html.dark .diagram-col--projects {
-  background: rgba(30, 41, 59, 0.9);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 4px 16px rgba(0,0,0,0.2);
-}
-
-.col-label {
-  margin: 0 0 14px;
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #64748b;
-}
-
-html.dark .col-label { color: #94a3b8; }
-
-.member-list, .project-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.member-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.member-avatar, .project-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  color: #ffffff;
-  font-size: 13px;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.member-info {
-  min-width: 0;
-}
-
-.member-info strong {
-  display: block;
-  font-size: 13px;
-  font-weight: 700;
-  color: #0f172a;
-  line-height: 1.3;
-}
-
-html.dark .member-info strong { color: #f1f5f9; }
-
-.member-role {
-  font-size: 11px;
-  font-weight: 600;
-  border-radius: 999px;
-  padding: 1px 8px;
-}
-
-.role--admin {
-  background: rgba(19, 176, 238, 0.1);
-  color: #0369a1;
-}
-
-.role--editor {
-  background: rgba(99, 102, 241, 0.1);
-  color: #4338ca;
-}
-
-.role--viewer {
-  background: rgba(245, 158, 11, 0.1);
-  color: #b45309;
-}
-
-html.dark .role--admin { background: rgba(19, 176, 238, 0.15); color: #67e8f9; }
-html.dark .role--editor { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; }
-html.dark .role--viewer { background: rgba(245, 158, 11, 0.15); color: #fcd34d; }
-
-.project-node {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.project-name {
-  font-size: 14px;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-html.dark .project-name { color: #f1f5f9; }
-
-/* Legend */
-.access-legend {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 20px;
-  padding: 0 4px;
-}
-
-.legend-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: #475569;
-}
-
-html.dark .legend-item { color: #94a3b8; }
-
-.legend-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-/* Callout */
-.access-callout {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 12px;
-  padding: 14px 18px;
+  padding: 14px;
 }
 
-html.dark .access-callout { background: rgba(30, 41, 59, 0.6); }
-
-.callout-icon {
-  flex-shrink: 0;
-  margin-top: 1px;
-  color: #64748b;
+html.dark .role-card {
+  background: rgba(30, 41, 59, 0.8);
+  border-color: #334155;
 }
 
-html.dark .callout-icon { color: #94a3b8; }
+.role-card h3 {
+  margin: 0 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  border-top: 0 !important;
+  padding-top: 0 !important;
+}
 
-.callout-text {
-  font-size: 14px;
+.role-card p {
+  margin: 10px 0 0;
+  font-size: 13px;
   line-height: 1.55;
   color: #475569;
 }
 
-html.dark .callout-text { color: #94a3b8; }
+html.dark .role-card p {
+  color: #94a3b8;
+}
 
-.callout-text strong { color: #0f172a; }
-html.dark .callout-text strong { color: #f1f5f9; }
+.list-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.person-row,
+.client-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.12);
+}
+
+html.dark .avatar {
+  border-color: rgba(30, 41, 59, 0.95);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.person-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.person-meta strong {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #0f172a;
+}
+
+html.dark .person-meta strong {
+  color: #f1f5f9;
+}
+
+.pill {
+  display: inline-block;
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 1px 8px;
+  white-space: nowrap;
+}
+
+.pill--admin { background: rgba(19, 176, 238, 0.1); color: #0369a1; }
+.pill--user { background: rgba(99, 102, 241, 0.1); color: #4338ca; }
+.pill--editor { background: rgba(16, 185, 129, 0.1); color: #047857; }
+.pill--viewer { background: rgba(245, 158, 11, 0.1); color: #b45309; }
+
+html.dark .pill--admin { background: rgba(19, 176, 238, 0.15); color: #67e8f9; }
+html.dark .pill--user { background: rgba(99, 102, 241, 0.15); color: #a5b4fc; }
+html.dark .pill--editor { background: rgba(16, 185, 129, 0.15); color: #6ee7b7; }
+html.dark .pill--viewer { background: rgba(245, 158, 11, 0.15); color: #fcd34d; }
+
+.project-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+html.dark .project-tag {
+  color: #94a3b8;
+}
+
+@media (max-width: 980px) {
+  .role-demo__grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 @media (max-width: 860px) {
-  .access-section { padding: 24px 16px; }
-  .access-diagram { grid-template-columns: 1fr; }
+  .role-demo {
+    padding: 24px 16px;
+  }
 }
 </style>

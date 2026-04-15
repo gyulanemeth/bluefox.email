@@ -13,14 +13,13 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 
 <template>
   <PersonaLanding
-    hero-badge="For Occasional Senders"
+    hero-badge="For occasional senders"
     hero-title="Professional campaigns, only when you need them"
     hero-description="Send when you have something to say. Buy credits once, valid for 12 months. No subscription, no recurring bill."
     :hero-highlights="['12-month credits', 'No subscription', 'Simple segmentation']"
     :hero-feature-items="[]"
-    cta-text="Create Your Free Account"
+    cta-text="Create your free account"
     cta-href="https://app.bluefox.email/accounts/create-account"
-    :pain-points="[]"
     :show-testimonials="false"
     mid-cta-title="3,000 free sends to get started."
     mid-cta-description="Credits are valid for 12 months from purchase. Buy more only when you need to. No subscription required."

@@ -26,7 +26,7 @@ const emailClients = ['Gmail', 'Outlook', 'Apple Mail', 'Yahoo', 'Samsung Mail']
       <v-chip color="primary" class="qa-badge">
         <span class="text-overline">Rendering QA</span>
       </v-chip>
-      <h2 id="rendering-qa-title">Ship Campaigns Without Rendering Headaches</h2>
+      <h2 id="rendering-qa-title">Ship campaigns without rendering headaches</h2>
       <p>BlueFox Email generates HTML templates engineered to render as consistently as possible across major email clients. Less time on layout fixes, more time on strategy.</p>
     </div>
 

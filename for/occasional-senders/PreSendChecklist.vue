@@ -92,7 +92,7 @@ function toggleCategory(cat) {
       <v-chip color="primary" class="checklist-badge" aria-label="Pre-send checklist badge">
         <span class="text-overline">Pre-Send Checklist</span>
       </v-chip>
-      <h2 id="checklist-title">Everything to Verify Before You Hit Send</h2>
+      <h2 id="checklist-title">Everything to verify before you hit send</h2>
       <p>Occasional senders get burned by skipped steps. Run through this checklist so every campaign goes out with confidence.</p>
     </div>
 

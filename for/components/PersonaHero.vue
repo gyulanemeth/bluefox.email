@@ -133,7 +133,15 @@ html.dark .grid-overlay {
   text-align: center;
 }
 
+.heroGrid--solo .heroContent {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .heroGrid--solo .hero-description {
+  max-width: none;
   margin-left: auto;
   margin-right: auto;
 }

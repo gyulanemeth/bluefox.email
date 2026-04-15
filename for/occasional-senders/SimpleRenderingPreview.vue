@@ -18,7 +18,7 @@ const fixes = [
       <v-chip color="primary" class="preview-badge">
         <span class="text-overline">Reliable Rendering</span>
       </v-chip>
-      <h2 id="rendering-preview-title">Preview Your Email. Know It Looks Right. Send It.</h2>
+      <h2 id="rendering-preview-title">Preview your email. Know it looks right. Send it.</h2>
       <p>You should not need email rendering expertise. BlueFox Email generates markup that handles every inbox quirk automatically, including Outlook and Gmail.</p>
     </div>
 

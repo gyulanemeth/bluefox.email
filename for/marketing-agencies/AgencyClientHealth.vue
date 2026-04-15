@@ -69,7 +69,7 @@ const clients = [
       <v-chip color="primary" class="health-badge">
         <span class="text-overline">Client Deliverability</span>
       </v-chip>
-      <h2 id="client-health-title">Client Inbox Health at a Glance</h2>
+      <h2 id="client-health-title">Client inbox health at a glance</h2>
       <p>One client's list issues stay contained. Track every project's inbox health from a single view.</p>
     </div>
 

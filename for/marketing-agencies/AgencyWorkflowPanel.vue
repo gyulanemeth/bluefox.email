@@ -97,7 +97,7 @@ const workflows = {
       <v-chip color="primary" class="workflow-badge" aria-label="Agency workflow badge">
         <span class="text-overline">How It Works</span>
       </v-chip>
-      <h2 id="agency-workflow-title">The Agency Workflow on BlueFox Email</h2>
+      <h2 id="agency-workflow-title">The agency workflow on BlueFox Email</h2>
       <p>From onboarding to delivery to reporting, every stage of your client workflow in one place.</p>
     </div>
 
