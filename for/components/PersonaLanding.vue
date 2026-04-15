@@ -40,7 +40,14 @@ defineProps({
   finalDescription: { type: String, required: true },
   testimonialIds: { type: Array, default: null },
   afterPainStripe: { type: String, default: 'blue' },
+  testimonialsStripe: { type: String, default: 'white' },
+  midCtaStripe: { type: String, default: 'blue' },
+  designStripe: { type: String, default: 'white' },
+  automationStripe: { type: String, default: 'blue' },
+  renderingStripe: { type: String, default: 'white' },
   analyticsStripe: { type: String, default: 'white' },
+  integrationsStripe: { type: String, default: 'blue' },
+  bottomStripe: { type: String, default: 'white' },
   finalCtaStripe: { type: String, default: 'blue' },
   deliverabilityStripe: { type: String, default: 'blue' },
   showAnalytics: { type: Boolean, default: true }
@@ -75,7 +82,7 @@ const { isDark } = useData()
   </div>
 
   <!-- 2. Testimonials (white) -->
-  <div v-if="showTestimonials" class="stripe stripe--white">
+  <div v-if="showTestimonials" class="stripe" :class="`stripe--${testimonialsStripe}`">
     <section class="stripe-inner section-block" aria-labelledby="testimonials-heading">
       <h2 id="testimonials-heading" class="section-title">{{ testimonialTitle }}</h2>
       <AppleMailTestimonials
@@ -90,7 +97,7 @@ const { isDark } = useData()
   </div>
 
   <!-- 3. Mid CTA (blue) -->
-  <div v-if="midCtaTitle" class="stripe stripe--blue">
+  <div v-if="midCtaTitle" class="stripe" :class="`stripe--${midCtaStripe}`">
     <section class="stripe-inner mid-cta" aria-labelledby="mid-cta-heading">
       <div class="mid-cta-inner">
         <h2 id="mid-cta-heading">{{ midCtaTitle }}</h2>
@@ -110,12 +117,12 @@ const { isDark } = useData()
   </div>
 
   <!-- 4. Design (white) -->
-  <div v-if="$slots.designContent" class="stripe stripe--white">
+  <div v-if="$slots.designContent" class="stripe" :class="`stripe--${designStripe}`">
     <div id="design-system" class="stripe-inner persona-slot" aria-label="Design section">
       <slot name="designContent" />
     </div>
   </div>
-  <div v-else-if="showDesign" class="stripe stripe--white">
+  <div v-else-if="showDesign" class="stripe" :class="`stripe--${designStripe}`">
     <section id="design-system" class="stripe-inner section-block" aria-labelledby="design-title">
       <h2 id="design-title" class="section-title">{{ designTitle }}</h2>
       <p class="section-subtitle constrained">{{ designDescription }}</p>
@@ -124,7 +131,7 @@ const { isDark } = useData()
   </div>
 
   <!-- 5. Automation (blue) -->
-  <div v-if="showAutomation" class="stripe stripe--blue">
+  <div v-if="showAutomation" class="stripe" :class="`stripe--${automationStripe}`">
     <section id="automation" class="stripe-inner section-block" aria-labelledby="automation-title">
       <h2 id="automation-title" class="section-title">{{ automationTitle }}</h2>
       <p class="section-subtitle constrained">{{ automationDescription }}</p>
@@ -140,12 +147,12 @@ const { isDark } = useData()
   </div>
 
   <!-- 6. Rendering (white) -->
-  <div v-if="$slots.renderingContent" class="stripe stripe--white">
+  <div v-if="$slots.renderingContent" class="stripe" :class="`stripe--${renderingStripe}`">
     <div id="rendering" class="stripe-inner persona-slot" aria-label="Rendering content">
       <slot name="renderingContent" />
     </div>
   </div>
-  <div v-else-if="renderingTitle" class="stripe stripe--white">
+  <div v-else-if="renderingTitle" class="stripe" :class="`stripe--${renderingStripe}`">
     <section id="rendering-reliability" class="stripe-inner section-block" aria-labelledby="rendering-title">
       <h2 id="rendering-title" class="section-title">{{ renderingTitle }}</h2>
       <p class="section-subtitle constrained">{{ renderingDescription }}</p>
@@ -180,7 +187,7 @@ const { isDark } = useData()
   </div>
 
   <!-- 9. Integrations (blue) -->
-  <div v-if="showIntegrations" class="stripe stripe--blue">
+  <div v-if="showIntegrations" class="stripe" :class="`stripe--${integrationsStripe}`">
     <section class="stripe-inner section-block" aria-labelledby="integrations-title">
       <h2 id="integrations-title" class="visually-hidden">Integrations</h2>
       <Integration :is-dark="isDark" />
@@ -188,7 +195,7 @@ const { isDark } = useData()
   </div>
 
   <!-- 10. Bottom slot (white) -->
-  <div v-if="$slots.bottom" class="stripe stripe--white">
+  <div v-if="$slots.bottom" class="stripe" :class="`stripe--${bottomStripe}`">
     <div id="workflow" class="stripe-inner persona-slot" aria-label="Audience-specific section">
       <slot name="bottom" />
     </div>

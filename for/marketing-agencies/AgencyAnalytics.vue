@@ -7,7 +7,7 @@ const props = defineProps({
     type: String,
     default: 'Per-project analytics are clean and visual. Client performance reviews become straightforward, and retainer conversations get easier.'
   },
-  defaultTab: { type: String, default: 'daily' }
+  defaultTab: { type: String, default: 'hourly' }
 })
 
 const activeView = ref('sending')
