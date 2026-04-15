@@ -1,8 +1,8 @@
 <script setup>
 const coverage = [
-  { use: 'Quarterly newsletter', detail: '4 sends a year to ~2,500 contacts' },
-  { use: 'Monthly update', detail: '12 sends a year to ~1,800 contacts' },
-  { use: 'Product launches', detail: '6 sends a year to ~5,000 contacts' }
+  { use: 'Quarterly newsletter', detail: '4 sends a year to 12,500 contacts (~50K sends)' },
+  { use: 'Monthly update', detail: '12 sends a year to 4,000 contacts (~48K sends)' },
+  { use: 'Product launches', detail: '6 sends a year to 8,000 contacts (~48K sends)' }
 ]
 </script>
 
