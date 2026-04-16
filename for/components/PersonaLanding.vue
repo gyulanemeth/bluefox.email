@@ -272,14 +272,17 @@ html.dark .stripe--blue {
 }
 
 .section-block,
-.persona-slot,
-.final-cta {
-  padding: 72px 24px;
-  margin-bottom: -3rem;
+.persona-slot {
+  padding: 64px 24px 96px;
 }
 
 .mid-cta {
-  padding: 56px 24px;
+  padding: 56px 24px 80px;
+}
+
+.final-cta {
+  padding: 64px 24px 40px;
+  margin-bottom: -3rem;
 }
 
 .section-title,
@@ -355,7 +358,6 @@ html.dark .mid-cta-inner p {
 
 .final-cta {
   text-align: center;
-  padding-bottom: 40px;
 }
 
 .final-cta h2 {
@@ -392,19 +394,27 @@ html.dark .final-cta p {
 
 @media (max-width: 760px) {
   .section-block,
-  .persona-slot,
-  .mid-cta,
+  .persona-slot {
+    padding: 48px 16px 72px;
+  }
+  .mid-cta {
+    padding: 48px 16px 64px;
+  }
   .final-cta {
-    padding: 56px 16px;
+    padding: 48px 16px 32px;
   }
 }
 
 @media (max-width: 480px) {
   .section-block,
-  .persona-slot,
-  .mid-cta,
+  .persona-slot {
+    padding: 36px 14px 56px;
+  }
+  .mid-cta {
+    padding: 36px 14px 48px;
+  }
   .final-cta {
-    padding: 40px 14px;
+    padding: 36px 14px 24px;
   }
 
   .hero-cta,
