@@ -16,7 +16,7 @@ head:
       content: "Send when you have something to say. Buy credits once, valid for 12 months. No subscription, no recurring bill."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/share.png
+      content: https://bluefox.email/assets/bluefoxemailforoccassionalsenders.png
   - - meta
     - property: og:url
       content: https://bluefox.email/for/occasional-senders
@@ -34,7 +34,7 @@ head:
       content: "Send when you have something to say. Buy credits once, valid for 12 months. No subscription, no recurring bill."
   - - meta
     - name: twitter:image
-      content: https://bluefox.email/assets/share.png
+      content: https://bluefox.email/assets/BlueFoxEmailOccassionalSenders.png
 ---
 
 <script setup>
