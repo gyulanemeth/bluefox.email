@@ -300,6 +300,7 @@ onBeforeUnmount(() => {
   margin: 0 auto;
   padding: 0 48px;
   outline: none;
+  overflow: hidden;
 }
 
 /* ---- Viewport ---- */

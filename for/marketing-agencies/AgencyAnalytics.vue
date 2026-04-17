@@ -498,7 +498,7 @@ html.dark .dashboard-shell {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
+  padding: 12px 20px;
   border-bottom: 1px solid #f1f5f9;
   gap: 12px;
   flex-wrap: wrap;
@@ -603,7 +603,7 @@ html.dark .chart-icon-btn.active { background: rgba(19, 176, 238, 0.15); border-
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 7px 16px;
+  padding: 7px 20px;
   border-bottom: 1px solid #f1f5f9;
 }
 
@@ -628,7 +628,7 @@ html.dark .dash-meta { border-bottom-color: #334155; }
 /* Stats row */
 .dash-stats {
   display: flex;
-  padding: 10px 16px;
+  padding: 10px 20px;
   border-bottom: 1px solid #f1f5f9;
   overflow-x: auto;
 }
@@ -667,7 +667,7 @@ html.dark .dash-stat { border-right-color: #334155; }
 html.dark .stat-value { color: #f1f5f9; }
 
 /* Chart */
-.dash-chart-wrap { padding: 14px 16px 8px; }
+.dash-chart-wrap { padding: 14px 20px 8px; }
 
 .dash-chart-svg {
   width: 100%;
@@ -717,10 +717,21 @@ html.dark .analytics-cta-btn { background: #13b0ee; color: #fff; }
 html.dark .analytics-cta-btn:hover { background: #0e9fd8; }
 
 @media (max-width: 760px) {
-  .dash-topbar { flex-direction: column; align-items: flex-start; }
+  .dash-topbar { flex-direction: column; align-items: flex-start; padding: 12px 16px; }
+  .dash-controls { width: 100%; justify-content: space-between; }
+  .dash-tabs { flex-wrap: wrap; gap: 4px; }
   .dash-stat { min-width: 58px; padding: 4px 3px; }
   .stat-label { font-size: 9px; }
   .stat-value { font-size: 12px; }
+  .dash-stats { padding: 10px 16px; }
+  .dash-meta { padding: 7px 16px; }
+  .dash-chart-wrap { padding: 14px 16px 8px; }
   .agency-analytics { padding: 24px 0; }
+}
+
+@media (max-width: 480px) {
+  .dash-tab { padding: 4px 7px; font-size: 10px; }
+  .dash-view-btn { padding: 5px 8px; font-size: 11px; }
+  .dash-views { flex-wrap: wrap; }
 }
 </style>

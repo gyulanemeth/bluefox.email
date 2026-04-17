@@ -185,6 +185,8 @@ html.dark .showcase-head p {
     0 1px 2px rgba(0, 0, 0, 0.04),
     0 4px 16px rgba(0, 0, 0, 0.07);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .endpoint-card:hover {
@@ -299,6 +301,8 @@ html.dark .use-case-pill {
   font-size: 12px;
   line-height: 1.6;
   overflow-x: auto;
+  max-width: 100%;
+  box-sizing: border-box;
   font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
 }
 
@@ -366,10 +370,78 @@ html.dark .full-docs-link {
 @media (max-width: 860px) {
   .api-showcase {
     padding: 24px 16px;
+    overflow: hidden;
   }
 
   .endpoint-grid {
     grid-template-columns: 1fr;
+  }
+
+  .endpoint-card {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .code-block {
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .endpoint-card:hover {
+    transform: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .api-showcase {
+    padding: 20px 10px;
+  }
+
+  .endpoint-card {
+    padding: 14px;
+    border-radius: 14px;
+    gap: 10px;
+  }
+
+  .endpoint-label {
+    font-size: 14px;
+  }
+
+  .endpoint-desc {
+    font-size: 12px;
+  }
+
+  .code-block {
+    padding: 10px;
+    font-size: 10px;
+    border-radius: 8px;
+  }
+
+  .showcase-head h2 {
+    font-size: 20px;
+  }
+
+  .showcase-head p {
+    font-size: 14px;
+  }
+
+  .use-case-pill {
+    font-size: 10px;
+    padding: 3px 8px;
+  }
+
+  .endpoint-path {
+    font-size: 11px;
+  }
+
+  .api-footer-note {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+    padding: 10px 14px;
+    font-size: 12px;
   }
 }
 </style>
