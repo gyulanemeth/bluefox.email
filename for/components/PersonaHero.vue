@@ -230,13 +230,13 @@ html.dark .highlight-item {
 
 .heroVisualSlot {
   width: 100%;
-  max-width: 460px;
+  max-width: 560px;
   margin: 0 auto;
 }
 
 @media (max-width: 980px) {
   .heroVisualSlot {
-    max-width: 520px;
+    max-width: 580px;
     margin: 0 auto;
   }
 }

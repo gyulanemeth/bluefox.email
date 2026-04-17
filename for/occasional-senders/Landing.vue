@@ -21,15 +21,14 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     cta-text="Create your free account"
     cta-href="https://app.bluefox.email/accounts/create-account"
     :show-testimonials="false"
-    mid-cta-title="3,000 free sends to get started."
-    mid-cta-description="Credits are valid for 12 months from purchase. Buy more only when you need to. No subscription required."
     :show-automation="false"
     :show-integrations="false"
     final-title="Professional campaigns when you need them"
     final-description="No subscription. No complexity. Just credits you use when you have something worth sending."
     after-pain-stripe="white"
-    analytics-stripe="blue"
-    final-cta-stripe="white"
+    design-stripe="blue"
+    analytics-stripe="white"
+    final-cta-stripe="blue"
   >
     <template #heroVisual>
       <HeroEmailPreview />
@@ -65,7 +64,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 
 <style scoped>
 .templates-section {
-  padding: 36px 24px;
+  padding: 0;
 }
 
 .templates-badge {
@@ -94,9 +93,4 @@ html.dark .templates-desc {
   color: #94a3b8;
 }
 
-@media (max-width: 860px) {
-  .templates-section {
-    padding: 24px 16px;
-  }
-}
 </style>

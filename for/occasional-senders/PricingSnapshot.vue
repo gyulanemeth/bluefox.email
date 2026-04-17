@@ -52,12 +52,26 @@ const coverage = [
       <span class="footer-lead">Start with 3,000 free sends. No card, no subscription.</span>
       <a href="https://bluefox.email/pricing" class="pricing-link">See full pricing →</a>
     </div>
+
+    <div class="cta-row">
+      <v-btn
+        size="large"
+        color="primary"
+        variant="flat"
+        class="pricing-cta"
+        href="https://app.bluefox.email/accounts/create-account"
+        target="_blank"
+      >
+        <strong>Create your free account</strong>
+      </v-btn>
+      <span class="cta-sub">3,000 free sends included. Credits valid for 12 months.</span>
+    </div>
   </section>
 </template>
 
 <style scoped>
 .pricing-snapshot {
-  padding: 36px 24px;
+  padding: 0;
 }
 
 .snapshot-head {
@@ -276,6 +290,42 @@ html.dark .pricing-link {
   color: #67e8f9;
 }
 
+.cta-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 24px;
+  text-align: center;
+}
+
+.pricing-cta {
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  border-radius: 10px !important;
+  min-height: 50px !important;
+  padding: 0 28px !important;
+  text-decoration: none !important;
+}
+
+.pricing-cta :deep(.v-btn__content) {
+  line-height: 1.2;
+}
+
+.pricing-cta strong {
+  line-height: 1.2;
+}
+
+.cta-sub {
+  font-size: 14px;
+  color: #475569;
+}
+
+html.dark .cta-sub {
+  color: #94a3b8;
+}
+
 @media (max-width: 720px) {
   .compare {
     grid-template-columns: 1fr;
@@ -289,10 +339,6 @@ html.dark .pricing-link {
 }
 
 @media (max-width: 860px) {
-  .pricing-snapshot {
-    padding: 24px 16px;
-  }
-
   .footer-row {
     flex-direction: column;
     align-items: flex-start;

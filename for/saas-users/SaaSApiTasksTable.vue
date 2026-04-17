@@ -1,4 +1,8 @@
 <script setup>
+import { useData } from 'vitepress'
+
+const { isDark } = useData()
+
 const endpoints = [
   {
     id: 'triggered',
@@ -83,8 +87,7 @@ const methodColor = {
       </v-chip>
       <h2 id="api-showcase-title">Four endpoints. Every email use case covered.</h2>
       <p>
-        BlueFox Email's API is minimal by design. Trigger emails from product events, sync contacts from your backend,
-        and manage subscriptions, all with simple HTTP calls.
+        Four endpoints cover every email use case. Trigger sends, sync contacts, and manage subscriptions with simple HTTP calls.
       </p>
     </div>
 
@@ -123,6 +126,43 @@ const methodColor = {
           </svg>
         </a>
       </div>
+    </div>
+
+    <div class="integrations-strip">
+      <a href="/docs/integrations/webhooks" class="int-card" target="_blank" rel="noopener">
+        <div class="int-icon int-icon--webhooks">
+          <img
+            :src="isDark ? '/assets/integrations/webhooks-dark.svg' : '/assets/integrations/webhooks-light.svg'"
+            alt="Webhooks"
+            width="28"
+            height="28"
+          />
+        </div>
+        <div class="int-body">
+          <span class="int-name">Webhooks</span>
+          <span class="int-desc">React to opens, clicks, bounces, and complaints in real time.</span>
+        </div>
+        <svg class="int-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17L17 7M17 7H7M17 7v10" />
+        </svg>
+      </a>
+      <a href="/docs/integrations/supabase" class="int-card" target="_blank" rel="noopener">
+        <div class="int-icon int-icon--supabase">
+          <img
+            :src="isDark ? '/assets/integrations/supabase-dark.svg' : '/assets/integrations/supabase-light.svg'"
+            alt="Supabase"
+            width="28"
+            height="28"
+          />
+        </div>
+        <div class="int-body">
+          <span class="int-name">Supabase</span>
+          <span class="int-desc">Replace default auth emails with branded, high-deliverability sends.</span>
+        </div>
+        <svg class="int-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M7 17L17 7M17 7H7M17 7v10" />
+        </svg>
+      </a>
     </div>
 
     <div class="api-footer-note" role="note">
@@ -361,6 +401,103 @@ html.dark .full-docs-link {
   color: #67e8f9;
 }
 
+.integrations-strip {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.int-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px 18px;
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.int-card:hover {
+  border-color: rgba(19, 176, 238, 0.5);
+  box-shadow: 0 4px 16px rgba(19, 176, 238, 0.1);
+}
+
+html.dark .int-card {
+  background: rgba(30, 41, 59, 0.95);
+  border-color: #1e293b;
+}
+
+html.dark .int-card:hover {
+  border-color: rgba(19, 176, 238, 0.4);
+  box-shadow: 0 4px 16px rgba(19, 176, 238, 0.15);
+}
+
+.int-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.int-icon--webhooks {
+  background: rgba(19, 176, 238, 0.1);
+}
+
+.int-icon--supabase {
+  background: rgba(62, 207, 142, 0.1);
+}
+
+.int-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.int-name {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+html.dark .int-name {
+  color: #f1f5f9;
+}
+
+.int-desc {
+  display: block;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+html.dark .int-desc {
+  color: #94a3b8;
+}
+
+.int-arrow {
+  flex-shrink: 0;
+  color: #94a3b8;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.int-card:hover .int-arrow {
+  color: #0284c7;
+  transform: translate(2px, -2px);
+}
+
+html.dark .int-card:hover .int-arrow {
+  color: #67e8f9;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .endpoint-card {
     transition: none;
@@ -391,6 +528,10 @@ html.dark .full-docs-link {
 
   .endpoint-card:hover {
     transform: none;
+  }
+
+  .integrations-strip {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -442,6 +583,30 @@ html.dark .full-docs-link {
     gap: 8px;
     padding: 10px 14px;
     font-size: 12px;
+  }
+
+  .int-card {
+    padding: 12px 14px;
+    gap: 10px;
+  }
+
+  .int-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+  }
+
+  .int-icon img {
+    width: 22px;
+    height: 22px;
+  }
+
+  .int-name {
+    font-size: 13px;
+  }
+
+  .int-desc {
+    font-size: 11px;
   }
 }
 </style>

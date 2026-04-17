@@ -33,10 +33,9 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     automation-title="Clone automations. Target with segments."
     automation-description="Clone flows between projects, apply brand overrides, and define segments with AND/OR conditions to target the right contacts per account. No rebuilding the same logic twice."
     automation-stripe="white"
-    :show-analytics="false"
+    analytics-stripe="white"
     deliverability-stripe="blue"
-    integrations-stripe="white"
-    bottom-stripe="blue"
+    integrations-stripe="blue"
     final-cta-stripe="white"
     final-title="Run a tighter email agency operation"
     final-description="Less rebuilding, better margins, and clean per-client reporting. All from one account."
@@ -54,10 +53,10 @@ const { lgAndUp, md, sm, xs } = useDisplay()
       <ClientProjectGrid />
     </template>
     <template #deliverabilityContent>
-      <AgencyPricing />
-    </template>
-    <template #bottom>
       <AgencyAnalytics />
+    </template>
+    <template #analyticsContent>
+      <AgencyPricing />
     </template>
   </PersonaLanding>
 </template>
