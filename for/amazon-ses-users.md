@@ -2,18 +2,18 @@
 layout: home
 
 title: Supercharge Your Amazon SES with BlueFox Email
-description: Connect your AWS SES account to BlueFox and unlock automation, stunning designs, smart list management, and detailed analytics. All in one place.
+description: BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics — without giving up any control or deliverability.
 
 head:
   - - meta
     - name: description
-      content: "Connect your AWS SES account to BlueFox and unlock automation, stunning designs, smart list management, and detailed analytics. All in one place."
+      content: "BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics — without giving up any control or deliverability."
   - - meta
     - property: og:title
       content: Supercharge Your Amazon SES with BlueFox Email
   - - meta
     - property: og:description
-      content: "Connect your AWS SES account to BlueFox and unlock automation, stunning designs, smart list management, and detailed analytics. All in one place."
+      content: "BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics — without giving up any control or deliverability."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share-amazon-ses.png
@@ -31,7 +31,7 @@ head:
       content: Supercharge Your Amazon SES with BlueFox Email
   - - meta
     - name: twitter:description
-      content: "Connect your AWS SES account to BlueFox and unlock automation, stunning designs, smart list management, and detailed analytics. All in one place."
+      content: "BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics — without giving up any control or deliverability."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share-amazon-ses.png

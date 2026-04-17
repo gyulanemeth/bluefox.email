@@ -2,18 +2,18 @@
 layout: home
 
 title: BlueFox Email for Marketing Agencies
-description: Run multi-client email programs with repeatable systems for design, automation, reporting, and deliverability.
+description: Pay per email sent, not per contact stored. Clone proven flows to new clients in minutes. Keep every account fully isolated.
 
 head:
   - - meta
     - name: description
-      content: "Run multi-client email programs with repeatable systems for design, automation, reporting, and deliverability."
+      content: "Pay per email sent, not per contact stored. Clone proven flows to new clients in minutes. Keep every account fully isolated."
   - - meta
     - property: og:title
       content: BlueFox Email for Marketing Agencies
   - - meta
     - property: og:description
-      content: "Run multi-client email programs with repeatable systems for design, automation, reporting, and deliverability."
+      content: "Pay per email sent, not per contact stored. Clone proven flows to new clients in minutes. Keep every account fully isolated."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share.png
@@ -31,7 +31,7 @@ head:
       content: BlueFox Email for Marketing Agencies
   - - meta
     - name: twitter:description
-      content: "Run multi-client email programs with repeatable systems for design, automation, reporting, and deliverability."
+      content: "Pay per email sent, not per contact stored. Clone proven flows to new clients in minutes. Keep every account fully isolated."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share.png

@@ -2,18 +2,18 @@
 layout: home
 
 title: BlueFox Email for SaaS Teams
-description: Unify product, lifecycle, and transactional email in a single platform built for SaaS growth teams.
+description: Transactional, promotional, and automated emails, all on-brand. Integrate with a simple API and webhooks. Pay per send, not per contact.
 
 head:
   - - meta
     - name: description
-      content: "Unify product, lifecycle, and transactional email in a single platform built for SaaS growth teams."
+      content: "Transactional, promotional, and automated emails, all on-brand. Integrate with a simple API and webhooks. Pay per send, not per contact."
   - - meta
     - property: og:title
       content: BlueFox Email for SaaS Teams
   - - meta
     - property: og:description
-      content: "Unify product, lifecycle, and transactional email in a single platform built for SaaS growth teams."
+      content: "Transactional, promotional, and automated emails, all on-brand. Integrate with a simple API and webhooks. Pay per send, not per contact."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share.png
@@ -31,7 +31,7 @@ head:
       content: BlueFox Email for SaaS Teams
   - - meta
     - name: twitter:description
-      content: "Unify product, lifecycle, and transactional email in a single platform built for SaaS growth teams."
+      content: "Transactional, promotional, and automated emails, all on-brand. Integrate with a simple API and webhooks. Pay per send, not per contact."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share.png
