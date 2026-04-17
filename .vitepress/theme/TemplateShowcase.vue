@@ -300,6 +300,9 @@ onBeforeUnmount(() => {
   margin: 0 auto;
   padding: 0 48px;
   outline: none;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
 }
 
 /* ---- Viewport ---- */

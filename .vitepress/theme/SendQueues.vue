@@ -102,10 +102,19 @@ const { isDark } = useData()
 
   .sectionTitle {
     font-size: 30px !important;
+    border-top: 0 !important;
+    padding-top: 0 !important;
   }
   @media (max-width: 640px) {
     .sectionTitle {
       font-size: 26px !important;
     }
   }
+
+  .no-uppercase {
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+    text-decoration: none !important;
+  }
+
 </style>

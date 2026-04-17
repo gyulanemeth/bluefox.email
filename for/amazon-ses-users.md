@@ -2,24 +2,24 @@
 layout: home
 
 title: Supercharge Your Amazon SES with BlueFox Email
-description: Connect your AWS SES account to BlueFox and unlock automation, stunning designs, smart list management, and detailed analytics. All in one place.
+description: BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics — without giving up any control or deliverability.
 
 head:
   - - meta
     - name: description
-      content: "Connect your AWS SES account to BlueFox and unlock automation, stunning designs, smart list management, and detailed analytics. All in one place."
+      content: "BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics — without giving up any control or deliverability."
   - - meta
     - property: og:title
       content: Supercharge Your Amazon SES with BlueFox Email
   - - meta
     - property: og:description
-      content: "Connect your AWS SES account to BlueFox and unlock automation, stunning designs, smart list management, and detailed analytics. All in one place."
+      content: "BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics — without giving up any control or deliverability."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share-amazon-ses.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/for/aws-ses-users
+      content: https://bluefox.email/for/amazon-ses-users
   - - meta
     - property: og:type
       content: website
@@ -31,7 +31,7 @@ head:
       content: Supercharge Your Amazon SES with BlueFox Email
   - - meta
     - name: twitter:description
-      content: "Connect your AWS SES account to BlueFox and unlock automation, stunning designs, smart list management, and detailed analytics. All in one place."
+      content: "BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics — without giving up any control or deliverability."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share-amazon-ses.png
@@ -43,7 +43,7 @@ import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
 
 import HeroUnit from '../.vitepress/theme/HeroUnitAWS.vue'
-import TestimonialDiv from '../.vitepress/theme/TestimonialDiv.vue'
+import AppleMailTestimonials from '../.vitepress/theme/AppleMailTestimonials.vue'
 import DesignSystem from '../.vitepress/theme/DesignSystem.vue'
 import Automation from '../.vitepress/theme/Automation.vue'
 import ConnectAWS from '../.vitepress/theme/ConnectAWS.vue'
@@ -109,7 +109,10 @@ onBeforeUnmount(() => {
 
 </script>
 <style scoped>
-  a {
+  a,
+  a:hover,
+  .v-btn,
+  .no-uppercase {
     text-decoration: none !important;
   }
 
@@ -125,6 +128,7 @@ onBeforeUnmount(() => {
 
   h2 {
     border-top: 0 !important;
+    padding-top: 0 !important;
   }
 
   .sectionTitle {
@@ -352,7 +356,7 @@ onBeforeUnmount(() => {
   <h2 class="sectionTitle text-center mt-4 mb-6">
     Feedback from Amazon SES Users
   </h2>
-  <TestimonialDiv
+  <AppleMailTestimonials
     :is-dark="isDark"
     :lg-and-up="lgAndUp"
     :md="md"
@@ -368,7 +372,7 @@ onBeforeUnmount(() => {
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Combine the power of Amazon SES for both transactional and marketing emails, keep your brand consistent, and manage all your communications from one easy-to-use plaftorm.
+      Combine the power of Amazon SES for both transactional and marketing emails, keep your brand consistent, and manage all your communications from one easy-to-use platform.
     </div>
   </div>
 
@@ -472,7 +476,7 @@ onBeforeUnmount(() => {
   />
 </section>
 
-<section id="developers" class="value-prop" style="padding-top: 0;">
+<section id="developers-api" class="value-prop" style="padding-top: 0;">
   <h2 class="sectionTitle text-center mb-3">
     Simple, Technology-Agnostic API
   </h2>
