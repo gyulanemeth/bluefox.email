@@ -43,7 +43,7 @@ import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
 
 import HeroUnit from '../.vitepress/theme/HeroUnitAWS.vue'
-import TestimonialDiv from '../.vitepress/theme/TestimonialDiv.vue'
+import AppleMailTestimonials from '../.vitepress/theme/AppleMailTestimonials.vue'
 import DesignSystem from '../.vitepress/theme/DesignSystem.vue'
 import Automation from '../.vitepress/theme/Automation.vue'
 import ConnectAWS from '../.vitepress/theme/ConnectAWS.vue'
@@ -109,7 +109,10 @@ onBeforeUnmount(() => {
 
 </script>
 <style scoped>
-  a {
+  a,
+  a:hover,
+  .v-btn,
+  .no-uppercase {
     text-decoration: none !important;
   }
 
@@ -125,6 +128,7 @@ onBeforeUnmount(() => {
 
   h2 {
     border-top: 0 !important;
+    padding-top: 0 !important;
   }
 
   .sectionTitle {
@@ -352,7 +356,7 @@ onBeforeUnmount(() => {
   <h2 class="sectionTitle text-center mt-4 mb-6">
     Feedback from Amazon SES Users
   </h2>
-  <TestimonialDiv
+  <AppleMailTestimonials
     :is-dark="isDark"
     :lg-and-up="lgAndUp"
     :md="md"

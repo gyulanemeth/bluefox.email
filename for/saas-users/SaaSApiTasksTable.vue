@@ -5,8 +5,8 @@ const endpoints = [
     method: 'POST',
     path: '/v1/send-triggered',
     label: 'Send Triggered Email',
-    description: 'Fire personalized sequences from any product event: user signup, feature usage, or custom webhook. Pass dynamic data and BlueFox Email handles the rest.',
-    useCases: ['Welcome journeys', 'Feature adoption nudges', 'Milestone emails'],
+    description: 'Send to an entire subscriber list or specific recipients. Personalize with dynamic data via handlebars. Built-in unsubscribe and pause keeps your lists clean.',
+    useCases: ['Onboarding sequences', 'Event notifications', 'Weekly digests'],
     docLink: '/docs/api/send-triggered-email',
     snippet: `fetch('/v1/send-triggered', {
   method: 'POST',
@@ -39,8 +39,8 @@ const endpoints = [
     method: 'POST',
     path: '/v1/contacts/{projectId}',
     label: 'Sync Contacts',
-    description: 'Keep subscriber profiles up to date from your CRM or backend. Add custom properties to power segmentation and personalization.',
-    useCases: ['CRM sync', 'Lifecycle stage updates', 'Lead scoring'],
+    description: 'Sync profiles from your backend or CRM. Update custom properties to power segmentation, personalization, and trigger automations automatically.',
+    useCases: ['CRM sync', 'Trigger automations', 'Segmentation updates'],
     docLink: '/docs/api/contacts-management',
     snippet: `fetch('/v1/contacts/PROJECT_ID', {
   method: 'POST',
@@ -81,10 +81,10 @@ const methodColor = {
       <v-chip color="primary" class="showcase-badge" aria-label="API badge">
         <span class="text-overline">Developer API</span>
       </v-chip>
-      <h2 id="api-showcase-title">Four Endpoints. Every SaaS Email Use Case Covered.</h2>
+      <h2 id="api-showcase-title">Four endpoints. Every email use case covered.</h2>
       <p>
         BlueFox Email's API is minimal by design. Trigger emails from product events, sync contacts from your backend,
-        and manage subscriptions, all from a single REST interface.
+        and manage subscriptions, all with simple HTTP calls.
       </p>
     </div>
 
