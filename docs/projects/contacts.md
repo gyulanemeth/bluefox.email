@@ -147,6 +147,30 @@ When importing contacts, the CSV file must contain an `email` column. Additional
 
 ![Screenshot of the subscriber lists page - import or export CSV](./project-contacts-import.webp)
 
+### Importing/Exporting Contacts to a specific List
+
+When you choose to import contacts into a specific subscription list, the system will automatically subscribe those contacts to that list.
+
+To import contacts into a specific list, while in the Contacts tab, select the desired subscription list from the dropdown menu at the top. Then click on the **Import/Export** button and choose the option to import contacts into that list.
+
+![Screenshot of the subscriber lists page - import to list](./project-contacts-import-to-list.webp)
+
+Make sure you have contact properties setup that match the columns in your CSV file. You can also check the import options whether to : 
+
+- **Upload and update contacts**: It will add the new contacts and update existing ones based on the email address.
+- **Only upload new contacts:** It will only add new contacts and skip any existing ones based on the email address.
+- **Only update existing contacts**: It will only update existing contacts and skip any new ones based on the email address.
+
+You can also trigger matching automation workflows for imported contacts by checking the **Trigger Automation Box** during the import process.
+
+Just upload your CSV file here, and the contacts will be imported into the selected list.
+
+![Screenshot of the subscriber lists page - import to list dialog](./project-contacts-import-to-list-dialog.webp)
+
+If you want to export contacts from a specific list, select the desired subscription list from the dropdown menu at the top. Then click on the **Import/Export** button and choose the option to export contacts from that list.
+
+![Screenshot of the subscriber lists page - export from list](./project-contacts-export-from-list.webp)
+
 ## Subscription Statuses
 
 Inside a list, you will see all contacts that are subscribed to it. The list details section provides insights into:
