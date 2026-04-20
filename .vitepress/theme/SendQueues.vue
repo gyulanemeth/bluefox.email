@@ -27,12 +27,12 @@ const { isDark } = useData()
         </v-btn>
       </div>
 
-      <v-row class="mt-4">
-        <v-col class="pb-0 d-flex align-end" cols="12" sm="6">
-          <v-img src="/assets/testimonials/guillermo.webp"></v-img>
+      <v-row class="mt-4 align-center">
+        <v-col class="d-flex align-center justify-center" cols="12" sm="6">
+          <v-img src="/assets/testimonials/guillermo.webp" max-width="280"></v-img>
         </v-col>
 
-        <v-col class="d-flex align-center justify-center mb-0" cols="12" sm="6">
+        <v-col class="d-flex align-center justify-center" cols="12" sm="6">
           <div>
             <quote style="font-size: 14px; text-align: justify; display:block">
               <v-icon>mdi-format-quote-close</v-icon>
