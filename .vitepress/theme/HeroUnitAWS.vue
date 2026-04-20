@@ -1,8 +1,37 @@
 <script setup>
+const colA = [
+  '/assets/templates/spring-newsletter-ecommerce-seasonal-promotional-newsletter-template.webp',
+  '/assets/templates/clean-b2b-newsletter-responsive-email.webp',
+  '/assets/templates/modern-business-portfolio-welcome-email.webp'
+]
+
+const colB = [
+  '/assets/templates/easter-egg-hunt-party-template.webp',
+  '/assets/templates/marketing-agency-modern-responsive-newsletter.webp',
+  '/assets/templates/summer-newsletter-fully-responsive-html-email.webp'
+]
+
+const colC = [
+  '/assets/templates/black-friday-webshop-sale-promo.webp',
+  '/assets/templates/shoes-ecommerce-email-template-marketo.webp',
+  '/assets/templates/happy-easter-travel-template.webp'
+]
 </script>
 
 <template>
   <div class="heroDiv">
+    <div class="templatesFlow" aria-hidden="true">
+      <div class="templateCol">
+        <img v-for="(src, i) in colA" :key="`a-${i}`" :src="src" loading="lazy" alt="" />
+      </div>
+      <div class="templateCol templateCol--shift">
+        <img v-for="(src, i) in colB" :key="`b-${i}`" :src="src" loading="lazy" alt="" />
+      </div>
+      <div class="templateCol">
+        <img v-for="(src, i) in colC" :key="`c-${i}`" :src="src" loading="lazy" alt="" />
+      </div>
+    </div>
+
     <div class="heroMain">
       <div class="heroContent">
         <h1 class="title">
@@ -49,15 +78,17 @@ html.dark .heroDiv {
   min-height: calc(100vh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px) - 136px);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  position: relative;
+  z-index: 2;
 }
 
 .heroContent {
-  text-align: center;
-  max-width: 720px;
+  text-align: left;
+  max-width: 620px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .title {
@@ -102,6 +133,74 @@ html.dark .title {
   min-height: 56px !important;
   padding: 0 30px !important;
   text-decoration: none !important;
+}
+
+/* Diagonal templates flow */
+.templatesFlow {
+  position: absolute;
+  top: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 24px);
+  right: -6%;
+  bottom: -8%;
+  width: 56%;
+  display: flex;
+  gap: 18px;
+  transform: rotate(-14deg);
+  transform-origin: top right;
+  pointer-events: none;
+  z-index: 1;
+  mask-image: linear-gradient(255deg, rgba(0, 0, 0, 0.95) 35%, rgba(0, 0, 0, 0.55) 65%, transparent 92%);
+  -webkit-mask-image: linear-gradient(255deg, rgba(0, 0, 0, 0.95) 35%, rgba(0, 0, 0, 0.55) 65%, transparent 92%);
+}
+
+.templateCol {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.templateCol--shift {
+  margin-top: -60px;
+}
+
+.templateCol img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 12px 32px -10px rgba(15, 23, 42, 0.25), 0 4px 12px -4px rgba(15, 23, 42, 0.12);
+  display: block;
+}
+
+html.dark .templateCol img {
+  box-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.6), 0 4px 12px -4px rgba(0, 0, 0, 0.4);
+}
+
+@media (max-width: 1100px) {
+  .heroContent {
+    max-width: 540px;
+  }
+
+  .templatesFlow {
+    width: 50%;
+    opacity: 0.85;
+  }
+}
+
+@media (max-width: 900px) {
+  .templatesFlow {
+    display: none;
+  }
+
+  .heroMain {
+    justify-content: center;
+  }
+
+  .heroContent {
+    text-align: center;
+    align-items: center;
+    max-width: 720px;
+  }
 }
 
 @media (max-width: 768px) {
