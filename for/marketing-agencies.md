@@ -34,7 +34,7 @@ head:
       content: "Pay per email sent, not per contact stored. Clone proven flows to new clients in minutes. Keep every account fully isolated."
   - - meta
     - name: twitter:image
-      content: https://bluefox.email/assets/BlueFoxEmailMarketing.png
+      content: https://bluefox.email/assets/bluefoxemailformarketingagencies.png
 ---
 
 <script setup>

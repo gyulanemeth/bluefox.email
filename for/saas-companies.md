@@ -34,7 +34,7 @@ head:
       content: "Transactional, promotional, and automated emails, all on-brand. Integrate with a simple API and webhooks. Pay per send, not per contact."
   - - meta
     - name: twitter:image
-      content: https://bluefox.email/assets/BlueFoxEmailSaas.png
+      content: https://bluefox.email/assets/bluefoxemailforsaasteams.png
 ---
 
 <script setup>
