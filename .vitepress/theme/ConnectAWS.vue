@@ -1,7 +1,5 @@
 <script setup>
-import { ref } from 'vue'
-
-const props = defineProps({
+defineProps({
   isDark: {
     type: Boolean,
     default: false
@@ -11,82 +9,27 @@ const props = defineProps({
     default: false
   }
 })
-
-const tab = ref('tab-1')
-const tabs = [
-  {
-    value: 'tab-1',
-    text: 'Subscribe',
-    url: 'https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##',
-    method: 'POST'
-  },
-  {
-    value: 'tab-2',
-    text: 'Unsubscribe',
-    url: 'https://api.bluefox.email/v1/subscriber-lists/##YOUR_SUBSCRIBER_LIST_ID##/##SUBSCRIBER_EMAIL_ADDRESS##',
-    method: 'PATCH'
-  },
-  {
-    value: 'tab-3',
-    text: 'Send transactional email',
-    url: 'https://api.bluefox.email/v1/send-transactional',
-    method: 'POST'
-  },
-  {
-    value: 'tab-4',
-    text: 'Send triggered email',
-    url: 'https://api.bluefox.email/v1/send-triggered',
-    method: 'POST'
-  }
-]
-
-function getTabItem () {
-  return tabs.find(item => item.value === tab.value)
-}
 </script>
 
 <template>
 <div class="connectGrid">
   <article class="connectCard">
-    <div class="cardHead">
-      <span class="cardTag">Quick setup</span>
-      <span class="cardEffort">~5 min</span>
-    </div>
     <h3 class="cardTitle">Access Keys</h3>
-    <p class="cardBody">Connect with your Access Key ID and Secret Access Key. Simple, fast, fewer moving parts. Less secure than STS, credentials live until you rotate them.</p>
-    <ul class="cardMeta">
-      <li><span class="metaDot"></span> Long-lived credentials</li>
-      <li><span class="metaDot"></span> Best for trying things out</li>
-    </ul>
+    <p class="cardBody">Connect using your Access Key ID and Secret Access Key, if you prefer a simple setup. This method is straightforward, but less secure than using STS.</p>
   </article>
 
   <article class="connectCard connectCard--featured">
     <span class="featuredBadge">Recommended</span>
-    <div class="cardHead">
-      <span class="cardTag cardTag--primary">Most secure</span>
-      <span class="cardEffort">~10 min</span>
-    </div>
     <h3 class="cardTitle">STS</h3>
-    <p class="cardBody">Temporary credentials via AWS STS. Limited scope, time-bound, revocable. You stay in control of permissions and can pull access at any time.</p>
-    <ul class="cardMeta">
-      <li><span class="metaDot metaDot--primary"></span> Short-lived, auto-rotating</li>
-      <li><span class="metaDot metaDot--primary"></span> Production-grade</li>
-    </ul>
+    <p class="cardBody">Use temporary credentials via AWS STS for a more secure, limited-scope connection. You stay in control of permissions and can revoke access anytime.</p>
   </article>
 
   <article class="connectCard">
-    <div class="cardHead">
-      <span class="cardTag">Automated</span>
-      <span class="cardEffort">~3 min</span>
-    </div>
-    <h3 class="cardTitle">CloudFormation Script</h3>
-    <p class="cardBody">AWS-native script to provision everything safely. Review the template, click deploy, done.</p>
-    <ul class="cardMeta">
-      <li><span class="metaDot"></span> One-click deploy</li>
-      <li><span class="metaDot"></span> Up and running in minutes</li>
-    </ul>
+    <h3 class="cardTitle">Using our CloudFormation Script</h3>
+    <p class="cardBody">We provide an AWS-native script to automate everything safely. Just review and deploy.</p>
   </article>
 </div>
+<p class="connectFoot">It literally takes a few minutes to get started!</p>
 </template>
 
 <style scoped>
@@ -158,51 +101,6 @@ html.dark .featuredBadge {
   background: linear-gradient(120deg, #8a7ed8 5%, #13b0ee);
 }
 
-.cardHead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-
-.cardTag {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #64748b;
-  padding: 4px 10px;
-  background: #f1f5f9;
-  border-radius: 6px;
-}
-
-html.dark .cardTag {
-  color: #94a3b8;
-  background: #1e293b;
-}
-
-.cardTag--primary {
-  color: #392c91;
-  background: rgba(19, 176, 238, 0.12);
-}
-
-html.dark .cardTag--primary {
-  color: #13b0ee;
-  background: rgba(19, 176, 238, 0.16);
-}
-
-.cardEffort {
-  font-size: 12px;
-  font-weight: 600;
-  color: #94a3b8;
-  font-variant-numeric: tabular-nums;
-}
-
-html.dark .cardEffort {
-  color: #64748b;
-}
-
 .cardTitle {
   margin: 0 0 10px;
   font-size: 20px;
@@ -218,7 +116,7 @@ html.dark .cardTitle {
 }
 
 .cardBody {
-  margin: 0 0 16px;
+  margin: 0;
   font-size: 14px;
   line-height: 1.6;
   color: #475569;
@@ -229,52 +127,16 @@ html.dark .cardBody {
   color: #94a3b8;
 }
 
-.cardMeta {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  border-top: 1px solid #e2e8f0;
-  padding-top: 14px;
+.connectFoot {
+  margin: 28px 0 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
+  color: #392c91;
 }
 
-html.dark .cardMeta {
-  border-top-color: #1e293b;
-}
-
-.cardMeta li {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  line-height: 1.4;
-  color: #475569;
-}
-
-html.dark .cardMeta li {
-  color: #cbd5e1;
-}
-
-.metaDot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #cbd5e1;
-  flex-shrink: 0;
-}
-
-html.dark .metaDot {
-  background: #475569;
-}
-
-.metaDot--primary {
-  background: linear-gradient(135deg, #13b0ee, #392c91);
-}
-
-html.dark .metaDot--primary {
-  background: linear-gradient(135deg, #13b0ee, #8a7ed8);
+html.dark .connectFoot {
+  color: #8a7ed8;
 }
 
 @media (max-width: 960px) {

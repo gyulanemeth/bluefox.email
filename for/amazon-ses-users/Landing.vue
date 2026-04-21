@@ -6,10 +6,10 @@ import HeroUnitAWS from '../../.vitepress/theme/HeroUnitAWS.vue'
 import ConnectAWS from '../../.vitepress/theme/ConnectAWS.vue'
 import IntegrationAWS from '../../.vitepress/theme/IntegrationAWS.vue'
 import SendQueues from '../../.vitepress/theme/SendQueues.vue'
-import AgencyAnalytics from '../marketing-agencies/AgencyAnalytics.vue'
+import TemplateShowcase from '../../.vitepress/theme/TemplateShowcase.vue'
 
 const { isDark } = useData()
-const { xs } = useDisplay()
+const { lgAndUp, md, sm, xs } = useDisplay()
 </script>
 
 <template>
@@ -22,47 +22,47 @@ const { xs } = useDisplay()
     hero-description=""
     cta-text="Supercharge Your Amazon SES"
     cta-href="https://app.bluefox.email/accounts/create-account"
-    testimonial-title="Feedback from Amazon SES users"
-    :testimonial-ids="[1, 0, 2, 3, 4, 5]"
-    mid-cta-title="Keep SES. Skip the missing pieces."
-    mid-cta-description="3,000 free sends per month for your first year. No subscription required."
-    design-title="Design stunning emails without writing a line of code"
-    design-description="With Amazon SES, you're stuck hand-coding HTML and fixing rendering bugs. BlueFox Email lets you skip the code and design emails with drag & drop that work everywhere, including Outlook."
+    :show-testimonials="false"
     automation-title="Effortless email automations"
     automation-description="Building automated email workflows on raw SES needs custom code. BlueFox Email gives you onboarding sequences, re-engagement campaigns, and event-based triggers without writing glue code."
     :show-integrations="false"
+    :show-analytics="false"
     final-title="Get more from SES today"
     final-description="3,000 free sends per month for your first year. No subscription required."
-    testimonials-stripe="white"
-    mid-cta-stripe="blue"
-    design-stripe="white"
-    automation-stripe="blue"
-    deliverability-stripe="white"
-    analytics-stripe="blue"
-    bottom-stripe="white"
-    extra-stripe="blue"
-    final-cta-stripe="white"
+    designStripe="white"
+    automationStripe="blue"
+    renderingStripe="white"
+    deliverabilityStripe="blue"
+    extraStripe="white"
+    finalCtaStripe="blue"
   >
+    <template #designContent>
+      <section class="templates-section" aria-labelledby="templates-title">
+        <h2 id="templates-title" class="ses-title">Launch Faster with Ready-to-Use Email Templates</h2>
+        <p class="ses-desc">Start campaigns with professionally designed templates for Marketing Agencies, SaaS, travel, agencies, and transactional emails. Swap in your theme settings, update the copy, adjust brand colors, and launch in minutes.</p>
+        <TemplateShowcase
+          class="mt-6"
+          :is-dark="isDark"
+          :lg-and-up="lgAndUp"
+          :md="md"
+          :sm="sm"
+          :xs="xs"
+        />
+      </section>
+    </template>
+
+    <template #renderingContent>
+      <div class="ses-stack">
+        <SendQueues />
+      </div>
+    </template>
+
     <template #deliverabilityContent>
       <section class="ses-section" aria-labelledby="connect-title">
         <h2 id="connect-title" class="ses-title">Connect quickly &amp; securely</h2>
         <p class="ses-desc">You can be fully set up (including bounces &amp; complaints via SNS) in just a few minutes. Pick the method that fits your workflow.</p>
         <ConnectAWS class="mt-6" :is-dark="isDark" :xs="xs" />
       </section>
-    </template>
-
-    <template #analyticsContent>
-      <AgencyAnalytics
-        title="Analytics SES doesn't give you"
-        description="Skip the bare-bones SES reports. Track opens, clicks, bounces, and subscriber trends with views built for fast diagnosis."
-        default-tab="hourly"
-      />
-    </template>
-
-    <template #bottom>
-      <div class="ses-stack">
-        <SendQueues />
-      </div>
     </template>
 
     <template #extra>
@@ -119,7 +119,8 @@ const { xs } = useDisplay()
 
 <style scoped>
 .ses-section,
-.api-block {
+.api-block,
+.templates-section {
   padding: 0;
 }
 

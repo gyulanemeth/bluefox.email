@@ -3,7 +3,7 @@ const features = [
   { label: 'Drag & drop editor', cls: 'feat--editor' },
   { label: 'Email templates', cls: 'feat--templates' },
   { label: 'Automation flows', cls: 'feat--automation' },
-  { label: 'Subscriber lists', cls: 'feat--lists' },
+  { label: 'Segmentation', cls: 'feat--lists' },
   { label: 'Real-time analytics', cls: 'feat--analytics' },
   { label: 'Webhooks & API', cls: 'feat--webhooks' }
 ]
@@ -16,7 +16,7 @@ const features = [
         <h1 class="title">
           Supercharge Your Amazon SES
         </h1>
-        <p class="tagline">Bring your own SES. Pay SES pricing. Get a full email platform — beautiful templates, drag &amp; drop editor, automation, list management, and analytics, without giving up any control or deliverability.</p>
+        <p class="tagline">BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics, without giving up any control or deliverability.</p>
         <p class="tagline2">Get started with 3,000 free sends per month and personalized support.</p>
 
         <v-btn
