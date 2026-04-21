@@ -122,13 +122,8 @@ const logos = [
 
 <style scoped>
 .brand-logos-section {
-  padding: 60px 24px;
+  padding: 0;
   background: transparent;
-  border-top: 1px solid rgba(229, 231, 235, 0.3);
-}
-
-html.dark .brand-logos-section {
-  border-top: 1px solid rgba(75, 85, 99, 0.3);
 }
 
 .brand-logos-intro {
@@ -298,10 +293,6 @@ html.dark .logo-image {
 
 /* Responsive adjustments */
 @media (max-width: 960px) {
-  .brand-logos-section {
-    padding: 40px 24px;
-  }
-
   .brand-logos-intro {
     margin-bottom: 32px;
   }
@@ -333,10 +324,6 @@ html.dark .logo-image {
 }
 
 @media (max-width: 640px) {
-  .brand-logos-section {
-    padding: 32px 16px;
-  }
-
   .brand-logos-title {
     font-size: 14px;
   }

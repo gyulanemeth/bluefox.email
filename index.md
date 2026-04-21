@@ -1,19 +1,19 @@
 ---
 layout: home
 
-title: Scale Your Agency's Email Campaigns Without Scaling Your Headaches
-description: The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity.
+title: BlueFox Email — Reliable email for every sender
+description: Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours.
 
 head:
   - - meta
     - name: description
-      content: "The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity."
+      content: "Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours."
   - - meta
     - property: og:title
-      content: Scale Your Agency's Email Campaigns Without Scaling Your Headaches | BlueFox Email
+      content: BlueFox Email — Reliable email for every sender
   - - meta
     - property: og:description
-      content: "The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity."
+      content: "Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share.png
@@ -28,10 +28,10 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Scale Your Agency's Email Campaigns Without Scaling Your Headaches | BlueFox Email
+      content: BlueFox Email — Reliable email for every sender
   - - meta
     - name: twitter:description
-      content: "The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity."
+      content: "Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share.png
@@ -50,6 +50,7 @@ import Automation from './.vitepress/theme/Automation.vue'
 import Integration from './.vitepress/theme/Integration.vue'
 import AppleMailTestimonials from './.vitepress/theme/AppleMailTestimonials.vue'
 import TemplateShowcase from './.vitepress/theme/TemplateShowcase.vue'
+import AgencyAnalytics from './for/marketing-agencies/AgencyAnalytics.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -104,14 +105,11 @@ onBeforeUnmount(() => {
     text-decoration: none !important;
   }
 
-  .section-index {
-    padding-top: 15vh;
-    padding-bottom: 10vh;
-  }
-
+  /* Stripe owns vertical rhythm; section classes only inherit horizontal */
+  .section-index,
   .value-prop {
-    padding-top: 10vh;
-    padding-bottom: 10vh;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   h2 {
@@ -303,94 +301,96 @@ onBeforeUnmount(() => {
     padding-top: 0 !important;
   }
 
-  .problem-stats-section {
-    max-width: 1200px;
-    margin: 80px auto 0;
-    display: flex;
-    gap: 24px;
-    justify-content: center;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 1;
+  .persona-hub {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
-  .problem-stat-card {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(19, 176, 238, 0.2);
-    border-radius: 16px;
-    padding: 28px 36px;
-    transition: all 0.3s ease;
-    min-width: 320px;
+  .persona-hub-intro {
+    max-width: 720px;
+    margin: 16px auto 40px;
+    text-align: center;
+    color: #4b5563;
+    line-height: 1.7;
+    font-size: 17px;
   }
 
-  html.dark .problem-stat-card {
-    background: rgba(31, 41, 55, 0.9);
-    border: 1px solid rgba(19, 176, 238, 0.3);
-  }
-
-  .problem-stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(19, 176, 238, 0.15);
-    border-color: rgba(19, 176, 238, 0.5);
-  }
-
-  html.dark .problem-stat-card:hover {
-    box-shadow: 0 12px 32px rgba(19, 176, 238, 0.25);
-  }
-
-  .problem-stat-number {
-    font-size: 56px;
-    font-weight: 900;
-    background: linear-gradient(135deg, #13B0EE, #392C91);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
-    letter-spacing: -2px;
-    padding:2px;
-  }
-
-  .problem-stat-divider {
-    width: 2px;
-    height: 60px;
-    background: linear-gradient(180deg, transparent, rgba(19, 176, 238, 0.3), transparent);
-  }
-
-  .problem-stat-content {
-    text-align: left;
-    flex: 1;
-  }
-
-  .problem-stat-label {
-    font-size: 15px;
-    font-weight: 800;
-    color: #1f2937;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 6px;
-  }
-
-  html.dark .problem-stat-label {
-    color: #f3f4f6;
-  }
-
-  .problem-stat-description {
-    font-size: 14px;
-    color: #6b7280;
-    line-height: 1.5;
-  }
-
-  html.dark .problem-stat-description {
+  html.dark .persona-hub-intro {
     color: #9ca3af;
   }
 
+  .persona-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .persona-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 28px 28px 24px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    text-decoration: none !important;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  html.dark .persona-card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  .persona-card:hover {
+    border-color: rgba(19, 176, 238, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(19, 176, 238, 0.12);
+  }
+
+  .persona-card-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  html.dark .persona-card-title {
+    color: #f1f5f9;
+  }
+
+  .persona-card-desc {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #475569;
+    flex: 1;
+  }
+
+  html.dark .persona-card-desc {
+    color: #94a3b8;
+  }
+
+  .persona-card-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: #13B0EE;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 760px) {
+    .persona-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .persona-card {
+      padding: 22px 22px 20px;
+    }
+  }
+
   .template-showcase {
-    padding-top: 5vh;
-    padding-bottom: 8vh;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .template-showcase-intro {
@@ -406,36 +406,25 @@ onBeforeUnmount(() => {
     color: #9ca3af;
   }
 
-  /* Final CTA Section - Premium Design */
+  /* Homepage-only: center AgencyAnalytics header to match other sections */
+  .home-analytics :deep(.analytics-head) {
+    text-align: center;
+  }
+
+  .home-analytics :deep(.analytics-head p) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Homepage-only: stripe-inner owns vertical padding, zero out component padding */
+  .home-analytics :deep(.agency-analytics) {
+    padding: 0;
+  }
+
+  /* Final CTA Section */
   .final-cta-section {
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.03) 0%, rgba(57, 44, 145, 0.03) 100%);
-    padding: 120px 24px;
-    margin: 80px 0 0 0;
+    padding: 0;
     position: relative;
-    overflow: hidden;
-  }
-
-  html.dark .final-cta-section {
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.08) 0%, rgba(57, 44, 145, 0.08) 100%);
-  }
-
-  .final-cta-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      radial-gradient(circle at 20% 50%, rgba(19, 176, 238, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 80% 50%, rgba(57, 44, 145, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
-  html.dark .final-cta-section::before {
-    background-image: 
-      radial-gradient(circle at 20% 50%, rgba(19, 176, 238, 0.12) 0%, transparent 50%),
-      radial-gradient(circle at 80% 50%, rgba(57, 44, 145, 0.12) 0%, transparent 50%);
   }
 
   .cta-container {
@@ -580,26 +569,8 @@ onBeforeUnmount(() => {
 
   /* Meet Founder Section */
   .founder-section {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    padding: 88px 24px 64px;
+    padding: 0;
     position: relative;
-    background: linear-gradient(180deg, rgba(19, 176, 238, 0.04) 0%, rgba(19, 176, 238, 0.01) 100%);
-  }
-
-  .founder-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(19, 176, 238, 0.3), transparent);
-  }
-
-  html.dark .founder-section {
-    background: linear-gradient(180deg, rgba(19, 176, 238, 0.08) 0%, rgba(19, 176, 238, 0.02) 100%);
   }
 
   .founder-inner {
@@ -696,46 +667,7 @@ onBeforeUnmount(() => {
   }
 
   /* Responsive Design */
-  @media (max-width: 960px) {
-    .problem-stats-section {
-      margin-top: 60px;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .problem-stat-card {
-      width: 100%;
-      max-width: 500px;
-    }
-
-  }
-
   @media (max-width: 768px) {
-    .problem-stat-card {
-      flex-direction: column;
-      text-align: center;
-      padding: 24px;
-      min-width: auto;
-    }
-
-    .problem-stat-number {
-      font-size: 48px;
-    }
-
-    .problem-stat-divider {
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(19, 176, 238, 0.3), transparent);
-    }
-
-    .problem-stat-content {
-      text-align: center;
-    }
-
-    .final-cta-section {
-      padding: 80px 20px;
-    }
-
     .cta-primary-button {
       font-size: 16px !important;
       padding: 20px 36px !important;
@@ -747,10 +679,6 @@ onBeforeUnmount(() => {
       gap: 20px;
       flex-direction: column;
       align-items: center;
-    }
-
-    .founder-section {
-      padding: 72px 20px 40px;
     }
 
     .founder-description {
@@ -792,37 +720,8 @@ onBeforeUnmount(() => {
       line-height: 20px !important;
     }
 
-    .section-index {
-      padding-top: 5vh;
-      padding-bottom: 5vh;
-    }
-
     #great-deliverability {
       padding: 25px;
-    }
-
-    .problem-stats-section {
-      margin-top: 48px;
-    }
-
-    .problem-stat-card {
-      padding: 20px;
-    }
-
-    .problem-stat-number {
-      font-size: 42px;
-    }
-
-    .problem-stat-label {
-      font-size: 13px;
-    }
-
-    .problem-stat-description {
-      font-size: 13px;
-    }
-
-    .final-cta-section {
-      padding: 60px 16px;
     }
 
     .cta-description {
@@ -838,10 +737,6 @@ onBeforeUnmount(() => {
       padding: 18px 32px !important;
     }
 
-    .founder-section {
-      padding: 56px 16px 28px;
-    }
-
     .founder-actions {
       margin-top: 24px;
     }
@@ -855,6 +750,44 @@ onBeforeUnmount(() => {
   .mt-150 {
     margin-top: 150px !important;
   }
+
+  /* Alternating full-bleed stripes (matches /for/* persona pages) */
+  .stripe {
+    position: relative;
+    left: calc(-50vw + 50%);
+    width: 100vw;
+    box-sizing: border-box;
+  }
+
+  .stripe--white { background: #ffffff; }
+  .stripe--blue  { background: #eef8fd; }
+
+  html.dark .stripe--white { background: #0f172a; }
+  html.dark .stripe--blue  { background: #0c1e2d; }
+
+  .stripe-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 88px 24px;
+  }
+
+  @media (max-width: 960px) {
+    .stripe-inner {
+      padding: 64px 24px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .stripe-inner {
+      padding: 56px 16px;
+    }
+  }
+
+  @media (max-width: 599px) {
+    .stripe-inner {
+      padding: 48px 16px;
+    }
+  }
 </style>
 
 <!-- 1. HERO - First impression with value proposition -->
@@ -863,12 +796,13 @@ onBeforeUnmount(() => {
 </main>
 
 <!-- 2. TEMPLATE SHOWCASE -->
+<div class="stripe stripe--white"><div class="stripe-inner">
 <section class="section-index template-showcase" role="region" aria-labelledby="templates-heading">
   <h2 id="templates-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Launch Faster with Ready-to-Use Email Templates
+    Start from a professional template
   </h2>
   <p class="template-showcase-intro">
-    Start campaigns with professionally designed templates for Marketing Agencies, SaaS, travel, agencies, and transactional emails. Swap in your theme settings, update the copy, adjust brand colors, and launch in minutes.
+    Ready-made layouts for newsletters, transactional emails, product launches, and lifecycle campaigns. Apply your theme, update the copy, and send.
   </p>
   <TemplateShowcase
     :is-dark="isDark"
@@ -891,10 +825,13 @@ onBeforeUnmount(() => {
   </div>
 </section>
 
+</div></div>
+
 <!-- 3. SOCIAL PROOF - Build trust early -->
-<section class="section-index" style="padding-top: 5vh;" role="region" aria-labelledby="testimonials-heading">
+<div class="stripe stripe--blue"><div class="stripe-inner">
+<section role="region" aria-labelledby="testimonials-heading">
   <h2 id="testimonials-heading" class="sectionTitle text-center mt-4 mb-6">
-    Agencies Choose BlueFox Email. Their Clients Stay.
+    What teams say about BlueFox Email
   </h2>
   <AppleMailTestimonials
     :is-dark="isDark"
@@ -904,25 +841,29 @@ onBeforeUnmount(() => {
     :xs="xs"
   />
 </section>
+</div></div>
 
 <!-- 4. BRAND LOGOS - Trust indicators -->
+<div class="stripe stripe--white"><div class="stripe-inner">
 <section aria-labelledby="brand-logos-heading">
   <BrandLogos />
 </section>
+</div></div>
 
-<!-- 5. SOLUTION: Multi-client Management via Design System -->
+<!-- 5. SOLUTION: Design System -->
+<div class="stripe stripe--blue"><div class="stripe-inner">
 <section id="design-system" class="section-index" role="region" aria-labelledby="design-system-heading">
   <div class="d-flex justify-center">
-    <v-chip color="primary" aria-label="Core solution badge">
-      <span class="text-overline">Core Solution</span>
+    <v-chip color="primary" aria-label="Design system badge">
+      <span class="text-overline">Design System</span>
     </v-chip>
   </div>
   <h2 id="design-system-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Manage 10 Clients as Easily as 1
+    Build your theme once, reuse it everywhere
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Stop rebuilding email templates from scratch for every client. Our unified design system lets you create brand-specific components once, then replicate and customize instantly. <strong>Update 50 templates with one click.</strong>
+      Define brand colors, typography, and components once. Every template, campaign, and transactional email stays on-brand. Update the theme, and every email updates with it.
     </div>
   </div>
 
@@ -931,15 +872,17 @@ onBeforeUnmount(() => {
     :is-dark="isDark"
   />
 </section>
+</div></div>
 
-<!-- 6. SOLUTION: No-code Content Creation -->
+<!-- 6. SOLUTION: Visual Editor -->
+<div class="stripe stripe--white"><div class="stripe-inner">
 <section id="marketers" class="value-prop" role="region" aria-labelledby="email-editor-heading">
   <h2 id="email-editor-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Create Pixel-Perfect Brand Emails in Minutes
+    Design emails visually, render them reliably
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your team doesn't need to be Adobe experts. Our visual editor produces pixel-perfect emails that render flawlessly across Gmail, Outlook, and mobile so you can deliver premium quality even with a lean creative team.
+      A drag-and-drop editor that outputs HTML tested against Gmail, Outlook, Apple Mail, and mobile clients. No hand-coded tables, no rendering surprises.
     </div>
   </div>
   <v-card ref="editorVideoContainer" class="d-flex justify-center mt-4" variant="elevated" role="region" aria-label="Editor demo video">
@@ -957,27 +900,18 @@ onBeforeUnmount(() => {
       Your browser does not support the video tag.
     </video>
   </v-card>
-
-  <div class="d-flex justify-center mt-6">
-    <div class="problem-stat-card" role="group" aria-labelledby="stat3-label">
-      <div class="problem-stat-number" id="stat3-value">10x</div>
-      <div class="problem-stat-divider" aria-hidden="true"></div>
-      <div class="problem-stat-content">
-        <div id="stat3-label" class="problem-stat-label">Faster</div>
-        <div class="problem-stat-description">Average speed improvement for<br/>email production</div>
-      </div>
-    </div>
-  </div>
 </section>
+</div></div>
 
 <!-- 7. SOLUTION: Automation -->
+<div class="stripe stripe--blue"><div class="stripe-inner">
 <section class="value-prop" role="region" aria-labelledby="automation-heading">
   <h2 id="automation-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Set It, Send It, Invoice It
+    Automate the sequences that matter
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Create sophisticated drip campaigns, triggered sequences, and re-engagement flows in minutes, not days. Your clients get enterprise-level nurturing without you staffing up for every campaign.
+      Onboarding flows, drip sequences, re-engagement campaigns, and event-triggered emails. Configure once, let them run, and adjust when the data tells you to.
     </div>
   </div>
 
@@ -990,15 +924,17 @@ onBeforeUnmount(() => {
     :xs="xs"
   />
 </section>
+</div></div>
 
-<!-- 8. SOLUTION: Perfect Rendering -->
+<!-- 8. SOLUTION: Rendering -->
+<div class="stripe stripe--white"><div class="stripe-inner">
 <section id="no-rendering-issues" class="value-prop" role="region" aria-labelledby="rendering-heading">
   <h2 id="rendering-heading" class="sectionTitle text-center mb-3">
-    Never Apologize for Broken Emails Again
+    Consistent rendering across every major client
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your reputation depends on flawless execution. Our battle-tested HTML guarantees your emails look perfect everywhere from Gmail on mobile to Outlook 2016 on desktop. <strong>No more embarrassing rendering bugs.</strong>
+      Gmail, Outlook (2016 onward), Apple Mail, mobile, and dark mode. The generated HTML is tested against the clients your recipients actually use.
     </div>
   </div>
 
@@ -1011,44 +947,46 @@ onBeforeUnmount(() => {
     :xs="xs"
   />
 </section>
+</div></div>
 
 <!-- 9. SOLUTION: List Management & Compliance -->
+<div class="stripe stripe--blue"><div class="stripe-inner">
 <section class="section-index value-prop" role="region" aria-labelledby="list-management-heading">
   <h2 id="list-management-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Protect Your Clients (and Your Agency) from Compliance Nightmares
+    Compliant list management out of the box
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Double opt-in, one-click unsubscribe, automated suppression lists, all built-in. Show clients you're not just creative, you're responsible stewards of their brand reputation.
+      Double opt-in, one-click unsubscribe, subscription preferences, and automated suppression lists. Stay aligned with GDPR, CAN-SPAM, and the current Gmail and Yahoo sender requirements.
     </div>
   </div>
   <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="List management dashboard screenshot">
     <img alt="List management dashboard showing compliance features including double opt-in, unsubscribe management, and automated suppression lists" src="/assets/list-management.webp" loading="lazy" width="1920" height="1080" />
   </v-card>
 </section>
+</div></div>
 
-<!-- 10. SOLUTION: Analytics & ROI Proof -->
-<section class="value-prop" role="region" aria-labelledby="analytics-heading">
-  <h2 id="analytics-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    The Reports That Win Renewals
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Stop spending hours in spreadsheets. Export beautiful, client-ready reports that prove ROI. Open rates, click rates, conversion attribution, revenue impact <strong>everything your client needs to see why they should increase your retainer.</strong>
-    </div>
-  </div>
-  <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="Analytics dashboard screenshot">
-    <img alt="Analytics dashboard displaying email campaign metrics including open rates, click-through rates, conversion attribution, and revenue impact data" src="/assets/analytics-alt.webp" loading="lazy" width="1920" height="1080" />
-  </v-card>
+<!-- 10. SOLUTION: Analytics -->
+<div class="stripe stripe--white"><div class="stripe-inner">
+<section class="value-prop home-analytics" role="region" aria-labelledby="analytics-heading">
+  <AgencyAnalytics
+    title="Analytics that show what happened"
+    description="Delivery, opens, clicks, bounces, and subscription trends. Switch between hourly, daily, weekly, and monthly views. Export when you need to share."
+    default-tab="daily"
+  />
 </section>
+</div></div>
 
 <!-- 12. INTEGRATIONS - Connect with your stack -->
+<div class="stripe stripe--blue"><div class="stripe-inner">
 <section class="value-prop" role="region" aria-labelledby="integrations-heading">
   <h2 id="integrations-heading" class="visually-hidden">Platform integrations</h2>
   <Integration :is-dark="isDark" />
 </section>
+</div></div>
 
 <!-- 13. FOUNDER EXPERIENCE -->
+<div class="stripe stripe--white"><div class="stripe-inner">
 <section class="founder-section" role="region" aria-labelledby="founder-heading">
   <div class="founder-inner">
     <div class="founder-photo-wrap">
@@ -1075,20 +1013,56 @@ onBeforeUnmount(() => {
     </div>
   </div>
 </section>
+</div></div>
 
-<!-- 14. FINAL CTA - Beautified Premium Design -->
+<!-- PERSONA HUB - Route to persona-specific landing pages -->
+<div class="stripe stripe--blue"><div class="stripe-inner">
+<section class="section-index persona-hub" role="region" aria-labelledby="persona-hub-heading">
+  <h2 id="persona-hub-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
+    Find the setup that fits how you send
+  </h2>
+  <p class="persona-hub-intro">
+    BlueFox Email works for marketing agencies, SaaS teams, occasional senders, and Amazon SES operators. Pick the path closest to your workflow.
+  </p>
+  <div class="persona-grid">
+    <a href="/for/marketing-agencies" class="persona-card">
+      <div class="persona-card-title">Marketing agencies</div>
+      <div class="persona-card-desc">Multi-client projects, clone flows across accounts, per-project reporting.</div>
+      <span class="persona-card-link">See agency setup →</span>
+    </a>
+    <a href="/for/saas-users" class="persona-card">
+      <div class="persona-card-title">SaaS teams</div>
+      <div class="persona-card-desc">Transactional, triggered, and lifecycle emails through a single API.</div>
+      <span class="persona-card-link">See SaaS setup →</span>
+    </a>
+    <a href="/for/occasional-senders" class="persona-card">
+      <div class="persona-card-title">Occasional senders</div>
+      <div class="persona-card-desc">No subscription. Buy credits, send when you need to, and they stay valid for 12 months.</div>
+      <span class="persona-card-link">See occasional setup →</span>
+    </a>
+    <a href="/for/amazon-ses-users" class="persona-card">
+      <div class="persona-card-title">Amazon SES users</div>
+      <div class="persona-card-desc">Keep your SES account. Add design, automation, list management, and analytics on top.</div>
+      <span class="persona-card-link">See SES setup →</span>
+    </a>
+  </div>
+</section>
+</div></div>
+
+<!-- 14. FINAL CTA -->
+<div class="stripe stripe--white"><div class="stripe-inner">
 <section id="second-cta" class="final-cta-section" role="region" aria-labelledby="final-cta-heading">
   <div class="cta-container">
     <div class="cta-badge-wrapper">
-      <v-chip color="primary" size="large" class="cta-badge" aria-label="Get started today badge">
-        <span class="text-overline font-weight-bold">Get Started Today</span>
+      <v-chip color="primary" size="large" class="cta-badge" aria-label="Get started badge">
+        <span class="text-overline font-weight-bold">Start sending</span>
       </v-chip>
     </div>
     <h2 id="final-cta-heading" class="cta-title">
-      Ready to Scale Without the Growing Pains?
+      Send your first campaign today
     </h2>
     <p class="cta-description">
-      Send your first client campaign in minutes. BlueFox Email handles design, rendering, and deliverability so your agency can focus on strategy, retainers, and results, not wrestling with email tools.
+      Create a free account and send up to 3,000 emails per month for your first year. No credit card required, no subscription.
     </p>
     <div class="cta-button-wrapper">
       <v-btn
@@ -1098,13 +1072,14 @@ onBeforeUnmount(() => {
         class="cta-primary-button"
         href="https://app.bluefox.email/accounts/create-account"
         target="_blank"
-        aria-label="Start your free BlueFox Email agency account"
+        aria-label="Create your free BlueFox Email account"
       >
-        <strong>Start Your Free Agency Account</strong>
+        <strong>Create your free account</strong>
       </v-btn>
       <p class="cta-subtext">
-        No credit card required • Cancel anytime
+        No credit card required
       </p>
     </div>
   </div>
 </section>
+</div></div>

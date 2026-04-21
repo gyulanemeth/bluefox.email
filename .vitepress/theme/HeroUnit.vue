@@ -76,10 +76,16 @@ onUnmounted(() => {
         <div class="heroContent">
           <h1 class="title">
             <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Beautiful emails</div>
-            <div class="title-line" style="font-size: 1.125em; font-weight: 700;">Faster workflows</div>
-            <div class="title-line" style="font-size: 1em; font-weight: 600;">Happier clients</div>
+            <div class="title-line" style="font-size: 1.125em; font-weight: 700;">Reliable delivery</div>
+            <div class="title-line" style="font-size: 1em; font-weight: 600;">Built for every sender</div>
           </h1>
-          <p class="tagline">Pay for sends, not contacts.</p>
+          <p class="tagline">Built for teams who care how their emails land.</p>
+
+          <div class="hero-highlights" role="list" aria-label="Key features">
+            <span class="highlight-item" role="listitem">Pay per send</span>
+            <span class="highlight-item" role="listitem">No contact-based billing</span>
+            <span class="highlight-item" role="listitem">3,000 free sends to start</span>
+          </div>
 
           <div>
             <v-btn
@@ -92,24 +98,6 @@ onUnmounted(() => {
             >
               <strong>Get Started for Free</strong>
             </v-btn>
-          </div>
-
-          <!-- Trust Indicators -->
-          <div class="trust-bar">
-            <div class="trust-item">
-              <div class="trust-number">100+</div>
-              <div class="trust-label">Agencies</div>
-            </div>
-            <div class="trust-divider"></div>
-            <div class="trust-item">
-              <div class="trust-number">10x</div>
-              <div class="trust-label">Faster</div>
-            </div>
-            <div class="trust-divider"></div>
-            <div class="trust-item">
-              <div class="trust-number">$0.001</div>
-              <div class="trust-label">Per Email</div>
-            </div>
           </div>
         </div>
 
@@ -149,8 +137,8 @@ onUnmounted(() => {
               </svg>
             </div>
             <div class="float-text">
-              <div class="float-title">Multiple clients?</div>
-              <div class="float-desc">Manage them easily</div>
+              <div class="float-title">Reusable themes</div>
+              <div class="float-desc">Brand once, send anywhere</div>
             </div>
           </div>
 
@@ -175,8 +163,8 @@ onUnmounted(() => {
               </svg>
             </div>
             <div class="float-text">
-              <div class="float-title">Design bottleneck?</div>
-              <div class="float-desc">10x faster production</div>
+              <div class="float-title">Visual editor</div>
+              <div class="float-desc">No hand-coding HTML</div>
             </div>
           </div>
 
@@ -394,48 +382,29 @@ html.dark .cta-button:hover {
   box-shadow: 0 12px 32px rgba(19, 176, 238, 0.45) !important;
 }
 
-/* Trust Bar */
-.trust-bar {
+/* Hero Highlights (signature pills) */
+.hero-highlights {
   display: flex;
-  align-items: center;
-  gap: 32px;
-  margin-top: 48px;
-  opacity: 0;
-  animation: fadeIn 0.6s ease-out 1.4s forwards;
   flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out 1.1s forwards;
 }
 
-.trust-item {
-  text-align: center;
+.highlight-item {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(19, 176, 238, 0.12);
+  color: #0e7490;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-.trust-number {
-  font-size: clamp(24px, 3vw, 28px);
-  font-weight: 800;
-  color: #13B0EE;
-  margin-bottom: 4px;
-}
-
-.trust-label {
-  font-size: clamp(11px, 1.5vw, 13px);
-  color: #6b7280;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-html.dark .trust-label {
-  color: #9ca3af;
-}
-
-.trust-divider {
-  width: 1px;
-  height: 40px;
-  background: #d1d5db;
-}
-
-html.dark .trust-divider {
-  background: #374151;
+html.dark .highlight-item {
+  background: rgba(19, 176, 238, 0.2);
+  color: #67e8f9;
 }
 
 /* Right Visual */
@@ -809,7 +778,7 @@ a {
     margin: 0 auto;
   }
 
-  .trust-bar {
+  .hero-highlights {
     justify-content: center;
   }
 
@@ -875,21 +844,12 @@ a {
     margin-bottom: 20px;
   }
 
-  .trust-bar {
+  .hero-highlights {
     flex-direction: row;
-    gap: 16px;
-    margin-top: 32px;
+    gap: 8px;
+    margin-top: 18px;
     flex-wrap: wrap;
     justify-content: center;
-  }
-
-  .trust-divider {
-    display: none;
-  }
-  
-  .trust-item {
-    flex: 0 0 auto;
-    min-width: 80px;
   }
 
   .heroVisual {
@@ -1001,18 +961,11 @@ a {
     width: 200px;
   }
   
-  .trust-item {
-    min-width: 70px;
+  .highlight-item {
+    font-size: 11px;
+    padding: 5px 10px;
   }
-  
-  .trust-number {
-    font-size: 20px;
-  }
-  
-  .trust-label {
-    font-size: 10px;
-  }
-  
+
   .feature-float {
     transform: scale(0.65);
   }
@@ -1056,11 +1009,12 @@ a {
     margin-bottom: 8px;
   }
 
-  .trust-bar {
-    margin-top: 20px;
-    gap: 12px;
+  .hero-highlights {
+    margin-top: 14px;
+    gap: 6px;
   }
-  
+
+
   .heroVisual {
     height: 280px;
   }
