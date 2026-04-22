@@ -410,7 +410,7 @@ html.dark .final-cta p {
     padding: 48px 16px 64px;
   }
   .final-cta {
-    padding: 48px 16px 32px;
+    padding: 48px 16px 80px;
   }
 }
 
@@ -423,7 +423,7 @@ html.dark .final-cta p {
     padding: 36px 14px 48px;
   }
   .final-cta {
-    padding: 36px 14px 24px;
+    padding: 36px 14px 64px;
   }
 
   .hero-cta,

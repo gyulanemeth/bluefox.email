@@ -155,8 +155,8 @@ html.dark .title {
 .heroIllustration {
   position: relative;
   width: 100%;
-  max-width: 520px;
-  height: 480px;
+  max-width: clamp(280px, 45vw, 520px);
+  height: clamp(320px, 45vw, 480px);
   margin-left: auto;
   justify-self: end;
 }
@@ -185,15 +185,15 @@ html.dark .title {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 18px 28px;
+  padding: clamp(10px, 2vw, 18px) clamp(14px, 3vw, 28px);
   background: linear-gradient(135deg, #232f3e 0%, #131a26 100%);
   border-radius: 14px;
   box-shadow: 0 18px 40px -16px rgba(15, 23, 42, 0.45), 0 4px 12px -4px rgba(15, 23, 42, 0.2);
-  min-width: 180px;
+  min-width: clamp(108px, 16vw, 180px);
 }
 
 .sesLabel {
-  font-size: 11px;
+  font-size: clamp(9px, 1vw, 11px);
   font-weight: 800;
   letter-spacing: 0.18em;
   color: #ff9900;
@@ -202,7 +202,7 @@ html.dark .title {
 }
 
 .sesName {
-  font-size: 18px;
+  font-size: clamp(13px, 1.8vw, 18px);
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.01em;
@@ -213,7 +213,7 @@ html.dark .title {
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  padding: 8px 14px;
+  padding: clamp(5px, 0.9vw, 8px) clamp(9px, 1.4vw, 14px);
   background: #ffffff;
   border-radius: 10px;
   box-shadow: 0 6px 18px -8px rgba(15, 23, 42, 0.25);
@@ -224,7 +224,7 @@ html.dark .sesPrice {
 }
 
 .priceTop {
-  font-size: 10px;
+  font-size: clamp(9px, 1vw, 10px);
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -232,7 +232,7 @@ html.dark .sesPrice {
 }
 
 .priceBottom {
-  font-size: 14px;
+  font-size: clamp(11px, 1.4vw, 14px);
   font-weight: 700;
   color: #16a34a;
   font-variant-numeric: tabular-nums;
@@ -243,11 +243,11 @@ html.dark .sesPrice {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, calc(-50% - 130px));
-  padding: 6px 16px;
+  transform: translate(-50%, calc(-50% - clamp(90px, 13vw, 130px)));
+  padding: clamp(4px, 0.7vw, 6px) clamp(10px, 1.6vw, 16px);
   background: linear-gradient(120deg, #392c91 5%, #13b0ee);
   color: #ffffff;
-  font-size: 12px;
+  font-size: clamp(10px, 1.1vw, 12px);
   font-weight: 700;
   letter-spacing: 0.08em;
   border-radius: 999px;
@@ -261,12 +261,12 @@ html.dark .sesPrice {
   position: absolute;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
+  gap: clamp(6px, 0.9vw, 8px);
+  padding: clamp(6px, 1vw, 10px) clamp(9px, 1.4vw, 14px);
   background: #ffffff;
   border-radius: 12px;
   box-shadow: 0 8px 24px -10px rgba(15, 23, 42, 0.18), 0 2px 6px -2px rgba(15, 23, 42, 0.08);
-  font-size: 13px;
+  font-size: clamp(10px, 1.3vw, 13px);
   font-weight: 600;
   color: #0f172a;
   white-space: nowrap;
@@ -282,8 +282,8 @@ html.dark .featChip {
 }
 
 .featDot {
-  width: 8px;
-  height: 8px;
+  width: clamp(6px, 0.9vw, 8px);
+  height: clamp(6px, 0.9vw, 8px);
   border-radius: 50%;
   background: linear-gradient(135deg, #13b0ee, #392c91);
   flex-shrink: 0;
@@ -295,6 +295,14 @@ html.dark .featChip {
 .feat--lists       { top: 44%; right: -4%; }
 .feat--analytics   { bottom: 8%; left: 6%; }
 .feat--webhooks    { bottom: 4%; right: 4%; }
+
+.feat--automation,
+.feat--lists {
+  max-width: clamp(90px, 18vw, 160px);
+  white-space: normal;
+  line-height: 1.25;
+  padding: clamp(6px, 1vw, 10px) clamp(8px, 1.2vw, 12px);
+}
 
 @keyframes floatY {
   0%, 100% { transform: translateY(0); }
@@ -308,11 +316,6 @@ html.dark .featChip {
 @media (max-width: 1024px) {
   .heroMain {
     gap: 32px;
-  }
-
-  .heroIllustration {
-    max-width: 440px;
-    height: 420px;
   }
 }
 
@@ -332,6 +335,8 @@ html.dark .featChip {
   .heroIllustration {
     margin: 0 auto;
     justify-self: center;
+    max-width: clamp(300px, 70vw, 480px);
+    height: clamp(320px, 70vw, 460px);
   }
 }
 
@@ -346,31 +351,21 @@ html.dark .featChip {
   }
 
   .tagline {
-    font-size: 16px;
+    font-size: clamp(14px, 3.2vw, 17px);
   }
 
   .tagline2 {
-    font-size: 14px;
+    font-size: clamp(13px, 2.8vw, 15px);
   }
+}
 
-  .heroIllustration {
-    max-width: 380px;
-    height: 380px;
-  }
-
-  .featChip {
-    font-size: 11px;
-    padding: 8px 12px;
-  }
-
-  .sesBadge {
-    min-width: 150px;
-    padding: 14px 22px;
-  }
-
-  .sesName {
-    font-size: 16px;
-  }
+@media (max-width: 600px) {
+  .feat--editor      { top: 10%; left: 0; }
+  .feat--templates   { top: 8%;  right: 0; }
+  .feat--automation  { top: 38%; left: -4%; }
+  .feat--lists       { top: 40%; right: -4%; }
+  .feat--analytics   { bottom: 10%; left: 2%; }
+  .feat--webhooks    { bottom: 6%;  right: 2%; }
 }
 
 @media (max-width: 480px) {
@@ -383,20 +378,7 @@ html.dark .featChip {
     justify-content: center;
   }
 
-  .heroIllustration {
-    max-width: 320px;
-    height: 340px;
-  }
-
-  .featChip {
-    font-size: 10px;
-    padding: 6px 10px;
-    gap: 6px;
-  }
-
-  .featDot {
-    width: 6px;
-    height: 6px;
-  }
+  .feat--automation { left: -6%; }
+  .feat--lists      { right: -6%; }
 }
 </style>
