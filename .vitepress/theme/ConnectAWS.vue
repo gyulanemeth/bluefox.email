@@ -72,11 +72,34 @@ html.dark .connectCard:hover {
 }
 
 .connectCard--featured {
-  background: linear-gradient(180deg, rgba(19, 176, 238, 0.05), rgba(57, 44, 145, 0.02));
+  border: 2px solid transparent;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(120deg, #392c91 5%, #13b0ee) border-box;
+  box-shadow:
+    0 4px 10px -2px rgba(57, 44, 145, 0.2),
+    0 16px 32px -12px rgba(19, 176, 238, 0.3);
+}
+
+.connectCard--featured:hover {
+  box-shadow:
+    0 6px 14px -2px rgba(57, 44, 145, 0.28),
+    0 22px 40px -14px rgba(19, 176, 238, 0.4);
 }
 
 html.dark .connectCard--featured {
-  background: linear-gradient(180deg, rgba(19, 176, 238, 0.08), rgba(138, 126, 216, 0.04));
+  background:
+    linear-gradient(#0f172a, #0f172a) padding-box,
+    linear-gradient(120deg, #8a7ed8 5%, #13b0ee) border-box;
+  box-shadow:
+    0 4px 10px -2px rgba(138, 126, 216, 0.25),
+    0 16px 32px -12px rgba(19, 176, 238, 0.35);
+}
+
+html.dark .connectCard--featured:hover {
+  box-shadow:
+    0 6px 14px -2px rgba(138, 126, 216, 0.35),
+    0 22px 40px -14px rgba(19, 176, 238, 0.5);
 }
 
 .featuredBadge {

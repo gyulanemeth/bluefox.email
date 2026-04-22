@@ -1,5 +1,6 @@
 ---
 layout: home
+pageClass: ses-landing
 
 title: Supercharge Your Amazon SES with BlueFox Email
 description: Keep SES as your sender. Get the editor, automations, list management, and analytics SES is missing. Connect in minutes.

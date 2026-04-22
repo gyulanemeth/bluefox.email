@@ -291,8 +291,7 @@ html.dark .stripe--blue {
 }
 
 .final-cta {
-  padding: 64px 24px 40px;
-  margin-bottom: -3rem;
+  padding: 64px 24px 96px;
 }
 
 .section-title,

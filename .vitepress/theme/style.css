@@ -181,3 +181,18 @@ html {
 .DocSearch {
   --docsearch-primary-color: var(--vp-c-brand) !important;
 }
+/**
+ * Page: SES landing — no gap between final CTA and footer
+ * -------------------------------------------------------------------------- */
+
+.Layout.ses-landing .VPHome {
+  margin-bottom: 0 !important;
+}
+
+.Layout.ses-landing .VPContent {
+  padding-bottom: 0 !important;
+}
+
+.Layout.ses-landing .custom-footer {
+  margin-top: 0 !important;
+}
