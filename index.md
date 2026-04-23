@@ -38,66 +38,19 @@ head:
 ---
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
 
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
-import BrandLogos from './.vitepress/theme/BrandLogos.vue'
-import DesignSystem from './.vitepress/theme/DesignSystem.vue'
-import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
 import Automation from './.vitepress/theme/Automation.vue'
 import Integration from './.vitepress/theme/Integration.vue'
 import AppleMailTestimonials from './.vitepress/theme/AppleMailTestimonials.vue'
 import TemplateShowcase from './.vitepress/theme/TemplateShowcase.vue'
+import Segmentation from './.vitepress/theme/Segmentation.vue'
 import AgencyAnalytics from './for/marketing-agencies/AgencyAnalytics.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
-
-const shouldLoadEditorVideo = ref(false)
-const editorVideoContainer = ref(null)
-let editorVideoObserver
-
-function getObserverTarget(target) {
-  if (!target || typeof window === 'undefined') {
-    return null
-  }
-  const resolvedTarget = target.$el || target
-  return resolvedTarget instanceof window.Element ? resolvedTarget : null
-}
-
-onMounted(() => {
-  if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
-    shouldLoadEditorVideo.value = true
-    return
-  }
-
-  const observerTarget = getObserverTarget(editorVideoContainer.value)
-
-  if (!observerTarget) {
-    shouldLoadEditorVideo.value = true
-    return
-  }
-
-  editorVideoObserver = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        shouldLoadEditorVideo.value = true
-        editorVideoObserver.disconnect()
-      }
-    },
-    { rootMargin: '200px 0px' }
-  )
-
-  editorVideoObserver.observe(observerTarget)
-})
-
-onBeforeUnmount(() => {
-  if (editorVideoObserver) {
-    editorVideoObserver.disconnect()
-  }
-})
 </script>
 
 <style scoped>
@@ -406,6 +359,24 @@ onBeforeUnmount(() => {
     color: #9ca3af;
   }
 
+  .segmentation-section {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .segmentation-intro {
+    max-width: 760px;
+    margin: 20px auto 36px;
+    text-align: center;
+    color: #4b5563;
+    line-height: 1.7;
+    font-size: 17px;
+  }
+
+  html.dark .segmentation-intro {
+    color: #9ca3af;
+  }
+
   /* Homepage-only: center AgencyAnalytics header to match other sections */
   .home-analytics :deep(.analytics-head) {
     text-align: center;
@@ -446,7 +417,7 @@ onBeforeUnmount(() => {
   }
 
   .cta-title {
-    font-size: clamp(32px, 5vw, 48px);
+    font-size: 30px;
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 24px;
@@ -468,7 +439,7 @@ onBeforeUnmount(() => {
   }
 
   .cta-description {
-    font-size: clamp(16px, 2vw, 19px);
+    font-size: 17px;
     color: #4b5563;
     line-height: 1.7;
     margin: 0 auto 48px;
@@ -612,10 +583,10 @@ onBeforeUnmount(() => {
     border-top: 0 !important;
     padding-top: 0 !important;
     margin: 0 0 20px;
-    font-size: clamp(36px, 5vw, 56px);
-    line-height: 1.1;
+    font-size: 30px;
+    line-height: 1.2;
     font-weight: 800;
-    letter-spacing: -1.5px;
+    letter-spacing: -0.5px;
     background: linear-gradient(135deg, #1f2937 0%, #392C91 100%);
     background-clip: text;
     -webkit-background-clip: text;
@@ -633,7 +604,7 @@ onBeforeUnmount(() => {
     max-width: 720px;
     margin: 0 auto;
     color: #6b7280;
-    font-size: clamp(16px, 1.8vw, 18px);
+    font-size: 17px;
     line-height: 1.7;
   }
 
@@ -681,9 +652,21 @@ onBeforeUnmount(() => {
       align-items: center;
     }
 
+    .founder-title {
+      font-size: 26px;
+    }
+
+    .cta-title {
+      font-size: 26px;
+    }
+
     .founder-description {
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.7;
+    }
+
+    .cta-description {
+      font-size: 15px;
     }
 
     .founder-photo-wrap {
@@ -790,7 +773,7 @@ onBeforeUnmount(() => {
   }
 </style>
 
-<!-- 1. HERO - First impression with value proposition -->
+<!-- 1. HERO -->
 <main id="hero">
   <HeroUnit />
 </main>
@@ -824,87 +807,40 @@ onBeforeUnmount(() => {
     </v-btn>
   </div>
 </section>
-
 </div></div>
 
-<!-- 3. SOCIAL PROOF - Build trust early -->
+<!-- 3. SEGMENTATION -->
 <div class="stripe stripe--blue"><div class="stripe-inner">
-<section role="region" aria-labelledby="testimonials-heading">
-  <h2 id="testimonials-heading" class="sectionTitle text-center mt-4 mb-6">
-    What teams say about BlueFox Email
+<section class="section-index segmentation-section" role="region" aria-labelledby="segmentation-heading">
+  <h2 id="segmentation-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
+    Target the right contacts with segments
   </h2>
-  <AppleMailTestimonials
+  <p class="segmentation-intro">
+    Build AND/OR condition filters on any contact property or engagement signal. See matching contacts update live, then apply the segment to campaigns and automations.
+  </p>
+  <Segmentation
     :is-dark="isDark"
     :lg-and-up="lgAndUp"
     :md="md"
     :sm="sm"
     :xs="xs"
   />
-</section>
-</div></div>
-
-<!-- 4. BRAND LOGOS - Trust indicators -->
-<div class="stripe stripe--white"><div class="stripe-inner">
-<section aria-labelledby="brand-logos-heading">
-  <BrandLogos />
-</section>
-</div></div>
-
-<!-- 5. SOLUTION: Design System -->
-<div class="stripe stripe--blue"><div class="stripe-inner">
-<section id="design-system" class="section-index" role="region" aria-labelledby="design-system-heading">
-  <div class="d-flex justify-center">
-    <v-chip color="primary" aria-label="Design system badge">
-      <span class="text-overline">Design System</span>
-    </v-chip>
-  </div>
-  <h2 id="design-system-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Build your theme once, reuse it everywhere
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Define brand colors, typography, and components once. Every template, campaign, and transactional email stays on-brand. Update the theme, and every email updates with it.
-    </div>
-  </div>
-
-  <DesignSystem
-    class="mt-6"
-    :is-dark="isDark"
-  />
-</section>
-</div></div>
-
-<!-- 6. SOLUTION: Visual Editor -->
-<div class="stripe stripe--white"><div class="stripe-inner">
-<section id="marketers" class="value-prop" role="region" aria-labelledby="email-editor-heading">
-  <h2 id="email-editor-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Design emails visually, render them reliably
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      A drag-and-drop editor that outputs HTML tested against Gmail, Outlook, Apple Mail, and mobile clients. No hand-coded tables, no rendering surprises.
-    </div>
-  </div>
-  <v-card ref="editorVideoContainer" class="d-flex justify-center mt-4" variant="elevated" role="region" aria-label="Editor demo video">
-    <video
-      width="100%"
-      :autoplay="(lgAndUp || md) && shouldLoadEditorVideo"
-      :loop="(lgAndUp || md) && shouldLoadEditorVideo"
-      :controls="sm || xs"
-      muted
-      preload="none"
+  <div class="d-flex justify-center mt-6">
+    <v-btn
+      size="large"
+      color="primary"
+      variant="flat"
+      href="/docs/projects/segments"
+      aria-label="Read segments documentation"
     >
-      <source v-if="shouldLoadEditorVideo" src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
-      <!-- Captions track so accessibility audit picks up subtitles -->
-      <track kind="captions" src="/assets/captions/email-editor-intro-en.vtt" srclang="en" label="English captions" default>
-      Your browser does not support the video tag.
-    </video>
-  </v-card>
+      Read Segments Docs
+    </v-btn>
+  </div>
 </section>
 </div></div>
 
-<!-- 7. SOLUTION: Automation -->
-<div class="stripe stripe--blue"><div class="stripe-inner">
+<!-- 4. AUTOMATION -->
+<div class="stripe stripe--white"><div class="stripe-inner">
 <section class="value-prop" role="region" aria-labelledby="automation-heading">
   <h2 id="automation-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
     Automate the sequences that matter
@@ -926,20 +862,13 @@ onBeforeUnmount(() => {
 </section>
 </div></div>
 
-<!-- 8. SOLUTION: Rendering -->
-<div class="stripe stripe--white"><div class="stripe-inner">
-<section id="no-rendering-issues" class="value-prop" role="region" aria-labelledby="rendering-heading">
-  <h2 id="rendering-heading" class="sectionTitle text-center mb-3">
-    Consistent rendering across every major client
+<!-- 5. TESTIMONIALS -->
+<div class="stripe stripe--blue"><div class="stripe-inner">
+<section role="region" aria-labelledby="testimonials-heading">
+  <h2 id="testimonials-heading" class="sectionTitle text-center mt-4 mb-6">
+    What teams say about BlueFox Email
   </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Gmail, Outlook (2016 onward), Apple Mail, mobile, and dark mode. The generated HTML is tested against the clients your recipients actually use.
-    </div>
-  </div>
-
-  <RenderingIssues
-    class="mt-6"
+  <AppleMailTestimonials
     :is-dark="isDark"
     :lg-and-up="lgAndUp"
     :md="md"
@@ -949,35 +878,18 @@ onBeforeUnmount(() => {
 </section>
 </div></div>
 
-<!-- 9. SOLUTION: List Management & Compliance -->
-<div class="stripe stripe--blue"><div class="stripe-inner">
-<section class="section-index value-prop" role="region" aria-labelledby="list-management-heading">
-  <h2 id="list-management-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Compliant list management out of the box
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Double opt-in, one-click unsubscribe, subscription preferences, and automated suppression lists. Stay aligned with GDPR, CAN-SPAM, and the current Gmail and Yahoo sender requirements.
-    </div>
-  </div>
-  <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="List management dashboard screenshot">
-    <img alt="List management dashboard showing compliance features including double opt-in, unsubscribe management, and automated suppression lists" src="/assets/list-management.webp" loading="lazy" width="1920" height="1080" />
-  </v-card>
-</section>
-</div></div>
-
-<!-- 10. SOLUTION: Analytics -->
+<!-- 6. ANALYTICS -->
 <div class="stripe stripe--white"><div class="stripe-inner">
 <section class="value-prop home-analytics" role="region" aria-labelledby="analytics-heading">
   <AgencyAnalytics
     title="Analytics that show what happened"
     description="Delivery, opens, clicks, bounces, and subscription trends. Switch between hourly, daily, weekly, and monthly views. Export when you need to share."
-    default-tab="daily"
+    default-tab="hourly"
   />
 </section>
 </div></div>
 
-<!-- 12. INTEGRATIONS - Connect with your stack -->
+<!-- 7. INTEGRATIONS -->
 <div class="stripe stripe--blue"><div class="stripe-inner">
 <section class="value-prop" role="region" aria-labelledby="integrations-heading">
   <h2 id="integrations-heading" class="visually-hidden">Platform integrations</h2>
@@ -985,7 +897,7 @@ onBeforeUnmount(() => {
 </section>
 </div></div>
 
-<!-- 13. FOUNDER EXPERIENCE -->
+<!-- 8. FOUNDER -->
 <div class="stripe stripe--white"><div class="stripe-inner">
 <section class="founder-section" role="region" aria-labelledby="founder-heading">
   <div class="founder-inner">
@@ -1015,42 +927,8 @@ onBeforeUnmount(() => {
 </section>
 </div></div>
 
-<!-- PERSONA HUB - Route to persona-specific landing pages -->
+<!-- 9. FINAL CTA -->
 <div class="stripe stripe--blue"><div class="stripe-inner">
-<section class="section-index persona-hub" role="region" aria-labelledby="persona-hub-heading">
-  <h2 id="persona-hub-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Find the setup that fits how you send
-  </h2>
-  <p class="persona-hub-intro">
-    BlueFox Email works for marketing agencies, SaaS teams, occasional senders, and Amazon SES operators. Pick the path closest to your workflow.
-  </p>
-  <div class="persona-grid">
-    <a href="/for/marketing-agencies" class="persona-card">
-      <div class="persona-card-title">Marketing agencies</div>
-      <div class="persona-card-desc">Multi-client projects, clone flows across accounts, per-project reporting.</div>
-      <span class="persona-card-link">See agency setup →</span>
-    </a>
-    <a href="/for/saas-users" class="persona-card">
-      <div class="persona-card-title">SaaS teams</div>
-      <div class="persona-card-desc">Transactional, triggered, and lifecycle emails through a single API.</div>
-      <span class="persona-card-link">See SaaS setup →</span>
-    </a>
-    <a href="/for/occasional-senders" class="persona-card">
-      <div class="persona-card-title">Occasional senders</div>
-      <div class="persona-card-desc">No subscription. Buy credits, send when you need to, and they stay valid for 12 months.</div>
-      <span class="persona-card-link">See occasional setup →</span>
-    </a>
-    <a href="/for/amazon-ses-users" class="persona-card">
-      <div class="persona-card-title">Amazon SES users</div>
-      <div class="persona-card-desc">Keep your SES account. Add design, automation, list management, and analytics on top.</div>
-      <span class="persona-card-link">See SES setup →</span>
-    </a>
-  </div>
-</section>
-</div></div>
-
-<!-- 14. FINAL CTA -->
-<div class="stripe stripe--white"><div class="stripe-inner">
 <section id="second-cta" class="final-cta-section" role="region" aria-labelledby="final-cta-heading">
   <div class="cta-container">
     <div class="cta-badge-wrapper">

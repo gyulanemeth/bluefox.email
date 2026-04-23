@@ -1,6 +1,7 @@
 <script setup>
 import { useData } from 'vitepress'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import BrandLogos from './BrandLogos.vue'
 
 const { isDark } = useData()
 
@@ -183,6 +184,11 @@ onUnmounted(() => {
         </div>
       </div>
     </div>
+
+    <!-- Brand logos marquee inside hero -->
+    <div class="hero-marquee">
+      <BrandLogos />
+    </div>
   </div>
 </template>
 
@@ -191,7 +197,7 @@ onUnmounted(() => {
   margin-top: calc((var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) * -1);
   min-height: 100vh;
   height: auto;
-  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 80px) 64px 80px;
+  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 48px) 64px 32px;
   position: relative;
   left: calc(-50vw + 50%);
   width: 100vw;
@@ -244,7 +250,7 @@ html.dark .grid-overlay {
 
 /* Main Layout */
 .heroMain {
-  min-height: calc(100vh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px) - 160px);
+  min-height: calc(100vh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px) - 320px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -280,9 +286,9 @@ html.dark .grid-overlay {
 }
 
 .title {
-  font-size: clamp(32px, 5vw, 56px);
-  line-height: 1.2;
-  margin-bottom: 24px;
+  font-size: clamp(26px, 3.8vw, 42px);
+  line-height: 1.15;
+  margin-bottom: 18px;
 }
 
 .title-line {
@@ -410,7 +416,7 @@ html.dark .highlight-item {
 /* Right Visual */
 .heroVisual {
   position: relative;
-  height: 500px;
+  height: 380px;
   transform: translate(var(--parallax-main-x, 0), var(--parallax-main-y, 0));
   transition: transform 0.1s ease-out;
   opacity: 0;
@@ -434,7 +440,7 @@ html.dark .highlight-item {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 320px;
+  width: 260px;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   border-radius: 16px;
@@ -1038,6 +1044,30 @@ a {
   
   .feature-float.bottom-right {
     transform: scale(0.7);
+  }
+}
+
+/* Brand logos marquee inside hero */
+.hero-marquee {
+  position: relative;
+  z-index: 3;
+  margin: 0 -64px;
+  padding: 56px 0 24px;
+}
+.hero-marquee :deep(.brand-logos-intro) { display: none; }
+.hero-marquee :deep(.logos-carousel) { padding: 0; }
+.hero-marquee :deep(.logos-carousel::before),
+.hero-marquee :deep(.logos-carousel::after) {
+  background: linear-gradient(to right, var(--vp-c-bg) 0%, transparent 100%);
+}
+.hero-marquee :deep(.logos-carousel::after) {
+  background: linear-gradient(to left, var(--vp-c-bg) 0%, transparent 100%);
+}
+
+@media (max-width: 768px) {
+  .hero-marquee {
+    margin: 0 -24px;
+    padding: 20px 0 4px;
   }
 }
 </style>
