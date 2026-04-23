@@ -196,3 +196,5 @@ html {
 .Layout.ses-landing .custom-footer {
   margin-top: 0 !important;
 }
+
+.stripe--flush + * { margin-top: 0 !important; }

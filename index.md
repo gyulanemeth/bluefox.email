@@ -754,6 +754,8 @@ const { isDark } = useData()
     padding: 88px 24px;
   }
 
+  .stripe--flush { margin-bottom: 0 !important; }
+
   @media (max-width: 960px) {
     .stripe-inner {
       padding: 64px 24px;
@@ -928,7 +930,7 @@ const { isDark } = useData()
 </div></div>
 
 <!-- 9. FINAL CTA -->
-<div class="stripe stripe--blue"><div class="stripe-inner">
+<div class="stripe stripe--blue stripe--flush"><div class="stripe-inner stripe-inner--flush">
 <section id="second-cta" class="final-cta-section" role="region" aria-labelledby="final-cta-heading">
   <div class="cta-container">
     <div class="cta-badge-wrapper">
