@@ -17,7 +17,7 @@ head:
       content: "Keep SES as your sender. Get the editor, automations, list management, and analytics SES is missing. Connect in minutes."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/share-amazon-ses.png
+      content: https://bluefox.email/assets/bluefoxemailforawsses.png
   - - meta
     - property: og:url
       content: https://bluefox.email/for/amazon-ses-users
@@ -35,7 +35,7 @@ head:
       content: "Keep SES as your sender. Get the editor, automations, list management, and analytics SES is missing. Connect in minutes."
   - - meta
     - name: twitter:image
-      content: https://bluefox.email/assets/share-amazon-ses.png
+      content: https://bluefox.email/assets/bluefoxemailforawsses.png
 ---
 
 <script setup>
