@@ -147,7 +147,7 @@ When importing contacts, the CSV file must contain an `email` column. Additional
 
 ![Screenshot of the subscriber lists page - import or export CSV](./project-contacts-import.webp)
 
-### Importing/Exporting Contacts to a specific List
+## Importing/Exporting Contacts to/from a specific List
 
 When you choose to import contacts into a specific subscription list, the system will automatically subscribe those contacts to that list.
 
