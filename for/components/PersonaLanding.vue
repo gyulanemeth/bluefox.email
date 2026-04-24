@@ -48,9 +48,11 @@ defineProps({
   analyticsStripe: { type: String, default: 'white' },
   integrationsStripe: { type: String, default: 'blue' },
   bottomStripe: { type: String, default: 'white' },
+  extraStripe: { type: String, default: 'blue' },
   finalCtaStripe: { type: String, default: 'blue' },
   deliverabilityStripe: { type: String, default: 'blue' },
-  showAnalytics: { type: Boolean, default: true }
+  showAnalytics: { type: Boolean, default: true },
+  showHero: { type: Boolean, default: true }
 })
 
 const { lgAndUp, md, sm, xs } = useDisplay()
@@ -59,6 +61,7 @@ const { isDark } = useData()
 
 <template>
   <PersonaHero
+    v-if="showHero"
     :badge="heroBadge"
     :title="heroTitle"
     :description="heroDescription"
@@ -201,6 +204,13 @@ const { isDark } = useData()
     </div>
   </div>
 
+  <!-- 10b. Extra slot -->
+  <div v-if="$slots.extra" class="stripe" :class="`stripe--${extraStripe}`">
+    <div class="stripe-inner persona-slot" aria-label="Extra section">
+      <slot name="extra" />
+    </div>
+  </div>
+
   <!-- 11. Final CTA -->
   <div class="stripe" :class="`stripe--${finalCtaStripe}`">
     <section class="stripe-inner final-cta" aria-labelledby="final-cta-title">
@@ -281,8 +291,7 @@ html.dark .stripe--blue {
 }
 
 .final-cta {
-  padding: 64px 24px 40px;
-  margin-bottom: -3rem;
+  padding: 64px 24px 96px;
 }
 
 .section-title,
@@ -401,7 +410,7 @@ html.dark .final-cta p {
     padding: 48px 16px 64px;
   }
   .final-cta {
-    padding: 48px 16px 32px;
+    padding: 48px 16px 80px;
   }
 }
 
@@ -414,7 +423,7 @@ html.dark .final-cta p {
     padding: 36px 14px 48px;
   }
   .final-cta {
-    padding: 36px 14px 24px;
+    padding: 36px 14px 64px;
   }
 
   .hero-cta,
