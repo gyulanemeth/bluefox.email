@@ -1,7 +1,7 @@
 ---
 layout: home
 
-title: BlueFox Email — Reliable email for every sender
+title: BlueFox Email, Reliable email for every sender
 description: Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours.
 
 head:
@@ -10,7 +10,7 @@ head:
       content: "Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours."
   - - meta
     - property: og:title
-      content: BlueFox Email — Reliable email for every sender
+      content: BlueFox Email, Reliable email for every sender
   - - meta
     - property: og:description
       content: "Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours."
@@ -28,7 +28,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: BlueFox Email — Reliable email for every sender
+      content: BlueFox Email, Reliable email for every sender
   - - meta
     - name: twitter:description
       content: "Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours."
@@ -48,6 +48,7 @@ import AppleMailTestimonials from './.vitepress/theme/AppleMailTestimonials.vue'
 import TemplateShowcase from './.vitepress/theme/TemplateShowcase.vue'
 import Segmentation from './.vitepress/theme/Segmentation.vue'
 import AgencyAnalytics from './for/marketing-agencies/AgencyAnalytics.vue'
+import PricingIllustration from './.vitepress/theme/PricingIllustration.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -751,26 +752,38 @@ const { isDark } = useData()
   .stripe-inner {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 88px 24px;
+    padding: 72px 24px;
   }
 
   .stripe--flush { margin-bottom: 0 !important; }
+  .stripe-inner--flush { padding-bottom: 24px !important; }
+
+  .stripe--integrations .stripe-inner { padding: 56px 24px; }
+  @media (max-width: 960px) {
+    .stripe--integrations .stripe-inner { padding: 44px 24px; }
+  }
+  @media (max-width: 760px) {
+    .stripe--integrations .stripe-inner { padding: 36px 16px; }
+  }
+  @media (max-width: 599px) {
+    .stripe--integrations .stripe-inner { padding: 32px 16px; }
+  }
 
   @media (max-width: 960px) {
     .stripe-inner {
-      padding: 64px 24px;
+      padding: 56px 24px;
     }
   }
 
   @media (max-width: 760px) {
     .stripe-inner {
-      padding: 56px 16px;
+      padding: 48px 16px;
     }
   }
 
   @media (max-width: 599px) {
     .stripe-inner {
-      padding: 48px 16px;
+      padding: 40px 16px;
     }
   }
 </style>
@@ -815,10 +828,10 @@ const { isDark } = useData()
 <div class="stripe stripe--blue"><div class="stripe-inner">
 <section class="section-index segmentation-section" role="region" aria-labelledby="segmentation-heading">
   <h2 id="segmentation-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Target the right contacts with segments
+    Send the right message to the right people
   </h2>
   <p class="segmentation-intro">
-    Build AND/OR condition filters on any contact property or engagement signal. See matching contacts update live, then apply the segment to campaigns and automations.
+    Filter contacts by behavior, plan, activity, or any property you've collected. We deliver only to those who match, higher engagement, less waste, more revenue per send.
   </p>
   <Segmentation
     :is-dark="isDark"
@@ -861,11 +874,33 @@ const { isDark } = useData()
     :sm="sm"
     :xs="xs"
   />
+  <div class="d-flex justify-center mt-6">
+    <v-btn
+      size="large"
+      color="primary"
+      variant="flat"
+      href="/docs/projects/automations"
+      aria-label="Read automations documentation"
+    >
+      Read Automations Docs
+    </v-btn>
+  </div>
 </section>
 </div></div>
 
-<!-- 5. TESTIMONIALS -->
+<!-- 5. ANALYTICS -->
 <div class="stripe stripe--blue"><div class="stripe-inner">
+<section class="value-prop home-analytics" role="region" aria-labelledby="analytics-heading">
+  <AgencyAnalytics
+    title="Analytics that show what happened"
+    description="Delivery, opens, clicks, bounces, and subscription trends. Switch between hourly, daily, weekly, and monthly views. Export when you need to share."
+    default-tab="hourly"
+  />
+</section>
+</div></div>
+
+<!-- 6. TESTIMONIALS -->
+<div class="stripe stripe--white"><div class="stripe-inner">
 <section role="region" aria-labelledby="testimonials-heading">
   <h2 id="testimonials-heading" class="sectionTitle text-center mt-4 mb-6">
     What teams say about BlueFox Email
@@ -880,19 +915,8 @@ const { isDark } = useData()
 </section>
 </div></div>
 
-<!-- 6. ANALYTICS -->
-<div class="stripe stripe--white"><div class="stripe-inner">
-<section class="value-prop home-analytics" role="region" aria-labelledby="analytics-heading">
-  <AgencyAnalytics
-    title="Analytics that show what happened"
-    description="Delivery, opens, clicks, bounces, and subscription trends. Switch between hourly, daily, weekly, and monthly views. Export when you need to share."
-    default-tab="hourly"
-  />
-</section>
-</div></div>
-
 <!-- 7. INTEGRATIONS -->
-<div class="stripe stripe--blue"><div class="stripe-inner">
+<div class="stripe stripe--blue stripe--integrations"><div class="stripe-inner">
 <section class="value-prop" role="region" aria-labelledby="integrations-heading">
   <h2 id="integrations-heading" class="visually-hidden">Platform integrations</h2>
   <Integration :is-dark="isDark" />
@@ -929,37 +953,9 @@ const { isDark } = useData()
 </section>
 </div></div>
 
-<!-- 9. FINAL CTA -->
+<!-- 9. PRICING ILLUSTRATION -->
 <div class="stripe stripe--blue stripe--flush"><div class="stripe-inner stripe-inner--flush">
-<section id="second-cta" class="final-cta-section" role="region" aria-labelledby="final-cta-heading">
-  <div class="cta-container">
-    <div class="cta-badge-wrapper">
-      <v-chip color="primary" size="large" class="cta-badge" aria-label="Get started badge">
-        <span class="text-overline font-weight-bold">Start sending</span>
-      </v-chip>
-    </div>
-    <h2 id="final-cta-heading" class="cta-title">
-      Send your first campaign today
-    </h2>
-    <p class="cta-description">
-      Create a free account and send up to 3,000 emails per month for your first year. No credit card required, no subscription.
-    </p>
-    <div class="cta-button-wrapper">
-      <v-btn
-        size="x-large"
-        color="primary"
-        variant="flat"
-        class="cta-primary-button"
-        href="https://app.bluefox.email/accounts/create-account"
-        target="_blank"
-        aria-label="Create your free BlueFox Email account"
-      >
-        <strong>Create your free account</strong>
-      </v-btn>
-      <p class="cta-subtext">
-        No credit card required
-      </p>
-    </div>
-  </div>
+<section id="second-cta" role="region" aria-labelledby="pricing-illus-title">
+  <PricingIllustration />
 </section>
 </div></div>

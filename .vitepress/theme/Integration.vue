@@ -242,7 +242,7 @@ const integrations = [
 
 .section-header {
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 36px;
 }
 
 .section-title {
@@ -266,7 +266,7 @@ const integrations = [
 .carousel-container {
   position: relative;
   overflow: hidden;
-  padding: 20px 0;
+  padding: 8px 0;
 
   /* Gradient masks for fade effect */
   mask-image: linear-gradient(
@@ -500,7 +500,7 @@ html.dark .integration-badge.coming-soon {
 
 @media (max-width: 640px) {
   .section-header {
-    margin-bottom: 48px;
+    margin-bottom: 28px;
   }
 
   .carousel-container {
