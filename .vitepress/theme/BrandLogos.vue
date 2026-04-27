@@ -199,9 +199,9 @@ html.dark .brand-logos-subtitle {
 /* Track: make it pause on hover and focus-within for keyboard users */
 .logos-track {
   display: flex;
-  gap: 80px;
   animation: scroll 30s linear infinite;
-  width: fit-content;
+  width: max-content;
+  will-change: transform;
 }
 
 /* Pause animation on hover or keyboard focus inside */
@@ -235,6 +235,7 @@ html.dark .brand-logos-subtitle {
   min-width: 120px;
   height: 60px;
   padding: 0 20px;
+  margin-right: 80px;
 }
 
 .logo-item a {
@@ -306,7 +307,6 @@ html.dark .logo-image {
   }
 
   .logos-track {
-    gap: 60px;
     animation-duration: 25s;
   }
 
@@ -314,6 +314,7 @@ html.dark .logo-image {
     min-width: 100px;
     height: 50px;
     padding: 0 15px;
+    margin-right: 60px;
   }
 
   .logo-image {
@@ -338,7 +339,6 @@ html.dark .logo-image {
   }
 
   .logos-track {
-    gap: 40px;
     animation-duration: 20s;
   }
 
@@ -346,6 +346,7 @@ html.dark .logo-image {
     min-width: 80px;
     height: 40px;
     padding: 0 10px;
+    margin-right: 40px;
   }
 
   .logo-image {

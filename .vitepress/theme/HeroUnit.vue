@@ -76,9 +76,9 @@ onUnmounted(() => {
         <!-- Left Side: Content -->
         <div class="heroContent">
           <h1 class="title">
-            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Beautiful emails</div>
-            <div class="title-line" style="font-size: 1.125em; font-weight: 700;">Reliable delivery</div>
-            <div class="title-line" style="font-size: 1em; font-weight: 600;">Built for every sender</div>
+            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Every feature included</div>
+            <div class="title-line" style="font-size: 1.125em; font-weight: 700;">No tier traps</div>
+            <div class="title-line" style="font-size: 1em; font-weight: 600;">Pay per send</div>
           </h1>
           <p class="tagline">Built for teams who care how their emails land.</p>
 
@@ -102,85 +102,112 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <!-- Right Side: Interactive Visualization -->
+        <!-- Right Side: Email Orbit Visualization -->
         <div class="heroVisual">
-          <!-- Main Email Card -->
-          <div class="email-card main-card">
-            <div class="card-header">
-              <div class="header-bar"></div>
-              <div class="header-content">
-                <div class="brand-circle"></div>
-                <div class="brand-lines">
-                  <div class="brand-line"></div>
-                  <div class="brand-line short"></div>
-                </div>
+          <!-- Orbit rings + connection paths + data particles -->
+          <svg class="orbit-svg" viewBox="0 0 400 400" aria-hidden="true">
+            <defs>
+              <linearGradient id="orbitLineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#13B0EE" stop-opacity="0.6"/>
+                <stop offset="100%" stop-color="#392C91" stop-opacity="0.4"/>
+              </linearGradient>
+              <radialGradient id="orbitRingGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="60%" stop-color="#13B0EE" stop-opacity="0"/>
+                <stop offset="100%" stop-color="#13B0EE" stop-opacity="0.18"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Orbit rings (rotating) -->
+            <g class="orbit-rings">
+              <circle class="orbit-ring outer" cx="200" cy="200" r="170" fill="none" stroke="rgba(19,176,238,0.18)" stroke-width="1.2" stroke-dasharray="3 6"/>
+              <circle class="orbit-ring inner" cx="200" cy="200" r="120" fill="none" stroke="rgba(57,44,145,0.18)" stroke-width="1.2" stroke-dasharray="2 4"/>
+              <circle cx="200" cy="200" r="170" fill="url(#orbitRingGlow)"/>
+            </g>
+
+            <!-- Connection lines from center to satellites -->
+            <g class="connection-group">
+              <line class="conn-line c1" x1="200" y1="200" x2="60" y2="80" stroke="url(#orbitLineGradient)" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <line class="conn-line c2" x1="200" y1="200" x2="340" y2="80" stroke="url(#orbitLineGradient)" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <line class="conn-line c3" x1="200" y1="200" x2="60" y2="320" stroke="url(#orbitLineGradient)" stroke-width="1.5" stroke-dasharray="4 4"/>
+              <line class="conn-line c4" x1="200" y1="200" x2="340" y2="320" stroke="url(#orbitLineGradient)" stroke-width="1.5" stroke-dasharray="4 4"/>
+            </g>
+
+            <!-- Data flow particles travelling along lines -->
+            <g class="particles">
+              <circle class="particle p1" r="3" fill="#13B0EE"/>
+              <circle class="particle p2" r="3" fill="#13B0EE"/>
+              <circle class="particle p3" r="3" fill="#392C91"/>
+              <circle class="particle p4" r="3" fill="#392C91"/>
+            </g>
+          </svg>
+
+          <!-- Center email card -->
+          <div class="orbit-center" aria-hidden="true">
+            <div class="center-card">
+              <div class="center-pulse"></div>
+              <div class="center-icon">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+                  <rect x="2.5" y="5" width="19" height="14" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-            </div>
-            <div class="card-body">
-              <div class="content-block">
-                <div class="content-title"></div>
-                <div class="content-subtitle"></div>
-              </div>
-              <div class="content-grid">
-                <div class="grid-item"></div>
-                <div class="grid-item"></div>
-                <div class="grid-item"></div>
-              </div>
-              <div class="cta-block"></div>
+              <div class="center-label">Your email</div>
+              <div class="center-sub">One platform. Every lever.</div>
             </div>
           </div>
 
-          <!-- Floating Question Cards - Link to Solution Sections -->
-          <div class="feature-float top-left" @click="scrollToSection('design-system')">
-            <div class="float-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- 4 satellite cards -->
+          <div class="satellite sat-tl" @click="scrollToSection('templates-heading')">
+            <div class="sat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M3 9h18M9 3v18" stroke="currentColor" stroke-width="2"/>
               </svg>
             </div>
-            <div class="float-text">
-              <div class="float-title">Reusable themes</div>
-              <div class="float-desc">Brand once, send anywhere</div>
+            <div class="sat-text">
+              <div class="sat-title">Templates</div>
+              <div class="sat-desc">Sell sooner</div>
             </div>
           </div>
 
-          <div class="feature-float top-right" @click="scrollToSection('no-rendering-issues')">
-            <div class="float-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
-                <path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9 15l-2 2m8-2l2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <div class="satellite sat-tr" @click="scrollToSection('segmentation-heading')">
+            <div class="sat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
               </svg>
             </div>
-            <div class="float-text">
-              <div class="float-title">Rendering issues?</div>
-              <div class="float-desc">Pixel-perfect emails</div>
+            <div class="sat-text">
+              <div class="sat-title">Segments</div>
+              <div class="sat-desc">Sell smarter</div>
             </div>
           </div>
 
-          <div class="feature-float bottom-right" @click="scrollToSection('marketers')">
-            <div class="float-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <div class="satellite sat-bl" @click="scrollToSection('automation-heading')">
+            <div class="sat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
               </svg>
             </div>
-            <div class="float-text">
-              <div class="float-title">Visual editor</div>
-              <div class="float-desc">No hand-coding HTML</div>
+            <div class="sat-text">
+              <div class="sat-title">Automation</div>
+              <div class="sat-desc">Sell on autopilot</div>
             </div>
           </div>
 
-          <!-- Connecting Lines -->
-          <svg class="connection-lines" viewBox="0 0 400 400">
-            <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#13B0EE" stop-opacity="0"/>
-                <stop offset="50%" stop-color="#13B0EE" stop-opacity="0.3"/>
-                <stop offset="100%" stop-color="#13B0EE" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <path class="connection-path" d="M 80 80 Q 200 200 320 120" stroke="url(#lineGradient)" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
-            <path class="connection-path" d="M 80 320 Q 200 200 320 280" stroke="url(#lineGradient)" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
-          </svg>
+          <div class="satellite sat-br" @click="scrollToSection('analytics-heading')">
+            <div class="sat-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M3 3v18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M7 14l4-4 3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="sat-text">
+              <div class="sat-title">Analytics</div>
+              <div class="sat-desc">Sell more of what works</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -434,328 +461,296 @@ html.dark .highlight-item {
   }
 }
 
-/* Main Email Card */
-.email-card {
+/* Orbit SVG layer (rings + connection lines + particles) */
+.orbit-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.orbit-rings {
+  transform-origin: 200px 200px;
+  animation: ringSpin 60s linear infinite;
+}
+
+.orbit-ring.inner {
+  transform-origin: 200px 200px;
+  animation: ringSpinReverse 45s linear infinite;
+}
+
+@keyframes ringSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ringSpinReverse {
+  to { transform: rotate(-360deg); }
+}
+
+.conn-line {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: drawConn 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards, dashFlow 8s linear 1.6s infinite;
+}
+.conn-line.c1 { animation-delay: 0.9s, 2.3s; }
+.conn-line.c2 { animation-delay: 1.05s, 2.45s; }
+.conn-line.c3 { animation-delay: 1.2s, 2.6s; }
+.conn-line.c4 { animation-delay: 1.35s, 2.75s; }
+
+@keyframes drawConn {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes dashFlow {
+  to { stroke-dashoffset: -160; }
+}
+
+/* Data flow particles - travel center to satellite */
+.particle {
+  opacity: 0;
+  filter: drop-shadow(0 0 4px rgba(19, 176, 238, 0.7));
+}
+
+.particle.p1 { animation: flow1 3.6s ease-in-out 2.2s infinite; }
+.particle.p2 { animation: flow2 3.6s ease-in-out 2.6s infinite; }
+.particle.p3 { animation: flow3 3.6s ease-in-out 3s infinite; }
+.particle.p4 { animation: flow4 3.6s ease-in-out 3.4s infinite; }
+
+@keyframes flow1 {
+  0%   { cx: 200; cy: 200; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { cx: 60;  cy: 80;  opacity: 0; }
+}
+@keyframes flow2 {
+  0%   { cx: 200; cy: 200; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { cx: 340; cy: 80;  opacity: 0; }
+}
+@keyframes flow3 {
+  0%   { cx: 200; cy: 200; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { cx: 60;  cy: 320; opacity: 0; }
+}
+@keyframes flow4 {
+  0%   { cx: 200; cy: 200; opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { cx: 340; cy: 320; opacity: 0; }
+}
+
+/* Center email card */
+.orbit-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 260px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(19, 176, 238, 0.2);
-  overflow: hidden;
-  animation: cardFloat 6s ease-in-out infinite;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 3;
+  animation: centerFloat 6s ease-in-out infinite;
 }
 
-.email-card:hover {
-  transform: translate(-50%, -50%) translateY(-5px);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
-}
-
-@keyframes cardFloat {
+@keyframes centerFloat {
   0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-  50% { transform: translate(-50%, -50%) translateY(-10px); }
+  50%      { transform: translate(-50%, -50%) translateY(-8px); }
 }
 
-html.dark .email-card {
-  background: rgba(31, 41, 55, 0.95);
-  border: 1px solid rgba(19, 176, 238, 0.3);
-}
-
-.card-header {
-  padding: 24px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-html.dark .card-header {
-  border-bottom: 1px solid #374151;
-}
-
-.header-bar {
-  height: 6px;
-  background: linear-gradient(90deg, #13B0EE, #392C91);
-  border-radius: 3px;
-  margin-bottom: 16px;
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-.header-content {
+.center-card {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  width: 160px;
+  height: 160px;
+  padding: 18px;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.96), rgba(238, 248, 253, 0.96));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1.5px solid rgba(19, 176, 238, 0.35);
+  box-shadow: 0 24px 60px rgba(19, 176, 238, 0.22), 0 0 0 6px rgba(19, 176, 238, 0.05);
+  text-align: center;
 }
 
-.brand-circle {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #13B0EE, #392C91);
-  flex-shrink: 0;
+html.dark .center-card {
+  background: linear-gradient(140deg, rgba(31, 41, 55, 0.96), rgba(15, 23, 42, 0.96));
+  border-color: rgba(19, 176, 238, 0.45);
+  box-shadow: 0 24px 60px rgba(19, 176, 238, 0.3), 0 0 0 6px rgba(19, 176, 238, 0.08);
 }
 
-.brand-lines {
-  flex: 1;
-}
-
-.brand-line {
-  height: 8px;
-  background: #d1d5db;
-  border-radius: 4px;
-  margin-bottom: 6px;
-  animation: loadLine 2s ease-out infinite;
-}
-
-html.dark .brand-line {
-  background: #4b5563;
-}
-
-.brand-line.short {
-  width: 60%;
-  animation-delay: 0.3s;
-}
-
-@keyframes loadLine {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
-}
-
-.card-body {
-  padding: 24px;
-}
-
-.content-block {
-  margin-bottom: 20px;
-}
-
-.content-title {
-  height: 16px;
-  background: #d1d5db;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  width: 70%;
-}
-
-html.dark .content-title {
-  background: #4b5563;
-}
-
-.content-subtitle {
-  height: 10px;
-  background: #d1d5db;
-  border-radius: 4px;
-  width: 50%;
-  opacity: 0.6;
-}
-
-html.dark .content-subtitle {
-  background: #4b5563;
-}
-
-.content-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.grid-item {
-  aspect-ratio: 1;
-  background: #d1d5db;
-  border-radius: 8px;
-  animation: itemPulse 3s ease-in-out infinite;
-}
-
-html.dark .grid-item {
-  background: #4b5563;
-}
-
-.grid-item:nth-child(1) { animation-delay: 0s; }
-.grid-item:nth-child(2) { animation-delay: 0.2s; }
-.grid-item:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes itemPulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
-}
-
-.cta-block {
-  height: 40px;
-  background: linear-gradient(135deg, #13B0EE, #392C91);
-  border-radius: 8px;
-  margin-bottom: 20px;
-  animation: ctaGlow 3s ease-in-out infinite;
-}
-
-@keyframes ctaGlow {
-  0%, 100% { box-shadow: 0 0 0 rgba(19, 176, 238, 0); }
-  50% { box-shadow: 0 0 20px rgba(19, 176, 238, 0.4); }
-}
-
-.card-footer {
-  height: 8px;
-  background: #d1d5db;
-  border-radius: 4px;
-  opacity: 0.3;
-}
-
-html.dark .card-footer {
-  background: #4b5563;
-}
-
-/* Floating Question Cards */
-.feature-float {
+.center-pulse {
   position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(19, 176, 238, 0.2);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  animation: floatIn 1s ease-out forwards;
+  inset: -8px;
+  border-radius: 28px;
+  border: 2px solid rgba(19, 176, 238, 0.5);
   opacity: 0;
-  min-height: 48px;
-  touch-action: manipulation;
+  animation: centerPulse 2.8s ease-out infinite;
+  pointer-events: none;
 }
 
-html.dark .feature-float {
-  background: rgba(31, 41, 55, 0.95);
-  border: 1px solid rgba(19, 176, 238, 0.3);
+@keyframes centerPulse {
+  0%   { opacity: 0.7; transform: scale(0.95); }
+  100% { opacity: 0;   transform: scale(1.25); }
 }
 
-.feature-float.top-left {
-  top: 20px;
-  left: 20px;
-  animation-delay: 0.8s;
-  transform: translate(var(--parallax-topleft-x, 0), var(--parallax-topleft-y, 0));
-}
-
-.feature-float.top-left:hover {
-  transform: translate(var(--parallax-topleft-x, 0), var(--parallax-topleft-y, 0)) translateY(-8px) scale(1.03);
-  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.2);
-  border-color: rgba(19, 176, 238, 0.5);
-}
-
-.feature-float.top-right {
-  top: 20px;
-  right: 20px;
-  animation-delay: 1s;
-  transform: translate(var(--parallax-topright-x, 0), var(--parallax-topright-y, 0));
-}
-
-.feature-float.top-right:hover {
-  transform: translate(var(--parallax-topright-x, 0), var(--parallax-topright-y, 0)) translateY(-8px) scale(1.03);
-  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.2);
-  border-color: rgba(19, 176, 238, 0.5);
-}
-
-.feature-float.bottom-right {
-  bottom: 20px;
-  right: 20px;
-  animation-delay: 1.2s;
-  transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0));
-}
-
-.feature-float.bottom-right:hover {
-  transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0)) translateY(-8px) scale(1.03);
-  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.2);
-  border-color: rgba(19, 176, 238, 0.5);
-}
-
-@keyframes floatIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.float-icon {
-  width: 40px;
-  height: 40px;
+.center-icon {
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(19, 176, 238, 0.1);
-  border-radius: 10px;
-  flex-shrink: 0;
-  color: #13B0EE;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #13B0EE, #392C91);
+  color: #fff;
+  border-radius: 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 10px 24px rgba(19, 176, 238, 0.4);
 }
 
-.feature-float:hover .float-icon {
-  background: rgba(19, 176, 238, 0.2);
-  transform: scale(1.1) rotate(5deg);
-}
-
-.feature-float:active .float-icon {
-  transform: scale(0.95);
-  background: rgba(19, 176, 238, 0.25);
-}
-
-.float-title {
-  font-size: 14px;
+.center-label {
+  font-size: 13px;
   font-weight: 700;
   color: #1f2937;
-  margin-bottom: 2px;
-  transition: color 0.3s ease;
+  letter-spacing: -0.01em;
 }
 
-html.dark .float-title {
-  color: #f3f4f6;
-}
+html.dark .center-label { color: #f3f4f6; }
 
-.feature-float:hover .float-title {
-  color: #13B0EE;
-}
-
-.float-desc {
-  font-size: 12px;
+.center-sub {
+  font-size: 10.5px;
+  font-weight: 500;
   color: #6b7280;
-  transition: color 0.3s ease;
+  margin-top: 2px;
+  line-height: 1.3;
 }
 
-html.dark .float-desc {
-  color: #9ca3af;
-}
+html.dark .center-sub { color: #9ca3af; }
 
-/* Connection Lines */
-.connection-lines {
+/* Satellite cards (orbital) */
+.satellite {
   position: absolute;
-  top: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 14px;
+  border: 1px solid rgba(19, 176, 238, 0.22);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);
+  cursor: pointer;
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+  animation: satIn 0.8s cubic-bezier(0.34, 1.4, 0.64, 1) forwards, satFloat 7s ease-in-out infinite;
+  touch-action: manipulation;
+  min-width: 145px;
+}
+
+html.dark .satellite {
+  background: rgba(31, 41, 55, 0.94);
+  border: 1px solid rgba(19, 176, 238, 0.32);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+}
+
+.sat-tl {
+  top: 6%;
   left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  opacity: 0.4;
+  animation-delay: 0.85s, 1.6s;
+  transform: translate(var(--parallax-topleft-x, 0), var(--parallax-topleft-y, 0));
 }
 
-.connection-path {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: drawLine 3s ease-out 1.5s forwards;
+.sat-tr {
+  top: 6%;
+  right: 0;
+  animation-delay: 1s, 1.9s;
+  transform: translate(var(--parallax-topright-x, 0), var(--parallax-topright-y, 0));
 }
 
-@keyframes drawLine {
-  to {
-    stroke-dashoffset: 0;
+.sat-bl {
+  bottom: 6%;
+  left: 0;
+  animation-delay: 1.15s, 2.2s;
+  transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0));
+}
+
+.sat-br {
+  bottom: 6%;
+  right: 0;
+  animation-delay: 1.3s, 2.5s;
+  transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0));
+}
+
+@keyframes satIn {
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes satFloat {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+.satellite:hover {
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 18px 44px rgba(19, 176, 238, 0.28);
+  border-color: rgba(19, 176, 238, 0.55);
+}
+
+.satellite:active {
+  transform: translateY(-2px) scale(1);
+}
+
+.sat-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(19, 176, 238, 0.16), rgba(57, 44, 145, 0.12));
+  border-radius: 10px;
+  color: #13B0EE;
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+}
+
+.satellite:hover .sat-icon {
+  transform: scale(1.1) rotate(-6deg);
+  background: linear-gradient(135deg, rgba(19, 176, 238, 0.28), rgba(57, 44, 145, 0.22));
+}
+
+.sat-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1f2937;
+  letter-spacing: -0.01em;
+  transition: color 0.3s ease;
+  line-height: 1.2;
+}
+
+html.dark .sat-title { color: #f3f4f6; }
+
+.satellite:hover .sat-title { color: #13B0EE; }
+
+.sat-desc {
+  font-size: 11px;
+  font-weight: 500;
+  color: #6b7280;
+  margin-top: 1px;
+  line-height: 1.3;
+}
+
+html.dark .sat-desc { color: #9ca3af; }
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-rings, .orbit-ring.inner, .conn-line, .particle, .orbit-center, .satellite, .center-pulse {
+    animation: none !important;
   }
+  .satellite { opacity: 1; }
 }
 
 a {
@@ -791,33 +786,7 @@ a {
   .heroVisual {
     height: 400px;
     margin: 0 auto;
-    max-width: 500px;
-  }
-
-  .email-card {
-    width: 280px;
-  }
-  
-  .feature-float {
-    padding: 12px 16px;
-    transform: scale(0.9);
-  }
-  
-  .feature-float.top-left {
-    transform: translate(var(--parallax-topleft-x, 0), var(--parallax-topleft-y, 0)) scale(0.9);
-  }
-  
-  .feature-float.top-right {
-    transform: translate(var(--parallax-topright-x, 0), var(--parallax-topright-y, 0)) scale(0.9);
-  }
-  
-  .feature-float.bottom-right {
-    transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0)) scale(0.9);
-  }
-  
-  .float-icon {
-    width: 36px;
-    height: 36px;
+    max-width: 560px;
   }
 }
 
@@ -859,90 +828,55 @@ a {
   }
 
   .heroVisual {
-    height: 320px;
+    height: 380px;
     max-width: 100%;
   }
 
-  .email-card {
-    width: 240px;
-  }
-  
-  .card-header,
-  .card-body {
-    padding: 16px;
-  }
-  
-  .brand-circle {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .brand-line {
-    height: 6px;
+  .center-card {
+    width: 130px;
+    height: 130px;
+    padding: 14px;
+    border-radius: 20px;
   }
 
-  .feature-float {
-    padding: 8px 12px;
+  .center-icon {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 6px;
+    border-radius: 12px;
+  }
+
+  .center-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+
+  .center-label { font-size: 11.5px; }
+  .center-sub { font-size: 9.5px; }
+
+  .satellite {
+    padding: 9px 12px;
     gap: 8px;
-    transform: scale(0.75);
-    transform-origin: top left;
-    width: 167px;
+    border-radius: 12px;
+    min-width: auto;
   }
 
-  .feature-float.top-left {
-    top: 5px;
-    left: 5px;
-    transform: scale(0.75);
-    transform-origin: top left;
-  }
-  
-  .feature-float.top-left:active {
-    transform: scale(0.72) translateY(-2px);
+  .sat-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
   }
 
-  .feature-float.top-right {
-    top: 5px;
-    right: 5px;
-    transform: scale(0.75);
-    transform-origin: top right;
-  }
-  
-  .feature-float.top-right:active {
-    transform: scale(0.72) translateY(-2px);
+  .sat-icon svg {
+    width: 17px;
+    height: 17px;
   }
 
-  .feature-float.bottom-right {
-    bottom: 5px;
-    right: 5px;
-    transform: scale(0.75);
-    transform-origin: bottom right;
-  }
-  
-  .feature-float.bottom-right:active {
-    transform: scale(0.72) translateY(-2px);
-  }
+  .sat-title { font-size: 12px; }
+  .sat-desc { font-size: 10px; }
 
-  .float-icon {
-    width: 32px;
-    height: 32px;
-  }
-  
-  .float-icon svg {
-    width: 18px;
-    height: 18px;
-  }
-
-  .float-title {
-    font-size: 12px;
-  }
-
-  .float-desc {
-    font-size: 10px;
-  }
-  
-  .connection-lines {
-    display: none;
-  }
+  .sat-tl, .sat-bl { left: -6px; }
+  .sat-tr, .sat-br { right: -6px; }
 }
 
 /* Extra small mobile devices */
@@ -954,39 +888,46 @@ a {
   .title {
     font-size: 28px;
   }
-  
+
   .tagline {
     font-size: 14px;
   }
-  
+
   .heroVisual {
-    height: 280px;
+    height: 320px;
   }
-  
-  .email-card {
-    width: 200px;
-  }
-  
+
   .highlight-item {
     font-size: 11px;
     padding: 5px 10px;
   }
 
-  .feature-float {
-    transform: scale(0.65);
+  .center-card {
+    width: 110px;
+    height: 110px;
+    padding: 10px;
   }
-  
-  .feature-float.top-left {
-    transform: scale(0.65);
+
+  .center-icon {
+    width: 36px;
+    height: 36px;
   }
-  
-  .feature-float.top-right {
-    transform: scale(0.65);
+
+  .center-label { font-size: 10.5px; }
+  .center-sub { display: none; }
+
+  .satellite {
+    padding: 7px 10px;
+    gap: 6px;
   }
-  
-  .feature-float.bottom-right {
-    transform: scale(0.65);
+
+  .sat-icon {
+    width: 26px;
+    height: 26px;
   }
+
+  .sat-title { font-size: 10.5px; }
+  .sat-desc { font-size: 9px; }
 }
 
 /* Landscape mobile fix */
@@ -1022,28 +963,22 @@ a {
 
 
   .heroVisual {
-    height: 280px;
+    height: 300px;
   }
-  
+
   .background-gradient {
     width: 600px;
     height: 600px;
   }
-  
-  .feature-float {
-    transform: scale(0.7);
+
+  .center-card {
+    width: 110px;
+    height: 110px;
   }
-  
-  .feature-float.top-left {
-    transform: scale(0.7);
-  }
-  
-  .feature-float.top-right {
-    transform: scale(0.7);
-  }
-  
-  .feature-float.bottom-right {
-    transform: scale(0.7);
+
+  .satellite {
+    padding: 7px 10px;
+    gap: 6px;
   }
 }
 
@@ -1058,10 +993,7 @@ a {
 .hero-marquee :deep(.logos-carousel) { padding: 0; }
 .hero-marquee :deep(.logos-carousel::before),
 .hero-marquee :deep(.logos-carousel::after) {
-  background: linear-gradient(to right, var(--vp-c-bg) 0%, transparent 100%);
-}
-.hero-marquee :deep(.logos-carousel::after) {
-  background: linear-gradient(to left, var(--vp-c-bg) 0%, transparent 100%);
+  display: none;
 }
 
 @media (max-width: 768px) {
