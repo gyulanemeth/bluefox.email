@@ -64,11 +64,12 @@ const satPositions = computed(() => {
   const r = orbitRadius.value
   return BASE_ANGLES.map((base) => {
     const a = base + orbitAngle.value
-    // Scale by horizontal position: 1.08 at far-left/right, 0.85 at top/bottom
-    const scale = 0.85 + Math.abs(Math.cos(a)) * 0.23
+    // Scale by horizontal position: 1.05 at far-left/right, 0.92 at top/bottom
+    const rawScale = 0.92 + Math.abs(Math.cos(a)) * 0.13
+    const scale = Math.round(rawScale * 100) / 100 // quantize to 1% steps
     return {
-      x: cx + Math.cos(a) * r,
-      y: cy + Math.sin(a) * r,
+      x: Math.round(cx + Math.cos(a) * r),
+      y: Math.round(cy + Math.sin(a) * r),
       angle: a,
       scale
     }
@@ -151,11 +152,11 @@ const resumeOrbit = () => { orbitPaused.value = false }
         <!-- Left Side: Content -->
         <div class="heroContent">
           <h1 class="title">
-            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Every feature included</div>
-            <div class="title-line" style="font-size: 1.125em; font-weight: 700;">No tier traps</div>
-            <div class="title-line" style="font-size: 1em; font-weight: 600;">Pay per send</div>
+            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Stop paying for contacts</div>
+            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">you don&rsquo;t email.</div>
           </h1>
-          <p class="tagline">Built for teams who care how their emails land.</p>
+          <p class="tagline">BlueFox Email includes everything serious email platforms offer, without hiding features behind upgrades.</p>
+          <p class="tagline tagline--accent">You only pay for sends.</p>
 
           <div class="hero-highlights" role="list" aria-label="Key features">
             <span class="highlight-item" role="listitem">Pay per send</span>
@@ -414,6 +415,11 @@ html.dark .tagline {
   color: #9ca3af;
 }
 
+.tagline--accent {
+  margin-top: 4px;
+  animation-delay: 1.15s;
+}
+
 @keyframes fadeIn {
   to { opacity: 1; }
 }
@@ -667,11 +673,15 @@ html.dark .center-sub { color: #9ca3af; }
   cursor: pointer;
   --orbit-scale: 1;
   transform: translate(-50%, -50%) scale(var(--orbit-scale));
-  transition: box-shadow 0.4s ease, border-color 0.3s ease;
+  transition: transform 0.4s ease-out, box-shadow 0.4s ease, border-color 0.3s ease;
   touch-action: manipulation;
-  min-width: 145px;
+  width: 175px;
   will-change: left, top, transform;
 }
+
+.sat-text { min-width: 0; flex: 1; }
+.sat-title { white-space: nowrap; }
+.sat-desc { white-space: normal; line-height: 1.3; }
 
 html.dark .satellite {
   background: rgba(31, 41, 55, 0.94);

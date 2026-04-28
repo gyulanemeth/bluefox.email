@@ -32,6 +32,26 @@ const everyone = [
 
 const matched = everyone.filter(p => p.matched)
 
+// Animated match counter
+const TARGET_COUNT = 326
+const TOTAL_CONTACTS = 1240
+const matchCount = ref(0)
+let countTimer = null
+
+function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3) }
+
+function animateCount() {
+  const duration = 1800
+  const start = performance.now()
+  cancelAnimationFrame(countTimer)
+  function frame(now) {
+    const t = Math.min(1, (now - start) / duration)
+    matchCount.value = Math.round(easeOutCubic(t) * TARGET_COUNT)
+    if (t < 1) countTimer = requestAnimationFrame(frame)
+  }
+  countTimer = requestAnimationFrame(frame)
+}
+
 const flyingIdx = ref(0)
 let flyTimer = null
 
@@ -120,6 +140,15 @@ function scheduleRecalc() {
 onMounted(async () => {
   await nextTick()
   recalcPaths()
+  animateCount()
+
+  // Re-run count animation when section enters viewport
+  if (typeof IntersectionObserver !== 'undefined' && flowRef.value) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) animateCount() })
+    }, { threshold: 0.4 })
+    io.observe(flowRef.value)
+  }
 
   // Run twice more after layout settles (chip slide-in animations finish)
   setTimeout(recalcPaths, 300)
@@ -154,6 +183,7 @@ onBeforeUnmount(() => {
   if (flyTimer) clearInterval(flyTimer)
   if (resizeObs) resizeObs.disconnect()
   if (recalcRaf) cancelAnimationFrame(recalcRaf)
+  if (countTimer) cancelAnimationFrame(countTimer)
   window.removeEventListener('resize', scheduleRecalc)
 })
 </script>
@@ -161,10 +191,10 @@ onBeforeUnmount(() => {
 <template>
   <section class="seg-illus" aria-label="How segments work">
     <!-- Match badge -->
-    <div class="seg-match-badge" role="status">
+    <div class="seg-match-badge" role="status" aria-live="polite">
       <span class="seg-dot"></span>
-      <strong>{{ matched.length }} of {{ everyone.length }}</strong>
-      <span>contacts matched</span>
+      <strong>{{ matchCount.toLocaleString('en-US') }}</strong>
+      <span>of {{ TOTAL_CONTACTS.toLocaleString('en-US') }} contacts matched</span>
     </div>
 
     <div class="seg-flow" ref="flowRef">

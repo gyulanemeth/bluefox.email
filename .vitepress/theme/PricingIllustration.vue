@@ -4,8 +4,8 @@ const included = [
   'No tiers, no feature paywalls',
   'No contact-based billing',
   'Credits valid for 12 months',
-  'Cancel anytime, no contract',
-  'No credit card to start'
+  'No credit card to start',
+  'No subscription, ever'
 ]
 </script>
 
