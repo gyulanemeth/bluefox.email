@@ -848,7 +848,7 @@ const { isDark } = useData()
       href="/docs/projects/segments"
       aria-label="Read segments documentation"
     >
-      Read Segments Docs
+      Read segments docs
     </v-btn>
   </div>
 </section>
@@ -882,7 +882,7 @@ const { isDark } = useData()
       href="/docs/projects/automations"
       aria-label="Read automations documentation"
     >
-      Read Automations Docs
+      Read automations docs
     </v-btn>
   </div>
 </section>
@@ -930,9 +930,9 @@ const { isDark } = useData()
     <div class="founder-photo-wrap">
       <img src="/assets/gyula.png" alt="Gyula Németh, founder of BlueFox Email" class="founder-photo" loading="lazy" />
     </div>
-    <span class="founder-eyebrow">Meet the Founder</span>
+    <span class="founder-eyebrow">Meet the founder</span>
     <h2 id="founder-heading" class="founder-title">
-      10+ Years Building for Real-World Email
+      10+ years building for real-world email
     </h2>
     <p class="founder-description">
       Gyula Németh has worked in HTML email since 2013. Before BlueFox Email, he co-founded edmdesigner.com, chamaileon.io, and emailhero.io, including enterprise-grade platforms, where he served as CTO. His focus has always been the same: emails should render consistently across real inboxes including Gmail, Apple Mail, mobile clients, and Outlook.
@@ -944,9 +944,9 @@ const { isDark } = useData()
         variant="flat"
         class="founder-team-button"
         href="/meet-the-team"
-        aria-label="Team Behind BlueFox Email"
+        aria-label="Team behind BlueFox Email"
       >
-        Team Behind BlueFox Email
+        Team behind BlueFox Email
       </v-btn>
     </div>
   </div>

@@ -173,7 +173,7 @@ const resumeOrbit = () => { orbitPaused.value = false }
               href="https://app.bluefox.email/accounts/create-account"
               target="_blank"
             >
-              <strong>Get Started for Free</strong>
+              <strong>Get started for free</strong>
             </v-btn>
           </div>
         </div>

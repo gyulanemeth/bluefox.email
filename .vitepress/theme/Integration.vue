@@ -74,7 +74,7 @@ const integrations = [
         </v-chip>
       </div>
 
-      <h2 id="integrations-heading" class="section-title">Works With the Tools You Already Use</h2>
+      <h2 id="integrations-heading" class="section-title">Works with the tools you already use</h2>
       <p class="section-subtitle">
         Plug into your favorite apps and automate your workflows, no technical setup required
       </p>

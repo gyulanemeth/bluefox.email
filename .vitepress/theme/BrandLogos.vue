@@ -50,7 +50,7 @@ const logos = [
 <template>
   <div class="brand-logos-section">
     <div class="brand-logos-intro">
-      <h2 class="brand-logos-title" id="brand-logos-heading">Trusted by Marketing Agencies &amp; Teams Worldwide</h2>
+      <h2 class="brand-logos-title" id="brand-logos-heading">Trusted by marketing agencies &amp; teams worldwide</h2>
       <p class="brand-logos-subtitle">Join companies that deliver exceptional email campaigns with BlueFox Email</p>
     </div>
 
