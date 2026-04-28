@@ -1,19 +1,19 @@
 ---
 layout: home
 
-title: BlueFox Email, Reliable email for every sender
-description: Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours.
+title: BlueFox Email, Stop paying for contacts you don't email
+description: Every feature serious email platforms offer, without hiding any behind upgrades. You only pay for sends, not contacts. 3,000 free sends to start.
 
 head:
   - - meta
     - name: description
-      content: "Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours."
+      content: "Every feature serious email platforms offer, without hiding any behind upgrades. You only pay for sends, not contacts. 3,000 free sends to start."
   - - meta
     - property: og:title
-      content: BlueFox Email, Reliable email for every sender
+      content: BlueFox Email, Stop paying for contacts you don't email
   - - meta
     - property: og:description
-      content: "Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours."
+      content: "Every feature serious email platforms offer, without hiding any behind upgrades. You only pay for sends, not contacts. 3,000 free sends to start."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share.png
@@ -28,10 +28,10 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: BlueFox Email, Reliable email for every sender
+      content: BlueFox Email, Stop paying for contacts you don't email
   - - meta
     - name: twitter:description
-      content: "Transactional, marketing, and automated emails on one platform. Pay per send, not per contact. Built on your Amazon SES or ours."
+      content: "Every feature serious email platforms offer, without hiding any behind upgrades. You only pay for sends, not contacts. 3,000 free sends to start."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share.png
