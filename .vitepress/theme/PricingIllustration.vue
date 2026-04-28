@@ -1,31 +1,4 @@
 <script setup>
-const packs = [
-  {
-    name: 'Free',
-    price: '$0',
-    note: 'Forever',
-    detail: '3,000 sends included',
-    highlight: false,
-    accent: '#10b981'
-  },
-  {
-    name: 'Starter pack',
-    price: '$50',
-    note: 'one-time',
-    detail: '50,000 sends',
-    highlight: true,
-    accent: '#13B0EE'
-  },
-  {
-    name: 'Scale pack',
-    price: '$300',
-    note: 'one-time',
-    detail: '$0.60 per 1,000 sends',
-    highlight: false,
-    accent: '#392C91'
-  }
-]
-
 const included = [
   'Every feature on every plan',
   'No tiers, no feature paywalls',
@@ -46,21 +19,25 @@ const included = [
       <p>No monthly subscription. No contact-based billing. No features locked behind tiers. Buy a send pack when you need it, that's it.</p>
     </div>
 
-    <div class="packs-row">
-      <div
-        v-for="p in packs"
-        :key="p.name"
-        class="pack-card"
-        :class="{ 'pack-card--featured': p.highlight }"
-        :style="{ '--pack-accent': p.accent }"
-      >
-        <span v-if="p.highlight" class="pack-ribbon">Most popular</span>
-        <span class="pack-name">{{ p.name }}</span>
-        <div class="pack-price">
-          <span class="pack-amount">{{ p.price }}</span>
-          <span class="pack-note">{{ p.note }}</span>
-        </div>
-        <span class="pack-detail">{{ p.detail }}</span>
+    <div class="compare">
+      <div class="compare-col compare-col--typical">
+        <span class="col-label">Typical email tools</span>
+        <span class="col-price">
+          <span class="amount">$200+</span>
+          <span class="period">per month</span>
+        </span>
+        <span class="col-sub">Subscriptions billed monthly, with features locked behind tiers.</span>
+      </div>
+
+      <div class="compare-rule" aria-hidden="true"></div>
+
+      <div class="compare-col compare-col--ours">
+        <span class="col-label">BlueFox send pack</span>
+        <span class="col-price">
+          <span class="amount">$50</span>
+          <span class="period">one-time</span>
+        </span>
+        <span class="col-sub">50,000 sends. Every feature. Credits valid 12 months.</span>
       </div>
     </div>
 
@@ -141,108 +118,93 @@ const included = [
 
 html.dark .illus-head p { color: #94a3b8; }
 
-/* Pack cards */
-.packs-row {
+/* Compare row — mirrors PricingSnapshot pattern */
+.compare {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin: 0 auto 32px;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: stretch;
+  gap: 32px;
   max-width: 820px;
+  margin: 0 auto 32px;
+  padding: 24px 8px;
+  border-top: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
   position: relative;
   z-index: 1;
+  text-align: left;
 }
 
-.pack-card {
-  position: relative;
+html.dark .compare {
+  border-top-color: #1e293b;
+  border-bottom-color: #1e293b;
+}
+
+.compare-rule {
+  width: 1px;
+  background: #e2e8f0;
+}
+
+html.dark .compare-rule { background: #1e293b; }
+
+.compare-col {
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 6px;
-  padding: 22px 18px;
-  background: #ffffff;
-  border: 1.5px solid #e2e8f0;
-  border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-html.dark .pack-card {
-  background: rgba(30, 41, 59, 0.85);
-  border-color: rgba(148, 163, 184, 0.18);
-}
-
-.pack-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
-  border-color: var(--pack-accent);
-}
-
-.pack-card--featured {
-  border-color: var(--pack-accent);
-  border-width: 2px;
-  box-shadow: 0 12px 36px rgba(19, 176, 238, 0.18);
-  transform: translateY(-6px);
-}
-
-html.dark .pack-card--featured {
-  box-shadow: 0 12px 36px rgba(19, 176, 238, 0.28);
-}
-
-.pack-ribbon {
-  position: absolute;
-  top: -11px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 4px 12px;
-  background: var(--pack-accent);
-  color: #ffffff;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  white-space: nowrap;
-}
-
-.pack-name {
-  font-size: 13px;
+.col-label {
+  font-size: 12px;
   font-weight: 700;
-  color: #64748b;
   text-transform: uppercase;
   letter-spacing: 0.08em;
+  color: #64748b;
 }
 
-html.dark .pack-name { color: #94a3b8; }
+html.dark .col-label { color: #94a3b8; }
 
-.pack-price {
+.col-price {
   display: flex;
   align-items: baseline;
-  gap: 6px;
+  gap: 8px;
+  margin: 2px 0 4px;
 }
 
-.pack-amount {
-  font-size: clamp(28px, 3.6vw, 36px);
+.amount {
+  font-size: clamp(26px, 3.4vw, 36px);
   font-weight: 800;
-  color: var(--pack-accent);
-  letter-spacing: -0.02em;
   line-height: 1.1;
+  letter-spacing: -0.015em;
 }
 
-.pack-note {
-  font-size: 13px;
+.period {
+  font-size: 14px;
   color: #64748b;
-  font-weight: 500;
 }
 
-html.dark .pack-note { color: #94a3b8; }
+html.dark .period { color: #94a3b8; }
 
-.pack-detail {
-  font-size: 13px;
+.compare-col--typical .amount {
+  color: #94a3b8;
+  text-decoration: line-through;
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgba(185, 28, 28, 0.55);
+}
+
+html.dark .compare-col--typical .amount {
+  color: #64748b;
+  text-decoration-color: rgba(248, 113, 113, 0.55);
+}
+
+.compare-col--ours .amount { color: #0f172a; }
+html.dark .compare-col--ours .amount { color: #f1f5f9; }
+
+.col-sub {
+  font-size: 14px;
+  line-height: 1.55;
   color: #475569;
-  line-height: 1.4;
 }
 
-html.dark .pack-detail { color: #cbd5e1; }
+html.dark .col-sub { color: #94a3b8; }
 
 /* Included list */
 .included {
@@ -359,8 +321,8 @@ html.dark .pricing-link:hover,
 html.dark .pricing-link:visited { color: #67e8f9; }
 
 @media (max-width: 720px) {
-  .packs-row { grid-template-columns: 1fr; gap: 12px; max-width: 380px; }
-  .pack-card--featured { transform: none; }
+  .compare { grid-template-columns: 1fr; gap: 20px; }
+  .compare-rule { width: 100%; height: 1px; }
   .included-list { grid-template-columns: 1fr; }
 }
 </style>
