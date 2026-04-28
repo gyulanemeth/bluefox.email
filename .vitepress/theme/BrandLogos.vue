@@ -198,8 +198,10 @@ html.dark .brand-logos-subtitle {
 
 /* Track: make it pause on hover and focus-within for keyboard users */
 .logos-track {
+  --gap: 80px;
   display: flex;
-  animation: scroll 30s linear infinite;
+  gap: var(--gap);
+  animation: scroll 40s linear infinite;
   width: max-content;
   will-change: transform;
 }
@@ -217,25 +219,19 @@ html.dark .brand-logos-subtitle {
   }
 }
 
-/* Scrolling animation */
+/* Scrolling animation: translate by 6 items + 6 gaps so set-2 takes set-1 position */
 @keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(calc(-50% - var(--gap) / 2), 0, 0); }
 }
 
 .logo-item {
-  flex-shrink: 0;
+  flex: 0 0 180px;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-width: 120px;
   height: 60px;
-  padding: 0 20px;
-  margin-right: 80px;
+  padding: 0;
 }
 
 .logo-item a {
@@ -307,19 +303,18 @@ html.dark .logo-image {
   }
 
   .logos-track {
-    animation-duration: 25s;
+    --gap: 60px;
+    animation-duration: 35s;
   }
 
   .logo-item {
-    min-width: 100px;
+    flex: 0 0 140px;
     height: 50px;
-    padding: 0 15px;
-    margin-right: 60px;
   }
 
   .logo-image {
     max-height: 40px;
-    max-width: 150px;
+    max-width: 130px;
     min-width: 60px;
   }
 }
@@ -339,19 +334,18 @@ html.dark .logo-image {
   }
 
   .logos-track {
-    animation-duration: 20s;
+    --gap: 40px;
+    animation-duration: 30s;
   }
 
   .logo-item {
-    min-width: 80px;
+    flex: 0 0 110px;
     height: 40px;
-    padding: 0 10px;
-    margin-right: 40px;
   }
 
   .logo-image {
     max-height: 35px;
-    max-width: 120px;
+    max-width: 100px;
     min-width: 50px;
   }
 }

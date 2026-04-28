@@ -43,79 +43,63 @@ const scrollToSection = (sectionId) => {
   }
 }
 
-// Orbit line geometry — measured from DOM
+// Polar orbit — symmetric satellites + lines synced via angle
 const heroVisualRef = ref(null)
-const centerCardRef = ref(null)
-const satTLRef = ref(null)
-const satTRRef = ref(null)
-const satBLRef = ref(null)
-const satBRRef = ref(null)
-
 const orbitSize = ref({ w: 400, h: 400 })
-const lineCoords = ref({
-  c1: { x1: 200, y1: 200, x2: 60,  y2: 80  },
-  c2: { x1: 200, y1: 200, x2: 340, y2: 80  },
-  c3: { x1: 200, y1: 200, x2: 60,  y2: 320 },
-  c4: { x1: 200, y1: 200, x2: 340, y2: 320 }
-})
+const orbitAngle = ref(0)
+const orbitPaused = ref(false)
+const SAT_COUNT = 4
+const BASE_ANGLES = [-Math.PI * 3 / 4, -Math.PI / 4, Math.PI * 3 / 4, Math.PI / 4] // TL, TR, BL, BR (start positions)
+
 const orbitViewBox = computed(() => `0 0 ${orbitSize.value.w} ${orbitSize.value.h}`)
-const ringR1 = computed(() => Math.min(orbitSize.value.w, orbitSize.value.h) * 0.42)
-const ringR2 = computed(() => Math.min(orbitSize.value.w, orbitSize.value.h) * 0.3)
 const ringCx = computed(() => orbitSize.value.w / 2)
 const ringCy = computed(() => orbitSize.value.h / 2)
+const orbitRadius = computed(() => Math.min(orbitSize.value.w, orbitSize.value.h) * 0.38)
+const ringR1 = computed(() => orbitRadius.value)
+const ringR2 = computed(() => orbitRadius.value * 0.7)
 
-let orbitLastSig = ''
+const satPositions = computed(() => {
+  const cx = ringCx.value
+  const cy = ringCy.value
+  const r = orbitRadius.value
+  return BASE_ANGLES.map((base) => {
+    const a = base + orbitAngle.value
+    // Scale by horizontal position: 1.08 at far-left/right, 0.85 at top/bottom
+    const scale = 0.85 + Math.abs(Math.cos(a)) * 0.23
+    return {
+      x: cx + Math.cos(a) * r,
+      y: cy + Math.sin(a) * r,
+      angle: a,
+      scale
+    }
+  })
+})
 
-function recalcOrbit() {
-  if (!heroVisualRef.value || !centerCardRef.value) return
-  const hostRect = heroVisualRef.value.getBoundingClientRect()
-  if (hostRect.width === 0) return
-  orbitSize.value = { w: hostRect.width, h: hostRect.height }
+const lineCoords = computed(() => {
+  const cx = ringCx.value
+  const cy = ringCy.value
+  return satPositions.value.map((p) => ({ x1: cx, y1: cy, x2: p.x, y2: p.y }))
+})
 
-  const centerRect = centerCardRef.value.getBoundingClientRect()
-  const cx = Math.round(centerRect.left - hostRect.left + centerRect.width / 2)
-  const cy = Math.round(centerRect.top - hostRect.top + centerRect.height / 2)
-
-  const measure = (el, anchor) => {
-    if (!el) return null
-    const r = el.getBoundingClientRect()
-    let ax = r.left - hostRect.left
-    let ay = r.top - hostRect.top
-    if (anchor.includes('right')) ax += r.width
-    else if (anchor.includes('left')) ax += 0
-    else ax += r.width / 2
-    if (anchor.includes('bottom')) ay += r.height
-    else if (anchor.includes('top')) ay += 0
-    else ay += r.height / 2
-    return { x: Math.round(ax), y: Math.round(ay) }
-  }
-
-  const tl = measure(satTLRef.value, 'right-bottom')
-  const tr = measure(satTRRef.value, 'left-bottom')
-  const bl = measure(satBLRef.value, 'right-top')
-  const br = measure(satBRRef.value, 'left-top')
-
-  const next = {
-    c1: tl ? { x1: cx, y1: cy, x2: tl.x, y2: tl.y } : lineCoords.value.c1,
-    c2: tr ? { x1: cx, y1: cy, x2: tr.x, y2: tr.y } : lineCoords.value.c2,
-    c3: bl ? { x1: cx, y1: cy, x2: bl.x, y2: bl.y } : lineCoords.value.c3,
-    c4: br ? { x1: cx, y1: cy, x2: br.x, y2: br.y } : lineCoords.value.c4
-  }
-  const sig = `${orbitSize.value.w}x${orbitSize.value.h}|` +
-    Object.values(next).map(c => `${c.x1},${c.y1},${c.x2},${c.y2}`).join(';')
-  if (sig === orbitLastSig) return
-  orbitLastSig = sig
-  lineCoords.value = next
+function measureHost() {
+  if (!heroVisualRef.value) return
+  const r = heroVisualRef.value.getBoundingClientRect()
+  if (r.width > 0) orbitSize.value = { w: r.width, h: r.height }
 }
 
 let orbitResizeObs = null
 let orbitRaf = null
-function scheduleOrbitRecalc() {
-  if (orbitRaf) return
-  orbitRaf = requestAnimationFrame(() => {
-    orbitRaf = null
-    recalcOrbit()
-  })
+let lastTs = 0
+const ORBIT_SPEED = (Math.PI * 2) / 30000 // full rev / 30s
+
+function tick(ts) {
+  if (!lastTs) lastTs = ts
+  const dt = ts - lastTs
+  lastTs = ts
+  if (!orbitPaused.value) {
+    orbitAngle.value += ORBIT_SPEED * dt
+  }
+  orbitRaf = requestAnimationFrame(tick)
 }
 
 onMounted(() => {
@@ -134,28 +118,26 @@ onMounted(() => {
   window.addEventListener('resize', checkMobile)
 
   nextTick(() => {
-    recalcOrbit()
-    setTimeout(recalcOrbit, 200)
-    setTimeout(recalcOrbit, 600)
-    setTimeout(recalcOrbit, 1400)
-
+    measureHost()
     if (typeof ResizeObserver !== 'undefined' && heroVisualRef.value) {
-      orbitResizeObs = new ResizeObserver(scheduleOrbitRecalc)
+      orbitResizeObs = new ResizeObserver(measureHost)
       orbitResizeObs.observe(heroVisualRef.value)
-      ;[satTLRef.value, satTRRef.value, satBLRef.value, satBRRef.value, centerCardRef.value]
-        .forEach(el => el && orbitResizeObs.observe(el))
     }
-    window.addEventListener('resize', scheduleOrbitRecalc)
+    window.addEventListener('resize', measureHost)
+    orbitRaf = requestAnimationFrame(tick)
   })
 })
 
 onUnmounted(() => {
   window.removeEventListener('mousemove', handleMouseMove)
   window.removeEventListener('resize', checkMobile)
-  window.removeEventListener('resize', scheduleOrbitRecalc)
+  window.removeEventListener('resize', measureHost)
   if (orbitResizeObs) orbitResizeObs.disconnect()
   if (orbitRaf) cancelAnimationFrame(orbitRaf)
 })
+
+const pauseOrbit = () => { orbitPaused.value = true }
+const resumeOrbit = () => { orbitPaused.value = false }
 </script>
 
 <template>
@@ -219,31 +201,18 @@ onUnmounted(() => {
 
             <!-- Connection lines from center to satellites -->
             <g class="connection-group">
-              <line class="conn-line c1" :x1="lineCoords.c1.x1" :y1="lineCoords.c1.y1" :x2="lineCoords.c1.x2" :y2="lineCoords.c1.y2" stroke="url(#orbitLineGradient)" stroke-width="1.5" stroke-dasharray="4 4"/>
-              <line class="conn-line c2" :x1="lineCoords.c2.x1" :y1="lineCoords.c2.y1" :x2="lineCoords.c2.x2" :y2="lineCoords.c2.y2" stroke="url(#orbitLineGradient)" stroke-width="1.5" stroke-dasharray="4 4"/>
-              <line class="conn-line c3" :x1="lineCoords.c3.x1" :y1="lineCoords.c3.y1" :x2="lineCoords.c3.x2" :y2="lineCoords.c3.y2" stroke="url(#orbitLineGradient)" stroke-width="1.5" stroke-dasharray="4 4"/>
-              <line class="conn-line c4" :x1="lineCoords.c4.x1" :y1="lineCoords.c4.y1" :x2="lineCoords.c4.x2" :y2="lineCoords.c4.y2" stroke="url(#orbitLineGradient)" stroke-width="1.5" stroke-dasharray="4 4"/>
-            </g>
-
-            <!-- Data flow particles travelling along lines -->
-            <g class="particles">
-              <circle r="3" fill="#13B0EE" filter="drop-shadow(0 0 4px rgba(19,176,238,0.7))">
-                <animateMotion :dur="'3.6s'" repeatCount="indefinite" begin="2.2s" :path="`M ${lineCoords.c1.x1} ${lineCoords.c1.y1} L ${lineCoords.c1.x2} ${lineCoords.c1.y2}`"/>
-              </circle>
-              <circle r="3" fill="#13B0EE" filter="drop-shadow(0 0 4px rgba(19,176,238,0.7))">
-                <animateMotion :dur="'3.6s'" repeatCount="indefinite" begin="2.6s" :path="`M ${lineCoords.c2.x1} ${lineCoords.c2.y1} L ${lineCoords.c2.x2} ${lineCoords.c2.y2}`"/>
-              </circle>
-              <circle r="3" fill="#392C91" filter="drop-shadow(0 0 4px rgba(57,44,145,0.7))">
-                <animateMotion :dur="'3.6s'" repeatCount="indefinite" begin="3s" :path="`M ${lineCoords.c3.x1} ${lineCoords.c3.y1} L ${lineCoords.c3.x2} ${lineCoords.c3.y2}`"/>
-              </circle>
-              <circle r="3" fill="#392C91" filter="drop-shadow(0 0 4px rgba(57,44,145,0.7))">
-                <animateMotion :dur="'3.6s'" repeatCount="indefinite" begin="3.4s" :path="`M ${lineCoords.c4.x1} ${lineCoords.c4.y1} L ${lineCoords.c4.x2} ${lineCoords.c4.y2}`"/>
-              </circle>
+              <line
+                v-for="(c, i) in lineCoords"
+                :key="`l-${i}`"
+                class="conn-line"
+                :x1="c.x1" :y1="c.y1" :x2="c.x2" :y2="c.y2"
+                stroke="url(#orbitLineGradient)" stroke-width="1.5" stroke-dasharray="4 4"
+              />
             </g>
           </svg>
 
           <!-- Center email card -->
-          <div class="orbit-center" ref="centerCardRef" aria-hidden="true">
+          <div class="orbit-center" aria-hidden="true">
             <div class="center-card">
               <div class="center-pulse"></div>
               <div class="center-icon">
@@ -257,56 +226,48 @@ onUnmounted(() => {
             </div>
           </div>
 
-          <!-- 4 satellite cards -->
-          <div class="satellite sat-tl" ref="satTLRef" @click="scrollToSection('templates-heading')">
+          <!-- 4 orbiting satellite cards (positioned by index) -->
+          <div
+            v-for="(sat, i) in [
+              { title: 'Templates', desc: 'Sell sooner', target: 'templates-heading', icon: 'tpl' },
+              { title: 'Segments', desc: 'Sell smarter', target: 'segmentation-heading', icon: 'seg' },
+              { title: 'Automation', desc: 'Sell on autopilot', target: 'automation-heading', icon: 'auto' },
+              { title: 'Analytics', desc: 'Sell more of what works', target: 'analytics-heading', icon: 'chart' }
+            ]"
+            :key="sat.target"
+            class="satellite"
+            :style="{
+              left: `${satPositions[i].x}px`,
+              top: `${satPositions[i].y}px`,
+              '--orbit-scale': satPositions[i].scale
+            }"
+            @click="scrollToSection(sat.target)"
+            @mouseenter="pauseOrbit"
+            @mouseleave="resumeOrbit"
+            @focusin="pauseOrbit"
+            @focusout="resumeOrbit"
+          >
             <div class="sat-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <svg v-if="sat.icon === 'tpl'" width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
                 <path d="M3 9h18M9 3v18" stroke="currentColor" stroke-width="2"/>
               </svg>
-            </div>
-            <div class="sat-text">
-              <div class="sat-title">Templates</div>
-              <div class="sat-desc">Sell sooner</div>
-            </div>
-          </div>
-
-          <div class="satellite sat-tr" ref="satTRRef" @click="scrollToSection('segmentation-heading')">
-            <div class="sat-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <svg v-else-if="sat.icon === 'seg'" width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
                 <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
                 <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
               </svg>
-            </div>
-            <div class="sat-text">
-              <div class="sat-title">Segments</div>
-              <div class="sat-desc">Sell smarter</div>
-            </div>
-          </div>
-
-          <div class="satellite sat-bl" ref="satBLRef" @click="scrollToSection('automation-heading')">
-            <div class="sat-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <svg v-else-if="sat.icon === 'auto'" width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
               </svg>
-            </div>
-            <div class="sat-text">
-              <div class="sat-title">Automation</div>
-              <div class="sat-desc">Sell on autopilot</div>
-            </div>
-          </div>
-
-          <div class="satellite sat-br" ref="satBRRef" @click="scrollToSection('analytics-heading')">
-            <div class="sat-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M3 3v18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 <path d="M7 14l4-4 3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div class="sat-text">
-              <div class="sat-title">Analytics</div>
-              <div class="sat-desc">Sell more of what works</div>
+              <div class="sat-title">{{ sat.title }}</div>
+              <div class="sat-desc">{{ sat.desc }}</div>
             </div>
           </div>
         </div>
@@ -704,11 +665,12 @@ html.dark .center-sub { color: #9ca3af; }
   border: 1px solid rgba(19, 176, 238, 0.22);
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);
   cursor: pointer;
-  opacity: 0;
-  transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease, border-color 0.3s ease;
-  animation: satIn 0.8s cubic-bezier(0.34, 1.4, 0.64, 1) forwards, satFloat 7s ease-in-out infinite;
+  --orbit-scale: 1;
+  transform: translate(-50%, -50%) scale(var(--orbit-scale));
+  transition: box-shadow 0.4s ease, border-color 0.3s ease;
   touch-action: manipulation;
   min-width: 145px;
+  will-change: left, top, transform;
 }
 
 html.dark .satellite {
@@ -717,52 +679,14 @@ html.dark .satellite {
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
 }
 
-.sat-tl {
-  top: 6%;
-  left: 0;
-  animation-delay: 0.85s, 1.6s;
-  transform: translate(var(--parallax-topleft-x, 0), var(--parallax-topleft-y, 0));
-}
-
-.sat-tr {
-  top: 6%;
-  right: 0;
-  animation-delay: 1s, 1.9s;
-  transform: translate(var(--parallax-topright-x, 0), var(--parallax-topright-y, 0));
-}
-
-.sat-bl {
-  bottom: 6%;
-  left: 0;
-  animation-delay: 1.15s, 2.2s;
-  transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0));
-}
-
-.sat-br {
-  bottom: 6%;
-  right: 0;
-  animation-delay: 1.3s, 2.5s;
-  transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0));
-}
-
-@keyframes satIn {
-  from { opacity: 0; transform: scale(0.7); }
-  to   { opacity: 1; transform: scale(1); }
-}
-
-@keyframes satFloat {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-6px); }
-}
-
 .satellite:hover {
-  transform: translateY(-6px) scale(1.04);
+  transform: translate(-50%, -50%) scale(calc(var(--orbit-scale) * 1.08));
   box-shadow: 0 18px 44px rgba(19, 176, 238, 0.28);
   border-color: rgba(19, 176, 238, 0.55);
 }
 
 .satellite:active {
-  transform: translateY(-2px) scale(1);
+  transform: translate(-50%, -50%) scale(calc(var(--orbit-scale) * 1.02));
 }
 
 .sat-icon {
@@ -935,8 +859,6 @@ a {
   .sat-title { font-size: 12px; }
   .sat-desc { font-size: 10px; }
 
-  .sat-tl, .sat-bl { left: -6px; }
-  .sat-tr, .sat-br { right: -6px; }
 }
 
 /* Extra small mobile devices */

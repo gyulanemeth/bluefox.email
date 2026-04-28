@@ -22,12 +22,12 @@ const filters = [
 ]
 
 const everyone = [
-  { name: 'Mark',   photo: chrisPhoto,   matched: true  },
+  { name: 'John',   photo: vickyPhoto,   matched: true  },
   { name: 'Robert', photo: jakePhoto,    matched: false },
+  { name: 'Sarah',  photo: chrisPhoto,   matched: true  },
   { name: 'Diego',  photo: alexPhoto,    matched: true  },
-  { name: 'Nicole', photo: vickyPhoto,   matched: true  },
   { name: 'Gabriel',photo: michaelPhoto, matched: false },
-  { name: 'Lina',   photo: nguyenPhoto,  matched: true  }
+  { name: 'Tom',    photo: nguyenPhoto,  matched: true  }
 ]
 
 const matched = everyone.filter(p => p.matched)
