@@ -70,6 +70,12 @@ const { isDark } = useData()
     border-top: 0 !important;
   }
 
+  /* Sentence-case CTAs across page */
+  .v-btn {
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+  }
+
   .sectionTitle {
     font-size: 30px !important;
   }
@@ -462,7 +468,7 @@ const { isDark } = useData()
     font-size: 18px !important;
     padding: 28px 48px !important;
     height: auto !important;
-    border-radius: 12px !important;
+    border-radius: 4px !important;
     text-transform: none !important;
     letter-spacing: 0 !important;
     box-shadow: 0 10px 40px rgba(19, 176, 238, 0.25) !important;
@@ -620,7 +626,7 @@ const { isDark } = useData()
   .founder-team-button {
     min-height: 54px !important;
     padding: 0 30px !important;
-    border-radius: 12px !important;
+    border-radius: 4px !important;
     font-size: 16px !important;
     text-transform: none !important;
     letter-spacing: 0 !important;
@@ -814,6 +820,7 @@ const { isDark } = useData()
       size="large"
       color="primary"
       variant="flat"
+      class="no-uppercase"
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
       aria-label="Explore all email templates"
@@ -845,6 +852,7 @@ const { isDark } = useData()
       size="large"
       color="primary"
       variant="flat"
+      class="no-uppercase"
       href="/docs/projects/segments"
       aria-label="Read segments documentation"
     >
@@ -879,6 +887,7 @@ const { isDark } = useData()
       size="large"
       color="primary"
       variant="flat"
+      class="no-uppercase"
       href="/docs/projects/automations"
       aria-label="Read automations documentation"
     >
@@ -890,7 +899,7 @@ const { isDark } = useData()
 
 <!-- 5. ANALYTICS -->
 <div class="stripe stripe--blue"><div class="stripe-inner">
-<section class="value-prop home-analytics" role="region" aria-labelledby="analytics-heading">
+<section id="analytics-heading" class="value-prop home-analytics" role="region" aria-labelledby="analytics-heading">
   <AgencyAnalytics
     title="Analytics that show what happened"
     description="Delivery, opens, clicks, bounces, and subscription trends. Switch between hourly, daily, weekly, and monthly views. Export when you need to share."

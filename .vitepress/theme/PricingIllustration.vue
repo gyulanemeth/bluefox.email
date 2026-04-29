@@ -281,7 +281,7 @@ html.dark .tick { background: rgba(16, 185, 129, 0.22); color: #6ee7b7; }
 .illus-cta {
   text-transform: none !important;
   letter-spacing: 0 !important;
-  border-radius: 12px !important;
+  border-radius: 4px !important;
   min-height: 56px !important;
   padding: 0 32px !important;
   font-size: 16px !important;

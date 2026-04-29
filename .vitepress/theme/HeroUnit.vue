@@ -1,86 +1,56 @@
 <script setup>
 import { useData } from 'vitepress'
-import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { computed, onMounted, onUnmounted, ref, nextTick } from 'vue'
 import BrandLogos from './BrandLogos.vue'
 
 const { isDark } = useData()
 
-// Mouse position for subtle parallax
-const mouseX = ref(0)
-const mouseY = ref(0)
-const isMobile = ref(false)
-
-const handleMouseMove = (e) => {
-  // Disable parallax on mobile/tablet
-  if (isMobile.value){ 
-    return
-  }
-  
-  mouseX.value = (e.clientX / window.innerWidth - 0.5) * 15
-  mouseY.value = (e.clientY / window.innerHeight - 0.5) * 15
-  
-  // Update CSS variables for parallax
-  document.documentElement.style.setProperty('--parallax-main-x', `${mouseX.value * 0.5}px`)
-  document.documentElement.style.setProperty('--parallax-main-y', `${mouseY.value * 0.5}px`)
-  document.documentElement.style.setProperty('--parallax-topleft-x', `${mouseX.value * -0.8}px`)
-  document.documentElement.style.setProperty('--parallax-topleft-y', `${mouseY.value * -0.8}px`)
-  document.documentElement.style.setProperty('--parallax-topright-x', `${mouseX.value * 0.6}px`)
-  document.documentElement.style.setProperty('--parallax-topright-y', `${mouseY.value * -0.6}px`)
-  document.documentElement.style.setProperty('--parallax-bottomright-x', `${mouseX.value * 0.8}px`)
-  document.documentElement.style.setProperty('--parallax-bottomright-y', `${mouseY.value * 0.8}px`)
-}
-
-// Check if mobile
-const checkMobile = () => {
-  isMobile.value = window.innerWidth <= 1024
-}
-
-// Smooth scroll to solution sections
-const scrollToSection = (sectionId) => {
-  const section = document.getElementById(sectionId)
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
-}
-
-// Polar orbit — symmetric satellites + lines synced via angle
 const heroVisualRef = ref(null)
-const orbitSize = ref({ w: 400, h: 400 })
-const orbitAngle = ref(0)
-const orbitPaused = ref(false)
-const SAT_COUNT = 4
-const BASE_ANGLES = [-Math.PI * 3 / 4, -Math.PI / 4, Math.PI * 3 / 4, Math.PI / 4] // TL, TR, BL, BR (start positions)
+const orbitSize = ref({ w: 480, h: 480 })
 
-const orbitViewBox = computed(() => `0 0 ${orbitSize.value.w} ${orbitSize.value.h}`)
+// Static satellite positions: TL, TR, BL, BR
+const BASE_ANGLES = [-Math.PI * 3 / 4, -Math.PI / 4, Math.PI * 3 / 4, Math.PI / 4]
+const ORBIT_RADIUS_FACTOR = 0.42
+
 const ringCx = computed(() => orbitSize.value.w / 2)
 const ringCy = computed(() => orbitSize.value.h / 2)
-const orbitRadius = computed(() => Math.min(orbitSize.value.w, orbitSize.value.h) * 0.38)
+const orbitRadius = computed(() => Math.min(orbitSize.value.w, orbitSize.value.h) * ORBIT_RADIUS_FACTOR)
 const ringR1 = computed(() => orbitRadius.value)
 const ringR2 = computed(() => orbitRadius.value * 0.7)
+const orbitViewBox = computed(() => `0 0 ${orbitSize.value.w} ${orbitSize.value.h}`)
 
 const satPositions = computed(() => {
   const cx = ringCx.value
   const cy = ringCy.value
   const r = orbitRadius.value
-  return BASE_ANGLES.map((base) => {
-    const a = base + orbitAngle.value
-    // Scale by horizontal position: 1.05 at far-left/right, 0.92 at top/bottom
-    const rawScale = 0.92 + Math.abs(Math.cos(a)) * 0.13
-    const scale = Math.round(rawScale * 100) / 100 // quantize to 1% steps
-    return {
-      x: Math.round(cx + Math.cos(a) * r),
-      y: Math.round(cy + Math.sin(a) * r),
-      angle: a,
-      scale
-    }
-  })
+  return BASE_ANGLES.map((a) => ({
+    x: Math.round(cx + Math.cos(a) * r),
+    y: Math.round(cy + Math.sin(a) * r)
+  }))
 })
 
+// X diagonals: TL ↔ BR, TR ↔ BL
 const lineCoords = computed(() => {
-  const cx = ringCx.value
-  const cy = ringCy.value
-  return satPositions.value.map((p) => ({ x1: cx, y1: cy, x2: p.x, y2: p.y }))
+  const sp = satPositions.value
+  return [
+    { x1: sp[0].x, y1: sp[0].y, x2: sp[3].x, y2: sp[3].y },
+    { x1: sp[1].x, y1: sp[1].y, x2: sp[2].x, y2: sp[2].y }
+  ]
 })
+
+const scrollToSection = (sectionId) => {
+  const section = document.getElementById(sectionId)
+  if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+const onSatKey = (e, target) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    scrollToSection(target)
+  }
+}
+
+let resizeObs = null
 
 function measureHost() {
   if (!heroVisualRef.value) return
@@ -88,57 +58,19 @@ function measureHost() {
   if (r.width > 0) orbitSize.value = { w: r.width, h: r.height }
 }
 
-let orbitResizeObs = null
-let orbitRaf = null
-let lastTs = 0
-const ORBIT_SPEED = (Math.PI * 2) / 30000 // full rev / 30s
-
-function tick(ts) {
-  if (!lastTs) lastTs = ts
-  const dt = ts - lastTs
-  lastTs = ts
-  if (!orbitPaused.value) {
-    orbitAngle.value += ORBIT_SPEED * dt
-  }
-  orbitRaf = requestAnimationFrame(tick)
-}
-
 onMounted(() => {
-  // Initialize CSS variables
-  document.documentElement.style.setProperty('--parallax-main-x', '0px')
-  document.documentElement.style.setProperty('--parallax-main-y', '0px')
-  document.documentElement.style.setProperty('--parallax-topleft-x', '0px')
-  document.documentElement.style.setProperty('--parallax-topleft-y', '0px')
-  document.documentElement.style.setProperty('--parallax-topright-x', '0px')
-  document.documentElement.style.setProperty('--parallax-topright-y', '0px')
-  document.documentElement.style.setProperty('--parallax-bottomright-x', '0px')
-  document.documentElement.style.setProperty('--parallax-bottomright-y', '0px')
-  
-  checkMobile()
-  window.addEventListener('mousemove', handleMouseMove)
-  window.addEventListener('resize', checkMobile)
-
   nextTick(() => {
     measureHost()
     if (typeof ResizeObserver !== 'undefined' && heroVisualRef.value) {
-      orbitResizeObs = new ResizeObserver(measureHost)
-      orbitResizeObs.observe(heroVisualRef.value)
+      resizeObs = new ResizeObserver(measureHost)
+      resizeObs.observe(heroVisualRef.value)
     }
-    window.addEventListener('resize', measureHost)
-    orbitRaf = requestAnimationFrame(tick)
   })
 })
 
 onUnmounted(() => {
-  window.removeEventListener('mousemove', handleMouseMove)
-  window.removeEventListener('resize', checkMobile)
-  window.removeEventListener('resize', measureHost)
-  if (orbitResizeObs) orbitResizeObs.disconnect()
-  if (orbitRaf) cancelAnimationFrame(orbitRaf)
+  if (resizeObs) resizeObs.disconnect()
 })
-
-const pauseOrbit = () => { orbitPaused.value = true }
-const resumeOrbit = () => { orbitPaused.value = false }
 </script>
 
 <template>
@@ -184,8 +116,8 @@ const resumeOrbit = () => { orbitPaused.value = false }
           <svg class="orbit-svg" :viewBox="orbitViewBox" preserveAspectRatio="xMinYMin meet" aria-hidden="true">
             <defs>
               <linearGradient id="orbitLineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#13B0EE" stop-opacity="0.6"/>
-                <stop offset="100%" stop-color="#392C91" stop-opacity="0.4"/>
+                <stop offset="0%" stop-color="#13B0EE" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#392C91" stop-opacity="0.85"/>
               </linearGradient>
               <radialGradient id="orbitRingGlow" cx="50%" cy="50%" r="50%">
                 <stop offset="60%" stop-color="#13B0EE" stop-opacity="0"/>
@@ -207,7 +139,10 @@ const resumeOrbit = () => { orbitPaused.value = false }
                 :key="`l-${i}`"
                 class="conn-line"
                 :x1="c.x1" :y1="c.y1" :x2="c.x2" :y2="c.y2"
-                stroke="url(#orbitLineGradient)" stroke-width="1.5" stroke-dasharray="4 4"
+                stroke="url(#orbitLineGradient)"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-dasharray="1 8"
               />
             </g>
           </svg>
@@ -227,7 +162,7 @@ const resumeOrbit = () => { orbitPaused.value = false }
             </div>
           </div>
 
-          <!-- 4 orbiting satellite cards (positioned by index) -->
+          <!-- 4 static satellite cards (positioned by index) -->
           <div
             v-for="(sat, i) in [
               { title: 'Templates', desc: 'Sell sooner', target: 'templates-heading', icon: 'tpl' },
@@ -237,16 +172,12 @@ const resumeOrbit = () => { orbitPaused.value = false }
             ]"
             :key="sat.target"
             class="satellite"
-            :style="{
-              left: `${satPositions[i].x}px`,
-              top: `${satPositions[i].y}px`,
-              '--orbit-scale': satPositions[i].scale
-            }"
+            role="button"
+            tabindex="0"
+            :aria-label="`Jump to ${sat.title} section`"
+            :style="{ left: `${satPositions[i].x}px`, top: `${satPositions[i].y}px` }"
             @click="scrollToSection(sat.target)"
-            @mouseenter="pauseOrbit"
-            @mouseleave="resumeOrbit"
-            @focusin="pauseOrbit"
-            @focusout="resumeOrbit"
+            @keydown="onSatKey($event, sat.target)"
           >
             <div class="sat-icon">
               <svg v-if="sat.icon === 'tpl'" width="20" height="20" viewBox="0 0 24 24" fill="none">
@@ -433,7 +364,7 @@ html.dark .tagline {
   box-shadow: 0 8px 24px rgba(19, 176, 238, 0.25) !important;
   position: relative;
   overflow: hidden;
-  border-radius: 12px !important;
+  border-radius: 4px !important;
   padding: 20px 40px !important;
   font-size: 16px !important;
   letter-spacing: 0 !important;
@@ -511,9 +442,7 @@ html.dark .highlight-item {
 /* Right Visual */
 .heroVisual {
   position: relative;
-  height: 380px;
-  transform: translate(var(--parallax-main-x, 0), var(--parallax-main-y, 0));
-  transition: transform 0.1s ease-out;
+  height: 480px;
   opacity: 0;
   animation: fadeInRight 1s ease-out 0.4s forwards;
 }
@@ -539,32 +468,10 @@ html.dark .highlight-item {
   z-index: 1;
 }
 
-.orbit-rings {
-  transform-origin: 200px 200px;
-  animation: ringSpin 60s linear infinite;
-}
-
-.orbit-ring.inner {
-  transform-origin: 200px 200px;
-  animation: ringSpinReverse 45s linear infinite;
-}
-
-@keyframes ringSpin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes ringSpinReverse {
-  to { transform: rotate(-360deg); }
-}
-
 .conn-line {
   opacity: 0;
-  animation: connFadeIn 0.8s ease-out forwards;
+  animation: connFadeIn 0.8s ease-out 0.9s forwards;
 }
-.conn-line.c1 { animation-delay: 0.9s; }
-.conn-line.c2 { animation-delay: 1.05s; }
-.conn-line.c3 { animation-delay: 1.2s; }
-.conn-line.c4 { animation-delay: 1.35s; }
 
 @keyframes connFadeIn {
   to { opacity: 1; }
@@ -656,7 +563,7 @@ html.dark .center-label { color: #f3f4f6; }
 
 html.dark .center-sub { color: #9ca3af; }
 
-/* Satellite cards (orbital) */
+/* Satellite cards */
 .satellite {
   position: absolute;
   z-index: 4;
@@ -671,12 +578,43 @@ html.dark .center-sub { color: #9ca3af; }
   border: 1px solid rgba(19, 176, 238, 0.22);
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);
   cursor: pointer;
-  --orbit-scale: 1;
-  transform: translate(-50%, -50%) scale(var(--orbit-scale));
-  transition: transform 0.4s ease-out, box-shadow 0.4s ease, border-color 0.3s ease;
+  transform: translate(-50%, -50%);
+  transition: box-shadow 0.4s ease, border-color 0.3s ease;
   touch-action: manipulation;
   width: 175px;
-  will-change: left, top, transform;
+  animation: satDriftDown 5s ease-in-out infinite;
+}
+
+/* Opposite drift for TR + BL so each diagonal pair breathes apart/together */
+.satellite:nth-child(2),
+.satellite:nth-child(3) {
+  animation-name: satDriftUp;
+}
+
+/* Stagger phase so motion looks organic */
+.satellite:nth-child(1) { animation-delay: 0s; }
+.satellite:nth-child(2) { animation-delay: 1.2s; }
+.satellite:nth-child(3) { animation-delay: 0.6s; }
+.satellite:nth-child(4) { animation-delay: 1.8s; }
+
+.satellite:hover,
+.satellite:focus-within {
+  animation-play-state: paused;
+}
+
+@keyframes satDriftDown {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50%      { transform: translate(-50%, calc(-50% + 10px)); }
+}
+
+@keyframes satDriftUp {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50%      { transform: translate(-50%, calc(-50% - 10px)); }
+}
+
+.satellite:focus-visible {
+  outline: 2px solid #13B0EE;
+  outline-offset: 3px;
 }
 
 .sat-text { min-width: 0; flex: 1; }
@@ -690,13 +628,8 @@ html.dark .satellite {
 }
 
 .satellite:hover {
-  transform: translate(-50%, -50%) scale(calc(var(--orbit-scale) * 1.08));
   box-shadow: 0 18px 44px rgba(19, 176, 238, 0.28);
   border-color: rgba(19, 176, 238, 0.55);
-}
-
-.satellite:active {
-  transform: translate(-50%, -50%) scale(calc(var(--orbit-scale) * 1.02));
 }
 
 .sat-icon {
@@ -713,7 +646,7 @@ html.dark .satellite {
 }
 
 .satellite:hover .sat-icon {
-  transform: scale(1.1) rotate(-6deg);
+  transform: rotate(-8deg);
   background: linear-gradient(135deg, rgba(19, 176, 238, 0.28), rgba(57, 44, 145, 0.22));
 }
 
@@ -741,10 +674,10 @@ html.dark .sat-title { color: #f3f4f6; }
 html.dark .sat-desc { color: #9ca3af; }
 
 @media (prefers-reduced-motion: reduce) {
-  .orbit-rings, .orbit-ring.inner, .conn-line, .particles, .orbit-center, .satellite, .center-pulse {
+  .conn-line, .orbit-center, .center-pulse, .heroVisual, .heroContent, .title-line, .tagline, .cta-button, .hero-highlights, .satellite {
     animation: none !important;
+    opacity: 1 !important;
   }
-  .satellite { opacity: 1; }
 }
 
 a {
@@ -778,7 +711,7 @@ a {
   }
 
   .heroVisual {
-    height: 400px;
+    height: 500px;
     margin: 0 auto;
     max-width: 560px;
   }
@@ -822,7 +755,7 @@ a {
   }
 
   .heroVisual {
-    height: 380px;
+    height: 420px;
     max-width: 100%;
   }
 

@@ -196,33 +196,30 @@ html.dark .brand-logos-subtitle {
   background: linear-gradient(to left, var(--vp-c-bg) 0%, transparent 100%);
 }
 
-/* Track: make it pause on hover and focus-within for keyboard users */
+/* Track: pause on hover/focus for keyboard users */
 .logos-track {
   --gap: 80px;
   display: flex;
-  gap: var(--gap);
   animation: scroll 40s linear infinite;
   width: max-content;
   will-change: transform;
 }
 
-/* Pause animation on hover or keyboard focus inside */
 .logos-track:hover,
 .logos-track:focus-within {
   animation-play-state: paused;
 }
 
-/* Respect user preference for reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .logos-track {
     animation: none !important;
   }
 }
 
-/* Scrolling animation: translate by 6 items + 6 gaps so set-2 takes set-1 position */
+/* Translate exactly half the track width — duplicated set takes original position seamlessly */
 @keyframes scroll {
   0%   { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(calc(-50% - var(--gap) / 2), 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 .logo-item {
@@ -232,6 +229,7 @@ html.dark .brand-logos-subtitle {
   justify-content: center;
   height: 60px;
   padding: 0;
+  margin-right: var(--gap);
 }
 
 .logo-item a {
