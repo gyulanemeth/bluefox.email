@@ -13,8 +13,8 @@ const BASE_ANGLES = [-Math.PI * 3 / 4, -Math.PI / 4, Math.PI * 3 / 4, Math.PI / 
 
 const orbitRadiusFactor = computed(() => {
   const w = orbitSize.value.w
-  if (w <= 380) return 0.30
-  if (w <= 640) return 0.32
+  if (w <= 380) return 0.40
+  if (w <= 640) return 0.42
   return 0.42
 })
 
@@ -767,26 +767,26 @@ a {
   }
 
   .center-card {
-    width: 130px;
-    height: 130px;
-    padding: 14px;
-    border-radius: 20px;
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    border-radius: 18px;
   }
 
   .center-icon {
-    width: 44px;
-    height: 44px;
-    margin-bottom: 6px;
-    border-radius: 12px;
+    width: 34px;
+    height: 34px;
+    margin-bottom: 4px;
+    border-radius: 10px;
   }
 
   .center-icon svg {
-    width: 26px;
-    height: 26px;
+    width: 20px;
+    height: 20px;
   }
 
-  .center-label { font-size: 11.5px; }
-  .center-sub { font-size: 9.5px; }
+  .center-label { font-size: 10.5px; }
+  .center-sub { font-size: 9px; line-height: 1.2; }
 
   .satellite {
     padding: 8px 10px;
@@ -836,17 +836,23 @@ a {
   }
 
   .center-card {
-    width: 110px;
-    height: 110px;
-    padding: 10px;
+    width: 80px;
+    height: 80px;
+    padding: 8px;
   }
 
   .center-icon {
-    width: 36px;
-    height: 36px;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 2px;
   }
 
-  .center-label { font-size: 10.5px; }
+  .center-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .center-label { font-size: 9.5px; }
   .center-sub { display: none; }
 
   .satellite {
@@ -910,8 +916,8 @@ a {
   }
 
   .center-card {
-    width: 110px;
-    height: 110px;
+    width: 90px;
+    height: 90px;
   }
 
   .satellite {
