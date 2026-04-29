@@ -87,34 +87,36 @@ const logos = [
           </a>
         </div>
 
-        <!-- Duplicate set for seamless loop (non-focusable for assistive tech) -->
-        <div
-          v-for="(logo, index) in logos"
-          :key="`logo-2-${index}`"
-          class="logo-item"
-          role="listitem"
-          aria-hidden="true"
-        >
-          <a
-            :href="logo.url"
-            target="_blank"
-            rel="noopener noreferrer"
-            tabindex="-1"
+        <!-- Duplicate sets for seamless loop on wide screens (non-focusable for assistive tech) -->
+        <template v-for="setIdx in [2, 3]" :key="`set-${setIdx}`">
+          <div
+            v-for="(logo, index) in logos"
+            :key="`logo-${setIdx}-${index}`"
+            class="logo-item"
+            role="listitem"
             aria-hidden="true"
-            :title="`Visit ${logo.alt}`"
           >
-            <img
-              :src="logo.src"
-              :alt="logo.alt"
-              :width="logo.width"
-              :height="logo.height"
-              class="logo-image"
-              loading="lazy"
-              decoding="async"
-              draggable="false"
-            />
-          </a>
-        </div>
+            <a
+              :href="logo.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              tabindex="-1"
+              aria-hidden="true"
+              :title="`Visit ${logo.alt}`"
+            >
+              <img
+                :src="logo.src"
+                :alt="logo.alt"
+                :width="logo.width"
+                :height="logo.height"
+                class="logo-image"
+                loading="lazy"
+                decoding="async"
+                draggable="false"
+              />
+            </a>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -216,10 +218,10 @@ html.dark .brand-logos-subtitle {
   }
 }
 
-/* Translate exactly half the track width — duplicated set takes original position seamlessly */
+/* 3 sets total. Translate by 1 set width (1/3 total) so set-2 + set-3 fill viewport at end of loop. */
 @keyframes scroll {
   0%   { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(-33.3333%, 0, 0); }
 }
 
 .logo-item {
