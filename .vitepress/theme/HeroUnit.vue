@@ -1,66 +1,81 @@
 <script setup>
 import { useData } from 'vitepress'
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted, ref, nextTick } from 'vue'
+import BrandLogos from './BrandLogos.vue'
 
 const { isDark } = useData()
 
-// Mouse position for subtle parallax
-const mouseX = ref(0)
-const mouseY = ref(0)
-const isMobile = ref(false)
+const heroVisualRef = ref(null)
+const orbitSize = ref({ w: 480, h: 480 })
 
-const handleMouseMove = (e) => {
-  // Disable parallax on mobile/tablet
-  if (isMobile.value){ 
-    return
-  }
-  
-  mouseX.value = (e.clientX / window.innerWidth - 0.5) * 15
-  mouseY.value = (e.clientY / window.innerHeight - 0.5) * 15
-  
-  // Update CSS variables for parallax
-  document.documentElement.style.setProperty('--parallax-main-x', `${mouseX.value * 0.5}px`)
-  document.documentElement.style.setProperty('--parallax-main-y', `${mouseY.value * 0.5}px`)
-  document.documentElement.style.setProperty('--parallax-topleft-x', `${mouseX.value * -0.8}px`)
-  document.documentElement.style.setProperty('--parallax-topleft-y', `${mouseY.value * -0.8}px`)
-  document.documentElement.style.setProperty('--parallax-topright-x', `${mouseX.value * 0.6}px`)
-  document.documentElement.style.setProperty('--parallax-topright-y', `${mouseY.value * -0.6}px`)
-  document.documentElement.style.setProperty('--parallax-bottomright-x', `${mouseX.value * 0.8}px`)
-  document.documentElement.style.setProperty('--parallax-bottomright-y', `${mouseY.value * 0.8}px`)
-}
+// Static satellite positions: TL, TR, BL, BR
+const BASE_ANGLES = [-Math.PI * 3 / 4, -Math.PI / 4, Math.PI * 3 / 4, Math.PI / 4]
 
-// Check if mobile
-const checkMobile = () => {
-  isMobile.value = window.innerWidth <= 1024
-}
+const orbitRadiusFactor = computed(() => {
+  const w = orbitSize.value.w
+  if (w <= 380) return 0.40
+  if (w <= 640) return 0.42
+  return 0.42
+})
 
-// Smooth scroll to solution sections
+const ringCx = computed(() => orbitSize.value.w / 2)
+const ringCy = computed(() => orbitSize.value.h / 2)
+const orbitRadius = computed(() => Math.min(orbitSize.value.w, orbitSize.value.h) * orbitRadiusFactor.value)
+const ringR1 = computed(() => orbitRadius.value)
+const ringR2 = computed(() => orbitRadius.value * 0.7)
+const orbitViewBox = computed(() => `0 0 ${orbitSize.value.w} ${orbitSize.value.h}`)
+
+const satPositions = computed(() => {
+  const cx = ringCx.value
+  const cy = ringCy.value
+  const r = orbitRadius.value
+  return BASE_ANGLES.map((a) => ({
+    x: Math.round(cx + Math.cos(a) * r),
+    y: Math.round(cy + Math.sin(a) * r)
+  }))
+})
+
+// X diagonals: TL ↔ BR, TR ↔ BL
+const lineCoords = computed(() => {
+  const sp = satPositions.value
+  return [
+    { x1: sp[0].x, y1: sp[0].y, x2: sp[3].x, y2: sp[3].y },
+    { x1: sp[1].x, y1: sp[1].y, x2: sp[2].x, y2: sp[2].y }
+  ]
+})
+
 const scrollToSection = (sectionId) => {
   const section = document.getElementById(sectionId)
-  if (section) {
-    section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+}
+
+const onSatKey = (e, target) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    scrollToSection(target)
   }
+}
+
+let resizeObs = null
+
+function measureHost() {
+  if (!heroVisualRef.value) return
+  const r = heroVisualRef.value.getBoundingClientRect()
+  if (r.width > 0) orbitSize.value = { w: r.width, h: r.height }
 }
 
 onMounted(() => {
-  // Initialize CSS variables
-  document.documentElement.style.setProperty('--parallax-main-x', '0px')
-  document.documentElement.style.setProperty('--parallax-main-y', '0px')
-  document.documentElement.style.setProperty('--parallax-topleft-x', '0px')
-  document.documentElement.style.setProperty('--parallax-topleft-y', '0px')
-  document.documentElement.style.setProperty('--parallax-topright-x', '0px')
-  document.documentElement.style.setProperty('--parallax-topright-y', '0px')
-  document.documentElement.style.setProperty('--parallax-bottomright-x', '0px')
-  document.documentElement.style.setProperty('--parallax-bottomright-y', '0px')
-  
-  checkMobile()
-  window.addEventListener('mousemove', handleMouseMove)
-  window.addEventListener('resize', checkMobile)
+  nextTick(() => {
+    measureHost()
+    if (typeof ResizeObserver !== 'undefined' && heroVisualRef.value) {
+      resizeObs = new ResizeObserver(measureHost)
+      resizeObs.observe(heroVisualRef.value)
+    }
+  })
 })
 
 onUnmounted(() => {
-  window.removeEventListener('mousemove', handleMouseMove)
-  window.removeEventListener('resize', checkMobile)
+  if (resizeObs) resizeObs.disconnect()
 })
 </script>
 
@@ -75,11 +90,17 @@ onUnmounted(() => {
         <!-- Left Side: Content -->
         <div class="heroContent">
           <h1 class="title">
-            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Beautiful emails</div>
-            <div class="title-line" style="font-size: 1.125em; font-weight: 700;">Faster workflows</div>
-            <div class="title-line" style="font-size: 1em; font-weight: 600;">Happier clients</div>
+            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Stop paying for contacts</div>
+            <div class="title-line" style="font-size: 1.3em; font-weight: 800;">you don&rsquo;t email.</div>
           </h1>
-          <p class="tagline">Pay for sends, not contacts.</p>
+          <p class="tagline">BlueFox Email includes everything serious email platforms offer, without hiding features behind upgrades.</p>
+          <p class="tagline tagline--accent">You only pay for sends.</p>
+
+          <div class="hero-highlights" role="list" aria-label="Key features">
+            <span class="highlight-item" role="listitem">Pay per send</span>
+            <span class="highlight-item" role="listitem">No contact-based billing</span>
+            <span class="highlight-item" role="listitem">3,000 free sends to start</span>
+          </div>
 
           <div>
             <v-btn
@@ -90,110 +111,110 @@ onUnmounted(() => {
               href="https://app.bluefox.email/accounts/create-account"
               target="_blank"
             >
-              <strong>Get Started for Free</strong>
+              <strong>Get started for free</strong>
             </v-btn>
           </div>
-
-          <!-- Trust Indicators -->
-          <div class="trust-bar">
-            <div class="trust-item">
-              <div class="trust-number">100+</div>
-              <div class="trust-label">Agencies</div>
-            </div>
-            <div class="trust-divider"></div>
-            <div class="trust-item">
-              <div class="trust-number">10x</div>
-              <div class="trust-label">Faster</div>
-            </div>
-            <div class="trust-divider"></div>
-            <div class="trust-item">
-              <div class="trust-number">$0.001</div>
-              <div class="trust-label">Per Email</div>
-            </div>
-          </div>
         </div>
 
-        <!-- Right Side: Interactive Visualization -->
-        <div class="heroVisual">
-          <!-- Main Email Card -->
-          <div class="email-card main-card">
-            <div class="card-header">
-              <div class="header-bar"></div>
-              <div class="header-content">
-                <div class="brand-circle"></div>
-                <div class="brand-lines">
-                  <div class="brand-line"></div>
-                  <div class="brand-line short"></div>
-                </div>
+        <!-- Right Side: Email Orbit Visualization -->
+        <div class="heroVisual" ref="heroVisualRef">
+          <!-- Orbit rings + connection paths + data particles -->
+          <svg class="orbit-svg" :viewBox="orbitViewBox" preserveAspectRatio="xMinYMin meet" aria-hidden="true">
+            <defs>
+              <linearGradient id="orbitLineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#13B0EE" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#392C91" stop-opacity="0.85"/>
+              </linearGradient>
+              <radialGradient id="orbitRingGlow" cx="50%" cy="50%" r="50%">
+                <stop offset="60%" stop-color="#13B0EE" stop-opacity="0"/>
+                <stop offset="100%" stop-color="#13B0EE" stop-opacity="0.18"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Orbit rings (rotating) -->
+            <g class="orbit-rings" :style="{ transformOrigin: `${ringCx}px ${ringCy}px` }">
+              <circle class="orbit-ring outer" :cx="ringCx" :cy="ringCy" :r="ringR1" fill="none" stroke="rgba(19,176,238,0.18)" stroke-width="1.2" stroke-dasharray="3 6"/>
+              <circle class="orbit-ring inner" :cx="ringCx" :cy="ringCy" :r="ringR2" fill="none" stroke="rgba(57,44,145,0.18)" stroke-width="1.2" stroke-dasharray="2 4" :style="{ transformOrigin: `${ringCx}px ${ringCy}px` }"/>
+              <circle :cx="ringCx" :cy="ringCy" :r="ringR1" fill="url(#orbitRingGlow)"/>
+            </g>
+
+            <!-- Connection lines from center to satellites -->
+            <g class="connection-group">
+              <line
+                v-for="(c, i) in lineCoords"
+                :key="`l-${i}`"
+                class="conn-line"
+                :x1="c.x1" :y1="c.y1" :x2="c.x2" :y2="c.y2"
+                stroke="url(#orbitLineGradient)"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-dasharray="1 8"
+              />
+            </g>
+          </svg>
+
+          <!-- Center email card -->
+          <div class="orbit-center" aria-hidden="true">
+            <div class="center-card">
+              <div class="center-pulse"></div>
+              <div class="center-icon">
+                <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+                  <rect x="2.5" y="5" width="19" height="14" rx="2.5" stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
               </div>
-            </div>
-            <div class="card-body">
-              <div class="content-block">
-                <div class="content-title"></div>
-                <div class="content-subtitle"></div>
-              </div>
-              <div class="content-grid">
-                <div class="grid-item"></div>
-                <div class="grid-item"></div>
-                <div class="grid-item"></div>
-              </div>
-              <div class="cta-block"></div>
+              <div class="center-label">Your email</div>
+              <div class="center-sub">One platform. Every lever.</div>
             </div>
           </div>
 
-          <!-- Floating Question Cards - Link to Solution Sections -->
-          <div class="feature-float top-left" @click="scrollToSection('design-system')">
-            <div class="float-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- 4 static satellite cards (positioned by index) -->
+          <div
+            v-for="(sat, i) in [
+              { title: 'Templates', desc: 'Sell sooner', target: 'templates-heading', icon: 'tpl' },
+              { title: 'Segments', desc: 'Sell smarter', target: 'segmentation-heading', icon: 'seg' },
+              { title: 'Automation', desc: 'Sell on autopilot', target: 'automation-heading', icon: 'auto' },
+              { title: 'Analytics', desc: 'Sell more of what works', target: 'analytics-heading', icon: 'chart' }
+            ]"
+            :key="sat.target"
+            class="satellite"
+            role="button"
+            tabindex="0"
+            :aria-label="`Jump to ${sat.title} section`"
+            :style="{ left: `${satPositions[i].x}px`, top: `${satPositions[i].y}px` }"
+            @click="scrollToSection(sat.target)"
+            @keydown="onSatKey($event, sat.target)"
+          >
+            <div class="sat-icon">
+              <svg v-if="sat.icon === 'tpl'" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                <path d="M3 9h18M9 3v18" stroke="currentColor" stroke-width="2"/>
               </svg>
-            </div>
-            <div class="float-text">
-              <div class="float-title">Multiple clients?</div>
-              <div class="float-desc">Manage them easily</div>
-            </div>
-          </div>
-
-          <div class="feature-float top-right" @click="scrollToSection('no-rendering-issues')">
-            <div class="float-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="2"/>
-                <path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M9 15l-2 2m8-2l2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              <svg v-else-if="sat.icon === 'seg'" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/>
+                <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+                <circle cx="12" cy="12" r="1.5" fill="currentColor"/>
               </svg>
-            </div>
-            <div class="float-text">
-              <div class="float-title">Rendering issues?</div>
-              <div class="float-desc">Pixel-perfect emails</div>
-            </div>
-          </div>
-
-          <div class="feature-float bottom-right" @click="scrollToSection('marketers')">
-            <div class="float-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <svg v-else-if="sat.icon === 'auto'" width="20" height="20" viewBox="0 0 24 24" fill="none">
                 <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
               </svg>
+              <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path d="M3 3v18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <path d="M7 14l4-4 3 3 5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
             </div>
-            <div class="float-text">
-              <div class="float-title">Design bottleneck?</div>
-              <div class="float-desc">10x faster production</div>
+            <div class="sat-text">
+              <div class="sat-title">{{ sat.title }}</div>
+              <div class="sat-desc">{{ sat.desc }}</div>
             </div>
           </div>
-
-          <!-- Connecting Lines -->
-          <svg class="connection-lines" viewBox="0 0 400 400">
-            <defs>
-              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="#13B0EE" stop-opacity="0"/>
-                <stop offset="50%" stop-color="#13B0EE" stop-opacity="0.3"/>
-                <stop offset="100%" stop-color="#13B0EE" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <path class="connection-path" d="M 80 80 Q 200 200 320 120" stroke="url(#lineGradient)" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
-            <path class="connection-path" d="M 80 320 Q 200 200 320 280" stroke="url(#lineGradient)" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
-          </svg>
         </div>
       </div>
+    </div>
+
+    <!-- Brand logos marquee inside hero -->
+    <div class="hero-marquee">
+      <BrandLogos />
     </div>
   </div>
 </template>
@@ -203,7 +224,7 @@ onUnmounted(() => {
   margin-top: calc((var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) * -1);
   min-height: 100vh;
   height: auto;
-  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 80px) 64px 80px;
+  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 48px) 64px 32px;
   position: relative;
   left: calc(-50vw + 50%);
   width: 100vw;
@@ -256,7 +277,7 @@ html.dark .grid-overlay {
 
 /* Main Layout */
 .heroMain {
-  min-height: calc(100vh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px) - 160px);
+  min-height: calc(100vh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px) - 320px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -292,9 +313,9 @@ html.dark .grid-overlay {
 }
 
 .title {
-  font-size: clamp(32px, 5vw, 56px);
-  line-height: 1.2;
-  margin-bottom: 24px;
+  font-size: clamp(26px, 3.8vw, 42px);
+  line-height: 1.15;
+  margin-bottom: 18px;
 }
 
 .title-line {
@@ -331,6 +352,11 @@ html.dark .tagline {
   color: #9ca3af;
 }
 
+.tagline--accent {
+  margin-top: 4px;
+  animation-delay: 1.15s;
+}
+
 @keyframes fadeIn {
   to { opacity: 1; }
 }
@@ -344,7 +370,7 @@ html.dark .tagline {
   box-shadow: 0 8px 24px rgba(19, 176, 238, 0.25) !important;
   position: relative;
   overflow: hidden;
-  border-radius: 12px !important;
+  border-radius: 4px !important;
   padding: 20px 40px !important;
   font-size: 16px !important;
   letter-spacing: 0 !important;
@@ -394,56 +420,39 @@ html.dark .cta-button:hover {
   box-shadow: 0 12px 32px rgba(19, 176, 238, 0.45) !important;
 }
 
-/* Trust Bar */
-.trust-bar {
+/* Hero Highlights (signature pills) */
+.hero-highlights {
   display: flex;
-  align-items: center;
-  gap: 32px;
-  margin-top: 48px;
-  opacity: 0;
-  animation: fadeIn 0.6s ease-out 1.4s forwards;
   flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out 1.1s forwards;
 }
 
-.trust-item {
-  text-align: center;
+.highlight-item {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(19, 176, 238, 0.12);
+  color: #0e7490;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
-.trust-number {
-  font-size: clamp(24px, 3vw, 28px);
-  font-weight: 800;
-  color: #13B0EE;
-  margin-bottom: 4px;
-}
-
-.trust-label {
-  font-size: clamp(11px, 1.5vw, 13px);
-  color: #6b7280;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-html.dark .trust-label {
-  color: #9ca3af;
-}
-
-.trust-divider {
-  width: 1px;
-  height: 40px;
-  background: #d1d5db;
-}
-
-html.dark .trust-divider {
-  background: #374151;
+html.dark .highlight-item {
+  background: rgba(19, 176, 238, 0.2);
+  color: #67e8f9;
 }
 
 /* Right Visual */
 .heroVisual {
   position: relative;
-  height: 500px;
-  transform: translate(var(--parallax-main-x, 0), var(--parallax-main-y, 0));
-  transition: transform 0.1s ease-out;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  height: auto;
   opacity: 0;
   animation: fadeInRight 1s ease-out 0.4s forwards;
 }
@@ -459,327 +468,225 @@ html.dark .trust-divider {
   }
 }
 
-/* Main Email Card */
-.email-card {
+/* Orbit SVG layer (rings + connection lines + particles) */
+.orbit-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.conn-line {
+  opacity: 0;
+  animation: connFadeIn 0.8s ease-out 0.9s forwards;
+}
+
+@keyframes connFadeIn {
+  to { opacity: 1; }
+}
+
+/* Center email card */
+.orbit-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 320px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  border: 1px solid rgba(19, 176, 238, 0.2);
-  overflow: hidden;
-  animation: cardFloat 6s ease-in-out infinite;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 3;
+  animation: centerFloat 6s ease-in-out infinite;
 }
 
-.email-card:hover {
-  transform: translate(-50%, -50%) translateY(-5px);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
-}
-
-@keyframes cardFloat {
+@keyframes centerFloat {
   0%, 100% { transform: translate(-50%, -50%) translateY(0); }
-  50% { transform: translate(-50%, -50%) translateY(-10px); }
+  50%      { transform: translate(-50%, -50%) translateY(-8px); }
 }
 
-html.dark .email-card {
-  background: rgba(31, 41, 55, 0.95);
-  border: 1px solid rgba(19, 176, 238, 0.3);
-}
-
-.card-header {
-  padding: 24px;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-html.dark .card-header {
-  border-bottom: 1px solid #374151;
-}
-
-.header-bar {
-  height: 6px;
-  background: linear-gradient(90deg, #13B0EE, #392C91);
-  border-radius: 3px;
-  margin-bottom: 16px;
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-@keyframes shimmer {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-.header-content {
+.center-card {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
+  justify-content: center;
+  width: 160px;
+  height: 160px;
+  padding: 18px;
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.96), rgba(238, 248, 253, 0.96));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1.5px solid rgba(19, 176, 238, 0.35);
+  box-shadow: 0 24px 60px rgba(19, 176, 238, 0.22), 0 0 0 6px rgba(19, 176, 238, 0.05);
+  text-align: center;
 }
 
-.brand-circle {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #13B0EE, #392C91);
-  flex-shrink: 0;
+html.dark .center-card {
+  background: linear-gradient(140deg, rgba(31, 41, 55, 0.96), rgba(15, 23, 42, 0.96));
+  border-color: rgba(19, 176, 238, 0.45);
+  box-shadow: 0 24px 60px rgba(19, 176, 238, 0.3), 0 0 0 6px rgba(19, 176, 238, 0.08);
 }
 
-.brand-lines {
-  flex: 1;
-}
-
-.brand-line {
-  height: 8px;
-  background: #d1d5db;
-  border-radius: 4px;
-  margin-bottom: 6px;
-  animation: loadLine 2s ease-out infinite;
-}
-
-html.dark .brand-line {
-  background: #4b5563;
-}
-
-.brand-line.short {
-  width: 60%;
-  animation-delay: 0.3s;
-}
-
-@keyframes loadLine {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
-}
-
-.card-body {
-  padding: 24px;
-}
-
-.content-block {
-  margin-bottom: 20px;
-}
-
-.content-title {
-  height: 16px;
-  background: #d1d5db;
-  border-radius: 4px;
-  margin-bottom: 8px;
-  width: 70%;
-}
-
-html.dark .content-title {
-  background: #4b5563;
-}
-
-.content-subtitle {
-  height: 10px;
-  background: #d1d5db;
-  border-radius: 4px;
-  width: 50%;
-  opacity: 0.6;
-}
-
-html.dark .content-subtitle {
-  background: #4b5563;
-}
-
-.content-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.grid-item {
-  aspect-ratio: 1;
-  background: #d1d5db;
-  border-radius: 8px;
-  animation: itemPulse 3s ease-in-out infinite;
-}
-
-html.dark .grid-item {
-  background: #4b5563;
-}
-
-.grid-item:nth-child(1) { animation-delay: 0s; }
-.grid-item:nth-child(2) { animation-delay: 0.2s; }
-.grid-item:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes itemPulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
-}
-
-.cta-block {
-  height: 40px;
-  background: linear-gradient(135deg, #13B0EE, #392C91);
-  border-radius: 8px;
-  margin-bottom: 20px;
-  animation: ctaGlow 3s ease-in-out infinite;
-}
-
-@keyframes ctaGlow {
-  0%, 100% { box-shadow: 0 0 0 rgba(19, 176, 238, 0); }
-  50% { box-shadow: 0 0 20px rgba(19, 176, 238, 0.4); }
-}
-
-.card-footer {
-  height: 8px;
-  background: #d1d5db;
-  border-radius: 4px;
-  opacity: 0.3;
-}
-
-html.dark .card-footer {
-  background: #4b5563;
-}
-
-/* Floating Question Cards */
-.feature-float {
+.center-pulse {
   position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 20px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  border: 1px solid rgba(19, 176, 238, 0.2);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  animation: floatIn 1s ease-out forwards;
+  inset: -8px;
+  border-radius: 28px;
+  border: 2px solid rgba(19, 176, 238, 0.5);
   opacity: 0;
-  min-height: 48px;
-  touch-action: manipulation;
+  animation: centerPulse 2.8s ease-out infinite;
+  pointer-events: none;
 }
 
-html.dark .feature-float {
-  background: rgba(31, 41, 55, 0.95);
-  border: 1px solid rgba(19, 176, 238, 0.3);
+@keyframes centerPulse {
+  0%   { opacity: 0.7; transform: scale(0.95); }
+  100% { opacity: 0;   transform: scale(1.25); }
 }
 
-.feature-float.top-left {
-  top: 20px;
-  left: 20px;
-  animation-delay: 0.8s;
-  transform: translate(var(--parallax-topleft-x, 0), var(--parallax-topleft-y, 0));
-}
-
-.feature-float.top-left:hover {
-  transform: translate(var(--parallax-topleft-x, 0), var(--parallax-topleft-y, 0)) translateY(-8px) scale(1.03);
-  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.2);
-  border-color: rgba(19, 176, 238, 0.5);
-}
-
-.feature-float.top-right {
-  top: 20px;
-  right: 20px;
-  animation-delay: 1s;
-  transform: translate(var(--parallax-topright-x, 0), var(--parallax-topright-y, 0));
-}
-
-.feature-float.top-right:hover {
-  transform: translate(var(--parallax-topright-x, 0), var(--parallax-topright-y, 0)) translateY(-8px) scale(1.03);
-  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.2);
-  border-color: rgba(19, 176, 238, 0.5);
-}
-
-.feature-float.bottom-right {
-  bottom: 20px;
-  right: 20px;
-  animation-delay: 1.2s;
-  transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0));
-}
-
-.feature-float.bottom-right:hover {
-  transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0)) translateY(-8px) scale(1.03);
-  box-shadow: 0 20px 50px rgba(19, 176, 238, 0.2);
-  border-color: rgba(19, 176, 238, 0.5);
-}
-
-@keyframes floatIn {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.float-icon {
-  width: 40px;
-  height: 40px;
+.center-icon {
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(19, 176, 238, 0.1);
-  border-radius: 10px;
-  flex-shrink: 0;
-  color: #13B0EE;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(135deg, #13B0EE, #392C91);
+  color: #fff;
+  border-radius: 16px;
+  margin-bottom: 10px;
+  box-shadow: 0 10px 24px rgba(19, 176, 238, 0.4);
 }
 
-.feature-float:hover .float-icon {
-  background: rgba(19, 176, 238, 0.2);
-  transform: scale(1.1) rotate(5deg);
-}
-
-.feature-float:active .float-icon {
-  transform: scale(0.95);
-  background: rgba(19, 176, 238, 0.25);
-}
-
-.float-title {
-  font-size: 14px;
+.center-label {
+  font-size: 13px;
   font-weight: 700;
   color: #1f2937;
-  margin-bottom: 2px;
-  transition: color 0.3s ease;
+  letter-spacing: -0.01em;
 }
 
-html.dark .float-title {
-  color: #f3f4f6;
-}
+html.dark .center-label { color: #f3f4f6; }
 
-.feature-float:hover .float-title {
-  color: #13B0EE;
-}
-
-.float-desc {
-  font-size: 12px;
+.center-sub {
+  font-size: 10.5px;
+  font-weight: 500;
   color: #6b7280;
-  transition: color 0.3s ease;
+  margin-top: 2px;
+  line-height: 1.3;
 }
 
-html.dark .float-desc {
-  color: #9ca3af;
-}
+html.dark .center-sub { color: #9ca3af; }
 
-/* Connection Lines */
-.connection-lines {
+/* Satellite cards */
+.satellite {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  opacity: 0.4;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 14px;
+  border: 1px solid rgba(19, 176, 238, 0.22);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: box-shadow 0.4s ease, border-color 0.3s ease;
+  touch-action: manipulation;
+  width: 175px;
+  animation: satDriftDown 5s ease-in-out infinite;
 }
 
-.connection-path {
-  stroke-dasharray: 1000;
-  stroke-dashoffset: 1000;
-  animation: drawLine 3s ease-out 1.5s forwards;
+/* Opposite drift for TR + BL so each diagonal pair breathes apart/together */
+.satellite:nth-child(2),
+.satellite:nth-child(3) {
+  animation-name: satDriftUp;
 }
 
-@keyframes drawLine {
-  to {
-    stroke-dashoffset: 0;
+/* Stagger phase so motion looks organic */
+.satellite:nth-child(1) { animation-delay: 0s; }
+.satellite:nth-child(2) { animation-delay: 1.2s; }
+.satellite:nth-child(3) { animation-delay: 0.6s; }
+.satellite:nth-child(4) { animation-delay: 1.8s; }
+
+.satellite:hover,
+.satellite:focus-within {
+  animation-play-state: paused;
+}
+
+@keyframes satDriftDown {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50%      { transform: translate(-50%, calc(-50% + 10px)); }
+}
+
+@keyframes satDriftUp {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50%      { transform: translate(-50%, calc(-50% - 10px)); }
+}
+
+.satellite:focus-visible {
+  outline: 2px solid #13B0EE;
+  outline-offset: 3px;
+}
+
+.sat-text { min-width: 0; flex: 1; }
+.sat-title { white-space: nowrap; }
+.sat-desc { white-space: normal; line-height: 1.3; }
+
+html.dark .satellite {
+  background: rgba(31, 41, 55, 0.94);
+  border: 1px solid rgba(19, 176, 238, 0.32);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+}
+
+.satellite:hover {
+  box-shadow: 0 18px 44px rgba(19, 176, 238, 0.28);
+  border-color: rgba(19, 176, 238, 0.55);
+}
+
+.sat-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(19, 176, 238, 0.16), rgba(57, 44, 145, 0.12));
+  border-radius: 10px;
+  color: #13B0EE;
+  flex-shrink: 0;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s ease;
+}
+
+.satellite:hover .sat-icon {
+  transform: rotate(-8deg);
+  background: linear-gradient(135deg, rgba(19, 176, 238, 0.28), rgba(57, 44, 145, 0.22));
+}
+
+.sat-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1f2937;
+  letter-spacing: -0.01em;
+  transition: color 0.3s ease;
+  line-height: 1.2;
+}
+
+html.dark .sat-title { color: #f3f4f6; }
+
+.satellite:hover .sat-title { color: #13B0EE; }
+
+.sat-desc {
+  font-size: 11px;
+  font-weight: 500;
+  color: #6b7280;
+  margin-top: 1px;
+  line-height: 1.3;
+}
+
+html.dark .sat-desc { color: #9ca3af; }
+
+@media (prefers-reduced-motion: reduce) {
+  .conn-line, .orbit-center, .center-pulse, .heroVisual, .heroContent, .title-line, .tagline, .cta-button, .hero-highlights, .satellite {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }
 
@@ -809,40 +716,12 @@ a {
     margin: 0 auto;
   }
 
-  .trust-bar {
+  .hero-highlights {
     justify-content: center;
   }
 
   .heroVisual {
-    height: 400px;
-    margin: 0 auto;
-    max-width: 500px;
-  }
-
-  .email-card {
-    width: 280px;
-  }
-  
-  .feature-float {
-    padding: 12px 16px;
-    transform: scale(0.9);
-  }
-  
-  .feature-float.top-left {
-    transform: translate(var(--parallax-topleft-x, 0), var(--parallax-topleft-y, 0)) scale(0.9);
-  }
-  
-  .feature-float.top-right {
-    transform: translate(var(--parallax-topright-x, 0), var(--parallax-topright-y, 0)) scale(0.9);
-  }
-  
-  .feature-float.bottom-right {
-    transform: translate(var(--parallax-bottomright-x, 0), var(--parallax-bottomright-y, 0)) scale(0.9);
-  }
-  
-  .float-icon {
-    width: 36px;
-    height: 36px;
+    max-width: 480px;
   }
 }
 
@@ -875,108 +754,62 @@ a {
     margin-bottom: 20px;
   }
 
-  .trust-bar {
+  .hero-highlights {
     flex-direction: row;
-    gap: 16px;
-    margin-top: 32px;
+    gap: 8px;
+    margin-top: 18px;
     flex-wrap: wrap;
     justify-content: center;
   }
 
-  .trust-divider {
-    display: none;
-  }
-  
-  .trust-item {
-    flex: 0 0 auto;
-    min-width: 80px;
-  }
-
   .heroVisual {
-    height: 320px;
-    max-width: 100%;
+    max-width: 360px;
   }
 
-  .email-card {
-    width: 240px;
-  }
-  
-  .card-header,
-  .card-body {
-    padding: 16px;
-  }
-  
-  .brand-circle {
-    width: 24px;
-    height: 24px;
-  }
-  
-  .brand-line {
-    height: 6px;
+  .center-card {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    border-radius: 18px;
   }
 
-  .feature-float {
-    padding: 8px 12px;
-    gap: 8px;
-    transform: scale(0.75);
-    transform-origin: top left;
-    width: 167px;
+  .center-icon {
+    width: 34px;
+    height: 34px;
+    margin-bottom: 4px;
+    border-radius: 10px;
   }
 
-  .feature-float.top-left {
-    top: 5px;
-    left: 5px;
-    transform: scale(0.75);
-    transform-origin: top left;
-  }
-  
-  .feature-float.top-left:active {
-    transform: scale(0.72) translateY(-2px);
+  .center-icon svg {
+    width: 20px;
+    height: 20px;
   }
 
-  .feature-float.top-right {
-    top: 5px;
-    right: 5px;
-    transform: scale(0.75);
-    transform-origin: top right;
-  }
-  
-  .feature-float.top-right:active {
-    transform: scale(0.72) translateY(-2px);
+  .center-label { font-size: 10.5px; }
+  .center-sub { font-size: 9px; line-height: 1.2; }
+
+  .satellite {
+    padding: 8px 10px;
+    gap: 6px;
+    border-radius: 12px;
+    width: 138px;
+    animation: none;
   }
 
-  .feature-float.bottom-right {
-    bottom: 5px;
-    right: 5px;
-    transform: scale(0.75);
-    transform-origin: bottom right;
-  }
-  
-  .feature-float.bottom-right:active {
-    transform: scale(0.72) translateY(-2px);
+  .sat-icon {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
   }
 
-  .float-icon {
-    width: 32px;
-    height: 32px;
-  }
-  
-  .float-icon svg {
-    width: 18px;
-    height: 18px;
+  .sat-icon svg {
+    width: 15px;
+    height: 15px;
   }
 
-  .float-title {
-    font-size: 12px;
-  }
-
-  .float-desc {
-    font-size: 10px;
-  }
-  
-  .connection-lines {
-    display: none;
-  }
+  .sat-title { font-size: 11.5px; }
+  .sat-desc { font-size: 9.5px; }
+  .sat-desc { display: none; }
 }
 
 /* Extra small mobile devices */
@@ -988,46 +821,58 @@ a {
   .title {
     font-size: 28px;
   }
-  
+
   .tagline {
     font-size: 14px;
   }
-  
+
   .heroVisual {
-    height: 280px;
+    max-width: 280px;
   }
-  
-  .email-card {
-    width: 200px;
+
+  .highlight-item {
+    font-size: 11px;
+    padding: 5px 10px;
   }
-  
-  .trust-item {
-    min-width: 70px;
+
+  .center-card {
+    width: 80px;
+    height: 80px;
+    padding: 8px;
   }
-  
-  .trust-number {
-    font-size: 20px;
+
+  .center-icon {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 2px;
   }
-  
-  .trust-label {
-    font-size: 10px;
+
+  .center-icon svg {
+    width: 16px;
+    height: 16px;
   }
-  
-  .feature-float {
-    transform: scale(0.65);
+
+  .center-label { font-size: 9.5px; }
+  .center-sub { display: none; }
+
+  .satellite {
+    padding: 6px 8px;
+    gap: 5px;
+    width: 108px;
   }
-  
-  .feature-float.top-left {
-    transform: scale(0.65);
+
+  .sat-icon {
+    width: 22px;
+    height: 22px;
   }
-  
-  .feature-float.top-right {
-    transform: scale(0.65);
+
+  .sat-icon svg {
+    width: 13px;
+    height: 13px;
   }
-  
-  .feature-float.bottom-right {
-    transform: scale(0.65);
-  }
+
+  .sat-title { font-size: 10.5px; }
+  .sat-desc { display: none; }
 }
 
 /* Landscape mobile fix */
@@ -1056,34 +901,49 @@ a {
     margin-bottom: 8px;
   }
 
-  .trust-bar {
-    margin-top: 20px;
-    gap: 12px;
+  .hero-highlights {
+    margin-top: 14px;
+    gap: 6px;
   }
-  
+
   .heroVisual {
-    height: 280px;
+    max-width: 280px;
   }
-  
+
   .background-gradient {
     width: 600px;
     height: 600px;
   }
-  
-  .feature-float {
-    transform: scale(0.7);
+
+  .center-card {
+    width: 90px;
+    height: 90px;
   }
-  
-  .feature-float.top-left {
-    transform: scale(0.7);
+
+  .satellite {
+    padding: 7px 10px;
+    gap: 6px;
   }
-  
-  .feature-float.top-right {
-    transform: scale(0.7);
-  }
-  
-  .feature-float.bottom-right {
-    transform: scale(0.7);
+}
+
+/* Brand logos marquee inside hero */
+.hero-marquee {
+  position: relative;
+  z-index: 3;
+  margin: 0 -64px;
+  padding: 56px 0 24px;
+}
+.hero-marquee :deep(.brand-logos-intro) { display: none; }
+.hero-marquee :deep(.logos-carousel) { padding: 0; }
+.hero-marquee :deep(.logos-carousel::before),
+.hero-marquee :deep(.logos-carousel::after) {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hero-marquee {
+    margin: 0 -24px;
+    padding: 20px 0 4px;
   }
 }
 </style>

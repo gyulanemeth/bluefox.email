@@ -692,7 +692,11 @@ html.dark .stat-value { color: #f1f5f9; }
   text-align: right;
 }
 
-.analytics-cta-btn {
+.analytics-cta-btn,
+.analytics-cta-btn:hover,
+.analytics-cta-btn:focus,
+.analytics-cta-btn:active,
+.analytics-cta-btn:visited {
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -703,18 +707,16 @@ html.dark .stat-value { color: #f1f5f9; }
   background: #13b0ee;
   border-radius: 8px;
   text-decoration: none;
-  transition: background 0.18s ease, gap 0.18s ease, box-shadow 0.18s ease;
 }
 
-.analytics-cta-btn:hover {
-  background: #0e9fd8;
-  color: #ffffff;
-  gap: 11px;
-  box-shadow: 0 4px 14px rgba(19, 176, 238, 0.35);
+html.dark .analytics-cta-btn,
+html.dark .analytics-cta-btn:hover,
+html.dark .analytics-cta-btn:focus,
+html.dark .analytics-cta-btn:active,
+html.dark .analytics-cta-btn:visited {
+  background: #13b0ee;
+  color: #fff;
 }
-
-html.dark .analytics-cta-btn { background: #13b0ee; color: #fff; }
-html.dark .analytics-cta-btn:hover { background: #0e9fd8; }
 
 @media (max-width: 760px) {
   .dash-topbar { flex-direction: column; align-items: flex-start; padding: 12px 16px; }

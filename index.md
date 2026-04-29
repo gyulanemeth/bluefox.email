@@ -1,19 +1,19 @@
 ---
 layout: home
 
-title: Scale Your Agency's Email Campaigns Without Scaling Your Headaches
-description: The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity.
+title: BlueFox Email, Stop paying for contacts you don't email
+description: Every feature serious email platforms offer, without hiding any behind upgrades. You only pay for sends, not contacts. 3,000 free sends to start.
 
 head:
   - - meta
     - name: description
-      content: "The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity."
+      content: "Every feature serious email platforms offer, without hiding any behind upgrades. You only pay for sends, not contacts. 3,000 free sends to start."
   - - meta
     - property: og:title
-      content: Scale Your Agency's Email Campaigns Without Scaling Your Headaches | BlueFox Email
+      content: BlueFox Email, Stop paying for contacts you don't email
   - - meta
     - property: og:description
-      content: "The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity."
+      content: "Every feature serious email platforms offer, without hiding any behind upgrades. You only pay for sends, not contacts. 3,000 free sends to start."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share.png
@@ -28,75 +28,30 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Scale Your Agency's Email Campaigns Without Scaling Your Headaches | BlueFox Email
+      content: BlueFox Email, Stop paying for contacts you don't email
   - - meta
     - name: twitter:description
-      content: "The email platform built for agencies managing multiple brands. Send your first campaign in minutes, then scale to dozens of clients without enterprise prices or complexity."
+      content: "Every feature serious email platforms offer, without hiding any behind upgrades. You only pay for sends, not contacts. 3,000 free sends to start."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share.png
 ---
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
 
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
-import BrandLogos from './.vitepress/theme/BrandLogos.vue'
-import DesignSystem from './.vitepress/theme/DesignSystem.vue'
-import RenderingIssues from './.vitepress/theme/RenderingIssues.vue'
 import Automation from './.vitepress/theme/Automation.vue'
 import Integration from './.vitepress/theme/Integration.vue'
 import AppleMailTestimonials from './.vitepress/theme/AppleMailTestimonials.vue'
 import TemplateShowcase from './.vitepress/theme/TemplateShowcase.vue'
+import Segmentation from './.vitepress/theme/Segmentation.vue'
+import AgencyAnalytics from './for/marketing-agencies/AgencyAnalytics.vue'
+import PricingIllustration from './.vitepress/theme/PricingIllustration.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
-
-const shouldLoadEditorVideo = ref(false)
-const editorVideoContainer = ref(null)
-let editorVideoObserver
-
-function getObserverTarget(target) {
-  if (!target || typeof window === 'undefined') {
-    return null
-  }
-  const resolvedTarget = target.$el || target
-  return resolvedTarget instanceof window.Element ? resolvedTarget : null
-}
-
-onMounted(() => {
-  if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
-    shouldLoadEditorVideo.value = true
-    return
-  }
-
-  const observerTarget = getObserverTarget(editorVideoContainer.value)
-
-  if (!observerTarget) {
-    shouldLoadEditorVideo.value = true
-    return
-  }
-
-  editorVideoObserver = new IntersectionObserver(
-    (entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) {
-        shouldLoadEditorVideo.value = true
-        editorVideoObserver.disconnect()
-      }
-    },
-    { rootMargin: '200px 0px' }
-  )
-
-  editorVideoObserver.observe(observerTarget)
-})
-
-onBeforeUnmount(() => {
-  if (editorVideoObserver) {
-    editorVideoObserver.disconnect()
-  }
-})
 </script>
 
 <style scoped>
@@ -104,18 +59,21 @@ onBeforeUnmount(() => {
     text-decoration: none !important;
   }
 
-  .section-index {
-    padding-top: 15vh;
-    padding-bottom: 10vh;
-  }
-
+  /* Stripe owns vertical rhythm; section classes only inherit horizontal */
+  .section-index,
   .value-prop {
-    padding-top: 10vh;
-    padding-bottom: 10vh;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   h2 {
     border-top: 0 !important;
+  }
+
+  /* Sentence-case CTAs across page */
+  .v-btn {
+    text-transform: none !important;
+    letter-spacing: 0 !important;
   }
 
   .sectionTitle {
@@ -303,94 +261,96 @@ onBeforeUnmount(() => {
     padding-top: 0 !important;
   }
 
-  .problem-stats-section {
-    max-width: 1200px;
-    margin: 80px auto 0;
-    display: flex;
-    gap: 24px;
-    justify-content: center;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 1;
+  .persona-hub {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
-  .problem-stat-card {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(19, 176, 238, 0.2);
-    border-radius: 16px;
-    padding: 28px 36px;
-    transition: all 0.3s ease;
-    min-width: 320px;
+  .persona-hub-intro {
+    max-width: 720px;
+    margin: 16px auto 40px;
+    text-align: center;
+    color: #4b5563;
+    line-height: 1.7;
+    font-size: 17px;
   }
 
-  html.dark .problem-stat-card {
-    background: rgba(31, 41, 55, 0.9);
-    border: 1px solid rgba(19, 176, 238, 0.3);
-  }
-
-  .problem-stat-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(19, 176, 238, 0.15);
-    border-color: rgba(19, 176, 238, 0.5);
-  }
-
-  html.dark .problem-stat-card:hover {
-    box-shadow: 0 12px 32px rgba(19, 176, 238, 0.25);
-  }
-
-  .problem-stat-number {
-    font-size: 56px;
-    font-weight: 900;
-    background: linear-gradient(135deg, #13B0EE, #392C91);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
-    letter-spacing: -2px;
-    padding:2px;
-  }
-
-  .problem-stat-divider {
-    width: 2px;
-    height: 60px;
-    background: linear-gradient(180deg, transparent, rgba(19, 176, 238, 0.3), transparent);
-  }
-
-  .problem-stat-content {
-    text-align: left;
-    flex: 1;
-  }
-
-  .problem-stat-label {
-    font-size: 15px;
-    font-weight: 800;
-    color: #1f2937;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 6px;
-  }
-
-  html.dark .problem-stat-label {
-    color: #f3f4f6;
-  }
-
-  .problem-stat-description {
-    font-size: 14px;
-    color: #6b7280;
-    line-height: 1.5;
-  }
-
-  html.dark .problem-stat-description {
+  html.dark .persona-hub-intro {
     color: #9ca3af;
   }
 
+  .persona-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .persona-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 28px 28px 24px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    text-decoration: none !important;
+    transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  html.dark .persona-card {
+    background: #1e293b;
+    border-color: #334155;
+  }
+
+  .persona-card:hover {
+    border-color: rgba(19, 176, 238, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(19, 176, 238, 0.12);
+  }
+
+  .persona-card-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  html.dark .persona-card-title {
+    color: #f1f5f9;
+  }
+
+  .persona-card-desc {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: #475569;
+    flex: 1;
+  }
+
+  html.dark .persona-card-desc {
+    color: #94a3b8;
+  }
+
+  .persona-card-link {
+    font-size: 14px;
+    font-weight: 600;
+    color: #13B0EE;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 760px) {
+    .persona-grid {
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+    .persona-card {
+      padding: 22px 22px 20px;
+    }
+  }
+
   .template-showcase {
-    padding-top: 5vh;
-    padding-bottom: 8vh;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   .template-showcase-intro {
@@ -406,36 +366,43 @@ onBeforeUnmount(() => {
     color: #9ca3af;
   }
 
-  /* Final CTA Section - Premium Design */
+  .segmentation-section {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .segmentation-intro {
+    max-width: 760px;
+    margin: 20px auto 36px;
+    text-align: center;
+    color: #4b5563;
+    line-height: 1.7;
+    font-size: 17px;
+  }
+
+  html.dark .segmentation-intro {
+    color: #9ca3af;
+  }
+
+  /* Homepage-only: center AgencyAnalytics header to match other sections */
+  .home-analytics :deep(.analytics-head) {
+    text-align: center;
+  }
+
+  .home-analytics :deep(.analytics-head p) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Homepage-only: stripe-inner owns vertical padding, zero out component padding */
+  .home-analytics :deep(.agency-analytics) {
+    padding: 0;
+  }
+
+  /* Final CTA Section */
   .final-cta-section {
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.03) 0%, rgba(57, 44, 145, 0.03) 100%);
-    padding: 120px 24px;
-    margin: 80px 0 0 0;
+    padding: 0;
     position: relative;
-    overflow: hidden;
-  }
-
-  html.dark .final-cta-section {
-    background: linear-gradient(135deg, rgba(19, 176, 238, 0.08) 0%, rgba(57, 44, 145, 0.08) 100%);
-  }
-
-  .final-cta-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-      radial-gradient(circle at 20% 50%, rgba(19, 176, 238, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 80% 50%, rgba(57, 44, 145, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-  }
-
-  html.dark .final-cta-section::before {
-    background-image: 
-      radial-gradient(circle at 20% 50%, rgba(19, 176, 238, 0.12) 0%, transparent 50%),
-      radial-gradient(circle at 80% 50%, rgba(57, 44, 145, 0.12) 0%, transparent 50%);
   }
 
   .cta-container {
@@ -457,7 +424,7 @@ onBeforeUnmount(() => {
   }
 
   .cta-title {
-    font-size: clamp(32px, 5vw, 48px);
+    font-size: 30px;
     font-weight: 800;
     line-height: 1.2;
     margin-bottom: 24px;
@@ -479,7 +446,7 @@ onBeforeUnmount(() => {
   }
 
   .cta-description {
-    font-size: clamp(16px, 2vw, 19px);
+    font-size: 17px;
     color: #4b5563;
     line-height: 1.7;
     margin: 0 auto 48px;
@@ -501,7 +468,7 @@ onBeforeUnmount(() => {
     font-size: 18px !important;
     padding: 28px 48px !important;
     height: auto !important;
-    border-radius: 12px !important;
+    border-radius: 4px !important;
     text-transform: none !important;
     letter-spacing: 0 !important;
     box-shadow: 0 10px 40px rgba(19, 176, 238, 0.25) !important;
@@ -580,26 +547,8 @@ onBeforeUnmount(() => {
 
   /* Meet Founder Section */
   .founder-section {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    padding: 88px 24px 64px;
+    padding: 0;
     position: relative;
-    background: linear-gradient(180deg, rgba(19, 176, 238, 0.04) 0%, rgba(19, 176, 238, 0.01) 100%);
-  }
-
-  .founder-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(19, 176, 238, 0.3), transparent);
-  }
-
-  html.dark .founder-section {
-    background: linear-gradient(180deg, rgba(19, 176, 238, 0.08) 0%, rgba(19, 176, 238, 0.02) 100%);
   }
 
   .founder-inner {
@@ -641,10 +590,10 @@ onBeforeUnmount(() => {
     border-top: 0 !important;
     padding-top: 0 !important;
     margin: 0 0 20px;
-    font-size: clamp(36px, 5vw, 56px);
-    line-height: 1.1;
+    font-size: 30px;
+    line-height: 1.2;
     font-weight: 800;
-    letter-spacing: -1.5px;
+    letter-spacing: -0.5px;
     background: linear-gradient(135deg, #1f2937 0%, #392C91 100%);
     background-clip: text;
     -webkit-background-clip: text;
@@ -662,7 +611,7 @@ onBeforeUnmount(() => {
     max-width: 720px;
     margin: 0 auto;
     color: #6b7280;
-    font-size: clamp(16px, 1.8vw, 18px);
+    font-size: 17px;
     line-height: 1.7;
   }
 
@@ -677,7 +626,7 @@ onBeforeUnmount(() => {
   .founder-team-button {
     min-height: 54px !important;
     padding: 0 30px !important;
-    border-radius: 12px !important;
+    border-radius: 4px !important;
     font-size: 16px !important;
     text-transform: none !important;
     letter-spacing: 0 !important;
@@ -696,46 +645,7 @@ onBeforeUnmount(() => {
   }
 
   /* Responsive Design */
-  @media (max-width: 960px) {
-    .problem-stats-section {
-      margin-top: 60px;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .problem-stat-card {
-      width: 100%;
-      max-width: 500px;
-    }
-
-  }
-
   @media (max-width: 768px) {
-    .problem-stat-card {
-      flex-direction: column;
-      text-align: center;
-      padding: 24px;
-      min-width: auto;
-    }
-
-    .problem-stat-number {
-      font-size: 48px;
-    }
-
-    .problem-stat-divider {
-      width: 60px;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, rgba(19, 176, 238, 0.3), transparent);
-    }
-
-    .problem-stat-content {
-      text-align: center;
-    }
-
-    .final-cta-section {
-      padding: 80px 20px;
-    }
-
     .cta-primary-button {
       font-size: 16px !important;
       padding: 20px 36px !important;
@@ -749,13 +659,21 @@ onBeforeUnmount(() => {
       align-items: center;
     }
 
-    .founder-section {
-      padding: 72px 20px 40px;
+    .founder-title {
+      font-size: 26px;
+    }
+
+    .cta-title {
+      font-size: 26px;
     }
 
     .founder-description {
-      font-size: 16px;
+      font-size: 15px;
       line-height: 1.7;
+    }
+
+    .cta-description {
+      font-size: 15px;
     }
 
     .founder-photo-wrap {
@@ -792,37 +710,8 @@ onBeforeUnmount(() => {
       line-height: 20px !important;
     }
 
-    .section-index {
-      padding-top: 5vh;
-      padding-bottom: 5vh;
-    }
-
     #great-deliverability {
       padding: 25px;
-    }
-
-    .problem-stats-section {
-      margin-top: 48px;
-    }
-
-    .problem-stat-card {
-      padding: 20px;
-    }
-
-    .problem-stat-number {
-      font-size: 42px;
-    }
-
-    .problem-stat-label {
-      font-size: 13px;
-    }
-
-    .problem-stat-description {
-      font-size: 13px;
-    }
-
-    .final-cta-section {
-      padding: 60px 16px;
     }
 
     .cta-description {
@@ -838,10 +727,6 @@ onBeforeUnmount(() => {
       padding: 18px 32px !important;
     }
 
-    .founder-section {
-      padding: 56px 16px 28px;
-    }
-
     .founder-actions {
       margin-top: 24px;
     }
@@ -855,20 +740,73 @@ onBeforeUnmount(() => {
   .mt-150 {
     margin-top: 150px !important;
   }
+
+  /* Alternating full-bleed stripes (matches /for/* persona pages) */
+  .stripe {
+    position: relative;
+    left: calc(-50vw + 50%);
+    width: 100vw;
+    box-sizing: border-box;
+  }
+
+  .stripe--white { background: #ffffff; }
+  .stripe--blue  { background: #eef8fd; }
+
+  html.dark .stripe--white { background: #0f172a; }
+  html.dark .stripe--blue  { background: #0c1e2d; }
+
+  .stripe-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 72px 24px;
+  }
+
+  .stripe--flush { margin-bottom: 0 !important; }
+  .stripe-inner--flush { padding-bottom: 24px !important; }
+
+  .stripe--integrations .stripe-inner { padding: 56px 24px; }
+  @media (max-width: 960px) {
+    .stripe--integrations .stripe-inner { padding: 44px 24px; }
+  }
+  @media (max-width: 760px) {
+    .stripe--integrations .stripe-inner { padding: 36px 16px; }
+  }
+  @media (max-width: 599px) {
+    .stripe--integrations .stripe-inner { padding: 32px 16px; }
+  }
+
+  @media (max-width: 960px) {
+    .stripe-inner {
+      padding: 56px 24px;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .stripe-inner {
+      padding: 48px 16px;
+    }
+  }
+
+  @media (max-width: 599px) {
+    .stripe-inner {
+      padding: 40px 16px;
+    }
+  }
 </style>
 
-<!-- 1. HERO - First impression with value proposition -->
+<!-- 1. HERO -->
 <main id="hero">
   <HeroUnit />
 </main>
 
 <!-- 2. TEMPLATE SHOWCASE -->
+<div class="stripe stripe--white"><div class="stripe-inner">
 <section class="section-index template-showcase" role="region" aria-labelledby="templates-heading">
   <h2 id="templates-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Launch Faster with Ready-to-Use Email Templates
+    Start from a professional template
   </h2>
   <p class="template-showcase-intro">
-    Start campaigns with professionally designed templates for Marketing Agencies, SaaS, travel, agencies, and transactional emails. Swap in your theme settings, update the copy, adjust brand colors, and launch in minutes.
+    Ready-made layouts for newsletters, transactional emails, product launches, and lifecycle campaigns. Apply your theme, update the copy, and send.
   </p>
   <TemplateShowcase
     :is-dark="isDark"
@@ -882,6 +820,7 @@ onBeforeUnmount(() => {
       size="large"
       color="primary"
       variant="flat"
+      class="no-uppercase"
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
       aria-label="Explore all email templates"
@@ -890,94 +829,48 @@ onBeforeUnmount(() => {
     </v-btn>
   </div>
 </section>
+</div></div>
 
-<!-- 3. SOCIAL PROOF - Build trust early -->
-<section class="section-index" style="padding-top: 5vh;" role="region" aria-labelledby="testimonials-heading">
-  <h2 id="testimonials-heading" class="sectionTitle text-center mt-4 mb-6">
-    Agencies Choose BlueFox Email. Their Clients Stay.
+<!-- 3. SEGMENTATION -->
+<div class="stripe stripe--blue"><div class="stripe-inner">
+<section class="section-index segmentation-section" role="region" aria-labelledby="segmentation-heading">
+  <h2 id="segmentation-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
+    Send the right message to the right people
   </h2>
-  <AppleMailTestimonials
+  <p class="segmentation-intro">
+    Filter contacts by behavior, plan, activity, or any property you've collected. We deliver only to those who match, higher engagement, less waste, more revenue per send.
+  </p>
+  <Segmentation
     :is-dark="isDark"
     :lg-and-up="lgAndUp"
     :md="md"
     :sm="sm"
     :xs="xs"
   />
-</section>
-
-<!-- 4. BRAND LOGOS - Trust indicators -->
-<section aria-labelledby="brand-logos-heading">
-  <BrandLogos />
-</section>
-
-<!-- 5. SOLUTION: Multi-client Management via Design System -->
-<section id="design-system" class="section-index" role="region" aria-labelledby="design-system-heading">
-  <div class="d-flex justify-center">
-    <v-chip color="primary" aria-label="Core solution badge">
-      <span class="text-overline">Core Solution</span>
-    </v-chip>
-  </div>
-  <h2 id="design-system-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Manage 10 Clients as Easily as 1
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Stop rebuilding email templates from scratch for every client. Our unified design system lets you create brand-specific components once, then replicate and customize instantly. <strong>Update 50 templates with one click.</strong>
-    </div>
-  </div>
-
-  <DesignSystem
-    class="mt-6"
-    :is-dark="isDark"
-  />
-</section>
-
-<!-- 6. SOLUTION: No-code Content Creation -->
-<section id="marketers" class="value-prop" role="region" aria-labelledby="email-editor-heading">
-  <h2 id="email-editor-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Create Pixel-Perfect Brand Emails in Minutes
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your team doesn't need to be Adobe experts. Our visual editor produces pixel-perfect emails that render flawlessly across Gmail, Outlook, and mobile so you can deliver premium quality even with a lean creative team.
-    </div>
-  </div>
-  <v-card ref="editorVideoContainer" class="d-flex justify-center mt-4" variant="elevated" role="region" aria-label="Editor demo video">
-    <video
-      width="100%"
-      :autoplay="(lgAndUp || md) && shouldLoadEditorVideo"
-      :loop="(lgAndUp || md) && shouldLoadEditorVideo"
-      :controls="sm || xs"
-      muted
-      preload="none"
-    >
-      <source v-if="shouldLoadEditorVideo" src="/assets/bluefox-email-editor-intro.mp4" type="video/mp4">
-      <!-- Captions track so accessibility audit picks up subtitles -->
-      <track kind="captions" src="/assets/captions/email-editor-intro-en.vtt" srclang="en" label="English captions" default>
-      Your browser does not support the video tag.
-    </video>
-  </v-card>
-
   <div class="d-flex justify-center mt-6">
-    <div class="problem-stat-card" role="group" aria-labelledby="stat3-label">
-      <div class="problem-stat-number" id="stat3-value">10x</div>
-      <div class="problem-stat-divider" aria-hidden="true"></div>
-      <div class="problem-stat-content">
-        <div id="stat3-label" class="problem-stat-label">Faster</div>
-        <div class="problem-stat-description">Average speed improvement for<br/>email production</div>
-      </div>
-    </div>
+    <v-btn
+      size="large"
+      color="primary"
+      variant="flat"
+      class="no-uppercase"
+      href="/docs/projects/segments"
+      aria-label="Read segments documentation"
+    >
+      Read segments docs
+    </v-btn>
   </div>
 </section>
+</div></div>
 
-<!-- 7. SOLUTION: Automation -->
+<!-- 4. AUTOMATION -->
+<div class="stripe stripe--white"><div class="stripe-inner">
 <section class="value-prop" role="region" aria-labelledby="automation-heading">
   <h2 id="automation-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Set It, Send It, Invoice It
+    Automate the sequences that matter
   </h2>
   <div class="d-flex justify-center">
     <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Create sophisticated drip campaigns, triggered sequences, and re-engagement flows in minutes, not days. Your clients get enterprise-level nurturing without you staffing up for every campaign.
+      Onboarding flows, drip sequences, re-engagement campaigns, and event-triggered emails. Configure once, let them run, and adjust when the data tells you to.
     </div>
   </div>
 
@@ -989,21 +882,39 @@ onBeforeUnmount(() => {
     :sm="sm"
     :xs="xs"
   />
-</section>
-
-<!-- 8. SOLUTION: Perfect Rendering -->
-<section id="no-rendering-issues" class="value-prop" role="region" aria-labelledby="rendering-heading">
-  <h2 id="rendering-heading" class="sectionTitle text-center mb-3">
-    Never Apologize for Broken Emails Again
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Your reputation depends on flawless execution. Our battle-tested HTML guarantees your emails look perfect everywhere from Gmail on mobile to Outlook 2016 on desktop. <strong>No more embarrassing rendering bugs.</strong>
-    </div>
+  <div class="d-flex justify-center mt-6">
+    <v-btn
+      size="large"
+      color="primary"
+      variant="flat"
+      class="no-uppercase"
+      href="/docs/projects/automations"
+      aria-label="Read automations documentation"
+    >
+      Read automations docs
+    </v-btn>
   </div>
+</section>
+</div></div>
 
-  <RenderingIssues
-    class="mt-6"
+<!-- 5. ANALYTICS -->
+<div class="stripe stripe--blue"><div class="stripe-inner">
+<section id="analytics-heading" class="value-prop home-analytics" role="region" aria-labelledby="analytics-heading">
+  <AgencyAnalytics
+    title="Analytics that show what happened"
+    description="Delivery, opens, clicks, bounces, and subscription trends. Switch between hourly, daily, weekly, and monthly views. Export when you need to share."
+    default-tab="hourly"
+  />
+</section>
+</div></div>
+
+<!-- 6. TESTIMONIALS -->
+<div class="stripe stripe--white"><div class="stripe-inner">
+<section role="region" aria-labelledby="testimonials-heading">
+  <h2 id="testimonials-heading" class="sectionTitle text-center mt-4 mb-6">
+    What teams say about BlueFox Email
+  </h2>
+  <AppleMailTestimonials
     :is-dark="isDark"
     :lg-and-up="lgAndUp"
     :md="md"
@@ -1011,52 +922,26 @@ onBeforeUnmount(() => {
     :xs="xs"
   />
 </section>
+</div></div>
 
-<!-- 9. SOLUTION: List Management & Compliance -->
-<section class="section-index value-prop" role="region" aria-labelledby="list-management-heading">
-  <h2 id="list-management-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    Protect Your Clients (and Your Agency) from Compliance Nightmares
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Double opt-in, one-click unsubscribe, automated suppression lists, all built-in. Show clients you're not just creative, you're responsible stewards of their brand reputation.
-    </div>
-  </div>
-  <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="List management dashboard screenshot">
-    <img alt="List management dashboard showing compliance features including double opt-in, unsubscribe management, and automated suppression lists" src="/assets/list-management.webp" loading="lazy" width="1920" height="1080" />
-  </v-card>
-</section>
-
-<!-- 10. SOLUTION: Analytics & ROI Proof -->
-<section class="value-prop" role="region" aria-labelledby="analytics-heading">
-  <h2 id="analytics-heading" class="sectionTitle text-center mt-4 mb-3 pt-0">
-    The Reports That Win Renewals
-  </h2>
-  <div class="d-flex justify-center">
-    <div class="text-center mt-4" :style="`width: ${lgAndUp || md ? '60%' : '100%'}`">
-      Stop spending hours in spreadsheets. Export beautiful, client-ready reports that prove ROI. Open rates, click rates, conversion attribution, revenue impact <strong>everything your client needs to see why they should increase your retainer.</strong>
-    </div>
-  </div>
-  <v-card class="d-flex justify-center mt-4" variant="elevated" role="img" aria-label="Analytics dashboard screenshot">
-    <img alt="Analytics dashboard displaying email campaign metrics including open rates, click-through rates, conversion attribution, and revenue impact data" src="/assets/analytics-alt.webp" loading="lazy" width="1920" height="1080" />
-  </v-card>
-</section>
-
-<!-- 12. INTEGRATIONS - Connect with your stack -->
+<!-- 7. INTEGRATIONS -->
+<div class="stripe stripe--blue stripe--integrations"><div class="stripe-inner">
 <section class="value-prop" role="region" aria-labelledby="integrations-heading">
   <h2 id="integrations-heading" class="visually-hidden">Platform integrations</h2>
   <Integration :is-dark="isDark" />
 </section>
+</div></div>
 
-<!-- 13. FOUNDER EXPERIENCE -->
+<!-- 8. FOUNDER -->
+<div class="stripe stripe--white"><div class="stripe-inner">
 <section class="founder-section" role="region" aria-labelledby="founder-heading">
   <div class="founder-inner">
     <div class="founder-photo-wrap">
       <img src="/assets/gyula.png" alt="Gyula Németh, founder of BlueFox Email" class="founder-photo" loading="lazy" />
     </div>
-    <span class="founder-eyebrow">Meet the Founder</span>
+    <span class="founder-eyebrow">Meet the founder</span>
     <h2 id="founder-heading" class="founder-title">
-      10+ Years Building for Real-World Email
+      10+ years building for real-world email
     </h2>
     <p class="founder-description">
       Gyula Németh has worked in HTML email since 2013. Before BlueFox Email, he co-founded edmdesigner.com, chamaileon.io, and emailhero.io, including enterprise-grade platforms, where he served as CTO. His focus has always been the same: emails should render consistently across real inboxes including Gmail, Apple Mail, mobile clients, and Outlook.
@@ -1068,43 +953,18 @@ onBeforeUnmount(() => {
         variant="flat"
         class="founder-team-button"
         href="/meet-the-team"
-        aria-label="Team Behind BlueFox Email"
+        aria-label="Team behind BlueFox Email"
       >
-        Team Behind BlueFox Email
+        Team behind BlueFox Email
       </v-btn>
     </div>
   </div>
 </section>
+</div></div>
 
-<!-- 14. FINAL CTA - Beautified Premium Design -->
-<section id="second-cta" class="final-cta-section" role="region" aria-labelledby="final-cta-heading">
-  <div class="cta-container">
-    <div class="cta-badge-wrapper">
-      <v-chip color="primary" size="large" class="cta-badge" aria-label="Get started today badge">
-        <span class="text-overline font-weight-bold">Get Started Today</span>
-      </v-chip>
-    </div>
-    <h2 id="final-cta-heading" class="cta-title">
-      Ready to Scale Without the Growing Pains?
-    </h2>
-    <p class="cta-description">
-      Send your first client campaign in minutes. BlueFox Email handles design, rendering, and deliverability so your agency can focus on strategy, retainers, and results, not wrestling with email tools.
-    </p>
-    <div class="cta-button-wrapper">
-      <v-btn
-        size="x-large"
-        color="primary"
-        variant="flat"
-        class="cta-primary-button"
-        href="https://app.bluefox.email/accounts/create-account"
-        target="_blank"
-        aria-label="Start your free BlueFox Email agency account"
-      >
-        <strong>Start Your Free Agency Account</strong>
-      </v-btn>
-      <p class="cta-subtext">
-        No credit card required • Cancel anytime
-      </p>
-    </div>
-  </div>
+<!-- 9. PRICING ILLUSTRATION -->
+<div class="stripe stripe--blue stripe--flush"><div class="stripe-inner stripe-inner--flush">
+<section id="second-cta" role="region" aria-labelledby="pricing-illus-title">
+  <PricingIllustration />
 </section>
+</div></div>

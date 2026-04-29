@@ -196,3 +196,24 @@ html {
 .Layout.ses-landing .custom-footer {
   margin-top: 0 !important;
 }
+
+.stripe--flush + * { margin-top: 0 !important; }
+
+/* Pages ending in stripe--flush: collapse VPContent + footer gap */
+.Layout:has(.stripe--flush) .VPContent,
+body:has(.stripe--flush) .VPContent {
+  padding-bottom: 0 !important;
+}
+
+.Layout:has(.stripe--flush) .custom-footer,
+body:has(.stripe--flush) .custom-footer {
+  margin-top: 0 !important;
+  padding-top: 27px !important;
+}
+
+/* VPHome bottom margin override on flush pages */
+.Layout:has(.stripe--flush) .VPHome,
+body:has(.stripe--flush) .VPHome {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}

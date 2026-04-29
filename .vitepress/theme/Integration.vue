@@ -74,7 +74,7 @@ const integrations = [
         </v-chip>
       </div>
 
-      <h2 id="integrations-heading" class="section-title">Works With the Tools You Already Use</h2>
+      <h2 id="integrations-heading" class="section-title">Works with the tools you already use</h2>
       <p class="section-subtitle">
         Plug into your favorite apps and automate your workflows, no technical setup required
       </p>
@@ -242,7 +242,7 @@ const integrations = [
 
 .section-header {
   text-align: center;
-  margin-bottom: 64px;
+  margin-bottom: 36px;
 }
 
 .section-title {
@@ -266,7 +266,7 @@ const integrations = [
 .carousel-container {
   position: relative;
   overflow: hidden;
-  padding: 20px 0;
+  padding: 8px 0;
 
   /* Gradient masks for fade effect */
   mask-image: linear-gradient(
@@ -500,7 +500,7 @@ html.dark .integration-badge.coming-soon {
 
 @media (max-width: 640px) {
   .section-header {
-    margin-bottom: 48px;
+    margin-bottom: 28px;
   }
 
   .carousel-container {
