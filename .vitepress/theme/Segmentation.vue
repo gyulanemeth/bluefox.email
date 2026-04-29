@@ -726,27 +726,79 @@ html.dark .seg-callout-text strong { color: #f1f5f9; }
 @media (max-width: 820px) {
   .seg-flow {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
   }
 
   .seg-col--funnel {
-    transform: rotate(90deg);
-    height: 100px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+    height: auto;
+    padding: 4px 0;
   }
 
-  .seg-funnel { width: 80px; height: 80px; }
-  .seg-logo-img { width: 64px; height: 64px; }
+  .seg-funnel { width: 64px; height: 64px; }
+  .seg-logo-img { width: 52px; height: 52px; }
 
-  .seg-funnel-label { display: none; }
+  .seg-funnel-label {
+    display: inline;
+    font-size: 11px;
+  }
 
   .seg-paths,
   .seg-envelope-track { display: none; }
+
+  .seg-match-badge {
+    margin-bottom: 18px;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+
+  .seg-col-head {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .seg-col-head strong { font-size: 16px; }
+
+  .seg-filter-list,
+  .seg-people {
+    gap: 8px;
+  }
 }
 
 @media (max-width: 480px) {
-  .seg-illus { padding: 16px 8px 8px; }
-  .seg-filter-chip { padding: 10px 12px; font-size: 13px; }
-  .seg-person { padding: 8px 12px; }
-  .seg-person-avatar { width: 32px; height: 32px; }
+  .seg-illus { padding: 12px 4px 8px; }
+
+  .seg-flow { gap: 12px; }
+
+  .seg-filter-chip {
+    padding: 9px 12px;
+    font-size: 12.5px;
+    border-radius: 10px;
+  }
+
+  .seg-filter-icon { width: 24px; height: 24px; }
+
+  .seg-person {
+    padding: 8px 10px;
+    border-radius: 10px;
+  }
+
+  .seg-person-avatar { width: 30px; height: 30px; }
+
+  .seg-person-meta strong { font-size: 13px; }
+  .seg-person-status { font-size: 10px; }
+
+  .seg-funnel { width: 52px; height: 52px; }
+  .seg-logo-img { width: 42px; height: 42px; }
+  .seg-funnel-label { display: none; }
+
+  .seg-callout {
+    padding: 12px 14px;
+    margin-top: 18px;
+    border-radius: 10px;
+  }
+  .seg-callout-text { font-size: 13px; line-height: 1.5; }
 }
 </style>

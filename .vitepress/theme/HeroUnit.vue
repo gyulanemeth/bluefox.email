@@ -10,11 +10,17 @@ const orbitSize = ref({ w: 480, h: 480 })
 
 // Static satellite positions: TL, TR, BL, BR
 const BASE_ANGLES = [-Math.PI * 3 / 4, -Math.PI / 4, Math.PI * 3 / 4, Math.PI / 4]
-const ORBIT_RADIUS_FACTOR = 0.42
+
+const orbitRadiusFactor = computed(() => {
+  const w = orbitSize.value.w
+  if (w <= 380) return 0.30
+  if (w <= 640) return 0.32
+  return 0.42
+})
 
 const ringCx = computed(() => orbitSize.value.w / 2)
 const ringCy = computed(() => orbitSize.value.h / 2)
-const orbitRadius = computed(() => Math.min(orbitSize.value.w, orbitSize.value.h) * ORBIT_RADIUS_FACTOR)
+const orbitRadius = computed(() => Math.min(orbitSize.value.w, orbitSize.value.h) * orbitRadiusFactor.value)
 const ringR1 = computed(() => orbitRadius.value)
 const ringR2 = computed(() => orbitRadius.value * 0.7)
 const orbitViewBox = computed(() => `0 0 ${orbitSize.value.w} ${orbitSize.value.h}`)
@@ -442,7 +448,11 @@ html.dark .highlight-item {
 /* Right Visual */
 .heroVisual {
   position: relative;
-  height: 480px;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  height: auto;
   opacity: 0;
   animation: fadeInRight 1s ease-out 0.4s forwards;
 }
@@ -711,9 +721,7 @@ a {
   }
 
   .heroVisual {
-    height: 500px;
-    margin: 0 auto;
-    max-width: 560px;
+    max-width: 480px;
   }
 }
 
@@ -755,8 +763,7 @@ a {
   }
 
   .heroVisual {
-    height: 420px;
-    max-width: 100%;
+    max-width: 360px;
   }
 
   .center-card {
@@ -782,26 +789,27 @@ a {
   .center-sub { font-size: 9.5px; }
 
   .satellite {
-    padding: 9px 12px;
-    gap: 8px;
+    padding: 8px 10px;
+    gap: 6px;
     border-radius: 12px;
-    min-width: auto;
+    width: 138px;
+    animation: none;
   }
 
   .sat-icon {
-    width: 30px;
-    height: 30px;
+    width: 26px;
+    height: 26px;
     border-radius: 8px;
   }
 
   .sat-icon svg {
-    width: 17px;
-    height: 17px;
+    width: 15px;
+    height: 15px;
   }
 
-  .sat-title { font-size: 12px; }
-  .sat-desc { font-size: 10px; }
-
+  .sat-title { font-size: 11.5px; }
+  .sat-desc { font-size: 9.5px; }
+  .sat-desc { display: none; }
 }
 
 /* Extra small mobile devices */
@@ -819,7 +827,7 @@ a {
   }
 
   .heroVisual {
-    height: 320px;
+    max-width: 280px;
   }
 
   .highlight-item {
@@ -842,17 +850,23 @@ a {
   .center-sub { display: none; }
 
   .satellite {
-    padding: 7px 10px;
-    gap: 6px;
+    padding: 6px 8px;
+    gap: 5px;
+    width: 108px;
   }
 
   .sat-icon {
-    width: 26px;
-    height: 26px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .sat-icon svg {
+    width: 13px;
+    height: 13px;
   }
 
   .sat-title { font-size: 10.5px; }
-  .sat-desc { font-size: 9px; }
+  .sat-desc { display: none; }
 }
 
 /* Landscape mobile fix */
@@ -886,9 +900,8 @@ a {
     gap: 6px;
   }
 
-
   .heroVisual {
-    height: 300px;
+    max-width: 280px;
   }
 
   .background-gradient {
