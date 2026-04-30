@@ -14,7 +14,7 @@ const features = [
     <div class="heroMain">
       <div class="heroContent">
         <h1 class="title">
-          Supercharge Your Amazon SES
+          Supercharge your Amazon SES
         </h1>
         <p class="tagline">BlueFox Email gives you beautiful emails, smart list management, effortless automation, and in-depth analytics, without giving up any control or deliverability.</p>
         <p class="tagline2">Get started with 3,000 free sends per month and personalized support.</p>
@@ -27,7 +27,7 @@ const features = [
           href="https://app.bluefox.email/accounts/create-account"
           target="_blank"
         >
-          <strong>Get More from SES Today</strong>
+          <strong>Get more from SES today</strong>
         </v-btn>
       </div>
 

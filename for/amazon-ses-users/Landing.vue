@@ -20,7 +20,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     hero-badge=""
     hero-title=""
     hero-description=""
-    cta-text="Supercharge Your Amazon SES"
+    cta-text="Supercharge your Amazon SES"
     cta-href="https://app.bluefox.email/accounts/create-account"
     :show-testimonials="false"
     automation-title="Effortless email automations"
@@ -52,7 +52,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 
     <template #renderingContent>
       <section class="templates-section" aria-labelledby="templates-title">
-        <h2 id="templates-title" class="ses-title">Launch Faster with Ready-to-Use Email Templates</h2>
+        <h2 id="templates-title" class="ses-title">Launch faster with ready-to-use email templates</h2>
         <p class="ses-desc">Start campaigns with professionally designed templates for Marketing Agencies, SaaS, travel, agencies, and transactional emails. Swap in your theme settings, update the copy, adjust brand colors, and launch in minutes.</p>
         <TemplateShowcase
           class="mt-6"

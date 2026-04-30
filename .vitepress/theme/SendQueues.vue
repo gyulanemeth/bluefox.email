@@ -8,7 +8,7 @@ const { isDark } = useData()
   <div class="pt-12 deliverabilityDiv">
     <v-container style="max-width: 800px; padding-bottom: 0;">
       <h2 class="sectionTitle text-center mt-0 pt-0">
-        Keep SES. Just Make It Better.
+        Keep SES. Just make it better.
       </h2>
       <div class="mt-4 text-center">
         BlueFox Email builds on top of your existing Amazon SES account -> no need to change your sending setup. You get a better UI, smarter workflows, and beautiful emails, without giving up control or deliverability.
@@ -23,7 +23,7 @@ const { isDark } = useData()
           href="https://app.bluefox.email/accounts/create-account"
           target="_blank"
         >
-          <strong>Upgrade Your Amazon SES</strong>
+          <strong>Upgrade your Amazon SES</strong>
         </v-btn>
       </div>
 
