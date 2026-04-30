@@ -3,7 +3,7 @@ import { useData } from 'vitepress'
 import { useDisplay } from 'vuetify'
 import PersonaLanding from '../components/PersonaLanding.vue'
 import HeroUnitAWS from '../../.vitepress/theme/HeroUnitAWS.vue'
-import ConnectAWS from '../../.vitepress/theme/ConnectAWS.vue'
+import ConnectAWSIllustration from '../../.vitepress/theme/ConnectAWSIllustration.vue'
 import IntegrationAWS from '../../.vitepress/theme/IntegrationAWS.vue'
 import SendQueues from '../../.vitepress/theme/SendQueues.vue'
 import TemplateShowcase from '../../.vitepress/theme/TemplateShowcase.vue'
@@ -29,14 +29,28 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     :show-analytics="false"
     final-title="Get more from SES today"
     final-description="3,000 free sends per month for your first year. No subscription required."
-    designStripe="white"
-    automationStripe="blue"
-    renderingStripe="white"
-    deliverabilityStripe="blue"
+    afterPainStripe="white"
+    designStripe="blue"
+    automationStripe="white"
+    renderingStripe="blue"
     extraStripe="white"
     finalCtaStripe="blue"
   >
+    <template #afterPain>
+      <section class="ses-section" aria-labelledby="connect-title">
+        <h2 id="connect-title" class="ses-title">Connect quickly &amp; securely</h2>
+        <p class="ses-desc">You can be fully set up (including bounces &amp; complaints via SNS) in just a few minutes. Pick the method that fits your workflow.</p>
+        <ConnectAWSIllustration :is-dark="isDark" />
+      </section>
+    </template>
+
     <template #designContent>
+      <div class="ses-stack">
+        <SendQueues />
+      </div>
+    </template>
+
+    <template #renderingContent>
       <section class="templates-section" aria-labelledby="templates-title">
         <h2 id="templates-title" class="ses-title">Launch Faster with Ready-to-Use Email Templates</h2>
         <p class="ses-desc">Start campaigns with professionally designed templates for Marketing Agencies, SaaS, travel, agencies, and transactional emails. Swap in your theme settings, update the copy, adjust brand colors, and launch in minutes.</p>
@@ -48,20 +62,6 @@ const { lgAndUp, md, sm, xs } = useDisplay()
           :sm="sm"
           :xs="xs"
         />
-      </section>
-    </template>
-
-    <template #renderingContent>
-      <div class="ses-stack">
-        <SendQueues />
-      </div>
-    </template>
-
-    <template #deliverabilityContent>
-      <section class="ses-section" aria-labelledby="connect-title">
-        <h2 id="connect-title" class="ses-title">Connect quickly &amp; securely</h2>
-        <p class="ses-desc">You can be fully set up (including bounces &amp; complaints via SNS) in just a few minutes. Pick the method that fits your workflow.</p>
-        <ConnectAWS class="mt-6" :is-dark="isDark" :xs="xs" />
       </section>
     </template>
 
