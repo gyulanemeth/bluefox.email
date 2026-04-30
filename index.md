@@ -578,7 +578,7 @@ const { isDark } = useData()
 
   .founder-eyebrow {
     display: inline-block;
-    font-size: 12px;
+    font-size: 19px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -823,7 +823,6 @@ const { isDark } = useData()
       class="no-uppercase"
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
-      aria-label="Explore all email templates"
     >
       Explore All Templates
     </v-btn>
@@ -854,7 +853,6 @@ const { isDark } = useData()
       variant="flat"
       class="no-uppercase"
       href="/docs/projects/segments"
-      aria-label="Read segments documentation"
     >
       Read segments docs
     </v-btn>
@@ -889,7 +887,6 @@ const { isDark } = useData()
       variant="flat"
       class="no-uppercase"
       href="/docs/projects/automations"
-      aria-label="Read automations documentation"
     >
       Read automations docs
     </v-btn>

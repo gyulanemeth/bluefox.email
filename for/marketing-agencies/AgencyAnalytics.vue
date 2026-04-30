@@ -441,10 +441,15 @@ const yGridLines = computed(() => {
     </div>
 
     <div class="analytics-cta">
-      <a href="/docs/analytics" class="analytics-cta-btn">
+      <v-btn
+        size="large"
+        color="primary"
+        variant="flat"
+        class="no-uppercase"
+        href="/docs/analytics"
+      >
         See everything analytics can show you
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+      </v-btn>
     </div>
   </section>
 </template>
@@ -523,7 +528,7 @@ html.dark .dash-views { background: #0f172a; }
   border: none;
   background: transparent;
   border-radius: 6px;
-  color: #64748b;
+  color: #475569;
   cursor: pointer;
   transition: all 0.18s ease;
   white-space: nowrap;
@@ -561,13 +566,13 @@ html.dark .dash-view-btn.active { background: #1e293b; color: #f1f5f9; }
 }
 
 .dash-tab.active {
-  background: #13b0ee;
-  border-color: #13b0ee;
+  background: #0a7aa6;
+  border-color: #0a7aa6;
   color: #ffffff;
 }
 
-html.dark .dash-tab { border-color: #334155; color: #94a3b8; }
-html.dark .dash-tab.active { background: #13b0ee; border-color: #13b0ee; color: #fff; }
+html.dark .dash-tab { border-color: #334155; color: #cbd5e1; }
+html.dark .dash-tab.active { background: #0a7aa6; border-color: #0a7aa6; color: #fff; }
 
 .dash-chart-icons {
   display: flex;
@@ -611,19 +616,23 @@ html.dark .dash-meta { border-bottom-color: #334155; }
 
 .dash-date {
   font-size: 11px;
-  color: #94a3b8;
+  color: #475569;
 }
 
 .dash-metric-label {
   font-size: 11px;
-  color: #94a3b8;
+  color: #475569;
   display: flex;
   align-items: center;
   gap: 3px;
   cursor: pointer;
 }
 
-.dash-metric-value { color: #13b0ee; font-weight: 700; }
+.dash-metric-value { color: #0a7aa6; font-weight: 700; }
+
+html.dark .dash-date,
+html.dark .dash-metric-label { color: #cbd5e1; }
+html.dark .dash-metric-value { color: #38bdf8; }
 
 /* Stats row */
 .dash-stats {
@@ -650,11 +659,13 @@ html.dark .dash-stat { border-right-color: #334155; }
   display: block;
   font-size: 10px;
   font-weight: 600;
-  color: #94a3b8;
+  color: #475569;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   white-space: nowrap;
 }
+
+html.dark .stat-label { color: #cbd5e1; }
 
 .stat-value {
   display: block;
@@ -689,33 +700,12 @@ html.dark .stat-value { color: #f1f5f9; }
 
 .analytics-cta {
   margin-top: 20px;
-  text-align: right;
+  display: flex;
+  justify-content: center;
 }
 
-.analytics-cta-btn,
-.analytics-cta-btn:hover,
-.analytics-cta-btn:focus,
-.analytics-cta-btn:active,
-.analytics-cta-btn:visited {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 18px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #ffffff;
-  background: #13b0ee;
-  border-radius: 8px;
-  text-decoration: none;
-}
-
-html.dark .analytics-cta-btn,
-html.dark .analytics-cta-btn:hover,
-html.dark .analytics-cta-btn:focus,
-html.dark .analytics-cta-btn:active,
-html.dark .analytics-cta-btn:visited {
-  background: #13b0ee;
-  color: #fff;
+.analytics-cta :deep(.v-btn) {
+  text-decoration: none !important;
 }
 
 @media (max-width: 760px) {

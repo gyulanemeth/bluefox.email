@@ -424,33 +424,51 @@ onBeforeUnmount(() => {
 .ts-dots {
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 4px;
   padding: 16px 0 4px;
 }
 
 .ts-dot {
-  width: 8px;
-  height: 8px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
   border: none;
-  background: rgba(17, 24, 39, 0.18);
+  background: transparent;
   cursor: pointer;
   padding: 0;
-  transition: background 0.3s ease, width 0.3s ease, border-radius 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: width 0.3s ease, border-radius 0.3s ease;
   flex-shrink: 0;
 }
 
-.ts-dot--dark {
+.ts-dot::before {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(17, 24, 39, 0.18);
+  transition: background 0.3s ease, width 0.3s ease, border-radius 0.3s ease;
+}
+
+.ts-dot--dark::before {
   background: rgba(255, 255, 255, 0.18);
 }
 
 .ts-dot--active {
+  width: 40px;
+  border-radius: 12px;
+}
+
+.ts-dot--active::before {
   background: #13B0EE;
   width: 24px;
   border-radius: 4px;
 }
 
-.ts-dot--dark.ts-dot--active {
+.ts-dot--dark.ts-dot--active::before {
   background: #13B0EE;
 }
 
