@@ -582,7 +582,11 @@ const { isDark } = useData()
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #13B0EE;
+    background: linear-gradient(135deg, #13B0EE 0%, #392C91 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
     margin-bottom: 16px;
   }
 
