@@ -582,7 +582,11 @@ const { isDark } = useData()
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
-    color: #13B0EE;
+    background: -webkit-linear-gradient(120deg, #392C91 30%, #13B0EE 70%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #392C91;
     margin-bottom: 16px;
   }
 
@@ -854,7 +858,6 @@ const { isDark } = useData()
       variant="flat"
       class="no-uppercase"
       href="/docs/projects/segments"
-      aria-label="Read segments documentation"
     >
       Read segments docs
     </v-btn>
@@ -889,7 +892,6 @@ const { isDark } = useData()
       variant="flat"
       class="no-uppercase"
       href="/docs/projects/automations"
-      aria-label="Read automations documentation"
     >
       Read automations docs
     </v-btn>
@@ -937,7 +939,7 @@ const { isDark } = useData()
 <section class="founder-section" role="region" aria-labelledby="founder-heading">
   <div class="founder-inner">
     <div class="founder-photo-wrap">
-      <img src="/assets/gyula.png" alt="Gyula Németh, founder of BlueFox Email" class="founder-photo" loading="lazy" />
+      <img src="/assets/gyula.webp" alt="Gyula Németh, founder of BlueFox Email" class="founder-photo" width="320" height="320" loading="lazy" decoding="async" />
     </div>
     <span class="founder-eyebrow">Meet the founder</span>
     <h2 id="founder-heading" class="founder-title">

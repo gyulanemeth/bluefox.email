@@ -1,11 +1,11 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick, computed } from 'vue'
-import alexPhoto from '../../for/marketing-agencies/alex-suprun-ZHvM3XIOHoE-unsplash.jpg'
-import chrisPhoto from '../../for/marketing-agencies/christopher-campbell-rDEOVtE7vOs-unsplash.jpg'
-import michaelPhoto from '../../for/marketing-agencies/michael-dam-mEZ3PoFGs_k-unsplash.jpg'
-import vickyPhoto from '../../for/marketing-agencies/vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg'
-import jakePhoto from '../../for/marketing-agencies/jake-nackos-IF9TK5Uy-KI-unsplash.jpg'
-import nguyenPhoto from '../../for/marketing-agencies/nguyen.png'
+import alexPhoto from '../../for/marketing-agencies/alex-suprun-ZHvM3XIOHoE-unsplash.webp'
+import chrisPhoto from '../../for/marketing-agencies/christopher-campbell-rDEOVtE7vOs-unsplash.webp'
+import michaelPhoto from '../../for/marketing-agencies/michael-dam-mEZ3PoFGs_k-unsplash.webp'
+import vickyPhoto from '../../for/marketing-agencies/vicky-hladynets-C8Ta0gwPbQg-unsplash.webp'
+import jakePhoto from '../../for/marketing-agencies/jake-nackos-IF9TK5Uy-KI-unsplash.webp'
+import nguyenPhoto from '../../for/marketing-agencies/nguyen.webp'
 
 defineProps({
   isDark: { type: Boolean, default: false },
@@ -306,7 +306,7 @@ onBeforeUnmount(() => {
             :style="{ animationDelay: `${i * 0.12}s` }"
             :ref="(el) => setPersonRef(el, i)"
           >
-            <img :src="p.photo" :alt="p.name" class="seg-person-avatar" />
+            <img :src="p.photo" :alt="p.name" class="seg-person-avatar" width="96" height="96" loading="lazy" decoding="async" />
             <div class="seg-person-meta">
               <strong>{{ p.name }}</strong>
               <span class="seg-person-status">
