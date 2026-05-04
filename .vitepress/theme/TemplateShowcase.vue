@@ -212,7 +212,7 @@ onBeforeUnmount(() => {
         :key="tpl.src"
         class="ts-card"
         :style="getCardStyle(i)"
-        :aria-hidden="!isVisible(i)"
+        :aria-hidden="!isCenter(i)"
         @click="onCardClick(i)"
       >
         <v-card
@@ -236,7 +236,7 @@ onBeforeUnmount(() => {
             >
               <span class="ts-chip-text">{{ tpl.category }}</span>
             </v-chip>
-            <div class="ts-card-title" :class="{ 'ts-card-title--dark': isDark }">
+            <div class="ts-card-title">
               {{ tpl.title }}
             </div>
           </div>
@@ -372,15 +372,15 @@ onBeforeUnmount(() => {
 
 .ts-card-title {
   font-size: 13px;
-  font-weight: 600;
-  color: #1f2937;
+  font-weight: 700;
+  color: #0f172a;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.ts-card-title--dark {
-  color: #e5e7eb;
+html.dark .ts-card-title {
+  color: #f1f5f9;
 }
 
 /* ---- Navigation arrows ---- */
@@ -424,33 +424,51 @@ onBeforeUnmount(() => {
 .ts-dots {
   display: flex;
   justify-content: center;
-  gap: 8px;
-  padding: 16px 0 4px;
+  gap: 0;
+  padding: 8px 0;
 }
 
 .ts-dot {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition: width 0.3s ease, border-radius 0.3s ease;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ts-dot::before {
+  content: '';
+  display: block;
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  border: none;
   background: rgba(17, 24, 39, 0.18);
-  cursor: pointer;
-  padding: 0;
   transition: background 0.3s ease, width 0.3s ease, border-radius 0.3s ease;
-  flex-shrink: 0;
 }
 
-.ts-dot--dark {
+.ts-dot--dark::before {
   background: rgba(255, 255, 255, 0.18);
 }
 
 .ts-dot--active {
+  width: 40px;
+}
+
+.ts-dot--active::before {
   background: #13B0EE;
   width: 24px;
   border-radius: 4px;
 }
 
-.ts-dot--dark.ts-dot--active {
+.ts-dot--dark.ts-dot--active::before {
   background: #13B0EE;
 }
 

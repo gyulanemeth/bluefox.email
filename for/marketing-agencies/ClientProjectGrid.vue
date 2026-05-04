@@ -1,10 +1,10 @@
 <script setup>
-import alexPhoto from './alex-suprun-ZHvM3XIOHoE-unsplash.jpg'
-import chrisPhoto from './christopher-campbell-rDEOVtE7vOs-unsplash.jpg'
-import michaelPhoto from './michael-dam-mEZ3PoFGs_k-unsplash.jpg'
-import samPhoto from './vicky-hladynets-C8Ta0gwPbQg-unsplash.jpg'
-import nguyenPhoto from './nguyen.png'
-import siriPhoto from './siri.png'
+import alexPhoto from './alex-suprun-ZHvM3XIOHoE-unsplash.webp'
+import chrisPhoto from './christopher-campbell-rDEOVtE7vOs-unsplash.webp'
+import michaelPhoto from './michael-dam-mEZ3PoFGs_k-unsplash.webp'
+import samPhoto from './vicky-hladynets-C8Ta0gwPbQg-unsplash.webp'
+import nguyenPhoto from './nguyen.webp'
+import siriPhoto from './siri.webp'
 
 const admins = [
   { name: 'Alex', photo: alexPhoto },
@@ -58,7 +58,7 @@ const columns = [
       <div class="admin-card" role="group" aria-label="Account admins">
         <div class="admin-list">
           <div v-for="admin in admins" :key="admin.name" class="admin-person">
-            <img :src="admin.photo" :alt="admin.name" class="admin-avatar" />
+            <img :src="admin.photo" :alt="admin.name" class="admin-avatar" width="96" height="96" loading="lazy" decoding="async" />
             <div class="admin-meta">
               <strong>{{ admin.name }}</strong>
               <span class="role-pill role--admin">Admin</span>

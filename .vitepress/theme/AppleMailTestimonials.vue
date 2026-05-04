@@ -608,7 +608,7 @@ function selectTestimonial(id) {
             <div class="tablet-body">
               <p>{{ visibleTestimonials[selectedTestimonialId].testimonial }}</p>
               <a :href="visibleTestimonials[selectedTestimonialId].url" target="_blank" :aria-label="`Visit ${visibleTestimonials[selectedTestimonialId].company}`" class="tablet-logo-link">
-                <img :src="visibleTestimonials[selectedTestimonialId].logo" :alt="visibleTestimonials[selectedTestimonialId].logoAlt" class="tablet-logo" loading="lazy" decoding="async" />
+                <img :src="visibleTestimonials[selectedTestimonialId].logo" :alt="visibleTestimonials[selectedTestimonialId].logoAlt" class="tablet-logo" width="100" height="32" loading="lazy" decoding="async" />
               </a>
             </div>
           </div>

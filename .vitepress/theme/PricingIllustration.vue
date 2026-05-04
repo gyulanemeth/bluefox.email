@@ -157,10 +157,10 @@ html.dark .compare-rule { background: #1e293b; }
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: #64748b;
+  color: #475569;
 }
 
-html.dark .col-label { color: #94a3b8; }
+html.dark .col-label { color: #cbd5e1; }
 
 .col-price {
   display: flex;
@@ -178,20 +178,20 @@ html.dark .col-label { color: #94a3b8; }
 
 .period {
   font-size: 14px;
-  color: #64748b;
+  color: #475569;
 }
 
-html.dark .period { color: #94a3b8; }
+html.dark .period { color: #cbd5e1; }
 
 .compare-col--typical .amount {
-  color: #94a3b8;
+  color: #475569;
   text-decoration: line-through;
   text-decoration-thickness: 2px;
   text-decoration-color: rgba(185, 28, 28, 0.55);
 }
 
 html.dark .compare-col--typical .amount {
-  color: #64748b;
+  color: #cbd5e1;
   text-decoration-color: rgba(248, 113, 113, 0.55);
 }
 

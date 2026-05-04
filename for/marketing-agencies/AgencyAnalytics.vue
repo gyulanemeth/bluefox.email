@@ -440,17 +440,25 @@ const yGridLines = computed(() => {
 
     </div>
 
-    <div class="analytics-cta">
-      <a href="/docs/analytics" class="analytics-cta-btn">
+    <div class="d-flex justify-center mt-6">
+      <v-btn
+        size="large"
+        color="primary"
+        variant="flat"
+        class="no-uppercase"
+        href="/docs/analytics"
+      >
         See everything analytics can show you
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+      </v-btn>
     </div>
   </section>
 </template>
 
 <style scoped>
 .agency-analytics { padding: 36px 24px; }
+.agency-analytics :deep(.v-btn),
+.agency-analytics :deep(.v-btn:hover),
+.agency-analytics :deep(.v-btn:focus) { text-decoration: none; }
 
 .analytics-head { margin-bottom: 28px; }
 
@@ -523,7 +531,7 @@ html.dark .dash-views { background: #0f172a; }
   border: none;
   background: transparent;
   border-radius: 6px;
-  color: #64748b;
+  color: #475569;
   cursor: pointer;
   transition: all 0.18s ease;
   white-space: nowrap;
@@ -553,7 +561,7 @@ html.dark .dash-view-btn.active { background: #1e293b; color: #f1f5f9; }
   border: 1px solid #e2e8f0;
   background: transparent;
   border-radius: 5px;
-  color: #64748b;
+  color: #475569;
   cursor: pointer;
   transition: all 0.15s ease;
   text-transform: uppercase;
@@ -561,13 +569,13 @@ html.dark .dash-view-btn.active { background: #1e293b; color: #f1f5f9; }
 }
 
 .dash-tab.active {
-  background: #13b0ee;
-  border-color: #13b0ee;
+  background: #392C91;
+  border-color: #392C91;
   color: #ffffff;
 }
 
-html.dark .dash-tab { border-color: #334155; color: #94a3b8; }
-html.dark .dash-tab.active { background: #13b0ee; border-color: #13b0ee; color: #fff; }
+html.dark .dash-tab { border-color: #334155; color: #cbd5e1; }
+html.dark .dash-tab.active { background: #392C91; border-color: #392C91; color: #fff; }
 
 .dash-chart-icons {
   display: flex;
@@ -611,19 +619,19 @@ html.dark .dash-meta { border-bottom-color: #334155; }
 
 .dash-date {
   font-size: 11px;
-  color: #94a3b8;
+  color: #475569;
 }
 
 .dash-metric-label {
   font-size: 11px;
-  color: #94a3b8;
+  color: #475569;
   display: flex;
   align-items: center;
   gap: 3px;
   cursor: pointer;
 }
 
-.dash-metric-value { color: #13b0ee; font-weight: 700; }
+.dash-metric-value { color: #0e7fa8; font-weight: 700; }
 
 /* Stats row */
 .dash-stats {
@@ -650,7 +658,7 @@ html.dark .dash-stat { border-right-color: #334155; }
   display: block;
   font-size: 10px;
   font-weight: 600;
-  color: #94a3b8;
+  color: #475569;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   white-space: nowrap;
@@ -687,36 +695,6 @@ html.dark .stat-value { color: #f1f5f9; }
 
 .chart-dot:hover { r: 4; opacity: 0.8; }
 
-.analytics-cta {
-  margin-top: 20px;
-  text-align: right;
-}
-
-.analytics-cta-btn,
-.analytics-cta-btn:hover,
-.analytics-cta-btn:focus,
-.analytics-cta-btn:active,
-.analytics-cta-btn:visited {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 9px 18px;
-  font-size: 13px;
-  font-weight: 600;
-  color: #ffffff;
-  background: #13b0ee;
-  border-radius: 8px;
-  text-decoration: none;
-}
-
-html.dark .analytics-cta-btn,
-html.dark .analytics-cta-btn:hover,
-html.dark .analytics-cta-btn:focus,
-html.dark .analytics-cta-btn:active,
-html.dark .analytics-cta-btn:visited {
-  background: #13b0ee;
-  color: #fff;
-}
 
 @media (max-width: 760px) {
   .dash-topbar { flex-direction: column; align-items: flex-start; padding: 12px 16px; }
