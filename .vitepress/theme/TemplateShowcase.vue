@@ -212,7 +212,7 @@ onBeforeUnmount(() => {
         :key="tpl.src"
         class="ts-card"
         :style="getCardStyle(i)"
-        :aria-hidden="!isVisible(i)"
+        :aria-hidden="!isCenter(i)"
         @click="onCardClick(i)"
       >
         <v-card
@@ -236,7 +236,7 @@ onBeforeUnmount(() => {
             >
               <span class="ts-chip-text">{{ tpl.category }}</span>
             </v-chip>
-            <div class="ts-card-title" :class="{ 'ts-card-title--dark': isDark }">
+            <div class="ts-card-title">
               {{ tpl.title }}
             </div>
           </div>
@@ -379,7 +379,7 @@ onBeforeUnmount(() => {
   text-overflow: ellipsis;
 }
 
-.ts-card-title--dark {
+html.dark .ts-card-title {
   color: #f1f5f9;
 }
 
