@@ -8,7 +8,11 @@ defineProps({
 const flowRef = ref(null)
 const sourceRef = ref(null)
 const pathTargetRefs = ref([])
-const setPathTargetRef = (el, idx) => { if (el) pathTargetRefs.value[idx] = el }
+const setPathTargetRef = (el, idx) => {
+  if (el) {
+    pathTargetRefs.value[idx] = el
+  }
+}
 
 const paths = ref([])
 const flowSize = ref({ w: 0, h: 0 })
@@ -23,7 +27,9 @@ let recalcRaf = null
 let lastSig = ''
 
 function recalcPaths() {
-  if (!flowRef.value || !sourceRef.value) return
+  if (!flowRef.value || !sourceRef.value) {
+    return
+  }
   const flowRect = flowRef.value.getBoundingClientRect()
   const srcRect = sourceRef.value.getBoundingClientRect()
 
@@ -32,7 +38,9 @@ function recalcPaths() {
 
   const endpoints = []
   pathTargetRefs.value.forEach((el) => {
-    if (!el) return
+    if (!el) {
+      return
+    }
     const r = el.getBoundingClientRect()
     endpoints.push({
       x: Math.round(r.left - flowRect.left + r.width / 2),
@@ -42,7 +50,9 @@ function recalcPaths() {
 
   const sig = `${Math.round(flowRect.width)}|${Math.round(flowRect.height)}|${startX},${startY}|` +
     endpoints.map(p => `${p.x},${p.y}`).join(';')
-  if (sig === lastSig) return
+  if (sig === lastSig) {
+    return
+  }
   lastSig = sig
 
   flowSize.value = { w: flowRect.width, h: flowRect.height }
@@ -55,7 +65,9 @@ function recalcPaths() {
 }
 
 function scheduleRecalc() {
-  if (recalcRaf) return
+  if (recalcRaf) {
+    return
+  }
   recalcRaf = requestAnimationFrame(() => {
     recalcRaf = null
     recalcPaths()
@@ -79,15 +91,25 @@ onMounted(async () => {
   if (typeof ResizeObserver !== 'undefined' && flowRef.value) {
     resizeObs = new ResizeObserver(scheduleRecalc)
     resizeObs.observe(flowRef.value)
-    pathTargetRefs.value.forEach((el) => el && resizeObs.observe(el))
+    pathTargetRefs.value.forEach((el) => {
+      if (el) {
+        resizeObs.observe(el)
+      }
+    })
   }
   window.addEventListener('resize', scheduleRecalc)
 })
 
 onBeforeUnmount(() => {
-  if (flyTimer) clearInterval(flyTimer)
-  if (resizeObs) resizeObs.disconnect()
-  if (recalcRaf) cancelAnimationFrame(recalcRaf)
+  if (flyTimer) {
+    clearInterval(flyTimer)
+  }
+  if (resizeObs) {
+    resizeObs.disconnect()
+  }
+  if (recalcRaf) {
+    cancelAnimationFrame(recalcRaf)
+  }
   window.removeEventListener('resize', scheduleRecalc)
 })
 </script>
