@@ -168,6 +168,39 @@ You can access the **Transactional Email Statistics** by clicking the arrow icon
 
 For a detailed guide on using the **Transactional Email Statistics**, refer to the [Analatics Documentation](/docs/analytics).
 
+## Data Feeds
+
+Data feeds allow you to automatically pull in live content from external sources directly into your transactional email. This is useful when your email needs to include up-to-date content (such as recommended articles, product highlights, or status info) without manually updating the template.
+
+Supported feed types:
+- **RSS / Atom XML**
+- **JSON**
+
+### Adding a Feed
+
+To add a feed, locate the **Feeds** section on your email card, just below the Details section. Click the **+ Add Feed** button.
+
+![A screenshot of a transactional email card with the Feeds section and Add Feed button highlighted.](./project-transactionals-feeds-add-button.webp)
+
+This will expand a form where you can configure your feed:
+
+![A screenshot of the Add Feed form expanded on a transactional email card.](./project-transactionals-feeds-form.webp)
+
+Fill in the following fields:
+
+- **Feed URL**: The URL of the feed you want to pull content from.
+- **Feed Type**: Select the type of feed — RSS / Atom XML or JSON.
+- **Variable Name**: The name you'll use to reference this feed's data inside your email template using Handlebars syntax.
+- **Max Items**: The maximum number of items to pull in from the feed (defaults to 5).
+
+You can also check the **Required** checkbox if the feed must be available for the email to send.
+
+Once you've filled in the details, click **Preview** to verify the feed is working correctly, then click **Save** to store your configuration.
+
+::: tip
+You can add multiple feeds to a single transactional email by clicking **+ Add Feed** again after saving the first one.
+:::
+
 ## Editing Details of a Transactional Email
 
 You can edit every key detail of the transactional email like subject, preview text, from identity, etc. by clicking the edit icon on the email card:
