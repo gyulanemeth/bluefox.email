@@ -165,6 +165,35 @@ You can access the **Campaign Email Statistics** by clicking the arrow icon:
 For more information on how to use the **Campaign Email Statistics**, refer to the [Analytics Documentation](/docs/analytics).
 
 
+## Data Feeds
+
+Data feeds allow you to automatically pull in live content from external sources directly into your campaign. This is especially useful for newsletters or digests where the content changes regularly — your campaign will always go out with the latest data without any manual updates.
+
+Supported feed types:
+- **RSS / Atom XML**
+- **JSON**
+
+### Adding a Feed
+
+To add a feed, locate the **Feeds** section on your campaign card, just below the Details section. Click the **+ Add Feed** button.
+
+![A screenshot of a campaign card with the Feeds section and Add Feed button highlighted.](./project-campaigns-feeds-add-button.webp)
+
+This will expand a form where you can configure your feed:
+
+![A screenshot of the Add Feed form expanded on a campaign card.](./project-campaigns-feeds-form.webp)
+
+Fill in the following fields:
+
+- **Feed URL**: The URL of the feed you want to pull content from.
+- **Feed Type**: Select the type of feed — RSS / Atom XML or JSON.
+- **Variable Name**: The name you'll use to reference this feed's data inside your email template using Handlebars syntax.
+- **Max Items**: The maximum number of items to pull in from the feed (defaults to 5).
+
+You can also check the **Required** checkbox if the feed must be available for the campaign to send.
+
+Once you've filled in the details, click **Preview** to verify the feed is working correctly, then click **Save** to store your configuration.
+
 ## Other Details
 
 You can customize every key email-sending options, such as preview text, subject, reply-to addresses, etc for your campaign directly within the campaign card, just click the edit icon on the card for the field you want to edit:

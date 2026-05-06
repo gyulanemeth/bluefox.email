@@ -225,6 +225,39 @@ You can access the **Triggered Email Statistics** by clicking the arrow icon:
 
 For more information on using the **Triggered Email Statistics**, refer to the [Analytics Documentation](/docs/analytics).
 
+## Data Feeds
+
+Data feeds allow you to automatically pull in live content from external sources directly into your triggered email. This is useful for digests, weekly summaries, or any email where the content should reflect the latest data at send time without manual updates.
+
+Supported feed types:
+- **RSS / Atom XML**
+- **JSON**
+
+### Adding a Feed
+
+To add a feed, locate the **Feeds** section on your email card, just below the Details section. Click the **+ Add Feed** button.
+
+![A screenshot of a triggered email card with the Feeds section and Add Feed button highlighted.](./project-triggered-emails-feeds-add-button.webp)
+
+This will expand a form where you can configure your feed:
+
+![A screenshot of the Add Feed form expanded on a triggered email card.](./project-triggered-emails-feeds-form.webp)
+
+Fill in the following fields:
+
+- **Feed URL**: The URL of the feed you want to pull content from.
+- **Feed Type**: Select the type of feed — RSS / Atom XML or JSON.
+- **Variable Name**: The name you'll use to reference this feed's data inside your email template using Handlebars syntax.
+- **Max Items**: The maximum number of items to pull in from the feed (defaults to 5).
+
+You can also check the **Required** checkbox if the feed must be available for the email to send.
+
+Once you've filled in the details, click **Preview** to verify the feed is working correctly, then click **Save** to store your configuration.
+
+::: tip
+You can add multiple feeds to a single triggered email by clicking **+ Add Feed** again after saving the first one.
+:::
+
 ## Editing Details of a Triggered Email
 
 You can edit every key detail of the triggered email like subject, preview text, from identity, etc. by clicking the edit icon on the email card:
