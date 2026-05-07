@@ -473,7 +473,7 @@ html.dark .seg-match-badge strong { color: #67e8f9; }
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #13B0EE;
+  color: #0369a1;
 }
 
 html.dark .seg-col-eyebrow { color: #67e8f9; }
@@ -677,7 +677,7 @@ html.dark .seg-person-meta strong { color: #f1f5f9; }
   gap: 4px;
   font-size: 11px;
   font-weight: 700;
-  color: #047857;
+  color: #115e3f;
   letter-spacing: 0.02em;
 }
 

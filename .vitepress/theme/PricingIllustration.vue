@@ -63,7 +63,6 @@ const included = [
         class="illus-cta"
         href="https://app.bluefox.email/accounts/create-account"
         target="_blank"
-        aria-label="Create your free BlueFox Email account"
       >
         <strong>Start with 3,000 free sends</strong>
       </v-btn>

@@ -827,7 +827,6 @@ const { isDark } = useData()
       class="no-uppercase"
       href="https://app.bluefox.email/accounts/create-account"
       target="_blank"
-      aria-label="Explore all email templates"
     >
       Explore All Templates
     </v-btn>
