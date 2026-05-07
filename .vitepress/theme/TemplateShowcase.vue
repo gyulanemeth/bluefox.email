@@ -222,10 +222,16 @@ onBeforeUnmount(() => {
         >
           <div class="ts-img-wrapper">
             <img
-              :src="tpl.src"
+              :src="tpl.src.replace('.webp', '-400.webp')"
+              :srcset="`${tpl.src.replace('.webp', '-400.webp')} 400w, ${tpl.src.replace('.webp', '-600.webp')} 600w`"
+              sizes="(max-width: 599px) 260px, (max-width: 960px) 280px, 300px"
               :alt="tpl.alt"
               class="ts-img"
+              width="400"
+              height="534"
               :loading="isVisible(i) ? 'eager' : 'lazy'"
+              :fetchpriority="isCenter(i) ? 'high' : 'auto'"
+              decoding="async"
             />
           </div>
           <div class="ts-card-footer">
