@@ -47,7 +47,9 @@ function animateCount() {
   function frame(now) {
     const t = Math.min(1, (now - start) / duration)
     matchCount.value = Math.round(easeOutCubic(t) * TARGET_COUNT)
-    if (t < 1) countTimer = requestAnimationFrame(frame)
+    if (t < 1) {
+      countTimer = requestAnimationFrame(frame)
+    }
   }
   countTimer = requestAnimationFrame(frame)
 }
@@ -60,10 +62,14 @@ const funnelRef = ref(null)
 const personRefs = ref([])
 const filterRefs = ref([])
 const setPersonRef = (el, idx) => {
-  if (el) personRefs.value[idx] = el
+  if (el) {
+    personRefs.value[idx] = el
+  }
 }
 const setFilterRef = (el, idx) => {
-  if (el) filterRefs.value[idx] = el
+  if (el) {
+    filterRefs.value[idx] = el
+  }
 }
 
 const paths = ref([])
@@ -75,7 +81,9 @@ const viewBox = computed(() => `0 0 ${flowSize.value.w || 1} ${flowSize.value.h 
 let lastSig = ''
 
 function recalcPaths() {
-  if (!flowRef.value || !funnelRef.value) return
+  if (!flowRef.value || !funnelRef.value) {
+    return
+  }
   const flowRect = flowRef.value.getBoundingClientRect()
   const funnelRect = funnelRef.value.getBoundingClientRect()
 
@@ -84,7 +92,9 @@ function recalcPaths() {
   const startY = Math.round(funnelRect.top - flowRect.top + funnelRect.height / 2)
   const endpoints = []
   personRefs.value.forEach((el) => {
-    if (!el) return
+    if (!el) {
+      return
+    }
     const r = el.getBoundingClientRect()
     endpoints.push({
       x: Math.round(r.left - flowRect.left + 2),
@@ -97,7 +107,9 @@ function recalcPaths() {
   const inY = startY
   const filterStarts = []
   filterRefs.value.forEach((el) => {
-    if (!el) return
+    if (!el) {
+      return
+    }
     const r = el.getBoundingClientRect()
     filterStarts.push({
       x: Math.round(r.right - flowRect.left - 2),
@@ -108,7 +120,9 @@ function recalcPaths() {
   const sig = `${Math.round(flowRect.width)}|${Math.round(flowRect.height)}|${startX},${startY}|` +
     endpoints.map(p => `${p.x},${p.y}`).join(';') + '|' +
     `${inX},${inY}|` + filterStarts.map(p => `${p.x},${p.y}`).join(';')
-  if (sig === lastSig) return
+  if (sig === lastSig) {
+    return
+  }
   lastSig = sig
 
   flowSize.value = { w: flowRect.width, h: flowRect.height }
@@ -130,7 +144,9 @@ let resizeObs = null
 let recalcRaf = null
 
 function scheduleRecalc() {
-  if (recalcRaf) return
+  if (recalcRaf) {
+    return
+  }
   recalcRaf = requestAnimationFrame(() => {
     recalcRaf = null
     recalcPaths()
@@ -145,7 +161,11 @@ onMounted(async () => {
   // Re-run count animation when section enters viewport
   if (typeof IntersectionObserver !== 'undefined' && flowRef.value) {
     const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) animateCount() })
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          animateCount()
+        }
+      })
     }, { threshold: 0.4 })
     io.observe(flowRef.value)
   }
@@ -157,7 +177,9 @@ onMounted(async () => {
   // Recalc after images load
   if (flowRef.value) {
     flowRef.value.querySelectorAll('img').forEach((img) => {
-      if (!img.complete) img.addEventListener('load', recalcPaths, { once: true })
+      if (!img.complete) {
+        img.addEventListener('load', recalcPaths, { once: true })
+      }
     })
   }
 
@@ -180,10 +202,18 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => {
-  if (flyTimer) clearInterval(flyTimer)
-  if (resizeObs) resizeObs.disconnect()
-  if (recalcRaf) cancelAnimationFrame(recalcRaf)
-  if (countTimer) cancelAnimationFrame(countTimer)
+  if (flyTimer) {
+    clearInterval(flyTimer)
+  }
+  if (resizeObs) {
+    resizeObs.disconnect()
+  }
+  if (recalcRaf) {
+    cancelAnimationFrame(recalcRaf)
+  }
+  if (countTimer) {
+    cancelAnimationFrame(countTimer)
+  }
   window.removeEventListener('resize', scheduleRecalc)
 })
 </script>

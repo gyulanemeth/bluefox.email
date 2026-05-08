@@ -13,8 +13,12 @@ const BASE_ANGLES = [-Math.PI * 3 / 4, -Math.PI / 4, Math.PI * 3 / 4, Math.PI / 
 
 const orbitRadiusFactor = computed(() => {
   const w = orbitSize.value.w
-  if (w <= 380) return 0.40
-  if (w <= 640) return 0.42
+  if (w <= 380) {
+    return 0.40
+  }
+  if (w <= 640) {
+    return 0.42
+  }
   return 0.42
 })
 
@@ -46,7 +50,9 @@ const lineCoords = computed(() => {
 
 const scrollToSection = (sectionId) => {
   const section = document.getElementById(sectionId)
-  if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  if (section) {
+    section.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 }
 
 const onSatKey = (e, target) => {
@@ -62,16 +68,24 @@ let pendingEntry = null
 
 function applyMeasurement() {
   rafId = null
-  if (!pendingEntry) return
+  if (!pendingEntry) {
+    return
+  }
   const cr = pendingEntry.contentRect
   pendingEntry = null
-  if (cr && cr.width > 0) orbitSize.value = { w: cr.width, h: cr.height }
+  if (cr && cr.width > 0) {
+    orbitSize.value = { w: cr.width, h: cr.height }
+  }
 }
 
 function measureHost() {
-  if (!heroVisualRef.value) return
+  if (!heroVisualRef.value) {
+    return
+  }
   const r = heroVisualRef.value.getBoundingClientRect()
-  if (r.width > 0) orbitSize.value = { w: r.width, h: r.height }
+  if (r.width > 0) {
+    orbitSize.value = { w: r.width, h: r.height }
+  }
 }
 
 onMounted(() => {
@@ -80,7 +94,9 @@ onMounted(() => {
     if (typeof ResizeObserver !== 'undefined' && heroVisualRef.value) {
       resizeObs = new ResizeObserver((entries) => {
         pendingEntry = entries[entries.length - 1]
-        if (rafId == null) rafId = requestAnimationFrame(applyMeasurement)
+        if (rafId == null) {
+          rafId = requestAnimationFrame(applyMeasurement)
+        }
       })
       resizeObs.observe(heroVisualRef.value)
     }
@@ -88,8 +104,12 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-  if (resizeObs) resizeObs.disconnect()
-  if (rafId != null) cancelAnimationFrame(rafId)
+  if (resizeObs) {
+    resizeObs.disconnect()
+  }
+  if (rafId != null) {
+    cancelAnimationFrame(rafId)
+  }
 })
 </script>
 

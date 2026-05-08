@@ -148,7 +148,9 @@ function isCenter(index) {
 
 function isVisible(index) {
   const offset = getCardOffset(index)
-  if (isWide.value) return offset === 0 || offset === 1 || offset === templates.length - 1
+  if (isWide.value) {
+    return offset === 0 || offset === 1 || offset === templates.length - 1
+  }
   return offset === 0
 }
 
@@ -164,7 +166,9 @@ const isInView = ref(false)
 function startAutoRotate() {
   stopAutoRotate()
   timer = setInterval(() => {
-    if (!isHovered.value && isInView.value && document.visibilityState === 'visible') next()
+    if (!isHovered.value && isInView.value && document.visibilityState === 'visible') {
+      next()
+    }
   }, 2500)
 }
 
@@ -180,8 +184,11 @@ onMounted(() => {
     if (typeof IntersectionObserver !== 'undefined') {
       intersectionObs = new IntersectionObserver((entries) => {
         isInView.value = entries[0].isIntersecting
-        if (isInView.value && !timer) startAutoRotate()
-        else if (!isInView.value) stopAutoRotate()
+        if (isInView.value && !timer) {
+          startAutoRotate()
+        } else if (!isInView.value) {
+          stopAutoRotate()
+        }
       }, { threshold: 0.2 })
       intersectionObs.observe(viewport.value)
     } else {
@@ -191,8 +198,12 @@ onMounted(() => {
 
     useSwipe(viewport, {
       onSwipeEnd(e, direction) {
-        if (direction === 'left') next()
-        if (direction === 'right') prev()
+        if (direction === 'left') {
+          next()
+        }
+        if (direction === 'right') {
+          prev()
+        }
       }
     })
   }
@@ -200,7 +211,9 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   stopAutoRotate()
-  if (intersectionObs) intersectionObs.disconnect()
+  if (intersectionObs) {
+    intersectionObs.disconnect()
+  }
 })
 </script>
 
