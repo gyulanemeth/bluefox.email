@@ -57,6 +57,16 @@ const onSatKey = (e, target) => {
 }
 
 let resizeObs = null
+let rafId = null
+let pendingEntry = null
+
+function applyMeasurement() {
+  rafId = null
+  if (!pendingEntry) return
+  const cr = pendingEntry.contentRect
+  pendingEntry = null
+  if (cr && cr.width > 0) orbitSize.value = { w: cr.width, h: cr.height }
+}
 
 function measureHost() {
   if (!heroVisualRef.value) return
@@ -68,7 +78,10 @@ onMounted(() => {
   nextTick(() => {
     measureHost()
     if (typeof ResizeObserver !== 'undefined' && heroVisualRef.value) {
-      resizeObs = new ResizeObserver(measureHost)
+      resizeObs = new ResizeObserver((entries) => {
+        pendingEntry = entries[entries.length - 1]
+        if (rafId == null) rafId = requestAnimationFrame(applyMeasurement)
+      })
       resizeObs.observe(heroVisualRef.value)
     }
   })
@@ -76,6 +89,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   if (resizeObs) resizeObs.disconnect()
+  if (rafId != null) cancelAnimationFrame(rafId)
 })
 </script>
 
@@ -511,9 +525,7 @@ html.dark .highlight-item {
   width: 160px;
   height: 160px;
   padding: 18px;
-  background: linear-gradient(140deg, rgba(255, 255, 255, 0.96), rgba(238, 248, 253, 0.96));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: linear-gradient(140deg, rgba(255, 255, 255, 0.98), rgba(238, 248, 253, 0.98));
   border-radius: 24px;
   border: 1.5px solid rgba(19, 176, 238, 0.35);
   box-shadow: 0 24px 60px rgba(19, 176, 238, 0.22), 0 0 0 6px rgba(19, 176, 238, 0.05);
@@ -581,9 +593,7 @@ html.dark .center-sub { color: #9ca3af; }
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.98);
   border-radius: 14px;
   border: 1px solid rgba(19, 176, 238, 0.22);
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);

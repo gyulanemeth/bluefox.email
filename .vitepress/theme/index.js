@@ -5,7 +5,6 @@ import 'vuetify/styles'
 // Subset MDI font: only 26 icons used, 394 KiB → 1.6 KiB
 import './mdi-subset.css'
 
-// import * from 'vuetify/components'
 import {
   VBtn,
   VCard,
@@ -18,10 +17,6 @@ import {
   VImg,
   VRow,
   VSheet,
-  VTabs,
-  VTab,
-  VTabsWindow,
-  VTabsWindowItem,
   VIcon,
   VDivider,
   VList,
@@ -31,14 +26,13 @@ import {
   VAvatar,
   VSpacer,
   VTextField,
-  VSelect  // Add this line
 } from 'vuetify/components'
 
 import { Ripple } from 'vuetify/directives'
 
-import '@fontsource/amatic-sc/400.css'
-import '@fontsource/amatic-sc/700.css'
-import '@fontsource/indie-flower/400.css'
+import '@fontsource/amatic-sc/latin-400.css'
+import '@fontsource/amatic-sc/latin-700.css'
+import '@fontsource/indie-flower/latin-400.css'
 
 import './style.css'
 
@@ -155,10 +149,6 @@ export default {
         VImg,
         VRow,
         VSheet,
-        VTabs,
-        VTab,
-        VTabsWindow,
-        VTabsWindowItem,
         VIcon,
         VDivider,
         VList,
@@ -168,7 +158,6 @@ export default {
         VAvatar,
         VSpacer,
         VTextField,
-        VSelect  // Add this line
       },
       directives: {
         Ripple

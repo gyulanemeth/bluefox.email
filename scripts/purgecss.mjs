@@ -40,22 +40,26 @@ const result = await new PurgeCSS().purge({
   css: [{ raw: readFileSync(mainCss, 'utf-8') }],
   safelist: {
     standard: [
-      /^mdi-/,       // MDI icon classes
-      /^theme--/,    // Vuetify theme classes
-      /^VPDoc/,      // VitePress doc classes
-      /^vp-/,        // VitePress classes
-      /^svg-design-system-/, // Dynamic SVG theme classes (1/2/3)
+      /^mdi-/,
+      /^theme--/,
+      /^VPDoc/,
+      /^vp-/,
+      /^svg-design-system-/,
       'dark',
-      /^fade-/,      // Vue transition classes
+      /^fade-/,
       /^slide-/,
+      /^bg-/,        // Vuetify color utils (bg-primary, etc)
+      /^text-/,      // Vuetify text utils
+      /^border-/,
     ],
     deep: [
-      /data-v-/,     // Vue scoped style selectors
-      /^\.v-theme/,  // Vuetify theme provider
-      /^\.v-locale/, // Vuetify locale
+      /data-v-/,
+      /^\.v-theme/,
+      /^\.v-locale/,
+      /^\.v-/,       // All Vuetify component classes (runtime-bound)
     ],
     greedy: [
-      /v-enter/,     // Vue transition classes
+      /v-enter/,
       /v-leave/,
       /v-move/,
     ],

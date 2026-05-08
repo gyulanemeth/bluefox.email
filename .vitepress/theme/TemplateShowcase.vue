@@ -75,12 +75,12 @@ const templates = [
 
 const categoryColors = {
   Agency:     '#392C91',
-  Ecommerce:  '#13B0EE',
-  SaaS:       '#7C3AED',
-  B2B:        '#0369A1',
-  Seasonal:   '#16A34A',
-  Travel:     '#D97706',
-  Events:     '#DB2777'
+  Ecommerce:  '#0369A1',
+  SaaS:       '#6D28D9',
+  B2B:        '#075985',
+  Seasonal:   '#15803D',
+  Travel:     '#B45309',
+  Events:     '#BE185D'
 }
 
 const activeIndex = ref(0)
@@ -158,12 +158,14 @@ function onCardClick(index) {
   }
 }
 
-// Auto-rotation
+let intersectionObs = null
+const isInView = ref(false)
+
 function startAutoRotate() {
   stopAutoRotate()
   timer = setInterval(() => {
-    if (!isHovered.value) next()
-  }, 2000)
+    if (!isHovered.value && isInView.value && document.visibilityState === 'visible') next()
+  }, 2500)
 }
 
 function stopAutoRotate() {
@@ -173,11 +175,20 @@ function stopAutoRotate() {
   }
 }
 
-// Swipe support
 onMounted(() => {
-  startAutoRotate()
-
   if (viewport.value) {
+    if (typeof IntersectionObserver !== 'undefined') {
+      intersectionObs = new IntersectionObserver((entries) => {
+        isInView.value = entries[0].isIntersecting
+        if (isInView.value && !timer) startAutoRotate()
+        else if (!isInView.value) stopAutoRotate()
+      }, { threshold: 0.2 })
+      intersectionObs.observe(viewport.value)
+    } else {
+      isInView.value = true
+      startAutoRotate()
+    }
+
     useSwipe(viewport, {
       onSwipeEnd(e, direction) {
         if (direction === 'left') next()
@@ -189,6 +200,7 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
   stopAutoRotate()
+  if (intersectionObs) intersectionObs.disconnect()
 })
 </script>
 
@@ -223,8 +235,8 @@ onBeforeUnmount(() => {
           <div class="ts-img-wrapper">
             <img
               :src="tpl.src.replace('.webp', '-400.webp')"
-              :srcset="`${tpl.src.replace('.webp', '-400.webp')} 400w, ${tpl.src.replace('.webp', '-600.webp')} 600w`"
-              sizes="(max-width: 599px) 260px, (max-width: 960px) 280px, 300px"
+              :srcset="`${tpl.src.replace('.webp', '-400.webp')} 400w, ${tpl.src.replace('.webp', '-600.webp')} 600w, ${tpl.src.replace('.webp', '-800.webp')} 800w`"
+              sizes="(max-width: 599px) 220px, (max-width: 960px) 240px, 300px"
               :alt="tpl.alt"
               class="ts-img"
               width="400"
@@ -234,7 +246,7 @@ onBeforeUnmount(() => {
               decoding="async"
             />
           </div>
-          <div class="ts-card-footer">
+          <div v-if="isCenter(i)" class="ts-card-footer">
             <v-chip
               size="small"
               label
@@ -379,7 +391,7 @@ onBeforeUnmount(() => {
 .ts-card-title {
   font-size: 13px;
   font-weight: 700;
-  color: #0f172a;
+  color: #000;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

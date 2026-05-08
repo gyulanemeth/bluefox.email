@@ -244,7 +244,6 @@ function selectTestimonial(id) {
                 role="button"
                 tabindex="0"
                 aria-current="page"
-                :aria-label="`Inbox — ${visibleTestimonials.length} messages`"
                 @keydown.enter.prevent="selectTestimonial(0)"
                 @keydown.space.prevent="selectTestimonial(0)"
                 @click="selectTestimonial(0)"
@@ -259,7 +258,6 @@ function selectTestimonial(id) {
                 class="sidebar-item"
                 role="button"
                 tabindex="0"
-                :aria-label="`Starred — ${visibleTestimonials.filter(t => t.starred).length} messages`"
                 @keydown.enter.prevent="noop"
                 @keydown.space.prevent="noop"
               >
