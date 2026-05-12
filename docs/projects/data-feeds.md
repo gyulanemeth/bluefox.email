@@ -102,13 +102,15 @@ You can also set:
 - **Skip**: Number of items to skip from the start (e.g. `0`).
 - **Limit**: Number of items to render (e.g. `2` to show the first two).
 
-![Placeholder: A screenshot of the Loop block settings showing the expression dropdown listing feed variable names, with Skip and Limit fields.](./project-data-feeds-loop-settings.webp)
+![ A screenshot of the Loop block settings showing the expression dropdown listing feed variable names, with Skip and Limit fields.](./project-data-feeds-loop-settings.webp)
 
 ### Step 3 — Reference Item Fields Inside the Loop
 
-Inside the loop, you can drop normal content blocks (text, image, button, divider, etc.) and reference the current item's fields using merge tags.
+Inside the loop, you can drop normal content blocks (text, image, button, divider, etc.) and reference the current item's fields using merge tags. So just click the merge tag icon in any block's toolbar to see the available fields from the feed.
 
-When the merge tag picker is open **inside the loop**, you'll see the item's fields (the keys available on each entry of the feed). Outside the loop, only the top-level/generic keys of the feed are visible — per-item fields are only accessible from inside a loop bound to that feed.
+![A screenshot of the editor with content blocks inside a loop, and the merge tag picker open showing item fields.](./project-data-feeds-merge-tags.webp)
+
+When the merge tag picker is open **inside the loop**, you'll see the item's fields (the keys available on each entry of the feed). Outside the loop, only the top-level/generic keys of the feed are visible per-item fields are only accessible from inside a loop bound to that feed.
 
 Common RSS / Atom fields you'll reference:
 - `item.title`
@@ -116,9 +118,9 @@ Common RSS / Atom fields you'll reference:
 - `item.description`
 - `item.enclosure.url` — the image URL for items that include media
 
-For a JSON feed, the field names depend on your feed's response shape — use **Preview** to discover them.
+For a JSON feed, the field names depend on your feed's response shape, use **Preview** to discover them.
 
-![Placeholder: A screenshot of the merge tag picker inside a loop, showing per-item fields like title, link, description, enclosure.](./project-data-feeds-merge-tags-in-loop.webp)
+![A screenshot of the merge tag picker inside a loop, showing per-item fields like title, link, description, enclosure.](./project-data-feeds-merge-tags-in-loop.webp)
 
 ::: warning Images from a feed need the Dynamic Image block
 A regular **Image** block expects a static URL set at design time. If you want the image to come from a feed item (e.g. `item.enclosure.url`), use the **Dynamic Image** block instead and set its source to the merge tag. A regular Image block will not render feed-driven URLs correctly.
@@ -126,19 +128,13 @@ A regular **Image** block expects a static URL set at design time. If you want t
 
 ### Step 4 — Preview With Data
 
-Use the editor's **Preview with data** mode to see the loop rendered against the live feed. This catches issues like wrong field names, missing images, or items shaped differently than expected.
+Once you've set up the loop and referenced the item fields, click the preview button in the editor. Here you can view the raw email preview, but to see the feed items rendered, switch to **Preview with data** mode. 
 
-![Placeholder: A screenshot of the editor's Preview with data view showing the loop rendered with real feed items.](./project-data-feeds-preview-with-data.webp)
+![A screenshot of the editor's Preview with data view showing the loop rendered with real feed items.](./project-data-feeds-preview-with-data.webp)
 
-## Previewing Feed Data
+Here you will be able to see the feed items rendered in the loop, and confirm that the fields are pulling through as expected. If you see errors or missing data, double-check the feed URL, type, and field references.
 
-The **Preview** button on the feed form fetches the feed and shows a sample of the items it returns, along with the fields available on each item. Use this to confirm:
-
-- The feed URL is reachable.
-- The feed type matches the response format.
-- The field names you plan to reference (title, link, image, description, etc.) actually exist on the items.
-
-![Placeholder: A screenshot of the feed Preview output showing sample items and the available fields/tags inside each item.](./project-data-feeds-preview.webp)
+![A screenshot of the editor's Preview with data view showing an error message about a feed failing to load.](./project-data-feeds-preview-with-data-error.webp)
 
 ## Required Feeds
 
@@ -149,12 +145,16 @@ The **Required** checkbox on the feed controls what happens when the feed fails 
 
 If an email has multiple feeds, each feed's Required flag is evaluated independently.
 
+![A screenshot of the feed form with the Required checkbox highlighted.](./project-data-feeds-required-checkbox.webp)
+
 ## Multiple Feeds
 
 You can attach as many feeds as you need to a single email. Each feed has its own variable name, so you can loop over them independently in the same template (e.g. one loop for news, another for products).
 
+![A screenshot of the Feeds section showing multiple feeds added to the same email.](./project-data-feeds-multiple.webp)
+
 ## Editing or Deleting a Feed
 
-In the Feeds section of the email card, expand a feed to edit its fields or delete it. Deleting a feed only affects this email — other emails using the same URL are unchanged. If you delete a feed that's referenced by a loop in the template, that loop will have no items to render (and if it was marked Required, the email will stop sending until you fix it).
+In the Feeds section of the email card, expand a feed to edit its fields or delete it. Deleting a feed only affects this email, other emails using the same URL are unchanged. If you delete a feed that's referenced by a loop in the template, that loop will have no items to render (and if it was marked Required, the email will stop sending until you fix it).
 
 ![Placeholder: A screenshot of an existing feed expanded with edit and delete controls visible.](./project-data-feeds-edit-delete.webp)
