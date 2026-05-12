@@ -1,5 +1,7 @@
 ---
 footer: false
+title: Pause Subscription vs Unsubscribe - Reduce Email Churn
+description: Why a "pause subscription" option beats a hard unsubscribe. Keep subscribers engaged, reduce list churn, and recover revenue from email-fatigued users.
 ---
 
 # Why Offering a "Pause Subscription" Option is Better Than Just "Unsubscribe"

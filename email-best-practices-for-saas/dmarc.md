@@ -1,5 +1,7 @@
 ---
 footer: false
+title: DMARC for SaaS - What Founders Need to Know
+description: How DMARC protects your SaaS brand from email spoofing and phishing. Plain-English guide to setting up DMARC records and reading reports.
 ---
 
 # What SaaS Owners Need to Know About DMARC

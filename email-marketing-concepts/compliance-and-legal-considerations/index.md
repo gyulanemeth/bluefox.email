@@ -1,4 +1,5 @@
 ---
+title: Email Marketing Compliance - CAN-SPAM, GDPR, CASL
 description: Email marketing compliance means following laws like CAN-SPAM, GDPR, and CASL, using permission-based tactics, and ensuring data privacy to build trust and avoid legal issues.
 ---
 

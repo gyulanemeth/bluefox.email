@@ -1,4 +1,5 @@
 ---
+title: Email A/B Testing and Optimization
 description: Testing and optimization in email marketing involve A/B testing, tracking analytics, and refining elements to boost engagement, conversions, and overall email performance over time.
 ---
 

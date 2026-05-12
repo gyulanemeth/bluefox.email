@@ -1,4 +1,5 @@
 ---
+title: Email Personalization - Tactics That Drive Engagement
 description: Personalization in email marketing tailors messages to individuals using data like names, preferences, and behavior. It boosts relevance, engagement, and overall campaign results.
 ---
 

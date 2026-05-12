@@ -1,3 +1,8 @@
+---
+title: Why Marketing Agencies Use BlueFox Email
+description: Built for agencies running email for multiple clients. Separate client projects, reusable templates and automations, send-based pricing instead of per-contact billing.
+---
+
 # Why Marketing Agencies use BlueFox Email
 
 Wait a second... What is BlueFox Email?

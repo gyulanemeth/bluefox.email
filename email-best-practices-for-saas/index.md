@@ -1,5 +1,7 @@
 ---
 footer: false
+title: Email Best Practices for SaaS Companies
+description: Practical email guides for SaaS teams - transactional, triggered, and marketing email patterns that keep customers engaged and protect deliverability.
 ---
 
 # Email Best Practices for SaaS

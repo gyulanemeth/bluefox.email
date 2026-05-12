@@ -1,4 +1,5 @@
 ---
+title: Email Marketing Strategy - Build a Plan That Converts
 description: An email marketing strategy is a plan for reaching your audience with personalized, targeted emails. It involves setting goals, segmenting, creating content, testing, and tracking performance.
 ---
 

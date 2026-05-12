@@ -1,3 +1,8 @@
+---
+title: About BlueFox Email - Gyula Németh, Founder
+description: Meet Gyula Németh, founder of BlueFox Email. 10+ years building HTML email tools (edmdesigner.com, chamaileon.io, emailhero.io) for agencies and SaaS teams.
+---
+
 # About
 
 Hello! I'm Gyula Németh, the founder of BlueFox Email.

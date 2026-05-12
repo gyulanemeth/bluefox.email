@@ -1,4 +1,5 @@
 ---
+title: Email Automation - Right Email, Right Time, Hands-Off
 description: Email automation helps you send the right emails at the right time without extra effort. Set it up once, and let it handle things like follow-ups and personalized messages automatically.
 ---
 
