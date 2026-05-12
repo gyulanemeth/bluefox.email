@@ -1,6 +1,9 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+title: Verify Your Email | BlueFox Email
+description: Confirm your BlueFox Email account email address to activate sending, dashboards, and free tools.
+noindex: true
 ---
 
 <script setup>

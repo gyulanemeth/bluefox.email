@@ -1,4 +1,5 @@
 ---
+title: Email List Management - Segmentation, Cleaning, Compliance
 description: List management in email marketing means organizing, segmenting, and cleaning your subscriber list. It boosts engagement, improves conversions, and ensures compliance with email laws.
 ---
 

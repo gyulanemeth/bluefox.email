@@ -1,5 +1,7 @@
 ---
 footer: false
+title: Terms of Use | BlueFox Email
+description: Terms and conditions for using BlueFox Email - the agency-focused email marketing platform.
 ---
 
 # Terms of Use

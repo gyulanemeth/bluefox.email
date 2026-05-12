@@ -1,4 +1,5 @@
 ---
+title: Email Deliverability - How to Land in the Inbox
 description: Email deliverability is about ensuring your emails land in inboxes. Key factors include sender reputation, authentication, list hygiene, and content quality to boost campaign success.
 ---
 

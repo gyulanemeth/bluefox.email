@@ -1,4 +1,5 @@
 ---
+title: Email Marketing Metrics and Analytics Explained
 description: Email marketing metrics like open rates, CTR, and conversions help you track campaign performance. Analyzing these insights lets you fine-tune your strategy for better results.
 ---
 

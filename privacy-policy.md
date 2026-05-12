@@ -1,5 +1,7 @@
 ---
 footer: false
+title: Privacy Policy | BlueFox Email
+description: How BlueFox Email collects, uses, and protects your personal data. GDPR and CCPA compliant.
 ---
 
 # Privacy Policy

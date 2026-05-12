@@ -1,5 +1,7 @@
 ---
 footer: false
+title: Refund Policy | BlueFox Email
+description: BlueFox Email refund terms for subscriptions and prepaid email sends.
 ---
 
 # Refund Policy

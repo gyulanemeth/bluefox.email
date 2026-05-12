@@ -1,5 +1,7 @@
 ---
 footer: false
+title: BlueFox Email Partners - AWS SES & Email Experts
+description: Trusted partners for AWS SES setup, infrastructure, and custom email development. Get help from vetted experts when you need it.
 ---
 
 # Partners of bluefox.email

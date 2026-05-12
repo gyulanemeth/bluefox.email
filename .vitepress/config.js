@@ -3,6 +3,11 @@ import tailwindcss from 'tailwindcss'
 import { addSchemaMarkup } from './theme/SchemaMarkup/schemaMarkup'
 import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
 import { addComparisonSchemaMarkup } from './theme/SchemaMarkup/ComparisonSchemaMarkup'
+import { addSeoHead } from './theme/SchemaMarkup/seoHead'
+import { addOrganizationSchema } from './theme/SchemaMarkup/organizationSchema'
+import { addPostsSchema } from './theme/SchemaMarkup/postsSchema'
+import { addProductSchema } from './theme/SchemaMarkup/productSchema'
+import { addDocsSchema } from './theme/SchemaMarkup/docsSchema'
 
 const env = loadEnv('', process.cwd())
 const securityHeaders = {
@@ -57,6 +62,11 @@ export default defineConfig({
   description: "High deliverability & brand consistency.",
   head: headConf,
   transformPageData(pageData) {
+    addSeoHead(pageData)
+    addOrganizationSchema(pageData)
+    addPostsSchema(pageData)
+    addProductSchema(pageData)
+    addDocsSchema(pageData)
     addToolsSchemaMarkup(pageData)
     addSchemaMarkup(pageData)
     addComparisonSchemaMarkup(pageData)
