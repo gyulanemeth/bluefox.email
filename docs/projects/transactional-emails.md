@@ -172,6 +172,10 @@ For a detailed guide on using the **Transactional Email Statistics**, refer to t
 
 Data feeds allow you to automatically pull in live content from external sources directly into your transactional email. This is useful when your email needs to include up-to-date content (such as recommended articles, product highlights, or status info) without manually updating the template.
 
+::: tip
+For a full guide on using feeds inside the template (loops, merge tags, dynamic images, required behavior), see the [Data Feeds documentation](/docs/projects/data-feeds).
+:::
+
 Supported feed types:
 - **RSS / Atom XML**
 - **JSON**
