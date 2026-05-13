@@ -1,8 +1,8 @@
 # BlueFox Email
 
-> Email sending platform for SaaS. High deliverability, brand consistency, transparent send-based pricing. Pay for sends not contacts. Built on AWS SES with bring-your-own-SES option.
+> Email platform with send-based pricing, stop paying for contacts you don't email. Every feature serious email platforms offer, nothing hidden behind upgrades. 3,000 free sends to start.
 
-BlueFox Email offers transactional emails, triggered emails, marketing campaigns, automations, and a visual email theme/design system. 3,000 free sends per month. Includes free deliverability tools (DKIM/DMARC/SPF/MX checkers) and educational content covering email-sending fundamentals, AWS SES concepts, and SaaS email best practices.
+BlueFox Email covers transactional emails, triggered emails, marketing campaigns, automations, segmentation, analytics, and a visual email theme/design system with templates that render consistently across Gmail, Apple Mail, mobile, and Outlook. Built on AWS SES with bring-your-own-SES option. Serves SaaS companies, marketing agencies running multiple clients, Amazon SES users, and occasional senders. Founded by Gyula Németh (edmdesigner.com, chamaileon.io, emailhero.io) — 10+ years building for real-world email. Also publishes free deliverability tools (DKIM/DMARC/SPF/MX/link checkers) and educational content on email-sending fundamentals, AWS SES concepts, and SaaS email best practices.
 
 ## Product
 
