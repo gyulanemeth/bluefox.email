@@ -147,17 +147,6 @@ BlueFox Email covers transactional emails, triggered emails, marketing campaigns
 - [Double Opt-In](https://bluefox.email/email-best-practices-for-saas/double-opt-in)
 - [Unsubscribe and Pause Subscription](https://bluefox.email/email-best-practices-for-saas/unsubscribe-and-pause-subscription)
 
-## Course: Email Marketing for SaaS
-
-- [Course Index](https://bluefox.email/courses/email-marketing-saas/)
-- [Content Plan](https://bluefox.email/courses/email-marketing-saas/content-plan)
-- [Lesson 1: Send First Newsletter](https://bluefox.email/courses/email-marketing-saas/lesson-01-send-first-newsletter)
-- [Lesson 2: Welcome Email Flow](https://bluefox.email/courses/email-marketing-saas/lesson-02-welcome-email-flow)
-- [Lesson 3](https://bluefox.email/courses/email-marketing-saas/lesson-03)
-- [Lesson 4](https://bluefox.email/courses/email-marketing-saas/lesson-04)
-- [Lesson 5](https://bluefox.email/courses/email-marketing-saas/lesson-05)
-- [Lesson 6](https://bluefox.email/courses/email-marketing-saas/lesson-06)
-
 ## Blog & Articles
 
 - [Articles Index](https://bluefox.email/articles)
@@ -179,7 +168,6 @@ BlueFox Email covers transactional emails, triggered emails, marketing campaigns
 
 ## Optional
 
-- [Verify Email](https://bluefox.email/verify-email)
 - [Privacy Policy](https://bluefox.email/privacy-policy)
 - [Terms of Use](https://bluefox.email/terms-of-use)
 - [Refund Policy](https://bluefox.email/refund-policy)
