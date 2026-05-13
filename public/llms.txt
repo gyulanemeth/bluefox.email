@@ -1,0 +1,185 @@
+# BlueFox Email
+
+> Email sending platform for SaaS. High deliverability, brand consistency, transparent send-based pricing. Pay for sends not contacts. Built on AWS SES with bring-your-own-SES option.
+
+BlueFox Email offers transactional emails, triggered emails, marketing campaigns, automations, and a visual email theme/design system. 3,000 free sends per month. Includes free deliverability tools (DKIM/DMARC/SPF/MX checkers) and educational content covering email-sending fundamentals, AWS SES concepts, and SaaS email best practices.
+
+## Product
+
+- [Home](https://bluefox.email/): product overview and value proposition
+- [Why BlueFox](https://bluefox.email/why): differentiators and positioning
+- [Pricing](https://bluefox.email/pricing): send-based pricing tiers
+- [BYO Amazon SES Pricing](https://bluefox.email/byo-amazon-ses-pricing): bring-your-own SES cost breakdown
+- [About](https://bluefox.email/about): company background
+- [Meet the Team](https://bluefox.email/meet-the-team): team members
+
+## Docs
+
+- [Docs Index](https://bluefox.email/docs/): documentation root
+- [Getting Started](https://bluefox.email/docs/getting-started): onboarding guide
+- [Dashboard](https://bluefox.email/docs/dashboard): account dashboard overview
+- [Account Users](https://bluefox.email/docs/account-users): team and user management
+- [Analytics](https://bluefox.email/docs/analytics): email analytics and metrics
+- [Email Personalization](https://bluefox.email/docs/email-personalization): dynamic content and variables
+- [Pricing Docs](https://bluefox.email/docs/pricing): billing and plan details
+
+## Projects
+
+- [Projects Overview](https://bluefox.email/docs/projects/): project model
+- [New Project](https://bluefox.email/docs/projects/new-project): create a project
+- [Project Dashboard](https://bluefox.email/docs/projects/dashboard): per-project overview
+- [Project Settings](https://bluefox.email/docs/projects/settings): configuration
+- [Email Theme Settings](https://bluefox.email/docs/projects/email-theme-settings): theme config
+- [Delivery Modes](https://bluefox.email/docs/projects/delivery-modes): sending modes
+- [Campaigns](https://bluefox.email/docs/projects/campaigns): marketing campaigns
+- [Transactional Emails](https://bluefox.email/docs/projects/transactional-emails): one-off sends
+- [Triggered Emails](https://bluefox.email/docs/projects/triggered-emails): event-driven sends
+- [Automations](https://bluefox.email/docs/projects/automations): email automation flows
+- [Contacts](https://bluefox.email/docs/projects/contacts): contact management
+- [Segments](https://bluefox.email/docs/projects/segments): contact segmentation
+- [Suppression List](https://bluefox.email/docs/projects/suppression-list): unsubscribes and bounces
+- [Forms and Pages](https://bluefox.email/docs/projects/forms-and-pages): signup forms
+- [Send Test Email](https://bluefox.email/docs/projects/send-test-email): preview sends
+- [Data Feeds](https://bluefox.email/docs/projects/data-feeds): external data sources for emails
+
+## Email Themes
+
+- [Email Themes Index](https://bluefox.email/docs/email-themes/): design system overview
+- [Theme Basics](https://bluefox.email/docs/email-themes/email-theme-basics): theme fundamentals
+- [Blocks](https://bluefox.email/docs/email-themes/blocks): reusable content blocks
+- [Components](https://bluefox.email/docs/email-themes/components): theme components
+- [Templates](https://bluefox.email/docs/email-themes/templates): email templates
+
+## API
+
+- [API Index](https://bluefox.email/docs/api/): API reference root
+- [Send Transactional Email](https://bluefox.email/docs/api/send-transactional-email): transactional send endpoint
+- [Send Triggered Email](https://bluefox.email/docs/api/send-triggered-email): triggered send endpoint
+- [Send Attachments](https://bluefox.email/docs/api/send-attachments): attaching files
+- [Subscriber List Management](https://bluefox.email/docs/api/subscriber-list-management): list CRUD
+- [Contacts Management](https://bluefox.email/docs/api/contacts-management): contact CRUD
+
+## Integrations
+
+- [Integrations Index](https://bluefox.email/docs/integrations/): integration overview
+- [Supabase](https://bluefox.email/docs/integrations/supabase): Supabase integration
+- [Webhooks](https://bluefox.email/docs/integrations/webhooks): webhook events
+- [Zapier](https://bluefox.email/docs/integrations/zapier): Zapier integration
+
+## Comparisons
+
+- [Comparisons Index](https://bluefox.email/comparisons/): all comparisons
+- [BlueFox vs Mailchimp](https://bluefox.email/comparisons/bluefox-vs-mailchimp)
+- [BlueFox vs SendGrid](https://bluefox.email/comparisons/bluefox-vs-sendgrid)
+- [BlueFox vs Brevo](https://bluefox.email/comparisons/bluefox-vs-brevo)
+- [BlueFox vs MailerSend](https://bluefox.email/comparisons/bluefox-vs-mailersend)
+
+## Use Cases
+
+- [For SaaS Companies](https://bluefox.email/for/saas-companies)
+- [For Marketing Agencies](https://bluefox.email/for/marketing-agencies)
+- [For Amazon SES Users](https://bluefox.email/for/amazon-ses-users)
+- [For Occasional Senders](https://bluefox.email/for/occasional-senders)
+
+## Free Tools
+
+- [Tools Index](https://bluefox.email/tools/): all free tools
+- [DKIM Checker](https://bluefox.email/tools/deliverability/dkim-checker)
+- [DMARC Checker](https://bluefox.email/tools/deliverability/dmarc-checker)
+- [DMARC Report Analyzer](https://bluefox.email/tools/deliverability/dmarc-report-analyzer)
+- [SPF Checker](https://bluefox.email/tools/deliverability/spf-checker)
+- [MX Checker](https://bluefox.email/tools/deliverability/mx-checker)
+- [Link Checker](https://bluefox.email/tools/content/link-checker)
+
+## Email Sending Concepts
+
+- [Concepts Index](https://bluefox.email/email-sending-concepts/)
+- [Deliverability](https://bluefox.email/email-sending-concepts/deliverability)
+- [Email Authentication](https://bluefox.email/email-sending-concepts/email-authentication)
+- [SPF](https://bluefox.email/email-sending-concepts/spf)
+- [DKIM](https://bluefox.email/email-sending-concepts/dkim)
+- [DMARC](https://bluefox.email/email-sending-concepts/dmarc)
+- [DNS](https://bluefox.email/email-sending-concepts/dns)
+- [MX Record](https://bluefox.email/email-sending-concepts/mx-record)
+- [CNAME Record](https://bluefox.email/email-sending-concepts/cname-record)
+- [TXT Record](https://bluefox.email/email-sending-concepts/txt-record)
+- [SMTP](https://bluefox.email/email-sending-concepts/smtp)
+- [IMAP](https://bluefox.email/email-sending-concepts/imap)
+- [POP3](https://bluefox.email/email-sending-concepts/pop3)
+- [TLS](https://bluefox.email/email-sending-concepts/tls)
+- [Bounces](https://bluefox.email/email-sending-concepts/bounces)
+- [Hard Bounce](https://bluefox.email/email-sending-concepts/hard-bounce)
+- [Soft Bounce](https://bluefox.email/email-sending-concepts/soft-bounce)
+- [Bounce Rate](https://bluefox.email/email-sending-concepts/bounce-rate)
+- [Complaints](https://bluefox.email/email-sending-concepts/complaints)
+- [Domain Reputation](https://bluefox.email/email-sending-concepts/domain-reputation)
+- [IP Reputation](https://bluefox.email/email-sending-concepts/ip-reputation)
+- [Email Headers](https://bluefox.email/email-sending-concepts/email-headers)
+- [Email Spoofing](https://bluefox.email/email-sending-concepts/email-spoofing)
+- [Return Path](https://bluefox.email/email-sending-concepts/return-path)
+- [Bulk Email Sending](https://bluefox.email/email-sending-concepts/bulk-email-sending)
+- [One-Click Unsubscribe](https://bluefox.email/email-sending-concepts/one-click-unsubscribe)
+
+## AWS / SES Concepts
+
+- [AWS Concepts Index](https://bluefox.email/aws-concepts/)
+- [SES](https://bluefox.email/aws-concepts/ses)
+- [SES Sandbox](https://bluefox.email/aws-concepts/ses-sandbox)
+- [SES Production Access](https://bluefox.email/aws-concepts/ses-production-access)
+- [SES Sending Quota](https://bluefox.email/aws-concepts/ses-sending-quota)
+- [SES Sending Rate](https://bluefox.email/aws-concepts/ses-sending-rate)
+- [SES Verified Identity](https://bluefox.email/aws-concepts/ses-verified-identity)
+- [SES Raw Email Sending](https://bluefox.email/aws-concepts/ses-raw-email-sending)
+- [SES Delivery Notifications](https://bluefox.email/aws-concepts/ses-delivery-notifications)
+- [SNS](https://bluefox.email/aws-concepts/sns)
+- [SNS Topics](https://bluefox.email/aws-concepts/sns-topics)
+- [SNS Subscription](https://bluefox.email/aws-concepts/sns-subscription)
+- [SNS Delivery Policy](https://bluefox.email/aws-concepts/sns-delivery-policy)
+- [IAM](https://bluefox.email/aws-concepts/iam)
+- [IAM Role](https://bluefox.email/aws-concepts/iam-role)
+- [IAM Permissions](https://bluefox.email/aws-concepts/iam-permissions)
+- [STS](https://bluefox.email/aws-concepts/sts)
+
+## Best Practices for SaaS
+
+- [Best Practices Index](https://bluefox.email/email-best-practices-for-saas/)
+- [DMARC](https://bluefox.email/email-best-practices-for-saas/dmarc)
+- [Double Opt-In](https://bluefox.email/email-best-practices-for-saas/double-opt-in)
+- [Unsubscribe and Pause Subscription](https://bluefox.email/email-best-practices-for-saas/unsubscribe-and-pause-subscription)
+
+## Course: Email Marketing for SaaS
+
+- [Course Index](https://bluefox.email/courses/email-marketing-saas/)
+- [Content Plan](https://bluefox.email/courses/email-marketing-saas/content-plan)
+- [Lesson 1: Send First Newsletter](https://bluefox.email/courses/email-marketing-saas/lesson-01-send-first-newsletter)
+- [Lesson 2: Welcome Email Flow](https://bluefox.email/courses/email-marketing-saas/lesson-02-welcome-email-flow)
+- [Lesson 3](https://bluefox.email/courses/email-marketing-saas/lesson-03)
+- [Lesson 4](https://bluefox.email/courses/email-marketing-saas/lesson-04)
+- [Lesson 5](https://bluefox.email/courses/email-marketing-saas/lesson-05)
+- [Lesson 6](https://bluefox.email/courses/email-marketing-saas/lesson-06)
+
+## Blog & Articles
+
+- [Articles Index](https://bluefox.email/articles)
+- [Why We Send With AWS SES](https://bluefox.email/blog/why-we-send-with-aws-ses)
+- [How SPF, DKIM, DMARC Actually Work](https://bluefox.email/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples)
+- [How To Send Emails With AWS SES](https://bluefox.email/posts/how-to-send-emails-with-aws-ses)
+- [How To Set Up AWS SES](https://bluefox.email/posts/how-to-set-up-aws-ses)
+- [How To Get Production Access to Amazon SES](https://bluefox.email/posts/how-to-get-and-maintain-production-access-to-amazon-ses)
+- [How To Handle Bounces and Complaints with AWS SES and SNS](https://bluefox.email/posts/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns)
+- [Send Email in Node.js with Amazon SES and Nodemailer](https://bluefox.email/posts/how-to-send-an-email-in-nodejs-using-amazon-ses-with-nodemailer)
+- [Build a High-Quality Email List in BlueFox](https://bluefox.email/posts/how-to-build-a-high-quality-email-list-in-bluefox-email)
+- [Quick Start to BlueFox Email](https://bluefox.email/posts/quick-start-to-bluefox-email)
+- [Mastering Subject Lines](https://bluefox.email/posts/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails)
+- [Preheader Text: Secret Weapon for Open Rates](https://bluefox.email/posts/preheader-text-the-secret-weapon-for-boosting-open-rates)
+- [Sender Name and Email Address: Build Trust](https://bluefox.email/posts/sender-name-and-email-address-build-trust-before-the-open)
+- [Why Open Rate Is a Misleading Metric](https://bluefox.email/posts/why-open-rate-is-a-misleading-metric-in-email-analytics)
+- [Why Shortened Links Send Emails to Spam](https://bluefox.email/posts/why-shortened-links-send-your-emails-to-spam)
+- [The Power of Modern Email Design Systems](https://bluefox.email/posts/the-power-of-modern-email-design-systems)
+
+## Optional
+
+- [Verify Email](https://bluefox.email/verify-email)
+- [Privacy Policy](https://bluefox.email/privacy-policy)
+- [Terms of Use](https://bluefox.email/terms-of-use)
+- [Refund Policy](https://bluefox.email/refund-policy)
