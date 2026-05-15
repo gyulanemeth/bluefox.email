@@ -63,9 +63,9 @@ A form expands where you configure the feed:
 Fill in the following fields:
 
 - **Feed URL**: The URL of the feed you want to pull content from.
-- **Feed Type**: Select the type of feed — RSS / Atom XML or JSON.
+- **Feed Type**: Select the type of feed (RSS / Atom XML or JSON).
 - **Variable Name**: The name you'll use to reference this feed's data inside your email template using Handlebars syntax. For example, if you name it `news`, you'll reference items as `news` in the loop expression.
-- **Required** (checkbox): If checked, the email will not be sent when the feed fails to load or returns no items. See [Required Feeds](#required-feeds) below.
+- **Required** (checkbox): If checked, the email will not be sent when the feed fails to load. See [Required Feeds](#required-feeds) below.
 
 Click **Preview** to verify the feed is reachable and to see the items + available fields. 
 
@@ -83,13 +83,13 @@ You can add multiple feeds to a single email by clicking **+ Add Feed** again af
 
 A feed is an **array of items**. To render those items in your email, use a **loop** block in the editor.
 
-### Step 1 — Insert a Loop
+### Step 1: Insert a Loop
 
 In the drag-and-drop editor, drop a **Loop** block where you want the feed content to appear.
 
 ![A screenshot of the editor with a Loop block being added to the email body.](./project-data-feeds-loop-add.webp)
 
-### Step 2 — Configure the Loop Expression
+### Step 2: Configure the Loop Expression
 
 On the right side menu you will see the loop's settings and select the expression. 
 ![A screenshot of the Loop block settings with the expression dropdown open.](./project-data-feeds-loop-expression.webp)
@@ -104,7 +104,7 @@ You can also set:
 
 ![ A screenshot of the Loop block settings showing the expression dropdown listing feed variable names, with Skip and Limit fields.](./project-data-feeds-loop-settings.webp)
 
-### Step 3 — Reference Item Fields Inside the Loop
+### Step 3: Reference Item Fields Inside the Loop
 
 Inside the loop, you can drop normal content blocks (text, image, button, divider, etc.) and reference the current item's fields using merge tags. So just click the merge tag icon in any block's toolbar to see the available fields from the feed.
 
@@ -116,7 +116,7 @@ Common RSS / Atom fields you'll reference:
 - `item.title`
 - `item.link`
 - `item.description`
-- `item.enclosure.url` — the image URL for items that include media
+- `item.enclosure.url`: the image URL for items that include media
 
 For a JSON feed, the field names depend on your feed's response shape, use **Preview** to discover them.
 
@@ -126,7 +126,7 @@ For a JSON feed, the field names depend on your feed's response shape, use **Pre
 A regular **Image** block expects a static URL set at design time. If you want the image to come from a feed item (e.g. `item.enclosure.url`), use the **Dynamic Image** block instead and set its source to the merge tag. A regular Image block will not render feed-driven URLs correctly.
 :::
 
-### Step 4 — Preview With Data
+### Step 4: Preview With Data
 
 Once you've set up the loop and referenced the item fields, click the preview button in the editor. Here you can view the raw email preview, but to see the feed items rendered, switch to **Preview with data** mode. 
 
@@ -138,10 +138,10 @@ Here you will be able to see the feed items rendered in the loop, and confirm th
 
 ## Required Feeds
 
-The **Required** checkbox on the feed controls what happens when the feed fails or returns no items at send time:
+The **Required** checkbox on the feed controls what happens when the feed fails to load at send time:
 
-- **Required = on**: If the feed fails to load or returns zero items, **the email will not be sent**. Use this when the feed content is essential (e.g. a digest that is meaningless without items).
-- **Required = off**: If the feed fails or is empty, the email is still sent — the loop simply renders nothing for that feed. Use this for optional/supplementary content.
+- **Required = on**: If the feed fails to load, **the email will not be sent**. Use this when the feed content is essential (e.g. a digest that is meaningless without it).
+- **Required = off**: If the feed fails to load, the email is still sent and the loop simply renders nothing for that feed. Use this for optional/supplementary content.
 
 If an email has multiple feeds, each feed's Required flag is evaluated independently.
 
