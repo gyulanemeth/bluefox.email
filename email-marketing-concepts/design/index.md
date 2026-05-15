@@ -1,4 +1,5 @@
 ---
+title: Email Design - Layouts, Colors, and Responsive Templates
 description: Designing emails that look great and get results means using the right layout, colors, and images, while keeping things clear and easy to read on any device.
 ---
 

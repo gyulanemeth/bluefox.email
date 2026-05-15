@@ -1,5 +1,7 @@
 ---
 footer: false
+title: Double Opt-In Explained for SaaS Email Lists
+description: What double opt-in is, why it matters for SaaS email deliverability, and how to implement it without hurting signup conversion.
 ---
 
 # What is Double Opt-In?

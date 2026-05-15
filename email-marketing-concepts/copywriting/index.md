@@ -1,4 +1,5 @@
 ---
+title: Email Copywriting - Write Emails People Read
 description: Want to write better emails? Keep them clear, engaging, and personal, so people actually want to read and take action. Simple changes can make a big difference.
 ---
 

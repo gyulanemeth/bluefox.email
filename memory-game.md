@@ -1,6 +1,8 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
+title: BlueFox Memory Game | BlueFox Email
+description: A quick memory game from the BlueFox Email team. Find the matching cards.
 
 hero:
   name: Beautiful emails for modern companies.
