@@ -211,6 +211,10 @@ export default defineConfig({
                   link: "/docs/projects/campaigns"
                 },
                 {
+                  text: "Data Feeds",
+                  link: "/docs/projects/data-feeds"
+                },
+                {
                   text: "Send Test Emails",
                   link: "/docs/projects/send-test-email"
                 },

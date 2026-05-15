@@ -169,6 +169,10 @@ For more information on how to use the **Campaign Email Statistics**, refer to t
 
 Data feeds allow you to automatically pull in live content from external sources directly into your campaign. This is especially useful for newsletters or digests where the content changes regularly — your campaign will always go out with the latest data without any manual updates.
 
+::: tip
+For a full guide on using feeds inside the template (loops, merge tags, dynamic images, required behavior), see the [Data Feeds documentation](/docs/projects/data-feeds).
+:::
+
 Supported feed types:
 - **RSS / Atom XML**
 - **JSON**

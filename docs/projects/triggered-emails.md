@@ -229,6 +229,10 @@ For more information on using the **Triggered Email Statistics**, refer to the [
 
 Data feeds allow you to automatically pull in live content from external sources directly into your triggered email. This is useful for digests, weekly summaries, or any email where the content should reflect the latest data at send time without manual updates.
 
+::: tip
+For a full guide on using feeds inside the template (loops, merge tags, dynamic images, required behavior), see the [Data Feeds documentation](/docs/projects/data-feeds).
+:::
+
 Supported feed types:
 - **RSS / Atom XML**
 - **JSON**
