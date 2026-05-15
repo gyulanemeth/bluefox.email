@@ -155,6 +155,6 @@ You can attach as many feeds as you need to a single email. Each feed has its ow
 
 ## Editing or Deleting a Feed
 
-In the Feeds section of the email card, expand a feed to edit its fields or delete it. Deleting a feed only affects this email, other emails using the same URL are unchanged. If you delete a feed that's referenced by a loop in the template, that loop will have no items to render (and if it was marked Required, the email will stop sending until you fix it).
+In the Feeds section of the email card, expand a feed to edit its fields or delete it. Deleting a feed only affects this email, other emails using the same URL are unchanged. If you delete a feed that's referenced by a loop in the template, that loop will have no items to render.
 
 ![Placeholder: A screenshot of an existing feed expanded with edit and delete controls visible.](./project-data-feeds-edit-delete.webp)
