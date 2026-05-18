@@ -297,8 +297,6 @@ html.dark .grid-overlay {
 
 /* Left Content */
 .heroContent {
-  opacity: 0;
-  animation: fadeInLeft 1s ease-out 0.2s forwards;
 }
 
 @keyframes fadeInLeft {
@@ -319,18 +317,11 @@ html.dark .grid-overlay {
 }
 
 .title-line {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: slideUp 0.6s ease-out forwards;
   background: -webkit-linear-gradient(120deg, #392C91 30%, #13B0EE 70%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
-.title-line:nth-child(1) { animation-delay: 0.4s; }
-.title-line:nth-child(2) { animation-delay: 0.6s; }
-.title-line:nth-child(3) { animation-delay: 0.8s; }
 
 @keyframes slideUp {
   to {
@@ -344,8 +335,6 @@ html.dark .grid-overlay {
   line-height: 1.6;
   color: #4b5563;
   margin-bottom: 16px;
-  opacity: 0;
-  animation: fadeIn 0.6s ease-out 1s forwards;
 }
 
 html.dark .tagline {
@@ -354,7 +343,6 @@ html.dark .tagline {
 
 .tagline--accent {
   margin-top: 4px;
-  animation-delay: 1.15s;
 }
 
 @keyframes fadeIn {
@@ -363,9 +351,6 @@ html.dark .tagline {
 
 /* CTA Button with Shine Animation - FIXED TEXT CENTERING */
 .cta-button {
-  opacity: 0;
-  transform: translateY(10px);
-  animation: slideUp 0.6s ease-out 1.2s forwards;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   box-shadow: 0 8px 24px rgba(19, 176, 238, 0.25) !important;
   position: relative;
@@ -426,8 +411,6 @@ html.dark .cta-button:hover {
   flex-wrap: wrap;
   gap: 10px;
   margin-top: 20px;
-  opacity: 0;
-  animation: fadeIn 0.6s ease-out 1.1s forwards;
 }
 
 .highlight-item {
@@ -453,8 +436,6 @@ html.dark .highlight-item {
   aspect-ratio: 1 / 1;
   margin: 0 auto;
   height: auto;
-  opacity: 0;
-  animation: fadeInRight 1s ease-out 0.4s forwards;
 }
 
 @keyframes fadeInRight {

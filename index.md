@@ -927,10 +927,7 @@ const { isDark } = useData()
 
 <!-- 7. INTEGRATIONS -->
 <div class="stripe stripe--blue stripe--integrations"><div class="stripe-inner">
-<section class="value-prop" role="region" aria-labelledby="integrations-heading">
-  <h2 id="integrations-heading" class="visually-hidden">Platform integrations</h2>
-  <Integration :is-dark="isDark" />
-</section>
+<Integration :is-dark="isDark" />
 </div></div>
 
 <!-- 8. FOUNDER -->
