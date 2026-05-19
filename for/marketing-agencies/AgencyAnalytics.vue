@@ -531,7 +531,7 @@ html.dark .dash-views { background: #0f172a; }
   border: none;
   background: transparent;
   border-radius: 6px;
-  color: #475569;
+  color: #334155;
   cursor: pointer;
   transition: all 0.18s ease;
   white-space: nowrap;
@@ -561,7 +561,7 @@ html.dark .dash-view-btn.active { background: #1e293b; color: #f1f5f9; }
   border: 1px solid #e2e8f0;
   background: transparent;
   border-radius: 5px;
-  color: #475569;
+  color: #334155;
   cursor: pointer;
   transition: all 0.15s ease;
   text-transform: uppercase;
@@ -619,19 +619,19 @@ html.dark .dash-meta { border-bottom-color: #334155; }
 
 .dash-date {
   font-size: 11px;
-  color: #475569;
+  color: #334155;
 }
 
 .dash-metric-label {
   font-size: 11px;
-  color: #475569;
+  color: #334155;
   display: flex;
   align-items: center;
   gap: 3px;
   cursor: pointer;
 }
 
-.dash-metric-value { color: #0e7fa8; font-weight: 700; }
+.dash-metric-value { color: #0c6a8d; font-weight: 700; }
 
 /* Stats row */
 .dash-stats {
@@ -658,7 +658,7 @@ html.dark .dash-stat { border-right-color: #334155; }
   display: block;
   font-size: 10px;
   font-weight: 600;
-  color: #475569;
+  color: #334155;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   white-space: nowrap;
