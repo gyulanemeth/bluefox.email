@@ -35,6 +35,32 @@ head:
     - name: twitter:description
       content: Direct comparison of BlueFox Email and Mailchimp for email marketing, SaaS, and transactional messaging, covering design, integrations, automation, personalization, analytics, support, and pricing.
 ---
+
+<script setup>
+import { useDisplay } from 'vuetify'
+import { useData } from 'vitepress'
+
+import TemplateShowcase from '../.vitepress/theme/TemplateShowcase.vue'
+import Segmentation from '../.vitepress/theme/Segmentation.vue'
+import AgencyAnalytics from '../for/marketing-agencies/AgencyAnalytics.vue'
+
+const { lgAndUp, md, sm, xs } = useDisplay()
+const { isDark } = useData()
+</script>
+
+<style scoped>
+  .home-analytics :deep(.analytics-head) {
+    text-align: center;
+  }
+  .home-analytics :deep(.analytics-head p) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .home-analytics :deep(.agency-analytics) {
+    padding: 0;
+  }
+</style>
+
 <GlossaryNavigation link="/comparisons" label="Back to comparison list" />
 
 # BlueFox Email vs Mailchimp: Head-to-Head Comparison
@@ -69,7 +95,13 @@ BlueFox Email uses the Chamaileon SDK for its drag-and-drop builder. Reusable co
 
 **Trade-offs:** smaller starter-template library than Mailchimp's 100+ catalog, no AI design generation, no built-in stock photo library, Handlebars syntax adds a small learning step for non-technical users.
 
-![bluefox dashboard collage](/assets/comparisons/bluefox-collage.webp)
+<TemplateShowcase
+  :is-dark="isDark"
+  :lg-and-up="lgAndUp"
+  :md="md"
+  :sm="sm"
+  :xs="xs"
+/>
 
 ## Integrations
 
@@ -171,6 +203,14 @@ BlueFox Email's [segments](https://bluefox.email/docs/projects/segments) use AND
 
 **Trade-offs:** no pre-built segment templates, no predictive/AI segmentation, no built-in e-commerce filters (no "purchased product X" out of the box, those need contact attributes set via API), no geolocation filtering out of the box.
 
+<Segmentation
+  :is-dark="isDark"
+  :lg-and-up="lgAndUp"
+  :md="md"
+  :sm="sm"
+  :xs="xs"
+/>
+
 ## Analytics and Reporting
 
 ### Mailchimp
@@ -189,7 +229,13 @@ BlueFox Email scopes [analytics](https://bluefox.email/docs/analytics) at accoun
 
 **Trade-offs:** no revenue or ROI tracking, no industry benchmark comparison, no click maps, no built-in A/B testing reports, no Google Analytics integration.
 
-![bluefox dashboard analytics](/assets/comparisons/bluefox-analytics.webp)
+<div class="home-analytics">
+<AgencyAnalytics
+  title="Analytics that show what happened"
+  description="Delivery, opens, clicks, bounces, and subscription trends. Switch between hourly, daily, weekly, and monthly views."
+  default-tab="hourly"
+/>
+</div>
 
 ## Support and Learning Resources
 
