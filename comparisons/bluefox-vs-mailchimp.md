@@ -89,7 +89,7 @@ Mailchimp ships a drag-and-drop builder with [100+ pre-designed templates](https
 
 ### BlueFox Email
 
-BlueFox Email uses the Chamaileon SDK for its drag-and-drop builder. Reusable components (blocks, themes, templates) are first-class — designers build a brand system once and reuse it across campaigns, transactional, and triggered emails. Cross-client rendering covers Gmail, Outlook, Apple Mail, and mobile. <span v-pre>Handlebars syntax (`{{firstName}}`, `{{#if}}…{{/if}}`)</span> drives personalization and conditional content. The Dynamic Image block pairs with [data feeds](https://bluefox.email/docs/projects/data-feeds) to render images sourced from RSS/JSON at send time.
+BlueFox Email uses the Chamaileon SDK for its drag-and-drop builder. Reusable components (blocks, themes, templates) are first-class. Designers build a brand system once and reuse it across campaigns, transactional, and triggered emails. Cross-client rendering covers Gmail, Outlook, Apple Mail, and mobile. <span v-pre>Handlebars syntax (`{{firstName}}`, `{{#if}}…{{/if}}`)</span> drives personalization and conditional content. The Dynamic Image block pairs with [data feeds](https://bluefox.email/docs/projects/data-feeds) to render images sourced from RSS/JSON at send time.
 
 **Strengths:** reusable design system, consistent Handlebars personalization across all email types, data-feed-driven dynamic content, cross-client rendering.
 
@@ -131,7 +131,7 @@ Mailchimp retired its [Classic Automation Builder](https://www.mavlers.com/blog/
 
 **Strengths:** large template gallery for common e-commerce and lifecycle journeys, native SMS action inside flows, AI content suggestions on paid plans, predictive segmentation on Premium.
 
-**Trade-offs:** Customer Journey Builder is paid-only — Free plan has no automation at all since mid-2025. A/B testing inside flows requires Standard or higher. Predictive features require Premium.
+**Trade-offs:** Customer Journey Builder is paid-only. Free plan has no automation at all since mid-2025. A/B testing inside flows requires Standard or higher. Predictive features require Premium.
 
 ### BlueFox Email
 
@@ -139,7 +139,7 @@ BlueFox Email's [automation builder](https://bluefox.email/docs/projects/automat
 
 **Strengths:** all automation features on every plan, segment-based triggers, mid-flow contact property updates, email-activity-based branching (specific-link click matching), live editing of running flows.
 
-**Trade-offs:** no SMS action, no AI content suggestions, no predictive targeting, fewer pre-built journey templates, no native e-commerce triggers (no abandoned cart, no purchase events) — those have to be wired via the API or Zapier.
+**Trade-offs:** no SMS action, no AI content suggestions, no predictive targeting, fewer pre-built journey templates, no native e-commerce triggers (no abandoned cart, no purchase events). Those have to be wired via the API or Zapier.
 
 ![bluefox automation collage](/assets/comparisons/email-automation-collage.webp)
 
@@ -161,7 +161,7 @@ BlueFox Email has three delivery modes documented in [Delivery Modes](https://bl
 - **Production** (BlueFox-managed infrastructure, after a review): unrestricted volume, custom sender identities, your own verified domain.
 - **BYO AWS SES** (optional): connect your AWS account via direct credentials or STS Role ARN. Required permissions: `ses:SendEmail`, `ses:SendRawEmail`, `ses:ListIdentities`, `ses:GetSendQuota`. You keep your own AWS sending reputation and IP isolation, and can use your AWS SES dedicated IP if configured there.
 
-To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05% — shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending.
+To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending.
 
 **Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, transparent bounce/complaint thresholds in-product, per-project suppression list, STS-based AWS auth (no long-lived keys).
 
@@ -245,7 +245,7 @@ Mailchimp offers 24/7 email and chat support on paid plans, with phone support o
 
 **Strengths:** large knowledge base, formal learning platform (Academy), large public agency/freelancer ecosystem, multi-channel support on paid tiers.
 
-**Trade-offs:** Free plan has no live support — documentation and community only. Phone support requires Premium. Support response quality has been a recurring complaint in third-party reviews.
+**Trade-offs:** Free plan has no live support: documentation and community only. Phone support requires Premium. Support response quality has been a recurring complaint in third-party reviews.
 
 ### BlueFox Email
 
@@ -259,7 +259,7 @@ BlueFox Email provides email support across all plan tiers. Users can also book 
 
 The two platforms price on different axes, which makes head-to-head comparison sensitive to the scenario.
 
-### Mailchimp — contact-based
+### Mailchimp (contact-based)
 
 Mailchimp charges by contact count. Every subscribed, unsubscribed, and non-subscribed contact counts toward the limit; duplicates across audiences are counted multiple times.
 
@@ -276,9 +276,9 @@ Mailchimp charges by contact count. Every subscribed, unsubscribed, and non-subs
 
 Notable extras: SMS pay-as-you-go in supported regions; some marketplace apps charge separately; advanced features (predictive segmentation, AI design generation, click maps) require higher tiers.
 
-### BlueFox Email — per-send
+### BlueFox Email (per-send)
 
-BlueFox Email charges per email sent. Contacts are unlimited, all features are available at every tier, and packs do not expire monthly — credits roll for 12 months.
+BlueFox Email charges per email sent. Contacts are unlimited, all features are available at every tier, and packs do not expire monthly. Credits roll for 12 months.
 
 | Mode | Free tier | Essential | Premium |
 | --- | --- | --- | --- |
@@ -287,44 +287,44 @@ BlueFox Email charges per email sent. Contacts are unlimited, all features are a
 
 AWS SES costs in BYO mode: ~$0.10 per 1,000 emails, billed directly by AWS. Combine with the AWS Free Tier (1,500 free sends/month for the first 12 months) at small volume.
 
-Packs are stackable — buy as many as you need. Above 1M sends/month, contact sales for custom pricing.
+Packs are stackable: buy as many as you need. Above 1M sends/month, contact sales for custom pricing.
 
 ### Scenarios
 
 The right pricing model depends on the ratio of contacts to sends.
 
-**Newsletter to a small, engaged list** — say, 200 contacts × 4 sends each per week = 3,200 sends/month:
+**Newsletter to a small, engaged list** (say, 200 contacts × 4 sends each per week = 3,200 sends/month):
 
 - Mailchimp: Free plan won't fit (cap is 500 sends). Essentials at 500 contacts = $13/month. Standard same.
 - BlueFox Email Standard: Free tier (3,000) just covers it; Essential pack ($50) covers it for 15+ months.
 - BYO SES: Free tier (6,000) covers it.
 
-**Marketing list, monthly newsletter** — 10,000 contacts × 1 send each = 10,000 sends/month:
+**Marketing list, monthly newsletter** (10,000 contacts × 1 send each = 10,000 sends/month):
 
 - Mailchimp Essentials: 10k contacts ≈ $100/month based on tiered pricing. Standard ≈ $135/month.
 - BlueFox Email Standard: $10/month equivalent if pacing 50k pack over 5 months ($50 / 5 mo).
 - BYO SES: $6/month equivalent on a 100k-pack basis, plus AWS fees.
 
-**Transactional-heavy SaaS** — 5,000 users × 8 transactional emails each per month = 40,000 sends/month:
+**Transactional-heavy SaaS** (5,000 users × 8 transactional emails each per month = 40,000 sends/month):
 
 - Mailchimp Standard + Mandrill: 5k contacts ≈ $75/month + Mandrill $40 (two 25k blocks) = $115/month.
 - BlueFox Email Standard Essential ($50/50k): roughly $50/month equivalent.
 - BYO SES Essential ($50/100k + AWS): roughly $30/month equivalent.
 
-**Large list, infrequent broadcast** — 50,000 contacts × 1 send each per month = 50,000 sends/month:
+**Large list, infrequent broadcast** (50,000 contacts × 1 send each per month = 50,000 sends/month):
 
 - Mailchimp Essentials: 50k contacts = $385/month.
 - BlueFox Email Standard Essential: $50 covers it for one month.
 - BYO SES: $50 platform + ~$5 AWS = ~$55/month.
 
-**High-volume sender** — 1,000,000 sends/month:
+**High-volume sender** (1,000,000 sends/month):
 
 - Mailchimp Premium + Mandrill at this volume: $350 base + $800 in Mandrill blocks = ~$1,150/month, before contact-tier increases on the Premium side.
 - BlueFox Email Standard: two Premium packs ($600/month equivalent for 1M sends).
 - BYO SES Premium: $300 platform + ~$100 AWS = ~$400/month.
 
 **Where Mailchimp tends to be cheaper:**
-- Small lists with low send frequency where the contact-based entry tier covers all needs and you also use landing pages, social, ads, CRM, or SMS — replacing all of those with separate tools would cost more than Mailchimp.
+- Small lists with low send frequency where the contact-based entry tier covers all needs and you also use landing pages, social, ads, CRM, or SMS. Replacing all of those with separate tools would cost more than Mailchimp.
 
 **Where BlueFox Email tends to be cheaper:**
 - Transactional-heavy SaaS (many sends per user per month).
@@ -337,7 +337,7 @@ The right pricing model depends on the ratio of contacts to sends.
 
 ### Cost Comparison: Mailchimp Premium vs BlueFox Email
 
-The table below assumes Mailchimp Premium (the tier that unlocks predictive segmentation, AI design, click maps, and unrestricted automation) plus the Mandrill Transactional add-on. If your needs fit Essentials or Standard, Mailchimp is cheaper than shown — see the scenario breakdowns above for like-for-like cases.
+The table below assumes Mailchimp Premium (the tier that unlocks predictive segmentation, AI design, click maps, and unrestricted automation) plus the Mandrill Transactional add-on. If your needs fit Essentials or Standard, Mailchimp is cheaper than shown. See the scenario breakdowns above for like-for-like cases.
 
 | Monthly Volume   | Mailchimp Cost* | BlueFox Email Total** | Savings | BlueFox Email (BYO)*** | Savings |
 | ---------------- | --------------: | --------------------: | ------: | ---------------------: | ------: |
@@ -376,7 +376,7 @@ Pick by what you actually need, not by which platform markets itself harder.
 | Pause-instead-of-unsubscribe to reduce churn                                       | BlueFox Email        |
 | All features available on the free tier                                            | BlueFox Email        |
 
-Both platforms can send email well. The decision usually comes down to whether you want a broad marketing suite (Mailchimp) or a focused, per-send-priced email platform (BlueFox Email) — and what your contact-to-send ratio looks like.
+Both platforms can send email well. The decision usually comes down to whether you want a broad marketing suite (Mailchimp) or a focused, per-send-priced email platform (BlueFox Email), and what your contact-to-send ratio looks like.
 
 
 <GlossaryCTA/>
