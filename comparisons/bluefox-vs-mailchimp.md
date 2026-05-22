@@ -89,11 +89,11 @@ Mailchimp ships a drag-and-drop builder with [130+ pre-designed templates](https
 
 ### BlueFox Email
 
-BlueFox Email uses the Chamaileon SDK for its drag-and-drop builder. Reusable components (blocks, themes, templates) are first-class. Designers build a brand system once and reuse it across campaigns, transactional, and triggered emails. Cross-client rendering covers Gmail, Outlook, Apple Mail, and mobile. <span v-pre>Handlebars syntax (`{{firstName}}`, `{{#if}}…{{/if}}`)</span> drives personalization and conditional content. The Dynamic Image block pairs with [data feeds](https://bluefox.email/docs/projects/data-feeds) to render images sourced from RSS/JSON at send time.
+BlueFox Email uses the [Chamaileon SDK](https://help.chamaileon.io/en/collections/1340338-email-editor-documentation) for its drag-and-drop builder. The editor offers real-time collaborative editing (multiple team members can work on the same email simultaneously, like Google Docs), a built-in stock photo gallery, a photo editor, a shared image library for brand assets, custom font uploads, dark mode preview, and a library of pre-designed starter templates (a smaller selection than Mailchimp's, but covering the common newsletter, announcement, and transactional layouts). Reusable components (blocks, themes, templates) are first-class. Designers build a brand system once and reuse it across campaigns, transactional, and triggered emails. Cross-client rendering covers Gmail, Outlook, Apple Mail, and mobile. <span v-pre>Handlebars syntax (`{{firstName}}`, `{{#if}}…{{/if}}`)</span> drives personalization and conditional content. The Dynamic Image block pairs with [data feeds](https://bluefox.email/docs/projects/data-feeds) to render images sourced from RSS/JSON at send time.
 
-**Strengths:** reusable design system, consistent Handlebars personalization across all email types, data-feed-driven dynamic content, cross-client rendering.
+**Strengths:** reusable design system, real-time collaborative editing, built-in stock photo gallery and photo editor, consistent Handlebars personalization across all email types, data-feed-driven dynamic content, cross-client rendering.
 
-**Trade-offs:** smaller starter-template library than Mailchimp's 130+ catalog, no AI design generation, no built-in stock photo library, Handlebars syntax adds a small learning step for non-technical users.
+**Trade-offs:** smaller starter-template library than Mailchimp's 130+ catalog, no AI generation capabilities, Handlebars syntax adds a small learning step for non-technical users.
 
 <TemplateShowcase
   :is-dark="isDark"
@@ -115,9 +115,9 @@ Mailchimp's marketplace lists 300+ native integrations, plus Zapier for broader 
 
 ### BlueFox Email
 
-BlueFox Email exposes a [API](https://bluefox.email/docs/api/) for contacts, subscriptions, transactional sends, and triggered sends. [Webhooks](https://bluefox.email/docs/integrations/webhooks) push real-time events: opens, clicks, bounces, complaints, subscribe, unsubscribe, pause, resubscribe. Direct integrations: [Supabase](https://bluefox.email/docs/integrations/supabase) for auth emails (signup confirmation, magic links, password reset, invitations) and [Zapier](https://bluefox.email/docs/integrations/zapier) with six triggers (New Contact, Contact Updated, Contact Deleted, New Subscription, Unsubscribed, Subscription Paused). In BYO SES mode, the user keeps direct AWS access for any SES-level integration.
+BlueFox Email exposes an [API](https://bluefox.email/docs/api/) for contacts, subscriptions, transactional sends, and triggered sends. [Webhooks](https://bluefox.email/docs/integrations/webhooks) push real-time events: opens, clicks, bounces, complaints, subscribe, unsubscribe, pause, resubscribe. Direct integrations: [Supabase](https://bluefox.email/docs/integrations/supabase) for auth emails (signup confirmation, magic links, password reset, invitations) and [Zapier](https://bluefox.email/docs/integrations/zapier) with six triggers (New Contact, Contact Updated, Contact Deleted, New Subscription, Unsubscribed, Subscription Paused). In BYO SES mode, the user keeps direct AWS access for any SES-level integration.
 
-**Strengths:** complete REST API on every plan, full webhook event set on every plan, Supabase-native auth email path, Zapier connectivity.
+**Strengths:** complete API on every plan, full webhook event set on every plan, Supabase-native auth email path, Zapier connectivity.
 
 **Trade-offs:** small native marketplace (Supabase + Zapier are the main first-party integrations), no native e-commerce platform sync, no native CRM connector, no native social/ads tooling.
 
@@ -179,7 +179,7 @@ Mailchimp uses merge tag syntax for personalization: `*|FNAME|*` for fields, `*|
 
 ### BlueFox Email
 
-BlueFox Email uses **Handlebars** syntax for personalization: <span v-pre>`{{firstName}}`</span> for fields and <span v-pre>`{{#if}}…{{else}}…{{/if}}`</span> for conditional content. Built-in merge tags include `subscriber.name`, `subscriber.email`, `unsubscribeLink`, `pauseSubscriptionLink`, and `verifyLink` (for double opt-in flows). Contact attributes beyond name/email are defined in **Project Settings → Contact Attributes** and can be set or updated programmatically via the [REST API](https://bluefox.email/docs/api/) or from inside an automation flow (Set Value node). Personalization is available on every plan including the free tier.
+BlueFox Email uses **Handlebars** syntax for personalization: <span v-pre>`{{firstName}}`</span> for fields and <span v-pre>`{{#if}}…{{else}}…{{/if}}`</span> for conditional content. Built-in merge tags include `subscriber.name`, `subscriber.email`, `unsubscribeLink`, `pauseSubscriptionLink`, and `verifyLink` (for double opt-in flows). Contact attributes beyond name/email are defined in **Project Settings → Contact Attributes** and can be set or updated programmatically via the [API](https://bluefox.email/docs/api/) or from inside an automation flow (Set Value node). Personalization is available on every plan including the free tier.
 
 **Strengths:** standard Handlebars syntax familiar to developers, conditional blocks at every plan level, contact attributes update-able via API or in-flow Set Value node, `pauseSubscriptionLink` enables a pause-instead-of-unsubscribe path.
 
@@ -293,6 +293,14 @@ Packs are stackable: buy as many as you need. Above 1M sends/month, contact sale
 
 The right pricing model depends on the ratio of contacts to sends.
 
+**Tiny list, light send frequency** (100 contacts × 2 sends/month = 200 sends/month):
+
+- Mailchimp: Free plan fits (under 250 contacts, under 500 sends).
+- BlueFox Email Standard: Free tier (3,000 sends) covers it 15× over.
+- BYO SES: Free tier (6,000) covers it.
+
+Both platforms are free here, so this is a tie. The moment you exceed 250 contacts OR 500 sends/month, Mailchimp jumps to $13/month minimum while BlueFox Email stays free until 3,000 sends.
+
 **Newsletter to a small, engaged list** (say, 200 contacts × 4 sends each per week = 3,200 sends/month):
 
 - Mailchimp: Free plan won't fit (cap is 500 sends). Essentials at 500 contacts = $13/month. Standard same.
@@ -323,13 +331,18 @@ The right pricing model depends on the ratio of contacts to sends.
 - BlueFox Email Standard: two Premium packs ($600/month equivalent for 1M sends).
 - BYO SES Premium: $300 platform + ~$100 AWS = ~$400/month.
 
-**Where Mailchimp tends to be cheaper:**
-- Small lists with low send frequency where the contact-based entry tier covers all needs and you also use landing pages, social, ads, CRM, or SMS. Replacing all of those with separate tools would cost more than Mailchimp.
+**On pure email pricing, BlueFox Email is cheaper at every volume above Mailchimp's free tier.** The smallest case (under 250 contacts AND under 500 sends/month) is a tie at $0 on both platforms. Every scenario beyond that — small newsletters, mid-size marketing lists, transactional-heavy SaaS, large broadcasts, and high-volume sending — costs less on BlueFox Email, often by 50–90%.
 
-**Where BlueFox Email tends to be cheaper:**
+**Where Mailchimp makes sense despite the higher email price:**
+- You also need landing pages, social posting, ad management, a basic CRM, or SMS, and would otherwise pay for those as separate tools. Mailchimp bundles all of these; BlueFox Email is email-only. If replacing the bundle would cost more than the Mailchimp premium, the bundle wins on total cost of ownership even though email-line-item pricing is higher.
+- You need native e-commerce features (Shopify/WooCommerce cart sync, abandoned-cart triggers, predictive segmentation on connected stores) and don't want to build them yourself via API.
+- You want a single vendor for multi-channel marketing rather than stitching email together with other tools.
+
+**Where BlueFox Email is the clear choice:**
 - Transactional-heavy SaaS (many sends per user per month).
 - Newsletters and high-volume sending (each contact receives many emails).
-- Cases where you'd otherwise need Mailchimp Premium for one or two features but not the rest.
+- Email-focused workflows where landing pages, social, ads, CRM, and SMS are handled by other tools (or not needed at all).
+- Predictable per-send costs without contact-count surprises as the list grows.
 
 **Notes on both:**
 - Mailchimp prices shift with contact count and feature gates. Always check the current quote calculator.
