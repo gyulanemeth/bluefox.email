@@ -8,6 +8,7 @@ import { addOrganizationSchema } from './theme/SchemaMarkup/organizationSchema'
 import { addPostsSchema } from './theme/SchemaMarkup/postsSchema'
 import { addProductSchema } from './theme/SchemaMarkup/productSchema'
 import { addDocsSchema } from './theme/SchemaMarkup/docsSchema'
+import { addFeaturesSchema } from './theme/SchemaMarkup/featuresSchema'
 
 const env = loadEnv('', process.cwd())
 const securityHeaders = {
@@ -70,6 +71,7 @@ export default defineConfig({
     addToolsSchemaMarkup(pageData)
     addSchemaMarkup(pageData)
     addComparisonSchemaMarkup(pageData)
+    addFeaturesSchema(pageData)
   },
   vite: {
     server: {
@@ -125,6 +127,7 @@ export default defineConfig({
     },
     nav: [
       { text: "Home", link: "/" },
+      { text: "Features", link: "/features" },
       { text: "Pricing", link: "/pricing" },
       {
         text: "For",
@@ -135,9 +138,14 @@ export default defineConfig({
           { text: "Amazon SES Users", link: "/for/amazon-ses-users" },
         ],
       },
-      { text: "Tutorials", link: "/tutorials" },
-      { text: "Articles", link: "/articles" },
-      { text: "Docs", link: "/docs/" },
+      {
+        text: "Resources",
+        items: [
+          { text: "Docs", link: "/docs/" },
+          { text: "Tutorials", link: "/tutorials" },
+          { text: "Articles", link: "/articles" },
+        ],
+      },
       {
         component: "NavigationButton",
         props: {
@@ -163,6 +171,7 @@ export default defineConfig({
     ],
 
     sidebar: {
+      "/features": [],
       "/": [
         {
           text: "Docs",
