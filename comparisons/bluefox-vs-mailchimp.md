@@ -89,11 +89,11 @@ Mailchimp ships a drag-and-drop builder with [130+ pre-designed templates](https
 
 ### BlueFox Email
 
-BlueFox Email uses the [Chamaileon SDK](https://help.chamaileon.io/en/collections/1340338-email-editor-documentation) for its drag-and-drop builder. The editor offers real-time collaborative editing (multiple team members can work on the same email simultaneously, like Google Docs), a built-in stock photo gallery, a photo editor, a shared image library for brand assets, custom font uploads, dark mode preview, and a library of pre-designed starter templates (a smaller selection than Mailchimp's, but covering the common newsletter, announcement, and transactional layouts). Reusable components (blocks, themes, templates) are first-class. Designers build a brand system once and reuse it across campaigns, transactional, and triggered emails. Cross-client rendering covers Gmail, Outlook, Apple Mail, and mobile. <span v-pre>Handlebars syntax (`{{firstName}}`, `{{#if}}…{{/if}}`)</span> drives personalization and conditional content. The Dynamic Image block pairs with [data feeds](https://bluefox.email/docs/projects/data-feeds) to render images sourced from RSS/JSON at send time.
+BlueFox Email uses the [Chamaileon SDK](https://help.chamaileon.io/en/collections/1340338-email-editor-documentation) for its drag-and-drop builder. The editor offers a built-in stock photo gallery, a photo editor, a shared image library for brand assets, custom font uploads, dark mode preview, and a library of pre-designed starter templates (a smaller selection than Mailchimp's, but covering the common newsletter, announcement, and transactional layouts). Reusable components (blocks, themes, templates) are first-class. Designers build a brand system once and reuse it across campaigns, transactional, and triggered emails. Cross-client rendering covers Gmail, Outlook, Apple Mail, and mobile. The Dynamic Image block pairs with [data feeds](https://bluefox.email/docs/projects/data-feeds) to render images sourced from RSS/JSON at send time.
 
-**Strengths:** reusable design system, real-time collaborative editing, built-in stock photo gallery and photo editor, consistent Handlebars personalization across all email types, data-feed-driven dynamic content, cross-client rendering.
+**Strengths:** reusable design system, built-in stock photo gallery and photo editor, data-feed-driven dynamic content, cross-client rendering.
 
-**Trade-offs:** smaller starter-template library than Mailchimp's 130+ catalog, no AI generation capabilities, Handlebars syntax adds a small learning step for non-technical users.
+**Trade-offs:** smaller starter-template library than Mailchimp's 130+ catalog, no AI design generation.
 
 <TemplateShowcase
   :is-dark="isDark"
@@ -201,7 +201,7 @@ BlueFox Email's [segments](https://bluefox.email/docs/projects/segments) use AND
 
 **Strengths:** unlimited condition count on every plan, engagement-based segments at every plan level, segments usable as automation triggers, segment-scoping to list or whole project.
 
-**Trade-offs:** no pre-built segment templates, no predictive/AI segmentation, no built-in e-commerce filters (no "purchased product X" out of the box, those need contact attributes set via API), no geolocation filtering out of the box.
+**Trade-offs:** one pre-built segment (unengaged contacts) versus Mailchimp's broader template library, no predictive/AI segmentation, no built-in e-commerce filters (no "purchased product X" out of the box, those need contact attributes set via API), no geolocation filtering out of the box.
 
 <Segmentation
   :is-dark="isDark"
@@ -227,7 +227,7 @@ BlueFox Email scopes [analytics](https://bluefox.email/docs/analytics) at accoun
 
 **Strengths:** live bounce/complaint ratios against the production thresholds, per-email-type and per-automation-node stats, real-time webhook push for external analytics, full event set on every plan.
 
-**Trade-offs:** no revenue or ROI tracking, no industry benchmark comparison, no click maps, no built-in A/B testing reports, no Google Analytics integration.
+**Trade-offs:** no revenue or ROI tracking, no industry benchmark comparison, link-click table shows per-URL click counts but no visual heatmap overlay, no built-in A/B testing reports, no Google Analytics integration.
 
 <div class="home-analytics">
 <AgencyAnalytics
@@ -347,26 +347,6 @@ Both platforms are free here, so this is a tie. The moment you exceed 250 contac
 **Notes on both:**
 - Mailchimp prices shift with contact count and feature gates. Always check the current quote calculator.
 - BlueFox prices are public and flat per-pack. AWS SES fees in BYO mode are billed by AWS.
-
-### Cost Comparison: Mailchimp Premium vs BlueFox Email
-
-The table below assumes Mailchimp Premium (the tier that unlocks unrestricted automation, advanced segmentation, comparative reporting, and the full feature set) plus the Mandrill Transactional add-on. If your needs fit Essentials or Standard, Mailchimp is cheaper than shown. See the scenario breakdowns above for like-for-like cases.
-
-| Monthly Volume   | Mailchimp Cost* | BlueFox Email Total** | Savings | BlueFox Email (BYO)*** | Savings |
-| ---------------- | --------------: | --------------------: | ------: | ---------------------: | ------: |
-| 2,000 emails     | $370            | $2.00                 | 99%     | $1.20                  | 99.7%   |
-| 5,000 emails     | $370            | $5.00                 | 99%     | $3.00                  | 99%     |
-| 10,000 emails    | $370            | $10.00                | 97%     | $6.00                  | 98%     |
-| 50,000 emails    | $390            | $50.00                | 87%     | $30.00                 | 92%     |
-| 100,000 emails   | $430            | $60.00                | 86%     | $60.00                 | 86%     |
-| 500,000 emails   | $750            | $300.00               | 60%     | $200.00                | 73%     |
-| 1,000,000 emails | $1,150          | $600.00               | 48%     | $400.00                | 65%     |
-
-_*Mailchimp Premium plan ($350/month base for up to 10,000 contacts) plus Mandrill Transactional add-on at $20 per 25,000-email block. Contact-tier increases above 10,000 contacts not included. Assumes Premium tier (unrestricted automation, advanced segmentation, comparative reporting, multivariate testing)._
-
-_**BlueFox Email Standard: Essential pack ($50 / 50,000 sends) and Premium pack ($300 / 500,000 sends), credits valid 12 months. Per-month figure is the pack price spread over expected usage. No contact limits, all features included at every tier._
-
-_***BlueFox Email BYO SES: Essential ($50 / 100,000 platform sends) and Premium ($300 / 1,000,000 platform sends), plus AWS SES fees at $0.10 per 1,000 emails billed by Amazon._
 
 ## Which Fits Your Use Case
 
