@@ -138,9 +138,14 @@ export default defineConfig({
           { text: "Amazon SES Users", link: "/for/amazon-ses-users" },
         ],
       },
-      { text: "Tutorials", link: "/tutorials" },
-      { text: "Articles", link: "/articles" },
-      { text: "Docs", link: "/docs/" },
+      {
+        text: "Resources",
+        items: [
+          { text: "Docs", link: "/docs/" },
+          { text: "Tutorials", link: "/tutorials" },
+          { text: "Articles", link: "/articles" },
+        ],
+      },
       {
         component: "NavigationButton",
         props: {

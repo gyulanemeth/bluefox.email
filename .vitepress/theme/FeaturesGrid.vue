@@ -60,12 +60,6 @@ const categories = [
         docs: '/docs/projects/forms-and-pages',
         iconPaths: `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>`
       },
-      {
-        name: 'Suppression Lists',
-        desc: 'Per-project permanent blocklist. CSV import/export. Suppressed emails are never sent to.',
-        docs: '/docs/projects/suppression-list',
-        iconPaths: `<circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>`
-      },
     ]
   },
   {
@@ -73,15 +67,45 @@ const categories = [
     features: [
       {
         name: 'Visual Automation Builder',
-        desc: 'Trigger, Timer, Audience Filter, Send Email, Notify, Branching, Set Value, Manage Tags, and Exit nodes.',
+        desc: 'Build workflows on a visual canvas. Chain nodes together and run automations triggered by contact events.',
         docs: '/docs/projects/automations',
         iconPaths: `<circle cx="12" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9"/><path d="M12 12v3"/>`
+      },
+      {
+        name: 'Automation Triggers',
+        desc: 'Start automations on contact added, contact updated (with from/to conditions), enter segment, or leave segment.',
+        docs: '/docs/projects/automations#trigger-node',
+        iconPaths: `<circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/>`
+      },
+      {
+        name: 'Audience Filter & Branching',
+        desc: 'Filter contacts by properties, segments, or email activity (opened/clicked). Split flows with multi-path branching.',
+        docs: '/docs/projects/automations#audience-filter-node',
+        iconPaths: `<line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/>`
+      },
+      {
+        name: 'Automation Actions',
+        desc: 'Send emails to contacts, send team notifications to a list, update contact properties, or add/remove tags.',
+        docs: '/docs/projects/automations#send-email-node',
+        iconPaths: `<polyline points="22 2 15 22 11 13 2 9 22 2"/>`
+      },
+      {
+        name: 'Timers & Exit Criteria',
+        desc: 'Delay steps by minutes, hours, or days. Define exit conditions to remove contacts from the flow early.',
+        docs: '/docs/projects/automations#timer-node',
+        iconPaths: `<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>`
       },
     ]
   },
   {
-    name: 'Design & Personalization',
+    name: 'Design',
     features: [
+      {
+        name: 'Visual Email Builder',
+        desc: 'Drag-and-drop editor with text, image, button, divider, dynamic image, conditional, and loop elements.',
+        docs: '/docs/email-builder',
+        iconPaths: `<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>`
+      },
       {
         name: 'Email Themes',
         desc: 'Atomic design system: Basics → Components → Blocks → Templates. Change once, updates everywhere.',
@@ -94,11 +118,34 @@ const categories = [
         docs: '/docs/projects/email-theme-settings',
         iconPaths: `<path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>`
       },
+    ]
+  },
+  {
+    name: 'Personalization',
+    features: [
       {
-        name: 'Personalization (Merge Tags)',
-        desc: 'Handlebars templating with conditionals, loops, CAPITALIZE, and TRUNCATE. Works in subject, body, and URLs.',
-        docs: '/docs/email-personalization',
+        name: 'Merge Tags & Handlebars',
+        desc: 'Dynamic text in subject, body, and URLs. Use contact properties or API request data with {{mustache}} syntax.',
+        docs: '/docs/email-personalization#text-personalization',
         iconPaths: `<line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/>`
+      },
+      {
+        name: 'Image & Button Personalization',
+        desc: 'Dynamic images with per-recipient src, personalized button URLs and tooltips, accessible alt text.',
+        docs: '/docs/email-personalization#image-personalization',
+        iconPaths: `<rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>`
+      },
+      {
+        name: 'Conditionals',
+        desc: 'Show or hide content blocks using AND, OR, NOT, EQ, and INCLUDES logic. Nest operators for complex rules.',
+        docs: '/docs/email-personalization#conditionals',
+        iconPaths: `<polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>`
+      },
+      {
+        name: 'Loops & String Helpers',
+        desc: 'Iterate arrays with skip/limit support. Format output with CAPITALIZE and TRUNCATE — no backend changes needed.',
+        docs: '/docs/email-personalization#loops',
+        iconPaths: `<polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>`
       },
     ]
   },
@@ -106,10 +153,51 @@ const categories = [
     name: 'Analytics',
     features: [
       {
-        name: 'Analytics & Reporting',
-        desc: 'Opens, clicks, bounces, complaints, subscriptions. Bar/line charts, CSV export, filterable data table.',
-        docs: '/docs/analytics',
+        name: 'Email Performance Metrics',
+        desc: 'Track sends, opens, unique opens, clicks, unique clicks, and failures per email and across your project.',
+        docs: '/docs/analytics#email-card-analytics',
         iconPaths: `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><polyline points="2 20 22 20"/>`
+      },
+      {
+        name: 'Bounce & Complaint Tracking',
+        desc: 'Monitor bounce and complaint rates per email. Overall banners and per-send breakdowns keep you under thresholds.',
+        docs: '/docs/analytics#overall-banners',
+        iconPaths: `<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>`
+      },
+      {
+        name: 'Subscription Metrics',
+        desc: 'Track subscribed, resubscribed, unsubscribed, and paused events over time across all lists.',
+        docs: '/docs/analytics#email-and-subscription-charts',
+        iconPaths: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>`
+      },
+      {
+        name: 'Charts, Filters & CSV Export',
+        desc: 'Bar and line charts with time-interval controls, date filters, accumulated view, and a filterable CSV-exportable data table.',
+        docs: '/docs/analytics#data-table',
+        iconPaths: `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>`
+      },
+    ]
+  },
+  {
+    name: 'Deliverability',
+    features: [
+      {
+        name: 'Suppression Lists',
+        desc: 'Per-project permanent blocklist. Suppressed addresses are never emailed. CSV import/export for bulk management.',
+        docs: '/docs/projects/suppression-list',
+        iconPaths: `<circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>`
+      },
+      {
+        name: 'Unengaged Contact Exclusion',
+        desc: 'Build engagement-based segments for contacts who have not opened or clicked within N days to exclude from sends.',
+        docs: '/docs/projects/segments#engagment-based-segments',
+        iconPaths: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="23" y1="11" x2="17" y2="11"/>`
+      },
+      {
+        name: 'Bounce & Complaint Cleanup',
+        desc: 'Bulk-remove bounced or complained contacts from a list, all lists, or add them to suppression with one action.',
+        docs: '/docs/projects/contacts#mass-removal-for-bounced-or-complained-contacts',
+        iconPaths: `<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>`
       },
     ]
   },
@@ -208,30 +296,6 @@ const visibleCategories = computed(() =>
 
 <template>
   <div class="features-page">
-    <!-- Hero -->
-    <div class="features-hero">
-      <div class="hero-inner">
-        <v-chip color="primary" class="hero-chip">
-          <span class="text-overline">Full Feature Set</span>
-        </v-chip>
-        <h1 class="hero-title">Everything. Every plan.</h1>
-        <p class="hero-sub">{{ totalFeatures }} features included on every send pack — no tiers, no paywalls, no hidden upgrades.</p>
-        <div class="hero-actions">
-          <v-btn
-            size="large"
-            color="primary"
-            variant="flat"
-            href="https://app.bluefox.email/accounts/create-account"
-            target="_blank"
-            class="no-uppercase"
-          >
-            <strong>Start free — 3,000 sends included</strong>
-          </v-btn>
-          <a href="/pricing" class="hero-pricing-link">See pricing →</a>
-        </div>
-      </div>
-    </div>
-
     <!-- Filter chips -->
     <div class="filter-bar" role="group" aria-label="Filter features by category">
       <button
@@ -316,77 +380,13 @@ const visibleCategories = computed(() =>
   width: 100%;
 }
 
-/* Hero */
-.features-hero {
-  background: linear-gradient(278deg, hsl(247.72, 53.44%, 90%) 10%, hsl(196.99, 86.56%, 90%) 90%);
-  padding: 80px 24px 72px;
-  text-align: center;
-}
-
-html.dark .features-hero {
-  background: linear-gradient(278deg, hsl(247.72, 53.44%, 10%) 10%, hsl(196.99, 86.56%, 10%) 90%);
-}
-
-.hero-inner {
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.hero-chip {
-  height: auto !important;
-  padding: 6px 14px !important;
-  margin-bottom: 20px;
-}
-
-.hero-title {
-  font-size: clamp(32px, 5vw, 52px);
-  font-weight: 800;
-  line-height: 1.15;
-  margin: 0 0 18px;
-  background: linear-gradient(120deg, #392C91 30%, #13B0EE 70%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero-sub {
-  font-size: clamp(16px, 2vw, 19px);
-  color: #475569;
-  line-height: 1.65;
-  margin: 0 0 32px;
-}
-
-html.dark .hero-sub { color: #94a3b8; }
-
-.hero-actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.no-uppercase {
-  text-transform: none !important;
-  letter-spacing: 0 !important;
-}
-
-.hero-pricing-link {
-  font-size: 15px;
-  font-weight: 600;
-  color: #0369a1;
-  text-decoration: none;
-}
-html.dark .hero-pricing-link { color: #67e8f9; }
-.hero-pricing-link:hover { text-decoration: underline; }
-
 /* Filter bar */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
-  padding: 24px 24px 0;
+  padding: 40px 24px 0;
   max-width: 1200px;
   margin: 0 auto;
 }
