@@ -7,6 +7,7 @@ BlueFox Email covers transactional emails, triggered emails, marketing campaigns
 ## Product
 
 - [Home](https://bluefox.email/): product overview and value proposition
+- [Features](https://bluefox.email/features): complete feature set across email sending, contacts, automations, design, personalization, analytics, deliverability, API, and integrations
 - [Why BlueFox](https://bluefox.email/why): differentiators and positioning
 - [Pricing](https://bluefox.email/pricing): send-based pricing tiers
 - [BYO Amazon SES Pricing](https://bluefox.email/byo-amazon-ses-pricing): bring-your-own SES cost breakdown
