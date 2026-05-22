@@ -149,7 +149,7 @@ const categories = [
       },
       {
         name: 'Loops & String Helpers',
-        desc: 'Iterate arrays with skip/limit support. Format output with CAPITALIZE and TRUNCATE — no backend changes needed.',
+        desc: 'Iterate arrays with skip/limit support. Format output with CAPITALIZE and TRUNCATE, no backend changes needed.',
         docs: '/docs/email-personalization#loops',
         iconPaths: `<polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>`
       },
@@ -287,7 +287,7 @@ const faqs = [
   { q: 'Does BlueFox Email have a visual automation builder?', a: 'Yes. BlueFox Email includes a visual automation builder with nodes for triggers (contact added, contact updated, enter/leave segment), timers, audience filters, send email, notify, branching, set value, manage tags, and exit criteria.' },
   { q: 'Can I bring my own AWS SES account?', a: 'Yes. BlueFox Email supports BYO AWS SES via Access Key or STS role. This gives you full deliverability control using your own AWS infrastructure while BlueFox Email handles the sending logic, templates, contacts, and automations.' },
   { q: 'What integrations does BlueFox Email support?', a: 'BlueFox Email integrates with Zapier (6 triggers and 8 actions), supports webhooks for real-time event notifications, Supabase auth emails via SMTP, and provides a full HTTP API for custom integrations.' },
-  { q: 'Does BlueFox Email have a free plan?', a: 'BlueFox Email includes 3,000 free sends with no credit card required. There is no monthly subscription — you buy send packs as needed, valid for 12 months. The Essential pack is $50 for 50,000 sends.' },
+  { q: 'Does BlueFox Email have a free plan?', a: 'BlueFox Email includes 3,000 free sends with no credit card required. There is no monthly subscription, you buy send packs as needed, valid for 12 months. The Essential pack is $50 for 50,000 sends.' },
   { q: 'How does segmentation work in BlueFox Email?', a: 'Segments are dynamic groups built with AND/OR logic. Filter contacts by custom properties, tags, or email engagement (opened/not opened/clicked within N days). Segments update automatically and work in campaigns, automations, and audience filters.' },
   { q: 'What analytics does BlueFox Email provide?', a: 'BlueFox Email tracks opens, unique opens, clicks, unique clicks, bounces, complaints, sends, and failures. Subscription metrics include subscribed, resubscribed, unsubscribed, and paused. Data is shown in bar or line charts with CSV export and a filterable data table.' },
   { q: 'Can I send emails with attachments?', a: 'Yes. Transactional and triggered emails support file attachments via the API. Each attachment requires a file name and Base64-encoded content.' },
@@ -327,7 +327,7 @@ const visibleCategories = computed(() =>
             :key="feature.name"
             :href="feature.docs"
             class="feature-card"
-            aria-label="`${feature.name} — view documentation`"
+            aria-label="`${feature.name}: view documentation`"
           >
             <div class="card-icon" aria-hidden="true">
               <!-- iconPaths is static SVG path markup from our own data, safe for v-html -->

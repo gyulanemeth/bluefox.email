@@ -1,15 +1,15 @@
 ---
 layout: page
 sidebar: false
-title: BlueFox Email Features — Everything Included on Every Plan
+title: "BlueFox Email Features: Everything Included on Every Plan"
 description: Complete feature set for BlueFox Email. Transactional emails, campaigns, automations, segments, email themes, analytics, API, webhooks, and more. All features on every plan.
 head:
   - - meta
     - name: description
-      content: Complete feature set for BlueFox Email. All features included on every plan — no tiers, no paywalls, no hidden upgrades.
+      content: Complete feature set for BlueFox Email. All features included on every plan, no tiers, no paywalls, no hidden upgrades.
   - - meta
     - property: og:title
-      content: BlueFox Email Features — Everything Included on Every Plan
+      content: "BlueFox Email Features: Everything Included on Every Plan"
   - - meta
     - property: og:description
       content: 21 features across email sending, contacts, automations, design, analytics, API, and integrations. Every feature on every send pack.
@@ -28,7 +28,7 @@ faqs:
   - question: "What integrations does BlueFox Email support?"
     answer: "BlueFox Email integrates with Zapier (6 triggers and 8 actions), supports webhooks for real-time event notifications (sent, opened, clicked, bounced, complained, and subscription events), Supabase auth emails via SMTP, and provides a full HTTP API for custom integrations."
   - question: "Does BlueFox Email have a free plan?"
-    answer: "BlueFox Email includes 3,000 free sends with no credit card required. There is no monthly subscription — you buy send packs as needed (credits valid for 12 months). The Essential pack is $50 for 50,000 sends."
+    answer: "BlueFox Email includes 3,000 free sends with no credit card required. There is no monthly subscription, you buy send packs as needed (credits valid for 12 months). The Essential pack is $50 for 50,000 sends."
   - question: "How does segmentation work in BlueFox Email?"
     answer: "Segments in BlueFox Email are dynamic groups built with AND/OR logic. You can filter contacts by custom properties, tags, or email engagement (opened, not opened, clicked, not clicked within N days). Segments update automatically and can be used in campaigns, automations, and audience filters."
   - question: "What analytics does BlueFox Email provide?"
