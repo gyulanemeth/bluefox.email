@@ -8,7 +8,7 @@ aside: true
 prev: false
 next: false
 datePublished: "2025-09-02"
-dateModified: "2026-05-18"
+dateModified: "2026-05-22"
 head:
   - - meta
     - name: description
@@ -71,7 +71,7 @@ This comparison covers design, integrations, automation, deliverability, persona
 
 ## Platform Positioning
 
-**Mailchimp** is a marketing suite. Email is core, but the product also covers landing pages, social posting, ad management, a basic CRM, SMS (US/Canada), and an e-commerce stack with Shopify/WooCommerce/BigCommerce sync. It has [14 million users worldwide](https://www.seobility.net/en/wiki/Mailchimp), which translates to a large template library, an active agency/freelancer ecosystem, and broad tutorial coverage. The trade-off is breadth over depth: contact-based pricing scales aggressively, several features are gated behind higher tiers, and the free plan was reduced to 250 contacts / 500 sends per month and stripped of automation in mid-2025.
+**Mailchimp** is a marketing suite. Email is core, but the product also covers landing pages, social posting, ad management, a basic CRM, SMS (US/Canada), and an e-commerce stack with Shopify/WooCommerce/BigCommerce sync. It serves [13+ million users worldwide](https://www.seobility.net/en/wiki/Mailchimp), which translates to a large template library, an active agency/freelancer ecosystem, and broad tutorial coverage. The trade-off is breadth over depth: contact-based pricing scales aggressively, several features are gated behind higher tiers, and the free tier has been progressively reduced. The Classic Automation Builder was retired on June 1, 2025, removing multi-step automation from the free plan; in January 2026, the free plan's contact cap was further reduced to 250 contacts and 500 sends per month.
 
 **BlueFox Email** is a focused email platform. It offers two delivery modes: a **managed infrastructure** option where projects start in sandbox and move to production after a review (no AWS account required), and an optional **[BYO AWS SES](https://bluefox.email/docs/projects/delivery-modes#using-aws-ses-directly)** mode for teams who want to use their own AWS account and keep their own sending reputation. The product covers campaigns, transactional, triggered emails, automations, sign-up forms, segments, suppression lists, and a subscription preferences page but does not offer landing pages, social, ads, CRM, or SMS. Pricing is per-send rather than per-contact, and all features are available on every plan including the free tier. The trade-off is a smaller ecosystem: fewer pre-built templates, fewer marketplace integrations, smaller community, and a younger product overall.
 
@@ -81,9 +81,9 @@ The two are not direct substitutes. Mailchimp suits teams that want one tool for
 
 ### Mailchimp
 
-Mailchimp ships a drag-and-drop builder with [100+ pre-designed templates](https://mailchimp.com/landers/templates/) and pre-built content blocks for images, text, video, and social embeds. Brand asset management keeps colors, fonts, and logos consistent across campaigns. Mobile-responsive previews show how emails render on different devices. Higher tiers add Creative Assistant (AI-generated designs from brand assets), stock photo and Giphy integration, and dynamic content blocks.
+Mailchimp ships a drag-and-drop builder with [130+ pre-designed templates](https://mailchimp.com/landers/templates/) and pre-built content blocks for images, text, video, and social embeds. Brand asset management keeps colors, fonts, and logos consistent across campaigns. Mobile-responsive previews show how emails render on different devices. Higher tiers add Intuit Assist (Write with AI for generative email copy, Content Optimizer for readability and length suggestions), brand-kit-driven design generation in the campaign builder (the standalone Creative Assistant tool was retired in December 2025; the underlying AI design generation is now folded into the template/campaign creation flow), stock photo and Giphy integration, and dynamic content blocks.
 
-**Strengths:** large template library, mature brand kit, AI design generation on paid plans, broad stock-asset integration.
+**Strengths:** large template library, mature brand kit, generative AI for email copy via Intuit Assist on paid plans, broad stock-asset integration.
 
 **Trade-offs:** Outlook rendering is inconsistent on some templates, deeper customization typically requires HTML, free-tier template variety is limited, and several visual designs have aged.
 
@@ -93,7 +93,7 @@ BlueFox Email uses the Chamaileon SDK for its drag-and-drop builder. Reusable co
 
 **Strengths:** reusable design system, consistent Handlebars personalization across all email types, data-feed-driven dynamic content, cross-client rendering.
 
-**Trade-offs:** smaller starter-template library than Mailchimp's 100+ catalog, no AI design generation, no built-in stock photo library, Handlebars syntax adds a small learning step for non-technical users.
+**Trade-offs:** smaller starter-template library than Mailchimp's 130+ catalog, no AI design generation, no built-in stock photo library, Handlebars syntax adds a small learning step for non-technical users.
 
 <TemplateShowcase
   :is-dark="isDark"
@@ -127,11 +127,11 @@ BlueFox Email exposes a [API](https://bluefox.email/docs/api/) for contacts, sub
 
 ### Mailchimp
 
-Mailchimp retired its [Classic Automation Builder](https://www.mavlers.com/blog/mailchimp-classic-automation-retiring/) on June 1, 2025. All workflows now run in **Customer Journey Builder**, which uses three component types: **Triggers** (events that add a contact to a flow), **Rules** (conditional path branching), and **Actions** (send email, send SMS, add tag, update field, send to integration). Pre-built journey templates cover welcome series, abandoned cart, post-purchase, win-back, and date-based campaigns. Higher tiers add AI-assisted content suggestions and predictive targeting (purchase likelihood, customer lifetime value).
+Mailchimp retired its [Classic Automation Builder](https://www.mavlers.com/blog/mailchimp-classic-automation-retiring/) on June 1, 2025. All workflows now run in **Customer Journey Builder**, which uses three component types: **Triggers** (events that add a contact to a flow), **Rules** (conditional path branching), and **Actions** (send email, send SMS, add tag, update field, send to integration). Pre-built journey templates cover welcome series, abandoned cart, post-purchase, win-back, and date-based campaigns. Standard and Premium plans add Intuit Assist content suggestions and predictive targeting (purchase likelihood, customer lifetime value) on connected stores.
 
-**Strengths:** large template gallery for common e-commerce and lifecycle journeys, native SMS action inside flows, AI content suggestions on paid plans, predictive segmentation on Premium.
+**Strengths:** large template gallery for common e-commerce and lifecycle journeys, native SMS action inside flows, AI content suggestions on paid plans, predictive segmentation on Standard and Premium.
 
-**Trade-offs:** Customer Journey Builder is paid-only. Free plan has no automation at all since mid-2025. A/B testing inside flows requires Standard or higher. Predictive features require Premium.
+**Trade-offs:** Customer Journey Builder is paid-only. Free plan has had no multi-step automation since June 2025. A/B testing inside flows requires Standard or higher. Predictive features require Standard or Premium and a connected store.
 
 ### BlueFox Email
 
@@ -147,11 +147,11 @@ BlueFox Email's [automation builder](https://bluefox.email/docs/projects/automat
 
 ### Mailchimp
 
-Mailchimp uses **shared IP pools** by default. The platform's [public position](https://mailchimp.com/resources/dedicated-ip-versus-shared-ip/) is that established shared IPs outperform freshly warmed dedicated IPs for most senders, and that's a defensible argument for low-to-mid volume senders. Authentication covers DKIM and DMARC for custom sending domains. Hard bounces and unsubscribes are handled automatically. **Dedicated IPs** are an add-on at $29.95/month with a built-in warmup schedule, recommended for senders doing 100,000+ emails per month.
+Mailchimp uses **shared IP pools** by default. The platform's [public position](https://mailchimp.com/resources/dedicated-ip-versus-shared-ip/) is that established shared IPs outperform freshly warmed dedicated IPs for most senders, and that's a defensible argument for low-to-mid volume senders. Authentication covers DKIM and DMARC for custom sending domains. Hard bounces and unsubscribes are handled automatically. **Dedicated IPs** for the marketing platform are typically available only on the Premium plan or through custom enterprise contracts negotiated with Sales. The Mandrill (Transactional Email) add-on, which runs on entirely separate infrastructure, offers a dedicated IP at $29.95/month with a built-in warmup schedule.
 
-**Strengths:** mature shared-IP reputation, automatic bounce/unsubscribe handling, DKIM + DMARC support, IP warmup schedule for dedicated IPs.
+**Strengths:** mature shared-IP reputation, automatic bounce/unsubscribe handling, DKIM + DMARC support, IP warmup schedule on Mandrill dedicated IPs.
 
-**Trade-offs:** no centralized deliverability dashboard, no visibility into spam complaint data, no built-in list validation, no direct access to deliverability specialists. Return-path uses Mailchimp's own domain by default, so SPF alignment isn't automatic.
+**Trade-offs:** no centralized deliverability dashboard, no visibility into spam complaint data, no built-in list validation, no direct access to deliverability specialists. Return-path uses Mailchimp's own domain by default, so SPF alignment isn't automatic. Dedicated IPs on the marketing platform require Premium-tier or enterprise pricing, not a self-serve add-on.
 
 ### BlueFox Email
 
@@ -189,11 +189,11 @@ BlueFox Email uses **Handlebars** syntax for personalization: <span v-pre>`{{fir
 
 ### Mailchimp
 
-Mailchimp's segmentation supports up to five conditions per segment (Free/Essentials) or unlimited conditions on Standard and higher. Filter categories include subscriber data, sign-up source, email activity (opens, clicks, sends), e-commerce activity (purchase history, store activity, product viewed), group/tag membership, geolocation, and conversation activity. Pre-built segments cover recent subscribers, inactive contacts, top engagers, and similar common cases. Premium adds **predictive segmentation** (purchase likelihood, customer lifetime value, predicted demographics).
+Mailchimp's segmentation supports up to five conditions per segment (Free/Essentials) or unlimited conditions on Standard and higher. Filter categories include subscriber data, sign-up source, email activity (opens, clicks, sends), e-commerce activity (purchase history, store activity, product viewed), group/tag membership, geolocation, and conversation activity. Pre-built segments cover recent subscribers, inactive contacts, top engagers, and similar common cases. Standard and Premium plans unlock **predictive segmentation** (purchase likelihood, customer lifetime value, predicted demographics) for accounts with a connected store and sufficient e-commerce data.
 
-**Strengths:** broad filter categories, deep e-commerce filter support on connected stores, predictive segmentation on Premium, pre-built segment templates.
+**Strengths:** broad filter categories, deep e-commerce filter support on connected stores, predictive segmentation on Standard and Premium, pre-built segment templates.
 
-**Trade-offs:** condition count is capped on Free and Essentials. Predictive segments are Premium-only. The segment-building interface mixes audience-level and campaign-level filters, which adds friction.
+**Trade-offs:** condition count is capped on Free and Essentials. Predictive segments require Standard or higher and a connected store with enough purchase data for valid predictions. The segment-building interface mixes audience-level and campaign-level filters, which adds friction.
 
 ### BlueFox Email
 
@@ -265,16 +265,16 @@ Mailchimp charges by contact count. Every subscribed, unsubscribed, and non-subs
 
 | Plan | Entry | Ceiling | Sends |
 | --- | --- | --- | --- |
-| Free | 0 / 250 contacts | 250 contacts | 500 sends/month, 250/day, no automation since mid-2025 |
+| Free | 0 / 250 contacts | 250 contacts | 500 sends/month, 250/day, no multi-step automation since June 2025 |
 | Essentials | $13 / 500 contacts | $385 / 50,000 contacts | 10× contact limit |
 | Standard | $20 / 500 contacts | $800 / 100,000 contacts | 12× contact limit |
 | Premium | $350 / 10,000 contacts | custom for higher contact tiers | unlimited |
 
-**Transactional (Mandrill) add-on**: $20 per 25,000-email block, on Standard or Premium only. Not bundled.
+**Transactional (Mandrill) add-on**: $20 per 25,000-email block, on Standard or Premium only. Not bundled. **Mandrill dedicated IP**: $29.95/month, with built-in warmup schedule.
 
-**Dedicated IP**: $29.95/month, recommended at 100,000+ sends/month.
+**Marketing-platform dedicated IP**: typically requires Premium plan or a custom enterprise contract negotiated through Sales; not offered as a self-serve add-on at any published price point.
 
-Notable extras: SMS pay-as-you-go in supported regions; some marketplace apps charge separately; advanced features (predictive segmentation, AI design generation, click maps) require higher tiers.
+Notable extras: SMS pay-as-you-go in supported regions; some marketplace apps charge separately; advanced features (predictive segmentation, generative AI via Intuit Assist, click maps) require Standard or higher.
 
 ### BlueFox Email (per-send)
 
@@ -337,7 +337,7 @@ The right pricing model depends on the ratio of contacts to sends.
 
 ### Cost Comparison: Mailchimp Premium vs BlueFox Email
 
-The table below assumes Mailchimp Premium (the tier that unlocks predictive segmentation, AI design, click maps, and unrestricted automation) plus the Mandrill Transactional add-on. If your needs fit Essentials or Standard, Mailchimp is cheaper than shown. See the scenario breakdowns above for like-for-like cases.
+The table below assumes Mailchimp Premium (the tier that unlocks unrestricted automation, advanced segmentation, comparative reporting, and the full feature set) plus the Mandrill Transactional add-on. If your needs fit Essentials or Standard, Mailchimp is cheaper than shown. See the scenario breakdowns above for like-for-like cases.
 
 | Monthly Volume   | Mailchimp Cost* | BlueFox Email Total** | Savings | BlueFox Email (BYO)*** | Savings |
 | ---------------- | --------------: | --------------------: | ------: | ---------------------: | ------: |
@@ -349,7 +349,7 @@ The table below assumes Mailchimp Premium (the tier that unlocks predictive segm
 | 500,000 emails   | $750            | $300.00               | 60%     | $200.00                | 73%     |
 | 1,000,000 emails | $1,150          | $600.00               | 48%     | $400.00                | 65%     |
 
-_*Mailchimp Premium plan ($350/month base for up to 10,000 contacts) plus Mandrill Transactional add-on at $20 per 25,000-email block. Contact-tier increases above 10,000 contacts not included. Assumes feature parity at Premium (predictive segmentation, AI design, click maps, advanced automation)._
+_*Mailchimp Premium plan ($350/month base for up to 10,000 contacts) plus Mandrill Transactional add-on at $20 per 25,000-email block. Contact-tier increases above 10,000 contacts not included. Assumes Premium tier (unrestricted automation, advanced segmentation, comparative reporting, multivariate testing)._
 
 _**BlueFox Email Standard: Essential pack ($50 / 50,000 sends) and Premium pack ($300 / 500,000 sends), credits valid 12 months. Per-month figure is the pack price spread over expected usage. No contact limits, all features included at every tier._
 
@@ -359,22 +359,22 @@ _***BlueFox Email BYO SES: Essential ($50 / 100,000 platform sends) and Premium 
 
 Pick by what you actually need, not by which platform markets itself harder.
 
-| If you need…                                                                       | Likely better fit    |
-| ---------------------------------------------------------------------------------- | -------------------- |
-| Email + landing pages + social + ads + CRM in one tool                             | Mailchimp            |
-| Native e-commerce: cart sync, product feeds, abandoned-cart triggers               | Mailchimp            |
-| AI design generation, predictive segmentation, click maps                          | Mailchimp (Premium)  |
-| SMS marketing alongside email                                                      | Mailchimp            |
-| 24/7 chat support and a formal learning platform                                   | Mailchimp            |
-| A small contact list with a few sends per month and need for non-email channels    | Mailchimp Essentials |
-| High send volume relative to list size (transactional SaaS, frequent newsletters)  | BlueFox Email        |
-| Per-send pricing without contact-count surprises                                   | BlueFox Email        |
-| API-driven workflows, Handlebars personalization, custom contact attributes        | BlueFox Email        |
-| Bring-your-own AWS SES with STS Role ARN                                           | BlueFox Email        |
-| Live RSS/JSON content inside emails (data feeds)                                   | BlueFox Email        |
-| Suppression-list visibility and bounce/complaint thresholds in-product             | BlueFox Email        |
-| Pause-instead-of-unsubscribe to reduce churn                                       | BlueFox Email        |
-| All features available on the free tier                                            | BlueFox Email        |
+| If you need…                                                                       | Likely better fit       |
+| ---------------------------------------------------------------------------------- | ----------------------- |
+| Email + landing pages + social + ads + CRM in one tool                             | Mailchimp               |
+| Native e-commerce: cart sync, product feeds, abandoned-cart triggers               | Mailchimp               |
+| Generative AI for email copy (Intuit Assist), predictive segmentation, click maps  | Mailchimp (Standard+)   |
+| SMS marketing alongside email                                                      | Mailchimp               |
+| 24/7 chat support and a formal learning platform                                   | Mailchimp               |
+| A small contact list with a few sends per month and need for non-email channels    | Mailchimp Essentials    |
+| High send volume relative to list size (transactional SaaS, frequent newsletters)  | BlueFox Email           |
+| Per-send pricing without contact-count surprises                                   | BlueFox Email           |
+| API-driven workflows, Handlebars personalization, custom contact attributes        | BlueFox Email           |
+| Bring-your-own AWS SES with STS Role ARN                                           | BlueFox Email           |
+| Live RSS/JSON content inside emails (data feeds)                                   | BlueFox Email           |
+| Suppression-list visibility and bounce/complaint thresholds in-product             | BlueFox Email           |
+| Pause-instead-of-unsubscribe to reduce churn                                       | BlueFox Email           |
+| All features available on the free tier                                            | BlueFox Email           |
 
 Both platforms can send email well. The decision usually comes down to whether you want a broad marketing suite (Mailchimp) or a focused, per-send-priced email platform (BlueFox Email), and what your contact-to-send ratio looks like.
 
