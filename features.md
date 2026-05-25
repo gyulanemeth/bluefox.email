@@ -12,7 +12,7 @@ head:
       content: "BlueFox Email Features: Everything Included on Every Plan"
   - - meta
     - property: og:description
-      content: 21 features across email sending, contacts, automations, design, analytics, API, and integrations. Every feature on every send pack.
+      content: Complete feature set for BlueFox Email. Transactional emails, campaigns, automations, segments, email themes, analytics, API, webhooks, and more. All features on every plan.
   - - meta
     - property: og:url
       content: https://bluefox.email/features
