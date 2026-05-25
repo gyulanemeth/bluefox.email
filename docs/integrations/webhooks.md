@@ -1,6 +1,15 @@
 ---
 title: Webhooks | bluefox.email documentation
 description: Learn how to configure and use webhooks with bluefox.email. Get real-time notifications about email events such as opens, clicks, bounces, and more.
+faqs:
+  - question: "What email events can BlueFox Email webhooks track?"
+    answer: "Webhooks can track sent, failed, open, click, bounce, complaint, and subscription events. Subscription events cover subscribe, unsubscribe, pause, and resubscribe actions. You choose which events to monitor when setting up the webhook in project settings."
+  - question: "How do I verify that a webhook request came from BlueFox Email?"
+    answer: "BlueFox Email sends an API key in the Authorization header as a Bearer token. In your endpoint, extract the key from the header and compare it to the API key you configured in your project settings. Only process the request if the keys match."
+  - question: "What does a webhook payload contain?"
+    answer: "Each payload includes the event type, account and project metadata, a timestamp, and email data with the recipient address, email type (transactional, triggered, or campaign), and subject line. Click and subscription events include additional fields specific to those event types."
+  - question: "How do I rotate my API key without losing webhook events?"
+    answer: "Configure your endpoint to accept a list of valid API keys rather than a single one. Check the incoming key against all keys in the list. This lets you add the new key and remove the old one without any downtime or missed events during the transition."
 head:
   - - meta
     - name: description

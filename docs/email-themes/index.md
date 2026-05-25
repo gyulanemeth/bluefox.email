@@ -1,6 +1,15 @@
 ---
 title: Email Themes | bluefox.email documentation
 description: Discover how the BlueFox Email's themes help you build consistent, reusable email theme components with email theme parameters, components, blocks, and templates. Ensure uniformity across projects while enabling customization at the project level.
+faqs:
+  - question: "What is an email theme in BlueFox Email?"
+    answer: "An email theme is a reusable design framework that defines the visual style and structure of your emails through four layers: basics (design tokens like colors and fonts), components (reusable UI elements like buttons), blocks (reusable content sections like headers and footers), and templates (complete email layouts). Every project must be linked to one email theme."
+  - question: "Can one email theme be shared across multiple projects?"
+    answer: "Yes. A single email theme can be linked to multiple projects. Each project inherits all the theme's basics, components, blocks, and templates, and can override individual basics and components at the project level without affecting the shared theme or other projects."
+  - question: "Can I change the email theme linked to a project after creating it?"
+    answer: "No. Once a project is associated with an email theme, you cannot change that association. Choose the right theme carefully when creating a project."
+  - question: "How do I override a theme setting for just one project without changing it for everyone?"
+    answer: "Navigate to your project settings and override the specific basics or components you want to customize. For example, you can set a different primary color or replace the logo just for that project. These changes only affect that project and leave the shared theme unchanged for all other projects."
 head:
   - - meta
     - name: description
@@ -16,7 +25,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/docs/projects
+      content: https://bluefox.email/docs/email-themes
   - - meta
     - property: og:type
       content: website

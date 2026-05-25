@@ -1,6 +1,17 @@
 ---
 title: Subscriber List Management | bluefox.email documentation
 description: Learn how to manage subscribers using the bluefox.email API. This guide covers subscribing, unsubscribing, pausing, activating, and listing subscribers.
+faqs:
+  - question: "How do I subscribe a contact to a list via the API?"
+    answer: "Send a POST request to https://api.bluefox.email/v1/subscriber-lists/YOUR_SUBSCRIBER_LIST_ID with a JSON body containing at minimum the email field. Optionally include name and any custom contact property values in a data object."
+  - question: "How do I unsubscribe, pause, or reactivate a subscriber via the API?"
+    answer: "Send a PATCH request to https://api.bluefox.email/v1/subscriber-lists/YOUR_SUBSCRIBER_LIST_ID/SUBSCRIBER_EMAIL with a JSON body setting status to unsubscribed, paused (with a pausedUntil ISO date string), or active. The same endpoint handles all status transitions."
+  - question: "Can I bypass double opt-in when subscribing someone via the API?"
+    answer: "Yes. If double opt-in is enabled on the list, you can bypass it by setting the contact status to active directly in the subscribe API request. This adds the contact as confirmed without sending a verification email."
+  - question: "What happens if I try to subscribe an email address that has bounced?"
+    answer: "The API returns a 405 METHOD_NOT_ALLOWED error with the message that the email has been flagged due to bouncing. Bounced addresses are blocked from being subscribed to protect your sender reputation. Contact support if the address is valid and was incorrectly flagged."
+  - question: "How do I pass custom contact property values when subscribing?"
+    answer: "Include a data object in the request body with keys matching the API names of your custom contact properties as defined in project settings. For example: {\"email\": \"jon@doe.com\", \"data\": {\"plan\": \"pro\", \"signedUpAt\": \"2025-01-01\"}}."
 head:
   - - meta
     - name: description

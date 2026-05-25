@@ -1,6 +1,15 @@
 ---
 title: Email Theme Blocks | bluefox.email documentation
 description: Discover how blocks in the BlueFox Email's themes allow you to create reusable email theme components. Organize and customize blocks within categories to streamline template building while maintaining consistency across projects.
+faqs:
+  - question: "What is a block in a BlueFox Email theme?"
+    answer: "A block is a reusable section of an email, such as a header, footer, promotional banner, or call-to-action area. Blocks are organized into categories and can be dragged into templates to build complete email layouts without starting from scratch each time."
+  - question: "How are blocks organized inside an email theme?"
+    answer: "Blocks are grouped into block categories that you create and name based on their purpose. Categories appear alphabetically in the email editor, making it easy to find the right block when assembling a template."
+  - question: "Can I reuse the same block in multiple templates?"
+    answer: "Yes. That is the primary purpose of blocks. Once a block is created in the theme, it can be inserted into any template within that theme or in any project linked to that theme."
+  - question: "How do I create a new block?"
+    answer: "Click Create inside a block category and choose From Scratch to design it in the drag-and-drop editor, or choose Copy and Paste to duplicate an existing block and then modify it. Give the block a name, build it using available elements, and save it to the category."
 head:
   - - meta
     - name: description
@@ -16,7 +25,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/docs/projects
+      content: https://bluefox.email/docs/email-themes/blocks
   - - meta
     - property: og:type
       content: website
