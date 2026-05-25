@@ -103,7 +103,7 @@ const categories = [
       {
         name: 'Visual Email Builder',
         desc: 'Drag-and-drop editor with text, image, button, divider, dynamic image, conditional, and loop elements.',
-        docs: '/docs/email-builder',
+        docs: '/docs/projects/email-builder',
         iconPaths: `<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>`
       },
       {
