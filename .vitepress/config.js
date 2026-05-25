@@ -204,6 +204,10 @@ export default defineConfig({
                   link: "/docs/projects/new-project",
                 },
                 {
+                  text: "Visual Email Builder",
+                  link: "/docs/projects/email-builder",
+                },
+                {
                   text: "Delivery Modes",
                   link: "/docs/projects/delivery-modes",
                 },

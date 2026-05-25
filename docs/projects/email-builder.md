@@ -16,7 +16,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/docs/email-builder
+      content: https://bluefox.email/docs/projects/email-builder
   - - meta
     - property: og:type
       content: website
