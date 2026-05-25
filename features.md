@@ -16,6 +16,24 @@ head:
   - - meta
     - property: og:url
       content: https://bluefox.email/features
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/feature-cards/bluefoxemailfeatures.png
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: "BlueFox Email Features: Everything Included on Every Plan"
+  - - meta
+    - name: twitter:description
+      content: Complete feature set for BlueFox Email. All features included on every plan, no tiers, no paywalls, no hidden upgrades.
+  - - meta
+    - name: twitter:image
+      content: https://bluefox.email/assets/feature-cards/bluefoxemailfeatures.png
 faqs:
   - question: "Does BlueFox Email include all features on every plan?"
     answer: "Yes. Every feature is included on every send pack with no tiers or paywalls. Transactional emails, campaigns, automations, segments, email themes, API, webhooks, and more are all available from day one."
