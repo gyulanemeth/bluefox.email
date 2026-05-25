@@ -1,6 +1,15 @@
 ---
 title: Suppression Lists | bluefox.email documentation
 description: Learn how to manage suppression lists in bluefox.email to maintain email deliverability, prevent sending to problematic addresses, and comply with email best practices.
+faqs:
+  - question: "What is a suppression list in BlueFox Email?"
+    answer: "A suppression list is a set of email addresses that are permanently blocked from receiving emails from a project. Addresses on the suppression list will not receive emails regardless of their subscription status. This protects your sender reputation by preventing sends to invalid or problematic addresses."
+  - question: "What types of addresses should I add to the suppression list?"
+    answer: "Add hard bounced addresses (invalid or non-existent addresses that permanently reject email), known spam trap addresses, and any address that has previously complained about your emails. Preventing sends to these addresses keeps your bounce and complaint rates low."
+  - question: "Can I import a suppression list from another email platform?"
+    answer: "Yes. You can import suppression data by uploading a CSV file. The file must have an email column containing the addresses to suppress, and you can optionally include a reason column for documentation. This makes it straightforward to migrate suppression data when switching from another email service."
+  - question: "Does removing an address from the suppression list resubscribe them?"
+    answer: "No. Removing an address from the suppression list only lifts the suppression block. It does not change the contact's subscription status on any subscriber list. The contact must actively subscribe or be added back to a list separately."
 head:
   - - meta
     - name: description

@@ -1,6 +1,17 @@
 ---
 title: Delivery Modes | bluefox.email documentation
 description: Learn about delivery modes in bluefox.email. Start sending emails instantly in sandbox mode without AWS setup, verify your domain for expanded testing, and scale to unrestricted production delivery.
+faqs:
+  - question: "What delivery modes are available in BlueFox Email?"
+    answer: "Every project supports three delivery modes: Sandbox (for testing, sends to verified addresses only), Production (for unrestricted sending to any address, requires domain verification and production access approval), and BYO SES (use your own Amazon SES account for sending, active immediately with no restrictions)."
+  - question: "What are the limitations of Sandbox mode?"
+    answer: "In Sandbox mode you can only send to up to 5 verified email addresses or domains, emails are sent from a shared no-reply address, you are limited to 100 emails per day, and throughput is capped at 1 email per second. Sandbox mode is intended for testing and development only."
+  - question: "How do I switch a project to Production mode?"
+    answer: "You need to first verify your sending domain in the project delivery mode settings, then request production access. You will be asked a few questions about your sending practices. Once approved, the project badge updates to reflect production status and all sending restrictions are lifted."
+  - question: "What bounce and complaint rate limits must I maintain in Production mode?"
+    answer: "To maintain production access, keep your bounce rate below 2.5% and your complaint rate below 0.05%. BlueFox Email monitors these rates continuously and will notify you before you approach the thresholds. Exceeding these limits may result in project suspension."
+  - question: "What is the BYO SES option and who should use it?"
+    answer: "BYO SES lets you send emails through your own Amazon SES account. BlueFox Email handles templates, contacts, automations, and sending logic while AWS handles the actual delivery. This is ideal for teams that already have an established AWS SES setup, want full control over their sending reputation, or need lower per-send costs at high volumes."
 head:
   - - meta
     - name: description

@@ -1,6 +1,17 @@
 ---
 title: Visual Email Builder | bluefox.email documentation
 description: Learn how to use the visual drag-and-drop email builder in bluefox.email. Build responsive emails with text, images, buttons, dynamic content, advanced elements, and full mobile control.
+faqs:
+  - question: "Do I need to write HTML to build emails in BlueFox Email?"
+    answer: "No. The visual email builder is a fully drag-and-drop editor. You can build responsive, branded emails with text, images, buttons, dynamic content, and advanced elements without writing any HTML. A Custom Code element is available if you ever need to insert raw HTML for specific content."
+  - question: "Does the email builder support mobile-responsive layouts?"
+    answer: "Yes. The editor provides granular mobile controls including show or hide per device, column stacking behavior, fluid-width elements, column reordering on mobile, and a 4-column to 2x2 reflow option. A dark mode preview is also included to check rendering in Apple Mail, iOS Mail, and Outlook on macOS."
+  - question: "What are blocks in the email builder?"
+    answer: "Blocks are reusable full-width sections such as headers, footers, hero sections, and CTA rows that you save once and drop into any template. You can lock a block so only admins can edit it, which is useful for protecting footers with legal text or brand-critical header designs."
+  - question: "Can I personalize emails with dynamic content in the builder?"
+    answer: "Yes. The editor supports merge tags via Handlebars for text, buttons, image alt text, and link URLs. Dynamic Image elements let you set a per-recipient image src using a merge tag. Loop and Conditional elements let you repeat or conditionally show content sections based on contact data or API request data."
+  - question: "What is the difference between a Dynamic Image and a regular Image element?"
+    answer: "A regular Image element requires a static URL set at design time. A Dynamic Image element is a placeholder whose src is replaced at send time by a merge tag, allowing each recipient to see a different image such as their profile picture or a personalized product image."
 head:
   - - meta
     - name: description

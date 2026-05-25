@@ -1,6 +1,15 @@
 ---
 title: Contacts | bluefox.email documentation
 description: Learn how to manage contacts in bluefox.email. Create public and private lists, track subscriber activity, and optimize engagement with detailed statistics.
+faqs:
+  - question: "What is the difference between a contact and a subscriber in BlueFox Email?"
+    answer: "A contact is an individual stored in your project with an email address and any custom properties you define. A subscriber is that contact's relationship to a specific subscriber list. One contact can be subscribed to multiple lists, and contact data such as email address is shared across all list subscriptions automatically."
+  - question: "What is the difference between a public and a private subscriber list?"
+    answer: "Public lists appear on the subscription preferences page, allowing subscribers to manage their own subscriptions. Private lists are hidden from that page and are ideal for internal use, testing, or exclusive communications. Subscribers can see a private list only if they are already subscribed to it."
+  - question: "Can one contact be subscribed to multiple lists?"
+    answer: "Yes. A contact can subscribe to as many lists as you create. Updates to the contact record such as a name or email change automatically apply across all lists the contact is subscribed to."
+  - question: "What subscription statuses exist in BlueFox Email?"
+    answer: "A contact's subscription to a list can have one of three statuses: active (currently receiving emails), paused (temporarily not receiving emails but not unsubscribed), and unsubscribed (opted out). Campaigns and triggered emails are only delivered to active subscribers."
 head:
   - - meta
     - name: description

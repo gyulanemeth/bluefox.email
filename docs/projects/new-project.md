@@ -1,6 +1,15 @@
 ---
 title: Creating a New Project | bluefox.email documentation
 description: Learn how to create a new project in bluefox.email, select and customize design systems, and configure settings like AWS credentials and API keys.
+faqs:
+  - question: "Can I change the email theme after creating a project?"
+    answer: "You can switch the email theme of an existing project in project settings, but any overridden theme variables (such as colors or images) will be permanently lost when you switch. Templates and blocks tied to the original theme will not be accessible while on a different theme, but will become available again if you switch back."
+  - question: "What happens automatically when I create a new project?"
+    answer: "When a project is created, it is automatically populated with email templates from the selected email theme so you do not have to start from scratch. The project also starts in Sandbox mode by default, restricting sends to verified email addresses until you request production access."
+  - question: "Do I need to set up AWS before I can send any emails?"
+    answer: "No. New projects start in Sandbox mode using BlueFox Email managed infrastructure. You do not need any AWS setup to test and send your first emails. AWS credentials are only required if you want to use BYO SES or configure production sending with your own domain."
+  - question: "What should I configure after creating a new project?"
+    answer: "After creation, the key setup steps are: configuring your delivery mode, creating an API key if you plan to send transactional or triggered emails via the API, adding your domain to the whitelist if your frontend makes subscription requests, and setting up bounce and complaint webhooks for production deliverability monitoring."
 head:
   - - meta
     - name: description

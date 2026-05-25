@@ -1,6 +1,17 @@
 ---
 title: Campaigns | bluefox.email documentation
 description: Learn how to create and manage campaigns in bluefox.email. Send newsletters, promotions, or announcements with customizable templates and advanced personalization.
+faqs:
+  - question: "What is a campaign in BlueFox Email?"
+    answer: "A campaign is a marketing email sent to a subscriber list, such as a newsletter, promotional email, or announcement. Unlike transactional and triggered emails, campaigns are not sent via API. You create and schedule them directly in the BlueFox Email UI and they are sent to active subscribers on a chosen list."
+  - question: "Can I schedule a campaign to send at a specific time?"
+    answer: "Yes. When your campaign is ready, you can either send it immediately or schedule it for a specific date and time. Scheduled campaigns can be rescheduled or cancelled before they are sent. Once a campaign is actively being sent or the send time is within a few minutes, all editing is locked."
+  - question: "Can I target a specific segment of a subscriber list with a campaign?"
+    answer: "Yes. When creating a campaign, you select a subscriber list and optionally a segment. Only contacts in that segment who are active subscribers on the list will receive the campaign."
+  - question: "What personalization is available in campaigns?"
+    answer: "Campaigns support Handlebars merge tags for subscriber data including contact.email, contact.firstName, and any other custom contact properties you have defined. You can also use the unsubscribeLink and pauseSubscriptionLink merge tags. Merge tags work in both the email body and in the subject line and preview text."
+  - question: "What are data feeds in campaigns?"
+    answer: "Data feeds let you pull live content from an external RSS, Atom XML, or JSON feed directly into your campaign at send time. This is useful for newsletters or digests where the content changes regularly, so your campaign always goes out with the latest data without editing the template manually each time."
 head:
   - - meta
     - name: description

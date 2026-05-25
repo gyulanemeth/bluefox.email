@@ -1,6 +1,15 @@
 ---
 title: Send Test Email | bluefox.email documentation
 description: Learn how to send test emails in bluefox.email. Test your emails with individual contacts or subscriber lists before sending to your entire audience.
+faqs:
+  - question: "Do test emails count as real sends in BlueFox Email?"
+    answer: "No. Test emails are for preview purposes only. They are not counted against your send quota and do not appear in any analytics reports including open rates, click rates, or other statistics."
+  - question: "Can I test an email with real subscriber data and merge tags?"
+    answer: "When sending a test to a subscriber list, the email is sent to real active subscribers on that list and their actual contact data is used to render merge tags. You can only select private subscriber lists for test sends, not public ones."
+  - question: "Does the unsubscribe link work in test emails?"
+    answer: "The unsubscribe link only works when you send a test to a subscriber list. It does not function when you send a test to an individual email address."
+  - question: "Which email types support the send test email feature?"
+    answer: "You can send test emails for campaigns, triggered emails, and transactional emails. The Send Test button is available on the email card for each of these email types."
 head:
   - - meta
     - name: description
