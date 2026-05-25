@@ -133,6 +133,18 @@ function buildCollectionPage(pageData) {
   }
 }
 
+function buildFaqSchema(faqs) {
+  if (!Array.isArray(faqs) || !faqs.length) return null
+  return {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer }
+    }))
+  }
+}
+
 function isEligible(pageData) {
   const { relativePath, frontmatter: fm } = pageData
   if (!isDocsPage(relativePath)) {
@@ -146,12 +158,17 @@ export function addDocsSchema(pageData) {
     return
   }
 
+  const { frontmatter: fm } = pageData
   const primary = isIndexPage(pageData.relativePath)
     ? buildCollectionPage(pageData)
     : buildTechArticle(pageData)
 
+  const graph = [primary, buildBreadcrumbs(pageData)]
+  const faqSchema = buildFaqSchema(fm.faqs)
+  if (faqSchema) graph.push(faqSchema)
+
   appendJsonLd(pageData, {
     '@context': 'https://schema.org',
-    '@graph': [primary, buildBreadcrumbs(pageData)]
+    '@graph': graph
   })
 }

@@ -1,6 +1,15 @@
 ---
 title: Account Dashboard | bluefox.email documentation
 description: Get a comprehensive overview of your email and subscription performance across all your projects with the bluefox.email account dashboard.
+faqs:
+  - question: "What does the bluefox.email account dashboard show?"
+    answer: "The account dashboard shows aggregate metrics across all your projects: total emails sent, total contacts, total bounces, and total complaints. It also shows per-project breakdowns including contacts, sends, cost, bounces, and complaints for each project in your account."
+  - question: "Can I view performance metrics for all my projects in one place?"
+    answer: "Yes. The account dashboard aggregates email performance across every project in your account. You can filter by date range to compare performance over specific periods, and use the Package dropdown to see cost breakdowns by send pack type."
+  - question: "What is the Package filter on the account dashboard?"
+    answer: "The Package dropdown lets you filter projects by their send pack type (such as Essential or Premium) to view the associated sending costs for projects under each package. This helps you understand spend distribution across your client projects."
+  - question: "How do I access more detailed analytics than what the account dashboard shows?"
+    answer: "The account dashboard shows account-level summary metrics. For detailed per-email analytics including open rates, click rates, bounce charts, CSV export, and filterable data tables, navigate to the Analytics section or click through to a specific project's statistics page."
 head:
   - - meta
     - name: description
