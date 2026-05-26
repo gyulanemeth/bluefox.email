@@ -179,7 +179,7 @@ To stay in production, projects must maintain bounce rate below 2.5% and complai
 
 ### SendGrid
 
-SendGrid uses **Handlebars** syntax for Dynamic Templates, supporting variable substitution (`{{firstName}}`), conditionals (`{{#if}}…{{else}}…{{/if}}`), iteration over arrays, and substring helpers. Personalization data is passed at send time via the API's `dynamic_template_data` field for transactional sends, or via Contact custom fields for Marketing Campaigns. Marketing Campaigns supports custom contact fields plus reserved fields like first name, last name, alternate email, address, and city.
+SendGrid uses **Handlebars** syntax for Dynamic Templates, supporting variable substitution (<span v-pre>`{{firstName}}`</span>), conditionals (<span v-pre>`{{#if}}…{{else}}…{{/if}}`</span>), iteration over arrays, and substring helpers. Personalization data is passed at send time via the API's `dynamic_template_data` field for transactional sends, or via Contact custom fields for Marketing Campaigns. Marketing Campaigns supports custom contact fields plus reserved fields like first name, last name, alternate email, address, and city.
 
 **Strengths:** Handlebars syntax familiar to developers, comprehensive helper library (greaterThan, length, formatDate, equals, etc.), dynamic data injection at send time via API, conditional content blocks at every plan level.
 
