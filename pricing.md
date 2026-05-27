@@ -657,6 +657,130 @@ html.dark .pricing-vat-label {
   color: #64748b;
 }
 
+.addons-section {
+  max-width: 1200px;
+  margin: 32px auto;
+  padding: 0 24px;
+}
+
+.addons-section h2 {
+  font-size: clamp(24px, 3.5vw, 32px);
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  border: none;
+  padding: 0;
+  text-align: center;
+}
+
+.addons-subtitle {
+  font-size: 16px;
+  color: #64748b;
+  text-align: center;
+  margin: 0 0 24px 0;
+}
+
+html.dark .addons-subtitle {
+  color: #94a3b8;
+}
+
+.addons-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.addon-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 28px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+html.dark .addon-card {
+  background: rgb(27, 27, 31);
+  border-color: #334155;
+}
+
+.addon-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+html.dark .addon-card:hover {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.addon-card h3 {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  margin: 0 0 8px 0 !important;
+  border: none !important;
+  padding: 0 !important;
+}
+
+.addon-card-desc {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+html.dark .addon-card-desc {
+  color: #94a3b8;
+}
+
+.addon-card-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.addon-card-amount {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.addon-card-period {
+  font-size: 14px;
+  color: #64748b;
+}
+
+html.dark .addon-card-period {
+  color: #94a3b8;
+}
+
+.addon-card-cta {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  text-align: center;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  text-decoration: none !important;
+  background: transparent;
+  color: var(--vp-c-brand) !important;
+  border: 2px solid var(--vp-c-brand);
+  align-self: center;
+}
+
+.addon-card-cta:hover {
+  background: rgba(19, 176, 238, 0.05);
+}
+
 
 /* === Responsive Styles === */
 @media (max-width: 768px) {
@@ -868,6 +992,24 @@ html.dark .pricing-vat-label {
   </div>
 </section>
 
+<section class="addons-section">
+  <h2>Optional add-ons</h2>
+  <p class="addons-subtitle">Boost deliverability and sender reputation with a dedicated sending IP.</p>
+  <div class="addons-grid">
+    <div class="addon-card">
+      <h3>Dedicated IP</h3>
+      <p class="addon-card-desc">A sending IP reserved just for your workspace. Full control over your sender reputation, ideal for high-volume senders.</p>
+      <div class="addon-card-price">
+        <span class="addon-card-amount">$50<span class="pricing-vat-label">+VAT</span></span>
+        <span class="addon-card-period">/ month</span>
+      </div>
+      <a href="mailto:hello@bluefox.email?subject=Dedicated%20IP%20request" class="addon-card-cta">
+        Request dedicated IP
+      </a>
+    </div>
+  </div>
+</section>
+
 <section class="calculator-section">
   <div class="calculator-header">
     <div class="calculator-title">
@@ -919,6 +1061,11 @@ html.dark .pricing-vat-label {
     <h3>Can I use my own SMTP?</h3>
     <p>Yes! BlueFox Email connects directly to <strong>Amazon SES</strong> using <strong>secure STS credentials</strong>. You simply link your SES account, and everything just works.</p>
     <p style="margin-top: 12px;">Want to bring your own SES and get better email prices? <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a></p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Do you offer a dedicated IP?</h3>
+    <p>Yes. A <strong>dedicated sending IP is available for $50/month</strong> as an add-on. It gives you full control over your sender reputation and is recommended for high-volume senders. <a href="mailto:hello@bluefox.email?subject=Dedicated%20IP%20request">Contact us</a> to set one up.</p>
   </div>
 
 </section>
