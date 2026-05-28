@@ -86,7 +86,7 @@ Successful bulk email sending requires adherence to several industry best practi
 
 ## Challenges and Solutions in Bulk Email Sending
 
-Bulk email sending faces both [deliverability](/email-sending-concepts/deliverability.md) and technical challenges that require strategic solutions. Deliverability issues include **ISP rate limiting**(solved through throttling), **heightened spam filtering** (addressed with quality content and proper authentication), and **reputation management** (mitigated via IP warming processes). **Technical challenges** involve scaling infrastructure (resolved using services like Amazon SES), handling bounces and complaints (managed with Amazon SNS feedback loops), and processing campaign analytics (simplified through specialized reporting platforms).
+Bulk email sending faces both [deliverability](/email-sending-concepts/deliverability) and technical challenges that require strategic solutions. Deliverability issues include **ISP rate limiting**(solved through throttling), **heightened spam filtering** (addressed with quality content and proper authentication), and **reputation management** (mitigated via IP warming processes). **Technical challenges** involve scaling infrastructure (resolved using services like Amazon SES), handling bounces and complaints (managed with Amazon SNS feedback loops), and processing campaign analytics (simplified through specialized reporting platforms).
 
 ## Regulatory Considerations
 

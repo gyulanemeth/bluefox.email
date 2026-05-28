@@ -43,12 +43,12 @@ head:
 
 # Free Email Deliverability Tools
 
-Boost your email deliverability with our comprehensive collection of **free [email authentication](/email-sending-concepts/email-authentication.md) tools**. These professional-grade utilities help you validate, analyze, and optimize your email infrastructure for maximum inbox placement and security.
+Boost your email deliverability with our comprehensive collection of **free [email authentication](/email-sending-concepts/email-authentication) tools**. These professional-grade utilities help you validate, analyze, and optimize your email infrastructure for maximum inbox placement and security.
 
 ### DMARC Checker
 **Validate your DMARC policy and prevent email spoofing**. Check if your domain has proper [DMARC](/email-sending-concepts/dmarc) records configured and analyze policy effectiveness for email authentication. Our DMARC checker helps ensure your domain is protected against phishing attacks and improves email deliverability.
 
-[Read More →](/tools/deliverability/dmarc-checker.md)
+[Read More →](/tools/deliverability/dmarc-checker)
 
 
 ### SPF Checker  
@@ -72,5 +72,5 @@ Boost your email deliverability with our comprehensive collection of **free [ema
 ### DMARC Report Analyzer
 **Analyze DMARC aggregate reports for security insights**. Upload and parse your DMARC reports to gain visibility into email authentication performance, identify unauthorized usage, and optimize your email security posture.
 
-[Read More →](/tools/deliverability/dmarc-report-analyzer.md)
+[Read More →](/tools/deliverability/dmarc-report-analyzer)
 

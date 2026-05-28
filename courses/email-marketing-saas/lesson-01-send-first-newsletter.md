@@ -1,4 +1,5 @@
 ---
+noindex: true
 outline: [2,3]
 ---
 

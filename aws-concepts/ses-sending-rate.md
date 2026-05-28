@@ -121,10 +121,10 @@ No. The rate limit applies across your entire SES account, regardless of how man
 
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
 - [Amazon SES Sending Quotas](/aws-concepts/ses-sending-quota)
-- [AWS Sandbox](/aws-concepts/ses-sandbox.md)
-- [Bounces](/email-sending-concepts/bounces.md)
-- [Complaints](/email-sending-concepts/complaints.md)
-- [Email Authentication](/email-sending-concepts/email-authentication.md)
-- [SMTP](/email-sending-concepts/smtp.md)
+- [AWS Sandbox](/aws-concepts/ses-sandbox)
+- [Bounces](/email-sending-concepts/bounces)
+- [Complaints](/email-sending-concepts/complaints)
+- [Email Authentication](/email-sending-concepts/email-authentication)
+- [SMTP](/email-sending-concepts/smtp)
 
 <GlossaryCTA />

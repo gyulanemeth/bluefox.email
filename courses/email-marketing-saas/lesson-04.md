@@ -1,3 +1,6 @@
+---
+noindex: true
+---
 # Segmentation
 
 What is segmentation, why it matters.

@@ -47,4 +47,4 @@ head:
 
 Ensure every link in your emails works perfectly. Test all URLs in your HTML email templates to catch broken links, validate redirects, and preview your content before sending to subscribers.
 
-[Read More →](/tools/content/link-checker.md)
+[Read More →](/tools/content/link-checker)
