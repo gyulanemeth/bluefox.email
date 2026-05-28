@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: Meet the Team | BlueFox Email
 description: The small, focused team behind BlueFox Email — building the email platform that agencies actually deserve.
 sidebar: false

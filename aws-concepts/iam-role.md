@@ -62,7 +62,7 @@ head:
 
 # AWS IAM Role
 
-An **AWS IAM Role** is an identity that defines [permissions](/aws-concepts/iam-permissions.md) for AWS services or users to access resources without using permanent credentials. Roles provide temporary security credentials that expire automatically.
+An **AWS IAM Role** is an identity that defines [permissions](/aws-concepts/iam-permissions) for AWS services or users to access resources without using permanent credentials. Roles provide temporary security credentials that expire automatically.
 
 ## What is an AWS IAM Role?
 

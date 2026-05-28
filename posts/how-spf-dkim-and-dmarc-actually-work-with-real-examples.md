@@ -42,9 +42,9 @@ sidebar: false
 
 # How SPF, DKIM, and DMARC Actually Work (With Real Examples)
 
-[Email authentication](/email-sending-concepts/email-authentication.md) is essential if you don't want any random person sending emails in your name. In other words, to prevent [email spoofing](/email-sending-concepts/email-spoofing.md), it's strongly advised to set up [DKIM](/email-sending-concepts/dkim.md), [SPF](/email-sending-concepts/spf.md), and [DMARC](/email-sending-concepts/dmarc.md).
+[Email authentication](/email-sending-concepts/email-authentication) is essential if you don't want any random person sending emails in your name. In other words, to prevent [email spoofing](/email-sending-concepts/email-spoofing), it's strongly advised to set up [DKIM](/email-sending-concepts/dkim), [SPF](/email-sending-concepts/spf), and [DMARC](/email-sending-concepts/dmarc).
 
-In this article, we'll go through how these email authentication methods work, using real-life examples and digging into [email headers](/email-sending-concepts/email-headers.md). The goal is to build a solid understanding of how these methods actually work, and how you can investigate if something's off.
+In this article, we'll go through how these email authentication methods work, using real-life examples and digging into [email headers](/email-sending-concepts/email-headers). The goal is to build a solid understanding of how these methods actually work, and how you can investigate if something's off.
 
 :::tip TLDR
 
@@ -61,7 +61,7 @@ In this article, we'll go through how these email authentication methods work, u
 This guide is for developers, marketers, or product folks who want to understand how email authentication really works. It is not just how to "turn it on." If you're setting up AWS SES, debugging deliverability issues, or just curious about what's in your email headers, you're in the right place.
 
 
-We'll use `dig` to inspect [DNS](/email-sending-concepts/dns.md) records, highlight real [email headers](/email-sending-concepts/email-headers.md), and explain each protocol with examples from BlueFox Email.
+We'll use `dig` to inspect [DNS](/email-sending-concepts/dns) records, highlight real [email headers](/email-sending-concepts/email-headers), and explain each protocol with examples from BlueFox Email.
 
 :::
 
@@ -77,17 +77,17 @@ This is how emails look under the hood. It not only contains the text and HTML v
 
 `From`, `To`, `Subject`, and `Reply-To` are email headers that most people are familiar with, and their meanings are straightforward.
 
-When it comes to email authentication, the most important headers are the following: `DKIM-Signature` and [Return-Path](/email-sending-concepts/return-path.md).
+When it comes to email authentication, the most important headers are the following: `DKIM-Signature` and [Return-Path](/email-sending-concepts/return-path).
 
 ## SMTP (Simple Mail Transfer Protocol)
 
-Before going into the details of email authentication, let's quickly recap how [SMTP](/email-sending-concepts/smtp.md) works. SMTP is the standard protocol for sending emails through the internet. It handles sending an email from the client to the server, and server-to-server communication. For receiving email, modern systems use [IMAP](/email-sending-concepts/imap.md), while older ones use [POP3](/email-sending-concepts/pop3.md). IMAP synchronizes your emails across your devices, POP3 downloads the email and deletes it from the server.
+Before going into the details of email authentication, let's quickly recap how [SMTP](/email-sending-concepts/smtp) works. SMTP is the standard protocol for sending emails through the internet. It handles sending an email from the client to the server, and server-to-server communication. For receiving email, modern systems use [IMAP](/email-sending-concepts/imap), while older ones use [POP3](/email-sending-concepts/pop3). IMAP synchronizes your emails across your devices, POP3 downloads the email and deletes it from the server.
 
 So, here are the brief steps:
 
 * You write an email in your email client
 * It connects to an SMTP server that will send the email
-* The SMTP server looks up the [MX record](/email-sending-concepts/mx-record.md) (Mail Exchange record) of the domain
+* The SMTP server looks up the [MX record](/email-sending-concepts/mx-record) (Mail Exchange record) of the domain
 * The SMTP sender server connects to the SMTP receiver server and opens an SMTP session. It sends the message, and if everything is accepted, the message is delivered.
 * The email is stored and can be downloaded (via IMAP or POP3)
 
@@ -132,7 +132,7 @@ smtp.google.com.	219	IN	AAAA	2a00:1450:4025:401::1a
 As you can see, we use `smtp.google.com`, because we use Google Workspace.
 
 :::tip Looking up DNS records
-SPF, DKIM, and DMARC are also based on [DNS](/email-sending-concepts/dns.md) records. As we saw with the MX record, the `dig` command will be useful to look up those entries as well! The only difference is that we'll be looking up [TXT record](/email-sending-concepts/txt-record.md)s instead of MX records.
+SPF, DKIM, and DMARC are also based on [DNS](/email-sending-concepts/dns) records. As we saw with the MX record, the `dig` command will be useful to look up those entries as well! The only difference is that we'll be looking up [TXT record](/email-sending-concepts/txt-record)s instead of MX records.
 :::
 
 
@@ -251,7 +251,7 @@ pdfkmy3oobqoppvprayririsr5i5iljb.dkim.amazonses.com. 1800 IN TXT "p=MIIBIjANBgkq
 ;; MSG SIZE  rcvd: 559
 ```
 
-As you can see, it's actually a [CNAME record](/email-sending-concepts/cname-record.md) pointing to a `TXT` record. This is how Amazon SES manages public/private DKIM key pairs.
+As you can see, it's actually a [CNAME record](/email-sending-concepts/cname-record) pointing to a `TXT` record. This is how Amazon SES manages public/private DKIM key pairs.
 
 In the `DKIM-Signature`, important parameters include:
 
@@ -271,7 +271,7 @@ You may also notice an additional `DKIM-Signature` in the email headers. In this
 
 ## DMARC (Domain-based Message Authentication, Reporting and Conformance)
 
-DMARC is a protocol that builds on SPF and DKIM. It helps domain owners decide what should happen when an email fails authentication (e.g., mark it as spam or reject it). This is how you protect your domain from [email spoofing](/email-sending-concepts/email-spoofing.md) or phishing.
+DMARC is a protocol that builds on SPF and DKIM. It helps domain owners decide what should happen when an email fails authentication (e.g., mark it as spam or reject it). This is how you protect your domain from [email spoofing](/email-sending-concepts/email-spoofing) or phishing.
 
 DMARC passes if:
 

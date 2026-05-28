@@ -57,12 +57,26 @@ headConf.push([
 ])
 
 //   https://vitepress.dev/reference/site-config
+const noindexSitemapUrls = new Set()
+
+function sitemapUrlForPath(relativePath) {
+  if (!relativePath || relativePath === 'index.md') {
+    return ''
+  }
+  return relativePath
+    .replace(/\/index\.md$/, '/')
+    .replace(/\.md$/, '')
+}
+
 export default defineConfig({
   cleanUrls: true,
   title: "BlueFox Email",
   description: "High deliverability & brand consistency.",
   head: headConf,
   transformPageData(pageData) {
+    if (pageData.frontmatter?.noindex === true) {
+      noindexSitemapUrls.add(sitemapUrlForPath(pageData.relativePath))
+    }
     addSeoHead(pageData)
     addOrganizationSchema(pageData)
     addPostsSchema(pageData)
@@ -490,6 +504,7 @@ export default defineConfig({
   },
   sitemap: {
     hostname: "https://bluefox.email", // Removed trailing space
+    transformItems: (items) => items.filter((item) => !noindexSitemapUrls.has(item.url)),
   },
   markdown: {
     config(md) {

@@ -70,7 +70,7 @@ An email bounce occurs when a recipient's mail server rejects a message and retu
 
 ## Types of Bounces
 
-Email bounces fall into two main categories: **[hard bounces](/email-sending-concepts/hard-bounce.md)** and **[soft bounces](/email-sending-concepts/soft-bounce.md)**. Each type signals different underlying issues and requires different approaches.
+Email bounces fall into two main categories: **[hard bounces](/email-sending-concepts/hard-bounce)** and **[soft bounces](/email-sending-concepts/soft-bounce)**. Each type signals different underlying issues and requires different approaches.
 
 | Characteristic      | Hard Bounces                                                                    | Soft Bounces                                                              |
 | ------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------- |

@@ -70,7 +70,7 @@ head:
 
 A verified identity in Amazon SES is either a **domain** or an **email address** that you have demonstrated ownership of through an AWS verification process. According to [AWS documentation](https://docs.aws.amazon.com/ses/latest/dg/verify-addresses-and-domains.html), this verification process is a **critical security measure** that prevents unauthorized users from sending emails using your domain or addresses.
 
-Unlike traditional email services where you simply register an account with a username and password, [SES](/aws-concepts/ses.md) requires this additional verification step to ensure that only legitimate owners can send emails from specific addresses or domains. This helps **protect both senders and recipients** from potential email spoofing and phishing attacks.
+Unlike traditional email services where you simply register an account with a username and password, [SES](/aws-concepts/ses) requires this additional verification step to ensure that only legitimate owners can send emails from specific addresses or domains. This helps **protect both senders and recipients** from potential email spoofing and phishing attacks.
 
 ## Types of Verified Identities
 
@@ -91,7 +91,7 @@ AWS SES assigns each verified identity a status indicator that reflects its veri
 - **Failed:** Verification was unsuccessful, often due to issues like incorrect DNS configuration.
 - **Temporary Failure:** There are temporary issues that may resolve automatically without user intervention.
 
-The identity management system provides comprehensive tools to oversee your sending capabilities. You can track verification status across all identities, configure sending authorization for third-party AWS accounts, set up notifications for [bounces](/email-sending-concepts/bounces.md), [complaints](/email-sending-concepts/complaints.md), and delivery events, and implement [sending policies](/aws-concepts/sns-delivery-policy.md) that determine which services can use your verified identities.
+The identity management system provides comprehensive tools to oversee your sending capabilities. You can track verification status across all identities, configure sending authorization for third-party AWS accounts, set up notifications for [bounces](/email-sending-concepts/bounces), [complaints](/email-sending-concepts/complaints), and delivery events, and implement [sending policies](/aws-concepts/sns-delivery-policy) that determine which services can use your verified identities.
 
 
 ## Verified Identities in Sandbox Mode

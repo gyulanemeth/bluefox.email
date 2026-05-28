@@ -144,7 +144,7 @@ For example, SparksPro Cleaning could let subscribers choose between "Weekly Cle
 
 Once your form is ready, you can embed it on your website by just copying the provided HTML code snippet and pasting it into your site's code. This allows you to collect contacts directly from your website without needing any third-party tools.
 
-For detailed setup instructions, check out our [Forms & Pages documentation](/docs/projects/forms-and-pages.md).
+For detailed setup instructions, check out our [Forms & Pages documentation](/docs/projects/forms-and-pages).
 
 
 ## Step 2: Setting Up Domain Whitelisting
@@ -349,7 +349,7 @@ BlueFox Email provides comprehensive API documentation for:
 - Handling unsubscribes
 - Custom field synchronization
 
-Check out our [Contacts Management API](/docs/api/contacts-management.md), [List Management API](/docs/api/subscriber-list-management.md), and [Webhooks](/docs/integrations/webhooks.md) documentation for detailed technical guides. We avoid duplicating technical API documentation here, use those resources for implementation details.
+Check out our [Contacts Management API](/docs/api/contacts-management), [List Management API](/docs/api/subscriber-list-management), and [Webhooks](/docs/integrations/webhooks) documentation for detailed technical guides. We avoid duplicating technical API documentation here, use those resources for implementation details.
 
 Keep in mind that synchronization can go both ways, for example, when someone unsubscribes in BlueFox Email, you may want your CRM or application to be aware of that change so their preferences stay consistent across systems. You can also build custom workflows, like subscription preference pages with your own branding or custom redirect behavior after form submission. All of this is possible with the API, but its out of scope for this article, so refer to the API documentation for implementation details.
 

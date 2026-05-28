@@ -67,7 +67,7 @@ Users can also manage the project name in this section or delete the project ent
 
 Delivery modes determine how emails are sent from your project. So the default for every new project is **sandbox mode**. In this mode, you can start sending emails immediately but with some limitations. When you're ready for unrestricted sending, you can request to move your project to **production mode**. If you prefer to bring your own AWS SES account, you can do that too. 
 
-For more details, see our [Delivery Modes documentation](/docs/projects/delivery-modes.md).
+For more details, see our [Delivery Modes documentation](/docs/projects/delivery-modes).
 
 ![A screenshot of a project settings delivery modes section.](./project-settings-delivery-modes.webp)
 
