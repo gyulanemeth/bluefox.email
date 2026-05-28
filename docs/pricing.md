@@ -1,6 +1,21 @@
 ---
 title: Pricing | bluefox.email documentation
 description: Discover simple, flexible, and transparent pricing with bluefox.email. Purchase send packs that last a full year and send emails on your schedule.
+faqs:
+  - question: "Is there a free plan for bluefox.email?"
+    answer: "Yes. Every new workspace starts with free sends — 3,000 sends on standard pricing or 6,000 sends with BYO SES — with no credit card required. All features are fully accessible from day one."
+  - question: "Do bluefox.email send packs expire?"
+    answer: "Yes. Send packs are valid for 12 months from the date of purchase. You can purchase multiple packs at any time and they stack — your balance accumulates and older sends are always used first so the newest ones last the longest."
+  - question: "What is the difference between Standard pricing and BYO SES pricing?"
+    answer: "With Standard pricing, BlueFox Email manages all sending infrastructure and you pay one flat rate per send with no AWS account needed. With BYO SES, you connect your own Amazon SES account and pay AWS directly for sending ($0.10 per 1,000 emails) plus a smaller BlueFox platform fee. BYO SES gives you more sends per dollar at high volumes and keeps your sending reputation inside your own AWS account."
+  - question: "Does the price change based on email type — transactional vs campaign?"
+    answer: "No. Every email — whether transactional, triggered, or campaign — counts as one send and costs the same. There are no separate pricing tiers for different email types."
+  - question: "Can I stack multiple send packs?"
+    answer: "Yes. You can purchase multiple packs at any time and your send balance accumulates with no cap. There is no limit to how many packs you can hold simultaneously."
+  - question: "Are all features included in every send pack?"
+    answer: "Yes. All features — automations, segments, analytics, visual email builder, API, webhooks, Zapier integration, and more — are included in every pack with no tiers, no paywalls, and no feature upgrades required."
+  - question: "How does BYO SES pricing work in practice?"
+    answer: "With BYO SES, you pay BlueFox Email a platform fee (Essential: $50 for 100,000 sends; Premium: $300 for 1,000,000 sends) and also pay Amazon directly for sending at $0.10 per 1,000 emails. Total cost for 100,000 sends is approximately $60 ($50 platform + ~$10 AWS). This option is best for teams already using Amazon SES or sending at volumes above 500,000 emails per year."
 head:
   - - meta
     - name: description
