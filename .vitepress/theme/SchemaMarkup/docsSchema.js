@@ -134,7 +134,9 @@ function buildCollectionPage(pageData) {
 }
 
 function buildFaqSchema(faqs) {
-  if (!Array.isArray(faqs) || !faqs.length) return null
+  if (!Array.isArray(faqs) || !faqs.length) {
+    return null
+  }
   return {
     '@type': 'FAQPage',
     mainEntity: faqs.map(f => ({
@@ -165,7 +167,9 @@ export function addDocsSchema(pageData) {
 
   const graph = [primary, buildBreadcrumbs(pageData)]
   const faqSchema = buildFaqSchema(fm.faqs)
-  if (faqSchema) graph.push(faqSchema)
+  if (faqSchema) {
+    graph.push(faqSchema)
+  }
 
   appendJsonLd(pageData, {
     '@context': 'https://schema.org',
