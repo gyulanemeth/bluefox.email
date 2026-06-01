@@ -1,23 +1,24 @@
 ---
-title: BlueFox Email vs Brevo 
-description: Direct comparison of BlueFox Email and Brevo (formerly Sendinblue) for email delivery across marketing and transactional use cases, covering design, integrations, automation, deliverability, personalization, analytics, support, and pricing with scenario-based cost analysis.
+title: BlueFox Email vs Brevo
+description: Direct comparison of BlueFox Email and Brevo (formerly Sendinblue) for email marketing and transactional email, covering design, integrations, automation, deliverability, personalization, analytics, support, and pricing with scenario-based cost analysis.
 thumbnail: /assets/comparisons/bluefox-vs-brevo.png
 sidebar: false
 aside: true
+
 prev: false
 next: false
 datePublished: "2025-10-20"
-dateModified: "2025-10-28"
+dateModified: "2026-05-29"
 head:
   - - meta
     - name: description
-      content: Direct comparison of BlueFox Email and Brevo (formerly Sendinblue) for email delivery across marketing and transactional use cases, covering design, integrations, automation, deliverability, personalization, analytics, support, and pricing with scenario-based cost analysis.
+      content: Direct comparison of BlueFox Email and Brevo (formerly Sendinblue) for email marketing and transactional email, covering design, integrations, automation, deliverability, personalization, analytics, support, and pricing with scenario-based cost analysis.
   - - meta
     - property: og:title
       content: BlueFox Email vs Brevo | BlueFox Email
   - - meta
     - property: og:description
-      content: Direct comparison of BlueFox Email and Brevo (formerly Sendinblue) for email delivery across marketing and transactional use cases, covering design, integrations, automation, deliverability, personalization, analytics, support, and pricing with scenario-based cost analysis.
+      content: Direct comparison of BlueFox Email and Brevo (formerly Sendinblue) for email marketing and transactional email, covering design, integrations, automation, deliverability, personalization, analytics, support, and pricing with scenario-based cost analysis.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/comparisons/bluefox-vs-brevo.png
@@ -32,376 +33,358 @@ head:
       content: BlueFox Email vs Brevo | BlueFox Email
   - - meta
     - name: twitter:description
-      content: Direct comparison of BlueFox Email and Brevo (formerly Sendinblue) for email delivery across marketing and transactional use cases, covering design, integrations, automation, deliverability, personalization, analytics, support, and pricing with scenario-based cost analysis.
+      content: Direct comparison of BlueFox Email and Brevo (formerly Sendinblue) for email marketing and transactional email, covering design, integrations, automation, deliverability, personalization, analytics, support, and pricing with scenario-based cost analysis.
 ---
+
+<script setup>
+import { useDisplay } from 'vuetify'
+import { useData } from 'vitepress'
+
+import TemplateShowcase from '../.vitepress/theme/TemplateShowcase.vue'
+import Segmentation from '../.vitepress/theme/Segmentation.vue'
+import AgencyAnalytics from '../for/marketing-agencies/AgencyAnalytics.vue'
+
+const { lgAndUp, md, sm, xs } = useDisplay()
+const { isDark } = useData()
+</script>
+
+<style scoped>
+  .home-analytics :deep(.analytics-head) {
+    text-align: center;
+  }
+  .home-analytics :deep(.analytics-head p) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .home-analytics :deep(.agency-analytics) {
+    padding: 0;
+  }
+</style>
 
 <GlossaryNavigation link="/comparisons" label="Back to comparison list" />
 
-# BlueFox Email vs Brevo: A Complete Comparison for Email Delivery Success
+# BlueFox Email vs Brevo: Head-to-Head Comparison
 
-Brevo has built its reputation on a compelling promise: 500,000 businesses manage email, SMS, WhatsApp, and CRM under one affordable subscription, paying by email volume instead of contact count. The free plan alone offers 9,000 emails per month with unlimited contacts, a budget-friendly entry point that attracts small businesses and startups seeking an all-in-one marketing suite without the complexity or cost of enterprise platforms. In October 2025, Brevo reorganized its pricing structure with new Standard and Professional tiers, but beneath the attractive pricing lie concerning patterns: deliverability that plummeted to 68% in 2023, accounts suspended within hours of uploading contact lists, and support quality declining as the company scales.
+In October 2025, Brevo quietly renamed its "Business" tier to "Standard" and slotted a new "Professional" tier in above it at $499 per month. Two months later it closed a €500 million Series C and crossed into unicorn territory. The product underneath those announcements has been broadening for years (email, SMS, WhatsApp, web push, live chat, a sales CRM, an AI marketing agent), but the late-2025 stretch was when Brevo's positioning shifted clearly. This is no longer an email tool that grew up. It's a customer engagement suite aimed at HubSpot's mid-market, priced to undercut.
 
-BlueFox Email takes the opposite approach, depth over breadth, focusing exclusively on making email exceptional rather than spreading across multiple channels. Built on AWS SES infrastructure with a Chamaileon-powered design system, live-editable automations, and all features available on every plan including the free tier, it prioritizes infrastructure transparency and service reliability without the account suspension risks or deliverability volatility that affect shared-IP platforms. This comparison examines both platforms across design, integrations, automation, deliverability, personalization, analytics, support, and pricing, helping you decide whether you need Brevo's multi-channel breadth or BlueFox's email-focused reliability and control.
+BlueFox Email is a different kind of bet. One product, email only, sold per-send rather than per-contact, with every feature available on the free tier. There's a managed sending mode and an optional bring-your-own AWS SES mode for teams that want IP isolation and their own AWS billing relationship. No SMS, no CRM, no landing pages, no AI agent.
 
-## Understanding Each Platform's Core Strengths
+The honest question isn't which platform is "better." The two target different shapes of business. The useful question is which model fits your situation: a wide bundle priced by email volume, or a narrow product priced by sends with the option to run on top of your own AWS infrastructure. What follows is a section-by-section comparison covering design, integrations, automation, deliverability, personalization, segmentation, analytics, support, and pricing, with scenario-based cost math at the end. Numbers reflect public pricing and documentation as of May 2026.
 
-**Brevo** has evolved from a simple email tool into an all-in-one marketing platform combining email campaigns, transactional email (SMTP and API), SMS, WhatsApp, basic CRM, forms, landing pages, and live chat. Serving over 500,000 customers globally, Brevo emphasizes an approachable editor and consolidated tooling under volume-based pricing. In October 2025, Brevo introduced new Standard and Professional pricing tiers, reorganizing features across plans while making the Free plan less prominent in their marketing.
+## Platform Positioning
 
-However, Brevo's track record reveals concerning patterns. Deliverability experienced a significant drop to 68% in 2023 before recovering to 89.1% in 2025, a volatility that can impact business-critical communications. User reviews consistently report unexpected account suspensions, often without warning or clear explanation, with some accounts suspended within hours of uploading contact lists. Customer support, once praised for responsiveness, now faces growing complaints about slow response times and difficulty reaching live assistance as the company scales.
+Brevo is headquartered in Paris and was originally called Sendinblue. It rebranded in May 2023 to reflect a broader product scope, and as of 2026 it serves 600,000+ customers across 180 countries with €200M+ ARR. B Corp certification arrived in May 2025; the €500M Series C in December 2025 brought General Atlantic and Oakley Capital onto the cap table and confirmed valuation above $1B. The platform now covers email campaigns, transactional email (REST API and SMTP), SMS, WhatsApp, web and mobile push, live chat (sold as Conversations), forms, landing pages, and a built-in sales CRM. EU data residency and GDPR alignment are baseline rather than add-ons, which matters for teams operating in regulated markets or with European customers.
 
-**BlueFox Email** takes a focused approach designed for marketing agencies, SaaS companies, and organizations that prioritize email design quality, delivery control, and infrastructure transparency. Built on reliable AWS SES infrastructure, it provides exceptional deliverability with consistent feature access across all plans. The platform emphasizes predictable, usage-based billing, professional rendering across all email clients (including Outlook), and no account suspension risks. For advanced users requiring maximum control, BlueFox Email offers an optional "bring-your-own-AWS-SES" mode for completely isolated sender reputation management.
+The pricing structure has five tiers as of October 2025: Free, Starter ($9/mo for 5K emails), Standard ($18/mo for 5K emails, previously called "Business"), Professional ($499/mo for 150K+ emails), and Enterprise (custom, from roughly $10K/year). Feature access steps up with the tier: automation caps at 2,000 contacts on Starter and goes unlimited on Standard, landing pages start at Standard, and WhatsApp, mobile/web push, AI segmentation, and a dedicated analytics studio require Professional or Enterprise. A €50 million five-year AI investment funds the Aura AI agent (content generation, launched May 2025), predictive send-time optimization, AI dynamic content, and natural-language AI segmentation.
 
-Both platforms serve growing businesses, but they diverge significantly in service reliability, cost predictability, and infrastructure control, factors that directly impact your ability to maintain consistent customer communication.
+BlueFox Email's product is narrower by design. It offers two delivery modes: managed infrastructure (projects start in sandbox, move to production after a review, no AWS account required) and an optional [BYO AWS SES](https://bluefox.email/docs/projects/delivery-modes#using-aws-ses-directly) mode for teams that want to use their own AWS account and keep their own sending reputation. The feature set covers campaigns, transactional, triggered emails, automations, sign-up forms, segments, suppression lists, and a subscription preferences page with one-click unsubscribe (RFC-8058) built in. There's no SMS, WhatsApp, push, live chat, CRM, or landing page builder. Pricing is per-send (credit packs roll for 12 months) with unlimited contacts, and all features are available on every plan including the free tier.
 
-## Email Design and Template Capabilities
+The two are aimed at different teams. Brevo fits organizations that want one vendor for multi-channel marketing automation plus a sales CRM, and that benefit from EU data residency. BlueFox Email fits teams that want focused email, either fully managed or on top of their own AWS SES, with predictable per-send costs and no feature gates between tiers.
 
-### Brevo's Design Approach
+## Email Design and Templates
 
-Brevo provides three editing options: a drag-and-drop builder, a rich-text editor, and an HTML editor. The drag-and-drop interface is approachable for non-technical users, offering content blocks and over 40 free templates for quick campaign assembly. The platform includes an AI assistant (in beta) that generates text, reformulates sentences, and translates content into 16 languages, though users report the AI often produces generic copy lacking brand uniqueness.
+### Brevo
 
-Independent design experts identify significant limitations in Brevo's builder. The editor cannot save blocks with different column structures, a common layout technique using vertical grids. For example, creating a block with a full-width introduction followed by a two-column editorial signature requires building two separate blocks and carefully managing margins between them. The platform lacks content locking for recurring elements like headers, footers, and legal notices, creating risk for large teams. Advanced layout requirements such as block overlaps, complex margin management, and sophisticated mobile positioning are difficult or impossible to achieve without extensive HTML/CSS expertise.
+Brevo ships a drag-and-drop builder, a rich-text editor, and an HTML editor, plus 40+ responsive templates that are accessible from the free plan onward. The **Aura AI** agent (launched May 2025) generates subject lines, body copy, CTAs, and tone-adjusted rewrites; multilingual translation is supported. Real-time campaign analytics including heat maps are available on every plan. Higher tiers add AI-powered dynamic content (product recommendations, images, copy based on subscriber behavior).
 
-Users also report the editor can be buggy, with formatting issues appearing unexpectedly and changes occasionally not saving correctly. The developer mode lacks syntax highlighting, making code editing less convenient than external editors.
+Independent reviews note specific editor constraints: blocks cannot save with different column structures (a full-width header followed by a two-column body has to be built as two separate blocks), there's no content locking for recurring elements like headers and footers, and the developer mode lacks syntax highlighting. Users also occasionally report formatting inconsistencies and dashboard lag.
 
-**Brevo Design Limitations:**
-- Cannot save blocks with different column structures
-- No content locking for recurring template elements
-- Advanced layout requirements difficult without coding
-- Editor can be buggy with formatting inconsistencies
-- Developer mode lacks syntax highlighting
-- AI-generated content often generic and lacks brand voice
+**Strengths:** large template library, three editor modes (drag-drop, rich text, HTML), Aura AI on every plan including free, heat-map analytics on every plan, AI dynamic content on higher tiers.
 
-### BlueFox Email's Design Philosophy
+**Trade-offs:** column-structure rigidity in saved blocks, no template-level content locking for shared elements, some users report editor performance lag, AI-generated copy can feel generic and need editing.
 
-BlueFox Email prioritizes professional, brand-consistent email design through its Email Builder, powered by the industry-leading Chamaileon SDK. This foundation provides enterprise-grade design capabilities with bulletproof HTML that renders consistently across Gmail, Outlook, Apple Mail, and mobile clients, solving the rendering problems that plague other platforms.
+### BlueFox Email
 
-The platform features a true Email Design System, allowing teams to define global styles, create reusable on-brand content blocks, and manage assets for multiple brands in one place. This ensures every email maintains perfect brand consistency, eliminating design drift and improving team efficiency. Reusable components speed up campaign creation while standardized modules ensure professional output without requiring coding expertise.
+BlueFox Email uses the [Chamaileon SDK](https://help.chamaileon.io/en/collections/1340338-email-editor-documentation) for its drag-and-drop builder. The editor offers a built-in stock photo gallery, a photo editor, a shared image library for brand assets, custom font uploads, dark mode preview, and a library of pre-designed starter templates covering common newsletter, announcement, and transactional layouts. Reusable components (blocks, themes, templates) are first-class. Designers build a brand system once and reuse it across campaigns, transactional, and triggered emails. Cross-client rendering covers Gmail, Outlook, Apple Mail, and mobile. The Dynamic Image block pairs with [data feeds](https://bluefox.email/docs/projects/data-feeds) to render images sourced from RSS/JSON at send time.
 
-Advanced personalization is supported via Handlebars templating directly within the visual editor, enabling conditional content and dynamic logic for sophisticated email experiences. The no-code builder provides 90% faster time-to-market for email-driven campaigns compared to manual coding approaches.
+**Strengths:** reusable design system with block-level reuse, built-in stock photo gallery and photo editor, data-feed-driven dynamic content, cross-client rendering, same editor for transactional and marketing.
 
-**BlueFox Email Design Limitations:**
-- Smaller pre-made template library compared to established platforms
-- Handlebars syntax has a learning curve for advanced features
-- Fewer pre-built industry-specific templates
+**Trade-offs:** smaller starter-template library than Brevo's 40+ catalog, no AI content generation, no AI-driven dynamic content beyond data feeds, no built-in heat-map analytics overlay.
 
-![BlueFox Email design interface](/assets/comparisons/bluefox-collage.webp)
+<TemplateShowcase
+  :is-dark="isDark"
+  :lg-and-up="lgAndUp"
+  :md="md"
+  :sm="sm"
+  :xs="xs"
+/>
 
-## Integration Ecosystem and Flexibility
+## Integrations
 
-### Brevo's Integration Advantages
+### Brevo
 
-Brevo provides comprehensive API capabilities with official SDKs for Node.js, Python, PHP, Ruby, Java, and Go. The platform supports both SMTP relay and REST APIs for flexible sending scenarios. Marketplace connectors are available for CMS platforms like WordPress, e-commerce solutions like WooCommerce, and popular services like Firebase and Supabase. Third-party integration through Zapier and Make extends connectivity to thousands of additional applications.
+Brevo provides official SDKs for **PHP, Python, Node.js, Ruby, Go, Java, and C#** for both the marketing and transactional APIs. SMTP relay handles language-agnostic sends. Native plugins exist for WordPress, WooCommerce, Magento, Firebase, Supabase, and other common platforms. Marketplace connectors and Zapier extend connectivity. Webhooks support up to **40 endpoints per account** for real-time events: delivered, opened, clicked, bounced, marked spam, unsubscribed, blocked, deferred. Marketing and transactional sends flow through one account with shared contact management, domain authentication, and billing.
 
-Webhooks enable real-time event tracking for deliveries, opens, clicks, bounces, and unsubscribes, supporting downstream processing and custom analytics. The WordPress SMTP plugin is particularly useful for solving common deliverability issues on that platform. As Brevo has expanded into a full marketing suite, integrations now span email, SMS, WhatsApp, chat, and CRM functionality.
+**Strengths:** seven first-party SDKs, mature SMTP relay, native plugins for popular CMSes and e-commerce platforms, 40 webhook endpoints per account, unified account for marketing + transactional + CRM, EU data residency.
 
-**Brevo Integration Limitations:**
-- Some integrations restricted to higher-tier plans
-- API documentation can be challenging to navigate
-- Certain advanced features require technical implementation
-- Integration capabilities can be plan-dependent
+**Trade-offs:** marketing and transactional share infrastructure, so marketing sender-reputation issues can affect transactional deliverability. Some integrations are tied to higher tiers. API documentation, while comprehensive, has been described as harder to navigate than newer developer-first competitors.
 
-### BlueFox Email's Developer-Friendly Architecture
+### BlueFox Email
 
-BlueFox Email is built with an API-first philosophy, offering a comprehensive REST API for complete control over subscriber management, email sending, and campaign automation. Real-time webhooks provide notifications for all critical email events including opens, clicks, bounces, complaints, and subscription changes, enabling seamless integration with existing systems.
+BlueFox Email exposes an [API](https://bluefox.email/docs/api/) for contacts, subscriptions, transactional sends, and triggered sends. [Webhooks](https://bluefox.email/docs/integrations/webhooks) push real-time events: opens, clicks, bounces, complaints, subscribe, unsubscribe, pause, resubscribe. Direct integrations: [Supabase](https://bluefox.email/docs/integrations/supabase) for auth emails (signup confirmation, magic links, password reset, invitations) and [Zapier](https://bluefox.email/docs/integrations/zapier) with six triggers (New Contact, Contact Updated, Contact Deleted, New Subscription, Unsubscribed, Subscription Paused). In BYO SES mode, you keep direct AWS access for any SES-level integration including SNS, Lambda, S3, and CloudWatch.
 
-Specialized integrations include detailed Supabase guides for authentication emails, allowing you to send signup confirmations, password resets, magic links, and user invitations with better deliverability and customization. The platform provides complete infrastructure transparency, and for teams requiring maximum control, offers optional bring-your-own-AWS-SES mode for direct cloud control and isolated sender reputation management.
+**Strengths:** complete API on every plan, full webhook event set on every plan, Supabase-native auth email path, Zapier connectivity, BYO SES mode gives direct AWS integration without abstraction.
 
-**BlueFox Email Integration Limitations:**
-- Smaller native integration marketplace
-- Requires technical knowledge for API implementation
-- Limited pre-built e-commerce integrations
-- Fewer social media management connections
+**Trade-offs:** small native marketplace (Supabase + Zapier are the main first-party integrations), no language-specific SDKs (REST API only), no native e-commerce platform plugins, no native CRM connector.
 
-![BlueFox Email API documentation](/assets/comparisons/bluefox-docs-collage.webp)
+![bluefox docs collage](/assets/comparisons/bluefox-docs-collage.webp)
 
-## Automation and Marketing Workflows
+## Automation
 
-### Brevo's Automation Capabilities
+### Brevo
 
-Brevo offers visual marketing automation through a workflow builder that supports common journeys like welcome series, post-purchase follow-ups, and behavior-based triggers. The platform provides templates for standard scenarios and allows configuration of delays, conditions, multi-branch logic, and segmentation. A/B testing capabilities are available on higher tiers for optimizing automation performance.
+Brevo's marketing automation supports visual workflow building with triggers based on sign-ups, page visits, purchases, custom events, segment entry, and contact-property changes. Standard plan and above include **unlimited automation contacts**; the Starter plan caps automation at 2,000 contacts. Pre-built journey templates cover welcome series, abandoned cart, browse abandonment, anniversary emails, and re-engagement. A/B testing, send-time optimization, advanced analytics, and frequency capping are available on Standard and above. Brevo runs two automation editors (a **classic** version and a **new** version) with frequency cap and email overload prevention operating differently between the two; users moving between versions report some configuration friction.
 
-However, users report significant limitations in Brevo's automation implementation. The platform recently introduced a "new" automation editor to replace the "classic" version, and experiences vary between the two systems. Community forums reveal complaints about automations not triggering reliably, with users reporting workflows that mysteriously stop working without explanation. Complex logic scenarios can become manual and difficult to manage at scale, requiring careful testing and monitoring.
+**Strengths:** unlimited automation contacts on Standard ($18/mo) and above, pre-built journey templates, A/B testing in flows, send-time optimization, frequency capping, predictive send-time on machine learning.
 
-The automation features are not available on the Free plan and are restricted to Standard tier and above, meaning they're feature-gated based on your subscription level, a significant limitation for businesses wanting to test automation capabilities before committing to paid plans.
+**Trade-offs:** Starter plan caps automation at 2,000 contacts. Automation is not available on the Free plan beyond very basic flows. The split between classic and new editor can create confusion. User reports of automations occasionally not triggering reliably appear across community forums, though this isn't unique to Brevo.
 
-**Brevo Automation Limitations:**
-- Automation features restricted to Standard tier and above
-- Users report reliability issues with triggers not firing
-- Differences between new and classic editor create confusion
-- Complex workflows can become difficult to manage
-- Testing capabilities have limitations
-- Feature availability varies significantly by plan
+### BlueFox Email
 
-### BlueFox Email's Visual Automation Builder
+BlueFox Email's [automation builder](https://bluefox.email/docs/projects/automations) is available on every plan including the free tier. Trigger types: **Contact Added**, **Contact Updated** (with from/to property conditions), **Enter Segment**, **Leave Segment**. Node types: **Send Email**, **Notify** (send to a list or specific addresses rather than the flowing contact), **Timer**, **Audience Filter** (property, segment, or email activity), **Branching** with **Condition** nodes (multi-path), **Set Value** (update a contact property mid-flow), **Manage Tags** (add/remove tags), **Complete** (defined exit). **Exit Criteria** lets contacts leave the flow early based on property, segment, or email activity. **Running flows can be edited** and the updates applied to upcoming-only or upcoming-and-in-progress contacts.
 
-BlueFox Email provides a comprehensive visual automation builder that allows you to create sophisticated workflows without coding. The platform offers multiple trigger types including Contact Added, Contact Updated, and Segment-based triggers, giving you flexibility in how campaigns are initiated.
+**Strengths:** all automation features on every plan including the free tier, no contact cap on automation, segment-based triggers, mid-flow contact property updates, email-activity-based branching, live editing of running flows.
 
-You can build complex automation flows using various node types: Send Email nodes for delivering targeted messages, Timer nodes for scheduling precise delays between steps, Audience Filter nodes for conditional branching based on contact properties or email engagement, and Branching nodes for creating multiple decision paths based on subscriber behavior.
+**Trade-offs:** no A/B testing inside automation flows, no machine-learning send-time optimization, fewer pre-built journey templates than Brevo's catalog, no native e-commerce triggers (no abandoned cart, no purchase events). Those have to be wired via the API or Zapier.
 
-The automation system supports advanced conditions using contact data, email engagement metrics (opens, clicks), and custom properties, enabling workflows that dynamically adapt to subscriber behavior. A critical advantage is the ability to edit live automations without disruption, you can modify intervals, change email order, update content, add or remove steps while the workflow continues to run, eliminating the workflow-stopping limitations that affect other platforms.
-
-All automation features are available on every plan without restrictions, including the free tier. There are no plan-based gates preventing you from building sophisticated customer journeys as your business grows.
-
-**BlueFox Email Automation Limitations:**
-- Limited pre-built automation templates
-- Requires manual workflow construction for most scenarios
-
-![BlueFox Email automation workflow](/assets/comparisons/email-automation-collage.webp)
-
-:::tip **All Features on Every Plan**
-Every BlueFox Email plan, including the free tier, includes design systems, automation, and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
-:::
+![bluefox automation collage](/assets/comparisons/email-automation-collage.webp)
 
 ## Deliverability and Infrastructure
 
-### Brevo's Deliverability Challenges
+### Brevo
 
-Brevo operates on shared IP infrastructure by default, meaning your sender reputation can be affected by other users' sending practices on the same IP pool. While the platform is built by a team with email delivery experience, independent deliverability tracking reveals significant volatility in inbox placement rates.
+Brevo runs on shared IP infrastructure by default. The company partners with major mailbox providers and provides automatic SPF/DKIM/DMARC configuration with step-by-step DNS setup, helping meet Gmail and Yahoo bulk sender requirements. **Dedicated IPs** are available as an add-on at **$251/year** on the Professional plan, and one dedicated IP is included by default with the Enterprise plan.
 
-Deliverability performance started around 84% in 2017-2018, improved to peak at 96% in 2021, maintained 89-90% through 2022, then experienced a concerning drop to 68% in mid-2023. While rates have recovered to 89.1% as of 2025, this inconsistency demonstrates risk for businesses that depend on reliable email delivery. If your revenue depends on emails reaching the inbox, volatility of this magnitude can directly impact business outcomes.
+**Deliverability data:** independent testing by EmailToolTester (one of the longest-running third-party deliverability trackers) shows Brevo's measured inbox placement at **89.1% as of February 2025**, with historical figures ranging from 84% in 2017 to 2018, peaking at 96.3% in March 2021, dipping to roughly 68% in mid-2023, and recovering since. EmailDeliverabilityReport, which began tracking Brevo in October 2025, currently scores it 92/100. Brevo's own published benchmark shows a 20.73% average open rate across their network for 2025. Inbox placement depends heavily on sender reputation, list quality, authentication setup, and content. Brevo's number is not a constant, and the same is true for every shared-IP platform.
 
-Brevo closely monitors campaigns sent through shared IPs and enforces strict thresholds: open rate at least 10-12%, unsubscribe rate no higher than 1-2%, hard bounce rate no higher than 2-3%, and complaint rate no higher than 0.2%. If metrics fall outside these parameters, campaigns and accounts can be suspended. Users frequently report unexpected suspensions without warning, in some cases accounts are deactivated within an hour of uploading contact lists containing invalid addresses, without opportunity to identify or clean problematic emails first.
+Brevo monitors campaigns sent through shared IPs and can pause sends or suspend accounts that exceed engagement thresholds. The pattern that recurs in third-party reviews is unexpected suspensions following imports of older or under-engaged lists, often before a user has the chance to clean addresses. Brevo's stated rationale is that security algorithms automatically flag accounts whose campaign metrics fall outside acceptable ranges, with the deliverability team conducting follow-up review. This account-monitoring approach is common across shared-IP ESPs (SendGrid, Mailchimp, Postmark, and others have similar policies); the specific complaint with Brevo is the strictness of the thresholds and the limited communication during suspension reviews.
 
-Dedicated IP addresses are available as add-ons for $251 per year (approximately $20.92/month), but only on Professional and Enterprise plans. One dedicated IP is included by default with Enterprise plans. Importantly, Brevo does not offer full SPF alignment for shared IP users, though they've indicated this is on their roadmap for 2025. This means the return-path uses Brevo's domain rather than your own, which can impact inbox placement with strict mailbox providers like Gmail and Yahoo.
+**Strengths:** automatic SPF/DKIM/DMARC setup, Gmail/Yahoo sender requirements coverage, dedicated IPs available, EU data residency, claimed throughput up to 120,000 emails/minute, B Corp certification.
 
-**Brevo Deliverability Limitations:**
-- Shared IP addresses with reputation affected by other users
-- Deliverability dropped to 68% in 2023, showing significant volatility
-- Frequent account suspensions without warning or clear recourse
-- Strict monitoring thresholds with limited tolerance
-- No full SPF alignment on shared IPs (impacting authentication)
-- Dedicated IP expensive ($251/year) and restricted to higher tiers
-- Account suspension can continue billing without service access
+**Trade-offs:** shared-IP reputation depends on platform-wide sender behavior. Deliverability has shown volatility historically (the 2023 dip is well-documented). Marketing and transactional sends share infrastructure, so marketing reputation issues can affect transactional delivery, and transactional delivery speed (typically 5 to 15 seconds) is slower than dedicated transactional providers. Dedicated IP is gated to Professional ($499/mo) and Enterprise. Account suspensions following imports of older lists are a recurring complaint in reviews.
 
-### BlueFox Email's Infrastructure Control
+### BlueFox Email
 
-BlueFox Email leverages AWS SES infrastructure, providing enterprise-grade deliverability with complete transparency into sending reputation and performance metrics. Users benefit from AWS's robust global delivery network, one of the most reliable email infrastructures available, while maintaining full control over authentication settings and sender reputation management.
+BlueFox Email has three delivery modes documented in [Delivery Modes](https://bluefox.email/docs/projects/delivery-modes):
 
-The platform includes comprehensive deliverability monitoring through direct AWS SES integration, real-time bounce and complaint handling with automatic suppression list management, and detailed delivery statistics. This infrastructure approach provides users with enhanced visibility and control compared to shared-IP models.
+- **Sandbox** (default for new projects, BlueFox-managed infrastructure): up to 5 verified addresses, 100 emails/day, 1 email/second. No AWS account required. Sends from `no-reply@bluefoxemailsandbox.com`.
+- **Production** (BlueFox-managed infrastructure, after a review): unrestricted volume, custom sender identities, your own verified domain.
+- **BYO AWS SES** (optional): connect your AWS account via direct credentials or STS Role ARN. Required permissions: `ses:SendEmail`, `ses:SendRawEmail`, `ses:ListIdentities`, `ses:GetSendQuota`. You keep your own AWS sending reputation and IP isolation, and can use an AWS SES dedicated IP if configured there.
 
-For advanced users requiring maximum control, BlueFox Email offers an optional "bring-your-own-AWS-SES" mode that operates directly on your AWS account. This provides completely isolated sender reputation that is only affected by your own sending practices, eliminating the risk of being penalized for another user's actions. You maintain full transparency into cloud costs, delivery metrics, and infrastructure performance while leveraging BlueFox Email's design, automation, and analytics capabilities.
+To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending. The platform also supports one-click unsubscribe (RFC-8058), a subscription preferences page, and a pause-instead-of-unsubscribe link.
 
-**BlueFox Email Infrastructure Limitations:**
-- Optional bring-your-own-SES mode requires AWS account setup
-- Separate AWS SES fees apply when using bring-your-own mode
-- More technical initial setup for self-managed infrastructure
+**Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, transparent bounce/complaint thresholds visible in-product, per-project suppression list, STS-based AWS auth (no long-lived keys), one-click unsubscribe and preferences page built in, BYO SES gives complete reputation isolation.
+
+**Trade-offs:** no dedicated IP on the managed plan (dedicated IP only via BYO SES with your own AWS account). No EU-specific data residency commitment at the platform layer (AWS SES is regional, but BlueFox's managed infrastructure choice is not user-selectable). Smaller community than Brevo, so less third-party deliverability tooling and shared best-practice content.
 
 ## Personalization
 
-### Brevo's Personalization Features
+### Brevo
 
-Brevo supports personalization through variables and attributes that can be inserted into subject lines and email content. The platform enables conditional content blocks within templates and dynamic segments for audience targeting, allowing marketers to customize messaging based on profile data and behavioral fields.
+Brevo supports personalization through variables (subscriber attributes) and Handlebars-style template syntax for conditional logic and dynamic content. Custom contact attributes can be defined and populated via the API or signup forms. The transactional API supports template variables passed at send time. Dynamic content blocks vary by segment; AI-powered dynamic content (product recommendations, behavior-based copy) is available on higher tiers. The Aura AI agent can generate personalized variations directly inside the email editor.
 
-The personalization capabilities are functional for basic use cases like inserting recipient names, locations, and custom data fields. Dynamic content options enable more sophisticated scenarios, though advanced personalization features typically require familiarity with template code and may be restricted based on plan level.
+**Strengths:** Handlebars-style template syntax, custom contact attributes, dynamic content blocks, AI-powered dynamic content and copy generation on higher tiers, separate template variable injection for transactional sends.
 
-**Brevo Personalization Limitations:**
-- Basic personalization functionality compared to specialized platforms
-- Advanced conditional content options limited
-- Some dynamic features restricted by plan tier
-- Interface for personalization can be hard to find
-- Sophisticated scenarios require template coding knowledge
+**Trade-offs:** advanced personalization scenarios sometimes require working in the HTML view rather than the visual editor. AI segmentation (natural-language segment building) is Enterprise-only. The interface for managing complex conditional content can be hard to navigate.
 
-### BlueFox Email's Advanced Personalization
+### BlueFox Email
 
-BlueFox Email provides comprehensive personalization through Handlebars syntax, making it accessible to both technical and non-technical users with clear, readable templating. The platform supports conditional content blocks using `#if...else.../if` logic for dynamic messaging that adapts based on subscriber attributes, behaviors, and engagement patterns.
+BlueFox Email also uses **Handlebars** for personalization: <span v-pre>`{{firstName}}`</span> for fields and <span v-pre>`{{#if}}…{{else}}…{{/if}}`</span> for conditional content. Built-in merge tags include `subscriber.name`, `subscriber.email`, `unsubscribeLink`, `pauseSubscriptionLink`, and `verifyLink` (for double opt-in flows). Contact attributes beyond name/email are defined in **Project Settings → Contact Attributes** and can be set or updated programmatically via the [API](https://bluefox.email/docs/api/) or from inside an automation flow (Set Value node). Personalization is available on every plan including the free tier.
 
-You can use merge tags like `subscriber.name`, `subscriber.email`, `unsubscribeLink`, and `pauseSubscriptionLink` throughout email content, subject lines, and preview text. The platform enables extensive customization through contact attributes and custom data fields. Each contact requires an email address, but you can store additional predefined attributes like name and phone number, or define unlimited custom attributes through Project Settings → Contact Attributes.
+**Strengths:** standard Handlebars syntax familiar to developers, conditional blocks at every plan level, contact attributes update-able via API or in-flow Set Value node, built-in `pauseSubscriptionLink` enables a pause-instead-of-unsubscribe path, dynamic image rendering via data feeds.
 
-These API-driven contact properties enable highly personalized, data-driven emails that incorporate real-time information from your application or database. You can programmatically subscribe, unsubscribe, pause, activate, and update contact attributes, ensuring your personalization data stays current and accurate. The Handlebars syntax supports complex logic including loops, nested conditions, and helper functions for sophisticated personalization scenarios.
+**Trade-offs:** no AI content generation or AI-driven dynamic content, no pre-built e-commerce product merges (must be passed in via the API), no geographic or timezone tags out of the box, fewer Handlebars helpers than some enterprise platforms.
 
-All personalization features are included on every plan without additional costs or restrictions, enabling both marketers and developers to create highly tailored campaigns from day one.
+## Segmentation
 
-**BlueFox Email Personalization Limitations:**
-- Limited pre-built personalization templates
-- Handlebars syntax requires learning for advanced scenarios
+### Brevo
 
-## Segmentation and Targeting
+Brevo segments contacts based on attribute values, list membership, engagement history (opens, clicks, recent activity), website behavior (via web tracking on Standard and above), and e-commerce events when connected. Segments are dynamic and update as contact data changes. Stackable AND/OR criteria support complex audience logic. **AI segmentation** (natural-language segment building, launched December 2024) is currently Enterprise-only: users describe the segment they want in plain language and the AI translates it to filter rules.
 
-### Brevo's Segmentation Capabilities
+**Strengths:** dynamic segment updates, stackable AND/OR criteria, web-tracking-based behavioral segments (Standard+), AI natural-language segmentation (Enterprise).
 
-Brevo provides audience segmentation with filtering options based on contact properties, engagement behaviors, and custom data fields. Users can create segments for targeted campaigns and use them within automation workflows where available. The platform supports demographic and behavioral segmentation, with dynamic segment updates for active targeting.
+**Trade-offs:** web tracking and behavior-based segmentation require Standard tier or higher. AI segmentation is Enterprise-only, which is a major gate for what's marketed as an AI-first feature. Complex segments can be hard to debug when criteria conflict.
 
-Segmentation capabilities are comprehensive enough for most marketing scenarios, though advanced filtering features and real-time segment updates may vary based on plan level. Some users find creating custom segments requires navigating complex interface options.
+### BlueFox Email
 
-**Brevo Segmentation Limitations:**
-- Segmentation features can be plan-dependent
-- Complex interface for creating advanced custom segments
-- Some advanced filters restricted to higher tiers
-- Real-time segmentation capabilities limited
+BlueFox Email's [segments](https://bluefox.email/docs/projects/segments) use AND/OR condition logic with ten operators: equals, does not equal, contains, does not contain, is empty, is not empty, greater than, less than, greater than or equal, less than or equal. Filters apply to any contact property or tag, plus **engagement-based** conditions (received, not received, opened, not opened, clicked, not clicked) over a configurable day window. Segments can be scoped to a single subscriber list or to all contacts in the project, and can drive both campaign delivery and automation triggers (Enter Segment / Leave Segment).
 
-### BlueFox Email's Condition-Based Filtering
+**Strengths:** unlimited condition count on every plan, engagement-based segments at every plan level, segments usable as automation triggers, segment-scoping to list or whole project, no plan-based feature gates.
 
-BlueFox Email enables flexible audience targeting through condition-based filters that dynamically filter contacts based on any property. You can create segments using operators like equals, does not equal, contains, does not contain, greater than, less than, and more across any contact attribute, providing granular control over audience selection.
+**Trade-offs:** one pre-built segment (unengaged contacts) versus Brevo's broader template options, no predictive or AI segmentation, no built-in e-commerce filters (no "purchased product X" out of the box; those need contact attributes set via API), no native website tracking for behavioral segments.
 
-These segments integrate seamlessly with both campaigns and automation workflows. In automations, you can change trigger types to segment-based triggers, ensuring workflows activate when contacts enter specific segments. Audience filter nodes enable conditional branching within workflows based on segment membership, contact properties, or email engagement, creating sophisticated targeting scenarios that respond to real-time behavior.
-
-Segments update dynamically as contact data changes, ensuring your targeting remains accurate without manual intervention. All segmentation capabilities are available across every plan tier, providing consistent targeting flexibility regardless of subscription level.
-
-**BlueFox Email Segmentation Limitations:**
-- Requires understanding of condition logic
-- Limited pre-built segment templates
-- Manual setup required for most targeting criteria
+<Segmentation
+  :is-dark="isDark"
+  :lg-and-up="lgAndUp"
+  :md="md"
+  :sm="sm"
+  :xs="xs"
+/>
 
 ## Analytics and Reporting
 
-### Brevo's Analytics Suite
+### Brevo
 
-Brevo provides comprehensive analytics including delivery rates, open rates, click-through rates, bounce rates, unsubscribe metrics, and spam complaints. Real-time reporting offers detailed breakdowns by email client, device type, and geographical location. Higher-tier plans include additional metrics like revenue tracking and conversion analytics for e-commerce integration.
+Brevo tracks deliveries, opens, unique opens, clicks, unique clicks, bounces, blocks, spam reports, and unsubscribes across campaigns and transactional sends. **Heat maps** show click distribution within emails. Real-time event tracking via webhooks supports up to 40 endpoints per account. Higher tiers (Standard and above) add advanced statistics, deliverability insights, and click-by-engagement breakdowns. E-commerce revenue tracking is available when connected stores share order data. Marketing and transactional analytics are reported separately within the same account.
 
-Event webhook functionality enables real-time data export for custom analytics and integration with external reporting tools like Google Analytics. The analytics interface provides standard email marketing metrics that cover essential performance tracking needs.
+**Strengths:** heat-map click visualization, comparative deliverability insights on higher tiers, e-commerce revenue tracking on connected stores, real-time webhooks (40 endpoints), unified reporting for marketing and transactional within one account.
 
-However, users report that the analytics interface can feel complex with data somewhat scattered across different dashboards. Some metrics appear inconsistent or inaccurate at times. Advanced analytics features require upgrading to higher-tier plans, and data retention periods are limited on basic tiers, making long-term performance analysis difficult without external data storage.
+**Trade-offs:** advanced statistics require Standard tier or higher. Data retention is limited on lower tiers; long-window analysis can require external storage. Reports are spread across separate marketing/transactional/CRM dashboards. No live sender-reputation or inbox-placement scoring inside the product.
 
-**Brevo Analytics Limitations:**
-- Analytics scattered across multiple dashboards
-- Some users report data accuracy inconsistencies  
-- Advanced reporting restricted to higher-tier plans
-- Limited data retention on lower tiers
-- No unified deliverability dashboard with sender reputation visibility
-- Comparative industry benchmarking limited
+### BlueFox Email
 
-### BlueFox Email's Analytics Focus
+BlueFox Email scopes [analytics](https://bluefox.email/docs/analytics) at account, project, campaign, transactional email, triggered email, and subscriber list levels. Per email: sends, opens, unique opens, clicks, unique clicks, bounces, complaints, unsubscribes, resubscriptions, paused subscriptions. Time-range filters cover current/previous week, current/previous month, last 3 months, and overall. Project-level dashboard shows live bounce rate (against the 2.5% ceiling) and complaint rate (against the 0.05% ceiling). Automation cards expose Runs, Active, Sends, Opens, Clicks for the whole flow plus per-Send-Email-node breakdowns. Webhooks push every event in real time for external dashboards.
 
-BlueFox Email emphasizes core delivery and engagement metrics essential for email program success, combined with comprehensive AWS SES reputation and delivery statistics. The platform provides a unified analytics dashboard that consolidates critical metrics in one place for quick assessment.
+**Strengths:** live bounce/complaint ratios against the production thresholds, per-email-type and per-automation-node stats, real-time webhook push for external analytics, full event set on every plan, no retention add-on required.
 
-Campaign analytics include detailed tracking of sent emails, opens, unique opens, clicks, unique clicks, bounces with categorized bounce types (hard bounces, soft bounces, specific failure reasons), complaints, unsubscribes, resubscriptions, and paused subscriptions. This comprehensive view enables complete understanding of campaign performance and subscriber behavior.
+**Trade-offs:** no revenue or ROI tracking, no heat-map click visualization, no breakdowns by mailbox provider or device, no industry benchmarking data.
 
-Real-time event tracking via webhooks enables immediate integration of performance data into external systems for custom reporting and business intelligence. The analytics approach focuses on providing clear, actionable insights that support continuous email program improvement without overwhelming users with excessive data points. Importantly, reporting capabilities remain consistent across all plan tiers, you get the same analytics on the free plan as on the highest tier.
-
-**BlueFox Email Analytics Limitations:**
-- No built-in ROI or revenue tracking
-- Fewer pre-built comparative report templates
-- Limited industry benchmarking data
-
-![BlueFox Email analytics dashboard](/assets/comparisons/bluefox-analytics.webp)
+<div class="home-analytics">
+<AgencyAnalytics
+  title="Analytics that show what happened"
+  description="Delivery, opens, clicks, bounces, and subscription trends. Switch between hourly, daily, weekly, and monthly views."
+  default-tab="hourly"
+/>
+</div>
 
 ## Support and Learning Resources
 
-### Brevo's Support Ecosystem
+### Brevo
 
-Brevo offers tiered customer support with availability and channels varying by plan level. Email and chat support are available on paid plans, with phone support reserved for Professional and Enterprise subscribers. The platform maintains extensive documentation, tutorials, and a help center covering common workflows and integrations in six languages: English, Spanish, French, Italian, Portuguese, and German.
+Brevo offers email support on Starter and above, chat support on Standard and above, and phone support on Professional and Enterprise. Enterprise plans add a dedicated Customer Success Manager and three hours per year of deliverability specialist support. The knowledge base covers common workflows and integrations in six languages: English, Spanish, French, Italian, Portuguese, and German. Brevo also runs an active community and partner network.
 
-Customer support quality has become a significant concern as the company scales. While some users praise individual support team members for responsiveness and helpfulness, growing numbers report deteriorating service quality. Long-time customers note that support "was better in the beginning" when phone contact was readily available and issues resolved quickly.
+**Strengths:** multi-language documentation (six languages), multi-channel support on higher tiers, dedicated CSM on Enterprise, deliverability specialist hours on Professional and Enterprise, established community.
 
-Recent complaints highlight slow response times, difficulty reaching live assistance, and solutions that don't adequately address technical issues. Multiple users describe frustrating verification processes requiring repeated document submissions. Most concerning are reports of accounts suspended without warning, with support unable or unwilling to reactivate them, yet billing continues during suspension. Some users report weeks without response from support during critical service interruptions.
+**Trade-offs:** the Free plan has no live support: documentation and community only. Phone support is Professional+ ($499/mo entry). Support response quality during account-status disputes (particularly suspensions) is a recurring complaint on Trustpilot and other review sites. The pattern that surfaces most is delays in support response and difficulty reaching a human during critical account events.
 
-The free plan offers no live support access, relying entirely on self-service documentation and community resources, which can be inadequate when facing account-level issues.
+### BlueFox Email
 
-**Brevo Support Limitations:**
-- Support quality declining as company scales
-- Slow response times during critical issues
-- No live support for free plan users
-- Phone support only on Professional/Enterprise plans
-- Account suspension issues often unresolved by support
-- Verification processes can be frustratingly repetitive
-- Support may not have authority to reactivate suspended accounts
+BlueFox Email provides email support across all plan tiers. Users can also book a direct call with the founder from inside the product for hands-on help, onboarding, technical setup, or use-case fit. Self-service resources include the [product documentation](https://bluefox.email/docs/), a glossary, comparison articles, and a smaller set of blog posts and guides. There is no formal learning platform, no certified-partner program, and no agency directory.
 
-### BlueFox Email's Startup-Driven Support
+**Strengths:** same support tier for free and paid users, in-product founder call booking for direct help, direct line to the people who build the product.
 
-BlueFox Email provides direct access to founders and core developers for technical guidance, ensuring users receive personalized assistance from the people who built the platform. This approach delivers fast response times and solutions that address root causes rather than surface symptoms.
+**Trade-offs:** small team; this level of direct access is a function of company stage, not a permanent commitment. No 24/7 desk, no phone hotline, no live-chat. Documentation is English-only. No formal training platform. Knowledge base, community forums, and third-party tutorial coverage are all smaller than Brevo's.
 
-High-quality support is available to every user regardless of plan tier, there are no support restrictions based on subscription level. Free plan users receive the same access to expert assistance as paying customers. The customer-driven roadmap means user feedback directly influences product development and feature priorities, enabling rapid enhancements based on real-world needs.
+## Pricing
 
-When you contact support, you're engaging with a passionate team of email experts committed to your success, not navigating tiered support levels or automated systems that delay resolution.
+The two platforms price on different axes, which makes head-to-head comparison sensitive to the scenario.
 
-**BlueFox Email Support Limitations:**
-- Smaller knowledge base compared to established platforms
-- Limited community forums and user groups
-- Fewer third-party tutorials and resources
-- Support team size constraints during peak periods
+### Brevo (volume-based)
 
-## Pricing Models and Cost Considerations
+Brevo charges by emails sent per month, not by contact count. In October 2025, Brevo restructured its plans into five tiers (Free, Starter, Standard, Professional, Enterprise), replacing the previous "Business" tier with "Standard" and adding a new "Professional" tier between Standard and Enterprise. All paid plans offer a 10% discount when billed annually.
 
-### Brevo's Tiered Pricing
+| Plan | Starting price | Volume | Notes |
+| --- | --- | --- | --- |
+| Free | $0 | 300 emails/day (~9,000/mo) | Up to 100,000 contacts. Aura AI, basic automation, basic CRM included. |
+| Starter | $9/mo (5K) to $69/mo (100K) | 5,000 to 100,000/mo | Removes daily cap. Automation capped at 2,000 contacts. Brevo logo removal is a $9/mo add-on. Contact caps: 500 / 1,500 / unlimited. |
+| Standard | $18/mo (5K) to $169/mo (150K) | 5,000 to 150,000/mo | Unlimited automation contacts, A/B testing, landing pages (1 included), advanced statistics, send-time optimization, frequency capping. |
+| Professional | from $499/mo | 150,000+/mo | WhatsApp, mobile/web push, AI segmentation, dedicated analytics studio, 10 user seats, phone support, deliverability specialist (3 hrs/yr). Dedicated IP add-on $251/yr. |
+| Enterprise | Custom, from ~$10,000/yr | 350,000+/mo | Unlimited contacts, sub-accounts, SLA, SSO/SAML, dedicated CSM, 1 dedicated IP included. |
 
-Brevo uses a volume-based pricing model charging by emails sent per month rather than contact count. In October 2025, Brevo reorganized its pricing structure, introducing Standard and Professional tiers while making the Free plan less prominent. Based on current public pricing information:
+**Add-ons**: Dedicated IP $251/year (Professional add-on, included in Enterprise). Brevo logo removal $9/mo on Starter. Extra landing pages ~$24/mo per 5-page pack on Standard. Extra Standard seats $10.80/mo each. SMS pay-as-you-go (~$1.09/100 in US, country-specific rates). Conversations live chat $15/mo/user. Sales CRM free tier or $12+/mo/user for advanced features.
 
-**Free Plan:** Up to 300 emails per day (approximately 9,000 per month) with unlimited contacts. Includes basic email campaigns, drag-and-drop editor, email templates, forms, and basic reporting. SMS and WhatsApp are add-ons at all tiers.
+### BlueFox Email (per-send)
 
-**Starter Plan:** Starting at $9/month for 5,000 emails, scaling up to $69/month for 100,000 emails. Removes daily sending limit and adds basic reporting and analytics. No marketing automation, A/B testing, or landing pages.
+BlueFox Email charges per email sent. Contacts are unlimited, all features are available at every tier, and packs do not expire monthly; credits roll for 12 months.
 
-**Standard Plan:** Starting at $18/month for 5,000 emails, scaling to $669/month for 1,000,000 emails. Includes marketing automation, A/B testing, advanced email reporting, AI send time optimization, landing pages (1 page included), and web tracking.
+| Mode | Free tier | Essential | Premium | Grown-up |
+| --- | --- | --- | --- | --- |
+| Standard (managed infrastructure) | 3,000 sends/mo | $50 / 50,000 sends | $300 / 500,000 sends | $2,500 / 5,000,000 sends |
+| BYO AWS SES | 6,000 sends/mo | $50 / 100,000 sends + AWS fees | $300 / 1,000,000 sends + AWS fees | $2,500 / 10,000,000 sends + AWS fees |
 
-**Professional Plan:** Starting from 150,000 emails per month at undisclosed pricing. Adds WhatsApp, popups, mobile/web push, multi-user access (10 seats included), contact scoring, phone support, and deliverability specialist support (3 hours per year).
+AWS SES costs in BYO mode: ~$0.10 per 1,000 emails, billed directly by AWS. Combine with the AWS Free Tier (3,000 free sends/month for the first 12 months) at small volume. Packs are stackable.
 
-**Enterprise Plan:** Custom pricing from 1,000,000 emails per month. Includes sub-account management, custom objects, dedicated IP (included), SSO/SAML, tailored onboarding, and dedicated customer success manager.
+### Scenarios
 
-**Add-ons:**
-- Remove Brevo branding: $10.80/month
-- Dedicated IP address: $251/year (approximately $20.92/month), available on Professional and Enterprise only
-- SMS/WhatsApp credits: Pay-as-you-go, approximately $31.59 per 1,000 messages in US/Canada
-- Email credits for overage: Pricing varies by volume
+The right pricing model depends on the ratio of contacts to sends and whether you need multi-channel marketing alongside email.
 
-For comparison purposes with BlueFox Email, the Standard plan represents the appropriate tier as it includes core features like marketing automation, A/B testing, and advanced analytics that BlueFox Email provides on all plans.
+**Tiny test sending** (under 9,000 emails/month):
 
-**Brevo Pricing Limitations:**
-- Feature access heavily gated by plan tier
-- Automation only available from Standard tier up
-- Dedicated IP expensive and restricted to Professional/Enterprise
-- Add-on costs accumulate quickly
-- Pricing can become expensive at higher volumes
-- Free plan significantly limited compared to paid alternatives
+- Brevo Free: covers it at $0.
+- BlueFox Standard Free: covers it at $0 (3,000/mo cap).
+- BYO SES Free: covers it at $0 (6,000/mo cap).
 
-### BlueFox Email's Usage-Based Pricing
+Brevo's free tier is the most generous at small monthly volumes (9,000/mo) but caps daily sends at 300, which can be limiting for newsletter pushes.
 
-BlueFox Email uses a straightforward credit-based system that charges only for actual email sends, with credit packs that expire after one year:
+**Small newsletter** (5,000 contacts × 4 sends/month = 20,000 sends/month, automation needed):
 
-- **Free tier:** 3,000 emails/month for the first year (with subtle branding)
-- **Start-up pack:** 100,000 credits for $50
-- **Scale-up pack:** 1,000,000 credits for $300
-- **Grown-up pack:** 10,000,000 credits for $2,500
+- Brevo Standard 20K: $65/mo. Includes A/B testing, landing page, advanced stats.
+- Brevo Starter 20K: $29/mo, but automation is capped at 2,000 contacts (not enough for this list).
+- BlueFox Standard Essential: $50 for 50K = ~$50/mo equivalent (or ~$20/mo if pacing pack over 2.5 months).
+- BYO SES Essential: $50 for 100K = ~$25/mo equivalent + ~$2 AWS = ~$27/mo.
 
-Pricing includes unlimited contacts with consistent feature access across all plans, every feature available on Enterprise is available on Free, including design systems, automation, personalization, segmentation, webhooks, and analytics. For users utilizing the optional bring-your-own-AWS-SES mode, AWS SES fees (approximately $0.10 per 1,000 emails) are charged separately by Amazon, providing complete cost transparency.
+**Mid-size marketing list** (10,000 contacts × 5 sends each = 50,000 sends/month, automation + segmentation needed):
 
-This model eliminates surprise charges, contact count fees, and feature gates that restrict capabilities based on subscription level. You never pay for storing inactive contacts, and scaling costs are completely predictable based on actual usage.
+- Brevo Standard 60K: $89/mo (closest tier that fits).
+- BlueFox Standard Essential: $50/mo (50K pack covers it exactly).
+- BYO SES Essential: $50/2 months equivalent + ~$5 AWS = ~$30/mo.
 
-**BlueFox Email Pricing Limitations:**
-- Credits expire after one year
-- Optional bring-your-own-AWS-SES mode involves separate AWS billing
-- Less predictable costs for highly irregular sending patterns
+**Transactional-heavy SaaS** (5,000 users × 8 emails each per month = 40,000 sends/month, no marketing needed):
 
-### Scenario-Based Cost Comparison
+- Brevo Starter 40K: $39/mo (transactional flows through the same tier).
+- BlueFox Standard Essential: $50 for 50K = ~$50/mo (or ~$40/mo pacing).
+- BYO SES Essential: $50 for 100K = ~$25/mo + ~$4 AWS = ~$29/mo.
 
-| Monthly Volume | Brevo Business Cost* | BlueFox Email Total** | Savings | BlueFox Email (BYO) Total*** | Savings |
-| -------------- | -------------------: | --------------------: | ------: | ---------------------------: | ------: |
-| 2,000 emails   | $2.60                | $2.00                 | 23%     | $1.20                        | 54%     |
-| 5,000 emails   | $6.50                | $5.00                 | 23%     | $3.00                        | 54%     |
-| 10,000 emails  | $13.00               | $10.00                | 23%     | $6.00                        | 54%     |
-| 50,000 emails  | $65.00               | $50.00                | 23%     | $30.00                       | 54%     |
-| 100,000 emails | $130.00              | $100.00               | 23%     | $60.00                       | 54%     |
-| 500,000 emails | $650.00              | $300.00               | 54%     | $200.00                      | 69%     |
-| 1,000,000 emails | $1,300.00          | $600.00               | 54%     | $400.00                      | 69%     |
+**Large list, infrequent broadcast** (50,000 contacts × 1 send each per month = 50,000 sends/month):
 
-_*Brevo Business Plan pricing at $0.0013 per email (Business plan $129/month for 100k emails). Business Plan includes: unlimited automation contacts, A/B testing, landing pages, advanced analytics, multi-user access (up to 10 users), phone support, send-time optimization._
+- Brevo Standard 60K: $89/mo.
+- BlueFox Standard Essential: $50/mo.
+- BYO SES: $50 platform + ~$5 AWS = ~$55/mo first month, lower after with pack pacing.
 
-_**BlueFox Email Total: Credit pack pricing - Start-up: $50 for 50k emails, Scale-up: $300 for 500k emails, Grown-up: $2,500 for 5M emails. No contact limits, all features included at every tier._
+**High-volume sender** (1,000,000 sends/month):
 
-_***BlueFox Email (BYO) includes platform credit pack costs plus AWS SES fees at $0.0001 per email._
+- Brevo Standard at this volume scales to roughly $669/mo (at the published 100K Standard rate of $129, extrapolated to 1M is approximately the tier ceiling); Professional ($499 entry) covers the volume but for full WhatsApp/push/AI features. Combined cost is plan-dependent.
+- BlueFox Standard: 2 Premium packs at $300 each = $600/mo equivalent.
+- BYO SES Premium: $300 platform + ~$100 AWS = ~$400/mo.
 
-:::tip **All Features on Every Plan**
-Every BlueFox Email plan, including the free tier, includes design systems, automation, and personalization. No feature gates; consistent tool access with transparent, usage-based billing.
-:::
+**Cost summary:** For mid-volume sending where multi-channel marketing isn't needed, BlueFox Email's pack pricing and BYO SES option are typically cheaper than Brevo's equivalent Standard tier, sometimes substantially so at higher volumes. Brevo is competitive (and sometimes cheaper) at small monthly volumes within the free tier, and remains the value choice when SMS, WhatsApp, push, live chat, or sales CRM are part of the same use case. Brevo's volume-based pricing (vs contact-based like Mailchimp or Klaviyo) is genuinely advantageous for large lists with low send frequency.
 
-## Choose Brevo If:
+**Where Brevo makes sense despite the higher price at scale:**
+- You also need SMS, WhatsApp, web/mobile push, live chat, or a sales CRM, and would otherwise pay for those as separate tools.
+- You need EU data residency for GDPR or regulatory reasons. Brevo is French-incorporated with EU-based infrastructure and B Corp certified.
+- You want AI-driven content generation (Aura), AI dynamic content, or AI segmentation (Enterprise) without integrating third-party tools.
+- You have a large contact list with infrequent campaigns. Volume pricing favors this profile heavily.
+- You need first-party SDKs across seven languages rather than rolling against a REST API.
+- You want a single vendor for multi-channel marketing automation plus a built-in CRM.
 
-Consider Brevo when you need an all-in-one marketing suite that extends beyond email to include SMS, WhatsApp, live chat, and basic CRM functionality under a single subscription. The platform works well if you prefer consolidated multi-channel tooling and can operate within plan-based feature restrictions.
+**Where BlueFox Email is the clear choice:**
+- Mid-to-high-volume email sending where per-send pricing beats Brevo's volume tiers.
+- Email-focused workflows where SMS, WhatsApp, push, CRM, and landing pages are handled elsewhere (or not needed).
+- You want automation, segmentation, and analytics on the free tier with no contact cap or tier-gating.
+- You want to bring your own AWS SES and keep your own sending reputation.
+- You need to edit live automations in place rather than work across two editor versions.
+- You need per-project suppression-list visibility and bounce/complaint thresholds shown in-product.
+- You want a single product covering transactional, triggered, and marketing emails with one bill.
 
-Brevo makes sense if you have consistent, predictable email volume that fits cleanly into their tier structure, don't require sophisticated design capabilities or pixel-perfect rendering, and can tolerate potential deliverability volatility and strict account monitoring thresholds. The platform is suitable for teams comfortable with shared IP infrastructure and willing to upgrade to Professional tier ($150K+ emails minimum) if dedicated IP control becomes necessary.
+**Notes on both:**
+- Brevo pricing shifts with monthly volume and adds overage charges. Verify against the current Brevo pricing page.
+- BlueFox prices are public and flat per-pack. AWS SES fees in BYO mode are billed by AWS.
+- Both platforms have evolved pricing in the past year. Brevo restructured in October 2025; BlueFox introduced the Grown-up pack and BYO-SES pricing track.
 
-Choose Brevo if your priorities are breadth of marketing channels over email infrastructure control, you can work within feature gates tied to subscription levels, and you don't rely on mission-critical email communication that requires maximum reliability and sender reputation isolation.
+## Which Fits Your Use Case
 
-## Why We Recommend BlueFox Email
+Pick by what you actually need.
 
-When email reliability, design quality, and cost predictability matter most, especially for marketing agencies, SaaS companies and businesses treating email as a critical revenue channel, BlueFox Email delivers superior value without the risks that drive users away from traditional platforms.
+| If you need…                                                                       | Likely better fit       |
+| ---------------------------------------------------------------------------------- | ----------------------- |
+| Email + SMS + WhatsApp + push + live chat + CRM under one subscription             | Brevo                   |
+| EU data residency and B Corp / GDPR alignment as baseline                          | Brevo                   |
+| AI content generation (Aura) and AI dynamic content                                | Brevo                   |
+| AI natural-language segmentation                                                   | Brevo (Enterprise)      |
+| Large list with infrequent campaigns (volume pricing wins)                         | Brevo                   |
+| First-party SDKs in seven languages with mature SMTP relay                         | Brevo                   |
+| Built-in sales CRM alongside email marketing                                       | Brevo                   |
+| Heat-map click analytics and predictive send-time                                  | Brevo (Standard+)       |
+| Phone support on paid plans                                                        | Brevo (Professional+)   |
+| Mid-to-high-volume sending with predictable per-send costs                         | BlueFox Email           |
+| All features (automation, segmentation, analytics) on the free tier                | BlueFox Email           |
+| Bring-your-own AWS SES with STS Role ARN                                           | BlueFox Email           |
+| Live editing of running automations without disable/duplicate                      | BlueFox Email           |
+| Single product covering transactional, triggered, and marketing                    | BlueFox Email           |
+| Suppression-list visibility and bounce/complaint thresholds in-product             | BlueFox Email           |
+| One-click unsubscribe (RFC-8058), preferences page, pause-instead-of-unsubscribe   | BlueFox Email           |
+| Live RSS/JSON content inside emails (data feeds)                                   | BlueFox Email           |
 
-The usage-based pricing eliminates surprise costs and contact count restrictions that plague legacy providers, while the all-features-on-every-plan approach means you can build sophisticated automation, leverage advanced personalization, and access enterprise-grade analytics from day one. This removes the forced upgrade cycles that interrupt business momentum when you need a feature that's arbitrarily locked behind a higher tier.
-
-The Chamaileon-powered Email Builder creates professional, brand-consistent campaigns with bulletproof HTML that renders flawlessly across all email clients, solving the Outlook rendering problems and design inconsistencies that Brevo users face. The visual automation system enables sophisticated workflows with live-editing capabilities, eliminating the reliability issues and editing restrictions that frustrate Brevo users.
-
-Infrastructure transparency through AWS SES provides enterprise-grade deliverability without the volatility that saw Brevo drop to 68% inbox placement in 2023. You avoid the account suspension risks that plague users of shared-IP platforms, where uploading a contact list with a few invalid addresses can result in immediate deactivation without warning or recourse. With optional bring-your-own-AWS-SES mode, you gain completely isolated sender reputation that is never affected by other users' sending practices, a control level impossible on shared infrastructure.
-
-Direct access to founders and core developers for support ensures you receive expert assistance regardless of plan level, contrasting with Brevo's declining support quality as they scale. When your email infrastructure encounters issues, you speak directly with people who can actually solve problems rather than navigating tiered support systems with limited authority.
-
-With predictable, transparent billing that scales with actual usage, consistent feature access across all plans, reliable infrastructure without suspension risks, and professional design capabilities that ensure brand-safe emails across every client, BlueFox Email serves teams that demand more from their email platform, teams for whom email isn't just another marketing channel, but a critical customer touchpoint that drives revenue, retention, and relationship growth.
+Both platforms can send email at scale. The decision usually comes down to whether you want Brevo's multi-channel customer engagement suite with built-in AI and CRM, or BlueFox Email's focused single-product email platform with per-send pricing and a managed-or-BYO SES delivery choice.
 
 <GlossaryCTA/>
