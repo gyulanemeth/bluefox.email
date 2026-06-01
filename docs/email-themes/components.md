@@ -1,6 +1,15 @@
 ---
 title: Email Theme Components | bluefox.email documentation
 description: Learn how to use email theme components in the BlueFox Email theme settings to create reusable buttons, images, text blocks, and dividers. Save time, maintain consistency, and update designs universally with ease.
+faqs:
+  - question: "What is an email theme component in BlueFox Email?"
+    answer: "A component is a reusable design element, such as a button, text block, image, or divider, defined once in the theme and available to insert into any block or template. Updating a component automatically updates every block and template that uses it."
+  - question: "What is the difference between a component and a block?"
+    answer: "A block is a full content section of an email, such as a header or footer, built from multiple elements. A component is a single reusable element, such as a primary button or logo image, that can be placed inside blocks or templates."
+  - question: "What types of components can I create in an email theme?"
+    answer: "You can create four types: button components (call-to-action buttons), text components (headings, taglines, disclaimers, signature paragraphs), divider components (horizontal lines or section breaks), and image components (logos, product images, banners)."
+  - question: "Can I detach a component from the theme to edit it independently in one email?"
+    answer: "Yes. Select the component in the editor and choose the Detach option from the right panel. This creates an independent copy that you can edit freely without affecting the shared component or any other block or template that uses it."
 head:
   - - meta
     - name: description
@@ -16,7 +25,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/docs/projects
+      content: https://bluefox.email/docs/email-themes/components
   - - meta
     - property: og:type
       content: website

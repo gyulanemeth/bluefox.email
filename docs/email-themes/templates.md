@@ -1,6 +1,15 @@
 ---
 title: Email Theme Settings Templates | bluefox.email documentation
 description: Discover how templates in the BlueFox Email's theme settings help you build structured, reusable email layouts. Combine blocks, define subjects, preview text, and set template behaviors to streamline email creation and project consistency.
+faqs:
+  - question: "What is a template in a BlueFox Email theme?"
+    answer: "A template is a complete email layout built from blocks and additional elements. It includes a subject line and preview text, and can be assigned a role so it is automatically added to new projects as a transactional email, triggered email, or campaign when the project is created."
+  - question: "How do templates differ from blocks in an email theme?"
+    answer: "A block is a single reusable section like a footer or hero banner. A template is a full email layout that combines multiple blocks and other elements into a complete, ready-to-use email structure."
+  - question: "What does the on project creation setting on a template do?"
+    answer: "It defines what happens when a new project linked to this theme is created. You can set the template to automatically become a transactional email, triggered email, or campaign in that project, or choose Do Nothing to keep it available without any automatic assignment."
+  - question: "How do I create a new template in my theme?"
+    answer: "Click Create inside a template category, enter the template name, subject line, preview text, and on project creation role, then open the drag-and-drop editor to assemble it from blocks and elements. You can also duplicate an existing template using Copy and Paste."
 head:
   - - meta
     - name: description
@@ -16,7 +25,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/docs/projects
+      content: https://bluefox.email/docs/email-themes/templates
   - - meta
     - property: og:type
       content: website

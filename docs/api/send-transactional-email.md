@@ -1,6 +1,15 @@
 ---
 title: Send Transactional Email | bluefox.email documentation
 description: Learn how to send transactional emails using the bluefox.email API. Follow the integration guide, use the provided code snippets, and personalize emails with merge tags.
+faqs:
+  - question: "What are the required fields to send a transactional email via the API?"
+    answer: "The request body must include email (the recipient address) and transactionalId (the ID of the transactional email template in your project). Optionally you can pass a data object for merge tag values and an attachments array for file attachments."
+  - question: "How do I pass personalization data to a transactional email?"
+    answer: "Include a data object in the request body. Each key in that object becomes available as a Handlebars merge tag in the email template. For example, passing {\"firstName\": \"Jane\"} lets you use {{firstName}} anywhere in the template."
+  - question: "Where do I find the transactionalId for my email?"
+    answer: "Click the Code Guide button on the transactional email card in your project. The dialog automatically fills in the correct transactionalId and endpoint URL. You only need to replace YOUR_API_KEY before using the snippet."
+  - question: "Can I send a transactional email to any address regardless of subscription status?"
+    answer: "Yes. Transactional emails are not tied to any subscriber list. They can be sent to any valid email address and are not blocked by subscription or unsubscribe status."
 head:
   - - meta
     - name: description

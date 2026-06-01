@@ -1,6 +1,15 @@
 ---
 title: Email Theme Basics | bluefox.email documentation
 description: Discover how theme basics in the BlueFox Email enable dynamic customization of email themes. Define reusable settings for colors, text, images, and more to maintain consistency while allowing flexibility at the project level.
+faqs:
+  - question: "What are email theme basics in BlueFox Email?"
+    answer: "Theme basics are reusable design tokens, such as colors, fonts, images, text snippets, and URLs, that can be referenced across all blocks and templates in a theme. When you update a basic, every block and template using it reflects the change automatically."
+  - question: "What types of values can I store as theme basics?"
+    answer: "You can store five types: colors (hex values with names like color-primary), font stacks (e.g., Arial, Helvetica, sans-serif), images (logos or background images), text snippets (copyright notices, slogans, or legal copy), and link URLs (social media profiles, website links, or call-to-action destinations)."
+  - question: "If I update a color basic, do all templates update automatically?"
+    answer: "Yes. Changing a theme basic value immediately applies to every block and template that references it. You do not need to open or re-save any template manually."
+  - question: "How do I see where a theme basic is currently used?"
+    answer: "Click the eye icon next to any basic to open a live preview showing every block and template that references it. This helps you understand the visual impact before making a change."
 head:
   - - meta
     - name: description
@@ -16,7 +25,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/docs/projects
+      content: https://bluefox.email/docs/email-themes/email-theme-basics
   - - meta
     - property: og:type
       content: website

@@ -1,6 +1,15 @@
 ---
 title: Zapier | BlueFox Email documentation
 description: Automate your email workflows by connecting BlueFox Email with thousands of apps through Zapier. Manage contacts, send emails, and handle subscriptions automatically.
+faqs:
+  - question: "What triggers are available in the BlueFox Email Zapier integration?"
+    answer: "Available triggers include New Contact, Contact Updated, Contact Deleted, New Subscription, Unsubscribed, and Subscription Paused. Subscription-based triggers let you select the specific subscriber list to monitor."
+  - question: "What actions can I perform with BlueFox Email in a Zap?"
+    answer: "Available actions include Send Transactional Email, Send Triggered Email, Create Contact, Update Contact, Delete Contact, Subscribe Email to a list, Unsubscribe Contact from a list, and Pause Subscription."
+  - question: "How do I authenticate my BlueFox Email account in Zapier?"
+    answer: "When setting up a trigger or action in Zapier, click Accounts and choose to connect a new account. Enter your BlueFox Email project API key and project ID, which you can find in the Zapier Integration section at the bottom of your project settings page."
+  - question: "Can I pass custom contact properties when subscribing a contact via Zapier?"
+    answer: "Yes. In the Subscribe Email action, you can provide the contact email and select the subscriber list. You can also pass additional contact properties defined in your project, which will be stored on the contact record in BlueFox Email."
 head:
   - - meta
     - name: description
