@@ -1,6 +1,15 @@
 ---
 title: Send Attachments | bluefox.email documentation
 description: Learn how to send attachments using bluefox.email. Discover the attachment object structure, required fields, and example implementations.
+faqs:
+  - question: "Which email types support file attachments in BlueFox Email?"
+    answer: "Attachments are supported for both transactional emails and triggered emails sent via the API. Each attachment is passed as an object in the attachments array of the request body."
+  - question: "How do I format attachments in the API request?"
+    answer: "Each attachment is an object with two required fields: fileName (the file name including extension, for example report.pdf) and content (the file content encoded as a Base64 string). Include the attachments array in the same request body as the email and transactionalId or triggeredId fields."
+  - question: "Is there a time limit for how long attachments are cached?"
+    answer: "Yes. Attachments are cached for 1 hour. If your email sending process is expected to take longer than one hour to complete, contact BlueFox Email support to arrange uninterrupted delivery."
+  - question: "Can I send multiple attachments in a single email?"
+    answer: "Yes. The attachments field is an array, so you can include as many attachment objects as needed in a single request. Each object requires its own fileName and Base64-encoded content."
 head:
   - - meta
     - name: description
