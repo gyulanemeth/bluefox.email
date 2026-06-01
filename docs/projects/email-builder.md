@@ -1,11 +1,11 @@
 ---
 title: Visual Email Builder | bluefox.email documentation
-description: Learn how to use the visual drag-and-drop email builder in bluefox.email. Build responsive emails with text, images, buttons, dynamic content, advanced elements, and full mobile control.
+description: Learn how to use the visual drag-and-drop email builder in bluefox.email. Build emails with text, images, buttons, dynamic content, and advanced elements.
 faqs:
   - question: "Do I need to write HTML to build emails in BlueFox Email?"
-    answer: "No. The visual email builder is a fully drag-and-drop editor. You can build responsive, branded emails with text, images, buttons, dynamic content, and advanced elements without writing any HTML. A Custom Code element is available if you ever need to insert raw HTML for specific content."
-  - question: "Does the email builder support mobile-responsive layouts?"
-    answer: "Yes. The editor provides granular mobile controls including show or hide per device, column stacking behavior, fluid-width elements, column reordering on mobile, and a 4-column to 2x2 reflow option. A dark mode preview is also included to check rendering in Apple Mail, iOS Mail, and Outlook on macOS."
+    answer: "No. The visual email builder is a fully drag-and-drop editor. You can build branded emails with text, images, buttons, dynamic content, and advanced elements without writing any HTML. A Custom Code element is available if you ever need to insert raw HTML for specific content."
+  - question: "How is the structure of an email organized in the builder?"
+    answer: "Every email is built from a hierarchy: Body → Block → Box → Row → Column → Element. The Body is the outermost container and controls the email background and width. Blocks are reusable full-width sections. Boxes sit inside blocks and hold the actual content. Boxes are divided into rows and columns, and each column holds individual content elements such as text, images, or buttons."
   - question: "What are blocks in the email builder?"
     answer: "Blocks are reusable full-width sections such as headers, footers, hero sections, and CTA rows that you save once and drop into any template. You can lock a block so only admins can edit it, which is useful for protecting footers with legal text or brand-critical header designs."
   - question: "Can I personalize emails with dynamic content in the builder?"
