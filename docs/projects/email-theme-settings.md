@@ -1,6 +1,15 @@
 ---
 title: Email Theme Settings | bluefox.email documentation
 description: Learn how to customize your project's email theme settings in bluefox.email by adjusting colors, fonts, images, texts, and links to match your brand.
+faqs:
+  - question: "What are email theme settings in a project?"
+    answer: "Email theme settings are project-level overrides for the colors, fonts, images, texts, and links defined in the email theme linked to the project. Changes you make here apply only to this project and do not affect other projects using the same email theme."
+  - question: "Can I change the email theme after a project is created?"
+    answer: "Yes, you can switch the email theme in the project's main settings. However, any overridden theme variables such as colors or images will be permanently lost when you switch, and templates and blocks tied to the original theme will not be accessible on the new theme."
+  - question: "What is the difference between Basics and Components in email theme settings?"
+    answer: "Basics are global design tokens such as brand colors, font families, logo images, and link URLs that apply across all email templates in the project. Components are specific reusable elements like buttons and dividers whose individual style properties (size, alignment, padding, border) you can override at the project level."
+  - question: "Will changes to email theme settings affect campaigns that have already been sent?"
+    answer: "No. Changes to email theme settings only affect emails that have not yet been sent. Previously sent campaigns are not retroactively affected."
 head:
   - - meta
     - name: description

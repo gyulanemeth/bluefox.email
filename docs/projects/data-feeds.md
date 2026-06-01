@@ -1,6 +1,17 @@
 ---
 title: Data Feeds | bluefox.email documentation
 description: Learn how to use data feeds in bluefox.email to pull live content from external sources (RSS/Atom XML or JSON) directly into your email templates with loops and merge tags.
+faqs:
+  - question: "What are data feeds in BlueFox Email?"
+    answer: "Data feeds let you connect an external RSS, Atom XML, or JSON URL to an email. When the email is sent, BlueFox Email fetches the latest content from that URL and renders it using a Loop block in the template. This means your newsletter or digest always goes out with fresh content without editing the template each time."
+  - question: "Which email types support data feeds?"
+    answer: "Data feeds are available on all email types: transactional emails, triggered emails, campaigns, and inside Send Email and Notify nodes within automations."
+  - question: "How do I display feed content in my email template?"
+    answer: "Add a Loop block to your email in the drag-and-drop editor and set its expression to the variable name you assigned to the feed. Inside the loop, add content blocks such as text, image, or button elements and reference the item fields using merge tags such as item.title, item.link, or item.description."
+  - question: "What happens if a data feed fails to load when the email is being sent?"
+    answer: "If the feed is marked as Required, the email will not be sent when the feed fails. If the feed is not marked as Required, the email is sent anyway and the loop simply renders nothing for that feed. Each feed's Required setting is evaluated independently when multiple feeds are attached to the same email."
+  - question: "Can I attach multiple data feeds to one email?"
+    answer: "Yes. You can add as many feeds as needed to a single email. Each feed has its own variable name so you can loop over them independently in the same template, for example one loop for news articles and another for featured products."
 head:
   - - meta
     - name: description

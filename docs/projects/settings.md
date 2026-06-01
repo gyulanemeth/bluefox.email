@@ -1,6 +1,17 @@
 ---
 title: Project Settings | bluefox.email documentation
 description: Learn how to configure project settings in bluefox.email, including AWS credentials, sender identities, bounce and complaint webhooks, and API keys.
+faqs:
+  - question: "Where do I find my API key in BlueFox Email?"
+    answer: "API keys are in the project settings under the API Keys section. You must create at least one API key to send transactional or triggered emails via the API. Include the key as a Bearer token in the Authorization header of your API requests."
+  - question: "Why does the API key color change over time?"
+    answer: "BlueFox Email uses color-coded age indicators on API keys as a reminder to rotate them periodically for security. Green means the key is less than one month old, yellow means 1-6 months old, and red means more than 6 months old."
+  - question: "What is the domain whitelist used for?"
+    answer: "The domain whitelist controls which frontend domains are authorized to make subscription requests to your project, for example when embedding a sign-up form on your website. Backend requests using an API key do not need domain whitelisting. If your sign-up form is on your website, add your domain to the whitelist in project settings."
+  - question: "What contact properties can I define in project settings?"
+    answer: "You can define custom contact properties with a name and data type (string, boolean, date, or number). These properties appear in the contacts table and can be populated via API or the UI. Reserved names such as email, status, and contactId cannot be used as custom property names."
+  - question: "Can I delete a project in BlueFox Email?"
+    answer: "Yes. You can delete a project from the main section of the project settings page. The delete option is available next to the project name field. Deletion is permanent and cannot be undone."
 head:
   - - meta
     - name: description

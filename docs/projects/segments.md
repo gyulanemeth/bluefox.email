@@ -1,6 +1,17 @@
 ---
 title: Segments | bluefox.email documentation
 description: Learn how to create and manage segments in bluefox.email. Use condition-based filters with AND/OR logic to target specific groups of contacts for campaigns and automations.
+faqs:
+  - question: "What is a segment in BlueFox Email?"
+    answer: "A segment is a dynamic group of contacts filtered by conditions you define. Segments update automatically as contact data changes. You can apply them to campaigns to target a subset of a subscriber list, and use them in automations as trigger conditions or audience filters."
+  - question: "Can I combine multiple conditions in a segment?"
+    answer: "Yes. Segments support both AND logic (contact must meet all conditions) and OR logic (contact must meet at least one condition). You can mix property-based conditions using operators like Equals, Contains, Greater Than, and Is Empty with engagement-based conditions like opened or clicked within a specified number of days."
+  - question: "What is an engagement-based segment?"
+    answer: "An engagement-based segment filters contacts based on how they have interacted with your emails. Conditions include received, not received, opened, not opened, clicked, and not clicked within a specified number of days. This lets you run re-engagement campaigns at inactive subscribers or reward your most engaged contacts."
+  - question: "Does deleting a segment delete the contacts in it?"
+    answer: "No. Deleting a segment only removes the segment definition and its filtering rules. The contacts themselves and their subscriptions remain completely unaffected."
+  - question: "Can I apply a segment to all contacts or only within a specific list?"
+    answer: "Both. When creating a segment you choose whether it applies to all contacts in the project or only to contacts within a specific subscriber list. All-contacts scope is useful for broad behavioral targeting across lists. List scope is useful for more precise, list-specific targeting."
 head:
   - - meta
     - name: description
