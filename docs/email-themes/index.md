@@ -7,7 +7,7 @@ faqs:
   - question: "Can one email theme be shared across multiple projects?"
     answer: "Yes. A single email theme can be linked to multiple projects. Each project inherits all the theme's basics, components, blocks, and templates, and can override individual basics and components at the project level without affecting the shared theme or other projects."
   - question: "Can I change the email theme linked to a project after creating it?"
-    answer: "No. Once a project is associated with an email theme, you cannot change that association. Choose the right theme carefully when creating a project."
+    answer: "Yes, you can change the email theme linked to a project after creating it. Keep in mind that doing so will cause you to lose any project-level overrides (such as custom basics or component overrides) that were tied to the previous theme. Review your project customizations before switching themes."
   - question: "How do I override a theme setting for just one project without changing it for everyone?"
     answer: "Navigate to your project settings and override the specific basics or components you want to customize. For example, you can set a different primary color or replace the logo just for that project. These changes only affect that project and leave the shared theme unchanged for all other projects."
 head:

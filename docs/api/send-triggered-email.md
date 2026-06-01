@@ -3,9 +3,9 @@ title: Send Triggered Email | bluefox.email documentation
 description: Learn how to send triggered emails using the bluefox.email API. Follow the integration guide, use the provided code snippets, and personalize emails with merge tags.
 faqs:
   - question: "What are the required fields to send a triggered email via the API?"
-    answer: "The request body must include emails (an array of recipient addresses) and triggeredId (the ID of the triggered email template). Optionally pass a data object for merge tag values and an attachments array for file attachments."
+    answer: "The request body must include triggeredId (the ID of the triggered email template). The emails field is optional: if omitted, the email is sent to the entire subscriber list linked to the triggered email. If provided, it must be an array of recipient addresses, and only addresses that are active subscribers on the linked list will receive the email. You can also optionally pass a data object for merge tag values and an attachments array for file attachments."
   - question: "Why did my triggered email not get delivered to some addresses?"
-    answer: "Triggered emails are only delivered to contacts who are active subscribers on the subscriber list linked to that triggered email. Addresses that are unsubscribed, paused, or not on the list are silently skipped. No error is returned for skipped addresses."
+    answer: "When you pass an emails array, each address must be an active subscriber on the subscriber list linked to the triggered email. Addresses that are unsubscribed, paused, or not on the list are silently skipped. No error is returned for skipped addresses."
   - question: "Can I send a triggered email to multiple recipients in one API call?"
     answer: "Yes. The emails field accepts an array of addresses. The email will be delivered to each address in the array that is an active subscriber on the linked list. Addresses that do not qualify are skipped automatically."
   - question: "Where do I find the triggeredId for my email?"
