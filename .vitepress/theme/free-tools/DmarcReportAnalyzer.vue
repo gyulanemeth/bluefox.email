@@ -58,6 +58,37 @@ const truncatedFileName = computed(() => {
   return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
 })
 
+const hasEnvelopeFrom = computed(() =>
+  result.value?.sources?.some(s => s.envelopeFrom != null) ?? false
+)
+
+const hasSpfScope = computed(() =>
+  result.value?.sources?.some(s => s.spfScope != null) ?? false
+)
+
+const sourcesGridColumns = computed(() => {
+  const cols = ['2fr', '1fr', '1fr', '1fr', '1fr']
+  if (hasEnvelopeFrom.value) cols.push('2fr')
+  if (hasSpfScope.value) cols.push('1fr')
+  return cols.join(' ')
+})
+
+const dkimWarnings = computed(() =>
+  result.value?.warnings?.filter(w => /dkim.*selector|selector.*dkim/i.test(w)) ?? []
+)
+
+const regularWarnings = computed(() =>
+  result.value?.warnings?.filter(w => !/dkim.*selector|selector.*dkim/i.test(w)) ?? []
+)
+
+const testModeRecommendations = computed(() =>
+  result.value?.recommendations?.filter(r => /policy[_\s]?test[_\s]?mode|test\s?mode/i.test(r)) ?? []
+)
+
+const regularRecommendations = computed(() =>
+  result.value?.recommendations?.filter(r => !/policy[_\s]?test[_\s]?mode|test\s?mode/i.test(r)) ?? []
+)
+
 // ---- FUNCTIONS ----
 function loadCaptchaState() {
   const stored = loadCaptchaFromStorage()
@@ -526,17 +557,20 @@ onMounted(async () => {
           </span>
         </h4>
         <div class="sources-table">
-          <div class="table-header">
+          <div class="table-header" :style="{ gridTemplateColumns: sourcesGridColumns }">
             <span>IP Address</span>
             <span>Count</span>
             <span>DMARC</span>
             <span>SPF</span>
             <span>DKIM</span>
+            <span v-if="hasEnvelopeFrom">Envelope From</span>
+            <span v-if="hasSpfScope">SPF Scope</span>
           </div>
           <div
             v-for="src in result.sources"
             :key="src.ip"
             class="table-row"
+            :style="{ gridTemplateColumns: sourcesGridColumns }"
           >
             <span class="ip">{{ src.ip }}</span>
             <span class="count">{{ src.count }}</span>
@@ -549,6 +583,8 @@ onMounted(async () => {
             <span class="result" :class="src.dkimResult === 'pass' ? 'pass' : 'fail'">
               {{ src.dkimResult === 'pass' ? 'Pass' : 'Fail' }}
             </span>
+            <span v-if="hasEnvelopeFrom" class="envelope-from">{{ src.envelopeFrom ?? '-' }}</span>
+            <span v-if="hasSpfScope" class="spf-scope">{{ src.spfScope ?? '-' }}</span>
           </div>
         </div>
       </div>
@@ -561,18 +597,35 @@ onMounted(async () => {
         </ul>
       </div>
 
-      <!-- Warnings, Recommendations -->
-      <div v-if="result.warnings?.length" class="section warnings-section">
-        <h4>Warnings</h4>
+      <!-- DKIM selector notices (info, not an error) -->
+      <div v-if="dkimWarnings.length" class="section dkim-notice-section">
+        <h4>Notices</h4>
         <ul>
-          <li v-for="warning in result.warnings" :key="warning">{{ warning }}</li>
+          <li v-for="warning in dkimWarnings" :key="warning">{{ warning }}</li>
         </ul>
       </div>
 
-      <div v-if="result.recommendations?.length" class="section recommendations-section">
+      <!-- Warnings -->
+      <div v-if="regularWarnings.length" class="section warnings-section">
+        <h4>Warnings</h4>
+        <ul>
+          <li v-for="warning in regularWarnings" :key="warning">{{ warning }}</li>
+        </ul>
+      </div>
+
+      <!-- Recommendations -->
+      <div v-if="regularRecommendations.length" class="section recommendations-section">
         <h4>Recommendations</h4>
         <ul>
-          <li v-for="rec in result.recommendations" :key="rec">{{ rec }}</li>
+          <li v-for="rec in regularRecommendations" :key="rec">{{ rec }}</li>
+        </ul>
+      </div>
+
+      <!-- Policy test mode (informational, not a failure) -->
+      <div v-if="testModeRecommendations.length" class="section test-mode-rec-section">
+        <h4>Policy Test Mode</h4>
+        <ul>
+          <li v-for="rec in testModeRecommendations" :key="rec">{{ rec }}</li>
         </ul>
       </div>
     </div>
@@ -1309,6 +1362,36 @@ onMounted(async () => {
   color: var(--vp-c-tip-1, #17a2b8);
 }
 
+.dkim-notice-section {
+  background: #f0f9ff;
+  border-left: 4px solid #3b82f6;
+}
+
+.dkim-notice-section h4 {
+  color: #1d4ed8;
+}
+
+.test-mode-rec-section {
+  background: #f0f9ff;
+  border-left: 4px solid #3b82f6;
+}
+
+.test-mode-rec-section h4 {
+  color: #1d4ed8;
+}
+
+.table-row .envelope-from {
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2, #6b7280);
+  word-break: break-all;
+}
+
+.table-row .spf-scope {
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2, #6b7280);
+}
+
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
   .form-fields-container.drag-hover {
@@ -1340,11 +1423,29 @@ onMounted(async () => {
   .recommendations-section li {
     color: #2d3748 !important;
   }
-  
+
   .warnings-section,
   .warnings-section ul,
   .warnings-section li {
     color: #2d3748 !important;
+  }
+
+  .dkim-notice-section {
+    background: rgba(59, 130, 246, 0.1);
+  }
+
+  .dkim-notice-section h4,
+  .dkim-notice-section li {
+    color: #93c5fd;
+  }
+
+  .test-mode-rec-section {
+    background: rgba(59, 130, 246, 0.1);
+  }
+
+  .test-mode-rec-section h4,
+  .test-mode-rec-section li {
+    color: #93c5fd;
   }
   
   .info-tip-pop {
