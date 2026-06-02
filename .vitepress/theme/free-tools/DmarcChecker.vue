@@ -14,13 +14,17 @@ const DMARC_TAG_DESCRIPTIONS = {
   v: "DMARC version tag (should be DMARC1).",
   p: "Policy for main domain (none/quarantine/reject).",
   sp: "Subdomain policy (if present).",
+  np: "Policy for non-existent subdomains.",
   rua: "Aggregate report recipient(s).",
   ruf: "Forensic report recipient(s).",
   adkim: "DKIM alignment mode (r=relaxed, s=strict).",
   aspf: "SPF alignment mode (r=relaxed, s=strict).",
   pct: "Percent of mail subject to filtering.",
   fo: "Failure reporting options.",
-  ri: "Report interval in seconds."
+  ri: "Report interval in seconds.",
+  t: "Test mode flag (y = testing, policy not enforced).",
+  psd: "Public suffix domain flag.",
+  rf: "Report format (deprecated)."
 }
 
 const domain = ref('')
@@ -60,11 +64,12 @@ const isFormDisabled = computed(() =>
 
 const dmarcTags = computed(() => {
   const parsed = result.value?.parsed || {}
+  const explanations = result.value?.explanations || {}
   return Object.entries(DMARC_TAG_DESCRIPTIONS)
     .map(([tag, description]) => ({
       tag: tag.toUpperCase(),
       value: parsed[tag] || '',
-      description
+      description: explanations[tag] || description
     }))
     .filter(item => item.value)
 })
@@ -151,6 +156,7 @@ async function checkDmarcHandler() {
       domain: data.result.domain || domain.value,
       record: data.result.rawRecord || data.result.record || 'Not found',
       parsed: data.result.parsed || {},
+      explanations: data.result.explanations || {},
       checkedRecord: data.result.checkedRecord,
       score: data.result.score,
       warnings: data.result.warnings || [],

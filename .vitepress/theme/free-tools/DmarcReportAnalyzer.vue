@@ -180,7 +180,7 @@ function clearFile() {
 function formatDateRange(dateRange) {
   if (!dateRange) return 'Unknown'
   if (dateRange.start && dateRange.end) {
-    return `${new Date(dateRange.start * 1000).toLocaleString()} — ${new Date(dateRange.end * 1000).toLocaleString()}`
+    return `${new Date(dateRange.start * 1000).toLocaleString()} to ${new Date(dateRange.end * 1000).toLocaleString()}`
   }
   return typeof dateRange === 'string' ? dateRange : 'Unknown'
 }
@@ -454,6 +454,14 @@ onMounted(async () => {
               </span>
             </span>
           </div>
+          <div v-if="result.version" class="summary-item">
+            <span class="label">Report Version:</span>
+            <span class="value">{{ result.version }}</span>
+          </div>
+          <div v-if="result.generator" class="summary-item">
+            <span class="label">Generator:</span>
+            <span class="value">{{ result.generator }}</span>
+          </div>
         </div>
       </div>
 
@@ -478,6 +486,18 @@ onMounted(async () => {
           <div class="policy-item">
             <span class="label">DKIM Alignment:</span>
             <span class="value">{{ result.policy.dkimAlignment }}</span>
+          </div>
+          <div v-if="result.policy.sp" class="policy-item">
+            <span class="label">Subdomain Policy:</span>
+            <span class="value">{{ result.policy.sp }}</span>
+          </div>
+          <div v-if="result.policy.np" class="policy-item">
+            <span class="label">Non-Existent Subdomain Policy:</span>
+            <span class="value">{{ result.policy.np }}</span>
+          </div>
+          <div v-if="result.policy.discoveryMethod" class="policy-item">
+            <span class="label">Discovery Method:</span>
+            <span class="value">{{ result.policy.discoveryMethod }}</span>
           </div>
         </div>
       </div>
@@ -531,6 +551,14 @@ onMounted(async () => {
             </span>
           </div>
         </div>
+      </div>
+
+      <!-- Errors -->
+      <div v-if="result.errors?.length" class="section errors-section">
+        <h4>Errors</h4>
+        <ul>
+          <li v-for="error in result.errors" :key="error">{{ error }}</li>
+        </ul>
       </div>
 
       <!-- Warnings, Recommendations -->
@@ -1252,6 +1280,15 @@ onMounted(async () => {
 .section li {
   margin: 0.5rem 0;
   line-height: 1.5;
+}
+
+.errors-section {
+  background: var(--vp-danger-soft, #fef2f2);
+  border-left: 4px solid var(--vp-c-danger-1, #dc3545);
+}
+
+.errors-section h4 {
+  color: var(--vp-c-danger-1, #b91c1c);
 }
 
 .warnings-section {
