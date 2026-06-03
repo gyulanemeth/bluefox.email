@@ -59,7 +59,7 @@ When creating a transactional email, after selecting a template category from yo
 
 ![A screenshot of the pre-designed template selection step when creating a transactional email.](./project-transactionals-create-select-predesigned.webp)
 
-Select any template and click **Next** to continue setting up your email name, subject line, and preview text.
+Select any template and click **Next** to continue setting up your email name, subject line, and preview text. For the remaining steps, see [Transactional Emails](/docs/projects/transactional-emails#creating-a-transactional-email).
 
 ### Triggered Emails
 
@@ -67,7 +67,7 @@ The same option is available when creating a triggered email:
 
 ![A screenshot of the pre-designed template selection step when creating a triggered email.](./project-triggered-emails-create-select-predesigned.webp)
 
-Select a template and click **Next** to proceed to the email details form.
+Select a template and click **Next** to proceed to the email details form. For the remaining steps, see [Triggered Emails](/docs/projects/triggered-emails#creating-a-triggered-email).
 
 ### Campaigns
 
@@ -75,7 +75,7 @@ When creating a campaign, you can browse pre-designed templates from the same sc
 
 ![A screenshot of the template selection step when creating a campaign, showing pre-designed templates.](./project-campaign-create-select-template-2.webp)
 
-Select a template and click **Next** to enter your campaign name, subject line, preview text, subscriber list, and segment.
+Select a template and click **Next** to enter your campaign name, subject line, preview text, subscriber list, and segment. For the remaining steps, see [Campaigns](/docs/projects/campaigns#creating-a-campaign).
 
 ## Editing After Selection
 

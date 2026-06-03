@@ -67,7 +67,7 @@ Next (if starting from template), select a template category defined in your pro
 
 ![A screenshot of a project's transactional emails - create: select template category.](./project-transactionals-create-select-category.webp)
 
-You can also choose a [pre-designed template](/docs/projects/predesigned-templates):
+You can also choose a [pre-designed template](/docs/projects/predesigned-templates#transactional-emails):
 ![A screenshot of a project's transactional emails - create: select pre-designed template.](./project-transactionals-create-select-predesigned.webp)
 
 Then, choose a template to start from, also defined in your design system. And then click Next.
