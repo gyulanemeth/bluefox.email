@@ -14,13 +14,17 @@ const DMARC_TAG_DESCRIPTIONS = {
   v: "DMARC version tag (should be DMARC1).",
   p: "Policy for main domain (none/quarantine/reject).",
   sp: "Subdomain policy (if present).",
+  np: "Policy for non-existent subdomains.",
   rua: "Aggregate report recipient(s).",
   ruf: "Forensic report recipient(s).",
   adkim: "DKIM alignment mode (r=relaxed, s=strict).",
   aspf: "SPF alignment mode (r=relaxed, s=strict).",
   pct: "Percent of mail subject to filtering.",
   fo: "Failure reporting options.",
-  ri: "Report interval in seconds."
+  ri: "Report interval in seconds.",
+  t: "Test mode flag (y = testing, policy not enforced).",
+  psd: "Public suffix domain flag.",
+  rf: "Report format (deprecated)."
 }
 
 const domain = ref('')
@@ -60,14 +64,37 @@ const isFormDisabled = computed(() =>
 
 const dmarcTags = computed(() => {
   const parsed = result.value?.parsed || {}
+  const explanations = result.value?.explanations || {}
   return Object.entries(DMARC_TAG_DESCRIPTIONS)
     .map(([tag, description]) => ({
       tag: tag.toUpperCase(),
       value: parsed[tag] || '',
-      description
+      description: explanations[tag] || description
     }))
     .filter(item => item.value)
 })
+
+const testModeWarning = computed(() =>
+  result.value?.warnings?.find(w => /^t=y/i.test(w)) ?? null
+)
+
+const deprecatedWarnings = computed(() =>
+  result.value?.warnings?.filter(w => /deprecated/i.test(w)) ?? []
+)
+
+const regularWarnings = computed(() =>
+  result.value?.warnings?.filter(w =>
+    !/^t=y/i.test(w) && !/deprecated/i.test(w)
+  ) ?? []
+)
+
+const npRecommendations = computed(() =>
+  result.value?.recommendations?.filter(r => /\bnp=/i.test(r)) ?? []
+)
+
+const regularRecommendations = computed(() =>
+  result.value?.recommendations?.filter(r => !/\bnp=/i.test(r)) ?? []
+)
 
 // ---- FUNCTIONS ----
 function loadCaptchaState() {
@@ -151,6 +178,7 @@ async function checkDmarcHandler() {
       domain: data.result.domain || domain.value,
       record: data.result.rawRecord || data.result.record || 'Not found',
       parsed: data.result.parsed || {},
+      explanations: data.result.explanations || {},
       checkedRecord: data.result.checkedRecord,
       score: data.result.score,
       warnings: data.result.warnings || [],
@@ -355,18 +383,41 @@ onMounted(async () => {
         </div>
       </div>
 
-      <!-- Warnings, Recommendations -->
-      <div v-if="result.warnings?.length" class="section warnings-section">
+      <!-- t=y staging warning (prominent, not a list item) -->
+      <div v-if="testModeWarning" class="test-mode-banner">
+        <strong>Test Mode Active</strong>
+        <p>{{ testModeWarning }}</p>
+      </div>
+
+      <!-- Regular warnings -->
+      <div v-if="regularWarnings.length" class="section warnings-section">
         <h4>Warnings</h4>
         <ul>
-          <li v-for="warning in result.warnings" :key="warning">{{ warning }}</li>
+          <li v-for="warning in regularWarnings" :key="warning">{{ warning }}</li>
         </ul>
       </div>
 
-      <div v-if="result.recommendations?.length" class="section recommendations-section">
+      <!-- Deprecated tag notices (muted, informational) -->
+      <div v-if="deprecatedWarnings.length" class="section deprecated-section">
+        <h4>Deprecated Tags</h4>
+        <ul>
+          <li v-for="warning in deprecatedWarnings" :key="warning">{{ warning }}</li>
+        </ul>
+      </div>
+
+      <!-- Recommendations -->
+      <div v-if="regularRecommendations.length" class="section recommendations-section">
         <h4>Recommendations</h4>
         <ul>
-          <li v-for="rec in result.recommendations" :key="rec">{{ rec }}</li>
+          <li v-for="rec in regularRecommendations" :key="rec">{{ rec }}</li>
+        </ul>
+      </div>
+
+      <!-- Advanced (np= and similar) -->
+      <div v-if="npRecommendations.length" class="section advanced-section">
+        <h4>Advanced</h4>
+        <ul>
+          <li v-for="rec in npRecommendations" :key="rec">{{ rec }}</li>
         </ul>
       </div>
     </div>
@@ -809,6 +860,57 @@ onMounted(async () => {
   color: var(--vp-c-tip-1, #17a2b8);
 }
 
+.test-mode-banner {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: #fff7ed;
+  border-left: 4px solid #f97316;
+  border-radius: 8px;
+  color: #9a3412;
+}
+
+.test-mode-banner strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.test-mode-banner p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.deprecated-section {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-left: 4px solid var(--vp-c-border, #d1d5db);
+}
+
+.deprecated-section h4 {
+  color: var(--vp-c-text-2, #6b7280);
+  font-weight: 600;
+}
+
+.deprecated-section li {
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.875rem;
+}
+
+.advanced-section {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-left: 4px solid var(--vp-c-border, #d1d5db);
+}
+
+.advanced-section h4 {
+  color: var(--vp-c-text-2, #6b7280);
+  font-weight: 600;
+}
+
+.advanced-section li {
+  color: var(--vp-c-text-2, #6b7280);
+}
+
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
   .dmarc-table th {
@@ -831,7 +933,13 @@ onMounted(async () => {
   .recommendations-section li {
     color: #2d3748 !important;
   }
-  
+
+  .test-mode-banner {
+    background: rgba(249, 115, 22, 0.12);
+    color: #fdba74;
+    border-left-color: #f97316;
+  }
+
   .info-tip-pop {
     background: var(--vp-c-bg-soft, #252736);
     border-color: var(--vp-c-border, #404040);
