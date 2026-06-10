@@ -67,7 +67,7 @@ const { isDark } = useData()
 
 In October 2025, Brevo quietly renamed its "Business" tier to "Standard" and slotted a new "Professional" tier in above it at $499 per month. Two months later it closed a €500 million Series C and crossed into unicorn territory. The product underneath those announcements has been broadening for years (email, SMS, WhatsApp, web push, live chat, a sales CRM, an AI marketing agent), but the late-2025 stretch was when Brevo's positioning shifted clearly. This is no longer an email tool that grew up. It's a customer engagement suite aimed at HubSpot's mid-market, priced to undercut.
 
-BlueFox Email is a different kind of bet. One product, email only, sold per-send rather than per-contact, with every feature available on the free tier. There's a managed sending mode and an optional bring-your-own AWS SES mode for teams that want IP isolation and their own AWS billing relationship. No SMS, no CRM, no landing pages, no AI agent.
+BlueFox Email is a different kind of bet. One product, email only, sold per-send rather than per-contact, with every feature available on the free tier. There's a managed sending mode (with an optional dedicated IP add-on) and an optional bring-your-own AWS SES mode for teams that want full IP isolation and their own AWS billing relationship. No SMS, no CRM, no landing pages, no AI agent.
 
 The honest question isn't which platform is "better." The two target different shapes of business. The useful question is which model fits your situation: a wide bundle priced by email volume, or a narrow product priced by sends with the option to run on top of your own AWS infrastructure. What follows is a section-by-section comparison covering design, integrations, automation, deliverability, personalization, segmentation, analytics, support, and pricing, with scenario-based cost math at the end. Numbers reflect public pricing and documentation as of May 2026.
 
@@ -79,7 +79,7 @@ The pricing structure has five tiers as of October 2025: Free, Starter ($9/mo fo
 
 BlueFox Email's product is narrower by design. It offers two delivery modes: managed infrastructure (projects start in sandbox, move to production after a review, no AWS account required) and an optional [BYO AWS SES](https://bluefox.email/docs/projects/delivery-modes#using-aws-ses-directly) mode for teams that want to use their own AWS account and keep their own sending reputation. The feature set covers campaigns, transactional, triggered emails, automations, sign-up forms, segments, suppression lists, and a subscription preferences page with one-click unsubscribe (RFC-8058) built in. There's no SMS, WhatsApp, push, live chat, CRM, or landing page builder. Pricing is per-send (credit packs roll for 12 months) with unlimited contacts, and all features are available on every plan including the free tier.
 
-The two are aimed at different teams. Brevo fits organizations that want one vendor for multi-channel marketing automation plus a sales CRM, and that benefit from EU data residency. BlueFox Email fits teams that want focused email, either fully managed or on top of their own AWS SES, with predictable per-send costs and no feature gates between tiers.
+The two are aimed at different teams. Brevo fits organizations that want one vendor for multi-channel marketing automation plus a sales CRM. BlueFox Email fits teams that want focused email, either fully managed or on top of their own AWS SES, with predictable per-send costs and no feature gates between tiers. Both keep data in the EU and are GDPR compliant.
 
 ## Email Design and Templates
 
@@ -99,7 +99,7 @@ BlueFox Email uses the [Chamaileon SDK](https://help.chamaileon.io/en/collection
 
 **Strengths:** reusable design system with block-level reuse, built-in stock photo gallery and photo editor, data-feed-driven dynamic content, cross-client rendering, same editor for transactional and marketing.
 
-**Trade-offs:** smaller starter-template library than Brevo's 40+ catalog, no AI content generation, no AI-driven dynamic content beyond data feeds, no built-in heat-map analytics overlay.
+**Trade-offs:** no AI content generation, no AI-driven dynamic content beyond data feeds. (Heat-map click visualization is an analytics feature; covered in the Analytics section below.)
 
 <TemplateShowcase
   :is-dark="isDark"
@@ -173,9 +173,9 @@ BlueFox Email has three delivery modes documented in [Delivery Modes](https://bl
 
 To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending. The platform also supports one-click unsubscribe (RFC-8058), a subscription preferences page, and a pause-instead-of-unsubscribe link.
 
-**Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, transparent bounce/complaint thresholds visible in-product, per-project suppression list, STS-based AWS auth (no long-lived keys), one-click unsubscribe and preferences page built in, BYO SES gives complete reputation isolation.
+**Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, optional dedicated IP add-on on the managed plan ($50/mo per workspace), transparent bounce/complaint thresholds visible in-product, per-project suppression list, STS-based AWS auth (no long-lived keys), one-click unsubscribe and preferences page built in, BYO SES gives complete reputation isolation, EU data residency and GDPR compliance.
 
-**Trade-offs:** no dedicated IP on the managed plan (dedicated IP only via BYO SES with your own AWS account). No EU-specific data residency commitment at the platform layer (AWS SES is regional, but BlueFox's managed infrastructure choice is not user-selectable). Smaller community than Brevo, so less third-party deliverability tooling and shared best-practice content.
+**Trade-offs:** Smaller community than Brevo, so less third-party deliverability tooling and shared best-practice content.
 
 ## Personalization
 
@@ -237,7 +237,7 @@ BlueFox Email scopes [analytics](https://bluefox.email/docs/analytics) at accoun
 
 **Strengths:** live bounce/complaint ratios against the production thresholds, per-email-type and per-automation-node stats, real-time webhook push for external analytics, full event set on every plan, no retention add-on required.
 
-**Trade-offs:** no revenue or ROI tracking, no heat-map click visualization, no breakdowns by mailbox provider or device, no industry benchmarking data.
+**Trade-offs:** no revenue or ROI tracking, no breakdowns by mailbox provider or device, no industry benchmarking data. Per-URL click counts are shown in the data table, but there's no visual heat-map overlay.
 
 <div class="home-analytics">
 <AgencyAnalytics
@@ -310,26 +310,26 @@ Brevo's free tier is the most generous at small monthly volumes (9,000/mo) but c
 
 - Brevo Standard 20K: $65/mo. Includes A/B testing, landing page, advanced stats.
 - Brevo Starter 20K: $29/mo, but automation is capped at 2,000 contacts (not enough for this list).
-- BlueFox Standard Essential: $50 for 50K = ~$50/mo equivalent (or ~$20/mo if pacing pack over 2.5 months).
-- BYO SES Essential: $50 for 100K = ~$25/mo equivalent + ~$2 AWS = ~$27/mo.
+- BlueFox Standard Essential: 20K of a $50 / 50K pack = ~$20/mo equivalent.
+- BYO SES Essential: 20K of a $50 / 100K pack = ~$10/mo platform + ~$2 AWS = ~$12/mo.
 
 **Mid-size marketing list** (10,000 contacts × 5 sends each = 50,000 sends/month, automation + segmentation needed):
 
 - Brevo Standard 60K: $89/mo (closest tier that fits).
 - BlueFox Standard Essential: $50/mo (50K pack covers it exactly).
-- BYO SES Essential: $50/2 months equivalent + ~$5 AWS = ~$30/mo.
+- BYO SES Essential: 50K of a $50 / 100K pack = ~$25/mo platform + ~$5 AWS = ~$30/mo.
 
 **Transactional-heavy SaaS** (5,000 users × 8 emails each per month = 40,000 sends/month, no marketing needed):
 
 - Brevo Starter 40K: $39/mo (transactional flows through the same tier).
-- BlueFox Standard Essential: $50 for 50K = ~$50/mo (or ~$40/mo pacing).
-- BYO SES Essential: $50 for 100K = ~$25/mo + ~$4 AWS = ~$29/mo.
+- BlueFox Standard Essential: 40K of a $50 / 50K pack = ~$40/mo equivalent.
+- BYO SES Essential: 40K of a $50 / 100K pack = ~$20/mo platform + ~$4 AWS = ~$24/mo.
 
 **Large list, infrequent broadcast** (50,000 contacts × 1 send each per month = 50,000 sends/month):
 
 - Brevo Standard 60K: $89/mo.
 - BlueFox Standard Essential: $50/mo.
-- BYO SES: $50 platform + ~$5 AWS = ~$55/mo first month, lower after with pack pacing.
+- BYO SES Essential: 50K of a $50 / 100K pack = ~$25/mo platform + ~$5 AWS = ~$30/mo.
 
 **High-volume sender** (1,000,000 sends/month):
 
@@ -337,18 +337,18 @@ Brevo's free tier is the most generous at small monthly volumes (9,000/mo) but c
 - BlueFox Standard: 2 Premium packs at $300 each = $600/mo equivalent.
 - BYO SES Premium: $300 platform + ~$100 AWS = ~$400/mo.
 
-**Cost summary:** For mid-volume sending where multi-channel marketing isn't needed, BlueFox Email's pack pricing and BYO SES option are typically cheaper than Brevo's equivalent Standard tier, sometimes substantially so at higher volumes. Brevo is competitive (and sometimes cheaper) at small monthly volumes within the free tier, and remains the value choice when SMS, WhatsApp, push, live chat, or sales CRM are part of the same use case. Brevo's volume-based pricing (vs contact-based like Mailchimp or Klaviyo) is genuinely advantageous for large lists with low send frequency.
+**Cost summary:** For mid-volume sending where multi-channel marketing isn't needed, BlueFox Email's pack pricing and BYO SES option are typically cheaper than Brevo's equivalent Standard tier, sometimes substantially so at higher volumes. Brevo is competitive (and sometimes cheaper) at small monthly volumes within the free tier, and remains the value choice when SMS, WhatsApp, push, live chat, or sales CRM are part of the same use case. Both bill by send volume rather than contact count (unlike Mailchimp or Klaviyo), so both handle large lists with low send frequency well; at equal volume BlueFox's per-send packs are typically the cheaper of the two.
 
 **Where Brevo makes sense despite the higher price at scale:**
 - You also need SMS, WhatsApp, web/mobile push, live chat, or a sales CRM, and would otherwise pay for those as separate tools.
-- You need EU data residency for GDPR or regulatory reasons. Brevo is French-incorporated with EU-based infrastructure and B Corp certified.
+- You specifically want a B Corp-certified, French-incorporated vendor. (Both platforms keep data in the EU and are GDPR compliant, so EU residency alone doesn't separate them.)
 - You want AI-driven content generation (Aura), AI dynamic content, or AI segmentation (Enterprise) without integrating third-party tools.
-- You have a large contact list with infrequent campaigns. Volume pricing favors this profile heavily.
 - You need first-party SDKs across seven languages rather than rolling against a REST API.
 - You want a single vendor for multi-channel marketing automation plus a built-in CRM.
 
 **Where BlueFox Email is the clear choice:**
 - Mid-to-high-volume email sending where per-send pricing beats Brevo's volume tiers.
+- Large contact lists with infrequent campaigns: per-send packs (valid 12 months) cost less than Brevo at the same send volume.
 - Email-focused workflows where SMS, WhatsApp, push, CRM, and landing pages are handled elsewhere (or not needed).
 - You want automation, segmentation, and analytics on the free tier with no contact cap or tier-gating.
 - You want to bring your own AWS SES and keep your own sending reputation.
@@ -368,10 +368,11 @@ Pick by what you actually need.
 | If you need…                                                                       | Likely better fit       |
 | ---------------------------------------------------------------------------------- | ----------------------- |
 | Email + SMS + WhatsApp + push + live chat + CRM under one subscription             | Brevo                   |
-| EU data residency and B Corp / GDPR alignment as baseline                          | Brevo                   |
+| B Corp certification                                                               | Brevo                   |
+| EU data residency and GDPR compliance                                              | Both                    |
 | AI content generation (Aura) and AI dynamic content                                | Brevo                   |
 | AI natural-language segmentation                                                   | Brevo (Enterprise)      |
-| Large list with infrequent campaigns (volume pricing wins)                         | Brevo                   |
+| Large contact list with infrequent campaigns (both price by send; BlueFox cheaper) | BlueFox Email           |
 | First-party SDKs in seven languages with mature SMTP relay                         | Brevo                   |
 | Built-in sales CRM alongside email marketing                                       | Brevo                   |
 | Heat-map click analytics and predictive send-time                                  | Brevo (Standard+)       |
