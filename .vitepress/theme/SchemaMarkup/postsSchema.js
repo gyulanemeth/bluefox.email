@@ -32,7 +32,8 @@ function buildBlogPosting(pageData) {
   const { relativePath, frontmatter: fm } = pageData
   const url = postUrl(relativePath)
   const title = asString(fm.title)
-  const published = toIsoDate(fm.datePublished) || toIsoDate(fm.date)
+  const publishedRaw = fm.published !== false ? toIsoDate(fm.published) : null
+  const published = toIsoDate(fm.datePublished) || toIsoDate(fm.date) || publishedRaw
   const modified = toIsoDate(fm.dateModified) || toIsoDate(fm.lastUpdated) || published
 
   const article = {

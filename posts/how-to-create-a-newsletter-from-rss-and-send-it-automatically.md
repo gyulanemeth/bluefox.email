@@ -5,6 +5,8 @@ thumbnail: /assets/articles/how-to-create-a-newsletter-from-rss-and-send-it-auto
 
 layout: post
 category: tutorials
+tags: ['RSS Feed', 'Newsletters', 'Email Automation', 'Tutorials']
+keywords: ['newsletter from RSS feed', 'RSS newsletter', 'automated newsletter', 'RSS email newsletter', 'email marketing automation']
 
 head:
   - - meta
@@ -391,3 +393,25 @@ Hit **Start**. Every Monday at 9am, BlueFox Email will fetch the latest articles
 ![Start the automation](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/74-start-the-automation.webp)
 
 No manual work. No forgetting. Just a fresh newsletter in your subscribers' inboxes every week.
+
+## Frequently asked questions
+
+### What is an RSS newsletter?
+
+An RSS newsletter is an email that's automatically populated with content from an RSS feed. Instead of writing each edition by hand, you build the template once and the tool pulls in the latest articles each time it sends. The result lands in subscribers' inboxes just like a regular newsletter, but you didn't have to lift a finger after the initial setup.
+
+### Can I use any RSS feed, or does it have to be my own blog?
+
+Any publicly accessible RSS or Atom feed works. You can use your own blog feed, a third-party publication's feed, a podcast feed, or even aggregate several feeds into one newsletter. As long as the URL returns valid XML, BlueFox Email can connect to it.
+
+### How often can I schedule the newsletter?
+
+BlueFox Email's time-based automations support daily, weekly, and monthly schedules. You pick the day and time, and the automation fires on that cadence automatically.
+
+### What happens if the RSS feed has no new items since the last send?
+
+The newsletter still sends. It will show whatever items are currently at the top of the feed, even if they appeared in a previous edition. If you want to avoid repeats, limit the feed to the most recent item and check your feed's update frequency before choosing a send schedule.
+
+### Do I need to know how to code to set this up?
+
+No. The entire workflow covered here, connecting the feed, building the loop template, and scheduling the automation, is done through BlueFox Email's visual interface. No HTML, no code, no configuration files.
