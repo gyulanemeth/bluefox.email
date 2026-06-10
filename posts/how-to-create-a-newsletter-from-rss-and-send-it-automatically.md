@@ -1,7 +1,7 @@
 ---
-title: How SPF, DKIM, and DMARC Actually Work (With Real Examples)
-description: Learn how SPF, DKIM, and DMARC work together to authenticate email and prevent spoofing, using real examples from BlueFox Email.
-thumbnail: /assets/articles/how-spf-dkim-and-dmarc-actually-work-with-real-examples-share.webp
+title: How to Create a Newsletter from an RSS Feed and Send It Automatically
+description: Learn how to build and automate a weekly newsletter in BlueFox Email using an RSS feed. Step-by-step guide covering campaign setup, loop elements, merge tags, and time-based automations.
+thumbnail: /assets/articles/how-to-create-a-newsletter-from-rss-and-send-it-automatically.webp
 
 layout: post
 category: articles
@@ -9,31 +9,31 @@ category: articles
 head:
   - - meta
     - name: description
-      content: Learn how SPF, DKIM, and DMARC work together to authenticate email and prevent spoofing, using real examples from BlueFox Email.
+      content: Learn how to build and automate a weekly newsletter in BlueFox Email using an RSS feed. Step-by-step guide covering campaign setup, loop elements, merge tags, and time-based automations.
   - - meta
     - property: og:title
-      content: How SPF, DKIM, and DMARC Actually Work (With Real Examples)
+      content: How to Create a Newsletter from an RSS Feed and Send It Automatically
   - - meta
     - property: og:description
-      content: Understand how SPF, DKIM, and DMARC protect your domain and emails with this in-depth tutorial and real-life examples.
+      content: Learn how to build and automate a weekly newsletter in BlueFox Email using an RSS feed. Step-by-step guide covering campaign setup, loop elements, merge tags, and time-based automations.
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/articles/how-spf-dkim-and-dmarc-actually-work-with-real-examples-share.png
+      content: https://bluefox.email/assets/articles/how-to-create-a-newsletter-from-rss-and-send-it-automatically.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples
+      content: https://bluefox.email/posts/how-to-create-a-newsletter-from-rss-and-send-it-automatically
   - - meta
     - name: twitter:card
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: How SPF, DKIM, and DMARC Actually Work (With Real Examples)
+      content: How to Create a Newsletter from an RSS Feed and Send It Automatically
   - - meta
     - name: twitter:description
-      content: Understand how SPF, DKIM, and DMARC protect your domain and emails with this in-depth tutorial and real-life examples.
+      content: Learn how to build and automate a weekly newsletter in BlueFox Email using an RSS feed. Step-by-step guide covering campaign setup, loop elements, merge tags, and time-based automations.
   - - meta
     - name: twitter:image
-      content: https://bluefox.email/assets/articles/how-spf-dkim-and-dmarc-actually-work-with-real-examples-share.png
+      content: https://bluefox.email/assets/articles/how-to-create-a-newsletter-from-rss-and-send-it-automatically.png
 
 lastUpdated: true
 published: 2025-06-10
@@ -58,7 +58,7 @@ The RSS feed is pretty well formatted, but still, it would be nicer to see a wel
 
 First of all, we will need to create an email template that pulls in that data.
 
-I will first just duplicate a campaign, and use that.
+I'll start by duplicating an existing campaign.
 
 ## Creating the campaign
 
@@ -74,7 +74,7 @@ Give it a name, pick your subscriber list, and fill in the subject line. Don't o
 
 ![Fill in details](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/04-fill-in-details.png)
 
-Your new campaign is ready, you can save and close it.
+Your new campaign is ready.
 
 ![Editor opened](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/05-editor-opened.png)
 
@@ -98,20 +98,21 @@ Click **Preview** to confirm the feed is reachable and to see what fields are av
 
 ![Preview feed](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/09-preview-feed.png)
 
-Save the feed, then open the email editor. 
+Save the feed, then open the email editor.
+
 ![Open editor highlighted](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/10-open-editor-highlighted.png)
 
 ### Building the template
 
-The email has some placeholder content from the original campaign. Let's start by editing the title block at the top. Click into it, then use the merge tag button to insert a dynamic value, for example, the title (in our example, it's `news.title`) of the issue, but you can add the description, or date, or anything else available in the feed.
+The email has some placeholder content from the original campaign. Let's start by editing the title block at the top. Click into it, then use the merge tag button to insert a dynamic value, for example the feed title (`news.title`). You can also use the description, date, or anything else available in the feed.
 
 ![Edit title](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/11-edit-title.png)
 
-Just click on the `{}` icon, and that will open up the merge tag dialog.
+Just click the `{}` icon to open the merge tag dialog.
 
 ![Select merge tag](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/12-select-merge-tag.png)
 
-The merge tag dialog contains all the available merge tags, but there is a very nice thing about it, that it only shows merge tags that are avilable in the given context.
+The merge tag dialog shows all available merge tags, and a nice thing about it: it only shows the ones that are relevant in the current context.
 
 Right now, just select the `news.title` merge tag.
 
@@ -131,11 +132,11 @@ Put it right after the main section with the title and description and whatever 
 
 ![Loop element being dragged](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/16-loop-element-being-dragged.png)
 
-Once it's placed, you'll see the loop settings in the right panel. Click on the **Select  Your Expression** button.
+Once it's placed, you'll see the loop settings in the right panel. Click on the **Select Your Expression** button.
 
 ![Loop element expression](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/17-loop-element-expression.png)
 
-Now, you can see what I explained earlier. You can only see experssions that makes sense in the actual context. Since we are in a loop, the system only shows elements on which we can iterate. In our example, it's the `news.item` array.
+Now you can see what I mentioned earlier. The system only shows expressions that make sense in the current context. Since we are in a loop, it only shows arrays you can iterate over. In our example, that's the `news.item` array.
 
 ![Loop element select expression](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/18-loop-element-select-expression.png)
 
@@ -191,7 +192,7 @@ Now we need to handle the separation between articles. Drag a **Divider** elemen
 
 ![Drop outside the loop](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/30-drop-outside-the-loop.png)
 
-It basically devides the "title" section from the articles.
+It basically divides the header section from the articles.
 
 ![Divider added](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/31-divider-added.png)
 
@@ -199,7 +200,7 @@ Next, let's wire up the dynamic image's source. Click on the image, open the lin
 
 ![Add link with merge tag](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/32-add-link-with-merge-tag.png)
 
-Select the thumbnail merge tag — this is the feed's image URL field (typically `this.media:thumbnail.url` or similar, depending on the feed).
+Select the thumbnail merge tag. This is the feed's image URL field (typically `this.media:thumbnail.url` or similar, depending on the feed).
 
 ![Select thumbnail merge tag](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/33-select-thumbnail-merge-tag.png)
 
@@ -297,7 +298,7 @@ The email looks great. Now let's automate the whole thing.
 
 We're going to set up an [automation](/docs/projects/automations) that fires every Monday at 9am and sends this newsletter automatically.
 
-First, copy the campaign, we'll paste it into the automation in a moment.
+First, copy the campaign. We'll paste it into the automation in a moment.
 
 ![Copy the campaign](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/54-copy-the-campaign.png)
 
