@@ -171,9 +171,9 @@ BlueFox Email has three delivery modes documented in [Delivery Modes](https://bl
 
 To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending. The platform also supports one-click unsubscribe (RFC-8058), a subscription preferences page, and a pause-instead-of-unsubscribe link.
 
-**Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, transparent bounce/complaint thresholds visible in-product, per-project suppression list, STS-based AWS auth (no long-lived keys), one-click unsubscribe and preferences page built in.
+**Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, optional dedicated IP add-on on the managed plan ($50/mo per workspace), transparent bounce/complaint thresholds visible in-product, per-project suppression list, STS-based AWS auth (no long-lived keys), one-click unsubscribe and preferences page built in.
 
-**Trade-offs:** no dedicated IP on the managed plan (dedicated IP only via BYO SES with your own AWS account). No direct ISP peering relationships at the platform layer; in managed mode, deliverability rides on AWS SES's reputation rather than dedicated-to-sender peering. Smaller community than SendGrid, so less third-party deliverability tooling and shared best-practice content.
+**Trade-offs:** No direct ISP peering relationships at the platform layer; in managed mode, deliverability rides on AWS SES's reputation rather than dedicated-to-sender peering. Smaller community than SendGrid, so less third-party deliverability tooling and shared best-practice content.
 
 ## Personalization
 
@@ -307,6 +307,8 @@ BlueFox Email charges per email sent. Contacts are unlimited, all features are a
 
 AWS SES costs in BYO mode: ~$0.10 per 1,000 emails, billed directly by AWS. Combine with the AWS Free Tier (3,000 free sends/month for the first 12 months) at small volume. Packs are stackable.
 
+**Add-on**: optional dedicated IP for $50/month per workspace (managed mode). In BYO SES mode, a dedicated IP is configured and billed through your own AWS SES account instead.
+
 ### Scenarios
 
 The right pricing model depends on what you're sending and whether you need marketing automation alongside the transactional traffic.
@@ -354,8 +356,8 @@ Once automation enters the picture, the dual-subscription requirement on SendGri
 - Direct ISP peering relationships are a deliverability advantage for senders concerned about inbox placement at major mailbox providers.
 - You also need SMS or voice via the broader Twilio platform, and prefer a single vendor.
 - You want first-party SDKs across multiple languages rather than rolling against a REST API.
-- You need sub-user account separation for agency or multi-tenant workflows.
-- You have a deliverability profile that benefits from a dedicated IP at the platform level (not just at the AWS-account level via BYO SES).
+- You need SendGrid's sub-user API model specifically (separate API keys and IP pools per sub-user).
+- You want a dedicated IP included in your plan price (SendGrid bundles one into Pro/Advanced tiers) rather than as a separate monthly add-on.
 
 **Where BlueFox Email is the clear choice:**
 - Mid-to-high-volume sending where per-send pricing beats the dual-product subscription stack.
@@ -364,11 +366,12 @@ Once automation enters the picture, the dual-subscription requirement on SendGri
 - You need to edit live automations in place rather than disable/duplicate.
 - You want a single product covering transactional, triggered, and marketing emails with one bill.
 - You need per-project suppression-list visibility and bounce/complaint thresholds shown in-product.
+- You run an agency or multi-client setup: isolated client workspaces (one account, many projects) with per-project Admin/User/Client roles (Editor or Viewer access).
 
 **Notes on both:**
 - SendGrid pricing shifts with volume and contact count and adds overage fees. Always check current published rates.
 - BlueFox prices are public and flat per-pack. AWS SES fees in BYO mode are billed by AWS.
-- Both platforms have raised prices in the past two years; the May 2026 numbers above are the current published figures.
+- The May 2026 numbers above are the current published figures for both vendors; always check their live pricing pages, as plans and add-ons change.
 
 ## Which Fits Your Use Case
 
@@ -379,7 +382,8 @@ Pick by what you actually need.
 | Direct peering with Google, Yahoo, Apple, Microsoft for deliverability             | SendGrid                |
 | First-party SDKs in Node, Python, PHP, Java, C#, Go, Ruby                          | SendGrid                |
 | Email + SMS + voice under one vendor (via Twilio)                                  | SendGrid                |
-| Sub-user accounts for agency or multi-tenant separation                            | SendGrid (Pro+)         |
+| SendGrid's sub-user API model (separate API keys and IP pools per sub-user)        | SendGrid (Pro+)         |
+| Agency setup: client workspaces (account + projects) with per-project client roles | BlueFox Email           |
 | Activity feed and stats split by mailbox provider, device, and geo                 | SendGrid                |
 | 24/7 chat support and phone support on paid plans                                  | SendGrid                |
 | Pure transactional sending at small volume (<50K/mo, no marketing tooling)         | SendGrid Essentials     |
