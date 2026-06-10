@@ -42,23 +42,27 @@ sidebar: false
 
 # How to create a newsletter from RSS and send it automatically
 
-You might write a blog. Which is great content, and you might wanna send it out automatically to your subscribers. Yeah, that's a good idea.
+You might write a blog, or follow a few great blogs. Which is great content, and you might wanna send it out automatically to your subscribers. Yeah, that's a good idea.
 
-Let me show you how to do it. In this article, I will show you how you can create a weekly newsletter based on an RSS feed and send it automatically.
+Most newsletters are written by hand. Someone sits down every week, picks the articles, copies the links, writes the intro, and hits send. That works, but it takes time and it relies on someone remembering to do it. If the content already exists in an RSS feed, there's no reason to do any of that manually.
 
-We are going to use the ["WIRED" magazine's RSS feed related to AI](https://www.wired.com/feed/tag/ai/latest/rss), because who wouldn't be interested in AI these days!
+With BlueFox Email, you can build a newsletter template once, connect it to an RSS feed, and then set up a time-based automation to send it on a schedule. Every week, the latest articles get pulled in automatically and sent to your subscribers, no manual work involved.
+
+This approach works for your own blog, but also for any RSS feed you want to curate for your audience. Maybe you run a developer newsletter and want to surface the latest posts from a few trusted sources. Maybe you want to keep your customers updated with industry news. As long as there is an RSS feed, you can turn it into a newsletter.
+
+In this article I'll show you how to do exactly that. We are going to use the ["WIRED" magazine's RSS feed related to AI](https://www.wired.com/feed/tag/ai/latest/rss) as our example, because who wouldn't be interested in AI these days!
 
 ```
 https://www.wired.com/feed/tag/ai/latest/rss
 ```
 
-The RSS feed is pretty well formatted, but still, it would be nicer to see a well-formatted newsletter.
+The raw RSS feed has all the data we need, but it's not something you'd want to send to subscribers as-is.
 
 ![WIRED - AI RSS](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/01-wired-ai-rss.png)
 
-First of all, we will need to create an email template that pulls in that data.
+We'll turn it into a nicely formatted, on-brand email that goes out every Monday morning at 9am, without anyone lifting a finger.
 
-I'll start by duplicating an existing campaign.
+Let's get started. I'll begin by duplicating an existing campaign to use as the base.
 
 ## Creating the campaign
 
