@@ -98,7 +98,7 @@ Paste in the RSS feed URL, set the type to **RSS / Atom XML**, and give it a var
 
 ![Fill in feed details](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/08-fill-in-feed-details.png)
 
-Click **Preview** to confirm the feed is reachable and to see what fields are available on each item. You'll see things like `item.title`, `item.description`, `item.link`, and `item.enclosure.url` for the thumbnail image. Based on the pulled data, proper merge tags will be automatically shown in the editor.
+Click **Preview** to confirm the feed is reachable and to see what fields are available on each item. You'll see things like `this.title`, `this.description`, `this.link`, and `this.enclosure.url` for the thumbnail image. Based on the pulled data, proper merge tags will be automatically shown in the editor.
 
 ![Preview feed](./how-to-create-a-newsletter-from-rss-and-send-it-automatically/09-preview-feed.png)
 
