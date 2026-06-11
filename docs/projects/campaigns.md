@@ -67,7 +67,7 @@ After that (if starting from a template), you will have to select a template to 
 
 ![A screenshot of a project's campaigns - create: template selection.](./project-campaign-create-select-category.webp)
 
-Here select a template from your project or from the pre-designed templates:
+Here select a template from your project or from the [pre-designed templates](/docs/projects/predesigned-templates#campaigns):
 ![A screenshot of a project's campaigns - create: template selection.](./project-campaign-create-select-template-2.webp)
 
 Select a template and click "Next". Enter its name, subject line, preview text, select a subscriber list, and select a segment:
