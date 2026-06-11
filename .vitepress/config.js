@@ -59,6 +59,10 @@ headConf.push([
 //   https://vitepress.dev/reference/site-config
 const noindexSitemapUrls = new Set()
 
+const noindexSections = [
+  'email-marketing-concepts/'
+]
+
 function sitemapUrlForPath(relativePath) {
   if (!relativePath || relativePath === 'index.md') {
     return ''
@@ -74,6 +78,10 @@ export default defineConfig({
   description: "High deliverability & brand consistency.",
   head: headConf,
   transformPageData(pageData) {
+    if (noindexSections.some((section) => pageData.relativePath.startsWith(section))) {
+      pageData.frontmatter = pageData.frontmatter || {}
+      pageData.frontmatter.noindex = true
+    }
     if (pageData.frontmatter?.noindex === true) {
       noindexSitemapUrls.add(sitemapUrlForPath(pageData.relativePath))
     }
