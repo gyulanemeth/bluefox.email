@@ -8,6 +8,7 @@ import {
   buildBreadcrumbList,
   appendJsonLd
 } from './shared'
+import { buildOrganization } from './organizationSchema'
 
 function isPostPage(relativePath) {
   if (!relativePath) {
@@ -76,6 +77,20 @@ function buildBreadcrumbs(pageData) {
   ])
 }
 
+function buildFaqSchema(faqs) {
+  if (!Array.isArray(faqs) || !faqs.length) {
+    return null
+  }
+  return {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer }
+    }))
+  }
+}
+
 function shouldSkip(pageData) {
   const { relativePath, frontmatter: fm } = pageData
   if (!isPostPage(relativePath)) {
@@ -92,8 +107,14 @@ export function addPostsSchema(pageData) {
     return
   }
 
+  const graph = [buildBlogPosting(pageData), buildBreadcrumbs(pageData), buildOrganization()]
+  const faqSchema = buildFaqSchema(pageData.frontmatter.faqs)
+  if (faqSchema) {
+    graph.push(faqSchema)
+  }
+
   appendJsonLd(pageData, {
     '@context': 'https://schema.org',
-    '@graph': [buildBlogPosting(pageData), buildBreadcrumbs(pageData)]
+    '@graph': graph
   })
 }
