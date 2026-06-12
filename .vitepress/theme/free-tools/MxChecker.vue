@@ -350,6 +350,7 @@ onMounted(async () => {
           <div class="analysis-item">
             <span class="label">Redundancy:</span>
             <span :class="result.records.length > 1 ? 'value good' : 'value warning'">
+              <span class="status-dot" :class="result.records.length > 1 ? 'pass' : 'warn'"></span>
               {{ result.records.length > 1 ? 'Multiple servers' : 'Single server' }}
             </span>
           </div>
@@ -358,6 +359,7 @@ onMounted(async () => {
             <span
               :class="hasUniquePriorities(result.records) ? 'value good' : 'value warning'"
             >
+              <span class="status-dot" :class="hasUniquePriorities(result.records) ? 'pass' : 'warn'"></span>
               {{ hasUniquePriorities(result.records) ? 'Unique priorities' : 'Duplicate priorities' }}
             </span>
           </div>
@@ -906,7 +908,7 @@ onMounted(async () => {
 
 .analysis-section {
   background: var(--vp-tip-soft, #f0f9ff);
-  border-left: 4px solid var(--vp-c-tip-1, #17a2b8);
+  border: 1px solid rgba(23, 162, 184, 0.18);
 }
 
 .analysis-section h4 {
@@ -935,19 +937,28 @@ onMounted(async () => {
 
 .analysis-item .value {
   font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--vp-c-text-1, #374151);
 }
 
-.analysis-item .value.good {
-  color: var(--vp-c-green-1, #28a745);
+/* Status dot, the single source of color */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
-.analysis-item .value.warning {
-  color: var(--vp-c-warning-1, #ffc107);
-}
+.status-dot.pass { background: #16a34a; }
+.status-dot.warn { background: #d97706; }
+.status-dot.fail { background: #dc2626; }
+.status-dot.muted { background: var(--vp-c-text-3, #c3c8cf); }
 
 .warnings-section {
   background: var(--vp-warning-soft, #fffbf0);
-  border-left: 4px solid var(--vp-c-warning-1, #ffc107);
+  border: 1px solid rgba(214, 158, 46, 0.2);
 }
 
 .warnings-section h4 {
@@ -956,7 +967,7 @@ onMounted(async () => {
 
 .recommendations-section {
   background: var(--vp-tip-soft, #f0f9ff);
-  border-left: 4px solid var(--vp-c-tip-1, #17a2b8);
+  border: 1px solid rgba(23, 162, 184, 0.18);
 }
 
 .recommendations-section h4 {

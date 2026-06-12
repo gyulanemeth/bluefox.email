@@ -904,7 +904,7 @@ onMounted(async () => {
 
 .warnings-section {
   background: var(--vp-warning-soft, #fffbf0);
-  border-left: 4px solid var(--vp-c-warning-1, #ffc107);
+  border: 1px solid rgba(214, 158, 46, 0.2);
 }
 
 .warnings-section h4 {
@@ -913,7 +913,7 @@ onMounted(async () => {
 
 .recommendations-section {
   background: var(--vp-tip-soft, #f0f9ff);
-  border-left: 4px solid var(--vp-c-tip-1, #17a2b8);
+  border: 1px solid rgba(23, 162, 184, 0.18);
 }
 
 .recommendations-section h4 {

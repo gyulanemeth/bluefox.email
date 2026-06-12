@@ -974,7 +974,7 @@ Example:
 
                   <div v-if="activeDetailsTab === 'template-preview'" class="preview-tab-panel">
                     <div class="tab-panel-header">
-                      <h4>Template Preview - Link Location</h4>
+                      <h4>Template Preview: Link Location</h4>
                       <small class="tab-panel-help">Original template with the selected link highlighted</small>
                     </div>
                     <div class="template-preview-container">
@@ -1858,9 +1858,9 @@ Example:
   font-size: 0.85rem;
 }
 
-.summary-item.working { border-left: 3px solid #28a745; }
-.summary-item.broken { border-left: 3px solid #dc3545; }
-.summary-item.error { border-left: 3px solid #dc3545; }
+.summary-item.working { border: 1px solid rgba(34, 187, 51, 0.2); }
+.summary-item.broken { border: 1px solid rgba(220, 53, 69, 0.15); }
+.summary-item.error { border: 1px solid rgba(220, 53, 69, 0.15); }
 
 .summary-item .count {
   display: block;
@@ -1881,18 +1881,18 @@ Example:
 }
 
 .result-item {
-  padding: 0.875rem;
+  padding: 0.875rem 1.125rem;
   margin-bottom: 0.5rem;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border: 0.5px solid gray;
+  background: var(--vp-c-bg, #ffffff);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
 .result-item:hover {
-  background: var(--vp-c-bg, #fff);
-  border-color: var(--vp-c-border, #e5e7eb);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border-color: var(--vp-c-border, #d1d5db);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
 .result-item.selected {
@@ -1901,12 +1901,6 @@ Example:
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.result-item.working { border-left: 4px solid #28a745; }
-.result-item.broken { border-left: 4px solid #dc3545; }
-.result-item.error { border-left: 4px solid #dc3545; }
-.result-item.redirect { border-left: 4px solid #ffc107; }
-.result-item.soft404 { border-left: 4px solid #ffc107; }
-
 .result-status {
   display: flex;
   align-items: center;
@@ -1914,18 +1908,20 @@ Example:
   margin-bottom: 0.5rem;
 }
 
+/* Status dot, the single source of color */
 .status-dot {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: #ddd;
+  flex-shrink: 0;
+  background: var(--vp-c-text-3, #c3c8cf);
 }
 
-.status-dot.working { background: #28a745; }
-.status-dot.broken { background: #dc3545; }
-.status-dot.error { background: #dc3545; }
-.status-dot.redirect { background: #ffc107; }
-.status-dot.soft404 { background: #ffc107; }
+.status-dot.working { background: #16a34a; }
+.status-dot.broken { background: #dc2626; }
+.status-dot.error { background: #dc2626; }
+.status-dot.redirect { background: #d97706; }
+.status-dot.soft404 { background: #d97706; }
 
 .status-text {
   font-weight: 600;
@@ -2104,6 +2100,7 @@ Example:
 .detail-error {
   background: #f8d7da;
   color: #721c24;
+  border: 1px solid rgba(220, 53, 69, 0.15);
   padding: 1.5rem;
   border-radius: 8px;
   margin-bottom: 1.5rem;
@@ -3292,13 +3289,34 @@ Example:
   .detail-preview {
     height: 600px;
   }
-  
+
   .results-header {
     max-width: 1400px;
   }
 
   .split-view {
     max-width: 1400px;
+  }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  .result-item {
+    background: var(--vp-c-bg-soft, #1e2030);
+    border-color: var(--vp-c-border, #2e3142);
+  }
+
+  .result-item:hover {
+    border-color: var(--vp-c-border, #3a3d50);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .summary-item.working { border-color: rgba(34, 187, 51, 0.3); }
+  .summary-item.broken,
+  .summary-item.error { border-color: rgba(220, 53, 69, 0.3); }
+
+  .detail-error {
+    border-color: rgba(220, 53, 69, 0.3);
   }
 }
 </style>

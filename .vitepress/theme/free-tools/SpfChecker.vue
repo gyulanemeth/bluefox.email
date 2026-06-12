@@ -388,7 +388,7 @@ onMounted(async () => {
           {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
           <span class="info-tip" tabindex="0">
             ?
-            <span class="info-tip-pop">Heuristic score (0–{{ result.score.outOf }}) indicating relative SPF robustness.</span>
+            <span class="info-tip-pop">Heuristic score (0 to {{ result.score.outOf }}) indicating relative SPF robustness.</span>
           </span>
         </p>
       </div>
@@ -423,7 +423,7 @@ onMounted(async () => {
             ?
             <span class="info-tip-pop">RFC 7208 allows at most 10 DNS lookups during SPF evaluation. Exceeding this causes permerror.</span>
           </span>
-          <span v-if="result.lookups > 10" class="lookup-warning">(exceeds 10 — SPF evaluation may fail)</span>
+          <span v-if="result.lookups > 10" class="lookup-warning">(exceeds 10; SPF evaluation may fail)</span>
         </p>
       </div>
 
@@ -503,7 +503,7 @@ onMounted(async () => {
           Mailauth
           <span class="info-tip" tabindex="0">
             ?
-            <span class="info-tip-pop">Validation result from the mailauth library — confirms parser agreement with your record.</span>
+            <span class="info-tip-pop">Validation result from the mailauth library. It confirms parser agreement with your record.</span>
           </span>
         </h4>
         <p><strong>Status:</strong> {{ result.mailauthResult.status.result }}</p>
@@ -892,7 +892,7 @@ onMounted(async () => {
 /* Compact IP Test Container - Using Brand Colors */
 .ip-test-compact {
   background: var(--vp-c-bg-soft, #f8f9fa);
-  border-left: 4px solid var(--vp-c-brand);
+  border: 1px solid rgba(19, 176, 238, 0.18);
   margin-top: 1.5rem;
 }
 
@@ -928,49 +928,45 @@ onMounted(async () => {
 }
 
 .ip-result-compact {
-  padding: 0.4rem 0.8rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
-/* Compact result colors */
+/* Compact result colors, soft status pills */
 .ip-result-compact.result-pass {
-  background: #dcfce7;
-  color: #166534;
-  border: 1px solid #22c55e;
+  background: rgba(22, 163, 74, 0.1);
+  color: #15803d;
 }
 
 .ip-result-compact.result-fail {
-  background: #fef2f2;
-  color: #991b1b;
-  border: 1px solid #ef4444;
+  background: rgba(220, 38, 38, 0.08);
+  color: #b91c1c;
 }
 
 .ip-result-compact.result-softfail {
-  background: #fefce8;
-  color: #854d0e;
-  border: 1px solid #f59e0b;
+  background: rgba(217, 119, 6, 0.1);
+  color: #b45309;
 }
 
 .ip-result-compact.result-neutral {
-  background: #f8fafc;
-  color: #374151;
-  border: 1px solid #6b7280;
+  background: var(--vp-c-bg-soft, #f3f4f6);
+  color: var(--vp-c-text-2, #6b7280);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
 }
 
 .ip-result-compact.result-error {
-  background: #fef2f2;
-  color: #991b1b;
-  border: 1px solid #ef4444;
+  background: rgba(220, 38, 38, 0.08);
+  color: #b91c1c;
 }
 
 .ip-result-compact.result-unknown {
-  background: #f1f5f9;
-  color: #64748b;
-  border: 1px solid #94a3b8;
+  background: var(--vp-c-bg-soft, #f3f4f6);
+  color: var(--vp-c-text-2, #6b7280);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
 }
 
 .ip-explanation-compact {
@@ -1041,9 +1037,8 @@ onMounted(async () => {
 }
 
 .mechanism-type.requires-lookup {
-  background: var(--vp-warning-soft, #fffbf0);
-  color: var(--vp-c-warning-1, #d69e2e);
-  border-color: var(--vp-c-warning-2, #fbbf24);
+  color: var(--vp-c-text-1, #374151);
+  font-weight: 600;
 }
 
 /* Back Button - Using Brand Colors */
@@ -1102,7 +1097,7 @@ onMounted(async () => {
 
 .warnings-section {
   background: var(--vp-warning-soft, #fffbf0);
-  border-left: 4px solid var(--vp-c-warning-1, #ffc107);
+  border: 1px solid rgba(214, 158, 46, 0.2);
 }
 
 .warnings-section h4 {
@@ -1111,7 +1106,7 @@ onMounted(async () => {
 
 .recommendations-section {
   background: var(--vp-tip-soft, #f0f9ff);
-  border-left: 4px solid var(--vp-c-tip-1, #17a2b8);
+  border: 1px solid rgba(23, 162, 184, 0.18);
 }
 
 .recommendations-section h4 {
@@ -1164,6 +1159,28 @@ onMounted(async () => {
   
   .ip-test-compact-card {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  }
+
+  .ip-result-compact.result-pass {
+    background: rgba(22, 163, 74, 0.18);
+    color: #6ee787;
+  }
+
+  .ip-result-compact.result-fail,
+  .ip-result-compact.result-error {
+    background: rgba(220, 38, 38, 0.18);
+    color: #f1948a;
+  }
+
+  .ip-result-compact.result-softfail {
+    background: rgba(217, 119, 6, 0.18);
+    color: #fbbf24;
+  }
+
+  .ip-result-compact.result-neutral,
+  .ip-result-compact.result-unknown {
+    background: var(--vp-c-bg-mute, #2a2d3e);
+    border-color: var(--vp-c-border, #3a3d50);
   }
   
   .info-tip-pop {
