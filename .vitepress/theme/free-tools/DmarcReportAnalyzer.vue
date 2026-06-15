@@ -76,7 +76,7 @@ const hasAlignmentData = computed(() =>
 )
 
 const sourcesGridColumns = computed(() => {
-  const cols = ['2fr', '0.7fr', '1fr', '1fr', '1fr']
+  const cols = ['2fr', '1.5fr', '0.7fr', '1fr', '1fr', '1fr']
   if (hasAlignmentData.value) {
     cols.push('1.2fr', '1.2fr', '0.5fr')
   } else {
@@ -745,6 +745,7 @@ onMounted(async () => {
         <div class="sources-table">
           <div class="table-header" :style="{ gridTemplateColumns: sourcesGridColumns }">
             <span>IP Address</span>
+            <span>Domain</span>
             <span>Count</span>
             <span>DMARC</span>
             <span>SPF</span>
@@ -769,6 +770,7 @@ onMounted(async () => {
               @keydown.enter="hasAlignmentData && toggleSource(src.ip)"
             >
               <span class="ip">{{ src.ip }}</span>
+              <span class="domain" :title="src.headerFrom || ''">{{ src.headerFrom ?? '-' }}</span>
               <span class="count">{{ src.count }}</span>
               <span class="result" :class="src.dmarcResult === 'Pass' ? 'pass' : 'fail'">
                 {{ src.dmarcResult === 'Pass' ? 'Pass' : 'Fail' }}
@@ -1607,6 +1609,16 @@ onMounted(async () => {
   color: var(--vp-c-text-1, #374151);
 }
 
+.table-row .domain {
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.875rem;
+  color: var(--vp-c-text-1, #374151);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
 .table-row .count {
   font-weight: 600;
   color: var(--vp-c-text-1, #374151);
@@ -1718,7 +1730,7 @@ onMounted(async () => {
 
 .auth-summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
   gap: 1rem;
 }
 
@@ -2253,6 +2265,13 @@ onMounted(async () => {
 
   .expand-arrow {
     display: none;
+  }
+
+  .table-row .domain {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    word-break: break-all;
   }
 }
 
