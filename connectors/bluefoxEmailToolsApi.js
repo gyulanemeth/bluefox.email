@@ -4,11 +4,10 @@ if (!BASE_URL) {
   throw new Error('VITE_TOOLS_API_URL not set')
 }
 
-export async function checkMx({ domain, captchaProbe, captchaText }) {
+export async function checkMx({ domain, turnstileToken }) {
   const body = {
     domain: domain.trim(),
-    captchaProbe,
-    captchaText: captchaText ? captchaText.trim() : ''
+    turnstileToken
   }
 
   const response = await fetch(`${BASE_URL}/v1/analyze-mx`, {
@@ -28,11 +27,10 @@ export async function checkMx({ domain, captchaProbe, captchaText }) {
   return json
 }
 
-export async function checkSpf({ domain, captchaProbe, captchaText, testIp }) {
+export async function checkSpf({ domain, testIp, turnstileToken }) {
   const body = {
     domain: domain.trim(),
-    captchaProbe,
-    captchaText: captchaText ? captchaText.trim() : ''
+    turnstileToken
   }
 
   if (testIp) {
@@ -56,11 +54,10 @@ export async function checkSpf({ domain, captchaProbe, captchaText, testIp }) {
   return json
 }
 
-export async function checkDmarc({ domain, captchaProbe, captchaText }) {
+export async function checkDmarc({ domain, turnstileToken }) {
   const body = {
     domain: domain.trim(),
-    captchaProbe,
-    captchaText: captchaText ? captchaText.trim() : ''
+    turnstileToken
   }
 
   const response = await fetch(`${BASE_URL}/v1/analyze-dmarc`, {
@@ -80,13 +77,12 @@ export async function checkDmarc({ domain, captchaProbe, captchaText }) {
   return json
 }
 
-export async function analyzeDmarcReport({ xmlContent, file, captchaProbe, captchaText }) {
+export async function analyzeDmarcReport({ xmlContent, file, turnstileToken }) {
   if (file) {
     // File upload using FormData
     const formData = new FormData()
     formData.append('file', file)
-    formData.append('captchaProbe', captchaProbe || '')
-    formData.append('captchaText', captchaText ? captchaText.trim() : '')
+    formData.append('turnstileToken', turnstileToken || '')
 
     const response = await fetch(`${BASE_URL}/v1/analyze-dmarc-report`, {
       method: 'POST',
@@ -103,17 +99,14 @@ export async function analyzeDmarcReport({ xmlContent, file, captchaProbe, captc
 
     return json
   } else {
-    // JSON request with XML content
-    const body = {
-      xmlContent,
-      captchaProbe: captchaProbe || '',
-      captchaText: captchaText ? captchaText.trim() : ''
-    }
+    // multipart/form-data with XML content
+    const formData = new FormData()
+    formData.append('xmlContent', xmlContent || '')
+    formData.append('turnstileToken', turnstileToken || '')
 
     const response = await fetch(`${BASE_URL}/v1/analyze-dmarc-report`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+      body: formData
     })
 
     const json = await response.json()
@@ -128,12 +121,11 @@ export async function analyzeDmarcReport({ xmlContent, file, captchaProbe, captc
   }
 }
 
-export async function checkDkim({ domain, selector, captchaProbe, captchaText }) {
+export async function checkDkim({ domain, selector, turnstileToken }) {
   const body = {
     domain: domain.trim(),
     selector: selector ? selector.trim() : 'default',
-    captchaProbe,
-    captchaText: captchaText ? captchaText.trim() : ''
+    turnstileToken
   }
 
   const response = await fetch(`${BASE_URL}/v1/analyze-dkim`, {
@@ -153,11 +145,10 @@ export async function checkDkim({ domain, selector, captchaProbe, captchaText })
   return json
 }
 
-export async function checkLinks({ urls, timeout, includeProxy, captchaProbe, captchaText }) {
+export async function checkLinks({ urls, timeout, includeProxy, turnstileToken }) {
   const body = {
     urls: typeof urls === 'string' ? urls.trim() : urls,
-    captchaProbe,
-    captchaText: captchaText ? captchaText.trim() : ''
+    turnstileToken
   }
 
   if (timeout) {
@@ -188,24 +179,6 @@ export async function checkLinks({ urls, timeout, includeProxy, captchaProbe, ca
 export function getProxiedUrl(url) {
   if (!url) return null
   return `${BASE_URL}/v1/proxy?url=${url}`
-}
-
-export async function generateCaptcha() {
-  const response = await fetch(`${BASE_URL}/v1/captcha/generate`)
-
-  if (!response.ok) {
-    const error = new Error(`HTTP ${response.status}`)
-    error.status = response.status
-    throw error
-  }
-
-  const json = await response.json()
-
-  if (!json.result?.captcha) {
-    throw new Error('Invalid captcha response')
-  }
-
-  return json.result.captcha
 }
 
 export async function getPagePreview(url) {

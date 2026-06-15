@@ -1,12 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { analyzeDmarcReport } from '../../../connectors/bluefoxEmailToolsApi.js'
-import { 
-  loadCaptchaFromStorage, 
-  loadNewCaptcha, 
-  clearCaptchaStorage, 
-  markCaptchaSolved 
-} from './helpers/captchaHandler.js'
+import Turnstile from './Turnstile.vue'
 
 // ---- VARIABLES ----
 const MAX_FILENAME_LEN = 30
@@ -14,7 +9,6 @@ const MAX_FILENAME_LEN = 30
 const xmlPaste = ref('')
 const file = ref(null)
 const fileName = ref('')
-const captchaText = ref('')
 const loading = ref(false)
 const result = ref(null)
 const errorMessage = ref('')
@@ -23,33 +17,12 @@ const errorMessage = ref('')
 const isDragging = ref(false)
 let dragLeaveTimeout = null
 
-// Captcha state
-const captchaProbe = ref(null)
-const captchaImage = ref(null)
-const captchaExpires = ref(0)
-const captchaSolvedUntil = ref(0)
-const captchaLoading = ref(false)
+// Turnstile state
+const turnstileRef = ref(null)
+const turnstileToken = ref('')
 
-const now = () => Math.floor(Date.now() / 1000)
-
-// Computed properties
-const isProbeExpired = computed(() =>
-  !captchaProbe.value || now() > captchaExpires.value
-)
-
-const isSolved = computed(() =>
-  captchaSolvedUntil.value > now() && !isProbeExpired.value
-)
-
-const shouldShowCaptcha = computed(() =>
-  !isSolved.value ||
-  isProbeExpired.value ||
-  !captchaProbe.value ||
-  !captchaImage.value
-)
-
-const isFormDisabled = computed(() => 
-  loading.value || (!xmlPaste.value.trim() && !file.value) || (shouldShowCaptcha.value && !captchaText.value?.trim())
+const isFormDisabled = computed(() =>
+  loading.value || (!xmlPaste.value.trim() && !file.value) || !turnstileToken.value
 )
 
 const truncatedFileName = computed(() => {
@@ -90,49 +63,21 @@ const regularRecommendations = computed(() =>
 )
 
 // ---- FUNCTIONS ----
-function loadCaptchaState() {
-  const stored = loadCaptchaFromStorage()
-  captchaProbe.value = stored.probe
-  captchaImage.value = stored.image
-  captchaExpires.value = stored.expires
-  captchaSolvedUntil.value = stored.solvedUntil
+function onTurnstileVerified(token) {
+  turnstileToken.value = token
 }
 
-async function loadCaptcha() {
-  captchaLoading.value = true
-  try {
-    const captchaState = await loadNewCaptcha()
-    
-    captchaProbe.value = captchaState.probe
-    captchaImage.value = captchaState.image
-    captchaExpires.value = captchaState.expires
-    captchaSolvedUntil.value = captchaState.solvedUntil
-
-  } catch (err) {
-    clearCaptchaSession()
-  } finally {
-    captchaLoading.value = false
-  }
+function onTurnstileExpired() {
+  turnstileToken.value = ''
 }
 
-async function refreshCaptcha() {
-  clearCaptchaSession()
-  await loadCaptcha()
+function onTurnstileError() {
+  turnstileToken.value = ''
 }
 
-function markSolved() {
-  if (!isProbeExpired.value) {
-    const captchaState = markCaptchaSolved(captchaExpires.value)
-    captchaSolvedUntil.value = captchaState.solvedUntil
-  }
-}
-
-function clearCaptchaSession() {
-  const captchaState = clearCaptchaStorage()
-  captchaProbe.value = captchaState.probe
-  captchaImage.value = captchaState.image
-  captchaExpires.value = captchaState.expires
-  captchaSolvedUntil.value = captchaState.solvedUntil
+function resetTurnstile() {
+  turnstileToken.value = ''
+  turnstileRef.value?.reset()
 }
 
 function validateInputs() {
@@ -140,12 +85,12 @@ function validateInputs() {
     errorMessage.value = 'Please paste your DMARC XML or upload an XML file to analyze.'
     return false
   }
-  
-  if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
-    errorMessage.value = 'Please enter the captcha text'
+
+  if (!turnstileToken.value) {
+    errorMessage.value = 'Please complete the verification'
     return false
   }
-  
+
   return true
 }
 
@@ -230,53 +175,30 @@ async function analyzeReport() {
     const data = await analyzeDmarcReport({
       xmlContent: file.value ? null : xmlPaste.value,
       file: file.value,
-      captchaProbe: captchaProbe.value,
-      captchaText: shouldShowCaptcha.value ? captchaText.value : ''
+      turnstileToken: turnstileToken.value
     })
 
     result.value = {
       ...data.result,
       valid: true
     }
-    
-    captchaText.value = ''
-    markSolved()
+
+    resetTurnstile()
     clearFile()
 
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
     if (err.status === 401) {
-      await refreshCaptcha()
-      captchaText.value = ''
+      resetTurnstile()
     }
   } finally {
     loading.value = false
   }
 }
 
-// ---- WATCHES ----
-watch(isProbeExpired, (expired, prev) => {
-  if (expired && !prev) {
-    result.value = null
-    captchaText.value = ''
-  }
-})
-
-watch(shouldShowCaptcha, (show, prev) => {
-  if (show && !prev) {
-    captchaText.value = ''
-  }
-})
-
 // ---- LIFECYCLE ----
 onMounted(async () => {
-  loadCaptchaState()
-  
   await nextTick()
-  
-  if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
-    await loadCaptcha()
-  }
 })
 </script>
 
@@ -351,48 +273,15 @@ onMounted(async () => {
           </div>
         </div>
 
-        <!-- Captcha Expiration Warning -->
-        <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
-          Your verification has expired. Please refresh the captcha below.
-        </div>
-
-        <!-- Captcha Section -->
-        <div v-if="shouldShowCaptcha" class="form-group">
-          <label for="captcha">Security Verification:</label>
-          <div class="captcha-container">
-            <div class="captcha-image-container">
-              <div v-if="captchaLoading" class="captcha-loading">
-                Loading captcha...
-              </div>
-              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage" />
-              <div v-else class="captcha-placeholder">
-                <button type="button" @click="loadCaptcha" class="load-captcha-btn">
-                  Load Captcha
-                </button>
-              </div>
-            </div>
-            <button
-              type="button"
-              @click="refreshCaptcha"
-              class="refresh-captcha-btn"
-              :disabled="captchaLoading"
-              title="Refresh captcha"
-            >
-              <img src="/assets/reload.svg?url" alt="reload" />
-            </button>
-          </div>
-          <input
-            id="captcha"
-            v-model="captchaText"
-            type="text"
-            placeholder="Enter the text from the image above"
-            :disabled="loading || !captchaImage"
-            autocomplete="off"
-            required
+        <!-- Verification -->
+        <div class="form-group">
+          <label>Security Verification:</label>
+          <Turnstile
+            ref="turnstileRef"
+            @verified="onTurnstileVerified"
+            @expired="onTurnstileExpired"
+            @error="onTurnstileError"
           />
-          <small class="captcha-help">
-            Enter the characters shown in the image above
-          </small>
         </div>
 
         <!-- Submit Button -->
