@@ -33,9 +33,6 @@ const isFormDisabled = computed(() => {
   if (loading.value) {
     return true
   }
-  if (!turnstileToken.value) {
-    return true
-  }
   return false
 })
 
@@ -321,21 +318,11 @@ function validateInputs() {
     return false
   }
 
-  if (!turnstileToken.value) {
-    errorMessage.value = 'Please complete the verification'
-    return false
-  }
-
   return true
 }
 
 async function reloadSelectedResult() {
   if (!selectedResult.value) {
-    return
-  }
-
-  if (!turnstileToken.value) {
-    errorMessage.value = 'Please complete the verification to reload.'
     return
   }
 
@@ -345,6 +332,8 @@ async function reloadSelectedResult() {
   }
 
   try {
+    turnstileToken.value = await turnstileRef.value.getToken()
+
     const data = await checkLinks({
       urls: [selectedResult.value.url],
       turnstileToken: turnstileToken.value
@@ -393,6 +382,8 @@ async function checkLinksHandler() {
       loading.value = false
       return
     }
+
+    turnstileToken.value = await turnstileRef.value.getToken()
 
     const urlsToCheck = extractedLinks.value.map(l => l.href)
 

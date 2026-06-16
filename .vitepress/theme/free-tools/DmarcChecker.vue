@@ -32,7 +32,7 @@ const turnstileRef = ref(null)
 const turnstileToken = ref('')
 
 const isFormDisabled = computed(() =>
-  loading.value || !turnstileToken.value
+  loading.value
 )
 
 const dmarcTags = computed(() => {
@@ -103,11 +103,6 @@ function validateInputs() {
     return false
   }
 
-  if (!turnstileToken.value) {
-    errorMessage.value = 'Please complete the verification'
-    return false
-  }
-
   return true
 }
 
@@ -121,6 +116,8 @@ async function checkDmarcHandler() {
       loading.value = false
       return
     }
+
+    turnstileToken.value = await turnstileRef.value.getToken()
 
     const data = await checkDmarc({
       domain: domain.value,

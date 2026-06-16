@@ -56,7 +56,7 @@ const shouldShowCaptcha = computed(() =>
 )
 
 const isFormDisabled = computed(() =>
-  loading.value || (!xmlPaste.value.trim() && !file.value) || !turnstileToken.value
+  loading.value || (!xmlPaste.value.trim() && !file.value)
 )
 
 const truncatedFileName = computed(() => {
@@ -224,11 +224,6 @@ function validateInputs() {
     return false
   }
 
-  if (!turnstileToken.value) {
-    errorMessage.value = 'Please complete the verification'
-    return false
-  }
-
   return true
 }
 
@@ -320,6 +315,8 @@ async function analyzeReport() {
       loading.value = false
       return
     }
+
+    turnstileToken.value = await turnstileRef.value.getToken()
 
     const data = await analyzeDmarcReport({
       xmlContent: file.value ? null : xmlPaste.value,

@@ -15,7 +15,7 @@ const turnstileRef = ref(null)
 const turnstileToken = ref('')
 
 const isFormDisabled = computed(() =>
-  loading.value || !turnstileToken.value
+  loading.value
 )
 
 // ---- FUNCTIONS ----
@@ -42,11 +42,6 @@ function validateInputs() {
     return false
   }
 
-  if (!turnstileToken.value) {
-    errorMessage.value = 'Please complete the verification'
-    return false
-  }
-
   return true
 }
 
@@ -60,6 +55,8 @@ async function checkMxHandler() {
       loading.value = false
       return
     }
+
+    turnstileToken.value = await turnstileRef.value.getToken()
 
     const data = await checkMx({
       domain: domain.value,

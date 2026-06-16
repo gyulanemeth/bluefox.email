@@ -8,6 +8,8 @@ const emit = defineEmits(['verified', 'expired', 'error'])
 
 const container = ref(null)
 let widgetId = null
+let tokenResolve = null
+let tokenReject = null
 
 function loadScript() {
   return new Promise((resolve, reject) => {
@@ -53,7 +55,21 @@ function reset() {
   }
 }
 
-defineExpose({ reset })
+// Runs the (hidden) challenge on demand and resolves with the token.
+// Cloudflare only shows UI if it decides an interaction is needed.
+function getToken() {
+  return new Promise((resolve, reject) => {
+    if (!window.turnstile || widgetId === null) {
+      return reject(new Error('Turnstile not ready'))
+    }
+    tokenResolve = resolve
+    tokenReject = reject
+    window.turnstile.reset(widgetId)
+    window.turnstile.execute(widgetId)
+  })
+}
+
+defineExpose({ reset, getToken })
 
 onMounted(async () => {
   if (!SITE_KEY) {
@@ -67,9 +83,23 @@ onMounted(async () => {
     await waitForTurnstile()
     widgetId = window.turnstile.render(container.value, {
       sitekey: SITE_KEY,
-      callback: (token) => emit('verified', token),
+      appearance: 'interaction-only',
+      execution: 'execute',
+      callback: (token) => {
+        emit('verified', token)
+        if (tokenResolve) {
+          tokenResolve(token)
+          tokenResolve = tokenReject = null
+        }
+      },
       'expired-callback': () => emit('expired'),
-      'error-callback': () => emit('error')
+      'error-callback': () => {
+        emit('error')
+        if (tokenReject) {
+          tokenReject(new Error('Turnstile verification failed'))
+          tokenResolve = tokenReject = null
+        }
+      }
     })
   } catch (err) {
     console.error('Failed to render Turnstile widget:', err)
