@@ -22,7 +22,7 @@ const turnstileRef = ref(null)
 const turnstileToken = ref('')
 
 const isFormDisabled = computed(() =>
-  loading.value || (!xmlPaste.value.trim() && !file.value) || !turnstileToken.value
+  loading.value || (!xmlPaste.value.trim() && !file.value)
 )
 
 const truncatedFileName = computed(() => {
@@ -83,11 +83,6 @@ function resetTurnstile() {
 function validateInputs() {
   if (!xmlPaste.value.trim() && !file.value) {
     errorMessage.value = 'Please paste your DMARC XML or upload an XML file to analyze.'
-    return false
-  }
-
-  if (!turnstileToken.value) {
-    errorMessage.value = 'Please complete the verification'
     return false
   }
 
@@ -171,6 +166,8 @@ async function analyzeReport() {
       loading.value = false
       return
     }
+
+    turnstileToken.value = await turnstileRef.value.getToken()
 
     const data = await analyzeDmarcReport({
       xmlContent: file.value ? null : xmlPaste.value,

@@ -20,7 +20,7 @@ const turnstileRef = ref(null)
 const turnstileToken = ref('')
 
 const isFormDisabled = computed(() =>
-  loading.value || !turnstileToken.value
+  loading.value
 )
 
 // ---- FUNCTIONS ----
@@ -44,11 +44,6 @@ function resetTurnstile() {
 function validateInputs() {
   if (!domain.value?.trim()) {
     errorMessage.value = 'Please enter a domain name'
-    return false
-  }
-
-  if (!turnstileToken.value) {
-    errorMessage.value = 'Please complete the verification'
     return false
   }
 
@@ -87,6 +82,8 @@ async function checkSpfHandler() {
       loading.value = false
       return
     }
+
+    turnstileToken.value = await turnstileRef.value.getToken()
 
     const data = await checkSpf({
       domain: domain.value,

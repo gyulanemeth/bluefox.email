@@ -27,7 +27,7 @@ const turnstileRef = ref(null)
 const turnstileToken = ref('')
 
 const isFormDisabled = computed(() =>
-  loading.value || !turnstileToken.value
+  loading.value
 )
 
 const dkimTags = computed(() => {
@@ -70,11 +70,6 @@ function validateInputs() {
     return false
   }
 
-  if (!turnstileToken.value) {
-    errorMessage.value = 'Please complete the verification'
-    return false
-  }
-
   return true
 }
 
@@ -88,6 +83,8 @@ async function checkDkimHandler() {
       loading.value = false
       return
     }
+
+    turnstileToken.value = await turnstileRef.value.getToken()
 
     const data = await checkDkim({
       domain: domain.value,
