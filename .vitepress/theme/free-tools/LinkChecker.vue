@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { checkLinks, getPagePreview  } from '../../../connectors/bluefoxEmailToolsApi.js'
+import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import Turnstile from './Turnstile.vue'
 
 const htmlTemplate = ref('')
@@ -332,7 +333,9 @@ async function reloadSelectedResult() {
   }
 
   try {
-    turnstileToken.value = await turnstileRef.value.getToken()
+    if (!isSessionValid()) {
+      turnstileToken.value = await turnstileRef.value.getToken()
+    }
 
     const data = await checkLinks({
       urls: [selectedResult.value.url],
@@ -383,7 +386,9 @@ async function checkLinksHandler() {
       return
     }
 
-    turnstileToken.value = await turnstileRef.value.getToken()
+    if (!isSessionValid()) {
+      turnstileToken.value = await turnstileRef.value.getToken()
+    }
 
     const urlsToCheck = extractedLinks.value.map(l => l.href)
 

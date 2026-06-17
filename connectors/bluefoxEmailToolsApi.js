@@ -1,7 +1,40 @@
+import { getSessionToken, setSession, clearSession } from './turnstileSession.js'
+
 const BASE_URL = import.meta.env.VITE_TOOLS_API_URL
 
 if (!BASE_URL) {
   throw new Error('VITE_TOOLS_API_URL not set')
+}
+
+// Attach the active verification session token (if any) so the backend can
+// skip the captcha within the window.
+function withSession(headers = {}) {
+  const token = getSessionToken()
+  if (token) {
+    headers['X-Turnstile-Session'] = token
+  }
+  return headers
+}
+
+// Persist the session token the backend mints after a fresh verify.
+function captureSession(json) {
+  if (json?.sessionToken && json?.sessionExpiresIn) {
+    setSession(json.sessionToken, json.sessionExpiresIn)
+  }
+}
+
+// Shared response handling: capture session on success, clear it on auth fail.
+function handleResponse(response, json) {
+  if (!response.ok) {
+    if (response.status === 401) {
+      clearSession()
+    }
+    const error = new Error(json.error?.message || json.message || 'API error')
+    error.status = response.status
+    throw error
+  }
+  captureSession(json)
+  return json
 }
 
 export async function checkMx({ domain, turnstileToken }) {
@@ -12,19 +45,11 @@ export async function checkMx({ domain, turnstileToken }) {
 
   const response = await fetch(`${BASE_URL}/v1/analyze-mx`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: withSession({ 'Content-Type': 'application/json' }),
     body: JSON.stringify(body)
   })
 
-  const json = await response.json()
-
-  if (!response.ok) {
-    const error = new Error(json.error?.message || json.message || 'API error')
-    error.status = response.status
-    throw error
-  }
-
-  return json
+  return handleResponse(response, await response.json())
 }
 
 export async function checkSpf({ domain, testIp, turnstileToken }) {
@@ -39,19 +64,11 @@ export async function checkSpf({ domain, testIp, turnstileToken }) {
 
   const response = await fetch(`${BASE_URL}/v1/analyze-spf`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: withSession({ 'Content-Type': 'application/json' }),
     body: JSON.stringify(body)
   })
 
-  const json = await response.json()
-
-  if (!response.ok) {
-    const error = new Error(json.error?.message || json.message || 'API error')
-    error.status = response.status
-    throw error
-  }
-
-  return json
+  return handleResponse(response, await response.json())
 }
 
 export async function checkDmarc({ domain, turnstileToken }) {
@@ -62,63 +79,29 @@ export async function checkDmarc({ domain, turnstileToken }) {
 
   const response = await fetch(`${BASE_URL}/v1/analyze-dmarc`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: withSession({ 'Content-Type': 'application/json' }),
     body: JSON.stringify(body)
   })
 
-  const json = await response.json()
-
-  if (!response.ok) {
-    const error = new Error(json.error?.message || json.message || 'API error')
-    error.status = response.status
-    throw error
-  }
-
-  return json
+  return handleResponse(response, await response.json())
 }
 
 export async function analyzeDmarcReport({ xmlContent, file, turnstileToken }) {
+  const formData = new FormData()
   if (file) {
-    // File upload using FormData
-    const formData = new FormData()
     formData.append('file', file)
-    formData.append('turnstileToken', turnstileToken || '')
-
-    const response = await fetch(`${BASE_URL}/v1/analyze-dmarc-report`, {
-      method: 'POST',
-      body: formData
-    })
-
-    const json = await response.json()
-
-    if (!response.ok) {
-      const error = new Error(json.error?.message || json.message || 'API error')
-      error.status = response.status
-      throw error
-    }
-
-    return json
   } else {
-    // multipart/form-data with XML content
-    const formData = new FormData()
     formData.append('xmlContent', xmlContent || '')
-    formData.append('turnstileToken', turnstileToken || '')
-
-    const response = await fetch(`${BASE_URL}/v1/analyze-dmarc-report`, {
-      method: 'POST',
-      body: formData
-    })
-
-    const json = await response.json()
-
-    if (!response.ok) {
-      const error = new Error(json.error?.message || json.message || 'API error')
-      error.status = response.status
-      throw error
-    }
-
-    return json
   }
+  formData.append('turnstileToken', turnstileToken || '')
+
+  const response = await fetch(`${BASE_URL}/v1/analyze-dmarc-report`, {
+    method: 'POST',
+    headers: withSession(),
+    body: formData
+  })
+
+  return handleResponse(response, await response.json())
 }
 
 export async function checkDkim({ domain, selector, turnstileToken }) {
@@ -130,19 +113,11 @@ export async function checkDkim({ domain, selector, turnstileToken }) {
 
   const response = await fetch(`${BASE_URL}/v1/analyze-dkim`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: withSession({ 'Content-Type': 'application/json' }),
     body: JSON.stringify(body)
   })
 
-  const json = await response.json()
-
-  if (!response.ok) {
-    const error = new Error(json.error?.message || json.message || 'API error')
-    error.status = response.status
-    throw error
-  }
-
-  return json
+  return handleResponse(response, await response.json())
 }
 
 export async function checkLinks({ urls, timeout, includeProxy, turnstileToken }) {
@@ -161,19 +136,11 @@ export async function checkLinks({ urls, timeout, includeProxy, turnstileToken }
 
   const response = await fetch(`${BASE_URL}/v1/check-links`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: withSession({ 'Content-Type': 'application/json' }),
     body: JSON.stringify(body)
   })
 
-  const json = await response.json()
-
-  if (!response.ok) {
-    const error = new Error(json.error?.message || json.message || 'API error')
-    error.status = response.status
-    throw error
-  }
-
-  return json
+  return handleResponse(response, await response.json())
 }
 
 export function getProxiedUrl(url) {
@@ -191,13 +158,5 @@ export async function getPagePreview(url) {
     headers: { 'Content-Type': 'application/json' }
   })
 
-  const json = await response.json()
-
-  if (!response.ok) {
-    const error = new Error(json.error?.message || json.message || 'API error')
-    error.status = response.status
-    throw error
-  }
-
-  return json
+  return handleResponse(response, await response.json())
 }

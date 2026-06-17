@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { analyzeDmarcReport } from '../../../connectors/bluefoxEmailToolsApi.js'
+import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import Turnstile from './Turnstile.vue'
 
 // ---- VARIABLES ----
@@ -167,7 +168,9 @@ async function analyzeReport() {
       return
     }
 
-    turnstileToken.value = await turnstileRef.value.getToken()
+    if (!isSessionValid()) {
+      turnstileToken.value = await turnstileRef.value.getToken()
+    }
 
     const data = await analyzeDmarcReport({
       xmlContent: file.value ? null : xmlPaste.value,

@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { checkMx } from '../../../connectors/bluefoxEmailToolsApi.js'
+import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import { syncWithUrl, loadFromUrl } from './helpers/urlSync.js'
 import Turnstile from './Turnstile.vue'
 
@@ -56,7 +57,9 @@ async function checkMxHandler() {
       return
     }
 
-    turnstileToken.value = await turnstileRef.value.getToken()
+    if (!isSessionValid()) {
+      turnstileToken.value = await turnstileRef.value.getToken()
+    }
 
     const data = await checkMx({
       domain: domain.value,
