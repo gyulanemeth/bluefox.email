@@ -581,7 +581,6 @@ Example:
               </div>
 
               <div class="form-group">
-                <label>Security Verification:</label>
                 <Turnstile
                   ref="turnstileRef"
                   @verified="onTurnstileVerified"
