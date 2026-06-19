@@ -94,7 +94,9 @@ const npRecommendations = computed(() =>
 
 const rfc9989Ready = computed(() => {
   const protocol = result.value?.protocol
-  if (!protocol) return false
+  if (!protocol) {
+    return false
+  }
   return !protocol.deprecatedTags?.length &&
     !protocol.unknownTags?.length &&
     !protocol.testMode

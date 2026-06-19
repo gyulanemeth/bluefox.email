@@ -57,8 +57,12 @@ const isFormDisabled = computed(() =>
 )
 
 const truncatedFileName = computed(() => {
-  if (!fileName.value) return ''
-  if (fileName.value.length <= MAX_FILENAME_LEN) return fileName.value
+  if (!fileName.value) {
+    return ''
+  }
+  if (fileName.value.length <= MAX_FILENAME_LEN) {
+    return fileName.value
+  }
   return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
 })
 
@@ -80,8 +84,12 @@ const sourcesGridColumns = computed(() => {
   if (hasAlignmentData.value) {
     cols.push('1.2fr', '1.2fr', '0.5fr')
   } else {
-    if (hasEnvelopeFrom.value) cols.push('2fr')
-    if (hasSpfScope.value) cols.push('1fr')
+    if (hasEnvelopeFrom.value) {
+      cols.push('2fr')
+    }
+    if (hasSpfScope.value) {
+      cols.push('1fr')
+    }
   }
   return cols.join(' ')
 })
@@ -135,9 +143,15 @@ function alignmentClass(value) {
 }
 
 function authDotClass(status) {
-  if (status === 'aligned_pass') return 'pass'
-  if (status === 'unaligned_pass') return 'warn'
-  if (status === 'auth_fail') return 'fail'
+  if (status === 'aligned_pass') {
+    return 'pass'
+  }
+  if (status === 'unaligned_pass') {
+    return 'warn'
+  }
+  if (status === 'auth_fail') {
+    return 'fail'
+  }
   return 'muted'
 }
 
@@ -275,11 +289,20 @@ function clearFile() {
 
 // Format helpers
 function formatDateRange(dateRange) {
-  if (!dateRange) return 'Unknown'
+  if (!dateRange) {
+    return 'Unknown'
+  }
   if (dateRange.start && dateRange.end) {
     return `${new Date(dateRange.start * 1000).toLocaleString()} to ${new Date(dateRange.end * 1000).toLocaleString()}`
   }
   return typeof dateRange === 'string' ? dateRange : 'Unknown'
+}
+
+function formatOverride(reason) {
+  if (reason.comment) {
+    return `${reason.type} (${reason.comment})`
+  }
+  return reason.type
 }
 
 async function analyzeReport() {
@@ -887,7 +910,10 @@ onMounted(async () => {
                 Envelope <span class="monospace">{{ rec.envelopeFrom }}</span>
               </span>
               <span v-if="rec.policyEvaluated?.reasons?.length" class="record-meta-item">
-                Overrides: {{ rec.policyEvaluated.reasons.map(r => r.comment ? `${r.type} (${r.comment})` : r.type).join(', ') }}
+                Overrides:
+                <span v-for="(reason, ri) in rec.policyEvaluated.reasons" :key="ri">
+                  {{ formatOverride(reason) }}<template v-if="ri < rec.policyEvaluated.reasons.length - 1">, </template>
+                </span>
               </span>
             </div>
           </div>
