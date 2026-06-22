@@ -3,9 +3,9 @@ title: Automations | bluefox.email documentation
 description: Learn how to create and manage automations in bluefox.email. Explore triggers, nodes, and advanced workflows to send timely, personalized emails based on contact actions like sign-ups or updates.
 faqs:
   - question: "What can I automate with BlueFox Email automations?"
-    answer: "You can automate email workflows triggered by contact events such as a contact being added to a list, a contact property changing, or a contact entering or leaving a segment. From there you can chain Send Email, Timer, Audience Filter, Branching, Set Value, Manage Tags, Notify, and Complete nodes to build any multi-step email sequence."
+    answer: "You can automate email workflows triggered by contact events such as a contact being added to a list, a contact property changing, a contact entering or leaving a segment, or a recurring schedule. From there you can chain Send Email, Timer, Audience Filter, Branching, Set Value, Manage Tags, Webhook, Notify, and Complete nodes to build any multi-step email sequence."
   - question: "What trigger types are available for automations?"
-    answer: "Automation triggers include: Contact Added (fires when a contact is added to the selected list), Contact Updated (fires when a specific contact property changes from one value to another), Enter Segment (fires when a contact enters a selected segment), and Leave Segment (fires when a contact leaves a selected segment)."
+    answer: "Automation triggers include: Contact Added (fires when a contact is added to the selected list), Contact Updated (fires when a specific contact property changes from one value to another), Enter Segment (fires when a contact enters a selected segment), Leave Segment (fires when a contact leaves a selected segment), and Time Based (fires on a recurring schedule, such as daily, weekdays, weekly, or monthly)."
   - question: "Can I edit an automation while it is running?"
     answer: "Yes, but carefully. While an automation is active you can make changes and choose to apply them only to new contacts entering the automation, or to both new and in-progress contacts. Applying changes to in-progress contacts immediately affects contacts currently waiting at any node, and removing a node terminates the automation for contacts currently in that node."
   - question: "What is the difference between the Audience Filter node and the Branching node?"
@@ -70,6 +70,17 @@ When you're done, click create. You can make changes later as well.
 
 Once created, you’ll be taken to the automation builder, where you can configure the flow by adding different types of nodes.
 
+## Copying and Pasting Automations
+
+Instead of rebuilding an automation from scratch, you can copy an existing one and paste it elsewhere. This is useful when a new automation is close to one you have already configured.
+
+Click the copy icon on the automation card to copy it. You can then paste it:
+
+- Within the same project
+- Within the same account, across your projects
+- From one account to another, if you manage multiple accounts
+
+![Automation copy paste Icon](./project-automation-copy-paste-btn.webp)
 
 ## Automation Structure
 
@@ -83,6 +94,7 @@ The available node types are:
 - **Branching**
 - **Set Value**
 - **Manage Tags**
+- **Webhook**
 - **Complete Node**
 
 Let’s go through each one in detail.
@@ -122,19 +134,36 @@ To configure the trigger, click on the trigger card:
 
     ![Automation node trigger card Icon](./project-automation-node-trigger-segment-card.webp)
 
+  - **Time Based**: Triggers the automation on a schedule rather than in response to a contact event. When you select **Time Based**, you define a **Schedule** that controls when the automation runs. A schedule is required, and each run processes the whole selected **Subscriber List** (the **Frequency** field does not apply, since the schedule controls timing instead).
+
+   ![Automation node trigger card Icon](./project-automation-node-trigger-time-based-card.webp)
+
+    The available schedule options are:
+    - **Every day**: Runs once a day at a set time (for example, 9:00 AM).
+    - **Weekdays**: Runs Monday through Friday at a set time.
+    - **Weekly**: Runs on the days of the week you choose, at a set time (for example, Monday, Tuesday, and Thursday at 9:00 AM).
+    - **Monthly**: Runs once a month, on the same date the trigger was activated (for example, if activated on the 20th, it runs on the 20th every month).
+    - **Monthly on the nth day**: Runs once a month on a relative day (for example, the first Monday of every month).
+
+    ![Automation node trigger card Icon](./project-automation-node-trigger-time-based-card-options.webp)
+
 These fields let you define exactly what kind of property change should activate your automation.
 
 ![Automation node trigger card Icon](./project-automation-node-trigger-card.webp)
 
 ## Timer Node
 
-The **Timer Node** pauses the automation for a specific duration before moving to the next step.
+The **Timer Node** pauses the automation before moving to the next step. You can pause for a fixed duration, or wait until a specific point in time.
 
-When you click on the timer node:
-
+**Wait for a duration**
 - Set the **duration** (e.g., 1 day, 4 hours).
 - Choose the **unit**: Minutes, Hours, Days.
 - Optionally, set it to continue **immediately** if you want the next node to run without delay.
+
+**Wait until a point in time**
+- **Wait until time**: Holds the contact until the next occurrence of a clock time you specify. For example, a contact entering at any point waits until the next 9:00 AM.
+- **Wait until day**: Holds the contact until a specific day and time (for example, next Tuesday at 7:00 AM).
+- **Wait until next weekday**: Releases the contact on the next weekday. You can keep the same time the contact entered the node, or set a specific exit time.
 
 ![Automation node timer card Icon](./project-automation-node-timer-card.webp)
 
@@ -286,6 +315,18 @@ When configuring the Manage Tags node:
 
 ![Automation node manage tags card Icon](./project-automation-node-manage-tags-card.webp)
 
+## Webhook Node
+
+The **Webhook Node** sends an HTTP request to an external URL from within the automation flow. This lets you push automation activity to other systems or trigger actions outside BlueFox Email.
+
+When configuring the Webhook node:
+- **Method**: Choose the HTTP method, `POST`, `GET`, `PUT`, or `PATCH`.
+- **URL**: Enter the endpoint the request is sent to.
+- **Pass Contact Data**: When this toggle is on, the data of the contact running the automation is included in the request.
+- **Headers**: Optionally add custom headers as key and value pairs. For example, add an `Authorization` header with a bearer token if the endpoint requires authentication.
+
+![Automation node webhook card Icon](./project-automation-node-webhook-card.webp)
+
 ## Complete Node
 
 The **Complete Node** defines where contacts exit the automation. Contacts reaching this node leave the flow. Automations without a Complete Node will keep contacts queued at their final step.
@@ -313,8 +354,11 @@ When configuring the exit criteria you have the following options:
 
   ![Automation node exit criteria card Icon property tab](./project-automation-node-exit-criteria-property-based-card.webp)
 
-- **Segment Tab**: Exit if a contact is added in a specific segment or updated and now falls into the segment.
-    - Select or create a **segment** to filter contacts.
+- **Segment Tab**: Exit a contact based on their segment membership.
+    - Select or create a **segment**.
+    - Use the **Contact Exit** switch to control when the contact exits:
+      - **Off**: The contact exits the automation when they enter the selected segment.
+      - **On**: The contact exits the automation when they leave the selected segment.
 
   ![Automation node exit criteria card Icon segment tab](./project-automation-node-exit-criteria-segment-based-card.webp)
 
