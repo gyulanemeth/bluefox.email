@@ -386,18 +386,17 @@ But the main value of the newsletter should be the **content**. The sales angle 
 
 TODO: Insert a meme here about how personalization is not just replacing the subscriber's first name in an email.
 
-Automated newsletters are not only useful for prospects.
+Automated newsletters are not only useful for prospects. They can be even more powerful for existing customers, because you already know something about how those customers behave.
 
-They can be even more powerful for existing customers because you already know something about how those customers behave.
+And no, personalization is not about replacing the `#first_name#` merge tag. Not every subscriber cares about the same topics.
 
-Instead of sending the same generic update to everyone, you can curate content based on what people are actually doing.
+A founder may care about growth. A marketer may care about campaign examples. A developer may care about APIs and technical updates. An existing customer may care about tutorials and product improvements.
 
+So instead of sending the same generic update to everyone, you can curate content based on what people are actually doing.
 
 ![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/personalization-with-ai.png)
 
-For example, imagine a customer is actively building onboarding sequences.
-
-The system could automatically collect and recommend:
+For example, imagine a customer is actively building onboarding sequences. The system could automatically collect and recommend:
 
 * articles about onboarding best practices
 * case studies about activation and retention
@@ -406,15 +405,23 @@ The system could automatically collect and recommend:
 * relevant product features related to onboarding
 * expert opinions and industry research
 
-A different subscriber might be interested in AI automation and workflow optimization. They could receive curated tutorials, case studies, tool updates, and practical examples that match those interests.
+A different subscriber interested in AI automation and workflow optimization could receive curated tutorials, case studies, tool updates, and practical examples that match those interests.
 
-This is where automation becomes much more valuable than a simple monthly update.
+So you can change parts of the newsletter based on subscriber interests:
 
-The newsletter is no longer just broadcasting company news.
+* SaaS subscribers get SaaS examples
+* ecommerce subscribers get ecommerce examples
+* agencies get client campaign ideas
+* developers get technical updates
+* customers get product education
 
-It becomes a personalized learning and discovery channel that helps customers solve the problems they are working on right now.
+The whole newsletter does not need to be different. Even changing one or two content blocks can make the email feel much more relevant. This is where automation, segmentation, and personalization become really useful together.
 
-That creates more relevance, more engagement, and often a better customer experience because the content feels timely instead of generic.
+If you run a SaaS product, you have an advantage here. You already collect behavioral data about your users. You know who has tried which features, who is active, and who has not logged in for a while. That data is a signal. If someone just started using automations in your product, that is a cue to send them content about automation best practices, examples, and tips. You are not guessing what they care about, you know.
+
+One important practical note: personalizing content at the individual user level with AI sounds great, but it adds up fast in terms of cost and complexity. A more sustainable approach is to classify your subscribers into a small number of segments, then prepare tailored content for each segment. You get most of the relevance benefit without the overhead of generating a unique newsletter for every single person.
+
+The newsletter is no longer just broadcasting company news. It becomes a personalized learning and discovery channel that helps customers solve the problems they are working on right now. That creates more relevance, more engagement, and often a better customer experience because the content feels timely instead of generic.
 
 ## Agencies can use this for clients too
 
@@ -481,36 +488,6 @@ You can remove sections, add new ones, combine parts, or organize the newsletter
 The important thing is not the exact structure. It is making the newsletter easy to scan and useful to read. The reader should be able to quickly understand what is included and decide what they want to open.
 
 A newsletter that feels like homework will not work.
-
-## Personalization makes it much better
-
-The next step is personalization. (And no, it's not about replacing the #first_name# merge tag.) We touched personalization in previous sections, but I want to make it very clear: not every subscriber cares about the same topics.
-
-A founder may care about growth.
-
-A marketer may care about campaign examples.
-
-A developer may care about APIs and technical updates.
-
-An existing customer may care about tutorials and product improvements.
-
-So instead of sending the exact same digest to everyone, you can change parts of the newsletter based on subscriber interests.
-
-For example:
-
-* SaaS subscribers get SaaS examples
-* ecommerce subscribers get ecommerce examples
-* agencies get client campaign ideas
-* developers get technical updates
-* customers get product education
-
-The whole newsletter does not need to be different.
-
-Even changing one or two content blocks can make the email feel much more relevant. This is where automation, segmentation, and personalization become really useful together.
-
-If you run a SaaS product, you have an advantage here. You already collect behavioral data about your users. You know who has tried which features, who is active, and who has not logged in for a while. That data is a signal. If someone just started using automations in your product, that is a cue to send them content about automation best practices, examples, and tips. You are not guessing what they care about, you know.
-
-One important practical note: personalizing content at the individual user level with AI sounds great, but it adds up fast in terms of cost and complexity. A more sustainable approach is to classify your subscribers into a small number of segments, then prepare tailored content for each segment. You get most of the relevance benefit without the overhead of generating a unique newsletter for every single person.
 
 ## What to avoid
 
