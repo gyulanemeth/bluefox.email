@@ -225,9 +225,13 @@ That is what makes the newsletter feel curated instead of automated.
 One thing many marketers do not realize is that every YouTube channel publishes an RSS feed, even though YouTube does not advertise this feature. Your automation system can monitor this feed, detect new videos, and add them to the newsletter automatically, with no separate integration needed.
 
 ::: tip Example
-BlueFox Email YouTube channel: https://www.youtube.com/@bluefox-email-official
+BlueFox Email YouTube channel:
 
-RSS feed: https://www.youtube.com/feeds/videos.xml?channel_id=UC2iqBlA8iowoqZmD2bRVeHw
+https://www.youtube.com/@bluefox-email-official
+
+RSS feed:
+
+https://www.youtube.com/feeds/videos.xml?channel_id=UC2iqBlA8iowoqZmD2bRVeHw
 :::
 
 You can also make newsletters more engaging by turning YouTube videos into animated GIF previews with a play button overlay that links to the full video. It gives subscribers a visual cue that there's video content to watch and encourages clicks to the full video, since email clients generally don't support embedded video playback. If you sign up for BlueFox Email, you can see examples of this approach in our onboarding emails, like the one below:
@@ -405,69 +409,19 @@ That said, this is not a strict rule. In some cases, adding commentary makes the
 
 The key is to match the level of automation and editorial input to the purpose of the newsletter and the expectations of the readers.
 
-## How to start
-
-The best way to start is small.
-
-Pick one audience.
-
-Pick one simple promise.
-
-For example:
-
-> A weekly digest for SaaS marketers who want practical lifecycle email examples.
-
-Then choose a few sources:
-
-* 3 to 5 RSS feeds
-* once that is working, add 1 or 2 YouTube channels
-* your own blog
-* your own product updates
-* maybe one or two trusted industry sources
-
-Create a simple newsletter structure.
-
-Send it regularly.
-
-At the beginning, keep human approval in the process. Let automation prepare the issue, but review it before it goes out.
-
-Once the newsletter works, you can improve the workflow.
-
-You can add better AI summaries, topic detection, personalization, automatic scheduling, and performance tracking.
-
-But you do not need all of that on day one.
-
-The first goal is simple:
-
-Create a newsletter that is useful enough for people to keep opening it.
-
 ## Turning scattered content into something useful
 
 The real value of an AI-powered newsletter is not that it finds more content. It is that it finds less.
 
-Less noise. Less filler. Less time wasted on headlines that overpromise and articles that underdeliver. Instead of forcing readers to sit through bloated videos or repetitive articles, AI can extract the key points and present them as concise, information-dense summaries. The result is less hype and more substance.
+Less noise. Less filler. Less clickbait. Less time wasted on headlines that overpromise and articles that underdeliver. AI can extract the key points and present them as concise, information-dense summaries. The result is less hype and more substance.
 
 That is what makes a curated newsletter worth reading. Not the number of links, but the quality of the filter.
 
-For the reader, it saves time.
-
-For the company, it creates a regular touchpoint.
-
-For the marketer, it creates a repeatable content distribution system that keeps growing in value the longer it runs.
-
-And over time, that can become a real owned audience.
+Done consistently, that is also how a company earns something hard to copy: the position of trusted filter for its audience. An owned channel, not a borrowed one.
 
 ## Create automated newsletters with BlueFox Email
 
-BlueFox Email helps you design, send, and measure branded newsletters without unnecessary complexity.
-
-You can use it for regular campaigns, product updates, customer newsletters, curated digests, and automated email workflows.
-
-So if you want to turn scattered content into a newsletter your audience actually wants to receive, start with a simple format, choose good sources, and build from there.
-
-The tools can help with the workflow.
-
-But the goal stays the same:
+BlueFox Email is built for this kind of workflow. You can design, automate, and send branded newsletters, build curated digests, and track what resonates, without unnecessary complexity.
 
 Send something useful.
 
