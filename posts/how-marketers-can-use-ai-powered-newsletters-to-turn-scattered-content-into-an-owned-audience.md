@@ -131,30 +131,6 @@ The content may come from many different places. The relationship happens in the
 
 That is the important part.
 
-## The newsletter should not be a link dump
-
-This is where many automated newsletters go wrong.
-
-They pull content from a few feeds, put twenty links into an email, and send it. Technically, it works, but nobody wants to read that.
-
-A good newsletter is not just a list of links. It is a filtered, structured, useful summary.
-
-The reader should feel like:
-
-> “Okay, someone already looked through the noise and picked the important stuff for me.”
-
-That is the value. So the goal is not to send everything the system finds.
-
-The goal is to send what is worth this specific subscriber’s attention.
-
-Filtering is the core skill. Not finding more content, but cutting down to less. A newsletter with three well-chosen pieces that each come with a clear reason to read them is more valuable than a digest of twenty links with no context.
-
-For each piece of content, the reader should understand why it matters to them, not just what it is. That means a short explanation: what the article argues, why the timing is relevant, what they will get out of watching the video. That context is what turns a link into a recommendation.
-
-AI can help here. It can summarize articles, group similar topics, remove duplicates, suggest titles, rewrite descriptions, and draft those short explanations. Less is often better, and AI is useful for cutting, not just adding.
-
-But the marketer still needs to decide what belongs in the newsletter. Automation should do the boring work, the marketer should keep the judgment.
-
 ## What AI can actually help with
 
 AI is useful in this workflow because preparing a newsletter manually can be annoying.
@@ -505,7 +481,7 @@ Just because you can send more often does not mean you should.
 
 **Do not include too many links.**
 
-Five good links are better than twenty random ones.
+Five good links are better than twenty random ones. Filtering is the core skill: the goal is not to send everything the system finds, but to cut down to what is worth this specific subscriber's attention. A newsletter with three well-chosen pieces, each with a clear reason to read them, is more valuable than a digest of twenty links with no context. For each item, include a short explanation of why it matters to the reader: what the article argues, why the timing is relevant, what they will get out of watching the video. That context is what turns a link into a recommendation. AI is especially useful here: it can summarize and cut, not just add more.
 
 **Do not trust AI blindly.**
 
