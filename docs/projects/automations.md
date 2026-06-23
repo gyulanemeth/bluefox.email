@@ -78,7 +78,6 @@ Click the copy icon on the automation card to copy it. You can then paste it:
 
 - Within the same project
 - Within the same account, across your projects
-- From one account to another, if you manage multiple accounts
 
 ![Automation copy paste Icon](./project-automation-copy-paste-btn.webp)
 
