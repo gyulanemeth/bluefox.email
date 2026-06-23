@@ -93,8 +93,6 @@ That could mean collecting:
 * your own company updates
 * customer stories and examples
 
-Without automation, this is a lot of manual work. Someone has to check the sources, open the links, skim everything, decide what matters, write the summaries, organize the newsletter, and send it.
-
 ![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/02-filter-and-cureate-content-with-ai-and-assemble-a-newsletter.jpeg)
 
 ## Email is still an owned channel
