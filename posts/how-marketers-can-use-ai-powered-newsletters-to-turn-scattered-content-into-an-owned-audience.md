@@ -384,8 +384,6 @@ But the main value of the newsletter should be the **content**. The sales angle 
 
 ## It can also help existing customers with personalized content
 
-TODO: Insert a meme here about how personalization is not just replacing the subscriber's first name in an email.
-
 Automated newsletters are not only useful for prospects. They can be even more powerful for existing customers, because you already know something about how those customers behave.
 
 And no, personalization is not about replacing the `#first_name#` merge tag. Not every subscriber cares about the same topics.
