@@ -93,33 +93,13 @@ That could mean collecting:
 * your own company updates
 * customer stories and examples
 
-Without automation, this is a lot of manual work.
-
-Someone has to check the sources, open the links, read or skim everything, decide what matters, write the summaries, organize the newsletter, and send it.
-
-That is exactly where AI-powered newsletters become interesting.
-
-AI can help collect, summarize, group, filter, and prepare the content automatically. So instead of manually creating every newsletter from scratch, marketers can build a system.
+Without automation, this is a lot of manual work. Someone has to check the sources, open the links, skim everything, decide what matters, write the summaries, organize the newsletter, and send it.
 
 ![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/02-filter-and-cureate-content-with-ai-and-assemble-a-newsletter.jpeg)
 
-The system watches the right sources, AI prepares the digest, then the company sends a useful newsletter under its own brand.
-
-The audience gets a filtered version of what matters.
-
-That is much more powerful than only sending updates from your own blog.
-
 ## Email is still an owned channel
 
-Social media is useful, but it is not really yours.
-
-You can spend months building an audience, and then the platform changes the rules. Your reach drops. The algorithm changes. Your posts stop showing up. Or your best content simply disappears after a few hours.
-
-Email is different.
-
-When someone subscribes to your newsletter, you have a direct channel to them. This is why automated newsletters are not only about saving time. They are also about audience ownership.
-
-Of course, this does not mean you can send anything you want and expect people to care. You still have to earn attention. You still have to be useful. But at least you are not completely dependent on a social media algorithm.
+Owning the channel does not mean you can send anything and expect people to care. You still have to earn attention. You still have to be useful. But at least you are not completely dependent on a social media algorithm.
 
 Email also has its own gatekeepers. Spam filters can block you before you ever reach the inbox. And now AI-powered email summaries are adding another layer between your message and the reader's full attention.
 
@@ -274,15 +254,7 @@ And the corresponding RSS feed is:
 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2iqBlA8iowoqZmD2bRVeHw
 
-This feed automatically publishes new videos from the channel, making it easy to include fresh YouTube content in your newsletter workflow without manually checking for updates. Like a blog RSS feed, it can be monitored by your automation system and used as a reliable content source for curated email digests.
-
-Instead of building a completely separate integration, you can pull new videos using the same RSS-based approach discussed earlier for blogs, podcasts, and news sites.
-
-That makes it much easier to include video content in automated newsletters. New videos appear in the feed, the system detects them, AI can generate summaries or descriptions, and the content can be added to the next newsletter issue automatically.
-
-In practice, this means your newsletter can combine blog posts, industry news, podcast episodes, and YouTube videos using the same underlying technology.
-
-That simplicity is one of the reasons RSS remains so useful for content aggregation and newsletter automation.
+This feed works exactly like a blog RSS feed. Your automation system can monitor it, detect new videos, and add them to the next newsletter issue automatically, with no separate integration needed.
 
 You can also make newsletters more engaging by turning YouTube videos into animated GIF previews with a play button overlay that links to the full video. It gives subscribers a visual cue that there's video content to watch and encourages clicks to the full video, since email clients generally don't support embedded video playback. If you sign up for BlueFox Email, you can see examples of this approach in our onboarding emails, like the one below:
 
@@ -319,10 +291,6 @@ Start with RSS. Once that works, add YouTube. Then, when it makes sense and the 
 Your own blog posts and product updates can also appear in the newsletter, but the newsletter should not be about you. It should be about the topic your audience cares about. When your own content is relevant to that topic, it becomes a natural part of the curated experience instead of feeling like self-promotion.
 
 This keeps the first version simple enough to actually ship.
-
-If you reach to this level, you will achieve what we showed on an image previously. You can curate from every channel online in an automated way.
-
-![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/02-filter-and-cureate-content-with-ai-and-assemble-a-newsletter.jpeg)
 
 ## Third-party content does not mean stealing content
 
