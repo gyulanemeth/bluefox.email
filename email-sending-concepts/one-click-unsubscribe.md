@@ -71,7 +71,7 @@ head:
 
 ## What is One-Click Unsubscribe?
 
-One-Click Unsubscribe provides email recipients with a standardized, **immediate method** to remove themselves from email lists or marketing communications. It appears as a special link or button near the sender information in modern [email clients](/email-sending-concepts/smtp.md) (like Gmail's "Unsubscribe" button). When clicked, it immediately processes the unsubscribe request **without requiring additional steps** from the user.
+One-Click Unsubscribe provides email recipients with a standardized, **immediate method** to remove themselves from email lists or marketing communications. It appears as a special link or button near the sender information in modern [email clients](/email-sending-concepts/smtp) (like Gmail's "Unsubscribe" button). When clicked, it immediately processes the unsubscribe request **without requiring additional steps** from the user.
 
 ## How One-Click Unsubscribe Works
 

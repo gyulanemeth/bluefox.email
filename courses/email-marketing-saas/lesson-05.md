@@ -1,3 +1,6 @@
+---
+noindex: true
+---
 # Personalization
 
 ## Tailoring messages

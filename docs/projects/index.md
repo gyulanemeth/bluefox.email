@@ -1,6 +1,15 @@
 ---
 title: Projects | bluefox.email documentation
 description: Discover how bluefox.email projects help you manage emails, subscriber lists, and design systems. Easily configure sending settings and handle environments like development, staging, and production.
+faqs:
+  - question: "What is a project in BlueFox Email?"
+    answer: "A project in BlueFox Email is a workspace for one client or brand. Each project contains its own transactional emails, triggered emails, campaigns, automations, contacts, subscriber lists, segments, email themes, suppression lists, and settings."
+  - question: "Can I have multiple projects in BlueFox Email?"
+    answer: "Yes. You can create as many projects as you need, one per client or brand. Each project is independent with its own contacts, email templates, subscriber lists, and settings. Send credits are shared across all projects in your account."
+  - question: "What is the difference between a free and a premium project?"
+    answer: "Free projects include the BlueFox Email logo and a link in email footers. Premium projects remove that branding, giving you a fully white-label experience. You can upgrade any project to premium from its settings."
+  - question: "How do I navigate between projects in BlueFox Email?"
+    answer: "Click the dropdown icon on the left-hand sidebar to see and switch between your projects. You can also create a new project from that same dropdown menu."
 head:
   - - meta
     - name: description

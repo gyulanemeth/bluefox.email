@@ -1,6 +1,15 @@
 ---
 title: Supabase | bluefox.email documentation
 description: Learn how to set up supabase to send authentication emails through BlueFox Email for better deliverability, branding and tracking.
+faqs:
+  - question: "How do I configure Supabase to send emails through BlueFox Email?"
+    answer: "In Supabase, go to Project Settings and Authentication, enable Custom SMTP, and enter these values: SMTP host smtp.bluefox.email, port 587, username bluefox.email, and your BlueFox Email project API key as the password. Then create transactional email templates in BlueFox Email for each authentication email type you need."
+  - question: "Which Supabase email types do I need to set up in BlueFox Email?"
+    answer: "At minimum you must create transactional emails for Confirm Signup and Magic Link. You can also set up Change Email Address, Password Reset, Reauthentication, and User Invitation for complete coverage of all Supabase authentication flows."
+  - question: "How do I pass Supabase dynamic values like the confirmation URL into a BlueFox Email template?"
+    answer: "Use merge tags in your BlueFox Email template that match the keys in the data object you pass from Supabase. For example, pass confirmationURL as a key in the data object and use the corresponding merge tag in your template body. BlueFox Email processes these with Handlebars when the email is sent."
+  - question: "Why does Supabase still show Sender Email and Sender Name fields if BlueFox Email overrides them?"
+    answer: "Supabase requires those fields to save the SMTP configuration, but BlueFox Email ignores them and uses the sender details defined in your email templates instead. You can enter placeholder values in Supabase for those fields."
 head:
   - - meta
     - name: description

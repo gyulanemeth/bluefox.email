@@ -8,6 +8,7 @@ import {
   buildBreadcrumbList,
   appendJsonLd
 } from './shared'
+import { buildOrganization } from './organizationSchema'
 
 function isPostPage(relativePath) {
   if (!relativePath) {
@@ -32,7 +33,8 @@ function buildBlogPosting(pageData) {
   const { relativePath, frontmatter: fm } = pageData
   const url = postUrl(relativePath)
   const title = asString(fm.title)
-  const published = toIsoDate(fm.datePublished) || toIsoDate(fm.date)
+  const publishedRaw = fm.published !== false ? toIsoDate(fm.published) : null
+  const published = toIsoDate(fm.datePublished) || toIsoDate(fm.date) || publishedRaw
   const modified = toIsoDate(fm.dateModified) || toIsoDate(fm.lastUpdated) || published
 
   const article = {
@@ -75,6 +77,20 @@ function buildBreadcrumbs(pageData) {
   ])
 }
 
+function buildFaqSchema(faqs) {
+  if (!Array.isArray(faqs) || !faqs.length) {
+    return null
+  }
+  return {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(f => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer }
+    }))
+  }
+}
+
 function shouldSkip(pageData) {
   const { relativePath, frontmatter: fm } = pageData
   if (!isPostPage(relativePath)) {
@@ -91,8 +107,14 @@ export function addPostsSchema(pageData) {
     return
   }
 
+  const graph = [buildBlogPosting(pageData), buildBreadcrumbs(pageData), buildOrganization()]
+  const faqSchema = buildFaqSchema(pageData.frontmatter.faqs)
+  if (faqSchema) {
+    graph.push(faqSchema)
+  }
+
   appendJsonLd(pageData, {
     '@context': 'https://schema.org',
-    '@graph': [buildBlogPosting(pageData), buildBreadcrumbs(pageData)]
+    '@graph': graph
   })
 }

@@ -1,6 +1,15 @@
 ---
 title: Transactional Emails | bluefox.email documentation
 description: Learn how to create and manage transactional emails in bluefox.email. Explore integration, personalization, and advanced settings for essential communications like password resets and registration emails.
+faqs:
+  - question: "What are transactional emails in BlueFox Email?"
+    answer: "Transactional emails are one-to-one emails sent in response to a specific user action, such as account registration, password resets, order confirmations, or purchase receipts. They are sent via the API directly to a specific email address and are not tied to any subscriber list."
+  - question: "Can subscribers unsubscribe from transactional emails?"
+    answer: "No. Transactional emails cannot include an unsubscribe link and subscribers cannot opt out of them, because they are triggered by the recipient's own actions and are considered necessary communications. They are sent to any email address regardless of subscription status."
+  - question: "How are transactional emails different from triggered emails?"
+    answer: "Transactional emails are sent to any email address via the API and are not tied to subscriber lists. Triggered emails are also API-sent but are tied to a subscriber list and will only be delivered to active subscribers on that list. Triggered emails require an unsubscribe link; transactional emails do not."
+  - question: "Can I send attachments with transactional emails?"
+    answer: "Yes. Transactional emails sent via the API support file attachments encoded as Base64. Each attachment requires a file name and the Base64-encoded content included in the API request body."
 head:
   - - meta
     - name: description

@@ -1,4 +1,5 @@
 ---
+noindex: true
 ---
 <script setup>
   import SaaSEmailMarketingCourseSignup from '/components/SaaSEmailMarketingCourseSignup.vue'

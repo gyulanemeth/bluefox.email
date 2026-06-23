@@ -86,7 +86,7 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=example.com; s=2021;
 
 ## How Does DKIM Work?
 
-It functions seamlessly in the background, ensuring that your emails are both trusted and free from tampering. When an email is dispatched via [SMTP](/email-sending-concepts/smtp.md), the sending mail server generates a digital signature that verifies the message's authenticity and integrity.
+It functions seamlessly in the background, ensuring that your emails are both trusted and free from tampering. When an email is dispatched via [SMTP](/email-sending-concepts/smtp), the sending mail server generates a digital signature that verifies the message's authenticity and integrity.
 
 Here’s a detailed overview of the process:
 
@@ -110,7 +110,7 @@ The selector in DKIM serves as a pointer to the appropriate key. This functional
 
 ## Why Does DKIM Matter?
 
-DKIM (DomainKeys Identified Mail) enhances the authenticity of your emails, fostering trust with email providers and your audience. It verifies that messages remain unaltered during transit, **preventing tampering** and **blocking scammers** from impersonating your domain without your private key. Leading email services, such as Gmail and Yahoo, utilize DKIM results to determine inbox [deliverability](/email-sending-concepts/deliverability). Additionally, **DKIM is vital for supporting [DMARC](/email-sending-concepts/dmarc.md)** policies, making it a critical component of email security and brand protection.
+DKIM (DomainKeys Identified Mail) enhances the authenticity of your emails, fostering trust with email providers and your audience. It verifies that messages remain unaltered during transit, **preventing tampering** and **blocking scammers** from impersonating your domain without your private key. Leading email services, such as Gmail and Yahoo, utilize DKIM results to determine inbox [deliverability](/email-sending-concepts/deliverability). Additionally, **DKIM is vital for supporting [DMARC](/email-sending-concepts/dmarc)** policies, making it a critical component of email security and brand protection.
 
 :::tip Free DKIM Audit
 Use our free dkim checker tool to audit your domain for dkim. Check it out 

@@ -1,6 +1,15 @@
 ---
 title: API Overview | bluefox.email documentation
 description: Explore the BlueFox Email API for managing subscriber lists, sending transactional and triggered emails and include attachments.
+faqs:
+  - question: "How do I authenticate with the BlueFox Email API?"
+    answer: "Include your API key as a Bearer token in the Authorization header of every request: Authorization: Bearer YOUR_API_KEY. API keys are created in your project settings under the API Keys section. Never use your API key in frontend code; always call the API from your backend."
+  - question: "What can I do with the BlueFox Email API?"
+    answer: "The API lets you send transactional emails to any email address, send triggered emails to active subscribers on a list, manage contacts (create, read, update, delete), manage subscriber list subscriptions (subscribe, unsubscribe, pause, activate), and send file attachments with emails."
+  - question: "What is the base URL for the BlueFox Email API?"
+    answer: "The base URL for all BlueFox Email API endpoints is https://api.bluefox.email/v1. Each endpoint appends a specific path such as /send-transactional, /send-triggered, /subscriber-lists, or /contacts."
+  - question: "Can I use the API to manage subscriber lists without sending emails?"
+    answer: "Yes. The subscriber list management endpoints let you subscribe, unsubscribe, pause, activate, and list subscribers programmatically, independent of sending any email. This is useful for syncing subscription state from your own application."
 head:
   - - meta
     - name: description

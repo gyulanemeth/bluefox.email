@@ -75,7 +75,7 @@ To prevent large-scale misuse, the sandbox enforces both a **sending quota** and
 
 Despite these constraints, the SES sandbox gives you **full access to features** such as SMTP sending, event publishing, bounce/complaint tracking, and email templates. This makes it ideal for development and integration work, letting teams validate their email infrastructure in a safe environment.
 
-To move beyond the sandbox and reach unverified recipients or higher volumes, users must apply for **[production access](/aws-concepts/ses-production-access.md)** by submitting a request through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
+To move beyond the sandbox and reach unverified recipients or higher volumes, users must apply for **[production access](/aws-concepts/ses-production-access)** by submitting a request through the [AWS Support Center](https://docs.aws.amazon.com/ses/latest/dg/request-production-access.html).
 
 :::tip Practical Guide
 Learn how to successfully apply and maintain AWS SES production access with our detailed [step-by-step guide](/posts/how-to-get-and-maintain-production-access-to-amazon-ses).
@@ -93,7 +93,7 @@ If you attempt to exceed the send rate, SES will return a **Throttling** error. 
 
 Amazon SES uses the sandbox model as a **reputation safeguard** for both AWS and the wider email ecosystem. It minimizes the risk of new users causing spam, phishing, or policy violations that could harm AWS's [deliverability](/email-sending-concepts/deliverability) with major mailbox providers.
 
-It also acts as a **staging ground** for users to build confidence with SES. While the sending limits may feel restrictive, they provide a safe space to test features, verify setup (e.g., [SPF, DKIM, DMARC](/email-sending-concepts/email-authentication.md)), and monitor delivery feedback. This gradual ramp-up process ensures that only **compliant, trusted senders** are allowed into production.
+It also acts as a **staging ground** for users to build confidence with SES. While the sending limits may feel restrictive, they provide a safe space to test features, verify setup (e.g., [SPF, DKIM, DMARC](/email-sending-concepts/email-authentication)), and monitor delivery feedback. This gradual ramp-up process ensures that only **compliant, trusted senders** are allowed into production.
 
 ## Understanding AWS SES Sandbox Exit Requirements
 
@@ -124,10 +124,10 @@ AWS typically provides a reason such as lack of opt-in evidence or missing unsub
 - [AWS SES (Simple Email Service)](/aws-concepts/ses)
 - [AWS SES Sending Quotas](/aws-concepts/ses-sending-quota)
 - [AWS SES Sending Rates](/aws-concepts/ses-sending-rate)
-- [AWS SNS (Simple Notification Service)](/aws-concepts/sns.md)
-- [Bounces](/email-sending-concepts/bounces.md)
-- [Complaints](/email-sending-concepts/complaints.md)
-- [Email Authentication](/email-sending-concepts/email-authentication.md)
-- [DNS Records](/email-sending-concepts/dns.md)
+- [AWS SNS (Simple Notification Service)](/aws-concepts/sns)
+- [Bounces](/email-sending-concepts/bounces)
+- [Complaints](/email-sending-concepts/complaints)
+- [Email Authentication](/email-sending-concepts/email-authentication)
+- [DNS Records](/email-sending-concepts/dns)
 
 <GlossaryCTA />

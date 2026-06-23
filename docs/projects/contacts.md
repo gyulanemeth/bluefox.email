@@ -1,6 +1,15 @@
 ---
 title: Contacts | bluefox.email documentation
 description: Learn how to manage contacts in bluefox.email. Create public and private lists, track subscriber activity, and optimize engagement with detailed statistics.
+faqs:
+  - question: "What is the difference between a contact and a subscriber in BlueFox Email?"
+    answer: "A contact is an individual stored in your project with an email address and any custom properties you define. A subscriber is that contact's relationship to a specific subscriber list. One contact can be subscribed to multiple lists, and contact data such as email address is shared across all list subscriptions automatically."
+  - question: "What is the difference between a public and a private subscriber list?"
+    answer: "Public lists appear on the subscription preferences page, allowing subscribers to manage their own subscriptions. Private lists are hidden from that page and are ideal for internal use, testing, or exclusive communications. Subscribers can see a private list only if they are already subscribed to it."
+  - question: "Can one contact be subscribed to multiple lists?"
+    answer: "Yes. A contact can subscribe to as many lists as you create. Updates to the contact record such as a name or email change automatically apply across all lists the contact is subscribed to."
+  - question: "What subscription statuses exist in BlueFox Email?"
+    answer: "A contact's subscription to a list can have one of three statuses: active (currently receiving emails), paused (temporarily not receiving emails but not unsubscribed), and unsubscribed (opted out). Campaigns and triggered emails are only delivered to active subscribers."
 head:
   - - meta
     - name: description
@@ -146,6 +155,19 @@ The **Import/Export** button allows you to efficiently manage contacts.
 When importing contacts, the CSV file must contain an `email` column. Additional attributes can be included as needed. You can also trigger matching automation workflows for imported contacts by checking the **Trigger Automation Box** during the import process.
 
 ![Screenshot of the subscriber lists page - import or export CSV](./project-contacts-import.webp)
+
+### Selecting Columns and Adding New Properties
+
+When importing a CSV if a column doesn't match any existing contact property, BlueFox Email detects it automatically and lets you choose, per column, whether to:
+
+- **Add as a new property**: Creates a new contact property and imports the column's data into it.
+- **Skip**: Ignores the column; its data is not imported.
+
+![Screenshot of the subscriber lists page - unmatched column add or skip](./project-contacts-import-unmatched-column.webp)
+
+If you choose to add a new property, you can select the type of property (text, number, date, etc.) and whether it should be a single or multi-value property.
+
+![Screenshot of the subscriber lists page - unmatched column add property](./project-contacts-import-unmatched-column-add-property.webp)
 
 ## Importing/Exporting Contacts to/from a specific List
 

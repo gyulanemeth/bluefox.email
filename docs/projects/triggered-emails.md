@@ -1,6 +1,15 @@
 ---
 title: Triggered Emails | bluefox.email documentation
 description: Learn how to create and manage triggered emails in bluefox.email. Automate email sequences, personalize content, and track performance for improved engagement.
+faqs:
+  - question: "What are triggered emails in BlueFox Email?"
+    answer: "Triggered emails are API-triggered emails tied to a subscriber list. They are only delivered to active subscribers on the selected list. If a contact has unsubscribed, paused their subscription, or is not on the list, the email is not sent to them. They require an unsubscribe link."
+  - question: "How are triggered emails different from transactional emails?"
+    answer: "Transactional emails are sent to any email address and are not tied to subscriber lists or subscription status. Triggered emails are tied to a specific subscriber list and are only sent to active subscribers on that list. Triggered emails must include an unsubscribe link; transactional emails must not."
+  - question: "What is a good use case for triggered emails?"
+    answer: "Triggered emails are ideal for event-based notifications such as new comment alerts, weekly digests, or billing reminders, and for behavior-based sequences such as onboarding series or re-engagement emails. Because recipients can pause or unsubscribe, triggered emails result in lower complaint rates than using transactional emails for non-essential content."
+  - question: "Can I send a triggered email to a specific subset of a subscriber list?"
+    answer: "Yes. When sending via the API, you can provide an array of specific email addresses. The triggered email will only be delivered to those addresses that are active subscribers on the selected list. Addresses not on the list or not active are skipped automatically."
 head:
   - - meta
     - name: description

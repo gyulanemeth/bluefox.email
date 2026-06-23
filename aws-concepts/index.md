@@ -80,7 +80,7 @@ enabling secure access management.
 
 **AWS SES Verified Identities** are domains or email addresses that you've proven ownership of and are authorized to send emails from using Amazon SES. Verification is essential for sender authenticity and preventing spoofing or abuse.
 
-[Read more](/aws-concepts/ses-verified-identity.md)
+[Read more](/aws-concepts/ses-verified-identity)
 
 
 ### SES Production Access

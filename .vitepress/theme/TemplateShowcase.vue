@@ -115,10 +115,10 @@ function getCardStyle(index) {
       return { transform: 'translateX(-50%) scale(1)', opacity: '1', zIndex: 3, pointerEvents: 'auto' }
     }
     if (offset === 1) {
-      return { transform: 'translateX(20%) scale(0.85)', opacity: '0.55', zIndex: 1, pointerEvents: 'auto', cursor: 'pointer' }
+      return { transform: 'translateX(20%) scale(0.85)', opacity: '1', zIndex: 1, pointerEvents: 'auto', cursor: 'pointer' }
     }
     if (offset === total - 1) {
-      return { transform: 'translateX(-120%) scale(0.85)', opacity: '0.55', zIndex: 1, pointerEvents: 'auto', cursor: 'pointer' }
+      return { transform: 'translateX(-120%) scale(0.85)', opacity: '1', zIndex: 1, pointerEvents: 'auto', cursor: 'pointer' }
     }
     if (offset === 2) {
       return { transform: 'translateX(80%) scale(0.7)', opacity: '0', zIndex: 0, pointerEvents: 'none' }
@@ -211,6 +211,7 @@ onBeforeUnmount(() => {
         v-for="(tpl, i) in templates"
         :key="tpl.src"
         class="ts-card"
+        :class="{ 'ts-card--center': isCenter(i) }"
         :style="getCardStyle(i)"
         :aria-hidden="!isCenter(i)"
         @click="onCardClick(i)"
@@ -359,6 +360,15 @@ onBeforeUnmount(() => {
   object-fit: cover;
   object-position: top;
   display: block;
+  transition: filter 0.4s ease;
+}
+
+.ts-card:not(.ts-card--center) .ts-img {
+  filter: brightness(0.78) saturate(0.7);
+}
+
+.ts-root--dark .ts-card:not(.ts-card--center) .ts-img {
+  filter: brightness(0.6) saturate(0.7);
 }
 
 /* ---- Card footer ---- */

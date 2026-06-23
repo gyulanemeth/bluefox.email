@@ -1,6 +1,17 @@
 ---
 title: Automations | bluefox.email documentation
 description: Learn how to create and manage automations in bluefox.email. Explore triggers, nodes, and advanced workflows to send timely, personalized emails based on contact actions like sign-ups or updates.
+faqs:
+  - question: "What can I automate with BlueFox Email automations?"
+    answer: "You can automate email workflows triggered by contact events such as a contact being added to a list, a contact property changing, or a contact entering or leaving a segment. From there you can chain Send Email, Timer, Audience Filter, Branching, Set Value, Manage Tags, Notify, and Complete nodes to build any multi-step email sequence."
+  - question: "What trigger types are available for automations?"
+    answer: "Automation triggers include: Contact Added (fires when a contact is added to the selected list), Contact Updated (fires when a specific contact property changes from one value to another), Enter Segment (fires when a contact enters a selected segment), and Leave Segment (fires when a contact leaves a selected segment)."
+  - question: "Can I edit an automation while it is running?"
+    answer: "Yes, but carefully. While an automation is active you can make changes and choose to apply them only to new contacts entering the automation, or to both new and in-progress contacts. Applying changes to in-progress contacts immediately affects contacts currently waiting at any node, and removing a node terminates the automation for contacts currently in that node."
+  - question: "What is the difference between the Audience Filter node and the Branching node?"
+    answer: "The Audience Filter node checks a single condition and either allows the contact to continue down the automation or stops it for that contact entirely. The Branching node splits the automation into multiple conditional paths and routes each contact down the first path whose condition is met, allowing different outcomes within the same flow."
+  - question: "What are Exit Criteria in automations?"
+    answer: "Exit Criteria let you define conditions that cause a contact to leave an automation early, before reaching the Complete node. You can exit contacts based on a contact property value, segment membership, or email activity such as opened or clicked. This is useful for stopping contacts from receiving further emails once they have taken a desired action."
 head:
   - - meta
     - name: description

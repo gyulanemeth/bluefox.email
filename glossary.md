@@ -1,4 +1,5 @@
 ---
+noindex: true
 title: Email Glossary
 description: A comprehensive glossary of email marketing, development, and authentication terms.
 

@@ -1,6 +1,15 @@
 ---
 title: Project Dashboard | bluefox.email documentation
 description: Learn how to use the project dashboard in bluefox.email to track email performance and subscriber activity, optimize campaigns, and improve engagement.
+faqs:
+  - question: "What does the project dashboard show?"
+    answer: "The project dashboard shows combined email and subscription performance across all email types in the project: transactional emails, triggered emails, and campaigns. Email metrics include sent, opens, unique opens, clicks, unique clicks, bounces, and complaints. Subscriber metrics include active, paused, unsubscribed, and resubscribed counts."
+  - question: "How is the project dashboard different from the account dashboard?"
+    answer: "The account dashboard shows aggregate stats across all projects in your account. The project dashboard is scoped to a single project and shows detailed email and subscription performance for that specific project only, including per-email-type breakdowns."
+  - question: "Can I see bounce and complaint rates in the project dashboard?"
+    answer: "Yes. The project dashboard shows bounce and complaint counts and tracks them against the production thresholds (2.5% bounce rate limit and 0.05% complaint rate limit) so you can monitor your sender reputation in real time."
+  - question: "Where do I go for more detailed per-email analytics?"
+    answer: "The project dashboard shows aggregate project-level stats. For detailed analytics on a specific email including charts, time intervals, CSV export, and filterable data tables, click through to the statistics page for that transactional email, triggered email, or campaign."
 head:
   - - meta
     - name: description

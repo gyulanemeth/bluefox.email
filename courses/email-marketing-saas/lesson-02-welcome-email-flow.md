@@ -1,3 +1,6 @@
+---
+noindex: true
+---
 # Welcome Email Series
 
 intro... why it matters, first impression, etc

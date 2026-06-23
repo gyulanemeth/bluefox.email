@@ -8,6 +8,7 @@ import { addOrganizationSchema } from './theme/SchemaMarkup/organizationSchema'
 import { addPostsSchema } from './theme/SchemaMarkup/postsSchema'
 import { addProductSchema } from './theme/SchemaMarkup/productSchema'
 import { addDocsSchema } from './theme/SchemaMarkup/docsSchema'
+import { addFeaturesSchema } from './theme/SchemaMarkup/featuresSchema'
 
 const env = loadEnv('', process.cwd())
 const securityHeaders = {
@@ -56,12 +57,26 @@ headConf.push([
 ])
 
 //   https://vitepress.dev/reference/site-config
+const noindexSitemapUrls = new Set()
+
+function sitemapUrlForPath(relativePath) {
+  if (!relativePath || relativePath === 'index.md') {
+    return ''
+  }
+  return relativePath
+    .replace(/\/index\.md$/, '/')
+    .replace(/\.md$/, '')
+}
+
 export default defineConfig({
   cleanUrls: true,
   title: "BlueFox Email",
   description: "High deliverability & brand consistency.",
   head: headConf,
   transformPageData(pageData) {
+    if (pageData.frontmatter?.noindex === true) {
+      noindexSitemapUrls.add(sitemapUrlForPath(pageData.relativePath))
+    }
     addSeoHead(pageData)
     addOrganizationSchema(pageData)
     addPostsSchema(pageData)
@@ -70,6 +85,7 @@ export default defineConfig({
     addToolsSchemaMarkup(pageData)
     addSchemaMarkup(pageData)
     addComparisonSchemaMarkup(pageData)
+    addFeaturesSchema(pageData)
   },
   vite: {
     server: {
@@ -125,6 +141,7 @@ export default defineConfig({
     },
     nav: [
       { text: "Home", link: "/" },
+      { text: "Features", link: "/features" },
       { text: "Pricing", link: "/pricing" },
       {
         text: "For",
@@ -135,9 +152,14 @@ export default defineConfig({
           { text: "Amazon SES Users", link: "/for/amazon-ses-users" },
         ],
       },
-      { text: "Tutorials", link: "/tutorials" },
-      { text: "Articles", link: "/articles" },
-      { text: "Docs", link: "/docs/" },
+      {
+        text: "Resources",
+        items: [
+          { text: "Docs", link: "/docs/" },
+          { text: "Tutorials", link: "/tutorials" },
+          { text: "Articles", link: "/articles" },
+        ],
+      },
       {
         component: "NavigationButton",
         props: {
@@ -163,6 +185,7 @@ export default defineConfig({
     ],
 
     sidebar: {
+      "/features": [],
       "/": [
         {
           text: "Docs",
@@ -193,6 +216,10 @@ export default defineConfig({
                 {
                   text: "Creating a new project",
                   link: "/docs/projects/new-project",
+                },
+                {
+                  text: "Visual Email Builder",
+                  link: "/docs/projects/email-builder",
                 },
                 {
                   text: "Delivery Modes",
@@ -477,6 +504,7 @@ export default defineConfig({
   },
   sitemap: {
     hostname: "https://bluefox.email", // Removed trailing space
+    transformItems: (items) => items.filter((item) => !noindexSitemapUrls.has(item.url)),
   },
   markdown: {
     config(md) {

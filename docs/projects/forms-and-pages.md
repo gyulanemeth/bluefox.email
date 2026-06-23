@@ -1,6 +1,17 @@
 ---
 title: Forms and Pages | bluefox.email documentation
 description: Discover how to manage key pages in bluefox.email, including the Subscription Preferences Page, Sign-Up Forms, and Double Opt-In settings.
+faqs:
+  - question: "What is the subscription preferences page in BlueFox Email?"
+    answer: "The subscription preferences page is a hosted page where subscribers can manage their own subscriptions. From this page they can unsubscribe from, resubscribe to, or pause their subscriptions. Every project has one subscription preferences page that displays all public subscriber lists."
+  - question: "What is the difference between the unsubscribeLink and the pauseSubscriptionLink?"
+    answer: "Both links direct subscribers to the subscription preferences page. When a subscriber uses the unsubscribeLink, the full unsubscribe option is visible on the page. When they use the pauseSubscriptionLink, the unsubscribe option is hidden and only the pause option is shown. Using the pause link can significantly reduce permanent unsubscribes."
+  - question: "Can I embed a sign-up form on my own website?"
+    answer: "Yes. You can create a sign-up form in BlueFox Email, customize its fields, styling, and assigned subscriber lists, then copy the generated HTML code and paste it into your website. To ensure the form works correctly you must also whitelist your website domain in the project settings."
+  - question: "How does double opt-in work in BlueFox Email?"
+    answer: "When double opt-in is enabled on a sign-up form, subscribers who submit the form receive a verification email containing a verifyLink merge tag before being added as active subscribers. You configure which transactional email is used for verification directly in the form's double opt-in settings."
+  - question: "Can one sign-up form add subscribers to multiple lists at once?"
+    answer: "Yes. When creating or editing a sign-up form you can assign it to one or more subscriber lists. When a visitor submits the form they are added to all the lists assigned to that form simultaneously."
 head:
   - - meta
     - name: description

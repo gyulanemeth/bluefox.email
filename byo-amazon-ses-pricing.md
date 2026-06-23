@@ -176,6 +176,35 @@ html.dark .pricing-card.featured {
   box-shadow: 0 2px 8px rgba(19, 176, 238, 0.3);
 }
 
+.pricing-2x-pill {
+  display: inline-block;
+  background: linear-gradient(120deg, #392C91 5%, #13B0EE);
+  color: white !important;
+  padding: 2px 10px;
+  border-radius: 50px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  margin-left: 8px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+html.dark .pricing-2x-pill {
+  background: linear-gradient(120deg, #8a7ed8 5%, #13B0EE);
+}
+
+.byo-compare-line {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+html.dark .byo-compare-line {
+  color: #94a3b8;
+}
+
 .pricing-card h3,
 .pricing-cards-section h3 {
   font-size: 24px !important;
@@ -751,13 +780,13 @@ html.dark .pricing-vat-label {
 
 <section class="pricing-hero">
   <div class="pricing-badge">
-    <span>Bring Your Own Amazon SES</span>
+    <span>Bring Your Own Amazon SES, 2× sends per pack</span>
   </div>
   
-  <h1>Connect your SES, pay less</h1>
+  <h1>Connect your SES, get 2× the sends</h1>
   
   <p class="pricing-hero-subtitle">
-    Use your own Amazon SES account with BlueFox Email's platform. You pay AWS directly for sending ($0.10 per 1,000 emails), plus our platform fee for unlimited features.
+    Use your own Amazon SES account and get <strong>twice as many sends per pack</strong> compared to our regular pricing, at the same price. You pay AWS directly for sending ($0.10 per 1,000 emails), plus our platform fee for unlimited features.
   </p>
   
   <div class="pricing-hero-actions">
@@ -794,7 +823,7 @@ html.dark .pricing-vat-label {
         <span class="pricing-card-amount">$0</span>
       </div>
       <ul class="pricing-card-features">
-        <li><strong>6,000 free sends</strong> included</li>
+        <li><strong>6,000 free sends</strong> included <span class="pricing-2x-pill">2×</span><div class="byo-compare-line">vs 3,000 on regular pricing</div></li>
         <li><strong>No credit card</strong> required</li>
         <li><strong>Access to full platform!</strong> No restrictions</li>
         <li><strong>Valid for 12 months</strong></li>
@@ -812,7 +841,7 @@ html.dark .pricing-vat-label {
         <span class="pricing-card-period">/ pack</span>
       </div>
       <ul class="pricing-card-features">
-        <li><strong>100,000 sends</strong> included</li>
+        <li><strong>100,000 sends</strong> included <span class="pricing-2x-pill">2×</span><div class="byo-compare-line">vs 50,000 on regular pricing</div></li>
         <li><strong>$0.50 per 1,000 sends</strong> + AWS SES Fee</li>
         <li><strong>Access to full platform!</strong> No Restrictions</li>
       </ul>
@@ -828,7 +857,7 @@ html.dark .pricing-vat-label {
         <span class="pricing-card-period">/ pack</span>
       </div>
       <ul class="pricing-card-features">
-        <li><strong>1,000,000 sends</strong> included</li>
+        <li><strong>1,000,000 sends</strong> included <span class="pricing-2x-pill">2×</span><div class="byo-compare-line">vs 500,000 on regular pricing</div></li>
         <li><strong>$0.30 per 1,000 sends</strong> + AWS SES Fee</li>
         <li><strong>Access to full platform!</strong> No Restrictions</li>
       </ul>
@@ -848,20 +877,20 @@ html.dark .pricing-vat-label {
   <div class="value-props-grid">
     <div class="value-prop-card">
       <div class="value-prop-content">
+        <h4>2× sends per pack</h4>
+        <p>Every BYO pack includes double the sends of our regular pricing, at the same platform fee. More volume for the same dollar.</p>
+      </div>
+    </div>
+    <div class="value-prop-card">
+      <div class="value-prop-content">
         <h4>Your AWS account, your control</h4>
         <p>Keep your sending reputation and AWS credits. We never touch your AWS credentials.</p>
       </div>
     </div>
     <div class="value-prop-card">
       <div class="value-prop-content">
-        <h4>All features included</h4>
-        <p>Automations, segmentation, analytics, client workspaces, and deliverability tools in every pack.</p>
-      </div>
-    </div>
-    <div class="value-prop-card">
-      <div class="value-prop-content">
         <h4>Lower total cost at scale</h4>
-        <p>AWS SES costs just $0.10 per 1,000 emails. Combined with our platform fee, you save at high volumes.</p>
+        <p>AWS SES costs just $0.10 per 1,000 emails. Combined with our platform fee and 2× pack size, you save at high volumes.</p>
       </div>
     </div>
   </div>
@@ -892,6 +921,11 @@ html.dark .pricing-vat-label {
   <div class="faq-item">
     <h3>How does the pricing work?</h3>
     <p>You pay <strong>two fees</strong>: our platform fee for sends, and <strong>AWS SES costs</strong> directly to Amazon ($0.10 per 1,000 emails). Each pack includes a fixed number of sends that stay <strong>valid for 12 months. No subscriptions, no hidden limits,</strong> just buy more when you need them.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>How is this different from your regular pricing?</h3>
+    <p>BYO SES packs include <strong>2× the sends</strong> at the same platform fee. Free: 6,000 vs 3,000. Essential: 100,000 vs 50,000. Premium: 1,000,000 vs 500,000. In return, you connect your own Amazon SES account and pay AWS directly ($0.10 per 1,000 emails) for delivery.</p>
   </div>
   
   <div class="faq-item">

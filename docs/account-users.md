@@ -1,6 +1,17 @@
 ---
 title: Account Roles | BlueFox Email documentation
 description: Learn about account roles in BlueFox Email. Understand the differences between User and Admin roles, and how to manage client access with Editor and Viewer permissions.
+faqs:
+  - question: "What roles are available in bluefox.email?"
+    answer: "BlueFox Email has three roles: Admin (full account control, manages users, projects, and account settings), User (access to projects and email themes, read-only on account settings), and Client (project-scoped access with either Editor or Viewer permission on specific projects)."
+  - question: "What is the difference between an Admin and a User in bluefox.email?"
+    answer: "Admins have full control over the entire account: they can manage projects, invite team members, assign roles, and change account-wide settings. Users can access projects and email themes but cannot manage other users or modify account-level settings."
+  - question: "What can a Client role do in bluefox.email?"
+    answer: "Clients are granted access to specific projects only, not the full account. A Client with Editor access can create, edit, and manage all aspects of their assigned project except project settings. A Client with Viewer access has read-only access and cannot make changes or send emails."
+  - question: "Can a client access or change project settings?"
+    answer: "No. Even clients with Editor access cannot access project settings. Managing project settings is restricted to Admin and User roles."
+  - question: "How do I invite a team member or client to my bluefox.email account?"
+    answer: "Only Admins can invite new members. Go to the Account Users tab and click Invite New Member. Enter the email address, select a role (Admin, User, or Client), and if you select Client, choose which project to grant access to and set the access level to Editor or Viewer."
 head:
   - - meta
     - name: description

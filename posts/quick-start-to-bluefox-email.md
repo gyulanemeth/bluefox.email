@@ -61,7 +61,7 @@ Every project is created in **Sandbox Mode** by default. In this mode, you can o
 
 To send emails to non-verified addresses, you’ll need to request production access. This is covered later in the guide.
 
-Learn more about delivery modes in this [documentation page](/docs/projects/delivery-modes.md).
+Learn more about delivery modes in this [documentation page](/docs/projects/delivery-modes).
 :::
 
 At this point, you already have everything you need to send your first test email. Let’s do that next.
@@ -84,7 +84,7 @@ You can send a test email to:
 :::warning
 Since your project is still in **Sandbox Mode**, test emails can only be sent to verified email addresses. Make sure to verify any address you want to use for testing.
 
-You can learn how to verify email addresses in this [documentation page](/docs/projects/delivery-modes.md).
+You can learn how to verify email addresses in this [documentation page](/docs/projects/delivery-modes).
 :::
 
 
@@ -190,7 +190,7 @@ Go to **Project Settings** then **Delivery Mode** tab and click **Apply for Prod
 
 The BlueFox Email team will review your request. Once approved, your project will move to **Production Mode**, allowing you to send emails to any address without restrictions.
 
-Learn more about delivery modes here: [Delivery Modes](/docs/projects/delivery-modes.md).
+Learn more about delivery modes here: [Delivery Modes](/docs/projects/delivery-modes).
 
 ## Step 7: Add Your Contacts
 

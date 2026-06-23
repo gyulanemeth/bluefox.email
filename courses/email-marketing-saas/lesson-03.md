@@ -1,3 +1,6 @@
+---
+noindex: true
+---
 # Educational Email Series as a Lead Magnet
 
 Why it works (authority, trust)

@@ -8,7 +8,7 @@ import {
 
 const WEBSITE_ID = `${SITE_ORIGIN}/#website`
 
-function buildOrganization() {
+export function buildOrganization() {
   return {
     '@type': 'Organization',
     '@id': ORG_ID,

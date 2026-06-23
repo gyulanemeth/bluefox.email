@@ -1,6 +1,15 @@
 ---
 title: Analytics | bluefox.email documentation
 description: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
+faqs:
+  - question: "What email metrics does BlueFox Email track in analytics?"
+    answer: "BlueFox Email tracks sends, opens, unique opens, clicks, unique clicks, failed deliveries, bounces, and complaints for every email type including transactional emails, triggered emails, and campaigns. These metrics are available at the account level, project level, and per individual email."
+  - question: "What time periods can I filter analytics data by in BlueFox Email?"
+    answer: "You can filter analytics by current week, previous week, current month, previous month, last 3 months, or all time. For chart views you can also set a custom date range. Daily, weekly, and monthly chart views support up to a 1 year range, while the hourly view supports up to 7 days."
+  - question: "What subscription metrics does BlueFox Email analytics show?"
+    answer: "BlueFox Email analytics tracks total contacts, total subscriptions, active subscribers, paused subscriptions, and unsubscribed counts in the overall banner. Charts also show subscribed, resubscribed, unsubscribed, paused subscription, and unpaused subscription events over time."
+  - question: "Can I export analytics data from BlueFox Email?"
+    answer: "Yes. Each statistics page includes a data table below the charts that shows raw event-level data. You can filter the table by one or more criteria and then download the filtered results as a CSV file."
 head:
   - - meta
     - name: description

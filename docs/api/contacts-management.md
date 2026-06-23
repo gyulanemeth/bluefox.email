@@ -1,6 +1,15 @@
 ---
 title: Contacts API | bluefox.email documentation
 description: Learn how to manage contacts using the bluefox.email API. This guide covers creating, retrieving, updating, and deleting contacts.
+faqs:
+  - question: "What operations can I perform on contacts via the API?"
+    answer: "The contacts API supports create (POST), list all (GET), get one by email (GET), update (PATCH), and delete (DELETE). All endpoints use https://api.bluefox.email/v1/contacts/YOUR_PROJECT_ID as the base, with the contact email address appended for single-contact operations."
+  - question: "How is a contact different from a subscriber in the API?"
+    answer: "A contact is a project-level record with an email address and custom properties. A subscriber is that contact's relationship to a specific subscriber list with a status (active, paused, or unsubscribed). The contacts API manages the contact record; the subscriber list management API manages list memberships."
+  - question: "Can I store custom data on a contact via the API?"
+    answer: "Yes. Include a data object in the request body with keys matching the API names of your custom contact properties defined in project settings. These values are then available as merge tags in emails and as filter conditions in segments."
+  - question: "What happens if I try to create a contact with an email that already exists?"
+    answer: "The API returns a 400 VALIDATION_ERROR with the message Email already exists. Each contact email must be unique within a project. To update an existing contact use the PATCH endpoint instead."
 head:
   - - meta
     - name: description
