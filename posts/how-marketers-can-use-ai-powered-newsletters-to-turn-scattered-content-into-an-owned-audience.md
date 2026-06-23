@@ -46,7 +46,7 @@ There is useful content everywhere, but the problem is that it is scattered ever
 
 Your audience does not have time to follow ten blogs, five YouTube channels, three newsletters, a few LinkedIn creators, and every company in your market.
 
-Most people are already drowning in content, and they do not need more noise. They need someone to **filter** things for them.
+Most people are already drowning in content, and they do not need more noise. They need someone to **filter** things for them. This AI-generated meme below illustrates very, very well, how people are suffering from information overload, and that the ones who manage to escape it (but stay informed at the same time) are the happy ones.
 
 ![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/01-information-overload-vs-filtered-newsletters.jpeg)
 
@@ -103,43 +103,6 @@ The audience gets a filtered version of what matters.
 
 That is much more powerful than only sending updates from your own blog.
 
-## Distribution is a big part of marketing
-
-TODO: Insert a meme that shows it does not matter if you created something without distribution.
-
-Creating content is only half the job.
-
-The other half is distribution.
-
-Many companies publish blog posts, videos, product updates, case studies, webinars, and social posts, but these assets often live in separate places.
-
-Some people see the LinkedIn post.
-
-Some people watch the YouTube video.
-
-Some people read the blog post.
-
-Most people miss most of it.
-
-An automated newsletter can help with this.
-
-It can pull useful content from your own channels and from trusted third-party sources, then turn everything into one structured email people can actually read.
-
-For example, a weekly newsletter could include:
-
-* new posts from your company blog
-* new videos from your YouTube channel
-* useful articles from trusted industry sources
-* product updates
-* upcoming webinars
-* customer stories
-* important social media discussions
-* one short comment from your team
-
-Suddenly, your newsletter becomes the place where everything comes together.
-
-It gives your audience one simple way to keep up.
-
 ## Email is still an owned channel
 
 Social media is useful, but it is not really yours.
@@ -148,21 +111,17 @@ You can spend months building an audience, and then the platform changes the rul
 
 Email is different.
 
-When someone subscribes to your newsletter, you have a direct channel to them.
+When someone subscribes to your newsletter, you have a direct channel to them. This is why automated newsletters are not only about saving time. They are also about audience ownership.
 
-Of course, this does not mean you can send anything you want and expect people to care. You still have to earn attention. You still have to be useful.
+Of course, this does not mean you can send anything you want and expect people to care. You still have to earn attention. You still have to be useful. But at least you are not completely dependent on a social media algorithm.
 
-But at least you are not completely dependent on a social media algorithm.
+Email also has its own gatekeepers. Spam filters can block you before you ever reach the inbox. And now AI-powered email summaries are adding another layer between your message and the reader's full attention.
 
-This is why automated newsletters are not only about saving time.
-
-They are also about audience ownership.
+But here is the thing: none of that matters much if your subscribers actually want to hear from you. When you consistently provide value, people look for your emails. They move them out of promotions tabs. They add you to their contacts. No spam filter or AI summary will stop someone from reading an email they were looking forward to.
 
 You can use RSS feeds, YouTube videos, blogs, and selected social content as inputs. Then you use email as the distribution channel.
 
-The content may come from many different places.
-
-The relationship happens in the inbox.
+The content may come from many different places. The relationship happens in the inbox.
 
 That is the important part.
 
@@ -170,11 +129,7 @@ That is the important part.
 
 This is where many automated newsletters go wrong.
 
-They pull content from a few feeds, put twenty links into an email, and send it.
-
-Technically, it works.
-
-But nobody wants to read that.
+They pull content from a few feeds, put twenty links into an email, and send it. Technically, it works, but nobody wants to read that.
 
 A good newsletter is not just a list of links. It is a filtered, structured, useful summary.
 
@@ -182,19 +137,17 @@ The reader should feel like:
 
 > “Okay, someone already looked through the noise and picked the important stuff for me.”
 
-That is the value.
+That is the value. So the goal is not to send everything the system finds.
 
-So the goal is not to send everything the system finds.
+The goal is to send what is worth this specific subscriber’s attention.
 
-The goal is to send what is worth the reader’s attention.
+Filtering is the core skill. Not finding more content, but cutting down to less. A newsletter with three well-chosen pieces that each come with a clear reason to read them is more valuable than a digest of twenty links with no context.
 
-AI can help here. It can summarize articles, group similar topics, remove duplicates, suggest titles, rewrite descriptions, and create short explanations.
+For each piece of content, the reader should understand why it matters to them, not just what it is. That means a short explanation: what the article argues, why the timing is relevant, what they will get out of watching the video. That context is what turns a link into a recommendation.
 
-But the marketer still needs to decide what belongs in the newsletter.
+AI can help here. It can summarize articles, group similar topics, remove duplicates, suggest titles, rewrite descriptions, and draft those short explanations. Less is often better, and AI is useful for cutting, not just adding.
 
-Automation should do the boring work.
-
-The marketer should keep the judgment.
+But the marketer still needs to decide what belongs in the newsletter. Automation should do the boring work, the marketer should keep the judgment.
 
 ## What AI can actually help with
 
@@ -269,7 +222,9 @@ RSS is not trendy. That is partly why it is useful.
 
 It is simple, open, and predictable. Many blogs, publications, podcasts, and news sites still provide RSS feeds. You can pull new items from those feeds and use them as the raw material for a newsletter.
 
-For an automated newsletter, RSS is probably the easiest place to start. We previously publihed a [tutorial about how you can turn a single RSS into a newsletter](https://bluefox.email/posts/how-to-create-a-newletter-with-ai-and-send-it-automatically), but you can do much more than that.
+For an automated newsletter, RSS is probably the easiest place to start. We previously publihed a [tutorial about how you can turn a single RSS into a newsletter](/posts/how-to-create-a-newsletter-from-rss-and-send-it-automatically), but you can do much more than that. That article explains a rather simple process, illustrated by the image below.
+
+![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/rss-feed-to-newsletter.jpeg)
 
 
 You can collect many things from 3rd party RSS feeds as well:
@@ -285,7 +240,9 @@ You can collect many things from 3rd party RSS feeds as well:
 
 For marketers, this is useful because you can build a newsletter around trusted sources.
 
-For example, a marketing agency could follow a few industry publications, a few platform blogs, a few customer-relevant sources, and the client’s own blog.
+For example, a marketing agency could follow a few industry publications, a few platform blogs, a few customer-relevant sources, and the client’s own blog. This process needs filtering and curation. Using AI is perfect for that.
+
+![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/multiple-rss-feeds-to-newsletter.jpeg)
 
 Then it could send a weekly digest to clients or prospects.
 
@@ -297,13 +254,7 @@ One practical detail to keep in mind is that RSS feeds are not always structured
 
 ## YouTube can make the newsletter richer
 
-TODO: Add an example GIF here (possibly from our onboarding flow) showing how a video preview or tutorial can be featured inside a newsletter.
-
-YouTube is also a strong content source.
-
-A company can include its own videos, such as tutorials, product demos, webinars, interviews, or customer stories.
-
-Or it can curate useful videos from other trusted channels.
+YouTube is also a strong content source. A company can include its own videos, such as tutorials, product demos, webinars, interviews, or customer stories, or it can curate useful videos from other trusted channels.
 
 But again, the important thing is context.
 
@@ -357,8 +308,6 @@ You can also make newsletters more engaging by turning YouTube videos into anima
 
 ## Social media is useful, but trickier
 
-TODO: Include an example screenshot showing how social media content is surfaced or summarized in the newsletter.
-
 Social media content can be very valuable, especially for fresh conversations, opinions, examples, and trends.
 
 But it is also harder to automate reliably.
@@ -383,13 +332,15 @@ That usually becomes complicated.
 
 A more practical approach is:
 
-Start with RSS and YouTube.
+Start with RSS. Once that works, add YouTube. Then, when it makes sense and the technical requirements are manageable, you can bring in social content as well.
 
-Add your own blog and product updates.
-
-Then add social content later where it makes sense and where the technical and platform requirements are manageable.
+Your own blog posts and product updates can also appear in the newsletter, but the newsletter should not be about you. It should be about the topic your audience cares about. When your own content is relevant to that topic, it becomes a natural part of the curated experience instead of feeling like self-promotion.
 
 This keeps the first version simple enough to actually ship.
+
+If you reach to this level, you will achieve what we showed on an image previously. You can curate from every channel online in an automated way.
+
+![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/02-filter-and-cureate-content-with-ai-and-assemble-a-newsletter.jpeg)
 
 ## Third-party content does not mean stealing content
 
@@ -401,35 +352,19 @@ That is not the goal.
 
 The goal is **curation**.
 
-You link to the original source. You mention where the content came from. You summarize it in your own words. You explain why it matters to your audience.
+You link to the original source. You mention where the content came from. You summarize it in your own words. You explain why it matters to your audience. In many cases, this is actually good for the original publisher too, because you are sending interested readers back to them.
 
-In many cases, this is actually good for the original publisher too, because you are sending interested readers back to them.
-
-A good curated newsletter should feel like a guide.
-
-Not a scraper.
+A good curated newsletter should feel like a guide, not a scraper.
 
 That difference matters.
 
 ## Automated newsletters are useful for lead nurturing
 
-TODO: Add an image illustrating how repeated exposure through useful newsletters helps interested prospects hear from your brand consistently over time, increasing the likelihood that they eventually become paying customers.
-
-Not everyone who joins your email list is ready to buy.
-
-Some people are just learning.
-
-Some are comparing options.
-
-Some are interested, but not urgent.
-
-Some subscribed because the content looked useful.
+Not everyone who joins your email list is ready to buy. Some people are just learning, some are comparing options. Some are interested, but not urgent for them. Others might have subscribed because the content looked useful.
 
 An automated newsletter gives you a reason to keep showing up without constantly selling.
 
-If every email is a sales email, people stop paying attention.
-
-But if the newsletter is genuinely useful, you can stay in touch for months.
+If every email is a sales email, people stop paying attention. But if the newsletter is **genuinely useful**, you can stay in touch for months.
 
 Then, when the timing is better, your company is already familiar.
 
@@ -445,9 +380,7 @@ For example:
 * reply with a question
 * check out a new feature
 
-But the main value of the newsletter should be the content.
-
-The sales angle should feel like the natural next step, not the whole point.
+But the main value of the newsletter should be the **content**. The sales angle should feel like the natural next step, not the whole point.
 
 ## It can also help existing customers with personalized content
 
@@ -458,6 +391,9 @@ Automated newsletters are not only useful for prospects.
 They can be even more powerful for existing customers because you already know something about how those customers behave.
 
 Instead of sending the same generic update to everyone, you can curate content based on what people are actually doing.
+
+
+![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/personalization-with-ai.png)
 
 For example, imagine a customer is actively building onboarding sequences.
 
@@ -482,9 +418,7 @@ That creates more relevance, more engagement, and often a better customer experi
 
 ## Agencies can use this for clients too
 
-This can be especially interesting for marketing agencies.
-
-In fact, it can become a strong retainer service.
+This can be especially interesting for marketing agencies. In fact, it can become a strong retainer service.
 
 Many clients want to stay visible to prospects and customers, but they do not have the time or internal resources to consistently create and send newsletters. An agency can manage the entire process and provide ongoing value every month.
 
@@ -502,7 +436,7 @@ The agency does not have to write every issue from scratch.
 
 It can build a source list, create a newsletter structure, use AI to prepare summaries, and review the final version before sending.
 
-That creates ongoing value for clients.
+That creates **ongoing value** for clients.
 
 It also creates a recurring service that is easier to maintain than constantly producing entirely new content from scratch. Once the system is set up, the agency can focus on quality control, strategy, and optimization rather than repetitive manual work.
 
@@ -544,21 +478,13 @@ This is only an example, not a template you have to follow exactly.
 
 You can remove sections, add new ones, combine parts, or organize the newsletter differently depending on your audience and goals. Some newsletters may focus almost entirely on curated content. Others may be mostly product updates, educational content, or industry news.
 
-The important thing is not the exact structure.
-
-It is making the newsletter easy to scan and useful to read.
-
-The reader should be able to quickly understand what is included and decide what they want to open.
+The important thing is not the exact structure. It is making the newsletter easy to scan and useful to read. The reader should be able to quickly understand what is included and decide what they want to open.
 
 A newsletter that feels like homework will not work.
 
 ## Personalization makes it much better
 
-TODO: Think through whether this section is necessary, since we already cover a similar idea in the existing customer section.
-
-The next step is personalization.
-
-Not every subscriber cares about the same topics.
+The next step is personalization. (And no, it's not about replacing the #first_name# merge tag.) We touched personalization in previous sections, but I want to make it very clear: not every subscriber cares about the same topics.
 
 A founder may care about growth.
 
@@ -580,9 +506,11 @@ For example:
 
 The whole newsletter does not need to be different.
 
-Even changing one or two content blocks can make the email feel much more relevant.
+Even changing one or two content blocks can make the email feel much more relevant. This is where automation, segmentation, and personalization become really useful together.
 
-This is where automation, segmentation, and personalization become really useful together.
+If you run a SaaS product, you have an advantage here. You already collect behavioral data about your users. You know who has tried which features, who is active, and who has not logged in for a while. That data is a signal. If someone just started using automations in your product, that is a cue to send them content about automation best practices, examples, and tips. You are not guessing what they care about, you know.
+
+One important practical note: personalizing content at the individual user level with AI sounds great, but it adds up fast in terms of cost and complexity. A more sustainable approach is to classify your subscribers into a small number of segments, then prepare tailored content for each segment. You get most of the relevance benefit without the overhead of generating a unique newsletter for every single person.
 
 ## What to avoid
 
