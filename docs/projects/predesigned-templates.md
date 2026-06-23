@@ -51,31 +51,20 @@ Unlike [design system templates](/docs/email-themes/templates), which come from 
 
 ## Using Pre-designed Templates
 
-Pre-designed templates appear as an option during the email creation flow, after you choose to start from a template.
+Pre-designed templates appear during the email creation flow, after you choose to start from a template. The option is available wherever you create an email, including transactional emails, triggered emails, campaigns, and automations.
 
-### Transactional Emails
+In every case, select a template and click **Next** to continue setting up the email name, subject line, and preview text. The table below shows how to reach pre-designed templates in each flow and where to continue from afterward:
 
-When creating a transactional email, after selecting a template category from your design system, you can switch to pre-designed templates:
+| Where | How to reach it | Continue from |
+|-------|-----------------|---------------|
+| Transactional email | Select a template category, then switch to pre-designed templates | [Transactional Emails](/docs/projects/transactional-emails#creating-a-transactional-email) |
+| Triggered email | Switch to pre-designed templates on the template step | [Triggered Emails](/docs/projects/triggered-emails#creating-a-triggered-email) |
+| Campaign | Browse pre-designed templates on the template selection screen | [Campaigns](/docs/projects/campaigns#creating-a-campaign) |
+| Automation | In a **Send Email** or **Notify** node, click **Create Email** | [Automations](/docs/projects/automations#send-email-node) |
+
+For example, when creating a transactional email, after selecting a template category from your design system, you can switch to pre-designed templates:
 
 ![A screenshot of the pre-designed template selection step when creating a transactional email.](./project-transactionals-create-select-predesigned.webp)
-
-Select any template and click **Next** to continue setting up your email name, subject line, and preview text. For the remaining steps, see [Transactional Emails](/docs/projects/transactional-emails#creating-a-transactional-email).
-
-### Triggered Emails
-
-The same option is available when creating a triggered email:
-
-![A screenshot of the pre-designed template selection step when creating a triggered email.](./project-triggered-emails-create-select-predesigned.webp)
-
-Select a template and click **Next** to proceed to the email details form. For the remaining steps, see [Triggered Emails](/docs/projects/triggered-emails#creating-a-triggered-email).
-
-### Campaigns
-
-When creating a campaign, you can browse pre-designed templates from the same screen:
-
-![A screenshot of the template selection step when creating a campaign, showing pre-designed templates.](./project-campaign-create-select-template-2.webp)
-
-Select a template and click **Next** to enter your campaign name, subject line, preview text, subscriber list, and segment. For the remaining steps, see [Campaigns](/docs/projects/campaigns#creating-a-campaign).
 
 ## Editing After Selection
 
