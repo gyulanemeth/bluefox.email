@@ -64,7 +64,8 @@ function buildCoreEntries(context) {
 }
 
 function buildArticleEntries(fm) {
-  const published = toIsoDate(fm.datePublished) || toIsoDate(fm.date)
+  const publishedRaw = fm.published !== false ? toIsoDate(fm.published) : null
+  const published = toIsoDate(fm.datePublished) || toIsoDate(fm.date) || publishedRaw
   const modified = toIsoDate(fm.dateModified) || toIsoDate(fm.lastUpdated)
   const author = asString(fm.author) || DEFAULT_AUTHOR
 
