@@ -17,9 +17,12 @@ function withSession(headers = {}) {
 }
 
 // Persist the session token the backend mints after a fresh verify.
+// analyze-* endpoints nest session under result.session; check-links keeps
+// it top-level (result is an array there, so it can't be nested).
 function captureSession(json) {
-  if (json?.sessionToken && json?.sessionExpiresIn) {
-    setSession(json.sessionToken, json.sessionExpiresIn)
+  const session = json?.result?.session ?? json
+  if (session?.sessionToken && session?.sessionExpiresIn) {
+    setSession(session.sessionToken, session.sessionExpiresIn)
   }
 }
 

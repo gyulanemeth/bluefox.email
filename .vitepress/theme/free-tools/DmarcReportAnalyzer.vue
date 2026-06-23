@@ -327,8 +327,10 @@ async function analyzeReport() {
       turnstileToken: turnstileToken.value
     })
 
+    const { session, ...analysis } = data.result
+
     result.value = {
-      ...data.result,
+      ...analysis,
       valid: true
     }
 
