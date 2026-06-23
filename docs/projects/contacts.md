@@ -156,6 +156,19 @@ When importing contacts, the CSV file must contain an `email` column. Additional
 
 ![Screenshot of the subscriber lists page - import or export CSV](./project-contacts-import.webp)
 
+### Selecting Columns and Adding New Properties
+
+When importing a CSV if a column doesn't match any existing contact property, BlueFox Email detects it automatically and lets you choose, per column, whether to:
+
+- **Add as a new property**: Creates a new contact property and imports the column's data into it.
+- **Skip**: Ignores the column; its data is not imported.
+
+![Screenshot of the subscriber lists page - unmatched column add or skip](./project-contacts-import-unmatched-column.webp)
+
+If you choose to add a new property, you can select the type of property (text, number, date, etc.) and whether it should be a single or multi-value property.
+
+![Screenshot of the subscriber lists page - unmatched column add property](./project-contacts-import-unmatched-column-add-property.webp)
+
 ## Importing/Exporting Contacts to/from a specific List
 
 When you choose to import contacts into a specific subscription list, the system will automatically subscribe those contacts to that list.
