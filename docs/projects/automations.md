@@ -384,9 +384,9 @@ While an automation is running, you can see exact number of contacts currently i
 
 ![Automation start btn Icon](./project-automation-node-contact-count.webp)
 
-When you click on that circle, you can see the list of contacts currently running in that node. You can also remove contacts from that node by clicking the trash icon next to their name.
+When you click on that circle, you can see the list of contacts currently running in that node. You can select which contacts you want to remove at once using the checkboxes and delete them all together by clicking 'Remove Selected' button .
 
-![Automation start btn Icon](./project-automation-node-contact-list-delete-button.webp)
+![Automation start btn Icon](./project-automation-node-contact-list-multi-delete-button.webp)
 
 ## Updating running automations
 
