@@ -66,8 +66,6 @@ Most people are already drowning in content, and they do not need more noise. Th
 
 Most companies do not have a content problem. Actually, the opposite is true. There is too much content.
 
-There are blog posts, YouTube videos, podcasts, social media updates, product announcements, research reports, tutorials, case studies, webinars, changelogs, and industry news published every day.
-
 Some of this content comes from your own company. But most of it does not, and that is the important part.
 
 If you only build a newsletter from your own blog posts and your own videos, that can still be useful. It helps you distribute your own content better.
