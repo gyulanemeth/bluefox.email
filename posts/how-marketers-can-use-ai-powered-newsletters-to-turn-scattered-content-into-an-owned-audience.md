@@ -184,19 +184,13 @@ You can collect many things from 3rd party RSS feeds as well:
 * podcast episodes
 * blog updates
 
-For marketers, this is useful because you can build a newsletter around trusted sources.
-
-For example, a marketing agency could follow a few industry publications, a few platform blogs, a few customer-relevant sources, and the client’s own blog. This process needs filtering and curation. Using AI is perfect for that.
+For marketers, this is useful because you can build a newsletter around trusted sources. A few industry publications, platform blogs, thought leaders, and your own company blog can be combined into a single curated digest.
 
 ![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/multiple-rss-feeds-to-newsletter.jpeg)
-
-Then it could send a weekly digest to clients or prospects.
 
 Not everything needs to be written from scratch.
 
 Sometimes the value is in finding the right things and explaining why they matter.
-
-One practical detail to keep in mind is that RSS feeds are not always structured the same way. Some feeds include images in different tags or properties, while others place large chunks of HTML inside the description field. A few provide clean summaries, while others include almost the entire article. If you are automating newsletter creation, you need to account for these differences by cleaning, normalizing, and extracting the content you actually want to use.
 
 ## YouTube can make the newsletter richer
 
@@ -228,17 +222,13 @@ What should the reader pay attention to?
 
 That is what makes the newsletter feel curated instead of automated.
 
-One interesting detail that many marketers do not realize is that YouTube channels also publish RSS feeds, even though YouTube does not really advertise this feature.
+One thing many marketers do not realize is that every YouTube channel publishes an RSS feed, even though YouTube does not advertise this feature. Your automation system can monitor this feed, detect new videos, and add them to the newsletter automatically, with no separate integration needed.
 
-For example, our YouTube channel is:
+::: tip Example
+BlueFox Email YouTube channel: https://www.youtube.com/@bluefox-email-official
 
-https://www.youtube.com/@bluefox-email-official
-
-And the corresponding RSS feed is:
-
-https://www.youtube.com/feeds/videos.xml?channel_id=UC2iqBlA8iowoqZmD2bRVeHw
-
-This feed works exactly like a blog RSS feed. Your automation system can monitor it, detect new videos, and add them to the next newsletter issue automatically, with no separate integration needed.
+RSS feed: https://www.youtube.com/feeds/videos.xml?channel_id=UC2iqBlA8iowoqZmD2bRVeHw
+:::
 
 You can also make newsletters more engaging by turning YouTube videos into animated GIF previews with a play button overlay that links to the full video. It gives subscribers a visual cue that there's video content to watch and encourages clicks to the full video, since email clients generally don't support embedded video playback. If you sign up for BlueFox Email, you can see examples of this approach in our onboarding emails, like the one below:
 
@@ -277,6 +267,8 @@ You link to the original source. You mention where the content came from. You su
 A good curated newsletter should feel like a guide, not a scraper.
 
 That difference matters.
+
+With the format and sources figured out, the next question is what the newsletter actually does for your business.
 
 ## Automated newsletters are useful for lead nurturing
 
@@ -338,8 +330,6 @@ The whole newsletter does not need to be different. Even changing one or two con
 If you run a SaaS product, you have an advantage here. You already collect behavioral data about your users. You know who has tried which features, who is active, and who has not logged in for a while. That data is a signal. If someone just started using automations in your product, that is a cue to send them content about automation best practices, examples, and tips. You are not guessing what they care about, you know.
 
 One important practical note: personalizing content at the individual user level with AI sounds great, but it adds up fast in terms of cost and complexity. A more sustainable approach is to classify your subscribers into a small number of segments, then prepare tailored content for each segment. You get most of the relevance benefit without the overhead of generating a unique newsletter for every single person.
-
-The newsletter is no longer just broadcasting company news. It becomes a personalized learning and discovery channel that helps customers solve the problems they are working on right now. That creates more relevance, more engagement, and often a better customer experience because the content feels timely instead of generic.
 
 ## A simple format works best
 

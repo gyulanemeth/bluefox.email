@@ -46,6 +46,10 @@ Neither approach is consistently reliable. Social media pages change frequently,
 
 Because of that, content extraction and screenshot-based approaches should be treated as supplemental options rather than the primary mechanism for an automated newsletter.
 
+## A note on RSS feed formatting
+
+If your newsletter workflow combines social content with RSS feeds, keep in mind that RSS feeds are not consistently structured. Some feeds include images in different tags or properties, while others place large chunks of HTML inside the description field. A few provide clean summaries; others include nearly the full article text. You will need to normalize this input before passing it to AI summarization to get reliable results. Build a preprocessing step that extracts only the fields you actually need and strips HTML where necessary.
+
 ## Recommended approach
 
 Start with RSS and YouTube, which are stable, predictable, and well-supported. Once those are working reliably, evaluate whether social media integration makes sense for your specific use case and whether the technical overhead is worth it.

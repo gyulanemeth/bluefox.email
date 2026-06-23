@@ -18,6 +18,8 @@ Many clients want to stay visible to prospects and customers, but they do not ha
 
 ## What this looks like in practice
 
+RSS is the most practical starting point for agency workflows. Most industry publications, platform blogs, and news sites provide RSS feeds, which makes it straightforward to aggregate relevant content across multiple client verticals without complex integrations. Once you have a working RSS setup for one client, replicating it for another is mostly a matter of swapping in different source lists.
+
 An agency could create automated newsletters for different clients or industries. For example:
 
 * ecommerce trends for ecommerce clients
