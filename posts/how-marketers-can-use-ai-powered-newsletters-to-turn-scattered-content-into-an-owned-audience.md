@@ -42,7 +42,7 @@ layout: post
 
 Publishing useful content consistently is one of the hardest parts of marketing. Not because there is nothing to say, but because assembling, summarizing, and distributing it week after week takes more time than most teams have.
 
-AI-powered newsletters change that. Not by writing everything for you, but by handling the parts that eat your time: monitoring sources, summarizing articles, organizing a draft, suggesting subject lines. You keep the editorial judgment. The system does the groundwork.
+AI-powered newsletters change that. Not by writing everything for you, but by handling the parts that eat your time: monitoring sources, summarizing articles, organizing a draft, suggesting subject lines. Collecting links is boring. Writing the first rough summary is boring. Deciding what matters, adding your own perspective, and understanding your audience are not. That is the real job. The system handles the mechanical parts so you can focus on the ones that actually create value.
 
 That shift has two real benefits for marketers.
 
@@ -502,32 +502,6 @@ But you do not need all of that on day one.
 The first goal is simple:
 
 Create a newsletter that is useful enough for people to keep opening it.
-
-## The point is not to replace marketers
-
-TODO: Include a meme here that emphasizes that a marketer should focus on what matters, not on the boring stuff. This is important.
-
-AI-powered newsletters should not replace the marketer’s thinking.
-
-They should remove the boring parts.
-
-Collecting links is boring.
-
-Copying titles is boring.
-
-Writing the first rough summary is boring.
-
-Organizing everything into a draft is boring.
-
-Deciding what matters is not boring.
-
-Adding your opinion is not boring.
-
-Understanding your audience is not boring.
-
-That is the real job.
-
-Automation should give marketers a better starting point, so they can spend more time on the parts that actually create value.
 
 ## Turning scattered content into something useful
 
