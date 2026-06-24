@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, watch, nextTick } from 'vue'
+import { ref, computed, onMounted, nextTick } from 'vue'
 import { analyzeDmarcReport } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import Turnstile from './Turnstile.vue'
@@ -68,11 +68,7 @@ function onTurnstileVerified(token) {
   turnstileToken.value = token
 }
 
-function onTurnstileExpired() {
-  turnstileToken.value = ''
-}
-
-function onTurnstileError() {
+function onTurnstileInvalid() {
   turnstileToken.value = ''
 }
 
@@ -280,8 +276,8 @@ onMounted(async () => {
           <Turnstile
             ref="turnstileRef"
             @verified="onTurnstileVerified"
-            @expired="onTurnstileExpired"
-            @error="onTurnstileError"
+            @expired="onTurnstileInvalid"
+            @error="onTurnstileInvalid"
           />
         </div>
 

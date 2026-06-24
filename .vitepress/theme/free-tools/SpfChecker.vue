@@ -29,11 +29,7 @@ function onTurnstileVerified(token) {
   turnstileToken.value = token
 }
 
-function onTurnstileExpired() {
-  turnstileToken.value = ''
-}
-
-function onTurnstileError() {
+function onTurnstileInvalid() {
   turnstileToken.value = ''
 }
 
@@ -241,8 +237,8 @@ onMounted(async () => {
           <Turnstile
             ref="turnstileRef"
             @verified="onTurnstileVerified"
-            @expired="onTurnstileExpired"
-            @error="onTurnstileError"
+            @expired="onTurnstileInvalid"
+            @error="onTurnstileInvalid"
           />
         </div>
 
