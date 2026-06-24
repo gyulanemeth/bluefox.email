@@ -429,8 +429,8 @@ onMounted(async () => {
           <Turnstile
             ref="turnstileRef"
             @verified="onTurnstileVerified"
-            @expired="onTurnstileExpired"
-            @error="onTurnstileError"
+            @expired="onTurnstileInvalid"
+            @error="onTurnstileInvalid"
           />
         </div>
 

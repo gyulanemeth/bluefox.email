@@ -13,7 +13,9 @@ let tokenReject = null
 
 function loadScript() {
   return new Promise((resolve, reject) => {
-    if (window.turnstile) return resolve()
+    if (window.turnstile) {
+      return resolve()
+    }
 
     let script = document.querySelector(`script[src="${SCRIPT_SRC}"]`)
     if (script) {
@@ -35,7 +37,9 @@ function loadScript() {
 // api.js may define window.turnstile slightly after the load event fires.
 function waitForTurnstile() {
   return new Promise((resolve, reject) => {
-    if (window.turnstile) return resolve()
+    if (window.turnstile) {
+      return resolve()
+    }
     let tries = 0
     const timer = setInterval(() => {
       if (window.turnstile) {

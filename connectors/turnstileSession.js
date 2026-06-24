@@ -21,7 +21,9 @@ export function getSessionToken() {
 
 // expiresInSec: lifetime the backend reports for the session token.
 export function setSession(token, expiresInSec) {
-  if (!token || !expiresInSec) return
+  if (!token || !expiresInSec) {
+    return
+  }
   sessionToken = token
   expiresAt = Date.now() + expiresInSec * 1000
 }
