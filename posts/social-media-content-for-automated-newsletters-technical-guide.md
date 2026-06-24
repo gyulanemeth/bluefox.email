@@ -38,7 +38,7 @@ This means you can summarize a post, quote key points, or create a short newslet
 
 The same approach can also be used to capture social posts visually. Some teams generate screenshots of posts and include those screenshots in newsletters while linking back to the original content. This can help preserve the original look and context of a post, especially when visual presentation matters. Adding gradient backgrounds behind the screenshots can make them look more polished.
 
-![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/Screenshot%202026-06-23%20at%2011.05.07.png)
+![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/06-social-media-post-in-newsletter.webp)
 
 ## Reliability concerns
 
