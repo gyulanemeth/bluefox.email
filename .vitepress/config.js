@@ -158,6 +158,7 @@ export default defineConfig({
           { text: "Docs", link: "/docs/" },
           { text: "Tutorials", link: "/tutorials" },
           { text: "Articles", link: "/articles" },
+          { text: "Free Tools", link: "/tools/" },
         ],
       },
       {
