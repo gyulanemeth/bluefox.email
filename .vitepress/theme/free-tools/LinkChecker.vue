@@ -338,8 +338,8 @@ async function reloadSelectedResult() {
       turnstileToken: turnstileToken.value
     })
 
-    if (data.result && data.result.length > 0 && result.value) {
-      const updated = data.result[0]
+    if (data.result?.links?.length > 0 && result.value) {
+      const updated = data.result.links[0]
       const idx = result.value.findIndex(r => r.url === updated.url)
 
       if (idx !== -1) {
@@ -393,7 +393,7 @@ async function checkLinksHandler() {
       turnstileToken: turnstileToken.value
     })
 
-    result.value = data.result
+    result.value = data.result.links
     resetTurnstile()
     await nextTick()
     window.scrollTo({ top: 0, behavior: 'smooth' })
