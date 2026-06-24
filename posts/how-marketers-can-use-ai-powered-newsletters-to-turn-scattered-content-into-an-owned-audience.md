@@ -127,7 +127,7 @@ It can do the heavy lifting.
 
 You still decide what deserves attention.
 
-## How much should you automate?
+## How much should you automate your newsletter?
 
 There is no single correct answer.
 
@@ -327,7 +327,7 @@ This becomes even more powerful when you have behavioral data about your custome
 
 One important practical note: personalizing content at the individual user level with AI sounds great, but it adds up fast in terms of cost and complexity. A more sustainable approach is to classify your subscribers into a small number of [segments](/docs/projects/segments), then prepare tailored content for each segment. You get most of the relevance benefit without the overhead of generating a unique newsletter for every single person.
 
-## A simple format works best
+## A simple newsletter format works best
 
 The newsletter does not need to be complicated.
 
