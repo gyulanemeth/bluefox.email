@@ -401,6 +401,10 @@ The newsletter is only as good as the sources behind it.
 
 Spam filters can block you before you ever reach the inbox, and AI-powered email summaries are adding another layer between your message and the reader's attention. Neither obstacle matters much if your subscribers genuinely want to hear from you. People who look forward to your newsletter move it out of the promotions tab and add you to their contacts. But if the content is weak, these filters will work against you. Stay useful, and deliverability takes care of itself.
 
+**Do not ignore performance data.**
+
+Open rates and click rates tell you whether the newsletter is actually working. If engagement drops, that is a signal something needs to change: the sources, the summaries, the frequency, or the format. A fully automated system can drift in quality without anyone noticing unless someone is watching the numbers.
+
 **Do not remove your own opinion completely.**
 
 Curation is useful, but your audience also wants to know what you think. Why does this matter? What should they notice? What is the practical takeaway?
