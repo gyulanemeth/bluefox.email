@@ -417,14 +417,9 @@ That is what makes a curated newsletter worth reading. Not the number of links, 
 
 Done consistently, that is also how a company earns something hard to copy: the position of trusted filter for its audience. An owned channel, not a borrowed one.
 
-## Create automated newsletters with BlueFox Email
-
-BlueFox Email is built for this kind of workflow. You can design, automate, and send branded newsletters, build curated digests, and track what resonates, without unnecessary complexity.
-
-Send something useful.
-
-Do it consistently.
-
-Build an audience you own.
-
-We are currently working on a step-by-step tutorial that will show exactly how to set up an AI-powered automated newsletter workflow using RSS feeds, YouTube channels, and other content sources. We will add a link here as soon as the guide is ready.
+<PageCTA
+  title="Start building AI-powered newsletters"
+  description="BlueFox Email is built for this kind of workflow. Design, automate, and send branded newsletters that keep your audience engaged, without unnecessary complexity."
+  buttonText="Start Free - 3000 Sends Included"
+  buttonUrl="https://app.bluefox.email/accounts/create-account"
+/>
