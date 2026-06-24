@@ -60,7 +60,7 @@ There is useful content everywhere, but the problem is that it is scattered ever
 
 Your audience does not have time to follow ten blogs, five YouTube channels, three newsletters, a few LinkedIn creators, and every company in your market.
 
-Most people are already drowning in content, and they do not need more noise. They need someone to **filter** things for them. This AI-generated meme below illustrates very, very well, how people are suffering from information overload, and that the ones who manage to escape it (but stay informed at the same time) are the happy ones.
+Most people are already drowning in content, and they do not need more noise. They need someone to **filter** things for them.
 
 ![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/01-information-overload-vs-filtered-newsletters.jpeg)
 
@@ -168,12 +168,12 @@ RSS is not trendy. That is partly why it is useful.
 
 It is simple, open, and predictable. Many blogs, publications, podcasts, and news sites still provide RSS feeds. You can pull new items from those feeds and use them as the raw material for a newsletter.
 
-For an automated newsletter, RSS is probably the easiest place to start. We previously publihed a [tutorial about how you can turn a single RSS into a newsletter](/posts/how-to-create-a-newsletter-from-rss-and-send-it-automatically), but you can do much more than that. That article explains a rather simple process, illustrated by the image below.
+For an automated newsletter, RSS is probably the easiest place to start. We previously published a [tutorial about how you can turn a single RSS into a newsletter](/posts/how-to-create-a-newsletter-from-rss-and-send-it-automatically), but you can do much more than that. That article explains a rather simple process, illustrated by the image below.
 
 ![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/rss-feed-to-newsletter.jpeg)
 
 
-You can collect many things from 3rd party RSS feeds as well:
+You can collect many things from third-party RSS feeds as well:
 
 * article titles
 * links
@@ -234,7 +234,7 @@ RSS feed:
 https://www.youtube.com/feeds/videos.xml?channel_id=UC2iqBlA8iowoqZmD2bRVeHw
 :::
 
-You can also make newsletters more engaging by turning YouTube videos into animated GIF previews with a play button overlay that links to the full video. It gives subscribers a visual cue that there's video content to watch and encourages clicks to the full video, since email clients generally don't support embedded video playback. If you sign up for BlueFox Email, you can see examples of this approach in our onboarding emails, like the one below:
+You can also make newsletters more engaging by turning YouTube videos into animated GIF previews with a play button overlay that links to the full video. Since email clients do not support embedded video playback, this gives subscribers a visual cue that there is video content to watch and encourages clicks. Here is an example:
 
 ![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/VaGRa5aVtqzE24jcrYP6W.gif)
 
@@ -251,10 +251,6 @@ One practical approach that does not require deep API access is capturing social
 However, social media pages change frequently and automated approaches can break without warning. Content extraction and screenshots are best treated as supplemental options rather than the foundation of the workflow.
 
 Start with RSS. Once that works, add YouTube. Then, when it makes sense, bring in social content as well.
-
-Your own blog posts and product updates can also appear in the newsletter, but the newsletter should not be about you. It should be about the topic your audience cares about. When your own content is relevant to that topic, it becomes a natural part of the curated experience instead of feeling like self-promotion.
-
-This keeps the first version simple enough to actually ship.
 
 ## Third-party content does not mean stealing content
 
@@ -331,7 +327,7 @@ So you can change parts of the newsletter based on subscriber interests:
 
 The whole newsletter does not need to be different. Even changing one or two content blocks can make the email feel much more relevant. This is where automation, segmentation, and personalization become really useful together.
 
-If you run a SaaS product, you have an advantage here. You already collect behavioral data about your users. You know who has tried which features, who is active, and who has not logged in for a while. That data is a signal. If someone just started using automations in your product, that is a cue to send them content about automation best practices, examples, and tips. You are not guessing what they care about, you know.
+This becomes even more powerful when you have behavioral data about your customers. When you know which features someone has used, what they have engaged with, or how long they have been a customer, you are not guessing what content will be relevant. You already know.
 
 One important practical note: personalizing content at the individual user level with AI sounds great, but it adds up fast in terms of cost and complexity. A more sustainable approach is to classify your subscribers into a small number of segments, then prepare tailored content for each segment. You get most of the relevance benefit without the overhead of generating a unique newsletter for every single person.
 
