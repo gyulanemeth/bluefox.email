@@ -1,5 +1,5 @@
 ---
-title: How Marketers Can Use AI-Powered Newsletters to Turn Scattered Content Into an Owned Audience
+title: "AI-Powered Newsletters: Build an Owned Audience"
 description: How marketers can use AI-powered newsletters to curate content from RSS feeds, YouTube, and social media into a branded digest that builds an owned audience.
 thumbnail: /assets/articles/how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience.png
 category: tutorials
@@ -13,7 +13,7 @@ head:
       content: How marketers can use AI-powered newsletters to curate content from RSS feeds, YouTube, and social media into a branded digest that builds an owned audience.
   - - meta
     - property: og:title
-      content: How Marketers Can Use AI-Powered Newsletters to Turn Scattered Content Into an Owned Audience
+      content: "AI-Powered Newsletters: Build an Owned Audience"
   - - meta
     - property: og:description
       content: How marketers can use AI-powered newsletters to curate content from RSS feeds, YouTube, and social media into a branded digest that builds an owned audience.
@@ -28,7 +28,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: How Marketers Can Use AI-Powered Newsletters to Turn Scattered Content Into an Owned Audience
+      content: "AI-Powered Newsletters: Build an Owned Audience"
   - - meta
     - name: twitter:description
       content: How marketers can use AI-powered newsletters to curate content from RSS feeds, YouTube, and social media into a branded digest that builds an owned audience.
