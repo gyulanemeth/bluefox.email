@@ -125,8 +125,6 @@ You still decide what deserves attention.
 
 ## How much should you automate?
 
-Once AI is helping with content preparation, the next question is how much of the workflow you want to automate.
-
 There is no single correct answer.
 
 Different newsletters need different levels of oversight.
@@ -249,8 +247,6 @@ However, social media pages change frequently and automated approaches can break
 Start with RSS. Once that works, add YouTube. Then, when it makes sense, bring in social content as well.
 
 ## Third-party content does not mean stealing content
-
-There is one important point here.
 
 Using third-party content as newsletter input does not mean copying entire articles or pretending the content is yours.
 
