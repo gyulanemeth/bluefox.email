@@ -123,7 +123,7 @@ It can do the heavy lifting.
 
 You still decide what deserves attention.
 
-## Autonomous or semi-autonomous?
+## How much should you automate?
 
 Once AI is helping with content preparation, the next question is how much of the workflow you want to automate.
 
@@ -175,14 +175,10 @@ For an automated newsletter, RSS is probably the easiest place to start. We prev
 
 You can collect many things from third-party RSS feeds as well:
 
-* article titles
-* links
-* descriptions
-* authors
-* publish dates
-* images, depending on the feed
+* articles and blog posts
 * podcast episodes
-* blog updates
+* images, depending on the feed
+* descriptions and summaries
 
 For marketers, this is useful because you can build a newsletter around trusted sources. A few industry publications, platform blogs, thought leaders, and your own company blog can be combined into a single curated digest.
 
@@ -268,7 +264,7 @@ A good curated newsletter should feel like a guide, not a scraper.
 
 That difference matters.
 
-With the format and sources figured out, the next question is what the newsletter actually does for your business.
+With the sources figured out, the next question is what the newsletter actually does for your business.
 
 ## Automated newsletters are useful for lead nurturing
 
