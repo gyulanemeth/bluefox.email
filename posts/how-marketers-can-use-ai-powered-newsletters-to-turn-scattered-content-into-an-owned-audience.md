@@ -48,9 +48,13 @@ That shift has two real benefits for marketers.
 
 The first is time. Instead of building each newsletter from scratch, you build a system that runs it. The marketer's job moves from execution to oversight, which is more scalable and more interesting.
 
-The second is audience ownership. Social media reach is borrowed. Algorithm changes, platform rules, and shifting feeds can cut your visibility overnight. Email is different. Every subscriber is a direct channel you control. An automated newsletter gives you a reason to show up in that channel consistently, without burning out your team or your budget.
+The second is audience ownership. Social media reach is borrowed. Algorithm changes, platform rules, and shifting feeds can cut your visibility overnight. Email is different. Every subscriber is a direct channel you control. An automated newsletter gives you a reason to show up in that channel consistently, without burning out your team or your budget. If you are still building that list, [this guide covers how to do it right](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email).
 
 Done well, it is also a positioning strategy. The company that consistently surfaces the most useful signal in a noisy space becomes the trusted filter for its audience. That is a durable competitive advantage.
+
+::: tip Try BlueFox Email for free
+BlueFox Email is built for this kind of workflow. [Create a free account](https://app.bluefox.email/accounts/create-account) and start building your first AI-powered newsletter.
+:::
 
 ## The real problem is not lack of content
 
@@ -111,7 +115,7 @@ For example, it can:
 * detect similar stories
 * rewrite summaries in your brand voice
 * create section introductions
-* suggest subject lines
+* [suggest subject lines](/posts/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails)
 * personalize content for different segments
 * prepare a first draft of the newsletter
 
@@ -158,7 +162,7 @@ The marketer is no longer manually assembling every issue.
 
 Instead, the marketer is designing and improving the system that produces it.
 
-That is where automation becomes truly scalable.
+That is where automation becomes truly scalable. BlueFox Email's [automations](/docs/projects/automations) are built to support exactly this kind of workflow.
 
 ## RSS is a great starting point
 
@@ -321,7 +325,7 @@ The whole newsletter does not need to be different. Even changing one or two con
 
 This becomes even more powerful when you have behavioral data about your customers. When you know which features someone has used, what they have engaged with, or how long they have been a customer, you are not guessing what content will be relevant. You already know.
 
-One important practical note: personalizing content at the individual user level with AI sounds great, but it adds up fast in terms of cost and complexity. A more sustainable approach is to classify your subscribers into a small number of segments, then prepare tailored content for each segment. You get most of the relevance benefit without the overhead of generating a unique newsletter for every single person.
+One important practical note: personalizing content at the individual user level with AI sounds great, but it adds up fast in terms of cost and complexity. A more sustainable approach is to classify your subscribers into a small number of [segments](/docs/projects/segments), then prepare tailored content for each segment. You get most of the relevance benefit without the overhead of generating a unique newsletter for every single person.
 
 ## A simple format works best
 
@@ -389,11 +393,11 @@ The newsletter is only as good as the sources behind it.
 
 ### Do not ignore deliverability
 
-Spam filters can block you before you ever reach the inbox, and AI-powered email summaries are adding another layer between your message and the reader's attention. Neither obstacle matters much if your subscribers genuinely want to hear from you. People who look forward to your newsletter move it out of the promotions tab and add you to their contacts. But if the content is weak, these filters will work against you. Stay useful, and deliverability takes care of itself.
+Spam filters can block you before you ever reach the inbox, and AI-powered email summaries are adding another layer between your message and the reader's attention. Neither obstacle matters much if your subscribers genuinely want to hear from you. People who look forward to your newsletter move it out of the promotions tab and add you to their contacts. But if the content is weak, these filters will work against you. Stay useful, and deliverability takes care of itself. For a deeper look at how SPF, DKIM, and DMARC affect inbox placement, [this article explains it with real examples](/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples).
 
 ### Do not ignore performance data
 
-Open rates and click rates tell you whether the newsletter is actually working. If engagement drops, that is a signal something needs to change: the sources, the summaries, the frequency, or the format. A fully automated system can drift in quality without anyone noticing unless someone is watching the numbers.
+Open rates and click rates tell you whether the newsletter is actually working. If engagement drops, that is a signal something needs to change: the sources, the summaries, the frequency, or the format. A fully automated system can drift in quality without anyone noticing unless someone is watching the numbers. BlueFox Email's [analytics dashboard](/docs/analytics) tracks opens, clicks, and engagement over time so you can catch issues early.
 
 ### Do not remove your own opinion completely
 

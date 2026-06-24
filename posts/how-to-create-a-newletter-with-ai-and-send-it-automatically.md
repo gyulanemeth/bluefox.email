@@ -36,7 +36,7 @@ head:
       content: https://bluefox.email/assets/articles/how-to-create-a-newletter-with-ai-and-send-it-automatically-share.png
 
 lastUpdated: true
-published: 2026-05-22
+published: false
 sidebar: false
 ---
 
