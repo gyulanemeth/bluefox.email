@@ -1,104 +1,41 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { checkMx } from '../../../connectors/bluefoxEmailToolsApi.js'
+import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import { syncWithUrl, loadFromUrl } from './helpers/urlSync.js'
-import { 
-  loadCaptchaFromStorage, 
-  loadNewCaptcha, 
-  clearCaptchaStorage, 
-  markCaptchaSolved 
-} from './helpers/captchaHandler.js'
+import Turnstile from './Turnstile.vue'
 
 // ---- VARIABLES ----
 const domain = ref('')
-const captchaText = ref('')
 const loading = ref(false)
 const result = ref(null)
 const errorMessage = ref('')
 
-// Captcha state
-const captchaProbe = ref(null)
-const captchaImage = ref(null)
-const captchaExpires = ref(0)
-const captchaSolvedUntil = ref(0)
-const captchaLoading = ref(false)
-
-const now = () => Math.floor(Date.now() / 1000)
-
-// Computed properties
-const isProbeExpired = computed(() =>
-  !captchaProbe.value || now() > captchaExpires.value
-)
-
-const isSolved = computed(() =>
-  captchaSolvedUntil.value > now() && !isProbeExpired.value
-)
-
-const shouldShowCaptcha = computed(() =>
-  !isSolved.value ||
-  isProbeExpired.value ||
-  !captchaProbe.value ||
-  !captchaImage.value
-)
+// Turnstile state
+const turnstileRef = ref(null)
+const turnstileToken = ref('')
 
 const isFormDisabled = computed(() =>
-  loading.value || (shouldShowCaptcha.value && !captchaText.value?.trim())
+  loading.value
 )
 
 // ---- FUNCTIONS ----
-function loadCaptchaState() {
-  const stored = loadCaptchaFromStorage()
-  captchaProbe.value = stored.probe
-  captchaImage.value = stored.image
-  captchaExpires.value = stored.expires
-  captchaSolvedUntil.value = stored.solvedUntil
+function onTurnstileVerified(token) {
+  turnstileToken.value = token
 }
 
-async function loadCaptcha() {
-  captchaLoading.value = true
-  try {
-    const captchaState = await loadNewCaptcha()
-    
-    captchaProbe.value = captchaState.probe
-    captchaImage.value = captchaState.image
-    captchaExpires.value = captchaState.expires
-    captchaSolvedUntil.value = captchaState.solvedUntil
-
-  } catch (err) {
-    clearCaptchaSession()
-  } finally {
-    captchaLoading.value = false
-  }
+function onTurnstileInvalid() {
+  turnstileToken.value = ''
 }
 
-async function refreshCaptcha() {
-  clearCaptchaSession()
-  await loadCaptcha()
-}
-
-function markSolved() {
-  if (!isProbeExpired.value) {
-    const captchaState = markCaptchaSolved(captchaExpires.value)
-    captchaSolvedUntil.value = captchaState.solvedUntil
-  }
-}
-
-function clearCaptchaSession() {
-  const captchaState = clearCaptchaStorage()
-  captchaProbe.value = captchaState.probe
-  captchaImage.value = captchaState.image
-  captchaExpires.value = captchaState.expires
-  captchaSolvedUntil.value = captchaState.solvedUntil
+function resetTurnstile() {
+  turnstileToken.value = ''
+  turnstileRef.value?.reset()
 }
 
 function validateInputs() {
   if (!domain.value?.trim()) {
     errorMessage.value = 'Please enter a domain name'
-    return false
-  }
-
-  if (shouldShowCaptcha.value && !captchaText.value?.trim()) {
-    errorMessage.value = 'Please enter the captcha text'
     return false
   }
 
@@ -116,10 +53,13 @@ async function checkMxHandler() {
       return
     }
 
+    if (!isSessionValid()) {
+      turnstileToken.value = await turnstileRef.value.getToken()
+    }
+
     const data = await checkMx({
       domain: domain.value,
-      captchaProbe: captchaProbe.value,
-      captchaText: shouldShowCaptcha.value ? captchaText.value : ''
+      turnstileToken: turnstileToken.value
     })
 
     result.value = {
@@ -131,13 +71,11 @@ async function checkMxHandler() {
       recommendations: data.result.recommendations || []
     }
 
-    captchaText.value = ''
-    markSolved()
+    resetTurnstile()
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
     if (err.status === 401) {
-      await refreshCaptcha()
-      captchaText.value = ''
+      resetTurnstile()
     }
   } finally {
     loading.value = false
@@ -150,37 +88,15 @@ function hasUniquePriorities(records) {
 }
 
 // ---- WATCHES ----
-watch(isProbeExpired, (expired, prev) => {
-  if (expired && !prev) {
-    result.value = null
-    captchaText.value = ''
-  }
-})
-
-watch(shouldShowCaptcha, (show, prev) => {
-  if (show && !prev) {
-    captchaText.value = ''
-  }
-})
-
 watch(domain, () => {
   syncWithUrl({ domain: domain.value })
 })
 
 // ---- LIFECYCLE ----
 onMounted(async () => {
-  loadCaptchaState()
   loadFromUrl({ domain })
 
   await nextTick()
-  
-  if (domain.value.trim()) {
-    checkMxHandler()
-  }
-
-  if (!isSolved.value && (!captchaProbe.value || isProbeExpired.value)) {
-    await loadCaptcha()
-  }
 })
 </script>
 
@@ -200,44 +116,13 @@ onMounted(async () => {
           />
         </div>
 
-        <div v-if="captchaProbe && isProbeExpired" class="captcha-expired-message">
-          Your verification has expired. Please refresh the captcha below.
-        </div>
-
-        <div v-if="shouldShowCaptcha" class="form-group">
-          <label for="captcha">Security Verification:</label>
-          <div class="captcha-container">
-            <div class="captcha-image-container">
-              <div v-if="captchaLoading" class="captcha-loading">Loading captcha...</div>
-              <div v-else-if="captchaImage" class="captcha-image" v-html="captchaImage" />
-              <div v-else class="captcha-placeholder">
-                <button type="button" @click="loadCaptcha" class="load-captcha-btn">
-                  Load Captcha
-                </button>
-              </div>
-            </div>
-            <button
-              type="button"
-              @click="refreshCaptcha"
-              class="refresh-captcha-btn"
-              :disabled="captchaLoading"
-              title="Refresh captcha"
-            >
-              <img src="/assets/reload.svg?url" alt="reload" />
-            </button>
-          </div>
-          <input
-            id="captcha"
-            v-model="captchaText"
-            type="text"
-            placeholder="Enter the text from the image above"
-            :disabled="loading || !captchaImage"
-            autocomplete="off"
-            required
+        <div class="form-group">
+          <Turnstile
+            ref="turnstileRef"
+            @verified="onTurnstileVerified"
+            @expired="onTurnstileInvalid"
+            @error="onTurnstileInvalid"
           />
-          <small class="captcha-help">
-            Enter the characters shown in the image above
-          </small>
         </div>
 
         <button type="submit" class="check-btn" :disabled="isFormDisabled">
