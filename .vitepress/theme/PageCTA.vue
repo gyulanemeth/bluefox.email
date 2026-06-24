@@ -71,13 +71,13 @@ defineProps({
   font-weight: 600;
   margin-top: 0;
   margin-bottom: 12px;
-  color: #13B0EE;
+  color: var(--vp-c-brand-accessible, hsl(197, 87%, 35%));
   line-height: 1.3;
   text-align: center;
 }
 
 .dark .cta-text h3 {
-  color: #13B0EE;
+  color: hsl(197, 87%, 65%);
 }
 
 .cta-text p {
