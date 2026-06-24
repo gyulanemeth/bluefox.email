@@ -1,4 +1,6 @@
 import { defineConfig, loadEnv } from 'vitepress'
+import { readFileSync } from 'fs'
+import { resolve, dirname } from 'path'
 import tailwindcss from 'tailwindcss'
 import { addSchemaMarkup } from './theme/SchemaMarkup/schemaMarkup'
 import { addToolsSchemaMarkup } from './theme/SchemaMarkup/toolsSchemaMarkup'
@@ -9,6 +11,52 @@ import { addPostsSchema } from './theme/SchemaMarkup/postsSchema'
 import { addProductSchema } from './theme/SchemaMarkup/productSchema'
 import { addDocsSchema } from './theme/SchemaMarkup/docsSchema'
 import { addFeaturesSchema } from './theme/SchemaMarkup/featuresSchema'
+
+function getImageDimensions(src, mdFilePath) {
+  if (!src || !mdFilePath) return null
+  if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('//') || src.startsWith('data:')) return null
+  try {
+    const imgPath = src.startsWith('/')
+      ? resolve(process.cwd(), src.slice(1))
+      : resolve(dirname(mdFilePath), src)
+    const buf = readFileSync(imgPath)
+    // WebP
+    if (buf.length > 16 && buf.slice(0, 4).toString('ascii') === 'RIFF' && buf.slice(8, 12).toString('ascii') === 'WEBP') {
+      const chunk = buf.slice(12, 16).toString('ascii')
+      if (chunk === 'VP8 ' && buf.length > 30) {
+        return { width: buf.readUInt16LE(26) & 0x3FFF, height: buf.readUInt16LE(28) & 0x3FFF }
+      }
+      if (chunk === 'VP8L' && buf.length > 25) {
+        const bits = buf.readUInt32LE(21)
+        return { width: (bits & 0x3FFF) + 1, height: ((bits >> 14) & 0x3FFF) + 1 }
+      }
+      if (chunk === 'VP8X' && buf.length > 30) {
+        return { width: buf.readUIntLE(24, 3) + 1, height: buf.readUIntLE(27, 3) + 1 }
+      }
+    }
+    // PNG
+    if (buf.length > 24 && buf[0] === 0x89 && buf.slice(1, 4).toString('ascii') === 'PNG') {
+      return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) }
+    }
+    // JPEG: scan for SOF marker
+    if (buf.length > 4 && buf[0] === 0xFF && buf[1] === 0xD8) {
+      let offset = 2
+      while (offset < buf.length - 8) {
+        if (buf[offset] !== 0xFF) break
+        const marker = buf[offset + 1]
+        const len = buf.readUInt16BE(offset + 2)
+        if ((marker >= 0xC0 && marker <= 0xC3) || (marker >= 0xC5 && marker <= 0xC7) ||
+            (marker >= 0xC9 && marker <= 0xCB) || (marker >= 0xCD && marker <= 0xCF)) {
+          return { width: buf.readUInt16BE(offset + 7), height: buf.readUInt16BE(offset + 5) }
+        }
+        offset += 2 + len
+      }
+    }
+  } catch (e) {
+    // File not found or unrecognised format - skip
+  }
+  return null
+}
 
 const env = loadEnv('', process.cwd())
 const securityHeaders = {
@@ -506,6 +554,10 @@ export default defineConfig({
     hostname: "https://bluefox.email", // Removed trailing space
     transformItems: (items) => items.filter((item) => !noindexSitemapUrls.has(item.url)),
   },
+  transformHtml(code) {
+    // VitePress uses <div id="VPContent"> instead of <main> — add role="main" for accessibility
+    return code.replace('id="VPContent"', 'id="VPContent" role="main"')
+  },
   markdown: {
     config(md) {
       // Patch default image renderer
@@ -522,6 +574,19 @@ export default defineConfig({
         // Add loading="lazy" if not already present
         if (!existingAttr.includes("loading")) {
           token.attrPush(["loading", "lazy"]);
+        }
+
+        // Add width/height to prevent CLS (layout shift)
+        if (!existingAttr.includes("width") && !existingAttr.includes("height")) {
+          const src = token.attrGet("src");
+          if (src && env.path) {
+            const mdFilePath = resolve(process.cwd(), env.path);
+            const dims = getImageDimensions(src, mdFilePath);
+            if (dims) {
+              token.attrPush(["width", String(dims.width)]);
+              token.attrPush(["height", String(dims.height)]);
+            }
+          }
         }
 
         return defaultRender(tokens, idx, options, env, self);

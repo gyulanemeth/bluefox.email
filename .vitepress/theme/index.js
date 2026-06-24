@@ -137,11 +137,31 @@ export default {
     if (typeof window !== 'undefined') {
       saveUtmToCookie()
     }
+
+    const setMainRole = () => {
+      if (typeof window === 'undefined') return
+      const el = document.getElementById('VPContent')
+      if (el && !el.getAttribute('role')) el.setAttribute('role', 'main')
+    }
+
     router.onAfterRouteChanged = () => {
       saveUtmToCookie()
       if (typeof window !== 'undefined' && window.rdt) {
         window.rdt('track', 'PageVisit')
       }
+      setMainRole()
+    }
+
+    if (typeof window !== 'undefined') {
+      // Watch for VPContent to mount (SPA initial render is async)
+      const observer = new MutationObserver(() => {
+        const el = document.getElementById('VPContent')
+        if (el) {
+          if (!el.getAttribute('role')) el.setAttribute('role', 'main')
+          observer.disconnect()
+        }
+      })
+      observer.observe(document.body, { childList: true, subtree: true })
     }
     const vuetify = createVuetify({
       components: {
