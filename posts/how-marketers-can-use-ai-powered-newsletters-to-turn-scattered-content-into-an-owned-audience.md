@@ -52,9 +52,6 @@ The second is audience ownership. Social media reach is borrowed. Algorithm chan
 
 Done well, it is also a positioning strategy. The company that consistently surfaces the most useful signal in a noisy space becomes the trusted filter for its audience. That is a durable competitive advantage.
 
-::: tip Try BlueFox Email for free
-BlueFox Email is built for this kind of workflow. [Create a free account](https://app.bluefox.email/accounts/create-account) and start building your first AI-powered newsletter.
-:::
 
 ## The real problem is not lack of content
 
@@ -66,7 +63,7 @@ Your audience does not have time to follow ten blogs, five YouTube channels, thr
 
 Most people are already drowning in content, and they do not need more noise. They need someone to **filter** things for them.
 
-![Illustration showing information overload on one side and someone reading a curated newsletter on the other](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/01-information-overload-vs-filtered-newsletters.jpeg)
+![Illustration showing information overload on one side and someone reading a curated newsletter on the other](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/01-information-overload-vs-filtered-newsletters.webp)
 
 Most companies do not have a content problem. Actually, the opposite is true. There is too much content.
 
@@ -121,7 +118,7 @@ For example, it can:
 
 The important thing is that AI is helping with preparation, not replacing editorial judgment.
 
-![Diagram showing AI filtering and curating content from multiple sources into a newsletter](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/02-filter-and-cureate-content-with-ai-and-assemble-a-newsletter.jpeg)
+![Diagram showing AI filtering and curating content from multiple sources into a newsletter](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/02-filter-and-cureate-content-with-ai-and-assemble-a-newsletter.webp)
 
 It can do the heavy lifting.
 
@@ -172,7 +169,7 @@ It is simple, open, and predictable. Many blogs, publications, podcasts, and new
 
 For an automated newsletter, RSS is probably the easiest place to start. We previously published a [tutorial about how you can turn a single RSS into a newsletter](/posts/how-to-create-a-newsletter-from-rss-and-send-it-automatically), but you can do much more than that. That article explains a rather simple process, illustrated by the image below.
 
-![Diagram showing a single RSS feed being converted into an automated newsletter](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/rss-feed-to-newsletter.jpeg)
+![Diagram showing a single RSS feed being converted into an automated newsletter](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/03-rss-feed-to-newsletter.webp)
 
 
 You can collect many things from third-party RSS feeds as well:
@@ -184,7 +181,7 @@ You can collect many things from third-party RSS feeds as well:
 
 For marketers, this is useful because you can build a newsletter around trusted sources. A few industry publications, platform blogs, thought leaders, and your own company blog can be combined into a single curated digest.
 
-![Diagram showing multiple RSS feeds being combined and filtered into a single curated newsletter](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/multiple-rss-feeds-to-newsletter.jpeg)
+![Diagram showing multiple RSS feeds being combined and filtered into a single curated newsletter](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/04-multiple-rss-feeds-to-newsletter.webp)
 
 Not everything needs to be written from scratch.
 
@@ -234,7 +231,7 @@ https://www.youtube.com/feeds/videos.xml?channel_id=UC2iqBlA8iowoqZmD2bRVeHw
 
 You can also make newsletters more engaging by turning YouTube videos into animated GIF previews with a play button overlay that links to the full video. Since email clients do not support embedded video playback, this gives subscribers a visual cue that there is video content to watch and encourages clicks. Here is an example:
 
-![Animated GIF preview of a YouTube video with a play button overlay in an email newsletter](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/VaGRa5aVtqzE24jcrYP6W.gif)
+![Animated GIF preview of a YouTube video with a play button overlay in an email newsletter](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/05-youtube-video-preview-in-newsletter.webp)
 
 ## Social media is useful, but trickier
 
@@ -244,7 +241,7 @@ But it is also harder to automate reliably than RSS or YouTube. Different platfo
 
 One practical approach that does not require deep API access is capturing social posts visually. Some teams generate screenshots of posts and include those in newsletters while linking back to the original content. You can also add gradient backgrounds to make them look more polished. Check the example below.
 
-![Screenshot of a social media post embedded in a newsletter with a gradient background](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/Screenshot%202026-06-23%20at%2011.05.07.png)
+![Screenshot of a social media post embedded in a newsletter with a gradient background](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/06-social-media-post-in-newsletter.webp)
 
 However, social media pages change frequently and automated approaches can break without warning. Content extraction and screenshots are best treated as supplemental options rather than the foundation of the workflow.
 
@@ -300,7 +297,7 @@ A founder may care about growth. A marketer may care about campaign examples. A 
 
 So instead of sending the same generic update to everyone, you can curate content based on what people are actually doing.
 
-![Illustration of AI-powered newsletter personalization for different subscriber segments](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/personalization-with-ai.png)
+![Illustration of AI-powered newsletter personalization for different subscriber segments](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/07-personalization-with-ai.webp)
 
 For example, imagine a customer is actively building onboarding sequences. The system could automatically collect and recommend:
 
@@ -335,7 +332,7 @@ Actually, it is usually better if it is simple.
 
 A good structure could look like this:
 
-![Example newsletter template layout with sections for intro, top story, curated articles, videos, and call to action](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/8d66c480-f716-4001-a7ba-c7cf9d4e384c.png)
+![Example newsletter template layout with sections for intro, top story, curated articles, videos, and call to action](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/08-newsletter-template-layout.webp)
 
 **Intro**
 
