@@ -91,8 +91,6 @@ That could mean collecting:
 * your own company updates
 * customer stories and examples
 
-![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/02-filter-and-cureate-content-with-ai-and-assemble-a-newsletter.jpeg)
-
 The sources are all there. The bottleneck is the work it takes to turn them into a useful newsletter every week.
 
 ## What AI can actually help with
@@ -118,6 +116,8 @@ For example, it can:
 * prepare a first draft of the newsletter
 
 The important thing is that AI is helping with preparation, not replacing editorial judgment.
+
+![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/02-filter-and-cureate-content-with-ai-and-assemble-a-newsletter.jpeg)
 
 It can do the heavy lifting.
 
@@ -330,6 +330,8 @@ The newsletter does not need to be complicated.
 Actually, it is usually better if it is simple.
 
 A good structure could look like this:
+
+![](./how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience/8d66c480-f716-4001-a7ba-c7cf9d4e384c.png)
 
 **Intro**
 
