@@ -70,7 +70,11 @@
 }
 
 .PostContent a {
-  color: #13B0EE;
+  color: var(--vp-c-brand-accessible, hsl(197, 87%, 35%));
   text-decoration: none;
+}
+
+.dark .PostContent a {
+  color: hsl(197, 87%, 65%);
 }
 </style>

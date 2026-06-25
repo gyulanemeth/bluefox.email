@@ -23,6 +23,7 @@ html {
 
 :root {
   --vp-c-brand: hsl(197, 87%, 50%);
+  --vp-c-brand-accessible: hsl(197, 87%, 35%);
   --vp-c-brand-light: hsl(197, 87%, 60%);
   --vp-c-brand-lighter: hsl(197, 87%, 70%);
   --vp-c-brand-lightest: hsl(197, 87%, 80%);
@@ -217,3 +218,4 @@ body:has(.stripe--flush) .VPHome {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;
 }
+
