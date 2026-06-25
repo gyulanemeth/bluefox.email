@@ -5,7 +5,7 @@ thumbnail: /assets/articles/how-marketers-can-use-ai-powered-newsletters-to-turn
 category: tutorials
 tags: ['Newsletter', 'AI', 'Content Strategy', 'Email Marketing']
 sidebar: false
-published: 2026-02-03
+published: 2026-06-25
 lastUpdated: true
 head:
   - - meta
