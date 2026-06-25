@@ -1,22 +1,22 @@
 <script setup>
-  defineProps({
-    title: {
-      type: String,
-      default: 'Scale Your Agency with Professional Email Solutions'
-    },
-    description: {
-      type: String,
-      default: "Deliver pixel-perfect, on-brand emails for every client. Maintain consistency across campaigns and elevate your agency's reputation with reliable email infrastructure."
-    },
-    buttonText: {
-      type: String,
-      default: 'Start Free - 3000 Sends Included'
-    },
-    buttonUrl: {
-      type: String,
-      default: 'https://app.bluefox.email/'
-    }
-  })
+defineProps({
+  title: {
+    type: String,
+    default: 'Scale Your Agency with Professional Email Solutions'
+  },
+  description: {
+    type: String,
+    default: "Deliver pixel-perfect, on-brand emails for every client. Maintain consistency across campaigns and elevate your agency's reputation with reliable email infrastructure."
+  },
+  buttonText: {
+    type: String,
+    default: 'Start Free - 3000 Sends Included'
+  },
+  buttonUrl: {
+    type: String,
+    default: 'https://app.bluefox.email/'
+  }
+})
 </script>
 
 <template>
