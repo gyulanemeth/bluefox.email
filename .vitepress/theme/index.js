@@ -139,9 +139,13 @@ export default {
     }
 
     const setMainRole = () => {
-      if (typeof window === 'undefined') return
+      if (typeof window === 'undefined') {
+        return
+      }
       const el = document.getElementById('VPContent')
-      if (el && !el.getAttribute('role')) el.setAttribute('role', 'main')
+      if (el && !el.getAttribute('role')) {
+        el.setAttribute('role', 'main')
+      }
     }
 
     router.onAfterRouteChanged = () => {
@@ -157,7 +161,9 @@ export default {
       const observer = new MutationObserver(() => {
         const el = document.getElementById('VPContent')
         if (el) {
-          if (!el.getAttribute('role')) el.setAttribute('role', 'main')
+          if (!el.getAttribute('role')) {
+            el.setAttribute('role', 'main')
+          }
           observer.disconnect()
         }
       })
