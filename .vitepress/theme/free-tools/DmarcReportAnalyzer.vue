@@ -3,12 +3,6 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { analyzeDmarcReport } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import Turnstile from './Turnstile.vue'
-import {
-  clearCaptchaStorage,
-  loadCaptchaFromStorage,
-  loadNewCaptcha,
-  markCaptchaSolved
-} from './helpers/captchaHandler.js'
 
 // ---- VARIABLES ----
 const MAX_FILENAME_LEN = 30
@@ -27,35 +21,12 @@ let dragLeaveTimeout = null
 // Turnstile state
 const turnstileRef = ref(null)
 const turnstileToken = ref('')
-// Captcha state
-const captchaProbe = ref(null)
-const captchaImage = ref(null)
-const captchaExpires = ref(0)
-const captchaSolvedUntil = ref(0)
-const captchaLoading = ref(false)
 
 // Result display state
 const expandedSources = ref(new Set())
 const showRecords = ref(false)
 
-const now = () => Math.floor(Date.now() / 1000)
-
 // Computed properties
-const isProbeExpired = computed(() =>
-  !captchaProbe.value || now() > captchaExpires.value
-)
-
-const isSolved = computed(() =>
-  captchaSolvedUntil.value > now() && !isProbeExpired.value
-)
-
-const shouldShowCaptcha = computed(() =>
-  !isSolved.value ||
-  isProbeExpired.value ||
-  !captchaProbe.value ||
-  !captchaImage.value
-)
-
 const isFormDisabled = computed(() =>
   loading.value || (!xmlPaste.value.trim() && !file.value)
 )
@@ -174,49 +145,17 @@ function isSourceExpanded(ip) {
 }
 
 // ---- FUNCTIONS ----
-function loadCaptchaState() {
-  const stored = loadCaptchaFromStorage()
-  captchaProbe.value = stored.probe
-  captchaImage.value = stored.image
-  captchaExpires.value = stored.expires
-  captchaSolvedUntil.value = stored.solvedUntil
+function onTurnstileVerified(token) {
+  turnstileToken.value = token
 }
 
-async function loadCaptcha() {
-  captchaLoading.value = true
-  try {
-    const captchaState = await loadNewCaptcha()
-    
-    captchaProbe.value = captchaState.probe
-    captchaImage.value = captchaState.image
-    captchaExpires.value = captchaState.expires
-    captchaSolvedUntil.value = captchaState.solvedUntil
-
-  } catch (err) {
-    clearCaptchaSession()
-  } finally {
-    captchaLoading.value = false
-  }
+function onTurnstileInvalid() {
+  turnstileToken.value = ''
 }
 
-async function refreshCaptcha() {
-  clearCaptchaSession()
-  await loadCaptcha()
-}
-
-function markSolved() {
-  if (!isProbeExpired.value) {
-    const captchaState = markCaptchaSolved(captchaExpires.value)
-    captchaSolvedUntil.value = captchaState.solvedUntil
-  }
-}
-
-function clearCaptchaSession() {
-  const captchaState = clearCaptchaStorage()
-  captchaProbe.value = captchaState.probe
-  captchaImage.value = captchaState.image
-  captchaExpires.value = captchaState.expires
-  captchaSolvedUntil.value = captchaState.solvedUntil
+function resetTurnstile() {
+  turnstileToken.value = ''
+  turnstileRef.value?.reset()
 }
 
 function validateInputs() {
@@ -1145,95 +1084,6 @@ onMounted(async () => {
   cursor: not-allowed;
 }
 
-/* CAPTCHA Styles */
-.captcha-expired-message {
-  background: #fff3cd;
-  border: 1px solid #ffc107;
-  color: #856404;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-}
-
-.captcha-container {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.captcha-image-container {
-  flex: 1;
-  min-height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ffffff;
-  border: 1px solid var(--vp-c-border-soft, #dee2e6);
-  border-radius: 6px;
-  padding: 0.5rem;
-}
-
-.captcha-loading,
-.captcha-placeholder {
-  color: #6b7280;
-  font-style: italic;
-  text-align: center;
-}
-
-.load-captcha-btn {
-  background: var(--vp-c-brand);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: background-color 0.2s ease;
-}
-
-.load-captcha-btn:hover {
-  background: var(--vp-c-brand-light);
-}
-
-.refresh-captcha-btn {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.refresh-captcha-btn:hover:not(:disabled) {
-  background: var(--vp-c-bg, #ffffff);
-  border-color: var(--vp-c-brand);
-}
-
-.refresh-captcha-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.refresh-captcha-btn img {
-  width: 16px;
-  height: 16px;
-}
-
-.captcha-help {
-  display: block;
-  margin-top: 0.5rem;
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.875rem;
-  font-style: italic;
-}
-
 /* Button */
 .check-btn {
   background: var(--vp-c-brand);
@@ -2063,16 +1913,6 @@ onMounted(async () => {
     border-color: rgba(19, 176, 238, 0.3);
   }
   
-  .refresh-captcha-btn {
-    background: var(--vp-c-bg-soft);
-    border-color: var(--vp-c-border);
-    color: var(--vp-c-text-1);
-  }
-  
-  .refresh-captcha-btn:hover:not(:disabled) {
-    border-color: var(--vp-c-brand);
-  }
-  
   .recommendations-section,
   .recommendations-section ul,
   .recommendations-section li {
@@ -2194,15 +2034,6 @@ onMounted(async () => {
   
   .drag-subtext {
     font-size: 0.8rem;
-  }
-  
-  .captcha-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .refresh-captcha-btn {
-    align-self: center;
   }
   
   .summary-grid,
