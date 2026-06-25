@@ -2,7 +2,7 @@
 title: "AI-Powered Newsletters: Build an Owned Audience"
 description: How marketers can use AI-powered newsletters to curate content from RSS feeds, YouTube, and social media into a branded digest that builds an owned audience.
 thumbnail: /assets/articles/how-marketers-can-use-ai-powered-newsletters-to-turn-scattered-content-into-an-owned-audience.png
-category: tutorials
+category: articles
 tags: ['Newsletter', 'AI', 'Content Strategy', 'Email Marketing']
 sidebar: false
 published: 2026-06-25
