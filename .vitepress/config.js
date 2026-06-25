@@ -13,8 +13,12 @@ import { addDocsSchema } from './theme/SchemaMarkup/docsSchema'
 import { addFeaturesSchema } from './theme/SchemaMarkup/featuresSchema'
 
 function getImageDimensions(src, mdFilePath) {
-  if (!src || !mdFilePath) return null
-  if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('//') || src.startsWith('data:')) return null
+  if (!src || !mdFilePath) {
+    return null
+  }
+  if (src.startsWith('http://') || src.startsWith('https://') || src.startsWith('//') || src.startsWith('data:')) {
+    return null
+  }
   try {
     const imgPath = src.startsWith('/')
       ? resolve(process.cwd(), src.slice(1))
@@ -42,7 +46,9 @@ function getImageDimensions(src, mdFilePath) {
     if (buf.length > 4 && buf[0] === 0xFF && buf[1] === 0xD8) {
       let offset = 2
       while (offset < buf.length - 8) {
-        if (buf[offset] !== 0xFF) break
+        if (buf[offset] !== 0xFF) {
+          break
+        }
         const marker = buf[offset + 1]
         const len = buf.readUInt16BE(offset + 2)
         if ((marker >= 0xC0 && marker <= 0xC3) || (marker >= 0xC5 && marker <= 0xC7) ||
