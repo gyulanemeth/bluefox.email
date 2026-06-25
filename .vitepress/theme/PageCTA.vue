@@ -1,17 +1,3 @@
-<template>
-  <div class="page-cta">
-    <div class="cta-container">
-      <div class="cta-text">
-        <h3>{{ title }}</h3>
-        <p>{{ description }}</p>
-      </div>
-      <div class="cta-action">
-        <a :href="buttonUrl" class="cta-button">{{ buttonText }}</a>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 defineProps({
   title: {
@@ -32,6 +18,20 @@ defineProps({
   }
 })
 </script>
+
+<template>
+  <div class="page-cta">
+    <div class="cta-container">
+      <div class="cta-text">
+        <h3>{{ title }}</h3>
+        <p>{{ description }}</p>
+      </div>
+      <div class="cta-action">
+        <a :href="buttonUrl" class="cta-button">{{ buttonText }}</a>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .page-cta {
