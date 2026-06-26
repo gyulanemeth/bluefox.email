@@ -113,11 +113,11 @@ Personalization runs on Handlebars merge tags, with Loop and Conditional element
 
 ### MailerSend
 
-MailerSend provides a comprehensive and well-documented RESTful API for developers to integrate email and SMS functionality into their applications. The platform offers official SDKs for multiple programming languages, including Node.js, Python, Java, PHP, Laravel, Go, and Ruby, making it accessible for various development environments. For simpler setups, a straightforward SMTP relay is also available, and the platform now offers an MCP server for connecting MailerSend to AI tools.
+MailerSend provides a comprehensive and well-documented RESTful API for developers to integrate email and SMS functionality into their applications. The platform offers official SDKs for multiple programming languages, including Node.js, Python, Java, PHP, Laravel, Go, and Ruby, making it accessible for various development environments. For simpler setups, a straightforward SMTP relay is also available, and the platform also offers an MCP server (currently in beta) for connecting MailerSend to AI tools.
 
 The platform features robust webhook capabilities for real-time event tracking and offers native integrations with popular services like WordPress, WooCommerce, Firebase, and Supabase, along with Zapier and Make connectivity for thousands of additional app connections. The official WordPress SMTP plugin is particularly useful for solving common deliverability issues on that platform.
 
-**Strengths:** Well-documented API, official SDKs for seven major languages, simple SMTP relay, an MCP server for AI tooling, and a good range of native and third-party integrations.
+**Strengths:** Well-documented API, official SDKs for seven major languages, simple SMTP relay, an MCP server (in beta) for AI tooling, and a good range of native and third-party integrations.
 
 **Trade-offs:** Lower plan tiers cap the number of webhooks and API tokens, which can constrain more complex setups until you upgrade.
 
@@ -254,7 +254,7 @@ MailerSend uses a traditional tiered subscription model based on monthly email v
 | Professional | From $110/mo (from $99/mo annual) | 50,000 emails | Unlimited users/domains, longer data retention, priority support |
 | Enterprise | Custom | High-volume | Dedicated IPs available above 100,000 emails/week |
 
-Annual billing saves 10% across paid plans. The December 2025 change drew notable backlash from existing users, since the previously free 5,000-email tier became the paid $7/month Hobby plan, and users who didn't actively upgrade were moved to the restricted 500-email Free plan. Many reviewers described this as a "forced upgrade."
+Annual billing saves 10% across paid plans. The change drew notable backlash from existing users: MailerSend's free Hobby tier (previously 3,000 emails/month) was closed to new signups on October 21, 2025, and on December 2, 2025 existing free users were moved either to the new paid $7/month Hobby plan (now 5,000 emails) or to the restricted 500-email Free plan. Many reviewers described this as a "forced upgrade."
 
 **Strengths:** Low entry price with a $7 Hobby plan, predictable monthly costs for stable sending volumes, and a 30% nonprofit discount.
 
