@@ -161,11 +161,11 @@ BlueFox Email has three delivery modes documented in [Delivery Modes](https://bl
 - **Production** (BlueFox-managed infrastructure, after a review): unrestricted volume, custom sender identities, your own verified domain.
 - **BYO AWS SES** (optional): connect your AWS account via direct credentials or STS Role ARN. Required permissions: `ses:SendEmail`, `ses:SendRawEmail`, `ses:ListIdentities`, `ses:GetSendQuota`. You keep your own AWS sending reputation and IP isolation, and can use your AWS SES dedicated IP if configured there.
 
-To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending.
+To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending. An optional dedicated IP add-on is also available on the managed plan for $50/month per workspace, self-serve with no minimum volume.
 
-**Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, transparent bounce/complaint thresholds in-product, per-project suppression list, STS-based AWS auth (no long-lived keys).
+**Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, transparent bounce/complaint thresholds in-product, per-project suppression list, STS-based AWS auth (no long-lived keys), self-serve dedicated IP add-on on the managed plan ($50/mo per workspace).
 
-**Trade-offs:** no dedicated IP on the managed plan (dedicated IP only via BYO SES with your own AWS account). Smaller community than Mailchimp, so less third-party deliverability tooling and shared best-practice content.
+**Trade-offs:** Smaller community than Mailchimp, so less third-party deliverability tooling and shared best-practice content.
 
 ## Personalization
 
