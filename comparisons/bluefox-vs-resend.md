@@ -18,7 +18,7 @@ head:
       content: BlueFox Email vs Resend | BlueFox Email
   - - meta
     - property: og:description
-      content: An honest comparison of BlueFox Email and Resend, two very different email tools, covering how you build emails, how each one is priced, deliverability and infrastructure control, automation, integrations, and support.
+      content: An honest comparison of BlueFox Email and Resend, two very different email tools, covering how you build emails, how each one is priced, deliverability, automation, integrations, and support.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/comparisons/bluefox-vs-resend.png
@@ -33,7 +33,7 @@ head:
       content: BlueFox Email vs Resend | BlueFox Email
   - - meta
     - name: twitter:description
-      content: An honest comparison of BlueFox Email and Resend, two very different email tools, covering how you build emails, how each one is priced, deliverability and infrastructure control, automation, integrations, and support.
+      content: An honest comparison of BlueFox Email and Resend, two very different email tools.
 ---
 
 <script setup>
@@ -130,7 +130,7 @@ Short version of the money: Resend is the value pick for low-volume, code-driven
 
 Both tools send on shared IPs to start, and both are fine at it for normal volumes. The difference is in what happens when you decide you want your own reputation.
 
-Resend handles this well, with a caveat about where it lives. Its dedicated IPs are fully managed, with automatic warmup, monitoring, and autoscaling and no waiting period, which is a nicer experience than warming an IP by hand. But they're only offered as a $30/month add-on on the Scale plan and on Enterprise, so a smaller sender who wants an isolated IP has to jump tiers to get one. On the standard tooling, Resend covers SPF, DKIM, DMARC, and BIMI, monitors your DNS for changes that could hurt you, suppresses hard bounces and complaints automatically, and offers recipient-proximity edge routing that sends from the region closest to your users (US, EU, South America, and Asia), which BlueFox doesn't do.
+Resend handles this well, with a caveat about where it lives. Its dedicated IPs are fully managed, with automatic warmup, monitoring, and autoscaling and no waiting period, which is a nicer experience than warming an IP by hand. But they're only offered as a $30/month add-on on the Scale plan and on Enterprise, so a smaller sender who wants an isolated IP has to jump tiers to get one. On the standard tooling, Resend covers SPF, DKIM, DMARC, and BIMI, monitors your DNS for changes that could hurt you, suppresses hard bounces and complaints automatically, and offers multi-region sending so you can send from the region closest to your users (US, EU, South America, and Asia), which BlueFox doesn't do.
 
 BlueFox takes a more open approach to the same problem. You can run on its managed infrastructure, or switch on bring-your-own-SES and send through your own AWS account, where your reputation is fully isolated and affected only by your own behavior, and you get double the sends per pack. A dedicated IP is a self-serve $50/month add-on at any volume, with no tier to climb into first. The dashboard shows your live bounce rate against a 2.5% ceiling and complaint rate against a 0.05% ceiling, so you always know where you stand, and every pack includes a subscription preferences page and RFC 8058 one-click unsubscribe.
 
