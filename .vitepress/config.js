@@ -277,6 +277,10 @@ export default defineConfig({
                   link: "/docs/projects/email-builder",
                 },
                 {
+                  text: "Pre-designed Templates",
+                  link: "/docs/projects/predesigned-templates",
+                },
+                {
                   text: "Delivery Modes",
                   link: "/docs/projects/delivery-modes",
                 },

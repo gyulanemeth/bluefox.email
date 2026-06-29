@@ -205,10 +205,18 @@ If the contact is in the selected segment, the automation continues to the next 
 The **Send Email Node** allows you to configure and send an email to the contact.
 
 Inside the email node, you can:
-- Click **Create Email** to start from scratch or reuse an existing design.
+- Click **Create Email** to start from scratch, reuse an existing design, or pick a [pre-designed template](/docs/projects/predesigned-templates).
 - Add:
   - **Subject**
   - **Preview Text**
+
+To start from a [pre-designed template](/docs/projects/predesigned-templates):
+
+1. Click **Create Email**.
+2. Choose to start from a template, then switch to **pre-designed templates**.
+3. Select a template and click **Open Editor** to continue.
+
+![A screenshot of the pre-designed template selection step when creating an email in a Send Email node.](./project-automation-node-notify-create-select-predesigned.webp)
 
 ![Automation node send card Icon](./project-automation-node-send-card.webp)
 Under the email node, you’ll also see delivery stats:
@@ -242,12 +250,20 @@ For a detailed guide on using the **Advanced Settings**, refer to the [Advanced 
 The **Notify Node** allows you to send a notification email to a specific set of audience as a subscriber list or to specific email addresses from the list when a particular action occurs in the automation. This is useful for alerting your team, admins, or any designated group about key events such as when a contact signs up, reaches a specific step, or meets certain criteria.
 
 Inside the notify node, you can:
-- Click **Create Email** to start from scratch or reuse an existing design.
+- Click **Create Email** to start from scratch, reuse an existing design, or pick a [pre-designed template](/docs/projects/predesigned-templates).
 - Add:
   - **Subject**
   - **Preview Text**
   - **From Address**
   - **Reply-To Address**
+
+To start from a [pre-designed template](/docs/projects/predesigned-templates):
+
+1. Click **Create Email**.
+2. Choose to start from a template, then switch to **pre-designed templates**.
+3. Select a template and click **Open Editor** to continue.
+
+![A screenshot of the pre-designed template selection step when creating an email in a Notify node.](./project-automation-node-notify-create-select-predesigned.webp)
 
 ![Automation node notify card Icon](./project-automation-node-notify-card.webp)
 
