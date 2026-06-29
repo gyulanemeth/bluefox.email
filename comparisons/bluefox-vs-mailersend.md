@@ -182,7 +182,7 @@ The platform provides essential authentication tools (SPF, DKIM), DMARC monitori
 
 Every BlueFox Email project starts in sandbox mode, which works immediately with no AWS account needed, and can move to production mode once your domain is verified and your sending practices are reviewed. For advanced users, an optional "bring-your-own-SES" mode operates as a layer on top of the user's own AWS SES account; in this mode sender reputation is completely isolated and only affected by your own sending practices, and each credit pack includes twice as many sends at the same platform fee.
 
-To stay in production, projects need to keep bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project suppression list lets teams manually add or CSV-import problematic addresses to prevent re-sending, alongside a subscription preferences page and one-click unsubscribe (RFC 8058) on every pack. An optional dedicated IP add-on ($50/month per workspace) is available on the managed plan as a self-serve request, with no Enterprise tier or minimum volume required; in BYO SES mode, a dedicated IP is instead configured and billed through your own AWS SES account. This approach provides full transparency and, in the bring-your-own-SES mode, removes the risk of being penalized for another user's actions.
+To stay in production, projects need to keep bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project suppression list lets teams manually add or CSV-import problematic addresses to prevent re-sending, alongside a subscription preferences page and one-click unsubscribe (RFC 8058) on every pack. An optional dedicated IP add-on ($50/month per IP) is available on the managed plan as a self-serve request, with no Enterprise tier or minimum volume required; in BYO SES mode, a dedicated IP is instead configured and billed through your own AWS SES account. This approach provides full transparency and, in the bring-your-own-SES mode, removes the risk of being penalized for another user's actions.
 
 **Strengths:** Full infrastructure transparency, with bounce/complaint thresholds (2.5%/0.05%) visible live in the dashboard. Optional bring-your-own-AWS-SES mode provides isolated sender reputation plus 2× sends per pack for advanced users. Self-serve dedicated IP add-on available on every plan, not gated to a high-volume tier.
 
@@ -271,7 +271,7 @@ BlueFox Email uses a straightforward, transparent credit-based system where you 
 
 BYO AWS SES doubles the sends per pack at the same platform fee, plus AWS SES fees of $0.10 per 1,000 emails paid directly to Amazon. This model includes unlimited contacts and access to all features on every pack. Because you pay only for sends and never for storing contacts, there are no surprise charges and no penalty for keeping inactive subscribers on your list.
 
-**Add-on:** an optional dedicated IP for $50/month per workspace (managed mode). In BYO SES mode, a dedicated IP is instead configured and billed through your own AWS SES account.
+**Add-on:** an optional dedicated IP for $50/month per IP (managed mode). In BYO SES mode, a dedicated IP is instead configured and billed through your own AWS SES account.
 
 **Strengths:** Transparent, flexible pay-as-you-go pricing. All features are included on every pack. No charge for storing contacts, BYO-SES doubles the sends per pack, and a dedicated IP is available as a self-serve add-on at any volume.
 
