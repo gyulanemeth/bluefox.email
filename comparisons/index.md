@@ -7,7 +7,7 @@ prev: false
 next: false
 
 datePublished: "2025-09-02"
-dateModified: "2025-09-10"
+dateModified: "2026-06-29"
 
 head:
   - - meta
@@ -63,6 +63,12 @@ Explore the key differences between BlueFox Email and MailerSend, including feat
 Explore the key differences between BlueFox Email and Brevo (formerly Sendinblue), including features, pricing, and target audiences.
 
 [Read more](./bluefox-vs-brevo)
+
+## BlueFox Email vs Resend
+
+Explore the key differences between BlueFox Email and Resend, including features, pricing, and target audiences.
+
+[Read more](./bluefox-vs-resend)
 
 <style>
 a[href^="/comparisons/"] {
