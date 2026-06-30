@@ -43,7 +43,6 @@ import { useData } from 'vitepress'
 import TemplateShowcase from '../.vitepress/theme/TemplateShowcase.vue'
 import Segmentation from '../.vitepress/theme/Segmentation.vue'
 import AgencyAnalytics from '../for/marketing-agencies/AgencyAnalytics.vue'
-import PageCTA from '../.vitepress/theme/PageCTA.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -72,7 +71,7 @@ So this isn't a contest where one tool sweeps every round. There are things Rese
 
 ## The short version
 
-If you're a developer shipping a product and you want to build emails the way you build the rest of your app, Resend is hard to beat. React Email, a clean API, nine SDKs, inbound email, and an MCP server make it about the most pleasant email tool to integrate right now. For purely transactional sending at low volume it's also the cheapest of the two, starting at $20 a month for 50,000 emails. The catch is that $20 buys you exactly that: transactional sending, shared infrastructure, ticket-only support. The moment you want anything past it, marketing email, a dedicated IP, more than 100 daily sends without a credit card, Slack-based support, you're either adding a second subscription or jumping to the Scale plan at $90 a month and up.
+If you're a developer shipping a product and you want to build emails the way you build the rest of your app, Resend is hard to beat. React Email, a clean API, nine SDKs, inbound email, and an MCP server make it about the most pleasant email tool to integrate right now. For purely transactional sending at low volume it's also the cheapest of the two, starting at $20 a month for 50,000 emails. The catch is that $20 buys you exactly that: transactional sending only, on shared infrastructure, with ticket-only support and no SLA. The moment you want marketing email, a dedicated IP, or Slack-based support, you're either adding a second subscription or jumping to the Scale plan at $90 a month and up.
 
 If email is something your team designs rather than codes, if you send marketing alongside your transactional mail and don't want to pay for every stored contact, or if you want sending to run on your own AWS account, BlueFox Email is the better home. Bring-your-own-SES is entirely optional, you can ignore it completely and just use BlueFox's managed infrastructure, but if you do want it, it's there with no extra subscription to add. Either way, every feature (design, automation, marketing, transactional) is included on every pack from day one, and the only thing that ever costs extra is a dedicated IP, which is normal at basically every provider, BlueFox included.
 
