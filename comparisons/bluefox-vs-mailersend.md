@@ -43,6 +43,7 @@ import { useData } from 'vitepress'
 import TemplateShowcase from '../.vitepress/theme/TemplateShowcase.vue'
 import Segmentation from '../.vitepress/theme/Segmentation.vue'
 import AgencyAnalytics from '../for/marketing-agencies/AgencyAnalytics.vue'
+import Automation from '../.vitepress/theme/Automation.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -164,7 +165,14 @@ Running automations can be updated and the change applied to upcoming-only or up
 
 **Trade-offs:** Limited number of pre-built automation templates, requiring users to construct most workflows from scratch.
 
-![bluefox automation collage](/assets/comparisons/email-automation-collage.webp)
+<Automation
+  class="mt-6"
+  :is-dark="isDark"
+  :lg-and-up="lgAndUp"
+  :md="md"
+  :sm="sm"
+  :xs="xs"
+/>
 
 ## Deliverability and Infrastructure
 
