@@ -64,6 +64,12 @@ Explore the key differences between BlueFox Email and Brevo (formerly Sendinblue
 
 [Read more](./bluefox-vs-brevo)
 
+## BlueFox Email vs Loops
+
+Explore the key differences between BlueFox Email and Loops, including pricing models, design systems, infrastructure control, and which is better for SaaS vs other senders.
+
+[Read more](./bluefox-vs-loops)
+
 <style>
 a[href^="/comparisons/"] {
   color: #13B0EE;
