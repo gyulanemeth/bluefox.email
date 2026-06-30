@@ -43,6 +43,7 @@ import { useData } from 'vitepress'
 import TemplateShowcase from '../.vitepress/theme/TemplateShowcase.vue'
 import Segmentation from '../.vitepress/theme/Segmentation.vue'
 import AgencyAnalytics from '../for/marketing-agencies/AgencyAnalytics.vue'
+import PageCTA from '../.vitepress/theme/PageCTA.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -175,4 +176,7 @@ It comes down to the split we started with. If your email is code, mostly transa
 
 Neither one is the "better email tool" in the abstract. They're built for different people. Figure out which person you are, and the choice mostly makes itself.
 
-<GlossaryCTA/>
+<PageCTA
+  title="Own your sending infrastructure, or don't"
+  description="Use BlueFox Email's managed infrastructure, or connect your own AWS SES account through the same API. No per-contact billing, no second subscription for marketing."
+/>
