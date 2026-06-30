@@ -66,6 +66,16 @@ const npRecommendations = computed(() =>
   result.value?.recommendations?.filter(r => /\bnp=/i.test(r)) ?? []
 )
 
+const rfc9989Ready = computed(() => {
+  const protocol = result.value?.protocol
+  if (!protocol) {
+    return false
+  }
+  return !protocol.deprecatedTags?.length &&
+    !protocol.unknownTags?.length &&
+    !protocol.testMode
+})
+
 const regularRecommendations = computed(() =>
   result.value?.recommendations?.filter(r => !/\bnp=/i.test(r)) ?? []
 )
@@ -121,6 +131,7 @@ async function checkDmarcHandler() {
       explanations: data.result.explanations || {},
       checkedRecord: data.result.checkedRecord,
       score: data.result.score,
+      protocol: data.result.protocol || null,
       warnings: data.result.warnings || [],
       recommendations: data.result.recommendations || []
     }
@@ -262,6 +273,51 @@ onMounted(async () => {
               </tr>
             </tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- Standards Compliance (RFC 9989) -->
+      <div v-if="result.protocol" class="protocol-section">
+        <h4>
+          Standards Compliance
+          <span class="info-tip" tabindex="0">
+            ?
+            <span class="info-tip-pop">Checks your DMARC record against the updated DMARC standard (RFC 9989). Deprecated and unknown tags are ignored by receivers.</span>
+          </span>
+        </h4>
+        <div class="protocol-grid">
+          <div class="policy-item">
+            <span class="label">RFC 9989 Ready:</span>
+            <span class="value">
+              <span class="proto-badge" :class="rfc9989Ready ? 'pass' : 'warn'">
+                {{ rfc9989Ready ? 'Yes' : 'Needs attention' }}
+              </span>
+            </span>
+          </div>
+          <div v-if="result.protocol.deprecatedTags?.length" class="policy-item">
+            <span class="label">Deprecated Tags:</span>
+            <span class="value">
+              <span class="proto-badge warn">{{ result.protocol.deprecatedTags.join(', ') }}</span>
+            </span>
+          </div>
+          <div v-if="result.protocol.testMode" class="policy-item">
+            <span class="label">Test Mode:</span>
+            <span class="value"><span class="proto-badge warn">t=y (not enforced)</span></span>
+          </div>
+          <div v-if="result.protocol.unknownTags?.length" class="policy-item">
+            <span class="label">Unknown Tags:</span>
+            <span class="value">
+              <span class="proto-badge warn">{{ result.protocol.unknownTags.join(', ') }}</span>
+            </span>
+          </div>
+          <div class="policy-item">
+            <span class="label">Non-Existent Subdomain Policy (np=):</span>
+            <span class="value">
+              <span class="proto-badge" :class="result.protocol.npConfigured ? 'pass' : 'muted'">
+                {{ result.protocol.npConfigured ? 'Configured' : 'Not set' }}
+              </span>
+            </span>
+          </div>
         </div>
       </div>
 
@@ -701,6 +757,61 @@ onMounted(async () => {
   word-break: break-all;
 }
 
+/* Standards Compliance Section */
+.protocol-section {
+  border-top: 1px solid var(--vp-c-border-soft, #eee);
+  padding-top: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.protocol-section h4 {
+  margin: 0 0 1rem 0;
+  color: var(--vp-c-text-1, #333);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.protocol-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.policy-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.75rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 6px;
+  border: 1px solid var(--vp-c-border-soft, #dee2e6);
+  overflow: visible;
+}
+
+.policy-item .label {
+  color: var(--vp-c-text-2, #6b7280);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.policy-item .value {
+  color: var(--vp-c-text-1, #374151);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.proto-badge {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.proto-badge.pass { background: #ebf7ed; color: #217b2d; }
+.proto-badge.warn { background: #fff8e6; color: #b45309; }
+.proto-badge.muted { background: var(--vp-c-bg-mute, #f1f5f9); color: var(--vp-c-text-2, #6b7280); }
+
 /* Result Sections */
 .section {
   margin-top: 1.5rem;
@@ -726,7 +837,7 @@ onMounted(async () => {
 
 .warnings-section {
   background: var(--vp-warning-soft, #fffbf0);
-  border-left: 4px solid var(--vp-c-warning-1, #ffc107);
+  border: 1px solid rgba(214, 158, 46, 0.2);
 }
 
 .warnings-section h4 {
@@ -735,7 +846,7 @@ onMounted(async () => {
 
 .recommendations-section {
   background: var(--vp-tip-soft, #f0f9ff);
-  border-left: 4px solid var(--vp-c-tip-1, #17a2b8);
+  border: 1px solid rgba(23, 162, 184, 0.18);
 }
 
 .recommendations-section h4 {
@@ -746,7 +857,7 @@ onMounted(async () => {
   margin-top: 1.5rem;
   padding: 1rem 1.25rem;
   background: #fff7ed;
-  border-left: 4px solid #f97316;
+  border: 1px solid rgba(249, 115, 22, 0.2);
   border-radius: 8px;
   color: #9a3412;
 }
@@ -766,7 +877,7 @@ onMounted(async () => {
 
 .deprecated-section {
   background: var(--vp-c-bg-soft, #f8f9fa);
-  border-left: 4px solid var(--vp-c-border, #d1d5db);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
 }
 
 .deprecated-section h4 {
@@ -781,7 +892,7 @@ onMounted(async () => {
 
 .advanced-section {
   background: var(--vp-c-bg-soft, #f8f9fa);
-  border-left: 4px solid var(--vp-c-border, #d1d5db);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
 }
 
 .advanced-section h4 {
@@ -819,8 +930,11 @@ onMounted(async () => {
   .test-mode-banner {
     background: rgba(249, 115, 22, 0.12);
     color: #fdba74;
-    border-left-color: #f97316;
+    border-color: rgba(249, 115, 22, 0.3);
   }
+
+  .proto-badge.pass { background: rgba(34, 187, 51, 0.15); color: #6ee787; }
+  .proto-badge.warn { background: rgba(214, 158, 46, 0.15); color: #f0c36b; }
 
   .info-tip-pop {
     background: var(--vp-c-bg-soft, #252736);
