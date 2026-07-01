@@ -307,7 +307,7 @@ onMounted(async () => { await nextTick() })
       </div>
 
       <!-- Auth breakdown -->
-      <div v-if="result.authSummary" class="card">
+      <div v-if="result.authSummary" class="tool-card">
         <h3 class="card-title">
           Authentication Breakdown
           <span class="tip" tabindex="0">?<span class="tip-pop">DMARC needs authentication AND alignment. "Passed, not aligned" means the check succeeded but for the wrong domain — it does not count toward DMARC.</span></span>
@@ -409,7 +409,7 @@ onMounted(async () => { await nextTick() })
       </div>
 
       <!-- Email sources table -->
-      <div v-if="result.sources?.length" class="card">
+      <div v-if="result.sources?.length" class="tool-card">
         <h3 class="card-title">
           Email Sources
           <span class="tip" tabindex="0">?<span class="tip-pop">IP addresses that sent email claiming to be from your domain, with their authentication results.</span></span>
@@ -911,7 +911,7 @@ onMounted(async () => { await nextTick() })
 }
 
 /* Card */
-.card {
+.tool-card {
   background: var(--vp-c-bg, #fff);
   border: 1px solid var(--vp-c-border, #e5e7eb);
   border-radius: 12px;

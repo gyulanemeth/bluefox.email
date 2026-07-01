@@ -204,19 +204,21 @@ onMounted(async () => {
             spellcheck="false"
           />
         </div>
-        <Turnstile
-          ref="turnstileRef"
-          class="turnstile-inline"
-          :class="{ 'turnstile-collapsed': result }"
-          @verified="onTurnstileVerified"
-          @expired="onTurnstileInvalid"
-          @error="onTurnstileInvalid"
-        />
         <button type="submit" class="search-btn" :disabled="isFormDisabled">
           <span v-if="loading" class="btn-loading"><span class="spinner"></span></span>
           <span v-else>Check DKIM</span>
         </button>
       </form>
+
+      <Turnstile
+        ref="turnstileRef"
+        class="turnstile-row"
+        :class="{ 'turnstile-collapsed': result }"
+        @verified="onTurnstileVerified"
+        @expired="onTurnstileInvalid"
+        @error="onTurnstileInvalid"
+      />
+
       <p v-if="guessedSelector" class="form-hint form-hint-notice">
         Guessed selector <code>google</code> from the switcher. Not right? Change it in the <strong>selector</strong> field above.
       </p>
@@ -439,14 +441,16 @@ onMounted(async () => {
 
 .selector-input-wrap input:focus { outline: none; box-shadow: none; }
 
-.turnstile-inline {
-  flex-shrink: 0;
-  transition: opacity 0.2s, max-width 0.2s, max-height 0.2s, margin 0.2s;
+.turnstile-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+  transition: opacity 0.2s, max-height 0.2s, margin 0.2s;
   overflow: hidden;
 }
 
-.turnstile-inline.turnstile-collapsed {
-  opacity: 0; max-width: 0; max-height: 0;
+.turnstile-row.turnstile-collapsed {
+  opacity: 0; max-height: 0; margin-top: 0;
   pointer-events: none;
   position: absolute;
 }

@@ -216,14 +216,6 @@ onMounted(async () => {
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
           </button>
         </div>
-        <Turnstile
-          ref="turnstileRef"
-          class="turnstile-inline"
-          :class="{ 'turnstile-collapsed': result }"
-          @verified="onTurnstileVerified"
-          @expired="onTurnstileInvalid"
-          @error="onTurnstileInvalid"
-        />
         <button type="submit" class="search-btn" :disabled="isFormDisabled">
           <span v-if="loading" class="btn-loading">
             <span class="spinner"></span>
@@ -231,6 +223,15 @@ onMounted(async () => {
           <span v-else>Check DMARC</span>
         </button>
       </form>
+
+      <Turnstile
+        ref="turnstileRef"
+        class="turnstile-row"
+        :class="{ 'turnstile-collapsed': result }"
+        @verified="onTurnstileVerified"
+        @expired="onTurnstileInvalid"
+        @error="onTurnstileInvalid"
+      />
     </div>
 
     <!-- ── Error ── -->
@@ -461,16 +462,18 @@ onMounted(async () => {
   cursor: not-allowed;
 }
 
-.turnstile-inline {
-  flex-shrink: 0;
-  transition: opacity 0.2s, max-width 0.2s, max-height 0.2s, margin 0.2s;
+.turnstile-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+  transition: opacity 0.2s, max-height 0.2s, margin 0.2s;
   overflow: hidden;
 }
 
-.turnstile-inline.turnstile-collapsed {
+.turnstile-row.turnstile-collapsed {
   opacity: 0;
-  max-width: 0;
   max-height: 0;
+  margin-top: 0;
   pointer-events: none;
   position: absolute;
 }
