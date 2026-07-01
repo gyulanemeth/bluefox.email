@@ -4,90 +4,112 @@ import { checkDmarc } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import { syncWithUrl, loadFromUrl } from './helpers/urlSync.js'
 import Turnstile from './Turnstile.vue'
+import SignalIcon from './SignalIcon.vue'
+import ToolSwitcher from './ToolSwitcher.vue'
 
-// ---- VARIABLES ----
 const DMARC_TAG_DESCRIPTIONS = {
-  v: "DMARC version tag (should be DMARC1).",
-  p: "Policy for main domain (none/quarantine/reject).",
-  sp: "Subdomain policy (if present).",
-  np: "Policy for non-existent subdomains.",
-  rua: "Aggregate report recipient(s).",
-  ruf: "Forensic report recipient(s).",
-  adkim: "DKIM alignment mode (r=relaxed, s=strict).",
-  aspf: "SPF alignment mode (r=relaxed, s=strict).",
-  pct: "Percent of mail subject to filtering.",
-  fo: "Failure reporting options.",
-  ri: "Report interval in seconds.",
-  t: "Test mode flag (y = testing, policy not enforced).",
-  psd: "Public suffix domain flag.",
-  rf: "Report format (deprecated)."
+  v:     'DMARC version tag (should be DMARC1).',
+  p:     'Policy for main domain (none/quarantine/reject).',
+  sp:    'Subdomain policy (if present).',
+  np:    'Policy for non-existent subdomains.',
+  rua:   'Aggregate report recipient(s).',
+  ruf:   'Forensic report recipient(s).',
+  adkim: 'DKIM alignment mode (r=relaxed, s=strict).',
+  aspf:  'SPF alignment mode (r=relaxed, s=strict).',
+  pct:   'Percent of mail subject to filtering.',
+  fo:    'Failure reporting options.',
+  ri:    'Report interval in seconds.',
+  t:     'Test mode flag (y = testing, policy not enforced).',
+  psd:   'Public suffix domain flag.',
+  rf:    'Report format (deprecated).',
 }
 
-const domain = ref('')
-const loading = ref(false)
-const result = ref(null)
-const errorMessage = ref('')
+const domain        = ref('')
+const loading       = ref(false)
+const result        = ref(null)
+const errorMessage  = ref('')
+const showRawRecord = ref(false)
+const showTagTable  = ref(false)
 
-// Turnstile state
-const turnstileRef = ref(null)
+const turnstileRef   = ref(null)
 const turnstileToken = ref('')
+const resultsRef = ref(null)
 
-const isFormDisabled = computed(() =>
-  loading.value
-)
+const isFormDisabled = computed(() => loading.value)
 
 const dmarcTags = computed(() => {
-  const parsed = result.value?.parsed || {}
+  const parsed       = result.value?.parsed       || {}
   const explanations = result.value?.explanations || {}
   return Object.entries(DMARC_TAG_DESCRIPTIONS)
     .map(([tag, description]) => ({
-      tag: tag.toUpperCase(),
-      value: parsed[tag] || '',
-      description: explanations[tag] || description
+      tag:         tag.toUpperCase(),
+      value:       parsed[tag] || '',
+      description: explanations[tag] || description,
     }))
     .filter(item => item.value)
 })
 
-const testModeWarning = computed(() =>
-  result.value?.warnings?.find(w => /^t=y/i.test(w)) ?? null
+const policySignal = computed(() => {
+  const p = result.value?.parsed?.p?.toLowerCase()
+  if (p === 'reject')      return { label: 'Reject',      level: 'strong',  icon: 'check' }
+  if (p === 'quarantine')  return { label: 'Quarantine',  level: 'medium',  icon: 'minus' }
+  if (p === 'none')        return { label: 'None',        level: 'weak',    icon: 'alert' }
+  return null
+})
+
+const pctSignal = computed(() => {
+  const pct = result.value?.parsed?.pct
+  if (!pct) return { label: '100% (default)', level: 'strong', icon: 'check' }
+  const n = parseInt(pct, 10)
+  if (n === 100) return { label: '100%',      level: 'strong', icon: 'check' }
+  if (n >= 50)   return { label: `${n}%`,     level: 'medium', icon: 'minus' }
+  return         { label: `${n}%`,            level: 'weak',   icon: 'alert' }
+})
+
+const dkimAlignSignal = computed(() => {
+  const adkim = result.value?.parsed?.adkim?.toLowerCase()
+  if (adkim === 's') return { label: 'DKIM Strict',  level: 'strong', icon: 'check' }
+  return               { label: 'DKIM Relaxed', level: 'medium', icon: 'minus' }
+})
+
+const spfAlignSignal = computed(() => {
+  const aspf = result.value?.parsed?.aspf?.toLowerCase()
+  if (aspf === 's') return { label: 'SPF Strict',  level: 'strong', icon: 'check' }
+  return              { label: 'SPF Relaxed', level: 'medium', icon: 'minus' }
+})
+
+const ruaSignal = computed(() => {
+  const rua = result.value?.parsed?.rua
+  if (rua) return { label: 'Reports On',  level: 'strong', icon: 'check' }
+  return    { label: 'No Reports',   level: 'weak',   icon: 'alert' }
+})
+
+const rufSignal = computed(() => {
+  const ruf = result.value?.parsed?.ruf
+  if (ruf) return { label: 'Forensics On', level: 'medium', icon: 'minus' }
+  return    { label: 'No Forensics', level: 'muted',  icon: 'dot' }
+})
+
+const criticalWarnings = computed(() =>
+  result.value?.warnings?.filter(w =>
+    !/^t=y/i.test(w) && !/deprecated/i.test(w)
+  ) ?? []
 )
 
 const deprecatedWarnings = computed(() =>
   result.value?.warnings?.filter(w => /deprecated/i.test(w)) ?? []
 )
 
-const regularWarnings = computed(() =>
-  result.value?.warnings?.filter(w =>
-    !/^t=y/i.test(w) && !/deprecated/i.test(w)
-  ) ?? []
+const testModeWarning = computed(() =>
+  result.value?.warnings?.find(w => /^t=y/i.test(w)) ?? null
 )
 
-const npRecommendations = computed(() =>
-  result.value?.recommendations?.filter(r => /\bnp=/i.test(r)) ?? []
+const recommendations = computed(() =>
+  result.value?.recommendations ?? []
 )
 
-const rfc9989Ready = computed(() => {
-  const protocol = result.value?.protocol
-  if (!protocol) {
-    return false
-  }
-  return !protocol.deprecatedTags?.length &&
-    !protocol.unknownTags?.length &&
-    !protocol.testMode
-})
-
-const regularRecommendations = computed(() =>
-  result.value?.recommendations?.filter(r => !/\bnp=/i.test(r)) ?? []
-)
-
-// ---- FUNCTIONS ----
-function onTurnstileVerified(token) {
-  turnstileToken.value = token
-}
-
-function onTurnstileInvalid() {
-  turnstileToken.value = ''
-}
+function onTurnstileVerified(token)  { turnstileToken.value = token }
+function onTurnstileInvalid()        { turnstileToken.value = '' }
 
 function resetTurnstile() {
   turnstileToken.value = ''
@@ -99,919 +121,857 @@ function validateInputs() {
     errorMessage.value = 'Please enter a domain name'
     return false
   }
-
   return true
 }
 
 async function checkDmarcHandler() {
-  result.value = null
-  loading.value = true
+  result.value      = null
+  loading.value     = true
   errorMessage.value = ''
+  showRawRecord.value = false
+  showTagTable.value  = false
 
   try {
-    if (!validateInputs()) {
-      loading.value = false
-      return
-    }
+    if (!validateInputs()) { loading.value = false; return }
 
     if (!isSessionValid()) {
       turnstileToken.value = await turnstileRef.value.getToken()
     }
 
     const data = await checkDmarc({
-      domain: domain.value,
-      turnstileToken: turnstileToken.value
+      domain:         domain.value,
+      turnstileToken: turnstileToken.value,
     })
 
     result.value = {
-      valid: true,
-      domain: data.result.domain || domain.value,
-      record: data.result.rawRecord || data.result.record || 'Not found',
-      parsed: data.result.parsed || {},
+      valid:        true,
+      domain:       data.result.domain       || domain.value,
+      record:       data.result.rawRecord    || data.result.record || 'Not found',
+      parsed:       data.result.parsed       || {},
       explanations: data.result.explanations || {},
       checkedRecord: data.result.checkedRecord,
-      score: data.result.score,
-      protocol: data.result.protocol || null,
-      warnings: data.result.warnings || [],
-      recommendations: data.result.recommendations || []
+      score:        data.result.score,
+      protocol:     data.result.protocol     || null,
+      warnings:     data.result.warnings     || [],
+      recommendations: data.result.recommendations || [],
     }
 
     resetTurnstile()
-
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
-    if (err.status === 401) {
-      resetTurnstile()
-    }
+    if (err.status === 401) resetTurnstile()
   } finally {
     loading.value = false
   }
 }
 
-// ---- WATCHES ----
-watch(domain, () => {
-  syncWithUrl({ domain: domain.value })
-})
+watch(domain, () => syncWithUrl({ domain: domain.value }))
 
-// ---- LIFECYCLE ----
 onMounted(async () => {
-  loadFromUrl({ domain })
+  const urlParams = new URLSearchParams(window.location.search)
 
+  loadFromUrl({ domain })
   await nextTick()
+
+  if (urlParams.get('run') === '1' && domain.value) {
+    await turnstileRef.value?.whenReady()
+    await checkDmarcHandler()
+    await nextTick()
+    resultsRef.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 })
 </script>
 
 <template>
   <div class="dmarc-checker">
-    <div class="tool-form">
-      <form @submit.prevent="checkDmarcHandler">
-        <!-- Domain Input -->
-        <div class="form-group">
-          <label for="domain">Domain:</label>
+
+    <ToolSwitcher :domain="domain" />
+
+    <!-- ── Inline form ── -->
+    <div class="search-bar" :class="{ 'has-result': result }">
+      <form class="search-form" @submit.prevent="checkDmarcHandler">
+        <div class="search-input-wrap">
+          <span class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </span>
           <input
             id="domain"
             v-model="domain"
             type="text"
             placeholder="example.com"
             :disabled="loading"
+            autocomplete="off"
+            spellcheck="false"
             required
           />
+          <button
+            v-if="domain && !loading"
+            type="button"
+            class="search-clear"
+            aria-label="Clear domain"
+            @click="domain = ''"
+          >
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
-
-        <!-- Verification -->
-        <div class="form-group">
-          <Turnstile
-            ref="turnstileRef"
-            @verified="onTurnstileVerified"
-            @expired="onTurnstileInvalid"
-            @error="onTurnstileInvalid"
-          />
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="check-btn" :disabled="isFormDisabled">
+        <Turnstile
+          ref="turnstileRef"
+          class="turnstile-inline"
+          :class="{ 'turnstile-collapsed': result }"
+          @verified="onTurnstileVerified"
+          @expired="onTurnstileInvalid"
+          @error="onTurnstileInvalid"
+        />
+        <button type="submit" class="search-btn" :disabled="isFormDisabled">
           <span v-if="loading" class="btn-loading">
-            <div class="loading-spinner"></div>
-            Checking...
+            <span class="spinner"></span>
           </span>
           <span v-else>Check DMARC</span>
         </button>
       </form>
     </div>
 
-    <!-- Error Display -->
-    <div v-if="errorMessage" class="error-section">
-      <p class="error-message">{{ errorMessage }}</p>
+    <!-- ── Error ── -->
+    <div v-if="errorMessage" class="error-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      {{ errorMessage }}
     </div>
 
-    <!-- Results -->
-    <div v-if="result" class="result-section">
-      <h3>DMARC Check Results</h3>
-      
-      <!-- Status -->
-      <div class="status-box">
-        <p><strong>{{ result.valid ? 'DMARC Record Found' : 'DMARC Record Missing or Invalid' }}</strong></p>
-        <p v-if="result.score">
-          <strong>Security Score:</strong>
-          {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Comprehensive score based on policy strength, alignment settings, and reporting configuration.</span>
-          </span>
-        </p>
-      </div>
+    <!-- ── Results ── -->
+    <div v-if="result" class="results" ref="resultsRef">
 
-      <!-- Basic Information -->
-      <div class="info-section">
-        <h4>
-          Basic Information
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Essential details about the DMARC record found for this domain.</span>
-          </span>
-        </h4>
-        <p><strong>Domain:</strong> {{ result.domain }}</p>
-        <p v-if="result.checkedRecord">
-          <strong>Checked Record:</strong> {{ result.checkedRecord }}
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">The DNS record location where DMARC policy was found (usually _dmarc.[domain]).</span>
-          </span>
-        </p>
-        <p>
-          <strong>DMARC Record:</strong> {{ result.record }}
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">The complete DMARC policy string retrieved from DNS.</span>
-          </span>
-        </p>
-      </div>
-
-      <!-- DMARC Tags Table -->
-      <div v-if="dmarcTags.length" class="dmarc-table-section">
-        <h4>
-          DMARC Record Breakdown
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Each tag in the DMARC record explained. These define the email authentication policy and reporting.</span>
-          </span>
-        </h4>
-        <div class="table-container">
-          <table class="dmarc-table">
-            <thead>
-              <tr>
-                <th class="tag-col">Tag</th>
-                <th class="value-col">Value</th>
-                <th class="desc-col">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="tag in dmarcTags" :key="tag.tag">
-                <td class="tag-cell">{{ tag.tag }}</td>
-                <td class="value-cell">{{ tag.value }}</td>
-                <td class="desc-cell">{{ tag.description }}</td>
-              </tr>
-            </tbody>
-          </table>
+      <!-- Hero status -->
+      <div class="hero" :class="result.valid ? 'hero-pass' : 'hero-fail'">
+        <div class="hero-icon" :class="result.valid ? 'icon-pass' : 'icon-fail'">
+          <svg v-if="result.valid" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg v-else width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+        <div class="hero-text">
+          <h2 class="hero-title">{{ result.valid ? 'DMARC Configured' : 'DMARC Missing' }}</h2>
+          <p class="hero-domain">{{ result.checkedRecord || ('_dmarc.' + result.domain) }}</p>
+        </div>
+        <div v-if="result.score" class="hero-score">
+          <span class="score-num">{{ result.score.value }}<span class="score-denom">/{{ result.score.outOf }}</span></span>
+          <span class="score-label" :class="'score-' + result.score.level?.toLowerCase()">{{ result.score.level }}</span>
         </div>
       </div>
 
-      <!-- Standards Compliance (RFC 9989) -->
-      <div v-if="result.protocol" class="protocol-section">
-        <h4>
-          Standards Compliance
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Checks your DMARC record against the updated DMARC standard (RFC 9989). Deprecated and unknown tags are ignored by receivers.</span>
-          </span>
-        </h4>
-        <div class="protocol-grid">
-          <div class="policy-item">
-            <span class="label">RFC 9989 Ready:</span>
-            <span class="value">
-              <span class="proto-badge" :class="rfc9989Ready ? 'pass' : 'warn'">
-                {{ rfc9989Ready ? 'Yes' : 'Needs attention' }}
-              </span>
-            </span>
-          </div>
-          <div v-if="result.protocol.deprecatedTags?.length" class="policy-item">
-            <span class="label">Deprecated Tags:</span>
-            <span class="value">
-              <span class="proto-badge warn">{{ result.protocol.deprecatedTags.join(', ') }}</span>
-            </span>
-          </div>
-          <div v-if="result.protocol.testMode" class="policy-item">
-            <span class="label">Test Mode:</span>
-            <span class="value"><span class="proto-badge warn">t=y (not enforced)</span></span>
-          </div>
-          <div v-if="result.protocol.unknownTags?.length" class="policy-item">
-            <span class="label">Unknown Tags:</span>
-            <span class="value">
-              <span class="proto-badge warn">{{ result.protocol.unknownTags.join(', ') }}</span>
-            </span>
-          </div>
-          <div class="policy-item">
-            <span class="label">Non-Existent Subdomain Policy (np=):</span>
-            <span class="value">
-              <span class="proto-badge" :class="result.protocol.npConfigured ? 'pass' : 'muted'">
-                {{ result.protocol.npConfigured ? 'Configured' : 'Not set' }}
-              </span>
-            </span>
-          </div>
+      <!-- Policy signals grid -->
+      <div v-if="result.valid" class="signals-grid">
+        <div class="signal" :class="'signal-' + policySignal?.level">
+          <span class="signal-icon"><SignalIcon :name="policySignal?.icon" /></span>
+          <span class="signal-name">Policy</span>
+          <span class="signal-value">{{ policySignal?.label }}</span>
+        </div>
+        <div class="signal" :class="'signal-' + pctSignal?.level">
+          <span class="signal-icon"><SignalIcon :name="pctSignal?.icon" /></span>
+          <span class="signal-name">Coverage</span>
+          <span class="signal-value">{{ pctSignal?.label }}</span>
+        </div>
+        <div class="signal" :class="'signal-' + dkimAlignSignal?.level">
+          <span class="signal-icon"><SignalIcon :name="dkimAlignSignal?.icon" /></span>
+          <span class="signal-name">DKIM Align</span>
+          <span class="signal-value">{{ dkimAlignSignal?.label }}</span>
+        </div>
+        <div class="signal" :class="'signal-' + spfAlignSignal?.level">
+          <span class="signal-icon"><SignalIcon :name="spfAlignSignal?.icon" /></span>
+          <span class="signal-name">SPF Align</span>
+          <span class="signal-value">{{ spfAlignSignal?.label }}</span>
+        </div>
+        <div class="signal" :class="'signal-' + ruaSignal?.level">
+          <span class="signal-icon"><SignalIcon :name="ruaSignal?.icon" /></span>
+          <span class="signal-name">Aggregate</span>
+          <span class="signal-value">{{ ruaSignal?.label }}</span>
+        </div>
+        <div class="signal" :class="'signal-' + rufSignal?.level">
+          <span class="signal-icon"><SignalIcon :name="rufSignal?.icon" /></span>
+          <span class="signal-name">Forensic</span>
+          <span class="signal-value">{{ rufSignal?.label }}</span>
         </div>
       </div>
 
-      <!-- t=y staging warning (prominent, not a list item) -->
-      <div v-if="testModeWarning" class="test-mode-banner">
-        <strong>Test Mode Active</strong>
-        <p>{{ testModeWarning }}</p>
+      <!-- Test-mode banner -->
+      <div v-if="testModeWarning" class="alert alert-testmode">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div>
+          <strong>Test mode active — policy not enforced</strong>
+          <p>{{ testModeWarning }}</p>
+        </div>
       </div>
 
-      <!-- Regular warnings -->
-      <div v-if="regularWarnings.length" class="section warnings-section">
-        <h4>Warnings</h4>
+      <!-- Critical warnings -->
+      <div v-if="criticalWarnings.length" class="alert alert-warn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         <ul>
-          <li v-for="warning in regularWarnings" :key="warning">{{ warning }}</li>
-        </ul>
-      </div>
-
-      <!-- Deprecated tag notices (muted, informational) -->
-      <div v-if="deprecatedWarnings.length" class="section deprecated-section">
-        <h4>Deprecated Tags</h4>
-        <ul>
-          <li v-for="warning in deprecatedWarnings" :key="warning">{{ warning }}</li>
+          <li v-for="w in criticalWarnings" :key="w">{{ w }}</li>
         </ul>
       </div>
 
       <!-- Recommendations -->
-      <div v-if="regularRecommendations.length" class="section recommendations-section">
-        <h4>Recommendations</h4>
+      <div v-if="recommendations.length" class="alert alert-tip">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         <ul>
-          <li v-for="rec in regularRecommendations" :key="rec">{{ rec }}</li>
+          <li v-for="r in recommendations" :key="r">{{ r }}</li>
         </ul>
       </div>
 
-      <!-- Advanced (np= and similar) -->
-      <div v-if="npRecommendations.length" class="section advanced-section">
-        <h4>Advanced</h4>
+      <!-- Deprecated notices -->
+      <div v-if="deprecatedWarnings.length" class="alert alert-muted">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
         <ul>
-          <li v-for="rec in npRecommendations" :key="rec">{{ rec }}</li>
+          <li v-for="w in deprecatedWarnings" :key="w">{{ w }}</li>
         </ul>
       </div>
-    </div>
+
+      <!-- Expert details — collapsed by default -->
+      <div class="disclosures">
+        <details class="disclosure">
+          <summary class="disclosure-trigger" @click="showRawRecord = !showRawRecord">
+            <span class="disclosure-label">Raw record</span>
+            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="disclosure-body">
+            <code class="raw-record">{{ result.record }}</code>
+          </div>
+        </details>
+
+        <details v-if="dmarcTags.length" class="disclosure">
+          <summary class="disclosure-trigger">
+            <span class="disclosure-label">Tag breakdown</span>
+            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="disclosure-body">
+            <table class="tag-table">
+              <thead>
+                <tr>
+                  <th>Tag</th>
+                  <th>Value</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="tag in dmarcTags" :key="tag.tag">
+                  <td class="td-tag">{{ tag.tag }}</td>
+                  <td class="td-value">{{ tag.value }}</td>
+                  <td class="td-desc">{{ tag.description }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+
+    </div><!-- /results -->
   </div>
 </template>
 
 <style scoped>
+/* ── Root ── */
 .dmarc-checker {
-  max-width: 800px;
+  max-width: 780px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1rem 3rem;
+  font-family: inherit;
 }
 
-.tool-form {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 12px;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
+/* ── Search bar ── */
+.search-bar {
+  margin: 2rem 0 1.5rem;
+  transition: margin 0.2s;
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
+.search-bar.has-result {
+  margin: 0 0 1rem;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1, #374151);
-  font-size: 0.9rem;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 0.875rem 1rem;
-  border: 2px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease;
-  box-sizing: border-box;
-  background: var(--vp-c-bg, #ffffff);
-  color: var(--vp-c-text-1, #374151);
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: var(--vp-c-brand);
-  box-shadow: 0 0 0 3px rgba(19, 176, 238, 0.1);
-}
-
-.form-group input:disabled {
-  background: var(--vp-c-bg-mute, #f1f5f9);
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* CAPTCHA Styles */
-.captcha-expired-message {
-  background: #fff3cd;
-  border: 1px solid #ffc107;
-  color: #856404;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-}
-
-.captcha-container {
+.search-form {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  transition: transform 0.2s;
 }
 
-.captcha-image-container {
+.search-input-wrap {
   flex: 1;
-  min-height: 50px;
+  min-width: 220px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 0.875rem;
+  color: var(--vp-c-text-3, #9ca3af);
+  display: flex;
+  pointer-events: none;
+}
+
+.search-input-wrap input {
+  width: 100%;
+  padding: 0.75rem 2.25rem 0.75rem 2.5rem;
+  border: 1.5px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 10px;
+  font-size: 1rem;
+  background: var(--vp-c-bg, #fff);
+  color: var(--vp-c-text-1, #111827);
+  transition: border-color 0.15s, box-shadow 0.15s, padding 0.2s;
+  box-sizing: border-box;
+}
+
+.has-result .search-input-wrap input {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.search-clear {
+  position: absolute;
+  right: 0.625rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #ffffff;
-  border: 1px solid var(--vp-c-border-soft, #dee2e6);
-  border-radius: 6px;
-  padding: 0.5rem;
-}
-
-.captcha-loading,
-.captcha-placeholder {
-  color: #6b7280;
-  font-style: italic;
-  text-align: center;
-}
-
-.load-captcha-btn {
-  background: var(--vp-c-brand);
-  color: white;
+  width: 20px;
+  height: 20px;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  background: var(--vp-c-bg-mute, #f1f5f9);
+  color: var(--vp-c-text-2, #6b7280);
+  border-radius: 50%;
   cursor: pointer;
-  font-size: 0.875rem;
-  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
 }
 
-.load-captcha-btn:hover {
-  background: var(--vp-c-brand-light);
+.search-clear:hover {
+  background: var(--vp-c-bg-soft, #e5e7eb);
+  color: var(--vp-c-text-1, #111827);
 }
 
-.refresh-captcha-btn {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.refresh-captcha-btn:hover:not(:disabled) {
-  background: var(--vp-c-bg, #ffffff);
+.search-input-wrap input:focus {
+  outline: none;
   border-color: var(--vp-c-brand);
+  box-shadow: 0 0 0 3px hsla(197, 87%, 50%, 0.12);
 }
 
-.refresh-captcha-btn:disabled {
+.search-input-wrap input:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.refresh-captcha-btn img {
-  width: 16px;
-  height: 16px;
+.turnstile-inline {
+  flex-shrink: 0;
+  transition: opacity 0.2s, max-width 0.2s, max-height 0.2s, margin 0.2s;
+  overflow: hidden;
 }
 
-.captcha-help {
-  display: block;
-  margin-top: 0.5rem;
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.875rem;
-  font-style: italic;
+.turnstile-inline.turnstile-collapsed {
+  opacity: 0;
+  max-width: 0;
+  max-height: 0;
+  pointer-events: none;
+  position: absolute;
 }
 
-/* Button */
-.check-btn {
+.search-btn {
+  padding: 0.75rem 1.5rem;
   background: var(--vp-c-brand);
-  color: #ffffff;
-  padding: 0.875rem 2rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
+  color: #fff;
+  font-size: 0.9rem;
   font-weight: 600;
-  transition: all 0.2s ease;
-  width: 100%;
-  box-shadow: 0 2px 4px rgba(19, 176, 238, 0.2);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s, padding 0.2s;
+  box-shadow: 0 1px 4px hsla(197, 87%, 50%, 0.3);
+  min-width: 130px;
 }
 
-.check-btn:hover:not(:disabled) {
-  background: var(--vp-c-brand-light);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.25);
+.has-result .search-btn {
+  padding: 0.5rem 1.25rem;
+  min-width: 100px;
+  font-size: 0.825rem;
 }
 
-.check-btn:active:not(:disabled) {
+.search-btn:hover:not(:disabled) {
   background: var(--vp-c-brand-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px hsla(197, 87%, 50%, 0.35);
+}
+
+.search-btn:active:not(:disabled) {
   transform: translateY(0);
 }
 
-.check-btn:disabled {
-  background: var(--vp-c-bg-mute, #9ca3af);
+.search-btn:disabled {
+  opacity: 0.55;
   cursor: not-allowed;
-  transform: none;
   box-shadow: none;
 }
 
 .btn-loading {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   justify-content: center;
 }
 
-.loading-spinner {
-  width: 12px;
-  height: 12px;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  border-top: 1.5px solid #ffffff;
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: spin 0.7s linear infinite;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
-/* Error Section */
-.error-section {
-  background: var(--vp-danger-soft, #f8d7da);
-  color: var(--vp-c-danger-1, #721c24);
-  padding: 1rem;
+/* ── Error ── */
+.error-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid rgba(220, 38, 38, 0.2);
   border-radius: 8px;
-  margin: 1rem 0;
-  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
-}
-
-.error-message {
-  margin: 0;
+  font-size: 0.875rem;
   font-weight: 500;
-}
-
-/* Results Section */
-.result-section {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 12px;
-  background: var(--vp-c-bg, #ffffff);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.result-section h3 {
-  margin: 0 0 1.5rem 0;
-  color: var(--vp-c-text-1, #1a202c);
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.status-box {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  padding: 1.25rem;
-  border: 1px solid var(--vp-c-border-soft, #dee2e6);
-  border-radius: 8px;
   margin-bottom: 1.5rem;
 }
 
-.status-box p {
-  margin: 0.5rem 0;
-  font-size: 1rem;
+/* ── Results ── */
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
 }
 
-/* Info Section */
-.info-section {
-  border-top: 1px solid var(--vp-c-border-soft, #eee);
-  padding-top: 1.5rem;
-  margin-top: 1.5rem;
+/* ── Hero ── */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 14px;
+  border: 1px solid transparent;
 }
 
-.info-section h4 {
-  margin: 0 0 1rem 0;
-  color: var(--vp-c-text-1, #333);
-  font-size: 1.25rem;
-  font-weight: 600;
+.hero-pass {
+  background: linear-gradient(135deg, rgba(22,163,74,0.06) 0%, rgba(19,176,238,0.04) 100%);
+  border-color: rgba(22, 163, 74, 0.2);
 }
 
-.info-section p {
-  margin: 0.75rem 0;
-  color: var(--vp-c-text-2, #4a5568);
-  line-height: 1.6;
+.hero-fail {
+  background: rgba(220, 38, 38, 0.04);
+  border-color: rgba(220, 38, 38, 0.18);
 }
 
-/* Info tip styles */
-.info-tip {
-  display: inline-block;
-  margin-left: .3rem;
-  width: 1rem;
-  height: 1rem;
-  line-height: 1rem;
-  text-align: center;
-  border-radius: 50%;
-  background: var(--vp-c-brand);
-  color: #fff;
-  font-size: .675rem;
-  cursor: help;
-  position: relative;
-  vertical-align: middle;
+.hero-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
-.info-tip-pop {
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  left: 50%;
-  top: calc(100% + 8px);
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: min(300px, 90vw);
-  padding: .8rem 1rem;
-  border-radius: 8px;
-  background: var(--vp-c-bg, #ffffff);
-  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  box-shadow: 0 8px 24px rgba(0,0,0,.12);
-  color: var(--vp-c-text-1, #374151);
-  font-size: .825rem;
-  line-height: 1.5;
-  z-index: 1000;
-  transition: opacity .2s ease, transform .2s ease;
-  transform: translateX(-50%) translateY(-4px);
-  word-wrap: break-word;
-  hyphens: auto;
+.icon-pass {
+  background: rgba(22, 163, 74, 0.12);
+  color: #16a34a;
+  border: 1px solid rgba(22, 163, 74, 0.2);
 }
 
-.info-tip-pop::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
-  background: var(--vp-c-bg, #ffffff);
-  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  border-bottom: none;
-  border-right: none;
-  transform: translateX(-50%) rotate(45deg);
+.icon-fail {
+  background: rgba(220, 38, 38, 0.1);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.15);
 }
 
-.info-tip:hover .info-tip-pop,
-.info-tip:focus .info-tip-pop {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
+.hero-text {
+  flex: 1;
+  min-width: 0;
 }
 
-.info-tip:nth-last-child(-n+2) .info-tip-pop,
-.info-tip:last-child .info-tip-pop {
-  left: auto;
-  right: 0;
-  transform: translateX(0);
+.hero-title {
+  margin: 0 0 0.25rem;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--vp-c-text-1, #111827);
+  line-height: 1.2;
 }
 
-.info-tip:nth-last-child(-n+2) .info-tip-pop::before,
-.info-tip:last-child .info-tip-pop::before {
-  left: auto;
-  right: 1rem;
-  transform: translateX(0) rotate(45deg);
-}
-
-.info-tip:hover:nth-last-child(-n+2) .info-tip-pop,
-.info-tip:focus:nth-last-child(-n+2) .info-tip-pop,
-.info-tip:hover:last-child .info-tip-pop,
-.info-tip:focus:last-child .info-tip-pop {
-  transform: translateX(0) translateY(0);
-}
-
-/* DMARC Table */
-.dmarc-table-section {
-  margin-top: 1.5rem;
-  border-top: 1px solid var(--vp-c-border-soft, #eee);
-  padding-top: 1.5rem;
-}
-
-.dmarc-table-section h4 {
-  margin: 0 0 1rem 0;
-  color: var(--vp-c-text-1, #333);
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.table-container {
-  overflow-x: auto;
-}
-
-.dmarc-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 1rem 0;
-  background: var(--vp-c-bg, #fff);
-}
-
-.dmarc-table th,
-.dmarc-table td {
-  border: 1px solid var(--vp-c-border-soft, #ddd);
-  padding: 0.75rem;
-  text-align: left;
-  vertical-align: top;
-}
-
-.dmarc-table th {
-  background: var(--vp-c-bg-soft, #f5f5f5);
-  font-weight: 600;
-}
-
-.tag-col { width: 80px; }
-.value-col { width: 200px; }
-.desc-col { width: auto; }
-
-.tag-cell { 
-  font-family: monospace; 
-  font-weight: 600;
-  color: var(--vp-c-brand);
-}
-
-.value-cell { 
-  font-family: monospace; 
+.hero-domain {
+  margin: 0;
+  font-size: 0.825rem;
+  color: var(--vp-c-text-2, #6b7280);
+  font-family: var(--vp-font-family-mono, monospace);
   word-break: break-all;
 }
 
-/* Standards Compliance Section */
-.protocol-section {
-  border-top: 1px solid var(--vp-c-border-soft, #eee);
-  padding-top: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.protocol-section h4 {
-  margin: 0 0 1rem 0;
-  color: var(--vp-c-text-1, #333);
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.protocol-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-}
-
-.policy-item {
+.hero-score {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.25rem;
-  padding: 0.75rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 6px;
-  border: 1px solid var(--vp-c-border-soft, #dee2e6);
-  overflow: visible;
+  flex-shrink: 0;
 }
 
-.policy-item .label {
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.875rem;
-  font-weight: 500;
+.score-num {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--vp-c-text-1, #111827);
+  line-height: 1;
 }
 
-.policy-item .value {
-  color: var(--vp-c-text-1, #374151);
-  font-weight: 600;
+.score-denom {
   font-size: 1rem;
+  font-weight: 500;
+  color: var(--vp-c-text-3, #9ca3af);
 }
 
-.proto-badge {
-  display: inline-block;
-  padding: 0.15rem 0.6rem;
+.score-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.15rem 0.5rem;
   border-radius: 999px;
-  font-size: 0.78rem;
-  font-weight: 600;
 }
 
-.proto-badge.pass { background: #ebf7ed; color: #217b2d; }
-.proto-badge.warn { background: #fff8e6; color: #b45309; }
-.proto-badge.muted { background: var(--vp-c-bg-mute, #f1f5f9); color: var(--vp-c-text-2, #6b7280); }
+.score-strong, .score-excellent { background: rgba(22,163,74,0.12); color: #15803d; }
+.score-good,   .score-medium   { background: rgba(217,119,6,0.12);  color: #b45309; }
+.score-poor,   .score-weak     { background: rgba(220,38,38,0.1);   color: #dc2626; }
 
-/* Result Sections */
-.section {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
+/* ── Signals grid ── */
+.signals-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.5rem;
+  background: var(--vp-c-bg, #fff);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 12px;
+  padding: 1rem;
+}
+
+.signal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.625rem 0.25rem;
   border-radius: 8px;
+  text-align: center;
 }
 
-.section h4 {
-  margin: 0 0 1rem 0;
-  font-size: 1.25rem;
+.signal-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.signal-name {
+  font-size: 0.65rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vp-c-text-2, #6b7280);
 }
 
-.section ul {
-  margin: 0;
-  padding-left: 1.5rem;
+.signal-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1, #374151);
 }
 
-.section li {
-  margin: 0.5rem 0;
-  line-height: 1.5;
-}
+/* Signal states */
+.signal-strong .signal-icon { background: rgba(22,163,74,0.12); color: #16a34a; }
+.signal-medium .signal-icon { background: rgba(217,119,6,0.12);  color: #d97706; }
+.signal-weak   .signal-icon { background: rgba(220,38,38,0.1);   color: #dc2626; }
+.signal-muted  .signal-icon { background: var(--vp-c-bg-soft, #f3f4f6); color: var(--vp-c-text-3, #9ca3af); }
 
-.warnings-section {
-  background: var(--vp-warning-soft, #fffbf0);
-  border: 1px solid rgba(214, 158, 46, 0.2);
-}
+.signal-strong { background: rgba(22,163,74,0.04); }
+.signal-medium { background: rgba(217,119,6,0.04); }
+.signal-weak   { background: rgba(220,38,38,0.03); }
+.signal-muted  { background: transparent; }
 
-.warnings-section h4 {
-  color: var(--vp-c-warning-1, #d69e2e);
-}
-
-.recommendations-section {
-  background: var(--vp-tip-soft, #f0f9ff);
-  border: 1px solid rgba(23, 162, 184, 0.18);
-}
-
-.recommendations-section h4 {
-  color: var(--vp-c-tip-1, #17a2b8);
-}
-
-.test-mode-banner {
-  margin-top: 1.5rem;
+/* ── Alerts ── */
+.alert {
+  display: flex;
+  gap: 0.75rem;
   padding: 1rem 1.25rem;
-  background: #fff7ed;
-  border: 1px solid rgba(249, 115, 22, 0.2);
-  border-radius: 8px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.alert > svg {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.alert strong {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.2rem;
+}
+
+.alert p {
+  margin: 0;
+}
+
+.alert ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.alert li + li {
+  margin-top: 0.25rem;
+}
+
+.alert-testmode {
+  background: rgba(249,115,22,0.07);
+  border-color: rgba(249,115,22,0.25);
   color: #9a3412;
 }
 
-.test-mode-banner strong {
-  display: block;
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 0.25rem;
+.alert-testmode > svg { color: #ea580c; }
+
+.alert-warn {
+  background: rgba(217,119,6,0.06);
+  border-color: rgba(217,119,6,0.2);
+  color: var(--vp-c-text-1, #374151);
 }
 
-.test-mode-banner p {
-  margin: 0;
-  font-size: 0.9rem;
+.alert-warn > svg { color: #d97706; }
+
+.alert-tip {
+  background: hsla(197, 87%, 50%, 0.05);
+  border-color: hsla(197, 87%, 50%, 0.2);
+  color: var(--vp-c-text-1, #374151);
+}
+
+.alert-tip > svg { color: var(--vp-c-brand-dark, #0891b2); }
+
+.alert-muted {
+  background: var(--vp-c-bg-soft, #f9fafb);
+  border-color: var(--vp-c-border, #e5e7eb);
+  color: var(--vp-c-text-2, #6b7280);
+}
+
+.alert-muted > svg { color: var(--vp-c-text-3, #9ca3af); }
+
+/* ── Disclosure (details/summary) ── */
+.disclosures {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.disclosure {
+  background: var(--vp-c-bg, #fff);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.disclosure-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.875rem 1.25rem;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+.disclosure-trigger::-webkit-details-marker { display: none; }
+
+.disclosure-trigger:hover {
+  background: var(--vp-c-bg-soft, #f8f9fa);
+}
+
+.disclosure-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--vp-c-text-1, #374151);
+}
+
+.disclosure-chevron {
+  color: var(--vp-c-text-3, #9ca3af);
+  transition: transform 0.2s ease;
+}
+
+details[open] .disclosure-chevron {
+  transform: rotate(180deg);
+}
+
+.disclosure-body {
+  padding: 0 1.25rem 1.25rem;
+  border-top: 1px solid var(--vp-c-border-soft, #f1f5f9);
+}
+
+.raw-record {
+  display: block;
+  padding: 0.875rem 1rem;
+  margin-top: 1rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 8px;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.8rem;
+  word-break: break-all;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  color: var(--vp-c-text-1, #374151);
+}
+
+/* ── Tag table ── */
+.tag-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.825rem;
+}
+
+.tag-table th {
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vp-c-text-2, #6b7280);
+  border-bottom: 1px solid var(--vp-c-border, #e5e7eb);
+}
+
+.tag-table td {
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--vp-c-border-soft, #f1f5f9);
+  vertical-align: top;
+}
+
+.tag-table tr:last-child td {
+  border-bottom: none;
+}
+
+.td-tag {
+  font-family: monospace;
+  font-weight: 700;
+  color: var(--vp-c-brand);
+  white-space: nowrap;
+}
+
+.td-value {
+  font-family: monospace;
+  word-break: break-all;
+  color: var(--vp-c-text-1, #374151);
+}
+
+.td-desc {
+  color: var(--vp-c-text-2, #6b7280);
   line-height: 1.5;
 }
 
-.deprecated-section {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+/* ── Dark mode ── */
+.dark .hero-pass {
+  background: linear-gradient(135deg, rgba(22,163,74,0.09) 0%, rgba(19,176,238,0.06) 100%);
+  border-color: rgba(22,163,74,0.25);
 }
 
-.deprecated-section h4 {
-  color: var(--vp-c-text-2, #6b7280);
-  font-weight: 600;
+.dark .hero-fail {
+  background: rgba(220,38,38,0.08);
+  border-color: rgba(220,38,38,0.22);
 }
 
-.deprecated-section li {
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.875rem;
+.dark .icon-pass {
+  background: rgba(22,163,74,0.18);
+  color: #4ade80;
+  border-color: rgba(22,163,74,0.25);
 }
 
-.advanced-section {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+.dark .icon-fail {
+  background: rgba(220,38,38,0.18);
+  color: #f87171;
+  border-color: rgba(220,38,38,0.2);
 }
 
-.advanced-section h4 {
-  color: var(--vp-c-text-2, #6b7280);
-  font-weight: 600;
+.dark .score-strong, .dark .score-excellent { background: rgba(22,163,74,0.2); color: #4ade80; }
+.dark .score-good,   .dark .score-medium   { background: rgba(217,119,6,0.2);  color: #fbbf24; }
+.dark .score-poor,   .dark .score-weak     { background: rgba(220,38,38,0.2);  color: #f87171; }
+
+.dark .signal-strong .signal-icon { background: rgba(22,163,74,0.2); color: #4ade80; }
+.dark .signal-medium .signal-icon { background: rgba(217,119,6,0.2);  color: #fbbf24; }
+.dark .signal-weak   .signal-icon { background: rgba(220,38,38,0.2);  color: #f87171; }
+
+.dark .alert-testmode {
+  background: rgba(249,115,22,0.12);
+  border-color: rgba(249,115,22,0.3);
+  color: #fdba74;
 }
 
-.advanced-section li {
-  color: var(--vp-c-text-2, #6b7280);
+.dark .alert-warn {
+  background: rgba(217,119,6,0.1);
+  border-color: rgba(217,119,6,0.25);
+  color: var(--vp-c-text-1);
 }
 
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-  .dmarc-table th {
-    background: var(--vp-c-bg-soft, #252736);
-    color: var(--vp-c-text-1, #aad0f7);
-  }
-  
-  .refresh-captcha-btn {
-    background: var(--vp-c-bg-soft);
-    border-color: var(--vp-c-border);
-    color: var(--vp-c-text-1);
-  }
-  
-  .refresh-captcha-btn:hover:not(:disabled) {
-    border-color: var(--vp-c-brand);
-  }
-  
-  .recommendations-section,
-  .recommendations-section ul,
-  .recommendations-section li {
-    color: #2d3748 !important;
-  }
-
-  .test-mode-banner {
-    background: rgba(249, 115, 22, 0.12);
-    color: #fdba74;
-    border-color: rgba(249, 115, 22, 0.3);
-  }
-
-  .proto-badge.pass { background: rgba(34, 187, 51, 0.15); color: #6ee787; }
-  .proto-badge.warn { background: rgba(214, 158, 46, 0.15); color: #f0c36b; }
-
-  .info-tip-pop {
-    background: var(--vp-c-bg-soft, #252736);
-    border-color: var(--vp-c-border, #404040);
-    box-shadow: 0 8px 24px rgba(0,0,0,.3);
-  }
-  
-  .info-tip-pop::before {
-    background: var(--vp-c-bg-soft, #252736);
-    border-color: var(--vp-c-border, #404040);
-  }
+.dark .alert-tip {
+  background: hsla(197, 87%, 50%, 0.08);
+  border-color: hsla(197, 87%, 50%, 0.25);
+  color: var(--vp-c-text-1);
 }
 
-@media (max-width: 480px) {
-  .info-tip-pop {
-    position: fixed;
-    left: 10px !important;
-    right: 10px !important;
-    top: auto !important;
-    bottom: 20px;
-    transform: none !important;
-    width: auto !important;
-    max-width: none !important;
-    z-index: 9999;
-  }
-  
-  .info-tip-pop::before {
-    display: none;
-  }
-  
-  .info-tip:hover .info-tip-pop,
-  .info-tip:focus .info-tip-pop {
-    transform: none !important;
-  }
+.dark .alert-tip > svg { color: var(--vp-c-brand-light); }
+
+.dark .raw-record {
+  background: var(--vp-c-bg-soft);
+  color: var(--vp-c-brand-light);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .dmarc-checker {
-    padding: 0 0.5rem;
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .signals-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
-  
-  .tool-form,
-  .result-section {
-    padding: 1rem;
-    margin: 1rem 0;
+
+  .hero {
+    padding: 1.25rem;
+    gap: 1rem;
   }
-  
-  .captcha-container {
+
+  .hero-score {
+    align-self: flex-start;
+  }
+
+  .search-form {
     flex-direction: column;
     align-items: stretch;
   }
-  
-  .refresh-captcha-btn {
-    align-self: center;
-  }
-  
-  .dmarc-table {
-    font-size: 0.875rem;
-  }
-  
-  .dmarc-table th,
-  .dmarc-table td {
-    padding: 0.5rem;
+
+  .search-btn {
+    width: 100%;
   }
 }
 
-@media (hover: none) and (pointer: coarse) {
-  .info-tip {
-    width: 1.25rem;
-    height: 1.25rem;
-    line-height: 1.25rem;
+@media (max-width: 400px) {
+  .signals-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-  
-  .info-tip-pop {
-    padding: 1rem 1.25rem;
-    font-size: .875rem;
+
+  .hero {
+    flex-wrap: wrap;
   }
 }
 </style>

@@ -4,32 +4,41 @@ import { checkDkim } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import { syncWithUrl, loadFromUrl } from './helpers/urlSync.js'
 import Turnstile from './Turnstile.vue'
+import SignalIcon from './SignalIcon.vue'
+import ToolSwitcher from './ToolSwitcher.vue'
 
-// ---- VARIABLES ----
 const DEFAULT_SELECTOR = 'default'
 const DKIM_TAG_DESCRIPTIONS = {
   v: "Version (always 'DKIM1').",
   k: "Key type (e.g., 'rsa').",
-  p: "Public key for signature verification.",
-  s: "Service type for this key.",
-  h: "Allowed hash algorithms.",
-  t: "DKIM flags.",
-  n: "Free-form notes."
+  p: 'Public key for signature verification.',
+  s: 'Service type for this key.',
+  h: 'Allowed hash algorithms.',
+  t: 'DKIM flags.',
+  n: 'Free-form notes.',
 }
 
-const domain = ref('')
-const selector = ref('')
-const loading = ref(false)
-const result = ref(null)
+const domain       = ref('')
+const selector     = ref('')
+const loading      = ref(false)
+const result       = ref(null)
 const errorMessage = ref('')
 
-// Turnstile state
-const turnstileRef = ref(null)
+const turnstileRef   = ref(null)
 const turnstileToken = ref('')
+const guessedSelector = ref(false)
+const resultsRef = ref(null)
 
-const isFormDisabled = computed(() =>
-  loading.value
-)
+const isFormDisabled = computed(() => loading.value)
+
+const TRUNCATE_AT = 40
+
+function truncateMiddle(value) {
+  if (value.length <= TRUNCATE_AT) return value
+  const head = value.slice(0, 20)
+  const tail = value.slice(-16)
+  return `${head}…${tail}`
+}
 
 const dkimTags = computed(() => {
   const record = result.value?.rawRecord || result.value?.record || ''
@@ -39,22 +48,45 @@ const dkimTags = computed(() => {
     .filter(Boolean)
     .map(pair => {
       const [tag, ...rest] = pair.split('=')
+      const value = rest.join('=').trim()
       return {
         tag: tag.trim(),
-        value: rest.join('=').trim(),
-        description: DKIM_TAG_DESCRIPTIONS[tag.trim()] || ''
+        value,
+        displayValue: truncateMiddle(value),
+        truncated: value.length > TRUNCATE_AT,
+        description: DKIM_TAG_DESCRIPTIONS[tag.trim()] || '',
       }
     })
 })
 
-// ---- FUNCTIONS ----
-function onTurnstileVerified(token) {
-  turnstileToken.value = token
+const copiedTag = ref('')
+
+async function copyTagValue(tag) {
+  try {
+    await navigator.clipboard.writeText(tag.value)
+    copiedTag.value = tag.tag
+    setTimeout(() => { if (copiedTag.value === tag.tag) copiedTag.value = '' }, 1500)
+  } catch {
+    /* clipboard unavailable */
+  }
 }
 
-function onTurnstileInvalid() {
-  turnstileToken.value = ''
-}
+const keyTypeSignal = computed(() => {
+  const k = dkimTags.value.find(t => t.tag === 'k')?.value?.toLowerCase() || 'rsa'
+  return { label: k.toUpperCase(), level: 'muted', icon: 'dot' }
+})
+
+const keyLengthSignal = computed(() => {
+  const p = dkimTags.value.find(t => t.tag === 'p')?.value
+  if (!p) return null
+  const approxBits = Math.floor((p.length * 6) / 8) * 8
+  if (approxBits >= 2048) return { label: `~${approxBits} bit`, level: 'strong', icon: 'check' }
+  if (approxBits >= 1024) return { label: `~${approxBits} bit`, level: 'medium', icon: 'minus' }
+  return { label: `~${approxBits} bit`, level: 'weak', icon: 'alert' }
+})
+
+function onTurnstileVerified(token) { turnstileToken.value = token }
+function onTurnstileInvalid()       { turnstileToken.value = '' }
 
 function resetTurnstile() {
   turnstileToken.value = ''
@@ -66,20 +98,16 @@ function validateInputs() {
     errorMessage.value = 'Please enter a domain name'
     return false
   }
-
   return true
 }
 
 async function checkDkimHandler() {
-  result.value = null
-  loading.value = true
+  result.value       = null
+  loading.value       = true
   errorMessage.value = ''
 
   try {
-    if (!validateInputs()) {
-      loading.value = false
-      return
-    }
+    if (!validateInputs()) { loading.value = false; return }
 
     if (!isSessionValid()) {
       turnstileToken.value = await turnstileRef.value.getToken()
@@ -88,822 +116,597 @@ async function checkDkimHandler() {
     const data = await checkDkim({
       domain: domain.value,
       selector: selector.value || DEFAULT_SELECTOR,
-      turnstileToken: turnstileToken.value
+      turnstileToken: turnstileToken.value,
     })
 
     result.value = {
-      valid: true,
-      domain: data.result.domain || domain.value,
+      valid:    true,
+      domain:   data.result.domain || domain.value,
       selector: data.result.selector || selector.value,
-      record: data.result.rawRecord || data.result.record,
+      record:    data.result.rawRecord || data.result.record,
       rawRecord: data.result.rawRecord || data.result.record,
       warnings: data.result.warnings || [],
       recommendations: data.result.recommendations || [],
-      score: data.result.score
+      score: data.result.score,
     }
 
     resetTurnstile()
-
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
-    if (err.status === 401) {
-      resetTurnstile()
-    }
+    if (err.status === 401) resetTurnstile()
   } finally {
     loading.value = false
   }
 }
 
-// ---- WATCHES ----
-watch([domain, selector], () => {
-  syncWithUrl({ domain: domain.value, selector: selector.value })
-})
+watch([domain, selector], () => syncWithUrl({ domain: domain.value, selector: selector.value }))
 
-// ---- LIFECYCLE ----
 onMounted(async () => {
+  const urlParams = new URLSearchParams(window.location.search)
+
   loadFromUrl({ domain, selector })
-
-  if (!selector.value) {
-    selector.value = DEFAULT_SELECTOR
-  }
-
+  if (!selector.value) selector.value = DEFAULT_SELECTOR
   await nextTick()
+
+  if (urlParams.get('run') === '1' && domain.value) {
+    if (urlParams.get('selector') === 'google') guessedSelector.value = true
+    await turnstileRef.value?.whenReady()
+    await checkDkimHandler()
+    await nextTick()
+    resultsRef.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 })
 </script>
 
 <template>
   <div class="dkim-checker">
-    <!-- ── FORM ── -->
-    <div class="tool-form">
-      <form @submit.prevent="checkDkimHandler">
-        <!-- Domain -->
-        <div class="form-group">
-          <label for="domain">Domain:</label>
+
+    <ToolSwitcher :domain="domain" />
+
+    <!-- ── Inline form ── -->
+    <div class="search-bar" :class="{ 'has-result': result }">
+      <form class="search-form" @submit.prevent="checkDkimHandler">
+        <div class="search-input-wrap">
+          <span class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </span>
           <input
             id="domain"
             v-model="domain"
             type="text"
             placeholder="example.com"
             :disabled="loading"
+            autocomplete="off"
+            spellcheck="false"
             required
           />
-          <small class="form-help">
-            Enter the domain name you want to check for DKIM records
-          </small>
+          <button
+            v-if="domain && !loading"
+            type="button"
+            class="search-clear"
+            aria-label="Clear domain"
+            @click="domain = ''"
+          >
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
-
-        <!-- Selector -->
-        <div class="form-group">
-          <label for="selector">DKIM Selector:</label>
+        <div class="selector-input-wrap">
+          <span class="selector-prefix">selector:</span>
           <input
             id="selector"
             v-model="selector"
             type="text"
             placeholder="default"
             :disabled="loading"
-          />
-          <small class="form-help">
-            Most common selectors: <code>default</code>, <code>google</code>, <code>mail</code>
-          </small>
-        </div>
-
-        <!-- Verification -->
-        <div class="form-group">
-          <Turnstile
-            ref="turnstileRef"
-            @verified="onTurnstileVerified"
-            @expired="onTurnstileInvalid"
-            @error="onTurnstileInvalid"
+            autocomplete="off"
+            spellcheck="false"
           />
         </div>
-
-        <!-- Submit -->
-        <button
-          type="submit"
-          class="check-btn"
-          :disabled="isFormDisabled"
-        >
-          <span v-if="loading" class="btn-loading">
-            <div class="loading-spinner"></div>
-            Checking...
-          </span>
-          <span v-else>Check DKIM Record</span>
+        <Turnstile
+          ref="turnstileRef"
+          class="turnstile-inline"
+          :class="{ 'turnstile-collapsed': result }"
+          @verified="onTurnstileVerified"
+          @expired="onTurnstileInvalid"
+          @error="onTurnstileInvalid"
+        />
+        <button type="submit" class="search-btn" :disabled="isFormDisabled">
+          <span v-if="loading" class="btn-loading"><span class="spinner"></span></span>
+          <span v-else>Check DKIM</span>
         </button>
       </form>
+      <p v-if="guessedSelector" class="form-hint form-hint-notice">
+        Guessed selector <code>google</code> from the switcher. Not right? Change it in the <strong>selector</strong> field above.
+      </p>
+      <p v-else class="form-hint">Common selectors: <code>default</code>, <code>google</code>, <code>selector1</code>, <code>mail</code></p>
     </div>
 
-    <!-- Error -->
-    <div v-if="errorMessage" class="error-section">
-      <p class="error-message">{{ errorMessage }}</p>
+    <!-- ── Error ── -->
+    <div v-if="errorMessage" class="error-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      {{ errorMessage }}
     </div>
 
-    <!-- Results -->
-    <div v-if="result" class="result-section">
-      <h3>DKIM Check Results</h3>
+    <!-- ── Results ── -->
+    <div v-if="result" class="results" ref="resultsRef">
 
-      <div class="status-box">
-        <p>
-          <strong>
-            {{ result.valid ? 'DKIM Record Found' : 'DKIM Record Missing or Invalid' }}
-          </strong>
-        </p>
-        <p v-if="result.score">
-          <strong>Security Score:</strong>
-          {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Security assessment based on key strength, algorithm choice, and record configuration.</span>
-          </span>
-        </p>
-      </div>
-
-      <div class="info-section">
-        <h4>
-          Basic Information
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Core details about the DKIM record found for this domain and selector.</span>
-          </span>
-        </h4>
-        <p><strong>Domain:</strong> {{ result.domain }}</p>
-        <p>
-          <strong>Selector:</strong> {{ result.selector }}
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">The DKIM selector used to locate the public key. Different services often use different selectors.</span>
-          </span>
-        </p>
-        <p><strong>DKIM Record:</strong></p>
-        <div class="record-display">
-          <code class="dkim-record">{{ result.record }}</code>
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">The complete DKIM TXT record retrieved from DNS at [selector]._domainkey.[domain].</span>
-          </span>
+      <!-- Hero -->
+      <div class="hero" :class="result.valid && result.record ? 'hero-pass' : 'hero-fail'">
+        <div class="hero-icon" :class="result.valid && result.record ? 'icon-pass' : 'icon-fail'">
+          <svg v-if="result.valid && result.record" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg v-else width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+        <div class="hero-text">
+          <h2 class="hero-title">{{ result.record ? 'DKIM Record Found' : 'DKIM Record Missing' }}</h2>
+          <p class="hero-domain">{{ result.selector }}._domainkey.{{ result.domain }}</p>
+        </div>
+        <div v-if="result.score" class="hero-score">
+          <span class="score-num">{{ result.score.value }}<span class="score-denom">/{{ result.score.outOf }}</span></span>
+          <span class="score-label" :class="'score-' + result.score.level?.toLowerCase()">{{ result.score.level }}</span>
         </div>
       </div>
 
-      <div v-if="dkimTags.length" class="dkim-table-section">
-        <h4>
-          DKIM Record Breakdown
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Each component of the DKIM record explained. These tags define the public key and signature parameters.</span>
-          </span>
-        </h4>
-        <div class="table-container">
-          <table class="dkim-table">
-            <thead>
-              <tr>
-                <th class="tag-col">Tag</th>
-                <th class="value-col">Value</th>
-                <th class="desc-col">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="tag in dkimTags" :key="tag.tag">
-                <td class="tag-cell">{{ tag.tag }}</td>
-                <td class="value-cell">{{ tag.value }}</td>
-                <td class="desc-cell">{{ tag.description }}</td>
-              </tr>
-            </tbody>
-          </table>
+      <!-- Signals grid -->
+      <div v-if="result.record" class="signals-grid">
+        <div class="signal" :class="'signal-' + keyTypeSignal.level">
+          <span class="signal-icon"><SignalIcon :name="keyTypeSignal.icon" /></span>
+          <span class="signal-name">Key Type</span>
+          <span class="signal-value">{{ keyTypeSignal.label }}</span>
+        </div>
+        <div v-if="keyLengthSignal" class="signal" :class="'signal-' + keyLengthSignal.level">
+          <span class="signal-icon"><SignalIcon :name="keyLengthSignal.icon" /></span>
+          <span class="signal-name">Key Length</span>
+          <span class="signal-value">{{ keyLengthSignal.label }}</span>
+        </div>
+        <div class="signal signal-muted">
+          <span class="signal-icon"><SignalIcon name="dot" /></span>
+          <span class="signal-name">Tags</span>
+          <span class="signal-value">{{ dkimTags.length }}</span>
         </div>
       </div>
 
-      <div v-if="result.warnings?.length" class="section warnings-section">
-        <h4>Warnings</h4>
-        <ul>
-          <li v-for="warning in result.warnings" :key="warning">
-            {{ warning }}
-          </li>
-        </ul>
+      <!-- Alerts -->
+      <div v-if="result.warnings?.length" class="alert alert-warn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <ul><li v-for="w in result.warnings" :key="w">{{ w }}</li></ul>
       </div>
 
-      <div
-        v-if="result.recommendations?.length"
-        class="section recommendations-section"
-      >
-        <h4>Recommendations</h4>
-        <ul>
-          <li v-for="rec in result.recommendations" :key="rec">
-            {{ rec }}
-          </li>
-        </ul>
+      <div v-if="result.recommendations?.length" class="alert alert-tip">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <ul><li v-for="r in result.recommendations" :key="r">{{ r }}</li></ul>
       </div>
+
+      <!-- Expert disclosures -->
+      <div class="disclosures">
+        <details class="disclosure">
+          <summary class="disclosure-trigger">
+            <span class="disclosure-label">Raw DKIM record</span>
+            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="disclosure-body">
+            <code class="raw-record">{{ result.record }}</code>
+          </div>
+        </details>
+
+        <details v-if="dkimTags.length" class="disclosure">
+          <summary class="disclosure-trigger">
+            <span class="disclosure-label">Tag breakdown</span>
+            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="disclosure-body">
+            <div class="tag-list">
+              <div class="tag-row" v-for="tag in dkimTags" :key="tag.tag">
+                <span class="tag-key">{{ tag.tag }}</span>
+                <div class="tag-main">
+                  <div class="tag-value-line">
+                    <code class="tag-value">{{ tag.displayValue }}</code>
+                    <button
+                      v-if="tag.truncated"
+                      type="button"
+                      class="tag-copy-btn"
+                      :class="{ copied: copiedTag === tag.tag }"
+                      :aria-label="`Copy ${tag.tag} tag value`"
+                      @click="copyTagValue(tag)"
+                    >
+                      <svg v-if="copiedTag === tag.tag" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      <svg v-else width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                      <span>{{ copiedTag === tag.tag ? 'Copied' : 'Copy' }}</span>
+                    </button>
+                  </div>
+                  <p class="tag-desc">{{ tag.description }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+
     </div>
   </div>
 </template>
 
 <style scoped>
 .dkim-checker {
-  max-width: 800px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1rem 3rem;
 }
 
-/* Form Styles */
-.tool-form {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 12px;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
+/* Search bar */
+.search-bar { margin: 2rem 0 1.5rem; transition: margin 0.2s; }
+.search-bar.has-result { margin: 0 0 1rem; }
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
+.search-input-wrap {
+  flex: 1.5;
+  min-width: 200px;
+  position: relative;
+  display: flex;
+  align-items: center;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1, #374151);
-  font-size: 0.9rem;
+.search-icon {
+  position: absolute;
+  left: 0.875rem;
+  color: var(--vp-c-text-3, #9ca3af);
+  display: flex;
+  pointer-events: none;
 }
 
-.form-group input {
+.search-input-wrap input {
   width: 100%;
-  padding: 0.875rem 1rem;
-  border: 2px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
+  padding: 0.75rem 2.25rem 0.75rem 2.5rem;
+  border: 1.5px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 10px;
   font-size: 1rem;
-  transition: border-color 0.2s ease;
+  background: var(--vp-c-bg, #fff);
+  color: var(--vp-c-text-1, #111827);
+  transition: border-color 0.15s, box-shadow 0.15s, padding 0.2s;
   box-sizing: border-box;
-  background: var(--vp-c-bg, #ffffff);
-  color: var(--vp-c-text-1, #374151);
 }
 
-.form-group input:focus {
+.has-result .search-input-wrap input,
+.has-result .selector-input-wrap input { padding-top: 0.5rem; padding-bottom: 0.5rem; font-size: 0.9rem; }
+
+.search-input-wrap input:focus,
+.selector-input-wrap input:focus {
   outline: none;
   border-color: var(--vp-c-brand);
-  box-shadow: 0 0 0 3px rgba(19, 176, 238, 0.1);
+  box-shadow: 0 0 0 3px hsla(197, 87%, 50%, 0.12);
 }
 
-.form-group input:disabled {
+.search-input-wrap input:disabled,
+.selector-input-wrap input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.search-clear {
+  position: absolute;
+  right: 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px; height: 20px;
+  border: none;
   background: var(--vp-c-bg-mute, #f1f5f9);
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.form-help {
-  display: block;
-  margin-top: 0.5rem;
   color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.875rem;
-  font-style: italic;
-  line-height: 1.4;
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
 }
 
-.form-help code {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  padding: 0.125rem 0.25rem;
-  border-radius: 3px;
-  font-size: 0.8rem;
-}
+.search-clear:hover { background: var(--vp-c-bg-soft, #e5e7eb); color: var(--vp-c-text-1, #111827); }
 
-/* CAPTCHA Styles */
-.captcha-expired-message {
-  background: #fff3cd;
-  border: 1px solid #ffc107;
-  color: #856404;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-}
-
-.captcha-container {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.captcha-image-container {
+.selector-input-wrap {
   flex: 1;
-  min-height: 50px;
+  min-width: 150px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: #ffffff;
-  border: 1px solid var(--vp-c-border-soft, #dee2e6);
-  border-radius: 6px;
-  padding: 0.5rem;
+  border: 1.5px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 10px;
+  background: var(--vp-c-bg, #fff);
+  padding: 0 0.875rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-.captcha-loading,
-.captcha-placeholder {
-  color: #6b7280;
-  font-style: italic;
-  text-align: center;
-}
-
-.load-captcha-btn {
-  background: var(--vp-c-brand);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: background-color 0.2s ease;
-}
-
-.load-captcha-btn:hover {
-  background: var(--vp-c-brand-light);
-}
-
-.refresh-captcha-btn {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.refresh-captcha-btn:hover:not(:disabled) {
-  background: var(--vp-c-bg, #ffffff);
+.selector-input-wrap:focus-within {
   border-color: var(--vp-c-brand);
+  box-shadow: 0 0 0 3px hsla(197, 87%, 50%, 0.12);
 }
 
-.refresh-captcha-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.selector-prefix {
+  font-size: 0.8rem;
+  color: var(--vp-c-text-3, #9ca3af);
+  white-space: nowrap;
 }
 
-.refresh-captcha-btn img {
-  width: 16px;
-  height: 16px;
-}
-
-.captcha-help {
-  display: block;
-  margin-top: 0.5rem;
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.875rem;
-  font-style: italic;
-}
-
-/* Button */
-.check-btn {
-  background: var(--vp-c-brand);
-  color: #ffffff;
-  padding: 0.875rem 2rem;
+.selector-input-wrap input {
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
+  background: transparent;
+  padding: 0.75rem 0 0.75rem 0.375rem;
   font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  color: var(--vp-c-text-1, #111827);
   width: 100%;
-  box-shadow: 0 2px 4px rgba(19, 176, 238, 0.2);
+  min-width: 0;
 }
 
-.check-btn:hover:not(:disabled) {
-  background: var(--vp-c-brand-light);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.25);
+.selector-input-wrap input:focus { outline: none; box-shadow: none; }
+
+.turnstile-inline {
+  flex-shrink: 0;
+  transition: opacity 0.2s, max-width 0.2s, max-height 0.2s, margin 0.2s;
+  overflow: hidden;
 }
 
-.check-btn:active:not(:disabled) {
-  background: var(--vp-c-brand-dark);
-  transform: translateY(0);
-}
-
-.check-btn:disabled {
-  background: var(--vp-c-bg-mute, #9ca3af);
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.btn-loading {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: center;
-}
-
-.loading-spinner {
-  width: 12px;
-  height: 12px;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  border-top: 1.5px solid #ffffff;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-/* Error Section */
-.error-section {
-  background: var(--vp-danger-soft, #f8d7da);
-  color: var(--vp-c-danger-1, #721c24);
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 1rem 0;
-  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
-}
-
-.error-message {
-  margin: 0;
-  font-weight: 500;
-}
-
-/* Results Section */
-.result-section {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 12px;
-  background: var(--vp-c-bg, #ffffff);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.result-section h3 {
-  margin: 0 0 1.5rem 0;
-  color: var(--vp-c-text-1, #1a202c);
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.status-box {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  padding: 1.25rem;
-  border: 1px solid var(--vp-c-border-soft, #dee2e6);
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-}
-
-.status-box p {
-  margin: 0.5rem 0;
-  font-size: 1rem;
-}
-
-/* Info Section */
-.info-section {
-  border-top: 1px solid var(--vp-c-border-soft, #eee);
-  padding-top: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.info-section h4 {
-  margin: 0 0 1rem 0;
-  color: var(--vp-c-text-1, #333);
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.info-section p {
-  margin: 0.75rem 0;
-  color: var(--vp-c-text-2, #4a5568);
-  line-height: 1.6;
-}
-
-.record-display {
-  margin-top: 0.5rem;
-  position: relative;
-}
-
-.dkim-record {
-  display: block;
-  padding: 0.75rem;
-  background: var(--vp-c-bg, #ffffff);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 6px;
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.875rem;
-  word-break: break-all;
-  white-space: pre-wrap;
-  line-height: 1.4;
-  color: var(--vp-c-text-1, #333);
-  margin-right: 2rem;
-}
-
-/* Info tip styles */
-.info-tip {
-  display: inline-block;
-  margin-left: .3rem;
-  width: 1rem;
-  height: 1rem;
-  line-height: 1rem;
-  text-align: center;
-  border-radius: 50%;
-  background: var(--vp-c-brand);
-  color: #fff;
-  font-size: .675rem;
-  cursor: help;
-  position: relative;
-  vertical-align: middle;
-}
-
-.info-tip-pop {
-  opacity: 0;
+.turnstile-inline.turnstile-collapsed {
+  opacity: 0; max-width: 0; max-height: 0;
   pointer-events: none;
   position: absolute;
-  left: 50%;
-  top: calc(100% + 8px);
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: min(300px, 90vw);
-  padding: .8rem 1rem;
-  border-radius: 8px;
-  background: var(--vp-c-bg, #ffffff);
-  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  box-shadow: 0 8px 24px rgba(0,0,0,.12);
-  color: var(--vp-c-text-1, #374151);
-  font-size: .825rem;
-  line-height: 1.5;
-  z-index: 1000;
-  transition: opacity .2s ease, transform .2s ease;
-  transform: translateX(-50%) translateY(-4px);
-  word-wrap: break-word;
-  hyphens: auto;
 }
 
-.info-tip-pop::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
-  background: var(--vp-c-bg, #ffffff);
-  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  border-bottom: none;
-  border-right: none;
-  transform: translateX(-50%) rotate(45deg);
-}
-
-.info-tip:hover .info-tip-pop,
-.info-tip:focus .info-tip-pop {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-.info-tip:nth-last-child(-n+2) .info-tip-pop,
-.info-tip:last-child .info-tip-pop {
-  left: auto;
-  right: 0;
-  transform: translateX(0);
-}
-
-.info-tip:nth-last-child(-n+2) .info-tip-pop::before,
-.info-tip:last-child .info-tip-pop::before {
-  left: auto;
-  right: 1rem;
-  transform: translateX(0) rotate(45deg);
-}
-
-.info-tip:hover:nth-last-child(-n+2) .info-tip-pop,
-.info-tip:focus:nth-last-child(-n+2) .info-tip-pop,
-.info-tip:hover:last-child .info-tip-pop,
-.info-tip:focus:last-child .info-tip-pop {
-  transform: translateX(0) translateY(0);
-}
-
-.dkim-table-section {
-  margin-left: -1.5rem;
-  margin-right: -1.5rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
-.dkim-table-section h4 {
-  margin: 0 0 1rem 0;
-  color: var(--vp-c-text-1, #333);
-  border-top: 1px solid var(--vp-c-border-soft, #eee);
-  font-size: 1.25rem;
+.search-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--vp-c-brand);
+  color: #fff;
+  font-size: 0.9rem;
   font-weight: 600;
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s, padding 0.2s;
+  box-shadow: 0 1px 4px hsla(197, 87%, 50%, 0.3);
+  min-width: 130px;
 }
 
-.table-container {
-  overflow-x: auto;
-  margin: 1rem 0;
-  padding: 0 1rem;
-  background: var(--vp-c-bg, #ffffff);
+.has-result .search-btn { padding: 0.5rem 1.25rem; min-width: 100px; font-size: 0.825rem; }
+.search-btn:hover:not(:disabled) { background: var(--vp-c-brand-dark); transform: translateY(-1px); box-shadow: 0 4px 12px hsla(197, 87%, 50%, 0.35); }
+.search-btn:active:not(:disabled) { transform: translateY(0); }
+.search-btn:disabled { opacity: 0.55; cursor: not-allowed; box-shadow: none; }
+
+.btn-loading { display: flex; align-items: center; justify-content: center; }
+
+.spinner {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
 }
 
-.dkim-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0;
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.form-hint {
+  margin: 0.625rem 0 0;
+  font-size: 0.75rem;
+  color: var(--vp-c-text-3, #9ca3af);
+}
+
+.form-hint code {
+  background: var(--vp-c-bg-mute, #f1f5f9);
+  padding: 0.05rem 0.3rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.form-hint-notice {
+  color: #b45309;
+}
+
+.dark .form-hint-notice {
+  color: #fbbf24;
+}
+
+/* Error */
+.error-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid rgba(220,38,38,0.2);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* Results */
+.results { display: flex; flex-direction: column; gap: 0.875rem; }
+
+/* Hero */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  flex-wrap: wrap;
+}
+
+.hero-pass { background: linear-gradient(135deg, rgba(22,163,74,0.06) 0%, hsla(197,87%,50%,0.04) 100%); border-color: rgba(22,163,74,0.2); }
+.hero-fail { background: rgba(220,38,38,0.04); border-color: rgba(220,38,38,0.18); }
+
+.hero-icon { width: 52px; height: 52px; border-radius: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.icon-pass { background: rgba(22,163,74,0.12); color: #16a34a; border: 1px solid rgba(22,163,74,0.2); }
+.icon-fail { background: rgba(220,38,38,0.1);  color: #dc2626; border: 1px solid rgba(220,38,38,0.15); }
+
+.hero-text { flex: 1; min-width: 0; }
+.hero-title { margin: 0 0 0.2rem; font-size: 1.25rem; font-weight: 700; color: var(--vp-c-text-1, #111827); }
+.hero-domain { margin: 0; font-size: 0.8rem; font-family: monospace; color: var(--vp-c-text-2, #6b7280); word-break: break-all; }
+
+.hero-score { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.score-num { font-size: 1.6rem; font-weight: 800; color: var(--vp-c-text-1, #111827); line-height: 1; }
+.score-denom { font-size: 0.9rem; font-weight: 500; color: var(--vp-c-text-3, #9ca3af); }
+.score-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.15rem 0.5rem; border-radius: 999px; margin-top: 0.25rem; }
+
+.score-strong, .score-excellent { background: rgba(22,163,74,0.12); color: #15803d; }
+.score-good, .score-medium      { background: rgba(217,119,6,0.12);  color: #b45309; }
+.score-poor, .score-weak        { background: rgba(220,38,38,0.1);   color: #dc2626; }
+
+/* Signals grid */
+.signals-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.625rem; }
+
+.signal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 10px;
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
   background: var(--vp-c-bg, #fff);
-  border-radius: 8px;
-  border: 1px solid var(--vp-c-border-soft, #ddd);
 }
 
-.dkim-table th,
-.dkim-table td {
+.signal-icon { display: inline-flex; align-items: center; }
+.signal-name { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--vp-c-text-2, #6b7280); }
+.signal-value { font-size: 0.875rem; font-weight: 600; color: var(--vp-c-text-1, #111827); }
+
+.signal-strong .signal-icon { color: #16a34a; }
+.signal-medium .signal-icon { color: #d97706; }
+.signal-weak   .signal-icon { color: #dc2626; }
+.signal-muted  .signal-icon { color: var(--vp-c-text-3, #9ca3af); }
+.signal-strong { border-color: rgba(22,163,74,0.25); }
+.signal-medium { border-color: rgba(217,119,6,0.25); }
+.signal-weak   { border-color: rgba(220,38,38,0.2); }
+
+/* Alerts */
+.alert { display: flex; gap: 0.75rem; padding: 0.875rem 1.125rem; border-radius: 10px; border: 1px solid transparent; font-size: 0.875rem; line-height: 1.6; }
+.alert > svg { flex-shrink: 0; margin-top: 0.1rem; }
+.alert ul { margin: 0; padding-left: 1.1rem; }
+.alert li + li { margin-top: 0.2rem; }
+.alert-warn { background: rgba(217,119,6,0.06); border-color: rgba(217,119,6,0.2); color: var(--vp-c-text-1); }
+.alert-warn > svg { color: #d97706; }
+.alert-tip { background: hsla(197,87%,50%,0.05); border-color: hsla(197,87%,50%,0.2); color: var(--vp-c-text-1); }
+.alert-tip > svg { color: var(--vp-c-brand-dark, #0891b2); }
+
+/* Disclosures */
+.disclosures { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.disclosure {
+  background: var(--vp-c-bg, #fff);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.disclosure-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 0.875rem 1.25rem;
-  text-align: left;
-  vertical-align: top;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
 }
 
-.dkim-table th {
-  background: var(--vp-c-bg-soft, #f5f5f5);
-  font-weight: 600;
-  border-bottom: 2px solid var(--vp-c-border, #e5e7eb);
+.disclosure-trigger::-webkit-details-marker { display: none; }
+.disclosure-trigger:hover { background: var(--vp-c-bg-soft, #f8f9fa); }
+.disclosure-label { font-size: 0.875rem; font-weight: 600; color: var(--vp-c-text-1, #374151); }
+.disclosure-chevron { color: var(--vp-c-text-3, #9ca3af); transition: transform 0.2s; }
+details[open] .disclosure-chevron { transform: rotate(180deg); }
+.disclosure-body { padding: 0 1.25rem 1.25rem; border-top: 1px solid var(--vp-c-border-soft, #f1f5f9); }
+
+.raw-record {
+  display: block;
+  margin-top: 0.875rem;
+  padding: 0.875rem 1rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  word-break: break-all;
+  color: var(--vp-c-text-1, #374151);
 }
 
-.tag-col { width: 15%; min-width: 80px; }
-.value-col { width: 50%; min-width: 200px; }
-.desc-col { width: 35%; min-width: 150px; }
+.tag-list { display: flex; flex-direction: column; margin-top: 0.875rem; }
 
-.tag-cell { 
-  font-family: monospace; 
-  font-weight: 600;
+.tag-row {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid var(--vp-c-border-soft, #f1f5f9);
+}
+
+.tag-row:last-child { border-bottom: none; padding-bottom: 0; }
+.tag-row:first-child { padding-top: 0; }
+
+.tag-key {
+  flex-shrink: 0;
+  width: 1.5rem;
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 0.825rem;
   color: var(--vp-c-brand);
 }
 
-.value-cell { 
-  font-family: monospace; 
+.tag-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 0.2rem; }
+
+.tag-value-line { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+.tag-value {
+  font-family: monospace;
+  font-size: 0.825rem;
+  color: var(--vp-c-text-1);
   word-break: break-all;
-  font-size: 0.875rem;
-  line-height: 1.4;
 }
 
-.desc-cell {
-  font-size: 0.875rem;
+.tag-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex-shrink: 0;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 6px;
+  background: var(--vp-c-bg-mute, #f1f5f9);
   color: var(--vp-c-text-2, #6b7280);
-  line-height: 1.4;
-}
-
-/* Result Sections */
-.section {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  border-radius: 8px;
-}
-
-.section h4 {
-  margin: 0 0 1rem 0;
-  font-size: 1.25rem;
+  font-size: 0.7rem;
   font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
 }
 
-.section ul {
-  margin: 0;
-  padding-left: 1.5rem;
-}
+.tag-copy-btn:hover { background: var(--vp-c-bg-soft, #e5e7eb); color: var(--vp-c-text-1); }
+.tag-copy-btn.copied { color: #16a34a; border-color: rgba(22,163,74,0.3); background: rgba(22,163,74,0.08); }
 
-.section li {
-  margin: 0.5rem 0;
-  line-height: 1.5;
-}
+.tag-desc { margin: 0; font-size: 0.8rem; color: var(--vp-c-text-2, #6b7280); }
 
-.warnings-section {
-  background: var(--vp-warning-soft, #fffbf0);
-  border: 1px solid rgba(214, 158, 46, 0.2);
-}
-
-.warnings-section h4 {
-  color: var(--vp-c-warning-1, #d69e2e);
-}
-
-.recommendations-section {
-  background: var(--vp-tip-soft, #f0f9ff);
-  border: 1px solid rgba(23, 162, 184, 0.18);
-}
-
-.recommendations-section h4 {
-  color: var(--vp-c-tip-1, #17a2b8);
-}
-
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-  .refresh-captcha-btn {
-    background: var(--vp-c-bg-soft);
-    border-color: var(--vp-c-border);
-    color: var(--vp-c-text-1);
-  }
-  
-  .refresh-captcha-btn:hover:not(:disabled) {
-    border-color: var(--vp-c-brand);
-  }
-  
-  .dkim-table th {
-    background: var(--vp-c-bg-soft, #252736);
-    color: var(--vp-c-text-1, #aad0f7);
-  }
-  
-  .dkim-record {
-    background: var(--vp-c-bg-soft, #252736);
-    color: var(--vp-c-brand-light);
-  }
-  
-  .recommendations-section,
-  .recommendations-section ul,
-  .recommendations-section li {
-    color: #2d3748 !important;
-  }
-  
-  .info-tip-pop {
-    background: var(--vp-c-bg-soft, #252736);
-    border-color: var(--vp-c-border, #404040);
-    box-shadow: 0 8px 24px rgba(0,0,0,.3);
-  }
-  
-  .info-tip-pop::before {
-    background: var(--vp-c-bg-soft, #252736);
-    border-color: var(--vp-c-border, #404040);
-  }
-}
-
-@media (max-width: 480px) {
-  .info-tip-pop {
-    position: fixed;
-    left: 10px !important;
-    right: 10px !important;
-    top: auto !important;
-    bottom: 20px;
-    transform: none !important;
-    width: auto !important;
-    max-width: none !important;
-    z-index: 9999;
-  }
-  
-  .info-tip-pop::before {
-    display: none;
-  }
-  
-  .info-tip:hover .info-tip-pop,
-  .info-tip:focus .info-tip-pop {
-    transform: none !important;
-  }
-}
+/* Dark mode */
+.dark .hero-pass { background: linear-gradient(135deg, rgba(22,163,74,0.09) 0%, hsla(197,87%,50%,0.06) 100%); border-color: rgba(22,163,74,0.25); }
+.dark .hero-fail { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.22); }
+.dark .icon-pass { background: rgba(22,163,74,0.18); color: #4ade80; }
+.dark .icon-fail { background: rgba(220,38,38,0.18); color: #f87171; }
+.dark .score-strong, .dark .score-excellent { background: rgba(22,163,74,0.2); color: #4ade80; }
+.dark .score-good, .dark .score-medium      { background: rgba(217,119,6,0.2);  color: #fbbf24; }
+.dark .score-poor, .dark .score-weak        { background: rgba(220,38,38,0.2);  color: #f87171; }
+.dark .signal-strong .signal-icon { color: #4ade80; }
+.dark .signal-medium .signal-icon { color: #fbbf24; }
+.dark .signal-weak   .signal-icon { color: #f87171; }
+.dark .alert-warn { background: rgba(217,119,6,0.1); border-color: rgba(217,119,6,0.25); }
+.dark .alert-tip  { background: hsla(197,87%,50%,0.08); border-color: hsla(197,87%,50%,0.25); }
+.dark .alert-tip > svg { color: var(--vp-c-brand-light); }
+.dark .tag-copy-btn.copied { color: #4ade80; border-color: rgba(74,222,128,0.3); background: rgba(74,222,128,0.1); }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .dkim-checker {
-    padding: 0 0.5rem;
-  }
-  
-  .tool-form,
-  .result-section {
-    padding: 1rem;
-    margin: 1rem 0;
-  }
-  
-  .dkim-table-section {
-    margin-left: -1rem;
-    margin-right: -1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  
-  .table-container {
-    margin: 1rem -1rem;
-  }
-  
-  .captcha-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .refresh-captcha-btn {
-    align-self: center;
-  }
-  
-  .dkim-table {
-    font-size: 0.875rem;
-    min-width: 600px;
-  }
-  
-  .dkim-table th,
-  .dkim-table td {
-    padding: 0.5rem 0.75rem;
-  }
-  
-  .dkim-record {
-    margin-right: 1rem;
-  }
+@media (max-width: 640px) {
+  .search-form { flex-direction: column; align-items: stretch; }
+  .search-btn { width: 100%; }
+  .hero { padding: 1.25rem; gap: 1rem; }
+  .hero-score { align-self: flex-start; }
+  .signals-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .signal { padding: 0.625rem; }
 }
 
-@media (hover: none) and (pointer: coarse) {
-  .info-tip {
-    width: 1.25rem;
-    height: 1.25rem;
-    line-height: 1.25rem;
-  }
-  
-  .info-tip-pop {
-    padding: 1rem 1.25rem;
-    font-size: .875rem;
-  }
+@media (max-width: 400px) {
+  .signals-grid { grid-template-columns: 1fr; }
 }
 </style>
