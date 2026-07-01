@@ -39,12 +39,23 @@ head:
       content: https://bluefox.email/assets/free-content-tools.png
 ---
 
+<script setup>
+import ToolsCategoryGrid from '../../.vitepress/theme/ToolsCategoryGrid.vue'
+
+const tools = [
+  {
+    name: 'Link Checker',
+    desc: 'Test every URL in your HTML email templates to catch broken links, bad redirects, and preview content before sending.',
+    href: '/tools/content/link-checker',
+    iconPaths: `<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>`,
+  },
+]
+</script>
+
 <GlossaryNavigation link="/tools" label="Back to Tools Home" />
 
 # Free Email Content Tools
 
-### Link Checker
+Make sure your email content is optimized for deliverability and engagement before you hit send.
 
-Ensure every link in your emails works perfectly. Test all URLs in your HTML email templates to catch broken links, validate redirects, and preview your content before sending to subscribers.
-
-[Read More →](/tools/content/link-checker)
+<ToolsCategoryGrid :tools="tools" />

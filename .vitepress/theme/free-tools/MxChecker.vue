@@ -4,29 +4,41 @@ import { checkMx } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import { syncWithUrl, loadFromUrl } from './helpers/urlSync.js'
 import Turnstile from './Turnstile.vue'
+import SignalIcon from './SignalIcon.vue'
+import ToolSwitcher from './ToolSwitcher.vue'
 
-// ---- VARIABLES ----
-const domain = ref('')
-const loading = ref(false)
-const result = ref(null)
+const domain       = ref('')
+const loading      = ref(false)
+const result       = ref(null)
 const errorMessage = ref('')
 
-// Turnstile state
-const turnstileRef = ref(null)
+const turnstileRef   = ref(null)
 const turnstileToken = ref('')
+const resultsRef = ref(null)
 
-const isFormDisabled = computed(() =>
-  loading.value
-)
+const isFormDisabled = computed(() => loading.value)
 
-// ---- FUNCTIONS ----
-function onTurnstileVerified(token) {
-  turnstileToken.value = token
+function hasUniquePriorities(records) {
+  if (!records?.length) return true
+  return new Set(records.map(r => r.priority)).size === records.length
 }
 
-function onTurnstileInvalid() {
-  turnstileToken.value = ''
-}
+const redundancySignal = computed(() => {
+  const n = result.value?.records?.length ?? 0
+  if (n > 1) return { label: 'Multiple servers', level: 'strong', icon: 'check' }
+  if (n === 1) return { label: 'Single server', level: 'weak', icon: 'alert' }
+  return { label: 'None', level: 'weak', icon: 'alert' }
+})
+
+const priorityShape = computed(() => {
+  if (!result.value?.records?.length) return { label: '—', level: 'muted', icon: 'dot' }
+  return hasUniquePriorities(result.value.records)
+    ? { label: 'Unique priorities', level: 'strong', icon: 'check' }
+    : { label: 'Duplicate priorities', level: 'medium', icon: 'minus' }
+})
+
+function onTurnstileVerified(token) { turnstileToken.value = token }
+function onTurnstileInvalid()       { turnstileToken.value = '' }
 
 function resetTurnstile() {
   turnstileToken.value = ''
@@ -38,20 +50,16 @@ function validateInputs() {
     errorMessage.value = 'Please enter a domain name'
     return false
   }
-
   return true
 }
 
 async function checkMxHandler() {
-  result.value = null
-  loading.value = true
+  result.value       = null
+  loading.value       = true
   errorMessage.value = ''
 
   try {
-    if (!validateInputs()) {
-      loading.value = false
-      return
-    }
+    if (!validateInputs()) { loading.value = false; return }
 
     if (!isSessionValid()) {
       turnstileToken.value = await turnstileRef.value.getToken()
@@ -59,970 +67,530 @@ async function checkMxHandler() {
 
     const data = await checkMx({
       domain: domain.value,
-      turnstileToken: turnstileToken.value
+      turnstileToken: turnstileToken.value,
     })
 
     result.value = {
-      valid: true,
-      domain: data.result.domain || domain.value,
+      valid:   true,
+      domain:  data.result.domain || domain.value,
       records: data.result.records || data.result.mxRecords || [],
-      score: data.result.score,
+      score:   data.result.score,
       warnings: data.result.warnings || [],
-      recommendations: data.result.recommendations || []
+      recommendations: data.result.recommendations || [],
     }
 
     resetTurnstile()
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
-    if (err.status === 401) {
-      resetTurnstile()
-    }
+    if (err.status === 401) resetTurnstile()
   } finally {
     loading.value = false
   }
 }
 
-function hasUniquePriorities(records) {
-  if (!records?.length) return true
-  return new Set(records.map(r => r.priority)).size === records.length
-}
+watch(domain, () => syncWithUrl({ domain: domain.value }))
 
-// ---- WATCHES ----
-watch(domain, () => {
-  syncWithUrl({ domain: domain.value })
-})
-
-// ---- LIFECYCLE ----
 onMounted(async () => {
-  loadFromUrl({ domain })
+  const urlParams = new URLSearchParams(window.location.search)
 
+  loadFromUrl({ domain })
   await nextTick()
+
+  if (urlParams.get('run') === '1' && domain.value) {
+    await turnstileRef.value?.whenReady()
+    await checkMxHandler()
+    await nextTick()
+    resultsRef.value?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
 })
 </script>
 
 <template>
   <div class="mx-checker">
-    <div class="tool-form">
-      <form @submit.prevent="checkMxHandler">
-        <div class="form-group">
-          <label for="domain">Domain:</label>
+
+    <ToolSwitcher :domain="domain" />
+
+    <!-- ── Inline form ── -->
+    <div class="search-bar" :class="{ 'has-result': result }">
+      <form class="search-form" @submit.prevent="checkMxHandler">
+        <div class="search-input-wrap">
+          <span class="search-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+            </svg>
+          </span>
           <input
             id="domain"
             v-model="domain"
             type="text"
             placeholder="example.com"
             :disabled="loading"
+            autocomplete="off"
+            spellcheck="false"
             required
           />
+          <button
+            v-if="domain && !loading"
+            type="button"
+            class="search-clear"
+            aria-label="Clear domain"
+            @click="domain = ''"
+          >
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
         </div>
-
-        <div class="form-group">
-          <Turnstile
-            ref="turnstileRef"
-            @verified="onTurnstileVerified"
-            @expired="onTurnstileInvalid"
-            @error="onTurnstileInvalid"
-          />
-        </div>
-
-        <button type="submit" class="check-btn" :disabled="isFormDisabled">
-          <span v-if="loading" class="btn-loading">
-            <div class="loading-spinner"></div>
-            Checking...
-          </span>
-          <span v-else>Check MX Records</span>
+        <button type="submit" class="search-btn" :disabled="isFormDisabled">
+          <span v-if="loading" class="btn-loading"><span class="spinner"></span></span>
+          <span v-else>Check MX</span>
         </button>
       </form>
+
+      <Turnstile
+        ref="turnstileRef"
+        class="turnstile-row"
+        :class="{ 'turnstile-collapsed': result }"
+        @verified="onTurnstileVerified"
+        @expired="onTurnstileInvalid"
+        @error="onTurnstileInvalid"
+      />
     </div>
 
-    <!-- Error Display -->
-    <div v-if="errorMessage" class="error-section">
-      <p class="error-message">{{ errorMessage }}</p>
+    <!-- ── Error ── -->
+    <div v-if="errorMessage" class="error-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      {{ errorMessage }}
     </div>
 
-    <!-- Results -->
-    <div v-if="result" class="result-section">
-      <h3>MX Records Check Results</h3>
-      
-      <div class="status-box">
-        <p><strong>{{ result.valid ? 'MX Records Found' : 'No MX Records Found' }}</strong></p>
-        <p v-if="result.valid"><strong>Total Records:</strong> {{ result.records.length }}</p>
-        <p v-if="result.score">
-          <strong>Security Score:</strong>
-          {{ result.score.value }}/{{ result.score.outOf }} ({{ result.score.level }})
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Assessment based on redundancy, priority configuration, and mail server setup quality.</span>
-          </span>
-        </p>
+    <!-- ── Results ── -->
+    <div v-if="result" class="results" ref="resultsRef">
+
+      <!-- Hero -->
+      <div class="hero" :class="result.valid && result.records.length ? 'hero-pass' : 'hero-fail'">
+        <div class="hero-icon" :class="result.valid && result.records.length ? 'icon-pass' : 'icon-fail'">
+          <svg v-if="result.valid && result.records.length" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <svg v-else width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </div>
+        <div class="hero-text">
+          <h2 class="hero-title">{{ result.records.length ? 'MX Records Found' : 'No MX Records' }}</h2>
+          <p class="hero-domain">{{ result.domain }}</p>
+        </div>
+        <div v-if="result.score" class="hero-score">
+          <span class="score-num">{{ result.score.value }}<span class="score-denom">/{{ result.score.outOf }}</span></span>
+          <span class="score-label" :class="'score-' + result.score.level?.toLowerCase()">{{ result.score.level }}</span>
+        </div>
       </div>
 
-      <div class="info-section">
-        <h4>
-          Basic Information
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Essential details about the mail exchange configuration for this domain.</span>
-          </span>
-        </h4>
-        <p><strong>Domain:</strong> {{ result.domain }}</p>
-        <p>
-          <strong>Records Found:</strong> {{ result.records.length }}
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">MX records tell email servers where to deliver mail for this domain. Multiple records provide redundancy.</span>
-          </span>
-        </p>
+      <!-- Signals grid -->
+      <div v-if="result.records.length" class="signals-grid">
+        <div class="signal" :class="'signal-' + redundancySignal.level">
+          <span class="signal-icon"><SignalIcon :name="redundancySignal.icon" /></span>
+          <span class="signal-name">Redundancy</span>
+          <span class="signal-value">{{ redundancySignal.label }}</span>
+        </div>
+        <div class="signal" :class="'signal-' + priorityShape.level">
+          <span class="signal-icon"><SignalIcon :name="priorityShape.icon" /></span>
+          <span class="signal-name">Priorities</span>
+          <span class="signal-value">{{ priorityShape.label }}</span>
+        </div>
+        <div class="signal signal-muted">
+          <span class="signal-icon"><SignalIcon name="dot" /></span>
+          <span class="signal-name">Servers</span>
+          <span class="signal-value">{{ result.records.length }}</span>
+        </div>
       </div>
 
-      <div v-if="result.records.length" class="mx-records-section">
-        <h4>
-          MX Records
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Mail exchange servers listed by priority. Lower priority numbers are preferred for mail delivery.</span>
-          </span>
-        </h4>
-        <div class="mx-records-container">
-          <div class="mx-records-list">
-            <div 
-              v-for="(record, index) in result.records" 
-              :key="record.exchange"
-              class="mx-record-item"
-            >
-              <div class="mx-record-content">
-                <div class="priority-section">
-                  <div class="priority-badge">{{ record.priority }}</div>
-                  <span class="priority-label">Priority</span>
-                </div>
-                <div class="server-section">
-                  <div class="server-name">{{ record.exchange }}</div>
-                  <div class="server-meta">
-                    <span class="server-type">Mail Exchange Server</span>
-                    <span class="server-status">• Active</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <div class="mx-summary-stats">
-            <div class="stat-card">
-              <div class="stat-number">{{ result.records.length }}</div>
-              <div class="stat-label">Mail Servers</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-number">{{ Math.min(...result.records.map(r => r.priority)) }}</div>
-              <div class="stat-label">Highest Priority</div>
-            </div>
-            <div class="stat-card">
-              <div class="stat-number">{{ hasUniquePriorities(result.records) ? 'Yes' : 'No' }}</div>
-              <div class="stat-label">Unique Priorities</div>
+      <!-- MX records list -->
+      <div v-if="result.records.length" class="tool-card">
+        <h3 class="card-title">Mail Servers</h3>
+        <div class="mx-list">
+          <div v-for="record in result.records" :key="record.exchange" class="mx-item">
+            <div class="priority-badge">{{ record.priority }}</div>
+            <div class="mx-item-text">
+              <div class="mx-host">{{ record.exchange }}</div>
+              <div class="mx-meta">Priority {{ record.priority }}</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div v-if="result.valid" class="section analysis-section">
-        <h4>
-          Analysis
-          <span class="info-tip" tabindex="0">
-            ?
-            <span class="info-tip-pop">Quick assessment of your MX record configuration for reliability and best practices.</span>
-          </span>
-        </h4>
-        <div class="analysis-grid">
-          <div class="analysis-item">
-            <span class="label">Redundancy:</span>
-            <span :class="result.records.length > 1 ? 'value good' : 'value warning'">
-              <span class="status-dot" :class="result.records.length > 1 ? 'pass' : 'warn'"></span>
-              {{ result.records.length > 1 ? 'Multiple servers' : 'Single server' }}
-            </span>
-          </div>
-          <div class="analysis-item">
-            <span class="label">Priority setup:</span>
-            <span
-              :class="hasUniquePriorities(result.records) ? 'value good' : 'value warning'"
-            >
-              <span class="status-dot" :class="hasUniquePriorities(result.records) ? 'pass' : 'warn'"></span>
-              {{ hasUniquePriorities(result.records) ? 'Unique priorities' : 'Duplicate priorities' }}
-            </span>
-          </div>
-        </div>
+      <!-- Alerts -->
+      <div v-if="result.warnings?.length" class="alert alert-warn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <ul><li v-for="w in result.warnings" :key="w">{{ w }}</li></ul>
       </div>
 
-      <div v-if="result.warnings?.length" class="section warnings-section">
-        <h4>Warnings</h4>
-        <ul>
-          <li v-for="warning in result.warnings" :key="warning">{{ warning }}</li>
-        </ul>
+      <div v-if="result.recommendations?.length" class="alert alert-tip">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <ul><li v-for="r in result.recommendations" :key="r">{{ r }}</li></ul>
       </div>
 
-      <div v-if="result.recommendations?.length" class="section recommendations-section">
-        <h4>Recommendations</h4>
-        <ul>
-          <li v-for="rec in result.recommendations" :key="rec">{{ rec }}</li>
-        </ul>
-      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 .mx-checker {
-  max-width: 800px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1rem 3rem;
 }
 
-.tool-form {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 12px;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
+/* Search bar — shared pattern */
+.search-bar {
+  margin: 2rem 0 1.5rem;
+  transition: margin 0.2s;
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
+.search-bar.has-result {
+  margin: 0 0 1rem;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1, #374151);
-  font-size: 0.9rem;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 0.875rem 1rem;
-  border: 2px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.2s ease;
-  box-sizing: border-box;
-  background: var(--vp-c-bg, #ffffff);
-  color: var(--vp-c-text-1, #374151);
-}
-
-.form-group input:focus {
-  outline: none;
-  border-color: var(--vp-c-brand);
-  box-shadow: 0 0 0 3px rgba(19, 176, 238, 0.1);
-}
-
-.form-group input:disabled {
-  background: var(--vp-c-bg-mute, #f1f5f9);
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-/* CAPTCHA Styles */
-.captcha-expired-message {
-  background: #fff3cd;
-  border: 1px solid #ffc107;
-  color: #856404;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-}
-
-.captcha-container {
+.search-form {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  transition: transform 0.2s;
 }
 
-.captcha-image-container {
+.search-input-wrap {
   flex: 1;
-  min-height: 50px;
+  min-width: 220px;
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: #ffffff;
-  border: 1px solid var(--vp-c-border-soft, #dee2e6);
-  border-radius: 6px;
-  padding: 0.5rem;
 }
 
-.captcha-loading,
-.captcha-placeholder {
-  color: #6b7280;
-  font-style: italic;
-  text-align: center;
-}
-
-.load-captcha-btn {
-  background: var(--vp-c-brand);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: background-color 0.2s ease;
-}
-
-.load-captcha-btn:hover {
-  background: var(--vp-c-brand-light);
-}
-
-.refresh-captcha-btn {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
+.search-icon {
+  position: absolute;
+  left: 0.875rem;
+  color: var(--vp-c-text-3, #9ca3af);
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
+  pointer-events: none;
 }
 
-.refresh-captcha-btn:hover:not(:disabled) {
-  background: var(--vp-c-bg, #ffffff);
+.search-input-wrap input {
+  width: 100%;
+  padding: 0.75rem 2.25rem 0.75rem 2.5rem;
+  border: 1.5px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 10px;
+  font-size: 1rem;
+  background: var(--vp-c-bg, #fff);
+  color: var(--vp-c-text-1, #111827);
+  transition: border-color 0.15s, box-shadow 0.15s, padding 0.2s;
+  box-sizing: border-box;
+}
+
+.has-result .search-input-wrap input {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.search-input-wrap input:focus {
+  outline: none;
   border-color: var(--vp-c-brand);
+  box-shadow: 0 0 0 3px hsla(197, 87%, 50%, 0.12);
 }
 
-.refresh-captcha-btn:disabled {
+.search-input-wrap input:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-.refresh-captcha-btn img {
-  width: 16px;
-  height: 16px;
-}
-
-.captcha-help {
-  display: block;
-  margin-top: 0.5rem;
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.875rem;
-  font-style: italic;
-}
-
-/* Button */
-.check-btn {
-  background: var(--vp-c-brand);
-  color: #ffffff;
-  padding: 0.875rem 2rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.2s ease;
-  width: 100%;
-  box-shadow: 0 2px 4px rgba(19, 176, 238, 0.2);
-}
-
-.check-btn:hover:not(:disabled) {
-  background: var(--vp-c-brand-light);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.25);
-}
-
-.check-btn:active:not(:disabled) {
-  background: var(--vp-c-brand-dark);
-  transform: translateY(0);
-}
-
-.check-btn:disabled {
-  background: var(--vp-c-bg-mute, #9ca3af);
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.btn-loading {
+.search-clear {
+  position: absolute;
+  right: 0.625rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
   justify-content: center;
-}
-
-.loading-spinner {
-  width: 12px;
-  height: 12px;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  border-top: 1.5px solid #ffffff;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: var(--vp-c-bg-mute, #f1f5f9);
+  color: var(--vp-c-text-2, #6b7280);
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.search-clear:hover {
+  background: var(--vp-c-bg-soft, #e5e7eb);
+  color: var(--vp-c-text-1, #111827);
 }
 
-/* Error Section */
-.error-section {
-  background: var(--vp-danger-soft, #f8d7da);
-  color: var(--vp-c-danger-1, #721c24);
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 1rem 0;
-  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
+.turnstile-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 0.75rem;
+  transition: opacity 0.2s, max-height 0.2s, margin 0.2s;
+  overflow: hidden;
 }
 
-.error-message {
-  margin: 0;
-  font-weight: 500;
-}
-
-/* Results Section */
-.result-section {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 12px;
-  background: var(--vp-c-bg, #ffffff);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.result-section h3 {
-  margin: 0 0 1.5rem 0;
-  color: var(--vp-c-text-1, #1a202c);
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.status-box {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  padding: 1.25rem;
-  border: 1px solid var(--vp-c-border-soft, #dee2e6);
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-}
-
-.status-box p {
-  margin: 0.5rem 0;
-  font-size: 1rem;
-}
-
-/* Info Section */
-.info-section {
-  border-top: 1px solid var(--vp-c-border-soft, #eee);
-  padding-top: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.info-section h4 {
-  margin: 0 0 1rem 0;
-  color: var(--vp-c-text-1, #333);
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.info-section p {
-  margin: 0.75rem 0;
-  color: var(--vp-c-text-2, #4a5568);
-  line-height: 1.6;
-}
-
-/* Info tip styles */
-.info-tip {
-  display: inline-block;
-  margin-left: .3rem;
-  width: 1rem;
-  height: 1rem;
-  line-height: 1rem;
-  text-align: center;
-  border-radius: 50%;
-  background: var(--vp-c-brand);
-  color: #fff;
-  font-size: .675rem;
-  cursor: help;
-  position: relative;
-  vertical-align: middle;
-}
-
-.info-tip-pop {
+.turnstile-row.turnstile-collapsed {
   opacity: 0;
+  max-height: 0;
+  margin-top: 0;
   pointer-events: none;
   position: absolute;
-  left: 50%;
-  top: calc(100% + 8px);
-  transform: translateX(-50%);
-  width: max-content;
-  max-width: min(300px, 90vw);
-  padding: .8rem 1rem;
-  border-radius: 8px;
-  background: var(--vp-c-bg, #ffffff);
-  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  box-shadow: 0 8px 24px rgba(0,0,0,.12);
-  color: var(--vp-c-text-1, #374151);
-  font-size: .825rem;
-  line-height: 1.5;
-  z-index: 1000;
-  transition: opacity .2s ease, transform .2s ease;
-  transform: translateX(-50%) translateY(-4px);
-  word-wrap: break-word;
-  hyphens: auto;
 }
 
-.info-tip-pop::before {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
-  background: var(--vp-c-bg, #ffffff);
-  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  border-bottom: none;
-  border-right: none;
-  transform: translateX(-50%) rotate(45deg);
-}
-
-.info-tip:hover .info-tip-pop,
-.info-tip:focus .info-tip-pop {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
-
-.info-tip:nth-last-child(-n+2) .info-tip-pop,
-.info-tip:last-child .info-tip-pop {
-  left: auto;
-  right: 0;
-  transform: translateX(0);
-}
-
-.info-tip:nth-last-child(-n+2) .info-tip-pop::before,
-.info-tip:last-child .info-tip-pop::before {
-  left: auto;
-  right: 1rem;
-  transform: translateX(0) rotate(45deg);
-}
-
-.info-tip:hover:nth-last-child(-n+2) .info-tip-pop,
-.info-tip:focus:nth-last-child(-n+2) .info-tip-pop,
-.info-tip:hover:last-child .info-tip-pop,
-.info-tip:focus:last-child .info-tip-pop {
-  transform: translateX(0) translateY(0);
-}
-
-/* MX Records Section */
-.mx-records-section {
-  border-top: 1px solid var(--vp-c-border-soft, #eee);
-  padding-top: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.mx-records-section h4 {
-  margin: 0 0 1.5rem 0;
-  color: var(--vp-c-text-1, #333);
-  font-size: 1.25rem;
+.search-btn {
+  padding: 0.75rem 1.5rem;
+  background: var(--vp-c-brand);
+  color: #fff;
+  font-size: 0.9rem;
   font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s, padding 0.2s;
+  box-shadow: 0 1px 4px hsla(197, 87%, 50%, 0.3);
+  min-width: 130px;
 }
 
-.mx-records-container {
-  background: var(--vp-c-bg, #ffffff);
-  border-radius: 12px;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+.has-result .search-btn {
+  padding: 0.5rem 1.25rem;
+  min-width: 100px;
+  font-size: 0.825rem;
 }
 
-.mx-records-list {
-  padding: 0;
+.search-btn:hover:not(:disabled) {
+  background: var(--vp-c-brand-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px hsla(197, 87%, 50%, 0.35);
 }
 
-.mx-record-item {
-  border-bottom: 1px solid var(--vp-c-border-soft, #f1f5f9);
-  transition: background-color 0.2s ease;
+.search-btn:active:not(:disabled) { transform: translateY(0); }
+.search-btn:disabled { opacity: 0.55; cursor: not-allowed; box-shadow: none; }
+
+.btn-loading { display: flex; align-items: center; justify-content: center; }
+
+.spinner {
+  display: inline-block;
+  width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
 }
 
-.mx-record-item:last-child {
-  border-bottom: none;
-}
+@keyframes spin { to { transform: rotate(360deg); } }
 
-.mx-record-item:hover {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-}
-
-.mx-record-content {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  align-items: center;
-}
-
-/* Priority Section */
-.priority-section {
-  display: flex;
-  flex-direction: column;
+/* Error */
+.error-pill {
+  display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid rgba(220,38,38,0.2);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+/* Results */
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  flex-wrap: wrap;
+}
+
+.hero-pass { background: linear-gradient(135deg, rgba(22,163,74,0.06) 0%, hsla(197,87%,50%,0.04) 100%); border-color: rgba(22,163,74,0.2); }
+.hero-fail { background: rgba(220,38,38,0.04); border-color: rgba(220,38,38,0.18); }
+
+.hero-icon {
+  width: 52px; height: 52px;
+  border-radius: 13px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon-pass { background: rgba(22,163,74,0.12); color: #16a34a; border: 1px solid rgba(22,163,74,0.2); }
+.icon-fail { background: rgba(220,38,38,0.1);  color: #dc2626; border: 1px solid rgba(220,38,38,0.15); }
+
+.hero-text { flex: 1; min-width: 0; }
+
+.hero-title {
+  margin: 0 0 0.2rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--vp-c-text-1, #111827);
+}
+
+.hero-domain {
+  margin: 0;
+  font-size: 0.8rem;
+  font-family: monospace;
+  color: var(--vp-c-text-2, #6b7280);
+}
+
+.hero-score { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+
+.score-num {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--vp-c-text-1, #111827);
+  line-height: 1;
+}
+
+.score-denom { font-size: 0.9rem; font-weight: 500; color: var(--vp-c-text-3, #9ca3af); }
+
+.score-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  margin-top: 0.25rem;
+}
+
+.score-strong, .score-excellent { background: rgba(22,163,74,0.12); color: #15803d; }
+.score-good, .score-medium      { background: rgba(217,119,6,0.12);  color: #b45309; }
+.score-poor, .score-weak        { background: rgba(220,38,38,0.1);   color: #dc2626; }
+
+/* Signals grid */
+.signals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.625rem;
+}
+
+.signal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.75rem 0.875rem;
+  border-radius: 10px;
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  background: var(--vp-c-bg, #fff);
+}
+
+.signal-icon { display: inline-flex; align-items: center; }
+.signal-name { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--vp-c-text-2, #6b7280); }
+.signal-value { font-size: 0.875rem; font-weight: 600; color: var(--vp-c-text-1, #111827); }
+
+.signal-strong .signal-icon { color: #16a34a; }
+.signal-medium .signal-icon { color: #d97706; }
+.signal-weak   .signal-icon { color: #dc2626; }
+.signal-muted  .signal-icon { color: var(--vp-c-text-3, #9ca3af); }
+
+.signal-strong { border-color: rgba(22,163,74,0.25); }
+.signal-medium { border-color: rgba(217,119,6,0.25); }
+.signal-weak   { border-color: rgba(220,38,38,0.2); }
+
+/* Card */
+.tool-card {
+  background: var(--vp-c-bg, #fff);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+}
+
+.card-title {
+  margin: 0 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--vp-c-text-1, #374151);
+}
+
+/* MX list */
+.mx-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.mx-item {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  border-radius: 9px;
+  background: var(--vp-c-bg-soft, #f8f9fa);
 }
 
 .priority-badge {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 48px;
-  height: 48px;
+  width: 36px; height: 36px;
   background: var(--vp-c-brand);
-  color: white;
-  border-radius: 12px;
+  color: #fff;
+  border-radius: 9px;
   font-weight: 700;
-  font-size: 1rem;
-  box-shadow: 0 2px 8px rgba(19, 176, 238, 0.3);
-  border: 1px solid rgba(19, 176, 238, 0.2);
-}
-
-.priority-label {
-  font-size: 0.75rem;
-  color: var(--vp-c-text-2, #6b7280);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 500;
-}
-
-/* Server Section */
-.server-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  min-width: 0;
-}
-
-.server-name {
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-weight: 600;
-  color: var(--vp-c-text-1, #2d3748);
-  font-size: 1rem;
-  word-break: break-all;
-  line-height: 1.4;
-}
-
-.server-meta {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.server-type {
-  color: var(--vp-c-text-2, #6b7280);
   font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.server-status {
-  color: #22c55e;
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-/* Summary Stats */
-.mx-summary-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-top: 1px solid var(--vp-c-border-soft, #f1f5f9);
-}
-
-.stat-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem 1rem;
-  text-align: center;
-  position: relative;
-}
-
-.stat-card:not(:last-child)::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 25%;
-  bottom: 25%;
-  width: 1px;
-  background: var(--vp-c-border-soft, #dee2e6);
-}
-
-.stat-number {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--vp-c-brand);
-  line-height: 1;
-  margin-bottom: 0.25rem;
-}
-
-.stat-label {
-  font-size: 0.8rem;
-  color: var(--vp-c-text-2, #6b7280);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 500;
-}
-
-/* Result Sections */
-.section {
-  margin-top: 1.5rem;
-  padding: 1.25rem;
-  border-radius: 8px;
-}
-
-.section h4 {
-  margin: 0 0 1rem 0;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.section ul {
-  margin: 0;
-  padding-left: 1.5rem;
-}
-
-.section li {
-  margin: 0.5rem 0;
-  line-height: 1.5;
-}
-
-.analysis-section {
-  background: var(--vp-tip-soft, #f0f9ff);
-  border: 1px solid rgba(23, 162, 184, 0.18);
-}
-
-.analysis-section h4 {
-  color: var(--vp-c-tip-1, #17a2b8);
-}
-
-.analysis-grid {
-  display: grid;
-  gap: 1rem;
-}
-
-.analysis-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.75rem;
-  background: var(--vp-c-bg, #ffffff);
-  border-radius: 6px;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-}
-
-.analysis-item .label {
-  font-weight: 600;
-  color: var(--vp-c-text-1, #495057);
-}
-
-.analysis-item .value {
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.375rem;
-  color: var(--vp-c-text-1, #374151);
-}
-
-/* Status dot, the single source of color */
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
   flex-shrink: 0;
+  box-shadow: 0 1px 4px hsla(197, 87%, 50%, 0.3);
 }
 
-.status-dot.pass { background: #16a34a; }
-.status-dot.warn { background: #d97706; }
-.status-dot.fail { background: #dc2626; }
-.status-dot.muted { background: var(--vp-c-text-3, #c3c8cf); }
+.mx-item-text { min-width: 0; }
+.mx-host { font-family: monospace; font-size: 0.875rem; font-weight: 600; color: var(--vp-c-text-1); word-break: break-all; }
+.mx-meta { font-size: 0.75rem; color: var(--vp-c-text-3, #9ca3af); margin-top: 0.1rem; }
 
-.warnings-section {
-  background: var(--vp-warning-soft, #fffbf0);
-  border: 1px solid rgba(214, 158, 46, 0.2);
+/* Alerts */
+.alert {
+  display: flex;
+  gap: 0.75rem;
+  padding: 0.875rem 1.125rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  font-size: 0.875rem;
+  line-height: 1.6;
 }
 
-.warnings-section h4 {
-  color: var(--vp-c-warning-1, #d69e2e);
-}
+.alert > svg { flex-shrink: 0; margin-top: 0.1rem; }
+.alert ul { margin: 0; padding-left: 1.1rem; }
+.alert li + li { margin-top: 0.2rem; }
 
-.recommendations-section {
-  background: var(--vp-tip-soft, #f0f9ff);
-  border: 1px solid rgba(23, 162, 184, 0.18);
-}
+.alert-warn { background: rgba(217,119,6,0.06); border-color: rgba(217,119,6,0.2); color: var(--vp-c-text-1); }
+.alert-warn > svg { color: #d97706; }
+.alert-tip  { background: hsla(197,87%,50%,0.05); border-color: hsla(197,87%,50%,0.2); color: var(--vp-c-text-1); }
+.alert-tip > svg { color: var(--vp-c-brand-dark, #0891b2); }
 
-.recommendations-section h4 {
-  color: var(--vp-c-tip-1, #17a2b8);
-}
-
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-  .refresh-captcha-btn {
-    background: var(--vp-c-bg-soft);
-    border-color: var(--vp-c-border);
-    color: var(--vp-c-text-1);
-  }
-  
-  .refresh-captcha-btn:hover:not(:disabled) {
-    border-color: var(--vp-c-brand);
-  }
-  
-  .mx-records-container {
-    background: var(--vp-c-bg, #17181c);
-    border-color: #282a36;
-  }
-  
-  .mx-record-item {
-    border-color: #282a36;
-  }
-  
-  .server-name {
-    color: var(--vp-c-brand-light);
-  }
-  
-  .priority-badge {
-    background: var(--vp-c-brand) !important;
-    box-shadow: 0 2px 8px rgba(19, 176, 238, 0.3) !important;
-    border: 1px solid rgba(19, 176, 238, 0.2) !important;
-  }
-  
-  .mx-summary-stats {
-    background: #252736;
-    border-color: #282a36;
-  }
-  
-  .stat-card::after {
-    background: #282a36;
-  }
-  
-  .recommendations-section,
-  .recommendations-section ul,
-  .recommendations-section li {
-    color: #2d3748 !important;
-  }
-  
-  .info-tip-pop {
-    background: var(--vp-c-bg-soft, #252736);
-    border-color: var(--vp-c-border, #404040);
-    box-shadow: 0 8px 24px rgba(0,0,0,.3);
-  }
-  
-  .info-tip-pop::before {
-    background: var(--vp-c-bg-soft, #252736);
-    border-color: var(--vp-c-border, #404040);
-  }
-}
-
-@media (max-width: 480px) {
-  .info-tip-pop {
-    position: fixed;
-    left: 10px !important;
-    right: 10px !important;
-    top: auto !important;
-    bottom: 20px;
-    transform: none !important;
-    width: auto !important;
-    max-width: none !important;
-    z-index: 9999;
-  }
-  
-  .info-tip-pop::before {
-    display: none;
-  }
-  
-  .info-tip:hover .info-tip-pop,
-  .info-tip:focus .info-tip-pop {
-    transform: none !important;
-  }
-}
+/* Dark mode */
+.dark .hero-pass { background: linear-gradient(135deg, rgba(22,163,74,0.09) 0%, hsla(197,87%,50%,0.06) 100%); border-color: rgba(22,163,74,0.25); }
+.dark .hero-fail { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.22); }
+.dark .icon-pass { background: rgba(22,163,74,0.18); color: #4ade80; }
+.dark .icon-fail { background: rgba(220,38,38,0.18); color: #f87171; }
+.dark .score-strong, .dark .score-excellent { background: rgba(22,163,74,0.2); color: #4ade80; }
+.dark .score-good, .dark .score-medium      { background: rgba(217,119,6,0.2);  color: #fbbf24; }
+.dark .score-poor, .dark .score-weak        { background: rgba(220,38,38,0.2);  color: #f87171; }
+.dark .signal-strong .signal-icon { color: #4ade80; }
+.dark .signal-medium .signal-icon { color: #fbbf24; }
+.dark .signal-weak   .signal-icon { color: #f87171; }
+.dark .mx-item { background: var(--vp-c-bg-soft, #252736); border-color: var(--vp-c-border, #3a3d50); }
+.dark .alert-warn { background: rgba(217,119,6,0.1); border-color: rgba(217,119,6,0.25); }
+.dark .alert-tip  { background: hsla(197,87%,50%,0.08); border-color: hsla(197,87%,50%,0.25); }
+.dark .alert-tip > svg { color: var(--vp-c-brand-light); }
 
 /* Responsive */
-@media (max-width: 768px) {
-  .mx-checker {
-    padding: 0 0.5rem;
-  }
-  
-  .tool-form,
-  .result-section {
-    padding: 1rem;
-    margin: 1rem 0;
-  }
-  
-  .captcha-container {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .refresh-captcha-btn {
-    align-self: center;
-  }
-  
-  .mx-record-content {
-    grid-template-columns: 100px 1fr;
-    gap: 1rem;
-    padding: 1.25rem;
-  }
-  
-  .priority-badge {
-    width: 42px;
-    height: 42px;
-    font-size: 0.9rem;
-  }
-  
-  .server-name {
-    font-size: 0.9rem;
-  }
-  
-  .mx-summary-stats {
-    grid-template-columns: 1fr;
-  }
-  
-  .stat-card {
-    padding: 1rem;
-  }
-  
-  .stat-card:not(:last-child)::after {
-    display: none;
-  }
-  
-  .stat-card:not(:last-child) {
-    border-bottom: 1px solid var(--vp-c-border-soft, #dee2e6);
-  }
+@media (max-width: 640px) {
+  .search-form { flex-direction: column; align-items: stretch; }
+  .search-btn { width: 100%; }
+  .hero { padding: 1.25rem; gap: 1rem; }
+  .hero-score { align-self: flex-start; }
+  .signals-grid { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+  .signal { padding: 0.625rem; }
 }
 
-@media (max-width: 480px) {
-  .mx-record-content {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 1rem;
-    padding: 1rem;
-  }
-  
-  .priority-section {
-    flex-direction: row;
-    justify-content: center;
-  }
-  
-  .server-meta {
-    justify-content: center;
-  }
-}
-
-@media (hover: none) and (pointer: coarse) {
-  .info-tip {
-    width: 1.25rem;
-    height: 1.25rem;
-    line-height: 1.25rem;
-  }
-  
-  .info-tip-pop {
-    padding: 1rem 1.25rem;
-    font-size: .875rem;
-  }
+@media (max-width: 400px) {
+  .signals-grid { grid-template-columns: 1fr; }
 }
 </style>
-

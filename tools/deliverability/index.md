@@ -39,38 +39,48 @@ head:
       content: https://bluefox.email/assets/free-deliverability-tools.png
 ---
 
+<script setup>
+import ToolsCategoryGrid from '../../.vitepress/theme/ToolsCategoryGrid.vue'
+
+const tools = [
+  {
+    name: 'DMARC Checker',
+    desc: 'Validate your DMARC policy, check alignment mode and enforcement, and prevent email spoofing.',
+    href: '/tools/deliverability/dmarc-checker',
+    iconPaths: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>`,
+  },
+  {
+    name: 'SPF Checker',
+    desc: 'Verify your SPF record, mechanisms, and DNS lookup count against the RFC 7208 10-lookup limit.',
+    href: '/tools/deliverability/spf-checker',
+    iconPaths: `<circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/>`,
+  },
+  {
+    name: 'DKIM Checker',
+    desc: 'Test DKIM signatures for a domain and selector, and inspect key type, length, and tags.',
+    href: '/tools/deliverability/dkim-checker',
+    iconPaths: `<rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>`,
+  },
+  {
+    name: 'MX Record Checker',
+    desc: "Look up your domain's mail exchange records, priorities, and redundancy.",
+    href: '/tools/deliverability/mx-checker',
+    iconPaths: `<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M3 7l9 6 9-6"/>`,
+  },
+  {
+    name: 'DMARC Report Analyzer',
+    desc: 'Upload a DMARC aggregate report to see pass rates, sources, and authentication breakdowns.',
+    href: '/tools/deliverability/dmarc-report-analyzer',
+    tag: 'Upload',
+    iconPaths: `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>`,
+  },
+]
+</script>
+
 <GlossaryNavigation link="/tools" label="Back to Tools Home" />
 
 # Free Email Deliverability Tools
 
 Boost your email deliverability with our comprehensive collection of **free [email authentication](/email-sending-concepts/email-authentication) tools**. These professional-grade utilities help you validate, analyze, and optimize your email infrastructure for maximum inbox placement and security.
 
-### DMARC Checker
-**Validate your DMARC policy and prevent email spoofing**. Check if your domain has proper [DMARC](/email-sending-concepts/dmarc) records configured and analyze policy effectiveness for email authentication. Our DMARC checker helps ensure your domain is protected against phishing attacks and improves email deliverability.
-
-[Read More →](/tools/deliverability/dmarc-checker)
-
-
-### SPF Checker  
-**Verify your [SPF](/email-sending-concepts/spf) records and authorize legitimate senders**. Ensure your Sender Policy Framework is correctly configured to prevent email spoofing and improve inbox placement. Check DNS syntax, validate authorized servers, and optimize your SPF configuration.
-
-[Read More →](/tools/deliverability/spf-checker)
-
-
-### DKIM Checker
-**Test [DKIM](/email-sending-concepts/dkim) signatures and email authentication**. Verify that your DomainKeys Identified Mail signatures are properly configured and discoverable by receiving email servers. Ensure email integrity and build sender reputation with proper DKIM validation.
-
-[Read More →](/tools/deliverability/dkim-checker)
-
-
-### MX Record Checker
-**Lookup and analyze [mail exchange](/email-sending-concepts/mx-record) records**. Check your domain's MX records to ensure proper email routing and identify potential delivery issues. Verify mail server configuration and test [SMTP](/email-sending-concepts/smtp) connectivity for reliable email delivery.
-
-[Read More →](/tools/deliverability/mx-checker)
-
-
-### DMARC Report Analyzer
-**Analyze DMARC aggregate reports for security insights**. Upload and parse your DMARC reports to gain visibility into email authentication performance, identify unauthorized usage, and optimize your email security posture.
-
-[Read More →](/tools/deliverability/dmarc-report-analyzer)
-
+<ToolsCategoryGrid :tools="tools" />
