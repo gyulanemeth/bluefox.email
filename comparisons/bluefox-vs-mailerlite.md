@@ -1,31 +1,42 @@
 ---
 title: BlueFox Email vs MailerLite
 description: An even-handed comparison of BlueFox Email and MailerLite's email sending — pricing, campaigns, automation, deliverability, scale, and support.
+thumbnail: /assets/comparisons/bluefox-vs-mailerlite.png
+sidebar: false
+aside: true
+
+prev: false
+next: false
+datePublished: "2026-07-02"
+dateModified: "2026-07-02"
 head:
   - - meta
+    - name: description
+      content: An even-handed comparison of BlueFox Email and MailerLite's email sending — pricing, campaigns, automation, deliverability, scale, and support.
+  - - meta
     - property: og:title
-      content: BlueFox Email vs MailerLite
+      content: BlueFox Email vs MailerLite | BlueFox Email
   - - meta
     - property: og:description
       content: An even-handed, detail-level comparison of BlueFox Email and MailerLite's email sending — pricing model, campaigns, automation, and deliverability.
   - - meta
-    - property: og:type
-      content: article
-  - - meta
     - property: og:image
-      content: /img/comparisons/bluefox-vs-mailerlite.jpg
+      content: https://bluefox.email/assets/comparisons/bluefox-vs-mailerlite.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/comparisons/bluefox-vs-mailerlite
   - - meta
     - name: twitter:card
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: BlueFox Email vs MailerLite
+      content: BlueFox Email vs MailerLite | BlueFox Email
   - - meta
     - name: twitter:description
       content: An even-handed, detail-level comparison of BlueFox Email and MailerLite's email sending — pricing model, campaigns, automation, and deliverability.
   - - meta
     - name: twitter:image
-      content: /img/comparisons/bluefox-vs-mailerlite.jpg
+      content: https://bluefox.email/assets/comparisons/bluefox-vs-mailerlite.png
 ---
 
 <GlossaryNavigation link="/comparisons" label="Back to comparison list" />
