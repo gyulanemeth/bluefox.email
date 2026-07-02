@@ -71,6 +71,12 @@ Explore the key differences between BlueFox Email and Resend, including features
 
 [Read more](./bluefox-vs-resend)
 
+## BlueFox Email vs Loops
+
+Explore the key differences between BlueFox Email and Loops, including features, pricing, and target audiences.
+
+[Read more](./bluefox-vs-loops)
+
 <style>
 a[href^="/comparisons/"] {
   color: #13B0EE;
