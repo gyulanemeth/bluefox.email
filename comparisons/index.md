@@ -1,4 +1,5 @@
 ---
+layout: comparisons
 title: BlueFox Email Provider Comparisons
 description: Explore expert comparisons between BlueFox Email and leading email marketing platforms, covering design, infrastructure, pricing, and key features.
 thumbnail: /assets/comparisons/bluefox-comparisons.png
@@ -7,7 +8,7 @@ prev: false
 next: false
 
 datePublished: "2025-09-02"
-dateModified: "2025-09-10"
+dateModified: "2026-06-29"
 
 head:
   - - meta
@@ -64,11 +65,11 @@ Explore the key differences between BlueFox Email and Brevo (formerly Sendinblue
 
 [Read more](./bluefox-vs-brevo)
 
-## BlueFox Email vs Loops
+## BlueFox Email vs Resend
 
-Explore the key differences between BlueFox Email and Loops, including pricing models, design systems, infrastructure control, and which is better for SaaS vs other senders.
+Explore the key differences between BlueFox Email and Resend, including features, pricing, and target audiences.
 
-[Read more](./bluefox-vs-loops)
+[Read more](./bluefox-vs-resend)
 
 <style>
 a[href^="/comparisons/"] {

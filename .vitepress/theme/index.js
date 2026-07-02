@@ -44,6 +44,7 @@ import './style.css'
 
 import Posts from './Posts.vue'
 import Post from './Post.vue'
+import Comparisons from './Comparisons.vue'
 import NavigationButton from './NavigationButton.vue'
 import GlossaryCTA from './GlossaryCTA.vue'
 import PageCTA from './PageCTA.vue'
@@ -224,6 +225,7 @@ export default {
     app.use(vuetify)
     app.component('posts', Posts)
     app.component('post', Post)
+    app.component('comparisons', Comparisons)
     app.component('NavigationButton', NavigationButton)
     app.component('GlossaryCTA', GlossaryCTA)
     app.component('PageCTA', PageCTA)
