@@ -171,7 +171,7 @@ BlueFox Email has three delivery modes documented in [Delivery Modes](https://bl
 
 To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending. The platform also supports one-click unsubscribe (RFC-8058), a subscription preferences page, and a pause-instead-of-unsubscribe link.
 
-**Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, optional dedicated IP add-on on the managed plan ($50/mo per workspace), transparent bounce/complaint thresholds visible in-product, per-project suppression list, STS-based AWS auth (no long-lived keys), one-click unsubscribe and preferences page built in.
+**Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, optional dedicated IP add-on on the managed plan ($50/mo per IP), transparent bounce/complaint thresholds visible in-product, per-project suppression list, STS-based AWS auth (no long-lived keys), one-click unsubscribe and preferences page built in.
 
 **Trade-offs:** No direct ISP peering relationships at the platform layer; in managed mode, deliverability rides on AWS SES's reputation rather than dedicated-to-sender peering. Smaller community than SendGrid, so less third-party deliverability tooling and shared best-practice content.
 
@@ -307,7 +307,7 @@ BlueFox Email charges per email sent. Contacts are unlimited, all features are a
 
 AWS SES costs in BYO mode: ~$0.10 per 1,000 emails, billed directly by AWS. Combine with the AWS Free Tier (3,000 free sends/month for the first 12 months) at small volume. Packs are stackable.
 
-**Add-on**: optional dedicated IP for $50/month per workspace (managed mode). In BYO SES mode, a dedicated IP is configured and billed through your own AWS SES account instead.
+**Add-on**: optional dedicated IP for $50/month per IP (managed mode). In BYO SES mode, a dedicated IP is configured and billed through your own AWS SES account instead.
 
 ### Scenarios
 
