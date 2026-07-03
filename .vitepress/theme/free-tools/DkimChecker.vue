@@ -119,8 +119,8 @@ function validateInputs() {
 }
 
 async function checkDkimHandler() {
-  result.value       = null
-  loading.value       = true
+  result.value = null
+  loading.value = true
   errorMessage.value = ''
 
   try {
