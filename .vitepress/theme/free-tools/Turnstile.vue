@@ -11,6 +11,12 @@ let widgetId = null
 let tokenResolve = null
 let tokenReject = null
 
+let readyResolve = null
+const readyPromise = new Promise((resolve) => { readyResolve = resolve })
+function whenReady() {
+  return readyPromise
+}
+
 function loadScript() {
   return new Promise((resolve, reject) => {
     if (window.turnstile) {
@@ -73,7 +79,7 @@ function getToken() {
   })
 }
 
-defineExpose({ reset, getToken })
+defineExpose({ reset, getToken, whenReady })
 
 onMounted(async () => {
   if (!SITE_KEY) {
@@ -105,6 +111,7 @@ onMounted(async () => {
         }
       }
     })
+    readyResolve()
   } catch (err) {
     console.error('Failed to render Turnstile widget:', err)
     emit('error')

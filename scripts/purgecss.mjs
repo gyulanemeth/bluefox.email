@@ -48,6 +48,30 @@ const result = await new PurgeCSS().purge({
       'dark',
       /^fade-/,      // Vue transition classes
       /^slide-/,
+      // free-tools result UI: only ever rendered client-side after a check
+      // completes, so it never appears in the prerendered HTML PurgeCSS scans.
+      /^search-/,
+      /^hero/,
+      /^icon-/,
+      /^score-/,
+      /^signal/,
+      /^alert/,
+      /^disclosure/,
+      /^tag-/,
+      /^td-/,
+      /^card/,
+      /^mechanism/,
+      /^ip-/,
+      /^error-pill/,
+      /^selector-/,
+      /^turnstile-/,
+      /^form-hint/,
+      /^switcher-/,
+      /^tool-switcher/,
+      /^results$/,
+      /^btn-loading$/,
+      /^spinner$/,
+      /^inline-link$/,
     ],
     deep: [
       /data-v-/,     // Vue scoped style selectors
