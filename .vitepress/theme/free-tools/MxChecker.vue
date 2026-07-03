@@ -19,26 +19,39 @@ const resultsRef = ref(null)
 const isFormDisabled = computed(() => loading.value)
 
 function hasUniquePriorities(records) {
-  if (!records?.length) return true
+  if (!records?.length) {
+    return true
+  }
   return new Set(records.map(r => r.priority)).size === records.length
 }
 
 const redundancySignal = computed(() => {
   const n = result.value?.records?.length ?? 0
-  if (n > 1) return { label: 'Multiple servers', level: 'strong', icon: 'check' }
-  if (n === 1) return { label: 'Single server', level: 'weak', icon: 'alert' }
+  if (n > 1) {
+    return { label: 'Multiple servers', level: 'strong', icon: 'check' }
+  }
+  if (n === 1) {
+    return { label: 'Single server', level: 'weak', icon: 'alert' }
+  }
   return { label: 'None', level: 'weak', icon: 'alert' }
 })
 
 const priorityShape = computed(() => {
-  if (!result.value?.records?.length) return { label: '—', level: 'muted', icon: 'dot' }
+  if (!result.value?.records?.length) {
+    return { label: '—', level: 'muted', icon: 'dot' }
+  }
   return hasUniquePriorities(result.value.records)
     ? { label: 'Unique priorities', level: 'strong', icon: 'check' }
     : { label: 'Duplicate priorities', level: 'medium', icon: 'minus' }
 })
 
-function onTurnstileVerified(token) { turnstileToken.value = token }
-function onTurnstileInvalid()       { turnstileToken.value = '' }
+function onTurnstileVerified(token) {
+  turnstileToken.value = token
+}
+
+function onTurnstileInvalid() {
+  turnstileToken.value = ''
+}
 
 function resetTurnstile() {
   turnstileToken.value = ''
@@ -59,7 +72,10 @@ async function checkMxHandler() {
   errorMessage.value = ''
 
   try {
-    if (!validateInputs()) { loading.value = false; return }
+    if (!validateInputs()) {
+      loading.value = false
+      return
+    }
 
     if (!isSessionValid()) {
       turnstileToken.value = await turnstileRef.value.getToken()
@@ -82,7 +98,9 @@ async function checkMxHandler() {
     resetTurnstile()
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
-    if (err.status === 401) resetTurnstile()
+    if (err.status === 401) {
+      resetTurnstile()
+    }
   } finally {
     loading.value = false
   }

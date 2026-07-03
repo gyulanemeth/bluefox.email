@@ -34,7 +34,9 @@ const isFormDisabled = computed(() => loading.value)
 const TRUNCATE_AT = 40
 
 function truncateMiddle(value) {
-  if (value.length <= TRUNCATE_AT) return value
+  if (value.length <= TRUNCATE_AT) {
+    return value
+  }
   const head = value.slice(0, 20)
   const tail = value.slice(-16)
   return `${head}…${tail}`
@@ -65,7 +67,11 @@ async function copyTagValue(tag) {
   try {
     await navigator.clipboard.writeText(tag.value)
     copiedTag.value = tag.tag
-    setTimeout(() => { if (copiedTag.value === tag.tag) copiedTag.value = '' }, 1500)
+    setTimeout(() => {
+      if (copiedTag.value === tag.tag) {
+        copiedTag.value = ''
+      }
+    }, 1500)
   } catch {
     /* clipboard unavailable */
   }
@@ -78,15 +84,26 @@ const keyTypeSignal = computed(() => {
 
 const keyLengthSignal = computed(() => {
   const p = dkimTags.value.find(t => t.tag === 'p')?.value
-  if (!p) return null
+  if (!p) {
+    return null
+  }
   const approxBits = Math.floor((p.length * 6) / 8) * 8
-  if (approxBits >= 2048) return { label: `~${approxBits} bit`, level: 'strong', icon: 'check' }
-  if (approxBits >= 1024) return { label: `~${approxBits} bit`, level: 'medium', icon: 'minus' }
+  if (approxBits >= 2048) {
+    return { label: `~${approxBits} bit`, level: 'strong', icon: 'check' }
+  }
+  if (approxBits >= 1024) {
+    return { label: `~${approxBits} bit`, level: 'medium', icon: 'minus' }
+  }
   return { label: `~${approxBits} bit`, level: 'weak', icon: 'alert' }
 })
 
-function onTurnstileVerified(token) { turnstileToken.value = token }
-function onTurnstileInvalid()       { turnstileToken.value = '' }
+function onTurnstileVerified(token) {
+  turnstileToken.value = token
+}
+
+function onTurnstileInvalid() {
+  turnstileToken.value = ''
+}
 
 function resetTurnstile() {
   turnstileToken.value = ''
@@ -107,7 +124,10 @@ async function checkDkimHandler() {
   errorMessage.value = ''
 
   try {
-    if (!validateInputs()) { loading.value = false; return }
+    if (!validateInputs()) {
+      loading.value = false
+      return
+    }
 
     if (!isSessionValid()) {
       turnstileToken.value = await turnstileRef.value.getToken()
@@ -133,7 +153,9 @@ async function checkDkimHandler() {
     resetTurnstile()
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
-    if (err.status === 401) resetTurnstile()
+    if (err.status === 401) {
+      resetTurnstile()
+    }
   } finally {
     loading.value = false
   }
@@ -145,11 +167,15 @@ onMounted(async () => {
   const urlParams = new URLSearchParams(window.location.search)
 
   loadFromUrl({ domain, selector })
-  if (!selector.value) selector.value = DEFAULT_SELECTOR
+  if (!selector.value) {
+    selector.value = DEFAULT_SELECTOR
+  }
   await nextTick()
 
   if (urlParams.get('run') === '1' && domain.value) {
-    if (urlParams.get('selector') === 'google') guessedSelector.value = true
+    if (urlParams.get('selector') === 'google') {
+      guessedSelector.value = true
+    }
     await turnstileRef.value?.whenReady()
     await checkDkimHandler()
     await nextTick()

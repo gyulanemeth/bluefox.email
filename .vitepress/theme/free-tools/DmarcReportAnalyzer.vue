@@ -64,13 +64,24 @@ const regularRecommendations = computed(() =>
 const ALIGNMENT_LABELS  = { aligned: 'Aligned', unaligned: 'Not aligned', mixed: 'Mixed', no_data: 'No data' }
 const ALIGNMENT_CLASSES = { aligned: 'pass', unaligned: 'fail', mixed: 'warn', no_data: 'muted' }
 
-function alignmentLabel(v) { return ALIGNMENT_LABELS[v] || v || '-' }
-function alignmentClass(v) { return ALIGNMENT_CLASSES[v] || 'muted' }
+function alignmentLabel(v) {
+  return ALIGNMENT_LABELS[v] || v || '-'
+}
+
+function alignmentClass(v) {
+  return ALIGNMENT_CLASSES[v] || 'muted'
+}
 
 function authDotClass(status) {
-  if (status === 'aligned_pass')   return 'pass'
-  if (status === 'unaligned_pass') return 'warn'
-  if (status === 'auth_fail')      return 'fail'
+  if (status === 'aligned_pass') {
+    return 'pass'
+  }
+  if (status === 'unaligned_pass') {
+    return 'warn'
+  }
+  if (status === 'auth_fail') {
+    return 'fail'
+  }
   return 'muted'
 }
 
@@ -80,10 +91,17 @@ function toggleSource(ip) {
   expandedSources.value = next
 }
 
-function isSourceExpanded(ip) { return expandedSources.value.has(ip) }
+function isSourceExpanded(ip) {
+  return expandedSources.value.has(ip)
+}
 
-function onTurnstileVerified(token) { turnstileToken.value = token }
-function onTurnstileInvalid()       { turnstileToken.value = '' }
+function onTurnstileVerified(token) {
+  turnstileToken.value = token
+}
+
+function onTurnstileInvalid() {
+  turnstileToken.value = ''
+}
 
 function resetTurnstile() {
   turnstileToken.value = ''
@@ -125,7 +143,10 @@ function handleDrop(e) {
 
 function handleFileChange(e) {
   const selected = e.target.files[0]
-  if (!selected) { clearFile(); return }
+  if (!selected) {
+    clearFile()
+    return
+  }
   if (!selected.name.endsWith('.xml')) {
     errorMessage.value = 'Only XML files are supported.'
     clearFile()
@@ -163,7 +184,10 @@ async function analyzeReport() {
   errorMessage.value   = ''
 
   try {
-    if (!validateInputs()) { loading.value = false; return }
+    if (!validateInputs()) {
+      loading.value = false
+      return
+    }
 
     if (!isSessionValid()) {
       turnstileToken.value = await turnstileRef.value.getToken()

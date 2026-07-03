@@ -51,43 +51,63 @@ const dmarcTags = computed(() => {
 
 const policySignal = computed(() => {
   const p = result.value?.parsed?.p?.toLowerCase()
-  if (p === 'reject')      return { label: 'Reject',      level: 'strong',  icon: 'check' }
-  if (p === 'quarantine')  return { label: 'Quarantine',  level: 'medium',  icon: 'minus' }
-  if (p === 'none')        return { label: 'None',        level: 'weak',    icon: 'alert' }
+  if (p === 'reject') {
+    return { label: 'Reject', level: 'strong', icon: 'check' }
+  }
+  if (p === 'quarantine') {
+    return { label: 'Quarantine', level: 'medium', icon: 'minus' }
+  }
+  if (p === 'none') {
+    return { label: 'None', level: 'weak', icon: 'alert' }
+  }
   return null
 })
 
 const pctSignal = computed(() => {
   const pct = result.value?.parsed?.pct
-  if (!pct) return { label: '100% (default)', level: 'strong', icon: 'check' }
+  if (!pct) {
+    return { label: '100% (default)', level: 'strong', icon: 'check' }
+  }
   const n = parseInt(pct, 10)
-  if (n === 100) return { label: '100%',      level: 'strong', icon: 'check' }
-  if (n >= 50)   return { label: `${n}%`,     level: 'medium', icon: 'minus' }
-  return         { label: `${n}%`,            level: 'weak',   icon: 'alert' }
+  if (n === 100) {
+    return { label: '100%', level: 'strong', icon: 'check' }
+  }
+  if (n >= 50) {
+    return { label: `${n}%`, level: 'medium', icon: 'minus' }
+  }
+  return { label: `${n}%`, level: 'weak', icon: 'alert' }
 })
 
 const dkimAlignSignal = computed(() => {
   const adkim = result.value?.parsed?.adkim?.toLowerCase()
-  if (adkim === 's') return { label: 'DKIM Strict',  level: 'strong', icon: 'check' }
-  return               { label: 'DKIM Relaxed', level: 'medium', icon: 'minus' }
+  if (adkim === 's') {
+    return { label: 'DKIM Strict', level: 'strong', icon: 'check' }
+  }
+  return { label: 'DKIM Relaxed', level: 'medium', icon: 'minus' }
 })
 
 const spfAlignSignal = computed(() => {
   const aspf = result.value?.parsed?.aspf?.toLowerCase()
-  if (aspf === 's') return { label: 'SPF Strict',  level: 'strong', icon: 'check' }
-  return              { label: 'SPF Relaxed', level: 'medium', icon: 'minus' }
+  if (aspf === 's') {
+    return { label: 'SPF Strict', level: 'strong', icon: 'check' }
+  }
+  return { label: 'SPF Relaxed', level: 'medium', icon: 'minus' }
 })
 
 const ruaSignal = computed(() => {
   const rua = result.value?.parsed?.rua
-  if (rua) return { label: 'Reports On',  level: 'strong', icon: 'check' }
-  return    { label: 'No Reports',   level: 'weak',   icon: 'alert' }
+  if (rua) {
+    return { label: 'Reports On', level: 'strong', icon: 'check' }
+  }
+  return { label: 'No Reports', level: 'weak', icon: 'alert' }
 })
 
 const rufSignal = computed(() => {
   const ruf = result.value?.parsed?.ruf
-  if (ruf) return { label: 'Forensics On', level: 'medium', icon: 'minus' }
-  return    { label: 'No Forensics', level: 'muted',  icon: 'dot' }
+  if (ruf) {
+    return { label: 'Forensics On', level: 'medium', icon: 'minus' }
+  }
+  return { label: 'No Forensics', level: 'muted', icon: 'dot' }
 })
 
 const criticalWarnings = computed(() =>
@@ -108,8 +128,13 @@ const recommendations = computed(() =>
   result.value?.recommendations ?? []
 )
 
-function onTurnstileVerified(token)  { turnstileToken.value = token }
-function onTurnstileInvalid()        { turnstileToken.value = '' }
+function onTurnstileVerified(token) {
+  turnstileToken.value = token
+}
+
+function onTurnstileInvalid() {
+  turnstileToken.value = ''
+}
 
 function resetTurnstile() {
   turnstileToken.value = ''
@@ -132,7 +157,10 @@ async function checkDmarcHandler() {
   showTagTable.value  = false
 
   try {
-    if (!validateInputs()) { loading.value = false; return }
+    if (!validateInputs()) {
+      loading.value = false
+      return
+    }
 
     if (!isSessionValid()) {
       turnstileToken.value = await turnstileRef.value.getToken()
@@ -159,7 +187,9 @@ async function checkDmarcHandler() {
     resetTurnstile()
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
-    if (err.status === 401) resetTurnstile()
+    if (err.status === 401) {
+      resetTurnstile()
+    }
   } finally {
     loading.value = false
   }

@@ -25,24 +25,45 @@ const isFormDisabled = computed(() => loading.value)
 
 const lookupSignal = computed(() => {
   const n = result.value?.lookups
-  if (n == null) return null
-  if (n > 10) return { label: `${n} (exceeds 10)`, level: 'weak', icon: 'alert' }
-  if (n >= 8)  return { label: `${n} of 10`, level: 'medium', icon: 'minus' }
+  if (n == null) {
+    return null
+  }
+  if (n > 10) {
+    return { label: `${n} (exceeds 10)`, level: 'weak', icon: 'alert' }
+  }
+  if (n >= 8) {
+    return { label: `${n} of 10`, level: 'medium', icon: 'minus' }
+  }
   return { label: `${n} of 10`, level: 'strong', icon: 'check' }
 })
 
 const policySignal = computed(() => {
   const p = result.value?.policy
-  if (!p) return null
-  if (p.includes('-all')) return { label: 'Hard fail (-all)', level: 'strong', icon: 'check' }
-  if (p.includes('~all')) return { label: 'Soft fail (~all)', level: 'medium', icon: 'minus' }
-  if (p.includes('?all')) return { label: 'Neutral (?all)', level: 'weak', icon: 'alert' }
-  if (p.includes('+all')) return { label: 'Allow all (+all)', level: 'weak', icon: 'alert' }
+  if (!p) {
+    return null
+  }
+  if (p.includes('-all')) {
+    return { label: 'Hard fail (-all)', level: 'strong', icon: 'check' }
+  }
+  if (p.includes('~all')) {
+    return { label: 'Soft fail (~all)', level: 'medium', icon: 'minus' }
+  }
+  if (p.includes('?all')) {
+    return { label: 'Neutral (?all)', level: 'weak', icon: 'alert' }
+  }
+  if (p.includes('+all')) {
+    return { label: 'Allow all (+all)', level: 'weak', icon: 'alert' }
+  }
   return { label: p, level: 'muted', icon: 'dot' }
 })
 
-function onTurnstileVerified(token) { turnstileToken.value = token }
-function onTurnstileInvalid()       { turnstileToken.value = '' }
+function onTurnstileVerified(token) {
+  turnstileToken.value = token
+}
+
+function onTurnstileInvalid() {
+  turnstileToken.value = ''
+}
 
 function resetTurnstile() {
   turnstileToken.value = ''
@@ -71,7 +92,10 @@ async function checkSpfHandler() {
   loading.value = true
 
   try {
-    if (!validateInputs()) { loading.value = false; return }
+    if (!validateInputs()) {
+      loading.value = false
+      return
+    }
 
     if (!isSessionValid()) {
       turnstileToken.value = await turnstileRef.value.getToken()
@@ -115,14 +139,18 @@ async function checkSpfHandler() {
     }
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
-    if (err.status === 401) resetTurnstile()
+    if (err.status === 401) {
+      resetTurnstile()
+    }
   } finally {
     loading.value = false
   }
 }
 
 function goBack() {
-  if (currentIndex.value <= 0) return
+  if (currentIndex.value <= 0) {
+    return
+  }
   const previous = history.value[currentIndex.value - 1]
   currentIndex.value--
   domain.value = previous.domain
@@ -172,7 +200,9 @@ onMounted(async () => {
   const urlParams = new URLSearchParams(window.location.search)
 
   loadFromUrl({ domain, testIp })
-  if (testIp.value) showIpField.value = true
+  if (testIp.value) {
+    showIpField.value = true
+  }
   await nextTick()
 
   if (urlParams.get('run') === '1' && domain.value) {
