@@ -92,7 +92,7 @@ Loops prices on subscribed contacts and includes unlimited sends, both marketing
 | ~50,000 contacts | ~$249/mo |
 | ~100,000 contacts | ~$399/mo (custom beyond) |
 
-Every paid plan includes all features and unlimited team seats; annual billing is about 20% cheaper.
+Every paid plan includes all features and unlimited team seats.
 
 BlueFox Email does the opposite. You pay for sends, contacts are free and unlimited, and every feature is included on every pack. Credits last 12 months.
 
@@ -117,7 +117,7 @@ Both are no-code and both render well across clients, so this comes down to dept
 
 Loops has one of the cleaner editors in the category. It feels modern and uncluttered, closer to writing in a document than wrestling a builder, with reusable components, themes, and style controls, and it renders through MJML so designs hold up across the email clients it supports. You can paste Markdown that includes structured elements like buttons and simple columns, upload your own HTML when you need to, and it stays pleasant to use. What it isn't is a full design system: there's no concept of global brand variables shared across many templates, or multi-brand asset management, because that isn't the problem Loops set out to solve.
 
-BlueFox Email's builder, powered by the Chamaileon SDK, is built around exactly that. You assemble emails from reusable **blocks** (headers, footers, CTA rows), define **brand variables** (colors, fonts, logos) and **components** once, and reuse them so nothing drifts off-brand, which matters most when you run several brands or a large template library. Personalization uses Handlebars with loop and conditional elements, and the builder includes a stock photo library, a photo editor, dark mode preview, and VML fallbacks that keep background images intact in Outlook specifically.
+BlueFox Email's builder, powered by the Chamaileon SDK, is built around exactly that. You assemble emails from reusable **blocks** (headers, footers, CTA rows), define **brand variables** (colors, fonts, logos) and **components** (buttons, dividers) once, and reuse them so nothing drifts off-brand, which matters most when you run several brands or a large template library. Personalization uses Handlebars with loop and conditional elements, and the builder includes a stock photo library, a photo editor, dark mode preview, and VML fallbacks that keep background images intact in Outlook specifically. For anyone who wants out of the visual builder entirely, there's a custom code element for raw HTML, essentially bring-your-own-markup, plus a lightweight plain-text and minimal-HTML sending mode for simpler messages that don't need the full design treatment.
 
 That builder also drives one capability Loops doesn't directly match: **data feeds**. You can point any email at a live external source (RSS, Atom, or JSON), loop over the items at send time, and render them as real content, images included, so a newsletter, a digest, or a "latest articles" block stays current without anyone editing the template. It works across campaigns, transactional, triggered emails, and automations. Loops builds dynamic content from contact and event data rather than external feeds, so if pulling in outside content matters to you, that's a point for BlueFox.
 
@@ -135,11 +135,11 @@ If you're one team sending clean, consistent email, Loops' editor will feel fast
 
 It's easy to fixate on sending and skip the part you actually spend the most time in: organizing who gets what. Both tools are well built here, closer to each other than anywhere else in this comparison, but they lean in different directions.
 
-BlueFox treats contacts as central records that can belong to many lists at once, so changing someone's email updates it everywhere they're subscribed. Lists can be **public**, shown on a hosted subscription preferences page where people choose what they want to receive, or **private**, hidden and used for internal, test, or exclusive sends. You can store typed custom properties (text, number, date, single or multi-value), apply tags in bulk, and every contact carries a clear status: unverified, active, paused, or unsubscribed. That paused state is a small thing that does real work, it lets someone step away for a while instead of leaving for good, which tends to take pressure off your unsubscribe rate.
+BlueFox treats contacts as central records that can belong to many lists at once, so changing someone's email updates it everywhere they're subscribed. Lists show up on a hosted subscription preferences page where people choose what they want to receive, or you can keep certain ones as internal test lists, hidden from that page and used for internal, test, or exclusive sends. You can store typed custom properties (text, number, date, single or multi-value), apply tags in bulk, and every contact carries a clear status: unverified, active, paused, or unsubscribed. That paused state is a small thing that does real work, it lets someone step away for a while instead of leaving for good, which tends to take pressure off your unsubscribe rate.
 
-Segments are where BlueFox is stronger than its simplicity suggests. You build them from properties and tags with full AND/OR logic and a proper set of operators (equals and does-not-equal, contains and does-not-contain, is-empty, greater or less than, and so on), or from engagement: opened, clicked, or received and their negatives, within a window of days. A segment can target your whole audience or a single list, it updates itself as contacts change, and it drops straight into campaigns and automations. Sign-up forms are reusable objects you style once and attach to one or more lists, with CAPTCHA, a terms-and-conditions step, and form-level double opt-in, and a CSV import can optionally enroll new contacts directly into a matching automation as they land.
+Segments are where BlueFox is stronger than its simplicity suggests. You build them from properties and tags with full AND/OR logic and a proper set of operators (equals and does-not-equal, contains and does-not-contain, is-empty, greater or less than, and so on), or from engagement: opened, clicked, or received and their negatives, within a window of days. A segment can target your whole audience or a single list, it updates itself as contacts change, and it drops straight into campaigns and automations. Sign-up forms are reusable objects you style once and attach to one or more lists, with CAPTCHA or Turnstile, a terms-and-conditions step, and form-level double opt-in, and a CSV import can optionally enroll new contacts directly into a matching automation as they land.
 
-Loops comes at the same job from a product-data angle, and it's good at it. Its model is built on contacts, contact properties, and events you send from your app, its segments stay in sync the same way from properties and engagement and are reusable across campaigns and workflows, and it has sign-up forms, a preference center with topics, double opt-in, and a CSV import that suggests field mappings for you. If your targeting is mostly driven by what users do inside your product, Loops' event-native model is a natural fit. If it's driven by stored attributes, tags, and email engagement, BlueFox's operator-rich segments and tagging are at least as capable, with the extra niceties of pause-instead-of-unsubscribe and public-versus-private lists.
+Loops comes at the same job from a product-data angle, and it's good at it. Its model is built on contacts, contact properties, and events you send from your app, its segments stay in sync the same way from properties and engagement and are reusable across campaigns and workflows, and it has sign-up forms, a preference center with topics, double opt-in, and a CSV import that suggests field mappings for you. If your targeting is mostly driven by what users do inside your product, Loops' event-native model is a natural fit. If it's driven by stored attributes, tags, and email engagement, BlueFox's operator-rich segments and tagging are at least as capable, with the extra niceties of pause-instead-of-unsubscribe and the option to keep certain lists internal for testing.
 
 The honest read is that neither tool wins this outright. Loops is the more product-event-shaped system; BlueFox is the more list-and-attribute-shaped one. Most teams will find the model that matches how they already think about their audience.
 
@@ -149,7 +149,7 @@ Both tools run managed sending and handle the deliverability basics well. The di
 
 Loops keeps everything on its own maintained infrastructure, and it has clearly put work in: dedicated sending IP pools monitored against blocklists like Spamhaus, a message pipeline tuned to pass spam filters, and a pre-send check that warns you about known traps before you hit send. It covers SPF, DKIM, DMARC, and BIMI, generates the DNS records for you, and supports subdomain sending and double opt-in. What it doesn't offer is a way to run sending on your own account, and it doesn't publicly document per-customer dedicated IP options or reputation isolation, which is worth confirming directly if isolating one tenant's reputation from another is a hard requirement for you.
 
-BlueFox Email gives you that layer of control. You can stay on its managed infrastructure, or switch on bring-your-own-SES and send through your own AWS account, where your reputation is fully isolated and shaped only by your own behavior, and where each pack carries double the sends. A dedicated IP is available on request at $50/month with no enterprise tier or minimum volume required, or configured through your own AWS account in BYO mode. The dashboard shows your live bounce rate against a 2.5% ceiling and complaint rate against a 0.05% ceiling, and you can bulk-clean bounced or complained contacts straight into a suppression list to keep the account healthy.
+BlueFox Email gives you that layer of control. You can stay on its managed infrastructure, or switch on bring-your-own-SES and send through your own AWS account, where your reputation is fully isolated and shaped only by your own behavior, and where each pack carries double the sends. On the managed plan, a dedicated IP is available on request at $50/month, no enterprise tier or minimum volume required; in BYO mode, you set one up directly through your own AWS SES account instead, so it's never a separate BlueFox charge there. The dashboard shows your live bounce rate against a 2.5% ceiling and complaint rate against a 0.05% ceiling, and you can bulk-clean bounced or complained contacts straight into a suppression list to keep the account healthy.
 
 For most single-product senders, Loops' managed setup is more than enough and pleasantly hands-off. The reasons to want BlueFox here are specific: you need reputation isolation, you want to own the underlying AWS account, or you're sending on behalf of multiple clients and want each one's reputation kept separate.
 
@@ -157,9 +157,19 @@ For most single-product senders, Loops' managed setup is more than enough and pl
 
 This is where Loops is at its strongest, and it's fair to say so plainly.
 
-Loops is built around product events. You send events from your app (a signup, an upgrade, a feature used) and trigger sequences from them, with branching, delays, and pauses. More to the point, it connects email to outcomes: hook it up to your product and Stripe and it tracks which emails drive upgrades, reduce churn, and bring in revenue, rather than stopping at opens and clicks. Its integration list leans into the same world, with Stripe, Segment, HubSpot, Intercom, and around thirty others, plus an API and an MCP server for agent workflows. If your email lives and dies by what users do in your product, this is a strong, coherent setup, and BlueFox has nothing equivalent to the revenue and churn attribution.
+Loops is built around product events. You send events from your app (a signup, an upgrade, a feature used) and trigger sequences from them, with branching, delays, and pauses. More to the point, it connects email to outcomes: hook it up to your product and Stripe and it tracks which emails drive upgrades, reduce churn, and bring in revenue, rather than stopping at opens and clicks. Its integration list leans into the same world, with Stripe, Segment, HubSpot, Intercom, and around thirty others, plus an API and an MCP server for agent workflows. If your email lives and dies by what users do in your product, this is a strong, coherent setup; BlueFox doesn't have an equivalent to that revenue and churn attribution today, though it's on the roadmap.
 
-BlueFox Email's automation comes at the same idea from the marketing side. Its visual builder triggers on contact and segment activity (contact added or updated, entering or leaving a segment, recurring time-based schedules) and carries a wide node set: send, timer, audience filter, branching with conditions, plus notify, set-value, manage-tags, and webhook nodes. Its most useful trick is that you can edit a running automation and choose whether the change applies to new contacts only or to everyone already in the flow, so you tweak sequences instead of rebuilding them. The reporting is delivery and engagement focused, sliced by account, project, campaign, transactional email, triggered email, and list, with live bounce and complaint ratios against the production thresholds and per-automation-node stats. There's no revenue attribution or benchmarking, which is the flip side of Loops' product-data strength.
+BlueFox Email's automation comes at the same idea from the marketing side. Its visual builder triggers on contact and segment activity (contact added or updated, entering or leaving a segment, recurring time-based schedules) and carries a wide node set: send, timer, audience filter, branching with conditions, plus notify, set-value, manage-tags, and webhook nodes. Its most useful trick is that you can edit a running automation and choose whether the change applies to new contacts only or to everyone already in the flow, so you tweak sequences instead of rebuilding them. The reporting is delivery and engagement focused, sliced by account, project, campaign, transactional email, triggered email, and list, with live bounce and complaint ratios against the production thresholds and per-automation-node stats.
+
+<div class="home-analytics">
+<AgencyAnalytics
+  title="Analytics that show what happened"
+  description="Delivery, opens, clicks, bounces, and subscription trends. Switch between hourly, daily, weekly, and monthly views."
+  default-tab="hourly"
+/>
+</div>
+
+There's no revenue attribution or benchmarking, which is the flip side of Loops' product-data strength.
 
 <Automation
   class="mt-6"
@@ -172,19 +182,11 @@ BlueFox Email's automation comes at the same idea from the marketing side. Its v
 
 If you want email tied to product analytics and revenue, Loops is ahead. If you want flexible, marketer-driven flows you can edit live and reporting focused on delivery health, BlueFox fits better.
 
-<div class="home-analytics">
-<AgencyAnalytics
-  title="Analytics that show what happened"
-  description="Delivery, opens, clicks, bounces, and subscription trends. Switch between hourly, daily, weekly, and monthly views."
-  default-tab="hourly"
-/>
-</div>
-
 ## Who each one is really for
 
 Loops makes a deliberate choice to be email for SaaS, and it's good at that narrow thing. The team has been at it since 2022, the product is used by a roster of well-known software companies, it's SOC 2 compliant, and the experience is clean from onboarding onward. The same focus is its boundary: there's no SMS, no landing pages, no CRM, and it openly isn't aimed at ecommerce, publishing, or general marketing. If you're not a software product, much of what makes Loops nice doesn't apply to you.
 
-BlueFox Email is a smaller, founder-led company, which means support is direct access to the people building the product on every plan, not just the expensive ones. Founder Gyula Németh has worked in HTML email since 2013 and previously built edmdesigner.com, chamaileon.io, and emailhero.io. It isn't tied to a single use case, so agencies, SaaS teams, and other senders all fit. The honest trade-off is the mirror of Loops': a smaller company has a thinner knowledge base, fewer third-party tutorials, and a smaller integration marketplace than Loops has built.
+BlueFox Email is a smaller, founder-led company, which means support is direct access to the people building the product on every plan, not just the expensive ones. Founder Gyula Németh has worked in HTML email since 2013 and previously built edmdesigner.com, chamaileon.io, and emailhero.io, and the team behind BlueFox is growing, so that direct access isn't riding on any one person indefinitely. It isn't tied to a single use case, so agencies, SaaS teams, and other senders all fit. The honest trade-off is the mirror of Loops': a smaller company has a thinner knowledge base, fewer third-party tutorials, and a smaller integration marketplace than Loops has built.
 
 ## So, which one
 
@@ -192,4 +194,9 @@ Start with your sending shape, because it settles most of it. If you send often 
 
 On the day-to-day middle, contacts, segments, forms, and the like, they're close enough that it won't be the deciding factor for most teams. The decision tends to come back to the two things they genuinely disagree on: what you're paying for, and how much of the stack you want to own. Work those out and the rest follows.
 
-<GlossaryCTA/>
+<GlossaryCTA
+  title="Pay for the emails you send, not the contacts you store"
+  description="Every feature included on every plan, marketing and transactional together. Start free with 3,000 sends, or bring your own AWS account when you're ready to scale."
+  buttonText="Start Free - 3000 Sends Included"
+  buttonUrl="https://app.bluefox.email/"
+/>
