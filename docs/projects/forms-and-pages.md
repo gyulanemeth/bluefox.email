@@ -121,8 +121,7 @@ The sign-up form offers several customization options across the following secti
 
 #### 1. Field Customization
 
-- **Use Captcha:** Enable or disable CAPTCHA for spam prevention.
-- **Captcha Placeholder:** Text displayed in the CAPTCHA field (e.g., `Enter the text`).
+- **Use Captcha:** Choose a CAPTCHA type (**Image Captcha** or **Turnstile**) for spam prevention. See [Captcha Customization](#_3-captcha-customization) below for details.
 - **Show Fields:** Choose which fields to display
 
   - Select the `Show` check box to display a field (e.g., Name).
@@ -146,10 +145,35 @@ The sign-up form offers several customization options across the following secti
 
 #### 3. Captcha Customization
 
-- **Use Captcha:** Enable or disable CAPTCHA for spam prevention.
+- **Use Captcha:** Choose the CAPTCHA type for the form from the dropdown, **Image Captcha** or **Turnstile**.
+
+![Screenshot of the subscriber lists sign-up page captcha type dropdown](./project-subscriber-lists-sign-up-captcha-dropdown.webp)
+
+**Image Captcha**
+
 - **Captcha Placeholder:** Text displayed in the CAPTCHA field (e.g., `Enter the text`).
 
-![Screenshot of the subscriber lists sign-up page captcha section](./project-subscriber-lists-sign-up-captcha.webp)
+**Turnstile**
+
+[Turnstile](https://developers.cloudflare.com/turnstile/) is Cloudflare's CAPTCHA alternative. To use it you need a Cloudflare account and a Turnstile widget's Site Key and Secret Key.
+
+::: info How to get your Cloudflare Turnstile keys:
+1. Go to [cloudflare.com](https://cloudflare.com) and log in (or create a free account).
+2. In the sidebar click **Turnstile** (under **Application Security**).
+3. Click **Add widget**.
+4. Enter a name and add the domain(s) where this form will appear.
+5. Choose widget type, **Managed** is recommended.
+6. Click **Create**.
+7. Copy the **Site Key** and **Secret Key** shown and paste them into BlueFox Email.
+:::
+
+- **Site Key:** Paste your Turnstile site key.
+- **Secret Key:** Paste your Turnstile secret key.
+- **Theme:** Choose the widget theme (`Auto`, `Light`, `Dark`).
+- **Size:** Choose the widget size (`Normal`, `Compact`).
+- **Appearance:** Choose when the widget is shown (e.g., `Always visible`).
+
+![Screenshot of the subscriber lists sign-up page Turnstile captcha settings](./project-subscriber-lists-sign-up-captcha-turnstile.webp)
 
 #### 4. Terms and Conditions Customization
 
