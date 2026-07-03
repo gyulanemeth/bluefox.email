@@ -22,7 +22,9 @@ const items = computed(() => {
     let href = tool.path
     if (cleanDomain) {
       const params = new URLSearchParams({ domain: cleanDomain, run: '1' })
-      if (tool.key === 'dkim') params.set('selector', 'google')
+      if (tool.key === 'dkim') {
+        params.set('selector', 'google')
+      }
       href = `${tool.path}?${params.toString()}`
     }
     return { ...tool, active, href }

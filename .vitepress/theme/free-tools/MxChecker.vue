@@ -128,7 +128,7 @@ onMounted(async () => {
 
     <ToolSwitcher :domain="domain" />
 
-    <!-- ── Inline form ── -->
+    <!-- Inline form -->
     <div class="search-bar" :class="{ 'has-result': result }">
       <form class="search-form" @submit.prevent="checkMxHandler">
         <div class="search-input-wrap">
@@ -173,13 +173,13 @@ onMounted(async () => {
       />
     </div>
 
-    <!-- ── Error ── -->
+    <!-- Error -->
     <div v-if="errorMessage" class="error-pill">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       {{ errorMessage }}
     </div>
 
-    <!-- ── Results ── -->
+    <!-- Results -->
     <div v-if="result" class="results" ref="resultsRef">
 
       <!-- Hero -->

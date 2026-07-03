@@ -28,8 +28,12 @@ const isFormDisabled = computed(() =>
 )
 
 const truncatedFileName = computed(() => {
-  if (!fileName.value) return ''
-  if (fileName.value.length <= MAX_FILENAME_LEN) return fileName.value
+  if (!fileName.value) {
+    return ''
+  }
+  if (fileName.value.length <= MAX_FILENAME_LEN) {
+    return fileName.value
+  }
   return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
 })
 
@@ -42,8 +46,12 @@ const sourcesGridColumns = computed(() => {
   if (hasAlignmentData.value) {
     cols.push('1.2fr', '1.2fr', '0.5fr')
   } else {
-    if (hasEnvelopeFrom.value) cols.push('2fr')
-    if (hasSpfScope.value)     cols.push('1fr')
+    if (hasEnvelopeFrom.value) {
+      cols.push('2fr')
+    }
+    if (hasSpfScope.value) {
+      cols.push('1fr')
+    }
   }
   return cols.join(' ')
 })
@@ -118,7 +126,9 @@ function validateInputs() {
 
 function handleDragOver(e) {
   e.preventDefault()
-  if (dragLeaveTimeout) clearTimeout(dragLeaveTimeout)
+  if (dragLeaveTimeout) {
+    clearTimeout(dragLeaveTimeout)
+  }
   isDragging.value = true
 }
 
@@ -165,7 +175,9 @@ function clearFile() {
 }
 
 function formatDateRange(dateRange) {
-  if (!dateRange) return 'Unknown'
+  if (!dateRange) {
+    return 'Unknown'
+  }
   if (dateRange.start && dateRange.end) {
     return `${new Date(dateRange.start * 1000).toLocaleString()} – ${new Date(dateRange.end * 1000).toLocaleString()}`
   }
@@ -206,7 +218,9 @@ async function analyzeReport() {
     clearFile()
   } catch (err) {
     errorMessage.value = err.message || 'Network error. Please try again.'
-    if (err.status === 401) resetTurnstile()
+    if (err.status === 401) {
+      resetTurnstile()
+    }
   } finally {
     loading.value = false
   }
@@ -218,7 +232,7 @@ onMounted(async () => { await nextTick() })
 <template>
   <div class="dmarc-analyzer">
 
-    <!-- ── Upload form ── -->
+    <!-- Upload form -->
     <div class="upload-card"
       :class="{ 'drag-active': isDragging }"
       @dragover="handleDragOver"
@@ -287,13 +301,13 @@ onMounted(async () => { await nextTick() })
       </form>
     </div>
 
-    <!-- ── Error ── -->
+    <!-- Error -->
     <div v-if="errorMessage" class="error-pill">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       {{ errorMessage }}
     </div>
 
-    <!-- ── Results ── -->
+    <!-- Results -->
     <div v-if="result" class="results">
 
       <!-- Hero -->
@@ -639,7 +653,7 @@ onMounted(async () => { await nextTick() })
   padding: 0 1rem 3rem;
 }
 
-/* ── Upload card ── */
+/* Upload card */
 .upload-card {
   position: relative;
   margin: 2rem 0 1.5rem;
@@ -1307,7 +1321,7 @@ details[open] .disclosure-chevron { transform: rotate(180deg); }
   transform: translateX(-50%) translateY(0);
 }
 
-/* ── Dark mode ── */
+/* Dark mode */
 .dark .hero-pass { background: linear-gradient(135deg, rgba(22,163,74,0.09) 0%, hsla(197,87%,50%,0.06) 100%); border-color: rgba(22,163,74,0.25); }
 .dark .hero-warn { background: rgba(217,119,6,0.09); border-color: rgba(217,119,6,0.25); }
 .dark .hero-fail { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.22); }
@@ -1339,7 +1353,7 @@ details[open] .disclosure-chevron { transform: rotate(180deg); }
   box-shadow: 0 8px 24px rgba(0,0,0,.3);
 }
 
-/* ── Responsive ── */
+/* Responsive */
 @media (max-width: 640px) {
   .hero { padding: 1.25rem; gap: 1rem; }
   .hero-stats { gap: 0.75rem; }

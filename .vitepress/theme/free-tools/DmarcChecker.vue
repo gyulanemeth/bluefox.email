@@ -217,7 +217,7 @@ onMounted(async () => {
 
     <ToolSwitcher :domain="domain" />
 
-    <!-- ── Inline form ── -->
+    <!-- Inline form -->
     <div class="search-bar" :class="{ 'has-result': result }">
       <form class="search-form" @submit.prevent="checkDmarcHandler">
         <div class="search-input-wrap">
@@ -264,13 +264,13 @@ onMounted(async () => {
       />
     </div>
 
-    <!-- ── Error ── -->
+    <!-- Error -->
     <div v-if="errorMessage" class="error-pill">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
       {{ errorMessage }}
     </div>
 
-    <!-- ── Results ── -->
+    <!-- Results -->
     <div v-if="result" class="results" ref="resultsRef">
 
       <!-- Hero status -->
@@ -399,7 +399,7 @@ onMounted(async () => {
 </template>
 
 <style scoped>
-/* ── Root ── */
+/* Root */
 .dmarc-checker {
   max-width: 780px;
   margin: 0 auto;
@@ -407,7 +407,7 @@ onMounted(async () => {
   font-family: inherit;
 }
 
-/* ── Search bar ── */
+/* Search bar */
 .search-bar {
   margin: 2rem 0 1.5rem;
   transition: margin 0.2s;
@@ -563,7 +563,7 @@ onMounted(async () => {
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── Error ── */
+/* Error */
 .error-pill {
   display: inline-flex;
   align-items: center;
@@ -578,14 +578,14 @@ onMounted(async () => {
   margin-bottom: 1.5rem;
 }
 
-/* ── Results ── */
+/* Results */
 .results {
   display: flex;
   flex-direction: column;
   gap: 0.875rem;
 }
 
-/* ── Hero ── */
+/* Hero */
 .hero {
   display: flex;
   align-items: center;
@@ -682,7 +682,7 @@ onMounted(async () => {
 .score-good,   .score-medium   { background: rgba(217,119,6,0.12);  color: #b45309; }
 .score-poor,   .score-weak     { background: rgba(220,38,38,0.1);   color: #dc2626; }
 
-/* ── Signals grid ── */
+/* Signals grid */
 .signals-grid {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
@@ -738,7 +738,7 @@ onMounted(async () => {
 .signal-weak   { background: rgba(220,38,38,0.03); }
 .signal-muted  { background: transparent; }
 
-/* ── Alerts ── */
+/* Alerts */
 .alert {
   display: flex;
   gap: 0.75rem;
@@ -805,7 +805,7 @@ onMounted(async () => {
 
 .alert-muted > svg { color: var(--vp-c-text-3, #9ca3af); }
 
-/* ── Disclosure (details/summary) ── */
+/* Disclosure (details/summary) */
 .disclosures {
   display: flex;
   flex-direction: column;
@@ -870,7 +870,7 @@ details[open] .disclosure-chevron {
   color: var(--vp-c-text-1, #374151);
 }
 
-/* ── Tag table ── */
+/* Tag table */
 .tag-table {
   width: 100%;
   border-collapse: collapse;
@@ -917,7 +917,7 @@ details[open] .disclosure-chevron {
   line-height: 1.5;
 }
 
-/* ── Dark mode ── */
+/* Dark mode */
 .dark .hero-pass {
   background: linear-gradient(135deg, rgba(22,163,74,0.09) 0%, rgba(19,176,238,0.06) 100%);
   border-color: rgba(22,163,74,0.25);
@@ -973,7 +973,7 @@ details[open] .disclosure-chevron {
   color: var(--vp-c-brand-light);
 }
 
-/* ── Responsive ── */
+/* Responsive */
 @media (max-width: 640px) {
   .signals-grid {
     grid-template-columns: repeat(3, 1fr);
