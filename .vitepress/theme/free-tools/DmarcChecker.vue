@@ -8,42 +8,42 @@ import SignalIcon from './SignalIcon.vue'
 import ToolSwitcher from './ToolSwitcher.vue'
 
 const DMARC_TAG_DESCRIPTIONS = {
-  v:     'DMARC version tag (should be DMARC1).',
-  p:     'Policy for main domain (none/quarantine/reject).',
-  sp:    'Subdomain policy (if present).',
-  np:    'Policy for non-existent subdomains.',
-  rua:   'Aggregate report recipient(s).',
-  ruf:   'Forensic report recipient(s).',
+  v: 'DMARC version tag (should be DMARC1).',
+  p: 'Policy for main domain (none/quarantine/reject).',
+  sp: 'Subdomain policy (if present).',
+  np: 'Policy for non-existent subdomains.',
+  rua: 'Aggregate report recipient(s).',
+  ruf: 'Forensic report recipient(s).',
   adkim: 'DKIM alignment mode (r=relaxed, s=strict).',
-  aspf:  'SPF alignment mode (r=relaxed, s=strict).',
-  pct:   'Percent of mail subject to filtering.',
-  fo:    'Failure reporting options.',
-  ri:    'Report interval in seconds.',
-  t:     'Test mode flag (y = testing, policy not enforced).',
-  psd:   'Public suffix domain flag.',
-  rf:    'Report format (deprecated).',
+  aspf: 'SPF alignment mode (r=relaxed, s=strict).',
+  pct: 'Percent of mail subject to filtering.',
+  fo: 'Failure reporting options.',
+  ri: 'Report interval in seconds.',
+  t: 'Test mode flag (y = testing, policy not enforced).',
+  psd: 'Public suffix domain flag.',
+  rf: 'Report format (deprecated).',
 }
 
-const domain        = ref('')
-const loading       = ref(false)
-const result        = ref(null)
-const errorMessage  = ref('')
+const domain = ref('')
+const loading = ref(false)
+const result = ref(null)
+const errorMessage = ref('')
 const showRawRecord = ref(false)
-const showTagTable  = ref(false)
+const showTagTable = ref(false)
 
-const turnstileRef   = ref(null)
+const turnstileRef = ref(null)
 const turnstileToken = ref('')
 const resultsRef = ref(null)
 
 const isFormDisabled = computed(() => loading.value)
 
 const dmarcTags = computed(() => {
-  const parsed       = result.value?.parsed       || {}
+  const parsed = result.value?.parsed || {}
   const explanations = result.value?.explanations || {}
   return Object.entries(DMARC_TAG_DESCRIPTIONS)
     .map(([tag, description]) => ({
-      tag:         tag.toUpperCase(),
-      value:       parsed[tag] || '',
+      tag: tag.toUpperCase(),
+      value: parsed[tag] || '',
       description: explanations[tag] || description,
     }))
     .filter(item => item.value)
@@ -167,20 +167,20 @@ async function checkDmarcHandler() {
     }
 
     const data = await checkDmarc({
-      domain:         domain.value,
+      domain: domain.value,
       turnstileToken: turnstileToken.value,
     })
 
     result.value = {
-      valid:        true,
-      domain:       data.result.domain       || domain.value,
-      record:       data.result.rawRecord    || data.result.record || 'Not found',
-      parsed:       data.result.parsed       || {},
+      valid: true,
+      domain: data.result.domain || domain.value,
+      record: data.result.rawRecord || data.result.record || 'Not found',
+      parsed: data.result.parsed || {},
       explanations: data.result.explanations || {},
       checkedRecord: data.result.checkedRecord,
-      score:        data.result.score,
-      protocol:     data.result.protocol     || null,
-      warnings:     data.result.warnings     || [],
+      score: data.result.score,
+      protocol: data.result.protocol || null,
+      warnings: data.result.warnings || [],
       recommendations: data.result.recommendations || [],
     }
 

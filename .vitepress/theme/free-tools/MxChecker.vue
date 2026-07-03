@@ -7,12 +7,12 @@ import Turnstile from './Turnstile.vue'
 import SignalIcon from './SignalIcon.vue'
 import ToolSwitcher from './ToolSwitcher.vue'
 
-const domain       = ref('')
-const loading      = ref(false)
-const result       = ref(null)
+const domain = ref('')
+const loading = ref(false)
+const result = ref(null)
 const errorMessage = ref('')
 
-const turnstileRef   = ref(null)
+const turnstileRef = ref(null)
 const turnstileToken = ref('')
 const resultsRef = ref(null)
 
@@ -87,10 +87,10 @@ async function checkMxHandler() {
     })
 
     result.value = {
-      valid:   true,
-      domain:  data.result.domain || domain.value,
+      valid: true,
+      domain: data.result.domain || domain.value,
       records: data.result.records || data.result.mxRecords || [],
-      score:   data.result.score,
+      score: data.result.score,
       warnings: data.result.warnings || [],
       recommendations: data.result.recommendations || [],
     }

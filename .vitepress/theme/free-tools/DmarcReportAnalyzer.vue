@@ -6,22 +6,22 @@ import Turnstile from './Turnstile.vue'
 
 const MAX_FILENAME_LEN = 30
 
-const xmlPaste  = ref('')
-const file      = ref(null)
-const fileName  = ref('')
-const loading   = ref(false)
-const result    = ref(null)
+const xmlPaste = ref('')
+const file = ref(null)
+const fileName = ref('')
+const loading = ref(false)
+const result = ref(null)
 const errorMessage = ref('')
 
 const isDragging = ref(false)
 let dragLeaveTimeout = null
 
-const fileInputRef   = ref(null)
-const turnstileRef   = ref(null)
+const fileInputRef = ref(null)
+const turnstileRef = ref(null)
 const turnstileToken = ref('')
 
 const expandedSources = ref(new Set())
-const showRecords     = ref(false)
+const showRecords = ref(false)
 
 const isFormDisabled = computed(() =>
   loading.value || (!xmlPaste.value.trim() && !file.value)
@@ -37,8 +37,8 @@ const truncatedFileName = computed(() => {
   return `${fileName.value.slice(0, 15)}...${fileName.value.slice(-10)}`
 })
 
-const hasEnvelopeFrom  = computed(() => result.value?.sources?.some(s => s.envelopeFrom != null) ?? false)
-const hasSpfScope      = computed(() => result.value?.sources?.some(s => s.spfScope != null) ?? false)
+const hasEnvelopeFrom = computed(() => result.value?.sources?.some(s => s.envelopeFrom != null) ?? false)
+const hasSpfScope = computed(() => result.value?.sources?.some(s => s.spfScope != null) ?? false)
 const hasAlignmentData = computed(() => result.value?.sources?.some(s => s.spfAlignment !== undefined) ?? false)
 
 const sourcesGridColumns = computed(() => {
@@ -56,10 +56,10 @@ const sourcesGridColumns = computed(() => {
   return cols.join(' ')
 })
 
-const dkimWarnings    = computed(() => result.value?.warnings?.filter(w => /dkim.*selector|selector.*dkim/i.test(w)) ?? [])
+const dkimWarnings = computed(() => result.value?.warnings?.filter(w => /dkim.*selector|selector.*dkim/i.test(w)) ?? [])
 const regularWarnings = computed(() => result.value?.warnings?.filter(w => !/dkim.*selector|selector.*dkim/i.test(w)) ?? [])
 
-const testModeRecommendations  = computed(() => result.value?.recommendations?.filter(r => /policy[_\s]?test[_\s]?mode|test\s?mode/i.test(r)) ?? [])
+const testModeRecommendations = computed(() => result.value?.recommendations?.filter(r => /policy[_\s]?test[_\s]?mode|test\s?mode/i.test(r)) ?? [])
 const forwardingRecommendations = computed(() =>
   result.value?.recommendations?.filter(r => /forwarded mail|forwarding/i.test(r) && !/policy[_\s]?test[_\s]?mode/i.test(r)) ?? []
 )
@@ -69,7 +69,7 @@ const regularRecommendations = computed(() =>
   ) ?? []
 )
 
-const ALIGNMENT_LABELS  = { aligned: 'Aligned', unaligned: 'Not aligned', mixed: 'Mixed', no_data: 'No data' }
+const ALIGNMENT_LABELS = { aligned: 'Aligned', unaligned: 'Not aligned', mixed: 'Mixed', no_data: 'No data' }
 const ALIGNMENT_CLASSES = { aligned: 'pass', unaligned: 'fail', mixed: 'warn', no_data: 'muted' }
 
 function alignmentLabel(v) {

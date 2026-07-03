@@ -7,17 +7,17 @@ import Turnstile from './Turnstile.vue'
 import SignalIcon from './SignalIcon.vue'
 import ToolSwitcher from './ToolSwitcher.vue'
 
-const domain       = ref('')
-const testIp       = ref('')
-const showIpField  = ref(false)
-const loading      = ref(false)
-const result       = ref(null)
+const domain = ref('')
+const testIp = ref('')
+const showIpField = ref(false)
+const loading = ref(false)
+const result = ref(null)
 const errorMessage = ref('')
 
-const history      = ref([])
+const history = ref([])
 const currentIndex = ref(-1)
 
-const turnstileRef   = ref(null)
+const turnstileRef = ref(null)
 const turnstileToken = ref('')
 const resultsRef = ref(null)
 
@@ -108,11 +108,11 @@ async function checkSpfHandler() {
     })
 
     result.value = {
-      valid:   true,
-      domain:  data.result.domain || domain.value,
-      record:  data.result.rawRecord || data.result.record || 'Not found',
+      valid: true,
+      domain: data.result.domain || domain.value,
+      record: data.result.rawRecord || data.result.record || 'Not found',
       lookups: data.result.lookups,
-      policy:  data.result.policy,
+      policy: data.result.policy,
       mechanisms: (data.result.mechanisms || []).map(m => {
         const match = m.original.toLowerCase().match(/^(include|redirect|a|mx):([^\s\/]+)/)
         return { ...m, targetDomain: match ? match[2] : null }

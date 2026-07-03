@@ -18,13 +18,13 @@ const DKIM_TAG_DESCRIPTIONS = {
   n: 'Free-form notes.',
 }
 
-const domain       = ref('')
-const selector     = ref('')
-const loading      = ref(false)
-const result       = ref(null)
+const domain = ref('')
+const selector = ref('')
+const loading = ref(false)
+const result = ref(null)
 const errorMessage = ref('')
 
-const turnstileRef   = ref(null)
+const turnstileRef = ref(null)
 const turnstileToken = ref('')
 const guessedSelector = ref(false)
 const resultsRef = ref(null)
@@ -140,10 +140,10 @@ async function checkDkimHandler() {
     })
 
     result.value = {
-      valid:    true,
-      domain:   data.result.domain || domain.value,
+      valid: true,
+      domain: data.result.domain || domain.value,
       selector: data.result.selector || selector.value,
-      record:    data.result.rawRecord || data.result.record,
+      record: data.result.rawRecord || data.result.record,
       rawRecord: data.result.rawRecord || data.result.record,
       warnings: data.result.warnings || [],
       recommendations: data.result.recommendations || [],
