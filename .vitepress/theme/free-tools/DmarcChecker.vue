@@ -150,11 +150,11 @@ function validateInputs() {
 }
 
 async function checkDmarcHandler() {
-  result.value      = null
-  loading.value     = true
+  result.value = null
+  loading.value = true
   errorMessage.value = ''
   showRawRecord.value = false
-  showTagTable.value  = false
+  showTagTable.value = false
 
   try {
     if (!validateInputs()) {

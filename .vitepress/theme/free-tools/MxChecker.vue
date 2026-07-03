@@ -67,8 +67,8 @@ function validateInputs() {
 }
 
 async function checkMxHandler() {
-  result.value       = null
-  loading.value       = true
+  result.value = null
+  loading.value = true
   errorMessage.value = ''
 
   try {

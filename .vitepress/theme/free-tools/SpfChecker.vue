@@ -79,7 +79,7 @@ function validateInputs() {
 }
 
 async function checkSpfHandler() {
-  result.value       = null
+  result.value = null
   errorMessage.value = ''
 
   domain.value = domain.value.trim()

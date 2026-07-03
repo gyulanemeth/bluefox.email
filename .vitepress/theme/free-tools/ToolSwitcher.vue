@@ -8,9 +8,9 @@ const props = defineProps({
 
 const TOOLS = [
   { key: 'dmarc', label: 'DMARC', path: '/tools/deliverability/dmarc-checker' },
-  { key: 'spf',   label: 'SPF',   path: '/tools/deliverability/spf-checker' },
-  { key: 'dkim',  label: 'DKIM',  path: '/tools/deliverability/dkim-checker' },
-  { key: 'mx',    label: 'MX',    path: '/tools/deliverability/mx-checker' },
+  { key: 'spf', label: 'SPF', path: '/tools/deliverability/spf-checker' },
+  { key: 'dkim', label: 'DKIM', path: '/tools/deliverability/dkim-checker' },
+  { key: 'mx', label: 'MX', path: '/tools/deliverability/mx-checker' },
 ]
 
 const route = useRoute()

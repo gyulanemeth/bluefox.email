@@ -189,11 +189,11 @@ function formatOverride(reason) {
 }
 
 async function analyzeReport() {
-  result.value         = null
+  result.value = null
   expandedSources.value = new Set()
-  showRecords.value    = false
-  loading.value        = true
-  errorMessage.value   = ''
+  showRecords.value = false
+  loading.value = true
+  errorMessage.value = ''
 
   try {
     if (!validateInputs()) {
