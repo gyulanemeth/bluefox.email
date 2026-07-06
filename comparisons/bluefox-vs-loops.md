@@ -159,7 +159,17 @@ This is where Loops is at its strongest, and it's fair to say so plainly.
 
 Loops is built around product events. You send events from your app (a signup, an upgrade, a feature used) and trigger sequences from them, with branching, delays, and pauses. More to the point, it connects email to outcomes: hook it up to your product and Stripe and it tracks which emails drive upgrades, reduce churn, and bring in revenue, rather than stopping at opens and clicks. Its integration list leans into the same world, with Stripe, Segment, HubSpot, Intercom, and around thirty others, plus an API and an MCP server for agent workflows. If your email lives and dies by what users do in your product, this is a strong, coherent setup; BlueFox doesn't have an equivalent to that revenue and churn attribution today, though it's on the roadmap.
 
-BlueFox Email's automation comes at the same idea from the marketing side. Its visual builder triggers on contact and segment activity (contact added or updated, entering or leaving a segment, recurring time-based schedules) and carries a wide node set: send, timer, audience filter, branching with conditions, plus notify, set-value, manage-tags, and webhook nodes. Its most useful trick is that you can edit a running automation and choose whether the change applies to new contacts only or to everyone already in the flow, so you tweak sequences instead of rebuilding them. The reporting is delivery and engagement focused, sliced by account, project, campaign, transactional email, triggered email, and list, with live bounce and complaint ratios against the production thresholds and per-automation-node stats.
+BlueFox Email's automation comes at the same idea from the marketing side. Its visual builder triggers on contact and segment activity (contact added or updated, entering or leaving a segment, recurring time-based schedules) and carries a wide node set: send, timer, audience filter, branching with conditions, plus notify, set-value, manage-tags, and webhook nodes. Its most useful trick is that you can edit a running automation and choose whether the change applies to new contacts only or to everyone already in the flow, so you tweak sequences instead of rebuilding them.
+
+<Automation
+  :is-dark="isDark"
+  :lg-and-up="lgAndUp"
+  :md="md"
+  :sm="sm"
+  :xs="xs"
+/>
+
+On the reporting side, BlueFox Email is delivery and engagement focused, sliced by account, project, campaign, transactional email, triggered email, and list, with live bounce and complaint ratios against the production thresholds and per-automation-node stats. There's no revenue attribution or benchmarking, which is the flip side of Loops' product-data strength.
 
 <div>
 <AgencyAnalytics
@@ -167,17 +177,6 @@ BlueFox Email's automation comes at the same idea from the marketing side. Its v
   :show-cta="false"
 />
 </div>
-
-There's no revenue attribution or benchmarking, which is the flip side of Loops' product-data strength.
-
-<Automation
-  class="mt-6"
-  :is-dark="isDark"
-  :lg-and-up="lgAndUp"
-  :md="md"
-  :sm="sm"
-  :xs="xs"
-/>
 
 If you want email tied to product analytics and revenue, Loops is ahead. If you want flexible, marketer-driven flows you can edit live and reporting focused on delivery health, BlueFox fits better.
 
