@@ -7,7 +7,9 @@ const props = defineProps({
     type: String,
     default: 'Per-project analytics are clean and visual. Client performance reviews become straightforward, and retainer conversations get easier.'
   },
-  defaultTab: { type: String, default: 'hourly' }
+  defaultTab: { type: String, default: 'hourly' },
+  showHeader: { type: Boolean, default: true },
+  showCta: { type: Boolean, default: true }
 })
 
 const activeView = ref('sending')
@@ -310,7 +312,7 @@ const yGridLines = computed(() => {
 
 <template>
   <section class="agency-analytics" aria-labelledby="agency-analytics-title">
-    <div class="analytics-head">
+    <div v-if="showHeader" class="analytics-head">
       <v-chip color="primary" class="analytics-badge">
         <span class="text-overline">Analytics</span>
       </v-chip>
@@ -440,7 +442,7 @@ const yGridLines = computed(() => {
 
     </div>
 
-    <div class="d-flex justify-center mt-6">
+    <div v-if="showCta" class="d-flex justify-center mt-6">
       <v-btn
         size="large"
         color="primary"

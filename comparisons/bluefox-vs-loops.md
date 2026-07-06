@@ -161,11 +161,10 @@ Loops is built around product events. You send events from your app (a signup, a
 
 BlueFox Email's automation comes at the same idea from the marketing side. Its visual builder triggers on contact and segment activity (contact added or updated, entering or leaving a segment, recurring time-based schedules) and carries a wide node set: send, timer, audience filter, branching with conditions, plus notify, set-value, manage-tags, and webhook nodes. Its most useful trick is that you can edit a running automation and choose whether the change applies to new contacts only or to everyone already in the flow, so you tweak sequences instead of rebuilding them. The reporting is delivery and engagement focused, sliced by account, project, campaign, transactional email, triggered email, and list, with live bounce and complaint ratios against the production thresholds and per-automation-node stats.
 
-<div class="home-analytics">
+<div>
 <AgencyAnalytics
-  title="Analytics that show what happened"
-  description="Delivery, opens, clicks, bounces, and subscription trends. Switch between hourly, daily, weekly, and monthly views."
-  default-tab="hourly"
+  :show-header="false"
+  :show-cta="false"
 />
 </div>
 
