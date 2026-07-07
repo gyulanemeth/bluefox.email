@@ -1,6 +1,6 @@
 ---
 title: BlueFox Email vs Constant Contact
-description: An honest comparison of BlueFox Email and Constant Contact, covering pricing by contact vs. by send, design and automation, deliverability, the built-in event and social tools Constant Contact offers, and the one thing it can't do at all — transactional email.
+description: Constant Contact is a small-business suite with events, social posting, and phone support, billed by contact count, but its API can't send a single transactional email. How that gap, per-contact versus per-send pricing, design, automation, and deliverability compare.
 thumbnail: /assets/comparisons/bluefox-vs-constant-contact.png
 sidebar: false
 aside: true
@@ -12,13 +12,13 @@ dateModified: "2026-07-07"
 head:
   - - meta
     - name: description
-      content: An honest comparison of BlueFox Email and Constant Contact, covering pricing by contact vs. by send, design and automation, deliverability, the built-in event and social tools Constant Contact offers, and the one thing it can't do at all — transactional email.
+      content: Constant Contact is a small-business suite with events, social posting, and phone support, billed by contact count, but its API can't send a single transactional email. How that gap, per-contact versus per-send pricing, design, automation, and deliverability compare.
   - - meta
     - property: og:title
       content: BlueFox Email vs Constant Contact | BlueFox Email
   - - meta
     - property: og:description
-      content: An honest comparison of BlueFox Email and Constant Contact, covering pricing, design, automation, deliverability, and the built-in event and social tools Constant Contact offers.
+      content: Constant Contact is a small-business suite with events, social posting, and phone support, billed by contact count, but its API can't send a single transactional email. How that gap, per-contact versus per-send pricing, design, automation, and deliverability compare.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/comparisons/bluefox-vs-constant-contact.png
@@ -33,7 +33,7 @@ head:
       content: BlueFox Email vs Constant Contact | BlueFox Email
   - - meta
     - name: twitter:description
-      content: An honest comparison of BlueFox Email and Constant Contact, two very differently shaped email tools.
+      content: Constant Contact is a contact-billed small-business suite that can't send transactional email at all, two very differently shaped email tools.
 ---
 
 <script setup>
