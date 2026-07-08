@@ -1,6 +1,6 @@
 ---
 title: BlueFox Email vs MailerLite
-description: An even-handed comparison of BlueFox Email and MailerLite's email sending — pricing, campaigns, automation, deliverability, scale, and support.
+description: An even-handed comparison of BlueFox Email and MailerLite's email sending, covering pricing, campaigns, automation, deliverability, scale, and support.
 thumbnail: /assets/comparisons/bluefox-vs-mailerlite.png
 sidebar: false
 aside: true
@@ -12,13 +12,13 @@ dateModified: "2026-07-02"
 head:
   - - meta
     - name: description
-      content: An even-handed comparison of BlueFox Email and MailerLite's email sending — pricing, campaigns, automation, deliverability, scale, and support.
+      content: An even-handed comparison of BlueFox Email and MailerLite's email sending, covering pricing, campaigns, automation, deliverability, scale, and support.
   - - meta
     - property: og:title
       content: BlueFox Email vs MailerLite | BlueFox Email
   - - meta
     - property: og:description
-      content: An even-handed, detail-level comparison of BlueFox Email and MailerLite's email sending — pricing model, campaigns, automation, and deliverability.
+      content: An even-handed, detail-level comparison of BlueFox Email and MailerLite's email sending, covering pricing model, campaigns, automation, and deliverability.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/comparisons/bluefox-vs-mailerlite.png
@@ -33,11 +33,22 @@ head:
       content: BlueFox Email vs MailerLite | BlueFox Email
   - - meta
     - name: twitter:description
-      content: An even-handed, detail-level comparison of BlueFox Email and MailerLite's email sending — pricing model, campaigns, automation, and deliverability.
+      content: An even-handed, detail-level comparison of BlueFox Email and MailerLite's email sending, covering pricing model, campaigns, automation, and deliverability.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/comparisons/bluefox-vs-mailerlite.png
 ---
+
+<script setup>
+import { useDisplay } from 'vuetify'
+import { useData } from 'vitepress'
+
+import TemplateShowcase from '../.vitepress/theme/TemplateShowcase.vue'
+import Segmentation from '../.vitepress/theme/Segmentation.vue'
+
+const { lgAndUp, md, sm, xs } = useDisplay()
+const { isDark } = useData()
+</script>
 
 <GlossaryNavigation link="/comparisons" label="Back to comparison list" />
 
@@ -90,7 +101,13 @@ MailerLite gives you five campaign types: Regular (a standard one-off send), A/B
 
 BlueFox's campaign side is built around its Chamaileon-based drag-and-drop editor rather than distinct campaign types: reusable blocks, brand variables for colors, fonts, and logos, Handlebars personalization with loop and conditional elements, a stock photo library, a built-in photo editor, dark mode preview, Outlook-safe VML fallbacks, and a custom code element for dropping into raw HTML. It doesn't have MailerLite's dedicated A/B split, auto-resend, or multivariate campaign types, that kind of testing infrastructure isn't part of BlueFox's product yet. Where MailerLite treats RSS-to-email as one specific campaign type, BlueFox's data feed pulls live RSS, Atom, or JSON content into any email at send time, campaign, transactional, or automated, with dynamic images and loop rendering, a broader mechanism, though it's answering a different need than MailerLite's testing tools.
 
-<TemplateShowcase />
+<TemplateShowcase
+  :is-dark="isDark"
+  :lg-and-up="lgAndUp"
+  :md="md"
+  :sm="sm"
+  :xs="xs"
+/>
 
 The trade-off between the two is fairly clean: MailerLite has more campaign types and testing tools, several of them gated to paid plans; BlueFox has fewer campaign-specific tools but doesn't gate any of them by plan, a Free BlueFox account gets the same design and personalization capability as a Premium one.
 
@@ -102,7 +119,13 @@ MailerLite's automation builder is rule-based: three logic types (Delay, Conditi
 
 BlueFox's automation builder is node-based rather than rule-based, with dedicated node types for Send Email, Timer, Audience Filter, Branching (with condition sub-nodes), Notify, Set Value, Manage Tags, Webhook, Complete, and Exit Criteria, triggered by contact events, segment entry/exit, or time-based schedules. It doesn't cap the number of automations by plan, and it lets you edit a running automation and choose whether the change applies to upcoming contacts only or to contacts already mid-flow, without rebuilding it from scratch, a genuinely useful detail that MailerLite doesn't appear to offer. On the other side, MailerLite's e-commerce-specific triggers (cart abandonment, purchase of a specific or any product) are more developed out of the box than anything in BlueFox's trigger list, which leans more general-purpose.
 
-<Segmentation />
+<Segmentation
+  :is-dark="isDark"
+  :lg-and-up="lgAndUp"
+  :md="md"
+  :sm="sm"
+  :xs="xs"
+/>
 
 On segmentation, MailerLite offers unlimited dynamic segments built from interests and tags, engagement, geography and time zone, signup source, combined fields, and purchase history through e-commerce integrations, plus a library of 7 pre-built segment templates that make common segments faster to set up. BlueFox's segments run on property and tag conditions with full AND/OR logic across a wider operator set (equals, contains, is-empty, greater/less-than, and engagement conditions with day-window filters), auto-updating as contacts change, which makes unusual or precise segments somewhat easier to build. Both are genuinely capable tools; this one is closer to a wash than most sections here.
 
