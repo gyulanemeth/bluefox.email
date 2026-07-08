@@ -21,6 +21,8 @@ faqs:
     answer: "DMARC sends regular XML reports to the email address you specify in your DNS record. These reports can be difficult to read manually, so most organizations use DMARC report analyzers or dashboards to track and interpret the data."
 
 relatedContent:
+  - title: DMARC for SaaS founders
+    url: /email-best-practices-for-saas/dmarc
   - title: SPF (Sender Policy Framework)
     url: /email-sending-concepts/spf
   - title: DKIM (DomainKeys Identified Mail)

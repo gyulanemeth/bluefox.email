@@ -1,42 +1,44 @@
 ---
 footer: false
-title: DMARC for SaaS - What Founders Need to Know
-description: How DMARC protects your SaaS brand from email spoofing and phishing. Plain-English guide to setting up DMARC records and reading reports.
+title: "DMARC for SaaS: Aligning Multiple Senders Without Breaking Transactional Email"
+description: "A SaaS-specific DMARC playbook: aligning DMARC across your app, your ESP, and support tools, using subdomains to isolate streams, and rolling from p=none to reject safely."
 ---
 
-# What SaaS Owners Need to Know About DMARC
+# DMARC for SaaS: Aligning Multiple Senders Without Breaking Transactional Email
 
-Running a SaaS business means protecting your brand and your customers. One of the key tools to help you do that is DMARC—a protocol designed to stop email spoofing, where attackers send emails that look like they’re from your domain. Here’s a straightforward look at why DMARC matters and how to get it set up.
+If you just need the fundamentals — what DMARC is, and how SPF and DKIM feed into it — start with our [DMARC concept guide](/email-sending-concepts/dmarc). This page is about the part that actually trips up SaaS teams: you don't send from one place. Your app fires password resets, your ESP sends the newsletter, and Zendesk or Intercom answer tickets — all "from" your domain. DMARC only helps once *every one of those* is aligned.
 
-### What is DMARC?
+## The real SaaS problem: alignment across many senders
 
-DMARC, which stands for **Domain-based Message Authentication, Reporting, and Conformance**, is a way to protect your email domain from being used in phishing attacks. It helps ensure that only legitimate emails from your domain reach your customers. If someone tries to spoof your domain, DMARC can block those emails or send them to spam.
+DMARC passes only when SPF **or** DKIM not only passes but is *aligned* — the authenticated domain matches the domain your users actually see in the From address. The classic SaaS failure is "SPF passes but DMARC still fails," because your ESP's Return-Path sits on the ESP's own domain, not yours.
 
-### Why You Should Care About DMARC
+The fix is to authenticate each sender against *your* domain: a custom Return-Path / MAIL FROM and a DKIM key (`d=yourdomain.com`) for the app, the ESP, and every third-party tool. Before you enforce anything, write down every service that sends as you:
 
-1. **Protects Your Brand**
-   If someone sends phishing emails pretending to be from your company, it can seriously damage your reputation. DMARC helps you stop this before it happens.
+- **Your application** — transactional mail: password resets, receipts, email verification.
+- **Your marketing / ESP platform** — newsletters, campaigns, lifecycle automation.
+- **Support and back-office tools** — helpdesk, CRM, scheduling, invoicing, notifications.
 
-2. **Improves Email Delivery**
-   Email providers are more likely to deliver your emails to the inbox if they’re confident those emails are legit. DMARC helps with that, making sure your real emails don’t get stuck in spam.
+Almost every SaaS underestimates this list, and the forgotten sender is what breaks when you turn on enforcement.
 
-3. **Keeps You Informed**
-   DMARC gives you reports on who’s sending emails from your domain. You’ll know if something’s off and can fix it before it becomes a problem.
+## Use subdomains to isolate your streams
 
-### How to Set Up DMARC for Your SaaS
+Send transactional mail from a dedicated subdomain (for example `mail.yourapp.com`) and marketing from another. Two reasons this matters for a SaaS:
 
-1. **Start with SPF and DKIM**
-   Before DMARC can work, you need to set up SPF (Sender Policy Framework) and DKIM (DomainKeys Identified Mail). These tools tell email providers which servers are allowed to send email for your domain and verify that the emails haven’t been tampered with.
+- A reputation problem on the marketing stream can't drag down password resets and other critical transactional mail.
+- You can apply a stricter DMARC policy to the transactional subdomain sooner, because its sender list is small and fully under your control.
 
-2. **Create a DMARC Policy**
-   You create a DMARC policy by adding a DNS record to your domain. This tells email providers what to do if an email fails the DMARC check—whether to do nothing (just monitor), send it to spam, or reject it outright. Start with a “none” policy to see how things are going before making it stricter.
+## Roll out enforcement in three stages
 
-3. **Monitor Your Reports**
-   Once you set up DMARC, you’ll start getting reports that show how your emails are doing. These can be technical, but they’re useful for spotting any problems early on.
+The goal is to reach `p=reject` **without ever sending a legitimate email to spam.** Do it in stages, not in one move.
 
-4. **Make Adjustments**
-   As you get comfortable with the data, you can tweak your DMARC settings to be more protective. It’s a good idea to review and adjust regularly as needed.
+1. **`p=none` (monitor).** Publish a DMARC record with a `rua=` reporting address and change nothing else. You are only collecting data — deliverability is unaffected.
+2. **Read the aggregate reports.** They reveal every source sending under your domain, including the ones you forgot. Authenticate the legitimate senders; investigate the rest. The XML is dense, so use a [DMARC report analyzer](/tools/deliverability/dmarc-report-analyzer) to make sense of it.
+3. **Move to `p=quarantine`, then `p=reject`.** Only once the reports show all your real senders aligned. Step up gradually — the `pct=` tag lets you enforce on a fraction of mail first — so a missed sender sends a handful of messages to spam instead of hard-failing your entire reset flow.
 
-### Bottom Line
+## Verify before and after each change
 
-DMARC isn’t just another piece of tech jargon—it’s a practical tool that helps keep your SaaS business safe from email fraud. Setting it up might take a little time, but it’s worth it to protect your brand and ensure your emails get where they need to go. If you haven’t set up DMARC yet, now’s a good time to start.
+Check your published record at any point with the [DMARC checker](/tools/deliverability/dmarc-checker), and confirm SPF and DKIM alignment for each sender as you bring it online. Re-check after every policy change, not just at setup.
+
+## Bottom line
+
+For a SaaS sender, DMARC isn't a single DNS record — it's an inventory-and-alignment exercise across every system that emails your users, rolled out slowly enough that enforcement never blocks a password reset. Get the sender list right, isolate your streams with subdomains, and ramp from `none` to `reject` on the evidence in your reports.

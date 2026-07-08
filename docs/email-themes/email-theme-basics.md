@@ -47,7 +47,7 @@ head:
 
 Email theme basics allow you to define reusable values that can be applied across templates and blocks. They ensure consistency and make it easy to update design elements across multiple emails without manually modifying each template or block.
 
-When a basic is updated, all templates and blocks using it will automatically reflect the changes. This allows for efficient design management and helps maintain a unified brand identity across projects.
+When a basic is updated, all templates and blocks using it will automatically reflect the changes. This allows for efficient design management and helps maintain a unified brand identity across projects. See how basics are applied in your [blocks](./blocks) and [templates](./templates).
 
 ## Email Theme Basics Page
 The **email theme basics page** is divided into two main sections:

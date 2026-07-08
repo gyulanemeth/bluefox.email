@@ -241,7 +241,7 @@ You can edit the email at any time **while the automation is in draft mode**.
 ::: info Note
 You can access the **Advanced Settings** feature that allows you to customize key email-sending options by clicking the gear icon
 
-For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings.html#advanced-settings).
+For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings#advanced-settings).
 :::
 
 

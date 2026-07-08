@@ -50,7 +50,7 @@ Welcome to BlueFox Email! This guide walks you through everything you need to ge
 
 Head over to [app.bluefox.email](https://app.bluefox.email/accounts/create-account) and sign up for a new account. Fill in the required information and verify your email address to complete the registration process. Once your account is created, log in to access the BlueFox Email dashboard.
 
-When you log in for the first time, you’ll be greeted with a welcome screen that outlines a set of recommended setup tasks. You can either follow these steps or skip them and explore the platform on your own.
+When you log in for the first time, you’ll be greeted with a welcome screen that outlines a set of recommended setup tasks. You can either follow these steps or skip them and explore the platform on your own. For a condensed overview of the whole setup, see the [Getting Started guide](/docs/getting-started).
 
 ![Welcome Screen](./quick-start-to-bluefox-email/welcome-screen.webp)
 

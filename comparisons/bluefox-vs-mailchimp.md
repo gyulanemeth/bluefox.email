@@ -43,6 +43,7 @@ import { useData } from 'vitepress'
 import TemplateShowcase from '../.vitepress/theme/TemplateShowcase.vue'
 import Segmentation from '../.vitepress/theme/Segmentation.vue'
 import AgencyAnalytics from '../for/marketing-agencies/AgencyAnalytics.vue'
+import Automation from '../.vitepress/theme/Automation.vue'
 
 const { lgAndUp, md, sm, xs } = useDisplay()
 const { isDark } = useData()
@@ -141,7 +142,14 @@ BlueFox Email's [automation builder](https://bluefox.email/docs/projects/automat
 
 **Trade-offs:** no SMS action, no AI content suggestions, no predictive targeting, fewer pre-built journey templates, no native e-commerce triggers (no abandoned cart, no purchase events). Those have to be wired via the API or Zapier.
 
-![bluefox automation collage](/assets/comparisons/email-automation-collage.webp)
+<Automation
+  class="mt-6"
+  :is-dark="isDark"
+  :lg-and-up="lgAndUp"
+  :md="md"
+  :sm="sm"
+  :xs="xs"
+/>
 
 ## Deliverability and Infrastructure
 

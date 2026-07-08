@@ -474,11 +474,19 @@ onUnmounted(() => {
     <div class="link-checker">
       <div v-if="!result" class="form-stage">
         <div class="form-container">
-          <h2 class="form-title">HTML Email Link Checker</h2>          
+          <div class="form-header">
+            <div class="form-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <div>
+              <h2 class="form-title">HTML Email Link Checker</h2>
+              <p class="form-subtitle">Paste your template to extract and test every link before you send.</p>
+            </div>
+          </div>
           <div class="tool-form">
             <form @submit.prevent="checkLinksHandler">
               <div class="form-group">
-                <label for="htmlTemplate">HTML Email Template:</label>
+                <label for="htmlTemplate">HTML Email Template</label>
                 <textarea
                   id="htmlTemplate"
                   v-model="htmlTemplate"
@@ -496,7 +504,7 @@ Example:
                   required
                 ></textarea>
                 <small class="form-help">
-                  Paste your HTML email template here. All hyperlinks will be automatically extracted and checked.
+                  All hyperlinks will be automatically extracted and checked.
                 </small>
               </div>
 
@@ -571,8 +579,11 @@ Example:
 
               <div v-else-if="htmlTemplate.trim()" class="form-group">
                 <div class="no-links-warning">
-                  <p>Warning: No valid links found in your HTML template.</p>
-                  <small>Make sure your HTML contains &lt;a href="..."&gt; tags with valid URLs.</small>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                  <div>
+                    <p>No valid links found in your HTML template.</p>
+                    <small>Make sure your HTML contains &lt;a href="..."&gt; tags with valid URLs.</small>
+                  </div>
                 </div>
               </div>
 
@@ -598,8 +609,9 @@ Example:
             </form>
           </div>
 
-          <div v-if="errorMessage" class="error-section">
-            <p class="error-message">{{ errorMessage }}</p>
+          <div v-if="errorMessage" class="error-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            {{ errorMessage }}
           </div>
         </div>
       </div>
@@ -608,7 +620,8 @@ Example:
         <div class="results-header">
           <h2>Link Check Results</h2>
           <button @click="resetToForm" class="back-btn">
-            ← Back to Form
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to Form
           </button>
         </div>
 
@@ -1140,12 +1153,36 @@ Example:
   max-width: 1200px;
 }
 
+.form-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: hsla(197, 87%, 50%, 0.12);
+  color: var(--vp-c-brand-dark, #0891b2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
 .form-title {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 1.75rem;
+  margin: 0 0 0.25rem;
+  font-size: 1.4rem;
   font-weight: 700;
   color: var(--vp-c-text-1, #1e293b);
+}
+
+.form-subtitle {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--vp-c-text-2, #6b7280);
 }
 
 .results-stage {
@@ -1177,14 +1214,18 @@ Example:
 }
 
 .back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   background: var(--vp-c-bg-soft, #f8f9fa);
   border: 1px solid var(--vp-c-border, #ddd);
   margin-top: 1rem;
   padding: 0.5rem 1rem;
-  border-radius: 6px;
+  border-radius: 999px;
   cursor: pointer;
   color: var(--vp-c-text-1, #333);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  font-weight: 600;
   transition: all 0.2s ease;
   flex-shrink: 0;
 }
@@ -1226,11 +1267,11 @@ Example:
 }
 
 .tool-form {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 12px;
+  background: var(--vp-c-bg, #fff);
+  border-radius: 14px;
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 2rem;
-  margin-bottom: 2rem;
+  padding: 1.75rem;
+  margin-bottom: 1.5rem;
 }
 
 .form-group {
@@ -1249,10 +1290,10 @@ Example:
 .form-group textarea {
   width: 100%;
   padding: 0.875rem 1rem;
-  border: 2px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
+  border: 1.5px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 10px;
   font-size: 1rem;
-  transition: border-color 0.2s ease;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
   box-sizing: border-box;
   background: var(--vp-c-bg, #ffffff);
   color: var(--vp-c-text-1, #374151);
@@ -1268,7 +1309,7 @@ Example:
 .form-group textarea:focus {
   outline: none;
   border-color: var(--vp-c-brand);
-  box-shadow: 0 0 0 3px rgba(19, 176, 238, 0.1);
+  box-shadow: 0 0 0 3px hsla(197, 87%, 50%, 0.12);
 }
 
 .form-group input:disabled,
@@ -1526,112 +1567,24 @@ Example:
   box-sizing: border-box;
 }
 
-.captcha-expired-message {
-  background: #fff3cd;
-  border: 1px solid #ffc107;
-  color: #856404;
-  padding: 0.75rem 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-}
-
-.captcha-container {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-}
-
-.captcha-image-container {
-  flex: 1;
-  min-height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #ffffff;
-  border: 1px solid var(--vp-c-border-soft, #dee2e6);
-  border-radius: 6px;
-  padding: 0.5rem;
-}
-
-.captcha-loading,
-.captcha-placeholder {
-  color: #6b7280;
-  font-style: italic;
-  text-align: center;
-}
-
-.load-captcha-btn {
-  background: var(--vp-c-brand);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
-}
-
-.load-captcha-btn:hover {
-  background: var(--vp-c-brand-light);
-}
-
-.refresh-captcha-btn {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.5rem;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.refresh-captcha-btn:hover:not(:disabled) {
-  background: var(--vp-c-bg, #ffffff);
-  border-color: var(--vp-c-brand);
-}
-
-.refresh-captcha-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.refresh-captcha-btn img {
-  width: 16px;
-  height: 16px;
-}
-
-.captcha-help {
-  display: block;
-  margin-top: 0.5rem;
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.875rem;
-  font-style: italic;
-}
-
 .check-btn {
   background: var(--vp-c-brand);
   color: #ffffff;
   padding: 0.875rem 2rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 600;
   transition: all 0.2s ease;
   width: 100%;
-  box-shadow: 0 2px 4px rgba(19, 176, 238, 0.2);
+  box-shadow: 0 1px 4px hsla(197, 87%, 50%, 0.3);
 }
 
 .check-btn:hover:not(:disabled) {
-  background: var(--vp-c-brand-light);
+  background: var(--vp-c-brand-dark);
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.25);
+  box-shadow: 0 4px 12px hsla(197, 87%, 50%, 0.35);
 }
 
 .check-btn:disabled {
@@ -1661,35 +1614,45 @@ Example:
   to { transform: rotate(360deg); }
 }
 
-.error-section {
-  background: var(--vp-danger-soft, #f8d7da);
-  color: var(--vp-c-danger-1, #721c24);
-  padding: 1rem;
+.error-pill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background: #fef2f2;
+  color: #991b1b;
+  border: 1px solid rgba(220,38,38,0.2);
   border-radius: 8px;
-  margin-bottom: 1rem;
-  border: 1px solid var(--vp-c-danger-2, #f5c6cb);
-}
-
-.error-message {
-  margin: 0;
+  font-size: 0.875rem;
   font-weight: 500;
+  margin-top: 1rem;
 }
 
 .no-links-warning {
-  background: #fff3cd;
-  border: 1px solid #ffc107;
-  color: #856404;
-  padding: 1rem;
-  border-radius: 6px;
+  display: flex;
+  gap: 0.625rem;
+  background: rgba(217,119,6,0.06);
+  border: 1px solid rgba(217,119,6,0.2);
+  color: var(--vp-c-text-1);
+  padding: 0.875rem 1.125rem;
+  border-radius: 10px;
+}
+
+.no-links-warning svg {
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+  color: #d97706;
 }
 
 .no-links-warning p {
-  margin: 0 0 0.5rem 0;
-  font-weight: 500;
+  margin: 0 0 0.25rem 0;
+  font-weight: 600;
+  font-size: 0.875rem;
 }
 
 .no-links-warning small {
-  font-size: 0.875rem;
+  font-size: 0.8rem;
+  color: var(--vp-c-text-2, #6b7280);
 }
 
 .results-summary {
@@ -1749,8 +1712,8 @@ Example:
 
 .result-item.selected {
   background: var(--vp-c-bg, #fff);
-  border-color: var(--vp-c-brand, #3b82f6);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: var(--vp-c-brand);
+  box-shadow: 0 0 0 3px hsla(197, 87%, 50%, 0.12);
 }
 
 .result-status {
@@ -2947,24 +2910,6 @@ Example:
     gap: 0.5rem;
   }
 
-  .captcha-container {
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: stretch;
-  }
-
-  .captcha-image-container {
-    min-height: 60px;
-    padding: 0.75rem;
-  }
-
-  .refresh-captcha-btn {
-    width: 100%;
-    height: 3rem;
-    align-self: center;
-    max-width: 120px;
-  }
-
   .check-btn {
     padding: 1rem 1.5rem;
     font-size: 1rem;
@@ -3152,23 +3097,29 @@ Example:
 }
 
 /* Dark Mode */
-@media (prefers-color-scheme: dark) {
-  .result-item {
-    background: var(--vp-c-bg-soft, #1e2030);
-    border-color: var(--vp-c-border, #2e3142);
-  }
-
-  .result-item:hover {
-    border-color: var(--vp-c-border, #3a3d50);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  .summary-item.working { border-color: rgba(34, 187, 51, 0.3); }
-  .summary-item.broken,
-  .summary-item.error { border-color: rgba(220, 53, 69, 0.3); }
-
-  .detail-error {
-    border-color: rgba(220, 53, 69, 0.3);
-  }
+.dark .result-item {
+  background: var(--vp-c-bg-soft, #1e2030);
+  border-color: var(--vp-c-border, #2e3142);
 }
+
+.dark .result-item:hover {
+  border-color: var(--vp-c-border, #3a3d50);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark .summary-item.working { border-color: rgba(34, 187, 51, 0.3); }
+.dark .summary-item.broken,
+.dark .summary-item.error { border-color: rgba(220, 53, 69, 0.3); }
+
+.dark .detail-error {
+  border-color: rgba(220, 53, 69, 0.3);
+}
+
+.dark .form-icon {
+  background: hsla(197, 87%, 50%, 0.18);
+  color: var(--vp-c-brand-light);
+}
+
+.dark .no-links-warning { background: rgba(217,119,6,0.1); border-color: rgba(217,119,6,0.25); }
+.dark .error-pill { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.3); color: #f87171; }
 </style>

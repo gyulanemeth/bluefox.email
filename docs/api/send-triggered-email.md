@@ -44,7 +44,7 @@ head:
 ---
 
 # Send Triggered Email
-[Quick guide](/docs/projects/triggered-emails.html#triggered-email-integration)
+[Quick guide](/docs/projects/triggered-emails#triggered-email-integration)
 
 To send a [triggered email](/docs/projects/triggered-emails), use the following URL pattern:
 
