@@ -59,7 +59,7 @@ Once enabled, enter the following SMTP configuration details:
 | **SMTP Host**  | `smtp.bluefox.email`                             |
 | **Port**       | `587`                                            |
 | **Username**   | `bluefox.email`                                  |
-| **Password**   | Use an [API key](/docs/projects/settings.html#api-keys) from your Blufox.email project settings |
+| **Password**   | Use an [API key](/docs/projects/settings#api-keys-and-domain-whitelist) from your Blufox.email project settings |
 
 In the Sender Details section, supabase requires you to enter values for Sender Email and Sender Name. However, these fields will not affect your outgoing emails —bluefox.email will always override them with the settings from your email templates in the next step.
 

@@ -38,6 +38,8 @@ head:
 
 Welcome to the official documentation for **BlueFox Email**! This guide is your go-to resource for understanding and using BlueFox Email to manage all types of email communications for your marketing agency, from transactional emails, through automations via triggered emails to marketing campaigns.
 
+New to the platform? Start with the [Getting Started guide](./getting-started) to register and create your first project in a few minutes.
+
 ## What is Bluefox Email and How it Works
 
 BlueFox Email makes it easy to handle all your email communications, from transactional emails and triggered notifications to marketing campaigns, in one place. With our Email Themes, your emails will look great and function properly across all email clients, including challenging ones like Outlook. You can also rely on BlueFox Email to manage your sending queues, ensuring your emails are sent smoothly and efficiently.
@@ -79,4 +81,4 @@ For example, you can use loops to list multiple items, such as recent purchases 
 
 ## Analytics and Reporting
 
-Understanding the performance of your emails is crucial, and BlueFox Email provides comprehensive [analytics](/docs/analytics) to help you do just that. Track key metrics such as open rates, click rates, [bounce rates](/email-sending-concepts/bounce-rate), and [complaints](/email-sending-concepts/complaints). We also handle bounces and complaints automatically, ensuring that your email list remains healthy and that your emails reach the intended recipients.
+Understanding the performance of your emails is crucial, and BlueFox Email provides comprehensive [analytics](/docs/analytics) to help you do just that. Track key metrics such as open rates, click rates, [bounce rates](/email-sending-concepts/bounce-rate), and [complaints](/email-sending-concepts/complaints). We also handle bounces and complaints automatically, ensuring that your email list remains healthy and that your emails reach the intended recipients. Your [account dashboard](./dashboard) brings these metrics together across all your projects at a glance. For the habits that keep that list healthy in the first place, from double opt-in to unsubscribe handling, see our [Email Best Practices for SaaS](/email-best-practices-for-saas/) guides.

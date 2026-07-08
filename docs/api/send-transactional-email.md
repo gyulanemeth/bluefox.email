@@ -44,7 +44,7 @@ head:
 ---
 
 # Send Transactional Email
-[Quick guide](/docs/projects/transactional-emails.html#transactional-email-integration)
+[Quick guide](/docs/projects/transactional-emails#transactional-email-integration)
 
 To send a [transactional email](/docs/projects/transactional-emails), use the following URL pattern:
 
