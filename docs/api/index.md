@@ -47,6 +47,7 @@ head:
 
 The **bluefox.email API** allows you to manage subscriber lists, send transactional and triggered emails and include attachments. Below are the key API functionalities:  
 
+- **[Contacts Management](/docs/api/contacts-management)** – Create, retrieve, update, and delete contacts programmatically, independent of any list.  
 - **[Subscriber List Management](/docs/api/subscriber-list-management)** – Programmatically subscribe, unsubscribe, pause, activate, and update subscribers in your lists.  
 - **[Send Transactional Email](/docs/api/send-transactional-email)** – Deliver real-time, one-to-one emails such as password resets, order confirmations, and notifications.  
 - **[Send Triggered Email](/docs/api/send-triggered-email)** – Automate email sequences based on user actions, such as onboarding emails or follow-ups.  

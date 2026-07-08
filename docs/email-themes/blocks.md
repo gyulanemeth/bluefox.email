@@ -45,7 +45,7 @@ head:
 
 # Email Theme Blocks (modules)
 
-Blocks are reusable design components that serve as building elements for email templates. Each block represents a specific section of a design, such as a header, footer, button, or content section. By organizing content into blocks, users can efficiently build, customize, and maintain email designs with ease.
+Blocks are reusable design components that serve as building elements for email templates. Each block represents a specific section of a design, such as a header, footer, button, or content section. By organizing content into blocks, users can efficiently build, customize, and maintain email designs with ease. Each block is assembled from the theme's [components](./components) and styled with reusable [email theme basics](./email-theme-basics), so updating a basic restyles every block that references it.
 
 ### **The importance of blocks**:
 

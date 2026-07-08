@@ -50,7 +50,7 @@ Templates are structured email designs that serve as a foundation for email camp
 
 ### **The importance of templates**:
 
-Templates play a crucial role in maintaining brand consistency, reducing design time, and ensuring email content aligns with predefined styles. They allow for efficient email creation by reusing blocks and applying custom email theme basics, making them adaptable to different marketing or transactional needs.
+Templates play a crucial role in maintaining brand consistency, reducing design time, and ensuring email content aligns with predefined styles. They allow for efficient email creation by reusing [blocks](./blocks) and applying custom [email theme basics](./email-theme-basics), making them adaptable to different marketing or transactional needs.
 
 ## Template categories
 
