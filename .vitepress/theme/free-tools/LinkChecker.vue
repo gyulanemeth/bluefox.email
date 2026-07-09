@@ -47,6 +47,24 @@ const shouldUseModal = computed(() => {
   return false
 })
 
+// Aggregate counts for the results summary row.
+const stats = computed(() => {
+  const list = result.value || []
+
+  function count(status) {
+    return list.filter(item => item.status === status).length
+  }
+
+  return {
+    total: list.length,
+    working: count('working'),
+    broken: count('broken'),
+    error: count('error'),
+    redirect: count('redirect'),
+    soft404: count('soft404')
+  }
+})
+
 function extractLinksFromHTML(html) {
   if (!html || typeof html !== 'string') {
     return []
@@ -90,19 +108,40 @@ function extractLinksFromHTML(html) {
   }
 }
 
-function getStatusText(status) {
-  const statusMap = {
-    working: 'Working',
-    broken: 'Broken',
-    redirect: 'Redirect',
-    error: 'Error',
-    soft404: 'Soft 404'
+// Label + semantic tone for a link status. Tone drives all status coloring so
+// light/dark palettes stay consistent.
+function statusMeta(status) {
+  const map = {
+    working: {
+      label: 'Working',
+      tone: 'positive'
+    },
+    broken: {
+      label: 'Broken',
+      tone: 'negative'
+    },
+    error: {
+      label: 'Error',
+      tone: 'negative'
+    },
+    redirect: {
+      label: 'Redirect',
+      tone: 'warning'
+    },
+    soft404: {
+      label: 'Soft 404',
+      tone: 'warning'
+    }
   }
 
-  if (statusMap[status]) {
-    return statusMap[status]
+  if (map[status]) {
+    return map[status]
   }
-  return 'Unknown'
+
+  return {
+    label: 'Unknown',
+    tone: 'neutral'
+  }
 }
 
 function selectResult(item, index) {
@@ -163,7 +202,7 @@ async function copyToClipboard(text, event = null) {
     }
 
     if (!button) {
-      const buttons = document.querySelectorAll('.copy-link-btn, .copy-detail-btn')
+      const buttons = document.querySelectorAll('.lc-icon-btn')
       buttons.forEach(btn => {
         if (btn.title?.includes(text)) {
           button = btn
@@ -197,45 +236,56 @@ function getHighlightedTemplate(url) {
     return ''
   }
 
-  const escaped = url.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-  
-  const styleBlock = [
-    '<style>',
-    `a[href="${escaped}"] {`,
-    'outline: 2px solid #ff0000 !important;',
-    'outline-offset: 1px !important;',
-    'display: inline-block !important;',
-    '}',
-    `a[href^="${escaped}"] {`,
-    'outline: 2px solid #ff0000 !important;',
-    'outline-offset: 1px !important;',
-    'display: inline-block !important;',
-    '}',
-    '</style>'
-  ].join('\n')
+  // Escape the target only for safe embedding inside a single-quoted JS string.
+  const target = url.replace(/\\/g, '\\\\').replace(/'/g, "\\'")
 
-  const scrollScript = [
+  // Highlight inside the iframe with JS rather than CSS attribute selectors:
+  // the backend may normalize the URL (e.g. add a trailing slash), so we compare
+  // each anchor's raw href AND its browser-resolved href against the target,
+  // ignoring a trailing slash. Inline styles beat any template CSS, and we scroll
+  // the first match into view.
+  const script = [
     '<scr' + 'ipt>',
-    'window.addEventListener("load", function() {',
-    `const el = document.querySelector('a[href="${escaped}"], a[href^="${escaped}"]');`,
-    'if (el) {',
-    'setTimeout(function() {',
-    'el.scrollIntoView({ behavior: "smooth", block: "center" });',
-    '}, 100);',
-    '}',
-    '});',
-    'document.addEventListener("DOMContentLoaded", function() {',
-    `const el = document.querySelector('a[href="${escaped}"], a[href^="${escaped}"]');`,
-    'if (el) {',
-    'setTimeout(function() {',
-    'el.scrollIntoView({ behavior: "smooth", block: "center" });',
-    '}, 200);',
-    '}',
-    '});',
+    '(function () {',
+    '  function normalize(value) {',
+    '    if (!value) {',
+    '      return ""',
+    '    }',
+    '    return value.trim().replace(/\\/+$/, "")',
+    '  }',
+    "  var target = normalize('" + target + "')",
+    '  function highlight() {',
+    '    var anchors = document.querySelectorAll("a[href]")',
+    '    var first = null',
+    '    for (var i = 0; i < anchors.length; i++) {',
+    '      var anchor = anchors[i]',
+    '      var raw = normalize(anchor.getAttribute("href"))',
+    '      var resolved = normalize(anchor.href)',
+    '      if (raw === target || resolved === target) {',
+    '        anchor.style.setProperty("outline", "2px solid #ff0000", "important")',
+    '        anchor.style.setProperty("outline-offset", "2px", "important")',
+    '        anchor.style.setProperty("background-color", "rgba(255, 0, 0, 0.08)", "important")',
+    '        if (!first) {',
+    '          first = anchor',
+    '        }',
+    '      }',
+    '    }',
+    '    if (first) {',
+    '      setTimeout(function () {',
+    '        first.scrollIntoView({ behavior: "smooth", block: "center" })',
+    '      }, 120)',
+    '    }',
+    '  }',
+    '  if (document.readyState === "loading") {',
+    '    document.addEventListener("DOMContentLoaded", highlight)',
+    '  } else {',
+    '    highlight()',
+    '  }',
+    '})()',
     '</scr' + 'ipt>'
   ].join('\n')
 
-  return styleBlock + scrollScript + htmlTemplate.value
+  return htmlTemplate.value + script
 }
 
 async function getPagePreviewDataUrl(url) {
@@ -470,496 +520,404 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="link-checker-breakout">
-    <div class="link-checker">
-      <div v-if="!result" class="form-stage">
-        <div class="form-container">
-          <div class="form-header">
-            <div class="form-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-            </div>
-            <div>
-              <h2 class="form-title">HTML Email Link Checker</h2>
-              <p class="form-subtitle">Paste your template to extract and test every link before you send.</p>
+  <div class="link-checker">
+    <!-- ============================ FORM STAGE ============================ -->
+    <div v-if="!result" class="lc-form-stage">
+      <header class="lc-hero">
+        <a href="/tools/content" class="lc-hero-crumb">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Content tools
+        </a>
+        <div class="lc-hero-band">
+          <span class="lc-hero-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </span>
+          <div class="lc-hero-copy">
+            <h1 class="lc-hero-title">Free Link Checker</h1>
+            <p class="lc-hero-sub">Validate every link in your email template — catch broken URLs, redirects, and soft 404s before you hit send.</p>
+          </div>
+        </div>
+      </header>
+
+      <form class="lc-card" @submit.prevent="checkLinksHandler">
+        <!-- Template input -->
+        <div class="lc-field">
+          <label for="htmlTemplate">HTML email template</label>
+          <textarea
+            id="htmlTemplate"
+            v-model="htmlTemplate"
+            rows="12"
+            placeholder="Paste your HTML email template here…&#10;&#10;<a href='https://example.com'>Visit Example</a>"
+            :disabled="loading"
+            spellcheck="false"
+            required
+          ></textarea>
+          <small class="lc-hint">All hyperlinks are extracted and checked automatically.</small>
+        </div>
+
+        <!-- Template live preview -->
+        <div v-if="htmlTemplate.trim()" class="lc-field">
+          <div class="lc-field-head">
+            <label>Template preview</label>
+            <div class="lc-segmented" role="group" aria-label="Preview device">
+              <button type="button" @click="previewMode = 'desktop'" :class="['lc-seg-btn', { active: previewMode === 'desktop' }]" title="Desktop preview">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <span>Desktop</span>
+              </button>
+              <button type="button" @click="previewMode = 'mobile'" :class="['lc-seg-btn', { active: previewMode === 'mobile' }]" title="Mobile preview">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                <span>Mobile</span>
+              </button>
             </div>
           </div>
-          <div class="tool-form">
-            <form @submit.prevent="checkLinksHandler">
-              <div class="form-group">
-                <label for="htmlTemplate">HTML Email Template</label>
-                <textarea
-                  id="htmlTemplate"
-                  v-model="htmlTemplate"
-                  rows="12"
-                  placeholder="Paste your HTML email template here...
+          <div class="lc-preview-frame">
+            <iframe
+              :srcdoc="htmlTemplate"
+              :class="['lc-iframe', previewMode]"
+              sandbox="allow-scripts allow-same-origin"
+              title="HTML template live preview"
+            ></iframe>
+          </div>
+          <small class="lc-hint lc-desktop-only">Live preview of your template. Switch views to see desktop and mobile rendering.</small>
+          <small class="lc-hint lc-mobile-only">Preview is hidden on mobile for performance — use a desktop or tablet.</small>
+        </div>
 
-Example:
-<html>
-<body>
-  <a href='https://example.com'>Visit Example</a>
-  <a href='https://google.com'>Google</a>
-</body>
-</html>"
-                  :disabled="loading"
-                  required
-                ></textarea>
-                <small class="form-help">
-                  All hyperlinks will be automatically extracted and checked.
-                </small>
+        <!-- Extracted links -->
+        <div v-if="extractedLinks.length > 0" class="lc-field">
+          <div class="lc-field-head">
+            <label>Extracted links <span class="lc-count">{{ extractedLinks.length }}</span></label>
+          </div>
+          <div class="lc-links">
+            <div v-for="(link, index) in extractedLinks" :key="index" class="lc-link">
+              <div class="lc-link-main">
+                <span class="lc-link-url" :title="link.href">{{ link.href }}</span>
+                <span class="lc-link-text">{{ link.text }}</span>
+              </div>
+              <button
+                type="button"
+                @click="copyToClipboard(link.href, $event)"
+                class="lc-icon-btn"
+                :title="`Copy ${link.href} to clipboard`"
+                aria-label="Copy link"
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+            </div>
+          </div>
+          <small class="lc-hint">These links are checked on submit. Click the copy icon to copy a URL.</small>
+        </div>
+
+        <div v-else-if="htmlTemplate.trim()" class="lc-alert lc-alert-warn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div>
+            <p>No valid links found in your template.</p>
+            <small>Make sure your HTML contains &lt;a href="…"&gt; tags with real URLs.</small>
+          </div>
+        </div>
+
+        <Turnstile
+          ref="turnstileRef"
+          class="lc-turnstile"
+          @verified="onTurnstileVerified"
+          @expired="onTurnstileInvalid"
+          @error="onTurnstileInvalid"
+        />
+
+        <button
+          type="submit"
+          class="lc-submit"
+          :disabled="isFormDisabled || (extractedLinks.length === 0)"
+        >
+          <span v-if="loading" class="lc-btn-loading"><span class="lc-spinner"></span> Checking…</span>
+          <span v-else>Check {{ extractedLinks.length }} {{ extractedLinks.length === 1 ? 'link' : 'links' }}</span>
+        </button>
+
+        <div v-if="errorMessage" class="lc-error">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+
+    <!-- ============================ RESULTS STAGE ============================ -->
+    <div v-else class="lc-results-stage">
+      <div class="lc-results-inner">
+        <div class="lc-results-head">
+          <button @click="resetToForm" class="lc-back">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back to form
+          </button>
+          <h2>Link check results</h2>
+        </div>
+
+        <!-- Summary stat row -->
+        <div class="lc-stats">
+          <div class="lc-stat">
+            <span class="lc-stat-num">{{ stats.total }}</span>
+            <span class="lc-stat-label">Total</span>
+          </div>
+          <div class="lc-stat" data-tone="positive">
+            <span class="lc-stat-num">{{ stats.working }}</span>
+            <span class="lc-stat-label">Working</span>
+          </div>
+          <div class="lc-stat" data-tone="negative">
+            <span class="lc-stat-num">{{ stats.broken }}</span>
+            <span class="lc-stat-label">Broken</span>
+          </div>
+          <div class="lc-stat" data-tone="negative">
+            <span class="lc-stat-num">{{ stats.error }}</span>
+            <span class="lc-stat-label">Errors</span>
+          </div>
+          <div v-if="stats.redirect" class="lc-stat" data-tone="warning">
+            <span class="lc-stat-num">{{ stats.redirect }}</span>
+            <span class="lc-stat-label">Redirects</span>
+          </div>
+          <div v-if="stats.soft404" class="lc-stat" data-tone="warning">
+            <span class="lc-stat-num">{{ stats.soft404 }}</span>
+            <span class="lc-stat-label">Soft 404</span>
+          </div>
+        </div>
+
+        <div class="lc-split">
+          <!-- Results list -->
+          <aside class="lc-list-panel">
+            <div class="lc-list">
+              <button
+                v-for="(linkResult, index) in result"
+                :key="index"
+                type="button"
+                @click="selectResult(linkResult, index)"
+                :class="['lc-row', { selected: selectedResult && selectedResult.url === linkResult.url }]"
+                :data-tone="statusMeta(linkResult.status).tone"
+              >
+                <span class="lc-row-status">
+                  <span class="lc-dot" :data-tone="statusMeta(linkResult.status).tone"></span>
+                  {{ statusMeta(linkResult.status).label }}
+                </span>
+                <span class="lc-row-url" :title="linkResult.url">{{ linkResult.url }}</span>
+                <span class="lc-row-meta">
+                  <span v-if="linkResult.statusCode" class="lc-chip">{{ linkResult.statusCode }}</span>
+                  <span class="lc-chip lc-chip-muted">{{ linkResult.responseTime }}ms</span>
+                </span>
+              </button>
+            </div>
+          </aside>
+
+          <!-- Detail panel -->
+          <section class="lc-detail-panel">
+            <div v-if="selectedResult" class="lc-detail">
+              <!-- Selected link hero -->
+              <div class="lc-detail-hero" :data-tone="statusMeta(selectedResult.status).tone">
+                <div class="lc-detail-hero-top">
+                  <span class="lc-status-pill" :data-tone="statusMeta(selectedResult.status).tone">
+                    <span class="lc-dot" :data-tone="statusMeta(selectedResult.status).tone"></span>
+                    {{ statusMeta(selectedResult.status).label }}
+                  </span>
+                  <div class="lc-detail-actions">
+                    <button @click="copyToClipboard(selectedResult.url, $event)" class="lc-icon-btn" :title="`Copy ${selectedResult.url} to clipboard`" aria-label="Copy URL">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
+                    <button @click="reloadSelectedResult" :disabled="loadingStates[selectedIndex]" class="lc-icon-btn" title="Re-check this link" aria-label="Re-check link">
+                      <svg v-if="!loadingStates[selectedIndex]" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                      <span v-else class="lc-spinner lc-spinner-dark"></span>
+                    </button>
+                  </div>
+                </div>
+                <a :href="selectedResult.url" target="_blank" rel="noopener noreferrer" class="lc-detail-url" :title="selectedResult.url">
+                  {{ selectedResult.url }}
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                </a>
+                <div class="lc-detail-meta">
+                  <span v-if="selectedResult.statusCode" class="lc-chip">HTTP {{ selectedResult.statusCode }}</span>
+                  <span class="lc-chip lc-chip-muted">{{ selectedResult.responseTime }}ms</span>
+                </div>
               </div>
 
-              <div v-if="htmlTemplate.trim()" class="form-group">
-                <div class="preview-header">
-                  <label>HTML Template Preview:</label>
-                  <div class="preview-switcher">
+              <!-- Diagnostics -->
+              <div v-if="selectedResult.error" class="lc-alert lc-alert-error">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <div><strong>Error:</strong> {{ selectedResult.error }}</div>
+              </div>
+
+              <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="lc-alert lc-alert-warn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                <div class="lc-redirect">
+                  <div class="lc-redirect-head">
+                    <strong>Redirects to</strong>
+                    <button @click="copyToClipboard(selectedResult.finalUrl, $event)" class="lc-icon-btn lc-icon-btn-sm" :title="`Copy ${selectedResult.finalUrl}`" aria-label="Copy final URL">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    </button>
+                  </div>
+                  <span class="lc-redirect-url">{{ selectedResult.finalUrl }}</span>
+                </div>
+              </div>
+
+              <!-- Preview tabs -->
+              <div class="lc-tabs">
+                <div class="lc-tabs-head">
+                  <div class="lc-tabs-nav" role="tablist">
                     <button
-                      type="button"
-                      @click="previewMode = 'desktop'"
-                      :class="['preview-btn', { active: previewMode === 'desktop' }]"
-                      title="Desktop Preview"
-                    >
-                      <img src="/assets/monitor.webp?url" alt="desktop" />
+                      role="tab"
+                      @click="activeDetailsTab = 'page-preview'"
+                      :class="['lc-tab', { active: activeDetailsTab === 'page-preview' }]"
+                    >Page preview</button>
+                    <button
+                      role="tab"
+                      @click="activeDetailsTab = 'template-preview'"
+                      :class="['lc-tab', { active: activeDetailsTab === 'template-preview' }]"
+                    >Link location</button>
+                  </div>
+
+                  <div v-if="activeDetailsTab === 'page-preview'" class="lc-segmented" role="group" aria-label="Preview device">
+                    <button type="button" @click="previewMode = 'desktop'" :class="['lc-seg-btn', { active: previewMode === 'desktop' }]" title="Desktop">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                       <span>Desktop</span>
                     </button>
-                    <button
-                      type="button"
-                      @click="previewMode = 'mobile'"
-                      :class="['preview-btn', { active: previewMode === 'mobile' }]"
-                      title="Mobile Preview"
-                    >
-                      <img src="/assets/cellphone.webp?url" alt="mobile" />
+                    <button type="button" @click="previewMode = 'mobile'" :class="['lc-seg-btn', { active: previewMode === 'mobile' }]" title="Mobile">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                      <span>Mobile</span>
+                    </button>
+                  </div>
+
+                  <div v-if="activeDetailsTab === 'template-preview'" class="lc-segmented" role="group" aria-label="Preview device">
+                    <button type="button" @click="templatePreviewMode = 'desktop'" :class="['lc-seg-btn', { active: templatePreviewMode === 'desktop' }]" title="Desktop">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                      <span>Desktop</span>
+                    </button>
+                    <button type="button" @click="templatePreviewMode = 'mobile'" :class="['lc-seg-btn', { active: templatePreviewMode === 'mobile' }]" title="Mobile">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
                       <span>Mobile</span>
                     </button>
                   </div>
                 </div>
-                <div class="preview-container">
-                  <iframe
-                    :srcdoc="htmlTemplate"
-                    :class="['html-template-preview', previewMode]"
-                    sandbox="allow-scripts allow-same-origin"
-                    title="HTML Template Live Preview"
-                  ></iframe>
-                </div>
-                <small class="form-help mobile-hidden-message">
-                  Live preview of your HTML template. Switch between desktop and mobile views to see how it appears on different devices.
-                </small>
-                <small class="form-help mobile-only-message">
-                  Preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the HTML template preview.
-                </small>
-              </div>
 
-              <div v-if="extractedLinks.length > 0" class="form-group">
-                <label>Extracted Links ({{ extractedLinks.length }}):</label>
-                <div class="extracted-links">
-                  <div 
-                    v-for="(link, index) in extractedLinks" 
-                    :key="index"
-                    class="extracted-link"
-                  >
-                    <div class="link-info">
-                      <div class="link-url-container">
-                        <span class="link-url" :title="link.href">{{ link.href }}</span>
-                        <button
-                          type="button"
-                          @click="copyToClipboard(link.href)"
-                          class="copy-link-btn"
-                          :title="`Copy ${link.href} to clipboard`"
-                        >
-                          <img src="/assets/copy.webp?url" alt="copy" />
-                        </button>
-                      </div>
-                      <span class="link-text">{{ link.text }}</span>
+                <!-- Page preview panel -->
+                <div v-if="activeDetailsTab === 'page-preview'" class="lc-tab-panel">
+                  <div class="lc-preview-frame">
+                    <div v-if="loadingPreview" :class="['lc-skeleton', previewMode]">
+                      <div class="lc-sk-bar" style="height:52px;margin-bottom:1.5rem"></div>
+                      <div class="lc-sk-bar"></div>
+                      <div class="lc-sk-bar"></div>
+                      <div class="lc-sk-bar" style="width:60%"></div>
+                      <div class="lc-sk-bar" style="height:160px;margin:0.5rem 0"></div>
+                      <div class="lc-sk-bar"></div>
+                      <div class="lc-sk-bar" style="width:70%"></div>
+                    </div>
+                    <iframe
+                      v-else-if="pagePreviewUrl"
+                      :key="`detail-${selectedIndex}-${reloadKeys[selectedIndex] || 0}-${previewMode}`"
+                      :src="pagePreviewUrl"
+                      :class="['lc-iframe', previewMode]"
+                      sandbox="allow-scripts allow-same-origin"
+                      title="Page content preview"
+                      @load="loadingPreview = false"
+                    ></iframe>
+                    <div v-else class="lc-empty-preview">
+                      <h4>No page preview available</h4>
+                      <p>Page preview is only available for links that return content.</p>
                     </div>
                   </div>
+                  <small class="lc-hint lc-mobile-only">Page preview is hidden on mobile for performance — use a desktop or tablet.</small>
                 </div>
-                <small class="form-help">
-                  These links will be checked when you submit the form. Click the copy icon to copy individual URLs.
-                </small>
-              </div>
 
-              <div v-else-if="htmlTemplate.trim()" class="form-group">
-                <div class="no-links-warning">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-                  <div>
-                    <p>No valid links found in your HTML template.</p>
-                    <small>Make sure your HTML contains &lt;a href="..."&gt; tags with valid URLs.</small>
+                <!-- Link location panel -->
+                <div v-if="activeDetailsTab === 'template-preview'" class="lc-tab-panel">
+                  <div class="lc-preview-frame">
+                    <iframe
+                      :srcdoc="getHighlightedTemplate(selectedResult.url)"
+                      :class="['lc-iframe', templatePreviewMode]"
+                      sandbox="allow-scripts allow-same-origin"
+                      title="Template preview with highlighted link"
+                    ></iframe>
                   </div>
+                  <small class="lc-hint lc-desktop-only">The selected link is highlighted with a red outline in your original template.</small>
+                  <small class="lc-hint lc-mobile-only">Template preview is hidden on mobile for performance — use a desktop or tablet.</small>
                 </div>
               </div>
 
-              <div class="form-group">
-                <Turnstile
-                  ref="turnstileRef"
-                  @verified="onTurnstileVerified"
-                  @expired="onTurnstileInvalid"
-                  @error="onTurnstileInvalid"
-                />
+              <!-- Code location (always visible for broken/error) -->
+              <div v-if="selectedResult.status === 'broken' || selectedResult.status === 'error'" class="lc-code">
+                <h4>Code location</h4>
+                <pre class="lc-code-snippet" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
               </div>
 
-              <button
-                type="submit"
-                class="check-btn"
-                :disabled="isFormDisabled || (extractedLinks.length === 0)"
-              >
-                <span v-if="loading" class="btn-loading">
-                  <div class="loading-spinner"></div>
-                </span>
-                <span v-else>Check {{ extractedLinks.length }} Links</span>
-              </button>
-            </form>
-          </div>
+              <div v-if="selectedResult.status === 'soft404'" class="lc-alert lc-alert-warn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <div>
+                  <strong>Soft 404 detected.</strong>
+                  <p>This page returns HTTP 200 but shows generic homepage content instead of the requested page — a sign the page doesn't really exist.</p>
+                </div>
+              </div>
+            </div>
 
-          <div v-if="errorMessage" class="error-pill">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            {{ errorMessage }}
-          </div>
+            <div v-else class="lc-empty">
+              <h3>Select a link</h3>
+              <p>Pick any link on the left to inspect its details here.</p>
+            </div>
+          </section>
         </div>
       </div>
 
-      <div v-else class="results-stage">
-        <div class="results-header">
-          <h2>Link Check Results</h2>
-          <button @click="resetToForm" class="back-btn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-            Back to Form
-          </button>
-        </div>
-
-        <div class="split-view">
-          <div class="results-panel">
-            <div class="results-summary">
-              <div class="summary-item">
-                <span class="count">{{ result.length }}</span>
-                <span class="label">Total</span>
-              </div>
-              <div class="summary-item working">
-                <span class="count">{{ result.filter(r => r.status === 'working').length }}</span>
-                <span class="label">Working</span>
-              </div>
-              <div class="summary-item broken">
-                <span class="count">{{ result.filter(r => r.status === 'broken').length }}</span>
-                <span class="label">Broken</span>
-              </div>
-              <div class="summary-item error">
-                <span class="count">{{ result.filter(r => r.status === 'error').length }}</span>
-                <span class="label">Errors</span>
-              </div>
-            </div>
-
-            <div class="results-list">
-              <div
-                v-for="(linkResult, index) in result"
-                :key="index"
-                @click="selectResult(linkResult, index)"
-                :class="['result-item', linkResult.status, { selected: selectedIndex === index }]"
-              >
-                <div class="result-status">
-                  <span class="status-dot" :class="linkResult.status"></span>
-                  <span class="status-text">{{ getStatusText(linkResult.status) }}</span>
-                </div>
-                <div class="result-url" :title="linkResult.url">{{ linkResult.url }}</div>
-                <div class="result-meta">
-                  <span v-if="linkResult.statusCode" class="status-code">{{ linkResult.statusCode }}</span>
-                  <span class="response-time">{{ linkResult.responseTime }}ms</span>
-                </div>
-              </div>
-            </div>
+      <!-- Mobile modal -->
+      <div v-if="showModal && selectedResult" class="lc-modal-overlay" @click="closeModal">
+        <div class="lc-modal" @click.stop>
+          <div class="lc-modal-head">
+            <span class="lc-status-pill" :data-tone="statusMeta(selectedResult.status).tone">
+              <span class="lc-dot" :data-tone="statusMeta(selectedResult.status).tone"></span>
+              {{ statusMeta(selectedResult.status).label }}
+            </span>
+            <button @click="closeModal" class="lc-modal-close" aria-label="Close">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
           </div>
 
-          <div class="details-panel">
-            <div v-if="selectedResult" class="details-content">
-              <div class="details-header">
-                <h3>Link Details</h3>
-                <div class="header-actions">
-                  <button
-                    @click="copyToClipboard(selectedResult.url)"
-                    class="copy-detail-btn"
-                    :title="`Copy ${selectedResult.url} to clipboard`"
-                  >
-                    <img src="/assets/copy.webp?url" alt="copy" />
-                  </button>
-                  <button
-                    @click="reloadSelectedResult"
-                    :disabled="loadingStates[selectedIndex]"
-                    class="reload-btn"
-                    title="Reload this link"
-                  >
-                    <img 
-                      v-if="!loadingStates[selectedIndex]" 
-                      src="/assets/reload.webp?url" 
-                      alt="reload"
-                    />
-                    <div v-else class="spinner"></div>
-                  </button>
-                </div>
-              </div>
-
-              <a 
-                :href="selectedResult.url" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="detail-url"
-                :title="selectedResult.url"
-              >
-                {{ selectedResult.url }}
-              </a>
-
-              <div class="detail-status" :class="selectedResult.status">
-                <span class="status-dot" :class="selectedResult.status"></span>
-                <span class="status-text">{{ getStatusText(selectedResult.status) }}</span>
-                <span v-if="selectedResult.statusCode" class="detail-status-code">
-                  {{ selectedResult.statusCode }}
-                </span>
-                <span class="response-time">{{ selectedResult.responseTime }}ms</span>
-              </div>
-
-              <div v-if="selectedResult.error" class="detail-error">
-                <strong>Error:</strong> {{ selectedResult.error }}
-              </div>
-
-              <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="detail-redirect">
-                <div class="redirect-header">
-                  <strong>Redirects to:</strong>
-                  <button
-                    @click="copyToClipboard(selectedResult.finalUrl)"
-                    class="copy-redirect-btn"
-                    :title="`Copy ${selectedResult.finalUrl} to clipboard`"
-                  >
-                    <img src="/assets/copy.svg?url" alt="copy" />
-                  </button>
-                </div>
-                <span class="redirect-url" :title="selectedResult.finalUrl">{{ selectedResult.finalUrl }}</span>
-              </div>
-              
-              <div v-if="selectedResult" class="preview-tabs-section">
-                <div class="preview-tabs-header">
-                  <div class="preview-tabs-nav">
-                    <button
-                      @click="activeDetailsTab = 'page-preview'"
-                      :class="['preview-tab-btn', { active: activeDetailsTab === 'page-preview' }]"
-                    >
-                      <span>Page Preview</span>
-                    </button>
-                    <button
-                      @click="activeDetailsTab = 'template-preview'"
-                      :class="['preview-tab-btn', { active: activeDetailsTab === 'template-preview' }]"
-                    >
-                      <span>Link Location</span>
-                    </button>
-                  </div>
-                  
-                  <div v-if="activeDetailsTab === 'page-preview'" class="tab-switcher">
-                    <div class="preview-switcher">
-                      <button 
-                        type="button" 
-                        @click="previewMode = 'desktop'" 
-                        :class="['preview-btn', { active: previewMode === 'desktop' }]"
-                        title="Desktop Preview"
-                      >
-                        <img src="/assets/monitor.webp?url" alt="desktop" />
-                        <span>Desktop</span>
-                      </button>
-                      <button 
-                        type="button" 
-                        @click="previewMode = 'mobile'" 
-                        :class="['preview-btn', { active: previewMode === 'mobile' }]"
-                        title="Mobile Preview"
-                      >
-                        <img src="/assets/cellphone.webp?url" alt="mobile" />
-                        <span>Mobile</span>
-                      </button>
-                    </div>
-                  </div>
-                  
-                  <div v-if="activeDetailsTab === 'template-preview'" class="tab-switcher">
-                    <div class="template-preview-switcher">
-                      <button 
-                        type="button" 
-                        @click="templatePreviewMode = 'desktop'" 
-                        :class="['template-preview-btn', { active: templatePreviewMode === 'desktop' }]"
-                        title="Desktop Template Preview"
-                      >
-                        <img src="/assets/monitor.webp?url" alt="desktop" />
-                        <span>Desktop</span>
-                      </button>
-                      <button 
-                        type="button" 
-                        @click="templatePreviewMode = 'mobile'" 
-                        :class="['template-preview-btn', { active: templatePreviewMode === 'mobile' }]"
-                        title="Mobile Template Preview"
-                      >
-                        <img src="/assets/cellphone.webp?url" alt="mobile" />
-                        <span>Mobile</span>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="preview-tabs-content">
-                  <div v-if="activeDetailsTab === 'page-preview'" class="preview-tab-panel">
-                    <div class="tab-panel-header">
-                      <h4>Page Content Preview</h4>
-                      <small class="tab-panel-help">Live preview of the destination page</small>
-                    </div>
-                    <div class="page-preview-container">
-                      <!-- Skeleton loader while loading -->
-                      <div v-if="loadingPreview" :class="['preview-skeleton', previewMode]">
-                        <div class="skeleton-header"></div>
-                        <div class="skeleton-content">
-                          <div class="skeleton-line"></div>
-                          <div class="skeleton-line"></div>
-                          <div class="skeleton-line short"></div>
-                          <div class="skeleton-box"></div>
-                          <div class="skeleton-line"></div>
-                          <div class="skeleton-line short"></div>
-                        </div>
-                      </div>
-                      
-                      <!-- Actual iframe preview -->
-                      <iframe
-                        v-else-if="pagePreviewUrl"
-                        :key="`detail-${selectedIndex}-${reloadKeys[selectedIndex] || 0}-${previewMode}`"
-                        :src="pagePreviewUrl"
-                        :class="['detail-preview', previewMode]"
-                        sandbox="allow-scripts allow-same-origin"
-                        title="Page Content Preview"
-                        @load="loadingPreview.value = false"
-                      ></iframe>
-                      
-                      <!-- No preview message -->
-                      <div v-else class="no-preview-content">
-                        <h4>No Page Preview Available</h4>
-                        <p>Page preview is only available for fetched links that return content.</p>
-                      </div>
-                    </div>
-                    <small class="form-help mobile-only-message preview-hidden-message">
-                      Page preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the full page preview.
-                    </small>
-                  </div>
-
-                  <div v-if="activeDetailsTab === 'template-preview'" class="preview-tab-panel">
-                    <div class="tab-panel-header">
-                      <h4>Template Preview: Link Location</h4>
-                      <small class="tab-panel-help">Original template with the selected link highlighted</small>
-                    </div>
-                    <div class="template-preview-container">
-                      <iframe
-                        :srcdoc="getHighlightedTemplate(selectedResult.url)"
-                        :class="['template-preview-iframe', templatePreviewMode]"
-                        sandbox="allow-scripts allow-same-origin"
-                        title="Template Preview with Highlighted Link"
-                      ></iframe>
-                    </div>
-                    <small class="tab-panel-help template-preview-mobile-hidden">
-                      Original template with the selected link highlighted with a red border. Switch views to see how it appears on different devices.
-                    </small>
-                    <small class="tab-panel-help template-preview-mobile-only">
-                      Template preview is hidden on mobile devices for better performance. Use a desktop or tablet to view the highlighted template.
-                    </small>
-                  </div>
-                </div>
-              </div>
-
-              <!-- FIXED: Code location moved OUTSIDE tabs so it's always visible for broken/error links -->
-              <div v-if="selectedResult.status === 'broken' || selectedResult.status === 'error'" class="code-location">
-                <h4>Code Location:</h4>
-                <pre class="code-snippet" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
-              </div>
-
-              <div v-if="selectedResult.status === 'soft404'" class="soft404-info">
-                <h4>Soft 404 Detected</h4>
-                <p>This page returns the homepage content instead of the requested page. The server responds with HTTP 200 but shows generic content, indicating the page doesn't exist.</p>
-              </div>
-            </div>
-
-            <div v-else class="no-selection">
-              <h3>Select a Link</h3>
-              <p>Click on any link from the left panel to view its details here.</p>
-            </div>
-          </div>
-        </div>
-
-        <div v-if="showModal && selectedResult" class="modal-overlay" @click="closeModal">
-          <div class="modal-container" @click.stop>
-            <div class="modal-header">
-              <h3>Link Details</h3>
-              <button @click="closeModal" class="close-modal-btn">
-                <span>&times;</span>
+          <div class="lc-modal-body">
+            <div class="lc-detail-actions lc-detail-actions-end">
+              <button @click="copyToClipboard(selectedResult.url, $event)" class="lc-icon-btn" :title="`Copy ${selectedResult.url}`" aria-label="Copy URL">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              </button>
+              <button @click="reloadSelectedResult" :disabled="loadingStates[selectedIndex]" class="lc-icon-btn" title="Re-check this link" aria-label="Re-check link">
+                <svg v-if="!loadingStates[selectedIndex]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                <span v-else class="lc-spinner lc-spinner-dark"></span>
               </button>
             </div>
-            
-            <div class="modal-content">
-              <div class="details-header mobile">
-                <div class="header-actions">
-                  <button
-                    @click="copyToClipboard(selectedResult.url)"
-                    class="copy-detail-btn mobile"
-                    :title="`Copy ${selectedResult.url} to clipboard`"
-                  >
-                    <img src="/assets/copy.webp?url" alt="copy" />
-                  </button>
-                  <button
-                    @click="reloadSelectedResult"
-                    :disabled="loadingStates[selectedIndex]"
-                    class="reload-btn mobile"
-                    title="Reload this link"
-                  >
-                    <img 
-                      v-if="!loadingStates[selectedIndex]" 
-                      src="/assets/reload.webp?url" 
-                      alt="reload"
-                    />
-                    <div v-else class="spinner"></div>
-                  </button>
-                </div>
-              </div>
 
-              <a 
-                :href="selectedResult.url" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                class="detail-url mobile"
-                :title="selectedResult.url"
-              >
-                {{ selectedResult.url }}
-              </a>
-              
-              <div class="detail-status mobile" :class="selectedResult.status">
-                <span class="status-dot" :class="selectedResult.status"></span>
-                <span class="status-text">{{ getStatusText(selectedResult.status) }}</span>
-                <span v-if="selectedResult.statusCode" class="detail-status-code">
-                  {{ selectedResult.statusCode }}
-                </span>
-                <span class="response-time">{{ selectedResult.responseTime }}ms</span>
-              </div>
+            <a :href="selectedResult.url" target="_blank" rel="noopener noreferrer" class="lc-detail-url" :title="selectedResult.url">
+              {{ selectedResult.url }}
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
 
-              <div v-if="selectedResult.error" class="detail-error mobile">
-                <strong>Error:</strong> {{ selectedResult.error }}
-              </div>
+            <div class="lc-detail-meta">
+              <span v-if="selectedResult.statusCode" class="lc-chip">HTTP {{ selectedResult.statusCode }}</span>
+              <span class="lc-chip lc-chip-muted">{{ selectedResult.responseTime }}ms</span>
+            </div>
 
-              <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="detail-redirect mobile">
-                <div class="redirect-header mobile">
-                  <strong>Redirects to:</strong>
-                  <button
-                    @click="copyToClipboard(selectedResult.finalUrl)"
-                    class="copy-redirect-btn mobile"
-                    :title="`Copy ${selectedResult.finalUrl} to clipboard`"
-                  >
-                    <img src="/assets/copy.webp?url" alt="copy" />
+            <div v-if="selectedResult.error" class="lc-alert lc-alert-error">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <div><strong>Error:</strong> {{ selectedResult.error }}</div>
+            </div>
+
+            <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="lc-alert lc-alert-warn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <div class="lc-redirect">
+                <div class="lc-redirect-head">
+                  <strong>Redirects to</strong>
+                  <button @click="copyToClipboard(selectedResult.finalUrl, $event)" class="lc-icon-btn lc-icon-btn-sm" :title="`Copy ${selectedResult.finalUrl}`" aria-label="Copy final URL">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
                   </button>
                 </div>
-                <span class="redirect-url">{{ selectedResult.finalUrl }}</span>
+                <span class="lc-redirect-url">{{ selectedResult.finalUrl }}</span>
               </div>
+            </div>
 
-              <div v-if="selectedResult.status === 'broken' || selectedResult.status === 'error'" class="code-location mobile">
-                <h4>Code Location:</h4>
-                <pre class="code-snippet mobile" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
-              </div>
+            <div v-if="selectedResult.status === 'broken' || selectedResult.status === 'error'" class="lc-code">
+              <h4>Code location</h4>
+              <pre class="lc-code-snippet" v-html="getCodeSnippetForLink(selectedResult.url)"></pre>
+            </div>
 
-              <div v-if="selectedResult.status === 'soft404'" class="soft404-info mobile">
-                <h4>Soft 404 Detected</h4>
-                <p>This page returns the homepage content instead of the requested page.</p>
-              </div>
+            <div v-if="selectedResult.status === 'soft404'" class="lc-alert lc-alert-warn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <div><strong>Soft 404 detected.</strong><p>This page returns the homepage content instead of the requested page.</p></div>
             </div>
           </div>
         </div>
@@ -969,2157 +927,934 @@ Example:
 </template>
 
 <style scoped>
-.link-checker-breakout {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  margin-left: -50vw;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-  overflow-x: hidden;
-  box-sizing: border-box;
-}
-
-/* Skeleton loader styles */
-.preview-skeleton {
-  width: 100%;
-  height: 600px;
-  background: white;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
-  padding: 2rem;
-  box-sizing: border-box;
-  animation: pulse 1.5s ease-in-out infinite alternate;
-}
-
-.preview-skeleton.mobile {
-  width: 375px;
-  max-width: 375px;
-  margin: 0 auto;
-}
-
-.skeleton-header {
-  height: 60px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 6px;
-  margin-bottom: 2rem;
-}
-
-.skeleton-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.skeleton-line {
-  height: 20px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 4px;
-}
-
-.skeleton-line.short {
-  width: 60%;
-}
-
-.skeleton-box {
-  height: 200px;
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 6px;
-  margin: 1rem 0;
-}
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-@keyframes pulse {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0.7;
-  }
-}
-
-/* Responsive skeleton styles */
-@media (max-width: 768px) {
-  .preview-skeleton {
-    height: 400px;
-    padding: 1rem;
-  }
-  
-  .skeleton-header {
-    height: 40px;
-    margin-bottom: 1rem;
-  }
-  
-  .skeleton-box {
-    height: 120px;
-  }
-}
-
-.redirect-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.redirect-header.mobile {
-  margin-bottom: 0.25rem;
-}
-
-.copy-redirect-btn {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.25rem;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 1.5rem;
-  height: 1.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.copy-redirect-btn:hover {
-  background: var(--vp-c-bg, #ffffff);
-  border-color: var(--vp-c-brand);
-  transform: scale(1.05);
-}
-
-.copy-redirect-btn img {
-  width: 10px;
-  height: 10px;
-  opacity: 0.7;
-}
-
-.copy-redirect-btn:hover img {
-  opacity: 1;
-}
-
-.copy-redirect-btn.copied {
-  background: var(--vp-c-brand);
-  border-color: var(--vp-c-brand);
-}
-
-.copy-redirect-btn.copied img {
-  opacity: 1;
-  filter: brightness(0) invert(1);
-}
-
-.copy-redirect-btn.mobile {
-  width: 2rem;
-  height: 2rem;
-  padding: 0.5rem;
-}
-
-.copy-redirect-btn.mobile img {
-  width: 12px;
-  height: 12px;
-}
-
+/* ======================================================================
+   Design tokens — semantic status colors that flip for dark mode.
+   ====================================================================== */
 .link-checker {
-  width: 100%;
-  max-width: none;
+  --lc-radius: 12px;
+  --lc-radius-sm: 8px;
+  --lc-positive: #16a34a;
+  --lc-negative: #dc2626;
+  --lc-warning: #d97706;
+  --lc-neutral: var(--vp-c-text-3, #9ca3af);
+  --lc-positive-soft: rgba(22, 163, 74, 0.1);
+  --lc-negative-soft: rgba(220, 38, 38, 0.09);
+  --lc-warning-soft: rgba(217, 119, 6, 0.09);
+  --lc-positive-border: rgba(22, 163, 74, 0.22);
+  --lc-negative-border: rgba(220, 38, 38, 0.2);
+  --lc-warning-border: rgba(217, 119, 6, 0.22);
+
+  color: var(--vp-c-text-1);
+}
+
+:global(.dark) .link-checker {
+  --lc-positive: #4ade80;
+  --lc-negative: #f87171;
+  --lc-warning: #fbbf24;
+  --lc-positive-soft: rgba(22, 163, 74, 0.14);
+  --lc-negative-soft: rgba(220, 38, 38, 0.14);
+  --lc-warning-soft: rgba(217, 119, 6, 0.14);
+  --lc-positive-border: rgba(74, 222, 128, 0.28);
+  --lc-negative-border: rgba(248, 113, 113, 0.28);
+  --lc-warning-border: rgba(251, 191, 36, 0.28);
+}
+
+/* ============================ FORM STAGE ============================ */
+.lc-form-stage {
+  max-width: 820px;
   margin: 0 auto;
-  padding: 0 clamp(1rem, 5vw, 4rem);
-  box-sizing: border-box;
+  padding: 1rem 1rem 3rem;
 }
 
-.form-stage {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  min-height: 70vh;
-  padding: 2rem 0;
+/* Hero — page identity, integrated with the tool */
+.lc-hero {
+  margin-bottom: 1.75rem;
 }
 
-.form-container {
-  width: 100%;
-  max-width: 1200px;
-}
-
-.form-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.875rem;
-  margin-bottom: 1.5rem;
-}
-
-.form-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: hsla(197, 87%, 50%, 0.12);
-  color: var(--vp-c-brand-dark, #0891b2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.form-title {
-  margin: 0 0 0.25rem;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--vp-c-text-1, #1e293b);
-}
-
-.form-subtitle {
-  margin: 0;
-  font-size: 0.875rem;
-  color: var(--vp-c-text-2, #6b7280);
-}
-
-.results-stage {
-  width: 100%;
-  max-width: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.results-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-  width: 100%;
-  max-width: 1600px;
-  padding: 0 clamp(0.3rem, 4vw, 0.3rem);
-  box-sizing: border-box;
-}
-
-.results-header h2 {
-  margin: 0;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--vp-c-text-1, #333);
-  flex: 1;
-  text-align: left;
-}
-
-.back-btn {
+.lc-hero-crumb {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #ddd);
-  margin-top: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  cursor: pointer;
-  color: var(--vp-c-text-1, #333);
-  font-size: 0.85rem;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  transition: all 0.2s ease;
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.lc-hero-crumb:hover {
+  color: var(--vp-c-brand);
+}
+
+.lc-hero-band {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 16px;
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  background: linear-gradient(135deg, hsla(197, 87%, 50%, 0.1), hsla(197, 87%, 50%, 0.02));
+}
+
+.lc-hero-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  background: var(--vp-c-brand);
+  color: #fff;
+  box-shadow: 0 4px 14px hsla(197, 87%, 50%, 0.35);
 }
 
-.back-btn:hover {
-  background: var(--vp-c-bg, #fff);
-  border-color: var(--vp-c-brand);
-}
-
-.split-view {
-  display: flex;
-  height: 750px;
-  background: var(--vp-c-bg, #fff);
-  border-radius: 12px;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  overflow: hidden;
-  width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
-  box-sizing: border-box;
-}
-
-.results-panel {
-  width: 500px;
-  min-width: 450px;
-  border-right: 1px solid var(--vp-c-border-soft, #eee);
-  background: var(--vp-c-bg-alt, #fafafa);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.details-panel {
-  flex: 1;
-  background: var(--vp-c-bg, #fff);
-  overflow-y: auto;
+.lc-hero-copy {
   min-width: 0;
 }
 
-.tool-form {
-  background: var(--vp-c-bg, #fff);
-  border-radius: 14px;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 1.75rem;
-  margin-bottom: 1.5rem;
+/* Guard the h1 against VitePress .vp-doc article heading styles. */
+.lc-hero-title {
+  margin: 0 0 0.3rem;
+  padding: 0;
+  border: 0;
+  font-size: 1.55rem;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--vp-c-text-1);
 }
 
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1, #374151);
+.lc-hero-sub {
+  margin: 0;
   font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--vp-c-text-2);
 }
 
-.form-group input,
-.form-group textarea {
+.lc-card {
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 14px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.lc-field { display: flex; flex-direction: column; }
+
+.lc-field > label,
+.lc-field-head label {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--vp-c-text-1);
+  margin-bottom: 0.5rem;
+}
+
+.lc-field-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.lc-field-head label { margin-bottom: 0; }
+
+.lc-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.4rem;
+  height: 1.4rem;
+  padding: 0 0.4rem;
+  margin-left: 0.35rem;
+  border-radius: 999px;
+  background: hsla(197, 87%, 50%, 0.12);
+  color: var(--vp-c-brand-dark, #0891b2);
+  font-size: 0.75rem;
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+:global(.dark) .lc-count { color: var(--vp-c-brand-light); }
+
+.lc-field textarea {
   width: 100%;
   padding: 0.875rem 1rem;
   border: 1.5px solid var(--vp-c-border, #e5e7eb);
   border-radius: 10px;
-  font-size: 1rem;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-  box-sizing: border-box;
-  background: var(--vp-c-bg, #ffffff);
-  color: var(--vp-c-text-1, #374151);
-}
-
-.form-group textarea {
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+  font-size: 0.9rem;
+  font-family: var(--vp-font-family-mono, monospace);
+  line-height: 1.5;
   resize: vertical;
-  line-height: 1.4;
+  background: var(--vp-c-bg);
+  color: var(--vp-c-text-1);
+  box-sizing: border-box;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-.form-group input:focus,
-.form-group textarea:focus {
+.lc-field textarea:focus {
   outline: none;
   border-color: var(--vp-c-brand);
   box-shadow: 0 0 0 3px hsla(197, 87%, 50%, 0.12);
 }
 
-.form-group input:disabled,
-.form-group textarea:disabled {
+.lc-field textarea:disabled {
   background: var(--vp-c-bg-mute, #f1f5f9);
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.form-help {
+.lc-hint {
   display: block;
   margin-top: 0.5rem;
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.875rem;
-  font-style: italic;
-  line-height: 1.4;
+  color: var(--vp-c-text-2);
+  font-size: 0.8rem;
+  line-height: 1.5;
 }
 
-.mobile-hidden-message {
-  display: block;
-}
+.lc-desktop-only { display: block; }
+.lc-mobile-only { display: none; }
 
-.mobile-only-message {
-  display: none;
-}
-
-.preview-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.preview-switcher {
-  display: flex;
+/* Segmented control (desktop / mobile) */
+.lc-segmented {
+  display: inline-flex;
   background: var(--vp-c-bg-soft, #f1f5f9);
-  border-radius: 8px;
-  padding: 4px;
-  gap: 2px;
   border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 8px;
+  padding: 3px;
+  gap: 2px;
 }
 
-.preview-btn {
-  display: flex;
+.lc-seg-btn {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 16px;
+  gap: 6px;
+  padding: 5px 12px;
   border: none;
   background: transparent;
-  color: var(--vp-c-text-2, #64748b);
+  color: var(--vp-c-text-2);
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 500;
-  font-size: 0.875rem;
-  transition: all 0.2s ease;
+  font-size: 0.8rem;
+  font-weight: 600;
   white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
 }
 
-.preview-btn img {
-  width: 16px;
-  height: 16px;
-  opacity: 0.7;
-}
+.lc-seg-btn:hover:not(.active) { color: var(--vp-c-text-1); }
 
-.preview-btn.active {
+.lc-seg-btn.active {
   background: var(--vp-c-brand);
-  color: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
-.preview-btn.active img {
-  opacity: 1;
-  filter: brightness(0) invert(1);
-}
-
-.preview-btn:hover:not(.active) {
-  color: var(--vp-c-text-1, #1e293b);
-  background: var(--vp-c-bg, #ffffff);
-}
-
-.preview-btn:hover:not(.active) img {
-  opacity: 1;
-}
-
-.preview-container {
+/* Iframe preview frame */
+.lc-preview-frame {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background: var(--vp-c-bg-mute, #f8f9fa);
-  border-radius: 8px;
-  padding: 2rem;
-  margin-bottom: 0.5rem;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  border-radius: var(--lc-radius);
+  padding: 1.25rem;
+  overflow: auto;
 }
 
-.html-template-preview {
-  height: 600px;
+.lc-iframe {
+  height: 560px;
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
-  background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  border-radius: var(--lc-radius-sm);
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: width 0.25s ease, max-width 0.25s ease;
 }
 
-.html-template-preview.desktop {
-  width: 100%;
-  max-width: 1200px;
-}
+.lc-iframe.desktop { width: 100%; max-width: 1100px; }
+.lc-iframe.mobile { width: 375px; max-width: 375px; }
 
-.html-template-preview.mobile {
-  width: 375px;
-  max-width: 375px;
-}
-
-.detail-preview {
-  width: 100%;
-  height: 600px;
-  border: 1px solid var(--vp-c-border, #ddd);
-  border-radius: 8px;
-  background: white;
-}
-
-.detail-preview.desktop {
-  width: 100%;
-  max-width: 1200px;
-}
-
-.detail-preview.mobile {
-  width: 375px;
-  max-width: 375px;
-  margin: 0 auto;
-}
-
-.extracted-links {
-  max-height: 250px;
+/* Extracted links */
+.lc-links {
+  max-height: 260px;
   overflow-y: auto;
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  border-radius: 6px;
-  background: var(--vp-c-bg, #ffffff);
+  border-radius: var(--lc-radius-sm);
+  background: var(--vp-c-bg);
 }
 
-.extracted-link {
-  padding: 0.75rem 1rem;
-  border-bottom: 1px solid var(--vp-c-border-soft, #f1f5f9);
-  transition: background-color 0.2s ease;
-}
-
-.extracted-link:last-child {
-  border-bottom: none;
-}
-
-.extracted-link:hover {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-}
-
-.link-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.link-url-container {
+.lc-link {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  width: 100%;
+  gap: 0.75rem;
+  padding: 0.7rem 0.9rem;
+  border-bottom: 1px solid var(--vp-c-border-soft, #f1f5f9);
+  transition: background 0.15s;
 }
 
-.link-url {
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.875rem;
+.lc-link:last-child { border-bottom: none; }
+.lc-link:hover { background: var(--vp-c-bg-soft, #f8f9fa); }
+
+.lc-link-main { min-width: 0; flex: 1; display: flex; flex-direction: column; gap: 0.15rem; }
+
+.lc-link-url {
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.82rem;
   color: var(--vp-c-brand);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  cursor: help;
-  flex: 1;
-  min-width: 0;
 }
 
-.link-text {
-  font-size: 0.8rem;
-  color: var(--vp-c-text-2, #6b7280);
-  font-style: italic;
+.lc-link-text {
+  font-size: 0.75rem;
+  color: var(--vp-c-text-2);
 }
 
-.copy-link-btn {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.25rem;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 1.75rem;
-  height: 1.75rem;
-  display: flex;
+/* Icon buttons — unified across the whole tool */
+.lc-icon-btn {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  width: 2rem;
+  height: 2rem;
   flex-shrink: 0;
+  padding: 0;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 7px;
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  color: var(--vp-c-text-2);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
 }
 
-.copy-link-btn:hover {
-  background: var(--vp-c-bg, #ffffff);
+.lc-icon-btn:hover:not(:disabled) {
   border-color: var(--vp-c-brand);
-  transform: scale(1.05);
+  color: var(--vp-c-brand);
+  transform: translateY(-1px);
 }
 
-.copy-link-btn img {
-  width: 12px;
-  height: 12px;
-  opacity: 0.7;
-}
+.lc-icon-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.copy-link-btn:hover img {
-  opacity: 1;
-}
-
-.copy-link-btn.copied {
+.lc-icon-btn.copied {
   background: var(--vp-c-brand);
   border-color: var(--vp-c-brand);
+  color: #fff;
 }
 
-.copy-link-btn.copied img {
-  opacity: 1;
-  filter: brightness(0) invert(1);
-}
+.lc-icon-btn-sm { width: 1.6rem; height: 1.6rem; }
 
-.result-url,
-.detail-url {
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
+/* Alerts — subtle, semantic, dark-aware */
+.lc-alert {
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--lc-radius-sm);
+  border: 1px solid transparent;
   font-size: 0.875rem;
-  color: var(--vp-c-brand);
-  word-break: break-all !important;
-  overflow-wrap: break-word !important;
-  white-space: normal !important;
-  line-height: 1.4;
-  max-width: 100%;
-  box-sizing: border-box;
+  line-height: 1.55;
 }
 
-.redirect-url {
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.875rem;
-  color: var(--vp-c-brand);
-  word-break: break-all !important;
-  overflow-wrap: break-word !important;
-  white-space: normal !important;
-  line-height: 1.4;
-  display: block;
-  margin-top: 0.5rem;
-  padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 4px;
-  border: 1px solid rgba(133, 100, 4, 0.2);
-  max-width: 100%;
-  box-sizing: border-box;
-}
+.lc-alert > svg { flex-shrink: 0; margin-top: 0.1rem; }
+.lc-alert p { margin: 0.25rem 0 0; }
+.lc-alert small { color: var(--vp-c-text-2); font-size: 0.8rem; }
 
-.check-btn {
-  background: var(--vp-c-brand);
-  color: #ffffff;
-  padding: 0.875rem 2rem;
+.lc-alert-warn {
+  background: var(--lc-warning-soft);
+  border-color: var(--lc-warning-border);
+  color: var(--vp-c-text-1);
+}
+.lc-alert-warn > svg { color: var(--lc-warning); }
+
+.lc-alert-error {
+  background: var(--lc-negative-soft);
+  border-color: var(--lc-negative-border);
+  color: var(--vp-c-text-1);
+}
+.lc-alert-error > svg { color: var(--lc-negative); }
+
+/* Turnstile + submit */
+.lc-turnstile { display: flex; justify-content: center; }
+
+.lc-submit {
+  width: 100%;
+  padding: 0.85rem 2rem;
   border: none;
   border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
+  background: var(--vp-c-brand);
+  color: #fff;
+  font-size: 0.95rem;
   font-weight: 600;
-  transition: all 0.2s ease;
-  width: 100%;
+  cursor: pointer;
   box-shadow: 0 1px 4px hsla(197, 87%, 50%, 0.3);
+  transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
 }
 
-.check-btn:hover:not(:disabled) {
+.lc-submit:hover:not(:disabled) {
   background: var(--vp-c-brand-dark);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px hsla(197, 87%, 50%, 0.35);
 }
 
-.check-btn:disabled {
+.lc-submit:disabled {
   background: var(--vp-c-bg-mute, #9ca3af);
+  color: var(--vp-c-text-2);
   cursor: not-allowed;
-  transform: none;
   box-shadow: none;
 }
 
-.btn-loading {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  justify-content: center;
-}
+.lc-btn-loading { display: inline-flex; align-items: center; gap: 0.5rem; }
 
-.loading-spinner {
-  width: 12px;
-  height: 12px;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  border-top: 1.5px solid #ffffff;
+.lc-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
   border-radius: 50%;
-  animation: spin 1s linear infinite;
+  animation: lc-spin 0.7s linear infinite;
+  display: inline-block;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+.lc-spinner-dark {
+  border-color: rgba(0, 0, 0, 0.12);
+  border-top-color: var(--vp-c-brand);
 }
 
-.error-pill {
+@keyframes lc-spin { to { transform: rotate(360deg); } }
+
+.lc-error {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.625rem 1rem;
-  background: #fef2f2;
-  color: #991b1b;
-  border: 1px solid rgba(220,38,38,0.2);
-  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  background: var(--lc-negative-soft);
+  color: var(--lc-negative);
+  border: 1px solid var(--lc-negative-border);
+  border-radius: var(--lc-radius-sm);
   font-size: 0.875rem;
   font-weight: 500;
-  margin-top: 1rem;
 }
 
-.no-links-warning {
+/* ============================ RESULTS STAGE ============================ */
+.lc-results-stage {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  margin-left: -50vw;
+  padding: 1rem clamp(1rem, 4vw, 3rem) 3rem;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.lc-results-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.lc-results-head {
   display: flex;
-  gap: 0.625rem;
-  background: rgba(217,119,6,0.06);
-  border: 1px solid rgba(217,119,6,0.2);
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.lc-results-head h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 700;
   color: var(--vp-c-text-1);
-  padding: 0.875rem 1.125rem;
-  border-radius: 10px;
 }
 
-.no-links-warning svg {
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-  color: #d97706;
-}
-
-.no-links-warning p {
-  margin: 0 0 0.25rem 0;
-  font-weight: 600;
-  font-size: 0.875rem;
-}
-
-.no-links-warning small {
-  font-size: 0.8rem;
-  color: var(--vp-c-text-2, #6b7280);
-}
-
-.results-summary {
-  display: flex;
-  gap: 0.75rem;
-  padding: 1rem;
-  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
-  background: var(--vp-c-bg, #fff);
-}
-
-.summary-item {
-  text-align: center;
-  padding: 0.6rem 0.5rem;
-  border-radius: 6px;
+.lc-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: 999px;
   background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border-soft, #eee);
-  flex: 1;
-  font-size: 0.85rem;
+  color: var(--vp-c-text-1);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
 }
 
-.summary-item.working { border: 1px solid rgba(34, 187, 51, 0.2); }
-.summary-item.broken { border: 1px solid rgba(220, 53, 69, 0.15); }
-.summary-item.error { border: 1px solid rgba(220, 53, 69, 0.15); }
+.lc-back:hover { border-color: var(--vp-c-brand); color: var(--vp-c-brand); }
 
-.summary-item .count {
-  display: block;
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin-bottom: 0.25rem;
+/* Stat row */
+.lc-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 0.625rem;
+  margin-bottom: 1.25rem;
 }
 
-.summary-item .label {
+.lc-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  background: var(--vp-c-bg);
+}
+
+.lc-stat[data-tone="positive"] { border-color: var(--lc-positive-border); }
+.lc-stat[data-tone="negative"] { border-color: var(--lc-negative-border); }
+.lc-stat[data-tone="warning"] { border-color: var(--lc-warning-border); }
+
+.lc-stat-num {
+  font-size: 1.5rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--vp-c-text-1);
+}
+
+.lc-stat[data-tone="positive"] .lc-stat-num { color: var(--lc-positive); }
+.lc-stat[data-tone="negative"] .lc-stat-num { color: var(--lc-negative); }
+.lc-stat[data-tone="warning"] .lc-stat-num { color: var(--lc-warning); }
+
+.lc-stat-label {
+  margin-top: 0.3rem;
   font-size: 0.7rem;
-  color: var(--vp-c-text-2, #666);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--vp-c-text-2);
 }
 
-.results-list {
+/* Split view */
+.lc-split {
+  display: flex;
+  height: 760px;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: var(--lc-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.lc-list-panel {
+  width: 420px;
+  min-width: 340px;
+  border-right: 1px solid var(--vp-c-border-soft, #eee);
+  background: var(--vp-c-bg-alt, #fafafa);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.lc-list {
   flex: 1;
   overflow-y: auto;
-  padding: 0.5rem;
+  padding: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.result-item {
-  padding: 0.875rem 1.125rem;
-  margin-bottom: 0.5rem;
-  border-radius: 10px;
-  cursor: pointer;
-  background: var(--vp-c-bg, #ffffff);
+.lc-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+  text-align: left;
+  padding: 0.8rem 0.95rem;
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  border-radius: 10px;
+  background: var(--vp-c-bg);
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-.result-item:hover {
-  border-color: var(--vp-c-border, #d1d5db);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
-}
+.lc-row:hover { border-color: var(--vp-c-border, #d1d5db); }
 
-.result-item.selected {
-  background: var(--vp-c-bg, #fff);
+.lc-row.selected {
   border-color: var(--vp-c-brand);
   box-shadow: 0 0 0 3px hsla(197, 87%, 50%, 0.12);
 }
 
-.result-status {
-  display: flex;
+.lc-row-status {
+  display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 700;
 }
 
-/* Status dot, the single source of color */
-.status-dot {
+.lc-row[data-tone="positive"] .lc-row-status { color: var(--lc-positive); }
+.lc-row[data-tone="negative"] .lc-row-status { color: var(--lc-negative); }
+.lc-row[data-tone="warning"] .lc-row-status { color: var(--lc-warning); }
+.lc-row[data-tone="neutral"] .lc-row-status { color: var(--vp-c-text-2); }
+
+.lc-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
-  background: var(--vp-c-text-3, #c3c8cf);
+  background: var(--lc-neutral);
 }
 
-.status-dot.working { background: #16a34a; }
-.status-dot.broken { background: #dc2626; }
-.status-dot.error { background: #dc2626; }
-.status-dot.redirect { background: #d97706; }
-.status-dot.soft404 { background: #d97706; }
+.lc-dot[data-tone="positive"] { background: var(--lc-positive); }
+.lc-dot[data-tone="negative"] { background: var(--lc-negative); }
+.lc-dot[data-tone="warning"] { background: var(--lc-warning); }
 
-.status-text {
-  font-weight: 600;
-  font-size: 0.8rem;
-}
-
-.result-url {
-  font-size: 0.75rem;
-  color: var(--vp-c-text-1, #333);
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
-  word-break: break-all !important;
-  white-space: normal !important;
+.lc-row-url {
+  font-size: 0.78rem;
+  color: var(--vp-c-text-1);
+  line-height: 1.35;
+  word-break: break-all;
   overflow: hidden;
-  max-width: 100%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
-.result-meta {
+.lc-row-meta { display: flex; gap: 0.4rem; }
+
+.lc-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.12rem 0.45rem;
+  border-radius: 5px;
+  background: var(--vp-c-bg-soft, #f1f5f9);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.72rem;
+  color: var(--vp-c-text-1);
+}
+
+.lc-chip-muted { color: var(--vp-c-text-2); }
+
+/* Detail panel */
+.lc-detail-panel {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+.lc-detail { padding: 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; }
+
+.lc-detail-hero {
+  padding: 1.25rem;
+  border-radius: var(--lc-radius);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  background: var(--vp-c-bg-soft, #f8f9fa);
+}
+
+.lc-detail-hero[data-tone="positive"] { background: var(--lc-positive-soft); border-color: var(--lc-positive-border); }
+.lc-detail-hero[data-tone="negative"] { background: var(--lc-negative-soft); border-color: var(--lc-negative-border); }
+.lc-detail-hero[data-tone="warning"] { background: var(--lc-warning-soft); border-color: var(--lc-warning-border); }
+
+.lc-detail-hero-top {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 0.75rem;
-  font-size: 0.7rem;
-  color: var(--vp-c-text-2, #666);
+  margin-bottom: 0.875rem;
 }
 
-.status-code {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  padding: 0.125rem 0.375rem;
-  border-radius: 3px;
-}
-
-.details-content {
-  padding: 2rem;
-}
-
-.details-header {
-  display: flex;
-  justify-content: space-between;
+.lc-status-pill {
+  display: inline-flex;
   align-items: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
+  gap: 0.45rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 999px;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  font-size: 0.8rem;
+  font-weight: 700;
 }
 
-.details-header h3 {
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1, #333);
-}
+.lc-status-pill[data-tone="positive"] { color: var(--lc-positive); }
+.lc-status-pill[data-tone="negative"] { color: var(--lc-negative); }
+.lc-status-pill[data-tone="warning"] { color: var(--lc-warning); }
+.lc-status-pill[data-tone="neutral"] { color: var(--vp-c-text-2); }
 
-.header-actions {
-  display: flex;
-  gap: 0.5rem;
-}
+.lc-detail-actions { display: flex; gap: 0.5rem; }
+.lc-detail-actions-end { justify-content: flex-end; margin-bottom: 1rem; }
 
-.copy-detail-btn {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.6rem;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
+.lc-detail-url {
   display: flex;
   align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.copy-detail-btn:hover {
-  background: var(--vp-c-bg, #ffffff);
-  border-color: var(--vp-c-brand);
-  transform: scale(1.05);
-}
-
-.copy-detail-btn img {
-  width: 16px;
-  height: 16px;
-  opacity: 0.7;
-}
-
-.copy-detail-btn:hover img {
-  opacity: 1;
-}
-
-.copy-detail-btn.copied {
-  background: var(--vp-c-brand);
-  border-color: var(--vp-c-brand);
-}
-
-.copy-detail-btn.copied img {
-  opacity: 1;
-  filter: brightness(0) invert(1);
-}
-
-.reload-btn {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.6rem;
-  border-radius: 6px;
-  cursor: pointer;
-  width: 2.5rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-}
-
-.reload-btn:hover:not(:disabled) {
-  background: var(--vp-c-bg, #ffffff);
-  border-color: var(--vp-c-brand);
-}
-
-.reload-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.reload-btn img {
-  width: 16px;
-  height: 16px;
-}
-
-.spinner {
-  width: 16px;
-  height: 16px;
-  border: 1.5px solid rgba(0, 0, 0, 0.1);
-  border-top: 1.5px solid var(--vp-c-brand);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.detail-url {
-  font-size: 1rem;
-  color: var(--vp-c-brand);
-  margin-bottom: 1.5rem;
-  line-height: 1.4;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  padding: 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-  display: block;
-}
-
-.detail-url:hover {
-  background: var(--vp-c-bg, #fff);
-  border: 1px solid var(--vp-c-brand);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.detail-status {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding: 1rem 1.5rem;
-  border-radius: 8px;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-}
-
-.detail-status .status-text {
-  font-weight: 600;
-  font-size: 1rem;
-}
-
-.detail-status-code {
-  background: var(--vp-c-bg, #fff);
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  border: 1px solid var(--vp-c-border-soft, #eee);
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.9rem;
-}
-
-.detail-error {
-  background: #f8d7da;
-  color: #721c24;
-  border: 1px solid rgba(220, 53, 69, 0.15);
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
-}
-
-.detail-redirect {
-  background: #fff3cd;
-  color: #856404;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
-  font-size: 0.95rem;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.code-location {
-  margin: 2rem 0;
-}
-
-.code-location h4 {
-  margin: 0 0 1rem 0;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.code-snippet {
-  background: #f8f9fa;
-  border: 1px solid var(--vp-c-border, #ddd);
-  border-radius: 8px;
-  padding: 1.5rem;
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.85rem;
-  overflow-x: auto;
-  white-space: pre-wrap;
-  line-height: 1.5;
-  margin: 0;
-}
-
-.line-number {
-  color: var(--vp-c-text-2, #666);
-  margin-right: 1rem;
-  user-select: none;
-}
-
-.highlight-line {
-  background: #ffe993;
-  padding: 0 4px;
-  border-radius: 3px;
-}
-
-.preview-tabs-section {
-  margin: 2rem 0;
-}
-
-.preview-tabs-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
-}
-
-.preview-tabs-nav {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.tab-switcher {
-  display: flex;
-  align-items: center;
-  margin-left: auto;
-}
-
-.preview-tab-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
-  border: none;
-  background: transparent;
-  color: var(--vp-c-text-2, #64748b);
-  border-radius: 8px 8px 0 0;
-  cursor: pointer;
-  font-weight: 500;
+  gap: 0.4rem;
+  font-family: var(--vp-font-family-mono, monospace);
   font-size: 0.875rem;
-  transition: all 0.2s ease;
-  white-space: nowrap;
-  position: relative;
+  color: var(--vp-c-brand);
+  text-decoration: none;
+  word-break: break-all;
+  line-height: 1.45;
 }
 
-.preview-tab-btn.active {
-  background: var(--vp-c-brand);
-  color: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.lc-detail-url svg { flex-shrink: 0; opacity: 0.7; }
+.lc-detail-url:hover { text-decoration: underline; }
+
+.lc-detail-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.875rem; }
+
+.lc-redirect { min-width: 0; flex: 1; }
+.lc-redirect-head { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem; }
+
+.lc-redirect-url {
+  display: block;
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.8rem;
+  color: var(--vp-c-text-1);
+  word-break: break-all;
+  line-height: 1.4;
 }
 
-.preview-tab-btn.active::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--vp-c-brand);
-}
+/* Tabs */
+.lc-tabs { display: flex; flex-direction: column; }
 
-.preview-tab-btn:hover:not(.active) {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  color: var(--vp-c-text-1, #1e293b);
-}
-
-.preview-tabs-content {
-  min-height: 400px;
-}
-
-.preview-tab-panel {
-  animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.tab-panel-header {
+.lc-tabs-head {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  flex-wrap: wrap;
   margin-bottom: 1rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--vp-c-border-soft, #eee);
 }
 
-.tab-panel-header h4 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1, #333);
-}
+.lc-tabs-nav { display: flex; gap: 0.35rem; }
 
-.tab-panel-help {
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.8rem;
-  font-style: italic;
-  margin-top: 0.5rem;
-}
-
-.page-preview-container {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 8px;
-  padding: 1.5rem;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.template-preview-switcher {
-  display: flex;
-  background: var(--vp-c-bg-soft, #f1f5f9);
-  border-radius: 8px;
-  padding: 3px;
-  gap: 2px;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-}
-
-.template-preview-btn {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
+.lc-tab {
+  padding: 0.5rem 0.95rem;
   border: none;
   background: transparent;
-  color: var(--vp-c-text-2, #64748b);
-  border-radius: 6px;
+  color: var(--vp-c-text-2);
+  border-radius: 8px;
   cursor: pointer;
-  font-weight: 500;
-  font-size: 0.8rem;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background 0.15s, color 0.15s;
 }
 
-.template-preview-btn img {
-  width: 14px;
-  height: 14px;
-  opacity: 0.7;
-}
+.lc-tab:hover:not(.active) { background: var(--vp-c-bg-soft, #f8f9fa); color: var(--vp-c-text-1); }
 
-.template-preview-btn.active {
+.lc-tab.active {
   background: var(--vp-c-brand);
-  color: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  color: #fff;
 }
 
-.template-preview-btn.active img {
-  opacity: 1;
-  filter: brightness(0) invert(1);
+.lc-tab-panel { animation: lc-fade 0.25s ease; }
+
+@keyframes lc-fade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.template-preview-btn:hover:not(.active) {
-  color: var(--vp-c-text-1, #1e293b);
-  background: rgba(255, 255, 255, 0.8);
-}
-
-.template-preview-btn:hover:not(.active) img {
-  opacity: 1;
-}
-
-.template-preview-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 8px;
-  padding: 1.5rem;
-  margin-bottom: 0.5rem;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-}
-
-.template-preview-iframe {
-  height: 500px;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
-  background: white;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.template-preview-iframe.desktop {
-  width: 100%;
-  max-width: 800px;
-}
-
-.template-preview-iframe.mobile {
-  width: 320px;
-  max-width: 320px;
-}
-
-.template-preview-mobile-hidden {
-  display: block;
-  font-size: 0.8rem;
-  color: var(--vp-c-text-2, #6b7280);
-}
-
-.template-preview-mobile-only {
-  display: none;
-  font-size: 0.8rem;
-  color: var(--vp-c-text-2, #6b7280);
-}
-
-.no-preview-content {
+.lc-empty-preview {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height: 300px;
+  width: 100%;
   text-align: center;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 12px;
   padding: 2rem;
   border: 2px dashed var(--vp-c-border, #e5e7eb);
+  border-radius: var(--lc-radius);
 }
 
-.no-preview-content h4 {
-  margin: 0 0 0.5rem 0;
-  color: var(--vp-c-text-1, #333);
-  font-size: 1.1rem;
-}
+.lc-empty-preview h4 { margin: 0 0 0.4rem; color: var(--vp-c-text-1); font-size: 1.05rem; }
+.lc-empty-preview p { margin: 0; color: var(--vp-c-text-2); font-size: 0.875rem; }
 
-.no-preview-content p {
-  margin: 0;
-  color: var(--vp-c-text-2, #6b7280);
-  font-size: 0.9rem;
-}
-
-.soft404-info {
-  background: #fff3cd;
-  color: #856404;
+/* Skeleton loader */
+.lc-skeleton {
+  width: 100%;
+  max-width: 1100px;
+  height: 560px;
   padding: 1.5rem;
-  border-radius: 8px;
-  margin: 2rem 0;
+  box-sizing: border-box;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
+  border-radius: var(--lc-radius-sm);
 }
 
-.soft404-info h4 {
-  margin: 0 0 0.75rem 0;
-  font-size: 1rem;
+.lc-skeleton.mobile { width: 375px; max-width: 375px; margin: 0 auto; }
+
+.lc-sk-bar {
+  height: 18px;
+  margin-bottom: 0.75rem;
+  border-radius: 5px;
+  background: linear-gradient(90deg, var(--vp-c-bg-soft) 25%, var(--vp-c-bg-mute) 50%, var(--vp-c-bg-soft) 75%);
+  background-size: 200% 100%;
+  animation: lc-shimmer 1.4s infinite;
+}
+
+@keyframes lc-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Code snippet */
+.lc-code h4 {
+  margin: 0 0 0.75rem;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: var(--vp-c-text-1);
 }
 
-.soft404-info p {
+.lc-code-snippet {
   margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.5;
+  padding: 1.25rem;
+  border-radius: var(--lc-radius-sm);
+  background: var(--vp-c-bg-soft, #f8f9fa);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  font-family: var(--vp-font-family-mono, monospace);
+  font-size: 0.82rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  color: var(--vp-c-text-1);
 }
 
-.no-selection {
+.lc-code-snippet :deep(.line-number) {
+  color: var(--vp-c-text-3, #9ca3af);
+  margin-right: 1rem;
+  user-select: none;
+}
+
+.lc-code-snippet :deep(.highlight-line) {
+  background: hsla(45, 100%, 50%, 0.25);
+  color: var(--vp-c-text-1);
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+/* Empty state */
+.lc-empty {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100%;
   text-align: center;
-  color: var(--vp-c-text-2, #666);
+  color: var(--vp-c-text-2);
+  padding: 2rem;
 }
 
-.no-selection h3 {
-  margin: 0 0 1rem 0;
-  font-size: 1.3rem;
-  font-weight: 600;
-}
+.lc-empty h3 { margin: 0 0 0.5rem; font-size: 1.2rem; font-weight: 600; color: var(--vp-c-text-1); }
+.lc-empty p { margin: 0; font-size: 0.9rem; }
 
-.no-selection p {
-  margin: 0;
-  font-size: 1rem;
-}
-
-/* Modal Styles */
-.modal-overlay {
+/* ============================ MOBILE MODAL ============================ */
+.lc-modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  inset: 0;
   z-index: 1000;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 1rem;
   box-sizing: border-box;
 }
 
-.modal-container {
-  background: var(--vp-c-bg, #fff);
-  border-radius: 12px;
+.lc-modal {
   width: 100%;
-  max-width: 90vw;
+  max-width: 92vw;
   max-height: 90vh;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  animation: modalSlideIn 0.3s ease-out;
   display: flex;
   flex-direction: column;
+  background: var(--vp-c-bg);
+  border: 1px solid var(--vp-c-border, #e5e7eb);
+  border-radius: var(--lc-radius);
+  overflow: hidden;
+  animation: lc-modal-in 0.25s ease;
 }
 
-.modal-header {
+@keyframes lc-modal-in {
+  from { opacity: 0; transform: translateY(-16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.lc-modal-head {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 1.5rem;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
   border-bottom: 1px solid var(--vp-c-border-soft, #eee);
   background: var(--vp-c-bg-soft, #f8f9fa);
-  flex-shrink: 0;
 }
 
-.modal-header h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--vp-c-text-1, #333);
-}
-
-.close-modal-btn {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: var(--vp-c-text-2, #666);
+.lc-modal-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   width: 2rem;
   height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-}
-
-.close-modal-btn:hover {
-  background: var(--vp-c-border-soft, #eee);
-  color: var(--vp-c-text-1, #333);
-}
-
-.modal-content {
-  padding: 1.5rem;
-  overflow-y: auto;
-  flex: 1;
-  min-height: 0;
-  max-height: calc(90vh - 80px);
-  -webkit-overflow-scrolling: touch;
-}
-
-.details-header.mobile {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 1rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--vp-c-border-soft, #eee);
-}
-
-.copy-detail-btn.mobile,
-.reload-btn.mobile {
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  padding: 0.75rem;
-  border-radius: 6px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--vp-c-text-2);
   cursor: pointer;
-  width: 3rem;
-  height: 3rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.lc-modal-close:hover { background: var(--vp-c-bg-mute, #eee); color: var(--vp-c-text-1); }
+
+.lc-modal-body {
+  padding: 1.25rem;
+  overflow-y: auto;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
-  margin-left: 0.5rem;
-}
-
-.copy-detail-btn.mobile:hover,
-.reload-btn.mobile:hover:not(:disabled) {
-  background: var(--vp-c-bg, #ffffff);
-  border-color: var(--vp-c-brand);
-  transform: scale(1.05);
-}
-
-.copy-detail-btn.mobile img,
-.reload-btn.mobile img {
-  width: 18px;
-  height: 18px;
-  opacity: 0.7;
-}
-
-.copy-detail-btn.mobile:hover img,
-.reload-btn.mobile:hover:not(:disabled) img {
-  opacity: 1;
-}
-
-.copy-detail-btn.mobile.copied {
-  background: var(--vp-c-brand);
-  border-color: var(--vp-c-brand);
-}
-
-.copy-detail-btn.mobile.copied img {
-  opacity: 1;
-  filter: brightness(0) invert(1);
-}
-
-.reload-btn.mobile:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.reload-btn.mobile .spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(0, 0, 0, 0.1);
-  border-top: 2px solid var(--vp-c-brand);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.detail-url.mobile {
-  font-size: 0.875rem;
-  word-break: break-all !important;
-  white-space: normal !important;
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 6px;
-  text-decoration: none;
-  display: block;
-  color: var(--vp-c-brand);
-  overflow-wrap: anywhere !important;
-  hyphens: auto;
-  max-width: 100%;
-  min-width: 0;
-  box-sizing: border-box;
-}
-
-.detail-status.mobile {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1rem;
-  padding: 0.75rem;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 6px;
-}
-
-.detail-error.mobile {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-  border-radius: 6px;
-  background: #f8d7da;
-  color: #721c24;
-  word-break: break-word;
-  line-height: 1.4;
-}
-
-.detail-redirect.mobile {
-  padding: 1rem;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-  border-radius: 6px;
-  background: #fff3cd;
-  color: #856404;
-  overflow: hidden;
-  word-break: break-all;
-}
-
-.detail-redirect.mobile .redirect-url {
-  word-break: break-all !important;
-  white-space: normal !important;
-  display: block;
-  margin-top: 0.5rem;
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  font-size: 0.8rem;
-  line-height: 1.3;
-  padding: 0.5rem;
-  background: rgba(255, 255, 255, 0.8);
-  border-radius: 4px;
-  border: 1px solid rgba(133, 100, 4, 0.3);
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow-wrap: anywhere;
-  hyphens: auto;
-}
-
-.code-location.mobile {
-  margin: 1rem 0;
-}
-
-.code-snippet.mobile {
-  font-size: 0.75rem;
-  padding: 1rem;
-  max-height: 200px !important;
-  overflow-y: auto !important;
-  overflow-x: auto !important;
-  background: #f8f9fa;
-  border: 1px solid var(--vp-c-border, #ddd);
-  border-radius: 8px;
-  font-family: var(--vp-font-family-mono, 'Courier New', monospace);
-  line-height: 1.4;
-  white-space: pre-wrap;
-  word-break: break-all;
+  flex-direction: column;
+  gap: 1rem;
   -webkit-overflow-scrolling: touch;
 }
 
-.soft404-info.mobile {
-  background: #fff3cd;
-  color: #856404;
-  padding: 1rem;
-  border-radius: 8px;
-  margin: 1rem 0;
-}
-
-.soft404-info.mobile h4 {
-  margin: 0 0 0.5rem 0;
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
-.soft404-info.mobile p {
-  margin: 0;
-  font-size: 0.85rem;
-  line-height: 1.4;
-}
-
-.modal-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.modal-content::-webkit-scrollbar-track {
-  background: var(--vp-c-bg-soft, #f1f1f1);
-  border-radius: 4px;
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-  background: var(--vp-c-border, #ccc);
-  border-radius: 4px;
-}
-
-.modal-content::-webkit-scrollbar-thumb:hover {
-  background: var(--vp-c-text-2, #999);
-}
-
-.code-snippet.mobile::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-.code-snippet.mobile::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 3px;
-}
-
-.code-snippet.mobile::-webkit-scrollbar-thumb {
-  background: #ccc;
-  border-radius: 3px;
-}
-
-.code-snippet.mobile::-webkit-scrollbar-thumb:hover {
-  background: #999;
-}
-
-@keyframes modalSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@media (max-width: 480px) {
-  .link-checker-breakout {
-    width: 100% !important;
-    position: static !important;
-    left: auto !important;
-    margin-left: 0 !important;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-  }
-  
-  .link-checker {
-    padding: 0 0.75rem;
-    max-width: 100vw;
-  }
-
-  .results-header {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-    margin-bottom: 1.25rem;
-    padding: 0 0.75rem;
-    align-items: center;
-    max-width: 100%;
-  }
-
-  .results-header h2 {
-    font-size: 1.25rem;
-    text-align: center;
-    flex: none;
-  }
-
-  .back-btn {
-    align-self: center;
-    padding: 0.6rem 1.25rem;
-    font-size: 0.875rem;
-    min-height: 44px;
-    width: auto;
-  }
-
-  .split-view {
-    display: block !important;
-    height: auto !important;
-    min-height: auto !important;
-    padding: 0;
-    margin: 0;
-    max-width: 100%;
-    border-radius: 8px;
-    overflow: visible;
-  }
-  
-  .form-title {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  
-  .tool-form {
-    padding: 1rem;
-    border-radius: 8px;
-  }
-  
-  .form-group textarea {
-    font-size: 0.875rem;
-    padding: 0.75rem;
-    min-height: 120px;
-  }
-
-  .results-summary {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 0.5rem;
-    padding: 0.75rem;
-  }
-  
-  .summary-item {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.8rem;
-  }
-  
-  .summary-item .count {
-    font-size: 1.2rem;
-    margin-bottom: 0.375rem;
-  }
-  
-  .summary-item .label {
-    font-size: 0.75rem;
-  }
-
-  .modal-container {
-    max-width: 95vw;
-    max-height: 95vh;
-  }
-  
-  .modal-content {
-    padding: 1rem;
-    max-height: calc(95vh - 70px);
-  }
-  
-  .code-snippet.mobile {
-    max-height: 150px !important;
-    font-size: 0.7rem;
-  }
-
-  .results-panel {
-    min-height: 250px !important;
-  }
-  
-  .results-list {
-    max-height: 300px !important;
-    min-height: 150px !important;
-  }
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-  .results-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    width: 100%;
-    max-width: 1600px;
-    padding: 0;
-    box-sizing: border-box;
-  }
-
-  .results-header h2 {
-    font-size: 1.375rem;
-    text-align: center;
-    flex: none;
-  }
-
-  .split-view {
-    max-width: 1200px;
-  }
-
-  .results-summary {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.5rem;
-    padding: 0.75rem;
-  }
-
-  .summary-item {
-    padding: 0.6rem 0.4rem;
-    font-size: 0.75rem;
-  }
-
-  .summary-item .count {
-    font-size: 1rem;
-    margin-bottom: 0.25rem;
-  }
-
-  .summary-item .label {
-    font-size: 0.65rem;
-  }
-
-  .modal-container {
-    max-width: 85vw;
-    max-height: 90vh;
-  }
-  
-  .code-snippet.mobile {
-    max-height: 180px !important;
-  }
-
-  .preview-tabs-header {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: stretch;
-  }
-  
-  .tab-switcher {
-    margin-left: 0;
-    justify-content: center;
-  }
-  
-  .preview-switcher,
-  .template-preview-switcher {
-    width: 100%;
-    justify-content: center;
-  }
+/* ============================ RESPONSIVE ============================ */
+@media (max-width: 900px) {
+  .lc-list-panel { width: 340px; min-width: 300px; }
 }
 
 @media (max-width: 768px) {
-  .link-checker-breakout {
-    width: 100% !important;
-    position: static !important;
-    left: auto !important;
-    margin-left: 0 !important;
-    overflow-x: hidden;
-  }
-  
-  .link-checker {
-    padding: 0 1rem;
-    max-width: 100vw;
-  }
+  .lc-desktop-only { display: none; }
+  .lc-mobile-only { display: block; }
 
-  .form-stage {
-    padding: 1rem 0;
-    min-height: auto;
-  }
+  .lc-iframe.desktop,
+  .lc-iframe.mobile { width: 100%; max-width: 100%; height: 440px; }
 
-  .tool-form {
-    padding: 1.25rem;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
-  }
-
-  .form-title {
-    font-size: 1.375rem;
-    margin-bottom: 1.25rem;
-  }
-
-  .form-group {
-    margin-bottom: 1.25rem;
-  }
-  
-  .form-group input,
-  .form-group textarea {
-    padding: 0.75rem;
-    font-size: 0.9rem;
-    border-radius: 6px;
-  }
-  
-  .form-group textarea {
-    min-height: 150px;
-    font-size: 0.8rem;
-  }
-
-  .preview-container,
-  .preview-header {
-    display: none !important;
-  }
-
-  .preview-tabs-section {
-    display: none !important;
-  }
-
-  .mobile-hidden-message {
-    display: none !important;
-  }
-
-  .mobile-only-message {
-    display: block !important;
-  }
-
-  .template-preview-mobile-hidden {
-    display: none !important;
-  }
-  
-  .template-preview-mobile-only {
-    display: block !important;
-  }
-
-  .extracted-links {
-    max-height: 180px;
-    padding: 0;
-    border: none;
-    background: transparent;
-    gap: 0.5rem;
-  }
-
-  .extracted-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 0.75rem;
-    margin-bottom: 0.5rem;
-    border-radius: 8px;
-    background: var(--vp-c-bg-soft, #f8f9fa);
-    border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  }
-
-  .link-info {
-    flex: 1;
-    min-width: 0;
-    margin-right: 0.75rem;
-  }
-
-  .link-url {
-    white-space: normal !important;
-    word-break: break-all !important;
-    text-overflow: initial !important;
-    font-size: 0.8rem;
-    line-height: 1.3;
-    overflow: visible;
-  }
-
-  .link-text {
-    font-size: 0.75rem;
-    margin-top: 0.25rem;
-    line-height: 1.2;
-  }
-
-  .copy-link-btn {
-    width: 2.5rem;
-    height: 2.5rem;
-    padding: 0.5rem;
-    flex-shrink: 0;
-    align-self: flex-start;
-  }
-
-  .copy-link-btn img {
-    width: 14px;
-    height: 14px;
-  }
-
-  .results-panel {
-    width: 100% !important;
-    min-width: auto !important;
-    height: auto !important;
-    min-height: 300px;
-    border-right: none;
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex !important;
-    flex-direction: column;
-  }
-
-  .details-panel {
-    display: none !important;
-  }
-
-  .results-summary {
-    flex-shrink: 0 !important;
-    border-bottom: 1px solid var(--vp-c-border-soft, #eee);
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: var(--vp-c-bg, #fff);
-  }
-  
-  .results-list {
-    flex: 1 !important;
-    overflow-y: auto !important;
-    overflow-x: hidden !important;
-    padding: 0.5rem;
-    min-height: 300px !important;
-    max-height: 60vh !important;
-    -webkit-overflow-scrolling: touch !important;
-    overscroll-behavior: contain !important;
-  }
-
-  .result-item {
-    padding: 0.75rem;
-    margin-bottom: 0.5rem;
-    border-radius: 6px;
-    border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-    flex-shrink: 0;
-    min-height: 80px;
-  }
-
-  .result-status {
-    margin-bottom: 0.375rem;
-  }
-
-  .status-text {
-    font-size: 0.75rem;
-  }
-
-  .result-url {
-    font-size: 0.7rem;
-    white-space: normal !important;
-    word-break: break-all !important;
-    line-height: 1.3;
-    margin-bottom: 0.375rem;
-  }
-
-  .result-meta {
-    font-size: 0.65rem;
-    gap: 0.5rem;
-  }
-
-  .check-btn {
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
-    min-height: 48px;
-  }
-
-  .btn-loading {
-    gap: 0.75rem;
-  }
-
-  .loading-spinner {
-    width: 16px;
-    height: 16px;
-    border-width: 2px;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .link-checker {
-    padding: 0 1.5rem;
-  }
-
-  .results-header {
-    max-width: 1200px;
-    padding: 0 1.5rem;
-  }
-
-  .split-view {
-    max-width: 1200px;
-  }
-
-  .results-summary {
-    display: grid !important;
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.6rem;
-    padding: 0.875rem;
-  }
-
-  .summary-item {
-    padding: 0.7rem 0.5rem;
-    font-size: 0.8rem;
-  }
-
-  .split-view {
-    display: flex !important;
-    flex-direction: row;
+  .lc-split {
+    display: block;
     height: auto;
-    min-height: 600px;
   }
 
-  .results-panel {
-    width: 350px !important;
-    min-width: 350px !important;
-    max-height: 600px;
-    overflow: hidden;
+  .lc-list-panel {
+    width: 100%;
+    min-width: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--vp-c-border-soft, #eee);
   }
 
-  .details-panel {
-    flex: 1;
-    min-height: 600px;
-    display: block !important;
-  }
+  .lc-list { max-height: 60vh; }
 
-  .preview-header,
-  .preview-container {
-    display: flex;
-  }
-
-  .preview-tabs-section {
-    display: block;
-  }
-
-  .mobile-hidden-message {
-    display: block;
-  }
-
-  .mobile-only-message {
-    display: none;
-  }
-
-  .template-preview-mobile-hidden {
-    display: block;
-  }
-  
-  .template-preview-mobile-only {
-    display: none;
-  }
-
-  .html-template-preview.mobile {
-    width: 300px;
-    max-width: 300px;
-  }
-
-  .template-preview-iframe.mobile {
-    width: 280px;
-    max-width: 280px;
-  }
-
-  .template-preview-iframe {
-    height: 400px;
-  }
-
-  .detail-preview {
-    display: block;
-    height: 500px;
-  }
-
-  .details-header {
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: left;
-  }
-
-  .header-actions {
-    display: flex;
-    gap: 0.5rem;
-  }
+  /* On mobile the detail opens in a modal, so hide the inline panel. */
+  .lc-detail-panel { display: none; }
 }
 
-@media (min-width: 1025px) {
-  .results-header {
-    max-width: 1600px;
-    padding: 0 clamp(0.3rem, 4vw, 0.3rem);
-  }
-
-  .split-view {
-    max-width: 1600px;
-  }
-
-  .results-summary {
-    display: flex !important;
-    gap: 0.75rem;
-  }
-  
-  .summary-item {
-    flex: 1;
-  }
-
-  .details-panel {
-    display: block !important;
-  }
-
-  .html-template-preview.mobile {
-    width: 375px;
-    max-width: 375px;
-  }
-
-  .template-preview-iframe.mobile {
-    width: 320px;
-    max-width: 320px;
-  }
+@media (max-width: 640px) {
+  .lc-results-head { flex-wrap: wrap; }
+  .lc-card { padding: 1.1rem; }
+  .lc-preview-frame { padding: 0.75rem; }
+  .lc-hero-band { padding: 1.25rem; gap: 0.875rem; }
+  .lc-hero-icon { width: 44px; height: 44px; border-radius: 12px; }
+  .lc-hero-title { font-size: 1.35rem; }
 }
 
-@media (max-width: 1400px) {
-  .results-header {
-    max-width: 1200px;
-  }
-
-  .split-view {
-    max-width: 1200px;
-  }
-  
-  .results-panel {
-    width: 450px;
-    min-width: 400px;
-  }
-  
-  .detail-preview {
-    height: 500px;
+@media (max-width: 480px) {
+  .lc-results-stage {
+    width: 100%;
+    position: static;
+    left: auto;
+    margin-left: 0;
+    padding: 1rem 0.75rem 2rem;
   }
 }
-
-@media (max-width: 1800px) {
-  .detail-preview {
-    height: 600px;
-  }
-
-  .results-header {
-    max-width: 1400px;
-  }
-
-  .split-view {
-    max-width: 1400px;
-  }
-}
-
-/* Dark Mode */
-.dark .result-item {
-  background: var(--vp-c-bg-soft, #1e2030);
-  border-color: var(--vp-c-border, #2e3142);
-}
-
-.dark .result-item:hover {
-  border-color: var(--vp-c-border, #3a3d50);
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-}
-
-.dark .summary-item.working { border-color: rgba(34, 187, 51, 0.3); }
-.dark .summary-item.broken,
-.dark .summary-item.error { border-color: rgba(220, 53, 69, 0.3); }
-
-.dark .detail-error {
-  border-color: rgba(220, 53, 69, 0.3);
-}
-
-.dark .form-icon {
-  background: hsla(197, 87%, 50%, 0.18);
-  color: var(--vp-c-brand-light);
-}
-
-.dark .no-links-warning { background: rgba(217,119,6,0.1); border-color: rgba(217,119,6,0.25); }
-.dark .error-pill { background: rgba(220,38,38,0.12); border-color: rgba(220,38,38,0.3); color: #f87171; }
 </style>

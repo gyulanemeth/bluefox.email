@@ -58,15 +58,8 @@ head:
       content: https://bluefox.email/assets/free-content-tools.png
 ---
 
-<GlossaryNavigation link="/tools/content" label="Back to content Tools" />
-
 <script setup>
 import LinkChecker from '../../.vitepress/theme/free-tools/LinkChecker.vue'
 </script>
-
-# Free Link Checker
-
-**Validate your email links** and ensure your email content is working correctly, before you hit the send!
-
 
 <LinkChecker />
