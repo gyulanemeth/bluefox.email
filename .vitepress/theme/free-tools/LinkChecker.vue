@@ -642,10 +642,14 @@ onUnmounted(() => {
     <!-- ============================ RESULTS STAGE ============================ -->
     <div v-else class="lc-results-stage">
       <div class="lc-results-inner">
+        
+        <!-- UPDATED HEADER (Option 1) -->
         <div class="lc-results-head">
           <button @click="resetToForm" class="lc-back">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-            Back to form
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 12H5M12 19l-7-7 7-7"/>
+            </svg>
+            <span>Back to form</span>
           </button>
           <h2>Link check results</h2>
         </div>
@@ -1355,36 +1359,44 @@ onUnmounted(() => {
   margin: 0 auto;
 }
 
+/* UPDATED HEADER STYLES (Option 1) */
 .lc-results-head {
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-}
-
-.lc-results-head h2 {
-  margin: 0;
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--vp-c-text-1);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--vp-c-border-soft, #e5e7eb);
 }
 
 .lc-back {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.45rem 0.9rem;
-  border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 999px;
-  background: var(--vp-c-bg-soft, #f8f9fa);
-  color: var(--vp-c-text-1);
-  font-size: 0.8rem;
-  font-weight: 600;
+  gap: 8px;
+  padding: 8px 12px;
+  margin-left: -12px;
+  border: none;
+  background: transparent;
+  color: var(--vp-c-text-2);
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: border-color 0.15s, color 0.15s, background 0.15s;
+  border-radius: 6px;
+  transition: all 0.15s ease;
 }
 
-.lc-back:hover { border-color: var(--vp-c-brand); color: var(--vp-c-brand); }
+.lc-back:hover {
+  background: var(--vp-c-bg-soft, #f3f4f6);
+  color: var(--vp-c-text-1);
+}
+
+.lc-results-head h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+}
 
 /* Stat row */
 .lc-stats {
@@ -1840,7 +1852,6 @@ onUnmounted(() => {
 }
 
 @media (max-width: 640px) {
-  .lc-results-head { flex-wrap: wrap; }
   .lc-card { padding: 1.1rem; }
   .lc-preview-frame { padding: 0.75rem; }
   .lc-hero-band { padding: 1.25rem; gap: 0.875rem; }
