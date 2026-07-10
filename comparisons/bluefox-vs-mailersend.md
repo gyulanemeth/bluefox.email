@@ -1,6 +1,6 @@
 ---
 title: BlueFox Email vs MailerSend
-description: Direct comparison of BlueFox Email and MailerSend for transactional email delivery, marketing campaigns, and email infrastructure, covering design, integrations, automation, deliverability, analytics, support, and pricing.
+description: MailerSend is MailerLite's transactional ESP, shared-IP by default with a strict account-approval process. How BlueFox Email compares on infrastructure transparency, dedicated-IP and bring-your-own-AWS options, design, automation, and pricing.
 thumbnail: /assets/comparisons/bluefox-vs-mailersend.png
 sidebar: false
 aside: true
@@ -12,13 +12,13 @@ dateModified: "2026-06-26"
 head:
   - - meta
     - name: description
-      content: Direct comparison of BlueFox Email and MailerSend for transactional email delivery, marketing campaigns, and email infrastructure, covering design, integrations, automation, deliverability, analytics, support, and pricing.
+      content: MailerSend is MailerLite's transactional ESP, shared-IP by default with a strict account-approval process. How BlueFox Email compares on infrastructure transparency, dedicated-IP and bring-your-own-AWS options, design, automation, and pricing.
   - - meta
     - property: og:title
       content: BlueFox Email vs MailerSend | BlueFox Email
   - - meta
     - property: og:description
-      content: Direct comparison of BlueFox Email and MailerSend for transactional email delivery, marketing campaigns, and email infrastructure, covering design, integrations, automation, deliverability, analytics, support, and pricing.
+      content: MailerSend is MailerLite's transactional ESP, shared-IP by default with a strict account-approval process. How BlueFox Email compares on infrastructure transparency, dedicated-IP and bring-your-own-AWS options, design, automation, and pricing.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/comparisons/bluefox-vs-mailersend.png
@@ -33,7 +33,7 @@ head:
       content: BlueFox Email vs MailerSend | BlueFox Email
   - - meta
     - name: twitter:description
-      content: Direct comparison of BlueFox Email and MailerSend for transactional email delivery, marketing campaigns, and email infrastructure, covering design, integrations, automation, deliverability, analytics, support, and pricing.
+      content: MailerSend is MailerLite's transactional ESP, shared-IP by default with a strict account-approval process. How BlueFox Email compares on infrastructure transparency, dedicated-IP and bring-your-own-AWS options, design, automation, and pricing.
 ---
 
 <script setup>
