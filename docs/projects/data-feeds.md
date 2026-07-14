@@ -154,7 +154,11 @@ Instead, open the **Merge Tags** panel from the editor toolbar and write the loo
 
 Place your cursor where you want the loop to start, then use the Merge Tags panel to insert the feed variable and item fields at the correct spots. Per-item fields (like `this.title` above) are only meaningful inside the loop, the same way they're only visible in the merge tag picker while inside a Loop block in the Visual Editor.
 
-Since Raw HTML has no separate Image element, there's no Dynamic Image distinction either, just reference the feed's image field directly in a normal `<img src="...">` tag, e.g. `<img src="{{this.enclosure.url}}">`.
+Since Raw HTML has no separate Image element, there's no Dynamic Image distinction either, just reference the feed's image field directly in a normal image tag:
+
+```
+<img src="{{this.enclosure.url}}">
+```
 
 Click **Preview with data** to confirm the feed items render correctly, same as in the Visual Editor.
 

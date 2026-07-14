@@ -166,7 +166,7 @@ And you can use merge tags in the email's `subject line` and `preview text` as w
 Merge tags work the same way, but since this isn't the Chamaileon editor, there's no click-to-bind-a-field flow. Instead, open the **Merge Tags** panel from the editor toolbar, place your cursor where you want the value to appear, and select the tag to insert it there. This works the same way in the subject line and preview text fields.
 
 ::: warning
-If you're reusing content from a Chamaileon-built (Visual Editor) campaign inside a Raw HTML or Plain Text campaign, remove any Chamaileon-specific merge tag or component markup first, it won't resolve in the Raw HTML or Plain Text editor. Plain Handlebars merge tags (e.g. `{{subscriber.name}}`) carry over fine either way.
+If you're reusing content from a Chamaileon-built (Visual Editor) campaign inside a Raw HTML or Plain Text campaign, remove any Chamaileon-specific merge tag or component markup first, it won't resolve in the Raw HTML or Plain Text editor. Plain Handlebars merge tags (e.g. **&#123;&#123;subscriber.name&#125;&#125;**) carry over fine either way.
 :::
 
 For more details, read our guide on [personalization with merge tags](/docs/email-personalization) and Handlebars.

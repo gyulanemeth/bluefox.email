@@ -225,7 +225,7 @@ Add links anywhere in your email:
 - **Button links**: link to a URL, email address (`mailto:`), or phone number (`tel:`) from any button element.
 - **Text links**: select any text and add a hyperlink. Supports URL, email, and phone links.
 - **Image links**: wrap an image in a URL, email, or phone link.
-- **Unsubscribe link**: insert the `{{unsubscribeLink}}` merge tag in any text element. See [personalization docs](/docs/email-personalization#built-in-merge-tags) for details.
+- **Unsubscribe link**: insert the **&#123;&#123;unsubscribeLink&#125;&#125;** merge tag in any text element. See [personalization docs](/docs/email-personalization#built-in-merge-tags) for details.
 - **View in browser link**: add a "view this email in your browser" link using the browser view URL variable.
 - **Hover styling on buttons**: set a distinct background and text color that appears when a recipient hovers over a button (supported in most desktop email clients).
 
@@ -236,7 +236,7 @@ Add links anywhere in your email:
 - [Link to an email address](https://help.chamaileon.io/en/articles/2367972-how-do-i-link-to-an-email-address): `mailto:` links in text.
 - [Use an email address as a button link](https://help.chamaileon.io/en/articles/2367963-how-do-i-add-an-email-address-as-a-link-to-a-button): `mailto:` on buttons.
 - [Add a phone number link](https://help.chamaileon.io/en/articles/5299085-how-to-add-a-phone-number-to-a-link-button-text-image): `tel:` links on any clickable element.
-- [Add an unsubscribe link in text](https://help.chamaileon.io/en/articles/2446447-how-do-i-create-an-unsubscribe-link-in-the-text): use the `{{unsubscribeLink}}` merge tag.
+- [Add an unsubscribe link in text](https://help.chamaileon.io/en/articles/2446447-how-do-i-create-an-unsubscribe-link-in-the-text): use the **&#123;&#123;unsubscribeLink&#125;&#125;** merge tag.
 - [Add a "view in browser" link](https://help.chamaileon.io/en/articles/3132258-how-to-add-view-this-email-in-the-browser-link): fallback for emails that don't render well in-client.
 - [Hover styling on buttons](https://help.chamaileon.io/en/articles/5612224-how-to-add-hover-styling-to-a-button): set hover background and text colors.
 
