@@ -64,6 +64,12 @@ As you might expect, the email sent will look like this:
 
 You can also personalize emails using data stored in bluefox.email. This is explained in the next two sections: "Built-in Merge Tags" and "Contact Properties".
 
+::: info Visual Editor vs. Raw HTML / Plain Text
+The merge tags, conditionals, and loops on this page work the same no matter which editor you build your email with. The screenshots below show the **Visual Editor** (Chamaileon), where you click a merge tag button on a selected text, button, or image element, and conditionals/loops are dragged onto the canvas as blocks.
+
+In the **Raw HTML** and **Plain Text** editors, there's no canvas or selectable elements. Instead, you open the **Merge Tags** panel from the editor toolbar and insert a tag at your cursor position. Conditionals and loops aren't dragged in as blocks, you write the Handlebars syntax shown throughout this page (e.g. `{{#if ...}}`, `{{#each ...}}`) directly in your HTML or text.
+:::
+
 ---
 
 ## Quick Reference

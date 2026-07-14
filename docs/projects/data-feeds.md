@@ -7,11 +7,13 @@ faqs:
   - question: "Which email types support data feeds?"
     answer: "Data feeds are available on all email types: transactional emails, triggered emails, campaigns, and inside Send Email and Notify nodes within automations."
   - question: "How do I display feed content in my email template?"
-    answer: "Add a Loop block to your email in the drag-and-drop editor and set its expression to the variable name you assigned to the feed. Inside the loop, add content blocks such as text, image, or button elements and reference the item fields using merge tags such as item.title, item.link, or item.description."
+    answer: "In the Visual Editor, add a Loop block to your email in the drag-and-drop canvas and set its expression to the variable name you assigned to the feed. Inside the loop, add content blocks such as text, image, or button elements and reference the item fields using merge tags such as item.title, item.link, or item.description. In the Raw HTML or Plain Text editor, there's no canvas, so you write the loop directly with Handlebars syntax (e.g. {{#each articles}}...{{/each}}), using the Merge Tags panel to insert the feed variable and item fields at your cursor."
   - question: "What happens if a data feed fails to load when the email is being sent?"
     answer: "If the feed is marked as Required, the email will not be sent when the feed fails. If the feed is not marked as Required, the email is sent anyway and the loop simply renders nothing for that feed. Each feed's Required setting is evaluated independently when multiple feeds are attached to the same email."
   - question: "Can I attach multiple data feeds to one email?"
     answer: "Yes. You can add as many feeds as needed to a single email. Each feed has its own variable name so you can loop over them independently in the same template, for example one loop for news articles and another for featured products."
+  - question: "Do data feeds work in Raw HTML and Plain Text emails?"
+    answer: "Yes. Feeds are added the same way, from the Feeds section on the email card, regardless of editor. The only difference is how you consume them: the Visual Editor uses a drag-and-drop Loop block, while Raw HTML and Plain Text use directly-typed Handlebars loop syntax inserted via the Merge Tags panel."
 head:
   - - meta
     - name: description
@@ -92,7 +94,7 @@ You can add multiple feeds to a single email by clicking **+ Add Feed** again af
 
 ## Using a Feed in Your Template
 
-A feed is an **array of items**. To render those items in your email, use a **loop** block in the editor.
+A feed is an **array of items**. How you render those items depends on which editor you're using: the **Visual Editor** uses a drag-and-drop Loop block, while **Raw HTML** and **Plain Text** use directly-typed Handlebars syntax. The steps below cover the Visual Editor, see [Raw HTML / Plain Text](#raw-html-plain-text) further down for the code-based approach.
 
 ### Step 1: Insert a Loop
 
@@ -136,6 +138,25 @@ For a JSON feed, the field names depend on your feed's response shape, use **Pre
 ::: warning Images from a feed need the Dynamic Image block
 A regular **Image** block expects a static URL set at design time. If you want the image to come from a feed item (e.g. `item.enclosure.url`), use the **Dynamic Image** block instead and set its source to the merge tag. A regular Image block will not render feed-driven URLs correctly.
 :::
+
+### Raw HTML / Plain Text
+
+Feeds are added to a Raw HTML or Plain Text email the same way as any other email, from the **Feeds** section on the email card. The difference is how you consume them inside the editor: there's no canvas, so there's no Loop block to drag in.
+
+Instead, open the **Merge Tags** panel from the editor toolbar and write the loop directly using Handlebars, referencing the feed's **Variable Name**:
+
+```
+{{#each articles skip=0 limit=2}}
+  {{this.title}}
+  {{this.link}}
+{{/each}}
+```
+
+Place your cursor where you want the loop to start, then use the Merge Tags panel to insert the feed variable and item fields at the correct spots. Per-item fields (like `this.title` above) are only meaningful inside the loop, the same way they're only visible in the merge tag picker while inside a Loop block in the Visual Editor.
+
+Since Raw HTML has no separate Image element, there's no Dynamic Image distinction either, just reference the feed's image field directly in a normal `<img src="...">` tag, e.g. `<img src="{{this.enclosure.url}}">`.
+
+Click **Preview with data** to confirm the feed items render correctly, same as in the Visual Editor.
 
 ### Step 4: Preview With Data
 

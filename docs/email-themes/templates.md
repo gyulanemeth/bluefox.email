@@ -10,6 +10,8 @@ faqs:
     answer: "It defines what happens when a new project linked to this theme is created. You can set the template to automatically become a transactional email, triggered email, or campaign in that project, or choose Do Nothing to keep it available without any automatic assignment."
   - question: "How do I create a new template in my theme?"
     answer: "Click Create inside a template category, enter the template name, subject line, preview text, and on project creation role, then open the drag-and-drop editor to assemble it from blocks and elements. You can also duplicate an existing template using Copy and Paste."
+  - question: "Can I save a Raw HTML or Plain Text email as a template?"
+    answer: "No. Templates in an email theme are always built with the Visual Editor (drag-and-drop), since they're assembled from blocks and email theme basics. Emails created with the Raw HTML or Plain Text editor cannot be saved back as a reusable design system template."
 head:
   - - meta
     - name: description
@@ -51,6 +53,10 @@ Templates are structured email designs that serve as a foundation for email camp
 ### **The importance of templates**:
 
 Templates play a crucial role in maintaining brand consistency, reducing design time, and ensuring email content aligns with predefined styles. They allow for efficient email creation by reusing [blocks](./blocks) and applying custom [email theme basics](./email-theme-basics), making them adaptable to different marketing or transactional needs.
+
+::: info
+Templates are always built with the **Visual Editor**, since they're assembled from blocks and email theme basics. If you create a transactional email, triggered email, campaign, or automation email with the **Raw HTML** or **Plain Text** editor instead, it can't be saved back as a template here.
+:::
 
 ## Template categories
 

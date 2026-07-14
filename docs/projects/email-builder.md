@@ -51,6 +51,10 @@ bluefox.email includes a powerful drag-and-drop email editor for building respon
 
 For the complete editor reference, see the [full email editor documentation](https://help.chamaileon.io/en/collections/1340338-email-editor-documentation).
 
+::: info
+This page covers the **Visual Editor** (Chamaileon). Everywhere you create an email, transactional emails, triggered emails, campaigns, and automation nodes, you can also choose **Raw HTML** or **Plain Text** instead. See [Other Editor Options](#other-editor-options) below.
+:::
+
 
 ## Editor Overview
 
@@ -289,8 +293,22 @@ Blocks are reusable full-width sections you save once and drop into any template
 - [Change a block's background](https://help.chamaileon.io/en/articles/3774615-how-to-change-the-background-of-the-block): block-level background styling.
 
 
+## Other Editor Options
+
+Everywhere you can create an email, transactional emails, triggered emails, campaigns, and automation Send Email / Notify nodes, you're offered a choice of four options: **Visual Editor** (this page), **Raw HTML**, **Plain Text**, and **Copy & Paste**.
+
+**Raw HTML** and **Plain Text** are lightweight alternatives to the Visual Editor:
+
+- They always start from scratch or from a copied design. Design system templates and [pre-designed templates](/docs/projects/predesigned-templates) aren't available with them.
+- Emails built with them can't be saved back as a reusable [design system template](/docs/email-themes/templates).
+- Instead of the Chamaileon canvas, you get a code/text editor with **Import**, **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls.
+- [Merge tags](/docs/email-personalization) and [feed](/docs/projects/data-feeds) variables are inserted from a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
+- If you reuse content from a Visual-Editor-built email via Copy & Paste, strip out any Chamaileon-specific merge tag or component markup first, it won't resolve in Raw HTML or Plain Text.
+
+For the exact creation steps for each email type, see: [Transactional Emails](/docs/projects/transactional-emails#creating-a-transactional-email), [Triggered Emails](/docs/projects/triggered-emails#creating-a-triggered-email), [Campaigns](/docs/projects/campaigns#creating-a-campaign), or [Automations](/docs/projects/automations#send-email-node).
+
 ## Full Editor Reference
 
-This page covers the feature set available in the bluefox.email editor. For detailed step-by-step guides on every topic above, visit the complete editor documentation:
+This page covers the feature set available in the bluefox.email Visual Editor. For detailed step-by-step guides on every topic above, visit the complete editor documentation:
 
 [View full email editor documentation →](https://help.chamaileon.io/en/collections/1340338-email-editor-documentation)

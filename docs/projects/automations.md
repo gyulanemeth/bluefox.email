@@ -204,11 +204,28 @@ If the contact is in the selected segment, the automation continues to the next 
 
 The **Send Email Node** allows you to configure and send an email to the contact.
 
-Inside the email node, you can:
-- Click **Create Email** to start from scratch, reuse an existing design, or pick a [pre-designed template](/docs/projects/predesigned-templates).
-- Add:
-  - **Subject**
-  - **Preview Text**
+Inside the email node, click **Create Email**. You'll be asked to choose one of four options:
+
+![A screenshot of the email editor selection step when creating an email in a Notify node.](./project-automation-node-notify-create-select-editor.webp)
+
+- **Visual Editor**: the drag-and-drop Chamaileon editor, with full access to your design system's blocks, components, and templates.
+- **Raw HTML**: write your own HTML directly.
+- **Plain Text**: a plain-text-only email, no HTML.
+- **Copy & Paste**: paste in a previously copied email design. This works no matter which editor the original email was built with.
+
+::: info
+Design system templates and [pre-designed templates](/docs/projects/predesigned-templates) are only available when starting with the Visual Editor. Emails built with Raw HTML or Plain Text also can't be saved back as a reusable [design system template](/docs/email-themes/templates). Everything else, personalization, feeds, sending, and analytics, works the same regardless of which editor you pick.
+:::
+
+::: tip
+If you use Copy & Paste to reuse content from a Chamaileon-built (Visual Editor) email inside a Raw HTML or Plain Text email, strip out any Chamaileon-specific merge tag or component markup first, it won't resolve there. Everything else should carry over as-is.
+:::
+
+You'll also be asked to add:
+- **Subject**
+- **Preview Text**
+
+### Visual Editor
 
 To start from a [pre-designed template](/docs/projects/predesigned-templates):
 
@@ -217,6 +234,20 @@ To start from a [pre-designed template](/docs/projects/predesigned-templates):
 3. Select a template and click **Open Editor** to continue.
 
 ![A screenshot of the pre-designed template selection step when creating an email in a Send Email node.](./project-automation-node-notify-create-select-predesigned.webp)
+
+### Raw HTML / Plain Text
+
+These two editors always start from scratch, there's no template selection step. Once you click **Open Editor**, you get the same code/text editor used everywhere else in bluefox.email, with **Import**, **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](/docs/projects/data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
+
+- **Raw HTML**:
+
+  ![A screenshot of the Raw HTML editor toolbar and side panel.](./project-email-editor-html.webp)
+
+- **Plain Text**:
+
+  ![A screenshot of the Plain Text editor toolbar and side panel.](./project-email-editor-text.webp)
+
+You can also add [data feeds](/docs/projects/data-feeds) to a Send Email node's Raw HTML or Plain Text email the same way as any other email, from the **Feeds** section on the email card. The only difference is how you reference feed items inside the editor: through the merge tag side panel instead of a drag-and-drop Loop block.
 
 ![Automation node send card Icon](./project-automation-node-send-card.webp)
 Under the email node, you’ll also see delivery stats:
@@ -241,7 +272,7 @@ You can edit the email at any time **while the automation is in draft mode**.
 ::: info Note
 You can access the **Advanced Settings** feature that allows you to customize key email-sending options by clicking the gear icon
 
-For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings#advanced-settings).
+For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/transactional-emails#advanced-settings).
 :::
 
 
@@ -249,13 +280,30 @@ For a detailed guide on using the **Advanced Settings**, refer to the [Advanced 
 
 The **Notify Node** allows you to send a notification email to a specific set of audience as a subscriber list or to specific email addresses from the list when a particular action occurs in the automation. This is useful for alerting your team, admins, or any designated group about key events such as when a contact signs up, reaches a specific step, or meets certain criteria.
 
-Inside the notify node, you can:
-- Click **Create Email** to start from scratch, reuse an existing design, or pick a [pre-designed template](/docs/projects/predesigned-templates).
-- Add:
-  - **Subject**
-  - **Preview Text**
-  - **From Address**
-  - **Reply-To Address**
+Inside the notify node, click **Create Email**. You'll be asked to choose one of four options:
+
+![A screenshot of the email editor selection step when creating an email in a Notify node.](./project-automation-node-notify-create-select-editor.webp)
+
+- **Visual Editor**: the drag-and-drop Chamaileon editor, with full access to your design system's blocks, components, and templates.
+- **Raw HTML**: write your own HTML directly.
+- **Plain Text**: a plain-text-only email, no HTML.
+- **Copy & Paste**: paste in a previously copied email design. This works no matter which editor the original email was built with.
+
+::: info
+Design system templates and [pre-designed templates](/docs/projects/predesigned-templates) are only available when starting with the Visual Editor. Emails built with Raw HTML or Plain Text also can't be saved back as a reusable [design system template](/docs/email-themes/templates). Everything else, personalization, feeds, sending, and analytics, works the same regardless of which editor you pick.
+:::
+
+::: tip
+If you use Copy & Paste to reuse content from a Chamaileon-built (Visual Editor) email inside a Raw HTML or Plain Text email, strip out any Chamaileon-specific merge tag or component markup first, it won't resolve there. Everything else should carry over as-is.
+:::
+
+You'll also be asked to add:
+- **Subject**
+- **Preview Text**
+- **From Address**
+- **Reply-To Address**
+
+### Visual Editor
 
 To start from a [pre-designed template](/docs/projects/predesigned-templates):
 
@@ -264,6 +312,20 @@ To start from a [pre-designed template](/docs/projects/predesigned-templates):
 3. Select a template and click **Open Editor** to continue.
 
 ![A screenshot of the pre-designed template selection step when creating an email in a Notify node.](./project-automation-node-notify-create-select-predesigned.webp)
+
+### Raw HTML / Plain Text
+
+These two editors always start from scratch, there's no template selection step. Once you click **Open Editor**, you get the same code/text editor used everywhere else in bluefox.email, with **Import**, **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](/docs/projects/data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
+
+- **Raw HTML**:
+
+  ![A screenshot of the Raw HTML editor toolbar and side panel.](./project-email-editor-html.webp)
+
+- **Plain Text**:
+
+  ![A screenshot of the Plain Text editor toolbar and side panel.](./project-email-editor-text.webp)
+
+You can also add [data feeds](/docs/projects/data-feeds) to a Notify node's Raw HTML or Plain Text email the same way as any other email, from the **Feeds** section on the email card. The only difference is how you reference feed items inside the editor: through the merge tag side panel instead of a drag-and-drop Loop block.
 
 ![Automation node notify card Icon](./project-automation-node-notify-card.webp)
 
