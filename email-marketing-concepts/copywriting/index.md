@@ -23,3 +23,23 @@ Key elements of copywriting in email marketing include:
 8. **Clarity and Brevity**: Your copy should be clear, concise, and free of jargon to ensure your message is easily understood.
 
 Effective email copywriting is crucial in capturing your audience's attention, building relationships, and driving conversions. It's an essential part of a successful email marketing strategy.
+
+## Learn More About Copywriting
+
+### Subject Lines
+
+**Subject lines** are the short line of text that determines whether a recipient opens your email at all, balancing clarity, curiosity, and trust in just a few words.
+
+[Read more](/email-marketing-concepts/copywriting/subject-lines)
+
+### Email Body Copy
+
+**Email body copy** is the main written content of an email: how it's structured, worded, and formatted determines whether recipients actually read it or delete it after a glance.
+
+[Read more](/email-marketing-concepts/copywriting/email-body-copy)
+
+### Calls to Action (CTAs)
+
+A **call to action** is the specific instruction that tells a reader what to do next, and its wording, design, and placement have a direct effect on whether people click at all.
+
+[Read more](/email-marketing-concepts/copywriting/calls-to-action)

@@ -26,3 +26,23 @@ Key components of testing and optimization include:
 6. **Email Deliverability Optimization**: This involves practices to improve the likelihood that your emails will reach your subscribers' inboxes, such as maintaining a clean email list, complying with email laws, and optimizing your email for different devices and email clients.
 
 By continually testing and optimizing your emails, you can improve their performance over time, leading to higher engagement, more conversions, and better overall results from your email marketing.
+
+## Learn More About Testing and Optimization
+
+### Subject Line Testing
+
+**Subject line testing** is A/B testing your subject lines against each other to see which one drives more opens, so you can send the winning version to the rest of your list.
+
+[Read more](/email-marketing-concepts/testing-and-optimization/subject-line-testing)
+
+### A/B Testing Email Design and CTAs
+
+**A/B testing email design** means comparing layout, CTA button copy, color, and placement, or content length between two email versions to see which drives more clicks.
+
+[Read more](/email-marketing-concepts/testing-and-optimization/ab-testing-email-design)
+
+### Landing Page Optimization
+
+**Landing page optimization** means improving the page an email links to so it converts as well as the email that sent traffic to it, through message match, reduced friction, and testing.
+
+[Read more](/email-marketing-concepts/testing-and-optimization/landing-page-optimization)

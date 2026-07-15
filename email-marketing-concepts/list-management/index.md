@@ -22,3 +22,29 @@ Key elements of list management include:
 6. **Integrations**: Your email list needs to be able to work with other tools in your marketing tech stack, such as your CRM or your e-commerce platform. This can help you automate processes, track data more effectively, and provide a better experience to your subscribers.
 
 In summary, list management helps maintain the health and effectiveness of your email list, ensuring you're reaching out to the right audience, improving engagement and conversion rates, and staying compliant with relevant laws and regulations.
+
+## Learn More About List Management
+
+### List Building
+
+**List building** is the process of ethically growing your email list through signup forms, lead magnets, gated content, and in-product prompts, rather than buying or renting addresses.
+
+[Read more](/email-marketing-concepts/list-management/list-building)
+
+### List Segmentation
+
+**List segmentation** means dividing your list into smaller groups by demographics, purchase history, and engagement level, so each group receives more relevant, higher-performing emails.
+
+[Read more](/email-marketing-concepts/list-management/list-segmentation)
+
+### Permission-Based Marketing
+
+**Permission-based marketing** means only emailing people who have explicitly consented to receive messages, using single or double opt-in, with a clear way to opt out at any time.
+
+[Read more](/email-marketing-concepts/list-management/permission-based-marketing)
+
+### List Hygiene
+
+**List hygiene** is the ongoing practice of validating, monitoring, and cleaning your list to remove invalid or unengaged addresses and protect sender reputation.
+
+[Read more](/email-marketing-concepts/list-management/list-hygiene)

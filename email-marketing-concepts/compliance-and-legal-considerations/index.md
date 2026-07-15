@@ -26,3 +26,23 @@ Key compliance and legal considerations include:
 6. **Privacy Policy**: It's important to have a clear and accessible privacy policy that outlines what data you collect, how you use it, and how subscribers can control their data.
 
 In summary, compliance and legal considerations are critical aspects of email marketing. Ensuring you understand and adhere to applicable laws and regulations can help maintain trust with your subscribers and avoid potential legal issues.
+
+## Learn More About Compliance and Legal Considerations
+
+### CAN-SPAM Act Compliance
+
+The **CAN-SPAM Act** is the US law governing commercial email — it's an opt-out model built around accurate headers, honest subject lines, a valid postal address, and an easy way to unsubscribe.
+
+[Read more](/email-marketing-concepts/compliance-and-legal-considerations/can-spam-act)
+
+### GDPR Compliance for Email Marketing
+
+**GDPR** requires explicit, opt-in consent before adding someone to a marketing list, along with data minimization and rights to access or erase personal data.
+
+[Read more](/email-marketing-concepts/compliance-and-legal-considerations/gdpr-compliance)
+
+### Data Protection and Privacy in Email Marketing
+
+**Data protection and privacy** means storing subscriber data securely, collecting only what you use, and being transparent about how engagement tracking and personal data are handled.
+
+[Read more](/email-marketing-concepts/compliance-and-legal-considerations/data-protection-and-privacy)

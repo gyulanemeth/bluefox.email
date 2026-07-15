@@ -131,6 +131,9 @@ export default defineConfig({
     if (pageData.frontmatter?.noindex === true) {
       noindexSitemapUrls.add(sitemapUrlForPath(pageData.relativePath))
     }
+    if (pageData.relativePath?.startsWith('posts/') && !pageData.frontmatter?.published) {
+      noindexSitemapUrls.add(sitemapUrlForPath(pageData.relativePath))
+    }
     addSeoHead(pageData)
     addOrganizationSchema(pageData)
     addPostsSchema(pageData)
@@ -461,42 +464,200 @@ export default defineConfig({
             {
               text: "Copywriting",
               link: "/email-marketing-concepts/copywriting/",
+              collapsed: true,
+              items: [
+                {
+                  text: "Subject Lines",
+                  link: "/email-marketing-concepts/copywriting/subject-lines",
+                },
+                {
+                  text: "Email Body Copy",
+                  link: "/email-marketing-concepts/copywriting/email-body-copy",
+                },
+                {
+                  text: "Calls to Action (CTAs)",
+                  link: "/email-marketing-concepts/copywriting/calls-to-action",
+                },
+              ],
             },
             {
               text: "Design",
               link: "/email-marketing-concepts/design/",
+              collapsed: true,
+              items: [
+                {
+                  text: "Responsive Email Design",
+                  link: "/email-marketing-concepts/design/responsive-email-design",
+                },
+                {
+                  text: "Visual Branding and Color",
+                  link: "/email-marketing-concepts/design/visual-branding-and-color",
+                },
+                {
+                  text: "Email Accessibility",
+                  link: "/email-marketing-concepts/design/email-accessibility",
+                },
+              ],
             },
             {
               text: "List management",
               link: "/email-marketing-concepts/list-management/",
+              collapsed: true,
+              items: [
+                {
+                  text: "List Building",
+                  link: "/email-marketing-concepts/list-management/list-building",
+                },
+                {
+                  text: "List Segmentation",
+                  link: "/email-marketing-concepts/list-management/list-segmentation",
+                },
+                {
+                  text: "Permission-Based Marketing",
+                  link: "/email-marketing-concepts/list-management/permission-based-marketing",
+                },
+                {
+                  text: "List Hygiene",
+                  link: "/email-marketing-concepts/list-management/list-hygiene",
+                },
+              ],
             },
             {
               text: "Metrics and analytics",
               link: "/email-marketing-concepts/metrics-and-analytics/",
+              collapsed: true,
+              items: [
+                {
+                  text: "Open Rate",
+                  link: "/email-marketing-concepts/metrics-and-analytics/open-rate",
+                },
+                {
+                  text: "Click-Through Rate (CTR)",
+                  link: "/email-marketing-concepts/metrics-and-analytics/click-through-rate",
+                },
+                {
+                  text: "Conversion Rate and ROI",
+                  link: "/email-marketing-concepts/metrics-and-analytics/conversion-rate-and-roi",
+                },
+              ],
             },
             {
               text: "Deliverability",
               link: "/email-marketing-concepts/deliverability/",
+              collapsed: true,
+              items: [
+                {
+                  text: "Sender Reputation",
+                  link: "/email-marketing-concepts/deliverability/sender-reputation",
+                },
+                {
+                  text: "Email Authentication",
+                  link: "/email-marketing-concepts/deliverability/email-authentication",
+                },
+                {
+                  text: "ISP Guidelines",
+                  link: "/email-marketing-concepts/deliverability/isp-guidelines",
+                },
+              ],
             },
             {
               text: "Personalization",
               link: "/email-marketing-concepts/personalization/",
+              collapsed: true,
+              items: [
+                {
+                  text: "Dynamic Content",
+                  link: "/email-marketing-concepts/personalization/dynamic-content",
+                },
+                {
+                  text: "Merge Tags",
+                  link: "/email-marketing-concepts/personalization/merge-tags",
+                },
+                {
+                  text: "Behavioral Targeting",
+                  link: "/email-marketing-concepts/personalization/behavioral-targeting",
+                },
+              ],
             },
             {
               text: "Automation",
               link: "/email-marketing-concepts/automation/",
+              collapsed: true,
+              items: [
+                {
+                  text: "Drip Campaigns",
+                  link: "/email-marketing-concepts/automation/drip-campaigns",
+                },
+                {
+                  text: "Triggered Emails",
+                  link: "/email-marketing-concepts/automation/triggered-emails",
+                },
+                {
+                  text: "Behavioral Automation",
+                  link: "/email-marketing-concepts/automation/behavioral-automation",
+                },
+              ],
             },
             {
               text: "Testing and optimization",
               link: "/email-marketing-concepts/testing-and-optimization/",
+              collapsed: true,
+              items: [
+                {
+                  text: "Subject Line Testing",
+                  link: "/email-marketing-concepts/testing-and-optimization/subject-line-testing",
+                },
+                {
+                  text: "A/B Testing Email Design and CTAs",
+                  link: "/email-marketing-concepts/testing-and-optimization/ab-testing-email-design",
+                },
+                {
+                  text: "Landing Page Optimization",
+                  link: "/email-marketing-concepts/testing-and-optimization/landing-page-optimization",
+                },
+              ],
             },
             {
               text: "Strategy",
               link: "/email-marketing-concepts/strategy/",
+              collapsed: true,
+              items: [
+                {
+                  text: "Goal Setting",
+                  link: "/email-marketing-concepts/strategy/goal-setting",
+                },
+                {
+                  text: "Target Audience",
+                  link: "/email-marketing-concepts/strategy/target-audience",
+                },
+                {
+                  text: "Campaign Planning",
+                  link: "/email-marketing-concepts/strategy/campaign-planning",
+                },
+                {
+                  text: "Content Strategy",
+                  link: "/email-marketing-concepts/strategy/content-strategy",
+                },
+              ],
             },
             {
               text: "Compliance and legal considerations",
               link: "/email-marketing-concepts/compliance-and-legal-considerations/",
+              collapsed: true,
+              items: [
+                {
+                  text: "CAN-SPAM Act",
+                  link: "/email-marketing-concepts/compliance-and-legal-considerations/can-spam-act",
+                },
+                {
+                  text: "GDPR Compliance",
+                  link: "/email-marketing-concepts/compliance-and-legal-considerations/gdpr-compliance",
+                },
+                {
+                  text: "Data Protection and Privacy",
+                  link: "/email-marketing-concepts/compliance-and-legal-considerations/data-protection-and-privacy",
+                },
+              ],
             },
           ],
         },

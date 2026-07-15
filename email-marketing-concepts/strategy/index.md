@@ -23,3 +23,29 @@ The key components of an email marketing strategy include:
 8. **Compliance**: Make sure your email marketing strategy is compliant with email laws and regulations such as the CAN-SPAM Act or GDPR. This includes getting consent before emailing, allowing users to easily unsubscribe, and protecting user data.
 
 Remember, the key to a successful email marketing strategy is maintaining a focus on the customer. Every email should offer value, and every strategy should be geared towards building a strong relationship with your audience.
+
+## Learn More About Email Marketing Strategy
+
+### Goal Setting
+
+**Goal setting** means defining specific, measurable objectives — like list growth, engagement, or revenue — before you plan campaigns, so every send has a clear purpose.
+
+[Read more](/email-marketing-concepts/strategy/goal-setting)
+
+### Target Audience
+
+Your **target audience** is the specific group of people your emails are written for. Defining it clearly through demographics and psychographics shapes messaging, segmentation, and offers.
+
+[Read more](/email-marketing-concepts/strategy/target-audience)
+
+### Campaign Planning
+
+**Campaign planning** covers setting campaign objectives, choosing timing and frequency, and mapping the customer journey so each email arrives with the right message at the right moment.
+
+[Read more](/email-marketing-concepts/strategy/campaign-planning)
+
+### Content Strategy
+
+**Content strategy** means planning what you'll send with a content calendar, choosing content types, and keeping messaging and tone consistent across every campaign.
+
+[Read more](/email-marketing-concepts/strategy/content-strategy)

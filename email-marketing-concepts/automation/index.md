@@ -22,3 +22,23 @@ Key aspects of email automation include:
 4. **Segment-Based Automation**: This involves automatically sending emails to specific segments of your email list. The segments can be based on demographics, psychographics, purchase behavior, or any other criteria relevant to your business.
 
 The power of email automation lies in its ability to provide a more personalized and timely communication strategy, which can lead to improved engagement, better customer relationships, and higher conversion rates.
+
+## Learn More About Automation
+
+### Drip Campaigns
+
+**Drip campaigns** are pre-scheduled sequences of emails sent over a fixed timeline, commonly used for welcome series, onboarding, and educational nurture sequences.
+
+[Read more](/email-marketing-concepts/automation/drip-campaigns)
+
+### Triggered Emails
+
+**Triggered emails** are sent automatically in response to a specific subscriber action or event, and span both transactional emails like receipts and marketing emails like abandoned cart reminders.
+
+[Read more](/email-marketing-concepts/automation/triggered-emails)
+
+### Behavioral Automation
+
+**Behavioral automation** uses waiting periods and branching logic to respond to what a subscriber does or doesn't do, powering flows like abandonment recovery, re-engagement, and usage-based upsells.
+
+[Read more](/email-marketing-concepts/automation/behavioral-automation)

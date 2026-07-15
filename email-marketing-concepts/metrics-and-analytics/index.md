@@ -23,3 +23,23 @@ Key metrics and analytics in email marketing include:
 8. **Revenue per Email**: This metric helps to understand the direct profitability of your email marketing campaigns.
 
 Analyzing these metrics and using the insights gained to refine your email marketing strategy can help improve the effectiveness of your campaigns, enhance engagement with your audience, and ultimately drive better business outcomes.
+
+## Learn More About Metrics and Analytics
+
+### Open Rate
+
+**Open rate** measures the percentage of recipients who opened an email, though Apple Mail Privacy Protection means it's now better read as a directional trend than a precise count of human opens.
+
+[Read more](/email-marketing-concepts/metrics-and-analytics/open-rate)
+
+### Click-Through Rate (CTR)
+
+**Click-through rate** measures the percentage of recipients who clicked a link in an email, making it a stronger and harder-to-fake engagement signal than open rate.
+
+[Read more](/email-marketing-concepts/metrics-and-analytics/click-through-rate)
+
+### Conversion Rate and ROI Tracking
+
+**Conversion rate and ROI tracking** connect email activity to a defined business outcome (like a signup or purchase) and translate that into revenue per email.
+
+[Read more](/email-marketing-concepts/metrics-and-analytics/conversion-rate-and-roi)
