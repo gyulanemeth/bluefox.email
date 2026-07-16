@@ -28,7 +28,7 @@ Remember, the key to a successful email marketing strategy is maintaining a focu
 
 ### Goal Setting
 
-**Goal setting** means defining specific, measurable objectives — like list growth, engagement, or revenue — before you plan campaigns, so every send has a clear purpose.
+**Goal setting** means defining specific, measurable objectives, like list growth, engagement, or revenue, before you plan campaigns, so every send has a clear purpose.
 
 [Read more](/email-marketing-concepts/strategy/goal-setting)
 

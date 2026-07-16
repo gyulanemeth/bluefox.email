@@ -434,29 +434,6 @@ export default defineConfig({
           ],
         },
         {
-          text: "For",
-          link: "/for/marketing-agencies",
-          collapsed: false,
-          items: [
-            {
-              text: "Marketing Agencies",
-              link: "/for/marketing-agencies",
-            },
-            {
-              text: "Occasional Senders",
-              link: "/for/occasional-senders",
-            },
-            {
-              text: "SaaS Companies",
-              link: "/for/saas-companies",
-            },
-            {
-              text: "Amazon SES Users",
-              link: "/for/amazon-ses-users",
-            },
-          ],
-        },
-        {
           text: "Email Marketing Concepts",
           link: "/email-marketing-concepts/",
           collapsed: true,

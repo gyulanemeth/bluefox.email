@@ -9,7 +9,7 @@ description: Want to write better emails? Keep them clear, engaging, and persona
 Copywriting in email marketing involves crafting engaging and persuasive content for your email campaigns to motivate readers to take a specific action, such as buying a product or signing up for a service. Key elements include compelling subject lines, enticing preview text, clear headings and subheadings, engaging body text, clear calls to action, personalized content, consistent tone and style, and clear, concise language. Effective email copywriting is key to capturing attention, fostering relationships, and driving conversions.
 :::
 
-Copywriting in email marketing refers to the art of crafting persuasive and engaging written content for your email campaigns. The purpose of this content, often referred to as "copy", is to persuade the reader to take a certain action—be it purchasing a product, signing up for a service, attending an event, or any other goal that aligns with your marketing objectives.
+Copywriting in email marketing refers to the art of crafting persuasive and engaging written content for your email campaigns. The purpose of this content, often referred to as "copy", is to persuade the reader to take a certain action, be it purchasing a product, signing up for a service, attending an event, or any other goal that aligns with your marketing objectives.
 
 Key elements of copywriting in email marketing include:
 

@@ -5,7 +5,7 @@ description: Content strategy in email marketing means planning what you'll send
 
 # Content Strategy in Email Marketing
 
-**Content strategy** is the planning layer that decides what your emails will actually be about — the topics, formats, and recurring content types that fill your [campaign calendar](/email-marketing-concepts/strategy/campaign-planning) over time. It sits upstream of [copywriting](/email-marketing-concepts/copywriting/): content strategy picks the subject and purpose, copywriting turns that into the actual words on the page.
+**Content strategy** is the planning layer that decides what your emails will actually be about: the topics, formats, and recurring content types that fill your [campaign calendar](/email-marketing-concepts/strategy/campaign-planning) over time. It sits upstream of [copywriting](/email-marketing-concepts/copywriting/): content strategy picks the subject and purpose, copywriting turns that into the actual words on the page.
 
 ## Content Calendar
 
@@ -17,7 +17,7 @@ A **content calendar** maps out what will be sent and when, typically spanning w
 - Tie-in to any product launch, event, or seasonal moment
 - Owner responsible for drafting it
 
-Planning content ahead of time surfaces gaps and repetition early — it's much easier to notice "we haven't sent anything educational in six weeks" from a calendar view than from a list of past sends.
+Planning content ahead of time surfaces gaps and repetition early: it's much easier to notice "we haven't sent anything educational in six weeks" from a calendar view than from a list of past sends.
 
 ## Content Types
 
@@ -34,7 +34,7 @@ A healthy content mix usually leans more educational and newsletter-style for co
 
 ## Messaging and Tone
 
-**Messaging** is the set of core ideas you consistently communicate — what your product does, who it's for, and why it matters. **Tone** is how those ideas are voiced: formal or casual, playful or matter-of-fact. Both need to stay consistent across campaigns, because inconsistent tone makes a brand feel less trustworthy even when the underlying message is accurate.
+**Messaging** is the set of core ideas you consistently communicate: what your product does, who it's for, and why it matters. **Tone** is how those ideas are voiced: formal or casual, playful or matter-of-fact. Both need to stay consistent across campaigns, because inconsistent tone makes a brand feel less trustworthy even when the underlying message is accurate.
 
 The most reliable way to keep tone consistent, especially across multiple writers, is a short style guide with concrete before/after examples rather than abstract descriptors alone. "Friendly but not casual" means little without a real sentence showing what that looks like in practice.
 

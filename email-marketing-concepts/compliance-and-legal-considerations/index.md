@@ -31,7 +31,7 @@ In summary, compliance and legal considerations are critical aspects of email ma
 
 ### CAN-SPAM Act Compliance
 
-The **CAN-SPAM Act** is the US law governing commercial email — it's an opt-out model built around accurate headers, honest subject lines, a valid postal address, and an easy way to unsubscribe.
+The **CAN-SPAM Act** is the US law governing commercial email: it's an opt-out model built around accurate headers, honest subject lines, a valid postal address, and an easy way to unsubscribe.
 
 [Read more](/email-marketing-concepts/compliance-and-legal-considerations/can-spam-act)
 

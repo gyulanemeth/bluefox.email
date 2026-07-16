@@ -1,11 +1,11 @@
 ---
 title: Goal Setting for Email Marketing
-description: Goal setting in email marketing means defining specific, measurable objectives — like list growth, engagement, or revenue — before you plan campaigns, so every send has a clear purpose.
+description: Goal setting in email marketing means defining specific, measurable objectives, like list growth, engagement, or revenue, before you plan campaigns, so every send has a clear purpose.
 ---
 
 # Goal Setting for Email Marketing
 
-**Goal setting** is the process of defining what you want your email marketing to achieve before you write a single subject line. Without a clear goal, it's impossible to know whether a campaign succeeded, which makes [testing and optimization](/email-marketing-concepts/testing-and-optimization/) and [metrics and analytics](/email-marketing-concepts/metrics-and-analytics/) meaningless — you can't improve toward a target that was never defined.
+**Goal setting** is the process of defining what you want your email marketing to achieve before you write a single subject line. Without a clear goal, it's impossible to know whether a campaign succeeded, which makes [testing and optimization](/email-marketing-concepts/testing-and-optimization/) and [metrics and analytics](/email-marketing-concepts/metrics-and-analytics/) meaningless: you can't improve toward a target that was never defined.
 
 ## Why Goal Setting Comes First
 
@@ -15,7 +15,7 @@ Every other part of an [email marketing strategy](/email-marketing-concepts/stra
 
 Most email programs work toward one or more of these goal categories:
 
-1. **Brand Awareness**: Keeping your business top of mind through regular, valuable contact — measured by list growth and open rates rather than direct revenue.
+1. **Brand Awareness**: Keeping your business top of mind through regular, valuable contact, measured by list growth and open rates rather than direct revenue.
 2. **Engagement**: Getting subscribers to open, click, reply, or otherwise interact with your content, often as a precursor to a sales goal.
 3. **Lead Nurturing**: Moving subscribers who aren't ready to buy closer to a purchase decision through educational or trust-building content.
 4. **Conversion / Revenue**: Directly driving a purchase, signup, upgrade, or other defined action, typically measured with [conversion rate](/email-marketing-concepts/metrics-and-analytics/) and revenue per email.
@@ -47,7 +47,7 @@ Program-level goals should be broken down into campaign- and sequence-level goal
 
 ## Aligning Goals with Your Audience and Content
 
-A goal only works if it's realistic for the audience receiving it. A cold, newly imported [target audience](/email-marketing-concepts/strategy/target-audience) is rarely ready for a hard conversion goal — awareness or engagement is more appropriate until trust is built through [list management](/email-marketing-concepts/list-management/) and consistent value delivery. Matching the goal to where the audience actually is prevents strategies that look correct on paper but underperform in practice.
+A goal only works if it's realistic for the audience receiving it. A cold, newly imported [target audience](/email-marketing-concepts/strategy/target-audience) is rarely ready for a hard conversion goal: awareness or engagement is more appropriate until trust is built through [list management](/email-marketing-concepts/list-management/) and consistent value delivery. Matching the goal to where the audience actually is prevents strategies that look correct on paper but underperform in practice.
 
 ## Related Content
 
