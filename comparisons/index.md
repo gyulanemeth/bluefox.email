@@ -8,7 +8,7 @@ prev: false
 next: false
 
 datePublished: "2025-09-02"
-dateModified: "2026-07-07"
+dateModified: "2026-07-17"
 
 head:
   - - meta
@@ -40,6 +40,12 @@ head:
 # BlueFox Email Provider Comparisons
 
 Welcome to the BlueFox Email comparison hub! Here you'll find expert analyses and in-depth breakdowns of BlueFox Email versus other top platforms. Each article provides actionable insights for choosing the best provider based on your business goals, technical needs, and marketing priorities.
+
+## BlueFox Email vs ActiveCampaign
+
+As of November 2025, ActiveCampaign bills new accounts for every stored contact, including unsubscribed and bounced ones, not just active subscribers. That change, layered on a contact-based suite with a real CRM, deep (but plan-gated) automation, and an expanding AI layer, against BlueFox's per-send pricing where contacts of any status are always free.
+
+[Read more](./bluefox-vs-activecampaign)
 
 ## BlueFox Email vs Mailchimp
 
