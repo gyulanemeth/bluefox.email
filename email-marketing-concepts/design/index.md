@@ -21,3 +21,23 @@ Email design in email marketing refers to the process of strategically creating 
 8. **Personalization**: This could mean including the recipient's name in the email or tailoring the content to their preferences or past behavior.
 
 Remember, the goal of email design is to create an email that is visually engaging, aligns with your brand, is easy to read and navigate, and encourages recipients to take action. Effective email design can increase open rates, click-through rates, and conversions, making it a crucial part of your email marketing strategy.
+
+## Learn More About Email Design
+
+### Responsive Email Design
+
+**Responsive email design** ensures your emails render cleanly on any screen size, using flexible layouts, single-column structures, and mobile-friendly type so subscribers can read and act on your message no matter what device they open it on.
+
+[Read more](/email-marketing-concepts/design/responsive-email-design)
+
+### Visual Branding and Color in Email
+
+**Visual branding and color** means using consistent brand colors, logo, and fonts across every send, and choosing colors deliberately so they guide the reader's eye toward the call-to-action rather than working against readability.
+
+[Read more](/email-marketing-concepts/design/visual-branding-and-color)
+
+### Email Accessibility
+
+**Email accessibility** means designing emails that everyone can read and act on, including subscribers using screen readers or with low vision, through practices like alt text, sufficient contrast, and logical structure.
+
+[Read more](/email-marketing-concepts/design/email-accessibility)

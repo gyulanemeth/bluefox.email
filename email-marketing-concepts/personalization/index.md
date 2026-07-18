@@ -26,3 +26,23 @@ Key aspects of personalization in email marketing include:
 6. **Email Automation**: You can use automation to send personalized emails at the right time, such as a welcome email immediately after someone subscribes to your list or a birthday email on each subscriber's birthday.
 
 In essence, personalization helps make your emails more relevant and engaging, leading to better results from your email marketing campaigns.
+
+## Learn More About Personalization
+
+### Dynamic Content
+
+**Dynamic content** changes which blocks, images, or products an email shows based on recipient data, going beyond simple name-fill personalization to restructure the email itself.
+
+[Read more](/email-marketing-concepts/personalization/dynamic-content)
+
+### Merge Tags
+
+**Merge tags** are placeholders like {{first_name}} that pull in per-recipient data at send time, and they need fallback values to avoid showing broken text to subscribers.
+
+[Read more](/email-marketing-concepts/personalization/merge-tags)
+
+### Behavioral Targeting
+
+**Behavioral targeting** personalizes emails based on what a subscriber actually does (page views, purchases, email engagement, product usage) rather than static profile data.
+
+[Read more](/email-marketing-concepts/personalization/behavioral-targeting)
