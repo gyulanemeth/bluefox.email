@@ -360,6 +360,7 @@ export default defineConfig({
                 },
                 { text: "Send Attachments", link: "/docs/api/send-attachments" },
                 { text: "API Reference", link: "/docs/api/reference" },
+                { text: "Interactive API Explorer", link: "/docs/api/explorer" },
               ],
             },
             {
