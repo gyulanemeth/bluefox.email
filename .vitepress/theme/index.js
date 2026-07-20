@@ -51,6 +51,7 @@ import PageCTA from './PageCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
 import ApiReference from './ApiReference.vue'
+import ApiSpecLink from './ApiSpecLink.vue'
 
 
 function setCookie(name, value, days = 30) {
@@ -233,5 +234,6 @@ export default {
     app.component('GlossaryNavigation', GlossaryNavigation)
     app.component('CustomFooter', CustomFooter)
     app.component('ApiReference', ApiReference)
+    app.component('ApiSpecLink', ApiSpecLink)
   },
 }

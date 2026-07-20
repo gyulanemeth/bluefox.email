@@ -51,12 +51,10 @@ list. For the narrative guides on sending your first email or managing subscript
 
 ## For AI agents and code generators
 
-The full [OpenAPI 3.0 spec](https://api.bluefox.email/v1/openapi.json) is served live from the API itself, so an agent can
+The full <ApiSpecLink>OpenAPI 3.0 spec</ApiSpecLink> is served live from the API itself, so an agent can
 fetch it directly and start calling endpoints without reading this page:
 
-```
-GET https://api.bluefox.email/v1/openapi.json
-```
+<pre><code>GET <ApiSpecLink /></code></pre>
 
 It always reflects the current state of the API - every endpoint, request/response schema, and error shape below is
 generated from that same document.
