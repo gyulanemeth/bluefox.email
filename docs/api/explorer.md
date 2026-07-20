@@ -36,6 +36,34 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
+<div class="explorer-page">
+
+# API Explorer
+
+Pick a resource on the left to see just its endpoints. Generated live from the same <ApiSpecLink>OpenAPI spec</ApiSpecLink> AI agents use, so it's always in sync with the real API. See the [API Reference](/docs/api/reference) page for authentication, response format, and pagination.
+
 <ClientOnly>
-  <ApiReference />
+  <ApiExplorer />
 </ClientOnly>
+
+</div>
+
+<style>
+.explorer-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px;
+  color: var(--vp-c-text-1);
+}
+
+.explorer-page h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.explorer-page > p {
+  color: var(--vp-c-text-2);
+  margin-bottom: 24px;
+}
+</style>

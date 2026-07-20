@@ -11,6 +11,7 @@ import {
   VCard,
   VCardText,
   VCardTitle,
+  VCardSubtitle,
   VCardActions,
   VChip,
   VCol,
@@ -50,7 +51,8 @@ import GlossaryCTA from './GlossaryCTA.vue'
 import PageCTA from './PageCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
-import ApiReference from './ApiReference.vue'
+import ApiExplorer from './ApiExplorer.vue'
+import SchemaTable from './SchemaTable.vue'
 import ApiSpecLink from './ApiSpecLink.vue'
 
 
@@ -178,6 +180,7 @@ export default {
         VCard,
         VCardText,
         VCardTitle,
+        VCardSubtitle,
         VCardActions,
         VChip,
         VCol,
@@ -233,7 +236,8 @@ export default {
     app.component('PageCTA', PageCTA)
     app.component('GlossaryNavigation', GlossaryNavigation)
     app.component('CustomFooter', CustomFooter)
-    app.component('ApiReference', ApiReference)
+    app.component('ApiExplorer', ApiExplorer)
+    app.component('SchemaTable', SchemaTable)
     app.component('ApiSpecLink', ApiSpecLink)
   },
 }
