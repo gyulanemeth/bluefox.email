@@ -237,7 +237,7 @@ To start from a [pre-designed template](/docs/projects/predesigned-templates):
 
 ### Raw HTML / Plain Text
 
-These two editors always start from scratch, there's no template selection step. Once you click **Open Editor**, you get the same code/text editor used everywhere else in bluefox.email, with **Import**, **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](/docs/projects/data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
+These two editors always start from scratch, there's no template selection step. Once you click **Open Editor**, you get the same code/text editor used everywhere else in bluefox.email. The Raw HTML editor also has an **Import** button. Both editors give you **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](/docs/projects/data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
 
 - **Raw HTML**:
 
@@ -315,7 +315,7 @@ To start from a [pre-designed template](/docs/projects/predesigned-templates):
 
 ### Raw HTML / Plain Text
 
-These two editors always start from scratch, there's no template selection step. Once you click **Open Editor**, you get the same code/text editor used everywhere else in bluefox.email, with **Import**, **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](/docs/projects/data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
+These two editors always start from scratch, there's no template selection step. Once you click **Open Editor**, you get the same code/text editor used everywhere else in bluefox.email. The Raw HTML editor also has an **Import** button. Both editors give you **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](/docs/projects/data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
 
 - **Raw HTML**:
 

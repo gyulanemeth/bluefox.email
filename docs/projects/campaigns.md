@@ -123,7 +123,7 @@ Finally, make changes in the editor. Raw HTML and Plain Text share the same edit
 
   ![A screenshot of the Plain Text editor toolbar and side panel.](./project-email-editor-text.webp)
 
-Both editors give you **Import**, **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](#data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
+The Raw HTML editor also has an **Import** button. Both editors give you **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](#data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
 
 You can also add [data feeds](#data-feeds) to Raw HTML and Plain Text campaigns the same way as any other campaign, from the **Feeds** section on the email card. The only difference is how you reference feed items inside the editor: through the merge tag side panel instead of a drag-and-drop Loop block.
 

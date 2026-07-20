@@ -301,7 +301,7 @@ Everywhere you can create an email, transactional emails, triggered emails, camp
 
 - They always start from scratch or from a copied design. Design system templates and [pre-designed templates](/docs/projects/predesigned-templates) aren't available with them.
 - Emails built with them can't be saved back as a reusable [design system template](/docs/email-themes/templates).
-- Instead of the Chamaileon canvas, you get a code/text editor with **Import**, **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls.
+- Instead of the Chamaileon canvas, you get a code/text editor with **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Raw HTML also has an **Import** button.
 - [Merge tags](/docs/email-personalization) and [feed](/docs/projects/data-feeds) variables are inserted from a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
 - If you reuse content from a Visual-Editor-built email via Copy & Paste, strip out any Chamaileon-specific merge tag or component markup first, it won't resolve in Raw HTML or Plain Text.
 
