@@ -37,7 +37,24 @@ onMounted(async () => {
     window.Redoc.init(props.specUrl, {
       expandResponses: '200,201',
       hideDownloadButton: false,
-      theme: { colors: { primary: { main: '#13B0EE' } } }
+      theme: {
+        colors: {
+          primary: { main: '#13B0EE' },
+          text: { primary: '#1a1a2e', secondary: '#4b5563' },
+          border: { dark: '#e2e8f0', light: '#f1f5f9' },
+          http: { get: '#13B0EE', post: '#392C91', put: '#b45309', patch: '#b45309', delete: '#dc2626' }
+        },
+        sidebar: {
+          width: '260px',
+          backgroundColor: '#ffffff',
+          textColor: '#1a1a2e',
+          activeTextColor: '#13B0EE'
+        },
+        rightPanel: {
+          backgroundColor: '#1a1a2e',
+          textColor: '#e5e7eb'
+        }
+      }
     }, redocContainer.value)
   } catch (e) {
     loadFailed.value = true
