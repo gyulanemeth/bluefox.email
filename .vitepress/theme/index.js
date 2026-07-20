@@ -50,6 +50,7 @@ import GlossaryCTA from './GlossaryCTA.vue'
 import PageCTA from './PageCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
+import ApiReference from './ApiReference.vue'
 
 
 function setCookie(name, value, days = 30) {
@@ -231,5 +232,6 @@ export default {
     app.component('PageCTA', PageCTA)
     app.component('GlossaryNavigation', GlossaryNavigation)
     app.component('CustomFooter', CustomFooter)
+    app.component('ApiReference', ApiReference)
   },
 }

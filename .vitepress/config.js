@@ -359,6 +359,7 @@ export default defineConfig({
                   link: "/docs/api/send-triggered-email",
                 },
                 { text: "Send Attachments", link: "/docs/api/send-attachments" },
+                { text: "API Reference", link: "/docs/api/reference" },
               ],
             },
             {
