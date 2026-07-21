@@ -16,6 +16,23 @@ const COLLECTION_CONFIG = {
   }
 }
 
+// --- STANDALONE GLOSSARY INDEX PAGES ---
+// Flat pointer pages (not directories) that act as the CollectionPage for a
+// real content collection living elsewhere (e.g. email-marketing-glossary.md
+// points at the email-marketing-concepts/ directory).
+const STANDALONE_INDEX_CONFIG = {
+  'email-marketing-glossary.md': {
+    collectionFolder: 'email-marketing-concepts',
+    collectionName: 'Email Marketing Concepts',
+    collectionUrl: 'https://bluefox.email/email-marketing-concepts/'
+  },
+  'best-practices-glossary.md': {
+    collectionFolder: 'email-best-practices-for-saas',
+    collectionName: 'Best Practices',
+    collectionUrl: 'https://bluefox.email/email-best-practices-for-saas/'
+  }
+}
+
 // --- IMAGE HELPER FUNCTION ---
 function resolveImageUrl(fm, data) {
   if (fm.thumbnail && typeof fm.thumbnail === 'string') {
@@ -87,7 +104,7 @@ function getSubPagesInfo(collectionFolder) {
 // --- INDEX PAGE SCHEMA ---
 function addSchemaMarkupForIndex(pageData, data) {
   const fm = pageData.frontmatter
-  const collectionFolder = path.dirname(pageData.relativePath)
+  const collectionFolder = data.collectionFolder || path.dirname(pageData.relativePath)
   const subPages = getSubPagesInfo(collectionFolder)
   const keywords = Array.from(
     new Set([fm.title, ...subPages.map(sub => sub.name)].filter(Boolean))
@@ -104,7 +121,7 @@ function addSchemaMarkupForIndex(pageData, data) {
     '@type': 'CollectionPage',
     name: fm.title,
     description: fm.description,
-    url: `https://bluefox.email/${pageData.relativePath.replace(/\/?index\.md$/, '')}`,
+    url: `https://bluefox.email/${pageData.relativePath.replace(/index\.md$/, '').replace(/\.md$/, '')}`,
     inLanguage: 'en',
     isAccessibleForFree: true,
     author: { '@type': 'Organization', name: 'BlueFox Email' },
@@ -248,6 +265,17 @@ function addSchemaMarkupForPage(pageData, data) {
 export function addSchemaMarkup(pageData) {
   const fm = pageData.frontmatter
   if (!fm || !fm.title || !fm.description) {
+    return
+  }
+
+  // Flat standalone pointer pages (e.g. email-marketing-glossary.md)
+  const standalone = STANDALONE_INDEX_CONFIG[pageData.relativePath]
+  if (standalone) {
+    addSchemaMarkupForIndex(pageData, {
+      collectionFolder: standalone.collectionFolder,
+      collectionName: standalone.collectionName,
+      collectionUrl: standalone.collectionUrl
+    })
     return
   }
 

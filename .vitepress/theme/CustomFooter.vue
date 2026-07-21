@@ -48,7 +48,9 @@ const FOOTER_CONFIG = {
     ],
     glossary: [
       { text: 'Email Sending Concepts', href: '/email-sending-concepts/' },
-      { text: 'AWS Concepts', href: '/aws-concepts/' }
+      { text: 'AWS Concepts', href: '/aws-concepts/' },
+      { text: 'Email Marketing Concepts', href: '/email-marketing-glossary' },
+      { text: 'Best Practices', href: '/best-practices-glossary' }
     ]
   },
   

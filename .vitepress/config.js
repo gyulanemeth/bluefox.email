@@ -415,28 +415,35 @@ export default defineConfig({
           ],
         },
         {
-          text: "Best Practices",
-          link: "/email-best-practices-for-saas/",
-          collapsed: false,
-          items: [
-            {
-              text: "Double Opt-In",
-              link: "/email-best-practices-for-saas/double-opt-in",
-            },
-            {
-              text: "Unsubscribe and Pause Subscription",
-              link: "/email-best-practices-for-saas/unsubscribe-and-pause-subscription",
-            },
-            {
-              text: "DMARC",
-              link: "/email-best-practices-for-saas/dmarc",
-            },
-          ],
+          text: "Why?",
+          link: "/why",
         },
+        {
+          text: "About",
+          link: "/about",
+        },
+        {
+          text: "Terms of use",
+          link: "/terms-of-use",
+        },
+        {
+          text: "Privacy policy",
+          link: "/privacy-policy",
+        },
+        {
+          text: "Refund policy",
+          link: "/refund-policy",
+        },
+        {
+          text: "Partners",
+          link: "/partners",
+        },
+      ],
+      "/email-marketing-concepts/": [
         {
           text: "Email Marketing Concepts",
           link: "/email-marketing-concepts/",
-          collapsed: true,
+          collapsed: false,
           items: [
             {
               text: "Copywriting",
@@ -638,29 +645,26 @@ export default defineConfig({
             },
           ],
         },
+      ],
+      "/email-best-practices-for-saas/": [
         {
-          text: "Why?",
-          link: "/why",
-        },
-        {
-          text: "About",
-          link: "/about",
-        },
-        {
-          text: "Terms of use",
-          link: "/terms-of-use",
-        },
-        {
-          text: "Privacy policy",
-          link: "/privacy-policy",
-        },
-        {
-          text: "Refund policy",
-          link: "/refund-policy",
-        },
-        {
-          text: "Partners",
-          link: "/partners",
+          text: "Best Practices",
+          link: "/email-best-practices-for-saas/",
+          collapsed: false,
+          items: [
+            {
+              text: "Double Opt-In",
+              link: "/email-best-practices-for-saas/double-opt-in",
+            },
+            {
+              text: "Unsubscribe and Pause Subscription",
+              link: "/email-best-practices-for-saas/unsubscribe-and-pause-subscription",
+            },
+            {
+              text: "DMARC",
+              link: "/email-best-practices-for-saas/dmarc",
+            },
+          ],
         },
       ],
       "/courses/email-marketing-saas/": [
