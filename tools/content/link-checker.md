@@ -58,15 +58,9 @@ head:
       content: https://bluefox.email/assets/free-content-tools.png
 ---
 
-<GlossaryNavigation link="/tools/content" label="Back to Content Tools" />
-
 <script setup>
 import LinkChecker from '../../.vitepress/theme/free-tools/LinkChecker.vue'
 </script>
-
-# Free Link Checker
-
-**Test every link in your HTML email template** before you send, and catch broken URLs, bad redirects, and soft 404s that hurt click-through and trust.
 
 <LinkChecker />
 
