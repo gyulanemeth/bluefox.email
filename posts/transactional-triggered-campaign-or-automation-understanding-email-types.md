@@ -1,3 +1,43 @@
+---
+title: "Transactional, Triggered, Campaign or Automation? Understanding Email Types"
+description: "A clear guide to how BlueFox Email categorizes transactional emails, triggered emails, campaigns, and automations, and how to choose the right one."
+thumbnail: /assets/articles/transactional-triggered-campaign-or-automation-understanding-email-types.png
+category: articles
+tags: ['Email Marketing', 'Best Practices', 'Automation']
+sidebar: false
+published: 2026-07-22
+lastUpdated: true
+head:
+  - - meta
+    - name: description
+      content: "A clear guide to how BlueFox Email categorizes transactional emails, triggered emails, campaigns, and automations, and how to choose the right one."
+  - - meta
+    - property: og:title
+      content: "Transactional, Triggered, Campaign or Automation? Understanding Email Types"
+  - - meta
+    - property: og:description
+      content: "Email terminology can be confusing. Learn the practical difference between transactional emails, triggered emails, campaigns, and automations in BlueFox Email."
+  - - meta
+    - property: og:image
+      content: "https://bluefox.email/assets/articles/transactional-triggered-campaign-or-automation-understanding-email-types.png"
+  - - meta
+    - property: og:url
+      content: "https://bluefox.email/posts/transactional-triggered-campaign-or-automation-understanding-email-types"
+  - - meta
+    - name: twitter:card
+      content: "summary_large_image"
+  - - meta
+    - name: twitter:title
+      content: "Transactional, Triggered, Campaign or Automation? Understanding Email Types"
+  - - meta
+    - name: twitter:description
+      content: "Email terminology can be confusing. Learn the practical difference between transactional emails, triggered emails, campaigns, and automations in BlueFox Email."
+  - - meta
+    - name: twitter:image
+      content: "https://bluefox.email/assets/articles/transactional-triggered-campaign-or-automation-understanding-email-types.png"
+layout: post
+---
+
 # Transactional, Triggered, Campaign or Automation? Understanding Email Types
 
 Email terminology can be confusing. A welcome email might be described as a product email, a marketing email, a triggered email, or an automated email. These labels are not necessarily contradictory. They often describe different aspects of the same message.
@@ -20,6 +60,8 @@ Examples include:
 
 Triggered emails, campaigns, and emails sent through automations are different. Recipients should be able to unsubscribe from these messages, and BlueFox Email includes unsubscribe handling for them.
 
+This is closely tied to the principle of [permission-based marketing](/email-marketing-concepts/list-management/permission-based-marketing): recipients who can opt out should always be able to.
+
 This gives you a useful starting point:
 
 > If recipients must receive the message, it may be transactional. If they should be able to stop receiving it, it is not transactional.
@@ -28,7 +70,9 @@ An email should not be classified as transactional simply because you would pref
 
 ## The four types in BlueFox Email
 
-![4 email types in BlueFox Email](./transactional-triggered-campaign-or-automation-understanding-email-types/email-types.png)
+Each of these categories describes how an email is sent and how BlueFox Email handles it. They are not strict content categories: the same welcome email, product update, or reminder could be sent in different ways depending on your workflow.
+
+![4 email types in BlueFox Email](./transactional-triggered-campaign-or-automation-understanding-email-types/email-types.webp)
 
 ### Transactional emails
 
@@ -36,13 +80,13 @@ Transactional emails are essential messages usually sent by an application throu
 
 They are often caused by a particular event, such as a purchase, a login attempt, or a password reset request. In the general sense of the word, many transactional emails are also “triggered.”
 
-However, in BlueFox Email, **Transactional** is a specific sending category. It is intended for messages that do not need an unsubscribe link.
+However, in BlueFox Email, **[Transactional](/docs/projects/transactional-emails)** is a specific sending category. It is intended for messages that do not need an unsubscribe link.
 
 Typical examples include receipts, verification emails, login codes, password resets, and important account alerts.
 
 ### Triggered emails
 
-Triggered emails are emails sent after a specific event or action, while still allowing recipients to unsubscribe.
+[Triggered emails](/docs/projects/triggered-emails) are emails sent after a specific event or action, while still allowing recipients to unsubscribe.
 
 A triggered email does not have to be sent to only one person. It can be sent to one recipient, a group of recipients, or even an entire list.
 
@@ -59,9 +103,11 @@ Triggered emails are useful when your application knows that something happened 
 
 The important distinction is not whether an event caused the email. Both transactional and triggered emails can be event-based. The distinction is whether the message is essential and whether recipients can unsubscribe.
 
+For a deeper look at how triggered emails work in general, see our guide to [triggered emails](/email-marketing-concepts/automation/triggered-emails).
+
 ### Campaigns
 
-Campaigns are one-off emails sent to a subscriber list or audience.
+[Campaigns](/docs/projects/campaigns) are one-off emails sent to a subscriber list or audience.
 
 Newsletters are perhaps the most familiar example, but campaigns can also include:
 
@@ -76,9 +122,11 @@ A campaign usually sends the same core message to multiple recipients, although 
 
 The word “campaign” describes how the email is organized and sent. It does not necessarily describe its content. A campaign might be promotional, educational, product-related, or a mixture of several types.
 
+Unlike a [drip campaign](/email-marketing-concepts/automation/drip-campaigns), a campaign is a one-off send rather than a pre-scheduled sequence.
+
 ### Automations
 
-Automations are email flows that run based on triggers, conditions, schedules, delays, or subscriber information.
+[Automations](/docs/projects/automations) are email flows that run based on triggers, conditions, schedules, delays, or subscriber information.
 
 An automation can contain multiple emails, but it can also contain just a single email if that is what your workflow requires.
 
@@ -102,6 +150,8 @@ Automations are useful for onboarding, lead nurturing, retention, re-engagement,
 Because automations are based on triggers, automation emails are also triggered in the general sense of the word. The difference is that an automation provides a workflow builder for managing when and how emails are sent, while a triggered email is often used when your application directly decides to send a message.
 
 An email inside an automation may still be described as a welcome email, a product email, a promotional email, or a lifecycle email. Automation simply describes the system responsible for sending it.
+
+Read more about [email automation](/email-marketing-concepts/automation/) as a broader marketing concept.
 
 ## Examples of overlap
 
@@ -150,7 +200,7 @@ It could be sent as a **triggered email** if your application decides when to se
 
 You do not need to find the one perfect label for your email. Instead, choose the BlueFox Email feature that matches how the message should behave.
 
-![How to choose the right email type](./transactional-triggered-campaign-or-automation-understanding-email-types/how-to-choose-the-right-email-type.png)
+![How to choose the right email type](./transactional-triggered-campaign-or-automation-understanding-email-types/how-to-choose-the-right-email-type.webp)
 
 Ask these questions:
 
@@ -169,3 +219,5 @@ Use an automation.
 The content of these emails may overlap. A product email can be sent as a campaign, a triggered email, or through an automation. A message caused by an event can be either transactional or triggered. An automation email is also triggered, but it uses an automation workflow to control when and how it is sent.
 
 The important thing is not what the email is called in general conversation. It is whether recipients can unsubscribe, what caused the email to be sent, and which BlueFox Email feature best fits your workflow.
+
+If you're building your list before sending your first campaign or triggered email, see our guide on [building a high-quality email list](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email).
