@@ -1,7 +1,7 @@
 ---
 layout: post
 title: How to Set Up AWS SES
-description: Step-by-step guide to set up AWS SES for great email deliverability.
+description: "Step-by-step guide to setting up AWS SES from scratch: verify your domain, configure DKIM and SPF, and start sending emails with great deliverability."
 thumbnail: /assets/articles/how-to-set-up-aws-ses-share.png
 category: tutorials
 tags: ['AWS SES']

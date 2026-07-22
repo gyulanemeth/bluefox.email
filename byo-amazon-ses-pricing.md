@@ -1,7 +1,7 @@
 ---
 layout: home
 title: BYO Amazon SES Pricing
-description: Connect your own Amazon SES account and pay only for platform credits plus AWS costs.
+description: Connect your own Amazon SES account to BlueFox Email and pay only for platform credits plus AWS costs, no per-contact fees, no hidden markups, ever.
 ---
 
 <script setup>

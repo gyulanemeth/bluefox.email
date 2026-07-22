@@ -1,6 +1,6 @@
 ---
 title: How to Get and Maintain Production Access to Amazon SES
-description: Tips to get production access to AWS SES and maintain it.
+description: Practical tips to get production access to Amazon SES out of the sandbox, plus how to maintain it long-term by keeping bounce and complaint rates low.
 thumbnail: /assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
 
 layout: post
