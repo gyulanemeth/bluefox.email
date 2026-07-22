@@ -67,3 +67,51 @@ import DmarcChecker from '../../.vitepress/theme/free-tools/DmarcChecker.vue'
 **Validate your [DMARC](/email-sending-concepts/dmarc) policy** and ensure your domain is protected against email spoofing with our comprehensive DMARC checker tool.
 
 <DmarcChecker />
+
+## What This Tool Checks
+
+Enter any domain, and the checker looks up its DMARC record at `_dmarc.yourdomain.com`, parses every tag, and evaluates the policy for common misconfigurations. It reports:
+
+- Whether a DMARC record exists at all.
+- The enforcement policy: `none` (monitor only), `quarantine` (send to spam), or `reject` (block outright).
+- The percentage of mail the policy applies to (the `pct` tag).
+- SPF and DKIM alignment mode, strict or relaxed.
+- Whether aggregate (`rua`) and forensic (`ruf`) reporting addresses are configured.
+- Deprecated or redundant tags that should be cleaned up.
+
+## How to Use It
+
+1. Type your domain into the input field. No `www` or protocol needed, just the bare domain, such as `example.com`.
+2. Click **Check DMARC**. The domain is sent to our API, which performs the DNS lookup and returns the result to your browser.
+3. Read the results. A green signal means that setting is configured well. A yellow or red signal flags something worth fixing.
+4. Expand **Raw record** to see the exact DNS TXT record, or **Tag breakdown** for a plain-language explanation of every tag present.
+
+## Understanding the Policy Levels
+
+A domain with no DMARC record offers no protection: anyone can spoof it. `p=none` adds visibility through reports but does not stop spoofed mail from reaching inboxes. `p=quarantine` routes failing mail to spam. `p=reject` blocks it before delivery. Most teams start at `none`, review a few weeks of reports, then move to `quarantine` and eventually `reject` once they've confirmed all legitimate senders are properly authenticated.
+
+## Example DMARC Record
+
+```
+v=DMARC1; p=reject; pct=100; rua=mailto:reports@example.com; adkim=s; aspf=s
+```
+
+This record rejects unauthenticated mail outright, applies to 100% of traffic, sends aggregate reports to the specified address, and requires strict alignment for both DKIM and SPF.
+
+## Frequently Asked Questions
+
+### Why does the checker say I have no DMARC record even though I set one up?
+
+DNS changes can take time to propagate, usually minutes but sometimes up to 48 hours depending on your provider's TTL settings. Double check the record was added to `_dmarc.yourdomain.com` and not the root domain.
+
+### What does a yellow warning mean?
+
+Yellow signals indicate a working but suboptimal setting, such as a policy of `none` or relaxed alignment. These aren't errors, they're opportunities to tighten your configuration.
+
+### Can I check a subdomain?
+
+Yes. Enter the full subdomain, such as `mail.example.com`, and the tool looks up its `_dmarc` record directly. Note that subdomain policy is often set via the `sp` tag on the parent domain's record rather than a separate record on the subdomain itself, so it's worth checking both.
+
+### Do I need an account to use this tool?
+
+No. Lookups run in real time and there's no account or sign-up required.
