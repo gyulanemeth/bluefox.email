@@ -1,16 +1,27 @@
 ---
 title: "Transactional, Triggered, Campaign or Automation? Understanding Email Types"
-description: "A clear guide to how BlueFox Email categorizes transactional emails, triggered emails, campaigns, and automations, and how to choose the right one."
+description: "A clear guide to how BlueFox Email categorizes transactional, triggered, campaign, and automation emails, and how to pick the right one."
 thumbnail: /assets/articles/transactional-triggered-campaign-or-automation-understanding-email-types.png
 category: articles
 tags: ['Email Marketing', 'Best Practices', 'Automation']
+faqs:
+  - question: "What's the difference between a transactional email and a triggered email?"
+    answer: "Transactional emails are essential messages, like password resets or receipts, that do not include an unsubscribe link. Triggered emails are also sent in response to an event, but recipients can unsubscribe from them."
+  - question: "Is a welcome email transactional or triggered?"
+    answer: "A welcome email is not transactional. If it's sent immediately after signup, it's usually a triggered email. If it's part of a longer onboarding journey with multiple steps and delays, it's usually sent through an automation instead."
+  - question: "What is the difference between a campaign and an automation?"
+    answer: "A campaign is a one-off email sent to a list or audience at a single point in time, like a newsletter. An automation is a workflow that can send one or more emails based on triggers, conditions, schedules, or delays."
+  - question: "Can recipients unsubscribe from a transactional email?"
+    answer: "No. Transactional emails are essential to using the product or service, such as password resets or receipts, and do not include an unsubscribe link. Triggered emails, campaigns, and automations all include unsubscribe handling."
+  - question: "Why does BlueFox Email use four different email categories?"
+    answer: "Each category matches how an email should behave: whether it's essential, whether recipients can opt out, how many people receive it, and whether it's a single send or a workflow. Choosing the right category ensures correct unsubscribe handling and sending behavior."
 sidebar: false
 published: 2026-07-22
 lastUpdated: true
 head:
   - - meta
     - name: description
-      content: "A clear guide to how BlueFox Email categorizes transactional emails, triggered emails, campaigns, and automations, and how to choose the right one."
+      content: "A clear guide to how BlueFox Email categorizes transactional, triggered, campaign, and automation emails, and how to pick the right one."
   - - meta
     - property: og:title
       content: "Transactional, Triggered, Campaign or Automation? Understanding Email Types"
@@ -73,6 +84,13 @@ An email should not be classified as transactional simply because you would pref
 Each of these categories describes how an email is sent and how BlueFox Email handles it. They are not strict content categories: the same welcome email, product update, or reminder could be sent in different ways depending on your workflow.
 
 ![4 email types in BlueFox Email](./transactional-triggered-campaign-or-automation-understanding-email-types/email-types.webp)
+
+| Category | Unsubscribe link | Typical trigger | Sent to |
+|---|---|---|---|
+| Transactional | No | A user action (e.g. password reset, receipt) | One recipient, via API |
+| Triggered | Yes | An event or action | One recipient, a group, or a list |
+| Campaigns | Yes | Sent manually, one-off | A list or audience |
+| Automations | Yes | Trigger plus workflow (conditions, schedule, delay) | Contacts entering the workflow |
 
 ### Transactional emails
 
