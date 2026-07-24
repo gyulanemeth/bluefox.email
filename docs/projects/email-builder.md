@@ -51,11 +51,11 @@ head:
 
 Everywhere you create an email in bluefox.email, transactional emails, triggered emails, campaigns, and automation nodes, you choose from **three ways to build it**:
 
-- **Visual Editor**: drag-and-drop, no HTML needed. Covered in depth on this page.
-- **Raw HTML**: write or import your own HTML.
-- **Plain Text**: a simple text-only editor.
+- **[Visual Editor](#visual-editor)**: drag-and-drop, no HTML needed.
+- **[Raw HTML](#raw-html)**: write or import your own HTML.
+- **[Plain Text](#plain-text)**: a simple text-based editor.
 
-You can also **Copy & Paste** a previously copied email design into any of them. See [Other Editor Options](#other-editor-options) below for how Raw HTML and Plain Text work.
+You can also **[Copy & Paste](#copy-paste)** a previously copied email design into any of them.
 
 ## Visual Editor
 
@@ -64,7 +64,7 @@ bluefox.email's Visual Editor is a powerful drag-and-drop email editor for build
 For the complete editor reference, see the [full email editor documentation](https://help.chamaileon.io/en/collections/1340338-email-editor-documentation).
 
 
-## Editor Overview
+### Editor Overview
 
 The interface consists of:
 - **Canvas**: the central editing area where you build the email
@@ -79,7 +79,7 @@ The editor renders a pixel-accurate preview of how your email will look across e
 - [Chamaileon's email editor](https://help.chamaileon.io/en/articles/3916667-chamaileons-email-editor): overview of the editor and its core concepts.
 
 
-## Core Structure: Body, Boxes, Rows & Columns
+### Core Structure: Body, Boxes, Rows & Columns
 
 Every email is built from a hierarchy of structural elements:
 
@@ -98,7 +98,7 @@ Understanding this hierarchy (Body → Block → Box → Row → Column → Elem
 - [Add or delete a column in a box](https://help.chamaileon.io/en/articles/2318288-how-do-i-delete-or-add-a-column-in-a-box): modify column count in an existing box.
 
 
-## Basic Content Elements
+### Basic Content Elements
 
 Drag these elements from the left panel onto any column:
 
@@ -120,7 +120,7 @@ Drag these elements from the left panel onto any column:
 - [Use the icons element](https://help.chamaileon.io/en/articles/12699714-icons-element): add standalone icons anywhere.
 
 
-## Advanced Elements
+### Advanced Elements
 
 Advanced elements add dynamic and interactive content to your emails:
 
@@ -145,7 +145,7 @@ Advanced elements add dynamic and interactive content to your emails:
 - [Animated GIFs](https://help.chamaileon.io/en/articles/2328950-how-do-i-add-an-animated-gif-to-an-email): use GIFs like static images.
 
 
-## Layout & Columns
+### Layout & Columns
 
 Control your email layout with flexible column options:
 
@@ -173,7 +173,7 @@ Control your email layout with flexible column options:
 - [Different content order on mobile vs desktop](https://help.chamaileon.io/en/articles/2735046-different-email-content-order-on-mobile-and-desktop): sequence elements differently per device.
 
 
-## Styling & Design
+### Styling & Design
 
 Fine-tune the visual appearance of every element:
 
@@ -201,7 +201,7 @@ Fine-tune the visual appearance of every element:
 - [Left-align a template](https://help.chamaileon.io/en/articles/3061609-how-to-left-align-my-template): override centered layout.
 
 
-## Images & Media
+### Images & Media
 
 - **Photo editor**: crop, resize, flip, rotate, and apply basic adjustments to images directly inside the editor without leaving the browser.
 - **Shared image library**: upload and organize images in a centralized library shared across your templates.
@@ -226,7 +226,7 @@ Fine-tune the visual appearance of every element:
 - [Suppress Gmail's image download icon](https://help.chamaileon.io/en/articles/4338151-how-to-prevent-gmail-to-display-a-download-icon-on-the-images): cleaner image hover behavior in Gmail.
 
 
-## Links & Navigation
+### Links & Navigation
 
 Add links anywhere in your email:
 
@@ -249,7 +249,7 @@ Add links anywhere in your email:
 - [Hover styling on buttons](https://help.chamaileon.io/en/articles/5612224-how-to-add-hover-styling-to-a-button): set hover background and text colors.
 
 
-## Mobile & Responsive Design
+### Mobile & Responsive Design
 
 The editor provides granular control over mobile rendering:
 
@@ -268,7 +268,7 @@ The editor provides granular control over mobile rendering:
 - [Different content order per device](https://help.chamaileon.io/en/articles/2735046-different-email-content-order-on-mobile-and-desktop): sequence elements differently on mobile.
 
 
-## Dark Mode Preview
+### Dark Mode Preview
 
 The editor includes a dark mode preview that shows how your email renders in dark mode email clients (Apple Mail, iOS Mail, Outlook on macOS). Use it to check color contrast, background inversions, and image visibility before sending.
 
@@ -276,7 +276,7 @@ The editor includes a dark mode preview that shows how your email renders in dar
 - [Dark mode and how to use the dark mode preview](https://help.chamaileon.io/en/articles/5962808-what-is-dark-mode-and-how-to-use-dark-mode-preview): preview your email as dark mode clients will render it.
 
 
-## Brand Variables
+### Brand Variables
 
 Brand variables let you define reusable design tokens (colors, fonts, logos, URLs) at the account or project level and reference them across all your templates. Changing a brand variable updates every template that uses it, without manually editing each one.
 
@@ -286,7 +286,7 @@ In bluefox.email, project-level overrides work alongside brand variables. See [e
 - [Use the brand variable modal](https://help.chamaileon.io/en/articles/5859909-how-to-use-brand-variable-modal): create and reference design tokens across templates.
 
 
-## Blocks Library
+### Blocks Library
 
 Blocks are reusable full-width sections you save once and drop into any template. They contain your pre-styled layouts: headers, footers, hero sections, product cards, CTA rows, and more.
 
@@ -301,22 +301,45 @@ Blocks are reusable full-width sections you save once and drop into any template
 - [Change a block's background](https://help.chamaileon.io/en/articles/3774615-how-to-change-the-background-of-the-block): block-level background styling.
 
 
-## Other Editor Options
-
-Everywhere you can create an email, transactional emails, triggered emails, campaigns, and automation Send Email / Notify nodes, you're offered a choice of four options: **Visual Editor** (this page), **Raw HTML**, **Plain Text**, and **Copy & Paste**.
-
-**Raw HTML** and **Plain Text** are lightweight alternatives to the Visual Editor:
-
-- They always start from scratch or from a copied design. Design system templates and [pre-designed templates](/docs/projects/predesigned-templates) aren't available with them.
-- Emails built with them can't be saved back as a reusable [design system template](/docs/email-themes/templates).
-- Instead of the Chamaileon canvas, you get a code/text editor with **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Raw HTML also has an **Import** button.
-- [Merge tags](/docs/email-personalization) and [feed](/docs/projects/data-feeds) variables are inserted from a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
-- If you reuse content from a Visual-Editor-built email via Copy & Paste, strip out any Chamaileon-specific merge tag or component markup first, it won't resolve in Raw HTML or Plain Text.
-
-For the exact creation steps for each email type, see: [Transactional Emails](/docs/projects/transactional-emails#creating-a-transactional-email), [Triggered Emails](/docs/projects/triggered-emails#creating-a-triggered-email), [Campaigns](/docs/projects/campaigns#creating-a-campaign), or [Automations](/docs/projects/automations#send-email-node).
-
-## Full Editor Reference
+### Full Editor Reference
 
 This page covers the feature set available in the bluefox.email Visual Editor. For detailed step-by-step guides on every topic above, visit the complete editor documentation:
 
 [View full email editor documentation →](https://help.chamaileon.io/en/collections/1340338-email-editor-documentation)
+
+## Raw HTML
+
+The Raw HTML editor is a code editor with syntax highlighting, for when you'd rather write (or already have) your own HTML than use the Visual Editor's canvas.
+
+![A screenshot of the Raw HTML editor toolbar and side panel.](./project-email-editor-html.webp)
+
+- **Import**: bring in existing HTML instead of typing it directly into the editor. This button is only available in Raw HTML, not Plain Text.
+- **Merge Tags**: opens a side panel of available merge tags. Place your cursor where you want a value to appear, then pick the tag to insert it there, unlike the Visual Editor, tags aren't bound to a selected element.
+- **Preview** / **Preview with data**: same preview modes as the Visual Editor. Preview with data renders merge tags and [data feeds](/docs/projects/data-feeds) with real values.
+- **Save** and **Save & Close**: save your progress, or save and exit back to the email list.
+- [Data feeds](/docs/projects/data-feeds) work the same as in the Visual Editor, added from the **Feeds** section on the email card, just referenced through the Merge Tags panel instead of a drag-and-drop Loop block.
+- Always starts from scratch or a copied design: design system templates and [pre-designed templates](/docs/projects/predesigned-templates) aren't available here, and an email built this way can't be saved back as a reusable [design system template](/docs/email-themes/templates).
+
+## Plain Text
+
+The Plain Text editor is for writing a simple, text-based email without the Visual Editor's design system and block/canvas system. Despite the name, it isn't a bare textarea, it has its own toolbar (undo/redo, headings, bold/italic/underline/strikethrough, lists, links, images, dividers) for structuring the email.
+
+![A screenshot of the Plain Text editor toolbar and side panel.](./project-email-editor-text.webp)
+
+- **Merge Tags**, **Preview** (with **Preview with data**), **Save**, and **Save & Close** work exactly as in Raw HTML, there's just no **Import** button, since there's no HTML to import.
+- [Data feeds](/docs/projects/data-feeds) are supported the same way as Raw HTML, added from the **Feeds** section on the email card and referenced through the Merge Tags panel.
+- Same limitations as Raw HTML: always starts from scratch or a copied design, no design system or pre-designed templates, and can't be saved back as a reusable [design system template](/docs/email-themes/templates).
+
+Use Plain Text for quick, informal, personal-sounding emails where a fully designed template would feel out of place.
+
+## Copy & Paste
+
+Paste in a previously copied email design. This works no matter which editor the original email was built with, designs are copied as JSON under the hood, so a Visual Editor design can be pasted into a Raw HTML or Plain Text email and vice versa.
+
+::: warning
+If you're pasting content from a Chamaileon-built (Visual Editor) email into a Raw HTML or Plain Text email, strip out any Chamaileon-specific merge tag or component markup first, it won't resolve there. Plain Handlebars merge tags (e.g. **&#123;&#123;contact.email&#125;&#125;**) carry over fine either way.
+:::
+
+---
+
+For the exact creation steps for each email type, see: [Transactional Emails](/docs/projects/transactional-emails#creating-a-transactional-email), [Triggered Emails](/docs/projects/triggered-emails#creating-a-triggered-email), [Campaigns](/docs/projects/campaigns#creating-a-campaign), or [Automations](/docs/projects/automations#send-email-node).
