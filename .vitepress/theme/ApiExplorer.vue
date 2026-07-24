@@ -36,18 +36,21 @@ const operationsByTag = computed(() => {
   return byTag
 })
 
-function resolveSchema(schema) {
-  if (!schema) return null
-  if (schema.$ref) {
-    const name = schema.$ref.split('/').pop()
-    return spec.value.components.schemas[name]
+// Resolves any #/components/<category>/<name> ref (schemas AND responses both use this shape) - the spec now
+// shares several fully-identical error responses (400/403/405/409) via $ref instead of inlining a full copy of
+// each at every one of the ~75 endpoints that uses them, so this needs to handle both kinds of ref, not just schemas.
+function resolveRef(value) {
+  if (!value) return value
+  if (value.$ref) {
+    const [, , category, name] = value.$ref.split('/')
+    return spec.value.components[category]?.[name]
   }
-  return schema
+  return value
 }
 
 function requestBodySchema(op) {
   const schema = op.requestBody?.content?.['application/json']?.schema
-  return resolveSchema(schema)
+  return resolveRef(schema)
 }
 
 function methodColor(method) {
@@ -132,7 +135,7 @@ function statusColor(code) {
                 <tbody>
                   <tr v-for="(response, code) in op.responses" :key="code">
                     <td><v-chip :color="statusColor(code)" size="x-small" label>{{ code }}</v-chip></td>
-                    <td class="api-description">{{ response.description }}</td>
+                    <td class="api-description">{{ resolveRef(response)?.description }}</td>
                   </tr>
                 </tbody>
               </table>
