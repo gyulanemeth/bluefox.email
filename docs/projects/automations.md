@@ -469,7 +469,7 @@ When you click on that circle, you can see the list of contacts currently runnin
 
 ## Pausing an Automation
 
-To pause a running automation, click the **Pause** button,available from both the automation list and the automation details page. 
+To pause a running automation, click the **Pause** button, available from both the automation list and the automation details page.
 
 ![Automation pause button Icon](./project-automation-pause-btn.webp)
 
