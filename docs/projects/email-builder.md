@@ -1,9 +1,11 @@
 ---
-title: Visual Email Builder | bluefox.email documentation
-description: Learn how to use the visual drag-and-drop email builder in bluefox.email. Build emails with text, images, buttons, dynamic content, and advanced elements.
+title: Email Editors | bluefox.email documentation
+description: Learn about the three ways to build emails in bluefox.email, the Visual Editor (drag-and-drop), Raw HTML, and Plain Text, and how the Visual Editor's elements, blocks, and personalization work.
 faqs:
+  - question: "How many ways are there to build an email in BlueFox Email?"
+    answer: "Three: the Visual Editor (drag-and-drop, no HTML needed), Raw HTML (write or import your own HTML), and Plain Text (a simple text-only editor). You can also Copy & Paste a previously copied email design into any of them. All three are available everywhere you create an email: transactional emails, triggered emails, campaigns, and automation nodes."
   - question: "Do I need to write HTML to build emails in BlueFox Email?"
-    answer: "No. The visual email builder is a fully drag-and-drop editor. You can build branded emails with text, images, buttons, dynamic content, and advanced elements without writing any HTML. A Custom Code element is available if you ever need to insert raw HTML for specific content."
+    answer: "No. The Visual Editor is a fully drag-and-drop editor. You can build branded emails with text, images, buttons, dynamic content, and advanced elements without writing any HTML. A Custom Code element is available if you ever need to insert raw HTML for specific content. If you prefer writing HTML directly, the Raw HTML editor is also available."
   - question: "How is the structure of an email organized in the builder?"
     answer: "Every email is built from a hierarchy: Body → Block → Box → Row → Column → Element. The Body is the outermost container and controls the email background and width. Blocks are reusable full-width sections. Boxes sit inside blocks and hold the actual content. Boxes are divided into rows and columns, and each column holds individual content elements such as text, images, or buttons."
   - question: "What are blocks in the email builder?"
@@ -18,7 +20,7 @@ head:
       content: Learn how to use the visual drag-and-drop email builder in bluefox.email. Build responsive emails with text, images, buttons, dynamic content, advanced elements, and full mobile control.
   - - meta
     - property: og:title
-      content: Visual Email Builder | bluefox.email documentation
+      content: Email Editors | bluefox.email documentation
   - - meta
     - property: og:description
       content: Build responsive, personalized emails with the bluefox.email drag-and-drop editor. Text, images, buttons, dynamic content, advanced elements, mobile control, and more.
@@ -36,7 +38,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Visual Email Builder | bluefox.email documentation
+      content: Email Editors | bluefox.email documentation
   - - meta
     - name: twitter:description
       content: Build responsive, personalized emails with the bluefox.email drag-and-drop editor. Text, images, buttons, dynamic content, advanced elements, mobile control, and more.
@@ -45,15 +47,21 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Visual Email Builder
+# Email Editors
 
-bluefox.email includes a powerful drag-and-drop email editor for building responsive, branded emails. It supports a full library of content and advanced elements, complete mobile control, and deep personalization, all without writing HTML.
+Everywhere you create an email in bluefox.email, transactional emails, triggered emails, campaigns, and automation nodes, you choose from **three ways to build it**:
+
+- **Visual Editor**: drag-and-drop, no HTML needed. Covered in depth on this page.
+- **Raw HTML**: write or import your own HTML.
+- **Plain Text**: a simple text-only editor.
+
+You can also **Copy & Paste** a previously copied email design into any of them. See [Other Editor Options](#other-editor-options) below for how Raw HTML and Plain Text work.
+
+## Visual Editor
+
+bluefox.email's Visual Editor is a powerful drag-and-drop email editor for building responsive, branded emails. It supports a full library of content and advanced elements, complete mobile control, and deep personalization, all without writing HTML.
 
 For the complete editor reference, see the [full email editor documentation](https://help.chamaileon.io/en/collections/1340338-email-editor-documentation).
-
-::: info
-This page covers the **Visual Editor** (Chamaileon). Everywhere you create an email, transactional emails, triggered emails, campaigns, and automation nodes, you can also choose **Raw HTML** or **Plain Text** instead. See [Other Editor Options](#other-editor-options) below.
-:::
 
 
 ## Editor Overview
