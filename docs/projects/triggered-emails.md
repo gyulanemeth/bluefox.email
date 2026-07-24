@@ -45,11 +45,11 @@ head:
 
 # Triggered Emails
 
-Triggered emails are similar to transactional emails because they are also triggered from your backend (or a cron job). However, they are different because they are tied to a subscriber list. You can send triggered emails to the entire list or to specific email addresses. The emails will only be sent to the `active` subscribers on that list. If someone has unsubscribed, paused their subscription, or is not on the list, the email won't be sent.
+Just like transactional emails, triggered emails can be sent from your backend (or a cron job) whenever your application decides to send one. The difference is that triggered emails are tied to a subscriber list, and recipients can `unsubscribe` or `pause their subscription`. You can send a triggered email to an entire list or to specific email addresses, but it will only be delivered to the `active` subscribers on that list. If someone has unsubscribed, paused their subscription, or is not on the list, the email won't be sent.
 
-For example, event notifications or weekly digest emails should be implemented using triggered emails. Users can `unsubscribe` from these emails or `pause their subscription`, which might significantly reduce unsubscribe rates. This is why an unsubscribe link is required in these emails. A pause subscription link is not required but is recommended.
+For example, use a triggered email for an event notification, such as alerting a user when something happens in your app, or for a recurring digest, such as a weekly summary sent to every member of a SaaS workspace. Because recipients can unsubscribe or pause their subscription, triggered emails work well for messages that are useful but not essential. This is why an unsubscribe link is required in these emails. A pause subscription link is not required but is recommended.
 
-If you want to create email automations, use triggered emails. For instance, you can implement onboarding sequences: a user signs up, you send a welcome email, a day later, a link to a tutorial, and three days later, another one. You can also send emails based on user behavior, such as sending a targeted email if a user hasn't completed an important action in your app.
+If you need a multi-step sequence with delays or conditional branching, such as an onboarding series or a behavior-based follow-up, use an [automation](/docs/projects/automations) instead. Automations are built specifically for that, with dedicated triggers, timers, and conditional logic.
 
 You can find the triggered emails of a project by clicking on `Triggered Emails` tab in side-bar menu.
 
