@@ -4,13 +4,22 @@
  * IndexNow so Bing (and other participating engines) can pick up changes
  * without waiting for their next crawl.
  */
-import { readFileSync, existsSync } from 'fs'
+import { readFileSync, existsSync, readdirSync } from 'fs'
 
 const DIST_DIR = '.vitepress/dist'
 const SITEMAP_PATH = `${DIST_DIR}/sitemap.xml`
 const HOST = 'bluefox.email'
-const KEY = 'a4545217ae9a9ef8718e31963117fef434f2714aa8c354efd4a06169b8e36dfb'
-const KEY_LOCATION = `https://${HOST}/${KEY}.txt`
+
+// The IndexNow key file (public/<key>.txt) is the single source of truth for
+// the key — its filename IS the key, so we derive it instead of duplicating
+// the value here.
+const keyFile = readdirSync('public').find((f) => /^[0-9a-f]{64}\.txt$/.test(f))
+if (!keyFile) {
+  console.log('IndexNow: no key file found in public/, skipping')
+  process.exit(0)
+}
+const KEY = keyFile.replace(/\.txt$/, '')
+const KEY_LOCATION = `https://${HOST}/${keyFile}`
 
 if (!existsSync(SITEMAP_PATH)) {
   console.log('IndexNow: no sitemap.xml found, skipping')
