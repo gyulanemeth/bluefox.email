@@ -3,7 +3,7 @@ title: Email Editors | bluefox.email documentation
 description: Learn about the three ways to build emails in bluefox.email, the Visual Editor (drag-and-drop), Raw HTML, and Plain Text, and how the Visual Editor's elements, blocks, and personalization work.
 faqs:
   - question: "How many ways are there to build an email in BlueFox Email?"
-    answer: "Three: the Visual Editor (drag-and-drop, no HTML needed), Raw HTML (write or import your own HTML), and Plain Text (a simple text-only editor). You can also Copy & Paste a previously copied email design into any of them. All three are available everywhere you create an email: transactional emails, triggered emails, campaigns, and automation nodes."
+    answer: "Three: the Visual Editor (drag-and-drop, no HTML needed), Raw HTML (write or import your own HTML), and Plain Text (a simple text-based editor with its own basic formatting toolbar, but no design system or blocks). You can also Copy & Paste a previously copied email design into any of them. All three are available everywhere you create an email: transactional emails, triggered emails, campaigns, and automation nodes."
   - question: "Do I need to write HTML to build emails in BlueFox Email?"
     answer: "No. The Visual Editor is a fully drag-and-drop editor. You can build branded emails with text, images, buttons, dynamic content, and advanced elements without writing any HTML. A Custom Code element is available if you ever need to insert raw HTML for specific content. If you prefer writing HTML directly, the Raw HTML editor is also available."
   - question: "How is the structure of an email organized in the builder?"
@@ -17,13 +17,13 @@ faqs:
 head:
   - - meta
     - name: description
-      content: Learn how to use the visual drag-and-drop email builder in bluefox.email. Build responsive emails with text, images, buttons, dynamic content, advanced elements, and full mobile control.
+      content: Learn about the three ways to build emails in bluefox.email, Visual Editor, Raw HTML, and Plain Text, plus Copy & Paste, and how each one works.
   - - meta
     - property: og:title
       content: Email Editors | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Build responsive, personalized emails with the bluefox.email drag-and-drop editor. Text, images, buttons, dynamic content, advanced elements, mobile control, and more.
+      content: Three ways to build an email in bluefox.email, Visual Editor (drag-and-drop), Raw HTML, and Plain Text, plus Copy & Paste. Same merge tags, feeds, and sending across all of them.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -41,7 +41,7 @@ head:
       content: Email Editors | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Build responsive, personalized emails with the bluefox.email drag-and-drop editor. Text, images, buttons, dynamic content, advanced elements, mobile control, and more.
+      content: Three ways to build an email in bluefox.email, Visual Editor (drag-and-drop), Raw HTML, and Plain Text, plus Copy & Paste. Same merge tags, feeds, and sending across all of them.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png

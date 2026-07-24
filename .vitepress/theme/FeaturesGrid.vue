@@ -101,15 +101,15 @@ const categories = [
     name: 'Design',
     features: [
       {
-        name: 'Visual Email Builder',
+        name: 'Visual Editor',
         desc: 'Drag-and-drop editor with text, image, button, divider, dynamic image, conditional, and loop elements.',
-        docs: '/docs/projects/email-builder',
+        docs: '/docs/projects/email-builder#visual-editor',
         iconPaths: `<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>`
       },
       {
         name: 'Raw HTML & Plain Text Editors',
         desc: 'Write your own HTML or plain text instead of the visual builder, with the same merge tags, feeds, and sending.',
-        docs: '/docs/projects/email-builder#other-editor-options',
+        docs: '/docs/projects/email-builder#raw-html',
         iconPaths: `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9.5 13l-1.5 2 1.5 2"/><path d="M14.5 13l1.5 2-1.5 2"/>`
       },
       {
