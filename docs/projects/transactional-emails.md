@@ -59,15 +59,30 @@ To create a new transactional email, click the `Create` button.
 
 ![A screenshot of a project's transactional emails - new button highlighted.](./project-transactionals-create-button.webp)
 
-You can either paste a copied design, select a template from your design system, or start from scratch.
+You'll be asked to choose one of four options:
 
-![A screenshot of a project's transactional emails - Copy and Past or Create from Scratch options.](./project-transactionals-options.webp)
+- **Visual Editor**: the drag-and-drop Chamaileon editor, with full access to your design system's blocks, components, and templates.
+- **Raw HTML**: write your own HTML directly.
+- **Plain Text**: a plain-text-only email, no HTML.
+- **Copy & Paste**: paste in a previously copied email design. This works no matter which editor the original email was built with.
 
-Next (if starting from template), select a template category defined in your project's design system.
+![A screenshot of the editor type selection step (Visual Editor, Raw HTML, Plain Text, Copy & Paste).](./project-transactionals-create-select-editor-type.webp)
+
+::: info
+Design system templates and [pre-designed templates](/docs/projects/predesigned-templates) are only available when starting with the Visual Editor. Emails built with Raw HTML or Plain Text also can't be saved back as a reusable [design system template](/docs/email-themes/templates). Everything else, personalization, feeds, sending, and analytics, works the same regardless of which editor you pick.
+:::
+
+::: tip
+If you use Copy & Paste to reuse content from a Chamaileon-built (Visual Editor) email inside a Raw HTML or Plain Text email, strip out any Chamaileon-specific merge tag or component markup first, it won't resolve there. Everything else should carry over as-is.
+:::
+
+### Visual Editor
+
+If you didn't start from a copied design, select a template category defined in your project's design system.
 
 ![A screenshot of a project's transactional emails - create: select template category.](./project-transactionals-create-select-category.webp)
 
-You can also choose a [pre-designed template](/docs/projects/predesigned-templates#transactional-emails):
+You can also choose a [pre-designed template](/docs/projects/predesigned-templates#using-pre-designed-templates):
 ![A screenshot of a project's transactional emails - create: select pre-designed template.](./project-transactionals-create-select-predesigned.webp)
 
 Then, choose a template to start from, also defined in your design system. And then click Next.
@@ -88,6 +103,34 @@ After that, you will see a summary page. Click "Launch Editor".
 Finally, make changes in the drag-and-drop email editor:
 
 ![A screenshot of a project's transactional emails - create: edit.](./project-transactionals-create-editor.webp)
+
+When you're done, click "Save & Close". You can make changes later as well.
+
+### Raw HTML / Plain Text
+
+These two editors always start from scratch, there's no template selection step.
+
+Enter the name, subject line, and preview text for your email. You can [personalize](#transactional-email-personalization) these with [merge tags](#transactional-email-personalization)!
+
+![A screenshot of a project's transactional emails - create: enter data.](./project-transactionals-create-subject-raw-html.webp)
+
+After that, click "Launch Editor".
+
+![A screenshot of a project's transactional emails - create: summary.](./project-transactionals-create-summary-raw-html.webp)
+
+Finally, make changes in the editor:
+
+- **Raw HTML**:
+
+  ![A screenshot of the Raw HTML editor toolbar and side panel.](./project-email-editor-html.webp)
+
+- **Plain Text**:
+
+  ![A screenshot of the Plain Text editor toolbar and side panel.](./project-email-editor-text.webp)
+
+The Raw HTML editor also has an **Import** button. Both editors give you **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](#data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
+
+You can also add [data feeds](#data-feeds) to Raw HTML and Plain Text emails the same way as any other transactional email, from the **Feeds** section on the email card. The only difference is how you reference feed items inside the editor: through the merge tag side panel instead of a drag-and-drop Loop block.
 
 When you're done, click "Save & Close". You can make changes later as well.
 
@@ -128,6 +171,8 @@ await fetch(yourEndpoint, {
 })
 ```
 
+### Visual Editor
+
 You can use any handlebars variables in your email while editing. Click on the edit icon on the card:
 
 ![A screenshot of a transactional email card, edit button highlighted.](./project-transactionals-edit-button.webp)
@@ -139,6 +184,14 @@ Enter your variables with Handlebars syntax:
 You can also use merge tags in the email's `subject line` and `preview text`!
 
 ![A screenshot of a transactional email, with a merge tag being used in the subject and the preview text.](./project-transactionals-edit-subject-merge-tag.webp)
+
+### Raw HTML / Plain Text
+
+Merge tags work the same way, but since this isn't the Chamaileon editor, there's no click-to-bind-a-field flow. Instead, open the **Merge Tags** panel from the editor toolbar, place your cursor where you want the value to appear, and select the tag to insert it there. This works the same way in the subject line and preview text fields.
+
+::: warning
+If you're reusing content from a Chamaileon-built (Visual Editor) email inside a Raw HTML or Plain Text email, remove any Chamaileon-specific merge tag or component markup first, it won't resolve in the Raw HTML or Plain Text editor. Plain Handlebars merge tags (e.g. **&#123;&#123;name&#125;&#125;**) carry over fine either way.
+:::
 
 For more details, read our guide on [personalization with merge tags](/docs/email-personalization) and Handlebars.
 
@@ -180,6 +233,8 @@ For a detailed guide on using the **Transactional Email Statistics**, refer to t
 ## Data Feeds
 
 Data feeds allow you to automatically pull in live content from external sources directly into your transactional email. This is useful when your email needs to include up-to-date content (such as recommended articles, product highlights, or status info) without manually updating the template.
+
+Feeds work the same way regardless of which editor you built the email with, Visual Editor, Raw HTML, or Plain Text.
 
 ::: tip
 For a full guide on using feeds inside the template (loops, merge tags, dynamic images, required behavior), see the [Data Feeds documentation](/docs/projects/data-feeds).

@@ -41,6 +41,8 @@ faqs:
     answer: "BlueFox Email supports three email types: transactional emails (API-triggered, not tied to subscriber lists), triggered emails (API-triggered to active subscribers with per-recipient data overrides), and campaigns (scheduled or immediate sends to a subscriber list and optional segment)."
   - question: "Does BlueFox Email have a visual automation builder?"
     answer: "Yes. BlueFox Email includes a visual automation builder with nodes for triggers (contact added, contact updated, enter/leave segment), timers, audience filters, send email, notify, branching, set value, manage tags, and exit criteria."
+  - question: "Can I write my own HTML instead of using the visual editor?"
+    answer: "Yes. Every email, transactional, triggered, campaign, and automation, can be created with a Raw HTML editor, a Plain Text editor, or Copy & Paste, in addition to the drag-and-drop Visual Editor. Raw HTML and Plain Text always start from scratch or a copied design and don't support design system or pre-designed templates, but personalization, feeds, sending, and analytics all work the same."
   - question: "Can I bring my own AWS SES account?"
     answer: "Yes. BlueFox Email supports BYO AWS SES via Access Key or STS role. This gives you full deliverability control using your own AWS infrastructure while BlueFox Email handles the sending logic, templates, contacts, and automations."
   - question: "What integrations does BlueFox Email support?"

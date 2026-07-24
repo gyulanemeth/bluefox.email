@@ -10,6 +10,8 @@ faqs:
     answer: "Yes. Pre-designed templates are available to all projects and do not require a design system or email theme to be configured. They are a good starting point if you want to get started quickly."
   - question: "Can I edit a pre-designed template after selecting it?"
     answer: "Yes. Once you select a pre-designed template and launch the editor, you can modify every part of the email, content, layout, colors, and more, using the drag-and-drop email builder."
+  - question: "Are pre-designed templates available in the Raw HTML or Plain Text editor?"
+    answer: "No. Pre-designed templates, like design system templates, are only available when you start an email with the Visual Editor. Raw HTML and Plain Text emails always start from scratch or from a copied design."
 head:
   - - meta
     - name: description
@@ -51,7 +53,11 @@ Unlike [design system templates](/docs/email-themes/templates), which come from 
 
 ## Using Pre-designed Templates
 
-Pre-designed templates appear during the email creation flow, after you choose to start from a template. The option is available wherever you create an email, including transactional emails, triggered emails, campaigns, and automations.
+Pre-designed templates appear during the email creation flow, after you choose to start from a template with the **Visual Editor**. The option is available wherever you create an email, including transactional emails, triggered emails, campaigns, and automations.
+
+::: info
+Pre-designed templates are only available when starting with the Visual Editor. If you choose **Raw HTML** or **Plain Text** instead, the email always starts from scratch or from a copied design, there's no template selection step, and no pre-designed templates to choose from.
+:::
 
 In every case, select a template and click **Next** to continue setting up the email name, subject line, and preview text. The table below shows how to reach pre-designed templates in each flow and where to continue from afterward:
 
