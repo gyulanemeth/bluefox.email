@@ -276,7 +276,7 @@ export default defineConfig({
                   link: "/docs/projects/new-project",
                 },
                 {
-                  text: "Visual Email Builder",
+                  text: "Email Editors",
                   link: "/docs/projects/email-builder",
                 },
                 {

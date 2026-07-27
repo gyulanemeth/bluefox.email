@@ -60,17 +60,33 @@ You can find the campaigns of a project under the `Emails` tab.
 In order to create a new campaign, press the `Create` button.
 ![A screenshot of a project's campaigns - new button highlighted.](./project-campaigns-create-button.webp)
 
-You can either paste a copied campaign or start from scratch. You can also choose a template to start from.
+You'll be asked to choose one of four options:
+
+- **Visual Editor**: the drag-and-drop Chamaileon editor, with full access to your design system's blocks, components, and templates.
+- **Raw HTML**: write your own HTML directly.
+- **Plain Text**: a plain-text-only email, no HTML.
+- **Copy & Paste**: paste in a previously copied campaign. This works no matter which editor the original email was built with.
+
 ![A screenshot of a project's Campaign emails - Copy and Past or Create from Scratch options .](./project-campaign-emails-create-options.webp)
 
-After that (if starting from a template), you will have to select a template to start from:
+::: info
+Design system templates and [pre-designed templates](/docs/projects/predesigned-templates) are only available when starting with the Visual Editor. Emails built with Raw HTML or Plain Text also can't be saved back as a reusable [design system template](/docs/email-themes/templates). Everything else, personalization, feeds, sending, and analytics, works the same regardless of which editor you pick.
+:::
+
+::: tip
+If you use Copy & Paste to reuse content from a Chamaileon-built (Visual Editor) email inside a Raw HTML or Plain Text campaign, strip out any Chamaileon-specific merge tag or component markup first, it won't resolve there. Everything else should carry over as-is.
+:::
+
+### Visual Editor
+
+If you didn't start from a copied design, you will have to select a template to start from:
 
 ![A screenshot of a project's campaigns - create: template selection.](./project-campaign-create-select-category.webp)
 
-Here select a template from your project or from the [pre-designed templates](/docs/projects/predesigned-templates#campaigns):
+Here select a template from your project or from the [pre-designed templates](/docs/projects/predesigned-templates#using-pre-designed-templates):
 ![A screenshot of a project's campaigns - create: template selection.](./project-campaign-create-select-template-2.webp)
 
-Select a template and click "Next". Enter its name, subject line, preview text, select a subscriber list, and select a segment:
+Select a template and click "Next". Enter its name, subject line, preview text, select a subscriber list, and select a segment. You can also check **Exclude unengaged contacts** to skip contacts that match the unengaged segment defined in your [project settings](/docs/projects/settings):
 ![A screenshot of a project's campaigns - create: enter data.](./project-campaign-create-select-template.webp)
 
 ::: info This form will appear as first step if you choose to start from scratch.
@@ -82,6 +98,36 @@ After confirming everything (you can edit these later as well). Click "Launch Ed
 
 Finally, make changes in the drag 'n' drop email editor:
 ![A screenshot of a project's campaigns - create: edit.](./project-campaign-create-editor.webp)
+
+When you're done, click "Save & Close". You can make changes later as well.
+
+### Raw HTML / Plain Text
+
+These two editors always start from scratch, there's no template selection step.
+
+Enter its name, subject line, preview text, select a subscriber list, and select a segment. You can also check **Exclude unengaged contacts** to skip contacts that match the unengaged segment defined in your [project settings](/docs/projects/settings):
+
+![A screenshot of a project's campaigns - create: enter data.](./project-campaign-create-select-template-raw-html.webp)
+
+After that, click "Launch Editor".
+
+![A screenshot of a project's campaigns - create: summary.](./project-campaign-create-summary-raw-html.webp)
+
+Finally, make changes in the editor. Raw HTML and Plain Text share the same editor layout:
+
+- **Raw HTML**:
+
+  ![A screenshot of the Raw HTML editor toolbar and side panel.](./project-email-editor-html.webp)
+
+- **Plain Text**:
+
+  ![A screenshot of the Plain Text editor toolbar and side panel.](./project-email-editor-text.webp)
+
+The Raw HTML editor also has an **Import** button. Both editors give you **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](#data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
+
+You can also add [data feeds](#data-feeds) to Raw HTML and Plain Text campaigns the same way as any other campaign, from the **Feeds** section on the email card. The only difference is how you reference feed items inside the editor: through the merge tag side panel instead of a drag-and-drop Loop block.
+
+When you're done, click "Save & Close". You can make changes later as well.
 
 When you are done, you can schedule your campaign, or you can send it immediately:
 ![A screenshot of a campaign - schedule and send button highlighted.](./project-campaign-schedule.webp)
@@ -103,6 +149,8 @@ Since a campaigns is sent to a subscriber list, subscriber data, unsubscribe lin
 {{pauseSubscriptionLink}}
 ```
 
+### Visual Editor
+
 You can use any handlebars variables in your email while editing. Click on the edit icon on the card:
 ![A screenshot of a campaign card, edit button highlighted.](./project-campaign-edit-button.webp)
 
@@ -112,6 +160,14 @@ You can use these handlebars variables in your email, while editing:
 And you can use merge tags in the email's `subject line` and `preview text` as well!
 
 ![A screenshot of a campaign, with a merge tag being used in the subject and the preview text.](./project-campaign-edit-subject-merge-tag.webp)
+
+### Raw HTML / Plain Text
+
+Merge tags work the same way, but since this isn't the Chamaileon editor, there's no click-to-bind-a-field flow. Instead, open the **Merge Tags** panel from the editor toolbar, place your cursor where you want the value to appear, and select the tag to insert it there. This works the same way in the subject line and preview text fields.
+
+::: warning
+If you're reusing content from a Chamaileon-built (Visual Editor) campaign inside a Raw HTML or Plain Text campaign, remove any Chamaileon-specific merge tag or component markup first, it won't resolve in the Raw HTML or Plain Text editor. Plain Handlebars merge tags (e.g. **&#123;&#123;subscriber.name&#125;&#125;**) carry over fine either way.
+:::
 
 For more details, read our guide on [personalization with merge tags](/docs/email-personalization) and Handlebars.
 
@@ -179,6 +235,8 @@ For more information on how to use the **Campaign Email Statistics**, refer to t
 ## Data Feeds
 
 Data feeds allow you to automatically pull in live content from external sources directly into your campaign. This is especially useful for newsletters or digests where the content changes regularly — your campaign will always go out with the latest data without any manual updates.
+
+Feeds work the same way regardless of which editor you built the email with, Visual Editor, Raw HTML, or Plain Text.
 
 ::: tip
 For a full guide on using feeds inside the template (loops, merge tags, dynamic images, required behavior), see the [Data Feeds documentation](/docs/projects/data-feeds).

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: How to Send an Email in Node.js Using Amazon SES with Nodemailer
-description: Step-by-step guide on integrating Amazon SES with Nodemailer in Node.js to send emails efficiently.
+description: "Step-by-step guide to integrating Amazon SES with Nodemailer in Node.js: install dependencies, configure credentials, and send transactional emails reliably."
 thumbnail: /assets/articles/how-to-send-an-email-in-nodejs-using-amazon-ses-with-nodemailer-share.png
 category: tutorials
 tags: ['AWS SES', 'Nodemailer', 'Node.js']
