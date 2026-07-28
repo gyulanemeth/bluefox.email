@@ -126,6 +126,7 @@ export default defineConfig({
   cleanUrls: true,
   title: "BlueFox Email",
   description: "High deliverability & brand consistency.",
+  srcExclude: ['skills/**'],
   head: headConf,
   transformPageData(pageData) {
     if (pageData.frontmatter?.noindex === true) {
