@@ -496,6 +496,10 @@ If the automation has unpublished (draft) changes, a dialog opens asking how to 
 This dialog previously included a **Discard changes** option. It has been removed, use the dedicated **Discard changes** button instead (see below).
 :::
 
+:::warning
+When editing an automation, whether it's **active** or **paused**, deleting a node that currently has contacts on it will terminate those contacts from the automation. Always check the contact count on a node before removing it.
+:::
+
 ## Discarding Unpublished Changes
 
 When a paused (or draft) automation has unpublished changes, a **Discard changes** button appears next to the **Start** button on the automation details page. Hovering over it shows a tooltip explaining there are unpublished changes and that clicking will discard them, reverting the automation to its last published version.
