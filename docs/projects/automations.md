@@ -12,6 +12,8 @@ faqs:
     answer: "The Audience Filter node checks a single condition and either allows the contact to continue down the automation or stops it for that contact entirely. The Branching node splits the automation into multiple conditional paths and routes each contact down the first path whose condition is met, allowing different outcomes within the same flow."
   - question: "What are Exit Criteria in automations?"
     answer: "Exit Criteria let you define conditions that cause a contact to leave an automation early, before reaching the Complete node. You can exit contacts based on a contact property value, segment membership, or email activity such as opened or clicked. This is useful for stopping contacts from receiving further emails once they have taken a desired action."
+  - question: "What happens to contacts when I pause an automation?"
+    answer: "Contacts currently in the automation are paused at their current step, not removed or restarted. They stay there until the automation is reactivated, at which point they resume from that same step and continue through the rest of the sequence."
 head:
   - - meta
     - name: description
@@ -464,6 +466,47 @@ While an automation is running, you can see exact number of contacts currently i
 When you click on that circle, you can see the list of contacts currently running in that node. You can select which contacts you want to remove at once using the checkboxes and delete them all together by clicking 'Remove Selected' button .
 
 ![Automation start btn Icon](./project-automation-node-contact-list-multi-delete-button.webp)
+
+## Pausing an Automation
+
+To pause a running automation, click the **Pause** button, available from both the automation list and the automation details page.
+
+![Automation pause button Icon](./project-automation-pause-btn.webp)
+
+A confirmation dialog explains that any contacts currently in the automation will be paused at their current step, and will resume from that same step once the automation is reactivated.
+
+![Automation pause confirmation dialog Icon](./project-automation-pause-confirm-dialog.webp)
+
+Contacts do not exit or restart the automation when it's paused, they hold at whatever node they were on until the automation is started again.
+
+
+## Resuming a Paused Automation
+
+Click **Start** to resume a paused automation.
+
+If the automation has unpublished (draft) changes, a dialog opens asking how to apply them:
+
+- **Apply to upcoming only**: New contacts entering the automation use the updated version. In-progress contacts continue on the old version.
+- **Apply to upcoming and in-progress**: Both new and already in-progress contacts get the updated version.
+- **Cancel**: Closes the dialog without publishing or discarding anything. The automation stays paused and the draft stays intact.
+
+![Automation resume dialog with unpublished changes Icon](./project-automation-resume-dialog.webp)
+
+::: info Note
+This dialog previously included a **Discard changes** option. It has been removed, use the dedicated **Discard changes** button instead (see below).
+:::
+
+:::warning
+When editing an automation, whether it's **active** or **paused**, deleting a node that currently has contacts on it will terminate those contacts from the automation. Always check the contact count on a node before removing it.
+:::
+
+## Discarding Unpublished Changes
+
+When a paused (or draft) automation has unpublished changes, a **Discard changes** button appears next to the **Start** button on the automation details page. Hovering over it shows a tooltip explaining there are unpublished changes and that clicking will discard them, reverting the automation to its last published version.
+
+![Automation discard changes button and tooltip Icon](./project-automation-discard-changes-btn.webp)
+
+This is separate from the banner shown for **active** automations with pending changes (**Apply to upcoming** / **Apply to upcoming and in-progress** / **Discard changes**), which is unchanged, see [Updating running automations](#updating-running-automations).
 
 ## Updating running automations
 
