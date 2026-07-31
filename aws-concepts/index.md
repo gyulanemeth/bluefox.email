@@ -1,6 +1,6 @@
 ---
 title: AWS Concepts
-description: Learn about AWS concepts (A-Z) focusing on technologies related to email sending.
+description: Learn about AWS concepts from A to Z, focusing on the technologies, services, and terminology behind reliable, scalable, and cost-effective email sending.
 thumbnail: /assets/glossary/aws-concepts-glossary.png
 
 sidebar: false

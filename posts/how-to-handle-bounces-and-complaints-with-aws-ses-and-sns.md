@@ -1,7 +1,7 @@
 ---
 layout: post
 title: How to Handle Bounces and Complaints with AWS SES and SNS
-description: Step-by-step guide to handling bounces and complaints in AWS SES using SNS and webhooks.
+description: Step-by-step guide to handling bounces and complaints in AWS SES using SNS and webhooks, so you can protect your sender reputation and keep deliverability high.
 thumbnail: /assets/articles/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns-share.png
 category: tutorials
 tags: ['AWS SES']

@@ -12,6 +12,8 @@ faqs:
     answer: "The Audience Filter node checks a single condition and either allows the contact to continue down the automation or stops it for that contact entirely. The Branching node splits the automation into multiple conditional paths and routes each contact down the first path whose condition is met, allowing different outcomes within the same flow."
   - question: "What are Exit Criteria in automations?"
     answer: "Exit Criteria let you define conditions that cause a contact to leave an automation early, before reaching the Complete node. You can exit contacts based on a contact property value, segment membership, or email activity such as opened or clicked. This is useful for stopping contacts from receiving further emails once they have taken a desired action."
+  - question: "What happens to contacts when I pause an automation?"
+    answer: "Contacts currently in the automation are paused at their current step, not removed or restarted. They stay there until the automation is reactivated, at which point they resume from that same step and continue through the rest of the sequence."
 head:
   - - meta
     - name: description
@@ -204,11 +206,28 @@ If the contact is in the selected segment, the automation continues to the next 
 
 The **Send Email Node** allows you to configure and send an email to the contact.
 
-Inside the email node, you can:
-- Click **Create Email** to start from scratch, reuse an existing design, or pick a [pre-designed template](/docs/projects/predesigned-templates).
-- Add:
-  - **Subject**
-  - **Preview Text**
+Inside the email node, click **Create Email**. You'll be asked to choose one of four options:
+
+![A screenshot of the email editor selection step when creating an email in a Notify node.](./project-automation-node-notify-create-select-editor.webp)
+
+- **Visual Editor**: the drag-and-drop Chamaileon editor, with full access to your design system's blocks, components, and templates.
+- **Raw HTML**: write your own HTML directly.
+- **Plain Text**: a plain-text-only email, no HTML.
+- **Copy & Paste**: paste in a previously copied email design. This works no matter which editor the original email was built with.
+
+::: info
+Design system templates and [pre-designed templates](/docs/projects/predesigned-templates) are only available when starting with the Visual Editor. Emails built with Raw HTML or Plain Text also can't be saved back as a reusable [design system template](/docs/email-themes/templates). Everything else, personalization, feeds, sending, and analytics, works the same regardless of which editor you pick.
+:::
+
+::: tip
+If you use Copy & Paste to reuse content from a Chamaileon-built (Visual Editor) email inside a Raw HTML or Plain Text email, strip out any Chamaileon-specific merge tag or component markup first, it won't resolve there. Everything else should carry over as-is.
+:::
+
+You'll also be asked to add:
+- **Subject**
+- **Preview Text**
+
+### Visual Editor
 
 To start from a [pre-designed template](/docs/projects/predesigned-templates):
 
@@ -217,6 +236,20 @@ To start from a [pre-designed template](/docs/projects/predesigned-templates):
 3. Select a template and click **Open Editor** to continue.
 
 ![A screenshot of the pre-designed template selection step when creating an email in a Send Email node.](./project-automation-node-notify-create-select-predesigned.webp)
+
+### Raw HTML / Plain Text
+
+These two editors always start from scratch, there's no template selection step. Once you click **Open Editor**, you get the same code/text editor used everywhere else in bluefox.email. The Raw HTML editor also has an **Import** button. Both editors give you **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](/docs/projects/data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
+
+- **Raw HTML**:
+
+  ![A screenshot of the Raw HTML editor toolbar and side panel.](./project-email-editor-html.webp)
+
+- **Plain Text**:
+
+  ![A screenshot of the Plain Text editor toolbar and side panel.](./project-email-editor-text.webp)
+
+You can also add [data feeds](/docs/projects/data-feeds) to a Send Email node's Raw HTML or Plain Text email the same way as any other email, from the **Feeds** section on the email card. The only difference is how you reference feed items inside the editor: through the merge tag side panel instead of a drag-and-drop Loop block.
 
 ![Automation node send card Icon](./project-automation-node-send-card.webp)
 Under the email node, you’ll also see delivery stats:
@@ -241,7 +274,7 @@ You can edit the email at any time **while the automation is in draft mode**.
 ::: info Note
 You can access the **Advanced Settings** feature that allows you to customize key email-sending options by clicking the gear icon
 
-For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/settings#advanced-settings).
+For a detailed guide on using the **Advanced Settings**, refer to the [Advanced Settings Documentation](/docs/projects/transactional-emails#advanced-settings).
 :::
 
 
@@ -249,13 +282,30 @@ For a detailed guide on using the **Advanced Settings**, refer to the [Advanced 
 
 The **Notify Node** allows you to send a notification email to a specific set of audience as a subscriber list or to specific email addresses from the list when a particular action occurs in the automation. This is useful for alerting your team, admins, or any designated group about key events such as when a contact signs up, reaches a specific step, or meets certain criteria.
 
-Inside the notify node, you can:
-- Click **Create Email** to start from scratch, reuse an existing design, or pick a [pre-designed template](/docs/projects/predesigned-templates).
-- Add:
-  - **Subject**
-  - **Preview Text**
-  - **From Address**
-  - **Reply-To Address**
+Inside the notify node, click **Create Email**. You'll be asked to choose one of four options:
+
+![A screenshot of the email editor selection step when creating an email in a Notify node.](./project-automation-node-notify-create-select-editor.webp)
+
+- **Visual Editor**: the drag-and-drop Chamaileon editor, with full access to your design system's blocks, components, and templates.
+- **Raw HTML**: write your own HTML directly.
+- **Plain Text**: a plain-text-only email, no HTML.
+- **Copy & Paste**: paste in a previously copied email design. This works no matter which editor the original email was built with.
+
+::: info
+Design system templates and [pre-designed templates](/docs/projects/predesigned-templates) are only available when starting with the Visual Editor. Emails built with Raw HTML or Plain Text also can't be saved back as a reusable [design system template](/docs/email-themes/templates). Everything else, personalization, feeds, sending, and analytics, works the same regardless of which editor you pick.
+:::
+
+::: tip
+If you use Copy & Paste to reuse content from a Chamaileon-built (Visual Editor) email inside a Raw HTML or Plain Text email, strip out any Chamaileon-specific merge tag or component markup first, it won't resolve there. Everything else should carry over as-is.
+:::
+
+You'll also be asked to add:
+- **Subject**
+- **Preview Text**
+- **From Address**
+- **Reply-To Address**
+
+### Visual Editor
 
 To start from a [pre-designed template](/docs/projects/predesigned-templates):
 
@@ -264,6 +314,20 @@ To start from a [pre-designed template](/docs/projects/predesigned-templates):
 3. Select a template and click **Open Editor** to continue.
 
 ![A screenshot of the pre-designed template selection step when creating an email in a Notify node.](./project-automation-node-notify-create-select-predesigned.webp)
+
+### Raw HTML / Plain Text
+
+These two editors always start from scratch, there's no template selection step. Once you click **Open Editor**, you get the same code/text editor used everywhere else in bluefox.email. The Raw HTML editor also has an **Import** button. Both editors give you **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](/docs/projects/data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
+
+- **Raw HTML**:
+
+  ![A screenshot of the Raw HTML editor toolbar and side panel.](./project-email-editor-html.webp)
+
+- **Plain Text**:
+
+  ![A screenshot of the Plain Text editor toolbar and side panel.](./project-email-editor-text.webp)
+
+You can also add [data feeds](/docs/projects/data-feeds) to a Notify node's Raw HTML or Plain Text email the same way as any other email, from the **Feeds** section on the email card. The only difference is how you reference feed items inside the editor: through the merge tag side panel instead of a drag-and-drop Loop block.
 
 ![Automation node notify card Icon](./project-automation-node-notify-card.webp)
 
@@ -402,6 +466,47 @@ While an automation is running, you can see exact number of contacts currently i
 When you click on that circle, you can see the list of contacts currently running in that node. You can select which contacts you want to remove at once using the checkboxes and delete them all together by clicking 'Remove Selected' button .
 
 ![Automation start btn Icon](./project-automation-node-contact-list-multi-delete-button.webp)
+
+## Pausing an Automation
+
+To pause a running automation, click the **Pause** button, available from both the automation list and the automation details page.
+
+![Automation pause button Icon](./project-automation-pause-btn.webp)
+
+A confirmation dialog explains that any contacts currently in the automation will be paused at their current step, and will resume from that same step once the automation is reactivated.
+
+![Automation pause confirmation dialog Icon](./project-automation-pause-confirm-dialog.webp)
+
+Contacts do not exit or restart the automation when it's paused, they hold at whatever node they were on until the automation is started again.
+
+
+## Resuming a Paused Automation
+
+Click **Start** to resume a paused automation.
+
+If the automation has unpublished (draft) changes, a dialog opens asking how to apply them:
+
+- **Apply to upcoming only**: New contacts entering the automation use the updated version. In-progress contacts continue on the old version.
+- **Apply to upcoming and in-progress**: Both new and already in-progress contacts get the updated version.
+- **Cancel**: Closes the dialog without publishing or discarding anything. The automation stays paused and the draft stays intact.
+
+![Automation resume dialog with unpublished changes Icon](./project-automation-resume-dialog.webp)
+
+::: info Note
+This dialog previously included a **Discard changes** option. It has been removed, use the dedicated **Discard changes** button instead (see below).
+:::
+
+:::warning
+When editing an automation, whether it's **active** or **paused**, deleting a node that currently has contacts on it will terminate those contacts from the automation. Always check the contact count on a node before removing it.
+:::
+
+## Discarding Unpublished Changes
+
+When a paused (or draft) automation has unpublished changes, a **Discard changes** button appears next to the **Start** button on the automation details page. Hovering over it shows a tooltip explaining there are unpublished changes and that clicking will discard them, reverting the automation to its last published version.
+
+![Automation discard changes button and tooltip Icon](./project-automation-discard-changes-btn.webp)
+
+This is separate from the banner shown for **active** automations with pending changes (**Apply to upcoming** / **Apply to upcoming and in-progress** / **Discard changes**), which is unchanged, see [Updating running automations](#updating-running-automations).
 
 ## Updating running automations
 

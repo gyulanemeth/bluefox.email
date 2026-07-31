@@ -101,10 +101,16 @@ const categories = [
     name: 'Design',
     features: [
       {
-        name: 'Visual Email Builder',
+        name: 'Visual Editor',
         desc: 'Drag-and-drop editor with text, image, button, divider, dynamic image, conditional, and loop elements.',
-        docs: '/docs/projects/email-builder',
+        docs: '/docs/projects/email-builder#visual-editor',
         iconPaths: `<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>`
+      },
+      {
+        name: 'Raw HTML & Plain Text Editors',
+        desc: 'Write your own HTML or plain text instead of the visual builder, with the same merge tags, feeds, and sending.',
+        docs: '/docs/projects/email-builder#raw-html',
+        iconPaths: `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9.5 13l-1.5 2 1.5 2"/><path d="M14.5 13l1.5 2-1.5 2"/>`
       },
       {
         name: 'Email Themes',
@@ -285,6 +291,7 @@ const faqs = [
   { q: 'Does BlueFox Email include all features on every plan?', a: 'Yes. Every feature is included on every send pack with no tiers or paywalls. Transactional emails, campaigns, automations, segments, email themes, API, webhooks, and more are all available from day one.' },
   { q: 'What email types does BlueFox Email support?', a: 'BlueFox Email supports three email types: transactional emails (API-triggered, not tied to subscriber lists), triggered emails (API-triggered to active subscribers with per-recipient data overrides), and campaigns (scheduled or immediate sends to a subscriber list and optional segment).' },
   { q: 'Does BlueFox Email have a visual automation builder?', a: 'Yes. BlueFox Email includes a visual automation builder with nodes for triggers (contact added, contact updated, enter/leave segment), timers, audience filters, send email, notify, branching, set value, manage tags, and exit criteria.' },
+  { q: 'Can I write my own HTML instead of using the visual editor?', a: 'Yes. Every email, transactional, triggered, campaign, and automation, can be created with a Raw HTML editor, a Plain Text editor, or Copy & Paste, in addition to the drag-and-drop Visual Editor. Raw HTML and Plain Text always start from scratch or a copied design and don\'t support design system or pre-designed templates, but personalization, feeds, sending, and analytics all work the same.' },
   { q: 'Can I bring my own AWS SES account?', a: 'Yes. BlueFox Email supports BYO AWS SES via Access Key or STS role. This gives you full deliverability control using your own AWS infrastructure while BlueFox Email handles the sending logic, templates, contacts, and automations.' },
   { q: 'What integrations does BlueFox Email support?', a: 'BlueFox Email integrates with Zapier (6 triggers and 8 actions), supports webhooks for real-time event notifications, Supabase auth emails via SMTP, and provides a full HTTP API for custom integrations.' },
   { q: 'Does BlueFox Email have a free plan?', a: 'BlueFox Email includes 3,000 free sends with no credit card required. There is no monthly subscription, you buy send packs as needed, valid for 12 months. The Essential pack is $50 for 50,000 sends.' },

@@ -45,11 +45,11 @@ head:
 
 # Triggered Emails
 
-Triggered emails are similar to transactional emails because they are also triggered from your backend (or a cron job). However, they are different because they are tied to a subscriber list. You can send triggered emails to the entire list or to specific email addresses. The emails will only be sent to the `active` subscribers on that list. If someone has unsubscribed, paused their subscription, or is not on the list, the email won't be sent.
+Just like transactional emails, triggered emails can be sent from your backend (or a cron job) whenever your application decides to send one. The difference is that triggered emails are tied to a subscriber list, and recipients can `unsubscribe` or `pause their subscription`. You can send a triggered email to an entire list or to specific email addresses, but it will only be delivered to the `active` subscribers on that list. If someone has unsubscribed, paused their subscription, or is not on the list, the email won't be sent.
 
-For example, event notifications or weekly digest emails should be implemented using triggered emails. Users can `unsubscribe` from these emails or `pause their subscription`, which might significantly reduce unsubscribe rates. This is why an unsubscribe link is required in these emails. A pause subscription link is not required but is recommended.
+For example, use a triggered email for an event notification, such as alerting a user when something happens in your app, or for a recurring digest, such as a weekly summary sent to every member of a SaaS workspace. Because recipients can unsubscribe or pause their subscription, triggered emails work well for messages that are useful but not essential. This is why an unsubscribe link is required in these emails. A pause subscription link is not required but is recommended.
 
-If you want to create email automations, use triggered emails. For instance, you can implement onboarding sequences: a user signs up, you send a welcome email, a day later, a link to a tutorial, and three days later, another one. You can also send emails based on user behavior, such as sending a targeted email if a user hasn't completed an important action in your app.
+If you need a multi-step sequence with delays or conditional branching, such as an onboarding series or a behavior-based follow-up, use an [automation](/docs/projects/automations) instead. Automations are built specifically for that, with dedicated triggers, timers, and conditional logic.
 
 You can find the triggered emails of a project by clicking on `Triggered Emails` tab in side-bar menu.
 
@@ -61,27 +61,42 @@ To create a new triggered email, press the `Create` button.
 
 ![A screenshot of a project's triggered emails - new button highlighted.](./project-triggered-emails-create-button.webp)
 
-You can either paste a copied design, choose a template from your design system, or start from scratch.
+You'll be asked to choose one of four options:
+
+- **Visual Editor**: the drag-and-drop Chamaileon editor, with full access to your design system's blocks, components, and templates.
+- **Raw HTML**: write your own HTML directly.
+- **Plain Text**: a plain-text-only email, no HTML.
+- **Copy & Paste**: paste in a previously copied email design. This works no matter which editor the original email was built with.
+
 ![A screenshot of a project's triggered emails - Copy and Past or Create from Scratch options .](./project-triggered-emails-create-options.webp)
 
-Next (if starting from template), select a template category defined in your project's design system:
+::: info
+Design system templates and [pre-designed templates](/docs/projects/predesigned-templates) are only available when starting with the Visual Editor. Emails built with Raw HTML or Plain Text also can't be saved back as a reusable [design system template](/docs/email-themes/templates). Everything else, personalization, feeds, sending, and analytics, works the same regardless of which editor you pick.
+:::
+
+::: tip
+If you use Copy & Paste to reuse content from a Chamaileon-built (Visual Editor) email inside a Raw HTML or Plain Text email, strip out any Chamaileon-specific merge tag or component markup first, it won't resolve there. Everything else should carry over as-is.
+:::
+
+### Visual Editor
+
+If you didn't start from a copied design, select a template category defined in your project's design system:
 
 ![A screenshot of a project's triggered emails - create: template category selection.](./project-triggered-emails-create-select-category.webp)
 
-You can also choose a [pre-designed template](/docs/projects/predesigned-templates#triggered-emails):
+You can also choose a [pre-designed template](/docs/projects/predesigned-templates#using-pre-designed-templates):
 ![A screenshot of a project's triggered emails - create: template selection.](./project-triggered-emails-create-select-predesigned.webp)
 
 Then, choose a template to start with (also defined in your project's design system) and click Next:
 
 ![A screenshot of a project's triggered emails - create: template selection.](./project-triggered-emails-create-select-template.webp)
 
-Enter its name, subject line, preview text, and select a subscriber list:
+Enter its name, subject line, preview text, and select a subscriber list. You can also check **Exclude unengaged contacts** to skip contacts that match the unengaged segment defined in your [project settings](/docs/projects/settings):
 
 ![A screenshot of a project's triggered emails - create: enter data.](./project-triggered-emails-create-subject.webp)
 
 ::: info This form will appear as first step if you choose to start from scratch.
 :::
-
 
 ::: info 
 Triggered emails are only sent to active subscribers in the selected list. If you provide an array of emails when sending the triggered email, only those emails that are in the list (and active) will receive the email.
@@ -94,6 +109,38 @@ After that, you will see a summary page. Click "Launch Editor".
 Finally, make changes in the drag-and-drop email editor:
 
 ![A screenshot of a project's triggered emails - create: edit.](./project-triggered-emails-create-editor.webp)
+
+When you're done, click "Save & Close". You can make changes later as well.
+
+### Raw HTML / Plain Text
+
+These two editors always start from scratch, there's no template selection step.
+
+Enter its name, subject line, preview text, and select a subscriber list. You can also check **Exclude unengaged contacts** to skip contacts that match the unengaged segment defined in your [project settings](/docs/projects/settings):
+
+![A screenshot of a project's triggered emails - create: enter data.](./project-triggered-emails-create-subject-raw-html.webp)
+
+::: info 
+Triggered emails are only sent to active subscribers in the selected list. If you provide an array of emails when sending the triggered email, only those emails that are in the list (and active) will receive the email.
+:::
+
+After that, click "Launch Editor".
+
+![A screenshot of a project's triggered emails - create: summary.](./project-triggered-emails-create-summary-raw-html.webp)
+
+Finally, make changes in the editor:
+
+- **Raw HTML**:
+
+  ![A screenshot of the Raw HTML editor toolbar and side panel.](./project-email-editor-html.webp)
+
+- **Plain Text**:
+
+  ![A screenshot of the Plain Text editor toolbar and side panel.](./project-email-editor-text.webp)
+
+The Raw HTML editor also has an **Import** button. Both editors give you **Merge Tags**, **Preview** (including **Preview with data**), **Save**, and **Save & Close** controls. Merge tags and [feed](#data-feeds) variables are inserted via a side panel at your cursor position, rather than bound to a selected element like in the Visual Editor.
+
+You can also add [data feeds](#data-feeds) to Raw HTML and Plain Text emails the same way as any other triggered email, from the **Feeds** section on the email card. The only difference is how you reference feed items inside the editor: through the merge tag side panel instead of a drag-and-drop Loop block.
 
 When you're done, click "Save & Close". You can make changes later as well.
 
@@ -178,6 +225,8 @@ Since triggered emails are sent to a subscriber list, subscriber data, an unsubs
 {{pauseSubscriptionLink}}
 ```
 
+#### Visual Editor
+
 You can use any Handlebars variables in your email while editing. To do this, click on the edit icon on the card:
 
 ![A screenshot of a triggered email card, edit button highlighted.](./project-triggered-emails-edit-button.webp)
@@ -189,6 +238,14 @@ Enter your variables using Handlebars syntax:
 You can also use merge tags in the email's `subject line` and `preview text`!
 
 ![A screenshot of a triggered email, with a merge tag being used in the subject and the preview text.](./project-triggered-emails-edit-subject-merge-tag.webp)
+
+#### Raw HTML / Plain Text
+
+Merge tags work the same way, but since this isn't the Chamaileon editor, there's no click-to-bind-a-field flow. Instead, open the **Merge Tags** panel from the editor toolbar, place your cursor where you want the value to appear, and select the tag to insert it there. This works the same way in the subject line and preview text fields.
+
+::: warning
+If you're reusing content from a Chamaileon-built (Visual Editor) email inside a Raw HTML or Plain Text email, remove any Chamaileon-specific merge tag or component markup first, it won't resolve in the Raw HTML or Plain Text editor. Plain Handlebars merge tags (e.g. **&#123;&#123;subscriber.name&#125;&#125;**) carry over fine either way.
+:::
 
 For more details on how to personalize your emails with merge tags and Handlebars, check out our [personalization guide](/docs/email-personalization).
 
@@ -237,6 +294,8 @@ For more information on using the **Triggered Email Statistics**, refer to the [
 ## Data Feeds
 
 Data feeds allow you to automatically pull in live content from external sources directly into your triggered email. This is useful for digests, weekly summaries, or any email where the content should reflect the latest data at send time without manual updates.
+
+Feeds work the same way regardless of which editor you built the email with, Visual Editor, Raw HTML, or Plain Text.
 
 ::: tip
 For a full guide on using feeds inside the template (loops, merge tags, dynamic images, required behavior), see the [Data Feeds documentation](/docs/projects/data-feeds).

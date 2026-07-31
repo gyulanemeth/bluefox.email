@@ -1,7 +1,7 @@
 ---
 layout: home
 title: Pricing
-description: Don't overpay for contact-based subscriptions ever again. Only pay for the emails you send!
+description: Don't overpay for contact-based subscriptions ever again. BlueFox Email pricing is simple and usage-based, so you only pay for the emails you actually send.
 ---
 
 <script setup>
