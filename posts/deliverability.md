@@ -344,7 +344,8 @@ This includes:
 * selecting AWS regions;
 * handling AWS account or enforcement issues;
 * deciding whether dedicated IP infrastructure is appropriate;
-* maintaining the necessary SES configuration.
+* maintaining the necessary SES configuration;
+* setting up AWS SNS so bounce and complaint notifications are reported back to BlueFox (a CloudFormation script is provided to automate this).
 
 BYO Amazon SES is not automatically a deliverability upgrade.
 
@@ -373,6 +374,21 @@ Promises such as “100% inbox placement” should therefore be treated with cau
 
 The objective is not to find a platform that can bypass filtering. It is to establish a legitimate technical identity, send emails people expect and consistently generate positive recipient signals.
 
+## Get independent visibility with Gmail Postmaster Tools
+
+BlueFox Email and Amazon SES can tell you whether a message bounced or generated a complaint through the sending platform itself. What they cannot see is how Gmail privately scores your domain, or how many recipients hit "Report spam."
+
+This matters more for Gmail than for most mailbox providers. Many ISPs run a traditional feedback loop (FBL) that reports individual spam complaints back to the sender in something close to real time. Gmail does not work this way. It has a feedback loop of sorts, but it only shares aggregate spam-rate percentages, only for identifiers with enough volume, only for `@gmail.com` recipients, and only once you have verified your domain in Postmaster Tools, signed with DKIM and published SPF with valid PTR records for your sending IPs. There is no per-recipient complaint data, and for a lot of senders sending below Gmail's volume threshold, there is no complaint feedback from Gmail at all.
+
+[Gmail Postmaster Tools](https://postmaster.google.com) is the practical way to close that gap. Once you verify your sending domain, it reports data directly from Gmail, including:
+
+* domain and IP reputation;
+* spam rate, as seen by Gmail rather than inferred from complaints;
+* authentication status for SPF, DKIM and DMARC;
+* encryption and delivery error trends.
+
+This is optional, and it does not change how BlueFox Email sends your email. Its value is that it gives you independent, third-party confirmation of what a major mailbox provider actually thinks of your sending, rather than relying solely on the bounce and complaint data your platform reports back to you. If a large share of your audience is on Gmail, it is worth the few minutes it takes to set up.
+
 ## A practical deliverability checklist
 
 Before increasing your sending volume, check that you are doing the following:
@@ -397,7 +413,7 @@ These practices cannot guarantee inbox placement, but they create the conditions
 
 BlueFox provides the technical tools and safeguards needed for responsible email sending.
 
-We process and queue messages, handle bounces and complaints, maintain suppression information, support unsubscribe mechanisms and help you authenticate your sending identities.
+We process and queue messages, handle bounces and complaints, maintain suppression information, support unsubscribe mechanisms and help you authenticate your sending identities. Signup forms can also require double opt-in and bot protection (CAPTCHA/Turnstile), so lists start with confirmed, human subscribers rather than bot traffic or typos.
 
 The sender determines who receives the emails, why they receive them and whether the content meets their expectations.
 
