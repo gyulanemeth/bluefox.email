@@ -319,6 +319,10 @@ Managed infrastructure does not mean that every customer automatically receives 
 
 Mailbox providers can evaluate the sending domain, content and recipient response in addition to the underlying infrastructure. A sender who generates complaints or sends to poor-quality lists can still develop deliverability problems.
 
+::: warning
+To keep production access on BlueFox-managed infrastructure, you need to keep your bounce rate below **2.5%** and your complaint rate below **0.05%**. BlueFox monitors both continuously and alerts you if you are approaching these thresholds.
+:::
+
 ### Bringing your own Amazon SES account
 
 With BYO Amazon SES, BlueFox connects to an SES account that you own and manage.
