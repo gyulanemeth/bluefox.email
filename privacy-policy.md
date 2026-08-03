@@ -7,7 +7,7 @@ description: How BlueFox Email collects, uses, and protects your personal data. 
 
 # Privacy Policy
 
-_Last Updated: Oct. 17, 2024_
+_Last Updated: Jul. 30, 2026_
 
 ## 1. Introduction
 
@@ -17,13 +17,15 @@ Welcome to **bluefox.email**! We value your privacy and are committed to protect
 
 We collect the following information when you sign up or use our services:
 
-- **Personal Information**: When you sign up using your email address or through identity providers like Google (and later GitHub, Microsoft), we collect your name and email address.
-  
-- **AWS SES Credentials**: To enable email sending via bluefox.email, you must provide your AWS SES credentials, including the Access Key ID and Secret Access Key. These credentials are encrypted in our database and are never shared or accessed by unauthorized parties.
+- **Personal Information**: When you sign up using your email address or through an identity provider like Google, we collect your name and email address.
+
+- **AWS SES Credentials (Optional)**: BlueFox Email includes its own managed sending infrastructure, so connecting AWS SES is not required. If you choose to connect your own AWS SES account (BYO SES), we collect your AWS Access Key ID and Secret Access Key, or an AWS STS Role ARN if you use temporary credentials. These credentials are encrypted in our database and are never shared or accessed by unauthorized parties.
 
 - **Email Lists**: If you create email lists on our platform, we collect and store the email addresses and names of your subscribers. This data is tied to campaigns and triggered emails. Subscribers can unsubscribe or pause their subscriptions at any time.
 
 - **Email Interaction Data**: We track and store data related to emails sent through our platform, including clicks, opens, bounces, and complaints. This data helps us provide insights into email performance and ensure the proper functioning of our service.
+
+- **Webhook Configuration**: If you set up webhooks, we generate and store a secret API key used to authenticate webhook requests. This key is sent as a Bearer token in the `Authorization` header of each webhook request to your endpoint.
 
 - **Automatic Data**: We collect information automatically when you interact with our platform, including IP addresses, device information, and usage data.
 
@@ -35,7 +37,7 @@ We use your personal data for the following purposes:
 - To send you notifications and updates about new features, product enhancements, company news, and performance reports.
 - To store and manage your email lists, and send campaigns and triggered emails to your subscribers.
 - To track clicks, opens, bounces, and complaints of emails sent through our platform.
-- To ensure the security of your AWS SES credentials.
+- To ensure the security of any AWS SES credentials and webhook secret keys you configure.
 - To provide tailored support and tips.
 
 ## 4. Communication Preferences
@@ -52,7 +54,7 @@ You can manage your preferences or unsubscribe from these lists at any time via 
 
 ## 5. Data Security
 
-We prioritize the security of your data. Your AWS SES credentials are encrypted, and we take steps to prevent unauthorized access to any personal data. Even in the event of a data breach, your credentials are secure.
+We prioritize the security of your data. Any AWS SES credentials and webhook secret keys you configure are encrypted, and we take steps to prevent unauthorized access to any personal data. Even in the event of a data breach, your credentials are secure.
 
 ## 6. Data Retention
 
@@ -60,7 +62,7 @@ We will retain your data for as long as necessary to provide our services or as 
 
 ## 7. GDPR Compliance
 
-If you are located in the European Economic Area (EEA), you have certain data protection rights, including:
+BlueFox Email is GDPR compliant. If you are located in the European Economic Area (EEA), you have certain data protection rights, including:
 
 - Access to the personal data we hold about you.
 - Correction of inaccurate data.
@@ -68,7 +70,7 @@ If you are located in the European Economic Area (EEA), you have certain data pr
 - Restriction of the processing of your personal data.
 - Portability of your personal data.
 
-To exercise these rights, please contact us at gyula.nemeth85@gmail.com.
+To exercise these rights, please contact us at hello@bluefox.email.
 
 ## 8. Changes to This Policy
 
@@ -76,4 +78,4 @@ We may update this privacy policy from time to time. Any changes will be posted 
 
 ## 9. Contact Us
 
-If you have any questions about this privacy policy, please contact us at gyula.nemeth85@gmail.com.
+If you have any questions about this privacy policy, please contact us at hello@bluefox.email.
