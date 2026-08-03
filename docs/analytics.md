@@ -43,21 +43,71 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Analytics
+# Statistics
 
-The Analytics section in your application provides a comprehensive analysis of email performance, subscription trends, and user engagement metrics. It is designed to cater to multiple scopes, such as [**account**](/docs/dashboard#key-metrics-in-the-account-dashboard), [**project**](/docs/projects/dashboard), [**transactional emails**](/docs/projects/transactional-emails#transactional-email-statistics), [**triggered emails**](/docs/projects/triggered-emails#triggered-email-statistics), [**campaigns**](/docs/projects/campaigns#campaign-email-statistics) and [**subscriber lists**](/docs/projects/contacts#list-statistics). Each type of statistic is presented with clear visuals, detailed filters, and actionable insights.
+The Statistics section in your application provides a comprehensive analysis of email performance, subscription trends, and user engagement metrics. It is designed to cater to multiple scopes, such as [**account**](/docs/dashboard#key-metrics-in-the-account-dashboard), [**project**](/docs/projects/dashboard), [**transactional emails**](/docs/projects/transactional-emails#transactional-email-statistics), [**triggered emails**](/docs/projects/triggered-emails#triggered-email-statistics), [**automations**](/docs/projects/automations#automation-stats), [**campaigns**](/docs/projects/campaigns#campaign-email-statistics) and [**subscriber lists**](/docs/projects/contacts#list-statistics). Each type of statistic is presented with clear visuals, detailed filters, and actionable insights.
 
-## Email Card Analytics
+## Overview
 
-We provide the following analytics for all of our email types (transactional emails, triggered emails, and campaigns): sends, opens, clicks, [bounces](/email-sending-concepts/bounces), and [complaints](/email-sending-concepts/complaints).
+The Statistics page has two tabs: **Email Sending Trends** and **Subscription Trends**.
 
-You can view these analytics on the email cards, located right above the action buttons for each email type:
+![Statistics page overview](./statistics-overview-tabs.webp)
 
-![Analytics section on email cards](./analytics-card.webp)
+Both tabs default to a **daily** time interval. You can switch to **hourly**, **weekly**, or **monthly** using the time interval switcher above the chart.
 
-By default, these numbers reflect stats from the current week. If you want to change the time period, select from the options highlighted in the screenshot below: current week, previous week, current month, previous month, last 3 months, or overall.
+![Time interval switcher](./statistics-overview-time-interval.webp)
 
-![Analytics time filter.](./analytics-time.webp)
+You can also switch the chart view between **line chart** and **bar chart** using the chart type toggle button.
+
+![Chart type toggle](./statistics-overview-chart-type.webp)
+
+## Email Sending Trends
+
+By default, the Statistics page shows this tab, displaying overall project metrics for the past month.
+
+At the top of the tab, an overview banner shows **sent**, **failed**, **opens**, **unique opens**, **clicks**, **unique clicks**, **bounced**, and **complaints**, along with derived rates: **unique open rate**, **clicks/unique opens**, **unique clicks/unique opens**, and **unique unsubscribes/unique opens**.
+
+![Email Sending Trends overview banner](./statistics-email-trends-banner.webp)
+
+By default, the chart shows the **Sends** metric, along with a **How it's calculated** note explaining what the metric means.
+
+You can change the metric using the dropdown next to the chart title.
+
+![Email Sending Trends metric dropdown](./statistics-email-trends-metric-dropdown.webp)
+
+Available metrics are:
+
+- **Sends**: total number of emails sent.
+- **Send rate**: percentage of attempted sends that were successfully sent.
+- **Failure**: total number of emails that failed to send.
+- **Failure rate**: percentage of attempted sends that failed.
+- **Opens**: total number of times emails were opened, including repeat opens.
+- **Open rate**: opens as a percentage of sends.
+- **Unique opens**: number of distinct recipients who opened the email.
+- **Unique open rate**: unique opens as a percentage of sends.
+- **Clicks**: total number of link clicks, including repeat clicks.
+- **Click rate**: clicks as a percentage of sends.
+- **Unique clicks**: number of distinct recipients who clicked a link.
+- **Unique click rate**: unique clicks as a percentage of sends.
+- **Clicks per unique opens**: total clicks as a percentage of unique opens.
+- **Unique clicks per unique opens**: unique clicks as a percentage of unique opens.
+- **Unsubscribes per unique opens**: unsubscribes as a percentage of unique opens.
+- **Bounces**: total number of emails that bounced.
+- **Bounce rate**: bounces as a percentage of sends.
+- **Complaints**: total number of recipients who marked the email as spam.
+- **Complaint rate**: complaints as a percentage of sends.
+
+## Subscription Trends
+
+To switch to subscription trends, click the **Subscription Trends** tab.
+
+![Subscription Trends tab](./statistics-subscription-trends-tab.webp)
+
+By default, you see the **unsubscribe** numbers for the current project over the past month.
+
+At the top of the tab, an overview banner shows **new contacts**, **subscriptions**, **unique subscriptions**, **unsubscribes**, **unique unsubscribes**, **paused**, and **unique paused**.
+
+![Subscription Trends overview banner](./statistics-subscription-trends-banner.webp)
 
 ## Overall Banners
 
