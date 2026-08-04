@@ -1,6 +1,6 @@
 ---
 title: What BlueFox Email Does for Deliverability, and What You Need to Do
-description: A clear breakdown of what BlueFox Email handles for deliverability, such as authentication, bounces, complaints and suppression, and what senders are still responsible for.
+description: What BlueFox Email handles for email deliverability, from authentication to bounces and complaints, and what senders are still responsible for.
 thumbnail: /assets/articles/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do-share.webp
 
 layout: post
@@ -9,13 +9,13 @@ category: articles
 head:
   - - meta
     - name: description
-      content: A clear breakdown of what BlueFox Email handles for deliverability, such as authentication, bounces, complaints and suppression, and what senders are still responsible for.
+      content: What BlueFox Email handles for email deliverability, from authentication to bounces and complaints, and what senders are still responsible for.
   - - meta
     - property: og:title
       content: What BlueFox Email Does for Deliverability, and What You Need to Do
   - - meta
     - property: og:description
-      content: A clear breakdown of what BlueFox Email handles for deliverability, such as authentication, bounces, complaints and suppression, and what senders are still responsible for.
+      content: What BlueFox Email handles for email deliverability, from authentication to bounces and complaints, and what senders are still responsible for.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/articles/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do-share.png
@@ -30,7 +30,7 @@ head:
       content: What BlueFox Email Does for Deliverability, and What You Need to Do
   - - meta
     - name: twitter:description
-      content: A clear breakdown of what BlueFox Email handles for deliverability, such as authentication, bounces, complaints and suppression, and what senders are still responsible for.
+      content: What BlueFox Email handles for email deliverability, from authentication to bounces and complaints, and what senders are still responsible for.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/articles/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do-share.png
