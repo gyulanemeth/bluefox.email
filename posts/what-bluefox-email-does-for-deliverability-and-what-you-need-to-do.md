@@ -504,17 +504,9 @@ These practices cannot guarantee inbox placement, but they create the conditions
 
 ## Deliverability is a shared responsibility
 
-BlueFox provides the technical tools and safeguards needed for responsible email sending.
+BlueFox handles the technical side: processing, authentication, bounces, complaints and unsubscribes. You handle the human side: who you email, why, and whether they actually want to hear from you.
 
-We process and queue messages, handle bounces and complaints, maintain suppression information, support unsubscribe mechanisms and help you authenticate your sending identities. Signup forms can also require double opt-in and bot protection (CAPTCHA/Turnstile), so lists start with confirmed, human subscribers rather than bot traffic or typos.
-
-The sender determines who receives the emails, why they receive them and whether the content meets their expectations.
-
-Good deliverability requires both sides.
-
-A reliable platform cannot compensate for an unwanted email programme. At the same time, good content and consent cannot compensate for broken authentication or poor technical handling.
-
-When the infrastructure and sending practices work together, you have the best possible foundation for reaching the people who genuinely want to hear from you.
+A reliable platform cannot compensate for an unwanted email programme, and good content and consent cannot compensate for broken authentication or poor technical handling. When both sides hold up their end, you have the best possible foundation for reaching the people who genuinely want to hear from you.
 
 <style>
 .vp-doc img {
