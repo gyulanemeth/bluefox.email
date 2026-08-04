@@ -48,7 +48,7 @@ An email platform can provide dependable sending infrastructure, process bounces
 
 It also cannot guarantee that every message will reach the inbox.
 
-Email deliverability is a shared responsibility. BlueFox Email provides the technical foundation and safeguards for responsible sending. You are responsible for your recipients, your content and the sending behaviour that gradually builds your reputation.
+Email deliverability is a **shared responsibility**. BlueFox Email provides the technical foundation and safeguards for responsible sending. You are responsible for your recipients, your content and the sending behaviour that gradually builds your reputation.
 
 Understanding where that responsibility is divided can help you avoid deliverability problems before they become difficult to fix.
 
@@ -101,9 +101,9 @@ Some emails cannot be delivered, and some recipients mark a message as spam inst
 
 A **hard bounce** usually indicates a permanent problem, such as an address that does not exist. A **complaint** is generated when a recipient reports a message as spam, and is one of the clearest negative signals a sender can produce. Continuing to send to addresses that repeatedly bounce, or that have complained, can damage your reputation and make your list appear poorly maintained.
 
-BlueFox processes both bounce and complaint events from the sending infrastructure and records them in your email analytics. We may also include this activity in digest emails, so you can stay informed about delivery issues without needing to monitor events in real time.
+BlueFox processes both bounce and complaint events from the sending infrastructure and records them in your email analytics. We may also include this activity in **digest emails**, so you can stay informed about delivery issues without needing to monitor events in real time.
 
-Bounced and complained addresses are always added to your project's suppression list automatically, regardless of any other setting, so BlueFox will not send to them again.
+Bounced and complained addresses are always added to your project's **suppression list** automatically, regardless of any other setting, so BlueFox will not send to them again.
 
 On top of that, you can configure what else happens to the contact under **Project Settings → Bounces & Complaints setup**:
 
@@ -134,7 +134,17 @@ BlueFox performs this check as part of the sending process.
 
 Marketing and other non-transactional emails should give recipients a clear way to stop receiving them.
 
-BlueFox supports unsubscribe handling for campaigns, triggered emails and automations. We also support one-click unsubscribe mechanisms that compatible mailbox providers can expose directly in their interface, which unsubscribes the recipient from the specific list or sending stream they are currently receiving emails from. In addition, we provide an **“unsubscribe from all lists”** option, allowing recipients to fully opt out of all future marketing communications in a single action. For users who may not want to leave permanently, we also offer a **“pause subscription”** option, which lets recipients temporarily stop receiving emails and resume at a later time without fully unsubscribing.
+BlueFox supports unsubscribe handling for campaigns, triggered emails and automations. We also support **one-click unsubscribe** mechanisms that compatible mailbox providers can expose directly in their interface, which unsubscribes the recipient from the specific list or sending stream they are currently receiving emails from.
+
+![Gmail showing its built-in one-click Unsubscribe link next to the sender's name](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/one-click-unsubscribe-button-in-gmail.png)
+
+One-click unsubscribe is a button that mailbox providers such as Gmail and Outlook display directly next to the sender, outside the email itself, so the recipient never has to open the message to leave a list. It relies on the `List-Unsubscribe` and `List-Unsubscribe-Post` headers defined in [RFC 8058](https://www.rfc-editor.org/rfc/rfc8058), which BlueFox adds to eligible emails automatically.
+
+In addition, we provide an **“unsubscribe from all lists”** option, allowing recipients to fully opt out of all future marketing communications in a single action. For users who may not want to leave permanently, we also offer a **“pause subscription”** option, which lets recipients temporarily stop receiving emails and resume at a later time without fully unsubscribing.
+
+![Subscription preferences page showing per-list subscribe options, a pause-all-future-emails button and an unsubscribe-from-all-future-emails button](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/unsubscribe-from-all.png)
+
+This is our built-in **subscription preferences page**, which opens automatically when a recipient clicks the unsubscribe link in an email we sent. Recipients can resubscribe to a specific list, pause all future emails, or unsubscribe from everything in one click, without needing to contact you directly.
 
 Making unsubscribing easy is not merely a legal or user-experience concern. It also protects deliverability.
 
@@ -146,13 +156,19 @@ Transactional messages are treated differently because they are required to comp
 
 ### Protecting your signup forms
 
-BlueFox provides double opt-in support for email signups. You can require subscribers to confirm their email address before being added to your list, helping ensure that only valid and intentional signups are collected.
+BlueFox provides **double opt-in** support for email signups. You can require subscribers to confirm their email address before being added to your list, helping ensure that only valid and intentional signups are collected.
 
-To further protect your forms from bots and low-quality submissions, you can enable CAPTCHA or Cloudflare Turnstile on your signup forms. Turnstile is the recommended option, as it provides a frictionless experience for real users while effectively blocking automated abuse.
+![Signup Forms settings in BlueFox, showing double opt-in enabled with a confirmation email selected](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/sign-up-forms-double-opt-in.png)
+
+To further protect your forms from bots and low-quality submissions, you can enable **CAPTCHA** or **Cloudflare Turnstile** on your signup forms. Turnstile is the recommended option, as it provides a frictionless experience for real users while effectively blocking automated abuse.
+
+<img src="./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/signup-form-with-turnstile.png" alt="A signup form with a Cloudflare Turnstile challenge that has passed, showing a Success message next to the subscribe button" style="width: 60%;">
+
+You don't have to pick one. Double opt-in and CAPTCHA/Turnstile are separate tabs under the same **Signup Forms** settings, so you can turn both on for the same form, confirming that a signup is submitted by a real human and that they genuinely want to be on your list.
 
 ### Sender identity and authentication setup
 
-BlueFox allows you to configure the sender identities used by your projects.
+BlueFox allows you to configure the **sender identities** used by your projects.
 
 Email authentication normally requires DNS records to be added to the domain. BlueFox can provide the records and verify the configuration, but only the domain owner or DNS administrator can publish them.
 
@@ -171,6 +187,16 @@ A perfectly authenticated sender can still reach spam if recipients consistently
 ### Analytics and visibility
 
 BlueFox provides analytics for important email events, including sends, bounces, complaints, opens and clicks.
+
+<script setup>
+import AgencyAnalytics from '../for/marketing-agencies/AgencyAnalytics.vue'
+</script>
+
+<AgencyAnalytics
+  default-tab="hourly"
+  :show-header="false"
+  :show-cta="false"
+/>
 
 These signals can help you identify problems, but they need to be interpreted carefully.
 
@@ -261,13 +287,19 @@ BlueFox also provides an **“exclude unengaged contacts”** feature, which all
 
 In addition to this, BlueFox includes list cleaning capabilities that allow you to **mass-remove bounced and complained addresses directly from your contact lists**. While these addresses are already added to your suppression list (so they will not be emailed again through BlueFox), removing them from your active lists is still important for long-term list hygiene.
 
-This is especially useful if you:
+![The Clean Contacts button, with options to remove or delete bounced or complained contacts, and optionally add them to the suppression list](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/clean-contacts.png)
+
+You'll find this **Clean Contacts** action in two places: on the analytics page of any email (transactional, triggered, campaign or automation), scoped to that email's own bounces and complaints, and directly on your **Contacts** tab, where it applies across the whole project.
+
+This is a manual, on-demand action, unlike the automatic list-removal behaviour for bounces and complaints [described earlier](#bounce-and-complaint-processing). If you already have that set to **Remove from all subscriber lists** or **Delete contacts**, new bounces and complaints are handled automatically going forward, and you may not need to run Clean Contacts at all. It is mainly useful for cleaning up contacts that bounced or complained before you turned that setting on, or while it was set to **Off**.
+
+Actively removing bounced and complained contacts from your lists, rather than relying on suppression alone, is especially useful if you:
 
 * sync contacts across multiple systems;
 * maintain the same audience in external CRMs or marketing tools;
 * or eventually decide to switch to another email provider.
 
-In these cases, suppression inside BlueFox alone is not enough, because other systems may still attempt to send to outdated or problematic addresses. Actively cleaning and removing these contacts ensures that bounced and complained recipients are consistently excluded everywhere, helping you maintain a healthier overall database regardless of the sending platform you use.
+A synced CRM, another marketing tool, or a future ESP has no knowledge of BlueFox's suppression list, and may happily email these addresses anyway. Removing them from your lists keeps your contact data clean everywhere they're used, not just inside BlueFox.
 
 ### Control your sending volume
 
@@ -299,7 +331,7 @@ Sending fewer, more relevant emails is usually better than increasing frequency 
 
 Recipients should be able to identify the sender immediately.
 
-You can configure the sender name and sending email address in Project settings → Sending setup.
+You can configure the sender name and sending email address in **Project settings → Sending setup**.
 
 Use a sender name and address that are:
 
@@ -334,8 +366,8 @@ In some cases, separating transactional and marketing traffic by subdomain or se
 
 BlueFox supports two approaches to sending infrastructure:
 
-* sending through BlueFox-managed infrastructure;
-* connecting your own Amazon SES account.
+* sending through **BlueFox-managed infrastructure**;
+* connecting your own Amazon SES account (**BYO Amazon SES**).
 
 The BlueFox application experience remains similar, but the responsibility for the underlying sending environment is different.
 
@@ -388,7 +420,7 @@ This includes:
 * handling AWS account or enforcement issues;
 * deciding whether dedicated IP infrastructure is appropriate;
 * maintaining the necessary SES configuration;
-* setting up AWS SNS so bounce and complaint notifications are reported back to BlueFox (a CloudFormation script is provided to automate this).
+* setting up AWS SNS so bounce and complaint notifications are reported back to BlueFox (a **CloudFormation script** is provided to automate this).
 
 BYO Amazon SES is not automatically a deliverability upgrade.
 
@@ -421,7 +453,7 @@ The objective is not to find a platform that can bypass filtering. It is to esta
 
 BlueFox Email and Amazon SES can tell you whether a message bounced or generated a complaint through the sending platform itself. What they cannot see is how Gmail privately scores your domain, or how many recipients hit "Report spam."
 
-This matters more for Gmail than for most mailbox providers. Many ISPs run a traditional feedback loop (FBL) that reports individual spam complaints back to the sender in something close to real time. Gmail does not work this way. It has a feedback loop of sorts, but it only shares aggregate spam-rate percentages, only for identifiers with enough volume, only for `@gmail.com` recipients, and only once you have verified your domain in Postmaster Tools, signed with DKIM and published SPF with valid PTR records for your sending IPs. There is no per-recipient complaint data, and for a lot of senders sending below Gmail's volume threshold, there is no complaint feedback from Gmail at all.
+This matters more for Gmail than for most mailbox providers. Many ISPs run a traditional **feedback loop (FBL)** that reports individual spam complaints back to the sender in something close to real time. Gmail does not work this way. It has a feedback loop of sorts, but it only shares aggregate spam-rate percentages, only for identifiers with enough volume, only for `@gmail.com` recipients, and only once you have verified your domain in Postmaster Tools, signed with DKIM and published SPF with valid PTR records for your sending IPs. There is no per-recipient complaint data, and for a lot of senders sending below Gmail's volume threshold, there is no complaint feedback from Gmail at all.
 
 [Gmail Postmaster Tools](https://postmaster.google.com) is the practical way to close that gap. Once you verify your sending domain, it reports data directly from Gmail, including:
 
@@ -465,3 +497,10 @@ Good deliverability requires both sides.
 A reliable platform cannot compensate for an unwanted email programme. At the same time, good content and consent cannot compensate for broken authentication or poor technical handling.
 
 When the infrastructure and sending practices work together, you have the best possible foundation for reaching the people who genuinely want to hear from you.
+
+<style>
+.vp-doc img {
+  display: block;
+  margin: 0 auto;
+}
+</style>
