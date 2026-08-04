@@ -58,7 +58,7 @@ The terms *email delivery* and *email deliverability* are often used interchange
 
 **Delivery** means that the recipient’s email server accepted the message. The email did not produce a permanent bounce, and the receiving server agreed to process it.
 
-**Deliverability** describes what happens after that. The message might be placed in:
+[**Deliverability**](/email-sending-concepts/deliverability) describes what happens after that. The message might be placed in:
 
 * the primary inbox;
 * a promotions or updates tab;
@@ -73,9 +73,9 @@ Inbox placement is determined by the receiving provider. Gmail, Outlook, Yahoo, 
 
 They may consider factors such as:
 
-* domain and IP reputation;
-* email authentication;
-* spam complaints;
+* [domain](/email-sending-concepts/domain-reputation) and [IP reputation](/email-sending-concepts/ip-reputation);
+* email [authentication](/email-sending-concepts/email-authentication);
+* spam [complaints](/email-sending-concepts/complaints);
 * previous interactions with the sender;
 * sending volume and consistency;
 * recipient engagement;
@@ -89,7 +89,7 @@ BlueFox provides the application and technical safeguards needed to send email r
 
 ### Reliable email processing and queueing
 
-When you send a transactional email, triggered email, campaign or automation email, BlueFox processes the request and submits the message through the configured sending infrastructure.
+When you send a [transactional email, triggered email, campaign or automation email](/posts/transactional-triggered-campaign-or-automation-understanding-email-types), BlueFox processes the request and submits the message through the configured sending infrastructure.
 
 The queue helps manage sending reliably instead of requiring your application to deliver every message directly and immediately. It also handles transient failures and automatically retries delivery when a message cannot be sent on the first attempt.
 
@@ -99,11 +99,11 @@ This is particularly important for transactional email. Your application should 
 
 Some emails cannot be delivered, and some recipients mark a message as spam instead of unsubscribing.
 
-A **hard bounce** usually indicates a permanent problem, such as an address that does not exist. A **complaint** is generated when a recipient reports a message as spam, and is one of the clearest negative signals a sender can produce. Continuing to send to addresses that repeatedly bounce, or that have complained, can damage your reputation and make your list appear poorly maintained.
+A [**hard bounce**](/email-sending-concepts/hard-bounce) usually indicates a permanent problem, such as an address that does not exist. A [**complaint**](/email-sending-concepts/complaints) is generated when a recipient reports a message as spam, and is one of the clearest negative signals a sender can produce. Continuing to send to addresses that repeatedly bounce, or that have complained, can damage your reputation and make your list appear poorly maintained.
 
 BlueFox processes both bounce and complaint events from the sending infrastructure and records them in your email analytics. We may also include this activity in **digest emails**, so you can stay informed about delivery issues without needing to monitor events in real time.
 
-Bounced and complained addresses are always added to your project's **suppression list** automatically, regardless of any other setting, so BlueFox will not send to them again.
+Bounced and complained addresses are always added to your project's [**suppression list**](/docs/projects/suppression-list) automatically, regardless of any other setting, so BlueFox will not send to them again.
 
 On top of that, you can configure what else happens to the contact under **Project Settings → Bounces & Complaints setup**:
 
@@ -138,7 +138,7 @@ You can also **import** and **export** your suppression list directly from this 
 
 Marketing and other non-transactional emails should give recipients a clear way to stop receiving them.
 
-BlueFox supports unsubscribe handling for campaigns, triggered emails and automations. We also support **one-click unsubscribe** mechanisms that compatible mailbox providers can expose directly in their interface, which unsubscribes the recipient from the specific list or sending stream they are currently receiving emails from.
+BlueFox supports unsubscribe handling for campaigns, triggered emails and automations. We also support [**one-click unsubscribe**](/email-sending-concepts/one-click-unsubscribe) mechanisms that compatible mailbox providers can expose directly in their interface, which unsubscribes the recipient from the specific list or sending stream they are currently receiving emails from.
 
 ![Gmail showing its built-in one-click Unsubscribe link next to the sender's name](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/one-click-unsubscribe-button-in-gmail.png)
 
@@ -168,7 +168,7 @@ To further protect your forms from bots and low-quality submissions, you can ena
 
 <img src="./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/signup-form-with-turnstile.png" alt="A signup form with a Cloudflare Turnstile challenge that has passed, showing a Success message next to the subscribe button" style="width: 60%;">
 
-You don't have to pick one. Double opt-in and CAPTCHA/Turnstile are separate tabs under the same **Signup Forms** settings, so you can turn both on for the same form, confirming that a signup is submitted by a real human and that they genuinely want to be on your list.
+You don't have to pick one. Double opt-in and CAPTCHA/Turnstile are separate tabs under the same [**Signup Forms**](/docs/projects/forms-and-pages) settings, so you can turn both on for the same form, confirming that a signup is submitted by a real human and that they genuinely want to be on your list.
 
 ### Sender identity and authentication setup
 
@@ -182,9 +182,11 @@ Authentication helps receiving providers determine whether a message was genuine
 
 The main mechanisms involved are:
 
-* **SPF**, which identifies servers authorised to send for a domain;
-* **DKIM**, which adds a cryptographic signature to the message;
-* **DMARC**, which connects domain authentication with reporting and domain-level policy.
+* [**SPF**](/email-sending-concepts/spf), which identifies servers authorised to send for a domain;
+* [**DKIM**](/email-sending-concepts/dkim), which adds a cryptographic signature to the message;
+* [**DMARC**](/email-sending-concepts/dmarc), which connects domain authentication with reporting and domain-level policy.
+
+For a deeper walkthrough of how these three work together, with real examples, see [How SPF, DKIM, and DMARC Actually Work](/posts/how-spf-dkim-and-dmarc-actually-work-with-real-examples).
 
 Authentication does not guarantee inbox placement. It establishes a trustworthy technical identity on which reputation can be built.
 
@@ -192,7 +194,7 @@ A perfectly authenticated sender can still reach spam if recipients consistently
 
 ### Analytics and visibility
 
-BlueFox provides analytics for important email events, including sends, bounces, complaints, opens and clicks.
+BlueFox provides [analytics](/docs/projects/dashboard) for important email events, including sends, bounces, complaints, opens and clicks.
 
 <script setup>
 import AgencyAnalytics from '../for/marketing-agencies/AgencyAnalytics.vue'
@@ -228,7 +230,7 @@ However, for **smaller lists or lower-volume senders**, a shared IP environment 
 
 Dedicated IPs can also be useful in **enterprise or regulated environments**, where receiving systems apply strict filtering rules. In some cases, organisations may require traffic to come from specific, known IP addresses so they can explicitly allowlist them within internal security or email filtering systems.
 
-It is important to note that dedicated IPs also introduce additional responsibility. Because reputation is no longer shared, your sending behaviour directly determines the reputation of that IP. This typically requires:
+It is important to note that dedicated IPs also introduce additional responsibility. Because reputation is no longer shared, your sending behaviour directly determines the [IP reputation](/email-sending-concepts/ip-reputation) of that address. This typically requires:
 
 * a careful warm-up process;
 * consistent sending patterns;
@@ -259,11 +261,13 @@ This leads to low engagement, unsubscribes and complaints.
 
 Double opt-in can be particularly useful because it requires recipients to confirm that they control the address and genuinely want the emails. It can also provide an early indication of whether confirmation emails are reaching recipients successfully.
 
+For a practical walkthrough of collecting addresses the right way, see [How to Build a High-Quality Email List in BlueFox Email](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email).
+
 ### Configure your domain authentication
 
 BlueFox can generate or display the required configuration, but you still need to add the records to your DNS provider.
 
-It is a must in BlueFox Email, not an option. It is required to obtain production access and to send emails from your own domain.
+It is a must in BlueFox Email, not an option. It is required to obtain [production access](/posts/how-to-get-and-maintain-production-access-to-amazon-ses) and to send emails from your own domain.
 
 After publishing the records, ensure they are correctly set up and remain valid when making DNS or infrastructure changes.
 
@@ -299,7 +303,7 @@ In addition to this, BlueFox includes list cleaning capabilities that allow you 
 
 ![The Clean Contacts button, with options to remove or delete bounced or complained contacts, and optionally add them to the suppression list](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/clean-contacts.png)
 
-You'll find this **Clean Contacts** action in two places: on the analytics page of any email (transactional, triggered, campaign or automation), scoped to that email's own bounces and complaints, and directly on your **Contacts** tab, where it applies across the whole project.
+You'll find this **Clean Contacts** action in two places: on the analytics page of any email (transactional, triggered, campaign or automation), scoped to that email's own bounces and complaints, and directly on your [**Contacts**](/docs/projects/contacts) tab, where it applies across the whole project.
 
 This is a manual, on-demand action, unlike the automatic list-removal behaviour for bounces and complaints [described earlier](#bounce-and-complaint-processing). If you already have that set to **Remove from all subscriber lists** or **Delete contacts**, new bounces and complaints are handled automatically going forward, and you may not need to run Clean Contacts at all. It is mainly useful for cleaning up contacts that bounced or complained before you turned that setting on, or while it was set to **Off**.
 
@@ -321,7 +325,7 @@ The same principle applies to established senders.
 
 A sudden and unexplained increase in volume can attract additional filtering, especially if the new volume comes from an older or lower-quality segment of the list.
 
-This is closely related to segmentation. Instead of treating your entire list as a single audience, it is often better to group recipients based on engagement, recency, or intent. Highly engaged users can safely receive emails earlier in a warm-up or reactivation phase, while less active or older segments may require more careful reintroduction or different messaging altogether.
+This is closely related to [segmentation](/docs/projects/segments). Instead of treating your entire list as a single audience, it is often better to group recipients based on engagement, recency, or intent. Highly engaged users can safely receive emails earlier in a warm-up or reactivation phase, while less active or older segments may require more careful reintroduction or different messaging altogether.
 
 There is no universal warm-up schedule that guarantees success. Recipient quality, engagement, and how well your segments reflect real user behaviour matter more than blindly following a table of daily sending limits.
 
@@ -354,6 +358,8 @@ Use a sender name and address that are:
 
 Frequent, unexplained changes to sender names or domains can make legitimate emails look suspicious.
 
+See [Sender Name & Email Address: Building Trust Before the Open](/posts/sender-name-and-email-address-build-trust-before-the-open) for more on how this affects engagement.
+
 ### Make unsubscribing easy
 
 Do not hide the unsubscribe link, reduce its contrast or make recipients complete a complicated process.
@@ -366,7 +372,7 @@ In addition, make use of list names and descriptions on your subscription prefer
 
 ### Use transactional email responsibly
 
-Transactional emails are associated with an action or an existing relationship. Examples include password resets, receipts, account notifications and service messages.
+[Transactional emails](/docs/projects/transactional-emails) are associated with an action or an existing relationship. Examples include password resets, receipts, account notifications and service messages.
 
 They should not be used as a way to send promotional content to people who unsubscribed from marketing.
 
@@ -413,8 +419,8 @@ With BYO Amazon SES, BlueFox connects to an SES account that you own and manage.
 BlueFox continues to provide the application layer, including:
 
 * email creation;
-* transactional and triggered sending;
-* campaigns;
+* [transactional](/docs/projects/transactional-emails) and [triggered](/docs/projects/triggered-emails) sending;
+* [campaigns](/docs/projects/campaigns);
 * subscriber management;
 * queueing and orchestration;
 * analytics;
@@ -425,14 +431,14 @@ You have more direct control over the sending infrastructure, but also more resp
 
 This includes:
 
-* requesting and maintaining SES production access;
+* requesting and maintaining [SES production access](/posts/how-to-get-and-maintain-production-access-to-amazon-ses);
 * monitoring account-level reputation;
 * managing sending quotas;
 * selecting AWS regions;
 * handling AWS account or enforcement issues;
 * deciding whether dedicated IP infrastructure is appropriate;
 * maintaining the necessary SES configuration;
-* setting up AWS SNS so bounce and complaint notifications are reported back to BlueFox (a **CloudFormation script** is provided to automate this).
+* setting up AWS SNS so bounce and complaint notifications are reported back to BlueFox (a **CloudFormation script** is provided to automate this) — see [How to Handle Bounces and Complaints with AWS SES and SNS](/posts/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns) for the full walkthrough.
 
 BYO Amazon SES is not automatically a deliverability upgrade.
 
