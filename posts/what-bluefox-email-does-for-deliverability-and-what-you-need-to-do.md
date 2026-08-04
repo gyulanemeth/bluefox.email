@@ -119,7 +119,9 @@ This protects both the recipient and your sending reputation, but it happens aft
 
 ### Suppression handling
 
-A suppression list prevents messages from being sent to addresses that should no longer be contacted.
+A suppression list prevents messages from being sent to addresses that should no longer be contacted. You can find it under your project's **Manage Contacts → Suppression List**.
+
+![Suppression List tab, showing suppressed contacts and their reason, with import and export options](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/suppression-list.png)
 
 This commonly includes recipients who:
 
@@ -129,6 +131,8 @@ This commonly includes recipients who:
 Suppression handling helps prevent repeated delivery attempts to problematic addresses. Without it, an automated system might continue sending to the same invalid or complaining recipient every time a campaign or workflow runs.
 
 BlueFox performs this check as part of the sending process.
+
+You can also **import** and **export** your suppression list directly from this screen. Importing is useful when you're migrating from another platform and already have a list of addresses that bounced or complained there, so BlueFox never sends to them in the first place. Exporting matters for the same reason in reverse: if you move away from BlueFox, or need to keep another system (a CRM, a second ESP) in sync, you can carry your suppression history with you instead of rebuilding it from scratch and risking a bad first send.
 
 ### Unsubscribe support
 
@@ -171,6 +175,9 @@ You don't have to pick one. Double opt-in and CAPTCHA/Turnstile are separate tab
 BlueFox allows you to configure the **sender identities** used by your projects.
 
 Email authentication normally requires DNS records to be added to the domain. BlueFox can provide the records and verify the configuration, but only the domain owner or DNS administrator can publish them.
+
+<!-- TODO: screenshot of the Verified Domains screen, showing the generated DNS records and their verification status -->
+![Verified Domains screen, showing the DNS records BlueFox generates for a domain and their verification status](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/verified-domains.png)
 
 Authentication helps receiving providers determine whether a message was genuinely authorised by the domain it claims to represent.
 
@@ -285,6 +292,9 @@ Before importing older or previously collected lists into BlueFox Email, it is s
 
 BlueFox also provides an **“exclude unengaged contacts”** feature, which allows you to exclude recipients who have not interacted with your emails over a defined period. This helps reduce unnecessary sending to inactive users and can improve overall engagement and deliverability signals over time.
 
+<!-- TODO: screenshot of the Unengaged Segment settings screen -->
+![Unengaged Segment settings, showing the configuration for excluding inactive recipients](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/unengaged-segment-settings.png)
+
 In addition to this, BlueFox includes list cleaning capabilities that allow you to **mass-remove bounced and complained addresses directly from your contact lists**. While these addresses are already added to your suppression list (so they will not be emailed again through BlueFox), removing them from your active lists is still important for long-term list hygiene.
 
 ![The Clean Contacts button, with options to remove or delete bounced or complained contacts, and optionally add them to the suppression list](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/clean-contacts.png)
@@ -332,6 +342,8 @@ Sending fewer, more relevant emails is usually better than increasing frequency 
 Recipients should be able to identify the sender immediately.
 
 You can configure the sender name and sending email address in **Project settings → Sending setup**.
+
+![Sender Identities settings, showing multiple configured sender name and email pairs](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/sender-identities.png)
 
 Use a sender name and address that are:
 
