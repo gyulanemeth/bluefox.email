@@ -111,7 +111,7 @@ On top of that, you can configure what else happens to the contact under **Proje
 * **Remove from all subscriber lists** – the default
 * **Delete contacts** – remove the contact from the project entirely.
 
-![Bounces & Complaints setup, showing the automatic list removal options for bounces and complaints](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/project-settings-bounce-and-complaint-setup.png)
+![Bounces & Complaints setup, showing the automatic list removal options for bounces and complaints](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/project-settings-bounce-and-complaint-setup.webp)
 
 This mainly matters if you sync contacts to another system, such as a CRM, so they are not emailed from there by mistake, or if you ever migrate away from BlueFox, since your exported list will already be clean.
 
@@ -121,7 +121,7 @@ This protects both the recipient and your sending reputation, but it happens aft
 
 A suppression list prevents messages from being sent to addresses that should no longer be contacted. You can find it under your project's **Manage Contacts → Suppression List**.
 
-![Suppression List tab, showing suppressed contacts and their reason, with import and export options](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/suppression-list.png)
+![Suppression List tab, showing suppressed contacts and their reason, with import and export options](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/suppression-list.webp)
 
 This commonly includes recipients who:
 
@@ -140,13 +140,13 @@ Marketing and other non-transactional emails should give recipients a clear way 
 
 BlueFox supports unsubscribe handling for campaigns, triggered emails and automations. We also support [**one-click unsubscribe**](/email-sending-concepts/one-click-unsubscribe) mechanisms that compatible mailbox providers can expose directly in their interface, which unsubscribes the recipient from the specific list or sending stream they are currently receiving emails from.
 
-![Gmail showing its built-in one-click Unsubscribe link next to the sender's name](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/one-click-unsubscribe-button-in-gmail.png)
+![Gmail showing its built-in one-click Unsubscribe link next to the sender's name](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/one-click-unsubscribe-button-in-gmail.webp)
 
 One-click unsubscribe is a button that mailbox providers such as Gmail and Outlook display directly next to the sender, outside the email itself, so the recipient never has to open the message to leave a list. It relies on the `List-Unsubscribe` and `List-Unsubscribe-Post` headers defined in [RFC 8058](https://www.rfc-editor.org/rfc/rfc8058), which BlueFox adds to eligible emails automatically.
 
 In addition, we provide an **“unsubscribe from all lists”** option, allowing recipients to fully opt out of all future marketing communications in a single action. For users who may not want to leave permanently, we also offer a **“pause subscription”** option, which lets recipients temporarily stop receiving emails and resume at a later time without fully unsubscribing.
 
-![Subscription preferences page showing per-list subscribe options, a pause-all-future-emails button and an unsubscribe-from-all-future-emails button](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/unsubscribe-from-all.png)
+![Subscription preferences page showing per-list subscribe options, a pause-all-future-emails button and an unsubscribe-from-all-future-emails button](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/unsubscribe-from-all.webp)
 
 This is our built-in **subscription preferences page**, which opens automatically when a recipient clicks the unsubscribe link in an email we sent. Recipients can resubscribe to a specific list, pause all future emails, or unsubscribe from everything in one click, without needing to contact you directly.
 
@@ -162,11 +162,11 @@ Transactional messages are treated differently because they are required to comp
 
 BlueFox provides **double opt-in** support for email signups. You can require subscribers to confirm their email address before being added to your list, helping ensure that only valid and intentional signups are collected.
 
-![Signup Forms settings in BlueFox, showing double opt-in enabled with a confirmation email selected](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/sign-up-forms-double-opt-in.png)
+![Signup Forms settings in BlueFox, showing double opt-in enabled with a confirmation email selected](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/sign-up-forms-double-opt-in.webp)
 
 To further protect your forms from bots and low-quality submissions, you can enable **CAPTCHA** or **Cloudflare Turnstile** on your signup forms. Turnstile is the recommended option, as it provides a frictionless experience for real users while effectively blocking automated abuse.
 
-<img src="./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/signup-form-with-turnstile.png" alt="A signup form with a Cloudflare Turnstile challenge that has passed, showing a Success message next to the subscribe button" style="width: 60%;">
+<img src="./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/signup-form-with-turnstile.webp" alt="A signup form with a Cloudflare Turnstile challenge that has passed, showing a Success message next to the subscribe button" style="width: 60%;">
 
 You don't have to pick one. Double opt-in and CAPTCHA/Turnstile are separate tabs under the same [**Signup Forms**](/docs/projects/forms-and-pages) settings, so you can turn both on for the same form, confirming that a signup is submitted by a real human and that they genuinely want to be on your list.
 
@@ -176,7 +176,7 @@ BlueFox allows you to configure the **sender identities** used by your projects.
 
 Email authentication normally requires DNS records to be added to the domain. BlueFox can provide the records and verify the configuration, but only the domain owner or DNS administrator can publish them. You can find these records under **Project Settings → Verified Domains**.
 
-![Verified Domains screen, showing the generated DKIM, MX, SPF and DMARC records for a domain, all verified](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/verified-domains.png)
+![Verified Domains screen, showing the generated DKIM, MX, SPF and DMARC records for a domain, all verified](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/verified-domains.webp)
 
 Authentication helps receiving providers determine whether a message was genuinely authorised by the domain it claims to represent.
 
@@ -295,13 +295,13 @@ Before importing older or previously collected lists into BlueFox Email, it is s
 
 BlueFox also provides an **“exclude unengaged contacts”** feature, which allows you to exclude recipients who have not interacted with your emails over a defined period. This helps reduce unnecessary sending to inactive users and can improve overall engagement and deliverability signals over time.
 
-![The "Exclude unengaged" toggle, enabled on a newsletter campaign](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/exclude-unengaged-contacts.png)
+![The "Exclude unengaged" toggle, enabled on a newsletter campaign](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/exclude-unengaged-contacts.webp)
 
 This is a per-email toggle, available on campaigns, triggered emails and automations. It is not available for transactional emails, since those are tied to a specific action the recipient just took, such as a password reset or a receipt, and need to reach them regardless of how engaged they've been with your other emails.
 
 In addition to this, BlueFox includes list cleaning capabilities that allow you to **mass-remove bounced and complained addresses directly from your contact lists**. While these addresses are already added to your suppression list (so they will not be emailed again through BlueFox), removing them from your active lists is still important for long-term list hygiene.
 
-![The Clean Contacts button, with options to remove or delete bounced or complained contacts, and optionally add them to the suppression list](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/clean-contacts.png)
+![The Clean Contacts button, with options to remove or delete bounced or complained contacts, and optionally add them to the suppression list](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/clean-contacts.webp)
 
 You'll find this **Clean Contacts** action in two places: on the analytics page of any email (transactional, triggered, campaign or automation), scoped to that email's own bounces and complaints, and directly on your [**Contacts**](/docs/projects/contacts) tab, where it applies across the whole project.
 
@@ -347,7 +347,7 @@ Recipients should be able to identify the sender immediately.
 
 You can configure the sender name and sending email address in **Project settings → Sending setup**.
 
-![Sender Identities settings, showing multiple configured sender name and email pairs](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/sender-identities.png)
+![Sender Identities settings, showing multiple configured sender name and email pairs](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/sender-identities.webp)
 
 Use a sender name and address that are:
 
