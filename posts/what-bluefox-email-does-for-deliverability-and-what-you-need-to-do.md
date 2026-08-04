@@ -174,10 +174,9 @@ You don't have to pick one. Double opt-in and CAPTCHA/Turnstile are separate tab
 
 BlueFox allows you to configure the **sender identities** used by your projects.
 
-Email authentication normally requires DNS records to be added to the domain. BlueFox can provide the records and verify the configuration, but only the domain owner or DNS administrator can publish them.
+Email authentication normally requires DNS records to be added to the domain. BlueFox can provide the records and verify the configuration, but only the domain owner or DNS administrator can publish them. You can find these records under **Project Settings → Verified Domains**.
 
-<!-- TODO: screenshot of the Verified Domains screen, showing the generated DNS records and their verification status -->
-![Verified Domains screen, showing the DNS records BlueFox generates for a domain and their verification status](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/verified-domains.png)
+![Verified Domains screen, showing the generated DKIM, MX, SPF and DMARC records for a domain, all verified](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/verified-domains.png)
 
 Authentication helps receiving providers determine whether a message was genuinely authorised by the domain it claims to represent.
 
