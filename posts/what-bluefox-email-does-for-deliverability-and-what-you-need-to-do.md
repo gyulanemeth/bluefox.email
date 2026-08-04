@@ -291,8 +291,9 @@ Before importing older or previously collected lists into BlueFox Email, it is s
 
 BlueFox also provides an **“exclude unengaged contacts”** feature, which allows you to exclude recipients who have not interacted with your emails over a defined period. This helps reduce unnecessary sending to inactive users and can improve overall engagement and deliverability signals over time.
 
-<!-- TODO: screenshot of the Unengaged Segment settings screen -->
-![Unengaged Segment settings, showing the configuration for excluding inactive recipients](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/unengaged-segment-settings.png)
+![The "Exclude unengaged" toggle, enabled on a newsletter campaign](./what-bluefox-email-does-for-deliverability-and-what-you-need-to-do/exclude-unengaged-contacts.png)
+
+This is a per-email toggle, available on campaigns, triggered emails and automations. It is not available for transactional emails, since those are tied to a specific action the recipient just took, such as a password reset or a receipt, and need to reach them regardless of how engaged they've been with your other emails.
 
 In addition to this, BlueFox includes list cleaning capabilities that allow you to **mass-remove bounced and complained addresses directly from your contact lists**. While these addresses are already added to your suppression list (so they will not be emailed again through BlueFox), removing them from your active lists is still important for long-term list hygiene.
 
