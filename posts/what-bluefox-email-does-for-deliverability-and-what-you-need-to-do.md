@@ -438,7 +438,7 @@ This includes:
 * handling AWS account or enforcement issues
 * deciding whether dedicated IP infrastructure is appropriate
 * maintaining the necessary SES configuration
-* setting up AWS SNS so bounce and complaint notifications are reported back to BlueFox (a **CloudFormation script** is provided to automate this) — see [How to Handle Bounces and Complaints with AWS SES and SNS](/posts/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns) for the full walkthrough.
+* setting up AWS SNS so bounce and complaint notifications are reported back to BlueFox (a **CloudFormation script** is provided to automate this). See [How to Handle Bounces and Complaints with AWS SES and SNS](/posts/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns) for the full walkthrough.
 
 BYO Amazon SES is not automatically a deliverability upgrade.
 
