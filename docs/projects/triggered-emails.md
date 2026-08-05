@@ -289,7 +289,7 @@ You can access the **Triggered Email Statistics** by clicking the arrow icon:
 
 ![Advanced Settings Icon](./project-triggered-stats-btn.webp)
 
-For more information on using the **Triggered Email Statistics**, refer to the [Analytics Documentation](/docs/analytics).
+For more information on using the **Triggered Email Statistics**, refer to the [Analytics Documentation](/docs/statistics).
 
 ## Data Feeds
 

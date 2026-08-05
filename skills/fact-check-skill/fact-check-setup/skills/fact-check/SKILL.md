@@ -28,7 +28,7 @@ Don't take the draft's word for it, even if it sounds right. Use Grep/Glob to se
 Concretely, "the codebase" for BlueFox claims means (start here, but don't stop here — Glob broadly, this list isn't exhaustive):
 - `pricing.md`, `docs/pricing.md`, `byo-amazon-ses-pricing.md` — pricing/tier source of truth
 - `components/PricingCalculator.vue` and other `components/*.vue` — pricing *logic*, not just prose. A tier or price ceiling can be missing from the written docs but still be checkable (or disprovable) from the calculator's own branching, e.g. what happens above the top published tier.
-- `docs/projects/*.md` (delivery-modes, automations, segments, data-feeds, email-builder, suppression-list, contacts, etc.) and `docs/integrations/*.md`, `docs/api/`, `docs/analytics.md`, `docs/account-users.md`
+- `docs/projects/*.md` (delivery-modes, automations, segments, data-feeds, email-builder, suppression-list, contacts, etc.) and `docs/integrations/*.md`, `docs/api/`, `docs/statistics.md`, `docs/account-users.md`
 - `email-sending-concepts/*.md` for protocol/compliance features (one-click unsubscribe, etc.)
 
 There is no dedicated changelog file in this repo. If you need to know when a doc last changed, use `git log -p -- <file>` on the specific source file instead of looking for a changelog artifact.

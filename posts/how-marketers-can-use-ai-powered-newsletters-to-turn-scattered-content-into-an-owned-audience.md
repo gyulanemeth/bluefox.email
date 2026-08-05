@@ -394,7 +394,7 @@ Spam filters can block you before you ever reach the inbox, and AI-powered email
 
 ### Do not ignore performance data
 
-Open rates and click rates tell you whether the newsletter is actually working. If engagement drops, that is a signal something needs to change: the sources, the summaries, the frequency, or the format. A fully automated system can drift in quality without anyone noticing unless someone is watching the numbers. BlueFox Email's [analytics dashboard](/docs/analytics) tracks opens, clicks, and engagement over time so you can catch issues early.
+Open rates and click rates tell you whether the newsletter is actually working. If engagement drops, that is a signal something needs to change: the sources, the summaries, the frequency, or the format. A fully automated system can drift in quality without anyone noticing unless someone is watching the numbers. BlueFox Email's [analytics dashboard](/docs/statistics) tracks opens, clicks, and engagement over time so you can catch issues early.
 
 ### Do not remove your own opinion completely
 

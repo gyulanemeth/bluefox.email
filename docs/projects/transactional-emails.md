@@ -228,7 +228,7 @@ You can access the **Transactional Email Statistics** by clicking the arrow icon
 
 ![Advanced Settings Icon](./project-transactionals-stats-btn.webp)
 
-For a detailed guide on using the **Transactional Email Statistics**, refer to the [Analatics Documentation](/docs/analytics).
+For a detailed guide on using the **Transactional Email Statistics**, refer to the [Analatics Documentation](/docs/statistics).
 
 ## Data Feeds
 

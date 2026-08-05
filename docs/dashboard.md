@@ -58,7 +58,7 @@ The **Account Dashboard** provides both **overall account-level** statistics and
 - **Total Bounces**: The total number of bounced emails across all projects in your account
 - **Total Complaints**: The total number of complaints received across all projects in your account.
 
-You can directly go to the [statistics page](/docs/analytics) for a more detailed breakdown of these metrics and to analyze the performance of your email campaigns across all projects.
+You can directly go to the [statistics page](/docs/statistics) for a more detailed breakdown of these metrics and to analyze the performance of your email campaigns across all projects.
 
 ![Email statistics](./dashboard-statistics-email-chart.webp)
 

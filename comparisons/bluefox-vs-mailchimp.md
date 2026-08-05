@@ -231,7 +231,7 @@ Mailchimp tracks open rates, click rates, bounce rates, unsubscribe rates, and f
 
 ### BlueFox Email
 
-BlueFox Email scopes [analytics](https://bluefox.email/docs/analytics) at account, project, campaign, transactional email, triggered email, and subscriber list levels. Per email: sends, opens, unique opens, clicks, unique clicks, bounces, complaints, unsubscribes, resubscriptions, paused subscriptions. Time-range filters cover current/previous week, current/previous month, last 3 months, and overall. Project-level dashboard shows live bounce rate (against the 2.5% ceiling) and complaint rate (against the 0.05% ceiling). Automation cards expose Runs, Active, Sends, Opens, Clicks for the whole flow plus per-Send-Email-node breakdowns. Webhooks push every event in real time for external dashboards.
+BlueFox Email scopes [analytics](https://bluefox.email/docs/statistics) at account, project, campaign, transactional email, triggered email, and subscriber list levels. Per email: sends, opens, unique opens, clicks, unique clicks, bounces, complaints, unsubscribes, resubscriptions, paused subscriptions. Time-range filters cover current/previous week, current/previous month, last 3 months, and overall. Project-level dashboard shows live bounce rate (against the 2.5% ceiling) and complaint rate (against the 0.05% ceiling). Automation cards expose Runs, Active, Sends, Opens, Clicks for the whole flow plus per-Send-Email-node breakdowns. Webhooks push every event in real time for external dashboards.
 
 **Strengths:** live bounce/complaint ratios against the production thresholds, per-email-type and per-automation-node stats, real-time webhook push for external analytics, full event set on every plan.
 

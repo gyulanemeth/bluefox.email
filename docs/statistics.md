@@ -1,31 +1,31 @@
 ---
-title: Analytics | bluefox.email documentation
-description: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
+title: Statistics | bluefox.email documentation
+description: Gain deep insights into your email and subscription performance with bluefox.email's Statistics page. Track sends, opens, clicks, and subscription trends across your project, campaigns, automations, and more.
 faqs:
-  - question: "What email metrics does BlueFox Email track in analytics?"
-    answer: "BlueFox Email tracks sends, opens, unique opens, clicks, unique clicks, failed deliveries, bounces, and complaints for every email type including transactional emails, triggered emails, and campaigns. These metrics are available at the account level, project level, and per individual email."
-  - question: "What time periods can I filter analytics data by in BlueFox Email?"
-    answer: "You can filter analytics by current week, previous week, current month, previous month, last 3 months, or all time. For chart views you can also set a custom date range. Daily, weekly, and monthly chart views support up to a 1 year range, while the hourly view supports up to 7 days."
-  - question: "What subscription metrics does BlueFox Email analytics show?"
-    answer: "BlueFox Email analytics tracks total contacts, total subscriptions, active subscribers, paused subscriptions, and unsubscribed counts in the overall banner. Charts also show subscribed, resubscribed, unsubscribed, paused subscription, and unpaused subscription events over time."
-  - question: "Can I export analytics data from BlueFox Email?"
-    answer: "Yes. Each statistics page includes a data table below the charts that shows raw event-level data. You can filter the table by one or more criteria and then download the filtered results as a CSV file."
+  - question: "What email metrics does the BlueFox Email Statistics page track?"
+    answer: "The Email Sending Trends tab tracks sends, send rate, failure, failure rate, opens, open rate, unique opens, unique open rate, clicks, click rate, unique clicks, unique click rate, clicks/unique opens, unique clicks/unique opens, unsubscribes/unique opens, bounces, bounce rate, complaints, and complaint rate. These are available at the account level, project level, and for individual transactional emails, triggered emails, campaigns, and automation emails."
+  - question: "What time intervals can I view Statistics charts by?"
+    answer: "Charts default to a daily time interval, and you can switch to hourly, weekly, or monthly using the time interval switcher. Daily, weekly, and monthly views support up to a 1 year range, while the hourly view supports up to 7 days."
+  - question: "What subscription metrics does the BlueFox Email Statistics page show?"
+    answer: "The Subscription Trends tab's overview banner shows new contacts, subscriptions, unique subscriptions, unsubscribes, unique unsubscribes, paused, and unique paused. Its chart tracks subscribe, unsubscribe, pause subscription, unpause subscription, and resubscribe events over time."
+  - question: "Can I export statistics data from BlueFox Email?"
+    answer: "Yes. Each email or automation's statistics page includes a data table below the chart that shows raw event-level data. You can filter the table by opened, clicked, bounced, complained, or unsubscribed status, then download the filtered results as a CSV file."
 head:
   - - meta
     - name: description
-      content: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
+      content: Gain deep insights into your email and subscription performance with bluefox.email's Statistics page. Track sends, opens, clicks, and subscription trends across your project, campaigns, automations, and more.
   - - meta
     - property: og:title
-      content: Analytics | bluefox.email documentation
+      content: Statistics | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
+      content: Gain deep insights into your email and subscription performance with bluefox.email's Statistics page. Track sends, opens, clicks, and subscription trends across your project, campaigns, automations, and more.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/docs/analytics
+      content: https://bluefox.email/docs/statistics
   - - meta
     - property: og:type
       content: website
@@ -34,10 +34,10 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: Analytics | bluefox.email documentation
+      content: Statistics | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Gain deep insights into your email and subscription performance with bluefox.email's advanced analytics tools. Track metrics, analyze trends, and optimize engagement.
+      content: Gain deep insights into your email and subscription performance with bluefox.email's Statistics page. Track sends, opens, clicks, and subscription trends across your project, campaigns, automations, and more.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -123,11 +123,11 @@ Available metrics are:
 
 ## Select Email
 
-By default, the **Select Email** dropdown is set to **Current Project**, showing stats for the whole project. You can narrow it down to a specific **subscriber list**, **transactional email**, **triggered email**, **campaign**, or **automation**.
+By default, the **Select Email** dropdown is set to **Current Project**, showing stats for the whole project. Opening it reveals a **Select Type** dropdown where you can narrow the scope to a specific **Subscriber Lists**, **Transactional Email**, **Triggered Email**, **Campaign**, or **Automation**. Once you pick a type, a second **Select** dropdown lets you choose the specific item; click **Apply** to load its stats.
 
 ![Select Email dropdown](./statistics-overview-select-email.webp)
 
-### Email Card Statistics
+## Email Card Statistics
 
 Each email card also shows a quick snapshot under **Overall stats**: sent, opens, clicks, [bounces](/email-sending-concepts/bounces), and [complaints](/email-sending-concepts/complaints), a subset of the full Email Sending Trends metrics covered above. These numbers reflect stats from the most recent send.
 
@@ -157,7 +157,7 @@ If you scroll down further, you'll see a list of all the links clicked in that e
 
 ![List of clicked links](./statistics-email-card-stats-data-table-links.webp)
 
-### Automation Card Statistics
+## Automation Card Statistics
 
 Each automation card also shows quick stats: **runs**, **active**, **sends**, **opens**, and **clicks**.
 
@@ -187,11 +187,11 @@ Scroll down further to see a list of all the links clicked in that automation em
 
 ![List of clicked links](./statistics-automation-card-stats-data-table-links.webp)
 
-If you want to change the automation, just click on the **Select Automation** dropdown at the top of the page to choose a different automation. The statistics page will update to show data for that selected automation.
+If you want to change the automation email, use the **Select Email** dropdown at the top of the page: set **Select Type** to **Automation**, then pick the automation email from the **Select** dropdown and click **Apply**. The statistics page will update to show data for that selected automation email.
 
-![Select Automation dropdown](./statistics-automation-card-stats-select-automation.webp)
+![Select Email dropdown set to Automation](./statistics-automation-card-stats-select-automation.webp)
 
-### Subscriber list statistics
+## Subscriber list statistics
 
 To check stats for a specific subscriber list, go to the **Contacts** section and select the list you want to analyze.
 There click on the **Manage List** button and then select **More Stats** from the dropdown menu.
@@ -202,60 +202,6 @@ When you do, you will see similar statistics as described above, but filtered to
 
 ![Statistics page for a specific subscriber list](./statistics-subscriber-list-stats-page.webp)
 
-If you want to change the subscriber list, just click on the **Select List** dropdown at the top of the page to choose a different list. The statistics page will update to show data for that selected list.
+If you want to change the subscriber list, use the **Select Email** dropdown at the top of the page: set **Select Type** to **Subscriber Lists**, then pick a different list from the **Select** dropdown and click **Apply**. The statistics page will update to show data for that selected list.
 
-![Select List dropdown](./statistics-subscriber-list-stats-select-list.webp)
-
-## Overall Banners
-
-At the top of every statistics page, an overall banner displays key metrics in separate boxes. Each box has a title and a numeric value that provides a quick overview of email performance or subscriber activity.
-
-### Overall Email Statistics Banner
-
-The Email Summary Banner provides key email performance metrics, such as **sent emails**, **failed**, **opens**, **unique opens**, **clicks**, **unique clicks**, **bounced**, and **complaints**. This banner is essential for tracking email performance at a glance, enabling users to monitor engagement and [delivery quality](/email-sending-concepts/deliverability) effectively.
-
-![Email Summary Banner](./statistics-email-overall-banner.webp)
-
-### Overall Subscription Statistics Banner
-
-The Subscription Overall Banner provides an overview of your total subscribers and their current status. It displays metrics such as **contacts**, **subscriptions**, **active**, **paused**, and **unsubscribed**. This summary is key to understanding the distribution of your audience and tracking changes in subscriber engagement and retention.
-
-![Subscription Summary Banner](./statistics-subscription-overall-banner.webp)
-
-## Email and Subscription Charts
-
-### Email Metrics
-
-Email-related charts track key performance indicators for emails, including: **sent**, **open**, **unique opens**, **click**, **unique click**, and **failed**.
-
-These metrics are displayed using either bar or line charts, depending on the user's preference for visualizing comparative data or tracking continuous trends.
-
-![Email Charts Example](./statistics-email-bar-chart.webp)
-
-### Subscription Metrics
-
-Subscription charts track key behaviors, including: **subscribed**, **resubscribed**, **unsubscribed**, **paused subscription**, and **unpaused subscription**.
-
-In the **subscription metrics** section, users can monitor activities like new subscriptions, unsubscribes, paused, and resumed subscriptions. These metrics can be displayed as bar or line charts, offering flexible analysis of subscription trends.
-
-![Subscription Charts Example](./statistics-subscription-bar-chart.webp)
-
-## Charts and Graphs
-
-The statistics page's main section features **interactive charts** that allow users to monitor and analyze the performance of their **email** and **subscription** metrics. These charts provide both **comparative data points** and **continuous trends** over time, enabling users to choose the most relevant view for their analysis.
-
-## Chart Types
-
-#### Bar Charts
-
-Bar charts visualize **comparative data points**, highlighting how data points differ over time. They are ideal for comparing performance across specific periods, such as the number of emails sent or new subscriptions within a given timeframe.
-
-![Bar Chart Example](./statistics-bar-chart-example.webp)
-
-#### Line Charts
-
-Line charts showcase **continuous data trends** over time, making it easier to track data changes and trends.
-
-These charts are especially useful for monitoring long-term patterns, such as tracking email or subscription growth over weeks or months.
-
-![Line Chart Example](./statistics-line-chart-example.webp)
+![Select Email dropdown set to Subscriber Lists](./statistics-subscriber-list-stats-select-list.webp)

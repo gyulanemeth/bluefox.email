@@ -5,7 +5,7 @@ description: Open rate measures the percentage of recipients who opened an email
 
 # Open Rate in Email Marketing
 
-**Open rate** is the percentage of delivered emails that were recorded as opened. It's one of the oldest metrics in [email marketing metrics and analytics](/email-marketing-concepts/metrics-and-analytics/), traditionally used as a first signal of whether a subject line, sender name, or send time got someone's attention. It's still reported in almost every [analytics dashboard](/docs/analytics), but the way it should be interpreted has changed significantly in recent years.
+**Open rate** is the percentage of delivered emails that were recorded as opened. It's one of the oldest metrics in [email marketing metrics and analytics](/email-marketing-concepts/metrics-and-analytics/), traditionally used as a first signal of whether a subject line, sender name, or send time got someone's attention. It's still reported in almost every [analytics dashboard](/docs/statistics), but the way it should be interpreted has changed significantly in recent years.
 
 ## What Open Rate Measures
 
@@ -50,4 +50,4 @@ Metrics that require an active, deliberate action from the recipient, like [clic
 - [Metrics and Analytics](/email-marketing-concepts/metrics-and-analytics/)
 - [Click-Through Rate (CTR)](/email-marketing-concepts/metrics-and-analytics/click-through-rate)
 - [Testing and Optimization](/email-marketing-concepts/testing-and-optimization/)
-- [BlueFox Email Analytics](/docs/analytics)
+- [BlueFox Email Analytics](/docs/statistics)
