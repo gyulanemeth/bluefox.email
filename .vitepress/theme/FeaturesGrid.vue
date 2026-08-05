@@ -167,25 +167,25 @@ const categories = [
       {
         name: 'Email Performance Metrics',
         desc: 'Track sends, opens, unique opens, clicks, unique clicks, and failures per email and across your project.',
-        docs: '/docs/analytics#email-card-analytics',
+        docs: '/docs/statistics#email-sending-trends',
         iconPaths: `<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><polyline points="2 20 22 20"/>`
       },
       {
         name: 'Bounce & Complaint Tracking',
         desc: 'Monitor bounce and complaint rates per email. Overall banners and per-send breakdowns keep you under thresholds.',
-        docs: '/docs/analytics#overall-banners',
+        docs: '/docs/statistics#email-card-statistics',
         iconPaths: `<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>`
       },
       {
         name: 'Subscription Metrics',
         desc: 'Track subscribed, resubscribed, unsubscribed, and paused events over time across all lists.',
-        docs: '/docs/analytics#email-and-subscription-charts',
+        docs: '/docs/statistics#subscription-trends',
         iconPaths: `<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>`
       },
       {
         name: 'Charts, Filters & CSV Export',
         desc: 'Bar and line charts with time-interval controls, date filters, accumulated view, and a filterable CSV-exportable data table.',
-        docs: '/docs/analytics#data-table',
+        docs: '/docs/statistics#email-card-statistics',
         iconPaths: `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>`
       },
     ]

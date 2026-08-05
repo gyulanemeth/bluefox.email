@@ -13,7 +13,7 @@ description: Click-through rate measures the percentage of recipients who clicke
 CTR = (Unique Clicks ÷ Emails Successfully Delivered) × 100
 ```
 
-Most platforms, including [BlueFox Email's analytics](/docs/analytics), track this at the level of unique clicking recipients rather than raw click count, so one person clicking a link three times still only counts once toward CTR. This keeps the metric focused on how many *people* engaged, not how many *clicks* happened.
+Most platforms, including [BlueFox Email's analytics](/docs/statistics), track this at the level of unique clicking recipients rather than raw click count, so one person clicking a link three times still only counts once toward CTR. This keeps the metric focused on how many *people* engaged, not how many *clicks* happened.
 
 ## Why CTR Is a Stronger Signal Than Open Rate
 

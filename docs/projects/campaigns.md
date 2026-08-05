@@ -229,7 +229,7 @@ You can access the **Campaign Email Statistics** by clicking the arrow icon:
 
 ![Campaign Stats](./project-campaigns-stats-btn.webp)
 
-For more information on how to use the **Campaign Email Statistics**, refer to the [Analytics Documentation](/docs/analytics).
+For more information on how to use the **Campaign Email Statistics**, refer to the [Analytics Documentation](/docs/statistics).
 
 
 ## Data Feeds
