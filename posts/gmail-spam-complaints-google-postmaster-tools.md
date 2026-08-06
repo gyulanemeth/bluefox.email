@@ -36,13 +36,13 @@ head:
       content: https://bluefox.email/assets/articles/gmail-spam-complaints-google-postmaster-tools-share.png
 
 lastUpdated: true
-published: 2026-08-04
+published: 2026-08-11
 sidebar: false
 ---
 
 # Zero Spam Complaints? Gmail May Tell a Different Story
 
-*Google Postmaster Tools can reveal spam complaints your own email analytics never see.*
+*[Google Postmaster Tools](https://postmaster.google.com) can reveal spam complaints your own email analytics never see.*
 
 You send a campaign and check the results.
 
