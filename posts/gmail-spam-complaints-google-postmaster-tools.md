@@ -1,6 +1,6 @@
 ---
 title: Gmail Spam Complaints and Google Postmaster Tools
-description: Gmail does not report individual spam complaints to email platforms. Learn how Google Postmaster Tools reveals the missing signals and helps identify problematic emails.
+description: Gmail hides spam complaints from your email platform. See how Google Postmaster Tools reveals the missing signal and helps you trace the problem email.
 thumbnail: /assets/articles/gmail-spam-complaints-google-postmaster-tools-share.webp
 
 layout: post
@@ -9,13 +9,13 @@ category: articles
 head:
   - - meta
     - name: description
-      content: Gmail does not report individual spam complaints to email platforms. Learn how Google Postmaster Tools reveals the missing signals and helps identify problematic emails.
+      content: Gmail hides spam complaints from your email platform. See how Google Postmaster Tools reveals the missing signal and helps you trace the problem email.
   - - meta
     - property: og:title
       content: Gmail Spam Complaints and Google Postmaster Tools
   - - meta
     - property: og:description
-      content: Gmail does not report individual spam complaints to email platforms. Learn how Google Postmaster Tools reveals the missing signals and helps identify problematic emails.
+      content: Gmail hides spam complaints from your email platform. See how Google Postmaster Tools reveals the missing signal and helps you trace the problem email.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/articles/gmail-spam-complaints-google-postmaster-tools-share.png
@@ -30,7 +30,7 @@ head:
       content: Gmail Spam Complaints and Google Postmaster Tools
   - - meta
     - name: twitter:description
-      content: Gmail does not report individual spam complaints to email platforms. Learn how Google Postmaster Tools reveals the missing signals and helps identify problematic emails.
+      content: Gmail hides spam complaints from your email platform. See how Google Postmaster Tools reveals the missing signal and helps you trace the problem email.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/articles/gmail-spam-complaints-google-postmaster-tools-share.png
@@ -41,6 +41,8 @@ sidebar: false
 ---
 
 # Zero Spam Complaints? Gmail May Tell a Different Story
+
+*Google Postmaster Tools can reveal spam complaints your own email analytics never see.*
 
 You send a campaign and check the results.
 
@@ -62,7 +64,7 @@ BlueFox can then:
 
 * record the complaint;
 * identify the recipient;
-* add the address to the suppression list;
+* add the address to the [suppression list](/docs/projects/suppression-list);
 * prevent further messages from being sent to it.
 
 Gmail does not provide this recipient-level complaint information to any email service provider (ESP).
@@ -111,10 +113,9 @@ Open [Google Postmaster Tools](https://postmaster.google.com), sign in and press
 
 ![Google Postmaster Tools home page, with the Add button highlighted](./gmail-spam-complaints-google-postmaster-tools/postmaster-tools-add-domain-button.webp)
 
-Enter the domain used to authenticate your outgoing email with DKIM or SPF. For BlueFox users, this should be one of your own verified sending domains, not the shared `bluefoxemailsandbox.com` domain.
+Enter the domain used to authenticate your outgoing email. To receive Feedback Loop data later on, that domain needs to be signed with [DKIM](/email-sending-concepts/dkim) or published in your [SPF](/email-sending-concepts/spf) record. For BlueFox users, this should be one of your own verified sending domains, not the shared `bluefoxemailsandbox.com` domain.
 
 Google recommends adding and verifying the primary domain before adding individual subdomains. Add a subdomain separately when you want to monitor its data independently.
-
 
 ![The domain entry window in Google Postmaster Tools, with an example sending domain](./gmail-spam-complaints-google-postmaster-tools/postmaster-tools-domain-entry.webp)
 
@@ -126,8 +127,6 @@ Google will give you a TXT record that proves you control the domain.
 
 Copy the record, open the DNS settings at your domain or DNS provider, and add it as a new TXT record.
 
-
-
 ### 3. Verify the domain
 
 Return to Postmaster Tools and select **Verify**.
@@ -137,8 +136,6 @@ Verification normally happens quickly, although Google says it can take up to te
 ![Google Postmaster Tools confirming the domain has been added to your verified domains](./gmail-spam-complaints-google-postmaster-tools/postmaster-tools-domain-verified.webp)
 
 Once the domain is verified and Google has enough Gmail traffic to report, you can open its dashboards and review spam rate, authentication, delivery errors and Feedback Loop data.
-
- 
 
 ## Identifying the email that caused the problem
 
@@ -178,7 +175,7 @@ You may see no Feedback Loop information when:
 
 Small transactional streams and individual automation emails may never produce enough volume to appear separately.
 
-Postmaster Tools is also Gmail-specific. Other mailbox providers vary in what they expose: many, including Outlook and Yahoo, at least offer some form of feedback loop or postmaster page, but others offer nothing comparable. iCloud Mail is a notable example — it has no feedback loop for spam complaints and no Postmaster Tools-style dashboard at all, only a direct abuse-desk contact for deliverability issues. Many smaller or privately operated mailbox providers are similar: no complaint reporting and no self-service dashboard of any kind.
+Postmaster Tools is also Gmail-specific. Other mailbox providers vary in what they expose: many, including Outlook and Yahoo, at least offer some form of feedback loop or postmaster page, but others offer nothing comparable. iCloud Mail is a notable example. It has no feedback loop for spam complaints and no Postmaster Tools-style dashboard at all, only a direct abuse-desk contact for deliverability issues. Many smaller or privately operated mailbox providers are similar: no complaint reporting and no self-service dashboard of any kind.
 
 ## What to investigate when Gmail’s spam rate increases
 
