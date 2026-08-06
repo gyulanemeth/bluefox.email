@@ -482,6 +482,8 @@ This matters more for Gmail than for most mailbox providers. Many ISPs run a tra
 
 This is optional, and it does not change how BlueFox Email sends your email. Its value is that it gives you independent, third-party confirmation of what a major mailbox provider actually thinks of your sending, rather than relying solely on the bounce and complaint data your platform reports back to you. If a large share of your audience is on Gmail, it is worth the few minutes it takes to set up.
 
+For a deeper look at why this creates a real blind spot in your own analytics, see [Zero Spam Complaints? Gmail May Tell a Different Story](/posts/gmail-spam-complaints-google-postmaster-tools).
+
 ## A practical deliverability checklist
 
 Before increasing your sending volume, check that you are doing the following:

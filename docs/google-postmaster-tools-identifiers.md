@@ -1,3 +1,48 @@
+---
+title: Google Postmaster Tools Feedback Identifiers | bluefox.email documentation
+description: How BlueFox Email structures the Feedback-ID header on outgoing emails, so you can trace a Gmail Postmaster Tools Feedback Loop warning back to the exact campaign, automation email, triggered email or transactional email that caused it.
+faqs:
+  - question: "What is the Feedback-ID header used for?"
+    answer: "Gmail does not tell senders which recipient marked a message as spam. Instead, Google Postmaster Tools reports aggregate Feedback Loop data tied to the Feedback-ID header on the message, letting you identify which sending source (not which recipient) is generating complaints."
+  - question: "Do I need to configure anything to get Feedback-ID identifiers?"
+    answer: "No. BlueFox Email adds the identifiers to outgoing emails automatically, for both BlueFox-managed sending and BYO Amazon SES projects."
+  - question: "Can I use the Feedback-ID to find which recipient complained?"
+    answer: "No. The identifier only reveals the sending source, such as the campaign, automation email, triggered email or transactional email template. Google does not disclose recipient-level complaint data through the Feedback Loop under any circumstances."
+  - question: "Why is my Feedback Loop dashboard in Google Postmaster Tools empty?"
+    answer: "Google only generates Feedback Loop reports once an identifier appears in enough traffic and receives spam reports from enough distinct Gmail users. Low-volume campaigns, transactional templates or individual automation steps may never produce enough data to appear."
+head:
+  - - meta
+    - name: description
+      content: How BlueFox Email structures the Feedback-ID header on outgoing emails, so you can trace a Gmail Postmaster Tools Feedback Loop warning back to the exact campaign, automation email, triggered email or transactional email that caused it.
+  - - meta
+    - property: og:title
+      content: Google Postmaster Tools Feedback Identifiers | bluefox.email documentation
+  - - meta
+    - property: og:description
+      content: How BlueFox Email structures the Feedback-ID header on outgoing emails, so you can trace a Gmail Postmaster Tools Feedback Loop warning back to the exact campaign, automation email, triggered email or transactional email that caused it.
+  - - meta
+    - property: og:image
+      content: https://bluefox.email/assets/docs-share.png
+  - - meta
+    - property: og:url
+      content: https://bluefox.email/docs/google-postmaster-tools-identifiers
+  - - meta
+    - property: og:type
+      content: website
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: Google Postmaster Tools Feedback Identifiers | bluefox.email documentation
+  - - meta
+    - name: twitter:description
+      content: How BlueFox Email structures the Feedback-ID header on outgoing emails, so you can trace a Gmail Postmaster Tools Feedback Loop warning back to the exact campaign, automation email, triggered email or transactional email that caused it.
+  - - meta
+    - name: twitter:image
+      content: https://bluefox.email/assets/docs-share.png
+---
+
 # Google Postmaster Tools feedback identifiers
 
 BlueFox Email automatically adds identifiers to outgoing emails that can help you investigate Gmail spam complaints using the Google Postmaster Tools Feedback Loop.
