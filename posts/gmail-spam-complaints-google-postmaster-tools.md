@@ -40,8 +40,6 @@ published: 2026-08-04
 sidebar: false
 ---
 
-![Zero spam complaints? Gmail may tell a different story: other mailbox providers report individual complaint events to BlueFox analytics, while Gmail only reports aggregate spam complaints through Google Postmaster Tools](/assets/articles/gmail-spam-complaints-google-postmaster-tools-share.png)
-
 # Zero Spam Complaints? Gmail May Tell a Different Story
 
 You send a campaign and check the results.
