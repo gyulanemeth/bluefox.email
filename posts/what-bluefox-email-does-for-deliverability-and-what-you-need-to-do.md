@@ -36,7 +36,7 @@ head:
       content: https://bluefox.email/assets/articles/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do-share.png
 
 lastUpdated: true
-published: 2026-08-04
+published: 2026-08-06
 sidebar: false
 ---
 
