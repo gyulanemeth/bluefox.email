@@ -70,7 +70,8 @@ To send a test email to a specific contact:
 1. Click the **Send Test** button on your email card.
 2. Select **Email** as the recipient type.
 3. Enter the email address to whom you want to send the test email.
-4. Click **Send**.
+4. If a Cloudflare Turnstile verification appears, complete it.
+5. Click **Send**.
 
 The test email will be sent immediately to the specified email address.
 
@@ -86,7 +87,8 @@ To send a test email to an entire subscriber list:
 1. Click the **Send Test** button on your email card.
 2. Select **Subscriber List** as the recipient type.
 3. Choose the subscriber list from the dropdown menu.
-4. Click **Send**.
+4. If a Cloudflare Turnstile verification appears, complete it.
+5. Click **Send**.
 
 The test email will be sent to all active subscribers in the selected list.
 
@@ -96,5 +98,10 @@ Test emails are for preview purposes only. They are not counted as real sends an
 
 ![A screenshot of the send test email dialog for subscriber list.](./project-send-test-email-list.webp)
 
+## Turnstile Verification
+
+The send test email dialog is protected by Cloudflare Turnstile. Most of the time the check passes in the background, but if a verification appears, complete it before clicking **Send**.
+
+![A screenshot of the send test email dialog with the Turnstile verification.](./project-send-test-email-turnstile.webp)
 
 And thats it! This way you can easily test your emails before sending them to your entire audience.
