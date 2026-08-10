@@ -74,9 +74,9 @@ Users can also manage the project name in this section or delete the project ent
 
 
 
-## Delivery Modes
+## Sending Setup
 
-Delivery modes determine how emails are sent from your project. So the default for every new project is **sandbox mode**. In this mode, you can start sending emails immediately but with some limitations. When you're ready for unrestricted sending, you can request to move your project to **production mode**. If you prefer to bring your own AWS SES account, you can do that too. 
+The **Sending Setup** section is where you choose how emails are sent from your project. So the default for every new project is **sandbox mode**. In this mode, you can start sending emails immediately but with some limitations. When you're ready for unrestricted sending, you can request to move your project to **production mode**. If you prefer to bring your own AWS SES account, you can do that too. 
 
 For more details, see our [Delivery Modes documentation](/docs/projects/delivery-modes).
 
@@ -90,6 +90,10 @@ This feature is only available for projects using **Bring Your Own (BYO) AWS SES
 To effectively manage email bounces and complaints, BlueFox Email provides webhook integration. This allows you to receive real-time notifications about these events, enabling you to take appropriate actions such as updating contact statuses or triggering follow-up processes.
 
 ![A screenshot of a project settings bounces and complaints webhooks section.](./project-settings-bounces-complaints-webhooks.webp)
+
+::: warning Keep in mind
+If bounce and complaint rates are not kept within acceptable limits, the BlueFox Email team can restrict the project or the whole account. See [Account and Project Restrictions](../account-settings.md#account-and-project-restrictions).
+:::
 
 ## Contact Properties
 

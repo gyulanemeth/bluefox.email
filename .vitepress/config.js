@@ -264,6 +264,10 @@ export default defineConfig({
               link: "/docs/account-users.md"
             },
             {
+              text: "Account Settings",
+              link: "/docs/account-settings"
+            },
+            {
               text: "Projects",
               link: "/docs/projects/",
               collapsed: false,
