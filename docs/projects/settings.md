@@ -205,3 +205,9 @@ Steps to set up webhooks:
 2. **Select Events**: Choose the events you want to be notified about (e.g., open, click, bounce, complaint).
 3. **Save and Test**: Save your settings and use the 'Test Webhook' feature to ensure your integration is working correctly.
 4. **Start Receiving Notifications**: Once set up, you'll begin receiving real-time updates for the selected events.
+
+## Unengaged Segment
+
+This section defines, for the whole project, which contacts count as **unengaged**. It uses the same condition builder as [segments](./segments.md), and comes with a default definition that you can edit or reset at any time. Contacts matching the definition are skipped on any [campaign](./campaigns.md) or [triggered email](./triggered-emails.md) where you turn on **Exclude unengaged**.
+
+For more details, see our [Unengaged Segment documentation](/docs/projects/unengaged-segment).

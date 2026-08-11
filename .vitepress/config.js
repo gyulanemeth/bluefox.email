@@ -336,6 +336,10 @@ export default defineConfig({
                   text: "Settings",
                   link: "/docs/projects/settings"
                 },
+                {
+                  text: "Unengaged Segment",
+                  link: "/docs/projects/unengaged-segment"
+                },
               ],
             },
             {

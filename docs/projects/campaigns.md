@@ -86,7 +86,7 @@ If you didn't start from a copied design, you will have to select a template to 
 Here select a template from your project or from the [pre-designed templates](/docs/projects/predesigned-templates#using-pre-designed-templates):
 ![A screenshot of a project's campaigns - create: template selection.](./project-campaign-create-select-template-2.webp)
 
-Select a template and click "Next". Enter its name, subject line, preview text, select a subscriber list, and select a segment. You can also check **Exclude unengaged contacts** to skip contacts that match the unengaged segment defined in your [project settings](/docs/projects/settings):
+Select a template and click "Next". Enter its name, subject line, preview text, select a subscriber list, and select a segment. You can also check **Exclude unengaged contacts** to skip contacts that match the [unengaged segment](/docs/projects/unengaged-segment) defined in your project settings:
 ![A screenshot of a project's campaigns - create: enter data.](./project-campaign-create-select-template.webp)
 
 ::: info This form will appear as first step if you choose to start from scratch.
@@ -105,7 +105,7 @@ When you're done, click "Save & Close". You can make changes later as well.
 
 These two editors always start from scratch, there's no template selection step.
 
-Enter its name, subject line, preview text, select a subscriber list, and select a segment. You can also check **Exclude unengaged contacts** to skip contacts that match the unengaged segment defined in your [project settings](/docs/projects/settings):
+Enter its name, subject line, preview text, select a subscriber list, and select a segment. You can also check **Exclude unengaged contacts** to skip contacts that match the [unengaged segment](/docs/projects/unengaged-segment) defined in your project settings:
 
 ![A screenshot of a project's campaigns - create: enter data.](./project-campaign-create-select-template-raw-html.webp)
 
