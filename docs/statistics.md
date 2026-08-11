@@ -129,11 +129,11 @@ By default, the **Select Email** dropdown is set to **Current Project**, showing
 
 ## Email Card Statistics
 
-Each email card also shows a quick snapshot under **Overall stats**: sent, opens, clicks, [bounces](/email-sending-concepts/bounces), and [complaints](/email-sending-concepts/complaints), a subset of the full Email Sending Trends metrics covered above. These numbers reflect stats from the most recent send.
+Each email card also shows a quick snapshot under **Overall stats**: sent, opens, clicks, [bounces](/email-sending-concepts/bounces), and [complaints](/email-sending-concepts/complaints), a subset of the full Email Sending Trends metrics covered above. These numbers reflect the email's overall stats, not a specific time period.
 
 ![Statistics section on email cards](./statistics-email-card.webp)
 
-To view detailed statistics or change the time period, click the arrow icon on the card to open the full statistics page for that email.
+To view detailed statistics or check stats for a specific time period, click the arrow icon on the card to open the full statistics page for that email.
 
 ![Arrow icon to open the full statistics page](./statistics-email-card-stats-arrow.webp)
 
