@@ -49,6 +49,8 @@ head:
 
 BlueFox Email offers flexible delivery modes that let you start sending emails immediately and scale when ready. Every new project begins in **sandbox mode**, allowing you to send your first email within minutes with some restrictions. When you're ready for unrestricted sending, you can transition to **production mode**. Of course, if you still prefer to use AWS SES directly, you can do that too without any delay or restrictions.
 
+You can find and change the delivery mode of a project in your [project settings](./settings.md#sending-setup), under the **Sending Setup** section.
+
 ## Sandbox Mode
 
 Whenever you create a new project in BlueFox Email, it starts in **sandbox mode**. 
@@ -136,7 +138,9 @@ You should maintain:
 - A low bounce rate (below 2.5%).
 - A low complaint rate (below 0.05%).
 
-If your bounce or complaint rates exceed these thresholds, BlueFox Email may suspend your project. Now of course, we will notify you in advance when you are about to reach these limits.
+:::warning Keep in mind
+If your bounce or complaint rates exceed these thresholds, BlueFox Email may restrict your project, or in serious cases your whole account. Sending is blocked while a restriction is active. Now of course, we will notify you in advance when you are about to reach these limits. See [Account and Project Restrictions](../account-settings.md#account-and-project-restrictions) for details.
+:::
 
 You can always check your bounce and complaint rates here:
 
