@@ -81,6 +81,7 @@ BlueFox Email covers transactional emails, triggered emails, marketing campaigns
 - [For Marketing Agencies](https://bluefox.email/for/marketing-agencies)
 - [For Amazon SES Users](https://bluefox.email/for/amazon-ses-users)
 - [For Occasional Senders](https://bluefox.email/for/occasional-senders)
+- [For Schools & Education Organizations](https://bluefox.email/for/education)
 
 ## Free Tools
 
