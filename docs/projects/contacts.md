@@ -333,4 +333,4 @@ You can access the **Subscription List Statistics** by clicking the **More Stats
 
 ![stats Icon](./project-subscriber-lists-stats-btn.webp)
 
-For more information on how to use the **Subscription List Statistics**, refer to the [Analytics Documentation](/docs/analytics).
+For more information on how to use the **Subscription List Statistics**, refer to the [Analytics Documentation](/docs/statistics).

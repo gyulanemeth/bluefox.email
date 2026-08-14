@@ -383,8 +383,8 @@ export default defineConfig({
               ],
             },
             {
-              text: "Analytics",
-              link: "/docs/analytics",
+              text: "Statistics",
+              link: "/docs/statistics",
             },
             {
               text: "Email Personalization (Merge Tags)",

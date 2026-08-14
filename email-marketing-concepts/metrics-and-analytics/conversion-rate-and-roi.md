@@ -30,7 +30,7 @@ The basic formula mirrors open and click-through rate:
 Conversion Rate = (Recipients Who Completed the Action ÷ Emails Delivered) × 100
 ```
 
-Tracking the action itself typically requires a mechanism to connect an email click to a downstream event, most commonly a tagged link (such as a UTM parameter) that a website or app analytics tool picks up, combined with tracking inside the email platform for opens and clicks. A dedicated [analytics dashboard](/docs/analytics) that reports delivery, click, and downstream conversion data together makes it far easier to see the full funnel for a single campaign rather than reconciling numbers across disconnected tools.
+Tracking the action itself typically requires a mechanism to connect an email click to a downstream event, most commonly a tagged link (such as a UTM parameter) that a website or app analytics tool picks up, combined with tracking inside the email platform for opens and clicks. A dedicated [analytics dashboard](/docs/statistics) that reports delivery, click, and downstream conversion data together makes it far easier to see the full funnel for a single campaign rather than reconciling numbers across disconnected tools.
 
 ## Calculating Revenue Per Email
 
@@ -50,7 +50,7 @@ Common attribution approaches include:
 
 - **Last-click attribution**: Credits the conversion entirely to the last email (or channel) clicked before the action happened. Simple to implement, but can overstate the role of whichever touchpoint happened to be last.
 - **First-click attribution**: Credits the touchpoint that started the journey. Useful for understanding what drives initial interest, but ignores everything that closed the sale.
-- **Platform-reported attribution**: Most email platforms, including [BlueFox Email's analytics](/docs/analytics), report conversions based on a defined attribution window after a click (practical to use, but it's still a model, not a perfect record of causation).
+- **Platform-reported attribution**: Most email platforms, including [BlueFox Email's analytics](/docs/statistics), report conversions based on a defined attribution window after a click (practical to use, but it's still a model, not a perfect record of causation).
 
 ## Treating Attribution as Directional, Not Precise
 
@@ -61,4 +61,4 @@ Because no attribution model fully captures a real multi-touch customer journey,
 - [Metrics and Analytics](/email-marketing-concepts/metrics-and-analytics/)
 - [Click-Through Rate (CTR)](/email-marketing-concepts/metrics-and-analytics/click-through-rate)
 - [Goal Setting](/email-marketing-concepts/strategy/goal-setting)
-- [BlueFox Email Analytics](/docs/analytics)
+- [BlueFox Email Analytics](/docs/statistics)
