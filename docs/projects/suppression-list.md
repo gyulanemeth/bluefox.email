@@ -48,6 +48,8 @@ head:
 
 Suppression Lists help you maintain high deliverability and a strong sender reputation by preventing emails from being sent to problematic addresses. This protects your project from high bounce rates, spam complaints, and wasted sending quota.
 
+Addresses that bounce or complain are added here automatically — this always happens, regardless of your [bounce and complaint list handling setting](./delivery-modes.md#bounce-and-complaint-list-handling), which only controls whether the contact is also removed from lists or deleted.
+
 You can find the Suppression List for your project under the **Suppression Lists** tab:
 
 ![Screenshot of the suppression list tab](./project-suppression-list.webp)
