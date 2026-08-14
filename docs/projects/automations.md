@@ -335,6 +335,8 @@ You can also add [data feeds](/docs/projects/data-feeds) to a Notify node's Raw 
 Unlike the Send Email node, which sends to the contact flowing through the automation, the Notify Node sends to a subscriber list of your choice. You can also specify individual email addresses from the list, so you don't necessarily need to send to the entire list. This makes it ideal for internal notifications or alerting a separate audience about automation activity.
 :::
 
+Because the Notify node sends to a subscriber list, it also offers the **Exclude unengaged** option, the same one you get on campaigns and triggered emails. Turn it on and every contact matching your project's [unengaged segment](/docs/projects/settings#unengaged-segment) definition is skipped for that notification. The definition itself lives in project settings and is shared across the whole project.
+
 
 ## Branching Node
 

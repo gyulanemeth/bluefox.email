@@ -144,7 +144,7 @@ After that you will need to specify the number of days for the engagement condit
 ![Screenshot of engagement-based segment days condition](./project-segments-engagement-days.webp)
 
 ::: tip Related setting:
-The same condition builder is used by the [unengaged segment](./unengaged-segment.md) in your project settings. That definition is project-wide and powers the **Exclude unengaged** toggle on campaigns and triggered emails, so you don't have to build an exclusion segment yourself.
+The same condition builder is used by the [unengaged segment](./settings.md#unengaged-segment) in your project settings. That definition is project-wide and powers the **Exclude unengaged** option on campaigns, triggered emails, and automation Notify nodes, so you don't have to build an exclusion segment yourself.
 :::
 
 ## Segment Application Scope
