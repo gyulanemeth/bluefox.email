@@ -19,10 +19,15 @@ const FOOTER_CONFIG = {
       url: 'https://www.linkedin.com/company/104663633/', 
       icon: '/assets/linkedin-brands-solid-full.svg' 
     },
-    { 
-      name: 'YouTube', 
-      url: 'https://www.youtube.com/@bluefox-email-official/shorts', 
-      icon: '/assets/youtube-brands-solid-full.svg' 
+    {
+      name: 'YouTube',
+      url: 'https://www.youtube.com/@bluefox-email-official/shorts',
+      icon: '/assets/youtube-brands-solid-full.svg'
+    },
+    {
+      name: 'TikTok',
+      url: 'https://www.tiktok.com/@bluefoxemail',
+      icon: '/assets/tiktok-brands-solid-full.svg'
     }
   ],
   
@@ -104,7 +109,7 @@ const { links: footerLinks, policies: policyLinks, currentYear, socialLinks } = 
               />
             </a>
             <p class="footer-tagline">
-              BlueFox Email helps marketing agnecies create and send beautiful marketing emails with high deliverability across all devices.
+              BlueFox Email helps marketing agencies, SaaS companies, higher education, and occasional senders create beautiful marketing emails that land in the inbox and look great on every device.
             </p>
             
             <!-- Social Links Section -->

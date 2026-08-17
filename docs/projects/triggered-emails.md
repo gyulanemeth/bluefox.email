@@ -91,7 +91,7 @@ Then, choose a template to start with (also defined in your project's design sys
 
 ![A screenshot of a project's triggered emails - create: template selection.](./project-triggered-emails-create-select-template.webp)
 
-Enter its name, subject line, preview text, and select a subscriber list. You can also check **Exclude unengaged contacts** to skip contacts that match the unengaged segment defined in your [project settings](/docs/projects/settings):
+Enter its name, subject line, preview text, and select a subscriber list. You can also check **Exclude unengaged contacts** to skip contacts that match the [unengaged segment](/docs/projects/settings#unengaged-segment) defined in your project settings:
 
 ![A screenshot of a project's triggered emails - create: enter data.](./project-triggered-emails-create-subject.webp)
 
@@ -116,7 +116,7 @@ When you're done, click "Save & Close". You can make changes later as well.
 
 These two editors always start from scratch, there's no template selection step.
 
-Enter its name, subject line, preview text, and select a subscriber list. You can also check **Exclude unengaged contacts** to skip contacts that match the unengaged segment defined in your [project settings](/docs/projects/settings):
+Enter its name, subject line, preview text, and select a subscriber list. You can also check **Exclude unengaged contacts** to skip contacts that match the [unengaged segment](/docs/projects/settings#unengaged-segment) defined in your project settings:
 
 ![A screenshot of a project's triggered emails - create: enter data.](./project-triggered-emails-create-subject-raw-html.webp)
 
@@ -289,7 +289,7 @@ You can access the **Triggered Email Statistics** by clicking the arrow icon:
 
 ![Advanced Settings Icon](./project-triggered-stats-btn.webp)
 
-For more information on using the **Triggered Email Statistics**, refer to the [Analytics Documentation](/docs/analytics).
+For more information on using the **Triggered Email Statistics**, refer to the [Analytics Documentation](/docs/statistics).
 
 ## Data Feeds
 

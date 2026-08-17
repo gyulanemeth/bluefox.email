@@ -36,7 +36,7 @@ head:
       content: https://bluefox.email/assets/articles/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do-share.png
 
 lastUpdated: true
-published: 2026-08-06
+published: 2026-08-11
 sidebar: false
 ---
 
@@ -51,6 +51,21 @@ It also cannot guarantee that every message will reach the inbox.
 Email deliverability is a **shared responsibility**. BlueFox Email provides the technical foundation and safeguards for responsible sending. You are responsible for your recipients, your content and the sending behaviour that gradually builds your reputation.
 
 Understanding where that responsibility is divided can help you avoid deliverability problems before they become difficult to fix.
+
+:::tip TL;DR
+
+| BlueFox Email handles | You are responsible for |
+|---|---|
+| Sending infrastructure, queueing and retries | Who you email, and whether they expect it |
+| Bounce and complaint processing, suppression | Content, frequency and targeting |
+| DNS record generation for SPF, DKIM, DMARC | Publishing those records with your DNS provider |
+| Unsubscribe and subscription-preference handling | Making unsubscribing easy to find and use |
+| Signup form protection (double opt-in, CAPTCHA/Turnstile) | Growing your list without purchased or scraped addresses |
+| Analytics on sends, bounces, complaints, opens and clicks | Acting on those signals and controlling sending volume |
+
+No platform, including BlueFox, can guarantee inbox placement. It can only provide the technical foundation and refuse to get in your way.
+
+:::
 
 ## Delivery and deliverability are not the same
 
@@ -409,7 +424,11 @@ Managed infrastructure does not mean that every customer automatically receives 
 Mailbox providers can evaluate the sending domain, content and recipient response in addition to the underlying infrastructure. A sender who generates complaints or sends to poor-quality lists can still develop deliverability problems.
 
 ::: warning
+Every new project starts in **Sandbox mode**, limited to **1 email per second** and **100 emails per day**. You'll need to request production access before sending at real volume.
+
 To keep production access on BlueFox-managed infrastructure, you need to keep your bounce rate below **2.5%** and your complaint rate below **0.05%**. BlueFox monitors both continuously and alerts you if you are approaching these thresholds.
+
+You may also start with a lower sending rate and a lower monthly sending limit, especially on a new domain. This is not a restriction to work around. It is part of the warm-up process that lets mailbox providers build up trust in your domain gradually, and limits are increased as you establish a positive sending history.
 :::
 
 ### Bringing your own Amazon SES account

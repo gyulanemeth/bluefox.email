@@ -264,6 +264,10 @@ export default defineConfig({
               link: "/docs/account-users.md"
             },
             {
+              text: "Account Settings",
+              link: "/docs/account-settings"
+            },
+            {
               text: "Projects",
               link: "/docs/projects/",
               collapsed: false,
@@ -379,8 +383,8 @@ export default defineConfig({
               ],
             },
             {
-              text: "Analytics",
-              link: "/docs/analytics",
+              text: "Statistics",
+              link: "/docs/statistics",
               collapsed: false,
               items: [
                 {
