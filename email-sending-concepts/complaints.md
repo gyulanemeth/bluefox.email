@@ -107,7 +107,7 @@ Notable exceptions include **Gmail**, which doesn't provide traditional FBL data
 Email service providers (ESPs) monitor complaint activity by integrating feedback loop data into their infrastructure. When a complaint is triggered, ESPs like [Amazon SES](/aws-concepts/ses) parse the ARF message, typically delivered via [Amazon SNS Topics](/aws-concepts/sns-topics) and automatically suppress the recipient’s address to prevent future delivery attempts. These systems also compile complaint metrics into dashboards, helping senders analyze trends, correlate complaints with campaign segments, and identify deliverability issues early. To protect their overall network reputation, ESPs may further adjust sending privileges based on complaint volume.
 
 :::::::tip Just a heads up
-In BlueFox Email, we automatically handle complaints for you. Just follow our instructions on setting up complaint webhook in your project settings, and whenever a recipient marks your email as spam, we’ll notify you by email. You can then take any necessary action, such as removing the email address from your list or all lists. You can also view complaint details in your project dashboard.
+In BlueFox Email, we automatically handle complaints for you. Just follow our instructions on setting up complaint webhook in your project settings, and whenever a recipient marks your email as spam, we will automatically add the email address to the suppression list to prevent future sending attempts. You will also receive an email notification when a complaint occurs, allowing you to take further action, such as removing the address from your lists. You can also view complaint details in your project dashboard.
 :::::::
 
 ## Impact of Complaints on Email Deliverability
