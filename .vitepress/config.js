@@ -381,6 +381,13 @@ export default defineConfig({
             {
               text: "Analytics",
               link: "/docs/analytics",
+              collapsed: false,
+              items: [
+                {
+                  text: "Google Postmaster Tools Feedback Identifiers",
+                  link: "/docs/google-postmaster-tools-identifiers",
+                },
+              ],
             },
             {
               text: "Email Personalization (Merge Tags)",
