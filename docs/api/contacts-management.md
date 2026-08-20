@@ -45,6 +45,8 @@ head:
 
 # Contacts and Contact Management via the API
 
+> **Legacy endpoint.** New integrations should use the [Contacts](/docs/api/reference/contacts) resource in the [API Reference](/docs/api/reference) instead.
+
 This guide explains how to manage contacts using the **bluefox.email** API. You can create, retrieve, update, and delete contacts from your project. Follow the examples and code snippets to integrate these functionalities into your system.
 
 ## Create Contact

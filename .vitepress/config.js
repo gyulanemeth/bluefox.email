@@ -64,6 +64,22 @@ function getImageDimensions(src, mdFilePath) {
   return null
 }
 
+function loadApiReferenceManifest() {
+  try {
+    return JSON.parse(readFileSync(resolve(process.cwd(), '.vitepress/api-reference-manifest.json'), 'utf-8'))
+  } catch (e) {
+    // Not generated yet (fresh clone before the first `npm run docs:generate-api`/docs:dev/docs:build) -
+    // fall back to an empty list rather than crashing the whole config.
+    return []
+  }
+}
+
+const apiReferenceManifest = loadApiReferenceManifest()
+const apiReferenceSidebarItems = apiReferenceManifest.map((r) => ({
+  text: r.tag,
+  link: `/docs/api/reference/${r.slug}`,
+}))
+
 const env = loadEnv('', process.cwd())
 const securityHeaders = {
   'Content-Security-Policy': "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; img-src 'self' data: https:; font-src 'self' data: https:; style-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.redditstatic.com; connect-src 'self' https:; frame-src 'self' https:; worker-src 'self' blob:; upgrade-insecure-requests; require-trusted-types-for 'script'; trusted-types default",
@@ -343,25 +359,31 @@ export default defineConfig({
               link: "/docs/api/",
               collapsed: false,
               items: [
-                {
-                  text: "Contacts Management",
-                  link: "/docs/api/contacts-management",
-                },
-                {
-                  text: "Subscriber List Management",
-                  link: "/docs/api/subscriber-list-management",
-                },
-                {
-                  text: "Send Transactional Email",
-                  link: "/docs/api/send-transactional-email",
-                },
-                {
-                  text: "Send Triggered Email",
-                  link: "/docs/api/send-triggered-email",
-                },
-                { text: "Send Attachments", link: "/docs/api/send-attachments" },
                 { text: "API Reference", link: "/docs/api/reference" },
-                { text: "Interactive API Explorer", link: "/docs/api/explorer" },
+                ...apiReferenceSidebarItems,
+                {
+                  text: "Legacy Endpoints",
+                  collapsed: true,
+                  items: [
+                    {
+                      text: "Contacts Management",
+                      link: "/docs/api/contacts-management",
+                    },
+                    {
+                      text: "Subscriber List Management",
+                      link: "/docs/api/subscriber-list-management",
+                    },
+                    {
+                      text: "Send Transactional Email",
+                      link: "/docs/api/send-transactional-email",
+                    },
+                    {
+                      text: "Send Triggered Email",
+                      link: "/docs/api/send-triggered-email",
+                    },
+                    { text: "Send Attachments", link: "/docs/api/send-attachments" },
+                  ],
+                },
               ],
             },
             {

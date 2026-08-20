@@ -44,6 +44,8 @@ head:
 ---
 
 # Send Triggered Email
+
+> **Legacy endpoint.** New integrations should use the [Triggered Emails](/docs/api/reference/triggered-emails) resource in the [API Reference](/docs/api/reference) instead.
 [Quick guide](/docs/projects/triggered-emails#triggered-email-integration)
 
 To send a [triggered email](/docs/projects/triggered-emails), use the following URL pattern:

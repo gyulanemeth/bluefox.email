@@ -116,13 +116,12 @@ They're also included in the spec below for completeness.
 ## Full reference
 
 Every resource - Project, API Keys, Design Systems, Domains, Sender Identities, Webhook, Contacts, Campaigns,
-Transactional Emails, Triggered Emails, Templates, Segments, Subscriber Lists, and Suppression List - is documented in the
-interactive explorer below, generated live from the same OpenAPI spec AI agents use. It opens in its own full-width page
-since it comes with its own navigation and search.
+Transactional Emails, Triggered Emails, Templates, Segments, Subscriber Lists, and Suppression List - has its own reference
+page, generated live from the same OpenAPI spec AI agents use: every endpoint, parameter, request body, and response shape.
 
 <PageCTA
   title="Browse the full API reference"
-  description="Every endpoint, request/response schema, and error shape, generated live from the OpenAPI spec."
-  buttonText="Open the interactive reference"
-  buttonUrl="/docs/api/explorer"
+  description="Every resource, endpoint, request/response schema, and error shape, generated live from the OpenAPI spec."
+  buttonText="Open the API reference"
+  buttonUrl="/docs/api/reference/"
 />

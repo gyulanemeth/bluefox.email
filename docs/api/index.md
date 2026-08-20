@@ -45,13 +45,20 @@ head:
 
 # The bluefox.email API
 
-The **bluefox.email API** allows you to manage subscriber lists, send transactional and triggered emails and include attachments. Below are the key API functionalities:  
+The **bluefox.email API** lets you manage every resource in your project - campaigns, templates, segments, domains,
+sender identities, contacts, subscriber lists, and more - and send transactional and triggered emails with attachments.
+
+- **[API Reference](/docs/api/reference)** – The full reference for every resource, generated live from our OpenAPI spec.  
+
+### Legacy endpoints
+
+These older, flat-URL endpoints still work and are documented separately, but new integrations should use the resources
+listed in the [API Reference](/docs/api/reference) instead:
 
 - **[Contacts Management](/docs/api/contacts-management)** – Create, retrieve, update, and delete contacts programmatically, independent of any list.  
 - **[Subscriber List Management](/docs/api/subscriber-list-management)** – Programmatically subscribe, unsubscribe, pause, activate, and update subscribers in your lists.  
 - **[Send Transactional Email](/docs/api/send-transactional-email)** – Deliver real-time, one-to-one emails such as password resets, order confirmations, and notifications.  
 - **[Send Triggered Email](/docs/api/send-triggered-email)** – Automate email sequences based on user actions, such as onboarding emails or follow-ups.  
 - **[Send Attachments](/docs/api/send-attachments)** – Attach files to your emails while ensuring proper formatting and size limitations.  
-- **[API Reference](/docs/api/reference)** – The full reference for every resource: campaigns, templates, segments, domains, sender identities, and more, generated live from our OpenAPI spec.  
 
 Explore the API documentation to seamlessly integrate BlueFox Email into your workflows. 🚀
