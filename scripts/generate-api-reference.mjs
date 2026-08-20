@@ -16,9 +16,7 @@ const OUT_DIR = 'docs/api/reference'
 const MANIFEST_PATH = '.vitepress/api-reference-manifest.json'
 
 const env = loadEnv('', process.cwd())
-// VITE_API_REFERENCE_SPEC_URL overrides where this specific script fetches the spec from - see
-// the TODO next to it in .env. Everything else on the site still reads VITE_BLUEFOX_URL directly.
-const specUrl = env.VITE_API_REFERENCE_SPEC_URL || `${env.VITE_BLUEFOX_URL || 'https://api.bluefox.email'}/v1/openapi.json`
+const specUrl = `${env.VITE_BLUEFOX_URL || 'https://api.bluefox.email'}/v1/openapi.json`
 
 let spec
 try {

@@ -144,6 +144,7 @@ export default defineConfig({
   description: "High deliverability & brand consistency.",
   srcExclude: ['skills/**'],
   head: headConf,
+  ignoreDeadLinks: [/^\/docs\/api\/reference\//],
   transformPageData(pageData) {
     if (pageData.frontmatter?.noindex === true) {
       noindexSitemapUrls.add(sitemapUrlForPath(pageData.relativePath))
