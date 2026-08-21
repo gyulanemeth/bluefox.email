@@ -36,7 +36,7 @@ head:
       content: https://bluefox.email/assets/articles/bluefox-email-is-an-amazon-ses-wrapper-share.png
 
 lastUpdated: true
-published: false
+published: 2026-08-21
 sidebar: false
 ---
 
@@ -49,7 +49,7 @@ sidebar: false
 | Amazon SES gives you | You build the rest |
 |---|---|
 | A sending API and an SMTP interface | Queueing, rate limiting, scheduling |
-| DKIM signing and IP reputation | Deduplication so a retry does not send twice |
+| DKIM signing and IP reputation | Retry handling for every message you hand off |
 | An account-level suppression list | Contact lists, segments, subscription preferences |
 | Bounce and complaint events | A consumer, a store, and a suppression check before every send |
 | An event stream | Anything a person can actually read |
@@ -63,7 +63,11 @@ Amazon SES is a very good sending layer. It was never meant to be everything els
 
 We are not going to argue with the label.
 
-BlueFox Email does not operate its own mail transfer agents or its own IP reputation. When you press send, the message is eventually handed to Amazon SES, and SES delivers it. If that is your definition of a wrapper, then yes, that is what we are.
+BlueFox Email does not deliver mail itself. We do not run mail transfer agents, and we do not own the IP space that connects to Gmail. [Amazon SES](/aws-concepts/ses) does that part.
+
+What varies is whose SES account it is. With [BYO Amazon SES](/byo-amazon-ses-pricing), it is yours. You own the account, the quotas and the reputation, and BlueFox is a layer on top of infrastructure you control. With BlueFox-managed sending, you never create an SES account, and we operate the sending environment instead. That is a real difference in who carries the reputation, and it is why managed projects are held to a bounce and complaint threshold.
+
+Either way, the last hop is SES. If that is your definition of a wrapper, then yes, that is what we are.
 
 The interesting question is not whether there is a layer. It is what that layer contains, and whether you would rather build it yourself.
 
@@ -108,7 +112,9 @@ This is the hardest part, and the one that is most consistently underestimated.
 
 **What email needs.** Your sending is bursty and the service you are sending through is not. A campaign to twenty thousand people arrives as one instruction and has to leave as twenty thousand individual messages, paced to something SES will accept, and it has to finish even if your server restarts halfway through.
 
-**What building it involves.** SES enforces two limits per Region: a [maximum sending rate](/aws-concepts/ses-sending-rate) in emails per second, and a daily quota over a rolling 24 hour window. New accounts start in the sandbox at one email per second and 200 emails per 24 hours. Both limits count recipients rather than messages, so a message with 30 recipients spends 30 of your quota.
+**What building it involves.** SES enforces two limits per Region: a [maximum sending rate](/aws-concepts/ses-sending-rate) in emails per second, and a [daily sending quota](/aws-concepts/ses-sending-quota) over a rolling 24 hour window. Both count recipients rather than messages, so a message with 30 recipients spends 30 of your quota.
+
+New accounts also start in the [SES sandbox](/aws-concepts/ses-sandbox), capped at one email per second and 200 emails per 24 hours until you request [production access](/aws-concepts/ses-production-access).
 
 Here is the part that matters. When you exceed either limit, SES does not hold the message for you. The AWS documentation is unambiguous: SES drops the message and does not attempt to redeliver it. Through the API you get a `Throttling` error with the message "Maximum sending rate exceeded", and through SMTP you get `454 Throttling failure` after the DATA command.
 
@@ -128,9 +134,7 @@ So you need a real queue, and a real queue means:
 
 The last two are what separate a queue from a rate limiter, and they are usually the ones added after the first incident rather than before it.
 
-**What BlueFox does.** Every [transactional email, triggered email, campaign and automation email](/posts/transactional-triggered-campaign-or-automation-understanding-email-types) goes through our queue. Your application makes one call and is done. We pace the send, handle transient failures, and survive our own restarts without losing your messages.
-
-New BlueFox projects also start in a [sandbox](/docs/projects/delivery-modes), limited to one email per second and 100 emails per day. Moving to production means verifying your domain and requesting access, and keeping that access requires holding your bounce rate below 2.5% and your complaint rate below 0.05%. That is a warm-up mechanism rather than an obstacle, and we monitor both continuously so you find out before a provider does.
+**What BlueFox does.** Every [transactional email, triggered email, campaign and automation email](/posts/transactional-triggered-campaign-or-automation-understanding-email-types) goes through our queue. Your application makes one call and is done. We pace the send and retry transient failures, so your application does not have to.
 
 ## Retries, and the email that sends twice
 
@@ -144,7 +148,7 @@ The reason this becomes fifty emails rather than two is that the retry usually l
 
 Fixing it means giving every intended send a stable identity before the first attempt, recording the outcome atomically with the send, and making the retry path check that record rather than assume. It is not conceptually difficult. It is just work that nobody scopes, because the naive version appears to function perfectly until the first time it does not.
 
-**What BlueFox does.** We deduplicate at the point of enqueue, so a repeated request for the same intended send does not become a second email. This is also honest ground for us: we have dealt with this class of problem directly, which is the main reason we take it seriously. If it can catch a team that works on email every day, it can catch a team that works on email twice a year.
+**What BlueFox does.** Retry behaviour lives in one place, in the layer that owns sending, rather than being spread across your job runner, your worker and your queue. That does not make the problem disappear, but it means there is one layer to reason about instead of four. If this class of bug can catch a team that works on email full time, it can catch a team that works on email twice a year.
 
 ## Contacts, lists, and subscriptions
 
@@ -196,13 +200,13 @@ You can additionally configure whether the contact is left alone, removed from a
 
 The suppression list can be imported and exported, which matters when you arrive from another platform and when you leave for one.
 
-If you are running [BYO Amazon SES](/byo-amazon-ses-pricing), the SNS wiring is the one piece you still own, and we provide a CloudFormation script to automate it. The [full walkthrough](/posts/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns) is a good measure of how much is involved even with the script.
+If you are running [BYO Amazon SES](/byo-amazon-ses-pricing), the [SNS topic and subscription](/aws-concepts/sns-topics) wiring is the one piece you still own. The [full walkthrough](/posts/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns) is a good measure of how much is involved.
 
 ## Analytics and event data
 
 **What email needs.** Somebody wants to know how last Tuesday's campaign performed, and they want to know it without writing a query.
 
-**What building it involves.** SES publishes a genuinely rich event stream. Sends, deliveries, opens, clicks, bounces, complaints, delivery delays, rejects, rendering failures and subscription changes, routed to SNS, Firehose, EventBridge, CloudWatch or Pinpoint, with up to ten event destinations per configuration set.
+**What building it involves.** SES publishes a genuinely rich stream of [delivery notifications](/aws-concepts/ses-delivery-notifications) and engagement events. Sends, deliveries, opens, clicks, bounces, complaints, delivery delays, rejects, rendering failures and subscription changes, routed to SNS, Firehose, EventBridge, CloudWatch or Pinpoint, with up to ten event destinations per configuration set.
 
 An event stream is not analytics. It is the raw material for analytics.
 
@@ -212,7 +216,7 @@ Between the stream and a number somebody can read, you build a consumer, a store
 
 Two smaller details. Open and click tracking rewrites your links, and unless you configure a custom tracking domain, recipients see an AWS-owned domain in your emails. And SES's own deeper deliverability reporting comes through Virtual Deliverability Manager, which is a paid add-on charged per message on top of your sending cost.
 
-**What BlueFox does.** [Analytics](/docs/projects/dashboard) for sends, bounces, complaints, opens and clicks are attached to each email, with digest emails so you are not required to watch a dashboard.
+**What BlueFox does.** [Analytics](/docs/statistics) for sends, bounces, complaints, opens and clicks are attached to each email, and delivery problems can also reach you through digest emails, so you are not required to watch a dashboard.
 
 ![The statistics page for a single campaign in BlueFox Email, showing sent, opens, unique opens, clicks, bounces and complaints with a trend chart](./bluefox-email-is-an-amazon-ses-wrapper/email-analytics.webp)
 
@@ -250,7 +254,7 @@ SES does have templates, with replacement values and a 500 KB limit, up to 20,00
 
 ![The BlueFox Email visual editor with a finished marketing email open, showing the block structure alongside the rendered result](./bluefox-email-is-an-amazon-ses-wrapper/email-editor.webp)
 
-If you would rather keep the HTML in your repository, our API accepts that too. This is a workflow question, not a capability question, and the right answer depends on who is doing the work.
+If you would rather write the HTML yourself, there is a raw HTML editor you can paste or import into, and the same merge tags and sending apply. This is a workflow question, not a capability question, and the right answer depends on who is doing the work.
 
 ## When you should use Amazon SES directly
 
@@ -272,10 +276,10 @@ The calculation changes when a non-developer needs to send something, when a seq
 
 A wrapper is what we call a layer once the thing underneath it has become boring.
 
-Amazon SES made sending boring, in the best sense. It is reliable, it is cheap, it is well documented, and almost nobody should be building their own mail transfer agents in 2026. We are not competing with that, we are standing on it, and we say so on our pricing page rather than hiding it.
+Amazon SES made sending boring, in the best sense. It is reliable, it is cheap, it is well documented, and almost nobody should be building their own mail transfer agents in 2026. We are not competing with that, we are standing on it.
 
-What is not boring yet is everything in this article. Queues that do not lose messages. Retries that do not duplicate. Suppression that is actually checked. Automations you can look at. Templates a marketer can edit. That is the layer, and it is where our engineering time goes.
+What is not boring yet is everything in this article. Queues that do not lose messages. Suppression that is actually checked. Automations you can look at. Templates a marketer can edit. That is the layer, and it is where our engineering time goes.
 
 So yes, BlueFox Email is an Amazon SES wrapper. We would rather you knew exactly what is inside the wrapper before you decide whether you want it.
 
-If you want to keep your own SES account and use BlueFox for the rest, that is BYO Amazon SES, and it is our cheapest option. If you would rather not think about SES at all, we run that too. Either way, the sending is Amazon's. The rest is ours.
+If you want to keep your own SES account and use BlueFox for the rest, BYO Amazon SES gives you twice the sends per pack at the same price, with the AWS sending cost billed to you directly. If you would rather not think about SES at all, managed sending does that instead. Either way, the delivery is Amazon's. The rest is ours.
