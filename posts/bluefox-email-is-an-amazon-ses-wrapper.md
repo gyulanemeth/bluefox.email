@@ -36,7 +36,7 @@ head:
       content: https://bluefox.email/assets/articles/bluefox-email-is-an-amazon-ses-wrapper-share.png
 
 lastUpdated: true
-published: 2026-08-21
+published: 21-08-2026
 sidebar: false
 ---
 
