@@ -53,14 +53,24 @@ head:
 
 # Project Settings
 
-To enable all the functionality provided by BlueFox Email, you need to fill in all the project settings. If you want to use different domains or sending emails for different [delivery modes](./delivery-modes.md) (e.g., staging or production), create separate projects for each environment.
+**Project settings** is where you configure everything that applies to a whole project in BlueFox Email: its logo and [email theme](../email-themes/), how mail is actually sent, the custom contact properties and tags your contacts can carry, the API keys and whitelisted domains your application uses to reach the project, and the definition of an unengaged contact. Every setting on this page is scoped to one project, so two projects in the same account can send from different domains, use different designs, and store completely different contact data.
+
+<Primer>
+
+- **Settings are per project, never account-wide.** For separate environments such as staging and production, create a separate project for each instead of editing one project's settings back and forth. Options that apply to your whole organization live in [Account Settings](../account-settings.md).
+- **Clients with Editor access cannot open project settings.** They can do everything else inside the project, including creating and sending emails. Only Admins and Users reach this page. See [Account Users](../account-users.md#client-access-levels) for the full role breakdown.
+- **Two actions here cannot be undone.** Switching the email theme permanently discards any theme variables you had overridden, and deleting a contact property removes it from every contact in the project.
+- **Some sections only appear in certain delivery modes.** *Bounces and Complaints Webhooks* is available only when the project uses your own AWS SES account. On BlueFox-managed sending, bounces and complaints are processed automatically. See [Delivery Modes](./delivery-modes.md).
+- **API keys belong on your server only.** The domain whitelist authorizes requests coming from a browser; API keys authorize requests coming from your backend. Never ship an API key in frontend code.
+
+</Primer>
 
 To access the project settings, click on the **Settings** tab. Here, you can use the sub-menu to navigate to different sections of the project settings.
 
 ![A screenshot of a project settings main page.](./project-settings-main-page.webp)
 
 ## Main Settings
-Users can **add**, **update**, or **remove** a custom logo for their project. This logo will be displayed on the [**subscription preferences page**](./forms-and-pages.md#subscription-preferences-page) and [**double opt-in confirmation page**](./forms-and-pages.md####double-opt-in) success message to provide branding consistency.
+Users can **add**, **update**, or **remove** a custom logo for their project. This logo will be displayed on the [**subscription preferences page**](./forms-and-pages.md#subscription-preferences-page) and [**double opt-in confirmation page**](./forms-and-pages.md#_7-double-opt-in-customization) success message to provide branding consistency.
 
 To manage the project logo:
 
@@ -91,14 +101,14 @@ For more details, see our [Delivery Modes documentation](/docs/projects/delivery
 
 ## Bounces and Complaints Webhooks
 
-This feature is only available for projects using **Bring Your Own (BYO) AWS SES**. For other project types, BlueFox Email automatically handles bounces and complaints.
+This feature is only available for projects using **Bring Your Own (BYO) AWS SES**. For other project types, BlueFox Email automatically handles [bounces](/email-sending-concepts/bounces) and [complaints](/email-sending-concepts/complaints).
 
-To effectively manage email bounces and complaints, BlueFox Email provides webhook integration. This allows you to receive real-time notifications about these events, enabling you to take appropriate actions such as updating contact statuses or triggering follow-up processes.
+To effectively manage email bounces and complaints, BlueFox Email provides webhook integration. This allows you to receive real-time notifications about these events, enabling you to take appropriate actions such as updating contact statuses or triggering follow-up processes. For the full list of events BlueFox Email can notify you about, see [Webhooks](/docs/integrations/webhooks).
 
 ![A screenshot of a project settings bounces and complaints webhooks section.](./project-settings-bounces-complaints-webhooks.webp)
 
 ::: warning Keep in mind
-If bounce and complaint rates are not kept within acceptable limits, the BlueFox Email team can restrict the project or the whole account. See [Account and Project Restrictions](../account-settings.md#account-and-project-restrictions).
+If [bounce rate](/email-sending-concepts/bounce-rate) and complaint rates are not kept within acceptable limits, the BlueFox Email team can restrict the project or the whole account. The current thresholds are documented under [Maintaining Production Access](./delivery-modes.md#maintaining-production-access). See also [Account and Project Restrictions](../account-settings.md#account-and-project-restrictions).
 :::
 
 ## Contact Properties
