@@ -25,14 +25,14 @@
     "count": 5
   },
   {
-    "tag": "BYO AWS",
-    "slug": "byo-aws",
-    "count": 2
-  },
-  {
     "tag": "Production Access",
     "slug": "production-access",
     "count": 3
+  },
+  {
+    "tag": "BYO AWS",
+    "slug": "byo-aws",
+    "count": 2
   },
   {
     "tag": "Design Systems",

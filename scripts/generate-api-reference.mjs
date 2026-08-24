@@ -57,8 +57,8 @@ const RESOURCE_ORDER = [
   'Domains',
   'Webhook',
   'Sending Setup',
-  'BYO AWS',
   'Production Access',
+  'BYO AWS',
   'Design Systems',
   // Email content & sending
   'Templates',
