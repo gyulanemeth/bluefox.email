@@ -1,18 +1,24 @@
 /**
  * Generates static, indexable markdown pages for every resource in the bluefox.email
- * public API - one page per OpenAPI tag under docs/api/reference/ - plus a manifest the
- * VitePress sidebar reads to list them. Runs before `vitepress dev`/`vitepress build` so
- * the generated pages are present in both cases.
+ * public API - one page per OpenAPI tag, written directly into docs/api/ alongside the
+ * hand-written pages there - plus a manifest the VitePress sidebar reads to list them. Run
+ * manually with `npm run docs:generate-api` whenever the API's OpenAPI spec changes - the
+ * output is committed like any other doc page, not regenerated on every `vitepress dev`/
+ * `vitepress build`. There is no standalone listing page - every resource is reachable from
+ * the sidebar, which is populated straight from the manifest.
  *
  * Replaces the old client-only API Explorer (which fetched the spec in the browser and never
  * appeared in VitePress's static HTML output, so none of it got indexed) with real markdown
  * files VitePress renders to static HTML like any other doc page.
  */
-import { writeFileSync, mkdirSync, rmSync, existsSync } from 'fs'
+import { writeFileSync, mkdirSync, rmSync, existsSync, readFileSync } from 'fs'
 import { join } from 'path'
 import { loadEnv } from 'vitepress'
 
-const OUT_DIR = 'docs/api/reference'
+// Shared with docs/api/*.md (contacts-management.md, index.md, etc.) - unlike the old dedicated
+// docs/api/reference/ subfolder, generation must only ever touch files it itself wrote (tracked
+// via MANIFEST_PATH below), never wipe the whole directory.
+const OUT_DIR = 'docs/api'
 const MANIFEST_PATH = '.vitepress/api-reference-manifest.json'
 
 const env = loadEnv('', process.cwd())
@@ -50,7 +56,8 @@ const RESOURCE_ORDER = [
   'Sender Identities',
   'Domains',
   'Webhook',
-  'AWS Setup',
+  'Sending Setup',
+  'BYO AWS',
   'Production Access',
   'Design Systems',
   // Email content & sending
@@ -145,6 +152,17 @@ function schemaTable(schema) {
   return lines.join('\n')
 }
 
+// Wraps a markdown table in a styling hook (see .api-ref-table in style.css) that keeps
+// short, space-free columns (Name/Field, In, Required) on one line and lets the columns that
+// can legitimately hold long text - Type (enum lists like "string (sandbox | production |
+// byoAwsSes)") and Description - wrap and share the leftover space instead. The variant tells
+// the CSS which column index is Type, since that differs between the params/body/responses
+// table shapes below. Blank lines on both sides are required - without them markdown-it treats
+// the whole block as one HTML block and never parses the table.
+function wrapTable(md, variant) {
+  return `<div class="api-ref-table api-ref-table--${variant}">\n\n${md}\n\n</div>`
+}
+
 function requestBodySchema(op) {
   return resolveRef(op.requestBody?.content?.['application/json']?.schema)
 }
@@ -169,32 +187,32 @@ function renderOperation(op) {
   if (op.description) parts.push(mdParagraph(op.description))
 
   if (op.parameters?.length) {
-    const lines = ['### Parameters', '| Name | In | Type | Required | Description |', '| --- | --- | --- | --- | --- |']
+    const lines = ['| Name | In | Type | Required | Description |', '| --- | --- | --- | --- | --- |']
     for (const p of op.parameters) {
       lines.push(`| \`${escapeSpecText(p.name)}\` | ${p.in} | ${escapeCell(p.schema?.type)} | ${p.required ? 'yes' : ''} | ${escapeCell(p.description)} |`)
     }
-    parts.push(lines.join('\n'))
+    parts.push('### Parameters', wrapTable(lines.join('\n'), 'params'))
   }
 
   const reqSchema = requestBodySchema(op)
   if (reqSchema) {
     const table = schemaTable(reqSchema)
-    if (table) parts.push('### Request body', table)
+    if (table) parts.push('### Request body', wrapTable(table, 'body'))
   }
 
   if (op.responses) {
     const codes = Object.keys(op.responses).sort()
-    const lines = ['### Responses', '| Status | Description |', '| --- | --- |']
+    const lines = ['| Status | Description |', '| --- | --- |']
     let successBody = null
     for (const code of codes) {
       const response = resolveRef(op.responses[code])
       lines.push(`| ${code} | ${escapeCell(response?.description)} |`)
       if (!successBody && code.startsWith('2')) successBody = responseBodySchema(op.responses[code])
     }
-    parts.push(lines.join('\n'))
+    parts.push('### Responses', wrapTable(lines.join('\n'), 'responses'))
     if (successBody) {
       const table = schemaTable(successBody)
-      if (table) parts.push('### Response body', table)
+      if (table) parts.push('### Response body', wrapTable(table, 'body'))
     }
   }
 
@@ -211,7 +229,7 @@ function yamlString(str) {
 function pageFrontmatter(tag) {
   const title = `${tag} API Reference | bluefox.email documentation`
   const description = `Every ${tag} endpoint in the bluefox.email API: parameters, request body, and response schemas.`
-  const url = `https://bluefox.email/docs/api/reference/${slugify(tag)}`
+  const url = `https://bluefox.email/docs/api/${slugify(tag)}`
   return `---
 title: ${yamlString(title)}
 description: ${yamlString(description)}
@@ -251,12 +269,20 @@ head:
 
 function renderPage(tag) {
   const ops = operationsByTag[tag]
-  const intro = `Full reference for the **${tag}** resource in the bluefox.email API. See the [API Reference overview](/docs/api/reference) for authentication, the response envelope, and pagination.`
+  const intro = `Full reference for the **${tag}** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.`
   const body = ops.map(renderOperation).join('\n\n')
   return `${pageFrontmatter(tag)}\n\n# ${tag}\n\n${intro}\n\n${body}\n`
 }
 
-rmSync(OUT_DIR, { recursive: true, force: true })
+// Remove only the files the previous run generated (per the old manifest) - never the whole
+// OUT_DIR, which also holds hand-written pages like docs/api/index.md. Covers a tag being
+// renamed or removed (e.g. the old "aws-setup" slug when that tag later split in two).
+if (existsSync(MANIFEST_PATH)) {
+  const oldManifest = JSON.parse(readFileSync(MANIFEST_PATH, 'utf-8'))
+  for (const { slug } of oldManifest) {
+    rmSync(join(OUT_DIR, `${slug}.md`), { force: true })
+  }
+}
 mkdirSync(OUT_DIR, { recursive: true })
 
 const manifest = []
@@ -265,21 +291,6 @@ for (const tag of tags) {
   writeFileSync(join(OUT_DIR, `${slug}.md`), renderPage(tag))
   manifest.push({ tag, slug, count: operationsByTag[tag].length })
 }
-
-const indexLines = [
-  '---',
-  'title: API Reference | bluefox.email documentation',
-  'description: Every resource in the bluefox.email public API, generated live from the OpenAPI spec.',
-  '---',
-  '',
-  '# API Reference',
-  '',
-  'Every resource in the bluefox.email API. Generated from the same [OpenAPI spec](/docs/api/reference) AI agents use, so it stays in sync with the real API.',
-  '',
-  ...manifest.map((m) => `- **[${m.tag}](/docs/api/reference/${m.slug})** – ${m.count} endpoint${m.count === 1 ? '' : 's'}`),
-  '',
-]
-writeFileSync(join(OUT_DIR, 'index.md'), indexLines.join('\n'))
 
 mkdirSync('.vitepress', { recursive: true })
 writeFileSync(MANIFEST_PATH, JSON.stringify(manifest, null, 2))

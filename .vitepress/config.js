@@ -77,7 +77,7 @@ function loadApiReferenceManifest() {
 const apiReferenceManifest = loadApiReferenceManifest()
 const apiReferenceSidebarItems = apiReferenceManifest.map((r) => ({
   text: r.tag,
-  link: `/docs/api/reference/${r.slug}`,
+  link: `/docs/api/${r.slug}`,
 }))
 
 const env = loadEnv('', process.cwd())
@@ -360,7 +360,6 @@ export default defineConfig({
               link: "/docs/api/",
               collapsed: false,
               items: [
-                { text: "API Reference", link: "/docs/api/reference" },
                 ...apiReferenceSidebarItems,
                 {
                   text: "Legacy Endpoints",

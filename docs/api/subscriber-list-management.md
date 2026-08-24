@@ -47,7 +47,7 @@ head:
 
 # Subscriber List Management via the API
 
-> **Legacy endpoint.** New integrations should use the [Subscriber Lists](/docs/api/reference/subscriber-lists) and [Subscriptions](/docs/api/reference/subscriptions) resources in the [API Reference](/docs/api/reference) instead.
+> **Legacy endpoint.** New integrations should use the [Subscriber Lists](/docs/api/subscriber-lists) and [Subscriptions](/docs/api/subscriptions) resources instead.
 
 This guide explains how to manage subscribers using the **bluefox.email** API. You can subscribe, unsubscribe, pause, activate, and list subscribers from your email lists. Follow the examples and code snippets to integrate these functionalities into your system.
 

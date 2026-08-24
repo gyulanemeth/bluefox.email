@@ -45,7 +45,7 @@ head:
 
 # Send Transactional Email
 
-> **Legacy endpoint.** New integrations should use the [Transactional Emails](/docs/api/reference/transactional-emails) resource in the [API Reference](/docs/api/reference) instead.
+> **Legacy endpoint.** New integrations should use the [Transactional Emails](/docs/api/transactional-emails) resource instead.
 [Quick guide](/docs/projects/transactional-emails#transactional-email-integration)
 
 To send a [transactional email](/docs/projects/transactional-emails), use the following URL pattern:
