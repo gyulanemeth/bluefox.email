@@ -36,7 +36,7 @@ head:
       content: https://bluefox.email/assets/articles/bluefox-email-is-an-amazon-ses-wrapper-share.png
 
 lastUpdated: true
-published: 21-08-2026
+published: 2026-08-21
 sidebar: false
 ---
 
@@ -50,9 +50,10 @@ sidebar: false
 |---|---|
 | A sending API and an SMTP interface | Queueing, rate limiting, scheduling |
 | DKIM signing and IP reputation | Retry handling for every message you hand off |
-| An account-level suppression list | Contact lists, segments, subscription preferences |
+| An account-level suppression list | Contact lists, subscription preferences, signup forms |
 | Bounce and complaint events | A consumer, a store, and a suppression check before every send |
 | An event stream | Anything a person can actually read |
+| No way to filter a list | Segments, and a way to build one without SQL |
 | Templates with replacement values | A way for a non-developer to change one |
 
 Amazon SES is a very good sending layer. It was never meant to be everything else.
@@ -166,15 +167,35 @@ If you send to a contact who has unsubscribed on your SES contact list, SES issu
 
 :::
 
+There is also the question of how contacts arrive in the first place. SES has nothing for collecting them: no form endpoint, no field validation, no bot protection, and no double opt-in flow. Double opt-in is more work than it sounds, because it means generating a token, sending a verification email, handling the click, expiring the ones nobody uses, and deciding what happens to a person who never confirms.
+
 Most teams conclude fairly quickly that the contact list belongs in their own database. That is a defensible decision, and it is also the moment you have signed up to build subscription preferences, per-list opt-in state, a preferences page, [double opt-in](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email), form protection, and import and export.
 
 **What BlueFox does.** [Contacts](/docs/projects/contacts) live in your project with multiple subscriber lists, [segments](/docs/projects/segments), and per-contact attributes.
 
 ![The Contacts tab of a BlueFox Email project, showing contacts belonging to several different subscriber lists](./bluefox-email-is-an-amazon-ses-wrapper/contacts-and-lists.webp)
 
-Recipients get a hosted [subscription preferences page](/posts/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do#unsubscribe-support) where they can manage individual lists, pause all email temporarily, or unsubscribe from everything. [Signup forms](/docs/projects/forms-and-pages) support double opt-in and Cloudflare Turnstile. We add the `List-Unsubscribe` and `List-Unsubscribe-Post` headers from [RFC 8058](https://www.rfc-editor.org/rfc/rfc8058) so mailbox providers can show a one-click unsubscribe button.
+Recipients get a hosted [subscription preferences page](/posts/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do#unsubscribe-support) where they can manage individual lists, pause all email temporarily, or unsubscribe from everything. We add the `List-Unsubscribe` and `List-Unsubscribe-Post` headers from [RFC 8058](https://www.rfc-editor.org/rfc/rfc8058) so mailbox providers can show a one-click unsubscribe button.
+
+[Signup forms](/docs/projects/forms-and-pages) are built in the same place. You can embed them on your site, collect custom fields, subscribe someone to more than one list at once, and protect the form with an image CAPTCHA or Cloudflare Turnstile. Double opt-in is configured per form, and the verification email is one of your own transactional emails rather than something generic.
 
 ![The subscriber-facing subscription preferences page, with per-list subscribe options, a pause button and an unsubscribe from all button](./bluefox-email-is-an-amazon-ses-wrapper/subscription-preferences-page.webp)
+
+## Segments, and deciding who gets this email
+
+**What email needs.** You rarely want to send to everyone. You want the people who have not opened anything in ninety days, or the ones on the free plan who used a particular feature, or everyone on the list except the people who already bought.
+
+**What building it involves.** SES contact lists have topics, and a topic is a subscription category rather than a filter. There is no way to ask SES which contacts opened something last month, because SES does not hold that. Engagement data lives in the event stream, so any targeting based on behaviour depends on you having already built the pipeline described later in this article, and having joined it back to individual contacts.
+
+Once you have the data, you still need somewhere to ask questions of it. That means property conditions with real operators, equals and contains and greater than and is empty, grouped with AND and OR, and an interface a marketer can use without writing a query. It also has to stay live: a segment is a question asked at send time, not a list of contact IDs frozen on the day somebody saved it.
+
+This is the part people underestimate most after queueing, because the first version always looks like a `WHERE` clause and the tenth version is a query builder.
+
+**What BlueFox does.** [Segments](/docs/projects/segments) filter contacts by any property or tag, with the full set of operators and AND or OR grouping. Engagement conditions cover received, not received, opened, not opened, clicked and not clicked within a number of days you choose. A segment can apply across every contact in the project or only within one subscriber list, and the same segment works in a campaign, as an automation trigger, or as an audience filter partway through a flow.
+
+![The segment builder in BlueFox Email, showing property conditions with operators grouped by AND and OR logic](./bluefox-email-is-an-amazon-ses-wrapper/segment-builder.webp)
+
+There is also a project-wide unengaged definition built on the same condition builder, which is what the exclude unengaged option uses, so you do not have to construct that exclusion yourself every time.
 
 ## Bounces, complaints, and suppression
 
@@ -254,7 +275,11 @@ SES does have templates, with replacement values and a 500 KB limit, up to 20,00
 
 ![The BlueFox Email visual editor with a finished marketing email open, showing the block structure alongside the rendered result](./bluefox-email-is-an-amazon-ses-wrapper/email-editor.webp)
 
-If you would rather write the HTML yourself, there is a raw HTML editor you can paste or import into, and the same merge tags and sending apply. This is a workflow question, not a capability question, and the right answer depends on who is doing the work.
+If you would rather write the HTML yourself, there is a [raw HTML editor](/docs/projects/email-builder) you can paste or import into, and the same merge tags and sending apply.
+
+There is a third option that gets overlooked. Not every email should look designed. A password reset or a founder's note often lands better as something that reads like a person typed it, and a heavily styled template actively works against that. The text editor covers this case. Despite the name it still produces HTML, just lightweight HTML with minimal formatting: headings, lists, links, dividers and basic emphasis, and nothing else. Merge tags, data feeds and previewing work exactly as they do everywhere else.
+
+This is a workflow question, not a capability question, and the right answer depends on who is doing the work and what the email is for.
 
 ## When you should use Amazon SES directly
 
