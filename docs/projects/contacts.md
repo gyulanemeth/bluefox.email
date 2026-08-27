@@ -45,7 +45,22 @@ head:
 
 # Contacts
 
-In BlueFox Email, Contacts help you manage and organize email recipients. Each contact represents an individual user, storing their email and any additional data. Every project has its own set of contact subscription lists, and you can create as many as needed. Contacts can subscribe to multiple lists, and any updates, such as an email address change, will automatically apply across all subscription lists the contact is subscribed to.
+**Contacts** is where a project's people and its subscriber lists are managed together. Every project keeps its own contacts and its own lists, and you can create as many lists as you need. This page covers creating contacts and lists, tags and custom properties, CSV import and export, bulk cleanup of bounced or complained addresses, and the subscription statuses that decide who actually receives a send.
+
+<Primer>
+
+- **Clean Contacts offers five actions, and two of them are permanent.** The *Remove from…* options only drop list membership and keep the contact record; the *Delete Contact* options erase it entirely. Only the two *…and Add to Suppression List* variants stop the address being emailed again if it is later re-imported.
+- **Importing into a selected list subscribes everyone in the file to that list.** Choosing a list before you import is a subscription action, not just a place to put the data. Import from the All Contacts view instead if you only want the records.
+- **Ticking *Trigger Automation* on an import evaluates every imported contact against your automations.** On a large file that can start a lot of flows at once, so leave it off unless you intend it.
+- **A CSV column that matches nothing can create a new contact property.** The importer offers *Add as a new property* or *Skip* per unmatched column, and adding one changes the project's contact schema for every contact, not just the rows in this file.
+
+<template #next>
+
+[Build a high-quality email list](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email) · [What BlueFox Email does for deliverability](/posts/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do) · [Pricing (no contact limits)](/pricing)
+
+</template>
+
+</Primer>
 
 You can find your project's contacts under the **Manage Contacts** tab:
 ![Screenshot of the subscriber lists page](./project-contacts.webp)

@@ -47,7 +47,22 @@ head:
 
 # Campaigns
 
-Unlike transactional and triggered emails, campaigns are not sent by your backend. Campaigns can be scheduled to a specific time or you can send it immediately. All the content is edited within bluefox email. Typical examples are newsletters, promotional emails, or occasional announcements.
+A **campaign** is a one-off marketing send that you compose inside BlueFox Email and deliver to a subscriber list at a time you choose. This page covers building one in any of the four editors, personalizing it, pulling in live content with data feeds, the states it moves through between draft and archived, and the statistics it reports once sent.
+
+<Primer>
+
+- **Once a campaign is scheduled you can no longer edit or delete it.** The only actions left are re-schedule, cancel send, and send now, so finish the content before you put a time on it.
+- **The editor you pick decides which design features you get.** Pre-designed and [design system templates](/docs/email-themes/templates) are available only in the Visual Editor, and an email built in Raw HTML or Plain Text cannot be saved back as a reusable template. Personalization, feeds, sending and analytics behave the same in all four.
+- **Pasting Visual Editor content into Raw HTML or Plain Text needs cleaning up first.** Chamaileon-specific merge tag and component markup will not resolve there and has to be stripped out. Plain Handlebars tags carry over either way.
+- **Exclude unengaged contacts is per send, but the definition behind it is project-wide.** The checkbox decides whether this campaign uses it; who counts as unengaged is set once in [project settings](/docs/projects/settings#unengaged-segment) and changing it there affects every send that has the box ticked.
+
+<template #next>
+
+[Free link checker](/tools/content/link-checker) · [Writing subject lines that get opened](/posts/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails) · [Preheader text](/posts/preheader-text-the-secret-weapon-for-boosting-open-rates)
+
+</template>
+
+</Primer>
 
 Campaigns are sent to the `active` subscribers on a list. Since campaigns are tied to a subscriber list, they must contain an unsubscribe link and optionally a pause subscription link.
 

@@ -62,7 +62,7 @@ You can find and change the delivery mode of a project in your [project settings
 
 <template #next>
 
-[What BlueFox Email does for deliverability](/posts/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do) · [How to set up AWS SES](/posts/how-to-set-up-aws-ses) · [BYO Amazon SES pricing](/byo-amazon-ses-pricing)
+[Free deliverability tools](/tools/deliverability/) · [What BlueFox Email does for deliverability](/posts/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do) · [BYO Amazon SES pricing](/byo-amazon-ses-pricing)
 
 </template>
 

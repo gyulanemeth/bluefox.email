@@ -49,9 +49,22 @@ head:
 
 # Automations
 
-Automations allow you to create powerful workflows that streamline and automate your email processes. By triggering emails or actions based on specific events like when a contact is added or updated. You can automate tasks such as sending welcome emails, follow-ups, or reminders. This helps save time while ensuring your audience receives timely and relevant communication.
+An **automation** is a workflow that runs once per contact: a trigger admits the contact, and that contact then travels through the nodes you have laid out until it exits. Each contact moves independently, so at any moment different contacts sit at different points in the same automation. That is the detail most of this page turns on, and it is why editing a live automation needs care. Below: building one, what each node type does, publishing and pausing, updating one that is already running, and the statistics it reports.
 
-With our email automation feature, you can easily configure automations to meet your needs, without the need for coding. You can add nodes such as timers, filters, condition branches, and email sends to build custom workflows that fit your project.
+<Primer>
+
+- **Deleting a node terminates every contact currently sitting on it.** Those contacts leave the automation entirely rather than moving to the next step, and it applies whether the automation is active or paused. Check the contact count on a node before you remove it.
+- **The Notify node does not email the contact flowing through the automation.** It sends to a subscriber list you choose, or to specific addresses from it, which is what makes it useful for alerting your own team. Because it targets a list, it also offers **Exclude unengaged**, driven by the project-wide [unengaged segment](/docs/projects/settings#unengaged-segment) definition.
+- **The editor you pick for a node's email decides which design features you get.** Pre-designed and [design system templates](/docs/email-themes/templates) are available only in the Visual Editor, and an email written in Raw HTML or Plain Text cannot be saved back as a reusable template. This applies to Send Email and Notify nodes alike.
+- **An automation can be copied into a different project, not just duplicated within one.** Copy and paste works across every project in the same account, so a working flow can be reused for another client instead of rebuilt.
+
+<template #next>
+
+[Transactional, triggered, campaign or automation?](/posts/transactional-triggered-campaign-or-automation-understanding-email-types) · [Build a newsletter from an RSS feed](/posts/how-to-create-a-newsletter-from-rss-and-send-it-automatically) · [Free link checker](/tools/content/link-checker)
+
+</template>
+
+</Primer>
 
 You can manage and view your automations under the **Automations** tab in your project.
 
