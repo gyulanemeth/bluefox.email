@@ -45,9 +45,21 @@ head:
 
 # Transactional Emails
 
-Transactional emails are essential emails needed for basic functions like registration or password resets. For example, if a user wants to register with their email address or reset a forgotten password, an email must be sent.
+A **transactional email** is a single message your application sends to one specific address in response to something that recipient just did. Because it is addressed directly rather than through a subscriber list, it reaches anyone you name, and nothing about it depends on subscription state. This page covers creating one, calling it from your code, personalizing it, attaching files, and the statistics it reports.
 
-Users **can't unsubscribe** from transactional emails because they are necessary. Also, **transactional emails are not associated with any subscriber lists**. They are sent directly to specific email addresses.
+<Primer>
+
+- **Each transactional email has its own endpoint.** You do not call one generic send API and name a template; you call the URL belonging to that specific email and pass the recipient plus whatever data the template needs. Creating a new transactional email in the UI is what creates the endpoint.
+- **The generated sample code contains your API key.** The code button emits a ready-to-paste snippet with the key already in the `Authorization` header, which makes it very easy to paste somewhere public. It belongs in backend code only, never in a browser.
+- **Sends use the project's default sender identity unless you say otherwise.** Advanced Settings on the email card lets you pick a different verified identity and set a reply-to address per email, which is worth checking for anything a recipient is likely to answer.
+
+<template #next>
+
+[Transactional, triggered, campaign or automation?](/posts/transactional-triggered-campaign-or-automation-understanding-email-types) · [Supabase auth emails](/docs/integrations/supabase) · [Sending attachments](/docs/api/send-attachments)
+
+</template>
+
+</Primer>
 
 You can find the transactional emails of a project under the `Transactional Emails` tab.
 

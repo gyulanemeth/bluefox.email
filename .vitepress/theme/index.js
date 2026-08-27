@@ -51,7 +51,8 @@ import GlossaryCTA from './GlossaryCTA.vue'
 import PageCTA from './PageCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
-import ApiSpecLink from './ApiSpecLink.vue'
+import Primer from './Primer.vue'
+import DocsFaq from './DocsFaq.vue'
 
 
 function setCookie(name, value, days = 30) {
@@ -133,6 +134,7 @@ export default {
   Layout: () => {
     return h(Theme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
+      "doc-footer-before": () => h(DocsFaq),
       "layout-bottom": () => h(CustomFooter),
     })
   },
@@ -234,6 +236,7 @@ export default {
     app.component('PageCTA', PageCTA)
     app.component('GlossaryNavigation', GlossaryNavigation)
     app.component('CustomFooter', CustomFooter)
-    app.component('ApiSpecLink', ApiSpecLink)
+    app.component('Primer', Primer)
+    app.component('DocsFaq', DocsFaq)
   },
 }

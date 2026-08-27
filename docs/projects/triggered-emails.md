@@ -45,11 +45,20 @@ head:
 
 # Triggered Emails
 
-Just like transactional emails, triggered emails can be sent from your backend (or a cron job) whenever your application decides to send one. The difference is that triggered emails are tied to a subscriber list, and recipients can `unsubscribe` or `pause their subscription`. You can send a triggered email to an entire list or to specific email addresses, but it will only be delivered to the `active` subscribers on that list. If someone has unsubscribed, paused their subscription, or is not on the list, the email won't be sent.
+A **triggered email** is a single message your backend or a cron job asks BlueFox Email to send, addressed through a subscriber list rather than to a raw address. That routing is the whole difference from a transactional email: membership and subscription status decide who actually receives it. This page covers creating one, calling it from your application, personalizing it, pulling in live content with data feeds, and the statistics it reports.
 
-For example, use a triggered email for an event notification, such as alerting a user when something happens in your app, or for a recurring digest, such as a weekly summary sent to every member of a SaaS workspace. Because recipients can unsubscribe or pause their subscription, triggered emails work well for messages that are useful but not essential. This is why an unsubscribe link is required in these emails. A pause subscription link is not required but is recommended.
+<Primer>
 
-If you need a multi-step sequence with delays or conditional branching, such as an onboarding series or a behavior-based follow-up, use an [automation](/docs/projects/automations) instead. Automations are built specifically for that, with dedicated triggers, timers, and conditional logic.
+- **One triggered email is one send. Reach for an [automation](/docs/projects/automations) the moment you need a second step.** Delays, conditional branching and onboarding sequences are what automations exist for; chaining triggered emails by hand from your own scheduler duplicates that badly.
+- **An unsubscribe link is mandatory here, a pause link is not.** Include `unsubscribeLink` in every triggered email. `pauseSubscriptionLink` is optional, but offering it gives recipients a softer alternative than opting out for good.
+
+<template #next>
+
+[Subscriber list management API](/docs/api/subscriber-list-management) · [Build a high-quality email list](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email)
+
+</template>
+
+</Primer>
 
 You can find the triggered emails of a project by clicking on `Triggered Emails` tab in side-bar menu.
 
