@@ -219,3 +219,82 @@ body:has(.stripe--flush) .VPHome {
   padding-bottom: 0 !important;
 }
 
+/* API reference tables (see scripts/generate-api-reference.mjs). Content-driven sizing
+   (table-layout:auto, or nowrap on "short" columns) was tried twice and backfired both times,
+   because every column can occasionally hold something long: Type can be a full enum list
+   ("string (sandbox | production | byoAwsSes)"), Field/Name can be a long dotted schema path
+   ("unengagedContactSegment.groups[].conditions[].category"). Whichever column happened to be
+   widest that render would balloon past 2000px and starve Description down to a sliver that
+   then wrapped one word per line into an 8000px-tall row. Fixed, explicit per-column widths
+   (table-layout:fixed) sidestep the guessing entirely: every column except the last (always
+   Description) gets a deterministic px width; Description absorbs whatever's left. Below that
+   width the table just overflows into the wrapper's horizontal scrollbar instead of squeezing
+   any column illegibly. Which column is Type/Field varies by table shape (Parameters vs
+   Request/Response body vs Responses), hence the per-variant selectors. */
+.api-ref-table {
+  overflow-x: auto;
+}
+
+.api-ref-table table {
+  /* VitePress's own .vp-doc table rule sets display:block (its own trick for horizontal
+     scroll on overflow). table-layout only takes effect when the used display is table/
+     inline-table though, so left alone that override silently turns table-layout:fixed
+     into a no-op: unset columns fall back to sizing off their own content instead of
+     filling the leftover space, which is invisible when a column's content happens to be
+     long enough to need the leftover anyway (the Request/Response body tables, where
+     Description text is long) but leaves a dead gap when content is short (Responses,
+     where Description is often one line like "OK"). Restore display:table so fixed
+     layout is real, and get the scroll behavior from this wrapper's overflow-x instead. */
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.api-ref-table th,
+.api-ref-table td {
+  word-break: break-word;
+}
+
+/* Parameters: Name | In | Type | Required | Description */
+.api-ref-table--params th:nth-child(1),
+.api-ref-table--params td:nth-child(1) {
+  width: 160px;
+}
+
+.api-ref-table--params th:nth-child(2),
+.api-ref-table--params td:nth-child(2) {
+  width: 90px;
+}
+
+.api-ref-table--params th:nth-child(3),
+.api-ref-table--params td:nth-child(3) {
+  width: 130px;
+}
+
+.api-ref-table--params th:nth-child(4),
+.api-ref-table--params td:nth-child(4) {
+  width: 100px;
+}
+
+/* Request/Response body: Field | Type | Required | Description */
+.api-ref-table--body th:nth-child(1),
+.api-ref-table--body td:nth-child(1) {
+  width: 200px;
+}
+
+.api-ref-table--body th:nth-child(2),
+.api-ref-table--body td:nth-child(2) {
+  width: 140px;
+}
+
+.api-ref-table--body th:nth-child(3),
+.api-ref-table--body td:nth-child(3) {
+  width: 100px;
+}
+
+/* Responses: Status | Description */
+.api-ref-table--responses th:nth-child(1),
+.api-ref-table--responses td:nth-child(1) {
+  width: 80px;
+}
+
