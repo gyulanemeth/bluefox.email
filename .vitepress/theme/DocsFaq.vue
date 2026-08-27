@@ -30,9 +30,12 @@ const faqs = computed(() => {
 </template>
 
 <style scoped>
+/* Rendered in VitePress's doc-footer-before slot, so it sits above the
+   prev/next pager. VPDocFooter already supplies the 64px gap after the
+   article, hence no margin-top of our own. */
 .docs-faq {
-  margin-top: 48px;
   padding-top: 24px;
+  padding-bottom: 8px;
   border-top: 1px solid var(--vp-c-divider);
 }
 

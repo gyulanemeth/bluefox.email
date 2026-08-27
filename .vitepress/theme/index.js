@@ -133,7 +133,7 @@ export default {
   Layout: () => {
     return h(Theme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
-      "doc-after": () => h(DocsFaq),
+      "doc-footer-before": () => h(DocsFaq),
       "layout-bottom": () => h(CustomFooter),
     })
   },
