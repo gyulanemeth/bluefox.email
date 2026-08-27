@@ -53,7 +53,7 @@ A **campaign** is a one-off marketing send that you compose inside BlueFox Email
 
 - **Once a campaign is scheduled you can no longer edit or delete it.** The only actions left are re-schedule, cancel send, and send now, so finish the content before you put a time on it.
 - **The editor you pick decides which design features you get.** Pre-designed and [design system templates](/docs/email-themes/templates) are available only in the Visual Editor, and an email built in Raw HTML or Plain Text cannot be saved back as a reusable template. Personalization, feeds, sending and analytics behave the same in all four.
-- **Pasting Visual Editor content into Raw HTML or Plain Text needs cleaning up first.** Chamaileon-specific merge tag and component markup will not resolve there and has to be stripped out. Plain Handlebars tags carry over either way.
+- **Pasting Visual Editor content into Raw HTML or Plain Text needs cleaning up first.** Visual Editor merge tag and component markup will not resolve there and has to be stripped out. Plain Handlebars tags carry over either way.
 - **Exclude unengaged contacts is per send, but the definition behind it is project-wide.** The checkbox decides whether this campaign uses it; who counts as unengaged is set once in [project settings](/docs/projects/settings#unengaged-segment) and changing it there affects every send that has the box ticked.
 
 <template #next>

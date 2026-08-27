@@ -59,7 +59,7 @@ head:
 
 - **Settings are per project, never account-wide.** For separate environments such as staging and production, create a separate project for each instead of editing one project's settings back and forth. Options that apply to your whole organization live in [Account Settings](../account-settings.md).
 - **Clients with Editor access cannot open project settings.** They can do everything else inside the project, including creating and sending emails. Only Admins and Users reach this page. See [Account Users](../account-users.md#client-access-levels) for the full role breakdown.
-- **Two actions here cannot be undone.** Switching the email theme permanently discards any theme variables you had overridden, and deleting a contact property removes it from every contact in the project.
+- **Several actions here cannot be undone.** Switching the email theme permanently discards any theme variables you had overridden, even if you switch back. Deleting a contact property removes it from the contacts table and from the contact create/edit form, deleting a tag unassigns it from every contact that had it, and **Delete project** removes the project outright.
 - **Some sections only appear in certain delivery modes.** *Bounces and Complaints Webhooks* is available only when the project uses your own AWS SES account. On BlueFox-managed sending, bounces and complaints are processed automatically. See [Delivery Modes](./delivery-modes.md).
 - **API keys belong on your server only.** The domain whitelist authorizes requests coming from a browser; API keys authorize requests coming from your backend. Never ship an API key in frontend code.
 

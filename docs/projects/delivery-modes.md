@@ -56,7 +56,7 @@ You can find and change the delivery mode of a project in your [project settings
 <Primer>
 
 - **Setup guides written for raw Amazon SES do not apply here.** The [Amazon SES sandbox](/aws-concepts/ses-sandbox) only delivers to verified recipients; BlueFox's sandbox has no such restriction, so any advice about verifying test recipients first is not something you need to follow.
-- **The volume you enter on the production application becomes your ceiling.** Approval grants exactly the monthly limit you asked for, so pick a number you can grow into rather than your current send count.
+- **The volume you enter on the production application is a ceiling, not a guarantee.** Approval usually grants the monthly limit you asked for, but an account that still needs to establish a track record can be started on a lower one. Ask for a number you can grow into rather than your current send count.
 - **The dashboard rates are percentages of the limit, not raw rates.** A bounce rate showing 100% means you have used 100% of the 2.5% ceiling, not that every email bounced. 50% means you are at 1.25%.
 - **Deleting a sender identity can break live sends.** Check it is not attached to a campaign, transactional email, triggered email, or automation before removing it.
 

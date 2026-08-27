@@ -49,7 +49,7 @@ head:
 
 <Primer>
 
-- **Clean Contacts offers five actions, and two of them are permanent.** The *Remove from…* options only drop list membership and keep the contact record; the *Delete Contact* options erase it entirely. Only the two *…and Add to Suppression List* variants stop the address being emailed again if it is later re-imported.
+- **Clean Contacts offers four actions, or five when you open it inside a specific list, and two of them are permanent.** The same set is available for both Bounces and Complaints. The *Remove from…* options only drop list membership and keep the contact record; the *Delete Contact* options erase it entirely. Only the two *…and Add to Suppression List* variants stop the address being emailed again if it is later re-imported.
 - **Importing into a selected list subscribes everyone in the file to that list.** Choosing a list before you import is a subscription action, not just a place to put the data. Import from the All Contacts view instead if you only want the records.
 - **Ticking *Trigger Automation* on an import evaluates every imported contact against your automations.** On a large file that can start a lot of flows at once, so leave it off unless you intend it.
 - **A CSV column that matches nothing can create a new contact property.** The importer offers *Add as a new property* or *Skip* per unmatched column, and adding one changes the project's contact schema for every contact, not just the rows in this file.

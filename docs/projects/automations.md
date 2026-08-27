@@ -53,7 +53,7 @@ An **automation** is a workflow that runs once per contact: a trigger admits the
 
 <Primer>
 
-- **Deleting a node terminates every contact currently sitting on it.** Those contacts leave the automation entirely rather than moving to the next step, and it applies whether the automation is active or paused. Check the contact count on a node before you remove it.
+- **Deleting a node terminates every contact currently sitting on it, once you apply the change to in-progress contacts.** Choosing **Apply to upcoming events only** leaves contacts already in the automation on the old version, unaffected. Check the contact count on a node before you remove it.
 - **The Notify node does not email the contact flowing through the automation.** It sends to a subscriber list you choose, or to specific addresses from it, which is what makes it useful for alerting your own team. Because it targets a list, it also offers **Exclude unengaged**, driven by the project-wide [unengaged segment](/docs/projects/settings#unengaged-segment) definition.
 - **The editor you pick for a node's email decides which design features you get.** Pre-designed and [design system templates](/docs/email-themes/templates) are available only in the Visual Editor, and an email written in Raw HTML or Plain Text cannot be saved back as a reusable template. This applies to Send Email and Notify nodes alike.
 - **An automation can be copied into a different project, not just duplicated within one.** Copy and paste works across every project in the same account, so a working flow can be reused for another client instead of rebuilt.
