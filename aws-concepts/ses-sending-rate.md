@@ -68,7 +68,7 @@ head:
 
 ## How Sending Rate Works
 
-When you send emails using [Amazon SES](/aws-concepts/ses), the service evaluates each request against your **maximum send rate**, for example, 1 email per second in the [sandbox](/aws-concepts/ses-sandbox) environment. If your system tries to exceed that rate, SES doesn't queue or delay those messages. Instead, it responds with a **Throttling** error. It is your responsibility to catch these errors and retry the messages using techniques like **exponential backoff**.
+When you send emails using [Amazon SES](/aws-concepts/ses), the service evaluates each request against your **maximum send rate**, for example, 1 email per second in the [sandbox](/aws-concepts/ses-sandbox) environment. If your system tries to exceed that rate, SES doesn't queue or delay those messages. Instead, it responds with a **Throttling** error. [It is your responsibility to catch these errors and retry the messages](/posts/bluefox-email-is-an-amazon-ses-wrapper) using techniques like **exponential backoff**.
 
 Even in [production mode](/aws-concepts/ses-production-access), where the rate is significantly higher (typically starting at **14 emails per second** for new production accounts, and varying based on your specific use case), the same mechanism applies. AWS allows short-term bursts above the send rate, but only within reason. If sustained spikes continue, SES will actively throttle delivery attempts. This behavior helps prevent flooding email providers with sudden traffic and safeguards your sender reputation.
 

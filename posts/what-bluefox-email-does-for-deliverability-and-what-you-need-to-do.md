@@ -435,7 +435,7 @@ You may also start with a lower sending rate and a lower monthly sending limit, 
 
 With BYO Amazon SES, BlueFox connects to an SES account that you own and manage.
 
-BlueFox continues to provide the application layer, including:
+[BlueFox continues to provide the application layer](/posts/bluefox-email-is-an-amazon-ses-wrapper), including:
 
 * email creation
 * [transactional](/docs/projects/transactional-emails) and [triggered](/docs/projects/triggered-emails) sending
