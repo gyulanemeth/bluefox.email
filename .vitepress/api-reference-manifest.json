@@ -1,0 +1,107 @@
+[
+  {
+    "tag": "Project",
+    "slug": "project",
+    "count": 2
+  },
+  {
+    "tag": "Sender Identities",
+    "slug": "sender-identities",
+    "count": 4
+  },
+  {
+    "tag": "Domains",
+    "slug": "domains",
+    "count": 5
+  },
+  {
+    "tag": "Webhook",
+    "slug": "webhook",
+    "count": 3
+  },
+  {
+    "tag": "Sending Setup",
+    "slug": "sending-setup",
+    "count": 5
+  },
+  {
+    "tag": "Production Access",
+    "slug": "production-access",
+    "count": 3
+  },
+  {
+    "tag": "BYO AWS",
+    "slug": "byo-aws",
+    "count": 2
+  },
+  {
+    "tag": "Design Systems",
+    "slug": "design-systems",
+    "count": 2
+  },
+  {
+    "tag": "Templates",
+    "slug": "templates",
+    "count": 5
+  },
+  {
+    "tag": "Campaigns",
+    "slug": "campaigns",
+    "count": 7
+  },
+  {
+    "tag": "Transactional Emails",
+    "slug": "transactional-emails",
+    "count": 7
+  },
+  {
+    "tag": "Triggered Emails",
+    "slug": "triggered-emails",
+    "count": 7
+  },
+  {
+    "tag": "Send Email",
+    "slug": "send-email",
+    "count": 4
+  },
+  {
+    "tag": "Test Email",
+    "slug": "test-email",
+    "count": 1
+  },
+  {
+    "tag": "Email Error Log",
+    "slug": "email-error-log",
+    "count": 1
+  },
+  {
+    "tag": "Contacts",
+    "slug": "contacts",
+    "count": 19
+  },
+  {
+    "tag": "Segments",
+    "slug": "segments",
+    "count": 5
+  },
+  {
+    "tag": "Subscriber Lists",
+    "slug": "subscriber-lists",
+    "count": 10
+  },
+  {
+    "tag": "Subscriptions",
+    "slug": "subscriptions",
+    "count": 6
+  },
+  {
+    "tag": "Signup Forms",
+    "slug": "signup-forms",
+    "count": 6
+  },
+  {
+    "tag": "Suppression List",
+    "slug": "suppression-list",
+    "count": 2
+  }
+]
