@@ -64,7 +64,7 @@ Amazon SES is a very good sending layer. It was never meant to be everything els
 
 We are not going to argue with the label.
 
-BlueFox Email does not deliver mail itself. We do not run mail transfer agents, and we do not own the IP space that connects to Gmail. [Amazon SES](/aws-concepts/ses) does that part.
+BlueFox Email does not deliver mail itself. We do not run mail transfer agents, and we do not own the IP addresses your email is sent from. [Amazon SES](/aws-concepts/ses) does that part.
 
 What varies is whose SES account it is. With [BYO Amazon SES](/byo-amazon-ses-pricing), it is yours. You own the account, the quotas and the reputation, and BlueFox is a layer on top of infrastructure you control. With BlueFox-managed sending, you never create an SES account, and we operate the sending environment instead. That is a real difference in who carries the reputation, and it is why managed projects are held to a bounce and complaint threshold.
 
@@ -72,7 +72,7 @@ Either way, the last hop is SES. If that is your definition of a wrapper, then y
 
 The interesting question is not whether there is a layer. It is what that layer contains, and whether you would rather build it yourself.
 
-This article answers that honestly. For some of you the answer will be that you should skip us and call SES directly, and we say so plainly near the end. For the rest, this is a fairly complete inventory of the work involved, based on what Amazon documents publicly.
+This article answers that honestly. For some of you the answer will be that you should skip us and call SES directly, and we say so plainly near the end. For the rest, this is a fairly complete inventory of the work involved.
 
 ## Why Amazon SES stops where it does
 
@@ -97,8 +97,8 @@ Out of the box, SES gives you:
 * shared IP pools, with dedicated and managed dedicated IPs available
 * an account-level suppression list that records bounces and complaints
 * configuration sets and event publishing to [SNS](/aws-concepts/sns), Amazon Data Firehose, EventBridge and CloudWatch
-* email templates with replacement values
-* basic contact lists with topics
+* email templates with replacement values, created and updated through the API
+* contact lists, one per account, with topics for grouping
 * Virtual Deliverability Manager, a paid add-on with deliverability dashboards and recommendations
 
 That is a real feature set. If somebody tells you SES is just an SMTP relay, they have not read the documentation.
@@ -177,9 +177,9 @@ Most teams conclude fairly quickly that the contact list belongs in their own da
 
 Recipients get a hosted [subscription preferences page](/posts/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do#unsubscribe-support) where they can manage individual lists, pause all email temporarily, or unsubscribe from everything. We add the `List-Unsubscribe` and `List-Unsubscribe-Post` headers from [RFC 8058](https://www.rfc-editor.org/rfc/rfc8058) so mailbox providers can show a one-click unsubscribe button.
 
-[Signup forms](/docs/projects/forms-and-pages) are built in the same place. You can embed them on your site, collect custom fields, subscribe someone to more than one list at once, and protect the form with an image CAPTCHA or Cloudflare Turnstile. Double opt-in is configured per form, and the verification email is one of your own transactional emails rather than something generic.
-
 ![The subscriber-facing subscription preferences page, with per-list subscribe options, a pause button and an unsubscribe from all button](./bluefox-email-is-an-amazon-ses-wrapper/subscription-preferences-page.webp)
+
+[Signup forms](/docs/projects/forms-and-pages) are built in the same place. You can embed them on your site, collect custom fields, subscribe someone to more than one list at once, and protect the form with an image CAPTCHA or Cloudflare Turnstile. Double opt-in is configured per form, and the verification email is one of your own transactional emails rather than something generic.
 
 ## Segments, and deciding who gets this email
 
@@ -193,7 +193,7 @@ This is the part people underestimate most after queueing, because the first ver
 
 **What BlueFox does.** [Segments](/docs/projects/segments) filter contacts by any property or tag, with the full set of operators and AND or OR grouping. Engagement conditions cover received, not received, opened, not opened, clicked and not clicked within a number of days you choose. A segment can apply across every contact in the project or only within one subscriber list, and the same segment works in a campaign, as an automation trigger, or as an audience filter partway through a flow.
 
-![The segment builder in BlueFox Email, showing property conditions with operators grouped by AND and OR logic](./bluefox-email-is-an-amazon-ses-wrapper/segment-builder.webp)
+![A saved segment in BlueFox Email named Deep Clean upsell candidates, made of two condition groups combined with OR, each group holding contact property conditions joined with AND](./bluefox-email-is-an-amazon-ses-wrapper/segment-builder.webp)
 
 There is also a project-wide unengaged definition built on the same condition builder, which is what the exclude unengaged option uses, so you do not have to construct that exclusion yourself every time.
 
@@ -207,9 +207,9 @@ What SES does not do is close the loop back into your application. The bounce ev
 
 ![A six step loop from send, through hard bounce and event publication, to suppression and a check before the next send](./bluefox-email-is-an-amazon-ses-wrapper/05-bounce-suppression-loop.webp)
 
-You need an endpoint that receives the notification, verifies it, acknowledges it, and does not lose events while it is being deployed. You need to record the bounce against the right contact, which means you kept enough context at send time to know who it was. You need to distinguish a hard bounce from a transient one so you do not suppress somebody over a full mailbox. And you need the check before the next send, on every campaign and every automation step, because a suppression list nobody reads is just a table.
+You need an endpoint that receives the notification, verifies it, acknowledges it, and does not lose events while it is being deployed. You need to record the bounce against the right contact, which means you kept enough context at send time to know who it was. You need to read the bounce type rather than treating every notification as permanent, because SES retries transient failures itself and only reports one once it has given up. And you need the check before the next send, on every campaign and every automation step, because a suppression list nobody reads is just a table.
 
-Teams usually build the first five steps. The sixth is the one that gets skipped, and it is the only one the recipient notices.
+Teams usually build everything up to recording the bounce. The step that gets skipped is the last one, applying the suppression before the next send, and it is the only one the recipient notices.
 
 **What BlueFox does.** We process bounce and complaint events and record them in your analytics. Bounced and complained addresses are always added to your project's [suppression list](/docs/projects/suppression-list) automatically, regardless of any other setting, and we check that list as part of sending.
 
@@ -227,7 +227,7 @@ If you are running [BYO Amazon SES](/byo-amazon-ses-pricing), the [SNS topic and
 
 **What email needs.** Somebody wants to know how last Tuesday's campaign performed, and they want to know it without writing a query.
 
-**What building it involves.** SES publishes a genuinely rich stream of [delivery notifications](/aws-concepts/ses-delivery-notifications) and engagement events. Sends, deliveries, opens, clicks, bounces, complaints, delivery delays, rejects, rendering failures and subscription changes, routed to SNS, Firehose, EventBridge, CloudWatch or Pinpoint, with up to ten event destinations per configuration set.
+**What building it involves.** SES publishes a genuinely rich stream of [delivery notifications](/aws-concepts/ses-delivery-notifications) and engagement events. Sends, deliveries, opens, clicks, bounces, complaints, delivery delays, rejects, rendering failures and subscription changes, routed to SNS, Firehose, EventBridge or CloudWatch, with up to ten event destinations per configuration set.
 
 An event stream is not analytics. It is the raw material for analytics.
 
@@ -237,7 +237,7 @@ Between the stream and a number somebody can read, you build a consumer, a store
 
 Two smaller details. Open and click tracking rewrites your links, and unless you configure a custom tracking domain, recipients see an AWS-owned domain in your emails. And SES's own deeper deliverability reporting comes through Virtual Deliverability Manager, which is a paid add-on charged per message on top of your sending cost.
 
-**What BlueFox does.** [Analytics](/docs/statistics) for sends, bounces, complaints, opens and clicks are attached to each email, and delivery problems can also reach you through digest emails, so you are not required to watch a dashboard.
+**What BlueFox does.** [Analytics](/docs/statistics) for sends, bounces, complaints, opens and clicks are attached to each email, and delivery problems can also reach you through digest emails, so you are not required to watch a dashboard. Opens and clicks are tracked by BlueFox rather than by SES, so the tracking domain question above is not one you inherit.
 
 ![The statistics page for a single campaign in BlueFox Email, showing sent, opens, unique opens, clicks, bounces and complaints with a trend chart](./bluefox-email-is-an-amazon-ses-wrapper/email-analytics.webp)
 
@@ -269,15 +269,17 @@ Changing the timing is a change to the automation, not a deploy. Your applicatio
 
 It stops working when those are two different people. A marketer who wants every email to share a header cannot enforce that through pull requests they are not able to open. Templates drift, one gets updated and three do not, and eventually somebody rebuilds the same layout for the fourth time because finding the existing one was harder.
 
-SES does have templates, with replacement values and a 500 KB limit, up to 20,000 per Region. What SES does not have is an editor a non-developer can safely use, or a preview, or a review step.
+SES does have templates, with replacement values and a 500 KB limit, up to 20,000 per Region. You create and update them through the API, so there is no editor a non-developer can safely use, no preview and no review step. Sending one to a list is a separate job again, because a bulk templated send takes at most 50 destinations per call.
 
-**What BlueFox does.** Templates live in a visual editor with shared structure, so the person who owns the words can change them and the emails still look like they came from the same company.
+There is also the HTML itself. Email clients are not browsers. Outlook renders through Word, Gmail strips things it does not like, and a layout that survives everywhere is still usually built out of nested tables. Writing that well is a specialism, and every template you hand-write is one you also have to test across clients.
+
+**What BlueFox does.** Templates live in a visual editor with shared structure, so the person who owns the words can change them and the emails still look like they came from the same company. The markup it produces is built for email clients, which means the rendering problem above is not one you inherit.
 
 ![The BlueFox Email visual editor with a finished marketing email open, showing the block structure alongside the rendered result](./bluefox-email-is-an-amazon-ses-wrapper/email-editor.webp)
 
 If you would rather write the HTML yourself, there is a [raw HTML editor](/docs/projects/email-builder) you can paste or import into, and the same merge tags and sending apply.
 
-There is a third option that gets overlooked. Not every email should look designed. A password reset or a founder's note often lands better as something that reads like a person typed it, and a heavily styled template actively works against that. The text editor covers this case. Despite the name it still produces HTML, just lightweight HTML with minimal formatting: headings, lists, links, dividers and basic emphasis, and nothing else. Merge tags, data feeds and previewing work exactly as they do everywhere else.
+There is a third option that gets overlooked. Not every email should look designed. A password reset or a founder's note often lands better as something that reads like a person typed it, and a heavily styled template actively works against that. The text editor covers this case. Despite the name it still produces HTML, just lightweight HTML with minimal formatting: headings, lists, links, images, dividers and basic emphasis, and nothing else. Merge tags, data feeds and previewing work exactly as they do everywhere else.
 
 This is a workflow question, not a capability question, and the right answer depends on who is doing the work and what the email is for.
 
@@ -303,7 +305,7 @@ A wrapper is what we call a layer once the thing underneath it has become boring
 
 Amazon SES made sending boring, in the best sense. It is reliable, it is cheap, it is well documented, and almost nobody should be building their own mail transfer agents in 2026. We are not competing with that, we are standing on it.
 
-What is not boring yet is everything in this article. Queues that do not lose messages. Suppression that is actually checked. Automations you can look at. Templates a marketer can edit. That is the layer, and it is where our engineering time goes.
+What is not boring yet is everything in this article. Queues that do not lose messages. Suppression that is actually checked. Segments that ask a question at send time rather than freezing a list. Automations you can look at. Templates a marketer can edit. That is the layer, and it is where our engineering time goes.
 
 So yes, BlueFox Email is an Amazon SES wrapper. We would rather you knew exactly what is inside the wrapper before you decide whether you want it.
 
