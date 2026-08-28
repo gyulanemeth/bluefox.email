@@ -65,7 +65,7 @@ head:
 
 ## What is Amazon SES?
 
-Amazon SES is a **reliable, cost-effective service** that provides an easy way to send and receive email using your own email addresses and domains. It **eliminates the complexity** of [maintaining your own email sending infrastructure](/posts/bluefox-email-is-an-amazon-ses-wrapper).
+Amazon SES is a **reliable, cost-effective service** that provides an easy way to send and receive email using your own email addresses and domains. It **eliminates the complexity** of maintaining your own email sending infrastructure.
 
 ### Key Features
 
