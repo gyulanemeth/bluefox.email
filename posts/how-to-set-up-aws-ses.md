@@ -102,7 +102,7 @@ First, you need to go through the steps in the "Get set up" wizard. Here, you’
 If you plan to send emails from multiple AWS regions, consider including the region in your domain name, like `mail-eu-2.bluefox.email` instead of a generic `mail.bluefox.email`.
 :::
 
-**6) Skip this step if you use bluefox.email (do **NOT** enable it).** If you’re not using bluefox.email, you can enable the Virtual Deliverability Manager, but bluefox.email already gives you everything it offers and more.
+**6) Skip this step if you use bluefox.email (do **NOT** enable it).** If you’re not using bluefox.email, you can enable the Virtual Deliverability Manager, but [bluefox.email already gives you everything it offers and more](/posts/bluefox-email-is-an-amazon-ses-wrapper).
 
 ![SES virtual deliverability manager setup screen](./how-to-set-up-aws-ses/08.webp)
 

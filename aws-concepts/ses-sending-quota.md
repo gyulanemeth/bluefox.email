@@ -91,7 +91,7 @@ SES quotas are applied **per AWS region**, meaning each region tracks and enforc
 
 ## Best Practices for Managing SES Quotas
 
-Effective quota management requires **actively monitoring usage** through the SES Console, `GetSendQuota` API, or CloudWatch while maintaining strong sender reputation by staying within AWS recommended bounce and **complaint thresholds**. Implement robust throttling logic that **queues and retries messages** when SES throttles (rather than blocks) excessive sending attempts, and consider distributing email load across multiple AWS regions to achieve higher aggregate capacity and improved resilience.
+Effective quota management requires **actively monitoring usage** through the SES Console, `GetSendQuota` API, or CloudWatch while maintaining strong sender reputation by staying within AWS recommended bounce and **complaint thresholds**. [Implement robust throttling logic](/posts/bluefox-email-is-an-amazon-ses-wrapper) that **queues and retries messages** when SES throttles (rather than blocks) excessive sending attempts, and consider distributing email load across multiple AWS regions to achieve higher aggregate capacity and improved resilience.
 
 ## Frequently Asked Questions
 

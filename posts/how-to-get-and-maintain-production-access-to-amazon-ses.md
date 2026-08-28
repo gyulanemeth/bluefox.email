@@ -95,7 +95,7 @@ We handle many of the deliverability best practices for you:
 - **List-Unsubscribe headers for One-Click Unsubscribe**
 - **Send queue management** (delays emails when you exceed your SES quota to prevent deliverability issues)
 
-By using Bluefox.email, you get these email best practices handled for you automatically, ensuring compliance with AWS policies.
+By using Bluefox.email, you get [these email best practices handled for you automatically](/posts/bluefox-email-is-an-amazon-ses-wrapper), ensuring compliance with AWS policies.
 
 ## What You Need to Do in Your AWS Account
 If you use Bluefox.email, you’ll still need to complete some steps in AWS:

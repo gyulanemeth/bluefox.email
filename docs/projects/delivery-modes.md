@@ -176,7 +176,7 @@ If you prefer to use AWS SES directly without any restrictions, you can do so by
 
 ![A screenshot of the project AWS settings.](./project-delivery-mode-aws-settings.webp)
 
-This option is ideal for users who already have an established AWS SES setup and want to leverage BlueFox Email's features while using their own SES account. You can follow the steps below to set up your AWS credentials.
+This option is ideal for users who already have an established AWS SES setup and want to [leverage BlueFox Email's features while using their own SES account](/posts/bluefox-email-is-an-amazon-ses-wrapper). You can follow the steps below to set up your AWS credentials.
 
 ### AWS Credentials
 
