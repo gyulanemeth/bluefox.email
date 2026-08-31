@@ -49,31 +49,29 @@ head:
 
 # MCP Server Integration with BlueFox Email
 
-The **BlueFox Email MCP server** lets an AI agent work inside one of your projects: draft and schedule campaigns, manage contacts and subscriber lists, inspect your sending setup, and check deliverability, all through natural conversation in your AI client.
+The **MCP server integration** lets an AI agent work directly inside one of your projects. You can ask it to draft and schedule campaigns, manage contacts and subscriber lists, check your sending setup, and review deliverability, all in plain language from your AI client.
 
-It is a [Model Context Protocol](https://modelcontextprotocol.io) server that runs locally as a small Node.js process on your own machine. It is not a hosted service. The server is the only thing that ever talks to the BlueFox Email API on your behalf, using the API key you give it. The agent itself only sees the results of the tool calls the server made.
+It is a [Model Context Protocol](https://modelcontextprotocol.io) server that runs locally on your own computer as a small Node.js program. Nothing is hosted on our side. The server is the only thing that talks to BlueFox Email on your behalf, using the API key you give it, so your key never reaches the AI model itself.
 
 :::info Quick Note
-Every action an agent takes is a discrete tool call with visible arguments and a visible result, and the agent can only do what the tools below allow. There is no generic "call the API" escape hatch, and no hidden state.
+Every action the agent takes is a separate tool call, and you see its arguments and its result as it happens. The agent can only use the tools listed below, so it can never reach beyond them.
 :::
 
 ## Requirements
 
-Three environment variables must be set before the server will start. All three come from you, never from the agent.
+You need **Node.js 20 or newer**, and three environment variables set before the server will start. All three come from you, never from the agent.
 
 | Variable | What it is | Where to find it |
 | --- | --- | --- |
-| `BLUEFOX_PROJECT_ID` | The project this server operates on | Already filled in for you in **Project Settings > Integrations > MCP Server** |
-| `BLUEFOX_API_KEY` | The credential the server authenticates with | **Project Settings > [API Keys & Domain Whitelist](/docs/projects/settings#api-keys-and-domain-whitelist)** |
-| `BLUEFOX_BASE_URL` | The API endpoint | `https://api.bluefox.email` |
+| `BLUEFOX_BASE_URL` | The API endpoint | Always `https://api.bluefox.email` |
+| `BLUEFOX_PROJECT_ID` | The project the server works in | Already filled in for you under **Project Settings > Integrations > MCP Server** |
+| `BLUEFOX_API_KEY` | The key the server authenticates with | **Project Settings > [API Keys and Domain Whitelist](/docs/projects/settings#api-keys-and-domain-whitelist)** |
 
-If any of them is missing, the server exits immediately with a clear error rather than connecting in a partially authenticated state.
+If any of them is missing, the server stops with an error instead of starting up half-connected.
 
-You also need **Node.js 20 or newer**.
+## Finding the Setup in Your Project Settings
 
-## Finding the setup in the app
-
-The app generates both setup snippets for you, with your project ID already filled in, so you do not have to assemble them by hand.
+Your project generates both setup snippets for you, with your project ID already filled in, so you never have to put them together by hand.
 
 1. Open your project and go to **Project Settings**.
 
@@ -85,30 +83,30 @@ The app generates both setup snippets for you, with your project ID already fill
 
    ![A screenshot of the project settings integrations section MCP server setup.](./mcp-server-setup-section.webp)
 
-4. Pick the tab for your client: **Claude Desktop / Cursor / Windsurf** for clients configured with a JSON file, or **Claude Code (CLI)** for the terminal command.
+4. Pick the tab for your client: **Claude Desktop / Cursor / Windsurf** if your client is set up with a config file, or **Claude Code (CLI)** if you set it up from a terminal.
 
-The tab gives you two copyable blocks, one for each of the next two sections: a one-time [install command](#installation), and a [connection snippet](#connecting-your-ai-client) for your client. Both already contain your project ID. Replace `YOUR_API_KEY` in the connection snippet with a real key from the **API Keys & Domain Whitelist** tab, creating one there first if the project has none.
+Each tab gives you two copyable blocks, one for each of the next two sections: a one-time [install command](#installation), and a [connection snippet](#connecting-your-ai-client) for your client. Both already contain your project ID. Replace `YOUR_API_KEY` in the connection snippet with a real key from the **API Keys and Domain Whitelist** section, creating one there first if your project does not have one yet.
 
 :::info Quick Note
-The **AI Agents** section directly above **MCP Server** is a different thing: it hands you a setup prompt that points an agent at the public API and its OpenAPI spec, with no local server involved. Use it for clients that cannot launch a local MCP server, such as ChatGPT.
+The **AI Agents** section just above **MCP Server** is a different thing. It gives you a setup prompt that points an agent at our public API and its OpenAPI spec, with no local server involved. Use that one for AI clients that cannot run a local server, such as ChatGPT.
 :::
 
 ## Installation
 
-Clone the server, install its dependencies, and link it so your MCP client can launch it by name:
+Clone the server, install its dependencies, and link it so your AI client can start it by name:
 
 ```bash
-git clone https://github.com/gyulanemeth/bluefox.email-mcp.git
+git clone https://github.com/bluefox-email/bluefox.email-mcp.git
 cd bluefox.email-mcp
 npm install
 npm link
 ```
 
-The app's **MCP Server** section gives you the same thing as a single copyable line. `npm link` puts a `bluefox.email-mcp` executable on your `PATH`, and that is the command every client configuration below refers to.
+The **MCP Server** section in your project settings gives you the same commands as a single copyable line. Once `npm link` finishes, the `bluefox.email-mcp` command is available on your computer, and that is what every configuration below refers to.
 
-## Connecting your AI client
+## Connecting Your AI Client
 
-Register the server with your client and pass it the three environment variables. The snippets below are what the app's **Project Settings > Integrations > MCP Server** section generates, with the project ID and API key filled in. Restart or reload the client afterwards; the tools then appear in every new conversation, with nothing further to do per session.
+Add the server to your client along with the three environment variables, then restart or reload the client. The tools show up in every new conversation after that, with nothing to repeat per session.
 
 ### Claude Desktop
 
@@ -121,7 +119,7 @@ Open **Settings > Developer > Edit Config** and add the server to `claude_deskto
       "command": "bluefox.email-mcp",
       "env": {
         "BLUEFOX_BASE_URL": "https://api.bluefox.email",
-        "BLUEFOX_PROJECT_ID": "your-project-id",
+        "BLUEFOX_PROJECT_ID": "YOUR_PROJECT_ID",
         "BLUEFOX_API_KEY": "YOUR_API_KEY"
       }
     }
@@ -129,23 +127,27 @@ Open **Settings > Developer > Edit Config** and add the server to `claude_deskto
 }
 ```
 
-Restart Claude Desktop.
+Restart Claude Desktop once you have saved the file.
+
+::: info Windows Note
+On Windows, replace the `command` line with `"command": "cmd"` and add `"args": ["/c", "bluefox.email-mcp.cmd"]` next to it. The `env` block stays exactly the same.
+:::
 
 ### Claude Code
 
-No config file to edit. Register the server from your terminal. The **Claude Code (CLI)** tab in the app shows this command with your project ID already in it:
+There is no config file to edit here. Register the server from your terminal instead. The **Claude Code (CLI)** tab in your project settings shows this command with your project ID already in it:
 
 ```bash
 claude mcp add bluefox-email \
-  --env BLUEFOX_PROJECT_ID=your-project-id \
-  --env BLUEFOX_API_KEY=your-api-key \
   --env BLUEFOX_BASE_URL=https://api.bluefox.email \
+  --env BLUEFOX_PROJECT_ID=YOUR_PROJECT_ID \
+  --env BLUEFOX_API_KEY=YOUR_API_KEY \
   -- bluefox.email-mcp
 ```
 
 ### Cursor
 
-Add the same `mcpServers` block as Claude Desktop to `.cursor/mcp.json` for a single project, or `~/.cursor/mcp.json` to make it available everywhere.
+Add the same `mcpServers` block shown for Claude Desktop to `.cursor/mcp.json` to use it in one project, or to `~/.cursor/mcp.json` to make it available everywhere.
 
 ### Windsurf
 
@@ -157,143 +159,127 @@ Add the server through Cline's **MCP Servers** panel in VS Code, using the same 
 
 ### ChatGPT
 
-Not supported. ChatGPT's connector model expects a server reachable at a URL, and this is a local stdio process. Use the [BlueFox Email API](/docs/api/) directly instead: the live OpenAPI 3.0 spec lets an agent discover every endpoint and schema without this server. **Project Settings > Integrations > AI Agents** gives you a ready-made setup prompt for exactly this, with your project ID already in it.
+ChatGPT cannot connect to this integration. Its connectors expect a server reachable at a web address, and this one runs locally on your own computer. Use our [API](/docs/api/) directly instead. The **AI Agents** section of your project settings gives you a ready-made setup prompt for exactly that, with your project ID already in it.
 
-## How the agent behaves
+## How the Agent Works
 
-Some behaviour is built into the server itself, not left to the agent's discretion:
+A few things are built into the server itself, so they hold no matter which AI client you use:
 
-- **Names, not IDs.** Almost every tool accepts either an id (`subscriberListId`) or a human name (`subscriberListName`), and the server resolves the name for you. You can say "the newsletter list" instead of pasting an object id.
-- **Drafts are the default.** `create_campaign` and `create_triggered_email` save a draft unless you give an explicit `scheduledFor`. Sending or scheduling is always a separate step.
-- **Details get asked for, not invented.** Subject lines, [preview text](/docs/projects/campaigns), and sender identity affect deliverability and open rates, so the tools instruct the agent to ask rather than guess.
-- **Absolute dates only.** "Tomorrow at 8am" is converted to an ISO 8601 datetime by the agent before the call. The tools do not parse natural language dates.
-- **Bulk operations tolerate partial failure.** `import_contacts` and `bulk_update_contacts` process rows one at a time, so one bad row does not abort the batch. You get a report of what succeeded and what did not.
-- **Bodies are HTML or text.** Every email body is a plain HTML or plain-text Handlebars template string, written by the agent. See [Email Personalization](/docs/email-personalization) for the available merge tags: `&#123;&#123;contact.name&#125;&#125;`, `&#123;&#123;contact.<customField>&#125;&#125;`, `&#123;&#123;unsubscribeLink&#125;&#125;` and `&#123;&#123;pauseSubscriptionLink&#125;&#125;` (campaigns and triggered emails only), and `&#123;&#123;verifyLink&#125;&#125;` (required in any transactional email used for double opt-in confirmation). Values passed as `data` at send time render at the top level, so `data: { orderId: 123 }` is `&#123;&#123;orderId&#125;&#125;`, not `&#123;&#123;data.orderId&#125;&#125;`.
+- **You can use names instead of IDs**: nearly every tool takes either an ID or the name you see in the app, so you can say "the newsletter list" rather than looking up an ID.
+- **Nothing is sent by accident**: creating a campaign or a triggered email saves a draft. Sending it, or scheduling it, is always a separate step you have to ask for.
+- **The agent asks instead of guessing**: subject lines, preview text, and sender identity all affect your open rates and deliverability, so the tools tell the agent to ask you rather than invent them.
+- **Dates are worked out before the call**: "tomorrow at 8am" is turned into an exact date and time by the agent, since the tools themselves do not read dates written in plain language.
+- **One bad row does not stop an import**: `import_contacts` and `bulk_update_contacts` work through contacts one at a time, and you get a report of what went through and what did not.
+- **Email content is HTML or plain text**: the agent writes the body itself as a Handlebars template. All the usual [merge tags](/docs/email-personalization) work, including `&#123;&#123;contact.name&#125;&#125;`, your own contact properties, `&#123;&#123;unsubscribeLink&#125;&#125;` and `&#123;&#123;pauseSubscriptionLink&#125;&#125;` on campaigns and triggered emails, and `&#123;&#123;verifyLink&#125;&#125;` in a transactional email used for double opt-in confirmation.
 
-## Tool reference
+## Available Tools
 
-52 tools, grouped by area. Where a tool takes both an id and a name parameter, only one of the pair is required.
+There are 52 tools in total, grouped the same way the app is. Wherever a tool takes both an ID and a name, you only need one of the two.
 
 ### Emails
 
-Covers [campaigns](/docs/projects/campaigns), [transactional emails](/docs/projects/transactional-emails), and [triggered emails](/docs/projects/triggered-emails).
+Tools for [campaigns](/docs/projects/campaigns), [transactional emails](/docs/projects/transactional-emails), and [triggered emails](/docs/projects/triggered-emails).
 
-| Tool | What it does |
-| --- | --- |
-| `create_campaign` | Creates a campaign for a subscriber list, optionally narrowed by a [segment](/docs/projects/segments). Takes `name`, `subject`, `body`, `bodyType`, `previewText`, sender identity, `replyTo`, `excludeUnengaged`, and [`feeds`](/docs/projects/data-feeds). Saves as a draft unless `scheduledFor` (with an optional IANA `timeZone`) is given. |
-| `create_transactional_email` | Creates a reusable single-recipient template, sent later. No unsubscribe or pause merge tags, as it is not tied to a list. |
-| `send_transactional_email` | Sends one transactional email now to one address, with `data` for template variables and optional base64 `attachments`. |
-| `create_triggered_email` | Creates an email tied to a subscriber list, such as a welcome email. Same shape as a campaign, without scheduling. |
-| `send_triggered_email` | Sends an existing triggered email now, to specific `recipients` or to every active subscriber on its list. |
-| `update_email` | Updates a campaign, transactional, or triggered email. Also the only way to cancel or reschedule a scheduled campaign, via `status` and `scheduledFor`. A campaign cannot be updated within 6 minutes of its send time. |
-| `get_email` | Looks up one email by name with its stats, or lists every email of a type. |
-| `get_email_recipients` | Per-recipient results for one send: received, opened, clicked, bounced, complained, unsubscribed, paused, subscribed, resubscribed. Filterable and paginated. |
-| `delete_email` | Deletes a campaign, transactional, or triggered email. |
-| `list_email_error_log` | Send and delivery errors for one email over the last 30 days, newest first. |
-| `send_test_email` | A [test send](/docs/projects/send-test-email) that does not affect real stats. Goes to one address or to a private subscriber list, not both. |
+- **`create_campaign`**: Create a campaign for a subscriber list, optionally narrowed down by a [segment](/docs/projects/segments). It is saved as a draft unless you give a send time and time zone.
+- **`create_transactional_email`**: Create a reusable transactional email to send to one recipient later.
+- **`send_transactional_email`**: Send a transactional email now to one address, with your own data for the merge tags and optional attachments.
+- **`create_triggered_email`**: Create a triggered email tied to a subscriber list, such as a welcome email.
+- **`send_triggered_email`**: Send an existing triggered email now, either to specific addresses or to everyone active on its list.
+- **`update_email`**: Update a campaign, transactional, or triggered email. This is also how a scheduled campaign is rescheduled or moved back to draft, which is not possible within 6 minutes of its send time.
+- **`get_email`**: Look up one email together with its statistics, or list every email of one type.
+- **`get_email_recipients`**: See what each recipient did with one particular send: received, opened, clicked, bounced, complained, unsubscribed, paused, or resubscribed.
+- **`delete_email`**: Delete a campaign, transactional, or triggered email.
+- **`list_email_error_log`**: Review sending and delivery errors for one email over the last 30 days.
+- **`send_test_email`**: Send a [test email](/docs/projects/send-test-email) that does not affect your statistics, either to one address or to a private subscriber list.
 
 ### Contacts
 
-See [Contacts](/docs/projects/contacts) for the same operations in the app.
+Tools for the same things you can do on the [contacts](/docs/projects/contacts) page.
 
-| Tool | What it does |
-| --- | --- |
-| `create_contact` | Creates a contact from `email`, plus optional `name`, `tags`, and `customFields`. New tags are created automatically. |
-| `get_contact` | Reads one contact by email, with its list memberships and custom field values. |
-| `update_contact` | Updates a contact, including changing its address via `newEmail`. Supplying `tags` replaces the whole set. |
-| `delete_contact` | Deletes a contact and removes it from every list. |
-| `import_contacts` | Bulk creates contacts, optionally subscribing them to a list as `active` or `unverified`. Rows are processed individually. |
-| `bulk_update_contacts` | Applies one action to many contacts: delete, add or remove tags, add to the suppression list, or subscribe to or unsubscribe from a list. |
-| `clean_contacts` | Finds contacts already suppressed for a bounce or a complaint. Reports only, unless told to delete them. |
-| `export_contacts` | Exports every contact to a local CSV and reports the file path. |
-| `resend_verification_email` | Resends the double opt-in confirmation to a contact still unverified on a list. |
-| `manage_contact_fields_and_tags` | Manages the project's custom field and tag *definitions*. Fields can only be added or removed, never renamed, and removing one loses existing values. Removing a tag untags every contact that had it. |
+- **`create_contact`**: Add a contact, with tags and contact properties. New tags are created for you.
+- **`get_contact`**: Look up one contact, with its list memberships and property values.
+- **`update_contact`**: Change a contact, including its email address. Passing tags replaces the whole set.
+- **`delete_contact`**: Delete a contact and remove it from every list.
+- **`import_contacts`**: Import many contacts at once, optionally subscribing them to a list as active or unverified.
+- **`bulk_update_contacts`**: Apply one change to many contacts: delete them, add or remove tags, add them to the suppression list, or subscribe and unsubscribe them.
+- **`clean_contacts`**: Find contacts that have already bounced or complained, and optionally delete them.
+- **`export_contacts`**: Export all of your contacts to a CSV file on your computer.
+- **`resend_verification_email`**: Send the double opt-in confirmation again to a contact who has not confirmed yet.
 
-### Subscriber lists
+### Subscriber Lists
 
-| Tool | What it does |
-| --- | --- |
-| `create_subscriber_list` | Creates a list, with optional `private` flag, double opt-in settings, confirmation copy, and embedded signup form styling. A double opt-in email's body must contain `&#123;&#123;verifyLink&#125;&#125;` or the API rejects it. |
-| `update_subscriber_list` | Updates a list. An empty string clears the redirect link, confirmation title, or confirmation message. |
-| `get_subscriber_list` | Reads one list, or lists all of them with stats. |
-| `delete_subscriber_list` | Deletes a list. Fails if a triggered email, campaign, or automation still depends on it. |
-| `list_list_subscribers` | Lists contacts on one list with their per-list status: active, unsubscribed, paused, or unverified. |
-| `get_list_subscriber` | Reads one contact's status on one list. |
-| `add_list_subscriber` | Subscribes a contact to a list, creating the contact if needed. Stays unverified on double opt-in lists unless `status: "active"` is passed. |
-| `update_list_subscriber` | Changes a contact's status on one list only. Pausing requires a future `pausedUntil` date. |
+- **`create_subscriber_list`**: Create a list, with double opt-in, confirmation messages, and sign-up form styling. A double opt-in email has to contain `&#123;&#123;verifyLink&#125;&#125;`, otherwise the list cannot be saved.
+- **`update_subscriber_list`**: Change any of those settings on an existing list.
+- **`get_subscriber_list`**: Look up one list, or list all of them with their statistics.
+- **`delete_subscriber_list`**: Delete a list, as long as no triggered email, campaign, or automation still uses it.
+- **`list_list_subscribers`**: See everyone on one list with their [subscription status](/docs/projects/contacts#subscription-statuses).
+- **`get_list_subscriber`**: Check one contact's status on one list.
+- **`add_list_subscriber`**: Subscribe a contact to a list, creating the contact if it does not exist yet.
+- **`update_list_subscriber`**: Change a contact's status on one list only, including pausing it until a date you choose.
 
-### Signup forms
+### Signup Forms
 
-See [Forms & Pages](/docs/projects/forms-and-pages).
+Tools for the sign-up forms described in [Forms & Pages](/docs/projects/forms-and-pages).
 
-| Tool | What it does |
-| --- | --- |
-| `create_signup_form` | Creates a form for one or more lists, with per-field visibility, required flags and ordering, styling, double opt-in settings, and an optional built-in or Cloudflare Turnstile captcha. |
-| `update_signup_form` | Updates an existing form, including renaming it. |
-| `get_signup_form` | Reads one form, or lists all of them. |
-| `delete_signup_form` | Deletes a form. Subscriptions already collected through it are kept. |
-| `get_signup_form_embed_html` | Generates the self-contained embeddable HTML, saves it to a local file, and reports the path. |
+- **`create_signup_form`**: Create a form for one or more lists, choosing which contact properties appear, how the form looks, and whether it uses a captcha.
+- **`update_signup_form`**: Change an existing form.
+- **`get_signup_form`**: Look up one form, or list all of them.
+- **`delete_signup_form`**: Delete a form. Everyone who signed up through it stays subscribed.
+- **`get_signup_form_embed_html`**: Save the ready-to-embed HTML of a form to a file, so you can hand it to whoever looks after your website.
 
-### Project settings and infrastructure
+### Project Settings
 
-| Tool | What it does |
-| --- | --- |
-| `manage_segment` | Lists, reads, creates, updates, or deletes [segments](/docs/projects/segments). A segment still used by a campaign or automation cannot be deleted. |
-| `manage_project_settings` | Reads or updates the project name, logo, unengaged contact segment, auto-remove-on-bounce and on-complaint behaviour, and the domain whitelist. **Cannot read or change API keys.** |
-| `manage_design_system` | Reads or overrides parts of the project's [Email Theme](/docs/projects/email-theme-settings): colours, fonts, images, links, text, button, and divider styles. Override only; it cannot switch or create a theme. |
-| `manage_sending_setup` | Manages domains, sender identities, and available AWS regions. A sender identity's domain must already be added and DKIM verified. There is no separate default flag: the first identity is the default, and `set_default` reorders. Domain create, DNS check, and delete are unavailable on BYO AWS projects. |
-| `manage_webhook` | Reads, sets, or deletes the project's single [webhook](/docs/integrations/webhooks). Setting it replaces the whole config, so every wanted event flag must be included each time. The `secretKey` must match one of your existing API keys, which you supply yourself. |
-| `test_webhook` | Fires a synthetic event at the configured webhook URL to confirm reachability and signing. |
-| `manage_suppression_list` | Lists, adds to, or removes from this project's manual [suppression list](/docs/projects/suppression-list). Separate from the platform-wide automatic bounce and complaint suppression list. |
-| `manage_templates` | Lists, inspects, duplicates, renames, or deletes visual editor [templates](/docs/projects/predesigned-templates). Creating means duplicating an existing template under new metadata. |
+- **`manage_segment`**: List, create, change, or delete [segments](/docs/projects/segments). A segment still used by a campaign or automation cannot be deleted.
+- **`manage_project_settings`**: Change your project name and logo, your [unengaged segment](/docs/projects/settings#unengaged-segment), what happens to contacts that bounce or complain, and your domain whitelist. It cannot read or change API keys.
+- **`manage_contact_fields_and_tags`**: Manage which contact properties and tags exist in your project. Properties can be added and removed but not renamed, and removing one loses the values stored under it.
+- **`manage_design_system`**: Read or override parts of your [email theme](/docs/projects/email-theme-settings), such as colors, fonts, and button styles. It can only override the theme you already use, not switch to another one.
+- **`manage_sending_setup`**: Manage your domains, [sender identities](/docs/projects/delivery-modes#managing-sender-identities), and regions. A sender identity needs a verified domain first, and the first identity in the list is the default one.
+- **`manage_webhook`**: Read, set, or remove your project's [webhook](/docs/integrations/webhooks). Setting it replaces the whole configuration, so every event you want has to be included each time.
+- **`test_webhook`**: Send a test event to your webhook URL to check that it is reachable.
+- **`manage_suppression_list`**: Add to, remove from, or review your project's [suppression list](/docs/projects/suppression-list).
+- **`manage_templates`**: List, inspect, duplicate, rename, or delete your [templates](/docs/projects/predesigned-templates).
 
-### Production access and sending limits
+### Production Access and Sending Limits
 
-See [Delivery Modes](/docs/projects/delivery-modes).
+Tools for the [delivery modes](/docs/projects/delivery-modes) described in your project settings.
 
-| Tool | What it does |
-| --- | --- |
-| `apply_for_production_access` | Applies to leave sandbox limits while staying on BlueFox Email's shared infrastructure. Requires at least one domain with SPF, MX, and DKIM verified. |
-| `get_production_access_status` | Reports request status, domain verification, current limits and rates per region, and limit increase history. |
-| `request_limit_increase` | Requests a higher monthly limit. Production access projects only. |
-| `get_sandbox_deliverability` | Today's sandbox send count, plus bounce and complaint rates against the platform maximum. |
-| `get_production_deliverability` | Worst bounce and complaint rates over 7, 30, and 90 days, per-domain breakdown, and this month's sends against your limit. |
-| `export_domain_dns` | Writes a domain's DKIM, SPF, DMARC, and MX records to a local CSV for whoever manages your DNS. |
+- **`apply_for_production_access`**: Apply to leave sandbox mode. You need at least one domain with SPF, MX, and DKIM verified.
+- **`get_production_access_status`**: Check where your request stands, along with your current limits and sending rates.
+- **`request_limit_increase`**: Ask for a higher monthly sending limit once you are in production mode.
+- **`get_sandbox_deliverability`**: See how many emails you have sent today in sandbox mode, and your [bounce](/email-sending-concepts/bounce-rate) and [complaint](/email-sending-concepts/complaints) rates.
+- **`get_production_deliverability`**: See your worst bounce and complaint rates over the last 7, 30, and 90 days, broken down by domain.
+- **`export_domain_dns`**: Save a domain's DKIM, SPF, DMARC, and MX records to a CSV file, for whoever manages your DNS.
 
-### Bring your own AWS SES
+### AWS SES
 
-For projects sending through their own AWS account rather than BlueFox Email's shared infrastructure.
+Tools for projects that send through their own AWS account rather than our shared infrastructure.
 
-| Tool | What it does |
-| --- | --- |
-| `set_byo_aws_config` | Sets the STS `roleArn` **or** an access key pair, never both, along with region, send rate limit, and sender identities. Also activates the BYO AWS send path. |
-| `get_aws_config` | Reads back region, limit, sender identities, and credential hints. Real secrets are never returned. |
-| `check_aws_credentials` | Validates directly against SES: credentials work, sender identities are verified, and the requested limit is within your account maximum. |
-| `get_cloudformation_link` | Returns the CloudFormation quick-create link for the STS role BlueFox Email needs. |
+- **`set_byo_aws_config`**: Set your AWS credentials, region, sending rate, and sender identities, and switch the project over to your own AWS account.
+- **`get_aws_config`**: Read back your region, limits, and sender identities. Your actual credentials are never returned.
+- **`check_aws_credentials`**: Check against AWS that your credentials work, your sender identities are verified, and your sending rate fits your account.
+- **`get_cloudformation_link`**: Get the CloudFormation link that creates the role we need in your AWS account.
 
-## Limitations
+## What the MCP Server Cannot Do
 
-- **No visual editor content.** Emails are created as plain HTML or plain text only. The agent cannot author, read, or edit drag-and-drop editor documents, and cannot create a campaign or transactional or triggered email directly from a saved template.
-- **No access to API keys.** No tool can read, create, or rotate them. Anything that needs a key, such as a webhook secret, has to be pasted in by you.
-- **No date range filters.** List endpoints support exact-match filters only, so "campaigns from this month" means fetching all of them and filtering afterwards.
-- **One project per server.** `BLUEFOX_PROJECT_ID` is fixed at launch. Connecting to a second project means registering a second server.
-- **No ChatGPT support.** Use the [API](/docs/api/) and its OpenAPI spec instead.
+- **It cannot design emails in the visual editor.** Every email it creates is written as HTML or plain text. It cannot open, edit, or produce visual editor content, and it cannot start a new email from one of your templates.
+- **It cannot see your API keys.** No tool can read, create, or rotate them, not even the project settings tool. Anything that needs a key, such as a webhook secret, has to be pasted in by you.
+- **It cannot filter by date range.** Lists can only be filtered on exact values, so something like "campaigns from this month" means fetching them all and sorting through them afterwards.
+- **It works in one project at a time.** The project ID is fixed when the server starts, so a second project means adding a second server to your client.
 
-## Example workflow
+## Example Workflow
 
-A typical first campaign, entirely through the agent:
+Here is what putting together a first campaign usually looks like:
 
-1. `manage_sending_setup` lists sender identities to find a verified sender.
-2. `get_subscriber_list`, with no name given, lists every list so the audience can be picked.
-3. You agree on a subject line and preview text with the agent, and `create_campaign` saves the campaign **as a draft**, with no `scheduledFor`.
-4. The agent hand-writes the HTML body, and `update_email` replaces the draft's body with it.
-5. `send_test_email` sends a test that does not affect stats.
-6. Only when you explicitly ask does `update_email` set `scheduledFor` and move the campaign to `scheduled`.
+1. The agent lists your sender identities and subscriber lists so you can pick who the campaign comes from and who receives it.
+2. You settle on a subject line and preview text together, and the campaign is saved **as a draft**.
+3. The agent writes the HTML body and updates the draft with it.
+4. You send yourself a test email, which does not affect your statistics.
+5. Only when you ask for it is the campaign scheduled or sent.
 
 Nothing reaches a real recipient until that last step.
 
 ## Additional Resources
 
-- [BlueFox Email API Documentation](/docs/api/)
+- [API Documentation](/docs/api/)
 - [Email Personalization (Merge Tags)](/docs/email-personalization)
 - [Model Context Protocol documentation](https://modelcontextprotocol.io)
