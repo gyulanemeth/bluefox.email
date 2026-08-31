@@ -1,28 +1,28 @@
 <script setup>
 const segments = [
   {
-    id: 'k12',
-    label: 'K-12 Districts & Schools',
+    id: 'student-news',
+    label: 'Student news',
     color: '#13b0ee',
-    useCases: ['Enrollment & registration reminders', 'Permission slip follow-ups', 'PTA & classroom newsletters']
+    useCases: ['Scholarship and funding openings', 'Enrollment and deadline reminders', 'Course and faculty updates']
   },
   {
-    id: 'higher-ed',
-    label: 'Colleges & Universities',
+    id: 'event-invitations',
+    label: 'Event invitations',
     color: '#6366f1',
-    useCases: ['Admissions & financial aid updates', 'Alumni & advancement campaigns', 'Department & event newsletters']
+    useCases: ['Lectures, open days, ceremonies', 'RSVP confirmations', 'Reminders before the date']
   },
   {
-    id: 'continuing-ed',
-    label: 'Bootcamps & Continuing Ed',
+    id: 'alumni',
+    label: 'Alumni communication',
     color: '#f59e0b',
-    useCases: ['Cohort onboarding sequences', 'Application status updates', 'Certificate & graduation emails']
+    useCases: ['Reunion and networking invitations', 'Advancement and giving updates', 'Segmented by graduating year']
   },
   {
-    id: 'edu-orgs',
-    label: 'Education Nonprofits & Associations',
+    id: 'internal',
+    label: 'Internal and departmental',
     color: '#10b981',
-    useCases: ['Fundraising appeals', 'Member renewals', 'Conference & event invites']
+    useCases: ['Staff and faculty notices', 'Cross-department announcements', 'One theme across every sender']
   }
 ]
 </script>
@@ -33,8 +33,8 @@ const segments = [
       <v-chip color="primary" class="audience-badge" aria-label="Who it fits badge">
         <span class="text-overline">Who it fits</span>
       </v-chip>
-      <h2 id="audience-title">Built for every kind of education sender</h2>
-      <p>From a single classroom newsletter to a multi-department university, one platform scales with you.</p>
+      <h2 id="audience-title">What universities send</h2>
+      <p>Newsletters and invitations to students and alumni. Start with one department, add the rest when they follow.</p>
     </div>
 
     <div class="segment-grid">
@@ -50,7 +50,7 @@ const segments = [
 </template>
 
 <style scoped>
-.audience-section { padding: 36px 24px; }
+.audience-section { padding: 0; }
 
 .audience-head { margin-bottom: 28px; }
 
@@ -149,7 +149,6 @@ html.dark .segment-uses li::before { background: #475569; }
 }
 
 @media (max-width: 620px) {
-  .audience-section { padding: 24px 16px; }
   .segment-grid { grid-template-columns: 1fr; }
 }
 </style>

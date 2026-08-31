@@ -225,7 +225,7 @@ export default defineConfig({
           { text: "Occasional Senders", link: "/for/occasional-senders" },
           { text: "SaaS Companies", link: "/for/saas-companies" },
           { text: "Amazon SES Users", link: "/for/amazon-ses-users" },
-          { text: "Education", link: "/for/education" },
+          { text: "Universities", link: "/for/education" },
         ],
       },
       {

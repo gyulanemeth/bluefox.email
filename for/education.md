@@ -1,19 +1,19 @@
 ---
 layout: home
 
-title: BlueFox Email for Schools & Education Organizations
-description: Pay per email sent, not per contact stored. One theme library for every department. Credits that fit the academic calendar, not a monthly subscription.
+title: BlueFox Email for Colleges & Universities
+description: Newsletters and event invites for students and alumni. Segment alumni by graduating year, students by department. Pay per email sent, not per contact stored.
 
 head:
   - - meta
     - name: description
-      content: "Pay per email sent, not per contact stored. One theme library for every department. Credits that fit the academic calendar, not a monthly subscription."
+      content: "Newsletters and event invites for students and alumni. Segment alumni by graduating year, students by department. Pay per email sent, not per contact stored."
   - - meta
     - property: og:title
-      content: BlueFox Email for Schools & Education Organizations
+      content: BlueFox Email for Colleges & Universities
   - - meta
     - property: og:description
-      content: "Pay per email sent, not per contact stored. One theme library for every department. Credits that fit the academic calendar, not a monthly subscription."
+      content: "Newsletters and event invites for students and alumni. Segment alumni by graduating year, students by department. Pay per email sent, not per contact stored."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/share.png
@@ -28,10 +28,10 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: BlueFox Email for Schools & Education Organizations
+      content: BlueFox Email for Colleges & Universities
   - - meta
     - name: twitter:description
-      content: "Pay per email sent, not per contact stored. One theme library for every department. Credits that fit the academic calendar, not a monthly subscription."
+      content: "Newsletters and event invites for students and alumni. Segment alumni by graduating year, students by department. Pay per email sent, not per contact stored."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/share.png
