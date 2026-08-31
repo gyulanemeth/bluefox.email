@@ -1,17 +1,19 @@
 ---
 title: Delivery Modes | bluefox.email documentation
-description: Learn about delivery modes in bluefox.email. Start sending emails instantly in sandbox mode without AWS setup, verify your domain for expanded testing, and scale to unrestricted production delivery.
+description: Learn about delivery modes in bluefox.email. Start sending emails instantly in sandbox mode without AWS setup, then verify your domain and request production access to scale up your sending limit.
 faqs:
   - question: "What delivery modes are available in BlueFox Email?"
-    answer: "Every project supports three delivery modes: Sandbox (for testing, sends to verified addresses only), Production (for unrestricted sending to any address, requires domain verification and production access approval), and BYO SES (use your own Amazon SES account for sending, active immediately with no restrictions)."
+    answer: "Every project supports three delivery modes: Sandbox (for testing, no verified-recipient requirement, capped at 100 emails per day), Production (for sending to any address up to your approved monthly limit, requires domain verification and production access approval), and BYO SES (use your own Amazon SES account for sending, active immediately with no restrictions)."
   - question: "What are the limitations of Sandbox mode?"
-    answer: "In Sandbox mode you can only send to up to 5 verified email addresses or domains, emails are sent from a shared no-reply address, you are limited to 100 emails per day, and throughput is capped at 1 email per second. Sandbox mode is intended for testing and development only."
+    answer: "In Sandbox mode you can send to any email address, there's no verified-recipient requirement. Emails are sent from a shared no-reply address, you are limited to 100 emails per day, and throughput is capped at 1 email per second. Sandbox mode is intended for testing and development only."
   - question: "How do I switch a project to Production mode?"
-    answer: "You need to first verify your sending domain in the project delivery mode settings, then request production access. You will be asked a few questions about your sending practices. Once approved, the project badge updates to reflect production status and all sending restrictions are lifted."
+    answer: "You need to first verify your sending domain in the project delivery mode settings, then request production access. You'll be asked a few questions, including your website link, what your product or service does, your sending practices, and the monthly sending volume you need. Once approved, your project is granted a monthly sending limit matching what you requested, and the project badge updates to reflect production status. You can return to the same application page later to request a limit increase."
   - question: "What bounce and complaint rate limits must I maintain in Production mode?"
     answer: "To maintain production access, keep your bounce rate below 2.5% and your complaint rate below 0.05%. BlueFox Email monitors these rates continuously and will notify you before you approach the thresholds. Exceeding these limits may result in project suspension."
   - question: "What is the BYO SES option and who should use it?"
     answer: "BYO SES lets you send emails through your own Amazon SES account. BlueFox Email handles templates, contacts, automations, and sending logic while AWS handles the actual delivery. This is ideal for teams that already have an established AWS SES setup, want full control over their sending reputation, or need lower per-send costs at high volumes."
+  - question: "What happens to an address that bounces or complains?"
+    answer: "The address is always added to the project's suppression list and will not be emailed again, regardless of any other settings. You can additionally choose how bounce/complaint events affect list membership: remove the contact from all subscriber lists (the default), delete the contact entirely, or do nothing. That setting only controls list membership and contact deletion, suppression always happens."
 head:
   - - meta
     - name: description
@@ -21,7 +23,7 @@ head:
       content: Delivery Modes | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Learn about delivery modes in bluefox.email. Start sending emails instantly in sandbox mode without AWS setup, verify your domain for expanded testing, and scale to unrestricted production delivery.
+      content: Learn about delivery modes in bluefox.email. Start sending emails instantly in sandbox mode without AWS setup, then verify your domain and request production access to scale up your sending limit.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -39,7 +41,7 @@ head:
       content: Delivery Modes | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Learn about delivery modes in bluefox.email. Start sending emails instantly in sandbox mode without AWS setup, verify your domain for expanded testing, and scale to unrestricted production delivery.
+      content: Learn about delivery modes in bluefox.email. Start sending emails instantly in sandbox mode without AWS setup, then verify your domain and request production access to scale up your sending limit.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -47,9 +49,24 @@ head:
 
 # Delivery Modes
 
-BlueFox Email offers flexible delivery modes that let you start sending emails immediately and scale when ready. Every new project begins in **sandbox mode**, allowing you to send your first email within minutes with some restrictions. When you're ready for unrestricted sending, you can transition to **production mode**. Of course, if you still prefer to use AWS SES directly, you can do that too without any delay or restrictions.
+A project's **delivery mode** decides which infrastructure actually sends its email, and what limits apply while it does. Every project has one of three: **sandbox**, the default, which sends immediately through BlueFox-managed infrastructure under low daily caps; **production**, which lifts those caps after your domain is verified and your application is approved; and **BYO AWS SES**, which routes sending through your own Amazon SES account with no BlueFox review at all. The mode is set per project, so a staging project and a live project can sit in different modes at the same time.
 
 You can find and change the delivery mode of a project in your [project settings](./settings.md#sending-setup), under the **Sending Setup** section.
+
+<Primer>
+
+- **Setup guides written for raw Amazon SES do not apply here.** The [Amazon SES sandbox](/aws-concepts/ses-sandbox) only delivers to verified recipients; BlueFox's sandbox has no such restriction, so any advice about verifying test recipients first is not something you need to follow.
+- **The volume you enter on the production application is a ceiling, not a guarantee.** Approval usually grants the monthly limit you asked for, but an account that still needs to establish a track record can be started on a lower one. Ask for a number you can grow into rather than your current send count.
+- **The dashboard rates are percentages of the limit, not raw rates.** A bounce rate showing 100% means you have used 100% of the 2.5% ceiling, not that every email bounced. 50% means you are at 1.25%.
+- **Deleting a sender identity can break live sends.** Check it is not attached to a campaign, transactional email, triggered email, or automation before removing it.
+
+<template #next>
+
+[Free deliverability tools](/tools/deliverability/) · [What BlueFox Email does for deliverability](/posts/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do) · [BYO Amazon SES pricing](/byo-amazon-ses-pricing)
+
+</template>
+
+</Primer>
 
 ## Sandbox Mode
 
@@ -57,48 +74,50 @@ Whenever you create a new project in BlueFox Email, it starts in **sandbox mode*
 
 ![A screenshot of the project delivery mode settings.](./project-delivery-mode-sandbox.webp)
 
-This mode is designed to help you get started quickly without needing to set up anything. You can send emails right away, but there are a few limitations to be aware of:
+This mode is designed to help you get started quickly without needing to set up anything. You can send to any recipient right away, there's no verified-recipient requirement but there are a few limitations to be aware of:
 
-- You can only send emails up to 5 verified email addresses. Here is where you can verify them in your project settings.
-  ![A screenshot of the project delivery mode settings with the verify email button highlighted.](./project-delivery-mode-verify-email.webp)
-
-  Also if you verify your domain within BlueFox Email project settings, you can send to that domain as well.
-  
-  ![A screenshot of the project sandbox settings.](./project-delivery-mode-verify-domain.webp)
-
-  - When you hit create and enter the email address, a verification email will be sent to that address. You need to click the link in that email to verify the address.
-  
-- These emails will be sent from `no-reply@bluefoxemailsandbox.com`.
+- These emails will be sent from `no-reply@bluefoxemailsandbox.com` by default. You can verify a domain to send from your own domain instead of the shared sandbox sender, while still remaining in sandbox mode.
 - You can send 100 emails per day.
 - Lower throughput (1 email/sec).
 
-Sandbox mode is perfect for testing and development. It allows you to explore BlueFox Email's features without any initial setup. You can verify your email addresses and domains directly within BlueFox Email, making it easy to get started.
+Sandbox mode is perfect for testing and development. It allows you to explore BlueFox Email's features without any initial setup.
 
 ## Production Mode
 
-When you're ready to send emails without restrictions, you can request to move your project to **production mode**. This mode lifts the limitations of sandbox mode, allowing you to send emails to any address and at higher volumes. 
+When you're ready to send beyond sandbox mode's limits, you can request to move your project to **production mode**. This mode lifts sandbox mode's daily and throughput caps, letting you send at a much higher, approved volume.
 
 To transition to production mode, you need to verify your domain (same place as [sandbox mode](#sandbox-mode)) and request production access. For application instructions, click the button below here in your project settings.
 
+Once the DNS records are in place, you can confirm they resolve with our free [SPF checker](/tools/deliverability/spf-checker), [DKIM checker](/tools/deliverability/dkim-checker), and [DMARC checker](/tools/deliverability/dmarc-checker).
+
 ![A screenshot of the project delivery mode settings with the request production access button highlighted.](./project-delivery-mode-request-production-access.webp)
 
-When you request production access, you'll be asked a few questions about your use case and sending practices.
+When you request production access, you'll be asked:
+
+- **Website**: a link to learn more about your product or business. This is pre-filled with your verified sending domain, but you can change it.
+- **Monthly sending volume**: an estimate of how many emails you plan to send each month.
+- **Why you're considering BlueFox Email**: for example, issues with your current provider, looking for better deliverability, or it's your first email platform.
+- **What type of emails you intend to send**: transactional, triggered, marketing campaigns, newsletters, automations, onboarding or welcome emails, etc.
+- **How you acquire your subscribers or contacts**: application sign-ups, opt-in forms, lead generation services, or other sources.
+- **What your product or service does**: a brief description to help us review your request faster.
 
 ![A screenshot of the project delivery mode settings with production mode selected.](./project-delivery-mode-production-form.webp)
 
 Answer the questions honestly, and we will review your request as soon as possible.
 
-Once your project is approved for production mode, you can confirm that with this badge here at the top of your project.
+Once your project is approved for production mode, you can confirm that with this badge here at the top of your project. Your project is also granted a monthly sending limit matching the volume you requested for example, requesting 10,000 emails/month gets you approved for 10,000/month.
 
 ![A screenshot of the project delivery mode settings with production mode badge.](./project-delivery-mode-production-badge.webp)
 
 Here is what you can do in production mode:
 
-- Send emails to any address.
-- No sending limits.
+- Send emails to any address, no verified-recipient requirement.
+- Send up to the monthly limit approved for your project.
 - Higher throughput
 - Use your own domain.
 - Add identities (emails) directly in your project settings. Make sure that the domain of these emails is verified.
+
+If you need to send more, return to the same production access page in your project settings to request a limit increase.
   
 ### Managing Identities in Production Mode
 
@@ -157,7 +176,7 @@ If you prefer to use AWS SES directly without any restrictions, you can do so by
 
 ![A screenshot of the project AWS settings.](./project-delivery-mode-aws-settings.webp)
 
-This option is ideal for users who already have an established AWS SES setup and want to leverage BlueFox Email's features while using their own SES account. You can follow the steps below to set up your AWS credentials.
+This option is ideal for users who already have an established AWS SES setup and want to [leverage BlueFox Email's features while using their own SES account](/posts/bluefox-email-is-an-amazon-ses-wrapper). You can follow the steps below to set up your AWS credentials.
 
 ### AWS Credentials
 

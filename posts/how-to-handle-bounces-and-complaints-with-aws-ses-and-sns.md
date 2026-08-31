@@ -51,7 +51,7 @@ AWS SES is an affordable and reliable email-sending service designed to get your
 If you’re new to AWS SES or still in the sandbox environment, check out our [guide](./how-to-set-up-aws-ses) on setting it up.
 :::
 
-The easiest way to handle bounces and complaints is to remove those addresses from your email list—or better yet, add them to a suppression list. A suppression list offers a key advantage: if, for some reason (e.g., bot activity), an email address that previously reported spam sneaks back into your list, a quick check against the suppression list ensures you never send them an email again. That’s why we strongly recommend using internal suppression lists.
+The easiest way to handle bounces and complaints is to remove those addresses from your email list—or better yet, add them to a suppression list. A suppression list offers a key advantage: if, for some reason (e.g., bot activity), an email address that previously reported spam sneaks back into your list, [a quick check against the suppression list](/posts/bluefox-email-is-an-amazon-ses-wrapper) ensures you never send them an email again. That’s why we strongly recommend using internal suppression lists.
 
 Handling bounces and complaints isn’t just best practice—it’s a **requirement** if you want to secure production access to AWS SES. <!-- TODO: link the article when it's ready -->
 

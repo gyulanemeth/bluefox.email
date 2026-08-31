@@ -448,7 +448,7 @@ const yGridLines = computed(() => {
         color="primary"
         variant="flat"
         class="no-uppercase"
-        href="/docs/analytics"
+        href="/docs/statistics"
       >
         See everything analytics can show you
       </v-btn>

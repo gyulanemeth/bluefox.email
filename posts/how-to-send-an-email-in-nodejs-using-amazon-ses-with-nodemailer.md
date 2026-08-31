@@ -311,7 +311,7 @@ As you might expect, bluefox.email also supports attachments. We use the very [s
 
 Whether you send transactional or marketing emails, [subject lines](https://bluefox.email/posts/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails), [pre-header texts](https://bluefox.email/posts/preheader-text-the-secret-weapon-for-boosting-open-rates), and the [sender name](https://bluefox.email/posts/sender-name-and-email-address-build-trust-before-the-open) are extremely important. When used effectively, these elements help your emails stand out in your customers' inboxes, increasing the open rate.
 
-Additionally, you must provide a way for users to unsubscribe from your emails (except for transactional emails, which are essential for fulfilling a functionality). You should also implement double opt-in to confirm new subscribers.
+Additionally, you must provide a way for users to unsubscribe from your emails (except for transactional emails, which are essential for fulfilling a functionality). You should also [implement double opt-in to confirm new subscribers](/posts/bluefox-email-is-an-amazon-ses-wrapper).
 
 If you want to get production access to Amazon SES, you should also implement "One-click unsubscribe" (bluefox.email does this automatically for you) and handle [bounces and complaints](https://bluefox.email/posts/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns).
 
