@@ -204,8 +204,35 @@ The domain whitelist ensures that sign-up requests are only processed from autho
 
 Here you can manage third-party integrations that enhance your project's capabilities. Right now we support the following integrations:
 
+- **AI Agents**: Copy a ready-made setup prompt that points an AI agent at this project through the public API.
+- **MCP Server**: Copy the install and connection snippets that let Claude Desktop, Claude Code, Cursor, Windsurf, or any other MCP-compatible agent manage this project directly.
 - **Zapier**: Connect your BlueFox Email project with thousands of apps to automate workflows without coding. Set up triggers and actions to streamline your email marketing processes.
 - **Webhooks**: Configure webhooks to receive real-time notifications about specific events in your project, such as email deliveries, bounces, or complaints. This allows you to integrate BlueFox Email with your existing systems and automate responses to these events.
+
+### AI Agents
+
+::: warning Beta
+This section is in beta.
+:::
+
+At the top of the Integrations tab, the **AI Agents** section gives you a **Setup prompt**: a single copyable message that tells an AI agent your project ID and where to find the API spec, so it can manage the project through the public API. Your project ID is already in it. Replace `YOUR_API_KEY` with a real key before sending it, using the **Get your API key** button to jump to the [API Keys](#api-keys-and-domain-whitelist) section. **Browse the API** opens the API reference.
+
+Use this for AI clients that cannot run a local MCP server, such as ChatGPT.
+
+### MCP Server
+
+::: warning Beta
+This section is in beta.
+:::
+
+Below **AI Agents**, the **MCP Server** section gives you everything needed to connect an MCP-compatible AI agent to this project. The server runs locally on your own computer and talks to BlueFox Email with your own API key.
+
+1. Pick the tab for your client: **Claude Desktop / Cursor / Windsurf**, or **Claude Code (CLI)**.
+2. Copy the **Install (one-time)** command. It requires Node.js 20 or newer and makes the `bluefox.email-mcp` command available on your computer.
+3. Copy the **Connect your AI agent** snippet. Your project ID is already filled in.
+4. Replace `YOUR_API_KEY` with a real key from the [API Keys](#api-keys-and-domain-whitelist) section, then add the snippet to your client's configuration.
+
+For the full list of what an agent can do once connected, see the [MCP Server integration guide](/docs/integrations/mcp-server).
 
 ### Zapier Integration
 
