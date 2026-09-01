@@ -25,6 +25,16 @@ keywords:
   - email forensics
   - security analysis
 
+faqs:
+  - question: "Where do I get a DMARC aggregate report to analyze?"
+    answer: "Your domain needs a rua address configured in its DMARC record. Mailbox providers (Google, Microsoft, Yahoo, and others) then email aggregate reports to that address, typically daily, as compressed XML attachments."
+  - question: "Why does a source show as \"unaligned pass\" instead of just \"pass\"?"
+    answer: "It means the message passed SPF or DKIM against a domain other than the one in the visible From address, often a forwarder or third-party sender using its own authentication. DMARC doesn't count this as a full pass because the visible sender still isn't verified."
+  - question: "An unfamiliar IP is sending mail from my domain. Is that a problem?"
+    answer: "Check the recommendations panel first, some flagged sources turn out to be legitimate forwarding services rather than spoofing. If a source is unrecognized and unaligned, it's worth investigating, since that's exactly the pattern DMARC reporting is designed to surface."
+  - question: "Can I upload multiple reports at once?"
+    answer: "No, the tool analyzes one report at a time. Providers typically send a separate report per day, so review them individually or use a dedicated DMARC monitoring service if you need aggregated trends across many reports."
+
 head:
   - - meta
     - name: description

@@ -5,7 +5,7 @@ import { useRoute } from 'vitepress'
 // Configuration constants
 const FOOTER_CONFIG = {
   allowedPaths: ['/', '/pricing', '/features', '/tutorials', '/articles', '/tools', '/comparisons','/posts', '/meet-the-team'],
-  allowedPrefixes: ['/for', '/email-sending-concepts', '/aws-concepts', '/comparisons/', '/posts'],
+  allowedPrefixes: ['/for', '/email-sending-concepts', '/aws-concepts', '/comparisons/', '/posts', '/tools'],
   currentYear: new Date().getFullYear(),
   
   socialLinks: [
@@ -44,7 +44,7 @@ const FOOTER_CONFIG = {
       { text: 'Tutorials', href: '/tutorials' },
       { text: 'Articles', href: '/articles' },
       { text: 'Comparisons', href: '/comparisons' },
-      { text: 'Tools', href: '/tools' }
+      { text: 'Tools', href: '/tools/' }
     ],
     connect: [
       { text: 'Email', href: 'mailto:hello@bluefox.email' },

@@ -524,7 +524,7 @@ onUnmounted(() => {
     <!-- ============================ FORM STAGE ============================ -->
     <div v-if="!result" class="lc-form-stage">
       <header class="lc-hero">
-        <a href="/tools/content" class="lc-hero-crumb">
+        <a href="/tools/content/" class="lc-hero-crumb">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           Content tools
         </a>

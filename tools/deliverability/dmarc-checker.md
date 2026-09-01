@@ -25,6 +25,16 @@ keywords:
   - DMARC analyzer
   - email protection
 
+faqs:
+  - question: "Why does the checker say I have no DMARC record even though I set one up?"
+    answer: "DNS changes can take time to propagate, usually minutes but sometimes up to 48 hours depending on your provider's TTL settings. Double check the record was added to _dmarc.yourdomain.com and not the root domain."
+  - question: "What does a yellow warning mean?"
+    answer: "Yellow signals indicate a working but suboptimal setting, such as a policy of none or relaxed alignment. These aren't errors, they're opportunities to tighten your configuration."
+  - question: "Can I check a subdomain?"
+    answer: "Yes. Enter the full subdomain, such as mail.example.com, and the tool looks up its _dmarc record directly. Note that subdomain policy is often set via the sp tag on the parent domain's record rather than a separate record on the subdomain itself, so it's worth checking both."
+  - question: "Do I need an account to use this tool?"
+    answer: "No. Lookups run in real time and there's no account or sign-up required."
+
 head:
   - - meta
     - name: description

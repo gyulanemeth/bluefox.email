@@ -173,6 +173,8 @@ If you use AWS Route53, you might see a "Publish records to Route53" button. Cli
 
 **16) Wait for AWS to complete verification.** This usually doesn’t take long. If it takes longer than expected, double-check your DNS settings. AWS will notify you via email if they’re unable to verify your domain after a few days.
 
+To check the records from outside AWS while you wait, run your domain through our [free deliverability tools](/tools/deliverability/) — they resolve DKIM, SPF, DMARC, and MX straight from public DNS, which is the same view SES gets.
+
 ![SES waiting for domain verification status screen](./how-to-set-up-aws-ses/20.webp)
 
 Once verified, you’ll see the "Verify sending domain" task move to the "Completed tasks" section.

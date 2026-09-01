@@ -88,7 +88,7 @@ When you're ready to send beyond sandbox mode's limits, you can request to move 
 
 To transition to production mode, you need to verify your domain (same place as [sandbox mode](#sandbox-mode)) and request production access. For application instructions, click the button below here in your project settings.
 
-Once the DNS records are in place, you can confirm they resolve with our free [SPF checker](/tools/deliverability/spf-checker), [DKIM checker](/tools/deliverability/dkim-checker), and [DMARC checker](/tools/deliverability/dmarc-checker).
+Once the DNS records are in place, you can confirm they resolve with our free [SPF checker](/tools/deliverability/spf-checker), [DKIM checker](/tools/deliverability/dkim-checker), [DMARC checker](/tools/deliverability/dmarc-checker), and [MX checker](/tools/deliverability/mx-checker) - the same four record types domain verification reads.
 
 ![A screenshot of the project delivery mode settings with the request production access button highlighted.](./project-delivery-mode-request-production-access.webp)
 

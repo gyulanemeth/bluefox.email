@@ -286,7 +286,7 @@ It is a must in BlueFox Email, not an option. It is required to obtain [producti
 
 After publishing the records, ensure they are correctly set up and remain valid when making DNS or infrastructure changes.
 
-BlueFox also provides [free deliverability tools](https://bluefox.email/tools/deliverability/) you can use to verify your setup.
+BlueFox also provides [free deliverability tools](/tools/deliverability/) you can use to verify your setup.
 
 ### Protect your list quality
 

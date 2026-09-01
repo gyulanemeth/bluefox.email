@@ -26,6 +26,16 @@ keywords:
   - free tool
   - email infrastructure
 
+faqs:
+  - question: "What's the difference between hard fail and soft fail?"
+    answer: "-all (hard fail) tells receiving servers to reject mail from unlisted sources. ~all (soft fail) asks them to accept it but mark it as suspicious. Most domains move from ~all to -all once they've confirmed all legitimate senders are covered."
+  - question: "Can a domain have more than one SPF record?"
+    answer: "No. A domain should publish exactly one SPF TXT record. Multiple SPF records at the same domain cause a permerror during evaluation, which typically fails the check entirely, even if one of the records would have passed on its own."
+  - question: "Why does the tool flag my record even though it looks fine?"
+    answer: "The most common cause is exceeding the 10-lookup limit, often from nesting several include mechanisms (like an ESP that itself includes other providers). Use the mechanism list to trace which include is adding the most lookups."
+  - question: "Does SPF alone stop spoofing?"
+    answer: "Not completely. SPF validates the return-path address, not the visible \"From\" address recipients see. Pairing SPF with DKIM and DMARC closes that gap."
+
 head:
   - - meta
     - name: description

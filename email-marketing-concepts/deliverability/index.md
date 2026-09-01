@@ -46,3 +46,7 @@ In summary, understanding and focusing on email deliverability can help ensure y
 **ISP guidelines** are the sending volume, content-quality, and engagement signals mailbox providers like Gmail and Outlook use to decide whether your mail belongs in the inbox.
 
 [Read more](/email-marketing-concepts/deliverability/isp-guidelines)
+
+## Check Your Own Setup
+
+Reading about authentication only gets you so far. Our [free deliverability tools](/tools/deliverability/) look up your domain's SPF, DKIM, DMARC, and MX records live and explain what each one is doing.

@@ -24,6 +24,16 @@ keywords:
   - DomainKeys Identified Mail
   - email validation tool
 
+faqs:
+  - question: "I don't know my DKIM selector. How do I find it?"
+    answer: "Check the DKIM setup page in your email service provider's dashboard, it lists the exact selector and record to publish. Alternatively, look at the DKIM-Signature header of an email you've sent; it contains an s= field with the selector used."
+  - question: "Can a domain have multiple DKIM selectors?"
+    answer: "Yes, and it's common. Different sending services (your email marketing tool, your helpdesk, your transactional email provider) often each get their own selector, since they each sign mail with a different key."
+  - question: "What does it mean if the record isn't found?"
+    answer: "Either DKIM hasn't been set up for that selector, the selector name is wrong, or the DNS change hasn't propagated yet. Try the selector your provider specifies, and confirm the record was added at selector._domainkey.yourdomain.com, not the root domain."
+  - question: "Does a valid DKIM record guarantee my email is authenticated?"
+    answer: "No. DKIM only proves the message was signed by someone holding the private key, it doesn't check alignment with the visible \"From\" domain. DMARC is what enforces that alignment."
+
 head:
   - - meta
     - name: description

@@ -81,3 +81,5 @@ Instead of copying links directly from mobile apps or using shortened versions, 
 Yes, full URLs are longer and might look less "clean" in your email, but that's exactly the point. Clear, direct links help Gmail evaluate your emails more confidently. The transparency is what builds trust with spam filters and ultimately supports better inbox placement.
 
 So next time you're drafting a newsletter, double-check your links. A few extra characters in your URL could be the difference between landing in the inbox and ending up in spam.
+
+If you would rather not click through every URL by hand, paste your template into our [free link checker](/tools/content/link-checker). It tests each link and flags the ones that redirect somewhere other than where your markup points, which is exactly what a shortener does.
