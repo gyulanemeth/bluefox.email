@@ -103,5 +103,10 @@
     "tag": "Suppression List",
     "slug": "suppression-list",
     "count": 2
+  },
+  {
+    "tag": "Gallery",
+    "slug": "gallery",
+    "count": 10
   }
 ]
