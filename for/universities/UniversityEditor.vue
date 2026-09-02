@@ -23,17 +23,19 @@ const editorPoints = [
   },
   {
     title: 'Saved templates',
-    description: 'Keep your finished layouts — the monthly student newsletter, the event invitation, the alumni update — ready for whoever sends next.'
+    description: 'Keep your finished layouts, the monthly student newsletter, the event invitation, the alumni update, ready for whoever sends next.'
   }
 ]
 </script>
 
 <template>
   <section class="editor-section" aria-labelledby="editor-title">
-    <h2 id="editor-title" class="section-title">Build the newsletter once. Save the parts you’ll use again.</h2>
+    <h2 id="editor-title" class="section-title">Build once, reuse every time</h2>
     <p class="section-subtitle constrained">
-      A drag-and-drop editor, no HTML. Save any section as a block and drop it into the next newsletter.
-      Save whole layouts as templates so the next person to send starts from something finished.
+      Save headers, footers, event sections and complete layouts, then reuse them in future emails without rebuilding everything from scratch.
+    </p>
+    <p class="section-subtitle section-subtitle--secondary constrained">
+      Keep each newsletter consistent, even when multiple people are creating emails.
     </p>
 
     <div class="editor-mock" role="img" aria-label="The BlueFox email builder: an element palette on the left, the newsletter canvas in the middle, and element settings on the right">
@@ -185,6 +187,8 @@ const editorPoints = [
 }
 
 html.dark .section-subtitle { color: #9ca3af; }
+
+.section-subtitle--secondary { margin-top: 10px; }
 
 .constrained { max-width: 760px; }
 

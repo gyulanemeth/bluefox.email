@@ -7,6 +7,7 @@ const props = defineProps({
     type: String,
     default: 'Per-project analytics are clean and visual. Client performance reviews become straightforward, and retainer conversations get easier.'
   },
+  secondaryDescription: { type: String, default: '' },
   defaultTab: { type: String, default: 'hourly' },
   showHeader: { type: Boolean, default: true },
   showCta: { type: Boolean, default: true }
@@ -318,6 +319,7 @@ const yGridLines = computed(() => {
       </v-chip>
       <h2 id="agency-analytics-title">{{ title }}</h2>
       <p>{{ description }}</p>
+      <p v-if="secondaryDescription" class="analytics-second">{{ secondaryDescription }}</p>
     </div>
 
     <div class="dashboard-shell" role="region" aria-label="Analytics dashboard preview">
@@ -487,6 +489,8 @@ const yGridLines = computed(() => {
 }
 
 html.dark .analytics-head p { color: #94a3b8; }
+
+.analytics-second { margin-top: 10px; }
 
 /* Dashboard shell */
 .dashboard-shell {

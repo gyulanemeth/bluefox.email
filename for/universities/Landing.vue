@@ -6,6 +6,8 @@ import EducationAudienceGrid from './EducationAudienceGrid.vue'
 import UniversitySegmentation from './UniversitySegmentation.vue'
 import UniversityEditor from './UniversityEditor.vue'
 import UniversityTemplateShowcase from './UniversityTemplateShowcase.vue'
+import UniversitySocialProof from './UniversitySocialProof.vue'
+import UniversityITRequirements from './UniversityITRequirements.vue'
 import AgencyAnalytics from '../marketing-agencies/AgencyAnalytics.vue'
 import DesignSystem from '../../.vitepress/theme/DesignSystem.vue'
 
@@ -16,12 +18,17 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 <template>
   <PersonaLanding
     hero-badge="For colleges & universities"
-    hero-title="Newsletters and event invites for students and alumni"
-    hero-description="Pay per email sent, not per contact stored. Buy credits that fit the academic calendar, not a monthly subscription."
+    hero-title="University email without the contact-based pricing"
+    hero-description="Send newsletters, alumni updates and event invitations. Segment your audience, keep every email on-brand, and pay only for what you send."
     :hero-highlights="['Pay per send, not per contact', 'Credits that fit the academic calendar', 'Segment alumni by year, students by department']"
     :hero-feature-items="[]"
     cta-text="Start free. 3,000 sends included"
     cta-href="https://app.bluefox.email/accounts/create-account"
+    hero-primary-cta-text="Talk to the founder"
+    hero-primary-cta-href="mailto:gyula@bluefox.email"
+    hero-secondary-cta-text="Start free. 3,000 sends included"
+    hero-secondary-cta-href="https://app.bluefox.email/accounts/create-account"
+    hero-cta-supporting-text="Questions about using BlueFox at your university? Email Gyula directly."
     :show-testimonials="false"
     :show-automation="false"
     :show-integrations="false"
@@ -29,11 +36,16 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     :show-design="false"
     mid-cta-title=""
     after-pain-stripe="white"
-    deliverability-stripe="blue"
+    deliverability-stripe="white"
     bottom-stripe="white"
     final-cta-stripe="white"
-    final-title="Bring order to your university's email"
-    final-description="Students, alumni, and every department. One price per email sent."
+    final-title="Start with your team"
+    final-description="You do not need a university-wide rollout to get started. Try BlueFox with your newsletter, alumni program or communications team first."
+    final-primary-cta-text="Talk to the founder"
+    final-primary-cta-href="mailto:gyula@bluefox.email"
+    final-secondary-cta-text="Start free"
+    final-secondary-cta-href="https://app.bluefox.email/accounts/create-account"
+    final-cta-supporting-text="Questions about using BlueFox at your university? Email Gyula directly."
   >
     <template #heroVisual>
       <UniversityTemplateShowcase
@@ -47,15 +59,22 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 
     <template #afterPain>
       <div class="edu-slot-reset">
-        <!-- 2. What universities send -->
+        <!-- 2. Social proof -->
         <div class="edu-stripe edu-stripe--white">
+          <div class="edu-stripe-inner">
+            <UniversitySocialProof :is-dark="isDark" />
+          </div>
+        </div>
+
+        <!-- 3. What universities send -->
+        <div class="edu-stripe edu-stripe--blue">
           <div class="edu-stripe-inner">
             <EducationAudienceGrid />
           </div>
         </div>
 
-        <!-- 3. List management & segmentation -->
-        <div class="edu-stripe edu-stripe--blue">
+        <!-- 4. List management & segmentation -->
+        <div class="edu-stripe edu-stripe--white">
           <div class="edu-stripe-inner">
             <UniversitySegmentation
               :is-dark="isDark"
@@ -67,8 +86,8 @@ const { lgAndUp, md, sm, xs } = useDisplay()
           </div>
         </div>
 
-        <!-- 4. Visual editor, saved blocks & templates -->
-        <div class="edu-stripe edu-stripe--white">
+        <!-- 5. Visual editor, saved blocks & templates -->
+        <div class="edu-stripe edu-stripe--blue">
           <div class="edu-stripe-inner">
             <UniversityEditor />
           </div>
@@ -76,12 +95,13 @@ const { lgAndUp, md, sm, xs } = useDisplay()
       </div>
     </template>
 
-    <!-- 5. Analytics (blue, uses PersonaLanding's own deliverability stripe) -->
+    <!-- 6. Analytics (blue, uses PersonaLanding's own deliverability stripe) -->
     <template #deliverabilityContent>
       <div class="edu-analytics">
         <AgencyAnalytics
-          title="See what worked after every send"
-          description="Track opens, clicks, bounces, and unsubscribes for every student newsletter and alumni invitation you send."
+          title="See what your audience actually reads"
+          description="Track opens, clicks, bounces and complaints, then see which links and messages get the most engagement."
+          secondary-description="Compare performance over time and learn what works for your audience."
           default-tab="hourly"
         />
       </div>
@@ -89,8 +109,8 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 
     <template #bottom>
       <div class="edu-slot-reset">
-        <!-- 6. Mid CTA -->
-        <div class="edu-stripe edu-stripe--white">
+        <!-- 7. Mid CTA -->
+        <div class="edu-stripe edu-stripe--blue">
           <section class="edu-stripe-inner edu-stripe-inner--cta" aria-labelledby="edu-mid-cta-heading">
             <div class="edu-mid-cta-inner">
               <h2 id="edu-mid-cta-heading">Send your first newsletter in minutes.</h2>
@@ -109,13 +129,21 @@ const { lgAndUp, md, sm, xs } = useDisplay()
           </section>
         </div>
 
-        <!-- 7. One theme, every department -->
-        <div class="edu-stripe edu-stripe--blue">
+        <!-- 8. Start with one team, scale across the university -->
+        <div class="edu-stripe edu-stripe--white">
           <section id="design-system" class="edu-stripe-inner" aria-labelledby="edu-design-title">
-            <h2 id="edu-design-title" class="section-title">One theme, every department</h2>
-            <p class="section-subtitle constrained">One department starts sending. When the others follow, they inherit the same design — admissions, alumni relations, and every faculty newsletter on one theme.</p>
+            <h2 id="edu-design-title" class="section-title">Start with one team. Scale across the university.</h2>
+            <p class="section-subtitle constrained">One faculty, department or alumni team can start using BlueFox on its own. As other teams join, they can keep separate email workflows while sharing the same university design system.</p>
+            <p class="section-subtitle section-subtitle--second constrained">Keep colors, typography, reusable content and email design consistent without forcing every team into the same newsletter setup.</p>
             <DesignSystem :is-dark="isDark" class="mt-6" />
           </section>
+        </div>
+
+        <!-- 9. IT / institutional requirements -->
+        <div class="edu-stripe edu-stripe--blue">
+          <div class="edu-stripe-inner">
+            <UniversityITRequirements />
+          </div>
         </div>
       </div>
     </template>
@@ -217,6 +245,8 @@ html.dark .edu-mid-cta-inner p { color: #9ca3af; }
 }
 
 html.dark .section-subtitle { color: #9ca3af; }
+
+.section-subtitle--second { margin-top: 10px; }
 
 .constrained { max-width: 760px; }
 

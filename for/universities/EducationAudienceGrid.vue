@@ -1,28 +1,28 @@
 <script setup>
 const segments = [
   {
-    id: 'student-news',
-    label: 'Student news',
+    id: 'student-newsletters',
+    label: 'Student newsletters',
     color: '#13b0ee',
-    useCases: ['Scholarship and funding openings', 'Enrollment and deadline reminders', 'Course and faculty updates']
+    useCases: ['Campus news, deadlines, opportunities']
   },
   {
     id: 'event-invitations',
     label: 'Event invitations',
     color: '#6366f1',
-    useCases: ['Lectures, open days, ceremonies', 'RSVP confirmations', 'Reminders before the date']
+    useCases: ['Lectures, conferences, open days']
   },
   {
     id: 'alumni',
     label: 'Alumni communication',
     color: '#f59e0b',
-    useCases: ['Reunion and networking invitations', 'Advancement and giving updates', 'Segmented by graduating year']
+    useCases: ['Reunions, updates, fundraising']
   },
   {
-    id: 'internal',
-    label: 'Internal and departmental',
+    id: 'faculty-department',
+    label: 'Faculty & department updates',
     color: '#10b981',
-    useCases: ['Staff and faculty notices', 'Cross-department announcements', 'One theme across every sender']
+    useCases: ['Newsletters tailored to each faculty, department or team']
   }
 ]
 </script>
@@ -34,7 +34,7 @@ const segments = [
         <span class="text-overline">Who it fits</span>
       </v-chip>
       <h2 id="audience-title">What universities send</h2>
-      <p>Newsletters and invitations to students and alumni. Start with one department, add the rest when they follow.</p>
+      <p>The recurring emails every university sends, to students, alumni, and every department.</p>
     </div>
 
     <div class="segment-grid">
@@ -46,6 +46,8 @@ const segments = [
         </ul>
       </div>
     </div>
+
+    <p class="audience-foot">Reach the right audience with flexible segmentation by graduating year, engagement and other subscriber data.</p>
   </section>
 </template>
 
@@ -143,6 +145,16 @@ html.dark .segment-label { color: #f1f5f9; }
 
 html.dark .segment-uses li { color: #94a3b8; }
 html.dark .segment-uses li::before { background: #475569; }
+
+.audience-foot {
+  margin: 24px 0 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: #475569;
+  max-width: 680px;
+}
+
+html.dark .audience-foot { color: #94a3b8; }
 
 @media (max-width: 980px) {
   .segment-grid { grid-template-columns: 1fr 1fr; }

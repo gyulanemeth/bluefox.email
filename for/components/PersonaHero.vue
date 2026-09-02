@@ -10,7 +10,16 @@ defineProps({
   ctaHref: { type: String, required: true },
   featureTitle: { type: String, default: '' },
   featureSubtitle: { type: String, default: '' },
-  featureItems: { type: Array, default: () => [] }
+  featureItems: { type: Array, default: () => [] },
+  // When set, these override the hero's CTA row with a primary + secondary
+  // button pair instead of the single `ctaText`/`ctaHref` button. `ctaText`/
+  // `ctaHref` are left untouched so other sections that reuse them (e.g.
+  // PersonaLanding's final CTA) are unaffected.
+  primaryCtaText: { type: String, default: '' },
+  primaryCtaHref: { type: String, default: '' },
+  secondaryCtaText: { type: String, default: '' },
+  secondaryCtaHref: { type: String, default: '' },
+  ctaSupportingText: { type: String, default: '' }
 })
 </script>
 
@@ -35,7 +44,35 @@ defineProps({
             </span>
           </div>
 
+          <div v-if="primaryCtaText" class="hero-cta-row">
+            <v-btn
+              size="x-large"
+              color="primary"
+              variant="flat"
+              class="hero-button"
+              :href="primaryCtaHref"
+              :target="primaryCtaHref.startsWith('mailto:') ? undefined : '_blank'"
+            >
+              <strong>{{ primaryCtaText }}</strong>
+            </v-btn>
+
+            <v-btn
+              v-if="secondaryCtaText"
+              size="x-large"
+              color="primary"
+              variant="outlined"
+              class="hero-button hero-button--secondary"
+              :href="secondaryCtaHref"
+              target="_blank"
+            >
+              <strong>{{ secondaryCtaText }}</strong>
+            </v-btn>
+
+            <p v-if="ctaSupportingText" class="hero-cta-supporting">{{ ctaSupportingText }}</p>
+          </div>
+
           <v-btn
+            v-else
             size="x-large"
             color="primary"
             variant="flat"
@@ -222,6 +259,24 @@ html.dark .highlight-item {
 
 .hero-button strong {
   line-height: 1.2;
+}
+
+.hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+.hero-button--secondary {
+  margin-top: 18px;
+}
+
+.hero-cta-supporting {
+  flex-basis: 100%;
+  margin: 0;
+  font-size: 14px;
+  color: var(--vp-c-text-2);
 }
 
 .hero-badge {

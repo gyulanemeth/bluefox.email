@@ -10,9 +10,9 @@ defineProps({
 })
 
 const universityFilters = [
-  { icon: 'star',  label: 'Graduating year: 2015',    tone: 'purple' },
-  { icon: 'check', label: 'Faculty: Engineering',     tone: 'green'  },
-  { icon: 'clock', label: 'Opened in the last 90 days', tone: 'cyan' }
+  { icon: 'star',  label: 'Graduating year: 2016',        tone: 'purple' },
+  { icon: 'check', label: 'Program: Computer Science',    tone: 'green'  },
+  { icon: 'clock', label: 'Engagement: opened in the last 90 days', tone: 'cyan' }
 ]
 
 const listPoints = [
@@ -33,10 +33,9 @@ const listPoints = [
 
 <template>
   <section class="segmentation-section" aria-labelledby="segmentation-title">
-    <h2 id="segmentation-title" class="section-title">Segment alumni by graduating year, students by department</h2>
+    <h2 id="segmentation-title" class="section-title">Send the right message to the right people</h2>
     <p class="section-subtitle constrained">
-      Filter by graduating year, faculty, or enrollment status. The class of 2015 gets the reunion invitation.
-      Nobody else does.
+      Create targeted audiences from subscriber data and engagement, without maintaining separate lists for every group.
     </p>
 
     <Segmentation
@@ -50,7 +49,7 @@ const listPoints = [
       :target-count="412"
       :total-contacts="9480"
       callout-lead="No more emailing the whole database."
-      callout-text=" Segments update themselves as contact data changes, so the class of 2015 stays the class of 2015."
+      callout-text=" Segments update themselves as contact data changes, so the class of 2016 stays the class of 2016."
     />
 
     <ul class="list-points" role="list">

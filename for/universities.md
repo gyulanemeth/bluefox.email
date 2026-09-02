@@ -19,7 +19,7 @@ head:
       content: https://bluefox.email/assets/share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/for/education
+      content: https://bluefox.email/for/universities
   - - meta
     - property: og:type
       content: website
@@ -38,7 +38,7 @@ head:
 ---
 
 <script setup>
-import Landing from './education/Landing.vue'
+import Landing from './universities/Landing.vue'
 </script>
 
 <Landing />
