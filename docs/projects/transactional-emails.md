@@ -55,7 +55,7 @@ A **transactional email** is a single message your application sends to one spec
 
 <template #next>
 
-[Transactional, triggered, campaign or automation?](/posts/transactional-triggered-campaign-or-automation-understanding-email-types) · [Supabase auth emails](/docs/integrations/supabase) · [Sending attachments](/docs/api/send-attachments)
+[Transactional, triggered, campaign or automation?](/posts/transactional-triggered-campaign-or-automation-understanding-email-types) · [Test your links](/tools/content/link-checker) · [Supabase auth emails](/docs/integrations/supabase) · [Sending attachments](/docs/api/send-attachments)
 
 </template>
 

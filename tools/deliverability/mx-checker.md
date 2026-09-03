@@ -25,6 +25,16 @@ keywords:
   - email setup validation
   - DNS analysis
 
+faqs:
+  - question: "What happens if a domain has no MX record?"
+    answer: "Sending servers fall back to the domain's A or AAAA record and try to deliver there. RFC 5321 specifies this as an implicit MX, so it is defined behaviour rather than a quirk, but it is fragile: it only works if that address happens to accept mail, and it gives you no control over routing or priorities. Publish real MX records instead of relying on it."
+  - question: "Is having only one MX record a problem?"
+    answer: "It works, but it's a single point of failure. If that one server is temporarily unreachable, incoming mail queues up at the sender's side and can eventually bounce, depending on how long the sender retries."
+  - question: "Do MX records affect outbound email deliverability?"
+    answer: "Not directly. MX records control how a domain receives mail. Outbound deliverability depends on SPF, DKIM, and DMARC instead."
+  - question: "Why do I see two servers with the same priority number?"
+    answer: "That's intentional in many setups. It tells sending servers to treat both as equally acceptable and distribute load between them rather than always preferring one."
+
 head:
   - - meta
     - name: description
@@ -99,7 +109,7 @@ This setup tries `mail1` first and falls back to `mail2` if it doesn't respond, 
 
 ### What happens if a domain has no MX record?
 
-Mail addressed to that domain can't be delivered. Some mail servers fall back to the domain's A record as a last resort, but this isn't guaranteed and shouldn't be relied on.
+Sending servers fall back to the domain's A or AAAA record and try to deliver there. RFC 5321 specifies this as an implicit MX, so it is defined behaviour rather than a quirk, but it is fragile: it only works if that address happens to accept mail, and it gives you no control over routing or priorities. Publish real MX records instead of relying on it.
 
 ### Is having only one MX record a problem?
 

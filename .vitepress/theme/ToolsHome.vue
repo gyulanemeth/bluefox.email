@@ -3,14 +3,14 @@ const categories = [
   {
     name: 'Email Deliverability Tools',
     desc: 'Check DMARC, SPF, DKIM, and MX records to prevent spoofing and fix inbox placement issues.',
-    href: '/tools/deliverability/index',
+    href: '/tools/deliverability/',
     count: '5 tools',
     iconPaths: `<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/>`,
   },
   {
     name: 'Email Content Tools',
     desc: 'Test links and validate your HTML email content before you hit send.',
-    href: '/tools/content/index',
+    href: '/tools/content/',
     count: '1 tool',
     iconPaths: `<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>`,
   },

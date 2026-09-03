@@ -7,19 +7,28 @@ import vickyPhoto from '../../for/marketing-agencies/vicky-hladynets-C8Ta0gwPbQg
 import jakePhoto from '../../for/marketing-agencies/jake-nackos-IF9TK5Uy-KI-unsplash.webp'
 import nguyenPhoto from '../../for/marketing-agencies/nguyen.webp'
 
-defineProps({
+const props = defineProps({
   isDark: { type: Boolean, default: false },
   lgAndUp: { type: Boolean, default: true },
   md: { type: Boolean, default: false },
   sm: { type: Boolean, default: false },
-  xs: { type: Boolean, default: false }
+  xs: { type: Boolean, default: false },
+  filters: {
+    type: Array,
+    default: () => ([
+      { icon: 'clock',  label: 'Active in last 30 days', tone: 'cyan'   },
+      { icon: 'star',   label: 'Plan: Pro',              tone: 'purple' },
+      { icon: 'check',  label: 'Project created',        tone: 'green'  }
+    ])
+  },
+  targetCount: { type: Number, default: 326 },
+  totalContacts: { type: Number, default: 1240 },
+  calloutLead: { type: String, default: 'Stop blasting everyone.' },
+  calloutText: {
+    type: String,
+    default: " Filter by behavior, plan, activity, or any property you've collected. Higher engagement, less waste, more revenue per send."
+  }
 })
-
-const filters = [
-  { icon: 'clock',  label: 'Active in last 30 days', tone: 'cyan'   },
-  { icon: 'star',   label: 'Plan: Pro',              tone: 'purple' },
-  { icon: 'check',  label: 'Project created',        tone: 'green'  }
-]
 
 const everyone = [
   { name: 'John',   photo: vickyPhoto,   matched: true  },
@@ -33,8 +42,6 @@ const everyone = [
 const matched = everyone.filter(p => p.matched)
 
 // Animated match counter
-const TARGET_COUNT = 326
-const TOTAL_CONTACTS = 1240
 const matchCount = ref(0)
 let countTimer = null
 
@@ -46,7 +53,7 @@ function animateCount() {
   cancelAnimationFrame(countTimer)
   function frame(now) {
     const t = Math.min(1, (now - start) / duration)
-    matchCount.value = Math.round(easeOutCubic(t) * TARGET_COUNT)
+    matchCount.value = Math.round(easeOutCubic(t) * props.targetCount)
     if (t < 1) countTimer = requestAnimationFrame(frame)
   }
   countTimer = requestAnimationFrame(frame)
@@ -194,7 +201,7 @@ onBeforeUnmount(() => {
     <div class="seg-match-badge" role="status" aria-live="polite">
       <span class="seg-dot"></span>
       <strong>{{ matchCount.toLocaleString('en-US') }}</strong>
-      <span>of {{ TOTAL_CONTACTS.toLocaleString('en-US') }} contacts matched</span>
+      <span>of {{ totalContacts.toLocaleString('en-US') }} contacts matched</span>
     </div>
 
     <div class="seg-flow" ref="flowRef">
@@ -330,8 +337,8 @@ onBeforeUnmount(() => {
         </svg>
       </div>
       <div class="seg-callout-text">
-        <strong>Stop blasting everyone.</strong>
-        <span> Filter by behavior, plan, activity, or any property you've collected. Higher engagement, less waste, more revenue per send.</span>
+        <strong>{{ calloutLead }}</strong>
+        <span>{{ calloutText }}</span>
       </div>
     </div>
   </section>

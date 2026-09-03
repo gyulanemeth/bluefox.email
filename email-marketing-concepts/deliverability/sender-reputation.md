@@ -57,3 +57,4 @@ Sender reputation is easier to protect than to repair. The habits that matter mo
 - [Email Authentication (SPF, DKIM, DMARC)](/email-marketing-concepts/deliverability/email-authentication)
 - [ISP Guidelines and Sending Practices](/email-marketing-concepts/deliverability/isp-guidelines)
 - [List Management](/email-marketing-concepts/list-management/)
+- [Free deliverability tools](/tools/deliverability/) — check the authentication records that feed your reputation

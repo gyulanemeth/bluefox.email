@@ -28,6 +28,16 @@ keywords:
   - email template testing
   - HTML link scanner
 
+faqs:
+  - question: "Does this tool check plain text emails?"
+    answer: "No. It parses HTML and looks for <a href=\"...\"> tags, so it only works with HTML email templates, not plain text."
+  - question: "Why are some of my links skipped?"
+    answer: "Anchor links (#section) and mailto: addresses are intentionally excluded since they aren't external URLs to test."
+  - question: "What counts as a redirect, and is that bad?"
+    answer: "A redirect means the link sends visitors to a different URL than what's written in your template. This isn't necessarily an error, tracked links and shortened URLs redirect by design, but it's worth confirming the final destination is the one you intended."
+  - question: "Can I test links behind a login or paywall?"
+    answer: "The checker fetches each URL the way a normal visitor would, so pages that require authentication will likely show as broken, an error, or a soft 404 depending on how the page responds, even though the link itself may be correct for logged-in recipients."
+
 head:
   - - meta
     - name: description

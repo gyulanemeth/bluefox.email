@@ -18,6 +18,13 @@ defineProps({
   heroFeatureItems: { type: Array, default: () => [] },
   ctaText: { type: String, required: true },
   ctaHref: { type: String, required: true },
+  // Hero-only CTA override — see PersonaHero.vue for details. Leaves `ctaText`/
+  // `ctaHref` untouched for the mid/final CTA sections below.
+  heroPrimaryCtaText: { type: String, default: '' },
+  heroPrimaryCtaHref: { type: String, default: '' },
+  heroSecondaryCtaText: { type: String, default: '' },
+  heroSecondaryCtaHref: { type: String, default: '' },
+  heroCtaSupportingText: { type: String, default: '' },
   showTestimonials: { type: Boolean, default: true },
   testimonialTitle: { type: String, default: '' },
   midCtaTitle: { type: String, default: '' },
@@ -38,6 +45,13 @@ defineProps({
   showIntegrations: { type: Boolean, default: true },
   finalTitle: { type: String, required: true },
   finalDescription: { type: String, required: true },
+  // Final-CTA-only override, mirrors the hero override above. Leaves `ctaText`/
+  // `ctaHref` untouched so the mid CTA keeps its own single-button behavior.
+  finalPrimaryCtaText: { type: String, default: '' },
+  finalPrimaryCtaHref: { type: String, default: '' },
+  finalSecondaryCtaText: { type: String, default: '' },
+  finalSecondaryCtaHref: { type: String, default: '' },
+  finalCtaSupportingText: { type: String, default: '' },
   testimonialIds: { type: Array, default: null },
   afterPainStripe: { type: String, default: 'blue' },
   testimonialsStripe: { type: String, default: 'white' },
@@ -71,6 +85,11 @@ const { isDark } = useData()
     :feature-items="heroFeatureItems"
     :cta-text="ctaText"
     :cta-href="ctaHref"
+    :primary-cta-text="heroPrimaryCtaText"
+    :primary-cta-href="heroPrimaryCtaHref"
+    :secondary-cta-text="heroSecondaryCtaText"
+    :secondary-cta-href="heroSecondaryCtaHref"
+    :cta-supporting-text="heroCtaSupportingText"
   >
     <template v-if="$slots.heroVisual" #heroVisual>
       <slot name="heroVisual" />
@@ -211,12 +230,42 @@ const { isDark } = useData()
     </div>
   </div>
 
-  <!-- 11. Final CTA -->
-  <div class="stripe" :class="`stripe--${finalCtaStripe}`">
+  <!-- 11. Final CTA (always the last section on the page, so it collapses the
+       gap to the footer via the sitewide `stripe--flush` mechanism) -->
+  <div class="stripe stripe--flush" :class="`stripe--${finalCtaStripe}`">
     <section class="stripe-inner final-cta" aria-labelledby="final-cta-title">
       <h2 id="final-cta-title">{{ finalTitle }}</h2>
       <p>{{ finalDescription }}</p>
+
+      <div v-if="finalPrimaryCtaText" class="final-cta-row">
+        <v-btn
+          size="x-large"
+          color="primary"
+          variant="flat"
+          class="hero-cta"
+          :href="finalPrimaryCtaHref"
+          :target="finalPrimaryCtaHref.startsWith('mailto:') ? undefined : '_blank'"
+        >
+          <strong>{{ finalPrimaryCtaText }}</strong>
+        </v-btn>
+
+        <v-btn
+          v-if="finalSecondaryCtaText"
+          size="x-large"
+          color="primary"
+          variant="outlined"
+          class="hero-cta"
+          :href="finalSecondaryCtaHref"
+          target="_blank"
+        >
+          <strong>{{ finalSecondaryCtaText }}</strong>
+        </v-btn>
+
+        <p v-if="finalCtaSupportingText" class="final-cta-supporting">{{ finalCtaSupportingText }}</p>
+      </div>
+
       <v-btn
+        v-else
         size="x-large"
         color="primary"
         variant="flat"
@@ -250,6 +299,21 @@ const { isDark } = useData()
   display: block;
   margin: 0;
   line-height: 1.2;
+}
+
+.final-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px 16px;
+}
+
+.final-cta-supporting {
+  flex-basis: 100%;
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--vp-c-text-2, #6b7280);
 }
 
 /* Full-bleed alternating stripes */
@@ -377,7 +441,7 @@ html.dark .mid-cta-inner p {
   padding-top: 0 !important;
 }
 
-.final-cta p {
+.final-cta > p {
   margin: 0 auto 24px;
   max-width: 720px;
   font-size: 17px;
@@ -385,7 +449,7 @@ html.dark .mid-cta-inner p {
   color: #4b5563;
 }
 
-html.dark .final-cta p {
+html.dark .final-cta > p {
   color: #9ca3af;
 }
 

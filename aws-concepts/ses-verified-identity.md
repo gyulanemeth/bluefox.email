@@ -125,5 +125,6 @@ Yes, you can delete a verified identity at any time through the SES console or A
 - [AWS SNS Topics](/aws-concepts/sns-topics)
 - [SPF (Sender Policy Framework)](/email-sending-concepts/spf)
 - [DKIM (DomainKeys Identified Mail)](/email-sending-concepts/dkim)
+- [DKIM checker](/tools/deliverability/dkim-checker) — confirm the keys SES asked you to publish have propagated
 
 <GlossaryCTA />

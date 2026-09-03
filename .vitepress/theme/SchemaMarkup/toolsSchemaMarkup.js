@@ -86,6 +86,22 @@ function getSubsections(toolsFolder) {
     })
 }
 
+function buildFaqSchema(faqs) {
+  if (!Array.isArray(faqs) || !faqs.length) {
+    return null
+  }
+  return {
+    '@type': 'FAQPage',
+    mainEntity: faqs.map(faq => {
+      return {
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer }
+      }
+    })
+  }
+}
+
 function createBreadcrumbs(levels) {
   return {
     '@type': 'BreadcrumbList',
@@ -241,9 +257,15 @@ function createToolSchema(pageData, data) {
     { name: toolName, url: `https://bluefox.email/${pageData.relativePath.replace(/\.md$/, '')}` }
   ])
   
+  const faqSchema = buildFaqSchema(fm.faqs)
+  const graph = [schema, breadcrumbs]
+  if (faqSchema) {
+    graph.push(faqSchema)
+  }
+  
   addSchemaToHead(pageData, {
     '@context': 'https://schema.org',
-    '@graph': [schema, breadcrumbs]
+    '@graph': graph
   })
 }
 

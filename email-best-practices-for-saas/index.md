@@ -15,3 +15,5 @@ If you're working in SaaS, you know that email is a crucial tool for staying con
 - **[DMARC for SaaS](./dmarc)** — Rolling out DMARC as a SaaS team that sends through third-party providers, from a monitoring-only policy to full enforcement.
 
 We'll be adding more insights regularly.
+
+While you work through them, our [free deliverability tools](/tools/deliverability/) let you check your domain's authentication records as you change them, and the [DMARC report analyzer](/tools/deliverability/dmarc-report-analyzer) turns the aggregate XML reports into a readable summary.
