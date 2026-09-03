@@ -41,6 +41,10 @@ const PRODUCT_PAGES = {
   'for/amazon-ses-users.md': {
     breadcrumb: [{ name: 'Amazon SES Users', slug: 'for/amazon-ses-users' }],
     audience: 'Amazon SES Users'
+  },
+  'for/universities.md': {
+    breadcrumb: [{ name: 'Colleges & Universities', slug: 'for/universities' }],
+    audience: 'Colleges & Universities'
   }
 }
 

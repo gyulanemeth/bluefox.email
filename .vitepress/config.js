@@ -222,8 +222,9 @@ export default defineConfig({
         text: "For",
         items: [
           { text: "Marketing Agencies", link: "/for/marketing-agencies" },
-          { text: "Occasional Senders", link: "/for/occasional-senders" },
+          { text: "Colleges & Universities", link: "/for/universities" },
           { text: "SaaS Companies", link: "/for/saas-companies" },
+          { text: "Occasional Senders", link: "/for/occasional-senders" },
           { text: "Amazon SES Users", link: "/for/amazon-ses-users" },
         ],
       },
