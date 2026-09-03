@@ -16,7 +16,7 @@ head:
       content: "Newsletters and event invites for students and alumni. Segment alumni by graduating year, students by department. Pay per email sent, not per contact stored."
   - - meta
     - property: og:image
-      content: https://bluefox.email/assets/share.png
+      content: https://bluefox.email/assets/bluefox-email-for-universities.png
   - - meta
     - property: og:url
       content: https://bluefox.email/for/universities
@@ -34,7 +34,7 @@ head:
       content: "Newsletters and event invites for students and alumni. Segment alumni by graduating year, students by department. Pay per email sent, not per contact stored."
   - - meta
     - name: twitter:image
-      content: https://bluefox.email/assets/share.png
+      content: https://bluefox.email/assets/bluefox-email-for-universities.png
 ---
 
 <script setup>
