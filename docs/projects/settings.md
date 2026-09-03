@@ -63,6 +63,12 @@ head:
 - **Some sections only appear in certain delivery modes.** *Bounces and Complaints Webhooks* is available only when the project uses your own AWS SES account. On BlueFox-managed sending, bounces and complaints are processed automatically. See [Delivery Modes](./delivery-modes.md).
 - **API keys belong on your server only.** The domain whitelist authorizes requests coming from a browser; API keys authorize requests coming from your backend. Never ship an API key in frontend code.
 
+<template #next>
+
+[Verify your DNS records](/tools/deliverability/) · [Delivery Modes](/docs/projects/delivery-modes) · [Account Users](/docs/account-users)
+
+</template>
+
 </Primer>
 
 To access the project settings, click on the **Settings** tab. Here, you can use the sub-menu to navigate to different sections of the project settings.

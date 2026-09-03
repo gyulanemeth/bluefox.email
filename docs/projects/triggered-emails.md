@@ -54,7 +54,7 @@ A **triggered email** is a single message your backend or a cron job asks BlueFo
 
 <template #next>
 
-[Subscriber list management API](/docs/api/subscriber-list-management) · [Build a high-quality email list](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email)
+[Subscriber list management API](/docs/api/subscriber-list-management) · [Check every link before you ship](/tools/content/link-checker) · [Build a high-quality email list](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email)
 
 </template>
 

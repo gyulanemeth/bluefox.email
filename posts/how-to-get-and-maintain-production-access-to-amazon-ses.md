@@ -128,3 +128,5 @@ Once approved, you need to continue following best practices to avoid suspension
   - Build an engaged email list organically
 
 By staying compliant, you ensure your SES account remains in good standing and maintain high deliverability rates.
+
+Before you apply, it is worth confirming your authentication is actually in place: our [free deliverability tools](/tools/deliverability/) check your SPF, DKIM, DMARC, and MX records against live DNS, and a clean setup is one of the things AWS looks for when reviewing a production access request.

@@ -189,6 +189,10 @@ v=spf1 include:amazonses.com ~all
 
 So Amazon SES IP addresses are allowed to send on behalf of BlueFox Email. This means you can send from custom subdomains that have their own SPF records!
 
+::: tip No terminal handy?
+Our [SPF record checker](/tools/deliverability/spf-checker) runs the same lookup this section walks through, and additionally counts your record against the 10 DNS lookup limit that nested `include` mechanisms tend to blow past.
+:::
+
 
 ## DKIM (DomainKeys Identified Mail)
 
@@ -268,6 +272,10 @@ If you're interested in how the actual cryptographic verification works step-by-
 
 You may also notice an additional `DKIM-Signature` in the email headers. In this case, it's Amazon SES signing the email on their own behalf. This acts as a fallback if there's an issue with your domain's DKIM configuration.
 
+::: tip Check a published key
+Take the `d=` and `s=` values from a `DKIM-Signature` like the one above and paste them into the [DKIM record checker](/tools/deliverability/dkim-checker) to confirm the key is published for that selector, and to see its type and length.
+:::
+
 
 ## DMARC (Domain-based Message Authentication, Reporting and Conformance)
 
@@ -303,6 +311,10 @@ The `p` parameter defines the action:
 Start with `p=none;` to monitor how your emails are performing. Set the `rua` (Reporting URI for Aggregate reports) to an address where you want to receive DMARC reports. These reports are XML files that include the IPs sending emails on your domain's behalf, and whether they passed SPF/DKIM/DMARC.
 
 Once everything is verified, gradually move to `quarantine`, and eventually to `reject`. This minimizes the risk of blocking legitimate emails due to configuration errors.
+
+::: tip Reading those XML reports
+The aggregate reports that land in your `rua` mailbox are dense XML. Paste one into the [DMARC report analyzer](/tools/deliverability/dmarc-report-analyzer) to see pass rates, sending sources, and alignment broken down per sender, and use the [DMARC policy checker](/tools/deliverability/dmarc-checker) to confirm what your record currently enforces.
+:::
 
 
 ## Summary
