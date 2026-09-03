@@ -4,25 +4,25 @@ const segments = [
     id: 'student-newsletters',
     label: 'Student newsletters',
     color: '#13b0ee',
-    useCases: ['Campus news, deadlines, opportunities']
+    description: 'Campus news, deadlines, opportunities'
   },
   {
     id: 'event-invitations',
     label: 'Event invitations',
     color: '#6366f1',
-    useCases: ['Lectures, conferences, open days']
+    description: 'Lectures, conferences, open days'
   },
   {
     id: 'alumni',
     label: 'Alumni communication',
     color: '#f59e0b',
-    useCases: ['Reunions, updates, fundraising']
+    description: 'Reunions, updates, fundraising'
   },
   {
     id: 'faculty-department',
     label: 'Faculty & department updates',
     color: '#10b981',
-    useCases: ['Newsletters tailored to each faculty, department or team']
+    description: 'Newsletters tailored to each faculty, department or team'
   }
 ]
 </script>
@@ -41,9 +41,7 @@ const segments = [
       <div v-for="segment in segments" :key="segment.id" class="segment-card">
         <div class="segment-dot" :style="{ background: segment.color }" aria-hidden="true"></div>
         <h3 class="segment-label">{{ segment.label }}</h3>
-        <ul class="segment-uses" role="list">
-          <li v-for="use in segment.useCases" :key="use">{{ use }}</li>
-        </ul>
+        <p class="segment-desc">{{ segment.description }}</p>
       </div>
     </div>
 
@@ -115,36 +113,14 @@ html.dark .segment-card { background: rgba(30, 41, 59, 0.5); }
 
 html.dark .segment-label { color: #f1f5f9; }
 
-.segment-uses {
-  list-style: none;
+.segment-desc {
   margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.segment-uses li {
   font-size: 13px;
   line-height: 1.5;
   color: #475569;
-  padding-left: 14px;
-  position: relative;
 }
 
-.segment-uses li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 8px;
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #cbd5e1;
-}
-
-html.dark .segment-uses li { color: #94a3b8; }
-html.dark .segment-uses li::before { background: #475569; }
+html.dark .segment-desc { color: #94a3b8; }
 
 .audience-foot {
   margin: 24px 0 0;

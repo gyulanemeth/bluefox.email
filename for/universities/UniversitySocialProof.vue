@@ -140,6 +140,11 @@ html.dark .proof-author-university { color: #94a3b8; }
 html.dark .proof-divider { background: rgba(148, 163, 184, 0.3); }
 
 .proof-logo {
+  /* VitePress's default-theme `.vp-doc img` rule centers images with
+     `margin: 0 auto`. It doesn't reach dev (route-based CSS chunking
+     skips it for this `layout: home` page), but it's always present in
+     the production bundle, so it must be overridden explicitly here. */
+  margin: 0;
   width: 56px;
   height: 56px;
   object-fit: contain;
