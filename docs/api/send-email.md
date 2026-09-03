@@ -38,6 +38,8 @@ head:
 
 Full reference for the **Send Email** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
+> **API reference.** For a narrative walkthrough with code samples, see [Send Transactional Email](/docs/api/send-transactional-email), [Send Triggered Email](/docs/api/send-triggered-email), and [Send Attachments](/docs/api/send-attachments).
+
 ## Send a transactional email
 
 `POST /v1/projectId/{projectId}/send-transactional`
@@ -152,96 +154,7 @@ Sending fails with a 405 if the account is out of email credit ("Insufficient cr
 
 </div>
 
-## Send a transactional email (legacy flat URL shape)
-
-`POST /v1/send-transactional`
-
-Legacy flat URL shape, kept for backward compatibility - identical behavior to POST /v1/projectId/&#123;projectId&#125;/send-transactional above (which is the same handler; there is no projectId in this URL because the project is resolved entirely from transactionalId).  
-  
-Sending fails with a 405 if the account is out of email credit ("Insufficient credits available") - there is no public endpoint to check remaining balance ahead of time, only in the app. It also fails with a 405 if a sandbox project's daily send cap is exceeded, or if bounce/complaint rates have triggered automatic restriction (see Project.status and GET .../sandbox/deliverability).
-
-### Request body
-
-<div class="api-ref-table api-ref-table--body">
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `email` | string | yes |  |
-| `transactionalId` | string | yes | A transactional email _id, from GET /v1/projectId/&#123;projectId&#125;/transactional-emails - NOT a template ID. |
-| `data` | any |  | Template variables to render into the email. |
-| `attachments` | array of object |  |  |
-| `attachments[].filename` | string |  |  |
-| `attachments[].content` | string |  | Base64-encoded file content. |
-
-</div>
-
-### Responses
-
-<div class="api-ref-table api-ref-table--responses">
-
-| Status | Description |
-| --- | --- |
-| 200 | OK, queued for sending |
-| 400 | Invalid request body or query - every violation found (missing/invalid/unexpected fields) is reported in one response, semicolon-separated, not just the first one hit. |
-| 403 | Missing or invalid API key |
-| 404 | Transactional email not found |
-| 405 | The operation is blocked by a business rule (e.g. the resource is still in use) |
-
-</div>
-
-### Response body
-
-<div class="api-ref-table api-ref-table--body">
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `success` | boolean |  |  |
-
-</div>
-
-## Send a triggered email (legacy flat URL shape)
-
-`POST /v1/send-triggered`
-
-Legacy flat URL shape, kept for backward compatibility - identical behavior to POST /v1/projectId/&#123;projectId&#125;/send-triggered above (which is the same handler; there is no projectId in this URL because the project is resolved entirely from triggeredId).  
-  
-Sending fails with a 405 if the account is out of email credit ("Insufficient credits available") - there is no public endpoint to check remaining balance ahead of time, only in the app. It also fails with a 405 if a sandbox project's daily send cap is exceeded, or if bounce/complaint rates have triggered automatic restriction (see Project.status and GET .../sandbox/deliverability).
-
-### Request body
-
-<div class="api-ref-table api-ref-table--body">
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `triggeredId` | string | yes | A triggered email _id, from GET /v1/projectId/&#123;projectId&#125;/triggered-emails - NOT a template ID. |
-| `emails` | array of string |  | Defaults to every active subscriber on the triggered email's subscriber list when omitted. |
-| `data` | any |  | Template variables to render into the email. |
-| `attachments` | array of object |  |  |
-| `attachments[].filename` | string |  |  |
-| `attachments[].content` | string |  | Base64-encoded file content. |
-
-</div>
-
-### Responses
-
-<div class="api-ref-table api-ref-table--responses">
-
-| Status | Description |
-| --- | --- |
-| 200 | OK, queued for sending |
-| 400 | Invalid request body or query - every violation found (missing/invalid/unexpected fields) is reported in one response, semicolon-separated, not just the first one hit. |
-| 403 | Missing or invalid API key |
-| 404 | Triggered email not found |
-| 405 | The operation is blocked by a business rule (e.g. the resource is still in use) |
-
-</div>
-
-### Response body
-
-<div class="api-ref-table api-ref-table--body">
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `success` | boolean |  |  |
-
-</div>
+The flat `/v1/send-transactional` and `/v1/send-triggered` legacy shapes behave identically to the endpoints above
+(same handler; there is no projectId in the URL because the project is resolved from transactionalId/triggeredId) -
+see [Send Transactional Email](/docs/api/send-transactional-email) and [Send Triggered Email](/docs/api/send-triggered-email)
+for their request/response details and code samples.

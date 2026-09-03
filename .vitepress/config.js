@@ -140,6 +140,7 @@ function sitemapUrlForPath(relativePath) {
 
 export default defineConfig({
   cleanUrls: true,
+  lastUpdated: true,
   title: "BlueFox Email",
   description: "High deliverability & brand consistency.",
   srcExclude: ['skills/**'],

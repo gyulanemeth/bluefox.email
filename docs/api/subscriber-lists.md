@@ -38,6 +38,8 @@ head:
 
 Full reference for the **Subscriber Lists** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
+> **API reference.** For a narrative walkthrough with code samples of the legacy flat-URL subscriber endpoints, see [Subscriber List Management](/docs/api/subscriber-list-management).
+
 ## List subscriber lists
 
 `GET /v1/projectId/{projectId}/subscriber-lists`

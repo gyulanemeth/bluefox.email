@@ -119,10 +119,30 @@ completeness.
 
 ## API Reference
 
-Every resource - Project, API Keys, Design Systems, Domains, Sender Identities, Webhook, Contacts, Campaigns,
-Transactional Emails, Triggered Emails, Templates, Segments, Subscriber Lists, and Suppression List - has its own reference
-page in the sidebar, generated from the same OpenAPI spec AI agents use: every endpoint, parameter, request body, and
-response shape.
+Every resource has its own reference page, generated from the same OpenAPI spec AI agents use: every endpoint, parameter,
+request body, and response shape.
+
+- **[Project](/docs/api/project)** – Project-level settings and API keys.
+- **[Sender Identities](/docs/api/sender-identities)** – Verified from/reply-to addresses for outgoing email.
+- **[Domains](/docs/api/domains)** – Sending domains and their verification records.
+- **[Webhook](/docs/api/webhook)** – Event notification endpoints for delivery, opens, clicks, and more.
+- **[Sending Setup](/docs/api/sending-setup)** – AWS SES connection and sending configuration.
+- **[Production Access](/docs/api/production-access)** – Move a project out of the SES sandbox.
+- **[BYO AWS](/docs/api/byo-aws)** – Connect your own AWS account.
+- **[Design Systems](/docs/api/design-systems)** – Shared email theme and brand styling.
+- **[Templates](/docs/api/templates)** – Reusable email templates.
+- **[Campaigns](/docs/api/campaigns)** – One-off and recurring email campaigns.
+- **[Transactional Emails](/docs/api/transactional-emails)** – Manage transactional email templates. To send one, see [Send Email](/docs/api/send-email).
+- **[Triggered Emails](/docs/api/triggered-emails)** – Manage triggered email templates. To send one, see [Send Email](/docs/api/send-email).
+- **[Send Email](/docs/api/send-email)** – Send a transactional or triggered email.
+- **[Test Email](/docs/api/test-email)** – Send a test send of a template.
+- **[Email Error Log](/docs/api/email-error-log)** – Delivery failures and bounce/complaint records.
+- **[Contacts](/docs/api/contacts)** – Contact records, custom fields, and tags.
+- **[Segments](/docs/api/segments)** – Dynamic contact segments.
+- **[Subscriber Lists](/docs/api/subscriber-lists)** – Lists and subscriber management.
+- **[Subscriptions](/docs/api/subscriptions)** – A contact's subscription state on a list.
+- **[Signup Forms](/docs/api/signup-forms)** – Embeddable/hosted signup forms.
+- **[Suppression List](/docs/api/suppression-list)** – Addresses excluded from sending.
 
 ### Legacy endpoints
 
