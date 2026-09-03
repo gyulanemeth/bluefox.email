@@ -12,17 +12,21 @@ defineProps({
       <span class="proof-mark" aria-hidden="true">&ldquo;</span>
 
       <p class="proof-quote">
-        Testimonial quote goes here.
+        The BlueFox platform is clear and easy to use. The editor is very user-friendly, and another major advantage is how quickly emails can be sent. The interface is simple, intuitive, and easy to follow, and it genuinely makes regular communication tasks easier.
       </p>
 
       <div class="proof-footer">
         <div class="proof-author">
-          <v-avatar size="44" class="proof-avatar" color="grey-lighten-2">
-            <v-icon size="26" color="white">mdi-account</v-icon>
+          <v-avatar size="64" class="proof-avatar">
+            <img src="/assets/testimonials/reka-magyaros.jpg" alt="Réka Magyaros" width="64" height="64" loading="lazy" decoding="async" />
           </v-avatar>
           <div class="proof-author-info">
-            <p class="proof-author-name">Author name</p>
-            <p class="proof-author-role">Role, Pázmány Péter Catholic University</p>
+            <p class="proof-author-name">
+              Réka Magyaros
+              <span class="proof-author-title">Public Relations Manager</span>
+            </p>
+            <p class="proof-author-faculty">Faculty of Information Technology and Bionics</p>
+            <p class="proof-author-university">Pázmány Péter Catholic University</p>
           </div>
         </div>
 
@@ -32,8 +36,8 @@ defineProps({
           class="proof-logo"
           src="/assets/testimonials/ppke-logo.svg"
           alt="Pázmány Péter Catholic University logo"
-          width="48"
-          height="48"
+          width="56"
+          height="56"
           loading="lazy"
           decoding="async"
         />
@@ -93,39 +97,51 @@ html.dark .proof-quote { color: #f1f5f9; }
 .proof-author {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 14px;
 }
 
 .proof-author-info { text-align: left; }
 
 .proof-author-name {
-  margin: 0;
-  font-size: 14px;
+  margin: 0 0 4px;
+  font-size: 15px;
   font-weight: 700;
   color: #0f172a;
 }
 
 html.dark .proof-author-name { color: #f1f5f9; }
 
-.proof-author-role {
-  margin: 0;
+.proof-author-title {
+  margin-left: 6px;
   font-size: 13px;
+  font-weight: 400;
   color: #475569;
 }
 
-html.dark .proof-author-role { color: #94a3b8; }
+html.dark .proof-author-title { color: #94a3b8; }
+
+.proof-author-faculty,
+.proof-author-university {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #475569;
+}
+
+html.dark .proof-author-faculty,
+html.dark .proof-author-university { color: #94a3b8; }
 
 .proof-divider {
   width: 1px;
-  height: 36px;
+  height: 48px;
   background: #e2e8f0;
 }
 
 html.dark .proof-divider { background: rgba(148, 163, 184, 0.3); }
 
 .proof-logo {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   object-fit: contain;
 }
 
@@ -136,6 +152,17 @@ html.dark .proof-divider { background: rgba(148, 163, 184, 0.3); }
     flex-direction: column;
     gap: 16px;
   }
+  .proof-author {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .proof-author-name { text-align: center; }
+  .proof-author-title {
+    display: block;
+    margin-left: 0;
+  }
+  .proof-author-faculty,
+  .proof-author-university { text-align: center; }
   .proof-divider { display: none; }
 }
 </style>

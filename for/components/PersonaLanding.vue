@@ -230,8 +230,9 @@ const { isDark } = useData()
     </div>
   </div>
 
-  <!-- 11. Final CTA -->
-  <div class="stripe" :class="`stripe--${finalCtaStripe}`">
+  <!-- 11. Final CTA (always the last section on the page, so it collapses the
+       gap to the footer via the sitewide `stripe--flush` mechanism) -->
+  <div class="stripe stripe--flush" :class="`stripe--${finalCtaStripe}`">
     <section class="stripe-inner final-cta" aria-labelledby="final-cta-title">
       <h2 id="final-cta-title">{{ finalTitle }}</h2>
       <p>{{ finalDescription }}</p>

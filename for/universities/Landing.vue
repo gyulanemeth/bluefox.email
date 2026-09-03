@@ -20,7 +20,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     hero-badge="For colleges & universities"
     hero-title="University email without the contact-based pricing"
     hero-description="Send newsletters, alumni updates and event invitations. Segment your audience, keep every email on-brand, and pay only for what you send."
-    :hero-highlights="['Pay per send, not per contact', 'Credits that fit the academic calendar', 'Segment alumni by year, students by department']"
+    :hero-highlights="['Pay per send, not per contact', 'Credits that fit the academic calendar', 'Segment audiences by year, program and engagement']"
     :hero-feature-items="[]"
     cta-text="Start free. 3,000 sends included"
     cta-href="https://app.bluefox.email/accounts/create-account"
@@ -38,7 +38,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     after-pain-stripe="white"
     deliverability-stripe="white"
     bottom-stripe="white"
-    final-cta-stripe="white"
+    final-cta-stripe="blue"
     final-title="Start with your team"
     final-description="You do not need a university-wide rollout to get started. Try BlueFox with your newsletter, alumni program or communications team first."
     final-primary-cta-text="Talk to the founder"
@@ -109,28 +109,8 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 
     <template #bottom>
       <div class="edu-slot-reset">
-        <!-- 7. Mid CTA -->
+        <!-- 7. Start with one team, scale across the university -->
         <div class="edu-stripe edu-stripe--blue">
-          <section class="edu-stripe-inner edu-stripe-inner--cta" aria-labelledby="edu-mid-cta-heading">
-            <div class="edu-mid-cta-inner">
-              <h2 id="edu-mid-cta-heading">Send your first newsletter in minutes.</h2>
-              <p>No subscription. Buy credits, use them across the academic year.</p>
-              <v-btn
-                size="large"
-                color="primary"
-                variant="flat"
-                class="edu-mid-cta-btn"
-                href="https://app.bluefox.email/accounts/create-account"
-                target="_blank"
-              >
-                <strong>Start free. 3,000 sends included</strong>
-              </v-btn>
-            </div>
-          </section>
-        </div>
-
-        <!-- 8. Start with one team, scale across the university -->
-        <div class="edu-stripe edu-stripe--white">
           <section id="design-system" class="edu-stripe-inner" aria-labelledby="edu-design-title">
             <h2 id="edu-design-title" class="section-title">Start with one team. Scale across the university.</h2>
             <p class="section-subtitle constrained">One faculty, department or alumni team can start using BlueFox on its own. As other teams join, they can keep separate email workflows while sharing the same university design system.</p>
@@ -139,8 +119,8 @@ const { lgAndUp, md, sm, xs } = useDisplay()
           </section>
         </div>
 
-        <!-- 9. IT / institutional requirements -->
-        <div class="edu-stripe edu-stripe--blue">
+        <!-- 8. IT / institutional requirements -->
+        <div class="edu-stripe edu-stripe--white">
           <div class="edu-stripe-inner">
             <UniversityITRequirements />
           </div>
@@ -189,45 +169,6 @@ html.dark .edu-stripe--blue { background: #0c1e2d; }
   padding: 64px 24px 96px;
 }
 
-.edu-stripe-inner--cta {
-  padding: 56px 24px 80px;
-}
-
-.edu-mid-cta-inner {
-  max-width: 720px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.edu-mid-cta-inner h2 {
-  font-size: clamp(24px, 3.5vw, 38px);
-  line-height: 1.2;
-  margin-bottom: 12px;
-  border-top: 0 !important;
-  padding-top: 0 !important;
-}
-
-.edu-mid-cta-inner p {
-  margin: 0 0 24px;
-  font-size: 17px;
-  line-height: 1.65;
-  color: #4b5563;
-}
-
-html.dark .edu-mid-cta-inner p { color: #9ca3af; }
-
-.edu-mid-cta-btn {
-  text-transform: none !important;
-  letter-spacing: 0 !important;
-  border-radius: 10px !important;
-  min-height: 50px !important;
-  padding: 0 28px !important;
-  text-decoration: none !important;
-}
-
-.edu-mid-cta-btn :deep(.v-btn__content) { line-height: 1.2; }
-.edu-mid-cta-btn strong { line-height: 1.2; }
-
 .section-title {
   font-size: clamp(28px, 4vw, 42px);
   line-height: 1.2;
@@ -258,9 +199,6 @@ html.dark .section-subtitle { color: #9ca3af; }
   .edu-stripe-inner {
     padding: 48px 16px 72px;
   }
-  .edu-stripe-inner--cta {
-    padding: 48px 16px 64px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -270,13 +208,6 @@ html.dark .section-subtitle { color: #9ca3af; }
   }
   .edu-stripe-inner {
     padding: 36px 14px 56px;
-  }
-  .edu-stripe-inner--cta {
-    padding: 36px 14px 48px;
-  }
-  .edu-mid-cta-btn {
-    width: 100%;
-    justify-content: center;
   }
 }
 </style>

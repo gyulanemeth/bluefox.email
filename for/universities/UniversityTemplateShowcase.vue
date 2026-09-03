@@ -40,7 +40,7 @@ const templates = [
     accent: '#f59e0b',
     sender: 'Alumni Relations',
     layout: 'stats',
-    kicker: 'Class of 2015',
+    kicker: 'Class of 2016',
     headline: 'Ten years on. Come back.',
     cta: 'RSVP for the weekend',
     stats: [
