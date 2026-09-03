@@ -29,7 +29,7 @@ faqs:
   - question: "Why does the checker say I have no DMARC record even though I set one up?"
     answer: "DNS changes can take time to propagate, usually minutes but sometimes up to 48 hours depending on your provider's TTL settings. Double check the record was added to _dmarc.yourdomain.com and not the root domain."
   - question: "What does a yellow warning mean?"
-    answer: "Yellow signals indicate a working but suboptimal setting, such as a policy of none or relaxed alignment. These aren't errors, they're opportunities to tighten your configuration."
+    answer: "Yellow marks a setting that works but could be tightened, such as relaxed alignment or a policy of quarantine. Red is more serious: it flags something that leaves your domain exposed, such as p=none or a missing aggregate reporting address. Neither colour means mail is being blocked today, but red is the one to act on first."
   - question: "Can I check a subdomain?"
     answer: "Yes. Enter the full subdomain, such as mail.example.com, and the tool looks up its _dmarc record directly. Note that subdomain policy is often set via the sp tag on the parent domain's record rather than a separate record on the subdomain itself, so it's worth checking both."
   - question: "Do I need an account to use this tool?"
@@ -84,7 +84,7 @@ Enter any domain, and the checker looks up its DMARC record at `_dmarc.yourdomai
 
 - Whether a DMARC record exists at all.
 - The enforcement policy: `none` (monitor only), `quarantine` (send to spam), or `reject` (block outright).
-- The percentage of mail the policy applies to (the `pct` tag).
+- The `pct` tag, if your record still carries one. RFC 9989 removed `pct` from the specification, so receivers now ignore it, but the checker still reports the value so you can clean it up.
 - SPF and DKIM alignment mode, strict or relaxed.
 - Whether aggregate (`rua`) and forensic (`ruf`) reporting addresses are configured.
 - Deprecated or redundant tags that should be cleaned up.
@@ -103,10 +103,10 @@ A domain with no DMARC record offers no protection: anyone can spoof it. `p=none
 ## Example DMARC Record
 
 ```
-v=DMARC1; p=reject; pct=100; rua=mailto:reports@example.com; adkim=s; aspf=s
+v=DMARC1; p=reject; rua=mailto:reports@example.com; adkim=s; aspf=s
 ```
 
-This record rejects unauthenticated mail outright, applies to 100% of traffic, sends aggregate reports to the specified address, and requires strict alignment for both DKIM and SPF.
+This record rejects unauthenticated mail outright, sends aggregate reports to the specified address, and requires strict alignment for both DKIM and SPF. Older examples often add `pct=100`; that tag was removed in RFC 9989 and is no longer needed.
 
 ## Frequently Asked Questions
 
@@ -116,7 +116,7 @@ DNS changes can take time to propagate, usually minutes but sometimes up to 48 h
 
 ### What does a yellow warning mean?
 
-Yellow signals indicate a working but suboptimal setting, such as a policy of `none` or relaxed alignment. These aren't errors, they're opportunities to tighten your configuration.
+Yellow marks a setting that works but could be tightened, such as relaxed alignment or a policy of `quarantine`. Red is more serious: it flags something that leaves your domain exposed, such as `p=none` or a missing aggregate reporting address. Neither colour means mail is being blocked today, but red is the one to act on first.
 
 ### Can I check a subdomain?
 

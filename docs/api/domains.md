@@ -259,7 +259,7 @@ Fails while a sender identity still uses this domain/region.
 
 Re-reads the DKIM/SPF/MX/DMARC DNS records for the domain. Auto-creates a default sender identity (no-reply@domain) the first time verification succeeds.
 
-If this endpoint keeps reporting a domain as unverified, confirm the records resolve publicly before debugging your integration - our free [deliverability checkers](/tools/deliverability/) read the same four record types from outside your network.
+If this endpoint keeps reporting a domain as unverified, confirm the records resolve publicly before you start debugging your integration. Our free [deliverability checkers](/tools/deliverability/) read the same four record types from outside your network.
 
 ### Parameters
 

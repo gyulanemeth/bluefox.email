@@ -30,7 +30,7 @@ faqs:
   - question: "What's the difference between hard fail and soft fail?"
     answer: "-all (hard fail) tells receiving servers to reject mail from unlisted sources. ~all (soft fail) asks them to accept it but mark it as suspicious. Most domains move from ~all to -all once they've confirmed all legitimate senders are covered."
   - question: "Can a domain have more than one SPF record?"
-    answer: "No. A domain should publish exactly one SPF TXT record. Multiple SPF records at the same domain cause a permerror during evaluation, which typically fails the check entirely, even if one of the records would have passed on its own."
+    answer: "No. A domain should publish exactly one SPF TXT record. Multiple SPF records at the same domain cause a permerror during evaluation, which typically fails the check entirely, even if one of the records would have passed on its own. Note that the limit is per domain name, not per organization: a subdomain such as mail.example.com is a separate name and can publish its own SPF record. SPF is not inherited, so a subdomain you send from needs its own record, and a subdomain without one has no SPF policy rather than falling back to the parent's."
   - question: "Why does the tool flag my record even though it looks fine?"
     answer: "The most common cause is exceeding the 10-lookup limit, often from nesting several include mechanisms (like an ESP that itself includes other providers). Use the mechanism list to trace which include is adding the most lookups."
   - question: "Does SPF alone stop spoofing?"
@@ -116,7 +116,7 @@ This authorizes the IP range `203.0.113.0/24`, includes Google Workspace's sendi
 
 ### Can a domain have more than one SPF record?
 
-No. A domain should publish exactly one SPF TXT record. Multiple SPF records at the same domain cause a `permerror` during evaluation, which typically fails the check entirely, even if one of the records would have passed on its own.
+No. A domain should publish exactly one SPF TXT record. Multiple SPF records at the same domain cause a `permerror` during evaluation, which typically fails the check entirely, even if one of the records would have passed on its own. Note that the limit is per domain name, not per organization: a subdomain such as `mail.example.com` is a separate name and can publish its own SPF record. SPF is not inherited, so a subdomain you send from needs its own record, and a subdomain without one has no SPF policy rather than falling back to the parent's.
 
 ### Why does the tool flag my record even though it looks fine?
 

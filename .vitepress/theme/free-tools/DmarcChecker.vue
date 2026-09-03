@@ -16,7 +16,7 @@ const DMARC_TAG_DESCRIPTIONS = {
   ruf: 'Forensic report recipient(s).',
   adkim: 'DKIM alignment mode (r=relaxed, s=strict).',
   aspf: 'SPF alignment mode (r=relaxed, s=strict).',
-  pct: 'Percent of mail subject to filtering.',
+  pct: 'Percent of mail subject to filtering. Removed in RFC 9989; receivers ignore it.',
   fo: 'Failure reporting options.',
   ri: 'Report interval in seconds.',
   t: 'Test mode flag (y = testing, policy not enforced).',

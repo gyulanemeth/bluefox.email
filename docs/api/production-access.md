@@ -38,7 +38,7 @@ head:
 
 Full reference for the **Production Access** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
-Before requesting production access, it is worth confirming your sending domain authenticates cleanly - our [free deliverability tools](/tools/deliverability/) check SPF, DKIM, DMARC, and MX from public DNS.
+Before requesting production access, it is worth confirming your sending domain authenticates cleanly. Our [free deliverability tools](/tools/deliverability/) check SPF, DKIM, DMARC, and MX from public DNS.
 
 ## Get production access status
 
