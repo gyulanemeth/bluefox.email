@@ -53,8 +53,8 @@ head:
     - name: twitter:image
       content: https://bluefox.email/assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
 
-lastUpdated: true
-published: 2026-09-02
+lastUpdated: 2026-09-04
+published: 2025-03-14
 sidebar: false
 ---
 
