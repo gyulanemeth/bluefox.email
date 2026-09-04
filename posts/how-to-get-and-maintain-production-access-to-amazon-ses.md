@@ -79,7 +79,7 @@ Then keep bounces under 5% and complaints under 0.1%, or AWS puts the account un
 
 Every new AWS account starts in the [Amazon SES sandbox](/aws-concepts/ses-sandbox). You can build against the API, but you cannot send to anyone who has not verified themselves first, which means you cannot ship.
 
-Getting out is a form, and a well-prepared application is usually answered within a day.
+Getting out is a form, and a well-prepared application is usually answered within a day. It is cheap enough and fast enough that buying a pre-approved account, which is a thing people do, is never a shortcut worth taking. More on that below.
 
 What surprises people is the second half. [Production access](/aws-concepts/ses-production-access) is not a permanent state, and AWS keeps measuring you after it grants it. The golden rule is the one everybody has heard and fewer people operationalise: **do not send spam.** Being a legitimate sender is not enough on its own. You also have to look like one in DNS, on your website, and in your bounce rate.
 
@@ -103,14 +103,14 @@ One thing does not change when you leave. In production you can send to any reci
 
 ## What your sending limits become after approval
 
-This is the question people actually want answered, and the honest answer is that there is no single number.
-
 Approval raises two separate limits, and both are per Region:
 
 * your [sending quota](/aws-concepts/ses-sending-quota), the maximum you can send in a rolling 24-hour window
 * your [sending rate](/aws-concepts/ses-sending-rate), the maximum you can send per second
 
-AWS sets the starting figures based on your stated use case and your Region. Published numbers you find in blog posts are somebody else's account, not a promise about yours. Check the account dashboard for your actual values.
+In practice most accounts land on the same starting pair: **50,000 messages a day and 14 a second**. AWS has published 50,000 a day as the default quota on approval, and that pairing is what we see most often in the wild.
+
+Treat it as a hint rather than a promise. AWS sets the starting values from your stated use case and Region, some accounts begin higher or lower, and the figures move as you build a sending history. Check the account dashboard for your actual values before you design a send schedule around a number.
 
 Two details matter more than the numbers themselves.
 
@@ -185,15 +185,21 @@ A rejection is usually about something checkable, not something mysterious. Befo
 * open the website you submitted the way a reviewer would, and ask whether it is obvious what the business is and how someone subscribes
 * name the mechanism in your bounce handling, not the intention
 
+Then reopen the ticket rather than starting a fresh application.
+
+Requests appear to land with first-level support first, and a reviewer who cannot easily make the call will decline rather than dig. Reopening the case pushes it up a tier, to somebody with more scope to assess an unusual use case. Expect to explain yourself again from scratch, and make the second explanation harder to refuse than the first: point at the specific AWS documentation covering each requirement and state how you meet it, rather than asserting in general terms that you follow best practices.
+
+It is not unusual for this to take more than one escalation. A rejection is often a decision that has not really been made yet, so persistence with a well-evidenced case is worth more than a rewritten application.
+
 :::warning Never open a second AWS account
 
 Creating a new account to get around a rejection or a pause is a terms of service violation. AWS links accounts by billing details, IP and domain, and the usual outcome is losing all of them rather than gaining one.
 
 :::
 
-## A note on buying a pre-approved SES account
+## Do not buy a pre-approved SES account
 
-There is a market for AWS accounts that already have production access, and it exists because the sandbox is annoying. It is worth understanding what you are actually buying.
+There is a market for AWS accounts that already have production access, and it exists because the sandbox is annoying. We would not recommend it to anyone under any circumstances, and it is worth being clear about why, because the reasons go well beyond the rule against it.
 
 The reputation attached to that account is somebody else's, and you have no way to audit what it was used for. Sending limits reflect a history you did not create. Account ownership transfers of this kind breach the AWS Customer Agreement, and the linking signals that catch people opening second accounts (billing details, IP, domain) work exactly as well here.
 
