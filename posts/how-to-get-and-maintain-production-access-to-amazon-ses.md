@@ -1,21 +1,39 @@
 ---
 title: How to Get and Maintain Production Access to Amazon SES
-description: Practical tips to get production access to Amazon SES out of the sandbox, plus how to maintain it long-term by keeping bounce and complaint rates low.
-thumbnail: /assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
+description: What the Amazon SES sandbox restricts, what your sending limits become after approval, how to write a request that gets accepted, and how to stay out of review afterwards.
+thumbnail: /assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.webp
 
 layout: post
-category: tutorials
+category: articles
+
+faqs:
+  - question: "How do I get out of the Amazon SES sandbox?"
+    answer: "Open Account dashboard in the SES console, use the View Get set up page button in the sandbox banner, and choose Request production access. You submit whether your mail is mostly marketing or transactional, a website URL, a description of your use case, and how you handle bounces and complaints. AWS Support provides an initial response within 24 hours. Sandbox status applies per AWS Region, so you need to request it separately in each region you send from."
+  - question: "What are the Amazon SES sandbox limits?"
+    answer: "You can send a maximum of 200 messages per 24-hour period and a maximum of 1 message per second, and only to verified email addresses and domains or the SES mailbox simulator. Account-level suppression list management through the API is also disabled. Every other SES feature works normally in the sandbox."
+  - question: "Can I send to unverified recipients in the Amazon SES sandbox?"
+    answer: "No. In the sandbox you can only send to email addresses and domains you have verified, or to the Amazon SES mailbox simulator. Once you have production access you can send to any recipient, but you still have to verify every identity you use as a From, Source, Sender or Return-Path address, and that requirement is permanent."
+  - question: "What are the Amazon SES sending limits after production access?"
+    answer: "Most accounts start on 50,000 messages a day and 14 a second, but the figures are not guaranteed. Production access raises two separate per-region limits: your sending quota, the maximum in a rolling 24-hour window, and your sending rate, the maximum per second. AWS sets the starting values from your stated use case and region and raises them as you build a sending history, so check your account dashboard for your actual numbers. Both limits count recipients rather than messages, so an email addressed to 10 people uses 10 of your quota."
+  - question: "What bounce and complaint rates does Amazon SES allow?"
+    answer: "A bounce rate of 5% or greater places your account under review automatically, and 10% or greater may pause your sending. A complaint rate of 0.1% or greater places your account under review automatically, and 0.5% or greater may pause your sending. AWS measures these against a representative volume that reflects your typical sending pattern rather than a fixed daily window, so a high rate cannot be waited out by pausing."
+  - question: "Why was my Amazon SES production access request rejected?"
+    answer: "The most common causes are a website that does not clearly describe the business or is missing a privacy policy, DNS records that do not resolve, and a use case description too vague to be checkable. Fix the underlying issue and reapply. Do not open a second AWS account to get around a rejection, because that is a terms of service violation and AWS links accounts by billing details, IP and domain."
+  - question: "Can I buy an Amazon SES account that already has production access?"
+    answer: "You can, and you should not. Transferring account ownership this way runs against the AWS Customer Agreement, and AWS is able to link related accounts. You also inherit a sending reputation you cannot audit and limits built on a history you did not create. A first-time application with resolving DNS records and a real website is usually approved within a day, so the sandbox is rarely the actual obstacle."
+  - question: "Do I need Amazon SES production access to use BlueFox Email?"
+    answer: "Only if you choose the BYO AWS SES delivery mode. BlueFox-managed sending is a separate delivery mode with its own review process and no AWS account involved. If you do use your own SES account, BlueFox still handles suppression, subscription preferences, unsubscribe headers, double opt-in and send queueing on top of it."
 
 head:
   - - meta
     - name: description
-      content: Tips to get production access to AWS SES and maintain it.
+      content: What the Amazon SES sandbox restricts, what your sending limits become after approval, how to write a request that gets accepted, and how to stay out of review afterwards.
   - - meta
     - property: og:title
       content: How to Get and Maintain Production Access to Amazon SES
   - - meta
     - property: og:description
-      content: Learn how to get production access to AWS SES and maintain it for excellent email deliverability.
+      content: What the Amazon SES sandbox restricts, what your sending limits become after approval, how to write a request that gets accepted, and how to stay out of review afterwards.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
@@ -30,103 +48,211 @@ head:
       content: How to Get and Maintain Production Access to Amazon SES
   - - meta
     - name: twitter:description
-      content: Learn how to get production access to AWS SES and maintain it for excellent email deliverability.
+      content: What the Amazon SES sandbox restricts, what your sending limits become after approval, how to write a request that gets accepted, and how to stay out of review afterwards.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/articles/how-to-get-and-maintain-production-access-to-amazon-ses-share.png
 
-lastUpdated: true
+lastUpdated: 2026-09-04
 published: 2025-03-14
 sidebar: false
 ---
 
-![AWS can be scary!](./how-to-get-and-maintain-production-access-to-amazon-ses/00.webp)
-
 # How to Get and Maintain Production Access to Amazon SES
 
-::: warning WORK IN PROGRESS DOCUMENT
-This is a draft document seeking feedback from experts.
+*Getting out of the sandbox takes a day. Staying out is the part nobody plans for.*
 
-Our goal is to provide a checklist for our customers and prospects to ensure they follow best practices for responsible email sending.
+:::tip TL;DR
 
-Additionally, while this serves as a guide, it will also play a role in our marketing efforts to help businesses optimize their email strategies.
+| Before you apply | What AWS is checking |
+|---|---|
+| Verified sending domain | That you own what you claim to send from |
+| DKIM, SPF, MAIL FROM, DMARC | That your authentication resolves in live DNS |
+| A live website with a privacy policy | That there is a real business behind the request |
+| A visible signup path | That recipients asked for this |
+| Bounce and complaint handling | That failures change what you send next |
+| A specific use case description | That you know what you are sending and to whom |
+
+Then keep bounces under 5% and complaints under 0.1%, or AWS puts the account under review.
+
 :::
 
-Amazon SES offers excellent email deliverability at a competitive price. However, to protect their reputation, AWS has strict requirements for granting production access. If you’re new to SES, or even if you’ve requested access before, the process can sometimes be challenging.
+Every new AWS account starts in the [Amazon SES sandbox](/aws-concepts/ses-sandbox). You can build against the API, but you cannot send to anyone who has not verified themselves first, which means you cannot ship.
 
-The **golden rule** is simple: **DO NOT SEND SPAM**. AWS actively enforces policies to maintain its sender reputation. Even if you’re a legitimate sender, failing to meet AWS’s best practices could lead to rejection.
+Getting out is a form, and a well-prepared application is usually answered within a day. It is cheap enough and fast enough that buying a pre-approved account, which is a thing people do, is never a shortcut worth taking. More on that below.
 
-## Technical Requirements to Get Production Access
-Before requesting production access, make sure you have the following technical setup in place:
+What surprises people is the second half. [Production access](/aws-concepts/ses-production-access) is not a permanent state, and AWS keeps measuring you after it grants it. The golden rule is the one everybody has heard and fewer people operationalise: **do not send spam.** Being a legitimate sender is not enough on its own. You also have to look like one in DNS, on your website, and in your bounce rate.
 
-- **Verify your sending domain**
-- **Set up DKIM & DMARC** (DMARC should be configured to at least “none” or “reject” for security)
-- **Set up a MAIL FROM domain & SPF** (improves email authentication and prevents spoofing)
-- **Implement a mechanism to handle bounces and complaints**
-  - Remove hard-bounced addresses from your list
-  - Maintain an internal suppression list
-- **Use double opt-in for new subscribers** (ensures valid emails and reduces spam complaints)
-- **Provide an easy unsubscribe option**
-  - Implement a **subscription preferences page** where recipients can unsubscribe from individual lists or all emails
-  - Include a **visible unsubscribe link** in all marketing emails
-  - Implement **One-Click Unsubscribe (RFC 8058)**
-- **Use captchas on signup forms** (prevents bot signups and spam traps)
-- **Manage your sending volume carefully**
-  - Avoid sudden spikes; ramp up email volume gradually
-  - Use a message queue (Amazon SQS, RabbitMQ, etc.) to control sending rates
+## What the sandbox restricts
 
-Following these best practices not only helps you get production access but also improves deliverability and protects your sender reputation.
+Sandbox status is **unique per AWS Region**. Clearing it in `eu-west-1` does nothing for `us-east-1`, and this catches people out constantly.
 
-## What bluefox.email Does for You
+![Side-by-side comparison of Amazon SES sandbox limits and post-approval limits, covering recipients, daily quota, sending rate, suppression API access and regional scope](./how-to-get-and-maintain-production-access-to-amazon-ses/01-sandbox-vs-production-limits.webp)
 
-Bluefox.email is built for legitimate senders. We actively prevent spammers from using our platform by requiring users to bring their own Amazon SES accounts.
+While you are in sandbox mode:
 
-We handle many of the deliverability best practices for you:
+* you can only send to verified email addresses and domains, or to the SES mailbox simulator
+* you can send a maximum of 200 messages per 24-hour period
+* you can send a maximum of 1 message per second
+* for sending authorization, neither you nor a delegate sender can send to unverified addresses
+* account-level suppression list management through the API is disabled
 
-- **Automatic handling of bounces & complaints**
-  - Webhook-based handling of bounces and complaints
-  - Internal suppression list management
-  - Email notifications for bounces & complaints
-- **Subscription preferences management**
-  - Users can pause or unsubscribe from specific lists or all emails
-  - Unsubscribe links are automatically included in marketing emails
-- **Signup forms with optional captchas**
-- **Built-in double opt-in mechanism**
-- **List-Unsubscribe headers for One-Click Unsubscribe**
-- **Send queue management** (delays emails when you exceed your SES quota to prevent deliverability issues)
+Everything else works. Configuration sets, event publishing, templates, [SMTP](/aws-concepts/ses): all of it is available, which is why the sandbox is a perfectly reasonable place to finish your integration before you apply.
 
-By using Bluefox.email, you get [these email best practices handled for you automatically](/posts/bluefox-email-is-an-amazon-ses-wrapper), ensuring compliance with AWS policies.
+One thing does not change when you leave. In production you can send to any recipient, verified or not, but you still have to verify every identity you use as a From, Source, Sender or Return-Path address. That requirement is permanent.
 
-## What You Need to Do in Your AWS Account
-If you use Bluefox.email, you’ll still need to complete some steps in AWS:
+## What your sending limits become after approval
 
-1. **[Set up your SES account](./how-to-set-up-aws-ses)**
-   - Verify your sending domain
-   - Configure DKIM
-   - Set up a MAIL FROM subdomain & SPF records
-   - Set up DMARC to “reject” unauthorized senders
-2. **[Configure bounce & complaint webhooks with SNS](./how-to-handle-bounces-and-complaints-with-aws-ses-and-sns)**
-   - Create SNS topics for bounces & complaints
-   - Subscribe Bluefox email’s webhook to these topics
-   - Link the topics to your SES sender identity
-3. **Request Production Access**
-   - You may need to explain your use case to AWS
-   - Highlight your **anti-spam and compliance measures** (use our checklist above)
-   - If rejected, appeal by emphasizing your commitment to email best practices
+Approval raises two separate limits, and both are per Region:
 
-## How to Maintain Your Production Access
-Once approved, you need to continue following best practices to avoid suspension.
+* your [sending quota](/aws-concepts/ses-sending-quota), the maximum you can send in a rolling 24-hour window
+* your [sending rate](/aws-concepts/ses-sending-rate), the maximum you can send per second
 
-- **[Monitor your bounce & complaint rates](https://docs.aws.amazon.com/pinpoint/latest/userguide/channels-email-deliverability-dashboard-bounce-complaint.html)**
-  - **Bounce Rate:** Keep it below **2%**. If it reaches **5%**, AWS may review your account. If it exceeds **10%**, AWS could **temporarily suspend** your sending privileges.
-  - **Complaint Rate:** Maintain it below **0.1%**. If it reaches **0.5%**, AWS **may pause** your ability to send emails.
-- **Send emails gradually**
-  - Avoid sudden volume spikes
-  - We’re developing an automation tool to ensure your emails reach the right people at the right time.
-- **Never buy email lists**
-  - Purchased lists contain invalid addresses and spam traps
-  - Build an engaged email list organically
+In practice most accounts land on the same starting pair: **50,000 messages a day and 14 a second**. AWS has cited 50,000 a day as the default on approval, and that pairing is what we see most often in the wild.
 
-By staying compliant, you ensure your SES account remains in good standing and maintain high deliverability rates.
+Treat it as a hint rather than a promise. AWS sets the starting values from your stated use case and Region, some accounts begin higher or lower, and the figures move as you build a sending history. Check the account dashboard for your actual values before you design a send schedule around a number.
 
-Before you apply, it is worth confirming your authentication is actually in place: our [free deliverability tools](/tools/deliverability/) check your SPF, DKIM, DMARC, and MX records against live DNS, and a clean setup is one of the things AWS looks for when reviewing a production access request.
+Two details matter more than the numbers themselves.
+
+**Both limits count recipients, not messages.** A single message addressed to 30 people spends 30 of your quota. This surprises people running digests and internal notifications, where one send can quietly consume far more quota than the message count suggests.
+
+**SES does not queue for you.** Exceed the rate and the API returns a `Throttling` error with "Maximum sending rate exceeded"; over SMTP you get `454 Throttling failure` after DATA. The message is not held and not retried. If your application did not write down what it was about to send before it called SES, that email is simply gone and you no longer know who it was for.
+
+That is why the fix for hitting your rate limit is a queue rather than a limit increase. A higher rate just moves where the cliff is.
+
+## What to have in place before you apply
+
+Reviewers check DNS. An application from a domain with no DMARC record is not automatically rejected, but it is a yellow flag on a form where you do not have many to spare.
+
+* **Verify your sending domain**, not individual addresses. This is what AWS recommends before applying.
+* **Set up [DKIM](/email-sending-concepts/dkim).**
+* **Set up a MAIL FROM domain and [SPF](/email-sending-concepts/spf)**, so your bounce path aligns with your own domain.
+* **Publish a [DMARC](/email-sending-concepts/dmarc) record.** `p=none` with a `rua` address is the floor, not the goal: it only collects reports. Once your legitimate mail passes cleanly, move to `p=quarantine`, then `p=reject`.
+* **Handle bounces and complaints automatically.** AWS requires every account to have these processes, and the form asks you to confirm it.
+* **Use double opt-in** for new subscribers.
+* **Make unsubscribing easy.** A visible link, a preferences page, and `List-Unsubscribe` headers per [RFC 8058](https://www.rfc-editor.org/rfc/rfc8058).
+* **Put a captcha on your signup forms** to keep bots and spam traps off your list.
+
+Confirm the DNS side actually resolves before you submit, with our free [SPF](/tools/deliverability/spf-checker), [DKIM](/tools/deliverability/dkim-checker), [DMARC](/tools/deliverability/dmarc-checker) and [MX](/tools/deliverability/mx-checker) checkers. Records that exist in your registrar's dashboard and records that resolve publicly are not always the same thing.
+
+## How to request production access
+
+Open **Account dashboard** in the SES console. The sandbox banner tells you which limits currently apply and carries a **View Get set up page** button.
+
+![Amazon SES account dashboard showing the sandbox warning banner](./how-to-get-and-maintain-production-access-to-amazon-ses/aws-ses-dashboard-sandbox.png)
+
+The Get set up page lists your outstanding account tasks, with **Request production access** among them.
+
+![Amazon SES Get set up page listing outstanding account setup tasks](./how-to-get-and-maintain-production-access-to-amazon-ses/aws-ses-dashboard-get-set-up.png)
+
+That opens the form.
+
+![Amazon SES request production access form](./how-to-get-and-maintain-production-access-to-amazon-ses/aws-ses-dashboard-request-production-access.png)
+
+It asks for:
+
+* **Marketing or Transactional**, whichever describes the majority of your mail
+* **a website URL**, which a reviewer will actually open
+* **your use case**: what you send, how often, and how people got onto your list
+* **how you handle bounces and complaints**
+* **an acknowledgement** that you will only email people who explicitly requested it, and that you have a process for handling bounce and complaint notifications
+
+The website is where most weak applications fail, and it fails silently. A coming-soon page, no privacy policy, or no visible way to subscribe all read as reasons to say no. Fix that before you fix the wording of your use case.
+
+The use case itself should be specific enough to be checkable. "We send important updates to our users and follow email best practices" could have been written by anybody, including the people the review exists to catch. "Transactional notifications to users who signed up on our platform, roughly 8,000 a month, double opt-in, hard bounces suppressed automatically via SNS webhooks" tells a reviewer what to expect from your account.
+
+You can also submit through the AWS CLI with `put-account-details`, which is worth knowing if you are provisioning several accounts or automating setup.
+
+:::warning You cannot edit after submitting
+
+Once you submit, your account details are locked until the review completes. Read the form back before you send it.
+
+:::
+
+## What happens after you submit
+
+AWS Support provides an initial response within 24 hours, and grants the request inside that window when it can. If they need more information from you, it takes longer.
+
+After that, quota increases work in two ways. AWS may raise your limits automatically once you are sending high-quality production mail, and it often does so before you need it. Qualifying for that means sending real production content to real recipients, regularly sending close to your current daily maximum without exceeding it, and keeping bounces and complaints low.
+
+If the automatic increase does not come and you need more, request it yourself through the **AWS Service Quotas** console rather than the SES page you used to leave the sandbox. Sending quota and sending rate are separate requests, and each takes up to 24 hours.
+
+## If your request is rejected
+
+A rejection is usually about something checkable, not something mysterious. Before you appeal:
+
+* run your domain through the [deliverability tools](/tools/deliverability/) and confirm SPF, DKIM, DMARC and MX all resolve as intended
+* open the website you submitted the way a reviewer would, and ask whether it is obvious what the business is and how someone subscribes
+* name the mechanism in your bounce handling, not the intention
+
+Then reopen the ticket rather than starting a fresh application.
+
+Requests appear to land with first-level support first, and a reviewer who cannot easily make the call will decline rather than dig. Reopening the case pushes it up a tier, to somebody with more scope to assess an unusual use case. Expect to explain yourself again from scratch, and make the second explanation harder to refuse than the first: point at the specific AWS documentation covering each requirement and state how you meet it, rather than asserting in general terms that you follow best practices.
+
+It is not unusual for this to take more than one escalation. A rejection is often a decision that has not really been made yet, so persistence with a well-evidenced case is worth more than a rewritten application.
+
+:::warning Never open a second AWS account
+
+Creating a new account to get around a rejection or a pause is a terms of service violation. AWS is able to identify related accounts, and the usual outcome is losing all of them rather than gaining one.
+
+:::
+
+## Do not buy a pre-approved SES account
+
+There is a market for AWS accounts that already have production access, and it exists because the sandbox is annoying. We would not recommend it to anyone under any circumstances, and it is worth being clear about why, because the reasons go well beyond the rule against it.
+
+The reputation attached to that account is somebody else's, and you have no way to audit what it was used for. Sending limits reflect a history you did not create. Transferring account ownership this way runs against the AWS Customer Agreement, and the same account-linking that catches people opening a second account applies here too.
+
+More practically: the sandbox is not the hard part. A first-time application with clean DNS and a real website is usually approved within a day. If your application is being rejected, buying an account does not fix the underlying reason, it just moves the same problem onto infrastructure you cannot appeal for.
+
+## How to maintain production access
+
+Approval is not a permanent state. AWS keeps measuring, and acts at published thresholds:
+
+* **bounce rate at 5% or greater**: your account is automatically placed under review
+* **bounce rate at 10% or greater**: AWS might pause your sending until you resolve the cause
+* **complaint rate at 0.1% or greater**: automatically placed under review
+* **complaint rate at 0.5% or greater**: AWS might pause your sending
+
+![Two horizontal scales showing Amazon SES bounce rate thresholds at 5 percent and 10 percent, and complaint rate thresholds at 0.1 percent and 0.5 percent, with healthy, under review and sending pause bands](./how-to-get-and-maintain-production-access-to-amazon-ses/02-reputation-thresholds.webp)
+
+There is a detail in how these are calculated that changes what you can do about a bad one. AWS does not measure over a fixed window. It uses a **representative volume**: an amount of mail that reflects your typical sending pattern, which differs per account and shifts as your sending changes. A rate is not something you can pause your way out of. You reduce it by sending good mail, not by sending none.
+
+The **Reputation metrics** page shows the same view the SES team sees when assessing your account. The status field is the one to watch:
+
+* **Healthy**: nothing currently affecting the account
+* **Under review**: a metric crossed a maximum rate, and if it is not resolved by the end of the review period, sending may be paused
+* **Pending sending pause**: the issues behind the review have not been resolved, and a member of the SES team has to look at your account before anything else happens
+* **Sending pause**: you cannot send, and you can request a review of the decision
+
+The console shows those numbers. It will not tell you when they move, which is the actual problem: most teams find out from the review email rather than from their own monitoring.
+
+So set CloudWatch alarms. AWS suggests a bounce alarm at 0.05 and a complaint alarm at 0.001, and recommends earlier warning alarms as well. A second bounce alarm at 0.03 gives you room to act before the review threshold rather than at it.
+
+Beyond monitoring, the maintenance work is unglamorous and mostly about list quality:
+
+* **ramp volume gradually**, because a spike from a domain with no sending history looks exactly like a compromised account
+* **never buy a list**, which is the fastest way to lose access you spent weeks getting
+* **suppress hard bounces immediately** and stop mailing long-term non-openers
+
+That last one is where the suppression list earns its place. SES maintains an account-level suppression list and records bounces and complaints on it, but it does not check that list against your next campaign for you: that step belongs to whatever sends your mail. A suppression list nobody reads before sending is just a table.
+
+## The rules AWS approval does not cover
+
+Leaving the sandbox gets your mail accepted by AWS. It does not get it into anyone's inbox.
+
+Since February 2024, Gmail and Yahoo have enforced their own requirements on domains sending 5,000 or more messages a day, and Microsoft began enforcing comparable rules for its consumer domains in May 2025. For bulk senders that means SPF, DKIM and DMARC on every sending domain, TLS on connections, alignment between your visible From domain and your authenticated domain, one-click unsubscribe honoured within two days, and a spam complaint rate below 0.3%.
+
+Gmail's spam rate is not a looser version of your SES complaint rate. It is a different measurement, taken by a different party, and your SES metrics can look clean while it climbs. Gmail does not report individual complaints back to your sending infrastructure at all. [Google Postmaster Tools](/posts/gmail-spam-complaints-google-postmaster-tools) is the only way to see that number.
+
+Treat 0.3% as where enforcement starts and below 0.1% as what you actually manage against.
+
+## When you do not need any of this
+
+Production access is worth having if you are running your own AWS account on purpose: you want the reputation, the quotas and the per-send cost to be yours.
+
+If you picked SES because it was the cheapest way to get email out and the AWS application is just an obstacle in front of that, it is worth knowing you can skip it. BlueFox-managed sending is a separate delivery mode with its own review and no AWS account involved. The [Delivery Modes documentation](/docs/projects/delivery-modes) covers how the modes differ.
+
+And if you do want your own SES account, you can have both: [BYO Amazon SES](/byo-amazon-ses-pricing) keeps the account, the reputation and the AWS bill yours, with BlueFox handling suppression, subscription preferences, unsubscribe headers, double opt-in and send queueing on top. The [SES setup walkthrough](/posts/how-to-set-up-aws-ses) and the [SNS bounce and complaint wiring](/posts/how-to-handle-bounces-and-complaints-with-aws-ses-and-sns) are the two guides you would follow.
+
+Either way, the thing to do first is confirm your authentication resolves. It is the cheapest check on this list and the one most rejected applications turn out to have failed.
