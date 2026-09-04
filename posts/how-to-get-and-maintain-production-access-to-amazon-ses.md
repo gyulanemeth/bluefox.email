@@ -14,13 +14,13 @@ faqs:
   - question: "Can I send to unverified recipients in the Amazon SES sandbox?"
     answer: "No. In the sandbox you can only send to email addresses and domains you have verified, or to the Amazon SES mailbox simulator. Once you have production access you can send to any recipient, but you still have to verify every identity you use as a From, Source, Sender or Return-Path address, and that requirement is permanent."
   - question: "What are the Amazon SES sending limits after production access?"
-    answer: "There is no single figure. Production access raises two separate per-region limits: your sending quota, the maximum in a rolling 24-hour window, and your sending rate, the maximum per second. AWS sets the starting values from your stated use case and region and raises them as you build a sending history, so check your account dashboard for your actual numbers. Both limits count recipients rather than messages, so an email addressed to 10 people uses 10 of your quota."
+    answer: "Most accounts start on 50,000 messages a day and 14 a second, but the figures are not guaranteed. Production access raises two separate per-region limits: your sending quota, the maximum in a rolling 24-hour window, and your sending rate, the maximum per second. AWS sets the starting values from your stated use case and region and raises them as you build a sending history, so check your account dashboard for your actual numbers. Both limits count recipients rather than messages, so an email addressed to 10 people uses 10 of your quota."
   - question: "What bounce and complaint rates does Amazon SES allow?"
     answer: "A bounce rate of 5% or greater places your account under review automatically, and 10% or greater may pause your sending. A complaint rate of 0.1% or greater places your account under review automatically, and 0.5% or greater may pause your sending. AWS measures these against a representative volume that reflects your typical sending pattern rather than a fixed daily window, so a high rate cannot be waited out by pausing."
   - question: "Why was my Amazon SES production access request rejected?"
     answer: "The most common causes are a website that does not clearly describe the business or is missing a privacy policy, DNS records that do not resolve, and a use case description too vague to be checkable. Fix the underlying issue and reapply. Do not open a second AWS account to get around a rejection, because that is a terms of service violation and AWS links accounts by billing details, IP and domain."
   - question: "Can I buy an Amazon SES account that already has production access?"
-    answer: "Account transfers of this kind breach the AWS Customer Agreement, and the same signals that link accounts opened to bypass a rejection apply here. You also inherit a sending reputation you cannot audit and limits built on a history you did not create. A first-time application with resolving DNS records and a real website is usually approved within a day, so the sandbox is rarely the actual obstacle."
+    answer: "You can, and you should not. Transferring account ownership this way runs against the AWS Customer Agreement, and AWS is able to link related accounts. You also inherit a sending reputation you cannot audit and limits built on a history you did not create. A first-time application with resolving DNS records and a real website is usually approved within a day, so the sandbox is rarely the actual obstacle."
   - question: "Do I need Amazon SES production access to use BlueFox Email?"
     answer: "Only if you choose the BYO AWS SES delivery mode. BlueFox-managed sending is a separate delivery mode with its own review process and no AWS account involved. If you do use your own SES account, BlueFox still handles suppression, subscription preferences, unsubscribe headers, double opt-in and send queueing on top of it."
 
@@ -108,7 +108,7 @@ Approval raises two separate limits, and both are per Region:
 * your [sending quota](/aws-concepts/ses-sending-quota), the maximum you can send in a rolling 24-hour window
 * your [sending rate](/aws-concepts/ses-sending-rate), the maximum you can send per second
 
-In practice most accounts land on the same starting pair: **50,000 messages a day and 14 a second**. AWS has published 50,000 a day as the default quota on approval, and that pairing is what we see most often in the wild.
+In practice most accounts land on the same starting pair: **50,000 messages a day and 14 a second**. AWS has cited 50,000 a day as the default on approval, and that pairing is what we see most often in the wild.
 
 Treat it as a hint rather than a promise. AWS sets the starting values from your stated use case and Region, some accounts begin higher or lower, and the figures move as you build a sending history. Check the account dashboard for your actual values before you design a send schedule around a number.
 
@@ -193,7 +193,7 @@ It is not unusual for this to take more than one escalation. A rejection is ofte
 
 :::warning Never open a second AWS account
 
-Creating a new account to get around a rejection or a pause is a terms of service violation. AWS links accounts by billing details, IP and domain, and the usual outcome is losing all of them rather than gaining one.
+Creating a new account to get around a rejection or a pause is a terms of service violation. AWS is able to identify related accounts, and the usual outcome is losing all of them rather than gaining one.
 
 :::
 
@@ -201,7 +201,7 @@ Creating a new account to get around a rejection or a pause is a terms of servic
 
 There is a market for AWS accounts that already have production access, and it exists because the sandbox is annoying. We would not recommend it to anyone under any circumstances, and it is worth being clear about why, because the reasons go well beyond the rule against it.
 
-The reputation attached to that account is somebody else's, and you have no way to audit what it was used for. Sending limits reflect a history you did not create. Account ownership transfers of this kind breach the AWS Customer Agreement, and the linking signals that catch people opening second accounts (billing details, IP, domain) work exactly as well here.
+The reputation attached to that account is somebody else's, and you have no way to audit what it was used for. Sending limits reflect a history you did not create. Transferring account ownership this way runs against the AWS Customer Agreement, and the same account-linking that catches people opening a second account applies here too.
 
 More practically: the sandbox is not the hard part. A first-time application with clean DNS and a real website is usually approved within a day. If your application is being rejected, buying an account does not fix the underlying reason, it just moves the same problem onto infrastructure you cannot appeal for.
 
