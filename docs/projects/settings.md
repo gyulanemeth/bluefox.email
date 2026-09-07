@@ -231,6 +231,7 @@ Below **AI Agents**, the **MCP Server** section gives you everything needed to c
 2. Copy the **Install (one-time)** command. It requires Node.js 20 or newer and makes the `bluefox.email-mcp` command available on your computer.
 3. Copy the **Connect your AI agent** snippet. Your project ID is already filled in.
 4. Replace `YOUR_API_KEY` with a real key from the [API Keys](#api-keys-and-domain-whitelist) section, then add the snippet to your client's configuration.
+5. Restart your AI agent so it picks up the new configuration.
 
 For the full list of what an agent can do once connected, see the [MCP Server integration guide](/docs/integrations/mcp-server).
 
