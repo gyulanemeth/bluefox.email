@@ -47,8 +47,9 @@ import BrandLogos from './BrandLogos.vue'
 <style scoped>
 .heroDiv {
   margin-top: calc((var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) * -1);
+  min-height: 100vh;
   height: auto;
-  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 80px) 64px 40px;
+  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 48px) 64px 32px;
   position: relative;
   left: calc(-50vw + 50%);
   width: 100vw;
@@ -63,6 +64,7 @@ html.dark .heroDiv {
 
 /* Main Layout */
 .heroMain {
+  min-height: calc(100vh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px) - 220px);
   display: flex;
   align-items: center;
   justify-content: center;
