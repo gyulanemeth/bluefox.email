@@ -102,10 +102,11 @@ const included = [
   border-top: 0 !important;
   padding-top: 0 !important;
   font-weight: 800;
-  background: linear-gradient(120deg, #392C91 30%, #13B0EE 70%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #1f2937;
+}
+
+html.dark .illus-head h2 {
+  color: #f3f4f6;
 }
 
 .illus-head p {
@@ -284,7 +285,7 @@ html.dark .tick { background: rgba(16, 185, 129, 0.22); color: #6ee7b7; }
   min-height: 56px !important;
   padding: 0 32px !important;
   font-size: 16px !important;
-  box-shadow: 0 8px 24px rgba(19, 176, 238, 0.28) !important;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15) !important;
   text-decoration: none !important;
 }
 

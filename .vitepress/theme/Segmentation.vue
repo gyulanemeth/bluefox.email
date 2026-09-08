@@ -59,9 +59,6 @@ function animateCount() {
   countTimer = requestAnimationFrame(frame)
 }
 
-const flyingIdx = ref(0)
-let flyTimer = null
-
 const flowRef = ref(null)
 const funnelRef = ref(null)
 const personRefs = ref([])
@@ -76,7 +73,6 @@ const setFilterRef = (el, idx) => {
 const paths = ref([])
 const filterPaths = ref([])
 const flowSize = ref({ w: 0, h: 0 })
-const activePath = computed(() => paths.value[flyingIdx.value] || '')
 const viewBox = computed(() => `0 0 ${flowSize.value.w || 1} ${flowSize.value.h || 1}`)
 
 let lastSig = ''
@@ -173,10 +169,6 @@ onMounted(async () => {
     document.fonts.ready.then(recalcPaths)
   }
 
-  flyTimer = setInterval(() => {
-    flyingIdx.value = (flyingIdx.value + 1) % matched.length
-  }, 2200)
-
   if (typeof ResizeObserver !== 'undefined') {
     resizeObs = new ResizeObserver(scheduleRecalc)
     resizeObs.observe(flowRef.value)
@@ -187,7 +179,6 @@ onMounted(async () => {
 })
 
 onBeforeUnmount(() => {
-  if (flyTimer) clearInterval(flyTimer)
   if (resizeObs) resizeObs.disconnect()
   if (recalcRaf) cancelAnimationFrame(recalcRaf)
   if (countTimer) cancelAnimationFrame(countTimer)
@@ -227,30 +218,13 @@ onBeforeUnmount(() => {
           v-for="(d, i) in paths"
           :key="`p-${i}`"
           :d="d"
-          class="seg-path-line"
-          :class="{ 'seg-path-line--active': i === flyingIdx }"
+          class="seg-path-line seg-path-line--in"
           fill="none"
           stroke="url(#segPathGrad)"
           stroke-width="1.6"
           stroke-dasharray="5 5"
         />
       </svg>
-
-      <!-- Email envelope follows active path -->
-      <div
-        v-if="activePath"
-        :key="`env-${flyingIdx}`"
-        class="seg-envelope-track"
-        :style="{ offsetPath: `path('${activePath}')`, '-webkit-offset-path': `path('${activePath}')` }"
-        aria-hidden="true"
-      >
-        <div class="seg-envelope-card">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="5" width="18" height="14" rx="2"/>
-            <path d="M3 7l9 6 9-6"/>
-          </svg>
-        </div>
-      </div>
 
       <!-- Column 1: Filters -->
       <div class="seg-col seg-col--filters">
@@ -309,7 +283,6 @@ onBeforeUnmount(() => {
             v-for="(p, i) in matched"
             :key="p.name"
             class="seg-person"
-            :class="{ 'seg-person--ping': i === flyingIdx }"
             :style="{ animationDelay: `${i * 0.12}s` }"
             :ref="(el) => setPersonRef(el, i)"
           >
@@ -356,7 +329,7 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: linear-gradient(90deg, rgba(19, 176, 238, 0.12), rgba(57, 44, 145, 0.12));
+  background: rgba(19, 176, 238, 0.08);
   border: 1px solid rgba(19, 176, 238, 0.3);
   border-radius: 999px;
   font-size: 13px;
@@ -367,7 +340,7 @@ onBeforeUnmount(() => {
 }
 
 html.dark .seg-match-badge {
-  background: linear-gradient(90deg, rgba(19, 176, 238, 0.2), rgba(57, 44, 145, 0.2));
+  background: rgba(19, 176, 238, 0.14);
   border-color: rgba(103, 232, 249, 0.3);
   color: #f1f5f9;
 }
@@ -381,12 +354,6 @@ html.dark .seg-match-badge strong { color: #67e8f9; }
   border-radius: 50%;
   background: #10b981;
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
-  animation: pulseDot 1.8s ease-in-out infinite;
-}
-
-@keyframes pulseDot {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25); }
-  50%      { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
 }
 
 .seg-flow {
@@ -412,60 +379,13 @@ html.dark .seg-match-badge strong { color: #67e8f9; }
   transition: opacity 0.3s ease, stroke-width 0.3s ease;
 }
 
-.seg-path-line--active {
-  opacity: 0.95;
-  stroke-width: 2.4;
-  filter: drop-shadow(0 0 6px rgba(19, 176, 238, 0.55));
-  animation: dashFlow 1.2s linear infinite;
-}
-
 .seg-path-line--in {
   opacity: 0.55;
   animation: dashFlowIn 2.4s linear infinite;
 }
 
-@keyframes dashFlow {
-  to { stroke-dashoffset: -20; }
-}
-
 @keyframes dashFlowIn {
   to { stroke-dashoffset: -40; }
-}
-
-/* Envelope tracks current path via offset-path */
-.seg-envelope-track {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  z-index: 2;
-  offset-rotate: 0deg;
-  -webkit-offset-rotate: 0deg;
-  animation: envelopeFly 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  pointer-events: none;
-}
-
-@keyframes envelopeFly {
-  0%   { offset-distance: 0%;   opacity: 0; transform: scale(0.6); }
-  10%  { offset-distance: 5%;   opacity: 1; transform: scale(1); }
-  85%  { offset-distance: 95%;  opacity: 1; transform: scale(1); }
-  100% { offset-distance: 100%; opacity: 0; transform: scale(0.5); }
-}
-
-.seg-envelope-card {
-  position: absolute;
-  top: -16px;
-  left: -16px;
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #13B0EE, #392C91);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 6px 18px rgba(19, 176, 238, 0.4);
 }
 
 .seg-col-head {
@@ -644,12 +564,6 @@ html.dark .seg-person {
   border-color: rgba(148, 163, 184, 0.18);
 }
 
-.seg-person--ping {
-  border-color: rgba(19, 176, 238, 0.6);
-  box-shadow: 0 0 0 3px rgba(19, 176, 238, 0.18), 0 8px 22px rgba(19, 176, 238, 0.18);
-  transform: translateX(2px);
-}
-
 .seg-person-avatar {
   width: 36px;
   height: 36px;
@@ -723,11 +637,10 @@ html.dark .seg-callout-text { color: #94a3b8; }
 html.dark .seg-callout-text strong { color: #f1f5f9; }
 
 @media (prefers-reduced-motion: reduce) {
-  .seg-filter-chip, .seg-person, .seg-envelope-track, .seg-dot, .seg-path-line {
+  .seg-filter-chip, .seg-person, .seg-path-line {
     animation: none !important;
     opacity: 1 !important;
   }
-  .seg-envelope-track { display: none; }
 }
 
 @media (max-width: 820px) {
@@ -752,8 +665,7 @@ html.dark .seg-callout-text strong { color: #f1f5f9; }
     font-size: 11px;
   }
 
-  .seg-paths,
-  .seg-envelope-track { display: none; }
+  .seg-paths { display: none; }
 
   .seg-match-badge {
     margin-bottom: 18px;

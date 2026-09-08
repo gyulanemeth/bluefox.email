@@ -321,7 +321,7 @@ const integrations = [
 }
 
 .integration-link:focus-visible .integration-card {
-  box-shadow: 0 8px 30px rgba(3, 102, 214, 0.18);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.14);
   transform: translateY(-6px);
   border-color: rgba(3, 102, 214, 0.5);
 }
@@ -347,14 +347,13 @@ const integrations = [
 }
 
 .integration-link:not(.disabled):hover .integration-card {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 30px rgba(19, 176, 238, 0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
   border-color: rgba(19, 176, 238, 0.5);
-  overflow: none;
 }
 
 html.dark .integration-link:not(.disabled):hover .integration-card {
-  box-shadow: 0 10px 20px rgba(19, 176, 238, 0.3);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
 .integration-link.disabled .integration-card {

@@ -42,11 +42,11 @@ import { useDisplay } from 'vuetify'
 import { useData } from 'vitepress'
 
 import HeroUnit from './.vitepress/theme/HeroUnit.vue'
-import Automation from './.vitepress/theme/Automation.vue'
 import Integration from './.vitepress/theme/Integration.vue'
-import AppleMailTestimonials from './.vitepress/theme/AppleMailTestimonials.vue'
+import TestimonialCards from './.vitepress/theme/TestimonialCards.vue'
 import TemplateShowcase from './.vitepress/theme/TemplateShowcase.vue'
 import Segmentation from './.vitepress/theme/Segmentation.vue'
+import Automation from './.vitepress/theme/Automation.vue'
 import AgencyAnalytics from './for/marketing-agencies/AgencyAnalytics.vue'
 import PricingIllustration from './.vitepress/theme/PricingIllustration.vue'
 
@@ -429,20 +429,13 @@ const { isDark } = useData()
     line-height: 1.2;
     margin-bottom: 24px;
     color: #1f2937;
-    background: linear-gradient(135deg, #1f2937 0%, #392C91 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     animation: fadeInUp 0.6s ease 0.1s both;
     border-top: 0 !important;
     padding-top: 0 !important;
   }
 
   html.dark .cta-title {
-    background: linear-gradient(135deg, #f3f4f6 0%, #13B0EE 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #f3f4f6;
   }
 
   .cta-description {
@@ -471,38 +464,21 @@ const { isDark } = useData()
     border-radius: 4px !important;
     text-transform: none !important;
     letter-spacing: 0 !important;
-    box-shadow: 0 10px 40px rgba(19, 176, 238, 0.25) !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .cta-primary-button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12) !important;
+    transition: all 0.2s ease !important;
   }
 
   .cta-primary-button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 50px rgba(19, 176, 238, 0.35) !important;
-  }
-
-  .cta-primary-button:hover::before {
-    left: 100%;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16) !important;
   }
 
   html.dark .cta-primary-button {
-    box-shadow: 0 10px 40px rgba(19, 176, 238, 0.3) !important;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3) !important;
   }
 
   html.dark .cta-primary-button:hover {
-    box-shadow: 0 15px 50px rgba(19, 176, 238, 0.45) !important;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4) !important;
   }
 
   .cta-subtext {
@@ -562,9 +538,13 @@ const { isDark } = useData()
     width: 160px;
     height: 160px;
     border-radius: 50%;
-    padding: 4px;
-    background: linear-gradient(135deg, #13B0EE 0%, #392C91 100%);
-    box-shadow: 0 14px 36px rgba(19, 176, 238, 0.22);
+    padding: 3px;
+    background: #e5e7eb;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+  }
+
+  html.dark .founder-photo-wrap {
+    background: #334155;
   }
 
   .founder-photo {
@@ -598,17 +578,11 @@ const { isDark } = useData()
     line-height: 1.2;
     font-weight: 800;
     letter-spacing: -0.5px;
-    background: linear-gradient(135deg, #1f2937 0%, #392C91 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #1f2937;
   }
 
   html.dark .founder-title {
-    background: linear-gradient(135deg, #f3f4f6 0%, #13B0EE 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #f3f4f6;
   }
 
   .founder-description {
@@ -876,14 +850,8 @@ const { isDark } = useData()
     </div>
   </div>
 
-  <Automation
-    class="mt-6"
-    :is-dark="isDark"
-    :lg-and-up="lgAndUp"
-    :md="md"
-    :sm="sm"
-    :xs="xs"
-  />
+  <Automation class="mt-6" />
+
   <div class="d-flex justify-center mt-6">
     <v-btn
       size="large"
@@ -915,13 +883,7 @@ const { isDark } = useData()
   <h2 id="testimonials-heading" class="sectionTitle text-center mt-4 mb-6">
     What teams say about BlueFox Email
   </h2>
-  <AppleMailTestimonials
-    :is-dark="isDark"
-    :lg-and-up="lgAndUp"
-    :md="md"
-    :sm="sm"
-    :xs="xs"
-  />
+  <TestimonialCards />
 </section>
 </div></div>
 
