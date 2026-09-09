@@ -1084,6 +1084,7 @@ html.dark .message-avatar {
 .signature-logo {
   height: 32px;
   width: auto;
+  object-fit: contain;
 }
 
 /* Mobile Styles */
@@ -1176,6 +1177,7 @@ html.dark .message-avatar {
 .mobile-signature-logo {
   height: 28px;
   width: auto;
+  object-fit: contain;
 }
 
 .mobile-inbox {
@@ -1379,6 +1381,7 @@ html.dark .tablet-item-subject {
 .tablet-logo {
   height: 32px;
   width: auto;
+  object-fit: contain;
 }
 
 /* Scrollbar Styling */

@@ -501,6 +501,7 @@ html.dark .seg-col-head strong { color: #f1f5f9; }
   padding: 0;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 10px;
 }
 
@@ -621,6 +622,7 @@ html.dark .seg-funnel-label { color: #67e8f9; }
   padding: 0;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 10px;
 }
 
@@ -665,8 +667,9 @@ html.dark .seg-person-avatar {
 
 .seg-person-meta {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  flex-direction: row;
+  align-items: center;
+  gap: 16px;
   min-width: 0;
 }
 
