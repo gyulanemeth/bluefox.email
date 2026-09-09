@@ -392,7 +392,8 @@ html.dark .seg-match-badge strong { color: #67e8f9; }
 .seg-flow {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(0, 280px) auto minmax(0, 280px);
+  justify-content: space-between;
   gap: 72px;
   align-items: center;
 }
@@ -501,7 +502,6 @@ html.dark .seg-col-head strong { color: #f1f5f9; }
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 10px;
 }
 
@@ -622,7 +622,6 @@ html.dark .seg-funnel-label { color: #67e8f9; }
   padding: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   gap: 10px;
 }
 
@@ -669,6 +668,8 @@ html.dark .seg-person-avatar {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  flex: 1;
   gap: 16px;
   min-width: 0;
 }
