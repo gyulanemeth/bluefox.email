@@ -1082,8 +1082,11 @@ html.dark .message-avatar {
 }
 
 .signature-logo {
+  display: block;
   height: 32px;
   width: auto;
+  margin: 0;
+  aspect-ratio: auto;
   object-fit: contain;
 }
 
@@ -1175,8 +1178,11 @@ html.dark .message-avatar {
 }
 
 .mobile-signature-logo {
+  display: block;
   height: 28px;
   width: auto;
+  margin: 0;
+  aspect-ratio: auto;
   object-fit: contain;
 }
 
@@ -1379,8 +1385,11 @@ html.dark .tablet-item-subject {
 }
 
 .tablet-logo {
+  display: block;
   height: 32px;
   width: auto;
+  margin: 0;
+  aspect-ratio: auto;
   object-fit: contain;
 }
 
