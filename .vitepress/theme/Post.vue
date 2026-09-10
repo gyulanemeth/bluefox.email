@@ -101,6 +101,7 @@
   vertical-align: middle;
   margin-right: 8px;
   object-fit: cover;
+  object-position: top center;
 }
 </style>
 
