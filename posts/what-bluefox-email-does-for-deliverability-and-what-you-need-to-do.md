@@ -529,7 +529,7 @@ BlueFox handles the technical side: processing, authentication, bounces, complai
 
 A reliable platform cannot compensate for an unwanted email programme, and good content and consent cannot compensate for broken authentication or poor technical handling. When both sides hold up their end, you have the best possible foundation for reaching the people who genuinely want to hear from you.
 
-<style>
+<style scoped>
 .vp-doc img {
   display: block;
   margin: 0 auto;
