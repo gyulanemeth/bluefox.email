@@ -6,7 +6,7 @@ category: articles
 tags: ['Newsletter', 'AI', 'Content Strategy', 'Email Marketing']
 sidebar: false
 published: 2026-06-25
-lastUpdated: true
+lastUpdated: 2026-08-05
 head:
   - - meta
     - name: description

@@ -35,7 +35,7 @@ head:
     - name: twitter:image
       content: https://bluefox.email/assets/articles/what-bluefox-email-does-for-deliverability-and-what-you-need-to-do-share.png
 
-lastUpdated: true
+lastUpdated: 2026-09-01
 published: 2026-08-11
 sidebar: false
 ---
@@ -529,7 +529,7 @@ BlueFox handles the technical side: processing, authentication, bounces, complai
 
 A reliable platform cannot compensate for an unwanted email programme, and good content and consent cannot compensate for broken authentication or poor technical handling. When both sides hold up their end, you have the best possible foundation for reaching the people who genuinely want to hear from you.
 
-<style>
+<style scoped>
 .vp-doc img {
   display: block;
   margin: 0 auto;

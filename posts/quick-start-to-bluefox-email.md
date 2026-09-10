@@ -1,12 +1,13 @@
 ---
 title: "Quick Start to BlueFox Email"
+author: Parth Tiwari
 description: "Get started quickly with BlueFox Email by following this step-by-step guide to set up your account, configure your domain, and start sending emails."
 thumbnail: /assets/articles/quick-start-guide.webp
 category: tutorials
 tags: ['Getting Started', 'Tutorial']
 sidebar: false
 published: 2026-01-16
-lastUpdated: true
+lastUpdated: 2026-07-08
 head:
   - - meta
     - name: description

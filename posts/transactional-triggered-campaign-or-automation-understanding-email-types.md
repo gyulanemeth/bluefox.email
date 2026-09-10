@@ -17,7 +17,7 @@ faqs:
     answer: "Each category matches how an email should behave: whether it's essential, whether recipients can opt out, how many people receive it, and whether it's a single send or a workflow. Choosing the right category ensures correct unsubscribe handling and sending behavior."
 sidebar: false
 published: 2026-07-22
-lastUpdated: true
+lastUpdated: 2026-07-22
 head:
   - - meta
     - name: description

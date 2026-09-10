@@ -1,5 +1,6 @@
 ---
 title: Why Shortened Links Send Your Emails to Spam
+author: Parth Tiwari
 description: Learn why Gmail treats shortened URLs like youtu.be and bit.ly as higher-risk in emails, and how using full, canonical links can improve deliverability.
 thumbnail: /assets/articles/why-shortened-links-send-your-emails-to-spam.webp
 
@@ -35,7 +36,7 @@ head:
     - name: twitter:image
       content: https://bluefox.email/assets/articles/why-shortened-links-send-your-emails-to-spam.png
 
-lastUpdated: true
+lastUpdated: 2026-09-01
 published: 2026-02-09
 sidebar: false
 ---

@@ -37,7 +37,7 @@ head:
     - name: twitter:image
       content: https://bluefox.email/assets/articles/how-to-create-a-newsletter-from-rss-and-send-it-automatically.png
 
-lastUpdated: true
+lastUpdated: 2026-06-10
 published: 2026-06-10
 sidebar: false
 ---
