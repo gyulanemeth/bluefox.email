@@ -1,5 +1,6 @@
 ---
 title: "From Inconsistent to On-Brand: The Power of Modern Email Design Systems."
+author: Ahmed Qudaih
 description: "Discover how to build a modular email design system that ensures consistency and scalability across all your campaigns."
 thumbnail: /assets/articles/the-power-of-modern-email-design-systems.webp
 head:
@@ -32,7 +33,7 @@ head:
       content: "https://bluefox.email/assets/articles/the-power-of-modern-email-design-systems.png"
 layout: post
 category: articles
-lastUpdated: true
+lastUpdated: 2025-06-01
 published: 2025-06-02
 sidebar: false
 ---

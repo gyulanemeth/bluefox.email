@@ -1,12 +1,13 @@
 ---
 title: How to build a high-quality email list in BlueFox Email (Forms, Imports and API Sync)
+author: Parth Tiwari
 description: Learn how to build a high-quality email list using signup forms, CSV imports, and API integrations while maintaining permission-based marketing standards.
 thumbnail: /assets/articles/how-to-build-a-high-quality-email-list-in-bluefox-email.png
 category: tutorials
 tags: ['Contacts', 'Getting Started', 'Best Practices']
 sidebar: false
 published: 2026-02-03
-lastUpdated: true
+lastUpdated: 2026-05-28
 head:
   - - meta
     - name: description

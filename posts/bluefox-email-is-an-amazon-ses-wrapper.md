@@ -1,5 +1,6 @@
 ---
 title: BlueFox Email Is an Amazon SES Wrapper
+author: Parth Tiwari
 description: BlueFox Email sends through Amazon SES. Here is exactly where SES stops, what you would have to build yourself, and what we build instead.
 thumbnail: /assets/articles/bluefox-email-is-an-amazon-ses-wrapper-share.webp
 
@@ -35,7 +36,7 @@ head:
     - name: twitter:image
       content: https://bluefox.email/assets/articles/bluefox-email-is-an-amazon-ses-wrapper-share.png
 
-lastUpdated: true
+lastUpdated: 2026-08-28
 published: 2026-08-21
 sidebar: false
 ---

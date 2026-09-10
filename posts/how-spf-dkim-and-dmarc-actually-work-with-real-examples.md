@@ -35,7 +35,7 @@ head:
     - name: twitter:image
       content: https://bluefox.email/assets/articles/how-spf-dkim-and-dmarc-actually-work-with-real-examples-share.png
 
-lastUpdated: true
+lastUpdated: 2026-09-01
 published: 2025-03-16
 sidebar: false
 ---

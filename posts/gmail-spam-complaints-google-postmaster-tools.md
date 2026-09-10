@@ -35,7 +35,7 @@ head:
     - name: twitter:image
       content: https://bluefox.email/assets/articles/gmail-spam-complaints-google-postmaster-tools-share.png
 
-lastUpdated: true
+lastUpdated: 2026-08-06
 published: 2026-08-11
 sidebar: false
 ---
