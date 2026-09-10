@@ -33,7 +33,7 @@ head:
       content: "https://bluefox.email/assets/articles/the-power-of-modern-email-design-systems.png"
 layout: post
 category: articles
-lastUpdated: 2025-06-01
+lastUpdated: 2025-06-02
 published: 2025-06-02
 sidebar: false
 ---
