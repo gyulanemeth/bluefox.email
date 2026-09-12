@@ -289,7 +289,7 @@ SendGrid's pricing has two independent tracks. Teams that need both transactiona
 | Pro 100K | $89.95/mo | 100,000 | 1 dedicated IP included |
 | Pro 300K | $249/mo | 300,000 | 1 dedicated IP included |
 | Pro 700K | $499/mo | 700,000 | 1 dedicated IP included |
-| Pro 1.5M | $749 to $799/mo (unconfirmed) | 1,500,000 | 1 dedicated IP included; confirm exact figure against Twilio's live pricing page |
+| Pro 1.5M | $799.00/mo | 1,500,000 | 1 dedicated IP included |
 | Pro 2.5M | $1,099/mo | 2,500,000 | 1 dedicated IP included |
 | Premier | Custom | 5M+ | Dedicated CSM, prioritized support |
 
@@ -300,7 +300,8 @@ SendGrid's pricing has two independent tracks. Teams that need both transactiona
 | Basic | $15/mo | 5,000 | No automation, no dedicated IP |
 | Advanced (10K) | $60/mo | 10,000 | Automation, A/B testing, 1 dedicated IP |
 | Advanced (50K) | $250/mo | 50,000 | Automation, A/B testing, 1 dedicated IP |
-| Premier | Custom | 200K+ | Enterprise tier |
+| Advanced (200K) | $900/mo | 200,000 | Automation, A/B testing, 1 dedicated IP |
+| Premier | Custom | Above 200,000 | Enterprise tier |
 
 **Add-ons**: Additional dedicated IPs at $30/month each (Pro and Advanced+); Email Validation at $9.95/mo for 5,000 validations; extended Email Activity History as a paid add-on; storage overages at $10/10,000 contacts. Overage fees apply when plan limits are exceeded.
 
@@ -355,7 +356,7 @@ Once automation enters the picture, the dual-subscription requirement on SendGri
 
 **Large transactional volume** (1,000,000 sends/month, no marketing tooling needed):
 
-- SendGrid Pro 1.5M: roughly $750 to $800/mo (confirm current published rate).
+- SendGrid Pro 1.5M: $799/mo.
 - BlueFox Standard: 2 Premium packs = $600/mo equivalent.
 - BYO SES Premium: $300 for 1M + ~$100 AWS = ~$400/mo.
 
