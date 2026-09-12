@@ -75,6 +75,10 @@ const filterPaths = ref([])
 const flowSize = ref({ w: 0, h: 0 })
 const viewBox = computed(() => `0 0 ${flowSize.value.w || 1} ${flowSize.value.h || 1}`)
 
+const flyingIdx = ref(0)
+let flyTimer = null
+const activePath = computed(() => paths.value[flyingIdx.value] || '')
+
 let lastSig = ''
 
 function recalcPaths() {
@@ -176,9 +180,14 @@ onMounted(async () => {
     filterRefs.value.forEach((el) => el && resizeObs.observe(el))
   }
   window.addEventListener('resize', scheduleRecalc)
+
+  flyTimer = setInterval(() => {
+    flyingIdx.value = (flyingIdx.value + 1) % matched.length
+  }, 2200)
 })
 
 onBeforeUnmount(() => {
+  if (flyTimer) clearInterval(flyTimer)
   if (resizeObs) resizeObs.disconnect()
   if (recalcRaf) cancelAnimationFrame(recalcRaf)
   if (countTimer) cancelAnimationFrame(countTimer)
@@ -225,6 +234,22 @@ onBeforeUnmount(() => {
           stroke-dasharray="5 5"
         />
       </svg>
+
+      <!-- Envelope follows the active path from funnel to recipient -->
+      <div
+        v-if="activePath"
+        :key="`env-${flyingIdx}`"
+        class="seg-envelope-track"
+        :style="{ offsetPath: `path('${activePath}')`, '-webkit-offset-path': `path('${activePath}')` }"
+        aria-hidden="true"
+      >
+        <div class="seg-envelope-card">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="14" rx="2"/>
+            <path d="M3 7l9 6 9-6"/>
+          </svg>
+        </div>
+      </div>
 
       <!-- Column 1: Filters -->
       <div class="seg-col seg-col--filters">
@@ -387,6 +412,46 @@ html.dark .seg-match-badge strong { color: #67e8f9; }
 
 @keyframes dashFlowIn {
   to { stroke-dashoffset: -40; }
+}
+
+/* Envelope tracks the active path via offset-path */
+.seg-envelope-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  z-index: 2;
+  offset-rotate: 0deg;
+  -webkit-offset-rotate: 0deg;
+  animation: envelopeFly 2.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  pointer-events: none;
+}
+
+@keyframes envelopeFly {
+  0%   { offset-distance: 0%;   opacity: 0; transform: scale(0.6); }
+  10%  { offset-distance: 5%;   opacity: 1; transform: scale(1); }
+  85%  { offset-distance: 95%;  opacity: 1; transform: scale(1); }
+  100% { offset-distance: 100%; opacity: 0; transform: scale(0.5); }
+}
+
+.seg-envelope-card {
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #13B0EE;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(19, 176, 238, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seg-envelope-track { animation: none; display: none; }
 }
 
 .seg-col-head {
@@ -669,7 +734,8 @@ html.dark .seg-callout-text strong { color: #f1f5f9; }
     font-size: 11px;
   }
 
-  .seg-paths { display: none; }
+  .seg-paths,
+  .seg-envelope-track { display: none; }
 
   .seg-match-badge {
     margin-bottom: 18px;
