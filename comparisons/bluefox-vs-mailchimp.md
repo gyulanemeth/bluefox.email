@@ -8,7 +8,7 @@ aside: true
 prev: false
 next: false
 datePublished: "2025-09-02"
-dateModified: "2026-08-27"
+dateModified: "2026-09-12"
 head:
   - - meta
     - name: description
@@ -68,11 +68,11 @@ const { isDark } = useData()
 
 BlueFox Email and Mailchimp solve overlapping problems but take very different approaches. Mailchimp is a broad marketing suite with email at the center; BlueFox Email is a focused email platform with managed sending built in and an optional bring-your-own AWS SES mode. Neither is "better" in the abstract the right choice depends on what you need from the tool.
 
-This comparison covers design, integrations, automation, deliverability, personalization, segmentation, analytics, support, and pricing. Each section lists what each platform does, where it's strong, and what it trades off. Numbers reflect public pricing and documentation as of August 2026.
+This comparison covers design, integrations, automation, deliverability, personalization, segmentation, analytics, support, and pricing. Each section lists what each platform does, where it's strong, and what it trades off. Numbers reflect public pricing and documentation as of September 2026.
 
 ## Platform Positioning
 
-**Mailchimp** is a marketing suite. Email is core, but the product also covers landing pages, social posting, ad management, a basic CRM, SMS (US/Canada), and an e-commerce stack with Shopify/WooCommerce/BigCommerce sync. It serves [13+ million users worldwide](https://www.seobility.net/en/wiki/Mailchimp), which translates to a large template library, an active agency/freelancer ecosystem, and broad tutorial coverage. The trade-off is breadth over depth: contact-based pricing scales aggressively, several features are gated behind higher tiers, and the free tier has been progressively reduced. The Classic Automation Builder was retired on June 1, 2025, removing multi-step automation from the free plan; in January 2026, the free plan's contact cap was further reduced to 250 contacts and 500 sends per month.
+**Mailchimp** is a marketing suite. Email is core, but the product also covers landing pages, social posting, ad management, a basic CRM, SMS (US/Canada), and an e-commerce stack with Shopify/WooCommerce/BigCommerce sync. It serves [11M+ users globally](https://mailchimp.com/solutions/content-creation-tools/) per Mailchimp's own current figures (the ~13 million figure still repeated across many third-party review sites traces back to 2021 acquisition-era data that was never updated), which translates to a large template library, an active agency/freelancer ecosystem, and broad tutorial coverage. The trade-off is breadth over depth: contact-based pricing scales aggressively, several features are gated behind higher tiers, and the free tier has been progressively reduced. The Classic Automation Builder was retired on June 1, 2025, removing multi-step automation from the free plan; in January 2026, the free plan's contact cap was further reduced to 250 contacts and 500 sends per month.
 
 **BlueFox Email** is a focused email platform. It offers two delivery modes: a **managed infrastructure** option where projects start in sandbox and move to production after a review (no AWS account required), and an optional **[BYO AWS SES](https://bluefox.email/docs/projects/delivery-modes#using-aws-ses-directly)** mode for teams who want to use their own AWS account and keep their own sending reputation. The product covers campaigns, transactional, triggered emails, automations, sign-up forms, segments, suppression lists, and a subscription preferences page but does not offer landing pages, social, ads, CRM, or SMS. Pricing is per-send rather than per-contact, and all features are available on every plan including the free tier. The trade-off is a smaller ecosystem: fewer pre-built templates, fewer marketplace integrations, smaller community, and a younger product overall.
 
@@ -82,7 +82,7 @@ The two are not direct substitutes. Mailchimp suits teams that want one tool for
 
 ### Mailchimp
 
-Mailchimp ships a drag-and-drop builder with [130+ pre-designed templates](https://mailchimp.com/landers/templates/) and pre-built content blocks for images, text, video, and social embeds. Brand asset management keeps colors, fonts, and logos consistent across campaigns. Mobile-responsive previews show how emails render on different devices. Higher tiers add Intuit Assist (Write with AI for generative email copy, Content Optimizer for readability and length suggestions), brand-kit-driven design generation in the campaign builder (the standalone Creative Assistant tool was retired in December 2025; the underlying AI design generation is now folded into the template/campaign creation flow), stock photo and Giphy integration, and dynamic content blocks.
+Mailchimp ships a drag-and-drop builder with [100+ pre-designed templates](https://mailchimp.com/landers/templates/) (down from the 130+ this same page once advertised) and pre-built content blocks for images, text, video, and social embeds. Brand asset management keeps colors, fonts, and logos consistent across campaigns. Mobile-responsive previews show how emails render on different devices. Higher tiers add Intuit Assist (Write with AI for generative email copy, Content Optimizer for readability and length suggestions), brand-kit-driven design generation in the campaign builder (the standalone Creative Assistant tool was retired on December 17, 2025; the underlying AI design generation is now folded into the template/campaign creation flow), stock photo and Giphy integration, and dynamic content blocks.
 
 **Strengths:** large template library, mature brand kit, generative AI for email copy via Intuit Assist on paid plans, broad stock-asset integration.
 
@@ -94,7 +94,7 @@ BlueFox Email uses the [Chamaileon SDK](https://help.chamaileon.io/en/collection
 
 **Strengths:** reusable design system, built-in stock photo gallery and photo editor, data-feed-driven dynamic content, cross-client rendering.
 
-**Trade-offs:** smaller starter-template library than Mailchimp's 130+ catalog, no AI design generation.
+**Trade-offs:** smaller starter-template library than Mailchimp's 100+ catalog, no AI design generation.
 
 <TemplateShowcase
   :is-dark="isDark"
@@ -108,17 +108,17 @@ BlueFox Email uses the [Chamaileon SDK](https://help.chamaileon.io/en/collection
 
 ### Mailchimp
 
-Mailchimp's marketplace lists 300+ native integrations, plus Zapier for broader connectivity. Notable native categories: e-commerce (Shopify, WooCommerce, BigCommerce, Magento) with cart sync and product feeds, payment (Stripe, Square, QuickBooks), CRM (HubSpot, Salesforce, Pipedrive), design (Canva), and CMS (Squarespace, WordPress). Marketing API webhooks cover audience events (subscribe, unsubscribe, profile update); Transactional API webhooks cover send, bounce, delivered, open, click, spam, reject. OAuth2 is supported.
+Mailchimp's marketplace lists 300+ native integrations, plus Zapier for broader connectivity. Notable native categories: e-commerce (Shopify, WooCommerce, BigCommerce, Magento) with cart sync and product feeds, payment (Stripe, Square, QuickBooks), CRM (HubSpot, Salesforce, Pipedrive), design (Canva), and CMS (Squarespace, WordPress). Marketing API webhooks cover audience events (subscribe, unsubscribe, profile update); Transactional API webhooks cover send, bounce, delivered, open, click, spam, reject. OAuth2 is supported, and is in fact required for any integration that wants to join Mailchimp's Integration Partner Program and get listed in the Marketplace.
 
 **Strengths:** large native marketplace, mature e-commerce sync, OAuth2 partner program.
 
-**Trade-offs:** Marketing API webhooks require Standard or higher to enable (Free and Essentials can view but not activate). Some marketplace apps charge separately. Transactional webhooks require the Mandrill add-on.
+**Trade-offs:** Marketing API webhooks require Standard or higher to enable (Free and Essentials can view the setting but not activate it). Some marketplace apps charge separately. Transactional webhooks require the Mandrill add-on.
 
 ### BlueFox Email
 
-BlueFox Email exposes an [API](https://bluefox.email/docs/api/) for contacts, subscriptions, transactional sends, and triggered sends. [Webhooks](https://bluefox.email/docs/integrations/webhooks) push real-time events: opens, clicks, bounces, complaints, subscribe, unsubscribe, pause, resubscribe. Direct integrations: [Supabase](https://bluefox.email/docs/integrations/supabase) for auth emails (signup confirmation, magic links, password reset, invitations) and [Zapier](https://bluefox.email/docs/integrations/zapier) with six triggers (New Contact, Contact Updated, Contact Deleted, New Subscription, Unsubscribed, Subscription Paused). In BYO SES mode, the user keeps direct AWS access for any SES-level integration.
+BlueFox Email exposes an [API](https://bluefox.email/docs/api/) for contacts, subscriptions, transactional sends, and triggered sends. [Webhooks](https://bluefox.email/docs/integrations/webhooks) push real-time events: sent, failed, opens, clicks, bounces, complaints, and subscription events (subscribe, unsubscribe, pause, resubscribe). Direct integrations: [Supabase](https://bluefox.email/docs/integrations/supabase) for auth emails (signup confirmation, magic links, password reset, email address changes, reauthentication, and invitations) and [Zapier](https://bluefox.email/docs/integrations/zapier) with six triggers (New Contact, Contact Updated, Contact Deleted, New Subscription, Unsubscribed, Subscription Paused) and eight actions covering sending and contact/subscription management. In BYO SES mode, the user keeps direct AWS access for any SES-level integration.
 
-**Strengths:** complete API on every plan, full webhook event set on every plan, Supabase-native auth email path, Zapier connectivity.
+**Strengths:** complete API on every plan, full webhook event set on every plan, Supabase-native auth email path covering all six Supabase email types, Zapier connectivity.
 
 **Trade-offs:** small native marketplace (Supabase + Zapier are the main first-party integrations), no native e-commerce platform sync, no native CRM connector, no native social/ads tooling.
 
@@ -128,19 +128,19 @@ BlueFox Email exposes an [API](https://bluefox.email/docs/api/) for contacts, su
 
 ### Mailchimp
 
-Mailchimp retired its [Classic Automation Builder](https://www.mavlers.com/blog/mailchimp-classic-automation-retiring/) on June 1, 2025. All workflows now run in **Customer Journey Builder**, which uses three component types: **Triggers** (events that add a contact to a flow), **Rules** (conditional path branching), and **Actions** (send email, send SMS, add tag, update field, send to integration). Pre-built journey templates cover welcome series, abandoned cart, post-purchase, win-back, and date-based campaigns. Standard and Premium plans add Intuit Assist content suggestions and predictive targeting (purchase likelihood, customer lifetime value) on connected stores.
+Mailchimp retired its [Classic Automation Builder](https://www.mavlers.com/blog/mailchimp-classic-automation-retiring/) on June 1, 2025. All workflows now run in what Mailchimp calls **Marketing Automation Flows** the same feature, rebranded from Customer Journey Builder (CJB) in June 2025, so both names refer to identical functionality. It uses three component types: **Triggers** (events that add a contact to a flow), **Rules** (conditional path branching), and **Actions** (send email, send SMS, add tag, update field, send to integration). Pre-built journey templates cover welcome series, abandoned cart, post-purchase, win-back, and date-based campaigns. Standard and Premium plans add Intuit Assist content suggestions and predictive targeting (purchase likelihood, customer lifetime value) on connected stores.
 
 **Strengths:** large template gallery for common e-commerce and lifecycle journeys, native SMS action inside flows, AI content suggestions on paid plans, predictive segmentation on Standard and Premium.
 
-**Trade-offs:** Customer Journey Builder is paid-only. Free plan has had no multi-step automation since June 2025. A/B testing inside flows requires Standard or higher. Predictive features require Standard or Premium and a connected store.
+**Trade-offs:** Marketing Automation Flows is paid-only. Free plan has had no multi-step automation since June 2025. Standard-tier flows are capped at 200 journey points per automation. A/B testing inside flows requires Standard or higher. Predictive features require Standard or Premium and a connected store.
 
 ### BlueFox Email
 
-BlueFox Email's [automation builder](https://bluefox.email/docs/projects/automations) is available on every plan including the free tier. Trigger types: **Contact Added**, **Contact Updated** (with from/to property conditions), **Enter Segment**, **Leave Segment**. Node types: **Send Email**, **Notify** (send to a list or specific addresses rather than the flowing contact), **Timer**, **Audience Filter** (property, segment, or email activity), **Branching** with **Condition** nodes (multi-path), **Set Value** (update a contact property mid-flow), **Manage Tags** (add/remove tags), **Complete** (defined exit). **Exit Criteria** lets contacts leave the flow early based on property, segment, or email activity. Running flows can be updated and applied to upcoming-only or upcoming-and-in-progress contacts.
+BlueFox Email's [automation builder](https://bluefox.email/docs/projects/automations) is available on every plan including the free tier. Trigger types: **Contact Added**, **Contact Updated** (with from/to property conditions), **Enter Segment**, **Leave Segment**, and **Time Based** (runs on a recurring schedule daily, weekdays, weekly, monthly, or monthly-on-the-nth-day against a whole subscriber list rather than firing off a single contact event). Node types: **Send Email**, **Notify** (send to a list or specific addresses rather than the flowing contact), **Timer**, **Audience Filter** (property, segment, or email activity), **Branching** with **Condition** nodes (multi-path), **Set Value** (update a contact property mid-flow), **Manage Tags** (add/remove tags), **Webhook** (fire an HTTP request to an external URL mid-flow, optionally carrying the running contact's data), and **Complete** (defined exit). **Exit Criteria** lets contacts leave the flow early based on property, segment, or email activity. Running flows can be updated and applied to upcoming-only or upcoming-and-in-progress contacts.
 
-**Strengths:** all automation features on every plan, segment-based triggers, mid-flow contact property updates, email-activity-based branching (specific-link click matching), live editing of running flows.
+**Strengths:** all automation features on every plan, segment-based and schedule-based triggers, mid-flow contact property updates, email-activity-based branching (specific-link click matching), an in-flow webhook node for pushing activity to external systems, live editing of running flows.
 
-**Trade-offs:** no SMS action, no AI content suggestions, no predictive targeting, fewer pre-built journey templates, no native e-commerce triggers (no abandoned cart, no purchase events). Those have to be wired via the API or Zapier.
+**Trade-offs:** no SMS action, no AI content suggestions, no predictive targeting, fewer pre-built journey templates, no native e-commerce triggers (no abandoned cart, no purchase events). Those have to be wired via the API, the Webhook node, or Zapier.
 
 <Automation
   class="mt-6"
@@ -165,11 +165,11 @@ Mailchimp uses **shared IP pools** by default. The platform's [public position](
 
 BlueFox Email has three delivery modes documented in [Delivery Modes](https://bluefox.email/docs/projects/delivery-modes):
 
-- **Sandbox** (default for new projects, BlueFox-managed infrastructure): up to 5 verified addresses, 100 emails/day, 1 email/second. No AWS account required. Sends from `no-reply@bluefoxemailsandbox.com`.
-- **Production** (BlueFox-managed infrastructure, after a review): unrestricted volume, custom sender identities, your own verified domain.
+- **Sandbox** (default for new projects, BlueFox-managed infrastructure): send to any recipient with no verified-recipient requirement, capped at 100 emails/day and 1 email/second. No AWS account required. Sends from `no-reply@bluefoxemailsandbox.com` by default, though a verified custom domain can be used here too.
+- **Production** (BlueFox-managed infrastructure, after a review): your approved monthly sending volume, set to match what you request on the production application, with limit increases available on request plus custom sender identities and your own verified domain.
 - **BYO AWS SES** (optional): connect your AWS account via direct credentials or STS Role ARN. Required permissions: `ses:SendEmail`, `ses:SendRawEmail`, `ses:ListIdentities`, `ses:GetSendQuota`. You keep your own AWS sending reputation and IP isolation, and can use your AWS SES dedicated IP if configured there.
 
-To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending. An optional dedicated IP add-on is also available on the managed plan for $50/month per IP, self-serve with no minimum volume.
+To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending. An optional dedicated IP add-on is also available on the managed plan for $50/month per IP, self-serve with no minimum volume. On BYO AWS SES, dedicated IPs are set up directly through AWS on the customer's own account rather than through BlueFox.
 
 **Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, transparent bounce/complaint thresholds in-product, per-project suppression list, STS-based AWS auth (no long-lived keys), self-serve dedicated IP add-on on the managed plan ($50/mo per IP).
 
@@ -179,17 +179,17 @@ To stay in production, projects must maintain bounce rate below 2.5% and complai
 
 ### Mailchimp
 
-Mailchimp uses merge tag syntax for personalization: `*|FNAME|*` for fields, `*|IF:CONDITION|*...*|END:IF|*` for conditional content, plus tags for date, geographic location, and e-commerce product data on connected stores. **Dynamic content blocks** (whole sections shown/hidden by segment) require the Premium plan. Audience fields and tags drive most personalization, and contact attributes can be updated via the Marketing API.
+Mailchimp uses merge tag syntax for personalization: `*|FNAME|*` for fields, `*|IF:CONDITION|*...*|END:IF|*` for conditional content, plus tags for date, geographic location, and e-commerce product data on connected stores. **Dynamic content blocks** (whole sections shown/hidden by segment) require the Standard plan or higher. Audience fields and tags drive most personalization, and contact attributes can be updated via the Marketing API.
 
 **Strengths:** conditional merge tag syntax built in, e-commerce product merges on connected stores, geographic and date-based merges, large audience field schema.
 
-**Trade-offs:** dynamic content blocks are Premium-only. Merge tag syntax is verbose. Personalization controls are spread across audience settings, campaign settings, and template blocks, which adds friction for non-technical users.
+**Trade-offs:** dynamic content blocks require Standard or higher. Merge tag syntax is verbose. Personalization controls are spread across audience settings, campaign settings, and template blocks, which adds friction for non-technical users.
 
 ### BlueFox Email
 
-BlueFox Email uses **Handlebars** syntax for personalization: <span v-pre>`{{firstName}}`</span> for fields and <span v-pre>`{{#if}}…{{else}}…{{/if}}`</span> for conditional content. Built-in merge tags include `subscriber.name`, `subscriber.email`, `unsubscribeLink`, `pauseSubscriptionLink`, and `verifyLink` (for double opt-in flows). Contact attributes beyond name/email are defined in **Project Settings → Contact Attributes** and can be set or updated programmatically via the [API](https://bluefox.email/docs/api/) or from inside an automation flow (Set Value node). Personalization is available on every plan including the free tier.
+BlueFox Email uses **Handlebars** syntax for personalization: <span v-pre>`{{contact.firstName}}`</span> for fields and <span v-pre>`{{#if}}…{{else}}…{{/if}}`</span> for conditional content, with added logical operators (`AND`, `OR`, `NOT`, `EQ`, `INCLUDES`) and loop helpers (<span v-pre>`{{#each}}`</span> with `skip`/`limit`) layered on top of default Handlebars. Built-in tags live under the `contact` object <span v-pre>`{{contact.email}}`</span> is always available, and any custom contact property you define (for example <span v-pre>`{{contact.firstName}}`</span>) is addressed the same way. <span v-pre>`{{unsubscribeLink}}`</span> and <span v-pre>`{{pauseSubscriptionLink}}`</span> are also built in, but only for non-transactional sends neither is available in transactional emails. There's no reserved tag for double opt-in confirmation links; that's just a normal custom data field you name yourself and pass in with the send request (BlueFox's own Supabase integration guide, for instance, names one `verifyLink` purely as an example, not a built-in). Contact attributes beyond email are defined in **Project Settings → Contact Attributes** and can be set or updated programmatically via the [API](https://bluefox.email/docs/api/) or from inside an automation flow (Set Value node). Personalization is available on every plan including the free tier.
 
-**Strengths:** standard Handlebars syntax familiar to developers, conditional blocks at every plan level, contact attributes update-able via API or in-flow Set Value node, `pauseSubscriptionLink` enables a pause-instead-of-unsubscribe path.
+**Strengths:** standard Handlebars syntax familiar to developers, added logical operators and loop controls beyond default Handlebars, conditional blocks at every plan level, contact attributes updatable via API or in-flow Set Value node, `pauseSubscriptionLink` enables a pause-instead-of-unsubscribe path.
 
 **Trade-offs:** no pre-built e-commerce product merges (must be passed in via the API), no geographic or timezone tags out of the box, Handlebars syntax means a small learning step for non-technical users.
 
@@ -197,7 +197,7 @@ BlueFox Email uses **Handlebars** syntax for personalization: <span v-pre>`{{fir
 
 ### Mailchimp
 
-Mailchimp's segmentation supports up to five conditions per segment (Free/Essentials) or unlimited conditions on Standard and higher. Filter categories include subscriber data, sign-up source, email activity (opens, clicks, sends), e-commerce activity (purchase history, store activity, product viewed), group/tag membership, geolocation, and conversation activity. Pre-built segments cover recent subscribers, inactive contacts, top engagers, and similar common cases. Standard and Premium plans unlock **predictive segmentation** (purchase likelihood, customer lifetime value, predicted demographics) for accounts with a connected store and sufficient e-commerce data.
+Mailchimp's segmentation supports up to 10 conditions per segment (Free/Essentials) or unlimited conditions on Standard and higher. Filter categories include subscriber data, sign-up source, email activity (opens, clicks, sends), e-commerce activity (purchase history, store activity, product viewed), group/tag membership, geolocation, and conversation activity. Pre-built segments cover recent subscribers, inactive contacts, top engagers, and similar common cases. Standard and Premium plans unlock **predictive segmentation** (purchase likelihood, customer lifetime value, predicted demographics) for accounts with a connected store and sufficient e-commerce data.
 
 **Strengths:** broad filter categories, deep e-commerce filter support on connected stores, predictive segmentation on Standard and Premium, pre-built segment templates.
 
@@ -209,7 +209,7 @@ BlueFox Email's [segments](https://bluefox.email/docs/projects/segments) use AND
 
 **Strengths:** unlimited condition count on every plan, engagement-based segments at every plan level, segments usable as automation triggers, segment-scoping to list or whole project.
 
-**Trade-offs:** one pre-built segment (unengaged contacts) versus Mailchimp's broader template library, no predictive/AI segmentation, no built-in e-commerce filters (no "purchased product X" out of the box, those need contact attributes set via API), no geolocation filtering out of the box.
+**Trade-offs:** no pre-built segment templates versus Mailchimp's broader library the closest equivalent, excluding unengaged contacts from a send, is a separate project-wide setting rather than an actual segment, no predictive/AI segmentation, no built-in e-commerce filters (no "purchased product X" out of the box, those need contact attributes set via API), no geolocation filtering out of the box.
 
 <Segmentation
   :is-dark="isDark"
@@ -223,7 +223,7 @@ BlueFox Email's [segments](https://bluefox.email/docs/projects/segments) use AND
 
 ### Mailchimp
 
-Mailchimp tracks open rates, click rates, bounce rates, unsubscribe rates, and forwards across campaigns, with comparative **industry benchmarks** showing how each metric stacks against peers. Paid plans add **revenue tracking** on connected e-commerce stores, A/B test reporting, click maps (heatmap of clicked areas), Google Analytics integration, and recipient-level engagement scoring. Customer Journey Builder reports per-step performance inside flows.
+Mailchimp tracks open rates, click rates, bounce rates, unsubscribe rates, and forwards across campaigns, with comparative **industry benchmarks** showing how each metric stacks against peers. Paid plans add **revenue tracking** on connected e-commerce stores, A/B test reporting, click maps (heatmap of clicked areas), Google Analytics integration, and recipient-level engagement scoring. Marketing Automation Flows reports per-step performance inside flows.
 
 **Strengths:** revenue and ROI reporting on connected stores, industry benchmark comparison, click maps, recipient engagement scoring, Google Analytics integration, in-flow step analytics.
 
@@ -231,9 +231,9 @@ Mailchimp tracks open rates, click rates, bounce rates, unsubscribe rates, and f
 
 ### BlueFox Email
 
-BlueFox Email scopes [analytics](https://bluefox.email/docs/statistics) at account, project, campaign, transactional email, triggered email, and subscriber list levels. Per email: sends, opens, unique opens, clicks, unique clicks, bounces, complaints, unsubscribes, resubscriptions, paused subscriptions. Time-range filters cover current/previous week, current/previous month, last 3 months, and overall. Project-level dashboard shows live bounce rate (against the 2.5% ceiling) and complaint rate (against the 0.05% ceiling). Automation cards expose Runs, Active, Sends, Opens, Clicks for the whole flow plus per-Send-Email-node breakdowns. Webhooks push every event in real time for external dashboards.
+BlueFox Email's [Statistics page](https://bluefox.email/docs/statistics) scopes analytics at account, project, campaign, transactional email, triggered email, automation, and subscriber list levels, split into two tabs. **Email Sending Trends** covers sends, send rate, failures, failure rate, opens, unique opens, clicks, unique clicks, bounces, complaints, and several derived rates (unique open rate, clicks per unique open, unsubscribes per unique open). **Subscription Trends** covers new contacts, subscriptions, unsubscribes, pauses, unpauses, and resubscriptions. Charts switch between hourly, daily, weekly, and monthly intervals (daily/weekly/monthly support up to a 1-year range, hourly up to 7 days) and toggle between line and bar views. Every email or automation's detail page includes a raw, filterable data table down to the individual contact and per-link click level, exportable as CSV, plus a **Clean Contacts** option to prune bounced or complained addresses. Project-level dashboard shows live bounce rate (against the 2.5% ceiling) and complaint rate (against the 0.05% ceiling). Automation cards expose Runs, Active, Sends, Opens, Clicks for the whole flow plus per-node breakdowns. Webhooks push every event in real time for external dashboards.
 
-**Strengths:** live bounce/complaint ratios against the production thresholds, per-email-type and per-automation-node stats, real-time webhook push for external analytics, full event set on every plan.
+**Strengths:** live bounce/complaint ratios against the production thresholds, per-email-type and per-automation-node stats with contact-level CSV export, real-time webhook push for external analytics, full event set on every plan.
 
 **Trade-offs:** no revenue or ROI tracking, no industry benchmark comparison, link-click table shows per-URL click counts but no visual heatmap overlay, no built-in A/B testing reports, no Google Analytics integration.
 
@@ -291,7 +291,7 @@ A 15% discount is available on annual commitments at 10,000+ contacts. It does n
 | 121–160 | 3M–4M | $12 |
 | 161+ | 4M+ | $10 |
 
-Unused emails in a block do not roll over month to month. New transactional users get up to 500 free sends to a verified domain. **Mandrill dedicated IP**: $29.95/month, with built-in warmup schedule.
+Unused emails in a block do not roll over month to month. New transactional users get up to 500 free sends to a verified domain. **Mandrill dedicated IP**: $29.95/month, with built-in warmup schedule. Mailchimp is also currently running a promotional 50% discount off the Transactional Email base price for new customers enrolling at 1M+ emails/month (40+ blocks) for their first 12 months confirm current terms before relying on it, since promotions like this are time-limited.
 
 **Marketing-platform dedicated IP**: typically requires Premium plan or a custom enterprise contract negotiated through Sales; not offered as a self-serve add-on at any published price point.
 
