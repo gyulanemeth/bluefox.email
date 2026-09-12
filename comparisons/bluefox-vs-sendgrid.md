@@ -8,7 +8,7 @@ aside: true
 prev: false
 next: false
 datePublished: "2025-09-10"
-dateModified: "2026-05-26"
+dateModified: "2026-09-12"
 head:
   - - meta
     - name: description
@@ -68,13 +68,13 @@ const { isDark } = useData()
 
 BlueFox Email and Twilio SendGrid both ship email, but they aim at different problems. SendGrid is a developer-first email infrastructure with two products bolted together: a transactional Email API and a separate Marketing Campaigns tool, sitting inside Twilio's broader communications stack. BlueFox Email is a focused email platform with managed sending built in and an optional bring-your-own AWS SES mode. Neither is universally "better"; the right choice depends on whether you want infrastructure depth with a developer-API surface, or a single email tool with predictable per-send pricing.
 
-This comparison covers design, integrations, automation, deliverability, personalization, segmentation, analytics, support, and pricing. Each section lists what each platform does, where it's strong, and what it trades off. Numbers reflect public pricing and documentation as of May 2026.
+This comparison covers design, integrations, automation, deliverability, personalization, segmentation, analytics, support, and pricing. Each section lists what each platform does, where it's strong, and what it trades off. Numbers reflect public pricing and documentation as of September 2026.
 
 ## Platform Positioning
 
 **SendGrid** is Twilio's email arm. Originally an API-first transactional sender, it now runs two distinct products under one account: **Email API** (transactional sends, billed by email volume) and **Marketing Campaigns** (campaigns and automation, billed by contact count). On February 26, 2026, sendgrid.com began redirecting to twilio.com as part of Twilio consolidating SendGrid, Segment, and its core communications products under one brand. The product itself is unchanged; existing API keys, domain authentication, and billing relationships work as before. SendGrid's strengths are its scale (billions of emails monthly), direct peering relationships with Google, Yahoo, Apple, and Microsoft, mature SDKs across seven languages, and a large integration marketplace. It also slots into the broader Twilio ecosystem if you need SMS or voice on top of email. The trade-off is the dual-product structure: Email API and Marketing Campaigns are priced separately, so teams needing both pay for both.
 
-On March 25, 2025, SendGrid replaced its long-running 100-emails-per-day free plan with a 60-day timed trial. After the trial ends, accounts must upgrade to continue sending. Accounts created before that date may still be on the legacy free plan unless modified.
+In May 2025, SendGrid replaced its long-running 100-emails-per-day free plan with a 60-day timed trial. After the trial ends, accounts must upgrade to continue sending. Accounts created before that date may still be on the legacy free plan unless modified.
 
 **BlueFox Email** is a focused email platform. It offers two delivery modes: a **managed infrastructure** option where projects start in sandbox and move to production after a review (no AWS account required), and an optional **[BYO AWS SES](https://bluefox.email/docs/projects/delivery-modes#using-aws-ses-directly)** mode for teams who want to use their own AWS account and keep their own sending reputation. The product covers campaigns, transactional, triggered emails, automations, sign-up forms, segments, suppression lists, and a subscription preferences page, but does not offer landing pages, SMS, voice, or a CRM. Pricing is per-send rather than per-contact, all features are available on every plan including the free tier, and credit packs don't expire monthly. The trade-off is a smaller ecosystem: fewer marketplace integrations, fewer SDKs, smaller community, and a younger product overall.
 
@@ -84,19 +84,19 @@ The two are not direct substitutes. SendGrid suits teams that want enterprise-sc
 
 ### SendGrid
 
-SendGrid ships a **drag-and-drop Design Editor** and a **Code Editor** for template creation, with **Dynamic Templates** powered by Handlebars for personalization and conditional logic. The Design Editor has standard content blocks (image, text, button, social) and a library of pre-built starter templates. Templates can be reused across the Email API (transactional) and Marketing Campaigns (campaigns) products. Pro and Premier accounts also get 60 monthly email testing credits for cross-client rendering checks.
+SendGrid ships a **drag-and-drop Design Editor** and a **Code Editor** for template creation, with **Dynamic Templates** powered by Handlebars for personalization and conditional logic. The Design Editor has standard content blocks (image, text, button, social) and a library of pre-built starter templates. Templates can be reused across the Email API (transactional) and Marketing Campaigns (campaigns) products. Marketing Campaigns' Advanced plan includes 60 monthly email testing credits for cross-client rendering checks (Free gets 3, Basic gets 10).
 
-**Strengths:** Handlebars dynamic templates work for both transactional and marketing, code editor for full HTML control, cross-product template reuse, email testing credits on higher tiers.
+**Strengths:** Handlebars dynamic templates work for both transactional and marketing, code editor for full HTML control, cross-product template reuse, email testing credits included on paid Marketing Campaigns tiers.
 
 **Trade-offs:** Drag-and-drop editor design quality has aged compared to newer builders; many user-facing reviews note it feels dated. Deeper visual customization typically requires HTML/CSS knowledge. The template library is smaller and less varied than dedicated marketing suites.
 
 ### BlueFox Email
 
-BlueFox Email uses the [Chamaileon SDK](https://help.chamaileon.io/en/collections/1340338-email-editor-documentation) for its drag-and-drop builder. The editor offers a built-in stock photo gallery, a photo editor, a shared image library for brand assets, custom font uploads, dark mode preview, and a library of pre-designed starter templates covering common newsletter, announcement, and transactional layouts. Reusable components (blocks, themes, templates) are first-class. Designers build a brand system once and reuse it across campaigns, transactional, and triggered emails. Cross-client rendering covers Gmail, Outlook, Apple Mail, and mobile. The Dynamic Image block pairs with [data feeds](https://bluefox.email/docs/projects/data-feeds) to render images sourced from RSS/JSON at send time.
+BlueFox Email uses the [Chamaileon SDK](https://help.chamaileon.io/en/collections/1340338-email-editor-documentation) for its drag-and-drop builder, alongside standalone Raw HTML and Plain Text editors for anyone who'd rather write their own markup than use the visual canvas. The Visual Editor offers a built-in stock photo gallery, a photo editor, a shared image library for brand assets, custom font uploads, dark mode preview, and a library of pre-designed starter templates covering common newsletter, announcement, and transactional layouts. Reusable components (blocks, themes, templates) are first-class in the Visual Editor. Designers build a brand system once and reuse it across campaigns, transactional, and triggered emails. Cross-client rendering covers Gmail, Outlook, Apple Mail, and mobile. The Dynamic Image block pairs with [data feeds](https://bluefox.email/docs/projects/data-feeds) to render images sourced from RSS/JSON at send time.
 
-**Strengths:** reusable design system, built-in stock photo gallery and photo editor, data-feed-driven dynamic content, cross-client rendering, same editor for transactional and marketing.
+**Strengths:** reusable design system, built-in stock photo gallery and photo editor, data-feed-driven dynamic content, cross-client rendering, same three editors (Visual, Raw HTML, Plain Text) available for transactional and marketing sends alike.
 
-**Trade-offs:** smaller starter-template library than SendGrid's catalog, no built-in email testing credits, no code-only editor mode (HTML is editable via Chamaileon's HTML view but not the primary surface).
+**Trade-offs:** smaller starter-template library than SendGrid's catalog, no built-in email testing credits. Design system templates and pre-designed templates are only available starting from the Visual Editor: an email built in Raw HTML or Plain Text can't be saved back as a reusable template.
 
 <TemplateShowcase
   :is-dark="isDark"
@@ -110,7 +110,7 @@ BlueFox Email uses the [Chamaileon SDK](https://help.chamaileon.io/en/collection
 
 ### SendGrid
 
-SendGrid maintains official SDKs for Node.js, Python, PHP, Java, C#, Go, and Ruby, with SMTP relay as the language-agnostic fallback. The integration marketplace lists 100+ partner integrations covering CMS (WordPress, Drupal), e-commerce (Shopify, WooCommerce, Magento), CRM (Salesforce, HubSpot), analytics (Segment, Mixpanel), and developer tools (Zapier, Make). The **Event Webhook** pushes delivery events in real time: processed, delivered, deferred, bounce, blocked, open, click, spam report, unsubscribe, group unsubscribe, group resubscribe. Email API and Marketing Campaigns share a single account and dashboard, so authentication, identity, and billing live in one place even though the products bill separately. As part of Twilio, accounts can also be wired to Twilio's SMS, voice, and verification APIs without additional vendor onboarding.
+SendGrid maintains official SDKs for Node.js, Python, PHP, Java, C#, Go, and Ruby, with SMTP relay as the language-agnostic fallback. The integration marketplace lists 100+ partner integrations covering CMS (WordPress, Drupal), e-commerce (Shopify, WooCommerce, Magento), CRM (Salesforce, HubSpot), analytics (Segment, Mixpanel), and developer tools (Zapier, Make). The **Event Webhook** pushes delivery events in real time: processed, delivered, deferred, bounce, dropped, open, click, spam report, unsubscribe, group unsubscribe, group resubscribe (note: a "blocked" outcome is classified as a soft-bounce subtype within the bounce event, not a separate webhook event). Email API and Marketing Campaigns share a single account and dashboard, so authentication, identity, and billing live in one place even though the products bill separately. As part of Twilio, accounts can also be wired to Twilio's SMS, voice, and verification APIs without additional vendor onboarding.
 
 **Strengths:** seven first-party SDKs, mature SMTP relay, large integration marketplace, full event webhook set, shared dashboard with Twilio's SMS/voice/verification products, sub-user API for agency/multi-tenant setups (Pro and above).
 
@@ -118,7 +118,7 @@ SendGrid maintains official SDKs for Node.js, Python, PHP, Java, C#, Go, and Rub
 
 ### BlueFox Email
 
-BlueFox Email exposes an [API](https://bluefox.email/docs/api/) for contacts, subscriptions, transactional sends, and triggered sends. [Webhooks](https://bluefox.email/docs/integrations/webhooks) push real-time events: opens, clicks, bounces, complaints, subscribe, unsubscribe, pause, resubscribe. Direct integrations: [Supabase](https://bluefox.email/docs/integrations/supabase) for auth emails (signup confirmation, magic links, password reset, invitations) and [Zapier](https://bluefox.email/docs/integrations/zapier) with six triggers (New Contact, Contact Updated, Contact Deleted, New Subscription, Unsubscribed, Subscription Paused). In BYO SES mode, you keep direct AWS access for any SES-level integration including SNS, Lambda, S3, and CloudWatch.
+BlueFox Email exposes an [API](https://bluefox.email/docs/api/) for contacts, subscriptions, transactional sends, and triggered sends. [Webhooks](https://bluefox.email/docs/integrations/webhooks) push real-time events: sent, failed, opens, clicks, bounces, complaints, subscribe, unsubscribe, pause, resubscribe. Direct integrations: [Supabase](https://bluefox.email/docs/integrations/supabase) for auth emails (signup confirmation, magic links, password reset, email address changes, reauthentication, and invitations) and [Zapier](https://bluefox.email/docs/integrations/zapier) with six triggers (New Contact, Contact Updated, Contact Deleted, New Subscription, Unsubscribed, Subscription Paused) and eight actions. In BYO SES mode, you keep direct AWS access for any SES-level integration. BlueFox documents SNS specifically for bounce and complaint webhooks, and since it's your own AWS account, anything else you wire up is between you and AWS rather than something BlueFox builds or documents.
 
 **Strengths:** complete API on every plan, full webhook event set on every plan, Supabase-native auth email path, Zapier connectivity, BYO SES mode gives direct AWS integration without abstraction.
 
@@ -142,11 +142,11 @@ Automation is **not included** in the Marketing Campaigns Basic plan ($15/mo); i
 
 ### BlueFox Email
 
-BlueFox Email's [automation builder](https://bluefox.email/docs/projects/automations) is available on every plan including the free tier. Trigger types: **Contact Added**, **Contact Updated** (with from/to property conditions), **Enter Segment**, **Leave Segment**. Node types: **Send Email**, **Notify** (send to a list or specific addresses rather than the flowing contact), **Timer**, **Audience Filter** (property, segment, or email activity), **Branching** with **Condition** nodes (multi-path), **Set Value** (update a contact property mid-flow), **Manage Tags** (add/remove tags), **Complete** (defined exit). **Exit Criteria** lets contacts leave the flow early based on property, segment, or email activity. **Running flows can be edited** and the updates applied to upcoming-only or upcoming-and-in-progress contacts.
+BlueFox Email's [automation builder](https://bluefox.email/docs/projects/automations) is available on every plan including the free tier. Trigger types: **Contact Added**, **Contact Updated** (with from/to property conditions), **Enter Segment**, **Leave Segment**, and **Time Based** (recurring schedules against a whole list). Node types: **Send Email**, **Notify** (send to a list or specific addresses rather than the flowing contact), **Timer**, **Audience Filter** (property, segment, or email activity), **Branching** with **Condition** nodes (multi-path), **Set Value** (update a contact property mid-flow), **Manage Tags** (add/remove tags), **Webhook** (fire an HTTP request to an external URL mid-flow), and **Complete** (defined exit). **Exit Criteria** lets contacts leave the flow early based on property, segment, or email activity. **Running flows can be edited** and the updates applied to upcoming-only or upcoming-and-in-progress contacts.
 
-**Strengths:** all automation features on every plan, segment-based triggers, mid-flow contact property updates, email-activity-based branching, live editing of running flows without duplicate-and-rebuild.
+**Strengths:** all automation features on every plan, segment-based and schedule-based triggers, mid-flow contact property updates, email-activity-based branching, an in-flow webhook node, live editing of running flows without duplicate-and-rebuild.
 
-**Trade-offs:** no A/B testing inside automation flows, no SMS action, no native e-commerce triggers (no abandoned cart, no purchase events). Those have to be wired via the API or Zapier. Fewer pre-built journey templates than SendGrid's Welcome series.
+**Trade-offs:** no A/B testing inside automation flows, no SMS action, no native e-commerce triggers (no abandoned cart, no purchase events). Those have to be wired via the API, the Webhook node, or Zapier. Fewer pre-built journey templates than SendGrid's Welcome series.
 
 <Automation
   class="mt-6"
@@ -161,7 +161,7 @@ BlueFox Email's [automation builder](https://bluefox.email/docs/projects/automat
 
 ### SendGrid
 
-SendGrid's deliverability infrastructure is one of its strongest selling points. The platform has **direct peering relationships with Google, Yahoo, Apple, and Microsoft** (the four largest email providers), which it cites as a deliverability advantage at scale. Authentication covers SPF, DKIM, and DMARC for custom sending domains. **Dedicated IPs** are included with Pro Email API plans and Advanced Marketing Campaigns plans (one IP each); additional dedicated IPs cost **$30/month each**, with up to 3 self-serve additions and more available through support. SendGrid recommends at least 2 dedicated IPs once volume reaches 200K–300K/month. Trial and Essentials accounts use shared IP pools grouped by sender reputation; shared IPs are not visible from inside the account and can change without notice.
+SendGrid's deliverability infrastructure is one of its strongest selling points. The platform has **direct peering relationships with Google, Yahoo, Apple, and Microsoft** (the four largest email providers), which it cites as a deliverability advantage at scale. Authentication covers SPF, DKIM, and DMARC for custom sending domains. **Dedicated IPs** are included with Pro Email API plans and Advanced Marketing Campaigns plans (one IP each); additional dedicated IPs cost **$30/month each**, with up to 3 self-serve additions and more available through support. SendGrid recommends at least 2 dedicated IPs once volume reaches 200K to 300K/month. Trial and Essentials accounts use shared IP pools grouped by sender reputation; shared IPs are not visible from inside the account and can change without notice.
 
 Note that **SendGrid does not monitor the reputation of dedicated IPs**; that responsibility shifts to the sender. Email activity history retention is limited on lower tiers (3 days on Essentials, 7 days on Pro), with extended retention available as a paid add-on. Overage fees apply when plan limits are exceeded.
 
@@ -173,13 +173,13 @@ Note that **SendGrid does not monitor the reputation of dedicated IPs**; that re
 
 BlueFox Email has three delivery modes documented in [Delivery Modes](https://bluefox.email/docs/projects/delivery-modes):
 
-- **Sandbox** (default for new projects, BlueFox-managed infrastructure): up to 5 verified addresses, 100 emails/day, 1 email/second. No AWS account required. Sends from `no-reply@bluefoxemailsandbox.com`.
-- **Production** (BlueFox-managed infrastructure, after a review): unrestricted volume, custom sender identities, your own verified domain.
+- **Sandbox** (default for new projects, BlueFox-managed infrastructure): send to any recipient with no verified-recipient requirement, capped at 100 emails/day and 1 email/second. No AWS account required. Sends from `no-reply@bluefoxemailsandbox.com` by default, though a verified custom domain can be used here too.
+- **Production** (BlueFox-managed infrastructure, after a review): your approved monthly sending volume, set to match what you request on the production application, with limit increases available on request plus custom sender identities and your own verified domain.
 - **BYO AWS SES** (optional): connect your AWS account via direct credentials or STS Role ARN. Required permissions: `ses:SendEmail`, `ses:SendRawEmail`, `ses:ListIdentities`, `ses:GetSendQuota`. You keep your own AWS sending reputation and IP isolation, and can use an AWS SES dedicated IP if configured there.
 
-To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending. The platform also supports one-click unsubscribe (RFC-8058), a subscription preferences page, and a pause-instead-of-unsubscribe link.
+To stay in production, projects must maintain bounce rate below 2.5% and complaint rate below 0.05%, shown live in the project dashboard. A per-project **suppression list** lets teams manually add or CSV-import problematic addresses to prevent re-sending. An optional dedicated IP add-on is also available on the managed plan for $50/month per IP, self-serve with no minimum volume. On BYO AWS SES, a dedicated IP is set up and billed directly through the customer's own AWS account instead. The platform also supports a subscription preferences page and a pause-instead-of-unsubscribe link.
 
-**Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, optional dedicated IP add-on on the managed plan ($50/mo per IP), transparent bounce/complaint thresholds visible in-product, per-project suppression list, STS-based AWS auth (no long-lived keys), one-click unsubscribe and preferences page built in.
+**Strengths:** managed-mode + BYO-SES choice on the same product, your-domain sending, optional dedicated IP add-on on the managed plan ($50/mo per IP), transparent bounce/complaint thresholds visible in-product, per-project suppression list, STS-based AWS auth (no long-lived keys), preferences page and pause-instead-of-unsubscribe built in.
 
 **Trade-offs:** No direct ISP peering relationships at the platform layer; in managed mode, deliverability rides on AWS SES's reputation rather than dedicated-to-sender peering. Smaller community than SendGrid, so less third-party deliverability tooling and shared best-practice content.
 
@@ -195,9 +195,9 @@ SendGrid uses **Handlebars** syntax for Dynamic Templates, supporting variable s
 
 ### BlueFox Email
 
-BlueFox Email also uses **Handlebars** for personalization: <span v-pre>`{{firstName}}`</span> for fields and <span v-pre>`{{#if}}…{{else}}…{{/if}}`</span> for conditional content. Built-in merge tags include `subscriber.name`, `subscriber.email`, `unsubscribeLink`, `pauseSubscriptionLink`, and `verifyLink` (for double opt-in flows). Contact attributes beyond name/email are defined in **Project Settings → Contact Attributes** and can be set or updated programmatically via the [API](https://bluefox.email/docs/api/) or from inside an automation flow (Set Value node). Personalization is available on every plan including the free tier.
+BlueFox Email also uses **Handlebars** for personalization: <span v-pre>`{{contact.firstName}}`</span> for fields and <span v-pre>`{{#if}}…{{else}}…{{/if}}`</span> for conditional content, with added logical operators (`AND`, `OR`, `NOT`, `EQ`, `INCLUDES`) and loop helpers (<span v-pre>`{{#each}}`</span> with `skip`/`limit`). Built-in tags live under the `contact` object <span v-pre>`{{contact.email}}`</span> is always available, and any custom contact property you define (for example <span v-pre>`{{contact.firstName}}`</span>) is addressed the same way. <span v-pre>`{{unsubscribeLink}}`</span> and <span v-pre>`{{pauseSubscriptionLink}}`</span> are also built in, but only for non-transactional sends. Contact attributes beyond email are defined in **Project Settings → Contact Attributes** and can be set or updated programmatically via the [API](https://bluefox.email/docs/api/) or from inside an automation flow (Set Value node). Personalization is available on every plan including the free tier.
 
-**Strengths:** standard Handlebars syntax (same family as SendGrid's, so familiar to anyone moving between the two), conditional blocks at every plan level, contact attributes update-able via API or in-flow Set Value node, built-in `pauseSubscriptionLink` enables a pause-instead-of-unsubscribe path, dynamic image rendering via data feeds.
+**Strengths:** standard Handlebars syntax (same family as SendGrid's, so familiar to anyone moving between the two), added logical operators and loop controls beyond default Handlebars, conditional blocks at every plan level, contact attributes updatable via API or in-flow Set Value node, `pauseSubscriptionLink` enables a pause-instead-of-unsubscribe path, dynamic image rendering via data feeds.
 
 **Trade-offs:** no pre-built e-commerce product merges (must be passed in via the API), no geographic or timezone tags out of the box, fewer Handlebars helpers than SendGrid's library.
 
@@ -217,7 +217,7 @@ BlueFox Email's [segments](https://bluefox.email/docs/projects/segments) use AND
 
 **Strengths:** unlimited condition count on every plan, engagement-based segments at every plan level, segments usable as automation triggers, segment-scoping to list or whole project, no separate "marketing" subscription required for segmentation.
 
-**Trade-offs:** one pre-built segment (unengaged contacts) versus SendGrid's broader template options, no predictive/AI segmentation, no built-in e-commerce filters (no "purchased product X" out of the box; those need contact attributes set via API), no geolocation filtering out of the box.
+**Trade-offs:** no pre-built segment templates versus SendGrid's broader options (the closest equivalent, excluding unengaged contacts from a send, is a separate project-wide setting rather than an actual segment), no predictive/AI segmentation, no built-in e-commerce filters (no "purchased product X" out of the box; those need contact attributes set via API), no geolocation filtering out of the box.
 
 <Segmentation
   :is-dark="isDark"
@@ -239,9 +239,9 @@ SendGrid tracks delivery, opens, unique opens, clicks, unique clicks, bounces, b
 
 ### BlueFox Email
 
-BlueFox Email scopes [analytics](https://bluefox.email/docs/statistics) at account, project, campaign, transactional email, triggered email, and subscriber list levels. Per email: sends, opens, unique opens, clicks, unique clicks, bounces, complaints, unsubscribes, resubscriptions, paused subscriptions. Time-range filters cover current/previous week, current/previous month, last 3 months, and overall. Project-level dashboard shows live bounce rate (against the 2.5% ceiling) and complaint rate (against the 0.05% ceiling). Automation cards expose Runs, Active, Sends, Opens, Clicks for the whole flow plus per-Send-Email-node breakdowns. Webhooks push every event in real time for external dashboards.
+BlueFox Email's [Statistics page](https://bluefox.email/docs/statistics) scopes analytics at account, project, campaign, transactional email, triggered email, automation, and subscriber list levels, split into two tabs. **Email Sending Trends** covers sends, send rate, failures, failure rate, opens, unique opens, clicks, unique clicks, bounces, complaints, and several derived rates. **Subscription Trends** covers new contacts, subscriptions, unsubscribes, pauses, unpauses, and resubscriptions. Charts switch between hourly, daily, weekly, and monthly intervals (daily/weekly/monthly support up to a 1-year range, hourly up to 7 days). Every email or automation's detail page includes a raw, filterable data table down to the individual contact and per-link click level, exportable as CSV, plus a **Clean Contacts** option to prune bounced or complained addresses. Project-level dashboard shows live bounce rate (against the 2.5% ceiling) and complaint rate (against the 0.05% ceiling). Automation cards expose Runs, Active, Sends, Opens, Clicks for the whole flow plus per-node breakdowns. Webhooks push every event in real time for external dashboards.
 
-**Strengths:** live bounce/complaint ratios against the production thresholds, per-email-type and per-automation-node stats, real-time webhook push for external analytics, full event set on every plan, no retention add-on required.
+**Strengths:** live bounce/complaint ratios against the production thresholds, per-email-type and per-automation-node stats with contact-level CSV export, real-time webhook push for external analytics, full event set on every plan, no retention add-on required.
 
 **Trade-offs:** no revenue or ROI tracking, no breakdowns by mailbox provider or device, link-click table shows per-URL click counts but no visual heatmap overlay, no built-in A/B testing reports.
 
@@ -283,15 +283,15 @@ SendGrid's pricing has two independent tracks. Teams that need both transactiona
 
 | Plan | Price | Volume | Notes |
 | --- | --- | --- | --- |
-| Free Trial | $0 | 100 emails/day | 60 days only (since March 25, 2025) |
+| Free Trial | $0 | 100 emails/day | 60 days only (since May 2025) |
 | Essentials 50K | $19.95/mo | 50,000 | No dedicated IP, 1 teammate |
 | Essentials 100K | $34.95/mo | 100,000 | No dedicated IP |
 | Pro 100K | $89.95/mo | 100,000 | 1 dedicated IP included |
 | Pro 300K | $249/mo | 300,000 | 1 dedicated IP included |
 | Pro 700K | $499/mo | 700,000 | 1 dedicated IP included |
-| Pro 1.5M | $799/mo | 1,500,000 | 1 dedicated IP included |
+| Pro 1.5M | $749 to $799/mo (unconfirmed) | 1,500,000 | 1 dedicated IP included; confirm exact figure against Twilio's live pricing page |
 | Pro 2.5M | $1,099/mo | 2,500,000 | 1 dedicated IP included |
-| Premier | Custom | 4M+ | Dedicated CSM, prioritized support |
+| Premier | Custom | 5M+ | Dedicated CSM, prioritized support |
 
 **Marketing Campaigns** (billed by contact count):
 
@@ -299,7 +299,7 @@ SendGrid's pricing has two independent tracks. Teams that need both transactiona
 | --- | --- | --- | --- |
 | Basic | $15/mo | 5,000 | No automation, no dedicated IP |
 | Advanced (10K) | $60/mo | 10,000 | Automation, A/B testing, 1 dedicated IP |
-| Advanced (50K) | $120/mo | 50,000 | Automation, A/B testing, 1 dedicated IP |
+| Advanced (50K) | $250/mo | 50,000 | Automation, A/B testing, 1 dedicated IP |
 | Premier | Custom | 200K+ | Enterprise tier |
 
 **Add-ons**: Additional dedicated IPs at $30/month each (Pro and Advanced+); Email Validation at $9.95/mo for 5,000 validations; extended Email Activity History as a paid add-on; storage overages at $10/10,000 contacts. Overage fees apply when plan limits are exceeded.
@@ -308,12 +308,14 @@ SendGrid's pricing has two independent tracks. Teams that need both transactiona
 
 BlueFox Email charges per email sent. Contacts are unlimited, all features are available at every tier, and packs do not expire monthly; credits roll for 12 months.
 
-| Mode | Free tier | Essential | Premium | Grown-up |
-| --- | --- | --- | --- | --- |
-| Standard (managed infrastructure) | 3,000 sends/mo | $50 / 50,000 sends | $300 / 500,000 sends | $2,500 / 5,000,000 sends |
-| BYO AWS SES | 6,000 sends/mo | $50 / 100,000 sends + AWS fees | $300 / 1,000,000 sends + AWS fees | $2,500 / 10,000,000 sends + AWS fees |
+| Mode | Free tier | Essential | Premium |
+| --- | --- | --- | --- |
+| Standard (managed infrastructure) | 3,000 sends/mo | $50 / 50,000 sends | $300 / 500,000 sends |
+| BYO AWS SES | 6,000 sends/mo | $50 / 100,000 sends + AWS fees | $300 / 1,000,000 sends + AWS fees |
 
-AWS SES costs in BYO mode: ~$0.10 per 1,000 emails, billed directly by AWS. Combine with the AWS Free Tier (3,000 free sends/month for the first 12 months) at small volume. Packs are stackable.
+Above 500,000 sends/month (Standard) or 1,000,000 sends/month (BYO SES), contact BlueFox for a custom package. There isn't a published tier beyond Premium.
+
+AWS SES costs in BYO mode are billed directly by AWS. À la carte sending is $0.10 per 1,000 emails. As of July 21, 2026, new SES accounts (and account/region combinations with no metered SES activity since June 1, 2025) start on the SES **Essentials** plan at $0.16 per 1,000 emails for the first 10M per month; you can switch to à la carte pricing at any time. New AWS customers also receive up to $200 in AWS Free Tier credits, usable within 12 months of account creation. Packs are stackable.
 
 **Add-on**: optional dedicated IP for $50/month per IP (managed mode). In BYO SES mode, a dedicated IP is configured and billed through your own AWS SES account instead.
 
@@ -353,10 +355,9 @@ Once automation enters the picture, the dual-subscription requirement on SendGri
 
 **Large transactional volume** (1,000,000 sends/month, no marketing tooling needed):
 
-- SendGrid Pro 1.5M: **$799/mo**.
+- SendGrid Pro 1.5M: roughly $750 to $800/mo (confirm current published rate).
 - BlueFox Standard: 2 Premium packs = $600/mo equivalent.
 - BYO SES Premium: $300 for 1M + ~$100 AWS = ~$400/mo.
-- BYO SES Grown-up: $2,500 for 10M = ~$250/mo equivalent at 1M/mo + ~$100 AWS = ~$350/mo.
 
 **Cost summary:** For pure transactional sending at small-to-medium volume (under ~100K/month with no marketing automation), SendGrid Essentials is competitive and sometimes cheaper than BlueFox's managed-mode packs. The picture flips when (a) marketing automation is required (the second-product subscription adds significantly), (b) volume scales above ~100K/month, or (c) you can use BYO SES, where BlueFox plus AWS at $0.10/1,000 becomes substantially cheaper than SendGrid Pro pricing.
 
@@ -374,12 +375,12 @@ Once automation enters the picture, the dual-subscription requirement on SendGri
 - You need to edit live automations in place rather than disable/duplicate.
 - You want a single product covering transactional, triggered, and marketing emails with one bill.
 - You need per-project suppression-list visibility and bounce/complaint thresholds shown in-product.
-- You run an agency or multi-client setup: isolated client workspaces (one account, many projects) with per-project Admin/User/Client roles (Editor or Viewer access).
+- You run an agency or multi-client setup: isolated client workspaces (one account, many projects) with Admin, User, and Client roles, where a Client's access can be scoped to Editor or Viewer per project.
 
 **Notes on both:**
 - SendGrid pricing shifts with volume and contact count and adds overage fees. Always check current published rates.
-- BlueFox prices are public and flat per-pack. AWS SES fees in BYO mode are billed by AWS.
-- The May 2026 numbers above are the current published figures for both vendors; always check their live pricing pages, as plans and add-ons change.
+- BlueFox prices are public and flat per-pack. AWS SES fees in BYO mode are billed by AWS and vary by whether the account is on à la carte or one of the SES pricing plans.
+- The September 2026 numbers above are the current published figures for both vendors; always check their live pricing pages, as plans and add-ons change.
 
 ## Which Fits Your Use Case
 
@@ -401,7 +402,7 @@ Pick by what you actually need.
 | Live editing of running automations without disable/duplicate                      | BlueFox Email           |
 | Single product covering transactional, triggered, and marketing                    | BlueFox Email           |
 | Suppression-list visibility and bounce/complaint thresholds in-product             | BlueFox Email           |
-| One-click unsubscribe (RFC-8058), preferences page, pause-instead-of-unsubscribe   | BlueFox Email           |
+| Subscription preferences page and pause-instead-of-unsubscribe                     | BlueFox Email           |
 | All features available on the free tier                                            | BlueFox Email           |
 
 Both platforms can deliver email well at scale. The decision usually comes down to whether you want SendGrid's enterprise-scale infrastructure with deep developer tooling and a dual-product structure, or BlueFox Email's focused single-product platform with per-send pricing and a managed-or-BYO SES delivery choice.
