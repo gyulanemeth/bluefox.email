@@ -570,6 +570,12 @@ const { isDark } = useData()
     margin-bottom: 16px;
   }
 
+  html.dark .founder-eyebrow {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: #67e8f9;
+  }
+
   .founder-title {
     border-top: 0 !important;
     padding-top: 0 !important;

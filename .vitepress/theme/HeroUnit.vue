@@ -1,12 +1,40 @@
 <script setup>
 import BrandLogos from './BrandLogos.vue'
+
+const templates = [
+  { key: 'agency', img: '/assets/hero-diagonal/agency.webp', alt: 'Marketing agency newsletter template' },
+  { key: 'blackfriday', img: '/assets/hero-diagonal/blackfriday.webp', alt: 'Black Friday sale promo template' },
+  { key: 'summer', img: '/assets/hero-diagonal/summer.webp', alt: 'Summer newsletter template' },
+  { key: 'spring', img: '/assets/hero-diagonal/spring.webp', alt: 'Spring seasonal newsletter template' },
+  { key: 'cleanb2b', img: '/assets/hero-diagonal/cleanb2b.webp', alt: 'Clean B2B newsletter template' },
+  { key: 'saascart', img: '/assets/hero-diagonal/saascart.webp', alt: 'SaaS cart abandonment template' },
+  { key: 'easteregg', img: '/assets/hero-diagonal/easteregg.webp', alt: 'Easter egg hunt party template' },
+  { key: 'eastertravel', img: '/assets/hero-diagonal/eastertravel.webp', alt: 'Easter travel deals template' },
+  { key: 'portfolio', img: '/assets/hero-diagonal/portfolio.webp', alt: 'Business portfolio welcome template' },
+  { key: 'shoes', img: '/assets/hero-diagonal/shoes.webp', alt: 'Ecommerce shoes promo template' }
+]
+
+// 3 parallel columns, each a distinct hand-mixed pull from all 10 real templates — no repeats within a column
+const byKey = Object.fromEntries(templates.map((t) => [t.key, t]))
+const pick = (...keys) => keys.map((k) => byKey[k])
+const diagonalColumns = [
+  pick('shoes', 'eastertravel', 'cleanb2b', 'blackfriday', 'portfolio'),
+  pick('saascart', 'spring', 'shoes', 'easteregg', 'summer'),
+  pick('portfolio', 'blackfriday', 'eastertravel', 'agency', 'cleanb2b')
+]
 </script>
 
 <template>
   <div class="heroDiv">
     <div class="heroMain">
+      <!-- Decorative diagonal panel of real templates, faded top/bottom — scoped to heroMain so it can't bleed into the nav or the logo marquee -->
+      <div class="hero-diagonal" aria-hidden="true">
+        <div v-for="(col, c) in diagonalColumns" :key="c" class="hero-diagonal-track">
+          <img v-for="(t, i) in col" :key="`${t.key}-${i}`" :src="t.img" :alt="''" loading="lazy" decoding="async" />
+        </div>
+      </div>
+
       <div class="heroGrid">
-        <!-- Left Side: Content -->
         <div class="heroContent">
           <h1 class="title">
             <div class="title-line" style="font-size: 1.3em; font-weight: 800;">Stop paying for contacts</div>
@@ -49,7 +77,7 @@ import BrandLogos from './BrandLogos.vue'
   margin-top: calc((var(--vp-nav-height) + var(--vp-layout-top-height, 0px)) * -1);
   min-height: 100vh;
   height: auto;
-  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 48px) 64px 32px;
+  padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 80px) 64px 40px;
   position: relative;
   left: calc(-50vw + 50%);
   width: 100vw;
@@ -59,22 +87,24 @@ import BrandLogos from './BrandLogos.vue'
 }
 
 html.dark .heroDiv {
-  background: linear-gradient(278deg, hsl(247.72, 53.44%, 10%) 10%, hsl(196.99, 86.56%, 10%) 90%);
+  background: #0c1e2d;
 }
 
 /* Main Layout */
 .heroMain {
-  min-height: calc(100vh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px) - 220px);
+  min-height: calc(100vh - var(--vp-nav-height) - var(--vp-layout-top-height, 0px) - 260px);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+  overflow: hidden;
   z-index: 1;
 }
 
 .heroGrid {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  justify-content: flex-start;
   max-width: 1400px;
   width: 100%;
   margin: 0 auto;
@@ -82,8 +112,49 @@ html.dark .heroDiv {
 
 /* Content */
 .heroContent {
-  text-align: center;
-  max-width: 720px;
+  text-align: left;
+  max-width: 620px;
+  position: relative;
+  z-index: 1;
+}
+
+/* Decorative diagonal panel of real template previews, bleeding off the right edge — static, clipped to heroMain */
+.hero-diagonal {
+  position: absolute;
+  top: -5%;
+  right: -40px;
+  display: flex;
+  gap: 14px;
+  width: 620px;
+  height: 110%;
+  overflow: hidden;
+  transform: rotate(14deg);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-diagonal-track {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.hero-diagonal-track:nth-child(1) { margin-top: 0; }
+.hero-diagonal-track:nth-child(2) { margin-top: -80px; }
+.hero-diagonal-track:nth-child(3) { margin-top: -40px; }
+
+.hero-diagonal-track img {
+  width: 205px;
+  height: 270px;
+  flex-shrink: 0;
+  object-fit: cover;
+  object-position: top center;
+}
+
+@media (max-width: 1024px) {
+  .hero-diagonal { display: none; }
 }
 
 @keyframes fadeInLeft {
@@ -170,7 +241,7 @@ html.dark .cta-button:hover {
 .hero-highlights {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 10px;
   margin-top: 20px;
 }
@@ -205,6 +276,10 @@ a {
     min-height: auto;
   }
 
+  .heroGrid {
+    justify-content: center;
+  }
+
   .heroContent {
     max-width: 600px;
     margin: 0 auto;
@@ -215,11 +290,6 @@ a {
 @media (max-width: 640px) {
   .heroDiv {
     padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 24px) 20px 40px;
-    min-height: auto;
-  }
-  
-  .heroMain {
-    min-height: auto;
   }
 
   .title {
@@ -265,11 +335,11 @@ a {
 /* Landscape mobile fix */
 @media (orientation: landscape) and (max-height: 640px) {
   .heroDiv {
-    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 20px) 24px 32px;
     min-height: auto;
     height: auto;
+    padding: calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 20px) 24px 32px;
   }
-  
+
   .heroMain {
     min-height: auto;
   }

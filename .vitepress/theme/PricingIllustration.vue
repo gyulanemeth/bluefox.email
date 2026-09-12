@@ -219,7 +219,7 @@ html.dark .col-sub { color: #94a3b8; }
 }
 
 html.dark .included {
-  background: linear-gradient(135deg, rgba(19, 176, 238, 0.1), rgba(57, 44, 145, 0.1));
+  background: rgba(19, 176, 238, 0.1);
   border-color: rgba(19, 176, 238, 0.25);
 }
 
