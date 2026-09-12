@@ -2,6 +2,11 @@
 <div class="PostContent">
   <div class="vp-doc">
     <Content/>
+    <div class="post-byline">
+      <img v-if="authorPhoto" :src="authorPhoto" :alt="authorName" class="post-byline-avatar" loading="lazy" />
+      <span>{{ authorName }}</span>
+      <span v-if="updatedLabel" class="post-updated"> &middot; Updated {{ updatedLabel }}</span>
+    </div>
   </div>
 </div>
 </template>
@@ -77,4 +82,49 @@
 .dark .PostContent a {
   color: hsl(197, 87%, 65%);
 }
+
+.post-byline {
+  font-size: 14px;
+  color: var(--vp-c-text-2);
+  margin-top: 2em;
+}
+
+.post-updated {
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.post-byline-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 8px;
+  object-fit: cover;
+  object-position: top center;
+}
 </style>
+
+<script setup>
+import { computed } from 'vue'
+import { useData } from 'vitepress'
+import { DEFAULT_AUTHOR } from './SchemaMarkup/shared'
+import { team } from './team'
+
+const { frontmatter } = useData()
+
+const authorName = computed(() => frontmatter.value.author || DEFAULT_AUTHOR)
+const authorPhoto = computed(() => team.find(member => member.name === authorName.value)?.photo)
+
+const updatedLabel = computed(() => {
+  const raw = frontmatter.value.lastUpdated
+  if (typeof raw !== 'string') {
+    return null
+  }
+  const date = new Date(raw)
+  if (isNaN(date)) {
+    return null
+  }
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+})
+</script>

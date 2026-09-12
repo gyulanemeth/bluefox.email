@@ -32,7 +32,7 @@ head:
       content: "https://bluefox.email/assets/articles/sender-name-and-email-address-share.png"
 layout: post
 category: articles
-lastUpdated: true
+lastUpdated: 2026-05-28
 published: 2024-10-07
 sidebar: false
 ---

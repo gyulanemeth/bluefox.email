@@ -6,7 +6,7 @@ category: tutorials
 tags: ['Newsletter', 'AI', 'Automation', 'Social Media']
 sidebar: false
 published: false
-lastUpdated: true
+lastUpdated: 2026-06-24
 layout: post
 ---
 

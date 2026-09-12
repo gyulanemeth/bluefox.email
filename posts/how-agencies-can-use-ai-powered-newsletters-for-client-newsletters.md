@@ -6,7 +6,7 @@ category: tutorials
 tags: ['Newsletter', 'AI', 'Agencies', 'Content Strategy']
 sidebar: false
 published: false
-lastUpdated: true
+lastUpdated: 2026-06-23
 layout: post
 ---
 

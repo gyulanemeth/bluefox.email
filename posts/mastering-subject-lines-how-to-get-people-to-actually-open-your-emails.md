@@ -32,7 +32,7 @@ head:
       content: "https://bluefox.email/assets/articles/mastering-subject-lines-share.png"
 layout: post
 category: articles
-lastUpdated: true
+lastUpdated: 2025-09-22
 published: 2024-10-02
 sidebar: false
 ---

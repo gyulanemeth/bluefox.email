@@ -359,7 +359,8 @@ html.dark .seg-match-badge strong { color: #67e8f9; }
 .seg-flow {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: minmax(0, 280px) auto minmax(0, 280px);
+  justify-content: space-between;
   gap: 72px;
   align-items: center;
 }
@@ -579,8 +580,11 @@ html.dark .seg-person-avatar {
 
 .seg-person-meta {
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+  gap: 16px;
   min-width: 0;
 }
 

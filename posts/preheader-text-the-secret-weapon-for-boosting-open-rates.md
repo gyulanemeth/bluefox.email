@@ -32,7 +32,7 @@ head:
       content: "https://bluefox.email/assets/articles/preheader-text-share.png"
 layout: post
 category: articles
-lastUpdated: true
+lastUpdated: 2026-05-28
 published: 2025-01-21
 sidebar: false
 ---
