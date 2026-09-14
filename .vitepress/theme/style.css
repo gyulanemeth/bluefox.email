@@ -176,6 +176,26 @@ html {
 }
 
 /**
+ * Component: Nav. The desktop menu (page links + Login/Get Started for Free
+ * buttons) doesn't fit its row again until ~1300px wide, but VitePress's
+ * default theme switches from the hamburger menu to the full row at 768px,
+ * so anything from 768-1299px clipped the "Get Started for Free" button and
+ * forced horizontal page scroll. Push that switch out to 960px, matching the
+ * breakpoint VPNavBar already uses for its own sidebar-related layout, so the
+ * hamburger menu (which already renders every nav item, including these
+ * buttons, full-width and stacked) covers the range that used to clip.
+ * -------------------------------------------------------------------------- */
+@media (max-width: 959px) {
+  .VPNavBarMenu {
+    display: none !important;
+  }
+
+  .VPNavBarHamburger {
+    display: flex !important;
+  }
+}
+
+/**
  * Component: Algolia
  * -------------------------------------------------------------------------- */
 

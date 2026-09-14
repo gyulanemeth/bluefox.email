@@ -4,8 +4,12 @@ import PersonaLanding from '../for/components/PersonaLanding.vue'
 
 const REPO_URL = 'https://github.com/bluefox-email/bluefox.email-mcp'
 const TOOLS_URL = `${REPO_URL}#tools`
-const SETUP_URL = `${REPO_URL}#setup`
 const GET_STARTED_URL = 'https://app.bluefox.email/accounts/create-account'
+// Internal, verified setup docs (see docs/integrations/mcp-server.md) rather
+// than the GitHub README, so every link and code sample on this page matches
+// content we maintain and have checked against the actual server.
+const SETUP_DOCS_URL = '/docs/integrations/mcp-server'
+const SETUP_CLIENTS_URL = '/docs/integrations/mcp-server#connecting-your-ai-client'
 
 const prompts = [
   {
@@ -17,52 +21,44 @@ const prompts = [
     iconPaths: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'
   },
   {
-    text: 'Create a campaign announcing our new feature.',
+    text: 'Create a campaign announcing our new feature and schedule it for tomorrow morning.',
     iconPaths: '<polygon points="22 2 15 22 11 13 2 9 22 2"/>'
-  },
-  {
-    text: 'Schedule the campaign for tomorrow morning.',
-    iconPaths: '<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>'
   },
   {
     text: 'How did our latest campaigns perform?',
     iconPaths: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><polyline points="2 20 22 20"/>'
-  },
-  {
-    text: 'Add example.com as a sending domain and tell me what DNS records I need.',
-    iconPaths: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>'
   }
 ]
 
 const capabilities = [
   {
     name: 'Campaigns & scheduling',
-    desc: 'Create a campaign, schedule it, reschedule or cancel it, and check delivery stats and error logs once it sends.',
+    desc: 'Create, schedule, reschedule, or cancel a campaign, then check its delivery stats and error logs.',
     iconPaths: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>'
   },
   {
     name: 'Transactional & triggered emails',
-    desc: 'Set up reusable transactional emails and list-triggered emails, send them, or fire a one-off test without touching real stats.',
+    desc: 'Set up reusable transactional and triggered emails, send them, or fire a test send that skips your real stats.',
     iconPaths: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'
   },
   {
     name: 'Contacts & subscriber lists',
-    desc: 'Add, import, or bulk-update contacts, manage subscriber lists, and clean up bounced or complained addresses.',
+    desc: 'Add, import, or bulk-update contacts, manage lists, and clean up bounced or complained addresses.',
     iconPaths: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>'
   },
   {
     name: 'Segments & signup forms',
-    desc: 'Build segments from contact properties or engagement, and create embeddable signup forms with double opt-in.',
+    desc: 'Build segments from contact properties or engagement, and create signup forms with double opt-in.',
     iconPaths: '<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>'
   },
   {
     name: 'Sending domains & deliverability',
-    desc: 'Add a sending domain and get the DNS records you need, check sandbox or production deliverability, and request production access or higher limits.',
+    desc: 'Add a sending domain and its DNS records, check deliverability, and request production access or higher limits.',
     iconPaths: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>'
   },
   {
     name: 'Project settings',
-    desc: 'Manage webhooks, design system overrides, custom contact fields and tags, your suppression list, and BYO AWS SES credentials.',
+    desc: 'Manage webhooks, email theme overrides, contact fields and tags, your suppression list, and BYO AWS SES.',
     iconPaths: '<path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>'
   }
 ]
@@ -70,51 +66,91 @@ const capabilities = [
 const steps = [
   {
     number: '1',
-    title: 'Connect your AI client',
+    title: 'Connect your client',
     detail: "Add the BlueFox MCP server to Claude Desktop, Claude Code, Cursor, or another MCP-compatible client, using your project's ID and API key."
   },
   {
     number: '2',
-    title: 'Your agent sees what BlueFox can do',
-    detail: "The MCP server exposes BlueFox's capabilities as tools your agent can call, so it looks up things like your real subscriber lists instead of guessing."
+    title: 'Ask for an outcome',
+    detail: 'Describe what you want in plain language, like scheduling a campaign or adding a contact. Your agent picks the right tools and calls them for you.'
   },
   {
     number: '3',
-    title: 'Actions go through the BlueFox API',
-    detail: 'When you ask it to create a campaign or add a contact, the server calls the same BlueFox Email API your account already uses, from your own computer.'
+    title: 'Review the result',
+    detail: "Check your agent's response and review the resulting changes in BlueFox."
   }
 ]
 
-const clients = ['Claude Desktop', 'Claude Code', 'Cursor', 'Windsurf', 'Cline']
+// Anchors verified against docs/integrations/mcp-server.md's "Connecting Your
+// AI Client" headings, so every badge lands on real, client-specific steps.
+// Codex and ChatGPT Desktop share one setup section there because OpenAI's
+// docs (https://learn.chatgpt.com/docs/extend/mcp) say all three Codex-family
+// surfaces (ChatGPT desktop app, Codex CLI, Codex IDE extension) read the
+// same local config.
+const clients = [
+  { name: 'Claude Desktop', href: '/docs/integrations/mcp-server#claude-desktop' },
+  { name: 'Claude Code', href: '/docs/integrations/mcp-server#claude-code' },
+  { name: 'Cursor', href: '/docs/integrations/mcp-server#cursor' },
+  { name: 'Windsurf', href: '/docs/integrations/mcp-server#windsurf' },
+  { name: 'Cline', href: '/docs/integrations/mcp-server#cline' },
+  { name: 'Codex', href: '/docs/integrations/mcp-server#codex-and-chatgpt-desktop-app' },
+  { name: 'ChatGPT Desktop', href: '/docs/integrations/mcp-server#codex-and-chatgpt-desktop-app' }
+]
 
 const faqs = [
-  { q: 'What is MCP?', a: 'Model Context Protocol (MCP) is an open standard for connecting AI assistants to external tools and data. An MCP server describes a set of actions an AI agent can call directly, so instead of you copying data back and forth, the agent can look things up and make changes on your behalf, with your permission.' },
-  { q: 'What can I do with the BlueFox MCP server?', a: 'You can create and schedule campaigns, set up transactional and triggered emails, manage contacts and subscriber lists, build segments and signup forms, check analytics and deliverability, and manage sending domains and project settings, all by describing what you want in plain language. See the full list of tools in the GitHub README.' },
-  { q: 'Which AI tools does it work with?', a: "Any MCP-compatible client. The README documents setup for Claude Desktop, Claude Code, Cursor, Windsurf, and Cline. ChatGPT's current MCP support expects a hosted server URL rather than a local command, so it can't connect to this server directly; use the BlueFox Email API for ChatGPT-based integrations instead." },
-  { q: 'Is the BlueFox MCP server open source?', a: 'Yes. The full source is public on GitHub, so you can read exactly what it does, run it yourself, or open a pull request.' },
+  { q: 'Do I need to be a developer to use it?', a: "Setting it up involves some technical steps: cloning a repository, running a couple of terminal commands, and pasting a short config snippet into your AI client. Once that's done, using it is conversational. No code or API knowledge required." },
+  { q: 'Do I need a BlueFox Email account?', a: "Yes. You'll need a BlueFox Email account with at least one project, plus that project's Project ID and API key, both available under Project Settings." },
+  { q: 'Does using MCP cost extra?', a: "No. The MCP server itself is free to use. It carries out actions through your existing BlueFox Email account, so normal BlueFox Email sending costs apply, exactly as if you'd used the dashboard or API directly." },
   { q: 'Does the MCP server run locally?', a: "Yes. It runs as a local process on your own computer, launched by your AI client, and talks to the BlueFox Email API directly using your own API key. BlueFox doesn't host it for you, and it isn't published to npm; you install it by cloning the repository." },
   { q: 'Is my BlueFox API key safe?', a: "Your API key is stored in your AI client's local MCP configuration and sent straight from your computer to the BlueFox Email API, the same path it would take if you called the API yourself. It doesn't pass through any BlueFox-hosted server in between. Treat your MCP config file like any other file holding a credential." },
-  { q: 'Do I need a BlueFox Email account?', a: "Yes. You'll need a BlueFox Email account with at least one project, plus that project's Project ID and API key, both available under Project Settings." },
-  { q: 'Do I need to be a developer to use it?', a: "Setting it up involves some technical steps: cloning a repository, running a couple of terminal commands, and pasting a short config snippet into your AI client. Once that's done, using it is conversational. No code or API knowledge required." },
-  { q: 'Does using MCP cost extra?', a: "No. The MCP server itself is free and open source. It carries out actions through your existing BlueFox Email account, so normal BlueFox Email sending costs apply, exactly as if you'd used the dashboard or API directly." },
   { q: 'Why use MCP instead of the BlueFox API directly?', a: "The API is what you'd build a software integration on. MCP is for when you want an AI agent itself to understand BlueFox's capabilities and carry out tasks conversationally, without you writing integration code or looking up endpoint documentation." }
 ]
 const openFaq = ref(null)
 const toggleFaq = (i) => { openFaq.value = openFaq.value === i ? null : i }
+
+const CONFIG_SNIPPET = `{
+  "mcpServers": {
+    "bluefox-email": {
+      "command": "bluefox.email-mcp",
+      "env": {
+        "BLUEFOX_BASE_URL": "https://api.bluefox.email",
+        "BLUEFOX_PROJECT_ID": "YOUR_PROJECT_ID",
+        "BLUEFOX_API_KEY": "YOUR_API_KEY"
+      }
+    }
+  }
+}`
+
+const configCopied = ref(false)
+let configCopiedTimeout
+async function copyConfig() {
+  try {
+    await navigator.clipboard.writeText(CONFIG_SNIPPET)
+    configCopied.value = true
+    clearTimeout(configCopiedTimeout)
+    configCopiedTimeout = setTimeout(() => { configCopied.value = false }, 2000)
+  } catch (e) {
+    // Clipboard API unavailable (e.g. insecure context) - the snippet stays
+    // visible and selectable, so copying by hand still works.
+  }
+}
 </script>
 
 <template>
   <PersonaLanding
-    hero-badge="Open source · MCP"
+    hero-badge=""
     hero-title="Run BlueFox Email from your AI agent."
-    hero-description="The BlueFox MCP server lets Claude, Cursor, and other MCP-compatible AI clients create campaigns, manage contacts and lists, check analytics, and more, just by asking in plain language."
-    :hero-highlights="['Open source', 'Runs on your computer', 'No extra cost']"
+    hero-description="Create campaigns, manage contacts, and check email performance from Claude, Cursor, or another MCP-compatible AI client."
+    :hero-highlights="['Runs on your computer', 'No MCP fee']"
     :hero-feature-items="[]"
-    hero-primary-cta-text="Get started"
-    :hero-primary-cta-href="GET_STARTED_URL"
-    hero-secondary-cta-text="View on GitHub"
-    :hero-secondary-cta-href="REPO_URL"
-    cta-text="Get started"
+    :hero-compact="true"
+    :hero-center-stacked-cta="true"
+    :after-pain-tight-top="true"
+    hero-primary-cta-text="Set up MCP"
+    :hero-primary-cta-href="SETUP_DOCS_URL"
+    hero-secondary-cta-text="Create a free account"
+    :hero-secondary-cta-href="GET_STARTED_URL"
+    cta-text="Create a free account"
     :cta-href="GET_STARTED_URL"
     :show-testimonials="false"
     mid-cta-title=""
@@ -125,11 +161,11 @@ const toggleFaq = (i) => { openFaq.value = openFaq.value === i ? null : i }
     :show-integrations="false"
     final-cta-stripe="blue"
     final-title="Connect BlueFox Email to your AI agent"
-    final-description="Open source, runs on your computer, and works with the MCP client you already use."
-    final-primary-cta-text="Get started"
-    :final-primary-cta-href="GET_STARTED_URL"
-    final-secondary-cta-text="View on GitHub"
-    :final-secondary-cta-href="REPO_URL"
+    final-description="Set up your AI client and start managing campaigns, contacts, and more without leaving the conversation."
+    final-primary-cta-text="Set up MCP"
+    :final-primary-cta-href="SETUP_DOCS_URL"
+    final-secondary-cta-text="Create a free account"
+    :final-secondary-cta-href="GET_STARTED_URL"
   >
     <template #heroVisual>
       <div class="chat-mock" role="img" aria-label="Example conversation: a user asks their AI agent to create and schedule a campaign, and the agent confirms it using the BlueFox MCP server">
@@ -158,9 +194,9 @@ const toggleFaq = (i) => { openFaq.value = openFaq.value === i ? null : i }
 
     <template #afterPain>
       <!-- 1. Prompt examples (white) -->
-      <section class="mcp-stripe-inner section-block" aria-labelledby="prompts-title">
+      <section class="mcp-stripe-inner section-block section-block--tight-top" aria-labelledby="prompts-title">
         <h2 id="prompts-title" class="section-title">Just tell it what you need</h2>
-        <p class="section-subtitle constrained">No API docs, no copy-pasting requests. Describe the outcome, and your agent handles the rest.</p>
+        <p class="section-subtitle constrained">Once connected, no API docs, no copy-pasting requests. Describe the outcome, and your agent handles the rest.</p>
         <div class="prompt-grid" role="list" aria-label="Example prompts">
           <div v-for="(prompt, i) in prompts" :key="i" class="prompt-card" role="listitem">
             <svg class="prompt-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" v-html="prompt.iconPaths" />
@@ -173,7 +209,7 @@ const toggleFaq = (i) => { openFaq.value = openFaq.value === i ? null : i }
       <div class="mcp-stripe mcp-stripe--blue">
         <section class="mcp-stripe-inner section-block" aria-labelledby="capabilities-title">
           <h2 id="capabilities-title" class="section-title">What your agent can do</h2>
-          <p class="section-subtitle constrained">The BlueFox MCP server exposes dozens of tools covering every part of your account.</p>
+          <p class="section-subtitle constrained">The BlueFox MCP server exposes 52 tools across campaigns, contacts, lists, forms, deliverability, and project settings.</p>
           <div class="capability-grid">
             <div v-for="cap in capabilities" :key="cap.name" class="capability-card">
               <div class="capability-icon" aria-hidden="true">
@@ -194,90 +230,81 @@ const toggleFaq = (i) => { openFaq.value = openFaq.value === i ? null : i }
         </section>
       </div>
 
-      <!-- 3. How it works (white) -->
-      <section class="mcp-stripe-inner section-block" aria-labelledby="how-it-works-title">
-        <h2 id="how-it-works-title" class="section-title">Three moving parts</h2>
-        <p class="section-subtitle constrained">Keep the mental model simple: your agent talks to a small local server, which talks to BlueFox on your behalf.</p>
-
-        <div class="flow-diagram" role="img" aria-label="AI Agent connects to the BlueFox MCP Server, which connects to the BlueFox Email API">
-          <div class="flow-node">
-            <span class="flow-node-title">AI Agent</span>
-            <span class="flow-node-sub">Claude, Cursor, etc.</span>
-          </div>
-          <svg class="flow-arrow" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          <div class="flow-node">
-            <span class="flow-node-title">BlueFox MCP Server</span>
-            <span class="flow-node-sub">Runs on your computer</span>
-          </div>
-          <svg class="flow-arrow" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          <div class="flow-node">
-            <span class="flow-node-title">BlueFox Email API</span>
-            <span class="flow-node-sub">Your account</span>
-          </div>
+      <!-- 3. Compatible AI clients (white, compact) -->
+      <section class="mcp-stripe-inner compat-section" aria-labelledby="clients-title">
+        <h2 id="clients-title" class="section-title">Works with the AI tools you already use</h2>
+        <p class="section-subtitle constrained">Any MCP-compatible client can connect. Setup steps are documented for:</p>
+        <div class="client-row" role="list" aria-label="Compatible AI clients">
+          <a
+            v-for="client in clients"
+            :key="client.name"
+            :href="client.href"
+            class="client-chip"
+            role="listitem"
+          >{{ client.name }}</a>
         </div>
-
-        <div class="steps-row">
-          <div v-for="step in steps" :key="step.number" class="step">
-            <div class="step-circle">{{ step.number }}</div>
-            <div class="step-content">
-              <strong class="step-title">{{ step.title }}</strong>
-              <p class="step-detail">{{ step.detail }}</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="config-card">
-          <p class="config-label">What you add to your AI client's config (Claude Desktop, Cursor, Windsurf, Cline):</p>
-          <pre class="json-sample"><code>{
-  "mcpServers": {
-    "bluefox-email": {
-      "command": "bluefox.email-mcp",
-      "env": {
-        "BLUEFOX_BASE_URL": "https://api.bluefox.email",
-        "BLUEFOX_PROJECT_ID": "YOUR_PROJECT_ID",
-        "BLUEFOX_API_KEY": "YOUR_API_KEY"
-      }
-    }
-  }
-}</code></pre>
-          <p class="config-note">
-            Claude Code uses a one-line terminal command instead of a config file.
-            <a :href="SETUP_URL" target="_blank" rel="noopener noreferrer">Full setup steps for every client are on GitHub</a>.
-          </p>
-        </div>
+        <p class="client-footnote">ChatGPT web (the browser-based chat) doesn't read local configuration and can't connect to this local server; use the <a href="/docs/api/">BlueFox Email API</a> for ChatGPT web integrations instead. A remote MCP server for web-based clients like ChatGPT web is in the works.</p>
       </section>
 
-      <!-- 4. Works with your AI tools (blue) -->
+      <!-- 4. How it works (blue) -->
       <div class="mcp-stripe mcp-stripe--blue">
-        <section class="mcp-stripe-inner section-block" aria-labelledby="clients-title">
-          <h2 id="clients-title" class="section-title">Works with the AI tools you already use</h2>
-          <p class="section-subtitle constrained">Any MCP-compatible client can connect. Setup is documented on GitHub for:</p>
-          <div class="client-row" role="list" aria-label="Compatible AI clients">
-            <span v-for="client in clients" :key="client" class="client-chip" role="listitem">{{ client }}</span>
+        <section class="mcp-stripe-inner section-block" aria-labelledby="how-it-works-title">
+          <h2 id="how-it-works-title" class="section-title">How it works</h2>
+          <p class="section-subtitle constrained">Your AI client connects to BlueFox through a small server running on your computer.</p>
+
+          <div class="flow-diagram" role="img" aria-label="AI Agent connects to the BlueFox MCP Server, which connects to the BlueFox Email API">
+            <div class="flow-node">
+              <span class="flow-node-title">AI Agent</span>
+              <span class="flow-node-sub">Claude, Cursor, etc.</span>
+            </div>
+            <svg class="flow-arrow" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <div class="flow-node">
+              <span class="flow-node-title">BlueFox MCP Server</span>
+              <span class="flow-node-sub">Runs on your computer</span>
+            </div>
+            <svg class="flow-arrow" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <div class="flow-node">
+              <span class="flow-node-title">BlueFox Email API</span>
+              <span class="flow-node-sub">Your account</span>
+            </div>
           </div>
-          <p class="client-footnote">ChatGPT's current MCP support expects a hosted server URL rather than a local command, so it can't connect directly. Use the <a href="/docs/api/">BlueFox Email API</a> for ChatGPT-based integrations instead.</p>
+
+          <div class="steps-row">
+            <div v-for="step in steps" :key="step.number" class="step">
+              <div class="step-circle">{{ step.number }}</div>
+              <div class="step-content">
+                <strong class="step-title">{{ step.title }}</strong>
+                <p class="step-detail">{{ step.detail }}</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="setup-doc-row">
+            <a :href="SETUP_CLIENTS_URL" class="setup-doc-link">
+              Full setup documentation for every client
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+          </p>
+
+          <details class="config-disclosure">
+            <summary class="config-summary">Show configuration example</summary>
+            <div class="config-card">
+              <p class="config-label">What you add to your AI client's config (Claude Desktop, Cursor, Windsurf, Cline):</p>
+              <div class="code-block">
+                <button type="button" class="copy-btn" @click="copyConfig">{{ configCopied ? 'Copied!' : 'Copy' }}</button>
+                <pre class="json-sample"><code>{{ CONFIG_SNIPPET }}</code></pre>
+              </div>
+              <p class="config-note">Claude Code uses a one-line terminal command instead of a config file. See the full setup documentation above for exact steps per client.</p>
+            </div>
+          </details>
         </section>
       </div>
 
-      <!-- 5. Open source (white) -->
-      <section class="mcp-stripe-inner section-block" aria-labelledby="opensource-title">
-        <div class="opensource-card">
-          <svg class="opensource-icon" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
-          </svg>
-          <div class="opensource-body">
-            <h2 id="opensource-title" class="opensource-title">Open source, by design</h2>
-            <p>The BlueFox MCP server's full source is public on GitHub. Inspect exactly what it does before connecting it to your account, run it yourself, or open a pull request to extend it.</p>
-          </div>
-          <a :href="REPO_URL" target="_blank" rel="noopener noreferrer" class="opensource-btn">
-            View source on GitHub
-          </a>
-        </div>
-      </section>
-
-      <!-- 6. FAQ (white) -->
+      <!-- 5. FAQ (white) -->
       <section class="mcp-stripe-inner faq-section" aria-labelledby="faq-heading">
-        <h2 id="faq-heading" class="faq-heading">Frequently Asked Questions</h2>
+        <h2 id="faq-heading" class="section-title">Frequently Asked Questions</h2>
         <dl class="faq-list">
           <div v-for="(faq, i) in faqs" :key="i" class="faq-item" :class="{ open: openFaq === i }">
             <dt>
@@ -416,12 +443,19 @@ html.dark .mcp-stripe--blue { background: #0c1e2d; }
 }
 
 .section-block {
-  padding: 64px 24px 96px;
+  padding: 56px 24px 56px;
+}
+
+/* Slightly closes the gap right under the (already-compact) hero, so the
+   page keeps reading momentum into the first example prompt. */
+.section-block--tight-top {
+  padding-top: 40px;
 }
 
 .section-title {
   font-size: clamp(28px, 4vw, 42px);
   line-height: 1.2;
+  margin-top: 0;
   margin-bottom: 12px;
   border-top: 0 !important;
   padding-top: 0 !important;
@@ -616,10 +650,51 @@ html.dark .section-subtitle { color: #9ca3af; }
   color: var(--vp-c-text-2);
 }
 
-/* Config snippet */
-.config-card {
-  margin: 48px auto 0;
+/* Setup docs link (kept visible outside the config disclosure) */
+.setup-doc-row {
+  margin: 40px 0 0;
+  text-align: center;
+}
+
+.setup-doc-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #13B0EE;
+  text-decoration: none;
+}
+
+.setup-doc-link:hover { text-decoration: underline; }
+
+/* Config example disclosure */
+.config-disclosure {
+  margin: 20px auto 0;
   max-width: 640px;
+}
+
+.config-summary {
+  width: fit-content;
+  margin: 0 auto;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-1);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  text-align: center;
+}
+
+.config-summary::-webkit-details-marker { display: none; }
+
+.config-summary:hover { color: #13B0EE; }
+
+.config-card {
+  margin: 20px auto 0;
 }
 
 .config-label {
@@ -629,9 +704,32 @@ html.dark .section-subtitle { color: #9ca3af; }
   color: var(--vp-c-text-1);
 }
 
+.code-block {
+  position: relative;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(226, 232, 240, 0.25);
+  background: rgba(255, 255, 255, 0.06);
+  color: #e2e8f0;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.copy-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .json-sample {
   margin: 0;
-  padding: 18px 20px;
+  padding: 18px 84px 18px 20px;
+  max-width: 100%;
   background: #0f172a;
   color: #e2e8f0;
   border-radius: 10px;
@@ -648,12 +746,11 @@ html.dark .section-subtitle { color: #9ca3af; }
   color: var(--vp-c-text-2);
 }
 
-.config-note a {
-  color: #13B0EE;
-  font-weight: 600;
+/* Compatible AI clients - compact, quick-scan section */
+.compat-section {
+  padding: 40px 24px;
 }
 
-/* Works with your AI tools */
 .client-row {
   margin-top: 28px;
   display: flex;
@@ -668,11 +765,30 @@ html.dark .section-subtitle { color: #9ca3af; }
   color: #0e7490;
   font-size: 14px;
   font-weight: 700;
+  text-decoration: none;
+}
+
+.client-chip:hover {
+  background: rgba(19, 176, 238, 0.2);
+  text-decoration: none;
+}
+
+.client-chip:focus-visible {
+  outline: 2px solid #13B0EE;
+  outline-offset: 2px;
 }
 
 html.dark .client-chip {
   background: rgba(19, 176, 238, 0.2);
   color: #67e8f9;
+}
+
+html.dark .client-chip:hover {
+  background: rgba(19, 176, 238, 0.3);
+}
+
+html.dark .client-chip:focus-visible {
+  outline-color: #67e8f9;
 }
 
 .client-footnote {
@@ -683,75 +799,23 @@ html.dark .client-chip {
   max-width: 760px;
 }
 
-/* Open source */
-.opensource-card {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
-  padding: 32px;
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 20px;
-}
-
-.opensource-icon {
-  color: var(--vp-c-text-1);
-  flex-shrink: 0;
-}
-
-.opensource-body {
-  flex: 1;
-  min-width: 240px;
-}
-
-.opensource-title {
-  font-size: clamp(20px, 3vw, 26px);
-  margin: 0 0 8px;
-  padding: 0;
-  border: none !important;
-}
-
-.opensource-body p {
-  margin: 0;
-  font-size: 15px;
-  line-height: 1.65;
-  color: var(--vp-c-text-2);
-}
-
-.opensource-btn {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 48px;
-  padding: 0 24px;
-  border-radius: 10px;
-  background: #13B0EE;
-  color: #ffffff;
+.client-footnote a {
+  color: #13B0EE;
   font-weight: 700;
-  font-size: 14.5px;
   text-decoration: none;
-  white-space: nowrap;
 }
 
-.opensource-btn:hover { background: #0f8ec0; color: #ffffff; }
+.client-footnote a:hover {
+  text-decoration: underline;
+}
 
 /* FAQ (mirrors FeaturesGrid.vue's accordion pattern) */
 .faq-section {
-  padding: 64px 24px 96px;
+  padding: 56px 24px 56px;
 }
 
-.faq-heading {
-  font-size: clamp(22px, 3vw, 30px);
-  font-weight: 800;
-  margin: 0 0 32px;
-  padding: 0;
-  border: none !important;
-  background: linear-gradient(120deg, #392C91 30%, #13B0EE 70%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.faq-section .section-title {
+  margin-bottom: 32px;
 }
 
 .faq-list {
@@ -810,18 +874,18 @@ html.dark .client-chip {
 }
 
 @media (max-width: 760px) {
-  .section-block { padding: 48px 16px 72px; }
-  .faq-section { padding: 48px 16px 72px; }
+  .section-block { padding: 40px 16px 40px; }
+  .faq-section { padding: 40px 16px 40px; }
+  .compat-section { padding: 32px 16px; }
   .prompt-grid { grid-template-columns: 1fr; }
   .capability-grid { grid-template-columns: 1fr; }
   .flow-diagram { flex-direction: column; }
   .flow-arrow { transform: rotate(90deg); }
-  .opensource-card { flex-direction: column; align-items: flex-start; }
-  .opensource-btn { width: 100%; }
 }
 
 @media (max-width: 480px) {
-  .section-block { padding: 36px 14px 56px; }
-  .faq-section { padding: 36px 14px 56px; }
+  .section-block { padding: 32px 14px 32px; }
+  .faq-section { padding: 32px 14px 32px; }
+  .compat-section { padding: 28px 14px; }
 }
 </style>

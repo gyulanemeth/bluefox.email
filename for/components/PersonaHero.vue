@@ -19,19 +19,25 @@ defineProps({
   primaryCtaHref: { type: String, default: '' },
   secondaryCtaText: { type: String, default: '' },
   secondaryCtaHref: { type: String, default: '' },
-  ctaSupportingText: { type: String, default: '' }
+  ctaSupportingText: { type: String, default: '' },
+  // Opt-in, defaults preserve every existing persona page's hero as-is.
+  // `compact` drops the full-viewport-height hero for pages whose content
+  // doesn't need it. `centerStackedCta` centers the primary/secondary CTA
+  // row once the two-column grid collapses to a single centered column.
+  compact: { type: Boolean, default: false },
+  centerStackedCta: { type: Boolean, default: false }
 })
 </script>
 
 <template>
-  <div class="heroDiv">
+  <div class="heroDiv" :class="{ 'heroDiv--compact': compact }">
     <div class="background-gradient"></div>
     <div class="grid-overlay"></div>
 
     <div class="heroMain">
       <div class="heroGrid" :class="{ 'heroGrid--solo': !featureItems.length && !$slots.heroVisual }">
         <div class="heroContent">
-          <v-chip color="primary" class="hero-badge" aria-label="Audience badge">
+          <v-chip v-if="badge" color="primary" class="hero-badge" aria-label="Audience badge">
             <span class="text-overline">{{ badge }}</span>
           </v-chip>
 
@@ -44,7 +50,7 @@ defineProps({
             </span>
           </div>
 
-          <div v-if="primaryCtaText" class="hero-cta-row">
+          <div v-if="primaryCtaText" class="hero-cta-row" :class="{ 'hero-cta-row--center-stacked': centerStackedCta }">
             <v-btn
               size="x-large"
               color="primary"
@@ -294,6 +300,19 @@ html.dark .highlight-item {
     max-width: 580px;
     margin: 0 auto;
   }
+
+  .hero-cta-row--center-stacked {
+    justify-content: center;
+  }
+}
+
+.heroDiv--compact {
+  min-height: auto;
+  padding-bottom: 48px;
+}
+
+.heroDiv--compact .heroMain {
+  min-height: auto;
 }
 
 @media (max-width: 980px) {

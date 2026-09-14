@@ -10,7 +10,7 @@ faqs:
   - question: "What can I do with the BlueFox MCP server?"
     answer: "You can create and schedule campaigns, set up transactional and triggered emails, manage contacts and subscriber lists, build segments and signup forms, check analytics and deliverability, and manage sending domains and project settings, all by describing what you want in plain language. See the full list of tools in the GitHub README."
   - question: "Which AI tools does it work with?"
-    answer: "Any MCP-compatible client. The README documents setup for Claude Desktop, Claude Code, Cursor, Windsurf, and Cline. ChatGPT's current MCP support expects a hosted server URL rather than a local command, so it can't connect to this server directly; use the BlueFox Email API for ChatGPT-based integrations instead."
+    answer: "Any MCP-compatible client. Setup is documented for Claude Desktop, Claude Code, Cursor, Windsurf, Cline, Codex (CLI and IDE extension), and the ChatGPT desktop app. ChatGPT web doesn't read local configuration, so it can't connect to this server directly; use the BlueFox Email API for ChatGPT web integrations instead. A remote MCP server for web-based clients like ChatGPT web is in the works."
   - question: "Is the BlueFox MCP server open source?"
     answer: "Yes. The full source is public on GitHub, so you can read exactly what it does, run it yourself, or open a pull request."
   - question: "Does the MCP server run locally?"
@@ -22,7 +22,7 @@ faqs:
   - question: "Do I need to be a developer to use it?"
     answer: "Setting it up involves some technical steps: cloning a repository, running a couple of terminal commands, and pasting a short config snippet into your AI client. Once that's done, using it is conversational. No code or API knowledge required."
   - question: "Does using MCP cost extra?"
-    answer: "No. The MCP server itself is free and open source. It carries out actions through your existing BlueFox Email account, so normal BlueFox Email sending costs apply, exactly as if you'd used the dashboard or API directly."
+    answer: "No. The MCP server itself is free to use. It carries out actions through your existing BlueFox Email account, so normal BlueFox Email sending costs apply, exactly as if you'd used the dashboard or API directly."
   - question: "Why use MCP instead of the BlueFox API directly?"
     answer: "The API is what you'd build a software integration on. MCP is for when you want an AI agent itself to understand BlueFox's capabilities and carry out tasks conversationally, without you writing integration code or looking up endpoint documentation."
 ---
