@@ -4,12 +4,15 @@ description: Explore BlueFox Email integrations for enhanced email control and r
 faqs:
   - question: "What integrations does BlueFox Email support?"
     answer: "BlueFox Email supports webhooks for real-time email event tracking, Supabase for routing authentication emails through BlueFox Email SMTP, Zapier for connecting with thousands of apps and automating workflows without writing code, and an open-source MCP server for managing your account through MCP-compatible AI agents."
+    answer: "BlueFox Email supports four integrations: webhooks for real-time email event tracking, Supabase for routing authentication emails through BlueFox Email SMTP, Zapier for connecting with thousands of apps without writing code, and an MCP server that lets an AI agent manage your project directly."
   - question: "What can I track with BlueFox Email webhooks?"
     answer: "Webhooks deliver real-time notifications for email events including sent, failed, open, click, bounce, complaint, and subscription changes such as subscribe, unsubscribe, pause, and resubscribe."
   - question: "How do I connect BlueFox Email to Supabase?"
     answer: "In Supabase, enable Custom SMTP under Project Settings and Authentication, then enter smtp.bluefox.email as the host, port 587, and your project API key as the password. Then create transactional email templates in BlueFox Email for each Supabase authentication email type you need."
   - question: "Do I need to write code to use the Zapier integration?"
     answer: "No. The Zapier integration requires no coding. You connect your BlueFox Email account using your project API key and project ID, then build Zaps by selecting triggers and actions from Zapier's visual interface."
+  - question: "What can an AI agent do through the MCP server?"
+    answer: "The MCP server exposes 52 tools covering emails, contacts, subscriber lists, signup forms, project settings, sending setup, and production access. It runs locally, so your API key never reaches the AI model, and creating a campaign or email always produces a draft - sending or scheduling is a separate explicit step."
 head:
   - - meta
     - name: description

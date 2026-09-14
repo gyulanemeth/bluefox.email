@@ -406,6 +406,10 @@ export default defineConfig({
                 {
                   text: "Zapier",
                   link: "/docs/integrations/zapier",
+                },
+                {
+                  text: "MCP Server",
+                  link: "/docs/integrations/mcp-server",
                 }
               ],
             },
