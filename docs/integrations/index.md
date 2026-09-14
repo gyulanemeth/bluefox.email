@@ -3,7 +3,7 @@ title: Integrations Overview | bluefox.email documentation
 description: Explore BlueFox Email integrations for enhanced email control and real-time event tracking.
 faqs:
   - question: "What integrations does BlueFox Email support?"
-    answer: "BlueFox Email supports three integrations: webhooks for real-time email event tracking, Supabase for routing authentication emails through BlueFox Email SMTP, and Zapier for connecting with thousands of apps and automating workflows without writing code."
+    answer: "BlueFox Email supports webhooks for real-time email event tracking, Supabase for routing authentication emails through BlueFox Email SMTP, Zapier for connecting with thousands of apps and automating workflows without writing code, and an open-source MCP server for managing your account through MCP-compatible AI agents."
   - question: "What can I track with BlueFox Email webhooks?"
     answer: "Webhooks deliver real-time notifications for email events including sent, failed, open, click, bounce, complaint, and subscription changes such as subscribe, unsubscribe, pause, and resubscribe."
   - question: "How do I connect BlueFox Email to Supabase?"
@@ -52,5 +52,7 @@ head:
 - **[Supabase](/docs/integrations/supabase)** – Send supabase authentication emails like signup confirmations, magic links, password resets, and user invitations using bluefox.email. Set up SMTP for reliable email delivery and customize transactional email templates with ease.
 
 - **[Zapier](/docs/integrations/zapier)** – Automate workflows by connecting BlueFox Email with thousands of apps through Zapier. Trigger actions based on email events and streamline your processes without coding.
+
+- **[MCP Server](/mcp)** – Let Claude, Cursor, and other MCP-compatible AI agents manage campaigns, contacts, and more through natural language. Open source, runs locally, and requires no coding to use.
 
 Explore the integrations documentation to seamlessly integrate BlueFox Email into your workflows. 🚀

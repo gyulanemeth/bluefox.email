@@ -45,6 +45,7 @@ const FEATURE_LIST = [
   'Webhooks',
   'Zapier Integration',
   'Supabase Auth Email Integration',
+  'MCP Server',
   'Multi-Project Management',
   'Team Roles & Permissions'
 ]

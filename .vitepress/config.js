@@ -11,6 +11,7 @@ import { addPostsSchema } from './theme/SchemaMarkup/postsSchema'
 import { addProductSchema } from './theme/SchemaMarkup/productSchema'
 import { addDocsSchema } from './theme/SchemaMarkup/docsSchema'
 import { addFeaturesSchema } from './theme/SchemaMarkup/featuresSchema'
+import { addMcpSchema } from './theme/SchemaMarkup/mcpSchema'
 
 function getImageDimensions(src, mdFilePath) {
   if (!src || !mdFilePath) {
@@ -161,6 +162,7 @@ export default defineConfig({
     addSchemaMarkup(pageData)
     addComparisonSchemaMarkup(pageData)
     addFeaturesSchema(pageData)
+    addMcpSchema(pageData)
   },
   vite: {
     server: {

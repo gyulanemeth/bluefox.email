@@ -263,6 +263,12 @@ const categories = [
         docs: '/docs/integrations/supabase',
         iconPaths: `<ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>`
       },
+      {
+        name: 'MCP Server',
+        desc: 'Let Claude, Cursor, and other MCP-compatible AI agents manage campaigns, contacts, and more by asking in plain language. Open source.',
+        docs: '/mcp',
+        iconPaths: `<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>`
+      },
     ]
   },
   {
@@ -293,7 +299,7 @@ const faqs = [
   { q: 'Does BlueFox Email have a visual automation builder?', a: 'Yes. BlueFox Email includes a visual automation builder with nodes for triggers (contact added, contact updated, enter/leave segment), timers, audience filters, send email, notify, branching, set value, manage tags, and exit criteria.' },
   { q: 'Can I write my own HTML instead of using the visual editor?', a: 'Yes. Every email, transactional, triggered, campaign, and automation, can be created with a Raw HTML editor, a Plain Text editor, or Copy & Paste, in addition to the drag-and-drop Visual Editor. Raw HTML and Plain Text always start from scratch or a copied design and don\'t support design system or pre-designed templates, but personalization, feeds, sending, and analytics all work the same.' },
   { q: 'Can I bring my own AWS SES account?', a: 'Yes. BlueFox Email supports BYO AWS SES via Access Key or STS role. This gives you full deliverability control using your own AWS infrastructure while BlueFox Email handles the sending logic, templates, contacts, and automations.' },
-  { q: 'What integrations does BlueFox Email support?', a: 'BlueFox Email integrates with Zapier (6 triggers and 8 actions), supports webhooks for real-time event notifications, Supabase auth emails via SMTP, and provides a full HTTP API for custom integrations.' },
+  { q: 'What integrations does BlueFox Email support?', a: 'BlueFox Email integrates with Zapier (6 triggers and 8 actions), supports webhooks for real-time event notifications, Supabase auth emails via SMTP, an open-source MCP server for AI agents like Claude and Cursor, and a full HTTP API for custom integrations.' },
   { q: 'Does BlueFox Email have a free plan?', a: 'BlueFox Email includes 3,000 free sends with no credit card required. There is no monthly subscription, you buy send packs as needed, valid for 12 months. The Essential pack is $50 for 50,000 sends.' },
   { q: 'How does segmentation work in BlueFox Email?', a: 'Segments are dynamic groups built with AND/OR logic. Filter contacts by custom properties, tags, or email engagement (opened/not opened/clicked within N days). Segments update automatically and work in campaigns, automations, and audience filters.' },
   { q: 'What analytics does BlueFox Email provide?', a: 'BlueFox Email tracks opens, unique opens, clicks, unique clicks, bounces, complaints, sends, and failures. Subscription metrics include subscribed, resubscribed, unsubscribed, and paused. Data is shown in bar or line charts with CSV export and a filterable data table.' },
