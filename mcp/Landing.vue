@@ -3,13 +3,13 @@ import { ref } from 'vue'
 import PersonaLanding from '../for/components/PersonaLanding.vue'
 
 const REPO_URL = 'https://github.com/bluefox-email/bluefox.email-mcp'
-const TOOLS_URL = `${REPO_URL}#tools`
 const GET_STARTED_URL = 'https://app.bluefox.email/accounts/create-account'
 // Internal, verified setup docs (see docs/integrations/mcp-server.md) rather
 // than the GitHub README, so every link and code sample on this page matches
 // content we maintain and have checked against the actual server.
 const SETUP_DOCS_URL = '/docs/integrations/mcp-server'
 const SETUP_CLIENTS_URL = '/docs/integrations/mcp-server#connecting-your-ai-client'
+const TOOLS_DOCS_URL = '/docs/integrations/mcp-server#available-tools'
 
 const prompts = [
   {
@@ -30,38 +30,56 @@ const prompts = [
   }
 ]
 
-const capabilities = [
+// Groups and per-group tool counts follow docs/integrations/mcp-server.md's
+// "Available Tools" section, so this stays in step with what the server
+// actually ships. Counts are what a reader needs here; the docs page is where
+// the individual tools are listed and explained.
+// `wide` cards span two columns. The order below is deliberate: it puts the
+// wide card on the left of the first row and on the right of the second, so
+// the grid reads as composed rather than as a uniform wall of tiles, and it
+// fills exactly three rows of three columns.
+const toolGroups = [
   {
-    name: 'Campaigns & scheduling',
-    desc: 'Create, schedule, reschedule, or cancel a campaign, then check its delivery stats and error logs.',
-    iconPaths: '<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>'
+    name: 'Emails',
+    count: 11,
+    wide: true,
+    desc: 'Create a campaign for a list or a segment, schedule and reschedule it, set up transactional and triggered emails, and read back delivery stats and error logs.'
   },
   {
-    name: 'Transactional & triggered emails',
-    desc: 'Set up reusable transactional and triggered emails, send them, or fire a test send that skips your real stats.',
-    iconPaths: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'
+    name: 'Contacts',
+    count: 9,
+    desc: 'Add, import, and bulk-update contacts, export them to CSV, and clean out addresses that have already bounced or complained.'
   },
   {
-    name: 'Contacts & subscriber lists',
-    desc: 'Add, import, or bulk-update contacts, manage lists, and clean up bounced or complained addresses.',
-    iconPaths: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>'
-  },
-  {
-    name: 'Segments & signup forms',
-    desc: 'Build segments from contact properties or engagement, and create signup forms with double opt-in.',
-    iconPaths: '<polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/>'
-  },
-  {
-    name: 'Sending domains & deliverability',
-    desc: 'Add a sending domain and its DNS records, check deliverability, and request production access or higher limits.',
-    iconPaths: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>'
+    name: 'Subscriber lists',
+    count: 8,
+    desc: 'Create lists with double opt-in and their confirmation emails, then subscribe, pause, or unsubscribe contacts.'
   },
   {
     name: 'Project settings',
-    desc: 'Manage webhooks, email theme overrides, contact fields and tags, your suppression list, and BYO AWS SES.',
-    iconPaths: '<path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/>'
+    count: 9,
+    wide: true,
+    desc: 'Manage segments, webhooks, sending domains and sender identities, email theme overrides, contact fields and tags, and your suppression list.'
+  },
+  {
+    name: 'Signup forms',
+    count: 5,
+    desc: 'Build a form for one or more lists, choose which fields it asks for, and get the embed code for your site.'
+  },
+  {
+    name: 'Production access',
+    count: 6,
+    desc: 'Apply to leave sandbox mode, ask for a higher sending limit, and check bounce and complaint rates by domain.'
+  },
+  {
+    name: 'AWS SES',
+    count: 4,
+    desc: 'Point the project at your own AWS account, and check that the credentials and sender identities work.'
   }
 ]
+
+// Derived so the headline number can never drift from the counts above.
+const toolCount = toolGroups.reduce((total, group) => total + group.count, 0)
 
 const steps = [
   {
@@ -209,21 +227,33 @@ async function copyConfig() {
       <div class="mcp-stripe mcp-stripe--blue">
         <section class="mcp-stripe-inner section-block" aria-labelledby="capabilities-title">
           <h2 id="capabilities-title" class="section-title">What your agent can do</h2>
-          <p class="section-subtitle constrained">The BlueFox MCP server exposes 52 tools across campaigns, contacts, lists, forms, deliverability, and project settings.</p>
-          <div class="capability-grid">
-            <div v-for="cap in capabilities" :key="cap.name" class="capability-card">
-              <div class="capability-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" v-html="cap.iconPaths" />
-              </div>
-              <h3 class="capability-name">{{ cap.name }}</h3>
-              <p class="capability-desc">{{ cap.desc }}</p>
+          <p class="section-subtitle constrained">{{ toolCount }} tools, grouped the same way the app is. You describe the outcome; your agent works out which ones to call.</p>
+
+          <div class="tool-grid">
+            <div
+              v-for="group in toolGroups"
+              :key="group.name"
+              class="tool-card"
+              :class="{ 'tool-card--wide': group.wide }"
+            >
+              <span class="tool-card-count" aria-hidden="true">{{ group.count }}</span>
+              <h3 class="tool-card-name">{{ group.name }}</h3>
+              <p class="tool-card-desc">{{ group.desc }}</p>
+              <span class="visually-hidden">{{ group.count }} tools</span>
             </div>
           </div>
+
           <p class="capability-link-row">
-            <a :href="TOOLS_URL" target="_blank" rel="noopener noreferrer" class="capability-link">
-              See the full list of tools on GitHub
+            <a :href="TOOLS_DOCS_URL" class="capability-link">
+              What each tool does
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+            <a :href="REPO_URL" target="_blank" rel="noopener noreferrer" class="capability-link capability-link--muted">
+              View the source on GitHub
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
               </svg>
             </a>
           </p>
@@ -505,55 +535,89 @@ html.dark .section-subtitle { color: #9ca3af; }
   color: var(--vp-c-text-1);
 }
 
-/* Capabilities */
-.capability-grid {
-  margin-top: 32px;
+/* Capabilities - a composed grid rather than a uniform tile wall. Two cards
+   span two columns (see `wide` in the script block), which breaks the rhythm
+   on purpose and gives the two largest groups the room their copy needs. The
+   tool count is the card's visual anchor, so no decorative icons are needed. */
+.tool-grid {
+  margin-top: 36px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 14px;
 }
 
-.capability-card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 24px;
-  background: var(--vp-c-bg-soft);
+.tool-card {
+  position: relative;
+  overflow: hidden;
+  padding: 26px 24px 24px;
+  background: #ffffff;
   border: 1px solid var(--vp-c-divider);
-  border-radius: 16px;
+  border-radius: 14px;
+  transition: border-color 0.2s ease;
 }
 
-.capability-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(19, 176, 238, 0.12), rgba(57, 44, 145, 0.1));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #13B0EE;
-  flex-shrink: 0;
+html.dark .tool-card { background: #0f1c28; }
+
+.tool-card:hover { border-color: rgba(19, 176, 238, 0.55); }
+
+.tool-card--wide { grid-column: span 2; }
+
+/* The count sits behind the copy as a watermark, big enough to give each card
+   its own weight (11 reads heavier than 4) without competing for attention. */
+.tool-card-count {
+  position: absolute;
+  top: 6px;
+  right: 14px;
+  font-size: 62px;
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(19, 176, 238, 0.12);
+  pointer-events: none;
+  user-select: none;
 }
 
-.capability-name {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--vp-c-text-1);
-  margin: 0;
+html.dark .tool-card-count { color: rgba(103, 232, 249, 0.14); }
+
+.tool-card-name {
+  position: relative;
+  margin: 0 0 8px;
   padding: 0;
   border: none !important;
+  padding-right: 52px;
+  font-size: 16.5px;
+  font-weight: 700;
   line-height: 1.3;
+  color: var(--vp-c-text-1);
 }
 
-.capability-desc {
-  font-size: 13.5px;
-  color: var(--vp-c-text-2);
-  line-height: 1.6;
+.tool-card-desc {
+  position: relative;
   margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+  max-width: 52ch;
+}
+
+/* PersonaLanding's copy of this rule can't reach slotted content, which keeps
+   its own scope id, so the section defines its own. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .capability-link-row {
   margin: 28px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
 }
 
 .capability-link {
@@ -567,6 +631,8 @@ html.dark .section-subtitle { color: #9ca3af; }
 }
 
 .capability-link:hover { text-decoration: underline; }
+
+.capability-link--muted { color: var(--vp-c-text-2); }
 
 /* How it works */
 .flow-diagram {
@@ -869,7 +935,11 @@ html.dark .client-chip:focus-visible {
 }
 
 @media (max-width: 900px) {
-  .capability-grid { grid-template-columns: repeat(2, 1fr); }
+  /* Two columns, with the wide cards going full-width so the composed
+     rhythm survives the reflow instead of collapsing into a plain stack. */
+  .tool-grid { grid-template-columns: repeat(2, 1fr); }
+  /* Seven cards over two columns leave the last one alone on its row. */
+  .tool-grid > .tool-card:last-child { grid-column: span 2; }
   .steps-row { grid-template-columns: 1fr; gap: 20px; }
 }
 
@@ -878,7 +948,10 @@ html.dark .client-chip:focus-visible {
   .faq-section { padding: 40px 16px 40px; }
   .compat-section { padding: 32px 16px; }
   .prompt-grid { grid-template-columns: 1fr; }
-  .capability-grid { grid-template-columns: 1fr; }
+  .tool-grid { grid-template-columns: 1fr; }
+  .tool-card--wide { grid-column: span 1; }
+  .tool-card { padding: 22px 20px; }
+  .tool-card-count { font-size: 52px; }
   .flow-diagram { flex-direction: column; }
   .flow-arrow { transform: rotate(90deg); }
 }
