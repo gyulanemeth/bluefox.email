@@ -964,5 +964,6 @@ const { isDark } = useData()
 <div class="stripe stripe--blue stripe--flush"><div class="stripe-inner stripe-inner--flush">
 <section id="second-cta" role="region" aria-labelledby="pricing-illus-title">
   <PricingIllustration />
+  <p class="text-center mb-6">Switching from another provider? <a href="/comparisons/">See how BlueFox Email compares</a>.</p>
 </section>
 </div></div>

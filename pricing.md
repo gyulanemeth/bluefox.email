@@ -966,6 +966,7 @@ html.dark .addon-card-period {
   <div class="need-more-banner">
     <p><strong>Need more sends?</strong> Custom volume & enterprise setup with dedicated onboarding. <a href="mailto:hello@bluefox.email">Talk to sales</a></p>
     <p>Bring your own SES for better email prices. <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a></p>
+    <p>Coming from a contact-based plan? <a href="/comparisons/bluefox-vs-mailchimp">See how per-send pricing compares to Mailchimp</a></p>
   </div>
 </section>
 
