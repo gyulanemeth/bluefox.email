@@ -1,16 +1,16 @@
 ---
 title: "Design Systems API Reference | bluefox.email documentation"
-description: "Every Design Systems endpoint in the bluefox.email API: parameters, request body, and response schemas."
+description: "Read a project's email design system merged with its overrides, and set or reset those overrides, via the BlueFox Email REST API."
 head:
   - - meta
     - name: description
-      content: "Every Design Systems endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Read a project's email design system merged with its overrides, and set or reset those overrides, via the BlueFox Email REST API."
   - - meta
     - property: og:title
       content: "Design Systems API Reference | bluefox.email documentation"
   - - meta
     - property: og:description
-      content: "Every Design Systems endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Read a project's email design system merged with its overrides, and set or reset those overrides, via the BlueFox Email REST API."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: "Design Systems API Reference | bluefox.email documentation"
   - - meta
     - name: twitter:description
-      content: "Every Design Systems endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Read a project's email design system merged with its overrides, and set or reset those overrides, via the BlueFox Email REST API."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,7 +36,7 @@ head:
 
 # Design Systems
 
-Full reference for the **Design Systems** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Read the design system a project's emails are built on, merged with the project's own overrides, and set or reset those overrides. For why a design system keeps every email on brand, read [The Power of Modern Email Design Systems](/posts/the-power-of-modern-email-design-systems). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List the project's design system (merged with its overrides)
 

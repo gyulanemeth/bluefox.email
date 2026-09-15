@@ -1,16 +1,16 @@
 ---
 title: "Gallery API Reference | bluefox.email documentation"
-description: "Every Gallery endpoint in the bluefox.email API: parameters, request body, and response schemas."
+description: "Upload, rename, and delete images and organize them in folders in the BlueFox Email image gallery via the REST API."
 head:
   - - meta
     - name: description
-      content: "Every Gallery endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Upload, rename, and delete images and organize them in folders in the BlueFox Email image gallery via the REST API."
   - - meta
     - property: og:title
       content: "Gallery API Reference | bluefox.email documentation"
   - - meta
     - property: og:description
-      content: "Every Gallery endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Upload, rename, and delete images and organize them in folders in the BlueFox Email image gallery via the REST API."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: "Gallery API Reference | bluefox.email documentation"
   - - meta
     - name: twitter:description
-      content: "Every Gallery endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Upload, rename, and delete images and organize them in folders in the BlueFox Email image gallery via the REST API."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,7 +36,7 @@ head:
 
 # Gallery
 
-Full reference for the **Gallery** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Manage a project's image gallery: create, rename, and delete folders, and upload (JPEG, PNG, or GIF), rename, and delete images. Folders belong either to the project or to the whole account, shared across every project. Deleting a folder also deletes everything inside it, and cannot be undone. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List gallery folders
 

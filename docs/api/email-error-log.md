@@ -1,16 +1,16 @@
 ---
 title: "Email Error Log API Reference | bluefox.email documentation"
-description: "Every Email Error Log endpoint in the bluefox.email API: parameters, request body, and response schemas."
+description: "List the last 30 days of processing and delivery errors for a campaign, transactional, or triggered email with the BlueFox Email API."
 head:
   - - meta
     - name: description
-      content: "Every Email Error Log endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List the last 30 days of processing and delivery errors for a campaign, transactional, or triggered email with the BlueFox Email API."
   - - meta
     - property: og:title
       content: "Email Error Log API Reference | bluefox.email documentation"
   - - meta
     - property: og:description
-      content: "Every Email Error Log endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List the last 30 days of processing and delivery errors for a campaign, transactional, or triggered email with the BlueFox Email API."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: "Email Error Log API Reference | bluefox.email documentation"
   - - meta
     - name: twitter:description
-      content: "Every Email Error Log endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List the last 30 days of processing and delivery errors for a campaign, transactional, or triggered email with the BlueFox Email API."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,7 +36,7 @@ head:
 
 # Email Error Log
 
-Full reference for the **Email Error Log** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+When a send is accepted but fails later, during processing or delivery, the error is recorded against the email it belongs to. This endpoint lists those errors for one campaign, transactional email, or triggered email, newest first, covering the last 30 days. Reach for it when a [Send Email](/docs/api/send-email) call succeeded but the recipient never got the message, and keep an eye on bounce and complaint rates on the [project dashboard](/docs/projects/dashboard). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List processing/delivery errors for an email
 

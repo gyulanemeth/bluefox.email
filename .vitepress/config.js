@@ -145,7 +145,8 @@ export default defineConfig({
   description: "High deliverability & brand consistency.",
   srcExclude: ['skills/**'],
   head: headConf,
-  ignoreDeadLinks: [/^\/docs\/api\/reference\//],
+  // localhost: example values in generated API reference text (e.g. "http://localhost:3000/preferences") get autolinked
+  ignoreDeadLinks: [/^\/docs\/api\/reference\//, /^https?:\/\/localhost/],
   transformPageData(pageData) {
     if (pageData.frontmatter?.noindex === true) {
       noindexSitemapUrls.add(sitemapUrlForPath(pageData.relativePath))
