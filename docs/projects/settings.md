@@ -233,7 +233,7 @@ This section is in beta.
 
 Below **AI Agents**, the **MCP Server** section gives you everything needed to connect an MCP-compatible AI agent to this project. The server runs locally on your own computer and talks to BlueFox Email with your own API key.
 
-1. Pick the tab for your client: **Claude Desktop / Cursor / Windsurf**, or **Claude Code (CLI)**.
+1. Pick the tab for your client: **Claude Desktop / Cursor / Windsurf**, **Claude Code (CLI)**, or **Codex CLI (ChatGPT)**.
 2. Copy the **Install (one-time)** command. It requires Node.js 20 or newer and makes the `bluefox.email-mcp` command available on your computer.
 3. Copy the **Connect your AI agent** snippet. Your project ID is already filled in.
 4. Replace `YOUR_API_KEY` with a real key from the [API Keys](#api-keys-and-domain-whitelist) section, then add the snippet to your client's configuration.
