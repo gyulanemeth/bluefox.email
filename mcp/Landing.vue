@@ -599,6 +599,10 @@ html.dark .tool-card-count { color: rgba(103, 232, 249, 0.14); }
   max-width: 52ch;
 }
 
+/* On single-column cards the copy is wide enough to reach the watermark, so
+   keep it clear of the number. Wide cards are held back by max-width already. */
+.tool-card:not(.tool-card--wide) .tool-card-desc { padding-right: 44px; }
+
 /* PersonaLanding's copy of this rule can't reach slotted content, which keeps
    its own scope id, so the section defines its own. */
 .visually-hidden {
@@ -948,10 +952,25 @@ html.dark .client-chip:focus-visible {
   .faq-section { padding: 40px 16px 40px; }
   .compat-section { padding: 32px 16px; }
   .prompt-grid { grid-template-columns: 1fr; }
-  .tool-grid { grid-template-columns: 1fr; }
-  .tool-card--wide { grid-column: span 1; }
-  .tool-card { padding: 22px 20px; }
-  .tool-card-count { font-size: 52px; }
+  .tool-grid { grid-template-columns: 1fr; gap: 10px; margin-top: 28px; }
+  /* Undo both span rules from the wider breakpoints. The last-child one
+     matches here too, and a spanning card in a one-column grid forces an
+     implicit second column that pushes the card off-screen. */
+  .tool-card--wide,
+  .tool-grid > .tool-card:last-child { grid-column: auto; }
+  .tool-card { padding: 18px; }
+  /* A big watermark crowds a phone-width card and runs under the copy, so it
+     turns into a small solid count that lines up with the title instead. */
+  .tool-card-count {
+    top: 19px;
+    right: 18px;
+    font-size: 20px;
+    color: rgba(19, 176, 238, 0.75);
+  }
+  html.dark .tool-card-count { color: rgba(103, 232, 249, 0.8); }
+  .tool-card-name { padding-right: 36px; margin-bottom: 6px; font-size: 16px; }
+  .tool-card-desc,
+  .tool-card:not(.tool-card--wide) .tool-card-desc { font-size: 13.5px; max-width: none; padding-right: 0; }
   .flow-diagram { flex-direction: column; }
   .flow-arrow { transform: rotate(90deg); }
 }
