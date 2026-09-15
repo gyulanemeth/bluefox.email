@@ -55,6 +55,6 @@ head:
 
 - **[Zapier](/docs/integrations/zapier)** – Automate workflows by connecting BlueFox Email with thousands of apps through Zapier. Trigger actions based on email events and streamline your processes without coding.
 
-- **[MCP Server](/docs/integrations/mcp-server)** – Connect an AI agent to your project through the Model Context Protocol. Draft and schedule campaigns, manage contacts and subscriber lists, and inspect your sending setup from Claude, Cursor, Windsurf, or Cline.
+- **[MCP Server](/mcp)** – Let Claude, Cursor, and other MCP-compatible AI agents manage campaigns, contacts, and more through natural language. Open source, runs locally, and requires no coding to use.
 
 Explore the integrations documentation to seamlessly integrate BlueFox Email into your workflows. 🚀

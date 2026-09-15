@@ -7,7 +7,7 @@ faqs:
   - question: "What do I need to configure before the MCP server will run?"
     answer: "Three environment variables: BLUEFOX_PROJECT_ID (Project Settings > Integrations), BLUEFOX_API_KEY (Project Settings > API Keys and Domain Whitelist), and BLUEFOX_BASE_URL (https://api.bluefox.email). The server exits with an error if any are missing, so it never runs in a partially authenticated state."
   - question: "Which AI clients can connect to the BlueFox Email MCP server?"
-    answer: "Any MCP client that can launch a local stdio server: Claude Desktop, Claude Code, Cursor, Windsurf, and Cline are all supported. ChatGPT is not, because its connector model expects a server reachable at a URL rather than a local process - use the BlueFox Email REST API and its OpenAPI spec there instead."
+    answer: "Any MCP client that can launch a local stdio server: Claude Desktop, Claude Code, Cursor, Windsurf, Cline, the ChatGPT desktop app, Codex CLI, and Codex IDE extension are all supported. ChatGPT web cannot read local configuration, so use the BlueFox Email REST API and its OpenAPI spec there instead. A remote MCP server for web-based clients like ChatGPT web is in the works."
   - question: "Can an AI agent send an email without me asking?"
     answer: "No. Creating a campaign or a transactional or triggered email produces a draft. Sending or scheduling is a separate, explicit tool call, and a campaign is only scheduled if you give an exact send time. Every tool call is visible to you with its arguments and its result."
   - question: "Can the MCP server design emails in the drag-and-drop editor?"
@@ -88,7 +88,7 @@ Your project generates both setup snippets for you, with your project ID already
 Each tab gives you two copyable blocks, one for each of the next two sections: a one-time [install command](#installation), and a [connection snippet](#connecting-your-ai-client) for your client. Both already contain your project ID. Replace `YOUR_API_KEY` in the connection snippet with a real key from the **API Keys and Domain Whitelist** section, creating one there first if your project does not have one yet.
 
 :::info Quick Note
-The **AI Agents** section just above **MCP Server** is a different thing. It gives you a setup prompt that points an agent at our public API and its OpenAPI spec, with no local server involved. Use that one for AI clients that cannot run a local server, such as ChatGPT.
+The **AI Agents** section just above **MCP Server** is a different thing. It gives you a setup prompt that points an agent at our public API and its OpenAPI spec, with no local server involved. Use that one for AI clients that only support hosted MCP servers, such as ChatGPT web chat. The ChatGPT desktop app, Codex CLI, and Codex IDE extension can run this local server instead; see [Codex and ChatGPT Desktop App](#codex-and-chatgpt-desktop-app) below. There isn't a dedicated setup tab for them yet, so build the config from the environment variables above.
 :::
 
 ## Installation
@@ -157,9 +157,53 @@ Add the same block to `~/.codeium/windsurf/mcp_config.json`.
 
 Add the server through Cline's **MCP Servers** panel in VS Code, using the same command and environment variables.
 
-### ChatGPT
+### Codex and ChatGPT Desktop App
 
-ChatGPT cannot connect to this integration. Its connectors expect a server reachable at a web address, and this one runs locally on your own computer. Use our [API](/docs/api/) directly instead. The **AI Agents** section of your project settings gives you a ready-made setup prompt for exactly that, with your project ID already in it.
+According to [OpenAI's documentation](https://learn.chatgpt.com/docs/extend/mcp), the ChatGPT desktop app, the Codex CLI, and the Codex IDE extension all read MCP server configuration from the same file on your computer (`~/.codex/config.toml` by default, or a project-scoped `.codex/config.toml`), so adding the server once makes it available in all three. This uses the same `bluefox.email-mcp` command and environment variables as every other client on this page.
+
+Add this to `config.toml`:
+
+```toml
+[mcp_servers.bluefox-email]
+command = "bluefox.email-mcp"
+
+[mcp_servers.bluefox-email.env]
+BLUEFOX_BASE_URL = "https://api.bluefox.email"
+BLUEFOX_PROJECT_ID = "YOUR_PROJECT_ID"
+BLUEFOX_API_KEY = "YOUR_API_KEY"
+```
+
+Or, from the Codex CLI, register it in one command instead of editing the file:
+
+```bash
+codex mcp add bluefox-email \
+  --env BLUEFOX_BASE_URL=https://api.bluefox.email \
+  --env BLUEFOX_PROJECT_ID=YOUR_PROJECT_ID \
+  --env BLUEFOX_API_KEY=YOUR_API_KEY \
+  -- bluefox.email-mcp
+```
+
+In the ChatGPT desktop app, add the same server from **Settings > MCP servers > Add server**: give it a name, choose **STDIO**, and enter `bluefox.email-mcp` as the command. That writes the same `config.toml` entry shown above.
+
+::: info Windows Note
+On Windows, use `command = "cmd"` with `args = ["/c", "bluefox.email-mcp.cmd"]` instead of the bare command, the same substitution as Claude Desktop above.
+:::
+
+After saving, restart the client (in the ChatGPT desktop app, select **Restart** after adding the server). Type `/mcp` in the composer to confirm `bluefox-email` shows up as a connected server before asking it to do anything.
+
+Start with a read-only request, such as asking it to list your subscriber lists, rather than one that sends, schedules, or changes anything. That confirms the connection without touching real data.
+
+::: info ChatGPT Web
+This setup only reaches the ChatGPT desktop app, Codex CLI, and Codex IDE extension. ChatGPT web (the browser-based chat) doesn't read local Codex configuration and can't run this local server. A remote MCP server for web-based clients like ChatGPT web is in the works; until it ships, use the [BlueFox Email API](/docs/api/) directly, or the ready-made prompt in the **AI Agents** section of your project settings.
+:::
+
+**Troubleshooting**
+
+- **Command not found**: Confirm `npm link` finished without errors and that running `bluefox.email-mcp` on its own in a terminal works. On Windows, use the `cmd /c bluefox.email-mcp.cmd` form above instead.
+- **Missing environment variable errors**: The server exits immediately if `BLUEFOX_BASE_URL`, `BLUEFOX_PROJECT_ID`, or `BLUEFOX_API_KEY` isn't set; check the `[mcp_servers.bluefox-email.env]` table or `--env` flags match exactly.
+- **Server doesn't appear after restart**: Re-check `config.toml`'s syntax (each server needs its own `[mcp_servers.<name>]` table), and make sure you restarted the client after saving.
+
+See [OpenAI's MCP documentation](https://learn.chatgpt.com/docs/extend/mcp) for how Codex and the ChatGPT desktop app handle MCP servers in general.
 
 ## How the Agent Works
 
@@ -283,3 +327,4 @@ Nothing reaches a real recipient until that last step.
 - [API Documentation](/docs/api/)
 - [Email Personalization (Merge Tags)](/docs/email-personalization)
 - [Model Context Protocol documentation](https://modelcontextprotocol.io)
+- [OpenAI's Codex and ChatGPT MCP documentation](https://learn.chatgpt.com/docs/extend/mcp)

@@ -25,6 +25,11 @@ defineProps({
   heroSecondaryCtaText: { type: String, default: '' },
   heroSecondaryCtaHref: { type: String, default: '' },
   heroCtaSupportingText: { type: String, default: '' },
+  heroCompact: { type: Boolean, default: false },
+  heroCenterStackedCta: { type: Boolean, default: false },
+  // Opt-in, default preserves every existing persona page's after-pain
+  // section as-is. Closes some of the gap under an already-compact hero.
+  afterPainTightTop: { type: Boolean, default: false },
   showTestimonials: { type: Boolean, default: true },
   testimonialTitle: { type: String, default: '' },
   midCtaTitle: { type: String, default: '' },
@@ -90,6 +95,8 @@ const { isDark } = useData()
     :secondary-cta-text="heroSecondaryCtaText"
     :secondary-cta-href="heroSecondaryCtaHref"
     :cta-supporting-text="heroCtaSupportingText"
+    :compact="heroCompact"
+    :center-stacked-cta="heroCenterStackedCta"
   >
     <template v-if="$slots.heroVisual" #heroVisual>
       <slot name="heroVisual" />
@@ -98,7 +105,12 @@ const { isDark } = useData()
 
   <!-- 1. After-pain slot -->
   <div v-if="$slots.afterPain" class="stripe" :class="`stripe--${afterPainStripe}`">
-    <div id="after-pain" class="stripe-inner persona-slot" aria-label="Persona-specific feature section">
+    <div
+      id="after-pain"
+      class="stripe-inner persona-slot"
+      :class="{ 'persona-slot--tight-top': afterPainTightTop }"
+      aria-label="Persona-specific feature section"
+    >
       <slot name="afterPain" />
     </div>
   </div>
@@ -348,6 +360,10 @@ html.dark .stripe--blue {
 .section-block,
 .persona-slot {
   padding: 64px 24px 96px;
+}
+
+.persona-slot--tight-top {
+  padding-top: 32px;
 }
 
 .mid-cta {
