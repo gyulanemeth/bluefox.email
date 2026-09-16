@@ -204,17 +204,7 @@ html.dark .grid-overlay {
   margin: 12px 0;
   border-top: 0 !important;
   padding-top: 0 !important;
-  background: -webkit-linear-gradient(120deg, #392c91 20%, #13b0ee 80%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-html.dark .hero-title {
-  background: -webkit-linear-gradient(120deg, #8a7ed8 20%, #13b0ee 80%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--vp-c-text-1);
 }
 
 .hero-description {
