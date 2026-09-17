@@ -175,11 +175,7 @@ html.dark .heroDiv {
 }
 
 .title-line {
-  color: #1f2937;
-}
-
-html.dark .title-line {
-  color: #f3f4f6;
+  color: #13B0EE;
 }
 
 @keyframes slideUp {

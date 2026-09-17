@@ -202,8 +202,8 @@ async function copyConfig() {
             <svg viewBox="0 0 24 24" width="14" height="14"><path :d="mdiWrenchOutline" fill="currentColor"/></svg>
           </span>
           <div class="chat-mock-heading">
-            <span class="chat-mock-title">BlueFox Agent</span>
-            <span class="chat-mock-status"><span class="status-dot" aria-hidden="true"></span>Connected via MCP</span>
+            <span class="chat-mock-title">BlueFox MCP Server</span>
+            <span class="chat-mock-status"><span class="status-dot" aria-hidden="true"></span>Connected</span>
           </div>
         </div>
         <div class="chat-mock-body">

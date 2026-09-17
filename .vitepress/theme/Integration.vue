@@ -14,7 +14,7 @@ const integrations = [
     name: 'MCP Server',
     description: 'Let Claude, Cursor, and other MCP-compatible AI agents manage campaigns, contacts, and more through natural language.',
     icon: 'mcp',
-    url: 'https://bluefox.email/mcp',
+    url: '/mcp',
     tags: ['AI Agents', 'Open Source'],
     badge: 'New',
     gradient: 'rgba(57, 44, 145, 0.12), rgba(19, 176, 238, 0.12)'
