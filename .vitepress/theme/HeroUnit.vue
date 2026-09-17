@@ -82,7 +82,7 @@ const diagonalColumns = [
   left: calc(-50vw + 50%);
   width: 100vw;
   box-sizing: border-box;
-  background: linear-gradient(278deg, hsl(247.72, 53.44%, 90%) 10%, hsl(196.99, 86.56%, 90%) 90%);
+  background: #eef8fd;
   overflow: hidden;
 }
 
