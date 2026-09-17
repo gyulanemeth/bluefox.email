@@ -172,6 +172,8 @@ async function copyConfig() {
     :hero-highlights="['Runs on your computer', 'No MCP fee']"
     :hero-feature-items="[]"
     :hero-center-stacked-cta="true"
+    :hero-brand-title="true"
+    :hero-brand-bg="true"
     hero-primary-cta-text="Set up MCP"
     :hero-primary-cta-href="SETUP_DOCS_URL"
     hero-secondary-cta-text="Create a free account"
