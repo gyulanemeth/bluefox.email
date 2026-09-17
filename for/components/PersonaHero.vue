@@ -217,10 +217,6 @@ html.dark .grid-overlay {
   margin: 12px 0;
   border-top: 0 !important;
   padding-top: 0 !important;
-  color: var(--vp-c-text-1);
-}
-
-.hero-title--brand {
   color: #13B0EE;
 }
 
