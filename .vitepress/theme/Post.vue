@@ -2,7 +2,7 @@
 <div class="PostContent">
   <div class="vp-doc">
     <Content/>
-    <div class="post-byline">
+    <div v-if="!frontmatter.hideAuthor" class="post-byline">
       <img v-if="authorPhoto" :src="authorPhoto" :alt="authorName" class="post-byline-avatar" loading="lazy" />
       <span>{{ authorName }}</span>
       <span v-if="updatedLabel" class="post-updated"> &middot; Updated {{ updatedLabel }}</span>

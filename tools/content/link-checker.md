@@ -5,6 +5,7 @@ thumbnail: /assets/free-content-tools.png
 sidebar: false
 aside: false
 layout: post
+hideAuthor: true
 category: tools
 
 datePublished: "2024-08-01"
