@@ -1,16 +1,16 @@
 ---
 title: "BYO AWS API Reference | bluefox.email documentation"
-description: "Every BYO AWS endpoint in the bluefox.email API: parameters, request body, and response schemas."
+description: "Validate bring-your-own Amazon SES credentials and get the CloudFormation setup link for a BYO AWS BlueFox Email project."
 head:
   - - meta
     - name: description
-      content: "Every BYO AWS endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Validate bring-your-own Amazon SES credentials and get the CloudFormation setup link for a BYO AWS BlueFox Email project."
   - - meta
     - property: og:title
       content: "BYO AWS API Reference | bluefox.email documentation"
   - - meta
     - property: og:description
-      content: "Every BYO AWS endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Validate bring-your-own Amazon SES credentials and get the CloudFormation setup link for a BYO AWS BlueFox Email project."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: "BYO AWS API Reference | bluefox.email documentation"
   - - meta
     - name: twitter:description
-      content: "Every BYO AWS endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Validate bring-your-own Amazon SES credentials and get the CloudFormation setup link for a BYO AWS BlueFox Email project."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,7 +36,7 @@ head:
 
 # BYO AWS
 
-Full reference for the **BYO AWS** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+For projects that send through their own Amazon SES account: validate the AWS credentials and get the CloudFormation setup link. See [Delivery Modes](/docs/projects/delivery-modes) for how BYO AWS compares to sandbox and production, and [BYO Amazon SES pricing](/byo-amazon-ses-pricing) for costs. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## Validate BYO-AWS credentials
 

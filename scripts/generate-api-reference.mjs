@@ -226,9 +226,105 @@ function yamlString(str) {
   return JSON.stringify(str)
 }
 
+// The spec's tags carry no descriptions, so every generated page used to share one templated meta
+// description and intro - Google left them "Discovered - currently not indexed". Hand-written per-tag
+// copy gives each page a unique description and an intro with contextual links to the product docs.
+// Intros are trusted markdown (not spec text), so they skip escapeSpecText(). A tag missing here
+// falls back to the generic copy.
+const TAG_INFO = {
+  'Project': {
+    description: 'Get and update BlueFox Email project settings over the REST API, including the sending status: sandbox, production, or BYO AWS SES.',
+    intro: 'Use the **Project** endpoints to read a project\'s settings, including its sending status, and to update them. The same settings are editable in the app under [Project Settings](/docs/projects/settings).',
+  },
+  'Sender Identities': {
+    description: 'List, add, delete, and set the default sender identity (the From address) for a BlueFox Email project via the REST API.',
+    intro: 'A **sender identity** is the From address your emails are sent from. These endpoints list a project\'s identities, add new ones, set the default, and delete them. Add and verify the domain first with the [Domains API](/docs/api/domains). For the in-app flow, see [Managing Identities in Production Mode](/docs/projects/delivery-modes#managing-identities-in-production-mode).',
+  },
+  'Domains': {
+    description: 'Add a sending domain, get the DNS records to publish, re-check verification, and remove domains in BlueFox Email via the REST API.',
+    intro: 'To send from your own domain: add it, have the domain owner publish the DNS records the API returns, then call the check endpoint until the domain verifies. The check re-reads the domain\'s [DKIM](/email-sending-concepts/dkim), [SPF](/email-sending-concepts/spf), [MX](/email-sending-concepts/mx-record), and [DMARC](/email-sending-concepts/dmarc) records, and the first successful check creates a default [sender identity](/docs/api/sender-identities) (`no-reply@` your domain). A domain can\'t be removed while a sender identity still uses it. Not available for BYO AWS projects, which manage domains in their own AWS account. Once DNS is live, confirm the policy with the free [DMARC checker](/tools/deliverability/dmarc-checker).',
+  },
+  'Webhook': {
+    description: 'Configure the BlueFox Email project webhook via the REST API: the URL, the API key it sends, and which email events it receives.',
+    intro: 'Read, create or replace, and delete a project\'s webhook: the URL events are sent to, the API key sent with each request so your endpoint can verify it, and which events it receives (sent, failed, opens, clicks, bounces, complaints, and subscription changes). The key must be one of the project\'s existing API keys, which are managed in the app, not through the API. Send a synthetic event with the test webhook endpoint in [Sending Setup](/docs/api/sending-setup), and see [Webhooks](/docs/integrations/webhooks) for verifying requests.',
+  },
+  'Sending Setup': {
+    description: 'List AWS regions, check sandbox and production deliverability, send a test webhook event, and export a domain\'s DNS records as CSV.',
+    intro: 'Helper endpoints for configuring and monitoring sending: the AWS regions available for production sending, deliverability figures for [sandbox and production](/docs/projects/delivery-modes) sending (for production, the worst [bounce](/email-sending-concepts/bounce-rate) and [complaint](/email-sending-concepts/complaints) rates over the last 7, 30, and 90 days, and this month\'s sends against the monthly limit), a synthetic test event for your [webhook](/docs/api/webhook), and a CSV export of a [domain\'s](/docs/api/domains) required DNS records.',
+  },
+  'Production Access': {
+    description: 'Check production access status, apply to leave sandbox mode, and request a sending-limit increase for a BlueFox Email project via the API.',
+    intro: 'New projects start in sandbox mode, with a low daily send cap. These endpoints return a project\'s production access status and domain readiness, submit the application to move to production, and request a higher sending limit once the project is in production. Applying requires at least one domain with SPF, MX, and DKIM verified through the [Domains API](/docs/api/domains), and approval is manual. [Maintaining Production Access](/docs/projects/delivery-modes#maintaining-production-access) lists the bounce and complaint thresholds you need to stay under.',
+  },
+  'BYO AWS': {
+    description: 'Validate bring-your-own Amazon SES credentials and get the CloudFormation setup link for a BYO AWS BlueFox Email project.',
+    intro: 'For projects that send through their own Amazon SES account: validate the AWS credentials and get the CloudFormation setup link. See [Delivery Modes](/docs/projects/delivery-modes) for how BYO AWS compares to sandbox and production, and [BYO Amazon SES pricing](/byo-amazon-ses-pricing) for costs.',
+  },
+  'Design Systems': {
+    description: 'Read a project\'s email design system merged with its overrides, and set or reset those overrides, via the BlueFox Email REST API.',
+    intro: 'Read the design system a project\'s emails are built on, merged with the project\'s own overrides, and set or reset those overrides. For why a design system keeps every email on brand, read [The Power of Modern Email Design Systems](/posts/the-power-of-modern-email-design-systems).',
+  },
+  'Templates': {
+    description: 'List, create, get, update, and delete reusable email templates in a BlueFox Email project via the REST API.',
+    intro: 'Templates are reusable email designs. These endpoints cover the full lifecycle: list, create, read, update, and delete. To build and edit a template visually, use the [email builder](/docs/projects/email-builder).',
+  },
+  'Campaigns': {
+    description: 'Create, update, and delete email campaigns, and fetch per-campaign stats and recipient lists, with the BlueFox Email REST API.',
+    intro: 'Campaigns are one-off sends to a subscriber list. Use these endpoints to create and update campaigns, then pull stats and the recipient list for each one. The in-app workflow is covered in [Campaigns](/docs/projects/campaigns); to target part of a list, create a segment with the [Segments API](/docs/api/segments).',
+  },
+  'Transactional Emails': {
+    description: 'Create and manage transactional emails such as password resets and receipts, and fetch their stats and recipients, via the BlueFox Email API.',
+    intro: 'Transactional emails are one-to-one messages caused by something a user did, like a password reset or an order receipt. These endpoints manage the emails and return their stats and recipients; to send one, call the [Send Email API](/docs/api/send-email). For the in-app setup, see [Transactional Emails](/docs/projects/transactional-emails).',
+  },
+  'Triggered Emails': {
+    description: 'Create and manage triggered emails sent to subscriber lists, and fetch their stats and recipients, via the BlueFox Email REST API.',
+    intro: 'Triggered emails go to subscribers of a list when your application asks for them, for example onboarding steps or follow-ups. These endpoints manage the emails and return their stats and recipients; to send one, call the [Send Email API](/docs/api/send-email). For how they differ from transactional emails, see [Triggered Emails](/docs/projects/triggered-emails).',
+  },
+  'Send Email': {
+    description: 'Send transactional and triggered emails with the BlueFox Email REST API: endpoints, request body fields, and error responses.',
+    intro: 'Two endpoints send email: one for [transactional emails](/docs/api/transactional-emails) and one for [triggered emails](/docs/api/triggered-emails). Both accept merge tag `data` and [file attachments](/docs/api/send-attachments). The older flat-URL versions are documented below them for existing integrations. Sends fail with a 405 when the account is out of credit, a sandbox project has hit its daily cap, or high bounce or complaint rates have restricted sending. If a send is accepted but never arrives, look it up in the [Email Error Log](/docs/api/email-error-log).',
+  },
+  'Test Email': {
+    description: 'Send a test of a campaign, transactional, or triggered email to one recipient via the BlueFox Email API, without affecting send stats.',
+    intro: 'Send a campaign, transactional, or triggered email to a single recipient to check rendering, links, and personalization before real recipients get it. Test sends don\'t affect real send stats or contact state. The in-app equivalent is [Send Test Emails](/docs/projects/send-test-email).',
+  },
+  'Email Error Log': {
+    description: 'List the last 30 days of processing and delivery errors for a campaign, transactional, or triggered email with the BlueFox Email API.',
+    intro: 'When a send is accepted but fails later, during processing or delivery, the error is recorded against the email it belongs to. This endpoint lists those errors for one campaign, transactional email, or triggered email, newest first, covering the last 30 days. Reach for it when a [Send Email](/docs/api/send-email) call succeeded but the recipient never got the message, and keep an eye on bounce and complaint rates on the [project dashboard](/docs/projects/dashboard).',
+  },
+  'Contacts': {
+    description: 'Create, get, update, list, and delete contacts, custom contact fields, and contact tags in BlueFox Email via the REST API.',
+    intro: 'Contacts are the people in your project, independent of any single list. These endpoints manage contacts by email address, the custom fields stored on them, and contact tags, and resend double opt-in verification emails. To put a contact on a list, use [Subscriber Lists](/docs/api/subscriber-lists). The in-app view is [Contacts](/docs/projects/contacts).',
+  },
+  'Segments': {
+    description: 'Create, list, update, and delete contact segments in BlueFox Email via the REST API, for targeted campaigns and automations.',
+    intro: 'Segments are saved filters that select a dynamic group of contacts for campaigns and automations. See [Segments](/docs/projects/segments) for the available conditions and operators.',
+  },
+  'Subscriber Lists': {
+    description: 'Manage BlueFox Email subscriber lists via the API: create lists, subscribe contacts, update or pause subscriptions, and fetch list stats.',
+    intro: 'Subscriber lists hold the contacts who opted in to a kind of email. These endpoints manage the lists, list and subscribe contacts, update a subscriber\'s status, and return list stats. For growing a list the right way, see [How to build a high-quality email list](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email).',
+  },
+  'Subscriptions': {
+    description: 'Subscribe, update, pause, and one-click unsubscribe contacts on a BlueFox Email list, and submit signup forms, via the flat-URL API.',
+    intro: 'The flat-URL subscription endpoints. Subscribing a contact, and reading or updating a single subscriber, accept either an API key or a whitelisted browser origin, so a signup form can call them without exposing a key; set up the whitelist under [API Keys and Domain Whitelist](/docs/projects/settings#api-keys-and-domain-whitelist). The [one-click unsubscribe](/email-sending-concepts/one-click-unsubscribe) endpoint instead takes the signed token from an email\'s List-Unsubscribe link. New server-side integrations should use [Subscriber Lists](/docs/api/subscriber-lists).',
+  },
+  'Signup Forms': {
+    description: 'Create, update, and delete BlueFox Email signup forms and get their embeddable HTML via the REST API.',
+    intro: 'Manage hosted and embedded signup forms, and get the HTML snippet to embed one on your site. For the in-app editor, see [Sign-Up Forms](/docs/projects/forms-and-pages#sign-up-forms).',
+  },
+  'Suppression List': {
+    description: 'List and add suppressed email addresses in a BlueFox Email project via the REST API, so they are never emailed again.',
+    intro: 'Addresses on the suppression list are never emailed, whatever list they are on. See [Suppression Lists](/docs/projects/suppression-list) for importing and exporting the list in the app.',
+  },
+  'Gallery': {
+    description: 'Upload, rename, and delete images and organize them in folders in the BlueFox Email image gallery via the REST API.',
+    intro: 'Manage a project\'s image gallery: create, rename, and delete folders, and upload (JPEG, PNG, or GIF), rename, and delete images. Folders belong either to the project or to the whole account, shared across every project. Deleting a folder also deletes everything inside it, and cannot be undone.',
+  },
+}
+
 function pageFrontmatter(tag) {
   const title = `${tag} API Reference | bluefox.email documentation`
-  const description = `Every ${tag} endpoint in the bluefox.email API: parameters, request body, and response schemas.`
+  const description = TAG_INFO[tag]?.description || `Every ${tag} endpoint in the bluefox.email API: parameters, request body, and response schemas.`
   const url = `https://bluefox.email/docs/api/${slugify(tag)}`
   return `---
 title: ${yamlString(title)}
@@ -269,7 +365,7 @@ head:
 
 function renderPage(tag) {
   const ops = operationsByTag[tag]
-  const intro = `Full reference for the **${tag}** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.`
+  const intro = `${TAG_INFO[tag]?.intro || `Full reference for the **${tag}** resource in the bluefox.email API.`} See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.`
   const body = ops.map(renderOperation).join('\n\n')
   return `${pageFrontmatter(tag)}\n\n# ${tag}\n\n${intro}\n\n${body}\n`
 }

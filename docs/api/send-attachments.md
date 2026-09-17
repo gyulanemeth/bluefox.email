@@ -45,7 +45,7 @@ head:
 
 # Send Attachments
 
-Attachments in **bluefox.email** allow you to include files in your emails. These files are specified as an array of objects, with each object representing a single attachment. Attachments can be used in both [transactional](/docs/api/send-transactional-email) and [triggered emails](/docs/api/send-triggered-email).
+Attachments in **bluefox.email** allow you to include files in your emails. These files are specified as an array of objects, with each object representing a single attachment. Attachments can be used in both [transactional](/docs/api/send-transactional-email) and [triggered emails](/docs/api/send-triggered-email). The current send endpoints, which accept the same `attachments` array, are documented in the [Send Email API reference](/docs/api/send-email).
 
 ::: warning
 Attachments are cached for **1 hour**. If your email sending process is expected to take longer than an hour, please contact our support team to ensure uninterrupted [delivery](/email-sending-concepts/deliverability).

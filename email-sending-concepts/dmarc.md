@@ -155,5 +155,6 @@ DMARC sends regular XML reports to the email address you specify in your DNS rec
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [DNS (Domain Name System)](/email-sending-concepts/dns)
 - [TXT Records (Text)](/email-sending-concepts/txt-record)
+- [Domains API: verify DMARC for a sending domain](/docs/api/domains)
 
 <GlossaryCTA />

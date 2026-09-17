@@ -1,16 +1,16 @@
 ---
 title: "Signup Forms API Reference | bluefox.email documentation"
-description: "Every Signup Forms endpoint in the bluefox.email API: parameters, request body, and response schemas."
+description: "Create, update, and delete BlueFox Email signup forms and get their embeddable HTML via the REST API."
 head:
   - - meta
     - name: description
-      content: "Every Signup Forms endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, update, and delete BlueFox Email signup forms and get their embeddable HTML via the REST API."
   - - meta
     - property: og:title
       content: "Signup Forms API Reference | bluefox.email documentation"
   - - meta
     - property: og:description
-      content: "Every Signup Forms endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, update, and delete BlueFox Email signup forms and get their embeddable HTML via the REST API."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: "Signup Forms API Reference | bluefox.email documentation"
   - - meta
     - name: twitter:description
-      content: "Every Signup Forms endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, update, and delete BlueFox Email signup forms and get their embeddable HTML via the REST API."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,7 +36,7 @@ head:
 
 # Signup Forms
 
-Full reference for the **Signup Forms** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Manage hosted and embedded signup forms, and get the HTML snippet to embed one on your site. For the in-app editor, see [Sign-Up Forms](/docs/projects/forms-and-pages#sign-up-forms). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List signup forms
 

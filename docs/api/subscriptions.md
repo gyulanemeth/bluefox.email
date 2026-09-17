@@ -1,16 +1,16 @@
 ---
 title: "Subscriptions API Reference | bluefox.email documentation"
-description: "Every Subscriptions endpoint in the bluefox.email API: parameters, request body, and response schemas."
+description: "Subscribe, update, pause, and one-click unsubscribe contacts on a BlueFox Email list, and submit signup forms, via the flat-URL API."
 head:
   - - meta
     - name: description
-      content: "Every Subscriptions endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Subscribe, update, pause, and one-click unsubscribe contacts on a BlueFox Email list, and submit signup forms, via the flat-URL API."
   - - meta
     - property: og:title
       content: "Subscriptions API Reference | bluefox.email documentation"
   - - meta
     - property: og:description
-      content: "Every Subscriptions endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Subscribe, update, pause, and one-click unsubscribe contacts on a BlueFox Email list, and submit signup forms, via the flat-URL API."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: "Subscriptions API Reference | bluefox.email documentation"
   - - meta
     - name: twitter:description
-      content: "Every Subscriptions endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Subscribe, update, pause, and one-click unsubscribe contacts on a BlueFox Email list, and submit signup forms, via the flat-URL API."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,7 +36,7 @@ head:
 
 # Subscriptions
 
-Full reference for the **Subscriptions** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+The flat-URL subscription endpoints. Subscribing a contact, and reading or updating a single subscriber, accept either an API key or a whitelisted browser origin, so a signup form can call them without exposing a key; set up the whitelist under [API Keys and Domain Whitelist](/docs/projects/settings#api-keys-and-domain-whitelist). The [one-click unsubscribe](/email-sending-concepts/one-click-unsubscribe) endpoint instead takes the signed token from an email's List-Unsubscribe link. New server-side integrations should use [Subscriber Lists](/docs/api/subscriber-lists). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List subscribers of a list
 

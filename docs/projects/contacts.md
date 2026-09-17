@@ -242,7 +242,7 @@ Just copy and modify the code in your preferred programming language:
 Your **BlueFox Email** API key must be included in the `Authorization` header of each request. Avoid sending these requests from your frontend to prevent exposing your API key!  
 :::  
 
-For more details and guidance on integrating these endpoints, visit our [API documentation](/docs/api/).  
+For every endpoint and field, see the [Subscriber Lists](/docs/api/subscriber-lists) and [Subscriptions](/docs/api/subscriptions) API references.  
 
 ## Managing Contacts 
 
@@ -266,7 +266,7 @@ If you want to manage multiple contacts at once, you can select them using the c
 
 ### Managing Contacts via API
 
-You can manage contacts through API calls. Check the `Code Guide` button at the top to see exactly how to do it in your preferred programming language.
+You can manage contacts through API calls; the [Contacts API reference](/docs/api/contacts) documents every endpoint and field. Check the `Code Guide` button at the top to see exactly how to do it in your preferred programming language.
 ![Screenshot of the subscriber lists page - code guide button highlighted](./project-contacts-code-guide.webp)
 
 Here is what you can do with contacts via API:

@@ -150,6 +150,7 @@ Most major ESPs provide complaint data through direct integrations with feedback
 - [DMARC (Domain-based Message Authentication, Reporting, and Conformance)](/email-sending-concepts/dmarc)
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/sns)
 - [Amazon SES (Simple Email Service)](/aws-concepts/ses)
+- [Sending Setup API: check your complaint rate](/docs/api/sending-setup)
 
 <GlossaryCTA />
 

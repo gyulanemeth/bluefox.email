@@ -1,16 +1,16 @@
 ---
 title: "Test Email API Reference | bluefox.email documentation"
-description: "Every Test Email endpoint in the bluefox.email API: parameters, request body, and response schemas."
+description: "Send a test of a campaign, transactional, or triggered email to one recipient via the BlueFox Email API, without affecting send stats."
 head:
   - - meta
     - name: description
-      content: "Every Test Email endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Send a test of a campaign, transactional, or triggered email to one recipient via the BlueFox Email API, without affecting send stats."
   - - meta
     - property: og:title
       content: "Test Email API Reference | bluefox.email documentation"
   - - meta
     - property: og:description
-      content: "Every Test Email endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Send a test of a campaign, transactional, or triggered email to one recipient via the BlueFox Email API, without affecting send stats."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: "Test Email API Reference | bluefox.email documentation"
   - - meta
     - name: twitter:description
-      content: "Every Test Email endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Send a test of a campaign, transactional, or triggered email to one recipient via the BlueFox Email API, without affecting send stats."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,7 +36,7 @@ head:
 
 # Test Email
 
-Full reference for the **Test Email** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Send a campaign, transactional, or triggered email to a single recipient to check rendering, links, and personalization before real recipients get it. Test sends don't affect real send stats or contact state. The in-app equivalent is [Send Test Emails](/docs/projects/send-test-email). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## Send a test email
 

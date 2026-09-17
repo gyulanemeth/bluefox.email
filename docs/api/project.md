@@ -1,16 +1,16 @@
 ---
 title: "Project API Reference | bluefox.email documentation"
-description: "Every Project endpoint in the bluefox.email API: parameters, request body, and response schemas."
+description: "Get and update BlueFox Email project settings over the REST API, including the sending status: sandbox, production, or BYO AWS SES."
 head:
   - - meta
     - name: description
-      content: "Every Project endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Get and update BlueFox Email project settings over the REST API, including the sending status: sandbox, production, or BYO AWS SES."
   - - meta
     - property: og:title
       content: "Project API Reference | bluefox.email documentation"
   - - meta
     - property: og:description
-      content: "Every Project endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Get and update BlueFox Email project settings over the REST API, including the sending status: sandbox, production, or BYO AWS SES."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: "Project API Reference | bluefox.email documentation"
   - - meta
     - name: twitter:description
-      content: "Every Project endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Get and update BlueFox Email project settings over the REST API, including the sending status: sandbox, production, or BYO AWS SES."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,7 +36,7 @@ head:
 
 # Project
 
-Full reference for the **Project** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Use the **Project** endpoints to read a project's settings, including its sending status, and to update them. The same settings are editable in the app under [Project Settings](/docs/projects/settings). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## Get project settings
 
@@ -72,6 +72,7 @@ Full reference for the **Project** resource in the bluefox.email API. See the [A
 | `_id` | string |  |  |
 | `name` | string |  |  |
 | `logoUrl` | string |  |  |
+| `customSubscriptionPreferencesUrl` | string |  | A subscriber-facing page you host yourself for managing subscription preferences. When set, unsubscribe and pause links in emails point here (with a token query param appended) instead of bluefox.email's default page. Stored and returned with a real http:// or https:// scheme - an explicit one you send is kept exactly as given (e.g. "http://localhost:3000/preferences" for local testing), otherwise https is assumed. |
 | `designSystemId` | string |  |  |
 | `status` | string (sandbox \| production \| byoAwsSes) |  | New projects start as "sandbox". Sandbox recipients are not restricted, but sending is rate-limited to a  low daily cap (a 405 once exceeded, see GET .../sandbox/deliverability) and gets automatically restricted  (see the restricted field) if bounce/complaint rates run high. To leave sandbox for real production sending,  verify a domain and POST .../production-access - approval is manual, see the Production Access endpoints below. |
 | `restricted` | boolean |  | Read-only - set automatically (high bounce/complaint rates) or by bluefox.email staff, never by this API.  A restricted, non-byoAwsSes project cannot send at all, regardless of production-access status - applying for  or already having production access does not lift a restriction, since the restriction is on bluefox.email's  shared sending infrastructure specifically. The only way for a restricted project to resume sending is to  switch to BYO-AWS (PATCH .../projectId/&#123;projectId&#125; awsConfig + status: "byoAwsSes"), which uses the project's  own AWS account instead of the shared infrastructure. |
@@ -114,6 +115,7 @@ Full reference for the **Project** resource in the bluefox.email API. See the [A
 | --- | --- | --- | --- |
 | `name` | string |  |  |
 | `logoUrl` | string |  | Pass an empty string to remove the logo. |
+| `customSubscriptionPreferencesUrl` | string |  | A subscriber-facing page you host yourself for managing subscription preferences, used instead of bluefox.email's default page. Send with an explicit http:// or https:// scheme to have it kept exactly as given (e.g. "http://localhost:3000/preferences" for local testing) - otherwise https is assumed. Pass an empty string to revert to the default page. |
 | `unengagedContactSegment` | object |  |  |
 | `unengagedContactSegment.groups` | array of object |  | OR-ed groups of AND-ed conditions - matches the segment builder in the app. |
 | `unengagedContactSegment.groups[].conditions` | array of object |  |  |
@@ -149,6 +151,7 @@ Full reference for the **Project** resource in the bluefox.email API. See the [A
 | `_id` | string |  |  |
 | `name` | string |  |  |
 | `logoUrl` | string |  |  |
+| `customSubscriptionPreferencesUrl` | string |  | A subscriber-facing page you host yourself for managing subscription preferences. When set, unsubscribe and pause links in emails point here (with a token query param appended) instead of bluefox.email's default page. Stored and returned with a real http:// or https:// scheme - an explicit one you send is kept exactly as given (e.g. "http://localhost:3000/preferences" for local testing), otherwise https is assumed. |
 | `designSystemId` | string |  |  |
 | `status` | string (sandbox \| production \| byoAwsSes) |  | New projects start as "sandbox". Sandbox recipients are not restricted, but sending is rate-limited to a  low daily cap (a 405 once exceeded, see GET .../sandbox/deliverability) and gets automatically restricted  (see the restricted field) if bounce/complaint rates run high. To leave sandbox for real production sending,  verify a domain and POST .../production-access - approval is manual, see the Production Access endpoints below. |
 | `restricted` | boolean |  | Read-only - set automatically (high bounce/complaint rates) or by bluefox.email staff, never by this API.  A restricted, non-byoAwsSes project cannot send at all, regardless of production-access status - applying for  or already having production access does not lift a restriction, since the restriction is on bluefox.email's  shared sending infrastructure specifically. The only way for a restricted project to resume sending is to  switch to BYO-AWS (PATCH .../projectId/&#123;projectId&#125; awsConfig + status: "byoAwsSes"), which uses the project's  own AWS account instead of the shared infrastructure. |

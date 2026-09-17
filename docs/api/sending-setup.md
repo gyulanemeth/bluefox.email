@@ -1,16 +1,16 @@
 ---
 title: "Sending Setup API Reference | bluefox.email documentation"
-description: "Every Sending Setup endpoint in the bluefox.email API: parameters, request body, and response schemas."
+description: "List AWS regions, check sandbox and production deliverability, send a test webhook event, and export a domain's DNS records as CSV."
 head:
   - - meta
     - name: description
-      content: "Every Sending Setup endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List AWS regions, check sandbox and production deliverability, send a test webhook event, and export a domain's DNS records as CSV."
   - - meta
     - property: og:title
       content: "Sending Setup API Reference | bluefox.email documentation"
   - - meta
     - property: og:description
-      content: "Every Sending Setup endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List AWS regions, check sandbox and production deliverability, send a test webhook event, and export a domain's DNS records as CSV."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -28,7 +28,7 @@ head:
       content: "Sending Setup API Reference | bluefox.email documentation"
   - - meta
     - name: twitter:description
-      content: "Every Sending Setup endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List AWS regions, check sandbox and production deliverability, send a test webhook event, and export a domain's DNS records as CSV."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -36,7 +36,7 @@ head:
 
 # Sending Setup
 
-Full reference for the **Sending Setup** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Helper endpoints for configuring and monitoring sending: the AWS regions available for production sending, deliverability figures for [sandbox and production](/docs/projects/delivery-modes) sending (for production, the worst [bounce](/email-sending-concepts/bounce-rate) and [complaint](/email-sending-concepts/complaints) rates over the last 7, 30, and 90 days, and this month's sends against the monthly limit), a synthetic test event for your [webhook](/docs/api/webhook), and a CSV export of a [domain's](/docs/api/domains) required DNS records. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List AWS regions available for production sending
 

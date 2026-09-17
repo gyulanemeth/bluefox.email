@@ -109,7 +109,7 @@ Major inbox providers such as Gmail, Yahoo, and Outlook require one-click unsubs
 - [Microsoft guidelines](https://learn.microsoft.com/en-us/dynamics365/customer-insights/journeys/one-click-unsubscribe)
 
 :::tip Just a heads up
-**BlueFox automatically includes one-click unsubscribe for all non-transactional email sends, ensuring compliance out-of-the-box for our users.**
+**BlueFox automatically includes one-click unsubscribe for all non-transactional email sends, ensuring compliance out-of-the-box for our users.** The unsubscribe request itself is handled by the [one-click unsubscribe endpoint](/docs/api/subscriptions).
 :::
 
 ## Frequently Asked Questions
