@@ -11,14 +11,21 @@ const props = defineProps({
 // Duplicate integrations for seamless infinite scroll
 const integrations = [
   {
+    name: 'MCP Server',
+    description: 'Let Claude, Cursor, and other MCP-compatible AI agents manage campaigns, contacts, and more through natural language.',
+    icon: 'mcp',
+    url: 'https://bluefox.email/mcp',
+    tags: ['AI Agents', 'Open Source'],
+    badge: 'New',
+    gradient: 'rgba(57, 44, 145, 0.12), rgba(19, 176, 238, 0.12)'
+  },
+  {
     name: 'Zapier',
     description: 'Connect with thousands of apps. No code required, automate workflows in minutes.',
     icon: 'zapier',
     url: 'https://bluefox.email/docs/integrations/zapier',
     tags: ['No-Code', 'Automation'],
-    badge: 'New',
-    gradient: 'rgba(255, 74, 0, 0.12), rgba(255, 74, 0, 0.06)',
-    tint: 'rgba(255, 74, 0, 0.1)'
+    gradient: 'rgba(255, 74, 0, 0.12), rgba(255, 74, 0, 0.06)'
   },
   {
     name: 'Webhooks',
@@ -315,7 +322,7 @@ function iconStyle(integration) {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-1 * (360px + 24px) * 6));
+    transform: translateX(calc(-1 * (360px + 24px) * 7));
   }
 }
 
@@ -478,7 +485,7 @@ html.dark .integration-icon {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-1 * (320px + 24px) * 6));
+      transform: translateX(calc(-1 * (320px + 24px) * 7));
     }
   }
 }
@@ -512,7 +519,7 @@ html.dark .integration-icon {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-1 * (280px + 24px) * 6));
+      transform: translateX(calc(-1 * (280px + 24px) * 7));
     }
   }
 }
@@ -562,7 +569,7 @@ html.dark .integration-icon {
       transform: translateX(0);
     }
     100% {
-      transform: translateX(calc(-1 * (260px + 24px) * 6));
+      transform: translateX(calc(-1 * (260px + 24px) * 7));
     }
   }
 }

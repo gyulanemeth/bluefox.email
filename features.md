@@ -46,7 +46,7 @@ faqs:
   - question: "Can I bring my own AWS SES account?"
     answer: "Yes. BlueFox Email supports BYO AWS SES via Access Key or STS role. This gives you full deliverability control using your own AWS infrastructure while BlueFox Email handles the sending logic, templates, contacts, and automations."
   - question: "What integrations does BlueFox Email support?"
-    answer: "BlueFox Email integrates with Zapier (6 triggers and 8 actions), supports webhooks for real-time event notifications (sent, opened, clicked, bounced, complained, and subscription events), Supabase auth emails via SMTP, and provides a full HTTP API for custom integrations."
+    answer: "BlueFox Email integrates with Zapier (6 triggers and 8 actions), supports webhooks for real-time event notifications (sent, opened, clicked, bounced, complained, and subscription events), Supabase auth emails via SMTP, an open-source MCP server for AI agents like Claude and Cursor, and provides a full HTTP API for custom integrations."
   - question: "Does BlueFox Email have a free plan?"
     answer: "BlueFox Email includes 3,000 free sends with no credit card required. There is no monthly subscription, you buy send packs as needed (credits valid for 12 months). The Essential pack is $50 for 50,000 sends."
   - question: "How does segmentation work in BlueFox Email?"
