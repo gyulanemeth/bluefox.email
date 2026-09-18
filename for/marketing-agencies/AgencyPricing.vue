@@ -8,11 +8,8 @@ const tiers = [
 <template>
   <section class="agency-pricing" aria-labelledby="agency-pricing-title">
     <div class="pricing-head">
-      <v-chip color="primary" class="pricing-badge">
-        <span class="text-overline">Pricing</span>
-      </v-chip>
-      <h2 id="agency-pricing-title">One credit pool. Every client covered.</h2>
-      <p>Pay per email sent, not per contact stored. Buy credits for your account, use them across every client project.</p>
+      <h2 id="agency-pricing-title">One credit pool covers every client</h2>
+      <p>Buy credits once, spend them across every client project. No per-contact fees, no per-client subscriptions.</p>
     </div>
 
     <div class="tier-row">
@@ -38,12 +35,6 @@ const tiers = [
 .agency-pricing { padding: 36px 24px; }
 
 .pricing-head { margin-bottom: 24px; }
-
-.pricing-badge {
-  height: auto !important;
-  padding: 6px 12px !important;
-  margin-bottom: 14px;
-}
 
 .pricing-head h2 {
   margin: 0 0 10px;
