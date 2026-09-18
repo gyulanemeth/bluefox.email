@@ -870,6 +870,7 @@ html.dark .pricing-vat-label {
   <div class="need-more-banner">
     <p><strong>Need more sends?</strong> Custom volume & enterprise setup with dedicated onboarding. <a href="mailto:hello@bluefox.email">Talk to sales</a></p>
     <p>Want us to handle sending? <a href="/pricing">See our regular pricing</a></p>
+    <p>Comparing SES-based senders? See how BlueFox compares to <a href="/comparisons/bluefox-vs-resend">Resend</a>, <a href="/comparisons/bluefox-vs-sendgrid">SendGrid</a>, or <a href="/comparisons/bluefox-vs-mailersend">MailerSend</a></p>
   </div>
 </section>
 

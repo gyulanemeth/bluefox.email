@@ -394,5 +394,6 @@ Pick by what you actually need, not by which platform markets itself harder.
 
 Both platforms can send email well. The decision usually comes down to whether you want a broad marketing suite (Mailchimp) or a focused, per-send-priced email platform (BlueFox Email), and what your contact-to-send ratio looks like.
 
+Weighing other all-in-one suites? See how BlueFox Email compares to [ActiveCampaign](/comparisons/bluefox-vs-activecampaign), [Brevo](/comparisons/bluefox-vs-brevo), and [Constant Contact](/comparisons/bluefox-vs-constant-contact).
 
 <GlossaryCTA/>
