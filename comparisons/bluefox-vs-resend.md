@@ -175,6 +175,8 @@ It comes down to the split we started with. If your email is code, mostly transa
 
 Neither one is the "better email tool" in the abstract. They're built for different people. Figure out which person you are, and the choice mostly makes itself.
 
+Comparing other options? See how BlueFox Email stacks up against [SendGrid](/comparisons/bluefox-vs-sendgrid), [MailerSend](/comparisons/bluefox-vs-mailersend), and [Loops](/comparisons/bluefox-vs-loops).
+
 <PageCTA
   title="No per-contact fees. No second subscription."
   description="Use BlueFox Email's managed infrastructure, or connect your own AWS SES account through the same API. No per-contact billing, no second subscription for marketing."

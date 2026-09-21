@@ -408,4 +408,6 @@ Pick by what you actually need.
 
 Both platforms can deliver email well at scale. The decision usually comes down to whether you want SendGrid's enterprise-scale infrastructure with deep developer tooling and a dual-product structure, or BlueFox Email's focused single-product platform with per-send pricing and a managed-or-BYO SES delivery choice.
 
+If you're weighing other providers too, see how BlueFox Email compares to [MailerSend](/comparisons/bluefox-vs-mailersend), [Resend](/comparisons/bluefox-vs-resend), and [Brevo](/comparisons/bluefox-vs-brevo).
+
 <GlossaryCTA/>
