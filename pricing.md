@@ -966,7 +966,8 @@ html.dark .addon-card-period {
   <div class="need-more-banner">
     <p><strong>Need more sends?</strong> Custom volume & enterprise setup with dedicated onboarding. <a href="mailto:hello@bluefox.email">Talk to sales</a></p>
     <p>Bring your own SES for better email prices. <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a></p>
-    <p>Coming from a contact-based plan? <a href="/comparisons/bluefox-vs-mailchimp">See how per-send pricing compares to Mailchimp</a></p>
+    <p>Coming from a contact-based plan? See how per-send pricing compares to <a href="/comparisons/bluefox-vs-mailchimp">Mailchimp</a>, <a href="/comparisons/bluefox-vs-activecampaign">ActiveCampaign</a>, <a href="/comparisons/bluefox-vs-brevo">Brevo</a>, or <a href="/comparisons/bluefox-vs-constant-contact">Constant Contact</a></p>
+    <p>Switching from a transactional API? See how BlueFox compares to <a href="/comparisons/bluefox-vs-sendgrid">SendGrid</a>, <a href="/comparisons/bluefox-vs-mailersend">MailerSend</a>, or <a href="/comparisons/bluefox-vs-resend">Resend</a></p>
   </div>
 </section>
 
@@ -1068,5 +1069,6 @@ html.dark .addon-card-period {
     <h3>Do you offer a dedicated IP?</h3>
     <p>Yes. A <strong>dedicated sending IP is available for $50/month</strong> as an add-on. It gives you full control over your sender reputation and is recommended for high-volume senders. <a href="mailto:hello@bluefox.email?subject=Dedicated%20IP%20request">Contact us</a> to set one up.</p>
   </div>
+
 
 </section>

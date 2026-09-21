@@ -11,14 +11,14 @@ const props = defineProps({
 const testimonials = [
   {
     id: 0,
-    name: 'Niccolo Ossude',
-    company: 'Mailsmiths',
-    role: 'Agency Owner',
-    testimonial: 'As an email marketing agency owner, I had an awesome experience with BlueFox Email. No where else will you be able to get this level of service directly from the founder who made sure my onboarding was smooth, took the time to understand exactly what my requirements were and actually implemented feedback (which is rare these days). Apart from the service, the deliverability is great, automations are solid and email editor is smooth.',
-    profileImg: '/assets/testimonials/NiccoloOssude.webp',
-    logo: '/assets/testimonials/mailsmiths.webp',
-    logoAlt: 'Mailsmiths Logo',
-    url: 'https://mailsmiths.com/'
+    name: 'Elizabeth "Leo" Rosenstein',
+    company: 'Harvard University',
+    role: 'Administrative Coordinator',
+    testimonial: 'BlueFox is a very flexible and versatile platform that can accomplish pretty much whatever you want to do. The modular format makes it easy to create mailings quickly on the same theme as previous announcements without having to recreate parts from scratch. Customer service is also very responsive and helpful.',
+    profileImg: '/assets/testimonials/leo-rosenstein.jpg',
+    logo: '/assets/testimonials/harvard-logo.svg',
+    logoAlt: 'Harvard University Logo',
+    url: 'https://www.harvard.edu/'
   },
   {
     id: 1,
@@ -44,6 +44,19 @@ const testimonials = [
   },
   {
     id: 3,
+    name: 'Réka Magyaros',
+    company: 'Pázmány Péter Catholic University',
+    role: 'Public Relations Manager',
+    testimonial: 'The BlueFox platform is clear and easy to use. The editor is very user-friendly, and another major advantage is how quickly emails can be sent. The interface is simple, intuitive, and easy to follow, and it genuinely makes regular communication tasks easier.',
+    profileImg: '/assets/testimonials/reka-magyaros.jpg',
+    logo: '/assets/testimonials/ppke-logo.svg',
+    logoAlt: 'Pázmány Péter Catholic University Logo',
+    url: 'https://ppke.hu/en'
+  },
+  {
+    id: 4,
+    // Hidden for now (not deleted) so it's a one-line change to bring back.
+    hidden: true,
     name: 'Garth Brennan',
     company: 'POS Solutions Australia',
     role: 'Technical Director',
@@ -54,7 +67,7 @@ const testimonials = [
     url: 'https://possolutions.com.au'
   },
   {
-    id: 4,
+    id: 5,
     name: 'Matt Luo',
     company: 'Founder of ClarityText.com',
     role: 'Startup Founder',
@@ -65,7 +78,7 @@ const testimonials = [
     url: 'https://www.claritytext.com'
   },
   {
-    id: 5,
+    id: 6,
     name: 'Gergely Csaba Nagy',
     company: 'Head of Marketing @chamaileon.io',
     role: 'Marketing Lead',
@@ -78,7 +91,9 @@ const testimonials = [
 ]
 
 const visibleTestimonials = computed(() =>
-  props.testimonialIds ? testimonials.filter(t => props.testimonialIds.includes(t.id)) : testimonials
+  props.testimonialIds
+    ? testimonials.filter(t => props.testimonialIds.includes(t.id))
+    : testimonials.filter(t => !t.hidden)
 )
 </script>
 
@@ -114,8 +129,9 @@ const visibleTestimonials = computed(() =>
 
 <style scoped>
 .testimonial-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
@@ -201,11 +217,10 @@ html.dark .testimonial-role { color: #94a3b8; }
 }
 
 @media (max-width: 960px) {
-  .testimonial-grid { grid-template-columns: repeat(2, 1fr); }
+  .testimonial-card { flex-basis: calc((100% - 20px) / 2); }
 }
 
 @media (max-width: 640px) {
-  .testimonial-grid { grid-template-columns: 1fr; }
-  .testimonial-card { padding: 22px; }
+  .testimonial-card { flex-basis: 100%; padding: 22px; }
 }
 </style>

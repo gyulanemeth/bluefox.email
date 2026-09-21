@@ -234,17 +234,17 @@ const formatAbbreviated = num => {
               </thead>
               <tbody>
                 <tr>
-                  <td>Mailchimp Premium</td>
+                  <td><a href="/comparisons/bluefox-vs-mailchimp">Mailchimp</a> Premium</td>
                   <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
                   <td>{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
                 </tr>
                 <tr>
-                  <td>SendGrid Premier</td>
+                  <td><a href="/comparisons/bluefox-vs-sendgrid">SendGrid</a> Premier</td>
                   <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
                   <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
                 </tr>
                 <tr>
-                  <td>MailerSend Pro</td>
+                  <td><a href="/comparisons/bluefox-vs-mailersend">MailerSend</a> Pro</td>
                   <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
                   <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
                 </tr>
