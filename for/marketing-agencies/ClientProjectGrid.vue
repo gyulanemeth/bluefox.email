@@ -66,32 +66,27 @@ html.dark .access-head p { color: #94a3b8; }
 .access-columns {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  max-width: 720px;
-  margin: 0 auto;
+  gap: 12px;
 }
 
 .access-col {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  padding: 22px 24px;
+  background: #eef8fd;
+  border-radius: 4px;
+  padding: 36px 24px;
+  text-align: center;
 }
 
-html.dark .access-col {
-  background: rgba(30, 41, 59, 0.6);
-  border-color: rgba(148, 163, 184, 0.15);
-}
+html.dark .access-col { background: #0c1e2d; }
 
 .access-col-label {
   display: block;
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: #13b0ee;
-  margin-bottom: 12px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 14px;
 }
+
+html.dark .access-col-label { color: #f1f5f9; }
 
 .access-col ul {
   margin: 0;
@@ -103,25 +98,12 @@ html.dark .access-col {
 }
 
 .access-col li {
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.5;
   color: #334155;
-  padding-left: 18px;
-  position: relative;
 }
 
 html.dark .access-col li { color: #cbd5e1; }
-
-.access-col li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 7px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #13b0ee;
-}
 
 @media (max-width: 720px) {
   .access-section { padding: 24px 16px; }

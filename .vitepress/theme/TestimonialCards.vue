@@ -128,7 +128,7 @@ const visibleTestimonials = computed(() =>
   padding: 28px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 12px;
+  border-radius: 4px;
 }
 
 html.dark .testimonial-card {

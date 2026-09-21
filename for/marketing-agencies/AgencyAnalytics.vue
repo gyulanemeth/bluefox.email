@@ -497,16 +497,14 @@ html.dark .analytics-head p { color: #94a3b8; }
 /* Dashboard shell */
 .dashboard-shell {
   background: #ffffff;
-  border-radius: 14px;
+  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.08);
   border: 1px solid #e5e7eb;
 }
 
 html.dark .dashboard-shell {
   background: #1e293b;
   border-color: #334155;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 8px 32px rgba(0,0,0,0.3);
 }
 
 /* Top bar */
