@@ -192,6 +192,8 @@ Start with your sending shape, because it settles most of it. If you send often 
 
 On the day-to-day middle, contacts, segments, forms, and the like, they're close enough that it won't be the deciding factor for most teams. The decision tends to come back to the two things they genuinely disagree on: what you're paying for, and how much of the stack you want to own. Work those out and the rest follows.
 
+Still comparing? See how BlueFox Email stacks up against [Resend](/comparisons/bluefox-vs-resend), [MailerLite](/comparisons/bluefox-vs-mailerlite), and [ActiveCampaign](/comparisons/bluefox-vs-activecampaign).
+
 <GlossaryCTA
   title="Pay for the emails you send, not the contacts you store"
   description="Every feature included on every plan, marketing and transactional together. Start free with 3,000 sends, or bring your own AWS account when you're ready to scale."

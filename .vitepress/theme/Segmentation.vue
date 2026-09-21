@@ -59,9 +59,6 @@ function animateCount() {
   countTimer = requestAnimationFrame(frame)
 }
 
-const flyingIdx = ref(0)
-let flyTimer = null
-
 const flowRef = ref(null)
 const funnelRef = ref(null)
 const personRefs = ref([])
@@ -76,8 +73,11 @@ const setFilterRef = (el, idx) => {
 const paths = ref([])
 const filterPaths = ref([])
 const flowSize = ref({ w: 0, h: 0 })
-const activePath = computed(() => paths.value[flyingIdx.value] || '')
 const viewBox = computed(() => `0 0 ${flowSize.value.w || 1} ${flowSize.value.h || 1}`)
+
+const flyingIdx = ref(0)
+let flyTimer = null
+const activePath = computed(() => paths.value[flyingIdx.value] || '')
 
 let lastSig = ''
 
@@ -173,10 +173,6 @@ onMounted(async () => {
     document.fonts.ready.then(recalcPaths)
   }
 
-  flyTimer = setInterval(() => {
-    flyingIdx.value = (flyingIdx.value + 1) % matched.length
-  }, 2200)
-
   if (typeof ResizeObserver !== 'undefined') {
     resizeObs = new ResizeObserver(scheduleRecalc)
     resizeObs.observe(flowRef.value)
@@ -184,6 +180,10 @@ onMounted(async () => {
     filterRefs.value.forEach((el) => el && resizeObs.observe(el))
   }
   window.addEventListener('resize', scheduleRecalc)
+
+  flyTimer = setInterval(() => {
+    flyingIdx.value = (flyingIdx.value + 1) % matched.length
+  }, 2200)
 })
 
 onBeforeUnmount(() => {
@@ -227,8 +227,7 @@ onBeforeUnmount(() => {
           v-for="(d, i) in paths"
           :key="`p-${i}`"
           :d="d"
-          class="seg-path-line"
-          :class="{ 'seg-path-line--active': i === flyingIdx }"
+          class="seg-path-line seg-path-line--in"
           fill="none"
           stroke="url(#segPathGrad)"
           stroke-width="1.6"
@@ -236,7 +235,7 @@ onBeforeUnmount(() => {
         />
       </svg>
 
-      <!-- Email envelope follows active path -->
+      <!-- Envelope follows the active path from funnel to recipient -->
       <div
         v-if="activePath"
         :key="`env-${flyingIdx}`"
@@ -309,7 +308,6 @@ onBeforeUnmount(() => {
             v-for="(p, i) in matched"
             :key="p.name"
             class="seg-person"
-            :class="{ 'seg-person--ping': i === flyingIdx }"
             :style="{ animationDelay: `${i * 0.12}s` }"
             :ref="(el) => setPersonRef(el, i)"
           >
@@ -356,7 +354,7 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 8px;
   padding: 8px 16px;
-  background: linear-gradient(90deg, rgba(19, 176, 238, 0.12), rgba(57, 44, 145, 0.12));
+  background: rgba(19, 176, 238, 0.08);
   border: 1px solid rgba(19, 176, 238, 0.3);
   border-radius: 999px;
   font-size: 13px;
@@ -367,7 +365,7 @@ onBeforeUnmount(() => {
 }
 
 html.dark .seg-match-badge {
-  background: linear-gradient(90deg, rgba(19, 176, 238, 0.2), rgba(57, 44, 145, 0.2));
+  background: rgba(19, 176, 238, 0.14);
   border-color: rgba(103, 232, 249, 0.3);
   color: #f1f5f9;
 }
@@ -381,12 +379,6 @@ html.dark .seg-match-badge strong { color: #67e8f9; }
   border-radius: 50%;
   background: #10b981;
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
-  animation: pulseDot 1.8s ease-in-out infinite;
-}
-
-@keyframes pulseDot {
-  0%, 100% { box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25); }
-  50%      { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0); }
 }
 
 .seg-flow {
@@ -413,27 +405,16 @@ html.dark .seg-match-badge strong { color: #67e8f9; }
   transition: opacity 0.3s ease, stroke-width 0.3s ease;
 }
 
-.seg-path-line--active {
-  opacity: 0.95;
-  stroke-width: 2.4;
-  filter: drop-shadow(0 0 6px rgba(19, 176, 238, 0.55));
-  animation: dashFlow 1.2s linear infinite;
-}
-
 .seg-path-line--in {
   opacity: 0.55;
   animation: dashFlowIn 2.4s linear infinite;
-}
-
-@keyframes dashFlow {
-  to { stroke-dashoffset: -20; }
 }
 
 @keyframes dashFlowIn {
   to { stroke-dashoffset: -40; }
 }
 
-/* Envelope tracks current path via offset-path */
+/* Envelope tracks the active path via offset-path */
 .seg-envelope-track {
   position: absolute;
   top: 0;
@@ -461,12 +442,16 @@ html.dark .seg-match-badge strong { color: #67e8f9; }
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #13B0EE, #392C91);
+  background: #13B0EE;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 6px 18px rgba(19, 176, 238, 0.4);
+  box-shadow: 0 6px 18px rgba(19, 176, 238, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seg-envelope-track { animation: none; display: none; }
 }
 
 .seg-col-head {
@@ -645,12 +630,6 @@ html.dark .seg-person {
   border-color: rgba(148, 163, 184, 0.18);
 }
 
-.seg-person--ping {
-  border-color: rgba(19, 176, 238, 0.6);
-  box-shadow: 0 0 0 3px rgba(19, 176, 238, 0.18), 0 8px 22px rgba(19, 176, 238, 0.18);
-  transform: translateX(2px);
-}
-
 .seg-person-avatar {
   width: 36px;
   height: 36px;
@@ -727,11 +706,10 @@ html.dark .seg-callout-text { color: #94a3b8; }
 html.dark .seg-callout-text strong { color: #f1f5f9; }
 
 @media (prefers-reduced-motion: reduce) {
-  .seg-filter-chip, .seg-person, .seg-envelope-track, .seg-dot, .seg-path-line {
+  .seg-filter-chip, .seg-person, .seg-path-line {
     animation: none !important;
     opacity: 1 !important;
   }
-  .seg-envelope-track { display: none; }
 }
 
 @media (max-width: 820px) {

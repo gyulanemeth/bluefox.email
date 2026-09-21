@@ -83,12 +83,12 @@ Your project generates both setup snippets for you, with your project ID already
 
    ![A screenshot of the project settings integrations section MCP server setup.](./mcp-server-setup-section.webp)
 
-4. Pick the tab for your client: **Claude Desktop / Cursor / Windsurf** if your client is set up with a config file, or **Claude Code (CLI)** if you set it up from a terminal.
+4. Pick the tab for your client: **Claude Desktop / Cursor / Windsurf** if your client is set up with a config file, **Claude Code (CLI)** if you set it up from a terminal, or **Codex CLI (ChatGPT)** if you use OpenAI's Codex CLI.
 
 Each tab gives you two copyable blocks, one for each of the next two sections: a one-time [install command](#installation), and a [connection snippet](#connecting-your-ai-client) for your client. Both already contain your project ID. Replace `YOUR_API_KEY` in the connection snippet with a real key from the **API Keys and Domain Whitelist** section, creating one there first if your project does not have one yet.
 
 :::info Quick Note
-The **AI Agents** section just above **MCP Server** is a different thing. It gives you a setup prompt that points an agent at our public API and its OpenAPI spec, with no local server involved. Use that one for AI clients that only support hosted MCP servers, such as ChatGPT web chat. The ChatGPT desktop app, Codex CLI, and Codex IDE extension can run this local server instead; see [Codex and ChatGPT Desktop App](#codex-and-chatgpt-desktop-app) below. There isn't a dedicated setup tab for them yet, so build the config from the environment variables above.
+The **AI Agents** section just above **MCP Server** is a different thing. It gives you a setup prompt that points an agent at our public API and its OpenAPI spec, with no local server involved. Use that one for AI clients that only support hosted MCP servers, such as ChatGPT web chat. The ChatGPT desktop app, Codex CLI, and Codex IDE extension can run this local server instead; see [Codex and ChatGPT Desktop App](#codex-and-chatgpt-desktop-app) below. Codex CLI has its own **Codex CLI (ChatGPT)** tab; the ChatGPT desktop app and Codex IDE extension don't have a dedicated tab yet, so build their config from the environment variables above.
 :::
 
 ## Installation
@@ -173,7 +173,7 @@ BLUEFOX_PROJECT_ID = "YOUR_PROJECT_ID"
 BLUEFOX_API_KEY = "YOUR_API_KEY"
 ```
 
-Or, from the Codex CLI, register it in one command instead of editing the file:
+Or, from the Codex CLI, register it in one command instead of editing the file. The **Codex CLI (ChatGPT)** tab in your project settings shows this command with your project ID already filled in:
 
 ```bash
 codex mcp add bluefox-email \

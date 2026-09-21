@@ -3,7 +3,9 @@ title: Free DMARC Report Analyzer | Parse DMARC Aggregate Reports
 description: Free online DMARC report analyzer tool to parse and analyze DMARC aggregate reports, identify authentication failures, and improve email security posture.
 thumbnail: /assets/free-deliverability-tools.png
 sidebar: false
+aside: false
 layout: post
+hideAuthor: true
 category: tools
 
 datePublished: "2025-08-01"

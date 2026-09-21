@@ -1,6 +1,16 @@
 <script setup>
 import { ref } from 'vue'
 import PersonaLanding from '../for/components/PersonaLanding.vue'
+import {
+  mdiAccountMultipleOutline,
+  mdiEmailOutline,
+  mdiSend,
+  mdiChartBar,
+  mdiWrenchOutline,
+  mdiArrowRight,
+  mdiOpenInNew,
+  mdiChevronDown
+} from '@mdi/js'
 
 const REPO_URL = 'https://github.com/bluefox-email/bluefox.email-mcp'
 const GET_STARTED_URL = 'https://app.bluefox.email/accounts/create-account'
@@ -14,19 +24,19 @@ const TOOLS_DOCS_URL = '/docs/integrations/mcp-server#available-tools'
 const prompts = [
   {
     text: 'Create a subscriber list called Product Updates.',
-    iconPaths: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>'
+    icon: mdiAccountMultipleOutline
   },
   {
     text: 'Set up a welcome email for new subscribers on that list.',
-    iconPaths: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>'
+    icon: mdiEmailOutline
   },
   {
     text: 'Create a campaign announcing our new feature and schedule it for tomorrow morning.',
-    iconPaths: '<polygon points="22 2 15 22 11 13 2 9 22 2"/>'
+    icon: mdiSend
   },
   {
     text: 'How did our latest campaigns perform?',
-    iconPaths: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><polyline points="2 20 22 20"/>'
+    icon: mdiChartBar
   }
 ]
 
@@ -161,9 +171,9 @@ async function copyConfig() {
     hero-description="Create campaigns, manage contacts, and check email performance from Claude, Cursor, or another MCP-compatible AI client."
     :hero-highlights="['Runs on your computer', 'No MCP fee']"
     :hero-feature-items="[]"
-    :hero-compact="true"
     :hero-center-stacked-cta="true"
-    :after-pain-tight-top="true"
+    :hero-brand-title="true"
+    :hero-brand-bg="true"
     hero-primary-cta-text="Set up MCP"
     :hero-primary-cta-href="SETUP_DOCS_URL"
     hero-secondary-cta-text="Create a free account"
@@ -188,18 +198,21 @@ async function copyConfig() {
     <template #heroVisual>
       <div class="chat-mock" role="img" aria-label="Example conversation: a user asks their AI agent to create and schedule a campaign, and the agent confirms it using the BlueFox MCP server">
         <div class="chat-mock-header">
-          <span class="chat-dot chat-dot--red" aria-hidden="true"></span>
-          <span class="chat-dot chat-dot--yellow" aria-hidden="true"></span>
-          <span class="chat-dot chat-dot--green" aria-hidden="true"></span>
-          <span class="chat-mock-title">AI Agent</span>
+          <span class="chat-avatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="14" height="14"><path :d="mdiWrenchOutline" fill="currentColor"/></svg>
+          </span>
+          <div class="chat-mock-heading">
+            <span class="chat-mock-title">BlueFox MCP Server</span>
+            <span class="chat-mock-status"><span class="status-dot" aria-hidden="true"></span>Connected</span>
+          </div>
         </div>
         <div class="chat-mock-body">
           <div class="chat-bubble chat-bubble--user">
             Create a campaign announcing our new AI feature and schedule it for tomorrow at 9am.
           </div>
           <div class="chat-tool-call">
-            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+              <path :d="mdiWrenchOutline" fill="currentColor"/>
             </svg>
             <span>create_campaign</span>
           </div>
@@ -207,17 +220,25 @@ async function copyConfig() {
             Done. "New AI Feature Announcement" is scheduled for tomorrow at 9:00 AM to your Newsletter list.
           </div>
         </div>
+        <div class="chat-mock-input" aria-hidden="true">
+          <span class="chat-mock-input-placeholder">Ask your agent to do something&hellip;</span>
+          <span class="chat-mock-send">
+            <svg viewBox="0 0 24 24" width="14" height="14"><path :d="mdiSend" fill="currentColor"/></svg>
+          </span>
+        </div>
       </div>
     </template>
 
     <template #afterPain>
       <!-- 1. Prompt examples (white) -->
-      <section class="mcp-stripe-inner section-block section-block--tight-top" aria-labelledby="prompts-title">
+      <section class="mcp-stripe-inner section-block" aria-labelledby="prompts-title">
         <h2 id="prompts-title" class="section-title">Just tell it what you need</h2>
         <p class="section-subtitle constrained">Once connected, no API docs, no copy-pasting requests. Describe the outcome, and your agent handles the rest.</p>
         <div class="prompt-grid" role="list" aria-label="Example prompts">
           <div v-for="(prompt, i) in prompts" :key="i" class="prompt-card" role="listitem">
-            <svg class="prompt-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" v-html="prompt.iconPaths" />
+            <svg class="prompt-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+              <path :d="prompt.icon" fill="currentColor"/>
+            </svg>
             <p>"{{ prompt.text }}"</p>
           </div>
         </div>
@@ -246,14 +267,14 @@ async function copyConfig() {
           <p class="capability-link-row">
             <a :href="TOOLS_DOCS_URL" class="capability-link">
               What each tool does
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                <path :d="mdiArrowRight" fill="currentColor"/>
               </svg>
             </a>
             <a :href="REPO_URL" target="_blank" rel="noopener noreferrer" class="capability-link capability-link--muted">
               View the source on GitHub
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                <path :d="mdiOpenInNew" fill="currentColor"/>
               </svg>
             </a>
           </p>
@@ -287,12 +308,12 @@ async function copyConfig() {
               <span class="flow-node-title">AI Agent</span>
               <span class="flow-node-sub">Claude, Cursor, etc.</span>
             </div>
-            <svg class="flow-arrow" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <svg class="flow-arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path :d="mdiArrowRight" fill="currentColor"/></svg>
             <div class="flow-node">
               <span class="flow-node-title">BlueFox MCP Server</span>
               <span class="flow-node-sub">Runs on your computer</span>
             </div>
-            <svg class="flow-arrow" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            <svg class="flow-arrow" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path :d="mdiArrowRight" fill="currentColor"/></svg>
             <div class="flow-node">
               <span class="flow-node-title">BlueFox Email API</span>
               <span class="flow-node-sub">Your account</span>
@@ -312,8 +333,8 @@ async function copyConfig() {
           <p class="setup-doc-row">
             <a :href="SETUP_CLIENTS_URL" class="setup-doc-link">
               Full setup documentation for every client
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                <path :d="mdiArrowRight" fill="currentColor"/>
               </svg>
             </a>
           </p>
@@ -345,8 +366,8 @@ async function copyConfig() {
                 @click="toggleFaq(i)"
               >
                 <span>{{ faq.q }}</span>
-                <svg class="faq-chevron" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polyline points="6 9 12 15 18 9"/>
+                <svg class="faq-chevron" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                  <path :d="mdiChevronDown" fill="currentColor"/>
                 </svg>
               </button>
             </dt>
@@ -364,51 +385,78 @@ async function copyConfig() {
 /* Hero mock conversation panel */
 .chat-mock {
   width: 100%;
-  max-width: 440px;
+  max-width: 480px;
   margin: 0 auto;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 16px;
-  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.07);
   overflow: hidden;
 }
 
 html.dark .chat-mock {
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
+/* A real chat header - avatar, name, connection status - rather than a
+   fake macOS window frame, which no MCP client (Claude Desktop, Cursor,
+   the terminal) actually looks like. */
 .chat-mock-header {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 12px 16px;
+  gap: 10px;
+  padding: 14px 18px;
   border-bottom: 1px solid var(--vp-c-divider);
   background: var(--vp-c-bg-soft);
 }
 
-.chat-dot {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
+.chat-avatar {
   flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #13B0EE;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.chat-dot--red { background: #f87171; }
-.chat-dot--yellow { background: #fbbf24; }
-.chat-dot--green { background: #34d399; }
+.chat-mock-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
 
 .chat-mock-title {
-  margin-left: 8px;
-  font-size: 12.5px;
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--vp-c-text-1);
+  line-height: 1.2;
+}
+
+.chat-mock-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
   color: var(--vp-c-text-2);
+  line-height: 1.2;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  flex-shrink: 0;
 }
 
 .chat-mock-body {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 20px;
+  gap: 14px;
+  padding: 22px 20px;
 }
 
 .chat-bubble {
@@ -421,7 +469,7 @@ html.dark .chat-mock {
 
 .chat-bubble--user {
   align-self: flex-end;
-  background: linear-gradient(135deg, #13B0EE 0%, #392C91 100%);
+  background: #392C91;
   color: #ffffff;
   border-bottom-right-radius: 4px;
 }
@@ -429,7 +477,6 @@ html.dark .chat-mock {
 .chat-bubble--agent {
   align-self: flex-start;
   background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
   color: var(--vp-c-text-1);
   border-bottom-left-radius: 4px;
 }
@@ -453,6 +500,35 @@ html.dark .chat-tool-call {
   color: #67e8f9;
 }
 
+/* Bookends the header: a static message composer, since the single
+   strongest "this is a chat app" signal is the box you'd type into. */
+.chat-mock-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px 12px 18px;
+  border-top: 1px solid var(--vp-c-divider);
+  background: var(--vp-c-bg-soft);
+}
+
+.chat-mock-input-placeholder {
+  flex: 1;
+  font-size: 13px;
+  color: var(--vp-c-text-2);
+}
+
+.chat-mock-send {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #13B0EE;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 @media (max-width: 480px) {
   .chat-mock { max-width: 100%; }
 }
@@ -474,12 +550,6 @@ html.dark .mcp-stripe--blue { background: #0c1e2d; }
 
 .section-block {
   padding: 56px 24px 56px;
-}
-
-/* Slightly closes the gap right under the (already-compact) hero, so the
-   page keeps reading momentum into the first example prompt. */
-.section-block--tight-top {
-  padding-top: 40px;
 }
 
 .section-title {
@@ -511,15 +581,18 @@ html.dark .section-subtitle { color: #9ca3af; }
   gap: 16px;
 }
 
+/* Borderless surfaces throughout: the only high-contrast object on the page is
+   the dark config block, so the lighter cards separate by fill alone. */
 .prompt-card {
   display: flex;
   align-items: flex-start;
   gap: 12px;
   padding: 20px 22px;
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 16px;
+  background: #f4f7fa;
+  border-radius: 4px;
 }
+
+html.dark .prompt-card { background: #16222f; }
 
 .prompt-icon {
   flex-shrink: 0;
@@ -551,14 +624,10 @@ html.dark .section-subtitle { color: #9ca3af; }
   overflow: hidden;
   padding: 26px 24px 24px;
   background: #ffffff;
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 14px;
-  transition: border-color 0.2s ease;
+  border-radius: 4px;
 }
 
-html.dark .tool-card { background: #0f1c28; }
-
-.tool-card:hover { border-color: rgba(19, 176, 238, 0.55); }
+html.dark .tool-card { background: #16222f; }
 
 .tool-card--wide { grid-column: span 2; }
 
@@ -654,12 +723,13 @@ html.dark .tool-card-count { color: rgba(103, 232, 249, 0.14); }
   align-items: center;
   gap: 4px;
   padding: 18px 22px;
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 14px;
+  background: #ffffff;
+  border-radius: 4px;
   min-width: 160px;
   text-align: center;
 }
+
+html.dark .flow-node { background: #16222f; }
 
 .flow-node-title {
   font-size: 14.5px;
@@ -689,6 +759,9 @@ html.dark .tool-card-count { color: rgba(103, 232, 249, 0.14); }
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
+  padding: 20px;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 4px;
 }
 
 .step-circle {
@@ -748,7 +821,7 @@ html.dark .tool-card-count { color: rgba(103, 232, 249, 0.14); }
   width: fit-content;
   margin: 0 auto;
   padding: 10px 20px;
-  border-radius: 999px;
+  border-radius: 4px;
   background: var(--vp-c-bg-soft);
   border: 1px solid var(--vp-c-divider);
   color: var(--vp-c-text-1);
@@ -783,7 +856,7 @@ html.dark .tool-card-count { color: rgba(103, 232, 249, 0.14); }
   top: 10px;
   right: 10px;
   padding: 5px 12px;
-  border-radius: 6px;
+  border-radius: 4px;
   border: 1px solid rgba(226, 232, 240, 0.25);
   background: rgba(255, 255, 255, 0.06);
   color: #e2e8f0;
@@ -802,7 +875,7 @@ html.dark .tool-card-count { color: rgba(103, 232, 249, 0.14); }
   max-width: 100%;
   background: #0f172a;
   color: #e2e8f0;
-  border-radius: 10px;
+  border-radius: 4px;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 13px;
   line-height: 1.55;
@@ -830,7 +903,7 @@ html.dark .tool-card-count { color: rgba(103, 232, 249, 0.14); }
 
 .client-chip {
   padding: 8px 16px;
-  border-radius: 999px;
+  border-radius: 4px;
   background: rgba(19, 176, 238, 0.12);
   color: #0e7490;
   font-size: 14px;

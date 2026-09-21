@@ -14,7 +14,7 @@ const integrations = [
     name: 'MCP Server',
     description: 'Let Claude, Cursor, and other MCP-compatible AI agents manage campaigns, contacts, and more through natural language.',
     icon: 'mcp',
-    url: 'https://bluefox.email/mcp',
+    url: '/mcp',
     tags: ['AI Agents', 'Open Source'],
     badge: 'New',
     gradient: 'rgba(57, 44, 145, 0.12), rgba(19, 176, 238, 0.12)'
@@ -40,7 +40,8 @@ const integrations = [
     icon: 'api',
     url: 'https://bluefox.email/docs/api/',
     tags: ['Developer', 'Integration'],
-    gradient: 'rgba(19, 176, 238, 0.12), rgba(57, 44, 145, 0.12)'
+    gradient: 'rgba(19, 176, 238, 0.12), rgba(57, 44, 145, 0.12)',
+    tint: 'rgba(19, 176, 238, 0.1)'
   },
   {
     name: 'Supabase Auth',
@@ -56,7 +57,8 @@ const integrations = [
     url: 'https://www.make.com/en',
     tags: ['No-Code', 'Automation'],
     comingSoon: true,
-    gradient: 'rgba(110, 63, 243, 0.12), rgba(233, 78, 146, 0.12)'
+    gradient: 'rgba(110, 63, 243, 0.12), rgba(233, 78, 146, 0.12)',
+    tint: 'rgba(110, 63, 243, 0.1)'
   },
   {
     name: 'Shopify',
@@ -65,9 +67,18 @@ const integrations = [
     url: 'https://www.shopify.com/in',
     tags: ['E-commerce', 'Automation'],
     comingSoon: true,
-    gradient: 'rgba(149, 191, 71, 0.12), rgba(149, 191, 71, 0.08)'
+    gradient: 'rgba(149, 191, 71, 0.12), rgba(149, 191, 71, 0.08)',
+    tint: 'rgba(149, 191, 71, 0.1)'
   }
 ]
+
+// Light theme keeps the brand gradient tints; dark theme flattens to a single solid tint
+function iconStyle(integration) {
+  if (!integration.gradient && !integration.tint) return ''
+  return props.isDark
+    ? `background: ${integration.tint}`
+    : `background: linear-gradient(135deg, ${integration.gradient})`
+}
 </script>
 
 <template>
@@ -122,7 +133,7 @@ const integrations = [
               <!-- Icon -->
               <div
                 class="integration-icon"
-                :style="integration.gradient ? `background: linear-gradient(135deg, ${integration.gradient})` : ''"
+                :style="iconStyle(integration)"
                 aria-hidden="true"
               >
                 <v-icon
@@ -194,7 +205,7 @@ const integrations = [
 
               <div
                 class="integration-icon"
-                :style="integration.gradient ? `background: linear-gradient(135deg, ${integration.gradient})` : ''"
+                :style="iconStyle(integration)"
                 aria-hidden="true"
               >
                 <v-icon
@@ -329,7 +340,7 @@ const integrations = [
 }
 
 .integration-link:focus-visible .integration-card {
-  box-shadow: 0 8px 30px rgba(3, 102, 214, 0.18);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.14);
   transform: translateY(-6px);
   border-color: rgba(3, 102, 214, 0.5);
 }
@@ -355,14 +366,13 @@ const integrations = [
 }
 
 .integration-link:not(.disabled):hover .integration-card {
-  transform: translateY(-8px);
-  box-shadow: 0 10px 30px rgba(19, 176, 238, 0.2);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.14);
   border-color: rgba(19, 176, 238, 0.5);
-  overflow: none;
 }
 
 html.dark .integration-link:not(.disabled):hover .integration-card {
-  box-shadow: 0 10px 20px rgba(19, 176, 238, 0.3);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
 }
 
 .integration-link.disabled .integration-card {
@@ -391,6 +401,10 @@ html.dark .integration-link:not(.disabled):hover .integration-card {
   color: white;
 }
 
+html.dark .integration-badge.new {
+  background: #059669;
+}
+
 .integration-badge.coming-soon {
   background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2));
   color: #F59E0B;
@@ -398,7 +412,7 @@ html.dark .integration-link:not(.disabled):hover .integration-card {
 }
 
 html.dark .integration-badge.coming-soon {
-  background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(245, 158, 11, 0.15));
+  background: rgba(245, 158, 11, 0.15);
   color: #FCD34D;
   border: 1px solid rgba(252, 211, 77, 0.3);
 }
@@ -413,6 +427,10 @@ html.dark .integration-badge.coming-soon {
   margin-bottom: 24px;
   background: linear-gradient(135deg, rgba(19, 176, 238, 0.08), rgba(57, 44, 145, 0.08));
   transition: transform 0.4s ease;
+}
+
+html.dark .integration-icon {
+  background: rgba(19, 176, 238, 0.08);
 }
 
 .integration-link:hover .integration-icon {

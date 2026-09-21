@@ -5,6 +5,7 @@ thumbnail: /assets/free-deliverability-tools.png
 sidebar: false
 aside: false
 layout: post
+hideAuthor: true
 category: tools
 
 datePublished: "2025-08-01"

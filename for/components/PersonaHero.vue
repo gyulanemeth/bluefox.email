@@ -24,13 +24,18 @@ defineProps({
   // `compact` drops the full-viewport-height hero for pages whose content
   // doesn't need it. `centerStackedCta` centers the primary/secondary CTA
   // row once the two-column grid collapses to a single centered column.
+  // `brandTitle` colors the H1 with the brand blue instead of the default
+  // text color. `brandBg` swaps the two-tone diagonal gradient for a solid,
+  // very light tint of that same blue (and its dark-mode equivalent).
   compact: { type: Boolean, default: false },
-  centerStackedCta: { type: Boolean, default: false }
+  centerStackedCta: { type: Boolean, default: false },
+  brandTitle: { type: Boolean, default: false },
+  brandBg: { type: Boolean, default: false }
 })
 </script>
 
 <template>
-  <div class="heroDiv" :class="{ 'heroDiv--compact': compact }">
+  <div class="heroDiv" :class="{ 'heroDiv--compact': compact, 'heroDiv--brand-bg': brandBg }">
     <div class="background-gradient"></div>
     <div class="grid-overlay"></div>
 
@@ -41,7 +46,7 @@ defineProps({
             <span class="text-overline">{{ badge }}</span>
           </v-chip>
 
-          <h1 class="hero-title">{{ title }}</h1>
+          <h1 class="hero-title" :class="{ 'hero-title--brand': brandTitle }">{{ title }}</h1>
           <p v-if="description" class="hero-description">{{ description }}</p>
 
           <div v-if="highlights.length" class="hero-highlights" role="list" aria-label="Hero highlights">
@@ -120,6 +125,14 @@ defineProps({
 
 html.dark .heroDiv {
   background: linear-gradient(278deg, hsl(247.72, 53.44%, 10%) 10%, hsl(196.99, 86.56%, 10%) 90%);
+}
+
+.heroDiv--brand-bg {
+  background: #eef8fd;
+}
+
+html.dark .heroDiv--brand-bg {
+  background: #0c1e2d;
 }
 
 .background-gradient {
@@ -204,17 +217,7 @@ html.dark .grid-overlay {
   margin: 12px 0;
   border-top: 0 !important;
   padding-top: 0 !important;
-  background: -webkit-linear-gradient(120deg, #392c91 20%, #13b0ee 80%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-html.dark .hero-title {
-  background: -webkit-linear-gradient(120deg, #8a7ed8 20%, #13b0ee 80%);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #13B0EE;
 }
 
 .hero-description {

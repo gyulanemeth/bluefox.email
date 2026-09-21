@@ -8,7 +8,7 @@ aside: true
 prev: false
 next: false
 datePublished: "2025-10-01"
-dateModified: "2026-06-26"
+dateModified: "2026-09-16"
 head:
   - - meta
     - name: description
@@ -72,7 +72,7 @@ In this comprehensive comparison, we'll evaluate both platforms, examining desig
 
 ## Platform Positioning
 
-**MailerSend** has established itself as a modern transactional email service provider that bridges the gap between developer-focused APIs and the needs of non-technical team members. Born from the established email marketing company MailerLite, it leverages over a decade of high-volume sending experience. Its core strength lies in its team-friendly approach, offering an intuitive UI and a drag-and-drop builder that empowers marketers and designers to manage templates without developer intervention.
+**MailerSend** has established itself as a modern transactional email service provider that bridges the gap between developer-focused APIs and the needs of non-technical team members. Born from the established email marketing company [MailerLite](/comparisons/bluefox-vs-mailerlite), it leverages over a decade of high-volume sending experience. Its core strength lies in its team-friendly approach, offering an intuitive UI and a drag-and-drop builder that empowers marketers and designers to manage templates without developer intervention.
 
 However, MailerSend's user reviews reveal several challenges. The platform operates on a shared IP infrastructure by default, which means your sender reputation can be affected by other users' sending practices. Dedicated IPs are available, but only for Enterprise accounts sending more than 100,000 emails per week. A more significant issue highlighted by users is a strict and often opaque account approval and suspension process, which can lead to abrupt service interruptions without clear explanation. This concern remains a recurring theme in 2026 user reviews across G2, Capterra, and Trustpilot.
 
@@ -94,13 +94,15 @@ While functional and easy to use, some reviews suggest the design capabilities h
 
 ### BlueFox Email
 
-BlueFox Email's **Email Builder** is a drag-and-drop editor built on the Chamaileon SDK, with no HTML required (a Custom Code element is available if you need to drop in raw HTML for something the editor doesn't natively support). Emails are assembled from **blocks**, reusable full-width sections like headers, footers, and CTA rows that you save once and reuse across templates, plus **brand variables** (colors, fonts, logos, links) and **components** (buttons, dividers, etc.) that you can override at the project level to keep templates on-brand.
+BlueFox Email offers three ways to build an email: a **Visual Editor** (drag-and-drop, built on the Chamaileon SDK), a **Raw HTML** editor for writing or pasting your own markup, and a **Plain Text** editor. No HTML is required if you use the Visual Editor, though a Custom Code block is also available there if you need to drop in a snippet the visual canvas doesn't natively support.
+
+In the Visual Editor, emails are assembled from **blocks**, reusable full-width sections like headers, footers, and CTA rows that you save once and reuse across templates, plus **basics** (reusable design tokens like colors, fonts, images, text snippets, and URLs) and **components** (buttons, dividers, etc.) that you can override at the project level to keep templates on-brand. These reusable blocks and basics are specific to the Visual Editor; an email built in Raw HTML or Plain Text can't be saved back as one of these reusable templates.
 
 Personalization runs on Handlebars merge tags, with Loop and Conditional elements for repeating or conditionally showing content based on contact or API data. The editor also includes a shared image library, a built-in stock photo gallery, a photo editor, dark mode preview, and a VML-based fallback to keep background images working in Outlook.
 
-**Strengths:** Reusable blocks and project-level brand variables for consistent templates, Handlebars personalization with loop/conditional elements, built-in stock photos and a photo editor, dark mode preview.
+**Strengths:** Three editors to match your workflow (Visual, Raw HTML, Plain Text), reusable blocks and project-level basics for consistent templates, Handlebars personalization with loop/conditional elements, built-in stock photos and a photo editor, dark mode preview.
 
-**Trade-offs:** A smaller pre-made template library than more established services. The Handlebars syntax for advanced personalization has a slight learning curve for non-technical users.
+**Trade-offs:** A smaller pre-made template library than more established services. The Handlebars syntax for advanced personalization has a slight learning curve for non-technical users. Reusable blocks and basics only apply to emails built in the Visual Editor.
 
 <TemplateShowcase
   :is-dark="isDark"
@@ -126,9 +128,9 @@ The platform features robust webhook capabilities for real-time event tracking a
 
 BlueFox Email is built with an API-first approach, offering an API ([https://bluefox.email/docs/api/](https://bluefox.email/docs/api/)) for subscriber list management (subscribe, unsubscribe, pause, activate), transactional and triggered sends, and attachments. For teams requiring maximum control, an optional "bring-your-own-AWS-SES" mode connects directly to the user's AWS SES account via secure Access Key or STS credentials, giving developers direct visibility into the email delivery pipeline.
 
-Webhooks push real-time events: sent, failed, opens, clicks, bounces, complaints, subscribe, unsubscribe, pause, and resubscribe. Direct integrations are limited to a Zapier connector (no coding required) and a guide for routing Supabase Auth emails through BlueFox Email's SMTP ([https://bluefox.email/docs/integrations/supabase](https://bluefox.email/docs/integrations/supabase)).
+Webhooks push real-time events: sent, failed, opens, clicks, bounces, complaints, subscribe, unsubscribe, pause, and resubscribe. Direct integrations are limited to a Zapier connector (no coding required), a guide for routing Supabase Auth emails through BlueFox Email's SMTP ([https://bluefox.email/docs/integrations/supabase](https://bluefox.email/docs/integrations/supabase)), and an MCP server (in beta) for connecting AI agents like Claude Desktop, Claude Code, Cursor, or Windsurf to a project.
 
-**Strengths:** API-first design with subscriber-list, transactional, and triggered endpoints. Full webhook event set on every plan. Supabase-native auth email path via SMTP, no-code Zapier integration.
+**Strengths:** API-first design with subscriber-list, transactional, and triggered endpoints. Full webhook event set on every plan. Supabase-native auth email path via SMTP, no-code Zapier integration, an MCP server (in beta) for AI-agent access.
 
 **Trade-offs:** A small native integration list webhooks, Supabase, and Zapier are the only first-party integrations. No native e-commerce or CRM connectors. Initial API implementation requires some technical knowledge.
 
@@ -148,7 +150,7 @@ This focus on transactional automation means MailerSend is not an ideal choice f
 
 ### BlueFox Email
 
-BlueFox Email's visual automation builder lets you create multi-step workflows without coding. Trigger types include **Contact Added**, **Contact Updated** (with from/to property conditions), **Enter Segment**, **Leave Segment**, and **Time Based** (recurring schedules such as daily, weekdays, weekly, or monthly).
+BlueFox Email's visual automation builder lets you create multi-step workflows without coding. Trigger types include **Contact Added**, **Contact Updated** (with from/to property conditions), **Enter Segment**, **Leave Segment**, and **Time Based** (recurring schedules such as daily, weekdays, weekly, monthly, or monthly on a relative day, like the first Monday of every month).
 
 You can build automation flows using various node types:
 - **Send Email** nodes for delivering targeted messages
@@ -210,7 +212,7 @@ However, some users have reported limitations. Data retention periods are tied t
 
 ### BlueFox Email
 
-BlueFox Email scopes analytics at account, project, campaign, transactional email, triggered email, and subscriber list levels. Per email: sends, opens, unique opens, clicks, unique clicks, bounces, complaints, unsubscribes, resubscriptions, paused subscriptions. Time-range filters cover current/previous week, current/previous month, last 3 months, and overall. Project-level dashboard shows live bounce rate (against the 2.5% ceiling) and complaint rate (against the 0.05% ceiling). Automation cards expose Runs, Active, Sends, Opens, Clicks for the whole flow plus per-Send-Email-node breakdowns. Webhooks push every event in real time for external dashboards.
+BlueFox Email scopes analytics at account, project, campaign, transactional email, triggered email, automations, and subscriber list levels. Per email: sends, opens, unique opens, clicks, unique clicks, bounces, complaints, and unsubscribes; resubscriptions and paused subscriptions are tracked separately as project- and list-level Subscription Trends rather than per-email metrics. Charts switch between hourly, daily, weekly, and monthly intervals (daily/weekly/monthly support up to a 1-year range, hourly up to 7 days). Project-level dashboard shows live bounce rate (against the 2.5% ceiling) and complaint rate (against the 0.05% ceiling). Automation cards expose Runs, Active, Sends, Opens, Clicks for the whole flow plus per-Send-Email-node breakdowns. Webhooks push every event in real time for external dashboards.
 
 **Strengths:** Live bounce/complaint ratios against the production thresholds, per-email-type and per-automation-node stats, real-time webhook push for external analytics, full event set on every plan.
 
@@ -340,10 +342,10 @@ Pick by what you actually need.
 | -------------------------------------------------------------------------------------- | ------------------------ |
 | A non-technical team managing templates via drag-and-drop, rich-text, or HTML          | MailerSend               |
 | Split testing for transactional emails                                                | MailerSend               |
-| Official SDKs across seven languages plus an MCP server for AI tooling                 | MailerSend               |
+| Official SDKs across seven languages for developer integration                        | MailerSend               |
 | Native WordPress, WooCommerce, Firebase, or Supabase integrations                      | MailerSend               |
 | A low-cost entry plan for small-scale or early-stage sending                           | MailerSend               |
-| Reusable blocks and brand variables for consistent templates                           | BlueFox Email            |
+| A choice of Visual, Raw HTML, or Plain Text editors, with reusable blocks and brand variables | BlueFox Email      |
 | Reliable rendering across email clients, including Outlook                             | BlueFox Email            |
 | A visual automation builder with live editing of running flows                         | BlueFox Email            |
 | Isolated sender reputation via an optional bring-your-own-AWS-SES mode, with 2× sends   | BlueFox Email            |
@@ -352,5 +354,7 @@ Pick by what you actually need.
 | Direct access to founders and core developers for support                              | BlueFox Email            |
 
 Both platforms can send email well. The decision usually comes down to whether you want MailerSend's self-contained, team-friendly solution, or BlueFox Email's transparent infrastructure with optional AWS-powered control.
+
+Evaluating other transactional providers? See how BlueFox Email compares to [SendGrid](/comparisons/bluefox-vs-sendgrid), [MailerLite](/comparisons/bluefox-vs-mailerlite), and [Resend](/comparisons/bluefox-vs-resend).
 
 <GlossaryCTA/>

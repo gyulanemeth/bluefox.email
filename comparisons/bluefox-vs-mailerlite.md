@@ -79,7 +79,7 @@ MailerLite bills by **active subscribers stored**, then caps how many emails tha
 | Power | from $25/month | Everything in Comfort, plus unlimited seats, unlimited monthly sends (fair-use), unlimited automations, multiple automation triggers, 24/7 live chat |
 | Enterprise | custom | 200K+ subscribers, dedicated success manager, dedicated IP, account audits, deliverability support |
 
-Those "from" prices are for MailerLite's lowest subscriber bracket (up to 500 subscribers). Past that, price steps up a tier at a time as your list grows, based on a slider on MailerLite's own site rather than a fixed table; the scenarios below use the current published rate at each tier. A 10% discount applies for annual billing and a 30% discount for verified nonprofits, one discount at a time. Worth knowing: MailerLite's marketing plans don't send transactional email, that's a separate sister product called MailerSend, billed on its own. If you need both marketing and transactional sending under MailerLite, that's two subscriptions.
+Those "from" prices are for MailerLite's lowest subscriber bracket (up to 500 subscribers). Past that, price steps up a tier at a time as your list grows, based on a slider on MailerLite's own site rather than a fixed table; the scenarios below use the current published rate at each tier. A 10% discount applies for annual billing and a 30% discount for verified nonprofits, one discount at a time. Worth knowing: MailerLite's marketing plans don't send transactional email, that's a separate sister product called [MailerSend](/comparisons/bluefox-vs-mailersend), billed on its own. If you need both marketing and transactional sending under MailerLite, that's two subscriptions.
 
 **BlueFox Email:**
 
@@ -139,7 +139,7 @@ MailerLite's API is REST-based and covers subscribers (create/update/upsert, lis
 
 One crucial caveat for developers: MailerLite's Free plan does not support email sending via the API, and API, webhook, and MCP access are all marked as "Limited" on the Free tier. You need a paid plan to send programmatically. 
 
-BlueFox's API covers subscriber-list management (subscribe, unsubscribe, pause, activate), full contact CRUD, transactional and triggered sends with attachments, and the same full webhook event set (sent, failed, opens, clicks, bounces, complaints, subscribe, unsubscribe, pause, resubscribe) on every plan including free. The one structural difference: BlueFox's API can trigger an actual transactional send directly from the same account on *every* plan, including free, where MailerLite's marketing API manages campaigns and automations but hands transactional sending off to the separate MailerSend product and its own API and credentials.
+BlueFox's API covers subscriber-list management (subscribe, unsubscribe, pause, activate), full contact CRUD, transactional and triggered sends with attachments, and the same full webhook event set (sent, failed, opens, clicks, bounces, complaints, subscribe, unsubscribe, pause, resubscribe) on every plan including free. The one structural difference: BlueFox's API can trigger an actual transactional send directly from the same account on *every* plan, including free, where MailerLite's marketing API manages campaigns and automations but hands transactional sending off to the separate [MailerSend](/comparisons/bluefox-vs-mailersend) product and its own API and credentials.
 
 ## Scale, track record, and support
 
@@ -162,6 +162,8 @@ MailerLite's free tier has been cut twice in under a year: from 1,000 to 500 sub
 If you value a mature, extensively reviewed product from an established company, with strong e-commerce integrations and a large support team to fall back on, and you're comfortable with pricing that tracks your list size rather than your sending volume, MailerLite is a genuinely solid choice for email sending, testing tools and all. If you'd rather pay for exactly what you send, want marketing and transactional email in one account instead of two, want every feature unlocked regardless of plan, and are comfortable with a smaller, newer company in exchange for that flexibility and direct access, BlueFox fits better.
 
 There isn't a universally correct answer here, the honest read is that MailerLite wins on scale, proven track record, and breadth of campaign and e-commerce tooling, while BlueFox wins on pricing flexibility, feature access at every tier, and a unified account for marketing and transactional mail. Weigh those against what actually matters for your list, your sending habits, and how much company size factors into your decision.
+
+Also worth a look: how BlueFox Email compares to [MailerSend](/comparisons/bluefox-vs-mailersend), [Loops](/comparisons/bluefox-vs-loops), and [Mailchimp](/comparisons/bluefox-vs-mailchimp).
 
 <GlossaryCTA
   title="Pay for what you send, not the list you keep"

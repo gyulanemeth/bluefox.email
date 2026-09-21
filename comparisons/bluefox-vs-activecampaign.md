@@ -116,7 +116,7 @@ The pattern holds throughout: the larger your list relative to how often you act
 
 ## Designing the emails
 
-ActiveCampaign ships a drag-and-drop builder with roughly 250 responsive templates. Reviewers consistently describe the library as comprehensive but visually dated, functional rather than polished, next to newer builders from Mailchimp or Klaviyo. There's no first-class design-system layer, brand colors and reusable sections live at the template level rather than as project-wide variables you define once.
+ActiveCampaign ships a drag-and-drop builder with roughly 250 responsive templates. Reviewers consistently describe the library as comprehensive but visually dated, functional rather than polished, next to newer builders from [Mailchimp](/comparisons/bluefox-vs-mailchimp) or Klaviyo. There's no first-class design-system layer, brand colors and reusable sections live at the template level rather than as project-wide variables you define once.
 
 BlueFox Email's builder, powered by the Chamaileon SDK, is built around exactly that gap: reusable **blocks** (headers, footers, CTA rows) and project-level **brand variables** (colors, fonts, logos) that you set once and reuse everywhere, so templates stay consistent by construction rather than by whoever built the last email. It includes a built-in stock photo gallery, a photo editor, dark mode preview, and VML fallbacks that keep background images working in Outlook. Personalization runs on Handlebars with loop and conditional elements, on every plan, not gated by tier.
 
@@ -216,6 +216,8 @@ BlueFox Email is built for teams that want unrestricted email, marketing and tra
 If your business runs sales through the same platform as its marketing and you're comfortable investing the ramp-up time a genuinely powerful tool asks for, ActiveCampaign is a mature, well-reviewed choice, just go in knowing which plan actually includes the automation depth you're buying it for. If your list is large relative to how often you mail it, if any part of your sending is transactional, or if you'd rather not find out what your bill looks like the day your billing model quietly changes, BlueFox Email is built around avoiding exactly that.
 
 Figure out whether you're buying a marketing-and-sales suite or a focused email platform, and the rest of the decision follows from that.
+
+Still deciding? See how BlueFox Email compares to [Mailchimp](/comparisons/bluefox-vs-mailchimp), [Brevo](/comparisons/bluefox-vs-brevo), and [Constant Contact](/comparisons/bluefox-vs-constant-contact).
 
 <GlossaryCTA
   title="Pay for the emails you send, not the contacts you've ever collected"

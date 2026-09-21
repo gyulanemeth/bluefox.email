@@ -27,6 +27,8 @@ defineProps({
   heroCtaSupportingText: { type: String, default: '' },
   heroCompact: { type: Boolean, default: false },
   heroCenterStackedCta: { type: Boolean, default: false },
+  heroBrandTitle: { type: Boolean, default: false },
+  heroBrandBg: { type: Boolean, default: false },
   // Opt-in, default preserves every existing persona page's after-pain
   // section as-is. Closes some of the gap under an already-compact hero.
   afterPainTightTop: { type: Boolean, default: false },
@@ -97,6 +99,8 @@ const { isDark } = useData()
     :cta-supporting-text="heroCtaSupportingText"
     :compact="heroCompact"
     :center-stacked-cta="heroCenterStackedCta"
+    :brand-title="heroBrandTitle"
+    :brand-bg="heroBrandBg"
   >
     <template v-if="$slots.heroVisual" #heroVisual>
       <slot name="heroVisual" />

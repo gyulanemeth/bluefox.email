@@ -3,8 +3,11 @@ title: Free Email Deliverability Tools
 description: Comprehensive collection of free email deliverability tools including DMARC checker, SPF validator, DKIM verifier, MX record lookup, and DMARC report analyzer.
 thumbnail: /assets/free-deliverability-tools.png
 sidebar: false
-layout: post
+aside: false
+layout: doc
 category: tools
+prev: false
+next: false
 
 datePublished: "2025-08-01"
 dateModified: "2025-08-01"

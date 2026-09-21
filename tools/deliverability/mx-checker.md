@@ -3,7 +3,9 @@ title: Free MX Record Checker | Lookup Mail Exchange Records
 description: Free online MX record checker tool to lookup and validate mail exchange records, check email server configuration, and analyze email routing for domains.
 thumbnail: /assets/free-deliverability-tools.png
 sidebar: false
+aside: false
 layout: post
+hideAuthor: true
 category: tools
 
 datePublished: "2025-08-01"
