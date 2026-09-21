@@ -144,7 +144,7 @@ const visibleTestimonials = computed(() =>
   padding: 28px;
   background: #ffffff;
   border: 1px solid #e5e7eb;
-  border-radius: 4px;
+  border-radius: 12px;
   /* Flex (not grid) so a last row that doesn't fill all columns centers
      itself instead of sitting flush left - matters since the testimonial
      count won't always divide evenly by the column count. */
