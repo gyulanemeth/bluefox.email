@@ -6,6 +6,7 @@ import DesignSystem from '../../.vitepress/theme/DesignSystem.vue'
 import Automation from '../../.vitepress/theme/Automation.vue'
 import Integration from '../../.vitepress/theme/Integration.vue'
 import AppleMailTestimonials from '../../.vitepress/theme/AppleMailTestimonials.vue'
+import TestimonialCards from '../../.vitepress/theme/TestimonialCards.vue'
 import PersonaHero from './PersonaHero.vue'
 
 defineProps({
@@ -33,6 +34,12 @@ defineProps({
   // section as-is. Closes some of the gap under an already-compact hero.
   afterPainTightTop: { type: Boolean, default: false },
   showTestimonials: { type: Boolean, default: true },
+  simpleTestimonials: { type: Boolean, default: false },
+  // PersonaLanding renders as multiple sibling root elements (a fragment), so a
+  // parent's scoped :deep() selector never reaches in (Vue only auto-forwards
+  // the parent's scope attribute to a single root). Centering has to be done
+  // here, behind this prop, instead.
+  centerSectionTitles: { type: Boolean, default: false },
   testimonialTitle: { type: String, default: '' },
   midCtaTitle: { type: String, default: '' },
   midCtaDescription: { type: String, default: '' },
@@ -122,8 +129,10 @@ const { isDark } = useData()
   <!-- 2. Testimonials (white) -->
   <div v-if="showTestimonials" class="stripe" :class="`stripe--${testimonialsStripe}`">
     <section class="stripe-inner section-block" aria-labelledby="testimonials-heading">
-      <h2 id="testimonials-heading" class="section-title">{{ testimonialTitle }}</h2>
+      <h2 id="testimonials-heading" class="section-title" :class="{ 'section-title--center': centerSectionTitles }">{{ testimonialTitle }}</h2>
+      <TestimonialCards v-if="simpleTestimonials" :testimonial-ids="testimonialIds" />
       <AppleMailTestimonials
+        v-else
         :is-dark="isDark"
         :lg-and-up="lgAndUp"
         :md="md"
@@ -162,8 +171,8 @@ const { isDark } = useData()
   </div>
   <div v-else-if="showDesign" class="stripe" :class="`stripe--${designStripe}`">
     <section id="design-system" class="stripe-inner section-block" aria-labelledby="design-title">
-      <h2 id="design-title" class="section-title">{{ designTitle }}</h2>
-      <p class="section-subtitle constrained">{{ designDescription }}</p>
+      <h2 id="design-title" class="section-title" :class="{ 'section-title--center': centerSectionTitles }">{{ designTitle }}</h2>
+      <p class="section-subtitle constrained" :class="{ 'section-subtitle--center': centerSectionTitles }">{{ designDescription }}</p>
       <DesignSystem :is-dark="isDark" class="mt-6" />
     </section>
   </div>
@@ -171,8 +180,8 @@ const { isDark } = useData()
   <!-- 5. Automation (blue) -->
   <div v-if="showAutomation" class="stripe" :class="`stripe--${automationStripe}`">
     <section id="automation" class="stripe-inner section-block" aria-labelledby="automation-title">
-      <h2 id="automation-title" class="section-title">{{ automationTitle }}</h2>
-      <p class="section-subtitle constrained">{{ automationDescription }}</p>
+      <h2 id="automation-title" class="section-title" :class="{ 'section-title--center': centerSectionTitles }">{{ automationTitle }}</h2>
+      <p class="section-subtitle constrained" :class="{ 'section-subtitle--center': centerSectionTitles }">{{ automationDescription }}</p>
       <Automation
         class="mt-6"
         :is-dark="isDark"
@@ -403,6 +412,16 @@ html.dark .section-subtitle {
 
 .constrained {
   max-width: 760px;
+}
+
+.section-title--center {
+  text-align: center;
+}
+
+.section-subtitle--center {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Mid-page CTA content */

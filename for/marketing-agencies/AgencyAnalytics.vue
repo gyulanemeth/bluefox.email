@@ -5,13 +5,14 @@ const props = defineProps({
   title: { type: String, default: 'Clear reports, fast' },
   description: {
     type: String,
-    default: 'Per-project analytics are clean and visual. Client performance reviews become straightforward, and retainer conversations get easier.'
+    default: 'Per-project delivery, opens, clicks, and bounce data, ready to drop into a client report.'
   },
   secondaryDescription: { type: String, default: '' },
   defaultTab: { type: String, default: 'hourly' },
   showHeader: { type: Boolean, default: true },
-  showCta: { type: Boolean, default: true },
-  showBadge: { type: Boolean, default: true }
+  showCta: { type: Boolean, default: false },
+  showBadge: { type: Boolean, default: true },
+  interactive: { type: Boolean, default: true }
 })
 
 const activeView = ref('sending')
@@ -326,7 +327,7 @@ const yGridLines = computed(() => {
     <div class="dashboard-shell" role="region" aria-label="Analytics dashboard preview">
 
       <!-- Top bar: view switcher + tab controls -->
-      <div class="dash-topbar">
+      <div v-if="interactive" class="dash-topbar">
         <div class="dash-views">
           <button
             class="dash-view-btn"
