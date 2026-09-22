@@ -9,9 +9,6 @@ const coverage = [
 <template>
   <section class="pricing-snapshot" aria-labelledby="pricing-snapshot-title">
     <div class="snapshot-head">
-      <v-chip color="primary" class="snapshot-badge" aria-label="Pricing badge">
-        <span class="text-overline">Honest Pricing</span>
-      </v-chip>
       <h2 id="pricing-snapshot-title">Pay when you send. Not every month.</h2>
       <p>Most email tools charge a monthly subscription whether you send or not. We sell send packs. Buy once, use whenever, valid for 12 months.</p>
     </div>
@@ -50,7 +47,7 @@ const coverage = [
 
     <div class="footer-row">
       <span class="footer-lead">Start with 3,000 free sends. No card, no subscription.</span>
-      <a href="https://bluefox.email/pricing" class="pricing-link">See full pricing →</a>
+      <a href="https://bluefox.email/pricing" class="pricing-link">See full pricing</a>
     </div>
 
     <div class="cta-row">
@@ -77,12 +74,6 @@ const coverage = [
 .snapshot-head {
   margin-bottom: 32px;
   max-width: 680px;
-}
-
-.snapshot-badge {
-  height: auto !important;
-  padding: 6px 12px !important;
-  margin-bottom: 14px;
 }
 
 .snapshot-head h2 {

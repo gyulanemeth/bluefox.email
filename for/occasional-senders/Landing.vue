@@ -13,10 +13,12 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 
 <template>
   <PersonaLanding
-    hero-badge="For occasional senders"
+    hero-badge=""
+    hero-brand-bg
+    center-section-titles
     hero-title="Professional campaigns, only when you need them"
     hero-description="Send when you have something to say. Buy credits once, valid for 12 months. No subscription, no recurring bill."
-    :hero-highlights="['12-month credits', 'No subscription', 'Simple segmentation']"
+    :hero-highlights="['12-month credits', 'No subscription']"
     :hero-feature-items="[]"
     cta-text="Create your free account"
     cta-href="https://app.bluefox.email/accounts/create-account"
@@ -38,9 +40,6 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     </template>
     <template #designContent>
       <section class="templates-section" aria-labelledby="occasional-templates-title">
-        <v-chip color="primary" class="templates-badge">
-          <span class="text-overline">Template library</span>
-        </v-chip>
         <h2 id="occasional-templates-title">Start every campaign from a polished template</h2>
         <p class="templates-desc">Ready-to-use layouts for newsletters, announcements, product launches, and seasonal sends. Pick one, add your content, ship.</p>
         <TemplateShowcase
@@ -57,6 +56,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
         title="See what worked after every send"
         description="Track opens, clicks, bounces, and subscriber trends right after each campaign. Know what landed, what to fix, and who to follow up with next time."
         default-tab="hourly"
+        :show-badge="false"
       />
     </template>
   </PersonaLanding>
@@ -65,12 +65,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 <style scoped>
 .templates-section {
   padding: 0;
-}
-
-.templates-badge {
-  height: auto !important;
-  padding: 6px 12px !important;
-  margin-bottom: 14px;
+  text-align: center;
 }
 
 .templates-section h2 {
@@ -82,7 +77,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
 }
 
 .templates-desc {
-  margin: 0 0 28px;
+  margin: 0 auto 28px;
   font-size: 16px;
   line-height: 1.65;
   color: #475569;

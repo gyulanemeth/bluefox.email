@@ -36,8 +36,10 @@ defineProps({
 
 <template>
   <div class="heroDiv" :class="{ 'heroDiv--compact': compact, 'heroDiv--brand-bg': brandBg }">
-    <div class="background-gradient"></div>
-    <div class="grid-overlay"></div>
+    <template v-if="!brandBg">
+      <div class="background-gradient"></div>
+      <div class="grid-overlay"></div>
+    </template>
 
     <div class="heroMain">
       <div class="heroGrid" :class="{ 'heroGrid--solo': !featureItems.length && !$slots.heroVisual }">
@@ -211,9 +213,9 @@ html.dark .grid-overlay {
 }
 
 .hero-title {
-  font-size: clamp(34px, 5vw, 56px);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-size: clamp(32px, 4.4vw, 50px);
+  line-height: 1.15;
+  font-weight: 800;
   margin: 12px 0;
   border-top: 0 !important;
   padding-top: 0 !important;
