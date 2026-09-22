@@ -213,7 +213,7 @@ html.dark .grid-overlay {
 }
 
 .hero-title {
-  font-size: clamp(26px, 3.8vw, 42px);
+  font-size: clamp(32px, 4.4vw, 50px);
   line-height: 1.15;
   font-weight: 800;
   margin: 12px 0;
