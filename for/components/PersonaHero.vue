@@ -36,8 +36,10 @@ defineProps({
 
 <template>
   <div class="heroDiv" :class="{ 'heroDiv--compact': compact, 'heroDiv--brand-bg': brandBg }">
-    <div class="background-gradient"></div>
-    <div class="grid-overlay"></div>
+    <template v-if="!brandBg">
+      <div class="background-gradient"></div>
+      <div class="grid-overlay"></div>
+    </template>
 
     <div class="heroMain">
       <div class="heroGrid" :class="{ 'heroGrid--solo': !featureItems.length && !$slots.heroVisual }">

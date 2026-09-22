@@ -19,7 +19,7 @@ head:
       content: https://bluefox.email/assets/bluefoxemailforsaasteams.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/for/saas-users
+      content: https://bluefox.email/for/saas-companies
   - - meta
     - property: og:type
       content: website
