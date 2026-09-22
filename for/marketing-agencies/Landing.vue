@@ -23,7 +23,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     cta-text="Start free. 3,000 sends included"
     cta-href="https://app.bluefox.email/accounts/create-account"
     testimonial-title="What agency teams say"
-    :testimonial-ids="[0, 1, 2]"
+    :testimonial-ids="[1, 2]"
     simple-testimonials
     after-pain-stripe="white"
     testimonials-stripe="blue"
