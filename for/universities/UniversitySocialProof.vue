@@ -1,7 +1,5 @@
 <script setup>
-defineProps({
-  isDark: { type: Boolean, default: false }
-})
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const testimonials = [
   {
@@ -29,24 +27,54 @@ const testimonials = [
     }
   }
 ]
+
+// One card at a time. Every card stays in the DOM, stacked in one grid cell,
+// so the hero keeps the tallest card's height and never jumps on a switch.
+const ROTATE_MS = 8000
+const active = ref(0)
+const paused = ref(false)
+let timer = null
+
+function show(index) {
+  active.value = index
+}
+
+onMounted(() => {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+  timer = setInterval(() => {
+    if (!paused.value) active.value = (active.value + 1) % testimonials.length
+  }, ROTATE_MS)
+})
+
+onBeforeUnmount(() => clearInterval(timer))
 </script>
 
 <template>
   <section class="proof-section" aria-labelledby="proof-title">
-    <h2 id="proof-title" class="visually-hidden">Trusted by universities</h2>
+    <h2 id="proof-title" class="visually-hidden">What university teams say</h2>
 
-    <div class="proof-list">
-      <div v-for="testimonial in testimonials" :key="testimonial.name" class="proof-card">
-        <span class="proof-mark" aria-hidden="true">&ldquo;</span>
-
+    <div
+      class="proof-list"
+      @mouseenter="paused = true"
+      @mouseleave="paused = false"
+      @focusin="paused = true"
+      @focusout="paused = false"
+    >
+      <div
+        v-for="(testimonial, i) in testimonials"
+        :key="testimonial.name"
+        class="proof-card"
+        :class="{ 'proof-card--active': i === active }"
+        :aria-hidden="i !== active"
+      >
         <p class="proof-quote">
           {{ testimonial.quote }}
         </p>
 
         <div class="proof-footer">
           <div class="proof-author">
-            <v-avatar size="56" class="proof-avatar">
-              <img :src="testimonial.avatar" :alt="testimonial.name" width="56" height="56" loading="lazy" decoding="async" />
+            <v-avatar size="48" class="proof-avatar">
+              <img :src="testimonial.avatar" :alt="testimonial.name" width="48" height="48" decoding="async" />
             </v-avatar>
             <div class="proof-author-info">
               <p class="proof-author-name">
@@ -65,16 +93,31 @@ const testimonials = [
             :alt="testimonial.logo.alt"
             width="40"
             height="40"
-            loading="lazy"
             decoding="async"
           />
         </div>
       </div>
     </div>
+
+    <div class="proof-dots">
+      <button
+        v-for="(testimonial, i) in testimonials"
+        :key="testimonial.name"
+        type="button"
+        class="proof-dot"
+        :class="{ 'proof-dot--active': i === active }"
+        :aria-label="`Show testimonial from ${testimonial.name}`"
+        :aria-pressed="i === active"
+        @click="show(i)"
+        @focus="paused = true"
+        @blur="paused = false"
+      />
+    </div>
   </section>
 </template>
 
 <style scoped>
+/* Sits in the hero's right column, so the heading is for screen readers only. */
 .visually-hidden {
   position: absolute !important;
   height: 1px;
@@ -91,37 +134,41 @@ const testimonials = [
 
 .proof-list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
 }
 
 .proof-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s;
 }
 
-html.dark .proof-card { background: rgba(30, 41, 59, 0.5); }
+.proof-card--active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease;
+}
 
-.proof-mark {
-  display: block;
-  font-family: Georgia, 'Times New Roman', serif;
-  font-size: 40px;
-  line-height: 1;
-  color: #13b0ee;
-  opacity: 0.5;
+html.dark .proof-card {
+  background: #1e293b;
+  border-color: #334155;
 }
 
 .proof-quote {
-  margin: 4px 0 24px;
-  font-size: 16px;
+  margin: 0 0 16px;
+  font-size: 15px;
   line-height: 1.6;
-  color: #0f172a;
+  color: #334155;
+  text-align: left;
 }
 
-html.dark .proof-quote { color: #f1f5f9; }
+html.dark .proof-quote { color: #cbd5e1; }
 
 .proof-footer {
   margin-top: auto;
@@ -129,11 +176,11 @@ html.dark .proof-quote { color: #f1f5f9; }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding-top: 20px;
-  border-top: 1px solid #e2e8f0;
+  padding-top: 16px;
+  border-top: 1px solid #f1f5f9;
 }
 
-html.dark .proof-footer { border-top-color: rgba(148, 163, 184, 0.2); }
+html.dark .proof-footer { border-top-color: #334155; }
 
 .proof-author {
   display: flex;
@@ -185,19 +232,46 @@ html.dark .proof-author-university { color: #94a3b8; }
   object-fit: contain;
 }
 
-@media (max-width: 860px) {
-  .proof-list {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
+.proof-dots {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+/* 24px hit area around an 8px dot */
+.proof-dot {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.proof-dot::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbd5e1;
+}
+
+html.dark .proof-dot::before { background: #475569; }
+
+.proof-dot--active::before,
+html.dark .proof-dot--active::before { background: #13b0ee; }
+
+@media (prefers-reduced-motion: reduce) {
+  .proof-card,
+  .proof-card--active { transition: none; }
 }
 
 @media (max-width: 480px) {
-  .proof-card { padding: 22px; }
-  .proof-footer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
+  .proof-card { padding: 20px; }
+  /* The university is already named in the text; the logo would wrap
+     onto its own line at this width. */
+  .proof-logo { display: none; }
 }
 </style>
