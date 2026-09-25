@@ -538,32 +538,33 @@ html.dark .sending-switch {
   display: flex;
   width: fit-content;
   margin: 0 auto 24px;
-  border: 1px solid #e2e8f0;
-  border-radius: 4px;
-  overflow: hidden;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 html.dark .billing-toggle {
-  border-color: #334155;
+  border-bottom-color: #334155;
 }
 
 .billing-toggle button {
-  padding: 10px 20px;
+  margin: 0 20px -1px;
+  padding: 8px 2px;
   border: none;
+  border-bottom: 2px solid transparent;
   background: transparent;
-  color: #334155;
-  font-size: 14px;
+  color: #64748b;
+  font-size: 15px;
   font-weight: 600;
   cursor: pointer;
 }
 
 html.dark .billing-toggle button {
-  color: #cbd5e1;
+  color: #94a3b8;
 }
 
-.billing-toggle button.active {
-  background: var(--vp-c-brand);
-  color: white;
+.billing-toggle button.active,
+html.dark .billing-toggle button.active {
+  border-bottom-color: var(--vp-c-brand);
+  color: var(--vp-c-text-1);
 }
 
 .plans-list {
