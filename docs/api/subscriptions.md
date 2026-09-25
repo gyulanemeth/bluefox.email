@@ -252,11 +252,56 @@ Legacy flat URL shape. Not API-key authenticated - requires a signed one-click-u
 
 </div>
 
+## Look up a published, BlueFox-hosted signup form by its public slug
+
+`GET /v1/signup-forms/slug/{slug}`
+
+Not API-key authenticated - requires a whitelisted Origin header instead, restricted to BlueFox's own app domain (the APP_URL this deployment is configured with) since this endpoint only ever backs the bluefox.email/signup/&#123;slug&#125; page and takes no project-level whitelist. Only returns forms with published: true (404 otherwise, including for a valid slug on an unpublished form). Returns the same self-contained, ready-to-render HTML (styling, markup, and captcha/submit JS included) as GET .../signup-forms/&#123;id&#125;/embed - never the raw form config, so there is no secret-leak surface. Also includes the owning project's name and logoUrl for page branding.
+
+### Parameters
+
+<div class="api-ref-table api-ref-table--params">
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `slug` | path | string | yes |  |
+
+</div>
+
+### Responses
+
+<div class="api-ref-table api-ref-table--responses">
+
+| Status | Description |
+| --- | --- |
+| 200 | OK |
+| 403 | Missing or invalid API key |
+| 404 | Signup form not found |
+
+</div>
+
+### Response body
+
+<div class="api-ref-table api-ref-table--body">
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `name` | string |  |  |
+| `pageHeadline` | string |  | The heading to show on the hosted page. Falls back to the project name when not set. |
+| `pageDescription` | string |  | The description to show under the heading on the hosted page. |
+| `formLayout` | string |  | The form's layout ("row" or "column") - the hosted page uses this to size its own container appropriately, since a row-laid-out form needs more width than a column one. |
+| `html` | string |  |  |
+| `project` | object |  |  |
+| `project.name` | string |  |  |
+| `project.logoUrl` | string |  |  |
+
+</div>
+
 ## Submit a hosted/embedded signup form
 
 `POST /v1/signup-forms/{id}`
 
-Legacy flat URL shape. Not API-key authenticated - requires a whitelisted Origin header, and (depending on the form config) a CAPTCHA. Subscribes the contact to every list configured on the form.
+Legacy flat URL shape. Not API-key authenticated - requires a whitelisted Origin header (BlueFox's own hosted-page domain is always allowed), and (depending on the form config) a CAPTCHA. Subscribes the contact to every list configured on the form.
 
 ### Parameters
 

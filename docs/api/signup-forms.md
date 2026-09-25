@@ -103,6 +103,11 @@ doubleOptIn.emailId (if given) must be a transactional email belonging to this s
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `name` | string | yes |  |
+| `published` | boolean |  | When true, the form is reachable at the BlueFox-hosted URL bluefox.email/signup/&#123;slug&#125;. Requires a slug - either set here or already on the form. |
+| `slug` | string |  | URL-friendly identifier for the BlueFox-hosted signup page. Not generated automatically; rejected with a 400 if already taken by another form. |
+| `pageHeadline` | string |  | Shown as the heading on the BlueFox-hosted signup page. Falls back to the project name if not set. |
+| `pageDescription` | string |  | Shown under the headline on the BlueFox-hosted signup page. |
+| `useDefaultTurnstile` | boolean |  | Defaults to true. When true, the BlueFox-hosted page (not embeds) shows and validates BlueFox's own Turnstile challenge, regardless of captchaType below - which still governs embeds, and governs the hosted page too when this is false. |
 | `subscriberListIds` | array of string |  |  |
 | `formLayout` | string |  |  |
 | `showCaptcha` | boolean |  |  |
@@ -162,6 +167,11 @@ doubleOptIn.emailId (if given) must be a transactional email belonging to this s
 | --- | --- | --- | --- |
 | `_id` | string |  |  |
 | `name` | string |  |  |
+| `published` | boolean |  | When true, the form is reachable at the BlueFox-hosted URL bluefox.email/signup/&#123;slug&#125;. |
+| `slug` | string |  | URL-friendly identifier used for the BlueFox-hosted signup page. |
+| `pageHeadline` | string |  | Shown as the heading on the BlueFox-hosted signup page. Falls back to the project name if not set. |
+| `pageDescription` | string |  | Shown under the headline on the BlueFox-hosted signup page. |
+| `useDefaultTurnstile` | boolean |  | Defaults to true. When true, the BlueFox-hosted page (not embeds) shows and validates BlueFox's own Turnstile challenge, regardless of captchaType below - which still governs embeds, and governs the hosted page too when this is false. |
 | `subscriberListIds` | array of string |  |  |
 | `formLayout` | string |  |  |
 | `showCaptcha` | boolean |  |  |
@@ -238,6 +248,11 @@ doubleOptIn.emailId (if given) must be a transactional email belonging to this s
 | --- | --- | --- | --- |
 | `_id` | string |  |  |
 | `name` | string |  |  |
+| `published` | boolean |  | When true, the form is reachable at the BlueFox-hosted URL bluefox.email/signup/&#123;slug&#125;. |
+| `slug` | string |  | URL-friendly identifier used for the BlueFox-hosted signup page. |
+| `pageHeadline` | string |  | Shown as the heading on the BlueFox-hosted signup page. Falls back to the project name if not set. |
+| `pageDescription` | string |  | Shown under the headline on the BlueFox-hosted signup page. |
+| `useDefaultTurnstile` | boolean |  | Defaults to true. When true, the BlueFox-hosted page (not embeds) shows and validates BlueFox's own Turnstile challenge, regardless of captchaType below - which still governs embeds, and governs the hosted page too when this is false. |
 | `subscriberListIds` | array of string |  |  |
 | `formLayout` | string |  |  |
 | `showCaptcha` | boolean |  |  |
@@ -305,6 +320,11 @@ doubleOptIn.emailId and the &#123;&#123;verifyLink&#125;&#125; content requireme
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
 | `name` | string |  |  |
+| `published` | boolean |  | When true, the form is reachable at the BlueFox-hosted URL bluefox.email/signup/&#123;slug&#125;. Requires a slug - either set here or already on the form. |
+| `slug` | string |  | URL-friendly identifier for the BlueFox-hosted signup page. Not generated automatically; rejected with a 400 if already taken by another form. |
+| `pageHeadline` | string |  | Shown as the heading on the BlueFox-hosted signup page. Falls back to the project name if not set. |
+| `pageDescription` | string |  | Shown under the headline on the BlueFox-hosted signup page. |
+| `useDefaultTurnstile` | boolean |  | Defaults to true. When true, the BlueFox-hosted page (not embeds) shows and validates BlueFox's own Turnstile challenge, regardless of captchaType below - which still governs embeds, and governs the hosted page too when this is false. |
 | `subscriberListIds` | array of string |  |  |
 | `formLayout` | string |  |  |
 | `showCaptcha` | boolean |  |  |
@@ -365,6 +385,11 @@ doubleOptIn.emailId and the &#123;&#123;verifyLink&#125;&#125; content requireme
 | --- | --- | --- | --- |
 | `_id` | string |  |  |
 | `name` | string |  |  |
+| `published` | boolean |  | When true, the form is reachable at the BlueFox-hosted URL bluefox.email/signup/&#123;slug&#125;. |
+| `slug` | string |  | URL-friendly identifier used for the BlueFox-hosted signup page. |
+| `pageHeadline` | string |  | Shown as the heading on the BlueFox-hosted signup page. Falls back to the project name if not set. |
+| `pageDescription` | string |  | Shown under the headline on the BlueFox-hosted signup page. |
+| `useDefaultTurnstile` | boolean |  | Defaults to true. When true, the BlueFox-hosted page (not embeds) shows and validates BlueFox's own Turnstile challenge, regardless of captchaType below - which still governs embeds, and governs the hosted page too when this is false. |
 | `subscriberListIds` | array of string |  |  |
 | `formLayout` | string |  |  |
 | `showCaptcha` | boolean |  |  |
@@ -441,6 +466,11 @@ doubleOptIn.emailId and the &#123;&#123;verifyLink&#125;&#125; content requireme
 | --- | --- | --- | --- |
 | `_id` | string |  |  |
 | `name` | string |  |  |
+| `published` | boolean |  | When true, the form is reachable at the BlueFox-hosted URL bluefox.email/signup/&#123;slug&#125;. |
+| `slug` | string |  | URL-friendly identifier used for the BlueFox-hosted signup page. |
+| `pageHeadline` | string |  | Shown as the heading on the BlueFox-hosted signup page. Falls back to the project name if not set. |
+| `pageDescription` | string |  | Shown under the headline on the BlueFox-hosted signup page. |
+| `useDefaultTurnstile` | boolean |  | Defaults to true. When true, the BlueFox-hosted page (not embeds) shows and validates BlueFox's own Turnstile challenge, regardless of captchaType below - which still governs embeds, and governs the hosted page too when this is false. |
 | `subscriberListIds` | array of string |  |  |
 | `formLayout` | string |  |  |
 | `showCaptcha` | boolean |  |  |
