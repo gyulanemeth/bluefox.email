@@ -14,10 +14,8 @@ const { isDark } = useData()
 /* Force remove link underlines */
 .pricing-hero a,
 .pricing-cards-section a,
-.value-props a,
 .calculator-section a,
-.faq-section a,
-.pricing-footer-note a {
+.faq-section a {
   text-decoration: none !important;
 }
 
@@ -30,25 +28,10 @@ const { isDark } = useData()
   padding: 60px 24px;
 }
 
-.pricing-badge {
-  padding: 6px 16px;
-  border-radius: 50px;
-  background: linear-gradient(120deg, rgba(57, 44, 145, 0.1), rgba(19, 176, 238, 0.1));
-  color: var(--vp-c-brand);
-  font-size: 14px;
-  font-weight: 500;
-  white-space: nowrap;
-}
-
-html.dark .pricing-badge {
-  background: linear-gradient(120deg, rgba(138, 126, 216, 0.15), rgba(19, 176, 238, 0.15));
-}
-
 .pricing-hero h1 {
-  font-size: clamp(36px, 5vw, 56px) !important;
-  font-weight: 700;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  font-size: clamp(32px, 4.4vw, 50px) !important;
+  font-weight: 800;
+  line-height: 1.15;
   border: none !important;
   padding: 0 !important;
   text-align: center;
@@ -76,27 +59,6 @@ html.dark .pricing-hero-subtitle {
   margin-bottom: 14px;
   max-width: 500px;
   width: 100%;
-}
-
-.pricing-hero-note {
-  font-size: 14px;
-  color: #64748b;
-  text-align: center;
-  max-width: 600px;
-  margin: 4px 0 !important;
-}
-
-html.dark .pricing-hero-note {
-  color: #94a3b8;
-}
-
-.pricing-hero-note strong {
-  color: #1e293b;
-  font-weight: 600;
-}
-
-html.dark .pricing-hero-note strong {
-  color: #e2e8f0;
 }
 
 .pricing-cards-section {
@@ -127,13 +89,10 @@ html.dark .pricing-hero-note strong {
 }
 
 .pricing-card {
-  position: relative;
   background: white;
   border: 1px solid #e2e8f0;
-  border-radius: 16px;
+  border-radius: 4px;
   padding: 32px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
   min-width: 0;
   width: 100%;
   display: flex;
@@ -145,54 +104,16 @@ html.dark .pricing-card {
   border-color: #334155;
 }
 
-.pricing-card:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
-}
-
-html.dark .pricing-card:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
 .pricing-card.featured {
   border-color: var(--vp-c-brand);
-  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.15);
 }
 
-html.dark .pricing-card.featured {
-  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.25);
-}
-
-.pricing-badge-popular {
-  position: absolute;
-  top: -12px;
-  left: 24px;
-  background: var(--vp-c-brand);
-  color: white !important;
-  padding: 6px 16px;
-  border-radius: 50px;
-  font-size: 12px;
-  font-weight: 600;
-  box-shadow: 0 2px 8px rgba(19, 176, 238, 0.3);
-}
-
-.pricing-card h3,
-.pricing-cards-section h3 {
+.pricing-card h3 {
   font-size: 24px !important;
   font-weight: 600 !important;
   margin: 0 0 8px 0 !important;
   border: none !important;
   padding: 0 !important;
-}
-
-.pricing-card-subtitle {
-  color: #64748b;
-  font-size: 14px;
-  margin-bottom: 24px;
-}
-
-html.dark .pricing-card-subtitle {
-  color: #94a3b8;
 }
 
 .pricing-card-price {
@@ -216,6 +137,19 @@ html.dark .pricing-card-subtitle {
 
 html.dark .pricing-card-period {
   color: #94a3b8;
+}
+
+.pricing-vat-label {
+  font-size: 14px;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-left: 4px;
+  vertical-align: super;
+  line-height: 1;
+}
+
+html.dark .pricing-vat-label {
+  color: #64748b;
 }
 
 .pricing-card-features {
@@ -247,10 +181,10 @@ html.dark .pricing-card-features li {
   display: block;
   width: 100%;
   padding: 12px 24px;
-  border-radius: 5px;
+  border-radius: 4px;
   font-weight: 600;
   text-align: center;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
   border: none;
   cursor: pointer;
   font-size: 16px;
@@ -258,18 +192,14 @@ html.dark .pricing-card-features li {
   margin-top: auto;
 }
 
-.pricing-card-cta.primary {
+.pricing-card-cta.primary,
+.pricing-card-cta.primary:visited {
   background: var(--vp-c-brand) !important;
   color: white !important;
 }
 
 .pricing-card-cta.primary:hover {
   background: var(--vp-c-brand-light) !important;
-  transform: translateY(-1px);
-  color: white !important;
-}
-
-.pricing-card-cta.primary:visited {
   color: white !important;
 }
 
@@ -283,70 +213,6 @@ html.dark .pricing-card-features li {
   background: rgba(19, 176, 238, 0.05);
 }
 
-.pricing-card-cta.dark {
-  background: #1e293b !important;
-  color: white !important;
-}
-
-html.dark .pricing-card-cta.dark {
-  background: #334155 !important;
-  color: white !important;
-}
-
-.pricing-card-cta.dark:hover {
-  background: #0f172a !important;
-  color: white !important;
-}
-
-html.dark .pricing-card-cta.dark:hover {
-  background: #475569 !important;
-  color: white !important;
-}
-
-.pricing-card.contact-sales {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border: 2px dashed #cbd5e1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  min-height: 400px;
-}
-
-html.dark .pricing-card.contact-sales {
-  background: linear-gradient(135deg, rgb(30, 30, 34) 0%, rgb(24, 24, 27) 100%);
-  border-color: #475569;
-}
-
-.pricing-card.contact-sales h3 {
-  font-size: 28px !important;
-  margin-bottom: 16px !important;
-}
-
-.pricing-card.contact-sales .pricing-card-subtitle {
-  font-size: 16px;
-  margin-bottom: 32px;
-}
-
-.pricing-card.free-card {
-  border-color: #e2e8f0;
-}
-
-.pricing-card.free-card .pricing-card-amount {
-  font-size: 48px;
-  background: linear-gradient(120deg, #392C91 5%, #13B0EE);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-html.dark .pricing-card.free-card .pricing-card-amount {
-  background: linear-gradient(120deg, #8a7ed8 5%, #13B0EE);
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-
 .need-more-banner {
   display: flex;
   align-items: center;
@@ -354,14 +220,14 @@ html.dark .pricing-card.free-card .pricing-card-amount {
   gap: 16px;
   flex-wrap: wrap;
   padding: 20px 24px;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  background: #f8fafc;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 4px;
   text-align: center;
 }
 
 html.dark .need-more-banner {
-  background: linear-gradient(135deg, rgb(30, 30, 34) 0%, rgb(24, 24, 27) 100%);
+  background: rgb(30, 30, 34);
   border-color: #334155;
 }
 
@@ -385,70 +251,109 @@ html.dark .need-more-banner p {
   text-decoration: underline !important;
 }
 
-.pricing-card-note {
-  font-size: 12px;
-  color: #64748b;
+.addons-section {
+  max-width: 1200px;
+  margin: 32px auto;
+  padding: 0 24px;
+}
+
+.addons-section h2 {
+  font-size: clamp(24px, 3.5vw, 32px);
+  font-weight: 700;
+  margin: 0 0 8px 0;
+  border: none;
+  padding: 0;
   text-align: center;
 }
 
-html.dark .pricing-card-note {
+.addons-subtitle {
+  font-size: 16px;
+  color: #64748b;
+  text-align: center;
+  margin: 0 0 24px 0;
+}
+
+html.dark .addons-subtitle {
   color: #94a3b8;
 }
 
-.pricing-card-note a {
-  text-decoration: underline;
-  color: var(--vp-c-brand);
-}
-
-.value-props {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 13px 24px;
-}
-
-.value-props-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 16px;
-}
-
-.value-prop-card {
+.addon-card {
   display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 24px;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 28px;
   background: white;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  border-radius: 4px;
 }
 
-html.dark .value-prop-card {
+html.dark .addon-card {
   background: rgb(27, 27, 31);
   border-color: #334155;
 }
 
-.value-prop-icon {
-  font-size: 28px;
-  line-height: 1;
-  flex-shrink: 0;
+.addon-card h3 {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  margin: 0 0 8px 0 !important;
+  border: none !important;
+  padding: 0 !important;
 }
 
-.value-prop-content h4 {
-  font-size: 16px;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-}
-
-.value-prop-content p {
+.addon-card-desc {
   font-size: 14px;
   color: #64748b;
-  margin: 0;
+  margin: 0 0 16px 0;
   line-height: 1.5;
 }
 
-html.dark .value-prop-content p {
+html.dark .addon-card-desc {
   color: #94a3b8;
+}
+
+.addon-card-price {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 20px;
+}
+
+.addon-card-amount {
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.addon-card-period {
+  font-size: 14px;
+  color: #64748b;
+}
+
+html.dark .addon-card-period {
+  color: #94a3b8;
+}
+
+.addon-card-cta {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-align: center;
+  transition: background 0.2s ease;
+  font-size: 14px;
+  text-decoration: none !important;
+  background: transparent;
+  color: var(--vp-c-brand) !important;
+  border: 2px solid var(--vp-c-brand);
+  align-self: center;
+}
+
+.addon-card-cta:hover {
+  background: rgba(19, 176, 238, 0.05);
 }
 
 .calculator-section {
@@ -456,7 +361,7 @@ html.dark .value-prop-content p {
   margin: 18px auto;
   padding: 48px 24px;
   background: white;
-  border-radius: 16px;
+  border-radius: 4px;
 }
 
 html.dark .calculator-section {
@@ -517,10 +422,9 @@ html.dark .calculator-note {
 .faq-item {
   background: white;
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 24px;
   margin-bottom: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
 html.dark .faq-item {
@@ -548,270 +452,27 @@ html.dark .faq-item p {
   color: #cbd5e1;
 }
 
-.pricing-footer-note {
-  text-align: center;
-  margin: 48px auto;
-  padding: 0 24px;
-  max-width: 900px;
-}
-
-.pricing-footer-note p {
-  font-size: 16px;
-  margin: 16px 0;
-  color: #334155;
-}
-
-html.dark .pricing-footer-note p {
-  color: #cbd5e1;
-}
-
-.free-sends-banner {
-  background: linear-gradient(120deg, #392C91 5%, #13B0EE);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size: clamp(32px, 5vw, 48px);
-  line-height: 1.2;
-  letter-spacing: 1px;
-  font-weight: 700;
-  margin: 32px auto;
-  text-align: center;
-}
-
-html.dark .free-sends-banner {
-  background: linear-gradient(120deg, #8a7ed8 5%, #13B0EE);
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-
-.pricing-footer-cta {
-  max-width: 900px;
-  margin: 48px auto;
-  padding: 0 24px;
-}
-
-.footer-cta-card {
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  padding: 40px 32px;
-  text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-html.dark .footer-cta-card {
-  background: rgb(27, 27, 31);
-  border-color: #334155;
-}
-
-.footer-cta-banner {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--vp-c-brand);
-  margin: 0 0 16px 0;
-  line-height: 1.4;
-}
-
-.footer-cta-description {
-  font-size: 16px;
-  color: #334155;
-  margin: 0 0 12px 0;
-  line-height: 1.6;
-}
-
-html.dark .footer-cta-description {
-  color: #cbd5e1;
-}
-
-.footer-cta-subtext {
-  font-size: 14px;
-  color: #64748b;
-  margin: 0;
-}
-
-html.dark .footer-cta-subtext {
-  color: #94a3b8;
-}
-
-.footer-cta-subtext a {
-  color: var(--vp-c-brand);
-  text-decoration: none;
-}
-
-.pricing-card-amount {
-  font-size: 48px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.pricing-vat-label {
-  font-size: 14px;
-  color: #94a3b8;
-  font-weight: 500;
-  margin-left: 4px;
-  vertical-align: super;
-  line-height: 1;
-}
-
-html.dark .pricing-vat-label {
-  color: #64748b;
-}
-
-.addons-section {
-  max-width: 1200px;
-  margin: 32px auto;
-  padding: 0 24px;
-}
-
-.addons-section h2 {
-  font-size: clamp(24px, 3.5vw, 32px);
-  font-weight: 700;
-  margin: 0 0 8px 0;
-  border: none;
-  padding: 0;
-  text-align: center;
-}
-
-.addons-subtitle {
-  font-size: 16px;
-  color: #64748b;
-  text-align: center;
-  margin: 0 0 24px 0;
-}
-
-html.dark .addons-subtitle {
-  color: #94a3b8;
-}
-
-.addons-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-  max-width: 420px;
-  margin: 0 auto;
-}
-
-.addon-card {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  text-align: center;
-  max-width: 420px;
-  margin: 0 auto;
-  padding: 28px;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: all 0.3s ease;
-}
-
-html.dark .addon-card {
-  background: rgb(27, 27, 31);
-  border-color: #334155;
-}
-
-.addon-card:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  transform: translateY(-2px);
-}
-
-html.dark .addon-card:hover {
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-}
-
-.addon-card h3 {
-  font-size: 20px !important;
-  font-weight: 600 !important;
-  margin: 0 0 8px 0 !important;
-  border: none !important;
-  padding: 0 !important;
-}
-
-.addon-card-desc {
-  font-size: 14px;
-  color: #64748b;
-  margin: 0 0 16px 0;
-  line-height: 1.5;
-}
-
-html.dark .addon-card-desc {
-  color: #94a3b8;
-}
-
-.addon-card-price {
-  display: flex;
-  align-items: baseline;
-  justify-content: center;
-  gap: 6px;
-  margin-bottom: 20px;
-}
-
-.addon-card-amount {
-  font-size: 36px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.addon-card-period {
-  font-size: 14px;
-  color: #64748b;
-}
-
-html.dark .addon-card-period {
-  color: #94a3b8;
-}
-
-.addon-card-cta {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-weight: 600;
-  text-align: center;
-  transition: all 0.2s ease;
-  font-size: 14px;
-  text-decoration: none !important;
-  background: transparent;
-  color: var(--vp-c-brand) !important;
-  border: 2px solid var(--vp-c-brand);
-  align-self: center;
-}
-
-.addon-card-cta:hover {
-  background: rgba(19, 176, 238, 0.05);
-}
-
-
 /* === Responsive Styles === */
 @media (max-width: 768px) {
   .pricing-hero {
     padding: 40px 16px;
   }
-  
+
   .pricing-cards-section {
     padding: 0 16px 32px;
   }
-  
+
   .pricing-hero-actions {
     flex-direction: column;
     max-width: 100%;
   }
-  
+
   .calculator-header {
     flex-direction: column;
   }
-  
+
   .calculator-section {
     padding: 32px 24px;
-    margin: 18px auto;
-  }
-  
-  .footer-cta-card {
-    padding: 32px 24px;
-  }
-  
-  .footer-cta-banner {
-    font-size: 24px;
   }
 }
 
@@ -819,65 +480,40 @@ html.dark .addon-card-period {
   .pricing-cards-section {
     padding: 0 12px 24px;
   }
-  
+
   .calculator-section {
     padding: 24px 16px;
     margin: 16px auto;
-    border-radius: 12px;
   }
-  
-  .footer-cta-card {
-    padding: 24px 16px;
-    border-radius: 12px;
-  }
-  
-  .footer-cta-banner {
-    font-size: 20px;
-  }
-  
+
   .faq-section {
     padding: 0 12px;
   }
-  
+
   .faq-item {
     padding: 16px;
-    border-radius: 8px;
   }
-  
+
   .pricing-card {
     padding: 24px 16px;
   }
-  
+
   .pricing-card-amount {
     font-size: 40px;
   }
-  
+
   .pricing-card-cta {
     padding: 10px 16px;
     font-size: 14px;
   }
-  .pricing-card-amount {
-    font-size: 40px;
-  }
-  
+
   .pricing-vat-label {
     font-size: 12px;
   }
 }
-
-.vp-doc .VPButton.medium {
-  border-radius: 12px;
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: 600;
-}
 </style>
 
 <section class="pricing-hero">
-  <div class="pricing-badge">
-    <span>Built for marketing agencies</span>
-  </div>
-  
   <h1>Pay only for what you send</h1>
   
   <p class="pricing-hero-subtitle">
@@ -920,9 +556,9 @@ html.dark .addon-card-period {
       </div>
       <ul class="pricing-card-features">
         <li><strong>3,000 free sends</strong> included</li>
-        <li><strong>No credit card</strong> required</li>
-        <li><strong>Access to full platform!</strong> No restrictions</li>
-        <li><strong>Valid for 12 months</strong></li>
+        <li>No credit card required</li>
+        <li>Full platform access, no restrictions</li>
+        <li>Valid for 12 months</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
         Get Started for Free
@@ -930,16 +566,15 @@ html.dark .addon-card-period {
       <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667; color: #64748b; visibility: hidden">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
     </div>
     <div class="pricing-card featured">
-      <span class="pricing-badge-popular">Most popular</span>
-      <h3>Essential</h3>
+          <h3>Essential</h3>
       <div class="pricing-card-price">
         <span class="pricing-card-amount">$50<span class="pricing-vat-label">+VAT</span></span>
         <span class="pricing-card-period">/ pack</span>
       </div>
       <ul class="pricing-card-features">
         <li><strong>50,000 sends</strong> included</li>
-        <li><strong>$1 per 1,000 sends</strong></li>
-        <li><strong>Access to full platform!</strong> No Restrictions</li>
+        <li>$1 per 1,000 sends</li>
+        <li>Full platform access, no restrictions</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta primary">
         Buy 50K sends
@@ -954,8 +589,8 @@ html.dark .addon-card-period {
       </div>
       <ul class="pricing-card-features">
         <li><strong>500,000 sends</strong> included</li>
-        <li><strong>$0.60 per 1,000 sends</strong></li>
-        <li><strong>Access to full platform!</strong> No restrictions</li>
+        <li>$0.60 per 1,000 sends</li>
+        <li>Full platform access, no restrictions</li>
       </ul>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
         Buy 500K sends
@@ -968,29 +603,6 @@ html.dark .addon-card-period {
     <p>Bring your own SES for better email prices. <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a></p>
     <p>Coming from a contact-based plan? See how per-send pricing compares to <a href="/comparisons/bluefox-vs-mailchimp">Mailchimp</a>, <a href="/comparisons/bluefox-vs-activecampaign">ActiveCampaign</a>, <a href="/comparisons/bluefox-vs-brevo">Brevo</a>, or <a href="/comparisons/bluefox-vs-constant-contact">Constant Contact</a></p>
     <p>Switching from a transactional API? See how BlueFox compares to <a href="/comparisons/bluefox-vs-sendgrid">SendGrid</a>, <a href="/comparisons/bluefox-vs-mailersend">MailerSend</a>, or <a href="/comparisons/bluefox-vs-resend">Resend</a></p>
-  </div>
-</section>
-
-<section class="value-props">
-  <div class="value-props-grid">
-    <div class="value-prop-card">
-      <div class="value-prop-content">
-        <h4>Agency-first</h4>
-        <p>Manage multiple client workspaces with isolated domains, contacts, and reports.</p>
-      </div>
-    </div>
-    <div class="value-prop-card">
-      <div class="value-prop-content">
-        <h4>Automations, segmentation & analytics</h4>
-        <p>Build flows, segment audiences, and track performance. Bounce handling and reputation tools included in every pack.</p>
-      </div>
-    </div>
-    <div class="value-prop-card">
-      <div class="value-prop-content">
-        <h4>No subscriptions</h4>
-        <p>Buy packs when you need them. Sends remain available for 12 months.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1031,37 +643,37 @@ html.dark .addon-card-period {
   
   <div class="faq-item">
     <h3>Is there a free plan or trial?</h3>
-    <p>Yes. Every new workspace starts with <strong>3,000 free sends, no credit card required</strong>. You can explore all features, send real campaigns, and build automations before deciding to upgrade.</p>
+    <p>Yes. Every new workspace starts with <strong>3,000 free sends</strong>, no credit card required. You can explore all features, send real campaigns, and build automations before deciding to upgrade.</p>
   </div>
   
   <div class="faq-item">
     <h3>How does the pricing work?</h3>
-    <p>You only pay for <strong>email sends</strong>, not for contacts or features. Each pack includes a fixed number of sends that stay <strong>valid for 12 months. No subscriptions, no hidden limits,</strong> just buy more when you need them.</p>
+    <p>You only pay for <strong>email sends</strong>, not for contacts or features. Each pack includes a fixed number of sends that stay valid for 12 months. No subscriptions, no hidden limits, just buy more when you need them.</p>
   </div>
   
   <div class="faq-item">
     <h3>What's included in every pack?</h3>
-    <p><strong>Everything.</strong> All features are included in every plan: <strong>automations, segmentation, analytics, templates, and API access.</strong></p>
+    <p><strong>Everything.</strong> All features are included in every plan: automations, segmentation, analytics, templates, and API access.</p>
   </div>
   
   <div class="faq-item">
     <h3>What's the difference between the packs?</h3>
-    <p>Both packs include the same features. The only difference is <strong>how many emails you can send</strong>, so choose the one that fits your volume.</p>
+    <p>Essential and Premium include the same features. The only difference is how many emails you can send, so choose the one that fits your volume.</p>
   </div>
   
   <div class="faq-item">
     <h3>Do sends (packs) expire?</h3>
-    <p>Yes. Sends stay valid for <strong>12 months</strong> from the date of purchase. You can <strong>top up anytime</strong>, your balance simply adds up, and <strong>older sends are always used first</strong>, so the newest ones last the longest.</p>
+    <p>Yes. Sends stay valid for <strong>12 months</strong> from the date of purchase. You can top up anytime, your balance simply adds up, and older sends are always used first, so the newest ones last the longest.</p>
   </div>
   
   <div class="faq-item">
     <h3>Can I upgrade from one credit pack to a bigger one?</h3>
-    <p><strong>Absolutely</strong>. When you upgrade, your remaining sends carry over, nothing is lost. You just get a <strong>larger send balance</strong>.</p>
+    <p>Yes. When you upgrade, your remaining sends carry over, so nothing is lost. You just get a larger send balance.</p>
   </div>
   
   <div class="faq-item">
     <h3>Can I use my own SMTP?</h3>
-    <p>Yes! BlueFox Email connects directly to <strong>Amazon SES</strong> using <strong>secure STS credentials</strong>. You simply link your SES account, and everything just works.</p>
+    <p>Yes. BlueFox Email connects directly to <strong>Amazon SES</strong> using secure STS credentials. You simply link your SES account, and everything just works.</p>
     <p style="margin-top: 12px;">Want to bring your own SES and get better email prices? <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a></p>
   </div>
 
