@@ -695,13 +695,18 @@ html.dark .pricing-card-more {
   color: #cbd5e1;
 }
 
+.pricing-card-cta.primary,
+.pricing-card-cta.contact {
+  border: 2px solid transparent;
+}
+
 .pricing-card-cta.contact {
   background: #000;
   color: white !important;
 }
 
 html.dark .pricing-card-cta.contact {
-  border: 1px solid #475569;
+  border-color: #475569;
 }
 
 .plan-more {
@@ -873,6 +878,7 @@ html.dark .plan-more {
       <a href="mailto:hello@bluefox.email" class="pricing-card-cta contact">
         Contact sales
       </a>
+      <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667; min-height: 2.167rem; color: #64748b;">Get in touch and we'll set up a discovery call to plan your volume and onboarding.</p>
     </div>
   </div>
   <div v-else class="plans-list">
