@@ -1048,7 +1048,7 @@ html.dark .plan-more {
     <button type="button" :class="{ active: mode === 'monthly' }" :aria-pressed="mode === 'monthly'" @click="mode = 'monthly'">Monthly subscription</button>
     <button type="button" :class="{ active: mode === 'packs' }" :aria-pressed="mode === 'packs'" @click="mode = 'packs'">One-time packs</button>
   </div>
-  <div v-if="mode === 'packs'" class="pricing-cards-grid">
+  <div v-show="mode === 'packs'" class="pricing-cards-grid">
     <div class="pricing-card featured">
           <h3>Essential</h3>
       <div class="pricing-card-price">
@@ -1090,7 +1090,7 @@ html.dark .plan-more {
       <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667; min-height: 2.167rem; color: #64748b;">Get in touch and we'll set up a discovery call to plan your volume and onboarding.</p>
     </div>
   </div>
-  <div v-else class="plans-list">
+  <div v-show="mode === 'monthly'" class="plans-list">
     <p class="plans-note">Every plan includes a fresh sending allowance each billing cycle (unused sends do not roll over) and <strong>full access to the platform</strong>.</p>
     <div v-for="plan in plans" :key="plan.name" class="plan-row" :class="{ featured: plan.popular }">
       <span v-if="plan.popular" class="plan-flag">Most popular</span>
