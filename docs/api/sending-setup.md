@@ -1,5 +1,5 @@
 ---
-title: "Sending Setup API Reference | bluefox.email documentation"
+title: "Sending Setup API Reference"
 description: "List AWS regions, check sandbox and production deliverability, send a test webhook event, and export a domain's DNS records as CSV."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "List AWS regions, check sandbox and production deliverability, send a test webhook event, and export a domain's DNS records as CSV."
   - - meta
     - property: og:title
-      content: "Sending Setup API Reference | bluefox.email documentation"
+      content: "Sending Setup API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "List AWS regions, check sandbox and production deliverability, send a test webhook event, and export a domain's DNS records as CSV."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Sending Setup API Reference | bluefox.email documentation"
+      content: "Sending Setup API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "List AWS regions, check sandbox and production deliverability, send a test webhook event, and export a domain's DNS records as CSV."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Sending Setup
+# Sending Setup API
 
 Helper endpoints for configuring and monitoring sending: the AWS regions available for production sending, deliverability figures for [sandbox and production](/docs/projects/delivery-modes) sending (for production, the worst [bounce](/email-sending-concepts/bounce-rate) and [complaint](/email-sending-concepts/complaints) rates over the last 7, 30, and 90 days, and this month's sends against the monthly limit), a synthetic test event for your [webhook](/docs/api/webhook), and a CSV export of a [domain's](/docs/api/domains) required DNS records. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

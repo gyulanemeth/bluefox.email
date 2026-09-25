@@ -1,5 +1,5 @@
 ---
-title: "Campaigns API Reference | bluefox.email documentation"
+title: "Campaigns API Reference"
 description: "Create, update, and delete email campaigns, and fetch per-campaign stats and recipient lists, with the BlueFox Email REST API."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "Create, update, and delete email campaigns, and fetch per-campaign stats and recipient lists, with the BlueFox Email REST API."
   - - meta
     - property: og:title
-      content: "Campaigns API Reference | bluefox.email documentation"
+      content: "Campaigns API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "Create, update, and delete email campaigns, and fetch per-campaign stats and recipient lists, with the BlueFox Email REST API."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Campaigns API Reference | bluefox.email documentation"
+      content: "Campaigns API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "Create, update, and delete email campaigns, and fetch per-campaign stats and recipient lists, with the BlueFox Email REST API."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Campaigns
+# Campaigns API
 
 Campaigns are one-off sends to a subscriber list. Use these endpoints to create and update campaigns, then pull stats and the recipient list for each one. The in-app workflow is covered in [Campaigns](/docs/projects/campaigns); to target part of a list, create a segment with the [Segments API](/docs/api/segments). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

@@ -1,5 +1,5 @@
 ---
-title: "Project API Reference | bluefox.email documentation"
+title: "Project API Reference"
 description: "Get and update BlueFox Email project settings over the REST API, including the sending status: sandbox, production, or BYO AWS SES."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "Get and update BlueFox Email project settings over the REST API, including the sending status: sandbox, production, or BYO AWS SES."
   - - meta
     - property: og:title
-      content: "Project API Reference | bluefox.email documentation"
+      content: "Project API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "Get and update BlueFox Email project settings over the REST API, including the sending status: sandbox, production, or BYO AWS SES."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Project API Reference | bluefox.email documentation"
+      content: "Project API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "Get and update BlueFox Email project settings over the REST API, including the sending status: sandbox, production, or BYO AWS SES."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Project
+# Project API
 
 Use the **Project** endpoints to read a project's settings, including its sending status, and to update them. The same settings are editable in the app under [Project Settings](/docs/projects/settings). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

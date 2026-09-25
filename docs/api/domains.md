@@ -1,5 +1,5 @@
 ---
-title: "Domains API Reference | bluefox.email documentation"
+title: "Domains API Reference"
 description: "Add a sending domain, get the DNS records to publish, re-check verification, and remove domains in BlueFox Email via the REST API."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "Add a sending domain, get the DNS records to publish, re-check verification, and remove domains in BlueFox Email via the REST API."
   - - meta
     - property: og:title
-      content: "Domains API Reference | bluefox.email documentation"
+      content: "Domains API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "Add a sending domain, get the DNS records to publish, re-check verification, and remove domains in BlueFox Email via the REST API."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Domains API Reference | bluefox.email documentation"
+      content: "Domains API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "Add a sending domain, get the DNS records to publish, re-check verification, and remove domains in BlueFox Email via the REST API."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Domains
+# Domains API
 
 To send from your own domain: add it, have the domain owner publish the DNS records the API returns, then call the check endpoint until the domain verifies. The check re-reads the domain's [DKIM](/email-sending-concepts/dkim), [SPF](/email-sending-concepts/spf), [MX](/email-sending-concepts/mx-record), and [DMARC](/email-sending-concepts/dmarc) records, and the first successful check creates a default [sender identity](/docs/api/sender-identities) (`no-reply@` your domain). A domain can't be removed while a sender identity still uses it. Not available for BYO AWS projects, which manage domains in their own AWS account. If the check keeps reporting the domain as unverified, confirm the records resolve publicly with the free [deliverability checkers](/tools/deliverability/), which read the same four record types from outside your network. Once DNS is live, confirm the policy with the free [DMARC checker](/tools/deliverability/dmarc-checker). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

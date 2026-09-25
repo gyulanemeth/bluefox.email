@@ -1,5 +1,5 @@
 ---
-title: "Test Email API Reference | bluefox.email documentation"
+title: "Test Email API Reference"
 description: "Send a test of a campaign, transactional, or triggered email to one recipient via the BlueFox Email API, without affecting send stats."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "Send a test of a campaign, transactional, or triggered email to one recipient via the BlueFox Email API, without affecting send stats."
   - - meta
     - property: og:title
-      content: "Test Email API Reference | bluefox.email documentation"
+      content: "Test Email API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "Send a test of a campaign, transactional, or triggered email to one recipient via the BlueFox Email API, without affecting send stats."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Test Email API Reference | bluefox.email documentation"
+      content: "Test Email API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "Send a test of a campaign, transactional, or triggered email to one recipient via the BlueFox Email API, without affecting send stats."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Test Email
+# Test Email API
 
 Send a campaign, transactional, or triggered email to a single recipient to check rendering, links, and personalization before real recipients get it. Test sends don't affect real send stats or contact state. The in-app equivalent is [Send Test Emails](/docs/projects/send-test-email). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

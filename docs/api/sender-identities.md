@@ -1,5 +1,5 @@
 ---
-title: "Sender Identities API Reference | bluefox.email documentation"
+title: "Sender Identities API Reference"
 description: "List, add, delete, and set the default sender identity (the From address) for a BlueFox Email project via the REST API."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "List, add, delete, and set the default sender identity (the From address) for a BlueFox Email project via the REST API."
   - - meta
     - property: og:title
-      content: "Sender Identities API Reference | bluefox.email documentation"
+      content: "Sender Identities API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "List, add, delete, and set the default sender identity (the From address) for a BlueFox Email project via the REST API."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Sender Identities API Reference | bluefox.email documentation"
+      content: "Sender Identities API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "List, add, delete, and set the default sender identity (the From address) for a BlueFox Email project via the REST API."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Sender Identities
+# Sender Identities API
 
 A **sender identity** is the From address your emails are sent from. These endpoints list a project's identities, add new ones, set the default, and delete them. Add and verify the domain first with the [Domains API](/docs/api/domains). For the in-app flow, see [Managing Identities in Production Mode](/docs/projects/delivery-modes#managing-identities-in-production-mode). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

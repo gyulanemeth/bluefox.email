@@ -1,5 +1,5 @@
 ---
-title: "Signup Forms API Reference | bluefox.email documentation"
+title: "Signup Forms API Reference"
 description: "Create, update, and delete BlueFox Email signup forms and get their embeddable HTML via the REST API."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "Create, update, and delete BlueFox Email signup forms and get their embeddable HTML via the REST API."
   - - meta
     - property: og:title
-      content: "Signup Forms API Reference | bluefox.email documentation"
+      content: "Signup Forms API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "Create, update, and delete BlueFox Email signup forms and get their embeddable HTML via the REST API."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Signup Forms API Reference | bluefox.email documentation"
+      content: "Signup Forms API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "Create, update, and delete BlueFox Email signup forms and get their embeddable HTML via the REST API."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Signup Forms
+# Signup Forms API
 
 Manage hosted and embedded signup forms, and get the HTML snippet to embed one on your site. For the in-app editor, see [Sign-Up Forms](/docs/projects/forms-and-pages#sign-up-forms). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

@@ -1,5 +1,5 @@
 ---
-title: "Segments API Reference | bluefox.email documentation"
+title: "Segments API Reference"
 description: "Create, list, update, and delete contact segments in BlueFox Email via the REST API, for targeted campaigns and automations."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "Create, list, update, and delete contact segments in BlueFox Email via the REST API, for targeted campaigns and automations."
   - - meta
     - property: og:title
-      content: "Segments API Reference | bluefox.email documentation"
+      content: "Segments API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "Create, list, update, and delete contact segments in BlueFox Email via the REST API, for targeted campaigns and automations."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Segments API Reference | bluefox.email documentation"
+      content: "Segments API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "Create, list, update, and delete contact segments in BlueFox Email via the REST API, for targeted campaigns and automations."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Segments
+# Segments API
 
 Segments are saved filters that select a dynamic group of contacts for campaigns and automations. See [Segments](/docs/projects/segments) for the available conditions and operators. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

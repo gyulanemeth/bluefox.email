@@ -1,5 +1,5 @@
 ---
-title: "Subscriber Lists API Reference | bluefox.email documentation"
+title: "Subscriber Lists API Reference"
 description: "Manage BlueFox Email subscriber lists via the API: create lists, subscribe contacts, update or pause subscriptions, and fetch list stats."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "Manage BlueFox Email subscriber lists via the API: create lists, subscribe contacts, update or pause subscriptions, and fetch list stats."
   - - meta
     - property: og:title
-      content: "Subscriber Lists API Reference | bluefox.email documentation"
+      content: "Subscriber Lists API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "Manage BlueFox Email subscriber lists via the API: create lists, subscribe contacts, update or pause subscriptions, and fetch list stats."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Subscriber Lists API Reference | bluefox.email documentation"
+      content: "Subscriber Lists API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "Manage BlueFox Email subscriber lists via the API: create lists, subscribe contacts, update or pause subscriptions, and fetch list stats."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Subscriber Lists
+# Subscriber Lists API
 
 Subscriber lists hold the contacts who opted in to a kind of email. These endpoints manage the lists, list and subscribe contacts, update a subscriber's status, and return list stats. For growing a list the right way, see [How to build a high-quality email list](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

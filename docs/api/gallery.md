@@ -1,5 +1,5 @@
 ---
-title: "Gallery API Reference | bluefox.email documentation"
+title: "Gallery API Reference"
 description: "Upload, rename, and delete images and organize them in folders in the BlueFox Email image gallery via the REST API."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "Upload, rename, and delete images and organize them in folders in the BlueFox Email image gallery via the REST API."
   - - meta
     - property: og:title
-      content: "Gallery API Reference | bluefox.email documentation"
+      content: "Gallery API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "Upload, rename, and delete images and organize them in folders in the BlueFox Email image gallery via the REST API."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Gallery API Reference | bluefox.email documentation"
+      content: "Gallery API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "Upload, rename, and delete images and organize them in folders in the BlueFox Email image gallery via the REST API."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Gallery
+# Gallery API
 
 Manage a project's image gallery: create, rename, and delete folders, and upload (JPEG, PNG, or GIF), rename, and delete images. Folders belong either to the project or to the whole account, shared across every project. Deleting a folder also deletes everything inside it, and cannot be undone. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

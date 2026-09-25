@@ -1,5 +1,5 @@
 ---
-title: "Triggered Emails API Reference | bluefox.email documentation"
+title: "Triggered Emails API Reference"
 description: "Create and manage triggered emails sent to subscriber lists, and fetch their stats and recipients, via the BlueFox Email REST API."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "Create and manage triggered emails sent to subscriber lists, and fetch their stats and recipients, via the BlueFox Email REST API."
   - - meta
     - property: og:title
-      content: "Triggered Emails API Reference | bluefox.email documentation"
+      content: "Triggered Emails API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "Create and manage triggered emails sent to subscriber lists, and fetch their stats and recipients, via the BlueFox Email REST API."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Triggered Emails API Reference | bluefox.email documentation"
+      content: "Triggered Emails API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "Create and manage triggered emails sent to subscriber lists, and fetch their stats and recipients, via the BlueFox Email REST API."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Triggered Emails
+# Triggered Emails API
 
 Triggered emails go to subscribers of a list when your application asks for them, for example onboarding steps or follow-ups. These endpoints manage the emails and return their stats and recipients; to send one, call the [Send Email API](/docs/api/send-email). For how they differ from transactional emails, see [Triggered Emails](/docs/projects/triggered-emails). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

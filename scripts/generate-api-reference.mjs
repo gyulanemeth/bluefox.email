@@ -322,8 +322,10 @@ const TAG_INFO = {
   },
 }
 
+// VitePress appends " | BlueFox Email" to the page <title> itself; social titles get no template, so they carry the brand explicitly.
 function pageFrontmatter(tag) {
-  const title = `${tag} API Reference | bluefox.email documentation`
+  const title = `${tag} API Reference`
+  const socialTitle = `${title} | BlueFox Email`
   const description = TAG_INFO[tag]?.description || `Every ${tag} endpoint in the bluefox.email API: parameters, request body, and response schemas.`
   const url = `https://bluefox.email/docs/api/${slugify(tag)}`
   return `---
@@ -335,7 +337,7 @@ head:
       content: ${yamlString(description)}
   - - meta
     - property: og:title
-      content: ${yamlString(title)}
+      content: ${yamlString(socialTitle)}
   - - meta
     - property: og:description
       content: ${yamlString(description)}
@@ -353,7 +355,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: ${yamlString(title)}
+      content: ${yamlString(socialTitle)}
   - - meta
     - name: twitter:description
       content: ${yamlString(description)}
@@ -367,7 +369,7 @@ function renderPage(tag) {
   const ops = operationsByTag[tag]
   const intro = `${TAG_INFO[tag]?.intro || `Full reference for the **${tag}** resource in the bluefox.email API.`} See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.`
   const body = ops.map(renderOperation).join('\n\n')
-  return `${pageFrontmatter(tag)}\n\n# ${tag}\n\n${intro}\n\n${body}\n`
+  return `${pageFrontmatter(tag)}\n\n# ${tag} API\n\n${intro}\n\n${body}\n`
 }
 
 // Remove only the files the previous run generated (per the old manifest) - never the whole

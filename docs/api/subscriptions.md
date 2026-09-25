@@ -1,5 +1,5 @@
 ---
-title: "Subscriptions API Reference | bluefox.email documentation"
+title: "Subscriptions API Reference"
 description: "Subscribe, update, pause, and one-click unsubscribe contacts on a BlueFox Email list, and submit signup forms, via the flat-URL API."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "Subscribe, update, pause, and one-click unsubscribe contacts on a BlueFox Email list, and submit signup forms, via the flat-URL API."
   - - meta
     - property: og:title
-      content: "Subscriptions API Reference | bluefox.email documentation"
+      content: "Subscriptions API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "Subscribe, update, pause, and one-click unsubscribe contacts on a BlueFox Email list, and submit signup forms, via the flat-URL API."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Subscriptions API Reference | bluefox.email documentation"
+      content: "Subscriptions API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "Subscribe, update, pause, and one-click unsubscribe contacts on a BlueFox Email list, and submit signup forms, via the flat-URL API."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Subscriptions
+# Subscriptions API
 
 The flat-URL subscription endpoints. Subscribing a contact, and reading or updating a single subscriber, accept either an API key or a whitelisted browser origin, so a signup form can call them without exposing a key; set up the whitelist under [API Keys and Domain Whitelist](/docs/projects/settings#api-keys-and-domain-whitelist). The [one-click unsubscribe](/email-sending-concepts/one-click-unsubscribe) endpoint instead takes the signed token from an email's List-Unsubscribe link. New server-side integrations should use [Subscriber Lists](/docs/api/subscriber-lists). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 

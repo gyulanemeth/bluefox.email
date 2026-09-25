@@ -1,5 +1,5 @@
 ---
-title: "Templates API Reference | bluefox.email documentation"
+title: "Templates API Reference"
 description: "List, create, get, update, and delete reusable email templates in a BlueFox Email project via the REST API."
 head:
   - - meta
@@ -7,7 +7,7 @@ head:
       content: "List, create, get, update, and delete reusable email templates in a BlueFox Email project via the REST API."
   - - meta
     - property: og:title
-      content: "Templates API Reference | bluefox.email documentation"
+      content: "Templates API Reference | BlueFox Email"
   - - meta
     - property: og:description
       content: "List, create, get, update, and delete reusable email templates in a BlueFox Email project via the REST API."
@@ -25,7 +25,7 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Templates API Reference | bluefox.email documentation"
+      content: "Templates API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
       content: "List, create, get, update, and delete reusable email templates in a BlueFox Email project via the REST API."
@@ -34,7 +34,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Templates
+# Templates API
 
 Templates are reusable email designs. These endpoints cover the full lifecycle: list, create, read, update, and delete. To build and edit a template visually, use the [email builder](/docs/projects/email-builder). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
