@@ -9,7 +9,7 @@ import { ref } from 'vue'
 import { useData } from 'vitepress'
 import PricingCalculator from './components/PricingCalculator.vue'
 const { isDark } = useData()
-const mode = ref('packs')
+const mode = ref('monthly')
 const plans = [
   { name: 'Starter', price: '$6', sends: '5,000' },
   { name: 'Basic', price: '$9', sends: '10,000' },
@@ -1049,8 +1049,8 @@ html.dark .plan-sends {
 
 <section class="pricing-cards-section">
   <div class="billing-toggle" role="group" aria-label="Billing type">
-    <button type="button" :class="{ active: mode === 'packs' }" :aria-pressed="mode === 'packs'" @click="mode = 'packs'">One-time packs</button>
     <button type="button" :class="{ active: mode === 'monthly' }" :aria-pressed="mode === 'monthly'" @click="mode = 'monthly'">Monthly subscription</button>
+    <button type="button" :class="{ active: mode === 'packs' }" :aria-pressed="mode === 'packs'" @click="mode = 'packs'">One-time packs</button>
   </div>
   <div v-if="mode === 'packs'" class="pricing-cards-grid">
     <div class="pricing-card free-card">
@@ -1188,6 +1188,11 @@ html.dark .plan-sends {
   <div class="faq-item">
     <h3>How does the pricing work?</h3>
     <p>You only pay for <strong>email sends</strong>, not for contacts or features. Choose <strong>one-time packs</strong>, where each pack includes a fixed number of sends that stay <strong>valid for 12 months</strong>, or a <strong>monthly plan</strong> that gives you a fresh sending allowance every billing cycle. <strong>No hidden limits</strong> either way.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Do the prices include VAT?</h3>
+    <p>No. All prices are shown <strong>excluding VAT</strong>. The final price may vary based on your local VAT rate, and VAT is applied at checkout.</p>
   </div>
   
   <div class="faq-item">

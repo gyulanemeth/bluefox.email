@@ -9,7 +9,7 @@ import { ref } from 'vue'
 import { useData } from 'vitepress'
 import BYOPriceCalculator from './components/BYOPriceCalculator.vue'
 const { isDark } = useData()
-const mode = ref('packs')
+const mode = ref('monthly')
 const plans = [
   { name: 'Starter', price: '$6', sends: '10,000', regular: '5,000' },
   { name: 'Basic', price: '$9', sends: '20,000', regular: '10,000' },
@@ -803,6 +803,18 @@ html.dark .plan-sends {
   font-size: 14px;
 }
 
+.plan-chip {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 50px;
+  background: rgba(19, 176, 238, 0.12);
+  color: var(--vp-c-brand);
+  font-size: 11px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
 .plans-list .plans-vat {
   margin: 0;
   font-size: 0.65rem;
@@ -953,8 +965,8 @@ html.dark .plan-sends {
 
 <section class="pricing-cards-section">
   <div class="billing-toggle" role="group" aria-label="Billing type">
-    <button type="button" :class="{ active: mode === 'packs' }" :aria-pressed="mode === 'packs'" @click="mode = 'packs'">One-time packs</button>
     <button type="button" :class="{ active: mode === 'monthly' }" :aria-pressed="mode === 'monthly'" @click="mode = 'monthly'">Monthly subscription</button>
+    <button type="button" :class="{ active: mode === 'packs' }" :aria-pressed="mode === 'packs'" @click="mode = 'packs'">One-time packs</button>
   </div>
   <div v-if="mode === 'packs'" class="pricing-cards-grid">
     <div class="pricing-card free-card">
@@ -1013,7 +1025,7 @@ html.dark .plan-sends {
       <span v-if="plan.popular" class="pricing-badge-popular">Most popular</span>
       <div class="plan-name">{{ plan.name }}</div>
       <div class="plan-price"><span class="plan-amount">{{ plan.price }}</span><span class="pricing-vat-label">+VAT</span><span class="pricing-card-period">/ month</span></div>
-      <div class="plan-sends"><strong>{{ plan.sends }}</strong> sends / month<div class="byo-compare-line">vs {{ plan.regular }} on regular pricing</div></div>
+      <div class="plan-sends"><strong>{{ plan.sends }}</strong> sends / month <span class="plan-chip">2× sends</span><div class="byo-compare-line">vs {{ plan.regular }} on regular pricing</div></div>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta" :class="plan.popular ? 'primary' : 'secondary'">Subscribe</a>
     </div>
     <p class="plans-vat">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
@@ -1073,6 +1085,11 @@ html.dark .plan-sends {
   <div class="faq-item">
     <h3>How does the pricing work?</h3>
     <p>You pay <strong>two fees</strong>: our platform fee for sends, and <strong>AWS SES costs</strong> directly to Amazon ($0.10 per 1,000 emails). Choose <strong>one-time packs</strong>, where each pack includes a fixed number of sends that stay <strong>valid for 12 months</strong>, or a <strong>monthly plan</strong> that gives you a fresh sending allowance every billing cycle. <strong>No hidden limits</strong> either way.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Do the prices include VAT?</h3>
+    <p>No. All prices are shown <strong>excluding VAT</strong>. The final price may vary based on your local VAT rate, and VAT is applied at checkout.</p>
   </div>
 
   <div class="faq-item">
