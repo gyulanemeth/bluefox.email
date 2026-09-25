@@ -233,10 +233,18 @@ const formatAbbreviated = num => {
         </ul>
       </div>
     </div>
+    <p class="calculator-pack-note">This calculator is based on one-time packs only. Monthly subscription plans are not included.</p>
   </div>
 </template>
 
 <style scoped>
+.calculator-pack-note {
+  margin: 24px 0 0 0;
+  font-size: 13px;
+  color: var(--vp-c-text-2);
+  text-align: center;
+}
+
 .pricing-calculator {
   width: 100%;
   max-width: 1100px;
