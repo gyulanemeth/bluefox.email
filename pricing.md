@@ -1,13 +1,24 @@
 ---
 layout: home
 title: Pricing
-description: Don't overpay for contact-based subscriptions ever again. BlueFox Email pricing is simple and usage-based, so you only pay for the emails you actually send.
+description: Don't overpay for contact-based pricing ever again. Buy one-time send packs or a monthly plan, and pay for the emails you send, never for contacts.
 ---
 
 <script setup>
+import { ref } from 'vue'
 import { useData } from 'vitepress'
 import PricingCalculator from './components/PricingCalculator.vue'
 const { isDark } = useData()
+const mode = ref('packs')
+const plans = [
+  { name: 'Starter', price: '$6', sends: '5,000' },
+  { name: 'Basic', price: '$9', sends: '10,000' },
+  { name: 'Growth', price: '$19', sends: '25,000', popular: true },
+  { name: 'Pro', price: '$35', sends: '50,000' },
+  { name: 'Business', price: '$59', sends: '100,000' },
+  { name: 'Scale', price: '$129', sends: '250,000' },
+  { name: 'Elite', price: '$239', sends: '500,000' },
+]
 </script>
 
 <style>
@@ -782,6 +793,131 @@ html.dark .addon-card-period {
 }
 
 
+.billing-toggle {
+  display: flex;
+  width: fit-content;
+  margin: 0 auto 28px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+html.dark .billing-toggle {
+  border-color: #334155;
+}
+
+.billing-toggle button {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+html.dark .billing-toggle button {
+  color: #cbd5e1;
+}
+
+.billing-toggle button.active {
+  background: var(--vp-c-brand);
+  color: white;
+}
+
+.plans-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.plans-note {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #64748b;
+  text-align: center;
+}
+
+html.dark .plans-note {
+  color: #94a3b8;
+}
+
+.plan-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 24px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+html.dark .plan-row {
+  background: rgb(27, 27, 31);
+  border-color: #334155;
+}
+
+.plan-row.featured {
+  border-color: var(--vp-c-brand);
+}
+
+.plan-name {
+  flex: 1 1 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.plan-price {
+  flex: 1 1 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.plan-amount {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.plan-sends {
+  flex: 1.5 1 0;
+  font-size: 14px;
+  color: #334155;
+}
+
+html.dark .plan-sends {
+  color: #cbd5e1;
+}
+
+.plan-row .pricing-card-cta {
+  width: auto;
+  margin-top: 0;
+  padding: 10px 24px;
+  font-size: 14px;
+}
+
+.plans-list .plans-vat {
+  margin: 0;
+  font-size: 0.65rem;
+  color: #64748b;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .plan-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .plan-row .pricing-card-cta {
+    width: 100%;
+  }
+}
+
 /* === Responsive Styles === */
 @media (max-width: 768px) {
   .pricing-hero {
@@ -881,7 +1017,7 @@ html.dark .addon-card-period {
   <h1>Pay only for what you send</h1>
   
   <p class="pricing-hero-subtitle">
-    Simple, transparent pricing for agencies that send for clients. No subscriptions. No contact limits. 
+    Simple, transparent pricing for agencies that send for clients. Buy one-time send packs or pick a monthly plan. No contact limits. 
     Automations, segmentation, analytics, and deliverability tools included.
   </p>
   
@@ -912,7 +1048,11 @@ html.dark .addon-card-period {
 </section>
 
 <section class="pricing-cards-section">
-  <div class="pricing-cards-grid">
+  <div class="billing-toggle" role="group" aria-label="Billing type">
+    <button type="button" :class="{ active: mode === 'packs' }" :aria-pressed="mode === 'packs'" @click="mode = 'packs'">One-time packs</button>
+    <button type="button" :class="{ active: mode === 'monthly' }" :aria-pressed="mode === 'monthly'" @click="mode = 'monthly'">Monthly subscription</button>
+  </div>
+  <div v-if="mode === 'packs'" class="pricing-cards-grid">
     <div class="pricing-card free-card">
       <h3>Free</h3>
       <div class="pricing-card-price">
@@ -963,6 +1103,17 @@ html.dark .addon-card-period {
       <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667; color: #64748b;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
     </div>
   </div>
+  <div v-else class="plans-list">
+    <p class="plans-note">Every plan includes a fresh sending allowance each billing cycle (unused sends do not roll over) and <strong>full access to the platform</strong>.</p>
+    <div v-for="plan in plans" :key="plan.name" class="plan-row" :class="{ featured: plan.popular }">
+      <span v-if="plan.popular" class="pricing-badge-popular">Most popular</span>
+      <div class="plan-name">{{ plan.name }}</div>
+      <div class="plan-price"><span class="plan-amount">{{ plan.price }}</span><span class="pricing-vat-label">+VAT</span><span class="pricing-card-period">/ month</span></div>
+      <div class="plan-sends"><strong>{{ plan.sends }}</strong> sends / month</div>
+      <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta" :class="plan.popular ? 'primary' : 'secondary'">Subscribe</a>
+    </div>
+    <p class="plans-vat">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
+  </div>
   <div class="need-more-banner">
     <p><strong>Need more sends?</strong> Custom volume & enterprise setup with dedicated onboarding. <a href="mailto:hello@bluefox.email">Talk to sales</a></p>
     <p>Bring your own SES for better email prices. <a href="/byo-amazon-ses-pricing">See BYO SES pricing</a></p>
@@ -982,13 +1133,13 @@ html.dark .addon-card-period {
     <div class="value-prop-card">
       <div class="value-prop-content">
         <h4>Automations, segmentation & analytics</h4>
-        <p>Build flows, segment audiences, and track performance. Bounce handling and reputation tools included in every pack.</p>
+        <p>Build flows, segment audiences, and track performance. Bounce handling and reputation tools included in every pack and plan.</p>
       </div>
     </div>
     <div class="value-prop-card">
       <div class="value-prop-content">
-        <h4>No subscriptions</h4>
-        <p>Buy packs when you need them. Sends remain available for 12 months.</p>
+        <h4>Packs or monthly plans</h4>
+        <p>Buy one-time packs when you need them, and sends stay available for 12 months. Or pick a monthly plan with a fresh allowance every billing cycle.</p>
       </div>
     </div>
   </div>
@@ -1036,7 +1187,7 @@ html.dark .addon-card-period {
   
   <div class="faq-item">
     <h3>How does the pricing work?</h3>
-    <p>You only pay for <strong>email sends</strong>, not for contacts or features. Each pack includes a fixed number of sends that stay <strong>valid for 12 months. No subscriptions, no hidden limits,</strong> just buy more when you need them.</p>
+    <p>You only pay for <strong>email sends</strong>, not for contacts or features. Choose <strong>one-time packs</strong>, where each pack includes a fixed number of sends that stay <strong>valid for 12 months</strong>, or a <strong>monthly plan</strong> that gives you a fresh sending allowance every billing cycle. <strong>No hidden limits</strong> either way.</p>
   </div>
   
   <div class="faq-item">
@@ -1045,15 +1196,30 @@ html.dark .addon-card-period {
   </div>
   
   <div class="faq-item">
-    <h3>What's the difference between the packs?</h3>
-    <p>Both packs include the same features. The only difference is <strong>how many emails you can send</strong>, so choose the one that fits your volume.</p>
+    <h3>What's the difference between the packs and plans?</h3>
+    <p>All packs and plans include the same features. The only difference is <strong>how many emails you can send</strong>, so choose the one that fits your volume.</p>
   </div>
   
   <div class="faq-item">
     <h3>Do sends (packs) expire?</h3>
-    <p>Yes. Sends stay valid for <strong>12 months</strong> from the date of purchase. You can <strong>top up anytime</strong>, your balance simply adds up, and <strong>older sends are always used first</strong>, so the newest ones last the longest.</p>
+    <p>Yes. Pack sends stay valid for <strong>12 months</strong> from the date of purchase. You can <strong>top up anytime</strong>, your balance simply adds up, and <strong>older sends are always used first</strong>, so the newest ones last the longest. Monthly plan allowances work differently: <strong>unused sends do not roll over</strong> to the next billing cycle.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Should I choose a monthly plan or a one-time pack?</h3>
+    <p>Choose a <strong>monthly plan</strong> if you send regularly and want a fresh allowance every billing cycle. Choose a <strong>one-time pack</strong> if your volume is occasional or unpredictable: sends stay valid for 12 months and you are never billed again unless you buy another pack.</p>
   </div>
   
+  <div class="faq-item">
+    <h3>Can I cancel a monthly plan any time?</h3>
+    <p>Yes. If you cancel, you simply won't be charged again, and you can <strong>keep using your allowance until the current billing period ends</strong>.</p>
+  </div>
+
+  <div class="faq-item">
+    <h3>Can I switch between monthly plans?</h3>
+    <p>Yes. When you upgrade, you <strong>pay the difference in price</strong> and the new plan starts right away. The difference is not calculated from how much of the month you have used, so it is the same even if you upgrade on the last day of the cycle.</p>
+  </div>
+
   <div class="faq-item">
     <h3>Can I upgrade from one credit pack to a bigger one?</h3>
     <p><strong>Absolutely</strong>. When you upgrade, your remaining sends carry over, nothing is lost. You just get a <strong>larger send balance</strong>.</p>
