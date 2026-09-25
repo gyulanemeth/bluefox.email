@@ -117,11 +117,11 @@ Here is what you can do in production mode:
 - Use your own domain.
 - Add identities (emails) directly in your project settings. Make sure that the domain of these emails is verified.
 
-If you need to send more, return to the same production access page in your project settings to request a limit increase.
+If you need to send more, return to the same production access page in your project settings to request a limit increase. Applying for production access and requesting a limit increase are also available through the [Production Access API](/docs/api/production-access).
   
 ### Managing Identities in Production Mode
 
-In production mode, you can manage your sender identities directly within your project settings. This includes adding email addresses that you want to use as sender identities for your emails. Make sure that you verify the domain of these email addresses to ensure successful delivery.
+In production mode, you can manage your sender identities directly within your project settings. This includes adding email addresses that you want to use as sender identities for your emails. Make sure that you verify the domain of these email addresses to ensure successful delivery. To automate this, use the [Sender Identities](/docs/api/sender-identities) and [Domains](/docs/api/domains) APIs.
 
 ![A screenshot of the project delivery mode settings with identities section.](./project-delivery-mode-identities.webp)
 

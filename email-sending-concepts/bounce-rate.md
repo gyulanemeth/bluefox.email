@@ -156,5 +156,6 @@ While authentication doesn't directly reduce bounces caused by invalid addresses
 - [SMTP](/email-sending-concepts/smtp)
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Amazon SNS (Simple Notification Service)](/aws-concepts/sns)
+- [Sending Setup API: check your bounce rate](/docs/api/sending-setup)
 
 <GlossaryCTA />

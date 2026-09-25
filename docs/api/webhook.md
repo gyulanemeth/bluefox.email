@@ -1,16 +1,16 @@
 ---
-title: "Webhook API Reference | bluefox.email documentation"
-description: "Every Webhook endpoint in the bluefox.email API: parameters, request body, and response schemas."
+title: "Webhook API Reference"
+description: "Configure the BlueFox Email project webhook via the REST API: the URL, the API key it sends, and which email events it receives."
 head:
   - - meta
     - name: description
-      content: "Every Webhook endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Configure the BlueFox Email project webhook via the REST API: the URL, the API key it sends, and which email events it receives."
   - - meta
     - property: og:title
-      content: "Webhook API Reference | bluefox.email documentation"
+      content: "Webhook API Reference | BlueFox Email"
   - - meta
     - property: og:description
-      content: "Every Webhook endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Configure the BlueFox Email project webhook via the REST API: the URL, the API key it sends, and which email events it receives."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,18 +25,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Webhook API Reference | bluefox.email documentation"
+      content: "Webhook API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
-      content: "Every Webhook endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Configure the BlueFox Email project webhook via the REST API: the URL, the API key it sends, and which email events it receives."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Webhook
+# Webhook API
 
-Full reference for the **Webhook** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Read, create or replace, and delete a project's webhook: the URL events are sent to, the API key sent with each request so your endpoint can verify it, and which events it receives (sent, failed, opens, clicks, bounces, complaints, and subscription changes). The key must be one of the project's existing API keys, which are managed in the app, not through the API. Send a synthetic event with the test webhook endpoint in [Sending Setup](/docs/api/sending-setup), and see [Webhooks](/docs/integrations/webhooks) for verifying requests. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## Get the configured webhook
 

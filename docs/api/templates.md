@@ -1,16 +1,16 @@
 ---
-title: "Templates API Reference | bluefox.email documentation"
-description: "Every Templates endpoint in the bluefox.email API: parameters, request body, and response schemas."
+title: "Templates API Reference"
+description: "List, create, get, update, and delete reusable email templates in a BlueFox Email project via the REST API."
 head:
   - - meta
     - name: description
-      content: "Every Templates endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List, create, get, update, and delete reusable email templates in a BlueFox Email project via the REST API."
   - - meta
     - property: og:title
-      content: "Templates API Reference | bluefox.email documentation"
+      content: "Templates API Reference | BlueFox Email"
   - - meta
     - property: og:description
-      content: "Every Templates endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List, create, get, update, and delete reusable email templates in a BlueFox Email project via the REST API."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,18 +25,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Templates API Reference | bluefox.email documentation"
+      content: "Templates API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
-      content: "Every Templates endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List, create, get, update, and delete reusable email templates in a BlueFox Email project via the REST API."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Templates
+# Templates API
 
-Full reference for the **Templates** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Templates are reusable email designs. These endpoints cover the full lifecycle: list, create, read, update, and delete. To build and edit a template visually, use the [email builder](/docs/projects/email-builder). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List templates
 

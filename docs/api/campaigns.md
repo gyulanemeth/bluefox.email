@@ -1,16 +1,16 @@
 ---
-title: "Campaigns API Reference | bluefox.email documentation"
-description: "Every Campaigns endpoint in the bluefox.email API: parameters, request body, and response schemas."
+title: "Campaigns API Reference"
+description: "Create, update, and delete email campaigns, and fetch per-campaign stats and recipient lists, with the BlueFox Email REST API."
 head:
   - - meta
     - name: description
-      content: "Every Campaigns endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, update, and delete email campaigns, and fetch per-campaign stats and recipient lists, with the BlueFox Email REST API."
   - - meta
     - property: og:title
-      content: "Campaigns API Reference | bluefox.email documentation"
+      content: "Campaigns API Reference | BlueFox Email"
   - - meta
     - property: og:description
-      content: "Every Campaigns endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, update, and delete email campaigns, and fetch per-campaign stats and recipient lists, with the BlueFox Email REST API."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,18 +25,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Campaigns API Reference | bluefox.email documentation"
+      content: "Campaigns API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
-      content: "Every Campaigns endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, update, and delete email campaigns, and fetch per-campaign stats and recipient lists, with the BlueFox Email REST API."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Campaigns
+# Campaigns API
 
-Full reference for the **Campaigns** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Campaigns are one-off sends to a subscriber list. Use these endpoints to create and update campaigns, then pull stats and the recipient list for each one. The in-app workflow is covered in [Campaigns](/docs/projects/campaigns); to target part of a list, create a segment with the [Segments API](/docs/api/segments). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List campaigns
 
@@ -84,7 +84,7 @@ Full reference for the **Campaigns** resource in the bluefox.email API. See the 
 
 `POST /v1/projectId/{projectId}/campaigns`
 
-subscriberListId and segmentId (if given) must belong to this same project - a valid ID from a different project 404s. Setting status "scheduled" with scheduledTo also requires the project to have usable sending credentials and enough account credit for the recipient count; missing either fails the whole create with a 400/405 rather than creating a draft.
+subscriberListId and segmentId (if given) must belong to this same project - a valid ID from a different project 404s. Status "scheduled" requires a valid, parseable scheduledTo (a 400 otherwise), plus the project having usable sending credentials and enough account credit for the recipient count; missing any of these fails the whole create with a 400/405 rather than creating a draft.
 
 ### Parameters
 
@@ -105,11 +105,11 @@ subscriberListId and segmentId (if given) must belong to this same project - a v
 | `name` | string | yes |  |
 | `subject` | string | yes |  |
 | `previewText` | string |  | Optional, but meaningfully affects open rates - if the user hasn't given you one, ask what they'd like it to say rather than leaving it blank. |
-| `timeZone` | string | yes | IANA time zone, e.g. "America/New_York". Used to interpret scheduledTo. |
+| `timeZone` | string | yes | IANA time zone, e.g. "America/New_York". Stored with the campaign and shown next to the scheduled time in the app; it does not shift scheduledTo, which must be an absolute instant. |
 | `subscriberListId` | string | yes | Required. If the user hasn't told you which list to send to, call GET /v1/projectId/&#123;projectId&#125;/subscriber-lists first and ask them to choose from the real list names - don't ask them for a raw ID. |
 | `segmentId` | string |  | Optional - narrows the subscriberListId down further. If the user mentions targeting a specific segment by name but doesn't give an ID, call GET /v1/projectId/&#123;projectId&#125;/segments first and ask them to choose from the real names. |
-| `status` | string (draft \| archive \| scheduled) |  | Set to "scheduled" together with scheduledTo to schedule sending. |
-| `scheduledTo` | string |  |  |
+| `status` | string (draft \| archive \| scheduled) |  | Set to "scheduled" together with a valid scheduledTo to schedule sending. Status "scheduled" without a parseable scheduledTo is rejected with a 400. |
+| `scheduledTo` | string |  | Absolute ISO 8601 date-time (with a UTC offset or trailing "Z"). Required when status is "scheduled". |
 | `excludeUnengaged` | boolean |  |  |
 | `senderIdentity` | string |  | A sender identity _id. If the user hasn't told you which one to use, call GET /v1/projectId/&#123;projectId&#125;/sender-identities first and ask them to choose from the real email addresses returned - don't ask them for a raw ID. |
 | `replyTo` | string |  |  |
@@ -256,11 +256,11 @@ subscriberListId/segmentId are re-validated the same way as create. A campaign c
 | `name` | string |  |  |
 | `subject` | string |  |  |
 | `previewText` | string |  | Optional, but meaningfully affects open rates - if the user hasn't given you one, ask what they'd like it to say rather than leaving it blank. |
-| `timeZone` | string |  | IANA time zone, e.g. "America/New_York". Used to interpret scheduledTo. |
+| `timeZone` | string |  | IANA time zone, e.g. "America/New_York". Stored with the campaign and shown next to the scheduled time in the app; it does not shift scheduledTo, which must be an absolute instant. |
 | `subscriberListId` | string |  | Required. If the user hasn't told you which list to send to, call GET /v1/projectId/&#123;projectId&#125;/subscriber-lists first and ask them to choose from the real list names - don't ask them for a raw ID. |
 | `segmentId` | string |  | Optional - narrows the subscriberListId down further. If the user mentions targeting a specific segment by name but doesn't give an ID, call GET /v1/projectId/&#123;projectId&#125;/segments first and ask them to choose from the real names. |
-| `status` | string (draft \| archive \| scheduled) |  | Set to "scheduled" together with scheduledTo to schedule sending. |
-| `scheduledTo` | string |  |  |
+| `status` | string (draft \| archive \| scheduled) |  | Set to "scheduled" together with a valid scheduledTo to schedule sending. Status "scheduled" without a parseable scheduledTo is rejected with a 400. |
+| `scheduledTo` | string |  | Absolute ISO 8601 date-time (with a UTC offset or trailing "Z"). Required when status is "scheduled". |
 | `excludeUnengaged` | boolean |  |  |
 | `senderIdentity` | string |  | A sender identity _id. If the user hasn't told you which one to use, call GET /v1/projectId/&#123;projectId&#125;/sender-identities first and ask them to choose from the real email addresses returned - don't ask them for a raw ID. |
 | `replyTo` | string |  |  |

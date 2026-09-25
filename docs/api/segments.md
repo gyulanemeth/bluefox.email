@@ -1,16 +1,16 @@
 ---
-title: "Segments API Reference | bluefox.email documentation"
-description: "Every Segments endpoint in the bluefox.email API: parameters, request body, and response schemas."
+title: "Segments API Reference"
+description: "Create, list, update, and delete contact segments in BlueFox Email via the REST API, for targeted campaigns and automations."
 head:
   - - meta
     - name: description
-      content: "Every Segments endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, list, update, and delete contact segments in BlueFox Email via the REST API, for targeted campaigns and automations."
   - - meta
     - property: og:title
-      content: "Segments API Reference | bluefox.email documentation"
+      content: "Segments API Reference | BlueFox Email"
   - - meta
     - property: og:description
-      content: "Every Segments endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, list, update, and delete contact segments in BlueFox Email via the REST API, for targeted campaigns and automations."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,18 +25,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Segments API Reference | bluefox.email documentation"
+      content: "Segments API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
-      content: "Every Segments endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, list, update, and delete contact segments in BlueFox Email via the REST API, for targeted campaigns and automations."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Segments
+# Segments API
 
-Full reference for the **Segments** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Segments are saved filters that select a dynamic group of contacts for campaigns and automations. See [Segments](/docs/projects/segments) for the available conditions and operators. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List segments
 

@@ -160,7 +160,7 @@ Copy the generated code to use it in your project:
 Your bluefox.email API key is included in the request `Authorization` header. Never send these requests from your frontend!
 :::
 
-See our [API docs](/docs/api/) for more details.
+To manage transactional emails and read their stats from code, see the [Transactional Emails API reference](/docs/api/transactional-emails). The send endpoint is documented in the [Send Email API reference](/docs/api/send-email), and failed deliveries can be looked up with the [Email Error Log API](/docs/api/email-error-log).
 
 ## Transactional Email Personalization
 

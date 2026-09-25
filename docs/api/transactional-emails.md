@@ -1,16 +1,16 @@
 ---
-title: "Transactional Emails API Reference | bluefox.email documentation"
-description: "Every Transactional Emails endpoint in the bluefox.email API: parameters, request body, and response schemas."
+title: "Transactional Emails API Reference"
+description: "Create and manage transactional emails such as password resets and receipts, and fetch their stats and recipients, via the BlueFox Email API."
 head:
   - - meta
     - name: description
-      content: "Every Transactional Emails endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create and manage transactional emails such as password resets and receipts, and fetch their stats and recipients, via the BlueFox Email API."
   - - meta
     - property: og:title
-      content: "Transactional Emails API Reference | bluefox.email documentation"
+      content: "Transactional Emails API Reference | BlueFox Email"
   - - meta
     - property: og:description
-      content: "Every Transactional Emails endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create and manage transactional emails such as password resets and receipts, and fetch their stats and recipients, via the BlueFox Email API."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,18 +25,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Transactional Emails API Reference | bluefox.email documentation"
+      content: "Transactional Emails API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
-      content: "Every Transactional Emails endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create and manage transactional emails such as password resets and receipts, and fetch their stats and recipients, via the BlueFox Email API."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Transactional Emails
+# Transactional Emails API
 
-Full reference for the **Transactional Emails** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Transactional emails are one-to-one messages caused by something a user did, like a password reset or an order receipt. These endpoints manage the emails and return their stats and recipients; to send one, call the [Send Email API](/docs/api/send-email). For the in-app setup, see [Transactional Emails](/docs/projects/transactional-emails). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List transactional emails
 

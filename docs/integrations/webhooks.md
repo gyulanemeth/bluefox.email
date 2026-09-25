@@ -68,7 +68,7 @@ Webhooks allow your application to receive real-time [notifications](/aws-concep
    After saving, a **secret key** will be displayed. Copy and securely store this key, as it will be used to verify webhook requests in your endpoint.
 
 5. **Test Webhook**  
-   Use the "Test Webhook" feature to simulate a webhook request and verify your setup.
+   Use the "Test Webhook" feature to simulate a webhook request and verify your setup. You can also configure the webhook with the [Webhook API](/docs/api/webhook) and fire test events with the [Sending Setup API](/docs/api/sending-setup).
 
 6. **Start Receiving Notifications**  
    Your endpoint will now receive real-time `POST` requests with event details.

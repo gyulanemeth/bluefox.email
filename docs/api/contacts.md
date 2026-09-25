@@ -1,16 +1,16 @@
 ---
-title: "Contacts API Reference | bluefox.email documentation"
-description: "Every Contacts endpoint in the bluefox.email API: parameters, request body, and response schemas."
+title: "Contacts API Reference"
+description: "Create, get, update, list, and delete contacts, custom contact fields, and contact tags in BlueFox Email via the REST API."
 head:
   - - meta
     - name: description
-      content: "Every Contacts endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, get, update, list, and delete contacts, custom contact fields, and contact tags in BlueFox Email via the REST API."
   - - meta
     - property: og:title
-      content: "Contacts API Reference | bluefox.email documentation"
+      content: "Contacts API Reference | BlueFox Email"
   - - meta
     - property: og:description
-      content: "Every Contacts endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, get, update, list, and delete contacts, custom contact fields, and contact tags in BlueFox Email via the REST API."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,18 +25,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Contacts API Reference | bluefox.email documentation"
+      content: "Contacts API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
-      content: "Every Contacts endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create, get, update, list, and delete contacts, custom contact fields, and contact tags in BlueFox Email via the REST API."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Contacts
+# Contacts API
 
-Full reference for the **Contacts** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Contacts are the people in your project, independent of any single list. These endpoints manage contacts by email address, the custom fields stored on them, and contact tags, and resend double opt-in verification emails. To put a contact on a list, use [Subscriber Lists](/docs/api/subscriber-lists). The in-app view is [Contacts](/docs/projects/contacts). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List custom contact fields
 
