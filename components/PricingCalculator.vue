@@ -130,136 +130,115 @@ const formatAbbreviated = num => {
 
 <template>
   <div class="pricing-calculator">
-    <div class="calculator-container">
-      <!-- Slider Section -->
-      <div class="slider-section">
-        <h3 class="slider-title">How many emails do you send monthly?</h3>
-        <div class="slider-wrapper">
-          <input
-            v-model.number="currentSliderIndex"
-            type="range"
-            min="0"
-            :max="SLIDER_VALUES.length - 1"
-            step="1"
-            class="email-slider"
-            aria-label="Monthly email volume"
-          />
-          <div class="slider-labels">
-            <span
-              v-for="(value, index) in SLIDER_VALUES"
-              :key="value"
-              class="slider-label"
-              :class="{ active: index === currentSliderIndex }"
-            >
-              {{ formatAbbreviated(value) }}
-            </span>
-          </div>
+    <div class="slider-section">
+      <h3 class="slider-title">How many emails do you send monthly?</h3>
+      <div class="slider-wrapper">
+        <input
+          v-model.number="currentSliderIndex"
+          type="range"
+          min="0"
+          :max="SLIDER_VALUES.length - 1"
+          step="1"
+          class="email-slider"
+          aria-label="Monthly email volume"
+        />
+        <div class="slider-labels">
+          <span
+            v-for="(value, index) in SLIDER_VALUES"
+            :key="value"
+            class="slider-label"
+            :class="{ active: index === currentSliderIndex }"
+          >
+            {{ formatAbbreviated(value) }}
+          </span>
         </div>
       </div>
-
-      <!-- Results Grid -->
-      <div class="results-grid" :class="{ 'full-width': isEnterpriseVolume }">
-        <!-- Pack Card (Left) -->
-        <div class="pack-card">
-          <div v-if="recommendedPack !== 'enterprise'" class="pack-content">
-            <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email</div>
-            
-            <!-- Display pack-based cost (no tooltip) -->
-            <div class="actual-price">{{ formatPrice(packBasedCost) }}</div>
-            
-            <div class="recommended-pack-info">
-              <span class="recommended-label">Recommended pack:</span>
-              <span class="recommended-pack-name">{{ recommendedPack.name }}</span>
-            </div>
-            
-            <div class="pack-price-section">
-              <span class="pack-price-label">Pack cost:</span>
-              <span class="pack-price-value">
-                {{ emails === 1000000 ? '2× $300.00' : formatPrice(packTotalCost) }}
-              </span>
-            </div>
-            
-            <div class="pack-info">
-              <div class="info-row">
-                <span class="info-label">Pack includes:</span>
-                <span class="info-value">{{ formatNumber(recommendedPack.sends) }} sends</span>
-              </div>
-              <div class="info-row">
-                <span class="info-label">Cost per 1,000 sends:</span>
-                <span class="info-value">{{ formatPrice(packBasedCostPerEmail * 1000) }}</span>
-              </div>
-            </div>
-
-            <div v-if="sendsRemaining > 0" class="remaining-note">
-              ✨ <strong>{{ formatNumber(sendsRemaining) }} sends</strong> remaining for future use
-            </div>
-
-            <ul class="pack-features">
-              <li>Sends valid for 12 months</li>
-              <li>All features included</li>
-              <li>No contact-based pricing</li>
-            </ul>
-          </div>
-
-          <!-- Enterprise Display -->
-          <div v-else class="enterprise-content enterprise-full">
-            <div class="enterprise-icon">
-              <img 
-                src="/assets/mascot-fox-bluefoxemail.png" 
-                alt="BlueFox Email Mascot"
-                class="mascot-light"
-              >
-              <img 
-                src="/assets/mascot-fox-bluefoxemail-dark.png" 
-                alt="BlueFox Email Mascot"
-                class="mascot-dark"
-              >
-            </div>
-            <p>For 1M+ emails, we offer custom pricing with volume discounts.</p>
-            <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact sales</a>
-          </div>
-        </div>
-
-        <!-- Comparison Card -->
-        <div v-if="!isEnterpriseVolume" class="comparison-card">
-          <h4 class="comparison-title">Compare with Competitors</h4>
-          <div class="table-container">
-            <table class="comparison-table">
-              <thead>
-                <tr>
-                  <th scope="col">Provider</th>
-                  <th scope="col">Monthly Cost</th>
-                  <th scope="col">You Save</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><a href="/comparisons/bluefox-vs-mailchimp">Mailchimp</a> Premium</td>
-                  <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
-                  <td>{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
-                </tr>
-                <tr>
-                  <td><a href="/comparisons/bluefox-vs-sendgrid">SendGrid</a> Premier</td>
-                  <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
-                  <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
-                </tr>
-                <tr>
-                  <td><a href="/comparisons/bluefox-vs-mailersend">MailerSend</a> Pro</td>
-                  <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
-                  <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <ul class="table-note">
-            <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
-            <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
-            <li>BlueFox has no contact limits and includes all features at every tier</li>
-          </ul>
-        </div>
-      </div>
-      <p class="calculator-pack-note">This calculator is based on one-time packs only. Monthly subscription plans are not included.</p>
     </div>
+
+    <div class="results-grid" :class="{ 'full-width': isEnterpriseVolume }">
+      <div class="pack-card">
+        <template v-if="recommendedPack !== 'enterprise'">
+          <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email</div>
+          <div class="actual-price">{{ formatPrice(packBasedCost) }}</div>
+
+          <div class="info-row">
+            <span class="info-label">Recommended pack</span>
+            <span class="info-value">{{ recommendedPack.name }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Pack cost</span>
+            <span class="info-value">{{ emails === 1000000 ? '2× $300.00' : formatPrice(packTotalCost) }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Pack includes</span>
+            <span class="info-value">{{ formatNumber(recommendedPack.sends) }} sends</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Cost per 1,000 sends</span>
+            <span class="info-value">{{ formatPrice(packBasedCostPerEmail * 1000) }}</span>
+          </div>
+
+          <p class="remaining-note">
+            <template v-if="sendsRemaining > 0">{{ formatNumber(sendsRemaining) }} sends left over for later. </template>Sends stay valid for 12 months, with all features included.
+          </p>
+        </template>
+
+        <div v-else class="enterprise-content">
+          <div class="enterprise-icon">
+            <img
+              src="/assets/mascot-fox-bluefoxemail.png"
+              alt="BlueFox Email Mascot"
+              class="mascot-light"
+            >
+            <img
+              src="/assets/mascot-fox-bluefoxemail-dark.png"
+              alt="BlueFox Email Mascot"
+              class="mascot-dark"
+            >
+          </div>
+          <p>For 1M+ emails, we offer custom pricing with volume discounts.</p>
+          <a href="mailto:hello@bluefox.email" class="enterprise-link">Contact sales</a>
+        </div>
+      </div>
+
+      <div v-if="!isEnterpriseVolume" class="comparison-card">
+        <h4 class="comparison-title">Compare with competitors</h4>
+        <div class="table-container">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th scope="col">Provider</th>
+                <th scope="col">Monthly cost</th>
+                <th scope="col">You save</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="/comparisons/bluefox-vs-mailchimp">Mailchimp</a> Premium</td>
+                <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
+                <td>{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
+              </tr>
+              <tr>
+                <td><a href="/comparisons/bluefox-vs-sendgrid">SendGrid</a> Premier</td>
+                <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
+                <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
+              </tr>
+              <tr>
+                <td><a href="/comparisons/bluefox-vs-mailersend">MailerSend</a> Pro</td>
+                <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
+                <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="table-note">
+        <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
+        <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
+        <li>BlueFox has no contact limits and includes all features at every tier</li>
+        </ul>
+      </div>
+    </div>
+    <p class="calculator-pack-note">This calculator is based on one-time packs only. Monthly subscription plans are not included.</p>
   </div>
 </template>
 
@@ -271,33 +250,23 @@ const formatAbbreviated = num => {
   text-align: center;
 }
 
-/* === Calculator Container === */
 .pricing-calculator {
   width: 100%;
   max-width: 1100px;
-  margin: 40px auto;
-  padding: 0 20px;
+  margin: 0 auto;
 }
 
-.calculator-container {
-  background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-}
-
-/* === Slider Section === */
+/* === Slider === */
 .slider-section {
   margin-bottom: 40px;
   text-align: center;
 }
 
 .slider-title {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600;
   color: var(--vp-c-text-1);
-  margin: 0 0 32px 0;
+  margin: 0 0 28px 0;
 }
 
 .slider-wrapper {
@@ -307,7 +276,7 @@ const formatAbbreviated = num => {
 
 .email-slider {
   width: 100%;
-  height: 8px;
+  height: 6px;
   border-radius: 4px;
   background: var(--vp-c-divider);
   outline: none;
@@ -319,34 +288,20 @@ const formatAbbreviated = num => {
 .email-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: var(--vp-c-brand);
   cursor: pointer;
-  box-shadow: 0 2px 6px rgba(19, 176, 238, 0.4);
-  transition: all 0.2s ease;
-}
-
-.email-slider::-webkit-slider-thumb:hover {
-  transform: scale(1.15);
-  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.6);
 }
 
 .email-slider::-moz-range-thumb {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   background: var(--vp-c-brand);
   cursor: pointer;
   border: none;
-  box-shadow: 0 2px 6px rgba(19, 176, 238, 0.4);
-  transition: all 0.2s ease;
-}
-
-.email-slider::-moz-range-thumb:hover {
-  transform: scale(1.15);
-  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.6);
 }
 
 .slider-labels {
@@ -360,16 +315,14 @@ const formatAbbreviated = num => {
   font-size: 13px;
   font-weight: 500;
   color: var(--vp-c-text-3);
-  transition: all 0.2s ease;
 }
 
 .slider-label.active {
   color: var(--vp-c-brand);
   font-weight: 700;
-  transform: scale(1.1);
 }
 
-/* === Results Grid === */
+/* === Results === */
 .results-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -381,212 +334,89 @@ const formatAbbreviated = num => {
 }
 
 .results-grid.full-width .pack-card {
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
 }
 
-/* === Pack Card === */
-.pack-card {
+.pack-card,
+.comparison-card {
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-divider);
-  border-radius: 16px;
+  border-radius: 4px;
   padding: 28px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
-}
-
-.pack-content {
-  text-align: center;
 }
 
 .pack-header {
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
   color: var(--vp-c-text-2);
-  margin-bottom: 16px;
-  letter-spacing: 0.5px;
+  margin-bottom: 8px;
 }
 
 .actual-price {
-  font-size: 56px;
+  font-size: 48px;
   font-weight: 700;
-  background: linear-gradient(120deg, #392C91, #13B0EE);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 20px;
   line-height: 1;
-}
-
-html.dark .actual-price {
-  background: linear-gradient(120deg, #8a7ed8, #13B0EE);
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-
-.recommended-pack-info {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid var(--vp-c-divider);
-}
-
-.recommended-label {
-  font-size: 13px;
-  color: var(--vp-c-text-3);
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.recommended-pack-name {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--vp-c-brand);
-}
-
-.pack-price-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 16px;
-  background: var(--vp-c-bg-alt);
-  border-radius: 8px;
-  margin-bottom: 20px;
-}
-
-.pack-price-label {
-  font-size: 14px;
-  color: var(--vp-c-text-2);
-  font-weight: 500;
-}
-
-.pack-price-value {
-  font-size: 20px;
-  font-weight: 700;
-  background: linear-gradient(120deg, #392C91, #13B0EE);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-html.dark .pack-price-value {
-  background: linear-gradient(120deg, #8a7ed8, #13B0EE);
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-
-.pack-info {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: 20px 0;
-  border-top: 1px solid var(--vp-c-divider);
-  border-bottom: 1px solid var(--vp-c-divider);
+  color: var(--vp-c-text-1);
+  margin-bottom: 24px;
 }
 
 .info-row {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  gap: 16px;
+  padding: 10px 0;
+  border-top: 1px solid var(--vp-c-divider);
   font-size: 14px;
+}
+
+.info-row:last-of-type {
+  border-bottom: 1px solid var(--vp-c-divider);
 }
 
 .info-label {
   color: var(--vp-c-text-2);
-  font-weight: 500;
 }
 
 .info-value {
   color: var(--vp-c-text-1);
-  font-weight: 700;
+  font-weight: 600;
+  text-align: right;
 }
 
 .remaining-note {
-  margin-top: 16px;
-  padding: 12px 16px;
-  background: rgba(19, 176, 238, 0.05);
-  border: 1px solid rgba(19, 176, 238, 0.2);
-  border-radius: 8px;
+  margin: 16px 0 0;
   font-size: 13px;
-  color: var(--vp-c-text-2);
   line-height: 1.5;
-}
-
-html.dark .remaining-note {
-  background: rgba(19, 176, 238, 0.1);
-  border-color: rgba(19, 176, 238, 0.3);
-}
-
-.pack-features {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0 0 0;
-  text-align: left;
-}
-
-.pack-features li {
-  font-size: 13px;
   color: var(--vp-c-text-2);
-  padding: 6px 0;
-  font-weight: 500;
 }
 
-.pack-features li::before {
-  content: "✓ ";
-  color: var(--vp-c-brand);
-  font-weight: bold;
-  margin-right: 8px;
-}
-
-/* === Enterprise Content === */
+/* === Enterprise === */
 .enterprise-content {
   text-align: center;
-  padding: 20px 0;
-}
-
-.enterprise-content.enterprise-full {
-  padding: 40px 0;
+  padding: 24px 0;
 }
 
 .enterprise-icon {
   display: flex;
   justify-content: center;
-  align-items: center;
   margin-bottom: 24px;
-  min-height: 300px;
 }
 
 .enterprise-icon img {
   width: 100%;
-  max-width: 370px;
+  max-width: 280px;
   height: auto;
-  object-fit: contain;
-  transition: opacity 0.3s ease;
 }
 
-.mascot-light {
-  display: block;
-}
-
-.mascot-dark {
-  display: none;
-}
-
+.mascot-dark,
 html.dark .mascot-light {
   display: none;
 }
 
 html.dark .mascot-dark {
   display: block;
-}
-
-.enterprise-content h5 {
-  font-size: 20px;
-  font-weight: 700;
-  margin: 0 0 12px 0;
-  color: var(--vp-c-text-1);
 }
 
 .enterprise-content p {
@@ -603,178 +433,105 @@ html.dark .mascot-dark {
   color: white;
   font-weight: 600;
   font-size: 15px;
-  border-radius: 8px;
+  border-radius: 4px;
   text-decoration: none;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 .enterprise-link:hover {
   background: var(--vp-c-brand-light);
-  box-shadow: 0 4px 12px rgba(19, 176, 238, 0.3);
   color: white;
 }
 
-/* === Comparison Card === */
-.comparison-card {
-  background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 16px;
-  padding: 28px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+/* === Comparison === */
 .comparison-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: var(--vp-c-text-1);
-  margin: 0 0 20px 0;
-  text-align: center;
+  margin: 0 0 16px 0;
 }
 
 .table-container {
   width: 100%;
-  max-width: 100%;
   overflow-x: auto;
-  margin: 0 0 16px 0;
+  margin-bottom: 16px;
 }
 
+/* Overrides the default .vp-doc table look (borders, striped rows) */
 .comparison-table {
+  display: table;
   width: 100%;
-  table-layout: fixed;
-  border-spacing: 0;
+  margin: 0;
+  border-collapse: collapse;
   font-size: 14px;
-  background: var(--vp-c-bg);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  margin-top: 10px;
-  box-sizing: border-box;
-  text-align: center;
+}
+
+.comparison-table tr,
+.comparison-table tr:nth-child(2n) {
+  background: transparent;
+  border: none;
 }
 
 .comparison-table th,
 .comparison-table td {
-  width: 33.33%;
-  padding: 12px 16px;
-  border: 1px solid var(--vp-c-divider);
-  vertical-align: middle;
+  padding: 10px 12px;
+  border: none;
+  border-bottom: 1px solid var(--vp-c-divider);
+  text-align: left;
 }
 
 .comparison-table th {
-  background: var(--vp-c-bg-alt);
+  background: transparent;
+  font-size: 13px;
   font-weight: 600;
-  font-size: 15px;
-  letter-spacing: 0.5px;
-  text-align: center;
+  color: var(--vp-c-text-2);
 }
 
-.comparison-table tbody tr:last-child td {
-  border-bottom: none;
-}
-
-.comparison-table tbody tr:hover {
-  background: var(--vp-c-bg-soft);
+.comparison-table th:not(:first-child),
+.comparison-table td:not(:first-child) {
+  text-align: right;
 }
 
 .table-note {
-  font-size: 12px;
-  color: var(--vp-c-text-3);
   margin: 0;
-  padding: 0;
-  text-align: center;
+  padding-left: 18px;
+  list-style: disc;
+  font-size: 12px;
   line-height: 1.6;
-  list-style: none;
+  color: var(--vp-c-text-3);
 }
 
 .table-note li {
-  margin-bottom: 4px;
-  text-align: left;
-  padding: 0 16px;
-  position: relative;
+  margin: 0 0 4px 0;
 }
 
-.table-note li::before {
-  content: "•";
-  color: var(--vp-c-brand);
-  font-weight: bold;
-  position: absolute;
-  left: 0;
-  transform: translateX(-100%);
-}
-
-/* === Responsive Design === */
+/* === Responsive === */
 @media (max-width: 968px) {
   .results-grid {
     grid-template-columns: 1fr;
   }
-
-  .calculator-container {
-    padding: 32px 24px;
-  }
-
-  .pack-card {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .pack-content,
-  .enterprise-content {
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  .enterprise-icon {
-    min-height: 200px;
-  }
-  
-  .enterprise-icon img {
-    max-width: 280px;
-  }
 }
 
 @media (max-width: 640px) {
-  .pricing-calculator {
-    padding: 0 12px;
-  }
-
-  .calculator-container {
-    padding: 24px 20px;
+  .pack-card,
+  .comparison-card {
+    padding: 20px 16px;
   }
 
   .actual-price {
-    font-size: 44px;
+    font-size: 40px;
   }
 
-  .recommended-pack-name {
-    font-size: 24px;
-  }
-
-  .slider-labels {
+  .slider-label {
     font-size: 11px;
   }
 
   .comparison-table th,
   .comparison-table td {
-    padding: 10px 8px;
+    padding: 8px 6px;
     font-size: 12px;
   }
 
-  .comparison-title {
-    font-size: 18px;
-  }
-
-  .table-note li {
-    padding: 0 12px;
-  }
-  
-  .enterprise-icon {
-    min-height: 150px;
-  }
-  
   .enterprise-icon img {
     max-width: 200px;
   }
