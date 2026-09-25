@@ -36,7 +36,7 @@ const plans = [
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 24px;
+  padding: 60px 24px 24px;
 }
 
 .pricing-hero h1 {
@@ -518,6 +518,22 @@ html.dark .value-prop-content p {
   color: #94a3b8;
 }
 
+.sending-switch {
+  margin: 0 0 20px 0;
+  font-size: 15px;
+  color: #334155;
+  text-align: center;
+}
+
+html.dark .sending-switch {
+  color: #cbd5e1;
+}
+
+.sending-switch a {
+  color: var(--vp-c-brand);
+  font-weight: 600;
+}
+
 .billing-toggle {
   display: flex;
   width: fit-content;
@@ -673,7 +689,7 @@ html.dark .plan-sends {
 /* === Responsive Styles === */
 @media (max-width: 768px) {
   .pricing-hero {
-    padding: 40px 16px;
+    padding: 40px 16px 16px;
   }
 
   .pricing-cards-section {
@@ -732,10 +748,6 @@ html.dark .plan-sends {
 </style>
 
 <section class="pricing-hero">
-  <div class="pricing-badge">
-    <span>Bring Your Own Amazon SES, 2× sends per pack or plan</span>
-  </div>
-  
   <h1>Connect your SES, get 2× the sends</h1>
   
   <p class="pricing-hero-subtitle">
@@ -769,6 +781,7 @@ html.dark .plan-sends {
 </section>
 
 <section class="pricing-cards-section">
+  <p class="sending-switch">Want us to handle sending? <a href="/pricing">See our regular pricing</a></p>
   <div class="billing-toggle" role="group" aria-label="Billing type">
     <button type="button" :class="{ active: mode === 'monthly' }" :aria-pressed="mode === 'monthly'" @click="mode = 'monthly'">Monthly subscription</button>
     <button type="button" :class="{ active: mode === 'packs' }" :aria-pressed="mode === 'packs'" @click="mode = 'packs'">One-time packs</button>
@@ -836,7 +849,6 @@ html.dark .plan-sends {
   </div>
   <div class="need-more-banner">
     <p><strong>Need more sends?</strong> Custom volume & enterprise setup with dedicated onboarding. <a href="mailto:hello@bluefox.email">Talk to sales</a></p>
-    <p>Want us to handle sending? <a href="/pricing">See our regular pricing</a></p>
     <p>Comparing SES-based senders? See how BlueFox compares to <a href="/comparisons/bluefox-vs-resend">Resend</a>, <a href="/comparisons/bluefox-vs-sendgrid">SendGrid</a>, or <a href="/comparisons/bluefox-vs-mailersend">MailerSend</a></p>
   </div>
 </section>
