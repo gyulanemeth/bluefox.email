@@ -36,7 +36,7 @@ const plans = [
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 24px 24px;
+  padding: 60px 24px 8px;
 }
 
 .pricing-hero h1 {
@@ -738,6 +738,22 @@ html.dark .value-prop-content p {
   color: #94a3b8;
 }
 
+.pricing-hero-note {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+  text-align: center;
+}
+
+html.dark .pricing-hero-note {
+  color: #94a3b8;
+}
+
+.pricing-hero-note strong {
+  color: var(--vp-c-text-1);
+  font-weight: 600;
+}
+
 .sending-switch {
   margin: 0 0 20px 0;
   font-size: 15px;
@@ -876,6 +892,36 @@ html.dark .plan-sends {
   line-height: 16px;
 }
 
+.pricing-card-more {
+  margin: 8px 0 24px 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: #334155;
+}
+
+html.dark .pricing-card-more {
+  color: #cbd5e1;
+}
+
+.pricing-card-cta.contact {
+  background: #000;
+  color: white !important;
+}
+
+html.dark .pricing-card-cta.contact {
+  border: 1px solid #475569;
+}
+
+.plan-more {
+  flex: 2.5 1 0;
+  font-size: 14px;
+  color: #334155;
+}
+
+html.dark .plan-more {
+  color: #cbd5e1;
+}
+
 .plans-list .plans-vat {
   margin: 0;
   font-size: 0.65rem;
@@ -898,7 +944,7 @@ html.dark .plan-sends {
 /* === Responsive Styles === */
 @media (max-width: 768px) {
   .pricing-hero {
-    padding: 40px 16px 16px;
+    padding: 40px 16px 8px;
   }
 
   .pricing-cards-section {
@@ -988,6 +1034,7 @@ html.dark .plan-sends {
       Contact sales
     </v-btn>
   </div>
+  <p class="pricing-hero-note">Includes <strong>3,000 free sends</strong>, no credit card required.</p>
 </section>
 
 <section class="pricing-cards-section">
@@ -997,22 +1044,6 @@ html.dark .plan-sends {
     <button type="button" :class="{ active: mode === 'packs' }" :aria-pressed="mode === 'packs'" @click="mode = 'packs'">One-time packs</button>
   </div>
   <div v-if="mode === 'packs'" class="pricing-cards-grid">
-    <div class="pricing-card free-card">
-      <h3>Free</h3>
-      <div class="pricing-card-price">
-        <span class="pricing-card-amount">$0</span>
-      </div>
-      <ul class="pricing-card-features">
-        <li><strong>3,000 free sends</strong> included</li>
-        <li>No credit card required</li>
-        <li>Full platform access, no restrictions</li>
-        <li>Valid for 12 months</li>
-      </ul>
-      <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta secondary">
-        Get Started for Free
-      </a>
-      <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667; color: #64748b; visibility: hidden">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
-    </div>
     <div class="pricing-card featured">
           <h3>Essential</h3>
       <div class="pricing-card-price">
@@ -1045,6 +1076,13 @@ html.dark .plan-sends {
       </a>
       <p class="mt-2" style="font-size: 0.65rem; font-weight: 400; line-height: 1.667; color: #64748b;">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
     </div>
+    <div class="pricing-card">
+      <h3>Need more sends?</h3>
+      <p class="pricing-card-more">Custom volume &amp; enterprise setup with dedicated onboarding.</p>
+      <a href="mailto:hello@bluefox.email" class="pricing-card-cta contact">
+        Contact sales
+      </a>
+    </div>
   </div>
   <div v-else class="plans-list">
     <p class="plans-note">Every plan includes a fresh sending allowance each billing cycle (unused sends do not roll over) and <strong>full access to the platform</strong>.</p>
@@ -1055,10 +1093,14 @@ html.dark .plan-sends {
       <div class="plan-sends"><strong>{{ plan.sends }}</strong> sends / month</div>
       <a href="https://app.bluefox.email/accounts/create-account" target="_blank" class="pricing-card-cta" :class="plan.popular ? 'primary' : 'secondary'">Subscribe</a>
     </div>
+    <div class="plan-row">
+      <div class="plan-name">Need more sends?</div>
+      <div class="plan-more">Custom volume & enterprise setup with dedicated onboarding.</div>
+      <a href="mailto:hello@bluefox.email" class="pricing-card-cta contact">Contact sales</a>
+    </div>
     <p class="plans-vat">The final price may vary based on your local VAT rate. VAT is applied at checkout.</p>
   </div>
   <div class="need-more-banner">
-    <p><strong>Need more sends?</strong> Custom volume & enterprise setup with dedicated onboarding. <a href="mailto:hello@bluefox.email">Talk to sales</a></p>
     <p>Coming from a contact-based plan? See how per-send pricing compares to <a href="/comparisons/bluefox-vs-mailchimp">Mailchimp</a>, <a href="/comparisons/bluefox-vs-activecampaign">ActiveCampaign</a>, <a href="/comparisons/bluefox-vs-brevo">Brevo</a>, or <a href="/comparisons/bluefox-vs-constant-contact">Constant Contact</a></p>
     <p>Switching from a transactional API? See how BlueFox compares to <a href="/comparisons/bluefox-vs-sendgrid">SendGrid</a>, <a href="/comparisons/bluefox-vs-mailersend">MailerSend</a>, or <a href="/comparisons/bluefox-vs-resend">Resend</a></p>
   </div>
