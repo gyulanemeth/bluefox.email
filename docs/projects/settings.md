@@ -6,6 +6,8 @@ faqs:
     answer: "API keys are in the project settings under the API Keys section. You must create at least one API key to send transactional or triggered emails via the API. Include the key as a Bearer token in the Authorization header of your API requests."
   - question: "Why does the API key color change over time?"
     answer: "BlueFox Email uses color-coded age indicators on API keys as a reminder to rotate them periodically for security. Green means the key is less than one month old, yellow means 1-6 months old, and red means more than 6 months old."
+  - question: "Can I use my own subscription preferences page?"
+    answer: "Yes. In Project Settings, on the Main tab, enter the URL of your own page in Custom Subscription Preferences Page. When subscribers click the unsubscribe or pause links in your emails, BlueFox Email sends them to your page instead of the default one. Leave the field empty to use the default page."
   - question: "What is the domain whitelist used for?"
     answer: "The domain whitelist controls which frontend domains are authorized to make subscription requests to your project, for example when embedding a sign-up form on your website. Backend requests using an API key do not need domain whitelisting. If your sign-up form is on your website, add your domain to the whitelist in project settings."
   - question: "What contact properties can I define in project settings?"
@@ -85,6 +87,17 @@ To manage the project logo:
 - **Remove**: Click remove logo and confirm.
   
 ![A screenshot of a project settings logo section.](./project-settings-project-logo.webp)
+
+### Custom Subscription Preferences Page
+
+By default, subscribers who click the unsubscribe or pause links in your emails land on BlueFox Email's [subscription preferences page](./forms-and-pages.md#subscription-preferences-page), where they can unsubscribe, resubscribe, or pause their subscriptions to your public lists. If you host your own subscription preferences page, you can send them there instead, so your page takes over that job.
+
+Paste the URL of your page into **Custom Subscription Preferences URL**. From then on, subscribers who click the unsubscribe or pause links in your emails are sent to your page instead of the default one.
+
+- **Scheme:** `https://` is assumed if you don't include one. If you're testing against a local server, include `http://` yourself.
+- **Default page:** Leave the field empty to use the default page.
+
+![A screenshot of the custom subscription preferences page section in the project settings main tab.](./project-settings-custom-subscription-preferences-page.webp)
 
 You can also change your email theme of the project in this section. Changing the email theme will update the design of all your emails. Your saved templates and blocks are tied to their original theme, they won't be accessible while on a different theme, but if you switch back, they will be available again. However, any overridden theme variables (such as colors or images) will be permanently lost, even if you switch back, those overriding values will not be restored.
 
