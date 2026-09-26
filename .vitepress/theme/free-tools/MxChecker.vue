@@ -3,6 +3,7 @@ import { ref, computed, onMounted, watch, nextTick } from 'vue'
 import { checkMx } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import { syncWithUrl, loadFromUrl } from './helpers/urlSync.js'
+import { mdiMagnify, mdiClose, mdiAlertCircleOutline, mdiCheck, mdiAlertOutline, mdiInformationOutline } from '@mdi/js'
 import Turnstile from './Turnstile.vue'
 import SignalIcon from './SignalIcon.vue'
 import ToolSwitcher from './ToolSwitcher.vue'
@@ -133,9 +134,7 @@ onMounted(async () => {
       <form class="search-form" @submit.prevent="checkMxHandler">
         <div class="search-input-wrap">
           <span class="search-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-            </svg>
+            <svg viewBox="0 0 24 24" width="16" height="16"><path :d="mdiMagnify" fill="currentColor"/></svg>
           </span>
           <input
             id="domain"
@@ -154,7 +153,7 @@ onMounted(async () => {
             aria-label="Clear domain"
             @click="domain = ''"
           >
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <svg viewBox="0 0 24 24" width="11" height="11"><path :d="mdiClose" fill="currentColor"/></svg>
           </button>
         </div>
         <button type="submit" class="search-btn" :disabled="isFormDisabled">
@@ -175,7 +174,7 @@ onMounted(async () => {
 
     <!-- Error -->
     <div v-if="errorMessage" class="error-pill">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <svg viewBox="0 0 24 24" width="14" height="14"><path :d="mdiAlertCircleOutline" fill="currentColor"/></svg>
       {{ errorMessage }}
     </div>
 
@@ -185,8 +184,8 @@ onMounted(async () => {
       <!-- Hero -->
       <div class="hero" :class="result.valid && result.records.length ? 'hero-pass' : 'hero-fail'">
         <div class="hero-icon" :class="result.valid && result.records.length ? 'icon-pass' : 'icon-fail'">
-          <svg v-if="result.valid && result.records.length" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          <svg v-else width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg v-if="result.valid && result.records.length" viewBox="0 0 24 24" width="28" height="28"><path :d="mdiCheck" fill="currentColor"/></svg>
+          <svg v-else viewBox="0 0 24 24" width="28" height="28"><path :d="mdiClose" fill="currentColor"/></svg>
         </div>
         <div class="hero-text">
           <h2 class="hero-title">{{ result.records.length ? 'MX Records Found' : 'No MX Records' }}</h2>
@@ -233,12 +232,12 @@ onMounted(async () => {
 
       <!-- Alerts -->
       <div v-if="result.warnings?.length" class="alert alert-warn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16"><path :d="mdiAlertOutline" fill="currentColor"/></svg>
         <ul><li v-for="w in result.warnings" :key="w">{{ w }}</li></ul>
       </div>
 
       <div v-if="result.recommendations?.length" class="alert alert-tip">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16"><path :d="mdiInformationOutline" fill="currentColor"/></svg>
         <ul><li v-for="r in result.recommendations" :key="r">{{ r }}</li></ul>
       </div>
 
@@ -291,7 +290,7 @@ onMounted(async () => {
   width: 100%;
   padding: 0.75rem 2.25rem 0.75rem 2.5rem;
   border: 1.5px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 10px;
+  border-radius: 4px;
   font-size: 1rem;
   background: var(--vp-c-bg, #fff);
   color: var(--vp-c-text-1, #111827);
@@ -361,7 +360,7 @@ onMounted(async () => {
   font-size: 0.9rem;
   font-weight: 600;
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.15s, transform 0.1s, box-shadow 0.15s, padding 0.2s;
@@ -406,7 +405,7 @@ onMounted(async () => {
   background: #fef2f2;
   color: #991b1b;
   border: 1px solid rgba(220,38,38,0.2);
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: 1rem;
@@ -425,17 +424,17 @@ onMounted(async () => {
   align-items: center;
   gap: 1.25rem;
   padding: 1.5rem 1.75rem;
-  border-radius: 14px;
+  border-radius: 4px;
   border: 1px solid transparent;
   flex-wrap: wrap;
 }
 
-.hero-pass { background: linear-gradient(135deg, rgba(22,163,74,0.06) 0%, hsla(197,87%,50%,0.04) 100%); border-color: rgba(22,163,74,0.2); }
+.hero-pass { background: rgba(22,163,74,0.06); border-color: rgba(22,163,74,0.2); }
 .hero-fail { background: rgba(220,38,38,0.04); border-color: rgba(220,38,38,0.18); }
 
 .hero-icon {
   width: 52px; height: 52px;
-  border-radius: 13px;
+  border-radius: 4px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
@@ -476,7 +475,7 @@ onMounted(async () => {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 0.15rem 0.5rem;
-  border-radius: 999px;
+  border-radius: 4px;
   margin-top: 0.25rem;
 }
 
@@ -496,7 +495,7 @@ onMounted(async () => {
   flex-direction: column;
   gap: 0.2rem;
   padding: 0.75rem 0.875rem;
-  border-radius: 10px;
+  border-radius: 4px;
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
   background: var(--vp-c-bg, #fff);
 }
@@ -518,7 +517,7 @@ onMounted(async () => {
 .tool-card {
   background: var(--vp-c-bg, #fff);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 1.25rem 1.5rem;
 }
 
@@ -540,7 +539,7 @@ onMounted(async () => {
   gap: 0.875rem;
   padding: 0.75rem 0.875rem;
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  border-radius: 9px;
+  border-radius: 4px;
   background: var(--vp-c-bg-soft, #f8f9fa);
 }
 
@@ -551,7 +550,7 @@ onMounted(async () => {
   width: 36px; height: 36px;
   background: var(--vp-c-brand);
   color: #fff;
-  border-radius: 9px;
+  border-radius: 4px;
   font-weight: 700;
   font-size: 0.875rem;
   flex-shrink: 0;
@@ -567,7 +566,7 @@ onMounted(async () => {
   display: flex;
   gap: 0.75rem;
   padding: 0.875rem 1.125rem;
-  border-radius: 10px;
+  border-radius: 4px;
   border: 1px solid transparent;
   font-size: 0.875rem;
   line-height: 1.6;
@@ -583,7 +582,7 @@ onMounted(async () => {
 .alert-tip > svg { color: var(--vp-c-brand-dark, #0891b2); }
 
 /* Dark mode */
-.dark .hero-pass { background: linear-gradient(135deg, rgba(22,163,74,0.09) 0%, hsla(197,87%,50%,0.06) 100%); border-color: rgba(22,163,74,0.25); }
+.dark .hero-pass { background: rgba(22,163,74,0.09); border-color: rgba(22,163,74,0.25); }
 .dark .hero-fail { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.22); }
 .dark .icon-pass { background: rgba(22,163,74,0.18); color: #4ade80; }
 .dark .icon-fail { background: rgba(220,38,38,0.18); color: #f87171; }
