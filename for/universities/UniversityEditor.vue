@@ -15,28 +15,25 @@ const contentElements = [
 const editorPoints = [
   {
     title: 'Drag and drop, no HTML',
-    description: 'Text, images, buttons, dividers, and columns. Arrange them on the canvas and preview how it renders in dark mode before you send.'
+    description: 'Arrange text, images, buttons, and columns on the canvas, then preview in dark mode before you send.'
   },
   {
     title: 'Saved blocks',
-    description: 'Save a section once and reuse it in every newsletter. Update the block and every email built from it follows.'
+    description: 'Save a header, footer, or event section once. Update it and every email that uses it follows.'
   },
   {
     title: 'Saved templates',
-    description: 'Keep your finished layouts, the monthly student newsletter, the event invitation, the alumni update, ready for whoever sends next.'
+    description: 'Keep layouts like the monthly newsletter or the event invitation ready for whoever sends next.'
   }
 ]
 </script>
 
 <template>
   <section class="editor-section" aria-labelledby="editor-title">
-    <h2 id="editor-title" class="section-title">Build once, reuse every time</h2>
-    <p class="section-subtitle constrained">
-      Save headers, footers, event sections and complete layouts, then reuse them in future emails without rebuilding everything from scratch.
-    </p>
-    <p class="section-subtitle section-subtitle--secondary constrained">
-      Keep each newsletter consistent, even when multiple people are creating emails.
-    </p>
+    <div class="editor-head">
+      <h2 id="editor-title">Build a newsletter once, then reuse it</h2>
+      <p>Save sections and full layouts, so every issue looks the same no matter who on the team builds it.</p>
+    </div>
 
     <div class="editor-mock" role="img" aria-label="The BlueFox email builder: an element palette on the left, the newsletter canvas in the middle, and element settings on the right">
       <!-- Top bar -->
@@ -155,11 +152,8 @@ const editorPoints = [
 
     <ul class="editor-points" role="list">
       <li v-for="point in editorPoints" :key="point.title" class="editor-point">
-        <div class="editor-point-dot" aria-hidden="true"></div>
-        <div>
-          <p class="editor-point-title">{{ point.title }}</p>
-          <p class="editor-point-desc">{{ point.description }}</p>
-        </div>
+        <p class="editor-point-title">{{ point.title }}</p>
+        <p class="editor-point-desc">{{ point.description }}</p>
       </li>
     </ul>
   </section>
@@ -168,44 +162,41 @@ const editorPoints = [
 <style scoped>
 .editor-section { padding: 0; }
 
-.section-title {
-  margin: 0 0 12px;
-  max-width: 900px;
-  font-size: clamp(28px, 4vw, 42px);
+.editor-head {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.editor-head h2 {
+  margin: 0 0 10px;
+  font-size: clamp(22px, 3vw, 32px);
   line-height: 1.2;
-  text-align: left;
   border-top: 0 !important;
   padding-top: 0 !important;
 }
 
-.section-subtitle {
+.editor-head p {
   margin: 0;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.65;
-  color: #4b5563;
-  text-align: left;
+  color: #475569;
 }
 
-html.dark .section-subtitle { color: #9ca3af; }
-
-.section-subtitle--secondary { margin-top: 10px; }
-
-.constrained { max-width: 760px; }
+html.dark .editor-head p { color: #94a3b8; }
 
 /* ── Editor mock ─────────────────────────────────────────────────────────── */
 .editor-mock {
   margin-top: 32px;
-  border-radius: 16px;
+  border-radius: 4px;
   overflow: hidden;
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e5e7eb;
 }
 
 html.dark .editor-mock {
-  background: rgba(15, 23, 42, 0.6);
-  border-color: rgba(148, 163, 184, 0.2);
-  box-shadow: none;
+  background: #1e293b;
+  border-color: #334155;
 }
 
 /* Top bar */
@@ -386,14 +377,14 @@ html.dark .ed-canvas-wrap { background: rgba(2, 8, 20, 0.5); }
   flex-direction: column;
   gap: 8px;
   padding: 12px;
-  border-radius: 10px;
+  border-radius: 4px;
   background: #ffffff;
-  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e2e8f0;
 }
 
 html.dark .ed-canvas {
   background: #111c2e;
-  box-shadow: none;
+  border-color: #334155;
 }
 
 .ed-node {
@@ -416,7 +407,7 @@ html.dark .ed-canvas {
   width: 22px;
   height: 22px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #13b0ee, #392c91);
+  background: #392c91;
   flex: 0 0 auto;
 }
 
@@ -424,7 +415,7 @@ html.dark .ed-canvas {
   gap: 4px;
   padding: 16px 12px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #6366f1, #13b0ee);
+  background: #392c91;
 }
 
 .ed-hero-kicker {
@@ -614,34 +605,23 @@ html.dark .ed-swatch-name { color: #cbd5e1; }
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 12px;
 }
 
 .editor-point {
   /* the global `li + li` rule would otherwise nudge cards 2 and 3 down 8px */
   margin-top: 0;
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 20px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 28px 24px;
+  text-align: center;
 }
 
-html.dark .editor-point { background: rgba(30, 41, 59, 0.5); }
-
-.editor-point-dot {
-  flex: 0 0 auto;
-  width: 10px;
-  height: 10px;
-  margin-top: 6px;
-  border-radius: 50%;
-  background: #6366f1;
-}
+html.dark .editor-point { background: #0f172a; }
 
 .editor-point-title {
-  margin: 0 0 6px;
-  font-size: 15px;
+  margin: 0 0 8px;
+  font-size: 17px;
   font-weight: 700;
   line-height: 1.3;
   color: #0f172a;
@@ -651,8 +631,8 @@ html.dark .editor-point-title { color: #f1f5f9; }
 
 .editor-point-desc {
   margin: 0;
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: 15px;
+  line-height: 1.6;
   color: #475569;
 }
 
@@ -661,7 +641,6 @@ html.dark .editor-point-desc { color: #94a3b8; }
 @media (max-width: 980px) {
   .ed-body { grid-template-columns: 148px 1fr; }
   .ed-panel--right { display: none; }
-  .editor-points { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 620px) {
@@ -669,10 +648,9 @@ html.dark .editor-point-desc { color: #94a3b8; }
   .ed-panel--left { display: none; }
   .ed-canvas-wrap { padding: 16px 12px; }
   .ed-btn--ghost, .ed-zoom { display: none; }
-  .editor-points { grid-template-columns: 1fr; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .ed-node { transition: none; }
+@media (max-width: 860px) {
+  .editor-points { grid-template-columns: 1fr; }
 }
 </style>
