@@ -3,7 +3,7 @@ import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { checkLinks, getPagePreview  } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import Turnstile from './Turnstile.vue'
-import { mdiLinkVariant } from '@mdi/js'
+import { mdiLinkVariant, mdiChevronLeft, mdiMonitor, mdiCellphone, mdiContentCopy, mdiAlertOutline, mdiAlertCircleOutline, mdiArrowLeft, mdiRefresh, mdiOpenInNew, mdiArrowRight, mdiClose } from '@mdi/js'
 
 const htmlTemplate = ref('')
 const loading = ref(false)
@@ -526,7 +526,7 @@ onUnmounted(() => {
     <div v-if="!result" class="lc-form-stage">
       <header class="lc-hero">
         <a href="/tools/content/" class="lc-hero-crumb">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path :d="mdiChevronLeft" fill="currentColor"/></svg>
           Content tools
         </a>
         <div class="lc-hero-band">
@@ -562,11 +562,11 @@ onUnmounted(() => {
             <label>Template preview</label>
             <div class="lc-segmented" role="group" aria-label="Preview device">
               <button type="button" @click="previewMode = 'desktop'" :class="['lc-seg-btn', { active: previewMode === 'desktop' }]" title="Desktop preview">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24"><path :d="mdiMonitor" fill="currentColor"/></svg>
                 <span>Desktop</span>
               </button>
               <button type="button" @click="previewMode = 'mobile'" :class="['lc-seg-btn', { active: previewMode === 'mobile' }]" title="Mobile preview">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                <svg width="15" height="15" viewBox="0 0 24 24"><path :d="mdiCellphone" fill="currentColor"/></svg>
                 <span>Mobile</span>
               </button>
             </div>
@@ -601,7 +601,7 @@ onUnmounted(() => {
                 :title="`Copy ${link.href} to clipboard`"
                 aria-label="Copy link"
               >
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24"><path :d="mdiContentCopy" fill="currentColor"/></svg>
               </button>
             </div>
           </div>
@@ -609,7 +609,7 @@ onUnmounted(() => {
         </div>
 
         <div v-else-if="htmlTemplate.trim()" class="lc-alert lc-alert-warn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiAlertOutline" fill="currentColor"/></svg>
           <div>
             <p>No valid links found in your template.</p>
             <small>Make sure your HTML contains &lt;a href="…"&gt; tags with real URLs.</small>
@@ -634,7 +634,7 @@ onUnmounted(() => {
         </button>
 
         <div v-if="errorMessage" class="lc-error">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24"><path :d="mdiAlertCircleOutline" fill="currentColor"/></svg>
           {{ errorMessage }}
         </div>
       </form>
@@ -647,9 +647,7 @@ onUnmounted(() => {
         <!-- UPDATED HEADER (Option 1) -->
         <div class="lc-results-head">
           <button @click="resetToForm" class="lc-back">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiArrowLeft" fill="currentColor"/></svg>
             <span>Back to form</span>
           </button>
           <h2>Link check results</h2>
@@ -720,17 +718,17 @@ onUnmounted(() => {
                   </span>
                   <div class="lc-detail-actions">
                     <button @click="copyToClipboard(selectedResult.url, $event)" class="lc-icon-btn" :title="`Copy ${selectedResult.url} to clipboard`" aria-label="Copy URL">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                      <svg width="15" height="15" viewBox="0 0 24 24"><path :d="mdiContentCopy" fill="currentColor"/></svg>
                     </button>
                     <button @click="reloadSelectedResult" :disabled="loadingStates[selectedIndex]" class="lc-icon-btn" title="Re-check this link" aria-label="Re-check link">
-                      <svg v-if="!loadingStates[selectedIndex]" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                      <svg v-if="!loadingStates[selectedIndex]" width="15" height="15" viewBox="0 0 24 24"><path :d="mdiRefresh" fill="currentColor"/></svg>
                       <span v-else class="lc-spinner lc-spinner-dark"></span>
                     </button>
                   </div>
                 </div>
                 <a :href="selectedResult.url" target="_blank" rel="noopener noreferrer" class="lc-detail-url" :title="selectedResult.url">
                   {{ selectedResult.url }}
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                  <svg width="13" height="13" viewBox="0 0 24 24"><path :d="mdiOpenInNew" fill="currentColor"/></svg>
                 </a>
                 <div class="lc-detail-meta">
                   <span v-if="selectedResult.statusCode" class="lc-chip">HTTP {{ selectedResult.statusCode }}</span>
@@ -740,17 +738,17 @@ onUnmounted(() => {
 
               <!-- Diagnostics -->
               <div v-if="selectedResult.error" class="lc-alert lc-alert-error">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiAlertCircleOutline" fill="currentColor"/></svg>
                 <div><strong>Error:</strong> {{ selectedResult.error }}</div>
               </div>
 
               <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="lc-alert lc-alert-warn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiArrowRight" fill="currentColor"/></svg>
                 <div class="lc-redirect">
                   <div class="lc-redirect-head">
                     <strong>Redirects to</strong>
                     <button @click="copyToClipboard(selectedResult.finalUrl, $event)" class="lc-icon-btn lc-icon-btn-sm" :title="`Copy ${selectedResult.finalUrl}`" aria-label="Copy final URL">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                      <svg width="12" height="12" viewBox="0 0 24 24"><path :d="mdiContentCopy" fill="currentColor"/></svg>
                     </button>
                   </div>
                   <span class="lc-redirect-url">{{ selectedResult.finalUrl }}</span>
@@ -775,22 +773,22 @@ onUnmounted(() => {
 
                   <div v-if="activeDetailsTab === 'page-preview'" class="lc-segmented" role="group" aria-label="Preview device">
                     <button type="button" @click="previewMode = 'desktop'" :class="['lc-seg-btn', { active: previewMode === 'desktop' }]" title="Desktop">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                      <svg width="15" height="15" viewBox="0 0 24 24"><path :d="mdiMonitor" fill="currentColor"/></svg>
                       <span>Desktop</span>
                     </button>
                     <button type="button" @click="previewMode = 'mobile'" :class="['lc-seg-btn', { active: previewMode === 'mobile' }]" title="Mobile">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                      <svg width="15" height="15" viewBox="0 0 24 24"><path :d="mdiCellphone" fill="currentColor"/></svg>
                       <span>Mobile</span>
                     </button>
                   </div>
 
                   <div v-if="activeDetailsTab === 'template-preview'" class="lc-segmented" role="group" aria-label="Preview device">
                     <button type="button" @click="templatePreviewMode = 'desktop'" :class="['lc-seg-btn', { active: templatePreviewMode === 'desktop' }]" title="Desktop">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                      <svg width="15" height="15" viewBox="0 0 24 24"><path :d="mdiMonitor" fill="currentColor"/></svg>
                       <span>Desktop</span>
                     </button>
                     <button type="button" @click="templatePreviewMode = 'mobile'" :class="['lc-seg-btn', { active: templatePreviewMode === 'mobile' }]" title="Mobile">
-                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                      <svg width="15" height="15" viewBox="0 0 24 24"><path :d="mdiCellphone" fill="currentColor"/></svg>
                       <span>Mobile</span>
                     </button>
                   </div>
@@ -847,7 +845,7 @@ onUnmounted(() => {
               </div>
 
               <div v-if="selectedResult.status === 'soft404'" class="lc-alert lc-alert-warn">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiAlertOutline" fill="currentColor"/></svg>
                 <div>
                   <strong>Soft 404 detected.</strong>
                   <p>This page returns HTTP 200 but shows generic homepage content instead of the requested page, a sign the page doesn't really exist.</p>
@@ -872,24 +870,24 @@ onUnmounted(() => {
               {{ statusMeta(selectedResult.status).label }}
             </span>
             <button @click="closeModal" class="lc-modal-close" aria-label="Close">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              <svg width="18" height="18" viewBox="0 0 24 24"><path :d="mdiClose" fill="currentColor"/></svg>
             </button>
           </div>
 
           <div class="lc-modal-body">
             <div class="lc-detail-actions lc-detail-actions-end">
               <button @click="copyToClipboard(selectedResult.url, $event)" class="lc-icon-btn" :title="`Copy ${selectedResult.url}`" aria-label="Copy URL">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiContentCopy" fill="currentColor"/></svg>
               </button>
               <button @click="reloadSelectedResult" :disabled="loadingStates[selectedIndex]" class="lc-icon-btn" title="Re-check this link" aria-label="Re-check link">
-                <svg v-if="!loadingStates[selectedIndex]" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+                <svg v-if="!loadingStates[selectedIndex]" width="16" height="16" viewBox="0 0 24 24"><path :d="mdiRefresh" fill="currentColor"/></svg>
                 <span v-else class="lc-spinner lc-spinner-dark"></span>
               </button>
             </div>
 
             <a :href="selectedResult.url" target="_blank" rel="noopener noreferrer" class="lc-detail-url" :title="selectedResult.url">
               {{ selectedResult.url }}
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              <svg width="13" height="13" viewBox="0 0 24 24"><path :d="mdiOpenInNew" fill="currentColor"/></svg>
             </a>
 
             <div class="lc-detail-meta">
@@ -898,17 +896,17 @@ onUnmounted(() => {
             </div>
 
             <div v-if="selectedResult.error" class="lc-alert lc-alert-error">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiAlertCircleOutline" fill="currentColor"/></svg>
               <div><strong>Error:</strong> {{ selectedResult.error }}</div>
             </div>
 
             <div v-if="selectedResult.finalUrl && selectedResult.finalUrl !== selectedResult.url" class="lc-alert lc-alert-warn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiArrowRight" fill="currentColor"/></svg>
               <div class="lc-redirect">
                 <div class="lc-redirect-head">
                   <strong>Redirects to</strong>
                   <button @click="copyToClipboard(selectedResult.finalUrl, $event)" class="lc-icon-btn lc-icon-btn-sm" :title="`Copy ${selectedResult.finalUrl}`" aria-label="Copy final URL">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    <svg width="12" height="12" viewBox="0 0 24 24"><path :d="mdiContentCopy" fill="currentColor"/></svg>
                   </button>
                 </div>
                 <span class="lc-redirect-url">{{ selectedResult.finalUrl }}</span>
@@ -921,7 +919,7 @@ onUnmounted(() => {
             </div>
 
             <div v-if="selectedResult.status === 'soft404'" class="lc-alert lc-alert-warn">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiAlertOutline" fill="currentColor"/></svg>
               <div><strong>Soft 404 detected.</strong><p>This page returns the homepage content instead of the requested page.</p></div>
             </div>
           </div>
@@ -936,8 +934,8 @@ onUnmounted(() => {
    Design tokens — semantic status colors that flip for dark mode.
    ====================================================================== */
 .link-checker {
-  --lc-radius: 12px;
-  --lc-radius-sm: 8px;
+  --lc-radius: 4px;
+  --lc-radius-sm: 4px;
   --lc-positive: #16a34a;
   --lc-negative: #dc2626;
   --lc-warning: #d97706;
@@ -1035,7 +1033,7 @@ onUnmounted(() => {
 .lc-card {
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 14px;
+  border-radius: 4px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -1071,7 +1069,7 @@ onUnmounted(() => {
   height: 1.4rem;
   padding: 0 0.4rem;
   margin-left: 0.35rem;
-  border-radius: 999px;
+  border-radius: 4px;
   background: hsla(197, 87%, 50%, 0.12);
   color: var(--vp-c-brand-dark, #0891b2);
   font-size: 0.75rem;
@@ -1085,7 +1083,7 @@ onUnmounted(() => {
   width: 100%;
   padding: 0.875rem 1rem;
   border: 1.5px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 10px;
+  border-radius: 4px;
   font-size: 0.9rem;
   font-family: var(--vp-font-family-mono, monospace);
   line-height: 1.5;
@@ -1124,7 +1122,7 @@ onUnmounted(() => {
   display: inline-flex;
   background: var(--vp-c-bg-soft, #f1f5f9);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
+  border-radius: 4px;
   padding: 3px;
   gap: 2px;
 }
@@ -1137,7 +1135,7 @@ onUnmounted(() => {
   border: none;
   background: transparent;
   color: var(--vp-c-text-2);
-  border-radius: 6px;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 0.8rem;
   font-weight: 600;
@@ -1224,7 +1222,7 @@ onUnmounted(() => {
   flex-shrink: 0;
   padding: 0;
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 7px;
+  border-radius: 4px;
   background: var(--vp-c-bg-soft, #f8f9fa);
   color: var(--vp-c-text-2);
   cursor: pointer;
@@ -1283,7 +1281,7 @@ onUnmounted(() => {
   width: 100%;
   padding: 0.85rem 2rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
   background: var(--vp-c-brand);
   color: #fff;
   font-size: 0.95rem;
@@ -1377,7 +1375,7 @@ onUnmounted(() => {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 4px;
   transition: all 0.15s ease;
 }
 
@@ -1406,7 +1404,7 @@ onUnmounted(() => {
   flex-direction: column;
   align-items: flex-start;
   padding: 0.75rem 1rem;
-  border-radius: 10px;
+  border-radius: 4px;
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
   background: var(--vp-c-bg);
 }
@@ -1473,7 +1471,7 @@ onUnmounted(() => {
   text-align: left;
   padding: 0.8rem 0.95rem;
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  border-radius: 10px;
+  border-radius: 4px;
   background: var(--vp-c-bg);
   cursor: pointer;
   transition: border-color 0.15s, box-shadow 0.15s;
@@ -1528,7 +1526,7 @@ onUnmounted(() => {
   display: inline-flex;
   align-items: center;
   padding: 0.12rem 0.45rem;
-  border-radius: 5px;
+  border-radius: 4px;
   background: var(--vp-c-bg-soft, #f1f5f9);
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
   font-family: var(--vp-font-family-mono, monospace);
@@ -1571,7 +1569,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 0.45rem;
   padding: 0.3rem 0.7rem;
-  border-radius: 999px;
+  border-radius: 4px;
   background: var(--vp-c-bg);
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
   font-size: 0.8rem;
@@ -1636,7 +1634,7 @@ onUnmounted(() => {
   border: none;
   background: transparent;
   color: var(--vp-c-text-2);
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 0.85rem;
   font-weight: 600;
@@ -1690,7 +1688,7 @@ onUnmounted(() => {
 .lc-sk-bar {
   height: 18px;
   margin-bottom: 0.75rem;
-  border-radius: 5px;
+  border-radius: 4px;
   background: linear-gradient(90deg, var(--vp-c-bg-soft) 25%, var(--vp-c-bg-mute) 50%, var(--vp-c-bg-soft) 75%);
   background-size: 200% 100%;
   animation: lc-shimmer 1.4s infinite;
@@ -1733,7 +1731,7 @@ onUnmounted(() => {
   background: hsla(45, 100%, 50%, 0.25);
   color: var(--vp-c-text-1);
   padding: 0 4px;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
 /* Empty state */
@@ -1798,7 +1796,7 @@ onUnmounted(() => {
   width: 2rem;
   height: 2rem;
   border: none;
-  border-radius: 7px;
+  border-radius: 4px;
   background: transparent;
   color: var(--vp-c-text-2);
   cursor: pointer;

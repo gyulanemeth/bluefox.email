@@ -6,6 +6,7 @@ import { syncWithUrl, loadFromUrl } from './helpers/urlSync.js'
 import Turnstile from './Turnstile.vue'
 import SignalIcon from './SignalIcon.vue'
 import ToolSwitcher from './ToolSwitcher.vue'
+import { mdiMagnify, mdiClose, mdiAlertCircleOutline, mdiChevronLeft, mdiCheck, mdiAlertOutline, mdiInformationOutline, mdiChevronDown } from '@mdi/js'
 
 const domain = ref('')
 const testIp = ref('')
@@ -224,9 +225,7 @@ onMounted(async () => {
       <form class="search-form" @submit.prevent="checkSpfHandler">
         <div class="search-input-wrap">
           <span class="search-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiMagnify" fill="currentColor"/></svg>
           </span>
           <input
             id="domain"
@@ -245,7 +244,7 @@ onMounted(async () => {
             aria-label="Clear domain"
             @click="domain = ''"
           >
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <svg width="11" height="11" viewBox="0 0 24 24"><path :d="mdiClose" fill="currentColor"/></svg>
           </button>
         </div>
         <button type="submit" class="search-btn" :disabled="isFormDisabled">
@@ -278,7 +277,7 @@ onMounted(async () => {
             autocomplete="off"
           />
           <button type="button" class="ip-field-clear" aria-label="Remove IP test" @click="testIp = ''; showIpField = false">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <svg width="11" height="11" viewBox="0 0 24 24"><path :d="mdiClose" fill="currentColor"/></svg>
           </button>
         </div>
       </div>
@@ -286,14 +285,14 @@ onMounted(async () => {
 
     <!-- Error -->
     <div v-if="errorMessage" class="error-pill">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24"><path :d="mdiAlertCircleOutline" fill="currentColor"/></svg>
       {{ errorMessage }}
     </div>
 
     <!-- Back nav -->
     <div v-if="currentIndex > 0 && result" class="back-nav">
       <button type="button" @click="goBack" class="back-btn">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+        <svg width="13" height="13" viewBox="0 0 24 24"><path :d="mdiChevronLeft" fill="currentColor"/></svg>
         Back to "{{ history[currentIndex - 1]?.domain }}"
       </button>
     </div>
@@ -304,8 +303,8 @@ onMounted(async () => {
       <!-- Hero -->
       <div class="hero" :class="result.valid && result.record !== 'Not found' ? 'hero-pass' : 'hero-fail'">
         <div class="hero-icon" :class="result.valid && result.record !== 'Not found' ? 'icon-pass' : 'icon-fail'">
-          <svg v-if="result.valid && result.record !== 'Not found'" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          <svg v-else width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg v-if="result.valid && result.record !== 'Not found'" width="28" height="28" viewBox="0 0 24 24"><path :d="mdiCheck" fill="currentColor"/></svg>
+          <svg v-else width="28" height="28" viewBox="0 0 24 24"><path :d="mdiClose" fill="currentColor"/></svg>
         </div>
         <div class="hero-text">
           <h2 class="hero-title">{{ result.record !== 'Not found' ? 'SPF Record Found' : 'SPF Record Missing' }}</h2>
@@ -375,12 +374,12 @@ onMounted(async () => {
 
       <!-- Alerts -->
       <div v-if="result.warnings?.length" class="alert alert-warn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiAlertOutline" fill="currentColor"/></svg>
         <ul><li v-for="w in result.warnings" :key="w">{{ w }}</li></ul>
       </div>
 
       <div v-if="result.recommendations?.length" class="alert alert-tip">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiInformationOutline" fill="currentColor"/></svg>
         <ul><li v-for="r in result.recommendations" :key="r">{{ r }}</li></ul>
       </div>
 
@@ -389,7 +388,7 @@ onMounted(async () => {
         <details class="disclosure">
           <summary class="disclosure-trigger">
             <span class="disclosure-label">Raw SPF record</span>
-            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24"><path :d="mdiChevronDown" fill="currentColor"/></svg>
           </summary>
           <div class="disclosure-body">
             <code class="raw-record">{{ result.record }}</code>
@@ -399,7 +398,7 @@ onMounted(async () => {
         <details v-if="result.mailauthResult" class="disclosure">
           <summary class="disclosure-trigger">
             <span class="disclosure-label">Mailauth validation</span>
-            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24"><path :d="mdiChevronDown" fill="currentColor"/></svg>
           </summary>
           <div class="disclosure-body">
             <p class="mailauth-status"><strong>Status:</strong> {{ result.mailauthResult.status.result }}</p>
@@ -450,7 +449,7 @@ onMounted(async () => {
   width: 100%;
   padding: 0.75rem 2.25rem 0.75rem 2.5rem;
   border: 1.5px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 10px;
+  border-radius: 4px;
   font-size: 1rem;
   background: var(--vp-c-bg, #fff);
   color: var(--vp-c-text-1, #111827);
@@ -507,7 +506,7 @@ onMounted(async () => {
   font-size: 0.9rem;
   font-weight: 600;
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.15s, transform 0.1s, box-shadow 0.15s, padding 0.2s;
@@ -560,7 +559,7 @@ onMounted(async () => {
   flex: 1;
   padding: 0.5rem 0.75rem;
   border: 1.5px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 0.85rem;
   font-family: monospace;
   background: var(--vp-c-bg, #fff);
@@ -598,7 +597,7 @@ onMounted(async () => {
   background: #fef2f2;
   color: #991b1b;
   border: 1px solid rgba(220,38,38,0.2);
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: 1rem;
@@ -615,7 +614,7 @@ onMounted(async () => {
   color: var(--vp-c-text-2, #6b7280);
   border: 1px solid var(--vp-c-border, #e5e7eb);
   padding: 0.5rem 0.875rem;
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 0.825rem;
   font-weight: 500;
@@ -633,15 +632,15 @@ onMounted(async () => {
   align-items: center;
   gap: 1.25rem;
   padding: 1.5rem 1.75rem;
-  border-radius: 14px;
+  border-radius: 4px;
   border: 1px solid transparent;
   flex-wrap: wrap;
 }
 
-.hero-pass { background: linear-gradient(135deg, rgba(22,163,74,0.06) 0%, hsla(197,87%,50%,0.04) 100%); border-color: rgba(22,163,74,0.2); }
+.hero-pass { background: rgba(22,163,74,0.06); border-color: rgba(22,163,74,0.2); }
 .hero-fail { background: rgba(220,38,38,0.04); border-color: rgba(220,38,38,0.18); }
 
-.hero-icon { width: 52px; height: 52px; border-radius: 13px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.hero-icon { width: 52px; height: 52px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .icon-pass { background: rgba(22,163,74,0.12); color: #16a34a; border: 1px solid rgba(22,163,74,0.2); }
 .icon-fail { background: rgba(220,38,38,0.1);  color: #dc2626; border: 1px solid rgba(220,38,38,0.15); }
 
@@ -652,7 +651,7 @@ onMounted(async () => {
 .hero-score { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
 .score-num { font-size: 1.6rem; font-weight: 800; color: var(--vp-c-text-1, #111827); line-height: 1; }
 .score-denom { font-size: 0.9rem; font-weight: 500; color: var(--vp-c-text-3, #9ca3af); }
-.score-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.15rem 0.5rem; border-radius: 999px; margin-top: 0.25rem; }
+.score-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; padding: 0.15rem 0.5rem; border-radius: 4px; margin-top: 0.25rem; }
 
 .score-strong, .score-excellent { background: rgba(22,163,74,0.12); color: #15803d; }
 .score-good, .score-medium      { background: rgba(217,119,6,0.12);  color: #b45309; }
@@ -666,7 +665,7 @@ onMounted(async () => {
   flex-direction: column;
   gap: 0.2rem;
   padding: 0.75rem 0.875rem;
-  border-radius: 10px;
+  border-radius: 4px;
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
   background: var(--vp-c-bg, #fff);
 }
@@ -687,7 +686,7 @@ onMounted(async () => {
 .tool-card {
   background: var(--vp-c-bg, #fff);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 1.25rem 1.5rem;
 }
 
@@ -710,11 +709,11 @@ onMounted(async () => {
   color: var(--vp-c-text-1, #374151);
   background: var(--vp-c-bg-soft, #f8f9fa);
   padding: 0.25rem 0.5rem;
-  border-radius: 6px;
+  border-radius: 4px;
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
 }
 
-.ip-result-pill { padding: 0.125rem 0.625rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.ip-result-pill { padding: 0.125rem 0.625rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
 .ip-result-pill.result-pass { background: rgba(22,163,74,0.1); color: #15803d; }
 .ip-result-pill.result-fail, .ip-result-pill.result-error { background: rgba(220,38,38,0.08); color: #b91c1c; }
 .ip-result-pill.result-softfail { background: rgba(217,119,6,0.1); color: #b45309; }
@@ -732,7 +731,7 @@ onMounted(async () => {
   gap: 0.75rem;
   padding: 0.625rem 0.75rem;
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  border-radius: 8px;
+  border-radius: 4px;
   background: var(--vp-c-bg-soft, #f8f9fa);
   font-family: monospace;
   font-size: 0.85rem;
@@ -747,7 +746,7 @@ onMounted(async () => {
   color: var(--vp-c-text-2, #6b7280);
   background: var(--vp-c-bg, #fff);
   padding: 0.2rem 0.5rem;
-  border-radius: 5px;
+  border-radius: 4px;
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
   flex-shrink: 0;
 }
@@ -755,7 +754,7 @@ onMounted(async () => {
 .mechanism-type.requires-lookup { color: var(--vp-c-text-1, #374151); font-weight: 700; }
 
 /* Alerts */
-.alert { display: flex; gap: 0.75rem; padding: 0.875rem 1.125rem; border-radius: 10px; border: 1px solid transparent; font-size: 0.875rem; line-height: 1.6; }
+.alert { display: flex; gap: 0.75rem; padding: 0.875rem 1.125rem; border-radius: 4px; border: 1px solid transparent; font-size: 0.875rem; line-height: 1.6; }
 .alert > svg { flex-shrink: 0; margin-top: 0.1rem; }
 .alert ul { margin: 0; padding-left: 1.1rem; }
 .alert li + li { margin-top: 0.2rem; }
@@ -770,7 +769,7 @@ onMounted(async () => {
 .disclosure {
   background: var(--vp-c-bg, #fff);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 10px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
@@ -796,7 +795,7 @@ details[open] .disclosure-chevron { transform: rotate(180deg); }
   margin-top: 0.875rem;
   padding: 0.875rem 1rem;
   background: var(--vp-c-bg-soft, #f8f9fa);
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 0.8rem;
   word-break: break-all;
   color: var(--vp-c-text-1, #374151);
@@ -807,14 +806,14 @@ details[open] .disclosure-chevron { transform: rotate(180deg); }
 .auth-info {
   background: var(--vp-c-bg-soft, #f8f9fa);
   padding: 0.875rem 1rem;
-  border-radius: 8px;
+  border-radius: 4px;
   overflow-x: auto;
   font-size: 0.8rem;
   margin: 0.625rem 0 0;
 }
 
 /* Dark mode */
-.dark .hero-pass { background: linear-gradient(135deg, rgba(22,163,74,0.09) 0%, hsla(197,87%,50%,0.06) 100%); border-color: rgba(22,163,74,0.25); }
+.dark .hero-pass { background: rgba(22,163,74,0.09); border-color: rgba(22,163,74,0.25); }
 .dark .hero-fail { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.22); }
 .dark .icon-pass { background: rgba(22,163,74,0.18); color: #4ade80; }
 .dark .icon-fail { background: rgba(220,38,38,0.18); color: #f87171; }
