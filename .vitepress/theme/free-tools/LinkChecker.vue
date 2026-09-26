@@ -3,6 +3,7 @@ import { ref, computed, onMounted, onUnmounted, watch, nextTick } from 'vue'
 import { checkLinks, getPagePreview  } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import Turnstile from './Turnstile.vue'
+import { mdiLinkVariant } from '@mdi/js'
 
 const htmlTemplate = ref('')
 const loading = ref(false)
@@ -530,11 +531,11 @@ onUnmounted(() => {
         </a>
         <div class="lc-hero-band">
           <span class="lc-hero-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24"><path :d="mdiLinkVariant" fill="currentColor"/></svg>
           </span>
           <div class="lc-hero-copy">
             <h1 class="lc-hero-title">Free Link Checker</h1>
-            <p class="lc-hero-sub">Validate every link in your email template — catch broken URLs, redirects, and soft 404s before you hit send.</p>
+            <p class="lc-hero-sub">Validate every link in your email template, catching broken URLs, redirects, and soft 404s before you hit send.</p>
           </div>
         </div>
       </header>
@@ -579,7 +580,7 @@ onUnmounted(() => {
             ></iframe>
           </div>
           <small class="lc-hint lc-desktop-only">Live preview of your template. Switch views to see desktop and mobile rendering.</small>
-          <small class="lc-hint lc-mobile-only">Preview is hidden on mobile for performance — use a desktop or tablet.</small>
+          <small class="lc-hint lc-mobile-only">Preview is hidden on mobile for performance. Use a desktop or tablet.</small>
         </div>
 
         <!-- Extracted links -->
@@ -821,7 +822,7 @@ onUnmounted(() => {
                       <p>Page preview is only available for links that return content.</p>
                     </div>
                   </div>
-                  <small class="lc-hint lc-mobile-only">Page preview is hidden on mobile for performance — use a desktop or tablet.</small>
+                  <small class="lc-hint lc-mobile-only">Page preview is hidden on mobile for performance. Use a desktop or tablet.</small>
                 </div>
 
                 <!-- Link location panel -->
@@ -835,7 +836,7 @@ onUnmounted(() => {
                     ></iframe>
                   </div>
                   <small class="lc-hint lc-desktop-only">The selected link is highlighted with a red outline in your original template.</small>
-                  <small class="lc-hint lc-mobile-only">Template preview is hidden on mobile for performance — use a desktop or tablet.</small>
+                  <small class="lc-hint lc-mobile-only">Template preview is hidden on mobile for performance. Use a desktop or tablet.</small>
                 </div>
               </div>
 
@@ -849,7 +850,7 @@ onUnmounted(() => {
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
                 <div>
                   <strong>Soft 404 detected.</strong>
-                  <p>This page returns HTTP 200 but shows generic homepage content instead of the requested page — a sign the page doesn't really exist.</p>
+                  <p>This page returns HTTP 200 but shows generic homepage content instead of the requested page, a sign the page doesn't really exist.</p>
                 </div>
               </div>
             </div>
@@ -996,22 +997,16 @@ onUnmounted(() => {
   align-items: center;
   gap: 1.1rem;
   padding: 1.5rem 1.75rem;
-  border-radius: 16px;
-  border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  background: linear-gradient(135deg, hsla(197, 87%, 50%, 0.1), hsla(197, 87%, 50%, 0.02));
+  border-radius: 4px;
+  background: var(--vp-c-bg-soft);
 }
 
 .lc-hero-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  background: var(--vp-c-brand);
-  color: #fff;
-  box-shadow: 0 4px 14px hsla(197, 87%, 50%, 0.35);
+  color: #13B0EE;
 }
 
 .lc-hero-copy {
@@ -1855,7 +1850,6 @@ onUnmounted(() => {
   .lc-card { padding: 1.1rem; }
   .lc-preview-frame { padding: 0.75rem; }
   .lc-hero-band { padding: 1.25rem; gap: 0.875rem; }
-  .lc-hero-icon { width: 44px; height: 44px; border-radius: 12px; }
   .lc-hero-title { font-size: 1.35rem; }
 }
 
