@@ -2,6 +2,7 @@
 import { useData } from 'vitepress'
 import { useDisplay } from 'vuetify'
 import PersonaLanding from '../components/PersonaLanding.vue'
+import EducationAudienceGrid from './EducationAudienceGrid.vue'
 import UniversitySegmentation from './UniversitySegmentation.vue'
 import UniversityEditor from './UniversityEditor.vue'
 import UniversitySocialProof from './UniversitySocialProof.vue'
@@ -18,9 +19,9 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     hero-badge=""
     hero-brand-bg
     hero-center-stacked-cta
-    hero-title="Email for students and alumni, billed per send"
-    hero-description="Send student newsletters, alumni updates, event invitations, and department news. Pay for the emails you send, not the contacts you store."
-    :hero-highlights="['No subscription', 'Credits valid 12 months', 'Segments by year and program']"
+    hero-title="University email without the contact-based pricing"
+    hero-description="Send newsletters, alumni updates and event invitations. Segment your audience, keep every email on-brand, and pay only for what you send."
+    :hero-highlights="['Pay per send, not per contact', 'Credits that fit the academic calendar', 'Segment audiences by year, program and engagement']"
     :hero-feature-items="[]"
     cta-text="Start free. 3,000 sends included"
     cta-href="https://app.bluefox.email/accounts/create-account"
@@ -34,14 +35,15 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     :show-integrations="false"
     :show-analytics="false"
     :show-design="false"
-    design-stripe="white"
-    rendering-stripe="blue"
-    deliverability-stripe="white"
-    bottom-stripe="blue"
-    extra-stripe="white"
-    final-cta-stripe="blue"
-    final-title="Try it with one newsletter first"
-    final-description="Move your next student newsletter or alumni update to BlueFox. 3,000 sends are free, and no card is needed."
+    after-pain-stripe="white"
+    design-stripe="blue"
+    rendering-stripe="white"
+    deliverability-stripe="blue"
+    bottom-stripe="white"
+    extra-stripe="blue"
+    final-cta-stripe="white"
+    final-title="Start with your team"
+    final-description="You do not need a university-wide rollout to get started. Try BlueFox with your newsletter, alumni program or communications team first."
     final-primary-cta-text="Talk to the founder"
     final-primary-cta-href="mailto:gyula@bluefox.email"
     final-secondary-cta-text="Start free"
@@ -49,6 +51,10 @@ const { lgAndUp, md, sm, xs } = useDisplay()
   >
     <template #heroVisual>
       <UniversitySocialProof />
+    </template>
+
+    <template #afterPain>
+      <EducationAudienceGrid />
     </template>
 
     <template #designContent>
@@ -68,18 +74,21 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     <template #deliverabilityContent>
       <div class="edu-analytics">
         <AgencyAnalytics
-          title="See what your audience reads"
-          description="Opens, clicks, bounces, and complaints for every send, by hour, day, week, or month."
+          title="See what your audience actually reads"
+          description="Track opens, clicks, bounces and complaints, then see which links and messages get the most engagement."
+          secondary-description="Compare performance over time and learn what works for your audience."
+          default-tab="hourly"
           :show-badge="false"
         />
       </div>
     </template>
 
     <template #bottom>
-      <section class="edu-design" aria-labelledby="edu-design-title">
+      <section id="design-system" class="edu-design" aria-labelledby="edu-design-title">
         <div class="edu-head">
-          <h2 id="edu-design-title">One design system for every department</h2>
-          <p>A faculty or alumni team can start on its own. As more teams join, each keeps its own lists and workflows while sharing the same colors, fonts, and saved blocks.</p>
+          <h2 id="edu-design-title">Start with one team. Scale across the university.</h2>
+          <p>One faculty, department or alumni team can start using BlueFox on its own. As other teams join, they can keep separate email workflows while sharing the same university design system.</p>
+          <p>Keep colors, typography, reusable content and email design consistent without forcing every team into the same newsletter setup.</p>
         </div>
         <DesignSystem :is-dark="isDark" class="mt-6" />
       </section>
@@ -127,6 +136,8 @@ const { lgAndUp, md, sm, xs } = useDisplay()
   line-height: 1.65;
   color: #475569;
 }
+
+.edu-head p + p { margin-top: 10px; }
 
 html.dark .edu-head p { color: #94a3b8; }
 </style>

@@ -15,15 +15,15 @@ const contentElements = [
 const editorPoints = [
   {
     title: 'Drag and drop, no HTML',
-    description: 'Arrange text, images, buttons, and columns on the canvas, then preview in dark mode before you send.'
+    description: 'Text, images, buttons, dividers, and columns. Arrange them on the canvas and preview how it renders in dark mode before you send.'
   },
   {
     title: 'Saved blocks',
-    description: 'Save a header, footer, or event section once. Update it and every email that uses it follows.'
+    description: 'Save a section once and reuse it in every newsletter. Update the block and every email built from it follows.'
   },
   {
     title: 'Saved templates',
-    description: 'Keep layouts like the monthly newsletter or the event invitation ready for whoever sends next.'
+    description: 'Keep your finished layouts, the monthly student newsletter, the event invitation, the alumni update, ready for whoever sends next.'
   }
 ]
 </script>
@@ -31,8 +31,9 @@ const editorPoints = [
 <template>
   <section class="editor-section" aria-labelledby="editor-title">
     <div class="editor-head">
-      <h2 id="editor-title">Build a newsletter once, then reuse it</h2>
-      <p>Save sections and full layouts, so every issue looks the same no matter who on the team builds it.</p>
+      <h2 id="editor-title">Build once, reuse every time</h2>
+      <p>Save headers, footers, event sections and complete layouts, then reuse them in future emails without rebuilding everything from scratch.</p>
+      <p>Keep each newsletter consistent, even when multiple people are creating emails.</p>
     </div>
 
     <div class="editor-mock" role="img" aria-label="The BlueFox email builder: an element palette on the left, the newsletter canvas in the middle, and element settings on the right">
@@ -182,6 +183,8 @@ const editorPoints = [
   line-height: 1.65;
   color: #475569;
 }
+
+.editor-head p + p { margin-top: 10px; }
 
 html.dark .editor-head p { color: #94a3b8; }
 

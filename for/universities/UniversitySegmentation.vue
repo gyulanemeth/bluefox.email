@@ -18,15 +18,15 @@ const universityFilters = [
 const listPoints = [
   {
     title: 'Import from a spreadsheet',
-    description: 'Upload a CSV and map each column to a contact property. New columns become new properties.'
+    description: 'Upload a CSV and map each column to a contact property. Columns you haven’t used before become new properties.'
   },
   {
-    title: 'A list per audience',
-    description: 'Students, alumni, staff, and donors each get their own list, sign-up page, and double opt-in.'
+    title: 'A separate list per audience',
+    description: 'Students, alumni, staff, and donors each get their own subscriber list, with its own sign-up page and double opt-in.'
   },
   {
-    title: 'Automatic cleanup',
-    description: 'Bounced and complained addresses are removed, and unsubscribes apply across every list.'
+    title: 'Cleanup that runs itself',
+    description: 'Bounced and complained addresses are removed in bulk, and unsubscribes are honored across every list.'
   }
 ]
 </script>
@@ -34,8 +34,8 @@ const listPoints = [
 <template>
   <section class="segmentation-section" aria-labelledby="segmentation-title">
     <div class="segmentation-head">
-      <h2 id="segmentation-title">Send each email to the right group</h2>
-      <p>Build segments from graduating year, program, or engagement instead of keeping a separate list for every group.</p>
+      <h2 id="segmentation-title">Send the right message to the right people</h2>
+      <p>Create targeted audiences from subscriber data and engagement, without maintaining separate lists for every group.</p>
     </div>
 
     <Segmentation
@@ -48,8 +48,8 @@ const listPoints = [
       :filters="universityFilters"
       :target-count="412"
       :total-contacts="9480"
-      callout-lead="Segments stay up to date."
-      callout-text=" When contact data changes, membership changes with it."
+      callout-lead="No more emailing the whole database."
+      callout-text=" Segments update themselves as contact data changes, so the class of 2016 stays the class of 2016."
     />
 
     <ul class="list-points" role="list">
@@ -60,7 +60,7 @@ const listPoints = [
     </ul>
 
     <p class="segmentation-link">
-      <a href="/docs/projects/segments">How segments work</a>
+      <a href="/docs/projects/segments">Read the segments docs</a>
     </p>
   </section>
 </template>
@@ -103,13 +103,18 @@ html.dark .segmentation-head p { color: #94a3b8; }
 .list-point {
   /* the global `li + li` rule would otherwise nudge cards 2 and 3 down 8px */
   margin-top: 0;
-  background: #eef8fd;
+  /* white on the blue stripe, matching the testimonial cards */
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 4px;
   padding: 28px 24px;
   text-align: center;
 }
 
-html.dark .list-point { background: #0c1e2d; }
+html.dark .list-point {
+  background: #1e293b;
+  border-color: #334155;
+}
 
 .list-point-title {
   margin: 0 0 8px;

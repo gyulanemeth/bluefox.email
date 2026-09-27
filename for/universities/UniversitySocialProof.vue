@@ -51,7 +51,7 @@ onBeforeUnmount(() => clearInterval(timer))
 
 <template>
   <section class="proof-section" aria-labelledby="proof-title">
-    <h2 id="proof-title" class="visually-hidden">What university teams say</h2>
+    <h2 id="proof-title" class="visually-hidden">Trusted by universities</h2>
 
     <div
       class="proof-list"

@@ -2,19 +2,19 @@
 const requirements = [
   {
     title: 'Dedicated sending IP',
-    description: 'A fixed IP your IT team can monitor and allowlist in institutional mail filters.'
+    description: 'Available when your institution needs it: a stable sending IP your IT team can identify, monitor and allowlist against strict institutional or enterprise mail filters.'
   },
   {
     title: 'Your own Amazon SES account',
-    description: 'Send through your university’s own Amazon SES account for full control over infrastructure and reputation.'
+    description: 'Use BlueFox with your university’s own Amazon SES account when you need more control over sending infrastructure and reputation.'
   },
   {
     title: 'Email authentication',
-    description: 'SPF, DKIM, and DMARC alignment, so receiving servers can verify every message.'
+    description: 'Send with SPF, DKIM and DMARC-aligned authentication in place, so receiving mail servers can verify every message.'
   },
   {
-    title: 'Bounce and complaint handling',
-    description: 'Bounces, complaints, and suppression lists are managed for you to protect your sending reputation.'
+    title: 'Deliverability controls',
+    description: 'Bounces, complaints and suppression lists are handled for you, to help protect your sending reputation.'
   }
 ]
 </script>
@@ -23,7 +23,7 @@ const requirements = [
   <section class="it-section" aria-labelledby="it-title">
     <div class="it-head">
       <h2 id="it-title">Ready for your IT team</h2>
-      <p>Start with one communications team, and add stricter controls when IT gets involved.</p>
+      <p>BlueFox can start with one communications team and support stricter institutional requirements when IT gets involved.</p>
     </div>
 
     <ul class="it-grid" role="list">
@@ -33,7 +33,7 @@ const requirements = [
       </li>
     </ul>
 
-    <p class="it-foot">BlueFox Email is GDPR compliant. Any AWS credentials or webhook secrets you connect are encrypted.</p>
+    <p class="it-foot">BlueFox Email is GDPR compliant, and any AWS credentials or webhook secrets you connect are encrypted.</p>
   </section>
 </template>
 
@@ -75,13 +75,18 @@ html.dark .it-head p { color: #94a3b8; }
 .it-card {
   /* the global `li + li` rule would otherwise nudge cards down 8px */
   margin-top: 0;
-  background: #eef8fd;
+  /* white on the blue stripe, matching the testimonial cards */
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
   border-radius: 4px;
   padding: 28px 24px;
   text-align: center;
 }
 
-html.dark .it-card { background: #0c1e2d; }
+html.dark .it-card {
+  background: #1e293b;
+  border-color: #334155;
+}
 
 .it-card-title {
   margin: 0 0 8px;
