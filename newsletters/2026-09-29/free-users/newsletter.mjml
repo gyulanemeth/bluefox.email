@@ -31,9 +31,8 @@
       .plans tr.featured td { background-color: #E0F2FE; }
       .plans .name { font-size: 16px; font-weight: 600; color: #0F172A; }
       .plans .sends { font-size: 14px; color: #334155; }
-      .plans .price { font-size: 20px; font-weight: 700; color: #0F172A; text-align: right; white-space: nowrap; }
-      .plans .vat { font-size: 12px; font-weight: 500; color: #94A3B8; }
-      .plans .period { font-size: 14px; font-weight: 400; color: #64748B; }
+      .plans .price { width: 80px; min-width: 80px; font-size: 22px; line-height: 1.1; font-weight: 700; color: #0F172A; text-align: right; white-space: nowrap; word-break: keep-all; vertical-align: middle; }
+      .plans .period { font-size: 12px; font-weight: 400; color: #64748B; padding-top: 2px; }
       .plans .more { font-size: 14px; color: #64748B; }
       .flag { display: inline-block; background-color: #13B0EE; color: #FFFFFF; font-size: 11px; line-height: 16px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
       .check { color: #13B0EE; font-weight: 700; }
@@ -56,14 +55,14 @@
 
     <!-- Header -->
     <mj-section padding="24px 24px 8px">
-      <mj-group>
-        <mj-column width="15%" vertical-align="middle">
-          <mj-image src="https://bluefox.email/assets/bluefoxemail-logo-200x200.png" alt="BlueFox Email logo" width="44px" height="44px" padding="0" href="https://bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=free-users&amp;utm_content=header-logo" />
-        </mj-column>
-        <mj-column width="85%" vertical-align="middle">
-          <mj-text font-size="18px" font-weight="700" color="#0F172A" padding="0 0 0 4px">BlueFox Email</mj-text>
-        </mj-column>
-      </mj-group>
+      <mj-column>
+        <mj-table padding="0" width="auto" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="44" style="width:44px;vertical-align:middle;"><a href="https://bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=free-users&amp;utm_content=header-logo" target="_blank"><img src="https://bluefox.email/assets/bluefoxemail-logo-200x200.png" alt="BlueFox Email logo" width="44" height="44" style="display:block;width:44px;height:44px;max-width:44px;border:0;" /></a></td>
+            <td style="padding-left:12px;vertical-align:middle;font-size:18px;line-height:1.2;font-weight:700;color:#0F172A;white-space:nowrap;">BlueFox Email</td>
+          </tr>
+        </mj-table>
+      </mj-column>
     </mj-section>
 
     <!-- Hero -->
@@ -110,19 +109,19 @@
       <mj-column border="1px solid #E2E8F0" border-radius="4px" padding="0">
         <mj-table css-class="plans" padding="0" cellpadding="0" width="100%">
           <tr class="featured">
-            <td style="padding:16px 20px;"><div style="padding-bottom:4px;"><span class="flag">Lowest price</span></div><div class="name">Starter</div><div class="sends"><strong>5,000</strong> sends / month</div></td>
-            <td style="padding:16px 20px;" class="price">$6<span class="vat"> +VAT</span><span class="period"> / month</span></td>
+            <td style="padding:16px;"><div style="padding-bottom:4px;"><span class="flag">Lowest price</span></div><div class="name">Starter</div><div class="sends"><strong>5,000</strong> sends / month</div></td>
+            <td width="80" style="padding:16px;" class="price">$6<div class="period">/ month</div></td>
           </tr>
           <tr>
-            <td style="padding:16px 20px;"><div class="name">Growth</div><div class="sends"><strong>25,000</strong> sends / month</div></td>
-            <td style="padding:16px 20px;" class="price">$19<span class="vat"> +VAT</span><span class="period"> / month</span></td>
+            <td style="padding:16px;"><div class="name">Growth</div><div class="sends"><strong>25,000</strong> sends / month</div></td>
+            <td width="80" style="padding:16px;" class="price">$19<div class="period">/ month</div></td>
           </tr>
           <tr>
-            <td style="padding:16px 20px;"><div class="name">Business</div><div class="sends"><strong>100,000</strong> sends / month</div></td>
-            <td style="padding:16px 20px;" class="price">$59<span class="vat"> +VAT</span><span class="period"> / month</span></td>
+            <td style="padding:16px;"><div class="name">Business</div><div class="sends"><strong>100,000</strong> sends / month</div></td>
+            <td width="80" style="padding:16px;" class="price">$59<div class="period">/ month</div></td>
           </tr>
           <tr class="last">
-            <td colspan="2" style="padding:14px 20px;" class="more">4 more plans, from 10,000 to 500,000 sends a month. <a href="https://bluefox.email/pricing?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=free-users&amp;utm_content=plans-table">See all plans</a></td>
+            <td colspan="2" style="padding:14px 16px;" class="more">4 more plans, from 10,000 to 500,000 sends a month. <a href="https://bluefox.email/pricing?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=free-users&amp;utm_content=plans-table">See all plans</a></td>
           </tr>
         </mj-table>
       </mj-column>
@@ -130,7 +129,7 @@
 
     <mj-section padding="0 24px 40px">
       <mj-column>
-        <mj-text mj-class="fine" padding="0">Unused sends do not roll over to the next billing cycle. The final price may vary based on your local VAT rate. VAT is applied at checkout.</mj-text>
+        <mj-text mj-class="fine" padding="0">All prices +VAT. Unused sends do not roll over to the next billing cycle. The final price may vary based on your local VAT rate. VAT is applied at checkout.</mj-text>
       </mj-column>
     </mj-section>
 

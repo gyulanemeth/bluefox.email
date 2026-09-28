@@ -26,15 +26,15 @@
     </mj-attributes>
     <mj-style inline="inline">
       a { color: #0C7AA6; font-weight: 600; }
-      .rates th { font-size: 12px; font-weight: 600; color: #64748B; text-align: left; padding: 12px; border-bottom: 1px solid #E2E8F0; background-color: #F8FAFC; }
-      .rates td { font-size: 14px; color: #334155; padding: 12px; border-bottom: 1px solid #E2E8F0; }
+      .rates td { font-size: 14px; color: #334155; padding: 12px 16px; border-bottom: 1px solid #E2E8F0; vertical-align: middle; }
       .rates tr.last td { border-bottom: 0; }
-      .rates tr.pack td { color: #64748B; }
+      .rates tr.group td { font-size: 11px; font-weight: 600; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; background-color: #F8FAFC; padding: 8px 16px; }
       .rates tr.win td { background-color: #E0F2FE; }
-      .rates .name { font-weight: 600; color: #0F172A; white-space: nowrap; }
-      .rates .sub { white-space: nowrap; }
-      .rates .num { text-align: right; white-space: nowrap; }
-      .rates .rate { text-align: right; white-space: nowrap; font-weight: 700; color: #0F172A; }
+      .rates .name { font-size: 15px; font-weight: 600; color: #0F172A; }
+      .rates .sub { font-size: 13px; color: #64748B; padding-top: 2px; }
+      .rates .rate { font-size: 18px; line-height: 1.1; font-weight: 700; color: #0F172A; text-align: right; white-space: nowrap; }
+      .rates tr.pack .rate { color: #64748B; }
+      .rates .per { font-size: 11px; font-weight: 400; color: #64748B; padding-top: 2px; }
     </mj-style>
     <mj-style>
       @media only screen and (max-width: 480px) {
@@ -54,14 +54,14 @@
 
     <!-- Header -->
     <mj-section padding="24px 24px 8px">
-      <mj-group>
-        <mj-column width="15%" vertical-align="middle">
-          <mj-image src="https://bluefox.email/assets/bluefoxemail-logo-200x200.png" alt="BlueFox Email logo" width="44px" height="44px" padding="0" href="https://bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=paying-customers&amp;utm_content=header-logo" />
-        </mj-column>
-        <mj-column width="85%" vertical-align="middle">
-          <mj-text font-size="18px" font-weight="700" color="#0F172A" padding="0 0 0 4px">BlueFox Email</mj-text>
-        </mj-column>
-      </mj-group>
+      <mj-column>
+        <mj-table padding="0" width="auto" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="44" style="width:44px;vertical-align:middle;"><a href="https://bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=paying-customers&amp;utm_content=header-logo" target="_blank"><img src="https://bluefox.email/assets/bluefoxemail-logo-200x200.png" alt="BlueFox Email logo" width="44" height="44" style="display:block;width:44px;height:44px;max-width:44px;border:0;" /></a></td>
+            <td style="padding-left:12px;vertical-align:middle;font-size:18px;line-height:1.2;font-weight:700;color:#0F172A;white-space:nowrap;">BlueFox Email</td>
+          </tr>
+        </mj-table>
+      </mj-column>
     </mj-section>
 
     <!-- Hero -->
@@ -95,57 +95,50 @@
     <mj-section padding="40px 24px 8px">
       <mj-column>
         <mj-text mj-class="h2">What 1,000 sends cost you</mj-text>
-        <mj-text mj-class="small" color="#64748B">Your packs on top, monthly plans below. Highlighted plans cost less per send than both packs.</mj-text>
+        <mj-text mj-class="small" color="#64748B">Highlighted plans cost less per send than both packs.</mj-text>
       </mj-column>
     </mj-section>
 
     <mj-section padding="0 24px 16px">
       <mj-column border="1px solid #E2E8F0" border-radius="4px" padding="0">
         <mj-table css-class="rates" padding="0" cellpadding="0" width="100%">
-          <tr>
-            <th>Option</th>
-            <th style="text-align:right;">Price</th>
-            <th style="text-align:right;">Per 1,000</th>
+          <tr class="group">
+            <td colspan="2">Your packs</td>
           </tr>
           <tr class="pack">
-            <td><span class="name">Essential pack</span><br /><span class="sub">50,000 sends</span></td>
-            <td class="num">$50</td>
-            <td class="rate">$1.00</td>
+            <td><div class="name">Essential pack</div><div class="sub">$50 for 50,000 sends</div></td>
+            <td class="rate">$1.00<div class="per">per 1,000 sends</div></td>
           </tr>
           <tr class="pack">
-            <td><span class="name">Premium pack</span><br /><span class="sub">500,000 sends</span></td>
-            <td class="num">$300</td>
-            <td class="rate">$0.60</td>
+            <td><div class="name">Premium pack</div><div class="sub">$300 for 500,000 sends</div></td>
+            <td class="rate">$0.60<div class="per">per 1,000 sends</div></td>
+          </tr>
+          <tr class="group">
+            <td colspan="2">Monthly plans</td>
           </tr>
           <tr>
-            <td><span class="name">Basic plan</span><br /><span class="sub">10,000 / mo</span></td>
-            <td class="num">$9 / mo</td>
-            <td class="rate">$0.90</td>
+            <td><div class="name">Basic</div><div class="sub">$9 / mo, 10,000 sends</div></td>
+            <td class="rate">$0.90<div class="per">per 1,000 sends</div></td>
           </tr>
           <tr>
-            <td><span class="name">Growth plan</span><br /><span class="sub">25,000 / mo</span></td>
-            <td class="num">$19 / mo</td>
-            <td class="rate">$0.76</td>
+            <td><div class="name">Growth</div><div class="sub">$19 / mo, 25,000 sends</div></td>
+            <td class="rate">$0.76<div class="per">per 1,000 sends</div></td>
           </tr>
           <tr>
-            <td><span class="name">Pro plan</span><br /><span class="sub">50,000 / mo</span></td>
-            <td class="num">$35 / mo</td>
-            <td class="rate">$0.70</td>
+            <td><div class="name">Pro</div><div class="sub">$35 / mo, 50,000 sends</div></td>
+            <td class="rate">$0.70<div class="per">per 1,000 sends</div></td>
           </tr>
           <tr class="win">
-            <td><span class="name">Business plan</span><br /><span class="sub">100,000 / mo</span></td>
-            <td class="num">$59 / mo</td>
-            <td class="rate">$0.59</td>
+            <td><div class="name">Business</div><div class="sub">$59 / mo, 100,000 sends</div></td>
+            <td class="rate">$0.59<div class="per">per 1,000 sends</div></td>
           </tr>
           <tr class="win">
-            <td><span class="name">Scale plan</span><br /><span class="sub">250,000 / mo</span></td>
-            <td class="num">$129 / mo</td>
-            <td class="rate">$0.52</td>
+            <td><div class="name">Scale</div><div class="sub">$129 / mo, 250,000 sends</div></td>
+            <td class="rate">$0.52<div class="per">per 1,000 sends</div></td>
           </tr>
           <tr class="win last">
-            <td><span class="name">Elite plan</span><br /><span class="sub">500,000 / mo</span></td>
-            <td class="num">$239 / mo</td>
-            <td class="rate">$0.48</td>
+            <td><div class="name">Elite</div><div class="sub">$239 / mo, 500,000 sends</div></td>
+            <td class="rate">$0.48<div class="per">per 1,000 sends</div></td>
           </tr>
         </mj-table>
       </mj-column>
