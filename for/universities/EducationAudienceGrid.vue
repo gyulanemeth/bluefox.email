@@ -3,25 +3,21 @@ const segments = [
   {
     id: 'student-newsletters',
     label: 'Student newsletters',
-    color: '#13b0ee',
     description: 'Campus news, deadlines, opportunities'
   },
   {
     id: 'event-invitations',
     label: 'Event invitations',
-    color: '#6366f1',
     description: 'Lectures, conferences, open days'
   },
   {
     id: 'alumni',
     label: 'Alumni communication',
-    color: '#f59e0b',
     description: 'Reunions, updates, fundraising'
   },
   {
     id: 'faculty-department',
     label: 'Faculty & department updates',
-    color: '#10b981',
     description: 'Newsletters tailored to each faculty, department or team'
   }
 ]
@@ -30,16 +26,12 @@ const segments = [
 <template>
   <section class="audience-section" aria-labelledby="audience-title">
     <div class="audience-head">
-      <v-chip color="primary" class="audience-badge" aria-label="Who it fits badge">
-        <span class="text-overline">Who it fits</span>
-      </v-chip>
       <h2 id="audience-title">What universities send</h2>
       <p>The recurring emails every university sends, to students, alumni, and every department.</p>
     </div>
 
     <div class="segment-grid">
       <div v-for="segment in segments" :key="segment.id" class="segment-card">
-        <div class="segment-dot" :style="{ background: segment.color }" aria-hidden="true"></div>
         <h3 class="segment-label">{{ segment.label }}</h3>
         <p class="segment-desc">{{ segment.description }}</p>
       </div>
@@ -52,12 +44,10 @@ const segments = [
 <style scoped>
 .audience-section { padding: 0; }
 
-.audience-head { margin-bottom: 28px; }
-
-.audience-badge {
-  height: auto !important;
-  padding: 6px 12px !important;
-  margin-bottom: 14px;
+.audience-head {
+  max-width: 720px;
+  margin: 0 auto 28px;
+  text-align: center;
 }
 
 .audience-head h2 {
@@ -73,7 +63,6 @@ const segments = [
   font-size: 16px;
   line-height: 1.65;
   color: #475569;
-  max-width: 680px;
 }
 
 html.dark .audience-head p { color: #94a3b8; }
@@ -81,29 +70,21 @@ html.dark .audience-head p { color: #94a3b8; }
 .segment-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  gap: 12px;
 }
 
 .segment-card {
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  background: #eef8fd;
+  border-radius: 4px;
+  padding: 28px 24px;
+  text-align: center;
 }
 
-html.dark .segment-card { background: rgba(30, 41, 59, 0.5); }
-
-.segment-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-}
+html.dark .segment-card { background: #0c1e2d; }
 
 .segment-label {
-  margin: 0;
-  font-size: 15px;
+  margin: 0 0 8px;
+  font-size: 17px;
   font-weight: 700;
   line-height: 1.3;
   color: #0f172a;
@@ -115,19 +96,20 @@ html.dark .segment-label { color: #f1f5f9; }
 
 .segment-desc {
   margin: 0;
-  font-size: 13px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.6;
   color: #475569;
 }
 
 html.dark .segment-desc { color: #94a3b8; }
 
 .audience-foot {
-  margin: 24px 0 0;
-  font-size: 16px;
-  line-height: 1.65;
+  margin: 24px auto 0;
+  max-width: 720px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.6;
   color: #475569;
-  max-width: 680px;
 }
 
 html.dark .audience-foot { color: #94a3b8; }
