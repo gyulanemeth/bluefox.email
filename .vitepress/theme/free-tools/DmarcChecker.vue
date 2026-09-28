@@ -1,5 +1,6 @@
 <script setup>
 import { ref, computed, onMounted, watch, nextTick } from 'vue'
+import { mdiMagnify, mdiClose, mdiCheck, mdiAlertCircleOutline, mdiAlertOutline, mdiInformationOutline, mdiChevronDown } from '@mdi/js'
 import { checkDmarc } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import { syncWithUrl, loadFromUrl } from './helpers/urlSync.js'
@@ -222,9 +223,7 @@ onMounted(async () => {
       <form class="search-form" @submit.prevent="checkDmarcHandler">
         <div class="search-input-wrap">
           <span class="search-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
-            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiMagnify" fill="currentColor"/></svg>
           </span>
           <input
             id="domain"
@@ -243,7 +242,7 @@ onMounted(async () => {
             aria-label="Clear domain"
             @click="domain = ''"
           >
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <svg width="11" height="11" viewBox="0 0 24 24"><path :d="mdiClose" fill="currentColor"/></svg>
           </button>
         </div>
         <button type="submit" class="search-btn" :disabled="isFormDisabled">
@@ -266,7 +265,7 @@ onMounted(async () => {
 
     <!-- Error -->
     <div v-if="errorMessage" class="error-pill">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24"><path :d="mdiAlertCircleOutline" fill="currentColor"/></svg>
       {{ errorMessage }}
     </div>
 
@@ -276,8 +275,8 @@ onMounted(async () => {
       <!-- Hero status -->
       <div class="hero" :class="result.valid ? 'hero-pass' : 'hero-fail'">
         <div class="hero-icon" :class="result.valid ? 'icon-pass' : 'icon-fail'">
-          <svg v-if="result.valid" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          <svg v-else width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg v-if="result.valid" width="28" height="28" viewBox="0 0 24 24"><path :d="mdiCheck" fill="currentColor"/></svg>
+          <svg v-else width="28" height="28" viewBox="0 0 24 24"><path :d="mdiClose" fill="currentColor"/></svg>
         </div>
         <div class="hero-text">
           <h2 class="hero-title">{{ result.valid ? 'DMARC Configured' : 'DMARC Missing' }}</h2>
@@ -325,7 +324,7 @@ onMounted(async () => {
 
       <!-- Test-mode banner -->
       <div v-if="testModeWarning" class="alert alert-testmode">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiAlertOutline" fill="currentColor"/></svg>
         <div>
           <strong>Test mode active — policy not enforced</strong>
           <p>{{ testModeWarning }}</p>
@@ -334,7 +333,7 @@ onMounted(async () => {
 
       <!-- Critical warnings -->
       <div v-if="criticalWarnings.length" class="alert alert-warn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiAlertOutline" fill="currentColor"/></svg>
         <ul>
           <li v-for="w in criticalWarnings" :key="w">{{ w }}</li>
         </ul>
@@ -342,7 +341,7 @@ onMounted(async () => {
 
       <!-- Recommendations -->
       <div v-if="recommendations.length" class="alert alert-tip">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiInformationOutline" fill="currentColor"/></svg>
         <ul>
           <li v-for="r in recommendations" :key="r">{{ r }}</li>
         </ul>
@@ -350,7 +349,7 @@ onMounted(async () => {
 
       <!-- Deprecated notices -->
       <div v-if="deprecatedWarnings.length" class="alert alert-muted">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24"><path :d="mdiInformationOutline" fill="currentColor"/></svg>
         <ul>
           <li v-for="w in deprecatedWarnings" :key="w">{{ w }}</li>
         </ul>
@@ -361,7 +360,7 @@ onMounted(async () => {
         <details class="disclosure">
           <summary class="disclosure-trigger" @click="showRawRecord = !showRawRecord">
             <span class="disclosure-label">Raw record</span>
-            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24"><path :d="mdiChevronDown" fill="currentColor"/></svg>
           </summary>
           <div class="disclosure-body">
             <code class="raw-record">{{ result.record }}</code>
@@ -371,7 +370,7 @@ onMounted(async () => {
         <details v-if="dmarcTags.length" class="disclosure">
           <summary class="disclosure-trigger">
             <span class="disclosure-label">Tag breakdown</span>
-            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24"><path :d="mdiChevronDown" fill="currentColor"/></svg>
           </summary>
           <div class="disclosure-body">
             <table class="tag-table">
@@ -445,7 +444,7 @@ onMounted(async () => {
   width: 100%;
   padding: 0.75rem 2.25rem 0.75rem 2.5rem;
   border: 1.5px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 10px;
+  border-radius: 4px;
   font-size: 1rem;
   background: var(--vp-c-bg, #fff);
   color: var(--vp-c-text-1, #111827);
@@ -515,7 +514,7 @@ onMounted(async () => {
   font-size: 0.9rem;
   font-weight: 600;
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: pointer;
   white-space: nowrap;
   transition: background 0.15s, transform 0.1s, box-shadow 0.15s, padding 0.2s;
@@ -572,7 +571,7 @@ onMounted(async () => {
   background: #fef2f2;
   color: #991b1b;
   border: 1px solid rgba(220, 38, 38, 0.2);
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: 1.5rem;
@@ -591,12 +590,12 @@ onMounted(async () => {
   align-items: center;
   gap: 1.25rem;
   padding: 1.5rem 1.75rem;
-  border-radius: 14px;
+  border-radius: 4px;
   border: 1px solid transparent;
 }
 
 .hero-pass {
-  background: linear-gradient(135deg, rgba(22,163,74,0.06) 0%, rgba(19,176,238,0.04) 100%);
+  background: rgba(22,163,74,0.06);
   border-color: rgba(22, 163, 74, 0.2);
 }
 
@@ -608,7 +607,7 @@ onMounted(async () => {
 .hero-icon {
   width: 56px;
   height: 56px;
-  border-radius: 14px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -675,7 +674,7 @@ onMounted(async () => {
   text-transform: uppercase;
   letter-spacing: 0.06em;
   padding: 0.15rem 0.5rem;
-  border-radius: 999px;
+  border-radius: 4px;
 }
 
 .score-strong, .score-excellent { background: rgba(22,163,74,0.12); color: #15803d; }
@@ -689,7 +688,7 @@ onMounted(async () => {
   gap: 0.5rem;
   background: var(--vp-c-bg, #fff);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 1rem;
 }
 
@@ -699,7 +698,8 @@ onMounted(async () => {
   align-items: center;
   gap: 0.25rem;
   padding: 0.625rem 0.25rem;
-  border-radius: 8px;
+  border-radius: 4px;
+  border: 1px solid transparent;
   text-align: center;
 }
 
@@ -707,6 +707,7 @@ onMounted(async () => {
   width: 22px;
   height: 22px;
   border-radius: 50%;
+  border: 1px solid transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -728,22 +729,22 @@ onMounted(async () => {
 }
 
 /* Signal states */
-.signal-strong .signal-icon { background: rgba(22,163,74,0.12); color: #16a34a; }
-.signal-medium .signal-icon { background: rgba(217,119,6,0.12);  color: #d97706; }
-.signal-weak   .signal-icon { background: rgba(220,38,38,0.1);   color: #dc2626; }
-.signal-muted  .signal-icon { background: var(--vp-c-bg-soft, #f3f4f6); color: var(--vp-c-text-3, #9ca3af); }
+.signal-strong .signal-icon { border-color: rgba(22,163,74,0.35); color: #16a34a; }
+.signal-medium .signal-icon { border-color: rgba(217,119,6,0.35); color: #d97706; }
+.signal-weak   .signal-icon { border-color: rgba(220,38,38,0.3);  color: #dc2626; }
+.signal-muted  .signal-icon { border-color: var(--vp-c-divider, #e5e7eb); color: var(--vp-c-text-3, #9ca3af); }
 
-.signal-strong { background: rgba(22,163,74,0.04); }
-.signal-medium { background: rgba(217,119,6,0.04); }
-.signal-weak   { background: rgba(220,38,38,0.03); }
-.signal-muted  { background: transparent; }
+.signal-strong { border-color: rgba(22,163,74,0.25); }
+.signal-medium { border-color: rgba(217,119,6,0.25); }
+.signal-weak   { border-color: rgba(220,38,38,0.2); }
+.signal-muted  { border-color: var(--vp-c-divider, #e5e7eb); }
 
 /* Alerts */
 .alert {
   display: flex;
   gap: 0.75rem;
   padding: 1rem 1.25rem;
-  border-radius: 10px;
+  border-radius: 4px;
   border: 1px solid transparent;
   font-size: 0.875rem;
   line-height: 1.6;
@@ -815,7 +816,7 @@ onMounted(async () => {
 .disclosure {
   background: var(--vp-c-bg, #fff);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 10px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
@@ -861,7 +862,7 @@ details[open] .disclosure-chevron {
   margin-top: 1rem;
   background: var(--vp-c-bg-soft, #f8f9fa);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
+  border-radius: 4px;
   font-family: var(--vp-font-family-mono, monospace);
   font-size: 0.8rem;
   word-break: break-all;
@@ -919,7 +920,7 @@ details[open] .disclosure-chevron {
 
 /* Dark mode */
 .dark .hero-pass {
-  background: linear-gradient(135deg, rgba(22,163,74,0.09) 0%, rgba(19,176,238,0.06) 100%);
+  background: rgba(22,163,74,0.09);
   border-color: rgba(22,163,74,0.25);
 }
 
@@ -944,9 +945,9 @@ details[open] .disclosure-chevron {
 .dark .score-good,   .dark .score-medium   { background: rgba(217,119,6,0.2);  color: #fbbf24; }
 .dark .score-poor,   .dark .score-weak     { background: rgba(220,38,38,0.2);  color: #f87171; }
 
-.dark .signal-strong .signal-icon { background: rgba(22,163,74,0.2); color: #4ade80; }
-.dark .signal-medium .signal-icon { background: rgba(217,119,6,0.2);  color: #fbbf24; }
-.dark .signal-weak   .signal-icon { background: rgba(220,38,38,0.2);  color: #f87171; }
+.dark .signal-strong .signal-icon { border-color: rgba(22,163,74,0.4); color: #4ade80; }
+.dark .signal-medium .signal-icon { border-color: rgba(217,119,6,0.4);  color: #fbbf24; }
+.dark .signal-weak   .signal-icon { border-color: rgba(220,38,38,0.4);  color: #f87171; }
 
 .dark .alert-testmode {
   background: rgba(249,115,22,0.12);

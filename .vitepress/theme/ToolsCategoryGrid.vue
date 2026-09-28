@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  tools: { type: Array, required: true }, // [{ name, desc, href, iconPaths, tag? }]
+  tools: { type: Array, required: true }, // [{ name, desc, href, icon, tag? }]
 })
 </script>
 
@@ -12,9 +12,9 @@ defineProps({
       :href="tool.href"
       class="tool-card"
     >
-      <div class="card-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" v-html="tool.iconPaths" />
-      </div>
+      <svg class="card-icon" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+        <path :d="tool.icon" fill="currentColor"/>
+      </svg>
       <div class="card-body">
         <div class="card-heading">
           <h3 class="card-name">{{ tool.name }}</h3>
@@ -45,41 +45,21 @@ defineProps({
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 24px;
+  padding: 20px 22px;
   background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 16px;
+  border: 1px solid transparent;
+  border-radius: 4px;
   text-decoration: none !important;
   color: inherit;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
-  cursor: pointer;
 }
 
 .tool-card:hover {
-  border-color: rgba(19, 176, 238, 0.5);
-  box-shadow: 0 8px 28px rgba(19, 176, 238, 0.15);
-  transform: translateY(-3px);
-}
-
-html.dark .tool-card:hover {
-  box-shadow: 0 8px 28px rgba(19, 176, 238, 0.22);
+  border-color: #13B0EE;
 }
 
 .card-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, rgba(19, 176, 238, 0.12), rgba(57, 44, 145, 0.1));
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #13B0EE;
   flex-shrink: 0;
-  transition: background 0.25s ease;
-}
-
-.tool-card:hover .card-icon {
-  background: linear-gradient(135deg, rgba(19, 176, 238, 0.22), rgba(57, 44, 145, 0.18));
 }
 
 .card-body { flex: 1; }
@@ -109,7 +89,7 @@ html.dark .tool-card:hover {
   color: #392C91;
   background: rgba(57, 44, 145, 0.1);
   padding: 0.15rem 0.5rem;
-  border-radius: 999px;
+  border-radius: 4px;
   flex-shrink: 0;
 }
 
@@ -129,11 +109,7 @@ html.dark .card-tag { color: #b3a4ff; background: rgba(179, 164, 255, 0.15); }
   font-size: 13px;
   font-weight: 600;
   color: #13B0EE;
-  opacity: 0;
-  transition: opacity 0.2s ease;
 }
-
-.tool-card:hover .card-link { opacity: 1; }
 
 @media (max-width: 640px) {
   .tools-grid { grid-template-columns: 1fr; }

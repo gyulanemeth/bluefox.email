@@ -3,6 +3,17 @@ import { computed, nextTick, onMounted, ref } from 'vue'
 import { analyzeDmarcReport } from '../../../connectors/bluefoxEmailToolsApi.js'
 import { isSessionValid } from '../../../connectors/turnstileSession.js'
 import Turnstile from './Turnstile.vue'
+import {
+  mdiTrayArrowUp,
+  mdiFileDocumentOutline,
+  mdiClose,
+  mdiAlertCircleOutline,
+  mdiCheck,
+  mdiAlertOutline,
+  mdiCloseCircleOutline,
+  mdiInformationOutline,
+  mdiChevronDown
+} from '@mdi/js'
 
 const MAX_FILENAME_LEN = 30
 
@@ -242,7 +253,7 @@ onMounted(async () => { await nextTick() })
       <!-- Drag overlay -->
       <div v-if="isDragging" class="drag-overlay">
         <div class="drag-content">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <svg viewBox="0 0 24 24" width="32" height="32"><path :d="mdiTrayArrowUp" fill="currentColor"/></svg>
           <span>Drop XML file here</span>
         </div>
       </div>
@@ -278,15 +289,15 @@ onMounted(async () => { await nextTick() })
                 @keydown.enter="!xmlPaste && !loading && fileInputRef.click()"
                 @keydown.space.prevent="!xmlPaste && !loading && fileInputRef.click()"
               >
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <svg viewBox="0 0 24 24" width="16" height="16"><path :d="mdiTrayArrowUp" fill="currentColor"/></svg>
                 <span>Click to select or drag &amp; drop XML</span>
               </div>
             </template>
             <div v-else class="file-selected">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              <svg viewBox="0 0 24 24" width="14" height="14"><path :d="mdiFileDocumentOutline" fill="currentColor"/></svg>
               <span class="file-name" :title="fileName">{{ truncatedFileName }}</span>
               <button type="button" class="file-remove" @click="clearFile" :disabled="loading">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                <svg viewBox="0 0 24 24" width="12" height="12"><path :d="mdiClose" fill="currentColor"/></svg>
               </button>
             </div>
           </div>
@@ -303,7 +314,7 @@ onMounted(async () => { await nextTick() })
 
     <!-- Error -->
     <div v-if="errorMessage" class="error-pill">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <svg viewBox="0 0 24 24" width="14" height="14"><path :d="mdiAlertCircleOutline" fill="currentColor"/></svg>
       {{ errorMessage }}
     </div>
 
@@ -313,9 +324,9 @@ onMounted(async () => { await nextTick() })
       <!-- Hero -->
       <div class="hero" :class="(result.passRate ?? 0) >= 90 ? 'hero-pass' : (result.passRate ?? 0) >= 50 ? 'hero-warn' : 'hero-fail'">
         <div class="hero-icon" :class="(result.passRate ?? 0) >= 90 ? 'icon-pass' : (result.passRate ?? 0) >= 50 ? 'icon-warn' : 'icon-fail'">
-          <svg v-if="(result.passRate ?? 0) >= 90" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-          <svg v-else-if="(result.passRate ?? 0) >= 50" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          <svg v-else width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          <svg v-if="(result.passRate ?? 0) >= 90" viewBox="0 0 24 24" width="26" height="26"><path :d="mdiCheck" fill="currentColor"/></svg>
+          <svg v-else-if="(result.passRate ?? 0) >= 50" viewBox="0 0 24 24" width="26" height="26"><path :d="mdiAlertOutline" fill="currentColor"/></svg>
+          <svg v-else viewBox="0 0 24 24" width="26" height="26"><path :d="mdiClose" fill="currentColor"/></svg>
         </div>
         <div class="hero-text">
           <h2 class="hero-title">{{ result.domain || 'Report Analyzed' }}</h2>
@@ -407,8 +418,8 @@ onMounted(async () => { await nextTick() })
         class="alert"
         :class="result.domainAlignmentIssue ? 'alert-warn' : 'alert-pass'"
       >
-        <svg v-if="result.domainAlignmentIssue" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+        <svg v-if="result.domainAlignmentIssue" viewBox="0 0 24 24" width="16" height="16"><path :d="mdiAlertOutline" fill="currentColor"/></svg>
+        <svg v-else viewBox="0 0 24 24" width="16" height="16"><path :d="mdiCheck" fill="currentColor"/></svg>
         <span>
           <strong>{{ result.domainAlignmentIssue ? 'Domain alignment issue detected' : 'No domain alignment issues' }}</strong>
           <span v-if="result.domainAlignmentIssue"> — some emails failed DMARC alignment.</span>
@@ -417,32 +428,32 @@ onMounted(async () => { await nextTick() })
 
       <!-- Alerts -->
       <div v-if="regularWarnings.length" class="alert alert-warn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16"><path :d="mdiAlertOutline" fill="currentColor"/></svg>
         <ul><li v-for="w in regularWarnings" :key="w">{{ w }}</li></ul>
       </div>
 
       <div v-if="result.errors?.length" class="alert alert-error">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16"><path :d="mdiCloseCircleOutline" fill="currentColor"/></svg>
         <ul><li v-for="e in result.errors" :key="e">{{ e }}</li></ul>
       </div>
 
       <div v-if="regularRecommendations.length" class="alert alert-tip">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16"><path :d="mdiInformationOutline" fill="currentColor"/></svg>
         <ul><li v-for="r in regularRecommendations" :key="r">{{ r }}</li></ul>
       </div>
 
       <div v-if="forwardingRecommendations.length" class="alert alert-muted">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16"><path :d="mdiInformationOutline" fill="currentColor"/></svg>
         <div><strong>Forwarding detected</strong><ul><li v-for="r in forwardingRecommendations" :key="r">{{ r }}</li></ul></div>
       </div>
 
       <div v-if="testModeRecommendations.length" class="alert alert-muted">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16"><path :d="mdiInformationOutline" fill="currentColor"/></svg>
         <div><strong>Policy test mode</strong><ul><li v-for="r in testModeRecommendations" :key="r">{{ r }}</li></ul></div>
       </div>
 
       <div v-if="dkimWarnings.length" class="alert alert-muted">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg viewBox="0 0 24 24" width="16" height="16"><path :d="mdiInformationOutline" fill="currentColor"/></svg>
         <div><strong>DKIM notices</strong><ul><li v-for="w in dkimWarnings" :key="w">{{ w }}</li></ul></div>
       </div>
 
@@ -490,9 +501,9 @@ onMounted(async () => { await nextTick() })
                   <span class="cell-result" :class="alignmentClass(src.spfAlignment)">{{ alignmentLabel(src.spfAlignment) }}</span>
                   <span class="cell-result" :class="alignmentClass(src.dkimAlignment)">{{ alignmentLabel(src.dkimAlignment) }}</span>
                   <span class="cell-chevron">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    <svg viewBox="0 0 24 24" width="12" height="12"
                       :style="{ transform: isSourceExpanded(src.ip) ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }">
-                      <polyline points="6 9 12 15 18 9"/>
+                      <path :d="mdiChevronDown" fill="currentColor"/>
                     </svg>
                   </span>
                 </template>
@@ -529,7 +540,7 @@ onMounted(async () => { await nextTick() })
         <details class="disclosure">
           <summary class="disclosure-trigger">
             <span class="disclosure-label">Report details</span>
-            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg class="disclosure-chevron" viewBox="0 0 24 24" width="14" height="14"><path :d="mdiChevronDown" fill="currentColor"/></svg>
           </summary>
           <div class="disclosure-body">
             <dl class="meta-list">
@@ -550,7 +561,7 @@ onMounted(async () => { await nextTick() })
         <details v-if="result.policy" class="disclosure">
           <summary class="disclosure-trigger">
             <span class="disclosure-label">DMARC policy in effect</span>
-            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg class="disclosure-chevron" viewBox="0 0 24 24" width="14" height="14"><path :d="mdiChevronDown" fill="currentColor"/></svg>
           </summary>
           <div class="disclosure-body">
             <dl class="meta-list">
@@ -570,7 +581,7 @@ onMounted(async () => { await nextTick() })
         <details v-if="result.protocol" class="disclosure">
           <summary class="disclosure-trigger">
             <span class="disclosure-label">Report format compliance</span>
-            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg class="disclosure-chevron" viewBox="0 0 24 24" width="14" height="14"><path :d="mdiChevronDown" fill="currentColor"/></svg>
           </summary>
           <div class="disclosure-body">
             <dl class="meta-list">
@@ -598,7 +609,7 @@ onMounted(async () => { await nextTick() })
         <details v-if="result.records?.length" class="disclosure">
           <summary class="disclosure-trigger">
             <span class="disclosure-label">Detailed records ({{ result.records.length }})</span>
-            <svg class="disclosure-chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            <svg class="disclosure-chevron" viewBox="0 0 24 24" width="14" height="14"><path :d="mdiChevronDown" fill="currentColor"/></svg>
           </summary>
           <div class="disclosure-body">
             <div class="records-list">
@@ -660,7 +671,7 @@ onMounted(async () => { await nextTick() })
   padding: 1.5rem;
   background: var(--vp-c-bg-soft, #f8f9fa);
   border: 1.5px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 14px;
+  border-radius: 4px;
   transition: border-color 0.15s;
 }
 
@@ -677,7 +688,7 @@ onMounted(async () => { await nextTick() })
   justify-content: center;
   background: hsla(197, 87%, 50%, 0.08);
   backdrop-filter: blur(3px);
-  border-radius: 12px;
+  border-radius: 4px;
   z-index: 10;
   pointer-events: none;
   border: 2px dashed hsla(197, 87%, 50%, 0.4);
@@ -690,7 +701,7 @@ onMounted(async () => { await nextTick() })
   gap: 0.5rem;
   padding: 1.5rem 2rem;
   background: var(--vp-c-bg, #fff);
-  border-radius: 10px;
+  border-radius: 4px;
   border: 1px solid hsla(197, 87%, 50%, 0.2);
   color: var(--vp-c-brand);
   font-weight: 600;
@@ -714,7 +725,7 @@ onMounted(async () => { await nextTick() })
   width: 100%;
   padding: 0.75rem 1rem;
   border: 1.5px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 0.875rem;
   font-family: var(--vp-font-family-mono, monospace);
   resize: vertical;
@@ -748,7 +759,7 @@ onMounted(async () => { await nextTick() })
   cursor: pointer;
   padding: 0.875rem 1rem;
   border: 1.5px dashed var(--vp-c-border, #d1d5db);
-  border-radius: 8px;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 0.875rem;
   font-weight: 500;
@@ -773,7 +784,7 @@ onMounted(async () => { await nextTick() })
   gap: 0.625rem;
   padding: 0.625rem 0.875rem;
   border: 1.5px solid var(--vp-c-brand);
-  border-radius: 8px;
+  border-radius: 4px;
   background: hsla(197, 87%, 50%, 0.05);
   color: var(--vp-c-brand);
 }
@@ -814,7 +825,7 @@ onMounted(async () => { await nextTick() })
   font-size: 0.9rem;
   font-weight: 600;
   border: none;
-  border-radius: 10px;
+  border-radius: 4px;
   cursor: pointer;
   transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
   box-shadow: 0 1px 4px hsla(197, 87%, 50%, 0.3);
@@ -850,7 +861,7 @@ onMounted(async () => { await nextTick() })
   background: #fef2f2;
   color: #991b1b;
   border: 1px solid rgba(220,38,38,0.2);
-  border-radius: 8px;
+  border-radius: 4px;
   font-size: 0.875rem;
   font-weight: 500;
   margin-bottom: 1rem;
@@ -869,18 +880,18 @@ onMounted(async () => { await nextTick() })
   align-items: center;
   gap: 1.25rem;
   padding: 1.5rem 1.75rem;
-  border-radius: 14px;
+  border-radius: 4px;
   border: 1px solid transparent;
   flex-wrap: wrap;
 }
 
-.hero-pass { background: linear-gradient(135deg, rgba(22,163,74,0.06) 0%, hsla(197,87%,50%,0.04) 100%); border-color: rgba(22,163,74,0.2); }
+.hero-pass { background: rgba(22,163,74,0.06); border-color: rgba(22,163,74,0.2); }
 .hero-warn { background: rgba(217,119,6,0.05); border-color: rgba(217,119,6,0.2); }
 .hero-fail { background: rgba(220,38,38,0.04); border-color: rgba(220,38,38,0.18); }
 
 .hero-icon {
   width: 52px; height: 52px;
-  border-radius: 13px;
+  border-radius: 4px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
@@ -936,7 +947,7 @@ onMounted(async () => { await nextTick() })
 
 .score-badge {
   padding: 0.15rem 0.5rem;
-  border-radius: 999px;
+  border-radius: 4px;
 }
 
 .score-strong, .score-excellent { background: rgba(22,163,74,0.12); color: #15803d; }
@@ -952,7 +963,7 @@ onMounted(async () => { await nextTick() })
 .tool-card {
   background: var(--vp-c-bg, #fff);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 12px;
+  border-radius: 4px;
   padding: 1.25rem 1.5rem;
 }
 
@@ -973,7 +984,7 @@ onMounted(async () => { await nextTick() })
   display: flex;
   gap: 0.75rem;
   padding: 0.875rem 1.125rem;
-  border-radius: 10px;
+  border-radius: 4px;
   border: 1px solid transparent;
   font-size: 0.875rem;
   line-height: 1.6;
@@ -1006,7 +1017,7 @@ onMounted(async () => { await nextTick() })
   padding: 1rem;
   background: var(--vp-c-bg-soft, #f8f9fa);
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  border-radius: 10px;
+  border-radius: 4px;
 }
 
 .auth-card-head {
@@ -1025,7 +1036,7 @@ onMounted(async () => { await nextTick() })
   text-transform: uppercase;
   letter-spacing: 0.04em;
   padding: 0.15rem 0.45rem;
-  border-radius: 999px;
+  border-radius: 4px;
   background: hsla(197, 87%, 50%, 0.12);
   color: var(--vp-c-brand);
 }
@@ -1041,7 +1052,7 @@ onMounted(async () => { await nextTick() })
   flex-direction: column;
   align-items: center;
   padding: 0.5rem 0.25rem;
-  border-radius: 7px;
+  border-radius: 4px;
   background: var(--vp-c-bg, #fff);
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
   text-align: center;
@@ -1056,7 +1067,7 @@ onMounted(async () => { await nextTick() })
 .auth-stat.muted .as-num { color: var(--vp-c-text-2, #6b7280); }
 
 /* Sources table */
-.sources-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--vp-c-border, #e5e7eb); }
+.sources-wrap { overflow-x: auto; border-radius: 4px; border: 1px solid var(--vp-c-border, #e5e7eb); }
 
 .sources-table { min-width: 600px; }
 
@@ -1134,7 +1145,7 @@ onMounted(async () => { await nextTick() })
 .disclosure {
   background: var(--vp-c-bg, #fff);
   border: 1px solid var(--vp-c-border, #e5e7eb);
-  border-radius: 10px;
+  border-radius: 4px;
   overflow: hidden;
 }
 
@@ -1180,7 +1191,7 @@ details[open] .disclosure-chevron { transform: rotate(180deg); }
 .proto-badge {
   display: inline-block;
   padding: 0.15rem 0.55rem;
-  border-radius: 999px;
+  border-radius: 4px;
   font-size: 0.75rem;
   font-weight: 600;
 }
@@ -1195,7 +1206,7 @@ details[open] .disclosure-chevron { transform: rotate(180deg); }
 .record-card {
   padding: 0.875rem 1rem;
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
-  border-radius: 9px;
+  border-radius: 4px;
   background: var(--vp-c-bg, #fff);
 }
 
@@ -1226,7 +1237,7 @@ details[open] .disclosure-chevron { transform: rotate(180deg); }
 
 .status-pill {
   padding: 0.1rem 0.55rem;
-  border-radius: 999px;
+  border-radius: 4px;
   font-size: 0.72rem;
   font-weight: 600;
 }
@@ -1235,7 +1246,7 @@ details[open] .disclosure-chevron { transform: rotate(180deg); }
 
 .chip {
   padding: 0.1rem 0.45rem;
-  border-radius: 999px;
+  border-radius: 4px;
   font-size: 0.7rem;
   font-weight: 500;
   color: var(--vp-c-text-2, #6b7280);
@@ -1302,7 +1313,7 @@ details[open] .disclosure-chevron { transform: rotate(180deg); }
   width: max-content;
   max-width: min(280px, 90vw);
   padding: 0.75rem 1rem;
-  border-radius: 8px;
+  border-radius: 4px;
   background: var(--vp-c-bg, #fff);
   border: 1px solid var(--vp-c-border-soft, #e5e7eb);
   box-shadow: 0 8px 24px rgba(0,0,0,.12);
@@ -1322,7 +1333,7 @@ details[open] .disclosure-chevron { transform: rotate(180deg); }
 }
 
 /* Dark mode */
-.dark .hero-pass { background: linear-gradient(135deg, rgba(22,163,74,0.09) 0%, hsla(197,87%,50%,0.06) 100%); border-color: rgba(22,163,74,0.25); }
+.dark .hero-pass { background: rgba(22,163,74,0.09); border-color: rgba(22,163,74,0.25); }
 .dark .hero-warn { background: rgba(217,119,6,0.09); border-color: rgba(217,119,6,0.25); }
 .dark .hero-fail { background: rgba(220,38,38,0.08); border-color: rgba(220,38,38,0.22); }
 
