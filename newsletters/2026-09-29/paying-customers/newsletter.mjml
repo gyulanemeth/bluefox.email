@@ -1,0 +1,217 @@
+<!--
+  BlueFox Email newsletter, 2026-09-29: monthly plans launch.
+  Audience: paying customers (workspaces that have bought a pack).
+  Built from brand/design-system.md, brand/writing-style.md and brand/utm-tagging.md.
+  Subject: Sending every month? A plan costs less
+  UTM: utm_source=whats-new utm_medium=email
+       utm_campaign=2026-09-29-monthly-plans utm_term=paying-customers
+  Build: npx mjml newsletters/2026-09-29/paying-customers/newsletter.mjml -o newsletters/2026-09-29/paying-customers/newsletter.html
+-->
+<mjml lang="en">
+  <mj-head>
+    <mj-title>Sending every month? A plan costs less</mj-title>
+    <mj-preview>Monthly plans are live, and your packs keep working. At 25,000 sends a month, Growth is $19 instead of $25 in packs.</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" />
+      <mj-section padding="0 24px" background-color="#FFFFFF" />
+      <mj-column padding="0" />
+      <mj-text font-size="16px" line-height="1.6" color="#334155" padding="0 0 16px 0" />
+      <mj-button background-color="#13B0EE" color="#FFFFFF" font-size="16px" font-weight="600" border-radius="4px" inner-padding="12px 24px" padding="0" />
+      <mj-divider border-color="#E2E8F0" border-width="1px" padding="0" />
+      <mj-class name="h1" font-size="32px" line-height="1.15" font-weight="800" color="#0F172A" />
+      <mj-class name="h2" font-size="24px" line-height="1.25" font-weight="700" color="#0F172A" />
+      <mj-class name="lead" font-size="17px" color="#64748B" />
+      <mj-class name="small" font-size="14px" />
+      <mj-class name="fine" font-size="12px" color="#64748B" />
+    </mj-attributes>
+    <mj-style inline="inline">
+      a { color: #0C7AA6; font-weight: 600; }
+      .rates th { font-size: 12px; font-weight: 600; color: #64748B; text-align: left; padding: 12px; border-bottom: 1px solid #E2E8F0; background-color: #F8FAFC; }
+      .rates td { font-size: 14px; color: #334155; padding: 12px; border-bottom: 1px solid #E2E8F0; }
+      .rates tr.last td { border-bottom: 0; }
+      .rates tr.pack td { color: #64748B; }
+      .rates tr.win td { background-color: #E0F2FE; }
+      .rates .name { font-weight: 600; color: #0F172A; white-space: nowrap; }
+      .rates .sub { white-space: nowrap; }
+      .rates .num { text-align: right; white-space: nowrap; }
+      .rates .rate { text-align: right; white-space: nowrap; font-weight: 700; color: #0F172A; }
+    </mj-style>
+    <mj-style>
+      @media only screen and (max-width: 480px) {
+        .hero-title div { font-size: 28px !important; }
+      }
+    </mj-style>
+  </mj-head>
+
+  <mj-body background-color="#F8FAFC" width="600px">
+
+    <!-- Top brand bar -->
+    <mj-section padding="0" background-color="#13B0EE">
+      <mj-column>
+        <mj-spacer height="4px" container-background-color="#13B0EE" />
+      </mj-column>
+    </mj-section>
+
+    <!-- Header -->
+    <mj-section padding="24px 24px 8px">
+      <mj-group>
+        <mj-column width="15%" vertical-align="middle">
+          <mj-image src="https://bluefox.email/assets/bluefoxemail-logo-200x200.png" alt="BlueFox Email logo" width="44px" height="44px" padding="0" href="https://bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=paying-customers&amp;utm_content=header-logo" />
+        </mj-column>
+        <mj-column width="85%" vertical-align="middle">
+          <mj-text font-size="18px" font-weight="700" color="#0F172A" padding="0 0 0 4px">BlueFox Email</mj-text>
+        </mj-column>
+      </mj-group>
+    </mj-section>
+
+    <!-- Hero -->
+    <mj-section padding="24px 24px 8px">
+      <mj-column>
+        <mj-text mj-class="h1" css-class="hero-title">Sending every month? A plan costs less</mj-text>
+        <mj-text mj-class="lead">Monthly plans are live. Your packs keep working exactly as they do today.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="0 24px 8px">
+      <mj-column>
+        <mj-text>Hi{{#if contact.name}} {{contact.name}}{{/if}},</mj-text>
+        <mj-text>You buy sends in packs today. If your volume is steady from month to month, a <strong>monthly plan</strong> now gets you the same sends for less.</mj-text>
+        <mj-text>Take a workspace sending 25,000 emails a month. In Essential packs that is $25 a month. On the Growth plan it is <strong>$19</strong>, so you save <strong>$72 a year</strong>.</mj-text>
+        <mj-text>Nothing else changes. You still pay for sends, never for contacts, and every plan includes the full platform.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="8px 24px 40px">
+      <mj-column>
+        <mj-button href="https://app.bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=paying-customers&amp;utm_content=hero-cta" align="left">Log in to choose a plan</mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="0 24px">
+      <mj-column><mj-divider /></mj-column>
+    </mj-section>
+
+    <!-- Rate comparison -->
+    <mj-section padding="40px 24px 8px">
+      <mj-column>
+        <mj-text mj-class="h2">What 1,000 sends cost you</mj-text>
+        <mj-text mj-class="small" color="#64748B">Your packs on top, monthly plans below. Highlighted plans cost less per send than both packs.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="0 24px 16px">
+      <mj-column border="1px solid #E2E8F0" border-radius="4px" padding="0">
+        <mj-table css-class="rates" padding="0" cellpadding="0" width="100%">
+          <tr>
+            <th>Option</th>
+            <th style="text-align:right;">Price</th>
+            <th style="text-align:right;">Per 1,000</th>
+          </tr>
+          <tr class="pack">
+            <td><span class="name">Essential pack</span><br /><span class="sub">50,000 sends</span></td>
+            <td class="num">$50</td>
+            <td class="rate">$1.00</td>
+          </tr>
+          <tr class="pack">
+            <td><span class="name">Premium pack</span><br /><span class="sub">500,000 sends</span></td>
+            <td class="num">$300</td>
+            <td class="rate">$0.60</td>
+          </tr>
+          <tr>
+            <td><span class="name">Basic plan</span><br /><span class="sub">10,000 / mo</span></td>
+            <td class="num">$9 / mo</td>
+            <td class="rate">$0.90</td>
+          </tr>
+          <tr>
+            <td><span class="name">Growth plan</span><br /><span class="sub">25,000 / mo</span></td>
+            <td class="num">$19 / mo</td>
+            <td class="rate">$0.76</td>
+          </tr>
+          <tr>
+            <td><span class="name">Pro plan</span><br /><span class="sub">50,000 / mo</span></td>
+            <td class="num">$35 / mo</td>
+            <td class="rate">$0.70</td>
+          </tr>
+          <tr class="win">
+            <td><span class="name">Business plan</span><br /><span class="sub">100,000 / mo</span></td>
+            <td class="num">$59 / mo</td>
+            <td class="rate">$0.59</td>
+          </tr>
+          <tr class="win">
+            <td><span class="name">Scale plan</span><br /><span class="sub">250,000 / mo</span></td>
+            <td class="num">$129 / mo</td>
+            <td class="rate">$0.52</td>
+          </tr>
+          <tr class="win last">
+            <td><span class="name">Elite plan</span><br /><span class="sub">500,000 / mo</span></td>
+            <td class="num">$239 / mo</td>
+            <td class="rate">$0.48</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="0 24px 40px">
+      <mj-column>
+        <mj-text mj-class="fine" padding="0">All prices +VAT. The final price may vary based on your local VAT rate. VAT is applied at checkout. A $6 Starter plan (5,000 sends a month) is also available. <a href="https://bluefox.email/pricing?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=paying-customers&amp;utm_content=plans-table">See all plans</a></mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Should you switch -->
+    <mj-section padding="0 24px 8px">
+      <mj-column>
+        <mj-text mj-class="h2">Should you switch?</mj-text>
+        <mj-text><strong>Yes, if you buy Essential packs and send steadily.</strong> Every plan from Basic up costs less per send.</mj-text>
+        <mj-text><strong>Yes, if you buy Premium packs and send 100,000 or more a month.</strong> Business, Scale and Elite cost less per send. At 500,000 a month, Elite saves you $732 a year.</mj-text>
+        <mj-text><strong>No, if your volume comes in bursts.</strong> Plan allowances reset every billing cycle and unused sends do not roll over. Packs stay valid for 12 months, so they suit uneven sending better.</mj-text>
+        <mj-text padding="0 0 32px 0"><strong>No, if you buy Premium packs and send less than 100,000 a month.</strong> At $0.60 per 1,000 sends, your packs are still the cheaper option. Keep them.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- What stays the same -->
+    <mj-section padding="0 24px 40px">
+      <mj-column background-color="#F8FAFC" border="1px solid #E2E8F0" border-radius="4px" padding="20px 24px">
+        <mj-text font-size="15px" padding="0 0 8px 0"><strong>Your current packs are safe.</strong> Your balance stays where it is, sends remain valid for 12 months from purchase, and you can keep topping up.</mj-text>
+        <mj-text font-size="15px" padding="0"><strong>A plan is easy to leave.</strong> Cancel any time, and you keep your allowance until the current billing period ends.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Final CTA -->
+    <mj-section padding="0 24px 8px">
+      <mj-column>
+        <mj-text mj-class="h2">Not sure which one fits?</mj-text>
+        <mj-text>Reply to this email with roughly how many emails you send a month, and I'll tell you whether a plan or your packs will cost less.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="8px 24px 40px">
+      <mj-column>
+        <mj-button href="https://app.bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=paying-customers&amp;utm_content=final-cta" align="left">Log in to choose a plan</mj-button>
+      </mj-column>
+    </mj-section>
+
+    <!-- Sign-off -->
+    <mj-section padding="0 24px 32px">
+      <mj-column>
+        <mj-text padding="0">Thanks for sending with us,</mj-text>
+        <mj-text padding="0"><strong>Gyula Németh</strong><br /><span style="color:#64748B; font-size:14px;">Founder, BlueFox Email</span></mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="0 24px 32px">
+      <mj-column>
+        <mj-text mj-class="fine" padding="0">P.S. Sending through your own Amazon SES? Every plan gives you 2× the sends at the same price. <a href="https://bluefox.email/byo-amazon-ses-pricing?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=paying-customers&amp;utm_content=body-link-byo">See BYO SES pricing</a></mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Footer -->
+    <mj-section background-color="#F8FAFC" padding="24px 24px 32px">
+      <mj-column>
+        <mj-text mj-class="fine" align="center" padding="0 0 8px 0">You are receiving this because you signed up for product updates from <a href="https://bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=paying-customers&amp;utm_content=footer-site" style="color:#64748B;">BlueFox Email</a>.</mj-text>
+        <mj-text mj-class="fine" align="center" padding="0 0 8px 0">Need a break? <a href="{{pauseSubscriptionLink}}" style="color:#64748B;">Pause your subscription</a> for a while, or <a href="{{unsubscribeLink}}" style="color:#64748B;">unsubscribe</a> from these emails.</mj-text>
+        <mj-text mj-class="fine" align="center" color="#94A3B8" padding="0">Innovaris Group LLC</mj-text>
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>

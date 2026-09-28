@@ -143,7 +143,7 @@ export default defineConfig({
   cleanUrls: true,
   title: "BlueFox Email",
   description: "High deliverability & brand consistency.",
-  srcExclude: ['skills/**'],
+  srcExclude: ['skills/**', 'brand/**', 'newsletters/**'],
   head: headConf,
   ignoreDeadLinks: [/^\/docs\/api\/reference\//],
   transformPageData(pageData) {
