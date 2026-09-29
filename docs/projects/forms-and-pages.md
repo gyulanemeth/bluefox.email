@@ -8,6 +8,8 @@ faqs:
     answer: "Both links direct subscribers to the subscription preferences page. When a subscriber uses the unsubscribeLink, the full unsubscribe option is visible on the page. When they use the pauseSubscriptionLink, the unsubscribe option is hidden and only the pause option is shown. Using the pause link can significantly reduce permanent unsubscribes."
   - question: "Can I embed a sign-up form on my own website?"
     answer: "Yes. You can create a sign-up form in BlueFox Email, customize its fields, styling, and assigned subscriber lists, then copy the generated HTML code and paste it into your website. To ensure the form works correctly you must also whitelist your website domain in the project settings."
+  - question: "Can I share a sign-up form without having a website?"
+    answer: "Yes. Any sign-up form can be published as a BlueFox-hosted signup page with its own link. In the form's Settings, set a page URL, then turn on Publish a BlueFox-hosted signup page and share the link. The hosted page needs no domain whitelisting. You can also embed the form on your own website by copying the generated HTML."
   - question: "How does double opt-in work in BlueFox Email?"
     answer: "When double opt-in is enabled on a sign-up form, subscribers who submit the form receive a verification email containing a verifyLink merge tag before being added as active subscribers. You configure which transactional email is used for verification directly in the form's double opt-in settings."
   - question: "Can one sign-up form add subscribers to multiple lists at once?"
@@ -81,14 +83,19 @@ To manage the logo, click the **update logo** button on the subscription prefere
 
 ## Sign-Up Forms
 
-Sign-up forms are now separate entities that you can create, customize, and assign to one or multiple subscriber lists. This flexible approach allows you to design forms once and reuse them across different lists, or create specialized forms for specific audiences. Each form provides an easy way to customize the appearance, generate the necessary HTML code, and integrate it into external sites without the need for backend code.
+Sign-up forms are now separate entities that you can create, customize, and assign to one or multiple subscriber lists. This flexible approach allows you to design forms once and reuse them across different lists, or create specialized forms for specific audiences. Each form provides an easy way to customize the appearance, generate the necessary HTML code, and integrate it into external sites without the need for backend code. You can also publish a form as a [BlueFox-hosted signup page](#bluefox-hosted-signup-page) with its own link, so you can collect signups without a website of your own.
 
 ### How It Works
 
-Users can create multiple forms, customize each form through the interface, and assign them to one or more subscriber lists. Once configured, you can copy the generated HTML code and paste it into your website. When visitors enter their details and submit the form, they will be added to all the subscriber lists assigned to that form.
+Users can create multiple forms, customize each form through the interface, and assign them to one or more subscriber lists. Once configured, there are two ways to put a form in front of visitors:
+
+- **Embed it on your own website:** Copy the generated HTML code and paste it into your website, the traditional way.
+- **Share a BlueFox-hosted page:** Publish the form at its own BlueFox link and share that link. See [BlueFox-Hosted Signup Page](#bluefox-hosted-signup-page).
+
+Either way, when visitors enter their details and submit the form, they will be added to all the subscriber lists assigned to that form.
 
 ::: info Important Note:
-To ensure the form functions correctly on your website, you must [whitelist](/docs/projects/settings#domain-whitelist) your website domain. Navigate to Project Settings → Whitelist and add your domain to the whitelist.
+If you embed the form on your website, you must [whitelist](/docs/projects/settings#domain-whitelist) your website domain. Navigate to Project Settings → Whitelist and add your domain to the whitelist. A BlueFox-hosted signup page doesn't need this.
 ::: 
 
 ### Interface Overview
@@ -113,7 +120,7 @@ In each form you can:
 - **Success Message Customization**: Customize the message shown to subscribers after they successfully submit the form.
 - **Double Opt-In**: Configure double opt-in settings directly at the form level.
 - **Form Style Customization**: Choose how form fields are arranged (column or row) and customize font styles and colors.
-- **Settings**: Manage Form Name or Delete the form.
+- **Settings**: Manage the form name, publish a BlueFox-hosted signup page, or delete the form.
 
 ### Customization Options
 
@@ -241,6 +248,24 @@ You can configure double opt-in directly at the form level. When enabled, subscr
 #### 9. Settings
 
 - **Form Name:** Set or update the name of the form for easy identification.
-- **Delete Form:** Permanently delete the form from your project.
+- **BlueFox-hosted signup page:** Publish the form at its own BlueFox link. See [BlueFox-Hosted Signup Page](#bluefox-hosted-signup-page) below.
+- **Delete Form:** Permanently delete the form from your project. If the form is active or embedded anywhere, it stops working immediately and submissions fail.
 
 ![Screenshot of the subscriber lists sign-up page settings section](./project-subscriber-lists-sign-up-settings.webp)
+
+### BlueFox-Hosted Signup Page
+
+Besides embedding the HTML on your own site, you can publish a form as a page hosted by BlueFox Email. People sign up from a link you share, so you don't need a website of your own, and you don't need to whitelist a domain. The hosted page shows the form exactly as you configured it in the other tabs, including its fields, style, button and success message.
+
+![Example of a BlueFox-hosted signup page](./project-subscriber-lists-sign-up-hosted-page-example.webp)
+
+You set it up in the **Settings** tab of the form, in the **BlueFox-hosted signup page** card.
+
+![Screenshot of the BlueFox-hosted signup page settings](./project-subscriber-lists-sign-up-hosted-page.webp)
+
+- **Page URL:** The address of the page, `https://app.bluefox.email/signup/` followed by a name you choose. Use only letters, numbers and hyphens. A page URL is required before you can publish. While the page is published the URL is locked, because changing it would break links you've already shared. Unpublish the page first if you need to change it.
+- **Copy link:** Copies the page's link so you can share it.
+- **Page headline:** The headline shown at the top of the hosted page.
+- **Page description:** A line or two shown under the headline, explaining what people are signing up for.
+- **Use BlueFox's Turnstile protection:** On by default. BlueFox's own Cloudflare Turnstile challenge protects the hosted page from spam signups automatically. This only applies to the hosted page. The embed HTML always uses the settings in the [Captcha tab](#_3-captcha-customization). Turn it off to use the Captcha tab's settings on the hosted page as well.
+- **Publish a BlueFox-hosted signup page:** When on, the form is reachable at its own BlueFox link. This switch stays off until you have set a page URL.
