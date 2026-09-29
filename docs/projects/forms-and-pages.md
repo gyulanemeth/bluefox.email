@@ -57,6 +57,10 @@ We provide a subscription preferences page where users can manage their subscrip
 The "pause subscription" feature is an effective way to reduce churn.
 :::
 
+::: info
+If you host your own subscription preferences page, you can send subscribers there instead. See [Custom Subscription Preferences Page](./settings.md#custom-subscription-preferences-page).
+:::
+
 You can configure the **subscription preferences page** from the **Manage Contacts page**, just head over to **Lists** tab and there you'll find the opiton to manage lists and preview **Subscription Preferences Page**. 
 ![Subscription preferences page - manage subscription preferences button.](./forms-and-pages-manage-subscription-preferences-button.webp)
 
