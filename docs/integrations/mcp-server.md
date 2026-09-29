@@ -324,6 +324,7 @@ Nothing reaches a real recipient until that last step.
 
 ## Additional Resources
 
+- [How to Set Up Email for a New SaaS Product with an AI Agent](/posts/how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent), a full walkthrough using this MCP server
 - [API Documentation](/docs/api/)
 - [Email Personalization (Merge Tags)](/docs/email-personalization)
 - [Model Context Protocol documentation](https://modelcontextprotocol.io)

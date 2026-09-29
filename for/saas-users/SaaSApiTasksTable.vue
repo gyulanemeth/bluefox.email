@@ -167,7 +167,10 @@ const methodColor = {
 
     <div class="api-footer-note" role="note">
       <span>All endpoints accept JSON. Authenticate with your project API key.</span>
-      <a href="/docs/api/" class="full-docs-link">Full API docs →</a>
+      <span class="footer-links">
+        <a href="/posts/how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent" class="full-docs-link">Set it up with an AI agent →</a>
+        <a href="/docs/api/" class="full-docs-link">Full API docs →</a>
+      </span>
     </div>
   </section>
 </template>
@@ -382,6 +385,13 @@ html.dark .doc-link {
 html.dark .api-footer-note {
   background: rgba(30, 41, 59, 0.6);
   color: #94a3b8;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
 }
 
 .full-docs-link {

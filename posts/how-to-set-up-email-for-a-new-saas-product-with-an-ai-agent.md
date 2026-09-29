@@ -14,7 +14,7 @@ faqs:
   - question: "Do I need to know how to code?"
     answer: "Connecting the MCP server takes a few terminal commands and a short config snippet. After that, creating and managing emails is a conversation. To send emails from your own app, like a signup verification email, your backend makes one API call, and the agent can write that code for you too."
   - question: "Can the AI agent build email automations?"
-    answer: "Yes. It can create an automation with a trigger, add steps like sending an email or waiting a few days, write each email, and turn it on. Before it adds, changes, or deletes steps, or activates an automation, it has to show you the current state and get your go-ahead."
+    answer: "Yes. It can create an automation with a trigger, add steps like sending an email or waiting a few days, write each email, and turn it on. The automation tools are built so the agent shows you the current state and gets your go-ahead before it adds, changes, or deletes steps, edits an automation email, or activates an automation."
   - question: "Does the AI agent see my BlueFox Email API key?"
     answer: "No. The MCP server runs on your own computer and is the only thing that talks to BlueFox Email with your API key. The key never reaches the AI model, and no tool can read or change API keys."
   - question: "Which AI clients work with the BlueFox Email MCP server?"
@@ -22,9 +22,10 @@ faqs:
   - question: "Does using the MCP server cost extra?"
     answer: "No. The MCP server is free. It works through your BlueFox Email account, so normal sending costs apply, exactly as if you'd used the dashboard or the API."
 
+justify: true
 sidebar: false
 published: true
-lastUpdated: 2026-09-28
+lastUpdated: 2026-09-29
 
 head:
   - - meta
@@ -70,7 +71,7 @@ In this guide, we set all of it up by talking to an AI agent connected to BlueFo
 ::: info What you'll need
 - A BlueFox Email account with a project
 - An AI client that supports MCP, like Claude Desktop, Claude Code, or Cursor
-- Node.js, for the MCP server and for the code examples in this guide (all code examples use Node.js)
+- Node.js 20 or newer, for the MCP server and for the code examples in this guide (all code examples use Node.js)
 :::
 
 ## What Is an MCP Server, and Why Use One for Email?
@@ -82,7 +83,7 @@ The [BlueFox Email MCP server](/mcp) gives your agent tools for almost everythin
 - **It runs on your computer.** The MCP server is a small Node.js program your AI client starts. It's the only thing that talks to BlueFox Email, using your API key, so the key never reaches the AI model.
 - **You see every action.** Each change is a separate tool call, and your AI client shows you what the agent did and what came back.
 - **Nothing goes out by accident.** Creating an email only saves it. Sending is always a separate request, and a campaign is only scheduled if you give it an exact send time.
-- **It knows BlueFox's templating.** The tool descriptions tell the agent how merge tags work (BlueFox uses [Handlebars](https://handlebarsjs.com/)), so you don't need to explain tags like <code>&#123;&#123;contact.firstName&#125;&#125;</code> yourself.
+- **It knows BlueFox's templating.** The tool descriptions tell the agent how [merge tags](/email-marketing-concepts/personalization/merge-tags) work (BlueFox uses [Handlebars](https://handlebarsjs.com/)), so you don't need to explain tags like <code>&#123;&#123;contact.firstName&#125;&#125;</code> yourself. None of the prompts in this guide mention Handlebars, and the agent used it correctly every time, including <code>&#123;&#123;#if&#125;&#125;</code> fallbacks for missing values.
 
 ## Connecting Claude to BlueFox Email
 
@@ -129,7 +130,7 @@ In our case, sparksprocleaning.com was already verified in the dashboard, and th
 
 ![The AI agent reporting that the domain's DKIM, SPF, DMARC and MX records are in place, and that the SparksPro Crew sender identity is now the default.](./how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent/sending-setup.webp){.screenshot}
 
-The MCP can't rename a sender identity, so the agent explained that it would replace the existing one, waited for a yes, and then did it. Now every email arrives from **SparksPro Crew** instead of a bare address.
+The MCP can't rename a sender identity, so the agent explained that it would replace the existing one, waited for a yes, and then did it. Now every email arrives from **SparksPro Crew** instead of a bare address, and a [sender name people recognize](/posts/sender-name-and-email-address-build-trust-before-the-open) is one of the first things they check before opening an email.
 
 If you're starting with a brand-new domain, the agent can add it for you, save the DNS records you need to a CSV file for whoever manages your DNS, and re-check them once they're in place. New projects start in [sandbox mode](/docs/projects/delivery-modes), and when you're ready for real volume, the agent can also submit your production access request.
 
@@ -141,7 +142,9 @@ Next, a home for your users. A [subscriber list](/docs/projects/contacts) is wha
 
 ![The AI agent creating the SparksPro Crew Users list and adding all 18 existing contacts.](./how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent/subscriber-list.webp){.screenshot}
 
-Two details worth pointing out. First, the agent exported the full contact list before subscribing anyone, so contacts that weren't on any list yet still got added. Second, it turned double opt-in off. Double opt-in is for things like newsletter signup forms, where someone joins a list by typing in their email. App users already confirm their address through the app's own signup email, which we build below, so a second confirmation would just be annoying.
+One detail worth pointing out: the agent exported the full contact list before subscribing anyone, so contacts that weren't on any list yet still got added. Our 18 contacts are demo contacts, so adding them all was fine here. In a real project, only add people who actually use your app. Putting existing customers on a list they never signed up for means sending them emails they never asked for.
+
+The list also has [double opt-in](/email-best-practices-for-saas/double-opt-in) off, which is how new lists start, and for app users that's what you want. Double opt-in sends a confirmation link before someone becomes an active subscriber. That matters on a public signup form, where anyone can type in any address. Your app users confirm their address through the app's own verification email, which we build below, so a second confirmation email would just be annoying. If you later add a newsletter signup form to your website, give it its own list with double opt-in turned on.
 
 ## Giving the Agent Your Brand: An Email Design Guide
 
@@ -151,7 +154,7 @@ Here's a trick that makes every email after this one better. Instead of describi
 
 ![The AI agent summarizing the design guide it wrote from the website: colors, fonts, logo, buttons, and tone of voice.](./how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent/brand-guide.png){.screenshot}
 
-The agent read the site's actual stylesheet and logo instead of guessing, so the colors are the real hex values. It also adapted a few things for email. The website uses a green-to-aqua gradient, for example, but Outlook doesn't show CSS gradients, so the guide says to use solid green buttons in emails.
+The agent read the site's actual stylesheet and logo instead of guessing, so the colors are the real hex values. It also adapted a few things for email. The website uses a green-to-aqua gradient, for example, but desktop Outlook on Windows doesn't show CSS gradients, so the guide says to use solid green buttons in emails.
 
 The result is a plain Markdown file saved next to your other email files, and every email in the rest of this guide follows it.
 
@@ -165,7 +168,7 @@ Our contacts still had fields from the cleaning business (home, office, deep cle
 
 ![The AI agent adding the companyName, plan, and teamSize contact fields and explaining how to use them as merge tags.](./how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent/contact-fields.webp){.screenshot}
 
-Notice what the agent didn't do: it left the old fields alone. Removing a field permanently deletes its values on every contact, so it asked first instead of cleaning up on its own.
+The old cleaning fields are still there. The agent offered to remove them but left that call to us, since removing a field permanently deletes its values on every contact.
 
 ## Creating a Signup Verification Email
 
@@ -273,17 +276,21 @@ Verification and password reset cover launch day, but most SaaS products need a 
 - **Magic link sign-in:** a one-click login link, if you offer passwordless sign-in.
 - **Billing emails:** receipts, invoices, failed payments, and plan changes. The email side is simple. The real work is getting the details from your payment provider (amounts, dates, invoice links) into the `data` your app sends.
 
+::: tip Using Supabase Auth?
+Supabase sends its own signup confirmation, password reset, magic link, and email change emails. Our [Supabase integration guide](/docs/integrations/supabase) shows how to send them through BlueFox Email instead, with your own templates.
+:::
+
 ## Building a Welcome Series with an Automation
 
-A single welcome email is fine. A short series, spread over the first week, does a much better job of getting new users to actually use your product instead of forgetting they signed up.
+A single welcome email is fine. A short series spread over the first week, sometimes called a [drip campaign](/email-marketing-concepts/automation/drip-campaigns), does a much better job of getting new users to actually use your product instead of forgetting they signed up.
 
-In BlueFox Email, a multi-step series with waits in between is an [automation](/docs/projects/automations): a trigger, then a sequence of steps like "send email" and "wait 2 days." The agent can build the whole thing:
+In BlueFox Email, a multi-step series with waits in between is an [automation](/docs/projects/automations): a trigger, then a series of nodes, such as a Send Email node or a Timer node that waits 2 days. The agent can build the whole thing:
 
 > Create a welcome series for new SparksPro Crew users as an automation. When someone is added to the SparksPro Crew Users list, send a welcome email right away, an "invite your crew" email two days later, and a quick tips email three days after that. Follow brand-guide.md and write the emails in MJML.
 
 ![The AI agent showing the full plan for the welcome series automation and asking for approval before adding the steps.](./how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent/welcome-plan.webp){.screenshot}
 
-Before changing anything, the agent showed the full plan and asked for a yes. That's not just good manners: the automation tools require it. The agent has to show you the automation's current state and get your go-ahead before it adds, changes, or deletes steps, or turns an automation on.
+Before changing anything, the agent showed the full plan and asked for a yes. That's not just good manners, the automation tools are built for it. They won't apply a change until the agent confirms it, and they tell the agent to confirm only after it has shown you the automation's current state and you've said yes. That goes for adding, changing, or deleting steps, editing an automation email, and turning an automation on.
 
 Once approved, it added the steps and filled in all three emails:
 
@@ -313,11 +320,11 @@ Notice the second email: "Your team of 8" comes from the `teamSize` contact fiel
 
 After that, the agent deleted the test copy (asking first, since deleting can't be undone). The real Welcome Series, with its day-long waits, stays in draft until you're ready to turn it on.
 
-Once it's on, anyone your app adds to the SparksPro Crew Users list gets the series. Your signup handler adds each new user to the list with one API call (see [subscribing a contact to a list](/docs/api/subscriptions#subscribe-a-contact-to-a-list)), and BlueFox Email takes it from there. Contacts who were already on the list before you turned it on won't get it, since the trigger only fires when someone is added.
+Once it's on, anyone your app adds to the SparksPro Crew Users list gets the series. Once a new user has verified their email, your app adds them to the list with one API call (see [subscribing a contact to a list](/docs/api/subscriptions#subscribe-a-contact-to-a-list)), and BlueFox Email takes it from there. Add them after verification, not at signup, so people who never confirm their address don't get a welcome series. Contacts who were already on the list before you turned it on won't get it, since the trigger only fires when someone is added.
 
 ## Sending a Weekly Summary with a Triggered Email
 
-Plenty of SaaS products send a weekly recap of what each user got done. Duolingo's progress emails are the famous example, and they work because people actually want to see their numbers.
+Plenty of SaaS products send a weekly recap of what each user got done. Duolingo's weekly progress report emails are a well-known example, and they work because people actually want to see their numbers.
 
 This is a job for a [triggered email](/docs/projects/triggered-emails): a single email your app asks BlueFox Email to send, addressed through a subscriber list, with the details your app passes in. People can unsubscribe from it, which is what you want for something that isn't essential.
 
@@ -409,7 +416,7 @@ Always look at a campaign before thousands of people do. One sentence:
 
 ![The test email of the shift swaps campaign, which greets "Hi there," with a gold "New" badge and a "Try shift swaps" button.](./how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent/campaign-test-email.webp){.screenshot .email}
 
-See the "Hi there,"? That's on purpose. Test emails don't fill in personal details or data from your app, so you see the fallback text. That makes them a handy way to check your fallbacks read well. If you want to see a test with real names, send it to a [private subscriber list](/docs/projects/send-test-email) instead.
+See the "Hi there,"? That's on purpose. Test emails don't fill in personal details or data from your app, so you see the fallback text. That makes them a handy way to check your fallbacks read well. To see the personalized version, look at a real send, like the welcome and weekly summary emails earlier in this guide.
 
 Happy with it? Schedule it in plain English:
 
@@ -427,7 +434,7 @@ Changed your mind? Ask the agent to reschedule it or move it back to draft, whic
 
 ## Using Your Own Subscription Preferences Page
 
-Every campaign, triggered email, and automation email has an unsubscribe link, and optionally a pause link. By default they open a preferences page hosted by BlueFox Email. It works, but it doesn't look like your product, and it's the last thing an unhappy user sees.
+Every campaign, triggered email, and automation email has an unsubscribe link, and optionally a [pause link](/email-best-practices-for-saas/unsubscribe-and-pause-subscription), which lets people take a break instead of leaving for good. By default they open a preferences page hosted by BlueFox Email. It works, but it doesn't look like your product, and it's the last thing an unhappy user sees.
 
 If you have your own page, one sentence switches over:
 
@@ -447,7 +454,7 @@ Don't have a page like this yet? You can ask the agent to build one. The MCP too
 
 After doing all of this for real, here's how the work actually split up.
 
-**The agent asked before anything risky.** It asked before replacing the sender identity, left old contact fields alone instead of deleting data, showed the full plan before building the automation, and asked again before deleting the test copy. For automations, that's built into the tools themselves.
+**The agent asked before anything risky.** It asked before replacing the sender identity, offered to remove the old contact fields but left the decision to us, showed the full plan before building the automation, and asked again before deleting the test copy. For automations, the tools themselves tell the agent to work this way.
 
 **Nothing went out without a direct request.** Every email was saved first. Test emails, real sends, and scheduling only happened when we asked for them.
 
@@ -462,7 +469,7 @@ And one real limit: the agent writes emails as HTML (via MJML) or plain text. It
 
 ## Conclusion
 
-Mostly by talking to an AI agent, SparksPro Crew went from a nearly empty project to a full email setup: a branded sender, a list for app users, a design guide, signup and password reset emails wired into the app, a three-part welcome series, a weekly summary with each user's own numbers, a feature announcement, and a branded preferences page. That's most of what a new [SaaS product](/for/saas-companies) needs before its first users show up.
+Mostly by talking to an AI agent, SparksPro Crew went from a nearly empty project to a full email setup: a branded sender, a list for app users, a design guide, signup and password reset emails wired into the app, a three-part welcome series, a weekly summary with each user's own numbers, a feature announcement, and a branded preferences page. That's most of what a new [SaaS product](/for/saas-companies) needs before its first users show up. For the bigger picture, see our [email best practices for SaaS companies](/email-best-practices-for-saas/).
 
 A few things worth keeping in mind as you set up your own:
 

@@ -1,5 +1,5 @@
 <template>
-<div class="PostContent">
+<div class="PostContent" :class="{ justified: frontmatter.justify }">
   <div class="vp-doc">
     <Content/>
     <div v-if="!frontmatter.hideAuthor" class="post-byline">
@@ -45,6 +45,12 @@
 .PostContent p {
   font-size: 16px;
   line-height: 28px;
+}
+
+.PostContent.justified p,
+.PostContent.justified li {
+  text-align: justify;
+  hyphens: auto;
 }
 
 .PostContent .custom-block {

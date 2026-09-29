@@ -239,3 +239,5 @@ The content of these emails may overlap. A product email can be sent as a campai
 The important thing is not what the email is called in general conversation. It is whether recipients can unsubscribe, what caused the email to be sent, and which BlueFox Email feature best fits your workflow.
 
 If you're building your list before sending your first campaign or triggered email, see our guide on [building a high-quality email list](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email).
+
+Want to see all four types working together? Our guide to [setting up email for a new SaaS product with an AI agent](/posts/how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent) builds a transactional email, a triggered email, a campaign, and an automation for one demo app.
