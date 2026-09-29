@@ -5,12 +5,14 @@ const props = defineProps({
   title: { type: String, default: 'Clear reports, fast' },
   description: {
     type: String,
-    default: 'Per-project analytics are clean and visual. Client performance reviews become straightforward, and retainer conversations get easier.'
+    default: 'Per-project delivery, opens, clicks, and bounce data, ready to drop into a client report.'
   },
   secondaryDescription: { type: String, default: '' },
   defaultTab: { type: String, default: 'hourly' },
   showHeader: { type: Boolean, default: true },
-  showCta: { type: Boolean, default: true }
+  showCta: { type: Boolean, default: false },
+  showBadge: { type: Boolean, default: true },
+  interactive: { type: Boolean, default: true }
 })
 
 const activeView = ref('sending')
@@ -314,7 +316,7 @@ const yGridLines = computed(() => {
 <template>
   <section class="agency-analytics" aria-labelledby="agency-analytics-title">
     <div v-if="showHeader" class="analytics-head">
-      <v-chip color="primary" class="analytics-badge">
+      <v-chip v-if="showBadge" color="primary" class="analytics-badge">
         <span class="text-overline">Analytics</span>
       </v-chip>
       <h2 id="agency-analytics-title">{{ title }}</h2>
@@ -325,7 +327,7 @@ const yGridLines = computed(() => {
     <div class="dashboard-shell" role="region" aria-label="Analytics dashboard preview">
 
       <!-- Top bar: view switcher + tab controls -->
-      <div class="dash-topbar">
+      <div v-if="interactive" class="dash-topbar">
         <div class="dash-views">
           <button
             class="dash-view-btn"
@@ -495,16 +497,14 @@ html.dark .analytics-head p { color: #94a3b8; }
 /* Dashboard shell */
 .dashboard-shell {
   background: #ffffff;
-  border-radius: 14px;
+  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 8px 32px rgba(0,0,0,0.08);
   border: 1px solid #e5e7eb;
 }
 
 html.dark .dashboard-shell {
   background: #1e293b;
   border-color: #334155;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 8px 32px rgba(0,0,0,0.3);
 }
 
 /* Top bar */

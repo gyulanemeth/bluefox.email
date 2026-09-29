@@ -8,27 +8,23 @@ const tiers = [
 <template>
   <section class="agency-pricing" aria-labelledby="agency-pricing-title">
     <div class="pricing-head">
-      <v-chip color="primary" class="pricing-badge">
-        <span class="text-overline">Pricing</span>
-      </v-chip>
-      <h2 id="agency-pricing-title">One credit pool. Every client covered.</h2>
-      <p>Pay per email sent, not per contact stored. Buy credits for your account, use them across every client project.</p>
+      <h2 id="agency-pricing-title">One credit pool covers every client</h2>
+      <p>Buy credits once, spend them across every client project. No per-contact fees, no per-client subscriptions.</p>
     </div>
 
     <div class="tier-row">
       <div v-for="tier in tiers" :key="tier.sends" class="tier-card">
         <span class="tier-label">{{ tier.label }}</span>
         <span class="tier-price">{{ tier.price }}<span class="tier-vat"> + VAT</span></span>
-        <span class="tier-sends">{{ tier.sends }} sends</span>
-        <span class="tier-per">{{ tier.perEmail }}</span>
+        <span class="tier-sends">{{ tier.sends }} sends, {{ tier.perEmail }}</span>
       </div>
     </div>
 
     <div class="pricing-footer">
       <span class="footer-lead"><strong>3,000 free sends to start.</strong> No card. Credits valid 12 months.</span>
       <div class="pricing-links">
-        <a href="https://bluefox.email/pricing" class="pricing-link">Full pricing →</a>
-        <a href="https://bluefox.email/byo-amazon-ses-pricing" class="pricing-link pricing-link--muted">BYO Amazon SES →</a>
+        <a href="https://bluefox.email/pricing" class="pricing-link">Full pricing</a>
+        <a href="https://bluefox.email/byo-amazon-ses-pricing" class="pricing-link pricing-link--muted">BYO Amazon SES</a>
       </div>
     </div>
   </section>
@@ -38,12 +34,6 @@ const tiers = [
 .agency-pricing { padding: 36px 24px; }
 
 .pricing-head { margin-bottom: 24px; }
-
-.pricing-badge {
-  height: auto !important;
-  padding: 6px 12px !important;
-  margin-bottom: 14px;
-}
 
 .pricing-head h2 {
   margin: 0 0 10px;
@@ -71,56 +61,49 @@ html.dark .pricing-head p { color: #94a3b8; }
 }
 
 .tier-card {
-  background: #f8fafc;
-  border-radius: 14px;
-  padding: 20px;
+  background: #eef8fd;
+  border-radius: 4px;
+  padding: 36px 24px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
 }
 
-html.dark .tier-card { background: rgba(30, 41, 59, 0.6); }
+html.dark .tier-card { background: #0c1e2d; }
 
 .tier-label {
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #13b0ee;
+  font-size: 17px;
+  font-weight: 600;
+  color: #475569;
 }
+
+html.dark .tier-label { color: #94a3b8; }
 
 .tier-price {
-  font-size: 28px;
-  font-weight: 800;
-  color: #047857;
-  line-height: 1.2;
+  font-size: 44px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.15;
 }
 
-html.dark .tier-price { color: #34d399; }
+html.dark .tier-price { color: #f1f5f9; }
 
 .tier-vat {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 400;
   color: #64748b;
 }
 
 html.dark .tier-vat { color: #94a3b8; }
 
 .tier-sends {
-  font-size: 13px;
-  font-weight: 700;
-  color: #334155;
-  margin-top: 2px;
+  font-size: 17px;
+  color: #475569;
 }
 
-html.dark .tier-sends { color: #cbd5e1; }
-
-.tier-per {
-  font-size: 12px;
-  color: #64748b;
-}
-
-html.dark .tier-per { color: #94a3b8; }
+html.dark .tier-sends { color: #94a3b8; }
 
 .pricing-footer {
   display: flex;
