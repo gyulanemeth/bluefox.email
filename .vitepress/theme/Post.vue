@@ -83,6 +83,20 @@
   color: hsl(197, 87%, 65%);
 }
 
+.PostContent img.screenshot {
+  display: block;
+  width: 680px;
+  max-width: 100%;
+  height: auto;
+  margin: 24px auto;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+}
+
+.PostContent img.screenshot.email {
+  width: 440px;
+}
+
 .post-byline {
   font-size: 14px;
   color: var(--vp-c-text-2);
