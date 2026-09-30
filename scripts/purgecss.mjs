@@ -72,6 +72,8 @@ const result = await new PurgeCSS().purge({
       /^btn-loading$/,
       /^spinner$/,
       /^inline-link$/,
+      // cookie consent card: only rendered client-side
+      /^bf-consent/,
     ],
     deep: [
       /data-v-/,     // Vue scoped style selectors

@@ -12,6 +12,7 @@ import { addProductSchema } from './theme/SchemaMarkup/productSchema'
 import { addDocsSchema } from './theme/SchemaMarkup/docsSchema'
 import { addFeaturesSchema } from './theme/SchemaMarkup/featuresSchema'
 import { addMcpSchema } from './theme/SchemaMarkup/mcpSchema'
+import { consentDefaultsScript } from './theme/consent'
 
 function getImageDimensions(src, mdFilePath) {
   if (!src || !mdFilePath) {
@@ -92,6 +93,8 @@ const securityHeaders = {
 let headConf = [
   // Preload the subset MDI icon font for faster icon rendering
   ['link', { rel: 'preload', href: '/assets/mdi-subset.woff2', as: 'font', type: 'font/woff2', crossorigin: '' }],
+  // Google Consent Mode v2 defaults (all denied) + stored choice. Must stay before the gtag scripts below.
+  ['script', {}, consentDefaultsScript],
 ];
 
 if (env.VITE_APP_ENV === 'production') {

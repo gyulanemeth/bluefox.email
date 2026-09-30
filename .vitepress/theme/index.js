@@ -51,6 +51,7 @@ import GlossaryCTA from './GlossaryCTA.vue'
 import PageCTA from './PageCTA.vue'
 import GlossaryNavigation from './GlossaryNavigation.vue'
 import CustomFooter from './CustomFooter.vue'
+import CookieConsent from './CookieConsent.vue'
 import Primer from './Primer.vue'
 import DocsFaq from './DocsFaq.vue'
 
@@ -135,7 +136,7 @@ export default {
     return h(Theme.Layout, null, {
       // https://vitepress.dev/guide/extending-default-theme#layout-slots
       "doc-footer-before": () => h(DocsFaq),
-      "layout-bottom": () => h(CustomFooter),
+      "layout-bottom": () => [h(CustomFooter), h(CookieConsent)],
     })
   },
   enhanceApp({ app, router, siteData }) {
