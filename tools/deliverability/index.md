@@ -44,38 +44,39 @@ head:
 
 <script setup>
 import ToolsCategoryGrid from '../../.vitepress/theme/ToolsCategoryGrid.vue'
+import { mdiShieldCheckOutline, mdiFileFindOutline, mdiKeyOutline, mdiEmailFastOutline, mdiUploadOutline } from '@mdi/js'
 
 const tools = [
   {
     name: 'DMARC Checker',
     desc: 'Validate your DMARC policy, check alignment mode and enforcement, and prevent email spoofing.',
     href: '/tools/deliverability/dmarc-checker',
-    iconPaths: `<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>`,
+    icon: mdiShieldCheckOutline,
   },
   {
     name: 'SPF Checker',
     desc: 'Verify your SPF record, mechanisms, and DNS lookup count against the RFC 7208 10-lookup limit.',
     href: '/tools/deliverability/spf-checker',
-    iconPaths: `<circle cx="12" cy="12" r="10"/><polyline points="9 12 11 14 15 10"/>`,
+    icon: mdiFileFindOutline,
   },
   {
     name: 'DKIM Checker',
     desc: 'Test DKIM signatures for a domain and selector, and inspect key type, length, and tags.',
     href: '/tools/deliverability/dkim-checker',
-    iconPaths: `<rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>`,
+    icon: mdiKeyOutline,
   },
   {
     name: 'MX Record Checker',
     desc: "Look up your domain's mail exchange records, priorities, and redundancy.",
     href: '/tools/deliverability/mx-checker',
-    iconPaths: `<rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M3 7l9 6 9-6"/>`,
+    icon: mdiEmailFastOutline,
   },
   {
     name: 'DMARC Report Analyzer',
     desc: 'Upload a DMARC aggregate report to see pass rates, sources, and authentication breakdowns.',
     href: '/tools/deliverability/dmarc-report-analyzer',
     tag: 'Upload',
-    iconPaths: `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>`,
+    icon: mdiUploadOutline,
   },
 ]
 </script>

@@ -1,18 +1,20 @@
 <script setup>
+import { mdiShieldCheckOutline, mdiFileDocumentOutline } from '@mdi/js'
+
 const categories = [
   {
     name: 'Email Deliverability Tools',
     desc: 'Check DMARC, SPF, DKIM, and MX records to prevent spoofing and fix inbox placement issues.',
     href: '/tools/deliverability/',
     count: '5 tools',
-    iconPaths: `<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22 6 12 13 2 6"/>`,
+    icon: mdiShieldCheckOutline,
   },
   {
     name: 'Email Content Tools',
     desc: 'Test links and validate your HTML email content before you hit send.',
     href: '/tools/content/',
     count: '1 tool',
-    iconPaths: `<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>`,
+    icon: mdiFileDocumentOutline,
   },
 ]
 </script>
@@ -29,9 +31,9 @@ const categories = [
 
     <div class="category-grid">
       <a v-for="cat in categories" :key="cat.href" :href="cat.href" class="category-card">
-        <div class="category-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" v-html="cat.iconPaths" />
-        </div>
+        <svg class="category-icon" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+          <path :d="cat.icon" fill="currentColor"/>
+        </svg>
         <div class="category-body">
           <div class="category-heading">
             <h2 class="category-name">{{ cat.name }}</h2>
@@ -67,10 +69,7 @@ const categories = [
   margin: 0 0 0.75rem;
   padding: 0;
   border: none !important;
-  background: linear-gradient(135deg, #13B0EE, #392C91);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--vp-c-text-1);
 }
 
 .hero-subtitle {
@@ -93,41 +92,21 @@ const categories = [
   display: flex;
   flex-direction: column;
   gap: 14px;
-  padding: 28px;
+  padding: 24px;
   background: var(--vp-c-bg-soft);
-  border: 1px solid var(--vp-c-divider);
-  border-radius: 18px;
+  border: 1px solid transparent;
+  border-radius: 4px;
   text-decoration: none !important;
   color: inherit;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
-  cursor: pointer;
 }
 
 .category-card:hover {
-  border-color: rgba(19, 176, 238, 0.5);
-  box-shadow: 0 10px 32px rgba(19, 176, 238, 0.16);
-  transform: translateY(-3px);
-}
-
-html.dark .category-card:hover {
-  box-shadow: 0 10px 32px rgba(19, 176, 238, 0.24);
+  border-color: #13B0EE;
 }
 
 .category-icon {
-  width: 52px;
-  height: 52px;
-  border-radius: 14px;
-  background: linear-gradient(135deg, rgba(19, 176, 238, 0.14), rgba(57, 44, 145, 0.12));
-  display: flex;
-  align-items: center;
-  justify-content: center;
   color: #13B0EE;
   flex-shrink: 0;
-  transition: background 0.25s ease;
-}
-
-.category-card:hover .category-icon {
-  background: linear-gradient(135deg, rgba(19, 176, 238, 0.24), rgba(57, 44, 145, 0.2));
 }
 
 .category-body { flex: 1; }
@@ -157,7 +136,7 @@ html.dark .category-card:hover {
   color: #392C91;
   background: rgba(57, 44, 145, 0.1);
   padding: 0.2rem 0.55rem;
-  border-radius: 999px;
+  border-radius: 4px;
   flex-shrink: 0;
   white-space: nowrap;
 }
@@ -178,11 +157,7 @@ html.dark .category-count { color: #b3a4ff; background: rgba(179, 164, 255, 0.15
   font-size: 13.5px;
   font-weight: 600;
   color: #13B0EE;
-  opacity: 0;
-  transition: opacity 0.2s ease;
 }
-
-.category-card:hover .category-link { opacity: 1; }
 
 @media (max-width: 640px) {
   .category-grid { grid-template-columns: 1fr; margin: 2rem auto; }

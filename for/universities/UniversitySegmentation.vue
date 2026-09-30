@@ -33,10 +33,10 @@ const listPoints = [
 
 <template>
   <section class="segmentation-section" aria-labelledby="segmentation-title">
-    <h2 id="segmentation-title" class="section-title">Send the right message to the right people</h2>
-    <p class="section-subtitle constrained">
-      Create targeted audiences from subscriber data and engagement, without maintaining separate lists for every group.
-    </p>
+    <div class="segmentation-head">
+      <h2 id="segmentation-title">Send the right message to the right people</h2>
+      <p>Create targeted audiences from subscriber data and engagement, without maintaining separate lists for every group.</p>
+    </div>
 
     <Segmentation
       class="mt-6"
@@ -54,52 +54,42 @@ const listPoints = [
 
     <ul class="list-points" role="list">
       <li v-for="point in listPoints" :key="point.title" class="list-point">
-        <div class="list-point-dot" aria-hidden="true"></div>
-        <div>
-          <p class="list-point-title">{{ point.title }}</p>
-          <p class="list-point-desc">{{ point.description }}</p>
-        </div>
+        <p class="list-point-title">{{ point.title }}</p>
+        <p class="list-point-desc">{{ point.description }}</p>
       </li>
     </ul>
 
-    <div class="segmentation-cta">
-      <v-btn
-        size="large"
-        color="primary"
-        variant="flat"
-        class="segmentation-btn"
-        href="/docs/projects/segments"
-      >
-        <strong>Read the segments docs</strong>
-      </v-btn>
-    </div>
+    <p class="segmentation-link">
+      <a href="/docs/projects/segments">Read the segments docs</a>
+    </p>
   </section>
 </template>
 
 <style scoped>
 .segmentation-section { padding: 0; }
 
-.section-title {
-  margin: 0 0 12px;
-  max-width: 900px;
-  font-size: clamp(28px, 4vw, 42px);
+.segmentation-head {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.segmentation-head h2 {
+  margin: 0 0 10px;
+  font-size: clamp(22px, 3vw, 32px);
   line-height: 1.2;
-  text-align: left;
   border-top: 0 !important;
   padding-top: 0 !important;
 }
 
-.section-subtitle {
+.segmentation-head p {
   margin: 0;
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.65;
-  color: #4b5563;
-  text-align: left;
+  color: #475569;
 }
 
-html.dark .section-subtitle { color: #9ca3af; }
-
-.constrained { max-width: 760px; }
+html.dark .segmentation-head p { color: #94a3b8; }
 
 .list-points {
   list-style: none;
@@ -107,34 +97,28 @@ html.dark .section-subtitle { color: #9ca3af; }
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 12px;
 }
 
 .list-point {
   /* the global `li + li` rule would otherwise nudge cards 2 and 3 down 8px */
   margin-top: 0;
-  background: #f8fafc;
-  border-radius: 16px;
-  padding: 20px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
+  /* white on the blue stripe, matching the testimonial cards */
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 28px 24px;
+  text-align: center;
 }
 
-html.dark .list-point { background: rgba(30, 41, 59, 0.5); }
-
-.list-point-dot {
-  flex: 0 0 auto;
-  width: 10px;
-  height: 10px;
-  margin-top: 6px;
-  border-radius: 50%;
-  background: #13b0ee;
+html.dark .list-point {
+  background: #1e293b;
+  border-color: #334155;
 }
 
 .list-point-title {
-  margin: 0 0 6px;
-  font-size: 15px;
+  margin: 0 0 8px;
+  font-size: 17px;
   font-weight: 700;
   line-height: 1.3;
   color: #0f172a;
@@ -144,36 +128,21 @@ html.dark .list-point-title { color: #f1f5f9; }
 
 .list-point-desc {
   margin: 0;
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: 15px;
+  line-height: 1.6;
   color: #475569;
 }
 
 html.dark .list-point-desc { color: #94a3b8; }
 
-.segmentation-cta {
-  margin-top: 28px;
-  display: flex;
+.segmentation-link {
+  margin: 24px 0 0;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.segmentation-btn {
-  text-transform: none !important;
-  letter-spacing: 0 !important;
-  border-radius: 10px !important;
-  min-height: 50px !important;
-  padding: 0 28px !important;
-  text-decoration: none !important;
-}
-
-.segmentation-btn :deep(.v-btn__content) { line-height: 1.2; }
-.segmentation-btn strong { line-height: 1.2; }
-
-@media (max-width: 980px) {
-  .list-points { grid-template-columns: 1fr 1fr; }
-}
-
-@media (max-width: 620px) {
+@media (max-width: 860px) {
   .list-points { grid-template-columns: 1fr; }
-  .segmentation-btn { width: 100%; justify-content: center; }
 }
 </style>
