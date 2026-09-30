@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute } from 'vitepress'
+import { openConsentSettings } from './consent'
 
 // Configuration constants
 const FOOTER_CONFIG = {
@@ -173,6 +174,8 @@ const { links: footerLinks, policies: policyLinks, currentYear, socialLinks } = 
               |
             </span>
           </template>
+          <span class="policy-separator" aria-hidden="true">|</span>
+          <button type="button" class="policy-button" @click="openConsentSettings">Cookie settings</button>
         </nav>
         
         <div class="footer-copyright">
@@ -369,6 +372,20 @@ const { links: footerLinks, policies: policyLinks, currentYear, socialLinks } = 
 }
 
 .footer-policy-links a:hover {
+  color: var(--vp-c-text-1);
+}
+
+.policy-button {
+  color: var(--vp-c-text-2);
+  font: inherit;
+  background: none;
+  border: none;
+  padding: 3px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.policy-button:hover {
   color: var(--vp-c-text-1);
 }
 
