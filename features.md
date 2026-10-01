@@ -36,7 +36,7 @@ head:
       content: https://bluefox.email/assets/feature-cards/bluefoxemailfeatures.png
 faqs:
   - question: "Does BlueFox Email include all features on every plan?"
-    answer: "Yes. Every feature is included on every send pack with no tiers or paywalls. Transactional emails, campaigns, automations, segments, email themes, API, webhooks, and more are all available from day one."
+    answer: "Yes. Every feature is included on every send pack and monthly plan with no tiers or paywalls. Transactional emails, campaigns, automations, segments, email themes, API, webhooks, and more are all available from day one."
   - question: "What email types does BlueFox Email support?"
     answer: "BlueFox Email supports three email types: transactional emails (API-triggered, not tied to subscriber lists), triggered emails (API-triggered to active subscribers with per-recipient data overrides), and campaigns (scheduled or immediate sends to a subscriber list and optional segment)."
   - question: "Does BlueFox Email have a visual automation builder?"
@@ -48,7 +48,7 @@ faqs:
   - question: "What integrations does BlueFox Email support?"
     answer: "BlueFox Email integrates with Zapier (6 triggers and 8 actions), supports webhooks for real-time event notifications (sent, opened, clicked, bounced, complained, and subscription events), Supabase auth emails via SMTP, an open-source MCP server for AI agents like Claude and Cursor, and provides a full HTTP API for custom integrations."
   - question: "Does BlueFox Email have a free plan?"
-    answer: "BlueFox Email includes 3,000 free sends with no credit card required. There is no monthly subscription, you buy send packs as needed (credits valid for 12 months). The Essential pack is $50 for 50,000 sends."
+    answer: "BlueFox Email includes 3,000 free sends with no credit card required. After that, buy one-time send packs (credits valid for 12 months) or pick a monthly plan from $6/month. The Essential pack is $50 for 50,000 sends."
   - question: "How does segmentation work in BlueFox Email?"
     answer: "Segments in BlueFox Email are dynamic groups built with AND/OR logic. You can filter contacts by custom properties, tags, or email engagement (opened, not opened, clicked, not clicked within N days). Segments update automatically and can be used in campaigns, automations, and audience filters."
   - question: "What analytics does BlueFox Email provide?"

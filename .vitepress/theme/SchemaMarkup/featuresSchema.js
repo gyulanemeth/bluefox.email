@@ -71,7 +71,7 @@ function buildSoftwareApp(pageData) {
       '@type': 'Offer',
       price: '0',
       priceCurrency: 'USD',
-      description: 'Starts free with 3,000 sends. No subscription. Pay only for what you send.',
+      description: 'Starts free with 3,000 sends. One-time packs or monthly plans. Pay only for what you send.',
       url,
       availability: 'https://schema.org/InStock',
       seller: { '@id': ORG_ID }

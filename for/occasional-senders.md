@@ -2,18 +2,18 @@
 layout: home
 
 title: BlueFox Email for Occasional Senders
-description: Send when you have something to say. Buy credits once, valid for 12 months. No subscription, no recurring bill.
+description: Send when you have something to say. Buy credits once, valid for 12 months, or pick a monthly plan. Your choice.
 
 head:
   - - meta
     - name: description
-      content: "Send when you have something to say. Buy credits once, valid for 12 months. No subscription, no recurring bill."
+      content: "Send when you have something to say. Buy credits once, valid for 12 months, or pick a monthly plan. Your choice."
   - - meta
     - property: og:title
       content: BlueFox Email for Occasional Senders
   - - meta
     - property: og:description
-      content: "Send when you have something to say. Buy credits once, valid for 12 months. No subscription, no recurring bill."
+      content: "Send when you have something to say. Buy credits once, valid for 12 months, or pick a monthly plan. Your choice."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/bluefoxemailforoccassionalsenders.png
@@ -31,7 +31,7 @@ head:
       content: BlueFox Email for Occasional Senders
   - - meta
     - name: twitter:description
-      content: "Send when you have something to say. Buy credits once, valid for 12 months. No subscription, no recurring bill."
+      content: "Send when you have something to say. Buy credits once, valid for 12 months, or pick a monthly plan. Your choice."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/bluefoxemailforoccassionalsenders.png

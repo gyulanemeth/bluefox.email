@@ -12,7 +12,7 @@ import SaaSMcp from './SaaSMcp.vue'
     center-section-titles
     hero-title="Every email on-brand, sent from one platform"
     hero-description="Send transactional, triggered, and marketing emails with a simple API and webhooks, and run your project from an AI agent over MCP. Pay per send, not per contact."
-    :hero-highlights="['API, webhooks, and MCP', 'No subscription', 'Credits valid 12 months']"
+    :hero-highlights="['API, webhooks, and MCP', 'Packs or monthly plans', 'Credits valid 12 months']"
     :hero-feature-items="[]"
     cta-text="Start free. 3,000 sends included"
     cta-href="https://app.bluefox.email/accounts/create-account"
@@ -21,7 +21,7 @@ import SaaSMcp from './SaaSMcp.vue'
     simple-testimonials
     testimonials-stripe="white"
     mid-cta-title="Connect your backend and send your first email in minutes."
-    mid-cta-description="No credit card and no subscription. Pay only for the emails you send."
+    mid-cta-description="No credit card required. Pay only for the emails you send."
     mid-cta-stripe="blue"
     design-title="One design system for every email type"
     design-description="Build your brand theme once and reuse it across transactional emails, triggered flows, and campaigns."
