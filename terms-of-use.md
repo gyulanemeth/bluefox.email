@@ -30,7 +30,7 @@ To use bluefox.email, you must:
 
 ## 4. Pricing
 
-BlueFox Email uses usage-based pricing rather than subscription tiers. New accounts receive a number of free sends with no credit card required, and you can purchase additional send credits as needed. There are no monthly subscription plans. Current pricing and credit pack details are available on our website.
+BlueFox Email uses usage-based pricing: you pay for sends, not contacts, and every feature is available at every price point. New accounts receive a number of free sends with no credit card required. After that, you can purchase one-time send credit packs or subscribe to a monthly plan. Current pricing, credit pack, and plan details are available on our website.
 
 ## 5. Email Communications
 
