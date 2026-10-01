@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { cheapestOption, COMPETITORS } from './pricingData.js'
 
 const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 750000, 1000000, 1500000]
-const currentSliderIndex = ref(3)
+const currentSliderIndex = ref(0)
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
 const isEnterpriseVolume = computed(() => emails.value > 1000000)
 const best = computed(() => cheapestOption(emails.value, true))
@@ -138,7 +138,6 @@ const formatAbbreviated = num => {
         </div>
         <ul class="table-note">
         <li>Monthly list prices from each provider's pricing page, checked October 2026 (prices may vary by region), on the cheapest plan with automation, A/B testing, and advanced segmentation. MailerSend has no plan with automation or segmentation, so its highest self-serve plan is shown.</li>
-        <li>— means no verified public price at this volume.</li>
         <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
         <li>BlueFox has no contact limits and includes all features on every pack and plan</li>
         <li>BlueFox BYO SES includes platform fee + AWS SES costs ($0.10 per 1,000 emails)</li>
