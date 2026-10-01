@@ -1,116 +1,17 @@
 <script setup>
 import { ref, computed } from 'vue'
+import { cheapestOption, COMPETITORS } from './pricingData.js'
 
 const SLIDER_VALUES = [10000, 25000, 50000, 100000, 250000, 500000, 1000000, 1500000]
 const currentSliderIndex = ref(2)
 const emails = computed(() => SLIDER_VALUES[currentSliderIndex.value])
-
-const COMPETITOR_COST_PER_EMAIL = {
-  mailchimp: 0.0037,
-  sendgrid: 0.0106,
-  mailersend: 0.00145
-}
-
-const PACKS = [
-  { name: 'Essential', sends: 50000, price: 50 },
-  { name: 'Premium', sends: 500000, price: 300 }
-]
-
-const PRICE_POINTS = [
-  { emails: 10000, price: 10 },
-  { emails: 50000, price: 50 },
-  { emails: 100000, price: 80 },
-  { emails: 250000, price: 180 },
-  { emails: 500000, price: 300 },
-  { emails: 1000000, price: 600 }
-]
-
-/**
- * PACK-BASED COST — What the customer actually pays per usage
- * This is shown as the main display price
- */
-const packBasedCost = computed(() => {
-  const v = emails.value
-  if (v === 0) return 0
-  if (v === 1000000) return 600 // 2× Premium packs
-  if (v > 1000000) return 0
-
-  // Find the pack that covers this volume
-  const pack = PACKS.find(p => v <= p.sends)
-  if (!pack) return 0
-
-  // Calculate actual cost based on usage within the pack
-  return v * (pack.price / pack.sends)
-})
-
-/**
- * INTERPOLATED COST — For savings calculation only
- * This creates a smooth curve for competitor comparisons
- */
-const interpolatedCost = computed(() => {
-  const v = emails.value
-  if (v <= 0) return 0
-  if (v > 1000000) return 0
-
-  let lower = PRICE_POINTS[0]
-  let upper = PRICE_POINTS.at(-1)
-  
-  for (let i = 0; i < PRICE_POINTS.length - 1; i++) {
-    if (v >= PRICE_POINTS[i].emails && v <= PRICE_POINTS[i + 1].emails) {
-      lower = PRICE_POINTS[i]
-      upper = PRICE_POINTS[i + 1]
-      break
-    }
-  }
-  
-  const fraction = (v - lower.emails) / (upper.emails - lower.emails)
-  return lower.price + fraction * (upper.price - lower.price)
-})
-
-const packBasedCostPerEmail = computed(() => {
-  if (emails.value === 0) return 0
-  return packBasedCost.value / emails.value
-})
-
-const recommendedPack = computed(() => {
-  const v = emails.value
-  if (v <= 0) return null
-  if (v > 1000000) return 'enterprise'
-  if (v === 1000000) return { name: '2× Premium', sends: 1000000, price: 600 }
-  
-  const pack = PACKS.find(p => v <= p.sends)
-  return pack || 'enterprise'
-})
-
-const packTotalCost = computed(() => {
-  const pack = recommendedPack.value
-  if (!pack || pack === 'enterprise') return null
-  return pack.price
-})
-
-const sendsRemaining = computed(() => {
-  const pack = recommendedPack.value
-  if (!pack || pack === 'enterprise') return null
-  if (pack.name === '2× Premium') return 0
-  return pack.sends - emails.value
-})
-
-const estimatedContacts = computed(() => Math.round(emails.value / 5))
 const isEnterpriseVolume = computed(() => emails.value > 1000000)
+const best = computed(() => cheapestOption(emails.value))
+const estimatedContacts = computed(() => Math.round(emails.value / 5))
 
-const competitorCosts = computed(() => ({
-  mailchimp: emails.value * COMPETITOR_COST_PER_EMAIL.mailchimp,
-  sendgrid: emails.value * COMPETITOR_COST_PER_EMAIL.sendgrid,
-  mailersend: emails.value * COMPETITOR_COST_PER_EMAIL.mailersend
-}))
-
-/**
- * Use interpolated cost for savings to get smooth percentage curve
- */
-const calculateSavings = (competitorCost) => {
-  const bluefoxCost = interpolatedCost.value
-  if (!bluefoxCost || bluefoxCost === 0 || !competitorCost) return 0
-  return Math.round(((competitorCost - bluefoxCost) / competitorCost) * 100)
+const savings = competitorCost => {
+  if (competitorCost == null) return '—'
+  return `${Math.round(((competitorCost - best.value.monthly) / competitorCost) * 100)}%`
 }
 
 const formatNumber = num => (num == null ? '—' : num.toLocaleString('en-US'))
@@ -157,29 +58,32 @@ const formatAbbreviated = num => {
 
     <div class="results-grid" :class="{ 'full-width': isEnterpriseVolume }">
       <div class="pack-card">
-        <template v-if="recommendedPack !== 'enterprise'">
-          <div class="pack-header">{{ formatNumber(emails) }} emails cost at BlueFox Email</div>
-          <div class="actual-price">{{ formatPrice(packBasedCost) }}</div>
+        <template v-if="!isEnterpriseVolume">
+          <div class="pack-header">{{ formatNumber(emails) }} emails a month at BlueFox Email</div>
+          <div class="actual-price">{{ formatPrice(best.monthly) }}<span class="per-month">/ month</span></div>
 
           <div class="info-row">
-            <span class="info-label">Recommended pack</span>
-            <span class="info-value">{{ recommendedPack.name }}</span>
+            <span class="info-label">Best option</span>
+            <span class="info-value">{{ best.count > 1 ? `${best.count}× ` : '' }}{{ best.name }} {{ best.type }}</span>
           </div>
           <div class="info-row">
-            <span class="info-label">Pack cost</span>
-            <span class="info-value">{{ emails === 1000000 ? '2× $300.00' : formatPrice(packTotalCost) }}</span>
+            <span class="info-label">Billed</span>
+            <span class="info-value">{{ best.type === 'plan' ? `${formatPrice(best.price)} / month` : `${formatPrice(best.price)} one-time` }}</span>
           </div>
           <div class="info-row">
-            <span class="info-label">Pack includes</span>
-            <span class="info-value">{{ formatNumber(recommendedPack.sends) }} sends</span>
+            <span class="info-label">Includes</span>
+            <span class="info-value">{{ formatNumber(best.sends) }} sends{{ best.type === 'plan' ? ' / month' : '' }}</span>
           </div>
           <div class="info-row">
             <span class="info-label">Cost per 1,000 sends</span>
-            <span class="info-value">{{ formatPrice(packBasedCostPerEmail * 1000) }}</span>
+            <span class="info-value">{{ formatPrice(best.monthly / emails * 1000) }}</span>
           </div>
 
           <p class="remaining-note">
-            <template v-if="sendsRemaining > 0">{{ formatNumber(sendsRemaining) }} sends left over for later. </template>Sends stay valid for 12 months, with all features included.
+            <template v-if="best.type === 'plan'">Fresh sending allowance every billing cycle. </template>
+            <template v-else-if="best.count > 1">No monthly plan covers this volume, so this uses {{ best.count }} packs a month. </template>
+            <template v-else>At this volume one pack covers about {{ Math.round(best.months * 10) / 10 }} months of sending (sends stay valid for 12 months), which works out cheaper than a monthly plan. </template>
+            All features included.
           </p>
         </template>
 
@@ -213,43 +117,32 @@ const formatAbbreviated = num => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><a href="/comparisons/bluefox-vs-mailchimp">Mailchimp</a> Premium</td>
-                <td>{{ formatPrice(competitorCosts.mailchimp) }}</td>
-                <td>{{ calculateSavings(competitorCosts.mailchimp) }}%</td>
-              </tr>
-              <tr>
-                <td><a href="/comparisons/bluefox-vs-sendgrid">SendGrid</a> Premier</td>
-                <td>{{ formatPrice(competitorCosts.sendgrid) }}</td>
-                <td>{{ calculateSavings(competitorCosts.sendgrid) }}%</td>
-              </tr>
-              <tr>
-                <td><a href="/comparisons/bluefox-vs-mailersend">MailerSend</a> Pro</td>
-                <td>{{ formatPrice(competitorCosts.mailersend) }}</td>
-                <td>{{ calculateSavings(competitorCosts.mailersend) }}%</td>
+              <tr v-for="c in COMPETITORS" :key="c.name">
+                <td><a :href="c.href">{{ c.name }}</a> {{ c.plan(emails) }}</td>
+                <td>{{ formatPrice(c.prices[emails]) }}</td>
+                <td>{{ savings(c.prices[emails]) }}</td>
               </tr>
             </tbody>
           </table>
         </div>
         <ul class="table-note">
-        <li>Comparison based on premium/highest tier plans with all features (automation, A/B testing, advanced segmentation)</li>
+        <li>Monthly list prices from each provider's pricing page, checked October 2026 (prices may vary by region), on the cheapest plan with automation, A/B testing, and advanced segmentation. MailerSend has no plan with automation or segmentation, so its highest self-serve plan is shown.</li>
+        <li>— means no verified public price at this volume.</li>
         <li>Estimated {{ formatNumber(estimatedContacts) }} contacts (assuming 5 marketing emails per contact per month)</li>
-        <li>BlueFox has no contact limits and includes all features at every tier</li>
+        <li>BlueFox has no contact limits and includes all features on every pack and plan</li>
         </ul>
       </div>
     </div>
-    <p class="calculator-pack-note">This calculator is based on one-time packs only. Monthly subscription plans are not included.</p>
   </div>
 </template>
 
 <style scoped>
-.calculator-pack-note {
-  margin: 24px 0 0 0;
-  font-size: 13px;
+.per-month {
+  margin-left: 6px;
+  font-size: 16px;
+  font-weight: 500;
   color: var(--vp-c-text-2);
-  text-align: center;
 }
-
 .pricing-calculator {
   width: 100%;
   max-width: 1100px;
@@ -536,4 +429,4 @@ html.dark .mascot-dark {
     max-width: 200px;
   }
 }
-</style>
+</style>
