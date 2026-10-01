@@ -337,15 +337,23 @@ Best for occasional or unpredictable volume, or for teams that prefer to pay upf
 
 Pack sends are valid for 12 months from the date of purchase, and you're never billed again unless you buy another pack. Packs stack with no cap, and the oldest sends are always used first, so the newest last the longest.
 
-#### AWS fees and add-ons
+#### AWS fees (BYO SES only)
 
-**AWS fees in BYO mode** are billed directly by AWS and depend on which SES pricing option the account is on. À la carte sending is $0.10 per 1,000 emails. As of July 21, 2026, new SES accounts (and account/region combinations with no metered SES activity since June 1, 2025) start on the SES **Essentials** plan at $0.16 per 1,000 emails for the first 10M per month; you can switch to à la carte pricing at any time.
+In BYO mode, AWS bills you directly for sending, separately from your BlueFox Email plan or pack. At AWS's à la carte rate of $0.10 per 1,000 emails, 100,000 sends add about $10, and every BYO figure in this comparison uses that rate.
 
-A dedicated IP add-on is available for managed sending at $50/month (excl. VAT), requested by email; on BYO AWS SES, dedicated IPs are set up in your own AWS account. For custom volume or enterprise needs, contact sales at [hello@bluefox.email](mailto:hello@bluefox.email).
+If your AWS account is new, check which SES pricing option it's on. Since July 21, 2026, new SES accounts (and account/region combinations with no metered SES activity since June 1, 2025) start on the SES **Essentials** plan at $0.16 per 1,000 emails for the first 10M per month. You can switch to à la carte pricing at any time.
+
+#### Dedicated IP
+
+Teams on managed sending can add a dedicated sending IP for $50/month (excl. VAT). The IP is reserved for your workspace, so your sender reputation depends only on your own sending. To set one up, email [hello@bluefox.email](mailto:hello@bluefox.email). On BYO AWS SES there's nothing to buy from BlueFox Email: dedicated IPs are set up and billed in your own AWS account.
+
+#### Custom volume
+
+If you need more than the published plans and packs cover, contact sales at [hello@bluefox.email](mailto:hello@bluefox.email). The team sets up a discovery call to plan your volume and onboarding.
 
 ### Scenarios: monthly plans
 
-Monthly plans suit regular, steady sending, so these scenarios compare Mailchimp's monthly price with the BlueFox Email plan that fits each month's volume. All BlueFox Email prices exclude VAT. BYO SES figures add AWS fees at the $0.10 per 1,000 à la carte rate, with the $0.16 SES Essentials rate noted where the difference is material.
+Monthly plans suit regular, steady sending, so these scenarios compare Mailchimp's monthly price with the BlueFox Email plan that fits each month's volume. All BlueFox Email prices exclude VAT, and BYO SES figures include AWS fees at $0.10 per 1,000 emails.
 
 **Tiny list, light send frequency** (100 contacts × 2 sends/month = 200 sends/month):
 
@@ -365,44 +373,39 @@ Mailchimp wins here over the long run, because its Free plan is ongoing while Bl
 
 - Mailchimp Essentials: 10k contacts = $110/month. Standard = $135/month.
 - BlueFox Email Standard: Basic at $9/month covers exactly 10,000 sends.
-- BYO SES: Starter at $6/month (10,000 sends) plus ~$1 AWS = ~$7/month (~$7.60 on SES Essentials).
+- BYO SES: Starter at $6/month (10,000 sends) plus ~$1 AWS = ~$7/month.
 
 **Transactional-heavy SaaS** (5,000 users × 8 transactional emails each per month = 40,000 sends/month):
 
 - Mailchimp Standard + Mandrill: 5k contacts = $100/month + Mandrill $40 (two 25k blocks) = $140/month. Essentials is not eligible for the transactional add-on.
 - BlueFox Email Standard: Pro at $35/month (50,000 sends).
-- BYO SES: Growth at $19/month (50,000 sends) plus ~$4 AWS = ~$23/month (~$25.40 on SES Essentials).
+- BYO SES: Growth at $19/month (50,000 sends) plus ~$4 AWS = ~$23/month.
 
-**Large list, infrequent broadcast** (50,000 contacts × 1 send each per month = 50,000 sends/month):
+**Large list, monthly broadcast** (50,000 contacts × 1 send each per month = 50,000 sends/month):
 
 - Mailchimp Essentials: 50k contacts = $385/month.
 - BlueFox Email Standard: Pro at $35/month covers exactly 50,000 sends.
-- BYO SES: Growth at $19/month (50,000 sends) plus ~$5 AWS = ~$24/month (~$27 on SES Essentials).
+- BYO SES: Growth at $19/month (50,000 sends) plus ~$5 AWS = ~$24/month.
 
 ### Scenarios: one-time packs
 
-Packs suit occasional or unpredictable volume, and teams that would rather pay upfront. Pack sends last 12 months, so costs here are shown per year, or per month where a pack is used up faster. On the Mailchimp side, the closest equivalent is Pay As You Go credits; otherwise you pay a monthly plan based on contact count, whether you send that month or not. All BlueFox Email prices exclude VAT.
+Packs suit occasional or unpredictable sending. Pack sends stay valid for 12 months, so each scenario below looks at a full year. Mailchimp's monthly plans bill by contact count every month, whether you send that month or not; its closest equivalent to a pack is Pay As You Go credits. All BlueFox Email prices exclude VAT, and BYO SES figures include AWS fees at $0.10 per 1,000 emails.
 
 **Occasional campaigns** (10,000 contacts × 4 sends a year, such as a quarterly newsletter or event announcements = 40,000 sends/year):
 
 - Mailchimp Essentials: 10k contacts = $110/month, billed every month whether you send or not, so $1,320/year (about $1,122 in the first year with the 15% introductory discount).
 - Mailchimp Pay As You Go: Mailchimp does not publish credit prices, so this is an estimate. Using the third-party rates cited in the Mailchimp pricing section above ($0.026 to $0.04 per email), 40,000 credits would cost roughly $1,040 to $1,600.
 - BlueFox Email Standard: one Essential pack ($50) covers the whole year, with 10,000 sends to spare.
-- BYO SES: one Essential pack ($50, 100,000 sends) plus ~$4 AWS = ~$54/year (~$56 on SES Essentials).
+- BYO SES: one Essential pack ($50, 100,000 sends) plus ~$4 AWS = ~$54/year.
 
-**Steady volume, paid upfront** (the same SaaS as above: 40,000 sends/month):
+**A big list, every few months** (200,000 contacts × 1 send every 3 months, such as a quarterly announcement or a seasonal sale = 800,000 sends/year):
 
-- Mailchimp Standard + Mandrill: $140/month, or $1,680/year.
-- BlueFox Email Standard: one Premium pack ($300) covers 12 months (480,000 of its 500,000 sends), about $25/month versus $35/month on the Pro plan.
-- BYO SES: one Premium pack ($300, 1,000,000 sends) covers 12 months, plus ~$48/year AWS = ~$348/year, about $29/month. On BYO, the Growth plan (~$23/month) is still the cheaper choice at this volume.
+- Mailchimp: a 200,000-contact list is above the Essentials (50,000) and Standard (100,000) caps, so it needs Premium at $1,600/month, billed every month, even the eight months with no send. That's $19,200/year (about $16,320 in the first year with the 15% introductory discount).
+- Mailchimp Pay As You Go: Mailchimp doesn't publish credit prices, and we haven't found third-party figures for a purchase this large.
+- BlueFox Email Standard: two Premium packs ($600) cover the year, with 200,000 sends to spare.
+- BYO SES: one Premium pack ($300, 1,000,000 sends) plus ~$80 AWS = ~$380/year.
 
-**High-volume sender** (1,000,000 sends/month):
-
-- Mailchimp Premium + Mandrill at this volume: $350 base + 40 Transactional Email blocks ($720 if all 40 are billed at the $18 tier, $760 if only blocks 21 to 40 are), so roughly $1,070 to $1,110/month, before contact-tier increases on the Premium side.
-- BlueFox Email Standard: two Premium packs per month, $600/month ($0.60 per 1,000 sends). Packs stack with no cap, so you can buy several at once, and the oldest sends are always used first. For ongoing volume at this level, contact sales about custom pricing.
-- BYO SES: one Premium pack per month ($300) plus ~$100 AWS = ~$400/month (~$460 on SES Essentials). If the volume is steady, the BYO Elite plan covers 1,000,000 sends for $239/month plus AWS, about $339/month.
-
-**Once you outgrow Mailchimp's Free plan, BlueFox Email costs less in every scenario above, on either payment model.** Monthly plans come in roughly 55% to over 90% below Mailchimp's price for the same volume. Packs range from about 45% cheaper at 1M sends/month on Standard to over 95% cheaper for occasional senders, since Mailchimp bills by contact count every month whether you send or not. The one exception is the very smallest case, where Mailchimp's ongoing Free plan beats BlueFox Email's one-time free sends over time.
+**Once you outgrow Mailchimp's Free plan, BlueFox Email costs less in every scenario above, on either payment model.** Monthly plans come in roughly 55% to over 90% below Mailchimp's price for the same volume. For occasional senders the gap is wider, over 95%, because Mailchimp keeps billing by contact count in the months you don't send. The one exception is the very smallest case, where Mailchimp's ongoing Free plan beats BlueFox Email's one-time free sends over time.
 
 **Where Mailchimp makes sense despite the higher email price:**
 - You also need landing pages, social posting, ad management, a basic CRM, or SMS, and would otherwise pay for those as separate tools. Mailchimp bundles all of these; BlueFox Email is email-only. If replacing the bundle would cost more than the Mailchimp premium, the bundle wins on total cost of ownership even though email-line-item pricing is higher.
@@ -413,13 +416,14 @@ Packs suit occasional or unpredictable volume, and teams that would rather pay u
 **Where BlueFox Email is the clear choice:**
 - Transactional-heavy SaaS (many sends per user per month).
 - Newsletters and high-volume sending (each contact receives many emails).
+- Occasional or seasonal sends to a large list: one pack can cover a whole year, with nothing billed in the months you don't send.
 - Email-focused workflows where landing pages, social, ads, CRM, and SMS are handled by other tools (or not needed at all).
 - Predictable per-send costs without contact-count surprises as the list grows.
 - Steady monthly sending on a small budget: plans start at $6/month (excl. VAT) with every feature included.
 
 **Notes on both:**
 - Mailchimp prices shift with contact count and feature gates. Always check the current quote calculator.
-- BlueFox Email prices are public, with flat monthly plans and one-time packs, all excluding VAT. AWS SES fees in BYO mode are billed by AWS and vary by whether the account is on à la carte or one of the SES pricing plans.
+- BlueFox Email prices are public, with flat monthly plans and one-time packs, all excluding VAT. In BYO mode, AWS bills sending separately; the figures here use AWS's $0.10 per 1,000 à la carte rate.
 
 ## Which Fits Your Use Case
 
