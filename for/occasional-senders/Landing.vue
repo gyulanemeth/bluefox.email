@@ -17,8 +17,8 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     hero-brand-bg
     center-section-titles
     hero-title="Professional campaigns, only when you need them"
-    hero-description="Send when you have something to say. Buy credits once, valid for 12 months. No subscription, no recurring bill."
-    :hero-highlights="['12-month credits', 'No subscription']"
+    hero-description="Send when you have something to say. Buy credits once, valid for 12 months, or pick a monthly plan. Your choice."
+    :hero-highlights="['12-month credits', 'Packs or monthly plans']"
     :hero-feature-items="[]"
     cta-text="Create your free account"
     cta-href="https://app.bluefox.email/accounts/create-account"
@@ -26,7 +26,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     :show-automation="false"
     :show-integrations="false"
     final-title="Professional campaigns when you need them"
-    final-description="No subscription. No complexity. Just credits you use when you have something worth sending."
+    final-description="Send packs or monthly plans, your choice. No complexity. Just credits you use when you have something worth sending."
     after-pain-stripe="white"
     design-stripe="blue"
     analytics-stripe="white"

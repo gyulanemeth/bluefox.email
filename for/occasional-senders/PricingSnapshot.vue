@@ -10,7 +10,7 @@ const coverage = [
   <section class="pricing-snapshot" aria-labelledby="pricing-snapshot-title">
     <div class="snapshot-head">
       <h2 id="pricing-snapshot-title">Pay when you send. Not every month.</h2>
-      <p>Most email tools charge a monthly subscription whether you send or not. We sell send packs. Buy once, use whenever, valid for 12 months.</p>
+      <p>Most email tools only offer a monthly subscription, whether you send or not. We give you options: buy a send pack once and use it whenever within 12 months, or pick a monthly plan.</p>
     </div>
 
     <div class="compare">
@@ -46,7 +46,7 @@ const coverage = [
     </div>
 
     <div class="footer-row">
-      <span class="footer-lead">Start with 3,000 free sends. No card, no subscription.</span>
+      <span class="footer-lead">Start with 3,000 free sends, no card needed. Then choose a send pack or a monthly plan.</span>
       <a href="https://bluefox.email/pricing" class="pricing-link">See full pricing</a>
     </div>
 

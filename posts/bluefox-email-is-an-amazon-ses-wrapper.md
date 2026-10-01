@@ -310,4 +310,4 @@ What is not boring yet is everything in this article. Queues that do not lose me
 
 So yes, BlueFox Email is an Amazon SES wrapper. We would rather you knew exactly what is inside the wrapper before you decide whether you want it.
 
-If you want to keep your own SES account and use BlueFox for the rest, BYO Amazon SES gives you twice the sends per pack at the same price, with the AWS sending cost billed to you directly. If you would rather not think about SES at all, managed sending does that instead. Either way, the delivery is Amazon's. The rest is ours.
+If you want to keep your own SES account and use BlueFox for the rest, BYO Amazon SES gives you twice the sends per pack or monthly plan at the same price, with the AWS sending cost billed to you directly. If you would rather not think about SES at all, managed sending does that instead. Either way, the delivery is Amazon's. The rest is ours.

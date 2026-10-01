@@ -5,7 +5,7 @@ const included = [
   'No contact-based billing',
   'Credits valid for 12 months',
   'No credit card to start',
-  'No subscription, ever'
+  'One-time packs or monthly plans'
 ]
 </script>
 
@@ -16,7 +16,7 @@ const included = [
         <span class="text-overline">Honest pricing</span>
       </v-chip>
       <h2 id="pricing-illus-title">Pay only for what you send.</h2>
-      <p>No monthly subscription. No contact-based billing. No features locked behind tiers. Buy a send pack when you need it, that's it.</p>
+      <p>No contact-based billing. No features locked behind tiers. Buy a send pack when you need it, or pick a monthly plan from $6.</p>
     </div>
 
     <div class="compare">
@@ -26,7 +26,7 @@ const included = [
           <span class="amount">$200+</span>
           <span class="period">per month</span>
         </span>
-        <span class="col-sub">Subscriptions billed monthly, with features locked behind tiers.</span>
+        <span class="col-sub">Billed by contact count, with features locked behind tiers.</span>
       </div>
 
       <div class="compare-rule" aria-hidden="true"></div>
@@ -66,7 +66,7 @@ const included = [
       >
         <strong>Start with 3,000 free sends</strong>
       </v-btn>
-      <span class="cta-sub">No credit card. No subscription. No surprises.</span>
+      <span class="cta-sub">No credit card. No contact fees. No surprises.</span>
       <a href="/pricing" class="pricing-link">See full pricing →</a>
     </div>
   </section>

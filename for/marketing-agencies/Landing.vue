@@ -18,7 +18,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     center-section-titles
     hero-title="One email platform for every client"
     hero-description="Pay per email sent, not per contact stored. Clone proven flows to new clients in minutes, and keep every account fully isolated."
-    :hero-highlights="['No subscription', 'Unlimited clients per project', 'Credits valid 12 months']"
+    :hero-highlights="['Packs or monthly plans', 'Unlimited clients per project', 'Credits valid 12 months']"
     :hero-feature-items="[]"
     cta-text="Start free. 3,000 sends included"
     cta-href="https://app.bluefox.email/accounts/create-account"
@@ -28,7 +28,7 @@ const { lgAndUp, md, sm, xs } = useDisplay()
     after-pain-stripe="white"
     testimonials-stripe="blue"
     mid-cta-title="Your next client project can be live in 30 minutes."
-    mid-cta-description="No subscription, no contact-based billing. Pay only for emails sent."
+    mid-cta-description="No contact-based billing. Pay only for emails sent."
     mid-cta-stripe="white"
     design-title="One theme library for every client"
     design-description="Build your email theme once, then apply brand overrides per client, colors, logo, fonts, and reuse it across every campaign."
