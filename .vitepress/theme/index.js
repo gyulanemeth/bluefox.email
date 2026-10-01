@@ -71,6 +71,7 @@ function cleanUrl(clickKey) {
   url.searchParams.delete('utm_source')
   url.searchParams.delete('utm_medium')
   url.searchParams.delete('utm_campaign')
+  url.searchParams.delete('utm_content')
   if (clickKey) {
     url.searchParams.delete(clickKey)
   }
@@ -106,7 +107,7 @@ function saveUtmToCookie() {
   const params = new URLSearchParams(window.location.search)
   let utmFromCookie = JSON.parse(getCookie('utmTags') || '[]')
   const utm = {}
-  const tags = ['utm_source', 'utm_medium', 'utm_campaign']
+  const tags = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']
   tags.forEach((tag) => {
     const value = params.get(tag)
     if (value) {
