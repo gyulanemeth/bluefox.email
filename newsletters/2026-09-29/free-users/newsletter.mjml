@@ -1,0 +1,175 @@
+<!--
+  BlueFox Email newsletter, 2026-09-29: monthly plans launch.
+  Audience: free users (workspaces that have never paid).
+  Built from brand/design-system.md, brand/writing-style.md and brand/utm-tagging.md.
+  Subject: Start from $6/month, still no contact limits
+  UTM: utm_source=whats-new utm_medium=email
+       utm_campaign=2026-09-29-monthly-plans utm_term=free-users
+  Build: npx mjml newsletters/2026-09-29/free-users/newsletter.mjml -o newsletters/2026-09-29/free-users/newsletter.html
+-->
+<mjml lang="en">
+  <mj-head>
+    <mj-title>Start from $6/month, still no contact limits</mj-title>
+    <mj-preview>Monthly plans are live. 5,000 sends a month for $6, with every feature included.</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" />
+      <mj-section padding="0 24px" background-color="#FFFFFF" />
+      <mj-column padding="0" />
+      <mj-text font-size="16px" line-height="1.6" color="#334155" padding="0 0 16px 0" />
+      <mj-button background-color="#13B0EE" color="#FFFFFF" font-size="16px" font-weight="600" border-radius="4px" inner-padding="12px 24px" padding="0" />
+      <mj-divider border-color="#E2E8F0" border-width="1px" padding="0" />
+      <mj-class name="h1" font-size="32px" line-height="1.15" font-weight="800" color="#0F172A" />
+      <mj-class name="h2" font-size="24px" line-height="1.25" font-weight="700" color="#0F172A" />
+      <mj-class name="lead" font-size="17px" color="#64748B" />
+      <mj-class name="small" font-size="14px" />
+      <mj-class name="fine" font-size="12px" color="#64748B" />
+    </mj-attributes>
+    <mj-style inline="inline">
+      a { color: #0C7AA6; font-weight: 600; }
+      .plans td { border-bottom: 1px solid #E2E8F0; }
+      .plans tr.last td { border-bottom: 0; }
+      .plans tr.featured td { background-color: #E0F2FE; }
+      .plans .name { font-size: 16px; font-weight: 600; color: #0F172A; }
+      .plans .sends { font-size: 14px; color: #334155; }
+      .plans .price { width: 80px; min-width: 80px; font-size: 22px; line-height: 1.1; font-weight: 700; color: #0F172A; text-align: right; white-space: nowrap; word-break: keep-all; vertical-align: middle; }
+      .plans .period { font-size: 12px; font-weight: 400; color: #64748B; padding-top: 2px; }
+      .plans .more { font-size: 14px; color: #64748B; }
+      .flag { display: inline-block; background-color: #13B0EE; color: #FFFFFF; font-size: 11px; line-height: 16px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
+      .check { color: #13B0EE; font-weight: 700; }
+    </mj-style>
+    <mj-style>
+      @media only screen and (max-width: 480px) {
+        .hero-title div { font-size: 28px !important; }
+      }
+    </mj-style>
+  </mj-head>
+
+  <mj-body background-color="#F8FAFC" width="600px">
+
+    <!-- Top brand bar -->
+    <mj-section padding="0" background-color="#13B0EE">
+      <mj-column>
+        <mj-spacer height="4px" container-background-color="#13B0EE" />
+      </mj-column>
+    </mj-section>
+
+    <!-- Header -->
+    <mj-section padding="24px 24px 8px">
+      <mj-column>
+        <mj-table padding="0" width="auto" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="44" style="width:44px;vertical-align:middle;"><a href="https://bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=free-users&amp;utm_content=header-logo" target="_blank"><img src="https://bluefox.email/assets/bluefoxemail-logo-200x200.png" alt="BlueFox Email logo" width="44" height="44" style="display:block;width:44px;height:44px;max-width:44px;border:0;" /></a></td>
+            <td style="padding-left:12px;vertical-align:middle;font-size:18px;line-height:1.2;font-weight:700;color:#0F172A;white-space:nowrap;">BlueFox Email</td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <!-- Hero -->
+    <mj-section padding="24px 24px 8px">
+      <mj-column>
+        <mj-text mj-class="h1" css-class="hero-title">Keep sending for $6 a month</mj-text>
+        <mj-text mj-class="lead">Monthly plans are live. The smallest one costs $6 and includes every feature in your workspace today.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="0 24px 8px">
+      <mj-column>
+        <mj-text>Hi{{#if contact.name}} {{contact.name}}{{/if}},</mj-text>
+        <mj-text>Your workspace started with 3,000 free sends. Until now, the next step after those was a $50 pack.</mj-text>
+        <mj-text>Now it can be the <strong>Starter plan: 5,000 sends a month for $6</strong>. No contract, cancel any time.</mj-text>
+        <mj-text>You keep everything you have been using. There are no feature tiers:</mj-text>
+        <mj-text mj-class="small" padding="0 0 16px 0">
+          <span class="check">✓</span>&nbsp; Automations, segments and analytics<br />
+          <span class="check">✓</span>&nbsp; Templates, the design system and the API<br />
+          <span class="check">✓</span>&nbsp; No contact limits, you pay for sends only
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="8px 24px 40px">
+      <mj-column>
+        <mj-button href="https://app.bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=free-users&amp;utm_content=hero-cta" align="left">Log in to choose a plan</mj-button>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="0 24px">
+      <mj-column><mj-divider /></mj-column>
+    </mj-section>
+
+    <!-- Plans -->
+    <mj-section padding="40px 24px 8px">
+      <mj-column>
+        <mj-text mj-class="h2">Grow into the plan you need</mj-text>
+        <mj-text mj-class="small" color="#64748B">Every plan has the same features. You only choose how many emails you send each month.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="0 24px 16px">
+      <mj-column border="1px solid #E2E8F0" border-radius="4px" padding="0">
+        <mj-table css-class="plans" padding="0" cellpadding="0" width="100%">
+          <tr class="featured">
+            <td style="padding:16px;"><div style="padding-bottom:4px;"><span class="flag">Lowest price</span></div><div class="name">Starter</div><div class="sends"><strong>5,000</strong> sends / month</div></td>
+            <td width="80" style="padding:16px;" class="price">$6<div class="period">/ month</div></td>
+          </tr>
+          <tr>
+            <td style="padding:16px;"><div class="name">Growth</div><div class="sends"><strong>25,000</strong> sends / month</div></td>
+            <td width="80" style="padding:16px;" class="price">$19<div class="period">/ month</div></td>
+          </tr>
+          <tr>
+            <td style="padding:16px;"><div class="name">Business</div><div class="sends"><strong>100,000</strong> sends / month</div></td>
+            <td width="80" style="padding:16px;" class="price">$59<div class="period">/ month</div></td>
+          </tr>
+          <tr class="last">
+            <td colspan="2" style="padding:14px 16px;" class="more">4 more plans, from 10,000 to 500,000 sends a month. <a href="https://bluefox.email/pricing?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=free-users&amp;utm_content=plans-table">See all plans</a></td>
+          </tr>
+        </mj-table>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="0 24px 40px">
+      <mj-column>
+        <mj-text mj-class="fine" padding="0">All prices +VAT. Unused sends do not roll over to the next billing cycle. The final price may vary based on your local VAT rate. VAT is applied at checkout.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Packs alternative -->
+    <mj-section padding="0 24px 40px">
+      <mj-column background-color="#F8FAFC" border="1px solid #E2E8F0" border-radius="4px" padding="20px 24px">
+        <mj-text font-size="15px" padding="0"><strong>Only send now and then?</strong> One-time packs are still here. $50 +VAT buys 50,000 sends that stay valid for 12 months, and you are never billed again unless you buy another.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Final CTA -->
+    <mj-section padding="0 24px 8px">
+      <mj-column>
+        <mj-text mj-class="h2">Not sure how much you'll send?</mj-text>
+        <mj-text>Reply to this email and tell me what you are building. I'll suggest the plan, or pack, that fits.</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding="8px 24px 40px">
+      <mj-column>
+        <mj-button href="https://app.bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=free-users&amp;utm_content=final-cta" align="left">Log in to choose a plan</mj-button>
+      </mj-column>
+    </mj-section>
+
+    <!-- Sign-off -->
+    <mj-section padding="0 24px 40px">
+      <mj-column>
+        <mj-text padding="0">Thanks for trying BlueFox Email,</mj-text>
+        <mj-text padding="0"><strong>Gyula Németh</strong><br /><span style="color:#64748B; font-size:14px;">Founder, BlueFox Email</span></mj-text>
+      </mj-column>
+    </mj-section>
+
+    <!-- Footer -->
+    <mj-section background-color="#F8FAFC" padding="24px 24px 32px">
+      <mj-column>
+        <mj-text mj-class="fine" align="center" padding="0 0 8px 0">You are receiving this because you signed up for product updates from <a href="https://bluefox.email/?utm_source=whats-new&amp;utm_medium=email&amp;utm_campaign=2026-09-29-monthly-plans&amp;utm_term=free-users&amp;utm_content=footer-site" style="color:#64748B;">BlueFox Email</a>.</mj-text>
+        <mj-text mj-class="fine" align="center" padding="0 0 8px 0">Need a break? <a href="{{pauseSubscriptionLink}}" style="color:#64748B;">Pause your subscription</a> for a while, or <a href="{{unsubscribeLink}}" style="color:#64748B;">unsubscribe</a> from these emails.</mj-text>
+        <mj-text mj-class="fine" align="center" color="#94A3B8" padding="0">Innovaris Group LLC</mj-text>
+      </mj-column>
+    </mj-section>
+
+  </mj-body>
+</mjml>
