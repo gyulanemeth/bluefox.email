@@ -49,6 +49,6 @@ head:
 
 1) Register at bluefox.email.
 2) Create your first project. It will be in a Sandbox mode by default. 
-3) Schedule campaigns or send transactional and triggered emails via our API.
+3) [Schedule campaigns](/docs/api/campaigns) or [send transactional and triggered emails](/docs/api/send-email) via our [API](/docs/api/).
 
 That's it! Really!

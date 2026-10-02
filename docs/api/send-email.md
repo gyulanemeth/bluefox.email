@@ -1,16 +1,16 @@
 ---
-title: "Send Email API Reference | bluefox.email documentation"
-description: "Every Send Email endpoint in the bluefox.email API: parameters, request body, and response schemas."
+title: "Send Email API Reference"
+description: "Send transactional and triggered emails with the BlueFox Email REST API: endpoints, request body fields, and error responses."
 head:
   - - meta
     - name: description
-      content: "Every Send Email endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Send transactional and triggered emails with the BlueFox Email REST API: endpoints, request body fields, and error responses."
   - - meta
     - property: og:title
-      content: "Send Email API Reference | bluefox.email documentation"
+      content: "Send Email API Reference | BlueFox Email"
   - - meta
     - property: og:description
-      content: "Every Send Email endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Send transactional and triggered emails with the BlueFox Email REST API: endpoints, request body fields, and error responses."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,18 +25,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Send Email API Reference | bluefox.email documentation"
+      content: "Send Email API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
-      content: "Every Send Email endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Send transactional and triggered emails with the BlueFox Email REST API: endpoints, request body fields, and error responses."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Send Email
+# Send Email API
 
-Full reference for the **Send Email** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Two endpoints send email: one for [transactional emails](/docs/api/transactional-emails) and one for [triggered emails](/docs/api/triggered-emails). Both accept merge tag `data` and [file attachments](/docs/api/send-attachments). The older flat-URL versions are documented below them for existing integrations. Sends fail with a 405 when the account is out of credit, a sandbox project has hit its daily cap, or high bounce or complaint rates have restricted sending. If a send is accepted but never arrives, look it up in the [Email Error Log](/docs/api/email-error-log). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## Send a transactional email
 

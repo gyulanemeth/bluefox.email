@@ -1,16 +1,16 @@
 ---
-title: "Suppression List API Reference | bluefox.email documentation"
-description: "Every Suppression List endpoint in the bluefox.email API: parameters, request body, and response schemas."
+title: "Suppression List API Reference"
+description: "List and add suppressed email addresses in a BlueFox Email project via the REST API, so they are never emailed again."
 head:
   - - meta
     - name: description
-      content: "Every Suppression List endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List and add suppressed email addresses in a BlueFox Email project via the REST API, so they are never emailed again."
   - - meta
     - property: og:title
-      content: "Suppression List API Reference | bluefox.email documentation"
+      content: "Suppression List API Reference | BlueFox Email"
   - - meta
     - property: og:description
-      content: "Every Suppression List endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List and add suppressed email addresses in a BlueFox Email project via the REST API, so they are never emailed again."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,18 +25,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Suppression List API Reference | bluefox.email documentation"
+      content: "Suppression List API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
-      content: "Every Suppression List endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "List and add suppressed email addresses in a BlueFox Email project via the REST API, so they are never emailed again."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Suppression List
+# Suppression List API
 
-Full reference for the **Suppression List** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Addresses on the suppression list are never emailed, whatever list they are on. See [Suppression Lists](/docs/projects/suppression-list) for importing and exporting the list in the app. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List suppression list
 

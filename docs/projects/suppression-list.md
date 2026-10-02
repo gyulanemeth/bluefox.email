@@ -60,7 +60,7 @@ You can add an email by clicking on the `Create` button at top-left corner.
 
 ![Screenshot of the suppression list create button](./project-suppression-list-create-button.webp)
 
-Type in the email address with a reason for adding it to the suppression list for future reference. 
+Type in the email address with a reason for adding it to the suppression list for future reference. To add addresses from code, use the [Suppression List API](/docs/api/suppression-list). 
 
 ![Screenshot of the suppression list create menu](./project-suppression-list-create-menu.webp)
 

@@ -83,6 +83,8 @@ To manage the logo, click the **update logo** button on the subscription prefere
 
 Sign-up forms are now separate entities that you can create, customize, and assign to one or multiple subscriber lists. This flexible approach allows you to design forms once and reuse them across different lists, or create specialized forms for specific audiences. Each form provides an easy way to customize the appearance, generate the necessary HTML code, and integrate it into external sites without the need for backend code.
 
+You can also create forms and fetch their embed HTML with the [Signup Forms API](/docs/api/signup-forms).
+
 ### How It Works
 
 Users can create multiple forms, customize each form through the interface, and assign them to one or more subscriber lists. Once configured, you can copy the generated HTML code and paste it into your website. When visitors enter their details and submit the form, they will be added to all the subscriber lists assigned to that form.

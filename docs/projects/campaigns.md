@@ -58,7 +58,7 @@ A **campaign** is a one-off marketing send that you compose inside BlueFox Email
 
 <template #next>
 
-[Free link checker](/tools/content/link-checker) · [Writing subject lines that get opened](/posts/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails) · [Preheader text](/posts/preheader-text-the-secret-weapon-for-boosting-open-rates)
+[Free link checker](/tools/content/link-checker) · [Writing subject lines that get opened](/posts/mastering-subject-lines-how-to-get-people-to-actually-open-your-emails) · [Preheader text](/posts/preheader-text-the-secret-weapon-for-boosting-open-rates) · [Campaigns API reference](/docs/api/campaigns)
 
 </template>
 
