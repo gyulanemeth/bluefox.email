@@ -1,24 +1,23 @@
 // Run: node components/pricingData.test.js
 import assert from 'node:assert/strict'
-import { cheapestOption } from './pricingData.js'
+import { planFor, packsFor } from './pricingData.js'
 
-const pick = (volume, byo) => {
-  const o = cheapestOption(volume, byo)
-  return `${o.count > 1 ? o.count + '× ' : ''}${o.name} ${o.type} $${Math.round(o.monthly * 100) / 100}`
-}
+const plan = (v, byo) => { const p = planFor(v, byo); return p && `${p.name} $${p.price}` }
+const packs = (v, byo) => { const p = packsFor(v, byo); return `${p.premium}P+${p.essential}E $${p.price}` }
 
-// Managed
-assert.equal(pick(10000), 'Basic plan $9')
-assert.equal(pick(25000), 'Growth plan $19')
-assert.equal(pick(50000), 'Premium pack $30') // 500K pack lasts 10 months
-assert.equal(pick(100000), 'Business plan $59')
-assert.equal(pick(500000), 'Elite plan $239')
-assert.equal(pick(1000000), '2× Premium pack $600') // no plan covers 1M
+// Monthly: smallest plan that covers the volume
+assert.equal(plan(5000), 'Starter $6')
+assert.equal(plan(50000), 'Pro $35')
+assert.equal(plan(500000), 'Elite $239')
+assert.equal(plan(1000000), undefined) // above the largest managed plan
+assert.equal(plan(25000, true), 'Growth $19') // BYO Basic (20K) is too small
+assert.equal(plan(1000000, true), 'Elite $239')
 
-// BYO (2× sends)
-assert.equal(pick(10000, true), 'Essential pack $5') // 100K pack lasts 10 months
-assert.equal(pick(50000, true), 'Growth plan $19') // Premium would expire half unused
-assert.equal(pick(500000, true), 'Scale plan $129')
-assert.equal(pick(1000000, true), 'Elite plan $239')
+// Occasional: cheapest pack mix for a year of sends
+assert.equal(packs(40000), '0P+1E $50') // 10K contacts × 4 sends a year
+assert.equal(packs(550000), '1P+1E $350')
+assert.equal(packs(1000000), '2P+0E $600')
+assert.equal(packs(40000, true), '0P+1E $50')
+assert.equal(packs(1200000, true), '1P+2E $400')
 
 console.log('pricingData ok')
