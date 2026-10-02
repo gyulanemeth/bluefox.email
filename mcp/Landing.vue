@@ -271,6 +271,12 @@ async function copyConfig() {
                 <path :d="mdiArrowRight" fill="currentColor"/>
               </svg>
             </a>
+            <a href="/posts/how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent" class="capability-link">
+              See a full SaaS setup walkthrough
+              <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                <path :d="mdiArrowRight" fill="currentColor"/>
+              </svg>
+            </a>
             <a :href="REPO_URL" target="_blank" rel="noopener noreferrer" class="capability-link capability-link--muted">
               View the source on GitHub
               <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">

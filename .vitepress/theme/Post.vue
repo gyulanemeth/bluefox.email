@@ -1,5 +1,5 @@
 <template>
-<div class="PostContent">
+<div class="PostContent" :class="{ justified: frontmatter.justify }">
   <div class="vp-doc">
     <Content/>
     <div v-if="!frontmatter.hideAuthor" class="post-byline">
@@ -47,6 +47,12 @@
   line-height: 28px;
 }
 
+.PostContent.justified p,
+.PostContent.justified li {
+  text-align: justify;
+  hyphens: auto;
+}
+
 .PostContent .custom-block {
   margin: 16px 0;
 }
@@ -81,6 +87,20 @@
 
 .dark .PostContent a {
   color: hsl(197, 87%, 65%);
+}
+
+.PostContent img.screenshot {
+  display: block;
+  width: 680px;
+  max-width: 100%;
+  height: auto;
+  margin: 24px auto;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+}
+
+.PostContent img.screenshot.email {
+  width: 440px;
 }
 
 .post-byline {

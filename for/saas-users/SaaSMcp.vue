@@ -40,6 +40,7 @@ const facts = [
     <p class="mcp-links">
       <a href="/docs/integrations/mcp-server" class="mcp-link">Set up the MCP server</a>
       <a href="/mcp" class="mcp-link mcp-link--muted">How MCP works with BlueFox</a>
+      <a href="/posts/how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent" class="mcp-link mcp-link--muted">See a full SaaS setup walkthrough</a>
     </p>
   </section>
 </template>
