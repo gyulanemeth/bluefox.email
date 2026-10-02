@@ -4,7 +4,7 @@ description: A step-by-step guide to setting up transactional emails, a welcome 
 thumbnail: /assets/articles/how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent.png
 
 layout: post
-category: articles
+category: tutorials
 tags: ['AI', 'SaaS', 'Transactional Email', 'Automation', 'MCP']
 author: "Parth Tiwari"
 
@@ -25,7 +25,7 @@ faqs:
 justify: true
 sidebar: false
 published: true
-lastUpdated: 2026-09-29
+lastUpdated: 2026-10-02
 
 head:
   - - meta
