@@ -16,7 +16,7 @@ const included = [
         <span class="text-overline">Honest pricing</span>
       </v-chip>
       <h2 id="pricing-illus-title">Pay only for what you send.</h2>
-      <p>No contact-based billing. No features locked behind tiers. Buy a send pack when you need it, or pick a monthly plan from $6.</p>
+      <p>No contact-based billing. No features locked behind tiers.</p>
     </div>
 
     <div class="compare">
