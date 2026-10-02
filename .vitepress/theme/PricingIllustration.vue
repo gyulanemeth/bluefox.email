@@ -16,30 +16,35 @@ const included = [
         <span class="text-overline">Honest pricing</span>
       </v-chip>
       <h2 id="pricing-illus-title">Pay only for what you send.</h2>
-      <p>No contact-based billing. No features locked behind tiers. Buy a send pack when you need it, or pick a monthly plan from $6.</p>
+      <p>No contact-based billing. No features locked behind tiers.</p>
     </div>
 
     <div class="compare">
-      <div class="compare-col compare-col--typical">
-        <span class="col-label">Typical email tools</span>
+      <div class="compare-col">
+        <span class="col-label">Monthly plan</span>
         <span class="col-price">
-          <span class="amount">$200+</span>
+          <span class="amount">$6</span>
           <span class="period">per month</span>
         </span>
-        <span class="col-sub">Billed by contact count, with features locked behind tiers.</span>
+        <span class="col-sub">5,000 sends every month. Cancel anytime.</span>
       </div>
 
       <div class="compare-rule" aria-hidden="true"></div>
 
-      <div class="compare-col compare-col--ours">
-        <span class="col-label">BlueFox send pack</span>
+      <div class="compare-col">
+        <span class="col-label">One-time pack</span>
         <span class="col-price">
           <span class="amount">$50</span>
           <span class="period">one-time</span>
         </span>
-        <span class="col-sub">50,000 sends. Every feature. Credits valid 12 months.</span>
+        <span class="col-sub">50,000 sends, valid for 12 months.</span>
       </div>
     </div>
+
+    <p class="compare-note">
+      Radically cheaper than most email tools.
+      <a href="/pricing#calculator" class="pricing-link">Compare prices →</a>
+    </p>
 
     <div class="included">
       <p class="included-title">Always included, every plan, every send pack:</p>
@@ -66,7 +71,7 @@ const included = [
       >
         <strong>Start with 3,000 free sends</strong>
       </v-btn>
-      <span class="cta-sub">No credit card. No contact fees. No surprises.</span>
+      <span class="cta-sub">No credit card. No surprises.</span>
       <a href="/pricing" class="pricing-link">See full pricing →</a>
     </div>
   </section>
@@ -119,6 +124,15 @@ html.dark .illus-head h2 {
 html.dark .illus-head p { color: #94a3b8; }
 
 /* Compare row — mirrors PricingSnapshot pattern */
+.compare-note {
+  margin: -16px auto 32px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+html.dark .compare-note { color: #f1f5f9; }
+
 .compare {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -149,7 +163,9 @@ html.dark .compare-rule { background: #1e293b; }
 .compare-col {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 6px;
+  text-align: center;
 }
 
 .col-label {
@@ -174,7 +190,10 @@ html.dark .col-label { color: #cbd5e1; }
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.015em;
+  color: #0f172a;
 }
+
+html.dark .amount { color: #f1f5f9; }
 
 .period {
   font-size: 14px;
@@ -183,20 +202,6 @@ html.dark .col-label { color: #cbd5e1; }
 
 html.dark .period { color: #cbd5e1; }
 
-.compare-col--typical .amount {
-  color: #475569;
-  text-decoration: line-through;
-  text-decoration-thickness: 2px;
-  text-decoration-color: rgba(185, 28, 28, 0.55);
-}
-
-html.dark .compare-col--typical .amount {
-  color: #cbd5e1;
-  text-decoration-color: rgba(248, 113, 113, 0.55);
-}
-
-.compare-col--ours .amount { color: #0f172a; }
-html.dark .compare-col--ours .amount { color: #f1f5f9; }
 
 .col-sub {
   font-size: 14px;
@@ -247,6 +252,7 @@ html.dark .included-title { color: #f1f5f9; }
   display: flex;
   align-items: center;
   gap: 10px;
+  margin: 0; /* cancels .vp-doc li + li { margin-top: 8px }, which offset the right column */
   font-size: 14px;
   color: #334155;
   line-height: 1.4;
