@@ -1157,7 +1157,7 @@ html.dark .plan-more {
   <div class="calculator-header">
     <div class="calculator-title">
       <h2>Compare your savings with BlueFox Email</h2>
-      <p class="calculator-subtitle">Enter your monthly send volume to estimate costs across platforms.</p>
+      <p class="calculator-subtitle">Tell us how often you send to estimate costs across platforms.</p>
     </div>
     <div class="calculator-note">Estimates only</div>
   </div>

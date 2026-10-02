@@ -7,7 +7,7 @@ description: Connect your own Amazon SES account to BlueFox Email and pay only f
 <script setup>
 import { ref } from 'vue'
 import { useData } from 'vitepress'
-import BYOPriceCalculator from './components/BYOPriceCalculator.vue'
+import PricingCalculator from './components/PricingCalculator.vue'
 const { isDark } = useData()
 const mode = ref('monthly')
 const plans = [
@@ -935,7 +935,7 @@ html.dark .plan-more {
   </div>
   
   <div id="calculator">
-    <BYOPriceCalculator />
+    <PricingCalculator byo />
   </div>
 </section>
 
