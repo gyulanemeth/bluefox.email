@@ -62,11 +62,11 @@ head:
 
 # How to Set Up Email for a New SaaS Product with an AI Agent
 
-Every new SaaS product needs the same handful of emails before launch day. A way to confirm new accounts. A way to reset forgotten passwords, because someone will forget their password within the first hour. A welcome message. And eventually, a way to tell people what's new.
+To launch a SaaS product, you only need a couple of emails: one that confirms new accounts, and one that resets forgotten passwords, because someone will forget their password within the first hour.
 
-None of that is hard. It's just a lot of small, fiddly work: picking a sender, writing HTML emails that don't fall apart in Outlook, finding the right merge tags, and wiring it all into your app. So it keeps getting pushed to "after launch."
+The rest can wait. A welcome series, a weekly summary, a feature announcement, or your own subscription preferences page are nice to have, not must-haves for launch day. But with an AI agent connected to BlueFox Email through MCP, each of them takes a few minutes, so there's not much reason to put them off.
 
-In this guide, we set all of it up by talking to an AI agent connected to BlueFox Email. Everything you see here was actually done in a real BlueFox Email project, and every screenshot is from that session.
+In this guide, we set up both the essentials and the extras by talking to that agent. Everything you see here was done in a real BlueFox Email project, and every screenshot is from that session.
 
 ::: info What you'll need
 - A BlueFox Email account with a project
@@ -205,7 +205,9 @@ The logo, the brand green button, the fonts, and the footer all come straight fr
 
 ### Sending it from your app
 
-The email lives in BlueFox Email, but your app decides when to send it. When a user signs up, your backend creates a verification token, saves it with the user, and asks BlueFox Email to send the email with the link:
+The email lives in BlueFox Email, but your app decides when to send it. When a user signs up, your backend creates a verification token, saves it with the user, and asks BlueFox Email to send the email with the link.
+
+You don't have to write this code yourself. Ask the agent to add it to your signup handler, in whatever language your backend uses. It already knows from the MCP tools how merge tags and the `data` your app sends fit together, and for the API call itself it can use our [API docs](/docs/api/). The **AI Agents** section under **Project Settings > Integrations** also has a ready-made prompt that points an agent at the API and its OpenAPI spec. Here's the Node.js version we tested:
 
 ```javascript
 import { randomBytes } from 'node:crypto'
@@ -266,6 +268,10 @@ The password reset email works exactly the same way, just with a different link.
 
 ![The password reset email in an inbox, with a "Reset my password" button and a line reassuring the user their password won't change if they didn't ask for this.](./how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent/password-reset-email.webp){.screenshot .email}
 
+::: tip Save your instructions once
+We repeat "follow brand-guide.md, write it in MJML" in every prompt here so you can see exactly what we asked for. In your own project, you can ask the agent to save these as standing instructions, for example in a CLAUDE.md file if you use Claude Code, so you don't have to repeat them.
+:::
+
 Same header, same button, same footer, so the two emails clearly belong together. Your app sends it with the same code as above, using the password reset email's ID and passing `resetUrl` instead of `verificationUrl`.
 
 ## Other Transactional Emails Your SaaS Will Need
@@ -282,7 +288,7 @@ Supabase sends its own signup confirmation, password reset, magic link, and emai
 
 ## Building a Welcome Series with an Automation
 
-A single welcome email is fine. A short series spread over the first week, sometimes called a [drip campaign](/email-marketing-concepts/automation/drip-campaigns), does a much better job of getting new users to actually use your product instead of forgetting they signed up.
+You can launch without a welcome series, and a single welcome email is fine. But a short series spread over the first week, sometimes called a [drip campaign](/email-marketing-concepts/automation/drip-campaigns), does a much better job of getting new users to actually use your product instead of forgetting they signed up.
 
 In BlueFox Email, a multi-step series with waits in between is an [automation](/docs/projects/automations): a trigger, then a series of nodes, such as a Send Email node or a Timer node that waits 2 days. The agent can build the whole thing:
 
@@ -290,7 +296,7 @@ In BlueFox Email, a multi-step series with waits in between is an [automation](/
 
 ![The AI agent showing the full plan for the welcome series automation and asking for approval before adding the steps.](./how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent/welcome-plan.webp){.screenshot}
 
-Before changing anything, the agent showed the full plan and asked for a yes. That's not just good manners, the automation tools are built for it. They won't apply a change until the agent confirms it, and they tell the agent to confirm only after it has shown you the automation's current state and you've said yes. That goes for adding, changing, or deleting steps, editing an automation email, and turning an automation on.
+Before changing anything, the agent showed the full plan and asked for a yes. That's not just good manners, the automation tools are built for it. They tell the agent to show you the automation's current state first, and they only apply a change once you've confirmed it. That goes for adding, changing, or deleting steps, editing an automation email, and turning an automation on.
 
 Once approved, it added the steps and filled in all three emails:
 
@@ -324,7 +330,7 @@ Once it's on, anyone your app adds to the SparksPro Crew Users list gets the ser
 
 ## Sending a Weekly Summary with a Triggered Email
 
-Plenty of SaaS products send a weekly recap of what each user got done. Duolingo's weekly progress report emails are a well-known example, and they work because people actually want to see their numbers.
+A weekly summary is another extra you can add any time after launch. Plenty of SaaS products send a weekly recap of what each user got done. Duolingo's weekly progress report emails are a well-known example, and they work because people actually want to see their numbers.
 
 This is a job for a [triggered email](/docs/projects/triggered-emails): a single email your app asks BlueFox Email to send, addressed through a subscriber list, with the details your app passes in. People can unsubscribe from it, which is what you want for something that isn't essential.
 
@@ -336,7 +342,7 @@ This one had a slightly fancier layout, with colored boxes for the numbers, and 
 
 ### Sending everyone their own numbers
 
-Here's the nice part. You don't need one API call per user. A single call can send every user their own numbers: list the recipients in `emails`, and put each person's values in `data` under their email address.
+Here's the nice part. You don't need one API call per user. A single call can send every user their own numbers: list the recipients in `emails`, and put each person's values in `data` under their email address. And just like with the signup email, you can ask the agent to write this code for your backend.
 
 ```javascript
 const { BLUEFOX_API_KEY, BLUEFOX_PROJECT_ID } = process.env
@@ -416,7 +422,7 @@ Always look at a campaign before thousands of people do. One sentence:
 
 ![The test email of the shift swaps campaign, which greets "Hi there," with a gold "New" badge and a "Try shift swaps" button.](./how-to-set-up-email-for-a-new-saas-product-with-an-ai-agent/campaign-test-email.webp){.screenshot .email}
 
-See the "Hi there,"? That's on purpose. Test emails don't fill in personal details or data from your app, so you see the fallback text. That makes them a handy way to check your fallbacks read well. To see the personalized version, look at a real send, like the welcome and weekly summary emails earlier in this guide.
+See the "Hi there,"? That's on purpose. A test sent to a single address doesn't fill in contact details or data from your app, so you see the fallback text. That makes it a handy way to check your fallbacks read well. If you send the test to a [private test list](/docs/projects/send-test-email) instead, contact details like first names come from the contacts on that list. Data your app would pass is still left out, since a test has nothing to pass it.
 
 Happy with it? Schedule it in plain English:
 
@@ -434,7 +440,7 @@ Changed your mind? Ask the agent to reschedule it or move it back to draft, whic
 
 ## Using Your Own Subscription Preferences Page
 
-Every campaign, triggered email, and automation email has an unsubscribe link, and optionally a [pause link](/email-best-practices-for-saas/unsubscribe-and-pause-subscription), which lets people take a break instead of leaving for good. By default they open a preferences page hosted by BlueFox Email. It works, but it doesn't look like your product, and it's the last thing an unhappy user sees.
+This last one is optional too, but it takes one sentence. Every campaign, triggered email, and automation email has an unsubscribe link, and optionally a [pause link](/email-best-practices-for-saas/unsubscribe-and-pause-subscription), which lets people take a break instead of leaving for good. By default they open a preferences page hosted by BlueFox Email. It works, but it doesn't look like your product, and it's the last thing an unhappy user sees.
 
 If you have your own page, one sentence switches over:
 
@@ -461,19 +467,19 @@ After doing all of this for real, here's how the work actually split up.
 **Some things are still your job:**
 
 - **Your app's code.** Verification links, reset links, and weekly numbers come from your app. The agent can write that code, but it runs in your backend.
-- **DNS.** The agent can add your domain and give you the records, but someone has to put them in your DNS settings.
+- **DNS.** The agent can add your domain and give you the records, but someone has to put them in your DNS settings. That someone can be the agent too, if it also has access to your DNS provider, for example through an MCP server for Cloudflare DNS.
 - **Turning automations on.** The welcome series stays a draft until you decide it's ready.
 - **A final read.** The agent writes good first drafts, but you know your product and your users best.
 
-And one real limit: the agent writes emails as HTML (via MJML) or plain text. It can't create or change the design of emails made in BlueFox Email's drag-and-drop editor.
+And one limit, for now: the agent writes emails as HTML (via MJML) or plain text. It can't create or change the design of emails made in BlueFox Email's drag-and-drop editor yet.
 
 ## Conclusion
 
-Mostly by talking to an AI agent, SparksPro Crew went from a nearly empty project to a full email setup: a branded sender, a list for app users, a design guide, signup and password reset emails wired into the app, a three-part welcome series, a weekly summary with each user's own numbers, a feature announcement, and a branded preferences page. That's most of what a new [SaaS product](/for/saas-companies) needs before its first users show up. For the bigger picture, see our [email best practices for SaaS companies](/email-best-practices-for-saas/).
+Mostly by talking to an AI agent, SparksPro Crew went from a nearly empty project to a full email setup: a branded sender, a list for app users, a design guide, signup and password reset emails ready for an app to send, a three-part welcome series, a weekly summary with each user's own numbers, a feature announcement, and a branded preferences page. That's most of what a new [SaaS product](/for/saas-companies) needs before its first users show up. For the bigger picture, see our [email best practices for SaaS companies](/email-best-practices-for-saas/).
 
 A few things worth keeping in mind as you set up your own:
 
-- **Pick the right email type.** Essential account emails are transactional, multi-step flows are automations, app-driven updates are triggered emails, and one-off announcements are campaigns.
+- **Pick the right email type.** Essential account emails are transactional, multi-step flows are automations, app-driven updates are triggered emails, and one-off announcements are campaigns. Our guide to [transactional, triggered, campaign and automation emails](/posts/transactional-triggered-campaign-or-automation-understanding-email-types) goes deeper.
 - **Give the agent your brand first.** A design guide from your website makes every email after it consistent.
 - **Let MJML do the hard part.** It gives you email HTML that holds up across email clients, and strict validation catches mistakes early.
 - **Test before it counts.** Send test emails to check layout and fallbacks, and real copies to your own address to check personalization.
