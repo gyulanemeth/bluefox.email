@@ -5,9 +5,9 @@ faqs:
   - question: "What does the bluefox.email account dashboard show?"
     answer: "The account dashboard shows aggregate metrics across all your projects: total emails sent, total contacts, total bounces, and total complaints. It also shows per-project breakdowns including contacts, sends, cost, bounces, and complaints for each project in your account."
   - question: "Can I view performance metrics for all my projects in one place?"
-    answer: "Yes. The account dashboard aggregates email performance across every project in your account. You can filter by date range to compare performance over specific periods, and use the Package dropdown to see cost breakdowns by send pack type."
+    answer: "Yes. The account dashboard aggregates email performance across every project in your account. You can filter by date range to compare performance over specific periods, and use the Package dropdown to see what each project's sends cost at a given per-send rate."
   - question: "What is the Package filter on the account dashboard?"
-    answer: "The Package dropdown lets you filter projects by their send pack type (such as Essential or Premium) to view the associated sending costs for projects under each package. This helps you understand spend distribution across your client projects."
+    answer: "The Package dropdown sets the per-send rate used to calculate the Cost column, for example Regular Essential ($1 per 1,000 sends) or BYO Premium ($0.30 per 1,000 sends). This helps you estimate spend across your client projects."
   - question: "How do I access more detailed analytics than what the account dashboard shows?"
     answer: "The account dashboard shows account-level summary metrics. For detailed per-email analytics including open rates, click rates, bounce charts, CSV export, and filterable data tables, navigate to the Analytics section or click through to a specific project's statistics page."
 head:
@@ -76,7 +76,7 @@ For each project in your account, you can view the following email performance m
 There is pagination at the bottom of the project list, allowing you to navigate through multiple pages of projects.
 ![Pagination](./dashboard-pagination.webp)
 
-The **Package** dropdown allows you to see how much each project costs based on its package type (e.g., Essential, Premium). Click on the **Package** dropdown to select a package type and view the associated cost for projects under that package.
+The **Package** dropdown sets the per-send rate used to calculate each project's **Cost** (e.g., Regular Essential at $1 per 1,000 sends, BYO Premium at $0.30 per 1,000 sends). Click on the **Package** dropdown and select a package to see what each project's sends cost at that rate.
 
 ![Package filter](./dashboard-package-filter.webp)
 

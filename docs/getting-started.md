@@ -3,7 +3,7 @@ title: Getting Started with bluefox.email
 description: "Learn how to get started with bluefox.email in just four simple steps: register, create a project, connect AWS SES, and start sending emails."
 faqs:
   - question: "Do I need a credit card to get started with bluefox.email?"
-    answer: "No. BlueFox Email gives you 3,000 free sends (or 6,000 if you use BYO SES) when you register, with no credit card required. You can send real emails, explore all features, and build automations before you need to purchase a send pack."
+    answer: "No. BlueFox Email gives you 3,000 free sends (or 6,000 if you use BYO SES) when you register, with no credit card required. You can send real emails, explore all features, and build automations before you need to buy a send pack or pick a monthly plan."
   - question: "Do I need to set up Amazon SES before I can send emails?"
     answer: "No. BlueFox Email includes its own managed sending infrastructure. You can start sending immediately after registering. Optionally, you can connect your own Amazon SES account later if you want full control over your sending reputation and lower per-send costs at high volumes."
   - question: "What is Sandbox mode and when should I switch to Production?"

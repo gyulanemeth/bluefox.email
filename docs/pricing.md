@@ -1,31 +1,37 @@
 ---
 title: Pricing | bluefox.email documentation
-description: Discover simple, flexible, and transparent pricing with bluefox.email. Purchase send packs that last a full year and send emails on your schedule.
+description: Discover simple, flexible, and transparent pricing with bluefox.email. Buy one-time send packs that last a full year or pick a monthly plan, and pay only for the emails you send.
 faqs:
-  - question: "Is there a free plan for bluefox.email?"
+  - question: "Does BlueFox Email have a free plan or new customer offer?"
     answer: "Yes. Every new workspace starts with free sends — 3,000 sends on standard pricing or 6,000 sends with BYO SES — with no credit card required. All features are fully accessible from day one."
   - question: "Do bluefox.email send packs expire?"
-    answer: "Yes. Send packs are valid for 12 months from the date of purchase. You can purchase multiple packs at any time and they stack — your balance accumulates and older sends are always used first so the newest ones last the longest."
+    answer: "Yes. Send packs are valid for 12 months from the date of purchase. You can purchase multiple packs at any time and they stack — your balance accumulates and older sends are always used first so the newest ones last the longest. Monthly plan allowances work differently: unused sends do not roll over to the next billing cycle."
   - question: "What is the difference between Standard pricing and BYO SES pricing?"
     answer: "With Standard pricing, BlueFox Email manages all sending infrastructure and you pay one flat rate per send with no AWS account needed. With BYO SES, you connect your own Amazon SES account and pay AWS directly for sending ($0.10 per 1,000 emails) plus a smaller BlueFox platform fee. BYO SES gives you more sends per dollar at high volumes and keeps your sending reputation inside your own AWS account."
+  - question: "Does BlueFox Email charge per contact?"
+    answer: "No. You pay only for the emails you send, never for the number of contacts you store. There are no contact limits on any send pack or monthly plan."
   - question: "Does the price change based on email type — transactional vs campaign?"
     answer: "No. Every email — whether transactional, triggered, or campaign — counts as one send and costs the same. There are no separate pricing tiers for different email types."
   - question: "Can I stack multiple send packs?"
     answer: "Yes. You can purchase multiple packs at any time and your send balance accumulates with no cap. There is no limit to how many packs you can hold simultaneously."
-  - question: "Are all features included in every send pack?"
-    answer: "Yes. All features — automations, segments, analytics, visual email builder, API, webhooks, Zapier integration, and more — are included in every pack with no tiers, no paywalls, and no feature upgrades required."
-  - question: "How does BYO SES pricing work in practice?"
-    answer: "With BYO SES, you pay BlueFox Email a platform fee (Essential: $50 for 100,000 sends; Premium: $300 for 1,000,000 sends) and also pay Amazon directly for sending at $0.10 per 1,000 emails. Total cost for 100,000 sends is approximately $60 ($50 platform + ~$10 AWS). This option is best for teams already using Amazon SES or sending at volumes above 500,000 emails per year."
+  - question: "Are all features included in every send pack and monthly plan?"
+    answer: "Yes. All features — automations, segments, analytics, visual email builder, API, webhooks, Zapier integration, and more — are included in every pack and monthly plan with no tiers, no paywalls, and no feature upgrades required."
+  - question: "Should I choose a monthly plan or a one-time send pack?"
+    answer: "Choose a monthly plan if you send regularly and want a fresh allowance every billing cycle. Choose a one-time pack if your volume is occasional or unpredictable: sends stay valid for 12 months and you are never billed again unless you buy another pack."
+  - question: "Can I cancel or upgrade my BlueFox Email monthly plan?"
+    answer: "Yes. If you cancel, you won't be charged again and you can keep using your allowance until the current billing period ends. When you upgrade to a bigger plan, you pay the difference in price and the new plan starts right away. The difference is not calculated from how much of the month you have used."
+  - question: "How much does Amazon SES cost with BlueFox Email?"
+    answer: "Amazon SES pricing is $0.10 per 1,000 emails, which you pay directly to AWS. With BYO SES, you pay BlueFox Email a platform fee (Essential: $50 for 100,000 sends; Premium: $300 for 1,000,000 sends) on top of the AWS sending cost. Total cost for 100,000 sends is approximately $60 ($50 platform + ~$10 AWS). BYO SES monthly plans work the same way: 2× the sends of the standard plan at the same price, plus AWS costs. This option is best for teams already using Amazon SES for email marketing or transactional email, or sending at volumes above 500,000 emails per year."
 head:
   - - meta
     - name: description
-      content: Discover simple, flexible, and transparent pricing with bluefox.email. Purchase send packs that last a full year and send emails on your schedule.
+      content: Discover simple, flexible, and transparent pricing with bluefox.email. Buy one-time send packs that last a full year or pick a monthly plan, and pay only for the emails you send.
   - - meta
     - property: og:title
       content: Pricing | bluefox.email documentation
   - - meta
     - property: og:description
-      content: Discover simple, flexible, and transparent pricing with bluefox.email. Purchase send packs that last a full year and send emails on your schedule.
+      content: Discover simple, flexible, and transparent pricing with bluefox.email. Buy one-time send packs that last a full year or pick a monthly plan, and pay only for the emails you send.
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -43,7 +49,7 @@ head:
       content: Pricing | bluefox.email documentation
   - - meta
     - name: twitter:description
-      content: Discover simple, flexible, and transparent pricing with bluefox.email. Purchase send packs that last a full year and send emails on your schedule.
+      content: Discover simple, flexible, and transparent pricing with bluefox.email. Buy one-time send packs that last a full year or pick a monthly plan, and pay only for the emails you send.
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
@@ -51,29 +57,32 @@ head:
 
 # Pricing
 
-No subscriptions, no expensive contact-based fees, and no complex pricing that charges you more for marketing emails than transactional ones. We keep it simple: you only pay for what you use.
+No contact-based fees, and no complex pricing that charges you more for marketing emails than transactional ones. We keep it simple: you only pay for the emails you send.
 
-You can purchase send packs that last a full year, offering you the flexibility to send emails on your schedule. (Sends expire after 12 months.)
+You can pay in two ways:
+
+- **One-time send packs:** buy once and use your sends anytime within 12 months. (Sends expire after 12 months.)
+- **Monthly plans:** get a fresh sending allowance every billing cycle. (Unused sends do not roll over.)
 
 ## How Sends Work
 
 Sends are purchased within your workspace and can be used across all your projects. Each send represents one email delivered to a recipient.
 
 **With Standard Pricing (BlueFox Managed Infrastructure):**
-- Buy a send pack once, use your sends anytime within 12 months
+- Buy a send pack once and use your sends anytime within 12 months, or pick a monthly plan
 - No per-contact fees, no hidden charges, just straightforward email delivery
 - Example: A 50,000 send pack lets you send 50,000 emails at your own pace
 
 **With BYO SES Pricing (Your Amazon SES Account):**
-- Buy a platform fee pack to access features and sending capability
+- Buy a platform fee pack or monthly plan to access features and sending capability
 - You also pay AWS directly for each email sent ($1 per 10,000 emails)
 - You maintain complete control over your AWS account and sending reputation
 - Example: A $50 platform pack for 100,000 sends + ~$10 AWS fees = ~$60 total
 
 **Key Benefits:**
-- No subscriptions, buy once, send whenever
+- One-time packs or monthly plans, whichever fits your sending
 - Stack packs by purchasing multiple (no limits)
-- All features included in every pack
+- All features included in every pack and plan
 
 ## Free Sends
 
@@ -96,11 +105,11 @@ Our send packs follow a straightforward principle: the more sends you purchase, 
 - **Price:** $50
 - **Cost per send:** $0.001 ($1 per 1,000 sends)
 
-With this pack, you can send **50,000 emails per month** if needed. For example:
+You can use these sends at any pace within the year. For example:
 - If you send **10,000 emails monthly**, the pack will last you about 5 months
 - If you send **5,000 emails monthly**, the pack will last you 10 months
 
-For consistent monthly sending at higher volumes, the Premium pack offers better value.
+For higher volumes, the Premium pack offers better value. If you send a steady amount every month, also compare the [monthly plans](#monthly-plans).
 
 #### Premium Pack
 
@@ -108,7 +117,7 @@ For consistent monthly sending at higher volumes, the Premium pack offers better
 - **Price:** $300
 - **Cost per send:** $0.0006 ($0.60 per 1,000 sends)
 
-Recommended for those sending **50,000 to 200,000 emails monthly**. This pack provides excellent value at scale. If your needs exceed 500,000 sends, consider purchasing multiple Premium packs or contact us for custom solutions.
+Recommended for high-volume or irregular sending. This pack provides excellent value at scale, and your sends stay available for 12 months. For steady monthly sending, see the [monthly plans](#monthly-plans). If your needs exceed 500,000 sends, consider purchasing multiple Premium packs or contact us for custom solutions.
 
 ### Bring Your Own Amazon SES (BYO SES)
 
@@ -143,18 +152,40 @@ With BlueFox Email's optional BYO SES delivery mode, you can use your own Amazon
 
 **[Learn more about BYO SES pricing →](/byo-amazon-ses-pricing)**
 
-### Enterprise Solution
+## Monthly Plans
 
-For requirements beyond our standard packs or custom solutions, please [contact us](mailto:hello@bluefox.email) to discuss a tailored package.
+If you send regularly, a monthly plan gives you a fresh sending allowance every billing cycle. Unused sends do not roll over to the next cycle. Every plan includes full access to the platform.
+
+| Plan | Price / month | Standard sends / month | BYO SES sends / month |
+|------|---------------|------------------------|-----------------------|
+| Starter | $6 | 5,000 | 10,000 |
+| Basic | $9 | 10,000 | 20,000 |
+| Growth | $19 | 25,000 | 50,000 |
+| Pro | $35 | 50,000 | 100,000 |
+| Business | $59 | 100,000 | 200,000 |
+| Scale | $129 | 250,000 | 500,000 |
+| Elite | $239 | 500,000 | 1,000,000 |
+
+With BYO SES, you also pay AWS directly for sending ($0.10 per 1,000 emails) on top of the plan price.
+
+- **Cancel anytime:** you won't be charged again, and you can keep using your allowance until the current billing period ends.
+- **Upgrade anytime:** you pay the difference in price and the new plan starts right away. The difference is not calculated from how much of the month you have used, so it is the same even if you upgrade on the last day of the cycle.
+
+**Monthly plan or one-time pack?** Choose a monthly plan if you send regularly. Choose a one-time pack if your volume is occasional or unpredictable: sends stay valid for 12 months and you are never billed again unless you buy another pack.
+
+## Enterprise Solution
+
+For requirements beyond our standard packs and plans or custom solutions, please [contact us](mailto:hello@bluefox.email) to discuss a tailored package.
 
 ## Summary
 
-Our send packs offer flexibility, transparency, and exceptional value. Whether you choose our managed infrastructure or bring your own SES account, you pay only for the emails you send with no hidden fees or contact-based pricing.
+Our send packs and monthly plans offer flexibility, transparency, and exceptional value. Whether you choose our managed infrastructure or bring your own SES account, you pay only for the emails you send with no hidden fees or contact-based pricing.
 
 | Feature | Standard | BYO SES |
 |---------|----------|---------|
 | Essential Pack | 50,000 sends for $50 | 100,000 sends for $50 + AWS fees |
 | Premium Pack | 500,000 sends for $300 | 1,000,000 sends for $300 + AWS fees |
+| Monthly Plans | 5,000 to 500,000 sends / month, $6 to $239 | 10,000 to 1,000,000 sends / month, $6 to $239 + AWS fees |
 | Free Sends | 3,000 | 6,000 |
 | Total Features | All included | All included |
 | Sending Control | BlueFox managed | Your AWS account |
