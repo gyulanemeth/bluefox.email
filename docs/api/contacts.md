@@ -163,7 +163,7 @@ Accepts an API key or a whitelisted Origin header.
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
 | `projectId` | path | string | yes | The project _id, found in the app under Project Settings. |
-| `filter` | query | object |  | mongoose-crudl style filter object. |
+| `filter` | query | object |  | mongoose-crudl style filter object. Two special keys narrow by segment conditions (AND-ed with each other and the rest of the filter): filter[segmentId]=&lt;saved segment id&gt;, and filter[segment]=&lt;JSON &#123;"groups": [...]&#125;&gt; with the same groups/conditions shape as a segment (e.g. has-tag, equals on a custom field, engagement). filter[subscriberListId]=&lt;id&gt; keeps only contacts on that subscriber list, optionally with filter[subscriberStatus]=active\|unsubscribed\|paused\|unverified. |
 | `limit` | query | integer |  |  |
 | `skip` | query | integer |  |  |
 
@@ -411,7 +411,7 @@ Legacy flat URL shape, kept for backward compatibility - identical behavior to G
 | Name | In | Type | Required | Description |
 | --- | --- | --- | --- | --- |
 | `projectId` | path | string | yes | The project _id, found in the app under Project Settings. |
-| `filter` | query | object |  | mongoose-crudl style filter object. |
+| `filter` | query | object |  | mongoose-crudl style filter object. Two special keys narrow by segment conditions (AND-ed with each other and the rest of the filter): filter[segmentId]=&lt;saved segment id&gt;, and filter[segment]=&lt;JSON &#123;"groups": [...]&#125;&gt; with the same groups/conditions shape as a segment (e.g. has-tag, equals on a custom field, engagement). filter[subscriberListId]=&lt;id&gt; keeps only contacts on that subscriber list, optionally with filter[subscriberStatus]=active\|unsubscribed\|paused\|unverified. |
 | `limit` | query | integer |  |  |
 | `skip` | query | integer |  |  |
 
