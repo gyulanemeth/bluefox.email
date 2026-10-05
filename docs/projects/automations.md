@@ -7,7 +7,7 @@ faqs:
   - question: "What trigger types are available for automations?"
     answer: "Automation triggers include: Contact Added (fires when a contact is added to the selected list), Contact Updated (fires when a specific contact property changes from one value to another), Enter Segment (fires when a contact enters a selected segment), Leave Segment (fires when a contact leaves a selected segment), and Time Based (fires on a recurring schedule, such as daily, weekdays, weekly, or monthly)."
   - question: "Can I edit an automation while it is running?"
-    answer: "Yes, but carefully. While an automation is active you can make changes and choose to apply them only to new contacts entering the automation, or to both new and in-progress contacts. Applying changes to in-progress contacts immediately affects contacts currently waiting at any node, and removing a node terminates the automation for contacts currently in that node."
+    answer: "Yes, but carefully. While an automation is active you can edit, add and delete nodes. Edited nodes get an orange border, new nodes a green one, and deleted nodes stay visible with a red dashed border until you decide. Nothing takes effect until you click Apply changes, which updates the automation for new contacts and everyone already in progress. Deleting a node terminates the automation for contacts currently in that node. Discard changes reverts everything to the last applied version."
   - question: "What is the difference between the Audience Filter node and the Branching node?"
     answer: "The Audience Filter node checks a single condition and either allows the contact to continue down the automation or stops it for that contact entirely. The Branching node splits the automation into multiple conditional paths and routes each contact down the first path whose condition is met, allowing different outcomes within the same flow."
   - question: "What are Exit Criteria in automations?"
@@ -53,7 +53,7 @@ An **automation** is a workflow that runs once per contact: a trigger admits the
 
 <Primer>
 
-- **Deleting a node terminates every contact currently sitting on it, once you apply the change to in-progress contacts.** Choosing **Apply to upcoming events only** leaves contacts already in the automation on the old version, unaffected. Check the contact count on a node before you remove it.
+- **Deleting a node terminates every contact currently sitting on it once you apply the change.** Until then the node stays on the canvas with a red dashed border, and **Restore** brings it back. Check the contact count on a node before you remove it.
 - **The Notify node does not email the contact flowing through the automation.** It sends to a subscriber list you choose, or to specific addresses from it, which is what makes it useful for alerting your own team. Because it targets a list, it also offers **Exclude unengaged**, driven by the project-wide [unengaged segment](/docs/projects/settings#unengaged-segment) definition.
 - **The editor you pick for a node's email decides which design features you get.** Pre-designed and [design system templates](/docs/email-themes/templates) are available only in the Visual Editor, and an email written in Raw HTML or Plain Text cannot be saved back as a reusable template. This applies to Send Email and Notify nodes alike.
 - **An automation can be copied into a different project, not just duplicated within one.** Copy and paste works across every project in the same account, so a working flow can be reused for another client instead of rebuilt.
@@ -184,7 +184,7 @@ The **Timer Node** pauses the automation before moving to the next step. You can
 
 ## Audience Filter Node
 
-The **Audience Filter Node** allows you to include or exclude contacts based on their properties or email Activites.
+The **Audience Filter Node** allows you to include or exclude contacts based on their properties or email activity.
 
 When configuring the filter:
 ### Property Tab
@@ -211,7 +211,7 @@ If the contact is in the selected segment, the automation continues to the next 
 - Link (only shown if using `is-clicked` or `is-not-clicked`): 
   - Optionally specify a link (URL) from the email.
   - If set, the condition checks whether that **specific link** was clicked or not.
-  - f left blank, it checks whether **any link** in the email was clicked or not.
+  - If left blank, it checks whether **any link** in the email was clicked or not.
 
 ![Automation node filter card Icon](./project-automation-node-filter-email-based-card.webp)
 
@@ -278,11 +278,11 @@ You can also see detail stats by clicking on the arrow at the end.
 
 ![Automation node send card Icon](./project-automation-node-send-card-stats-detail.webp)
 
-Here you can see a detailed statstics overview.
+Here you can see a detailed statistics overview.
 
 ![Automation node send card Icon](./project-automation-node-send-card-stats-detail-overview.webp)
 
-You can edit the email at any time **while the automation is in draft mode**.
+You can edit the email at any time, including while the automation is running (see [Updating running automations](#updating-running-automations)).
 
 ::: info Note
 You can access the **Advanced Settings** feature that allows you to customize key email-sending options by clicking the gear icon
@@ -367,7 +367,7 @@ When configuring the filter:
 - Choose an **operator**: Any, Equals, Does Not Equal, Contains, Does Not Contain.
 - Enter a **value** (e.g., `true`).
 
-If the contact **passes** the filter, the automation continues to the next node. If it **fails**, the automation stops for that contact.
+If the contact **passes**, it follows this condition's path. If it **fails**, the next condition is evaluated.
 
 ![Automation node filter card Icon](./project-automation-node-condition-property-based-card.webp)
 
@@ -375,7 +375,7 @@ If the contact **passes** the filter, the automation continues to the next node.
 
 - Select or create a **segment** to filter contacts.
 
-If the contact is in the selected segment, the automation continues to the next node. If not, the automation stops for that contact.
+If the contact is in the selected segment, it follows this condition's path. If not, the next condition is evaluated.
 
 ![Automation node filter card Icon](./project-automation-node-condition-segment-based-card.webp)
 
@@ -385,7 +385,7 @@ If the contact is in the selected segment, the automation continues to the next 
 - Link (only shown if using `is-clicked` or `is-not-clicked`): 
   - Optionally specify a link (URL) from the email.
   - If set, the condition checks whether that **specific link** was clicked or not.
-  - f left blank, it checks whether **any link** in the email was clicked or not.
+  - If left blank, it checks whether **any link** in the email was clicked or not.
 
 ![Automation node filter card Icon](./project-automation-node-condition-email-based-card.webp)
 
@@ -429,7 +429,7 @@ Without a Complete Node, contacts will be queued indefinitely at the last node, 
 
 ![Automation node complete card Icon](./project-automation-node-complete-card.webp)
 
-## Exit Critera
+## Exit Criteria
 
 The **Exit Criteria** allows you to define conditions under which a contact will exit the automation before reaching the end. This is useful for stopping contacts from continuing in the automation if they meet certain criteria. Check the **Exit Criteria** card to configure it.
 
@@ -470,7 +470,7 @@ When configuring the exit criteria you have the following options:
 
 - To **start** an automation, all required fields in all nodes must be completed.
 - If any field is missing, an error message will indicate what needs to be fixed.
-- You **cannot edit** an automation while it’s active. Switch to **Draft Mode** to make changes, then re-activate when ready.
+- You can edit an automation while it's active. Changes stay pending until you apply them, see [Updating running automations](#updating-running-automations).
 
 ![Automation start btn Icon](./project-automation-start-btn.webp)
 
@@ -499,10 +499,9 @@ Contacts do not exit or restart the automation when it's paused, they hold at wh
 
 Click **Start** to resume a paused automation.
 
-If the automation has unpublished (draft) changes, a dialog opens asking how to apply them:
+If the automation has unpublished (draft) changes, a **Resume with your changes?** dialog opens. It lists what changed, for example **One step was edited.**, and offers:
 
-- **Apply to upcoming only**: New contacts entering the automation use the updated version. In-progress contacts continue on the old version.
-- **Apply to upcoming and in-progress**: Both new and already in-progress contacts get the updated version.
+- **Apply changes**: Applies the changes to new contacts and to everyone already in progress. In-progress contacts continue from their current step on the new version, and some may pause briefly while their next step is recalculated.
 - **Cancel**: Closes the dialog without publishing or discarding anything. The automation stays paused and the draft stays intact.
 
 ![Automation resume dialog with unpublished changes Icon](./project-automation-resume-dialog.webp)
@@ -521,27 +520,46 @@ When a paused (or draft) automation has unpublished changes, a **Discard changes
 
 ![Automation discard changes button and tooltip Icon](./project-automation-discard-changes-btn.webp)
 
-This is separate from the banner shown for **active** automations with pending changes (**Apply to upcoming** / **Apply to upcoming and in-progress** / **Discard changes**), which is unchanged, see [Updating running automations](#updating-running-automations).
+This is separate from the banner shown for **active** automations with pending changes (**Apply changes** / **Discard changes**), see [Updating running automations](#updating-running-automations).
 
 ## Updating running automations
 
-If you need to make changes to an automation that's currently active, you can do it by following these steps:
+You can change an automation that's currently active. Nothing goes live until you apply it.
 
-1. Make your updates in the automation builder. You can edit any node or add new nodes as needed.
-2. Whenever you make a change you will see few options at the top of the builder:
+1. Edit, add or delete nodes in the automation builder. When you edit a node, click the **Save** button on the node itself.
 
-    - **Apply to upcoming events only**: Will only apply the changes to contacts that are newly entering the automation. Contacts that are already running the automation will not be affected and will continue with the old version.
+    ![Automation node save button Icon](./project-automation-node-save-btn.webp)
 
-    - **Apply to upcoming and in-progress contacts**: Will apply the changes to both new contacts entering the automation and contacts that are currently running it. This means that in-progress contacts will be updated to reflect the changes you made.
+2. Pending changes are marked directly on the canvas:
 
-    - **Discard changes**: Will discard any changes you made and keep the old version of the automation for both new and in-progress contacts.
+    - **Orange border**: the node was edited.
 
-![Automation update options Icon](./project-automation-update-options.webp)
+      ![Automation edited node Icon](./project-automation-node-edited.webp)
 
-:::warning Be cautious when applying changes to in-progress contacts. 
+    - **Green border**: the node is new.
 
-If you remove a node, it will terminate the automation for all contacts currently in that node. Always double-check the changes you make before applying them to in-progress contacts.
-::: 
+      ![Automation added node Icon](./project-automation-node-added.webp)
+
+    - **Red dashed border**: the node will be deleted. It stays on the canvas with a warning that running contacts on it will be lost. Click **Restore** to keep it.
+
+      ![Automation deleted node Icon](./project-automation-node-deleted.webp)
+
+3. A banner at the top of the builder summarizes what changed, for example **One new step was added.** and **One step was edited.**, each in the color of its marker. With more changes it shows the total for each kind.
+
+    ![Automation pending changes banner Icon](./project-automation-pending-changes-banner.webp)
+
+4. Choose what to do with the changes:
+
+    - **Apply changes**: Updates the automation for new contacts and everyone already in progress. In-progress contacts continue from their current step on the new version, and some may pause briefly while their next step is recalculated.
+
+    - **Discard changes**: Drops all pending changes and keeps the last applied version.
+
+The markers only appear on running automations and disappear once you apply or discard.
+
+:::warning Be cautious when applying changes.
+
+If you delete a node, applying terminates the automation for all contacts currently in that node. Check the contact count and double-check your changes before you click **Apply changes**.
+:::
 
 ## Automation Stats
 On the automation card, you’ll see the following stats:
@@ -549,7 +567,7 @@ On the automation card, you’ll see the following stats:
 - **Runs**: The number of times the automation has been triggered.  
   This is important because it helps you track how often your automation is being executed and whether it’s running as expected.
 
-- **Active**: The number of automations currently running.  
+- **Active**: The number of contacts currently running through the automation.  
   This is crucial for understanding the status of your ongoing automations and ensuring that they're working properly.
 
 - **Sends**: The sum of all email sends within the automation.  
