@@ -72,5 +72,5 @@ import { data } from './comparisons.data.js'
 
 const items = data
   .filter(item => !item.url.endsWith('/comparisons/'))
-  .sort((a, b) => new Date(b.frontmatter.datePublished) - new Date(a.frontmatter.datePublished))
+  .sort((a, b) => new Date(b.frontmatter.dateModified || b.frontmatter.datePublished) - new Date(a.frontmatter.dateModified || a.frontmatter.datePublished))
 </script>
