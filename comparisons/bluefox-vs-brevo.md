@@ -355,7 +355,7 @@ Monthly plans suit regular, steady sending, so these scenarios compare Brevo's m
 - BlueFox Email Standard: the 3,000 free sends cover part of the first month, then Starter at $6/month (5,000 sends).
 - BYO SES: the 6,000 free sends cover the first month, then Starter at $6/month (10,000 sends) plus ~$0.50 AWS = ~$6.50/month.
 
-Brevo's Free plan is the cheapest option here if you can work within the daily cap.
+Brevo's Free plan costs nothing if you're fine splitting each campaign across two days and carrying Brevo's branding. If you want every campaign to reach all 500 contacts at once, BlueFox Email's $6 Starter plan is the cheapest option: the cheapest Brevo plan that can do that is Starter at $9/month, or $21/month without the Brevo logo.
 
 **Small newsletter with automation** (5,000 contacts × 4 sends/month = 20,000 emails/month):
 
@@ -405,11 +405,11 @@ Packs suit occasional or unpredictable sending. BlueFox Email pack sends stay va
 - BlueFox Email Standard: two Premium packs ($600) cover the year, with 200,000 sends to spare.
 - BYO SES: one Premium pack ($300, 1,000,000 sends) plus ~$80 AWS = ~$380/year.
 
-**Cost summary:** At the very small end, Brevo's Free plan is hard to beat if 300 emails a day is enough. Once automation enters the picture, BlueFox Email costs roughly 64% to 84% less than Brevo Standard at the same volume, because Brevo caps automation at 2,000 contacts below Standard and BlueFox Email has no such cap. For transactional-only sending at 100,000 emails, Brevo Starter is closer, but BlueFox Email still comes in about 28% to 45% lower. At 500,000 emails a month, BlueFox Email costs about 44% to 58% less than Brevo Standard, and at 1,000,000, BYO SES costs about 66% less than Brevo Professional. For occasional senders, a BlueFox Email pack comes in roughly 63% to 76% below Brevo's pay-as-you-go credits, though Brevo's credits never expire, which matters if your sending is very irregular.
+**Cost summary:** At the very small end, Brevo's Free plan is hard to beat if you can live with 300 emails a day and Brevo's branding; if you need to send to your whole list at once, BlueFox Email's $6 plan is cheaper than any paid Brevo plan. Once automation enters the picture, BlueFox Email costs roughly 64% to 84% less than Brevo Standard at the same volume, because Brevo caps automation at 2,000 contacts below Standard and BlueFox Email has no such cap. For transactional-only sending at 100,000 emails, Brevo Starter is closer, but BlueFox Email still comes in about 28% to 45% lower. At 500,000 emails a month, BlueFox Email costs about 44% to 58% less than Brevo Standard, and at 1,000,000, BYO SES costs about 66% less than Brevo Professional. For occasional senders, a BlueFox Email pack comes in roughly 63% to 76% below Brevo's pay-as-you-go credits, though Brevo's credits never expire, which matters if your sending is very irregular.
 
 **Where Brevo makes sense despite the higher price at scale:**
 - You also need SMS, WhatsApp, web/mobile push, live chat, or a sales CRM, and would otherwise pay for those as separate tools.
-- A very small list where Brevo's Free plan, at 300 emails a day, covers everything you send.
+- A very small list where Brevo's Free plan covers everything you send, as long as splitting campaigns at 300 emails a day and Brevo's branding are acceptable.
 - Very irregular sending where prepaid credits that never expire are worth the higher per-email price.
 - You specifically want a B Corp-certified, French-incorporated vendor.
 - You want AI-driven content generation, AI segmentation, or an AI data analyst without integrating third-party tools.
