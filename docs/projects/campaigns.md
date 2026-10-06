@@ -162,7 +162,10 @@ Since a campaigns is sent to a subscriber list, subscriber data, unsubscribe lin
 {{subscriber.email}}
 {{unsubscribeLink}}
 {{pauseSubscriptionLink}}
+{{webVersionLink}}
 ```
+
+`{{webVersionLink}}` is a "View in browser" link to the recipient's personalized copy of the campaign. It only works while the campaign is sent or archived, and it always shows the latest version of the campaign, so edits you make after sending are visible to people who already received it. More details in [Web Version Link](/docs/email-personalization#web-version-link).
 
 ### Visual Editor
 
