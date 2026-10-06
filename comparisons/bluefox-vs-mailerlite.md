@@ -237,7 +237,7 @@ On segmentation, MailerLite offers unlimited dynamic segments, interest groups, 
 
 ## The API and webhooks
 
-MailerLite's API is REST-based and covers subscribers, groups, segments, custom fields, automations, campaigns, forms, batch requests, and a full e-commerce API for store integrations. It also offers an MCP server for direct AI integrations, plus webhooks for subscriber and automation events and official SDKs. The e-commerce API in particular is more built-out than anything comparable on BlueFox's side.
+MailerLite's API is REST-based and covers subscribers, groups, segments, custom fields, automations, campaigns, forms, batch requests, and a full e-commerce API for store integrations. It also offers an MCP server for direct AI integrations, plus webhooks and official SDKs for PHP, Node.js, Python, Go, and Ruby. The e-commerce API in particular is more built-out than anything comparable on BlueFox's side.
 
 One crucial caveat for developers: on MailerLite's Free plan, API, webhook, and MCP access are all limited, and sending through the API or MCP server isn't included at all. You need a paid plan to send programmatically.
 
@@ -257,7 +257,7 @@ On infrastructure ownership specifically: BlueFox runs on its own managed infras
 
 BlueFox's free tier is a one-time allowance of 3,000 sends (6,000 on BYO-SES), valid for 12 months, with every feature unlocked and the same support as paid plans.
 
-MailerLite's free tier has been shrinking. On June 16, 2026, alongside renaming its paid plans (Growing Business became Comfort, Advanced became Power) and updating prices and limits, MailerLite cut Free from 500 subscribers and 12,000 emails a month to 250 subscribers and 2,500 emails, after an earlier cut from 1,000 subscribers to 500. Third-party trackers report paid price increases of roughly 10% to 30% at the same time, and automations, forms, landing pages, websites, and digital products are now capped by number on every plan below Power. It's still a real, usable free tier, with no time limit, all three editors, A/B testing, and genuine automation included, but the trend over the past year has been consistently downward.
+MailerLite's free tier has been shrinking. On June 16, 2026, alongside renaming its paid plans (Growing Business became Comfort, Advanced became Power) and updating prices and limits, MailerLite cut Free from 500 subscribers and 12,000 emails a month to 250 subscribers and 2,500 emails, after an earlier cut from 1,000 subscribers to 500 on September 23, 2025. Paid prices rose at the same time: compared with the old Growing Business prices reported by third-party trackers, Comfort now costs $49 instead of $39 a month at 5,000 subscribers and $89 instead of $73 at 10,000, and automations, forms, landing pages, websites, and digital products are now capped by number on every plan below Power. It's still a real, usable free tier, with no time limit, all three editors, A/B testing, and genuine automation included, but the trend over the past year has been consistently downward.
 
 ## So, which one
 
