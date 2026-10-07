@@ -59,7 +59,7 @@ Testing your emails before sending them to your full audience helps you:
 
 ## Accessing Send Test Email
 
-You can access the send test email feature from your campaign, triggered email, or transactional email card. Look for the **Send Test** button in your email card.
+You can access the send test email feature from your campaign, triggered email, or transactional email card. Look for the **Send Test** button in your email card. To send tests from code, use the [Test Email API](/docs/api/test-email).
 
 ![A screenshot of an email card with the send test button highlighted.](./project-send-test-email-button.webp)
 

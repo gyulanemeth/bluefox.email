@@ -71,7 +71,7 @@ We plan to release a detailed article on how to optimize different sending setup
 
 ## Sending Emails via API
 
-With BlueFox Email, you can send transactional or triggered emails directly via our [API](./api/). Our well-documented API endpoints make it simple to automate your email workflows, whether you're sending a password reset email, a notification, or a tailored onboarding sequence. Integration is straightforward, allowing you to quickly implement email functionality into any client platform, website, or service your agency manages.
+With BlueFox Email, you can send transactional or triggered emails directly via our [API](./api/) using the [Send Email endpoints](./api/send-email). Our well-documented API endpoints make it simple to automate your email workflows, whether you're sending a password reset email, a notification, or a tailored onboarding sequence. Integration is straightforward, allowing you to quickly implement email functionality into any client platform, website, or service your agency manages.
 
 ## Personalization with Handlebars
 

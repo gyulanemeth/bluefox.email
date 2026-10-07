@@ -99,7 +99,7 @@ After clicking the create button, your project will be populated with templates 
 
 After you created your project, you need to go to the project's settings page and do the following steps:
 - [connect with your AWS account](/docs/projects/settings#aws-credentials) (always required)
-- [create an API key](/docs/projects/settings#api-keys-and-domain-whitelist) (optional, only needed if you want to send transactional or triggered emails)
+- [create an API key](/docs/projects/settings#api-keys-and-domain-whitelist) (optional, only needed if you want to use the [API](/docs/api/), for example to [send transactional or triggered emails](/docs/api/send-email))
 - [add domains to the whitelist](/docs/projects/settings#domain-whitelist) (optional, only needed if you want to add or remove subscribers from your frontend)
 - [set up bounce and complaint webhooks](/docs/projects/settings#bounces-and-complaints-webhooks) (optional BUT highly recommended)
 

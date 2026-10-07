@@ -1,16 +1,16 @@
 ---
-title: "Subscriber Lists API Reference | bluefox.email documentation"
-description: "Every Subscriber Lists endpoint in the bluefox.email API: parameters, request body, and response schemas."
+title: "Subscriber Lists API Reference"
+description: "Manage BlueFox Email subscriber lists via the API: create lists, subscribe contacts, update or pause subscriptions, and fetch list stats."
 head:
   - - meta
     - name: description
-      content: "Every Subscriber Lists endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Manage BlueFox Email subscriber lists via the API: create lists, subscribe contacts, update or pause subscriptions, and fetch list stats."
   - - meta
     - property: og:title
-      content: "Subscriber Lists API Reference | bluefox.email documentation"
+      content: "Subscriber Lists API Reference | BlueFox Email"
   - - meta
     - property: og:description
-      content: "Every Subscriber Lists endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Manage BlueFox Email subscriber lists via the API: create lists, subscribe contacts, update or pause subscriptions, and fetch list stats."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,18 +25,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Subscriber Lists API Reference | bluefox.email documentation"
+      content: "Subscriber Lists API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
-      content: "Every Subscriber Lists endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Manage BlueFox Email subscriber lists via the API: create lists, subscribe contacts, update or pause subscriptions, and fetch list stats."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Subscriber Lists
+# Subscriber Lists API
 
-Full reference for the **Subscriber Lists** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Subscriber lists hold the contacts who opted in to a kind of email. These endpoints manage the lists, list and subscribe contacts, update a subscriber's status, and return list stats. For growing a list the right way, see [How to build a high-quality email list](/posts/how-to-build-a-high-quality-email-list-in-bluefox-email). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List subscriber lists
 
@@ -497,9 +497,10 @@ GET /v1/projectId/&#123;projectId&#125;/contacts.
 `POST /v1/projectId/{projectId}/subscriber-lists/{id}/subscribers`
 
 Project-scoped equivalent of POST /v1/subscriber-lists/&#123;id&#125; (which is a legacy flat URL shape kept for hosted   
-signup forms - it also accepts a whitelisted Origin header and CAPTCHA, neither of which apply here since this   
-route is API-key only). Creates the contact if it doesn't exist yet. Triggers double opt-in if enabled on the   
-list, unless status is explicitly set to "active".
+signup forms - it also accepts a whitelisted Origin header and CAPTCHA, neither of which apply here). Creates the   
+contact if it doesn't exist yet. Triggers double opt-in if enabled on the list, unless status is explicitly set   
+to "active". Accepts a SubscriptionToken in place of an api key - see that security scheme's description for how   
+a custom subscription-preferences page uses this to let a subscriber re-join a list they had left.
 
 ### Parameters
 
@@ -600,7 +601,9 @@ here, not flattened onto top-level keys like GET /v1/projectId/&#123;projectId&#
 `PATCH /v1/projectId/{projectId}/subscriber-lists/{id}/subscribers/{email}`
 
 Project-scoped equivalent of PATCH /v1/subscriber-lists/&#123;id&#125;/&#123;email&#125; (which is a legacy flat URL shape kept for   
-hosted signup forms). Setting status to "paused" requires pausedUntil (a future date).
+hosted signup forms). Setting status to "paused" requires pausedUntil (a future date). Accepts a SubscriptionToken   
+in place of an api key - see that security scheme's description for how a custom subscription-preferences page   
+uses this to let a subscriber pause or unsubscribe.
 
 ### Parameters
 
@@ -649,5 +652,59 @@ hosted signup forms). Setting status to "paused" requires pausedUntil (a future 
 | `email` | string |  |  |
 | `status` | string (unverified \| active \| unsubscribed \| paused) |  |  |
 | `customFields` | object |  | Custom contact field values, keyed by field name. |
+
+</div>
+
+## List every subscriber list an email can manage, with its current status on each
+
+`GET /v1/projectId/{projectId}/subscriber-lists/public/{email}`
+
+The endpoint behind a subscriber-facing subscription-preferences page: every public list in the project, plus -   
+if authenticating with a SubscriptionToken minted for one - the single private list it names, each carrying this   
+email's current status (active/paused/unsubscribed) where a subscription exists. Building a custom preferences   
+page for this project? See the SubscriptionToken security scheme below for the full flow: take the `token` query   
+parameter off the unsubscribe/pause-subscription link, call this endpoint with it to render the page, then   
+PATCH/POST the individual subscriber-lists endpoints (same token) as the subscriber makes changes.
+
+### Parameters
+
+<div class="api-ref-table api-ref-table--params">
+
+| Name | In | Type | Required | Description |
+| --- | --- | --- | --- | --- |
+| `projectId` | path | string | yes | The project _id, found in the app under Project Settings. |
+| `email` | path | string | yes |  |
+
+</div>
+
+### Responses
+
+<div class="api-ref-table api-ref-table--responses">
+
+| Status | Description |
+| --- | --- |
+| 200 | OK |
+| 403 | Missing or invalid API key |
+| 404 | Contact, or there are no available subscriber lists not found |
+
+</div>
+
+### Response body
+
+<div class="api-ref-table api-ref-table--body">
+
+| Field | Type | Required | Description |
+| --- | --- | --- | --- |
+| `items` | array of object |  |  |
+| `items[]._id` | string |  |  |
+| `items[].name` | string |  |  |
+| `items[].description` | string |  |  |
+| `items[].private` | boolean |  |  |
+| `items[].subscriber` | object |  | Present only when this email has a subscription (of any status) on this list. |
+| `items[].subscriber.email` | string |  |  |
+| `items[].subscriber.status` | string (unverified \| active \| unsubscribed \| paused) |  |  |
+| `items[].subscriber.pausedUntil` | string |  |  |
+| `count` | integer |  |  |
+| `logoUrl` | string |  |  |
 
 </div>

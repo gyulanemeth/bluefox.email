@@ -25,7 +25,7 @@ head:
       content: https://bluefox.email/assets/docs-share.png
   - - meta
     - property: og:url
-      content: https://bluefox.email/docs/api/contacts
+      content: https://bluefox.email/docs/api/contacts-management
   - - meta
     - property: og:type
       content: website

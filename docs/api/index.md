@@ -3,9 +3,9 @@ title: API Overview | bluefox.email documentation
 description: Explore the BlueFox Email API - authentication, the standard response format, pagination, and every project resource for managing subscriber lists, sending transactional and triggered emails, and more.
 faqs:
   - question: "How do I authenticate with the BlueFox Email API?"
-    answer: "Include your project's API key as a Bearer token in the Authorization header of every request: Authorization: Bearer YOUR_API_KEY. Manage keys under Project Settings > API Keys in the app, or via the /v1/projectId/{projectId}/api-keys endpoints. Never use your API key in frontend code; always call the API from your backend."
+    answer: "Include your project's API key as a Bearer token in the Authorization header of every request: Authorization: Bearer YOUR_API_KEY. Manage keys under Project Settings > API Keys in the app; keys are not exposed through the API itself. Never use your API key in frontend code; always call the API from your backend."
   - question: "What can I do with the BlueFox Email API?"
-    answer: "The API lets you manage every resource in your project - campaigns, templates, segments, domains, sender identities, contacts, subscriber lists, and more - and send transactional and triggered emails to any email address, with file attachments."
+    answer: "The API lets you manage every resource in your project - campaigns, templates, segments, domains, sender identities, contacts, subscriber lists, and more - and send transactional and triggered emails, with file attachments."
   - question: "What is the base URL for the BlueFox Email API?"
     answer: "The base URL for all BlueFox Email API endpoints is https://api.bluefox.email. Most resources are shaped as /v1/projectId/{projectId}/{resource}; a handful of older endpoints predate that shape and use a flat URL instead - see the legacy endpoints below."
   - question: "Can I use the API to manage subscriber lists without sending emails?"
@@ -72,8 +72,7 @@ Every endpoint is authenticated with a project API key, sent as a bearer token:
 Authorization: Bearer YOUR_API_KEY
 ```
 
-Create and manage keys under **Project Settings > API Keys** in the app, or via the `/v1/projectId/{projectId}/api-keys`
-endpoints themselves. Never expose an API key in frontend/client-side code - call the API from your backend.
+Create and manage keys under **Project Settings > API Keys** in the app. Keys are not exposed through the API itself. Never expose an API key in frontend/client-side code - call the API from your backend.
 
 A few endpoints (documented on the [Subscriptions](/docs/api/subscriptions) and [Contacts](/docs/api/contacts) reference
 pages) also accept requests from a whitelisted browser Origin, for use directly from a signup form or widget without
@@ -119,10 +118,39 @@ completeness.
 
 ## API Reference
 
-Every resource - Project, API Keys, Design Systems, Domains, Sender Identities, Webhook, Contacts, Campaigns,
-Transactional Emails, Triggered Emails, Templates, Segments, Subscriber Lists, and Suppression List - has its own reference
-page in the sidebar, generated from the same OpenAPI spec AI agents use: every endpoint, parameter, request body, and
-response shape.
+Every resource has its own reference page, generated from the same OpenAPI spec AI agents use: every endpoint, parameter,
+request body, and response shape.
+
+**Project setup**
+
+- [Project](/docs/api/project) – Read and update project settings and sending status.
+- [Sender Identities](/docs/api/sender-identities) – Manage the From addresses your emails are sent from.
+- [Domains](/docs/api/domains) – Add a sending domain, get its DNS records, and verify it.
+- [Webhook](/docs/api/webhook) – Configure the project webhook.
+- [Sending Setup](/docs/api/sending-setup) – AWS regions, deliverability figures, test webhook events, and DNS record export.
+- [Production Access](/docs/api/production-access) – Leave sandbox mode and request higher sending limits.
+- [BYO AWS](/docs/api/byo-aws) – Validate your own Amazon SES credentials.
+- [Design Systems](/docs/api/design-systems) – Read and override the project's email design system.
+
+**Email content and sending**
+
+- [Templates](/docs/api/templates) – Create and manage reusable email templates.
+- [Campaigns](/docs/api/campaigns) – Create campaigns and fetch their stats and recipients.
+- [Transactional Emails](/docs/api/transactional-emails) – Manage one-to-one emails like password resets and receipts.
+- [Triggered Emails](/docs/api/triggered-emails) – Manage emails sent to list subscribers on demand.
+- [Send Email](/docs/api/send-email) – Send transactional and triggered emails.
+- [Test Email](/docs/api/test-email) – Send a test before going live.
+- [Email Error Log](/docs/api/email-error-log) – Debug sends that were accepted but never arrived.
+- [Gallery](/docs/api/gallery) – Upload and organize images for your emails.
+
+**Contacts and audience**
+
+- [Contacts](/docs/api/contacts) – Manage contacts, custom fields, and tags.
+- [Segments](/docs/api/segments) – Build dynamic groups of contacts.
+- [Subscriber Lists](/docs/api/subscriber-lists) – Manage lists and subscribe contacts.
+- [Subscriptions](/docs/api/subscriptions) – Browser-safe subscribe, pause, and unsubscribe endpoints.
+- [Signup Forms](/docs/api/signup-forms) – Manage signup forms and get their embed HTML.
+- [Suppression List](/docs/api/suppression-list) – Keep addresses from ever being emailed.
 
 ### Legacy endpoints
 

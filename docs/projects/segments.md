@@ -177,3 +177,5 @@ To delete a segment, click the trash icon next to the segment name. Confirm the 
 
 :::warning Note: Deleting a segment does not delete the contacts within it; it only removes the segment definition.
 :::
+
+To create and update segments from code, see the [Segments API reference](/docs/api/segments).

@@ -1,16 +1,16 @@
 ---
-title: "Production Access API Reference | bluefox.email documentation"
-description: "Every Production Access endpoint in the bluefox.email API: parameters, request body, and response schemas."
+title: "Production Access API Reference"
+description: "Check production access status, apply to leave sandbox mode, and request a sending-limit increase for a BlueFox Email project via the API."
 head:
   - - meta
     - name: description
-      content: "Every Production Access endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Check production access status, apply to leave sandbox mode, and request a sending-limit increase for a BlueFox Email project via the API."
   - - meta
     - property: og:title
-      content: "Production Access API Reference | bluefox.email documentation"
+      content: "Production Access API Reference | BlueFox Email"
   - - meta
     - property: og:description
-      content: "Every Production Access endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Check production access status, apply to leave sandbox mode, and request a sending-limit increase for a BlueFox Email project via the API."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,20 +25,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Production Access API Reference | bluefox.email documentation"
+      content: "Production Access API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
-      content: "Every Production Access endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Check production access status, apply to leave sandbox mode, and request a sending-limit increase for a BlueFox Email project via the API."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Production Access
+# Production Access API
 
-Full reference for the **Production Access** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
-
-Before requesting production access, it is worth confirming your sending domain authenticates cleanly. Our [free deliverability tools](/tools/deliverability/) check SPF, DKIM, DMARC, and MX from public DNS.
+New projects start in sandbox mode, with a low daily send cap. These endpoints return a project's production access status and domain readiness, submit the application to move to production, and request a higher sending limit once the project is in production. Applying requires at least one domain with SPF, MX, and DKIM verified through the [Domains API](/docs/api/domains), and approval is manual. Before applying, confirm your sending domain authenticates cleanly with the free [deliverability tools](/tools/deliverability/), which check SPF, DKIM, DMARC, and MX from public DNS. [Maintaining Production Access](/docs/projects/delivery-modes#maintaining-production-access) lists the bounce and complaint thresholds you need to stay under. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## Get production access status
 

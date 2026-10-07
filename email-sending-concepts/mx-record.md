@@ -115,5 +115,6 @@ You can, but it's only recommended for advanced setups like migrations or split 
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Return Path](/email-sending-concepts/return-path)
 - [CNAME Records](/email-sending-concepts/cname-record)
+- [Domains API: verify MX records for a sending domain](/docs/api/domains)
 
 <GlossaryCTA />

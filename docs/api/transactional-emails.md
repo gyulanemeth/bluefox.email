@@ -1,16 +1,16 @@
 ---
-title: "Transactional Emails API Reference | bluefox.email documentation"
-description: "Every Transactional Emails endpoint in the bluefox.email API: parameters, request body, and response schemas."
+title: "Transactional Emails API Reference"
+description: "Create and manage transactional emails such as password resets and receipts, and fetch their stats and recipients, via the BlueFox Email API."
 head:
   - - meta
     - name: description
-      content: "Every Transactional Emails endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create and manage transactional emails such as password resets and receipts, and fetch their stats and recipients, via the BlueFox Email API."
   - - meta
     - property: og:title
-      content: "Transactional Emails API Reference | bluefox.email documentation"
+      content: "Transactional Emails API Reference | BlueFox Email"
   - - meta
     - property: og:description
-      content: "Every Transactional Emails endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create and manage transactional emails such as password resets and receipts, and fetch their stats and recipients, via the BlueFox Email API."
   - - meta
     - property: og:image
       content: https://bluefox.email/assets/docs-share.png
@@ -25,18 +25,18 @@ head:
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: "Transactional Emails API Reference | bluefox.email documentation"
+      content: "Transactional Emails API Reference | BlueFox Email"
   - - meta
     - name: twitter:description
-      content: "Every Transactional Emails endpoint in the bluefox.email API: parameters, request body, and response schemas."
+      content: "Create and manage transactional emails such as password resets and receipts, and fetch their stats and recipients, via the BlueFox Email API."
   - - meta
     - name: twitter:image
       content: https://bluefox.email/assets/docs-share.png
 ---
 
-# Transactional Emails
+# Transactional Emails API
 
-Full reference for the **Transactional Emails** resource in the bluefox.email API. See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
+Transactional emails are one-to-one messages caused by something a user did, like a password reset or an order receipt. These endpoints manage the emails and return their stats and recipients; to send one, call the [Send Email API](/docs/api/send-email). For the in-app setup, see [Transactional Emails](/docs/projects/transactional-emails). See the [API overview](/docs/api/) for authentication, the response envelope, and pagination.
 
 ## List transactional emails
 
@@ -106,7 +106,7 @@ Full reference for the **Transactional Emails** resource in the bluefox.email AP
 | `senderIdentity` | string |  | A sender identity _id. If the user hasn't told you which one to use, call GET /v1/projectId/&#123;projectId&#125;/sender-identities first and ask them to choose from the real email addresses returned - don't ask them for a raw ID. |
 | `replyTo` | string |  |  |
 | `type` | string (html \| text) |  | Omit to keep using the visual (Chamaileon) editor document. Set to "html" or "text" to author document as a raw Handlebars template string instead (see the document field). |
-| `document` | any |  | The email content. When type is omitted, this is opaque Chamaileon visual-editor JSON - not meant to be hand-authored.  When type is "html" or "text", this is a plain string rendered with Handlebars at send time, and can use merge tags:   - `&#123;&#123;contact.email&#125;&#125;`, `&#123;&#123;contact.name&#125;&#125;`, and `&#123;&#123;contact.&lt;yourCustomFieldName&gt;&#125;&#125;` for any field from GET /v1/projectId/&#123;projectId&#125;/contacts/fields.   - `&#123;&#123;unsubscribeLink&#125;&#125;` and `&#123;&#123;pauseSubscriptionLink&#125;&#125;` - available for campaign/triggered/automation emails (subscriber-list-bound), NOT for transactional emails.   - Any feed's variableName (see the feeds field) as a loop, e.g. `&#123;&#123;#each news.item limit=5 skip=0&#125;&#125;...&#123;&#123;this.title&#125;&#125;...&#123;&#123;/each&#125;&#125;`.   - Standard `&#123;&#123;#if&#125;&#125;`/`&#123;&#123;#unless&#125;&#125;`, plus custom helpers AND, OR, NOT, EQ, INCLUDES, CAPITALIZE, TRUNCATE, DEFAULT, usable like `&#123;&#123;#if (EQ contact.plan "pro")&#125;&#125;...&#123;&#123;/if&#125;&#125;`. For transactional/triggered sends, whatever object is passed as `data` on POST /v1/projectId/&#123;projectId&#125;/send-transactional or /v1/projectId/&#123;projectId&#125;/send-triggered is merged directly into the TOP LEVEL of the template context (not nested under a "data" key) - so sending `data: &#123; "orderId": 123 &#125;` makes `&#123;&#123;orderId&#125;&#125;` available, not `&#123;&#123;data.orderId&#125;&#125;`. |
+| `document` | any |  | The email content. When type is omitted, this is opaque Chamaileon visual-editor JSON - not meant to be hand-authored.  When type is "html" or "text", this is a plain string rendered with Handlebars at send time, and can use merge tags:   - `&#123;&#123;contact.email&#125;&#125;`, `&#123;&#123;contact.name&#125;&#125;`, and `&#123;&#123;contact.&lt;yourCustomFieldName&gt;&#125;&#125;` for any field from GET /v1/projectId/&#123;projectId&#125;/contacts/fields. Contact data is ONLY available under the `contact.` prefix - bare tags like `&#123;&#123;name&#125;&#125;`, `&#123;&#123;firstName&#125;&#125;` or `&#123;&#123;email&#125;&#125;` render as empty strings. For a fallback use DEFAULT, e.g. `Hi &#123;&#123;DEFAULT contact.name "there"&#125;&#125;,`.   - `&#123;&#123;unsubscribeLink&#125;&#125;` and `&#123;&#123;pauseSubscriptionLink&#125;&#125;` - available for campaign/triggered/automation emails (subscriber-list-bound), NOT for transactional emails.   - Any feed's variableName (see the feeds field) as a loop, e.g. `&#123;&#123;#each news.item limit=5 skip=0&#125;&#125;...&#123;&#123;this.title&#125;&#125;...&#123;&#123;/each&#125;&#125;`.   - Standard `&#123;&#123;#if&#125;&#125;`/`&#123;&#123;#unless&#125;&#125;`, plus custom helpers AND, OR, NOT, EQ, INCLUDES, CAPITALIZE, TRUNCATE, DEFAULT, usable like `&#123;&#123;#if (EQ contact.plan "pro")&#125;&#125;...&#123;&#123;/if&#125;&#125;`. For transactional/triggered sends, whatever object is passed as `data` on POST /v1/projectId/&#123;projectId&#125;/send-transactional or /v1/projectId/&#123;projectId&#125;/send-triggered is merged directly into the TOP LEVEL of the template context (not nested under a "data" key) - so sending `data: &#123; "orderId": 123 &#125;` makes `&#123;&#123;orderId&#125;&#125;` available, not `&#123;&#123;data.orderId&#125;&#125;`. |
 | `feeds` | array of object |  | RSS/Atom/JSON feeds to pull into this email - see variableName on each feed for how to reference it from document. |
 | `feeds[].url` | string | yes |  |
 | `feeds[].feedType` | string (rss-xml \| json) | yes | "rss-xml" covers both RSS and Atom XML feeds - which one it actually is gets auto-detected from the feed content itself, which changes the array key inside the template (see variableName below). |
@@ -235,7 +235,7 @@ Merges the given fields into the existing document - omitted fields are left unc
 | `senderIdentity` | string |  | A sender identity _id. If the user hasn't told you which one to use, call GET /v1/projectId/&#123;projectId&#125;/sender-identities first and ask them to choose from the real email addresses returned - don't ask them for a raw ID. |
 | `replyTo` | string |  |  |
 | `type` | string (html \| text) |  | Omit to keep using the visual (Chamaileon) editor document. Set to "html" or "text" to author document as a raw Handlebars template string instead (see the document field). |
-| `document` | any |  | The email content. When type is omitted, this is opaque Chamaileon visual-editor JSON - not meant to be hand-authored.  When type is "html" or "text", this is a plain string rendered with Handlebars at send time, and can use merge tags:   - `&#123;&#123;contact.email&#125;&#125;`, `&#123;&#123;contact.name&#125;&#125;`, and `&#123;&#123;contact.&lt;yourCustomFieldName&gt;&#125;&#125;` for any field from GET /v1/projectId/&#123;projectId&#125;/contacts/fields.   - `&#123;&#123;unsubscribeLink&#125;&#125;` and `&#123;&#123;pauseSubscriptionLink&#125;&#125;` - available for campaign/triggered/automation emails (subscriber-list-bound), NOT for transactional emails.   - Any feed's variableName (see the feeds field) as a loop, e.g. `&#123;&#123;#each news.item limit=5 skip=0&#125;&#125;...&#123;&#123;this.title&#125;&#125;...&#123;&#123;/each&#125;&#125;`.   - Standard `&#123;&#123;#if&#125;&#125;`/`&#123;&#123;#unless&#125;&#125;`, plus custom helpers AND, OR, NOT, EQ, INCLUDES, CAPITALIZE, TRUNCATE, DEFAULT, usable like `&#123;&#123;#if (EQ contact.plan "pro")&#125;&#125;...&#123;&#123;/if&#125;&#125;`. For transactional/triggered sends, whatever object is passed as `data` on POST /v1/projectId/&#123;projectId&#125;/send-transactional or /v1/projectId/&#123;projectId&#125;/send-triggered is merged directly into the TOP LEVEL of the template context (not nested under a "data" key) - so sending `data: &#123; "orderId": 123 &#125;` makes `&#123;&#123;orderId&#125;&#125;` available, not `&#123;&#123;data.orderId&#125;&#125;`. |
+| `document` | any |  | The email content. When type is omitted, this is opaque Chamaileon visual-editor JSON - not meant to be hand-authored.  When type is "html" or "text", this is a plain string rendered with Handlebars at send time, and can use merge tags:   - `&#123;&#123;contact.email&#125;&#125;`, `&#123;&#123;contact.name&#125;&#125;`, and `&#123;&#123;contact.&lt;yourCustomFieldName&gt;&#125;&#125;` for any field from GET /v1/projectId/&#123;projectId&#125;/contacts/fields. Contact data is ONLY available under the `contact.` prefix - bare tags like `&#123;&#123;name&#125;&#125;`, `&#123;&#123;firstName&#125;&#125;` or `&#123;&#123;email&#125;&#125;` render as empty strings. For a fallback use DEFAULT, e.g. `Hi &#123;&#123;DEFAULT contact.name "there"&#125;&#125;,`.   - `&#123;&#123;unsubscribeLink&#125;&#125;` and `&#123;&#123;pauseSubscriptionLink&#125;&#125;` - available for campaign/triggered/automation emails (subscriber-list-bound), NOT for transactional emails.   - Any feed's variableName (see the feeds field) as a loop, e.g. `&#123;&#123;#each news.item limit=5 skip=0&#125;&#125;...&#123;&#123;this.title&#125;&#125;...&#123;&#123;/each&#125;&#125;`.   - Standard `&#123;&#123;#if&#125;&#125;`/`&#123;&#123;#unless&#125;&#125;`, plus custom helpers AND, OR, NOT, EQ, INCLUDES, CAPITALIZE, TRUNCATE, DEFAULT, usable like `&#123;&#123;#if (EQ contact.plan "pro")&#125;&#125;...&#123;&#123;/if&#125;&#125;`. For transactional/triggered sends, whatever object is passed as `data` on POST /v1/projectId/&#123;projectId&#125;/send-transactional or /v1/projectId/&#123;projectId&#125;/send-triggered is merged directly into the TOP LEVEL of the template context (not nested under a "data" key) - so sending `data: &#123; "orderId": 123 &#125;` makes `&#123;&#123;orderId&#125;&#125;` available, not `&#123;&#123;data.orderId&#125;&#125;`. |
 | `feeds` | array of object |  | RSS/Atom/JSON feeds to pull into this email - see variableName on each feed for how to reference it from document. |
 | `feeds[].url` | string |  |  |
 | `feeds[].feedType` | string (rss-xml \| json) |  | "rss-xml" covers both RSS and Atom XML feeds - which one it actually is gets auto-detected from the feed content itself, which changes the array key inside the template (see variableName below). |
@@ -340,7 +340,7 @@ Merges the given fields into the existing document - omitted fields are left unc
 
 `GET /v1/projectId/{projectId}/transactional-emails/{id}/stats`
 
-Aggregate counts only, never a per-recipient list - response size and query cost are bounded regardless of how much activity actually happened, since every count is a single indexed query scoped to this one resource. For the actual list of recipients (who received/opened/clicked/bounced/unsubscribed), see GET /v1/projectId/&#123;projectId&#125;/transactional-emails/&#123;id&#125;/recipients.
+Aggregate counts only, never a per-recipient list - response size and query cost are bounded regardless of how much activity actually happened, since every count is a single indexed query scoped to this one resource. For the actual list of recipients (who received/opened/clicked/bounced/unsubscribed), see GET /v1/projectId/&#123;projectId&#125;/transactional-emails/&#123;id&#125;/recipients. Pass interval + metric for an hourly/daily/weekly/monthly breakdown instead of totals.
 
 ### Parameters
 
@@ -352,6 +352,9 @@ Aggregate counts only, never a per-recipient list - response size and query cost
 | `id` | path | string | yes | The transactional email _id. |
 | `from` | query | string |  | Only count events at or after this date/time. |
 | `to` | query | string |  | Only count events at or before this date/time. If both from and to are given, the range between them cannot exceed 366 days. |
+| `interval` | query | string |  | Returns an EmailStatsTimeline (per-period breakdown, same as the app's stats chart) instead of totals. Requires metric. With interval, from/to are rounded to whole UTC days and default to the last 7 days (hourly) or the last month (others). Max range: hourly 7 days, daily 60 days, weekly/monthly 12 months (405 when exceeded). |
+| `metric` | query | string |  | With interval: what to count per period. subscribe/unsubscribe/resubscribe/pause-subscription/unpause-subscription count subscription changes caused by this email. |
+| `timeZone` | query | string |  | With interval: IANA time zone the periods are labelled in. Defaults to UTC. |
 
 </div>
 
@@ -365,23 +368,7 @@ Aggregate counts only, never a per-recipient list - response size and query cost
 | 400 | Invalid request body or query - every violation found (missing/invalid/unexpected fields) is reported in one response, semicolon-separated, not just the first one hit. |
 | 403 | Missing or invalid API key |
 | 404 | Transactional Emails not found |
-
-</div>
-
-### Response body
-
-<div class="api-ref-table api-ref-table--body">
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `opens` | integer |  | Total open events (a single recipient opening twice counts twice). |
-| `clicks` | integer |  | Total click events. |
-| `uniqueOpens` | integer |  | Number of distinct dispatched emails with at least one open. |
-| `uniqueClicks` | integer |  | Number of distinct dispatched emails with at least one click. |
-| `sent` | integer |  |  |
-| `failed` | integer |  |  |
-| `bounce` | integer |  |  |
-| `complaint` | integer |  |  |
+| 405 | The operation is blocked by a business rule (e.g. the resource is still in use) |
 
 </div>
 

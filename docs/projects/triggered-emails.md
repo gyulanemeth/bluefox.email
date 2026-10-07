@@ -173,7 +173,7 @@ Copy the generated code to use it in your project:
 Your bluefox.email API key is included in the request `Authorization` header. Never send these requests from your frontend!
 :::
 
-Please see our [API docs](/docs/api/) for more details.
+To manage triggered emails and read their stats from code, see the [Triggered Emails API reference](/docs/api/triggered-emails). The send endpoint is documented in the [Send Email API reference](/docs/api/send-email), and failed deliveries can be looked up with the [Email Error Log API](/docs/api/email-error-log).
 
 ## Triggered Email Personalization
 

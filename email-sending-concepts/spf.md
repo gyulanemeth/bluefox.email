@@ -138,5 +138,6 @@ Yes. When an email is forwarded, the forwarder's IP may not be authorized in the
 - [Email Authentication](/email-sending-concepts/email-authentication)
 - [Email Spoofing](/email-sending-concepts/email-spoofing)
 - [Return Path](/email-sending-concepts/return-path)
+- [Domains API: verify SPF for a sending domain](/docs/api/domains)
 
 <GlossaryCTA />

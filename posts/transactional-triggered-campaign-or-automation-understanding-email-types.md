@@ -94,7 +94,7 @@ Each of these categories describes how an email is sent and how BlueFox Email ha
 
 ### Transactional emails
 
-Transactional emails are essential messages usually sent by an application through an API.
+Transactional emails are essential messages usually sent by an application through an API, such as the BlueFox Email [Send Email API](/docs/api/send-email).
 
 They are often caused by a particular event, such as a purchase, a login attempt, or a password reset request. In the general sense of the word, many transactional emails are also “triggered.”
 
