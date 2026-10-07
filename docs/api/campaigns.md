@@ -386,7 +386,7 @@ Same 6-minute-before-send lock as PATCH applies to DELETE.
 
 `GET /v1/projectId/{projectId}/campaigns/{id}/stats`
 
-Aggregate counts only, never a per-recipient list - response size and query cost are bounded regardless of how much activity actually happened, since every count is a single indexed query scoped to this one resource. For the actual list of recipients (who received/opened/clicked/bounced/unsubscribed), see GET /v1/projectId/&#123;projectId&#125;/campaigns/&#123;id&#125;/recipients.
+Aggregate counts only, never a per-recipient list - response size and query cost are bounded regardless of how much activity actually happened, since every count is a single indexed query scoped to this one resource. For the actual list of recipients (who received/opened/clicked/bounced/unsubscribed), see GET /v1/projectId/&#123;projectId&#125;/campaigns/&#123;id&#125;/recipients. Pass interval + metric for an hourly/daily/weekly/monthly breakdown instead of totals.
 
 ### Parameters
 
@@ -398,6 +398,9 @@ Aggregate counts only, never a per-recipient list - response size and query cost
 | `id` | path | string | yes | The campaign _id. |
 | `from` | query | string |  | Only count events at or after this date/time. |
 | `to` | query | string |  | Only count events at or before this date/time. If both from and to are given, the range between them cannot exceed 366 days. |
+| `interval` | query | string |  | Returns an EmailStatsTimeline (per-period breakdown, same as the app's stats chart) instead of totals. Requires metric. With interval, from/to are rounded to whole UTC days and default to the last 7 days (hourly) or the last month (others). Max range: hourly 7 days, daily 60 days, weekly/monthly 12 months (405 when exceeded). |
+| `metric` | query | string |  | With interval: what to count per period. subscribe/unsubscribe/resubscribe/pause-subscription/unpause-subscription count subscription changes caused by this email. |
+| `timeZone` | query | string |  | With interval: IANA time zone the periods are labelled in. Defaults to UTC. |
 
 </div>
 
@@ -411,23 +414,7 @@ Aggregate counts only, never a per-recipient list - response size and query cost
 | 400 | Invalid request body or query - every violation found (missing/invalid/unexpected fields) is reported in one response, semicolon-separated, not just the first one hit. |
 | 403 | Missing or invalid API key |
 | 404 | Campaigns not found |
-
-</div>
-
-### Response body
-
-<div class="api-ref-table api-ref-table--body">
-
-| Field | Type | Required | Description |
-| --- | --- | --- | --- |
-| `opens` | integer |  | Total open events (a single recipient opening twice counts twice). |
-| `clicks` | integer |  | Total click events. |
-| `uniqueOpens` | integer |  | Number of distinct dispatched emails with at least one open. |
-| `uniqueClicks` | integer |  | Number of distinct dispatched emails with at least one click. |
-| `sent` | integer |  |  |
-| `failed` | integer |  |  |
-| `bounce` | integer |  |  |
-| `complaint` | integer |  |  |
+| 405 | The operation is blocked by a business rule (e.g. the resource is still in use) |
 
 </div>
 
