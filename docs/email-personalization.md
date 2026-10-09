@@ -78,6 +78,7 @@ In the **Raw HTML** and **Plain Text** editors, there's no canvas or selectable 
 - **&#123;&#123;contact.email&#125;&#125;**
 - **&#123;&#123;unsubscribeLink&#125;&#125;**
 - **&#123;&#123;pauseSubscriptionLink&#125;&#125;**
+- **&#123;&#123;webVersionLink&#125;&#125;** (campaigns only)
 
 **Contact Properties**
 - **&#123;&#123;contact.firstName&#125;&#125;**, **&#123;&#123;contact.lastName&#125;&#125;**, etc. (Depends on what contact properties you define.)
@@ -125,6 +126,16 @@ Similarly, you can insert a [pause subscription](/email-best-practices-for-saas/
 {{pauseSubscriptionLink}}
 ```
 This variable is also not available in transactional emails.
+
+### Web Version Link
+In campaigns, you can add a "View in browser" link. It opens the email in the recipient's browser, personalized with their data:
+
+```
+{{webVersionLink}}
+```
+This variable is only available in campaigns. Keep in mind:
+- The link only works while the campaign is **sent** or **archived**. In any other status (for example, a draft you send a test of), the page shows "This email is not available".
+- The page always shows the **latest version** of the campaign. If you edit the campaign after sending it, people who already received it will see your changes when they open the link.
 
 ## Contact Properties
 
